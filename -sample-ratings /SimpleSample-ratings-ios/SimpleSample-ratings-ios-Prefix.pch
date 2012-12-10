@@ -1,0 +1,20 @@
+//
+// Prefix header for all source files of the 'QuickQuiz' target in the 'QuickQuiz' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#define GAME_MODE_ID 119
+#define GAME_MODE_PARAMETER_ID 117
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "QuickBlox/QuickBlox.h"
+
+    #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height == 568.0f
+#endif
