@@ -11,6 +11,7 @@
 @interface QBUGetUsersQuery : QBUUserQuery{
 }
 @property (nonatomic, retain) PagedRequest *pagedRequest;
+@property (nonatomic, retain) NSString *ids;
 
 -(id)initWithRequest:(PagedRequest *)_pagedRequest;
 

@@ -8,6 +8,8 @@
 #import "XMPP.h"
 #import "XMPPRoomOccupant.h"
 
+#define requestRoomUsersQueryIDPrefix @"561003"
+
 @interface XMPPRoom : XMPPModule
 {
 	NSString *roomName;
@@ -44,6 +46,8 @@
 - (void)acceptInvitation;
 - (void)rejectInvitation;
 - (void)rejectInvitationWithMessage:(NSString *)reasonForRejection;
+
+- (void)requestUsers;
 
 - (void)sendMessage:(NSString *)msg;
 

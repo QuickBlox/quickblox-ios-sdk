@@ -24,7 +24,7 @@
     NSString *login;
     NSString *phone;
     NSString *website;
-    NSArray *tags;
+    NSMutableArray *tags;
     NSString *password;
     NSString *oldPassword;
     NSDate *lastRequestAt;
@@ -58,7 +58,7 @@
 @property (nonatomic, retain) NSString *website;
 
 /** User's tags. */
-@property (nonatomic, retain) NSArray *tags;
+@property (nonatomic, retain) NSMutableArray *tags;
 
 /** User's password. */
 @property (nonatomic, retain) NSString *password;

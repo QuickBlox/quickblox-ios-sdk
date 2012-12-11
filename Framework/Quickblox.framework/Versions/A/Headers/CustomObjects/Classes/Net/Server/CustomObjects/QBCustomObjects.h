@@ -17,6 +17,20 @@
 #pragma mark Get Objects
 
 /**
+ Retrieve object with ID
+ 
+ Type of Result - QBCOObjectsResult
+ 
+ @param className Name of class
+ @param ID Identifier of object to be retrieved
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCOObjectsResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)objectWithClassName:(NSString *)className ID:(NSString *)ID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)objectWithClassName:(NSString *)className ID:(NSString *)ID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+/**
  Retrieve objects
  
  Type of Result - QBCOObjectsResult
@@ -72,6 +86,20 @@
  */
 + (NSObject<Cancelable> *)updateObject:(QBCOCustomObject *)object delegate:(NSObject<QBActionStatusDelegate> *)delegate;
 + (NSObject<Cancelable> *)updateObject:(QBCOCustomObject *)object delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+/**
+ Update record with Special update operators
+ 
+ Type of Result - QBCOObjectResult
+ 
+ @param object An instance of object that will be updated
+ @param specialUpdateOperators Special update operators http://quickblox.com/developers/Custom_Objects#Special_update_operators
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCOObjectResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)updateObject:(QBCOCustomObject *)object specialUpdateOperators:(NSMutableDictionary *)specialUpdateOperators delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)updateObject:(QBCOCustomObject *)object specialUpdateOperators:(NSMutableDictionary *)specialUpdateOperators delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
 
 
 #pragma mark -

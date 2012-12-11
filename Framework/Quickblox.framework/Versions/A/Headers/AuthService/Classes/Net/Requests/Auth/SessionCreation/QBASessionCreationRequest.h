@@ -18,6 +18,15 @@
 /** Social network provider. Posible values: facebook, twitter */
 @property(nonatomic, retain) NSString *socialProvider;
 
+/** Permissions for choosen social provider */
+@property(nonatomic, retain) NSArray *scope;
+
+/** Social network provider's access token */
+@property(nonatomic, retain) NSString *socialProviderAccessToken;
+
+/** Social network provider's access token secret (need only for Twitter) */
+@property(nonatomic, retain) NSString *socialProviderAccessTokenSecret;
+
 /** QBUUser login. */
 @property(nonatomic, retain) NSString *userLogin;
 
@@ -27,10 +36,12 @@
 /** QBUUser password. */
 @property(nonatomic, retain) NSString *userPassword;
 
-/** Device platform. */
-@property(nonatomic, assign) enum DevicePlatform devicePlatorm;
+/** Device platform.
+ Deprecated: We no longer need to use Device platform. */
+@property(nonatomic, assign) enum DevicePlatform devicePlatorm  __attribute__((deprecated));
 
-/** Device UDID. */
-@property(nonatomic, retain) NSString *deviceUDID;
+/** Device UDID. 
+  Deprecated: We no longer need to use Device UDID .*/
+@property(nonatomic, retain) NSString *deviceUDID __attribute__((deprecated));
 
 @end

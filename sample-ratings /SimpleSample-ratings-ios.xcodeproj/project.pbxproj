@@ -11,7 +11,6 @@
 		438146731600A13200A508F5 /* images.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 438146701600A13200A508F5 /* images.jpg */; };
 		43900C10162455930041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C0F162455930041381B /* Default-568h@2x.png */; };
 		43ECA73D1600984D005DC731 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43ECA73F1600984D005DC731 /* SplashViewController.xib */; };
-		43ED09E9163A98C80004896B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ED09E8163A98C80004896B /* Quickblox.framework */; };
 		ED3BA44B15AC1097002B8CFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44A15AC1097002B8CFE /* UIKit.framework */; };
 		ED3BA44D15AC1097002B8CFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44C15AC1097002B8CFE /* Foundation.framework */; };
 		ED3BA44F15AC1097002B8CFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44E15AC1097002B8CFE /* CoreGraphics.framework */; };
@@ -23,6 +22,7 @@
 		ED3BA49515AC1DC9002B8CFE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA49415AC1DC9002B8CFE /* libz.dylib */; };
 		ED3BA49715AC1DD8002B8CFE /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA49615AC1DD8002B8CFE /* libresolv.dylib */; };
 		ED3BA49915AC1E04002B8CFE /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA49815AC1E04002B8CFE /* libxml2.dylib */; };
+		ED6EE60A16773CE1004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE60916773CE1004BCAC7 /* Quickblox.framework */; };
 		FA023ED01602335C00948B7E /* fight_club.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC01602335C00948B7E /* fight_club.jpg */; };
 		FA023ED11602335C00948B7E /* godfather.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC11602335C00948B7E /* godfather.jpg */; };
 		FA023ED21602335C00948B7E /* hachiko.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC21602335C00948B7E /* hachiko.jpg */; };
@@ -61,7 +61,6 @@
 		438146701600A13200A508F5 /* images.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpg; sourceTree = "<group>"; };
 		43900C0F162455930041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43ECA73E1600984D005DC731 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SplashViewController.xib; sourceTree = "<group>"; };
-		43ED09E8163A98C80004896B /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
 		ED3BA44615AC1097002B8CFE /* SimpleSample-ratings-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-ratings-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED3BA44A15AC1097002B8CFE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ED3BA44C15AC1097002B8CFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -74,6 +73,7 @@
 		ED3BA49415AC1DC9002B8CFE /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		ED3BA49615AC1DD8002B8CFE /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		ED3BA49815AC1E04002B8CFE /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		ED6EE60916773CE1004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA023EC01602335C00948B7E /* fight_club.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fight_club.jpg; sourceTree = "<group>"; };
 		FA023EC11602335C00948B7E /* godfather.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = godfather.jpg; sourceTree = "<group>"; };
 		FA023EC21602335C00948B7E /* hachiko.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hachiko.jpg; sourceTree = "<group>"; };
@@ -121,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6EE60A16773CE1004BCAC7 /* Quickblox.framework in Frameworks */,
 				ED3BA49915AC1E04002B8CFE /* libxml2.dylib in Frameworks */,
 				ED3BA49715AC1DD8002B8CFE /* libresolv.dylib in Frameworks */,
 				ED3BA49515AC1DC9002B8CFE /* libz.dylib in Frameworks */,
@@ -132,7 +133,6 @@
 				ED3BA48B15AC1D86002B8CFE /* CFNetwork.framework in Frameworks */,
 				ED3BA44B15AC1097002B8CFE /* UIKit.framework in Frameworks */,
 				ED3BA44D15AC1097002B8CFE /* Foundation.framework in Frameworks */,
-				43ED09E9163A98C80004896B /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,10 +160,10 @@
 		ED3BA44915AC1097002B8CFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43ED09E8163A98C80004896B /* Quickblox.framework */,
 				ED3BA49815AC1E04002B8CFE /* libxml2.dylib */,
 				ED3BA49615AC1DD8002B8CFE /* libresolv.dylib */,
 				ED3BA49415AC1DC9002B8CFE /* libz.dylib */,
+				ED6EE60916773CE1004BCAC7 /* Quickblox.framework */,
 				ED3BA49215AC1DBA002B8CFE /* CoreData.framework */,
 				ED3BA49015AC1DB1002B8CFE /* CoreLocation.framework */,
 				ED3BA48E15AC1DA0002B8CFE /* MobileCoreServices.framework */,
@@ -515,6 +515,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";
@@ -535,6 +536,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";

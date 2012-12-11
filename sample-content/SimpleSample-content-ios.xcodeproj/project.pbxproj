@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		43900C60162470230041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C5F162470230041381B /* Default-568h@2x.png */; };
-		43E44F3C163A8A0E00904C57 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E44F3B163A8A0E00904C57 /* Quickblox.framework */; };
 		ED49FAA815B56E5200154AE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA715B56E5200154AE8 /* UIKit.framework */; };
 		ED49FAAA15B56E5200154AE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA915B56E5200154AE8 /* Foundation.framework */; };
 		ED49FAAC15B56E5200154AE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAAB15B56E5200154AE8 /* CoreGraphics.framework */; };
@@ -20,6 +19,7 @@
 		ED49FAE615B5787A00154AE8 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAE415B5787A00154AE8 /* libxml2.dylib */; };
 		ED49FAE815B5788900154AE8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAE715B5788900154AE8 /* SystemConfiguration.framework */; };
 		ED49FAEF15B5798700154AE8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAEE15B5798700154AE8 /* MobileCoreServices.framework */; };
+		ED6EE5EA16773486004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5E916773486004BCAC7 /* Quickblox.framework */; };
 		FAB04CF715FDD68B00627F01 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF015FDD68B00627F01 /* MainViewController.m */; };
 		FAB04CF815FDD68B00627F01 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF315FDD68B00627F01 /* PhotoViewController.m */; };
 		FAB04CF915FDD68B00627F01 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF615FDD68B00627F01 /* SplashViewController.m */; };
@@ -36,7 +36,6 @@
 
 /* Begin PBXFileReference section */
 		43900C5F162470230041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		43E44F3B163A8A0E00904C57 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
 		ED49FAA315B56E5200154AE8 /* SimpleSample-content-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-content-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED49FAA715B56E5200154AE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ED49FAA915B56E5200154AE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -49,6 +48,7 @@
 		ED49FAE415B5787A00154AE8 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		ED49FAE715B5788900154AE8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		ED49FAEE15B5798700154AE8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		ED6EE5E916773486004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FAB04CEF15FDD68B00627F01 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		FAB04CF015FDD68B00627F01 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		FAB04CF215FDD68B00627F01 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
@@ -74,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6EE5EA16773486004BCAC7 /* Quickblox.framework in Frameworks */,
 				ED49FAEF15B5798700154AE8 /* MobileCoreServices.framework in Frameworks */,
 				ED49FAE815B5788900154AE8 /* SystemConfiguration.framework in Frameworks */,
 				ED49FAE515B5787A00154AE8 /* libresolv.dylib in Frameworks */,
@@ -85,7 +86,6 @@
 				ED49FADC15B577E600154AE8 /* CFNetwork.framework in Frameworks */,
 				ED49FAA815B56E5200154AE8 /* UIKit.framework in Frameworks */,
 				ED49FAAA15B56E5200154AE8 /* Foundation.framework in Frameworks */,
-				43E44F3C163A8A0E00904C57 /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +112,7 @@
 		ED49FAA615B56E5200154AE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43E44F3B163A8A0E00904C57 /* Quickblox.framework */,
+				ED6EE5E916773486004BCAC7 /* Quickblox.framework */,
 				ED49FAE715B5788900154AE8 /* SystemConfiguration.framework */,
 				ED49FAE315B5787A00154AE8 /* libresolv.dylib */,
 				ED49FAEE15B5798700154AE8 /* MobileCoreServices.framework */,
@@ -360,6 +360,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";
@@ -377,6 +378,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";

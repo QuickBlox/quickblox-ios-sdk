@@ -92,7 +92,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{0, 388}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -160,7 +159,7 @@
 					<object class="IBUITextView" id="1002491388">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{9, 304}, {305, 56}}</string>
+						<string key="NSFrame">{{9, 304}, {305, 48}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="64480089"/>
 						<string key="NSReuseIdentifierKey">_NS:639</string>
@@ -199,7 +198,7 @@
 					<object class="IBUILabel" id="763396968">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{75, 254}, {170, 42}}</string>
+						<string key="NSFrame">{{75, 256}, {170, 42}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSNextKeyView" ref="1002491388"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -208,7 +207,7 @@
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">Location</string>
+						<string key="IBUIText">Users</string>
 						<object class="NSColor" key="IBUITextColor">
 							<int key="NSColorSpace">2</int>
 							<bytes key="NSRGB">MC4zMzcyNTQ5MTE3IDAuNTEzNzI1NTE5MiAwLjYyMzUyOTQzNDIAA</bytes>
@@ -281,10 +280,10 @@
 							<reference ref="236649920"/>
 							<reference ref="1028517298"/>
 							<reference ref="655555"/>
+							<reference ref="1002491388"/>
 							<reference ref="64480089"/>
 							<reference ref="615514068"/>
 							<reference ref="763396968"/>
-							<reference ref="1002491388"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>

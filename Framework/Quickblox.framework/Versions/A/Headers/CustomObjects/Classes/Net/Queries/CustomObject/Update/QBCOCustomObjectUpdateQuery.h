@@ -8,10 +8,11 @@
 
 @interface QBCOCustomObjectUpdateQuery : QBCOCustomObjectQuery{
     QBCOCustomObject *object;
+    NSMutableDictionary *specialUpdateOperators;
 }
-
 @property (nonatomic, readonly) QBCOCustomObject *object;
+@property (nonatomic, readonly) NSMutableDictionary *specialUpdateOperators;
 
--(id)initWithObject:(QBCOCustomObject *)_object;
+-(id)initWithObject:(QBCOCustomObject *)_object specialUpdateOperators:(NSMutableDictionary *)specialUpdateOperators;
 
 @end

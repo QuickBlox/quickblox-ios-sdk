@@ -233,14 +233,32 @@
 
 
 #pragma mark -
-#pragma mark Send Push Task
+#pragma mark Send Push Task, to users with ids
 
-/** Send push message to users
+/** Send Apple based push notification to users
  
  Type of Result - QBMSendPushTaskResult
  
  @param pushMessage composed push message to send
  @param usersIDs users identifiers who will get the message. Contain a string of users ids divided by comas.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBMSendPushTaskResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)TSendPush:(QBMPushMessage *)pushMessage
+                            toUsers:(NSString *)usersIDs
+						   delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)TSendPush:(QBMPushMessage *)pushMessage
+                            toUsers:(NSString *)usersIDs
+						   delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+/** Send Apple based push notification to users, with environments
+ 
+ Type of Result - QBMSendPushTaskResult
+ 
+ @param pushMessage composed push message to send
+ @param usersIDs users identifiers who will get the message. Contain a string of users ids divided by comas.
+ @param isDevelopmentEnvironment Push environments: development or production
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBMSendPushTaskResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
@@ -253,12 +271,51 @@
              isDevelopmentEnvironment:(BOOL)isDevelopmentEnvironment
 						   delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
 
-/** Send push message to users with tags
+
+/** Send simple push notification to users
+ 
+ Type of Result - QBMSendPushTaskResult
+ 
+ @param text composed push notification's text to send
+ @param usersIDs users identifiers who will get the message. Contain a string of users ids divided by comas.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBMSendPushTaskResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)TSendPushWithText:(NSString *)text
+                                    toUsers:(NSString *)usersIDs
+                                   delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)TSendPushWithText:(NSString *)text
+                                    toUsers:(NSString *)usersIDs
+                                   delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Send Push Task, to users with tags
+
+/** Send Apple based push notification to users with tags
  
  Type of Result - QBMSendPushTaskResult
  
  @param pushMessage composed push message to send
  @param usersTags users tags who will get the message. Contain a string of users tags divided by comas.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBMSendPushTaskResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)TSendPush:(QBMPushMessage *)pushMessage
+          toUsersWithAnyOfTheseTags:(NSString *)usersTags
+						   delegate:(NSObject<QBActionStatusDelegate> *)delegate;
+
++ (NSObject<Cancelable> *)TSendPush:(QBMPushMessage *)pushMessage
+          toUsersWithAnyOfTheseTags:(NSString *)usersTags
+						   delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+/** Send Apple based push notification to users with tags, with environments
+ 
+ Type of Result - QBMSendPushTaskResult
+ 
+ @param pushMessage composed push message to send
+ @param usersTags users tags who will get the message. Contain a string of users tags divided by comas.
+ @param isDevelopmentEnvironment Push environments: development or production
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBMSendPushTaskResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
@@ -271,5 +328,23 @@
           toUsersWithAnyOfTheseTags:(NSString *)usersTags 
            isDevelopmentEnvironment:(BOOL)isDevelopmentEnvironment
 						   delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+/** Send simple push notification to users with tags
+ 
+ Type of Result - QBMSendPushTaskResult
+ 
+ @param text composed push notification's text to send
+ @param usersTags users tags who will get the message. Contain a string of users tags divided by comas.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBMSendPushTaskResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)TSendPushWithText:(NSString *)text
+                  toUsersWithAnyOfTheseTags:(NSString *)usersTags
+                                   delegate:(NSObject<QBActionStatusDelegate> *)delegate;
+
++ (NSObject<Cancelable> *)TSendPushWithText:(NSString *)text
+                  toUsersWithAnyOfTheseTags:(NSString *)usersTags
+                                   delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
 
 @end

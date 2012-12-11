@@ -17,12 +17,16 @@
     NSMutableDictionary *fields;
     NSUInteger userID;
     NSString *ID;
+    NSString *parentID;
     NSDate *createdAt;
     NSDate *updatedAt;
 }
 
 /** Object ID */
 @property (nonatomic, retain) NSString *ID;
+
+/** Relations: parent object's ID */
+@property (nonatomic, retain) NSString *parentID;
 
 /** Date & time when record was created, filled automatically */
 @property (nonatomic,retain) NSDate* createdAt;

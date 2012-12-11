@@ -127,6 +127,11 @@ typedef enum QBChatServiceError {
 - (void)addUsers:(NSArray *)usersIDs toRoom:(QBChatRoom *)room;
 
 /**
+ Send request for getting list of members. Will called QBChatDelegate's method 'chatRoomDidReceiveListOfUsers:room:'
+ */
+- (void)requestRoomUsers:(QBChatRoom *)room;
+
+/**
  Send request to remove users array from room.
  */
 - (void)deleteUsers:(NSArray *)usersIDs fromRoom:(QBChatRoom *)room;
