@@ -1,15 +1,17 @@
-<h2> QuickBlox SimpleSample Location iOS</h2>
-This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to integrate location based features into yours apps. 
+<h2> QuickBlox SimpleSample Users iOS</h2>
+This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to add user accounts to your app without any effort.
 
-This is an iOS build, it demonstrates how to work with [Location](http://quickblox.com/developers/Location) QuickBlox module.
-It allows to see other users on the Map and shares own position.
+This is an iOS build, it demonstrates how to work with [Users](http://quickblox.com/developers/Users) QuickBlox module.
 
 It shows how to:
 <ul>
-<li> Retrieve all users’ points and show them on the Map</li>
-<li> Share own location between other users </li>
+<li> Retrieve all users</li>
+<li> Sign Up, Sign In/Sign out</li>
+<li> How to use QuickBlox through social networks (Facebook, Twitter)</li>
+<li> Edit user's parameters</li>
+<li> Search users</li>
 </ul>
 
-Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-location_users-ios](http://quickblox.com/developers/SimpleSample-location_users-ios/)
+Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-users-ios](http://quickblox.com/developers/SimpleSample-users-ios)
 
-![Other users' locations on Map](http://files.quickblox.com/SimpleSample_location_31.png) &nbsp;&nbsp;&nbsp;&nbsp; ![Other users' locations on Table](http://files.quickblox.com/SimpleSample_location_32.png)
+![All users](http://files.quickblox.com/SimpleSample-users-ios_new1.png) &nbsp;&nbsp;&nbsp;&nbsp; ![ow to use QuickBlox through social networks (Facebook, Twitter)](http://files.quickblox.com/SimpleSample-users-ios_new2.png.png)

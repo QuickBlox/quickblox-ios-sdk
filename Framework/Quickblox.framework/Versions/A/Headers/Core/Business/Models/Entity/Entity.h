@@ -22,7 +22,6 @@
 
 /** Created date */
 @property (nonatomic,retain) NSDate* createdAt;
-//@property (nonatomic,assign) NSDate* createdAt;
 
 /** Updated date */
 @property (nonatomic,retain) NSDate* updatedAt;

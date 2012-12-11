@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		43900C2616245E3F0041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C2516245E3F0041381B /* Default-568h@2x.png */; };
-		43E2EFF9163A8D6800FD6EB2 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E2EFF8163A8D6800FD6EB2 /* Quickblox.framework */; };
 		8A2F265C14F7F0D300292876 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265B14F7F0D300292876 /* UIKit.framework */; };
 		8A2F265E14F7F0D300292876 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265D14F7F0D300292876 /* Foundation.framework */; };
 		8A2F266014F7F0D300292876 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265F14F7F0D300292876 /* CoreGraphics.framework */; };
@@ -29,6 +28,7 @@
 		BB9A7D14160C903400292E44 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9A7D13160C903400292E44 /* pin.png */; };
 		BB9A7D311611C64B00292E44 /* tab_icon_chekin.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9A7D2F1611C64A00292E44 /* tab_icon_chekin.png */; };
 		BBEB4A9F1614479000940E63 /* tab_icon_globe.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEB4A9E1614479000940E63 /* tab_icon_globe.png */; };
+		ED6EE5FC16773B96004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */; };
 		FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA38CC5A1614758600BDD29A /* libxml2.2.dylib */; };
 		FA38CC6B1614767600BDD29A /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA38CC6A1614767600BDD29A /* DataManager.m */; };
 		FA39FB7115EF6F85002F9D26 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB6E15EF6F85002F9D26 /* Default.png */; };
@@ -48,7 +48,6 @@
 
 /* Begin PBXFileReference section */
 		43900C2516245E3F0041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		43E2EFF8163A8D6800FD6EB2 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
 		8A2F265714F7F0D300292876 /* SimpleSample-location_users-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-location_users-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2F265B14F7F0D300292876 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8A2F265D14F7F0D300292876 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -74,6 +73,7 @@
 		BB9A7D13160C903400292E44 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		BB9A7D2F1611C64A00292E44 /* tab_icon_chekin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_chekin.png; sourceTree = "<group>"; };
 		BBEB4A9E1614479000940E63 /* tab_icon_globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_globe.png; sourceTree = "<group>"; };
+		ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA38CC5A1614758600BDD29A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		FA38CC691614767600BDD29A /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		FA38CC6A1614767600BDD29A /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
@@ -102,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6EE5FC16773B96004BCAC7 /* Quickblox.framework in Frameworks */,
 				FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */,
 				8A2F268514F7F1F900292876 /* CoreLocation.framework in Frameworks */,
 				FAE86FF215EB705E002E16AA /* libresolv.dylib in Frameworks */,
@@ -114,7 +115,6 @@
 				8A2F268114F7F1E900292876 /* SystemConfiguration.framework in Frameworks */,
 				8A2F267F14F7F1E400292876 /* CFNetwork.framework in Frameworks */,
 				8A2F265E14F7F0D300292876 /* Foundation.framework in Frameworks */,
-				43E2EFF9163A8D6800FD6EB2 /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,10 +146,10 @@
 		8A2F265A14F7F0D300292876 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43E2EFF8163A8D6800FD6EB2 /* Quickblox.framework */,
 				FA38CC5A1614758600BDD29A /* libxml2.2.dylib */,
 				FAE86FF115EB705E002E16AA /* libresolv.dylib */,
 				8A2F268614F7F1FF00292876 /* libz.dylib */,
+				ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */,
 				8A78244D15061F6600036DEC /* QuartzCore.framework */,
 				8A2F268814F7F25B00292876 /* MapKit.framework */,
 				8A2F268414F7F1F900292876 /* CoreLocation.framework */,
@@ -433,6 +433,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";
@@ -453,6 +454,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";

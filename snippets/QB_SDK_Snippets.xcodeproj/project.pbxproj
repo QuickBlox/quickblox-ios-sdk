@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED6EE626167743A2004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE625167743A2004BCAC7 /* Quickblox.framework */; };
 		EDEEAB9F15D16A49002BE39D /* ChatModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEEAB9E15D16A49002BE39D /* ChatModuleViewController.m */; };
 		EDEEB07A15D17668002BE39D /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEEB07715D17668002BE39D /* libresolv.dylib */; };
 		EDEEB07B15D17668002BE39D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEEB07815D17668002BE39D /* libxml2.dylib */; };
@@ -41,11 +42,11 @@
 		FA901D0E15B952FF007BDC68 /* UsersModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA901D0315B952FF007BDC68 /* UsersModuleViewController.xib */; };
 		FA901D0F15B952FF007BDC68 /* YellowStar.png in Resources */ = {isa = PBXBuildFile; fileRef = FA901D0515B952FF007BDC68 /* YellowStar.png */; };
 		FAB295521613842E000FD80F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB295511613842E000FD80F /* Default-568h@2x.png */; };
-		FAB2955516138C8E000FD80F /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB2955416138C8E000FD80F /* Quickblox.framework */; };
 		FAE86F7615E92971002E16AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86F7515E92971002E16AA /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED6EE625167743A2004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		EDEEAB9D15D16A49002BE39D /* ChatModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatModuleViewController.h; sourceTree = "<group>"; };
 		EDEEAB9E15D16A49002BE39D /* ChatModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatModuleViewController.m; sourceTree = "<group>"; };
 		EDEEB07715D17668002BE39D /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
@@ -92,7 +93,6 @@
 		FA901D0415B952FF007BDC68 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/UsersModuleViewController.xib; sourceTree = "<group>"; };
 		FA901D0615B952FF007BDC68 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/YellowStar.png; sourceTree = "<group>"; };
 		FAB295511613842E000FD80F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		FAB2955416138C8E000FD80F /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/build/Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FAE86F7515E92971002E16AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -101,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6EE626167743A2004BCAC7 /* Quickblox.framework in Frameworks */,
 				FAE86F7615E92971002E16AA /* CoreGraphics.framework in Frameworks */,
 				EDEEB07E15D17685002BE39D /* CoreData.framework in Frameworks */,
 				FA8E4F301580A68800476EF7 /* CoreLocation.framework in Frameworks */,
@@ -112,7 +113,6 @@
 				FA8E4F291580A66000476EF7 /* CFNetwork.framework in Frameworks */,
 				FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */,
 				FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */,
-				FAB2955516138C8E000FD80F /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +142,7 @@
 		FA8E4D1C157E66CA00476EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAB2955416138C8E000FD80F /* Quickblox.framework */,
+				ED6EE625167743A2004BCAC7 /* Quickblox.framework */,
 				FAE86F7515E92971002E16AA /* CoreGraphics.framework */,
 				EDEEB07D15D17685002BE39D /* CoreData.framework */,
 				EDEEB07715D17668002BE39D /* libresolv.dylib */,
@@ -474,6 +474,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework/build/Framework\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QB_SDK_Snippets/QB_SDK_Snippets-Prefix.pch";
@@ -501,6 +502,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework/build/Framework\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QB_SDK_Snippets/QB_SDK_Snippets-Prefix.pch";

@@ -9,6 +9,8 @@
 @interface QBCOCustomObjectAnswer : XmlAnswer{
 @private
     QBCOCustomObject *_object;
+    
+    NSString *currentArrayElement;
 }
 
 @property (nonatomic, readonly) QBCOCustomObject *object;

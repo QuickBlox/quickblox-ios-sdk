@@ -9,16 +9,17 @@
 
 /**
  QBChatMessage structure. Represents message object for peer-to-peer chat.
- Please set only text and recipientID values since ID and senderID
- are setted automatically by QBChat
+ Please set only text, recipientID & senderID values since ID is setted automatically by QBChat
  */
 
 @interface QBChatMessage : NSObject <NSCoding, NSCopying>{
 @private
     NSUInteger ID;
     NSString *text;
+    
     NSUInteger recipientID;
     NSUInteger senderID;
+    
     NSDate *datetime;
     BOOL delayed;
 }
@@ -39,7 +40,7 @@
 @property (nonatomic, assign) NSUInteger recipientID;
 
 /**
- Message sender ID
+ Message sender ID, use only for 1-1 Chat
  */
 @property (nonatomic, assign) NSUInteger senderID;
 

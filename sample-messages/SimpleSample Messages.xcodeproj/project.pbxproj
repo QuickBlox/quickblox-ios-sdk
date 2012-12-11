@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		43900C32162468880041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C31162468880041381B /* Default-568h@2x.png */; };
 		43900C39162469680041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C38162469680041381B /* libxml2.dylib */; };
-		43ED09E2163A8F180004896B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43ED09E1163A8F180004896B /* Quickblox.framework */; };
+		ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE60216773C46004BCAC7 /* Quickblox.framework */; };
 		FA19A32315FE4F5C00B5B2CC /* RichContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA19A32215FE4F5C00B5B2CC /* RichContentViewController.xib */; };
 		FA19A33215FE4F6A00B5B2CC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32A15FE4F6A00B5B2CC /* MainViewController.m */; };
 		FA19A33315FE4F6A00B5B2CC /* RichContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32D15FE4F6A00B5B2CC /* RichContentViewController.m */; };
@@ -39,7 +39,7 @@
 		43900C31162468880041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43900C38162469680041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		43EB468A16241A9C00A88FF1 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		43ED09E1163A8F180004896B /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
+		ED6EE60216773C46004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA19A32215FE4F5C00B5B2CC /* RichContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RichContentViewController.xib; sourceTree = "<group>"; };
 		FA19A32915FE4F6A00B5B2CC /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		FA19A32A15FE4F6A00B5B2CC /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -78,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */,
 				43900C39162469680041381B /* libxml2.dylib in Frameworks */,
 				FA19A33F15FE6B3D00B5B2CC /* QuartzCore.framework in Frameworks */,
 				FAE86FE915EB6CE4002E16AA /* libresolv.dylib in Frameworks */,
@@ -89,7 +90,6 @@
 				FAFA575414ED43420057B9B5 /* CFNetwork.framework in Frameworks */,
 				FAFA572C14ED23410057B9B5 /* UIKit.framework in Frameworks */,
 				FAFA572E14ED23410057B9B5 /* Foundation.framework in Frameworks */,
-				43ED09E2163A8F180004896B /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,7 +204,7 @@
 		FAFA572A14ED23410057B9B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43ED09E1163A8F180004896B /* Quickblox.framework */,
+				ED6EE60216773C46004BCAC7 /* Quickblox.framework */,
 				FA19A33E15FE6B3D00B5B2CC /* QuartzCore.framework */,
 				FAE86FE815EB6CE4002E16AA /* libresolv.dylib */,
 				43EB468A16241A9C00A88FF1 /* libxml2.2.dylib */,
@@ -392,6 +392,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";
@@ -413,6 +414,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";

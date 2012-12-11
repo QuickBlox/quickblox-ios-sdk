@@ -26,7 +26,7 @@ typedef enum _QBASIPostFormat {
 	
 	NSStringEncoding stringEncoding;
 	
-#if DEBUG_FORM_DATA_REQUEST
+#if QB_ASI_DEBUG_FORM_DATA_REQUEST
 	// Will store a string version of the request body that will be printed to the console when QBASIHTTPREQUEST_DEBUG is set in GCC_PREPROCESSOR_DEFINITIONS
 	NSString *debugBodyString;
 #endif

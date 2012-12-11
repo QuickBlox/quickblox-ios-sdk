@@ -56,6 +56,11 @@
 - (void)leaveRoom;
 
 /**
+ Request all room's users, users who can join room
+ */
+- (void)requestUsers;
+
+/**
  Get nick name of current room's creator
  */
 - (NSString *)ownerNick;

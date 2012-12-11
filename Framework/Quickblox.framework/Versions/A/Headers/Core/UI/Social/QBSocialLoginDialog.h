@@ -19,7 +19,7 @@
 @property (retain) SocialLoginAnswer *answer;
 @property (retain) QBASIWebPageRequest *request;
 
-- (void) showWithHTML:(NSString *)html;
+- (void) showWithHTML:(NSString *)html andBaseURL:(NSURL *)baseURL;
 - (void) hide;
 
 @end

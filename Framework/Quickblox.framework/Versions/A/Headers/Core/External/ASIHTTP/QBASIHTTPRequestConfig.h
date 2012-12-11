@@ -18,26 +18,26 @@
 #endif
 
 // When set to 1 QBASIHTTPRequests will print information about what a request is doing
-#ifndef DEBUG_REQUEST_STATUS
-	#define DEBUG_REQUEST_STATUS 0
+#ifndef QB_ASI_DEBUG_REQUEST_STATUS
+	#define QB_ASI_DEBUG_REQUEST_STATUS 0
 #endif
 
 // When set to 1, QBASIFormDataRequests will print information about the request body to the console
-#ifndef DEBUG_FORM_DATA_REQUEST
-	#define DEBUG_FORM_DATA_REQUEST 0
+#ifndef QB_ASI_DEBUG_FORM_DATA_REQUEST
+	#define QB_ASI_DEBUG_FORM_DATA_REQUEST 0
 #endif
 
 // When set to 1, QBASIHTTPRequests will print information about bandwidth throttling to the console
-#ifndef DEBUG_THROTTLING
-	#define DEBUG_THROTTLING 0
+#ifndef QB_ASI_DEBUG_THROTTLING
+	#define QB_ASI_DEBUG_THROTTLING 0
 #endif
 
 // When set to 1, QBASIHTTPRequests will print information about persistent connections to the console
-#ifndef DEBUG_PERSISTENT_CONNECTIONS
-	#define DEBUG_PERSISTENT_CONNECTIONS 0
+#ifndef QB_ASI_DEBUG_PERSISTENT_CONNECTIONS
+	#define QB_ASI_DEBUG_PERSISTENT_CONNECTIONS 0
 #endif
 
 // When set to 1, QBASIHTTPRequests will print information about HTTP authentication (Basic, Digest or NTLM) to the console
-#ifndef DEBUG_HTTP_AUTHENTICATION
-    #define DEBUG_HTTP_AUTHENTICATION 0
+#ifndef QB_ASI_DEBUG_HTTP_AUTHENTICATION
+    #define QB_ASI_DEBUG_HTTP_AUTHENTICATION 0
 #endif

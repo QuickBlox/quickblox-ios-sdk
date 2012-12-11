@@ -30,7 +30,7 @@
 		43E1415A160334B400891AD7 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E14159160334B400891AD7 /* libxml2.dylib */; };
 		43E1415C160334C100891AD7 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E1415B160334C100891AD7 /* libresolv.dylib */; };
 		43E1415E160334CD00891AD7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E1415D160334CD00891AD7 /* libz.dylib */; };
-		43E2EFF2163A8B8D00FD6EB2 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E2EFF1163A8B8D00FD6EB2 /* Quickblox.framework */; };
+		ED6EE5F1167734CB004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5F0167734CB004BCAC7 /* Quickblox.framework */; };
 		FA876505160875E400EB1B58 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764F9160875E400EB1B58 /* MainViewController.m */; };
 		FA876506160875E400EB1B58 /* NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764FC160875E400EB1B58 /* NewNoteViewController.m */; };
 		FA876507160875E400EB1B58 /* NoteDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764FF160875E400EB1B58 /* NoteDetailsViewController.m */; };
@@ -67,7 +67,7 @@
 		43E14159160334B400891AD7 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		43E1415B160334C100891AD7 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		43E1415D160334CD00891AD7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		43E2EFF1163A8B8D00FD6EB2 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
+		ED6EE5F0167734CB004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA8764F8160875E400EB1B58 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		FA8764F9160875E400EB1B58 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		FA8764FB160875E400EB1B58 /* NewNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewNoteViewController.h; sourceTree = "<group>"; };
@@ -87,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6EE5F1167734CB004BCAC7 /* Quickblox.framework in Frameworks */,
 				43E1415E160334CD00891AD7 /* libz.dylib in Frameworks */,
 				43E1415C160334C100891AD7 /* libresolv.dylib in Frameworks */,
 				43E1415A160334B400891AD7 /* libxml2.dylib in Frameworks */,
@@ -98,7 +99,6 @@
 				43658AED1603174E000F6748 /* UIKit.framework in Frameworks */,
 				43658AEF1603174E000F6748 /* Foundation.framework in Frameworks */,
 				43658AF11603174E000F6748 /* CoreGraphics.framework in Frameworks */,
-				43E2EFF2163A8B8D00FD6EB2 /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +108,7 @@
 		43658ADD1603174E000F6748 = {
 			isa = PBXGroup;
 			children = (
+				ED6EE5F0167734CB004BCAC7 /* Quickblox.framework */,
 				43658AF21603174E000F6748 /* SimpleSample-custom-object-ios */,
 				43658B3616031D8D000F6748 /* Resources */,
 				43658AEB1603174E000F6748 /* Frameworks */,
@@ -126,7 +127,6 @@
 		43658AEB1603174E000F6748 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43E2EFF1163A8B8D00FD6EB2 /* Quickblox.framework */,
 				43E1415D160334CD00891AD7 /* libz.dylib */,
 				43E1415B160334C100891AD7 /* libresolv.dylib */,
 				43E14159160334B400891AD7 /* libxml2.dylib */,
@@ -421,6 +421,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-custom-object-ios/SimpleSample-custom-object-ios-Prefix.pch";
@@ -438,6 +439,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-custom-object-ios/SimpleSample-custom-object-ios-Prefix.pch";

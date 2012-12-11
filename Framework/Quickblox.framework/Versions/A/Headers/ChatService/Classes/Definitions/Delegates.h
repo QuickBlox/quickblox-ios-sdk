@@ -62,6 +62,11 @@
 #pragma mark Rooms
 
 /**
+ Called in case receiving list of avaible to join rooms. Array rooms contains jids NSString type
+ */
+- (void)chatDidReceiveListOfRooms:(NSArray *)rooms;
+
+/**
  Fired when room was successfully created
  */
 - (void)chatRoomDidCreate:(QBChatRoom*)room;
@@ -87,18 +92,13 @@
 - (void)chatRoomDidLeave:(NSString *)roomName;
 
 /**
- Called in case changing occupant
+ Called in case changing online users  
  */
-- (void)chatRoomDidChangeMembers:(NSArray *)members room:(NSString *)roomName;
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName;
 
 /**
- Called in case receiving list of avaible to join rooms. Array rooms contains jids NSString type
+ Called in case receiving list of users who can join room
  */
-- (void)chatDidReceiveListOfRooms:(NSArray *)rooms;
-
-/**
- Called in case receiving list of occupants of chat room. Array users contains jids NSString type
- */
-- (void)chatDidReceiveListOfMembers:(NSArray *)users room:(NSString *)room;
+- (void)chatRoomDidReceiveListOfUsers:(NSArray *)users room:(NSString *)roomName;
 
 @end

@@ -79,8 +79,5 @@ enum QBSessionType
 {
     QBSessionTypeApplicationOnly,
     QBSessionTypeUser,
-    QBSessionTypeSocialUser,
-    QBSessionTypeDevice,
-    QBSessionTypeUserAndDevice,
-    QBSessionTypeSocialUserAndDevice
+    QBSessionTypeSocialUser
 };
