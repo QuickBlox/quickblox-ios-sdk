@@ -31,7 +31,6 @@
 		FAC3D16815BF082800038395 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D15815BF082800038395 /* DataManager.m */; };
 		FAC3D16915BF082800038395 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAC3D15915BF082800038395 /* InfoPlist.strings */; };
 		FAC3D16A15BF082800038395 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D15B15BF082800038395 /* main.m */; };
-		FAC3D16F15BF082800038395 /* SimpleSample-content-ios-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAC3D16215BF082800038395 /* SimpleSample-content-ios-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -245,7 +244,7 @@
 		ED49FA9A15B56E5200154AE8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = ED49FA9D15B56E5200154AE8 /* Build configuration list for PBXProject "SimpleSample-content-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -270,7 +269,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC3D16915BF082800038395 /* InfoPlist.strings in Resources */,
-				FAC3D16F15BF082800038395 /* SimpleSample-content-ios-Info.plist in Resources */,
 				FAB04D0115FDD6A400627F01 /* logo.png in Resources */,
 				FAB04D0215FDD6A400627F01 /* MainViewController.xib in Resources */,
 				FAB04D0315FDD6A400627F01 /* PhotoViewController.xib in Resources */,

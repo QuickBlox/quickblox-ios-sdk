@@ -49,12 +49,12 @@
 
 - (IBAction)loginWithFB:(id)sender {
     // Authenticate user through Facebook
-    [QBUsers logInWithSocialProvider:@"facebook" delegate:self];
+    [QBUsers logInWithSocialProvider:@"facebook" scope:nil delegate:self];
 }
 
 - (IBAction)loginWithTitter:(id)sender {
     // Authenticate user through Twitter
-    [QBUsers logInWithSocialProvider:@"twitter" delegate:self];
+    [QBUsers logInWithSocialProvider:@"twitter" scope:nil delegate:self];
 }
 
 - (IBAction)login:(id)sender {

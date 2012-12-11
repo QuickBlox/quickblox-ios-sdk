@@ -21,7 +21,6 @@
 		FA43AD84152B8B3F000A2EF7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA43AD83152B8B3F000A2EF7 /* libz.dylib */; };
 		FA43AD8A152B8BAE000A2EF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA43AD86152B8BAE000A2EF7 /* InfoPlist.strings */; };
 		FA43AD8B152B8BAE000A2EF7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA43AD87152B8BAE000A2EF7 /* main.m */; };
-		FA43AD8C152B8BAE000A2EF7 /* SimpleSample-users-ios-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA43AD88152B8BAE000A2EF7 /* SimpleSample-users-ios-Info.plist */; };
 		FA43ADE7152B95A3000A2EF7 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43ADDB152B95A3000A2EF7 /* CustomTableViewCell.xib */; };
 		FA43ADE8152B95A3000A2EF7 /* EditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43ADDC152B95A3000A2EF7 /* EditViewController.xib */; };
 		FA43ADE9152B95A3000A2EF7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43ADDD152B95A3000A2EF7 /* LoginViewController.xib */; };
@@ -316,7 +315,7 @@
 		FA43ACFD152B8ABC000A2EF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = Injoit;
 			};
 			buildConfigurationList = FA43AD00152B8ABC000A2EF7 /* Build configuration list for PBXProject "SimpleSample-users-ios" */;
@@ -342,7 +341,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA43AD8A152B8BAE000A2EF7 /* InfoPlist.strings in Resources */,
-				FA43AD8C152B8BAE000A2EF7 /* SimpleSample-users-ios-Info.plist in Resources */,
 				FA43ADE7152B95A3000A2EF7 /* CustomTableViewCell.xib in Resources */,
 				FA43ADE8152B95A3000A2EF7 /* EditViewController.xib in Resources */,
 				FA43ADE9152B95A3000A2EF7 /* LoginViewController.xib in Resources */,

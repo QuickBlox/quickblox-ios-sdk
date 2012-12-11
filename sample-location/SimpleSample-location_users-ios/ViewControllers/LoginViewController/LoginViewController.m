@@ -48,11 +48,11 @@
 }
 
 - (IBAction)loginWithFaceBook:(id)sender {
-    [QBUsers logInWithSocialProvider:@"facebook" delegate:self];
+    [QBUsers logInWithSocialProvider:@"facebook" scope:nil delegate:self];
 }
 
 - (IBAction)loginWithTwitter:(id)sender {
-    [QBUsers logInWithSocialProvider:@"twitter" delegate:self];
+    [QBUsers logInWithSocialProvider:@"twitter" scope:nil delegate:self];
 }
 
 #pragma mark -
