@@ -23,16 +23,12 @@
     // Your app connects to QuickBlox server here.
     //
     // Create extended session request (for push notifications)
-    QBASessionCreationRequest *extendedAuthRequest = [[QBASessionCreationRequest alloc] init];
-    extendedAuthRequest.devicePlatorm = DevicePlatformiOS;
-    extendedAuthRequest.deviceUDID = [[UIDevice currentDevice] uniqueIdentifier];
+    QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
     extendedAuthRequest.userLogin = @"sam";
     extendedAuthRequest.userPassword = @"sam";
     
     // QuickBlox session creation
     [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self];
-    
-    [extendedAuthRequest release];
     
     if(IS_HEIGHT_GTE_568){
         CGRect frame = self.wheel.frame;

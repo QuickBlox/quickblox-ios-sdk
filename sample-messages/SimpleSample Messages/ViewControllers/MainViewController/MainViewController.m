@@ -87,25 +87,14 @@
         NSString *mesage = [NSString stringWithFormat:@"%@: %@", 
                             ((QBUUser *)[_users objectAtIndex:[usersPickerView selectedRowInComponent:0]]).login,  
                             messageBody.text];
-        //
-        NSMutableDictionary *payload = [NSMutableDictionary dictionary];
-        NSMutableDictionary *aps = [NSMutableDictionary dictionary];
-        [aps setObject:@"default" forKey:QBMPushMessageSoundKey];
-        [aps setObject:mesage forKey:QBMPushMessageAlertKey];
-        [payload setObject:aps forKey:QBMPushMessageApsKey];
-        //
-        QBMPushMessage *message = [[QBMPushMessage alloc] initWithPayload:payload];
         
         // receiver (user id)
         NSUInteger userID = ((QBUUser *)[_users objectAtIndex:[usersPickerView selectedRowInComponent:0]]).ID;
         
         // Send push
-        [QBMessages TSendPush:message 
+        [QBMessages TSendPushWithText:mesage 
                              toUsers:[NSString stringWithFormat:@"%d", userID] 
-              isDevelopmentEnvironment:YES 
                             delegate:self];
-        
-        [message release];
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         

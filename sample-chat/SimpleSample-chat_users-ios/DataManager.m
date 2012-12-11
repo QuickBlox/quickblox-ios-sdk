@@ -25,11 +25,13 @@ static DataManager *dataManager;
 }
 
 - (NSMutableArray *)chatHistoryWithOpponentID:(NSUInteger)opponentID{
-     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     
     NSString *key = [NSString stringWithFormat:@"%d%d", currentUser.ID, opponentID];
     
-    if([NSKeyedUnarchiver unarchiveObjectWithData:[standardUserDefaults objectForKey:key]]){
+    id historyAsData = [standardUserDefaults objectForKey:key];
+    
+    if(historyAsData && [NSKeyedUnarchiver unarchiveObjectWithData:historyAsData]){
         
         return [[[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:[standardUserDefaults objectForKey:key]]] autorelease];
     }

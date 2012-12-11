@@ -23,8 +23,9 @@
 - (void) viewDidLoad {
     // Your app connects to QuickBlox server here.
     // QuickBlox session creation
-        [QBAuth createSessionWithDelegate:self];
-        [super viewDidLoad];
+    [QBAuth createSessionWithDelegate:self];
+    
+    [super viewDidLoad];
     
     if(IS_HEIGHT_GTE_568){
         CGRect frame = self.wheel.frame;

@@ -24,11 +24,7 @@
     // Your app connects to QuickBlox server here.
     //
     // QuickBlox session creation
-    QBASessionCreationRequest *extendedAuthRequest = [[[QBASessionCreationRequest alloc] init] autorelease];
-	extendedAuthRequest.devicePlatorm = DevicePlatformiOS;
-	extendedAuthRequest.deviceUDID = [[UIDevice currentDevice] uniqueIdentifier];
-    
-	[QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self];
+	[QBAuth createSessionWithDelegate:self];
     
     if(IS_HEIGHT_GTE_568){
         CGRect frame = self.activityIndicator.frame;

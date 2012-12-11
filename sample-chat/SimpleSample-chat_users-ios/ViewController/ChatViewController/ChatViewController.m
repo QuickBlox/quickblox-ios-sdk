@@ -43,8 +43,6 @@
         // load history
         messages = [[[DataManager shared] chatHistoryWithOpponentID:self.opponent.ID] retain];
         
-        NSLog(@"q");
-        
         if(messages == nil){
             messages = [[NSMutableArray alloc] init];
         }
@@ -113,38 +111,19 @@
         [self.messages addObject:message];
         [[DataManager shared] saveMessage:[NSKeyedArchiver archivedDataWithRootObject:messages]
                  toHistoryWithOpponentID:self.opponent.ID];
-        [message release];
-        
         
         // Check if user offline -> send push notifications to him
         // if user didn't do anything last 5 minutes - he is offline
         NSInteger currentDate = [[NSDate date] timeIntervalSince1970];
         if(currentDate - [self.opponent.lastRequestAt timeIntervalSince1970] > 300){
             
-            // Create push message
-			NSString *mesage = self.sendMessageField.text;
-			//
-			NSMutableDictionary *payload = [NSMutableDictionary dictionary];
-			NSMutableDictionary *aps = [NSMutableDictionary dictionary];
-			[aps setObject:@"default" forKey:QBMPushMessageSoundKey];
-			[aps setObject:mesage forKey:QBMPushMessageAlertKey];
-			[payload setObject:aps forKey:QBMPushMessageApsKey];
-			//
-			QBMPushMessage *message = [[QBMPushMessage alloc] initWithPayload:payload];
-            
-            BOOL isDevEnv = NO;
-#ifdef DEBUG
-            isDevEnv = YES;
-#endif
-            
 			// Send push
-			[QBMessages TSendPush:message
+			[QBMessages TSendPushWithText:self.sendMessageField.text
                           toUsers:[NSString stringWithFormat:@"%d", self.opponent.ID]
-         isDevelopmentEnvironment:isDevEnv
                          delegate:nil];
-            
-            [message release];
         }
+        
+        [message release];
         
         
         // reload table
@@ -269,7 +248,7 @@ static CGFloat padding = 20.0;
         cell.backgroundImageView.image = bgImage;
         
         if(self.currentRoom){
-            cell.date.text = [NSString stringWithFormat:@"%@ %@", [self title], time];
+            cell.date.text = [NSString stringWithFormat:@"%d %@", messageBody.senderID, time];
         }else{
             cell.date.text = [NSString stringWithFormat:@"%@ %@", [[[DataManager shared] currentUser] login], time];
         }
@@ -301,9 +280,10 @@ static CGFloat padding = 20.0;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	NSString *msg = ((QBChatMessage *)[messages objectAtIndex:indexPath.row]).text;
+    QBChatMessage *chatMessage = (QBChatMessage *)[messages objectAtIndex:indexPath.row];
+	NSString *text = chatMessage.text;
 	CGSize  textSize = { 260.0, 10000.0 };
-	CGSize size = [msg sizeWithFont:[UIFont boldSystemFontOfSize:13]
+	CGSize size = [text sizeWithFont:[UIFont boldSystemFontOfSize:13]
                   constrainedToSize:textSize 
                       lineBreakMode:UILineBreakModeWordWrap];
 	
@@ -332,7 +312,7 @@ static CGFloat padding = 20.0;
 }
 
 // Did receive message in room
-- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(QBChatRoom *)room{
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName{
     // save message
 	[self.messages addObject:message];
 
@@ -346,10 +326,10 @@ static CGFloat padding = 20.0;
     NSLog(@"Chat Controller chatRoomDidLeave");
 }
 
-
 // Called in case changing occupant
-- (void)chatRoomDidChangeMembers:(NSArray *)members room:(NSString *)roomName{
-    NSLog(@"chatRoomDidChangeMembers=%@ in room: %@", members, roomName);
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName{
+    NSLog(@"chatRoomDidChangeOnlineUsers %@, %@",roomName, onlineUsers);
 }
+
 
 @end

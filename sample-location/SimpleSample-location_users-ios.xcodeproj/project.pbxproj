@@ -428,8 +428,8 @@
 		8A2F267914F7F0D300292876 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -440,8 +440,8 @@
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "SimpleSample-location_users-ios";
-				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61070765-F7A1-4048-BB1E-5CD876A4090E";
+				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF0288AA-998C-4684-9C01-C6670357947E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -461,7 +461,7 @@
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "SimpleSample-location_users-ios";
-				PROVISIONING_PROFILE = "E5CAA9E3-FC92-4382-B53A-AE8E2462BA07";
+				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
