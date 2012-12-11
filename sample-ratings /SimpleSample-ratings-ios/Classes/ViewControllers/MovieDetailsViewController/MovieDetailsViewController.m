@@ -29,7 +29,9 @@
     self.title = movie.movieName;
 
     [self.detailsText setText:[movie movieDetails]];
+    [self.detailsText setEditable:NO];
     [self.moviImageView setImage:[UIImage imageNamed:[movie movieImage]]];
+    
     
     self.ratingView = [[[RateView alloc] initWithFrameBig:CGRectMake(40, 328, 240, 40)] autorelease];
     self.ratingView.alignment = RateViewAlignmentLeft;
