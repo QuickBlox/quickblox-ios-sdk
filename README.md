@@ -38,10 +38,10 @@ iOS SDK is really simple to use. Just in few minutes you can power your mobile a
 
 The common way to interact with QuickBlox can be presented with following sequence of actions:
 
-1. [Initialize framework with application credentials](#initialize-framework-with-application-credentials)
-2. [Create session](#create-session)
-3. [Login with existing user or register new one](#register-login)
-4. [Perform actions with any QuickBlox data entities (users, locations, files, custom objects, pushes etc.)](#perform-actions)
+1. [Initialize framework with application credentials](#41-initialize-framework-with-application-credentials)
+2. [Create session](#42-create-session)
+3. [Login with existing user or register new one](#43-registerlogin)
+4. [Perform actions with any QuickBlox data entities (users, locations, files, custom objects, pushes etc.)](#44-perform-actions)
 
 #### 4.1 Initialize framework with application credentials
 
@@ -132,7 +132,7 @@ NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForReso
 }
 ```
 
-iOS Framework provides following services to interact with QuickBlox functions (each service is represented by model with suite of static methods):
+iOS Framework provides following classes to interact with QuickBlox API (each class has suite of static methods):
 
 * QBAuth
 * QBUsers
