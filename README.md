@@ -44,7 +44,6 @@ The common way to interact with QuickBlox can be presented with following sequen
 4. [Perform actions with any QuickBlox data entities (users, locations, files, custom objects, pushes etc.)](#perform-actions)
 
 #### 4.1 Initialize framework with application credentials
-#initialize-framework-with-application-credentials
 
 ```objectivec
 [QBSettings setApplicationID:92];
@@ -53,7 +52,6 @@ The common way to interact with QuickBlox can be presented with following sequen
 ```
 
 #### 4.2. Create session
-#create-session
 
 ```objectivec
 [QBAuth createSessionWithDelegate:self];
@@ -66,7 +64,6 @@ The common way to interact with QuickBlox can be presented with following sequen
 ```
 
 #### 4.3. Register/login
-#register-login
 
 First create (register) new user
 
@@ -101,7 +98,6 @@ then authorize user
 ```
 
 #### 4.4. Perform actions
-#perform-actions
 
 Create new location for Indiana Jones
 
