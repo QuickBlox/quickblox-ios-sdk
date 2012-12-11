@@ -2,159 +2,150 @@
 
 This project contains QuickBlox iOS SDK, that includes
 
-* [framework library](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/Framework)
-* [snippets](https://github.com/QuickBlox/quickblox-android-sdk/tree/master/snippets) (shows main use cases of using this one)
+* [framework](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/Framework)
+* [snippets](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/snippets) (shows main use cases of using this one)
 * samples (separated samples for each QuickBlox module)
-  * [Chat Sample](https://github.com/QuickBlox/quickblox-android-sdk/tree/master/sample-chat)
+  * [Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat)
+  * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
+  * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
+  * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
+  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom-objects)
+  * [Content Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-content)
+  * [Ratings Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-ratings)
 
 ## How to start
 
-To start work you should just put library jar into your project and call desired methods.
+To start work you should just put framework into your project and call desired methods.
 
-Latest jar-packed framework file you can download from [downloads page](https://github.com/QuickBlox/quickblox-android-sdk/downloads).
+Latest framework file you can download from [downloads page](https://github.com/QuickBlox/quickblox-ios-sdk/downloads).
 
 ## Documentation
 
-* [Project page on QuickBlox developers section](http://quickblox.com/developers/Android)
-* **[Start to learn SDK from Android Guide](http://quickblox.com/developers/Android_Guide)**
-* [Framework reference in JavaDoc format](http://sdk.quickblox.com/android/)
+* [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
+* [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/)
 
 ## Oh, please, please show me the code
 
-Android SDK is really simple to use. Just in few minutes you can power your mobile app with huge amount of awesome functions to store, pass and represent your data. 
+iOS SDK is really simple to use. Just in few minutes you can power your mobile app with huge amount of awesome functions to store, pass and represent your data. 
 
 ### 1. Get app credentials
 
 * [How to get app credentials](http://quickblox.com/developers/Getting_application_credentials)
 
-### 2. Create new Android project
-### 3. Add [jar library](https://github.com/QuickBlox/quickblox-android-sdk/tree/master/jar) to project
-
-### 4. Declare internet permission for Android application
-
-* Go to AndroidManifest.xml and add 
-
-```xml
-<uses-permission android:name="android.permission.INTERNET" />
-```
-inside `<manifest>` tag.
-
-### 5. Make QuickBlox API calls
+### 2. Create new iOS project
+### 3. Add [framework](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/Framework) to project, see [this tutorial](http://quickblox.com/developers/IOS-how-to-connect-Quickblox-framework)
+### 4. Make QuickBlox API calls
 
 The common way to interact with QuickBlox can be presented with following sequence of actions:
 
-1. [Initialize framework with application credentials](#71-initialize-framework-with-application-credentials)
-2. [Authorize application](#72-authorize-application)
-3. [Login with existing user or register new one](#73-registerlogin)
-4. [Perform actions with any QuickBlox data entities (users, locations, files, custom objects, pushes etc.)](#74-perform-actions)
+1. [Initialize framework with application credentials](#initialize-framework-with-application-credentials)
+2. [Create session](#create-session)
+3. [Login with existing user or register new one](#register-login)
+4. [Perform actions with any QuickBlox data entities (users, locations, files, custom objects, pushes etc.)](#perform-actions)
 
-#### 5.1 Initialize framework with application credentials
+#### 4.1 Initialize framework with application credentials
+#initialize-framework-with-application-credentials
 
-```java
-QBSettings.getInstance().fastConfigInit("961", "PBZxXW3WgGZtFZv", "vvHjRbVFF6mmeyJ");
+```objectivec
+[QBSettings setApplicationID:92];
+[QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
+[QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
 ```
 
-or step by step
+#### 4.2. Create session
+#create-session
 
+```objectivec
+[QBAuth createSessionWithDelegate:self];
 
-```java
-QBSettings.getInstance().setApplicationId("961");
-QBSettings.getInstance().setAuthorizationKey("PBZxXW3WgGZtFZv");
-QBSettings.getInstance().setAuthorizationSecret("vvHjRbVFF6mmeyJ");
-```
-
-#### 5.2. Authorize application
-
-
-```java
-QBAuth.authorizeApp(new QBCallbackImpl() {
-    @Override
-    public void onComplete(Result result) {
-        if (result.isSuccess()) {
-            // result comes here if authorization is success
-        }
+- (void)completedWithResult:(Result *)result{
+    if(result.success && [result isKindOfClass:QBAAuthSessionCreationResult.class]){
+        // Success, do something
     }
-});
+}
 ```
 
-#### 5.3. Register/login
+#### 4.3. Register/login
+#register-login
 
 First create (register) new user
 
-```java
-// Register new user
-QBUsers.signUp("indianajones", "indianapassword", new QBCallbackImpl() {
-    @Override
-    public void onComplete(Result result) {
-        if (result.isSuccess()) {
-            // result comes here if request has been completed successfully
-        }
+```objectivec
+QBUUser *user = [QBUUser user];
+user.login = @"garry";
+user.password = @"garry5santos";
+
+[QBUsers signUp:user delegate:self];
+
+- (void)completedWithResult:(Result *)result{
+    if(result.success && [result isKindOfClass:QBUUserResult.class]){
+        // Success, do something
+        QBUUserResult *userResult = (QBUUserResult *)result;
+        NSLog(@"New user=%@", userResult.user);
     }
-});
+}
 ```
 
 then authorize user
 
-```java
-// Login
-QBUsers.signIn("indianajones", "indianapassword", new QBCallbackImpl() {
-    @Override
-    public void onComplete(Result result) {
-        if (result.isSuccess()) {
-            // result comes here if request has been completed successfully
-        }
+```objectivec
+[QBUsers logInWithUserLogin:@"garry" password:@"garry5santos"  delegate:self];
+
+- (void)completedWithResult:(Result *)result{
+    if(result.success && [result isKindOfClass:QBUUserLogInResult.class]){
+        // Success, do something
+        QBUUserLogInResult *userResult = (QBUUserLogInResult *)result;
+        NSLog(@"Logged In user=%@", userResult.user);
     }
-});
+}
 ```
 
-#### 5.4. Perform actions
+#### 4.4. Perform actions
+#perform-actions
 
 Create new location for Indiana Jones
 
-```java
-double lat = 25.224820; // Somewhere in Africa
-double lng = 9.272461;
-String statusText = "trying to find adventures";
-QBLocation location = new QBLocation(lat, lng, statusText);
-QBLocations.createLocation(location, new QBCallbackImpl() {
-    @Override
-    public void onComplete(Result result) {
-        if (result.isSuccess()) {
-            // result comes here if authorizations is success
-        }
+```objectivec
+QBLGeoData *location = [QBLGeoData geoData];
+location.latitude = 23.2344;
+location.longitude = -12.23523;
+location.status = @"Hello, world, I'm Indiana Jones, I'm at London right now!";
+
+[QBLocation createGeoData:location delegate:self];
+
+- (void)completedWithResult:(Result *)result{
+    if(result.success && [result isKindOfClass:QBLGeoDataResult.class]){
+        // Success, do something
+        QBLGeoDataResult *locationResult = (QBLGeoDataResult *)result;
+        NSLog(@"New location=%@", locationResult.geoData);
     }
-});
+}
 ```
 
-or put Holy Grail into storage
+or put Image into storage
 
-```java
-File file = new File("holy_grail.txt");
-Boolean fileIsPublic = true;
-QBContent.uploadFileTask(file, fileIsPublic, new QBCallbackImpl() {
-    @Override
-    public void onComplete(Result result) {
-        if (result.isSuccess()) {
-            // file has been successfully uploaded
-        }
+```objectivec
+NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"YellowStar" ofType:@"png"]];
+
+[QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:YES delegate:self];
+
+- (void)completedWithResult:(Result *)result{
+    if(result.success && [result isKindOfClass:QBCFileUploadTaskResult.class]){
+        // Success, do something
     }
-});
+}
 ```
 
-Java Framework provides following services to interact with QuickBlox functions (each service is represented by model with suite of static methods):
+iOS Framework provides following services to interact with QuickBlox functions (each service is represented by model with suite of static methods):
 
 * QBAuth
 * QBUsers
 * QBCustomObjects
-* QBLocations
+* QBLocation
 * QBContent
 * QBRatings
 * QBMessages
 * QBChat
-
-## How to run snippets project
-
-* See <https://github.com/QuickBlox/quickblox-android-sdk/tree/master/snippets#snippets>
 
 ## See also
 
