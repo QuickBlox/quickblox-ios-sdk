@@ -48,7 +48,6 @@
         // Create note
         QBCOCustomObject *object = [QBCOCustomObject customObject];
         object.className = customClassName;
-        object.fields = [NSMutableDictionary dictionary];
         [object.fields setObject:self.noteTextField.text forKey:@"note"];
         [object.fields setObject:self.commentTextField.text forKey:@"comment"];
         [object.fields setObject:@"New" forKey:@"status"];

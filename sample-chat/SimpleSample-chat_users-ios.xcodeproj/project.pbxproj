@@ -452,8 +452,6 @@
 					"-lxml2",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61070765-F7A1-4048-BB1E-5CD876A4090E";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -503,8 +501,7 @@
 				INFOPLIST_FILE = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61070765-F7A1-4048-BB1E-5CD876A4090E";
+				PROVISIONING_PROFILE = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
@@ -515,8 +512,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -528,8 +525,8 @@
 				INFOPLIST_FILE = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "70814F24-7072-4BD7-878F-2F1394948909";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "70814F24-7072-4BD7-878F-2F1394948909";
+				PROVISIONING_PROFILE = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
