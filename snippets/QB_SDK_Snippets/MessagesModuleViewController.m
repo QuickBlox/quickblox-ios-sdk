@@ -304,16 +304,16 @@
                 // TSendPushWithText to users' ids
                 case 3:{
                     if(withContext){
-                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"45288" delegate:self context:testContext];
+                        [QBMessages TSendPushWithText:@"Hello World simple" toUsers:@"45288" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"45288" delegate:self];
+                        [QBMessages TSendPushWithText:@"Hello World simple" toUsers:@"45288" delegate:self];
                     }
                 }
                     break;
                     
                 // TSendPush to users' tags
                 case 4:{
-                    NSString *mesage = @"Hello man!";
+                    NSString *mesage = @"Hello man, you have man tag!";
                     
                     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
                     NSMutableDictionary *aps = [NSMutableDictionary dictionary];
@@ -337,9 +337,9 @@
                 // TSendPushWithText to users' tags
                 case 5:{
                     if(withContext){
-                        [QBMessages TSendPushWithText:@"Hello World" toUsersWithAnyOfTheseTags:@"man,car" delegate:self context:testContext];
+                        [QBMessages TSendPushWithText:@"Hello World simple, you have man tag!" toUsersWithAnyOfTheseTags:@"man,car" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPushWithText:@"Hello World" toUsersWithAnyOfTheseTags:@"man,car" delegate:self];
+                        [QBMessages TSendPushWithText:@"Hello World simple, you have man tag!" toUsersWithAnyOfTheseTags:@"man,car" delegate:self];
                     }
                 }
                     break;
@@ -506,6 +506,13 @@
         }else if([result isKindOfClass:QBMRegisterSubscriptionTaskResult.class]){
             QBMRegisterSubscriptionTaskResult *res = (QBMRegisterSubscriptionTaskResult *)result;
             NSLog(@"QBMRegisterSubscriptionTaskResult, subscriptions=%@", res.subscriptions);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Notifications subscription"
+                                                            message:[QBSettings isUseProductionEnvironmentForPushNotifications] ? @"You use Production Push Notifications" : @"You use Development Push Notifications"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [alert show];
+            [alert release];
         
         // Send push Task result
         }else if([result isKindOfClass:QBMSendPushTaskResult.class]){

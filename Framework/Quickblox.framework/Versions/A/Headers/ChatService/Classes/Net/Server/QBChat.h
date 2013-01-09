@@ -85,7 +85,7 @@ typedef enum QBChatServiceError {
 /**
  QBChatService delegate for callbacks
  */
-@property (nonatomic, assign) id<QBChatDelegate> delegate;
+@property (nonatomic, retain) id<QBChatDelegate> delegate;
 
 
 #pragma mark -

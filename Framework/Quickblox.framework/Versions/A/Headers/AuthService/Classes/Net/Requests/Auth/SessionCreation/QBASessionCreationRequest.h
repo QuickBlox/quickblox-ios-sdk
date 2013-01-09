@@ -37,11 +37,13 @@
 @property(nonatomic, retain) NSString *userPassword;
 
 /** Device platform.
- Deprecated: We no longer need to use Device platform. */
+ @warning *Deprecated in QB iOS SDK 1.4:* We no longer need to use Device platform. 
+ */
 @property(nonatomic, assign) enum DevicePlatform devicePlatorm  __attribute__((deprecated));
 
 /** Device UDID. 
-  Deprecated: We no longer need to use Device UDID .*/
+  @warning *Deprecated in QB iOS SDK 1.4:* We no longer need to use Device UDID.
+ */
 @property(nonatomic, retain) NSString *deviceUDID __attribute__((deprecated));
 
 @end
