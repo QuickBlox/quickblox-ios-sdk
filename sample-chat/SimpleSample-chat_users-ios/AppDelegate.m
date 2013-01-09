@@ -28,8 +28,12 @@
     [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
     //
-    // Additional setup
-    [QBSettings setRestAPIVersion:@"0.1.1"]; // version of server API
+    // If you use Push Notifications - you have to use lines bellow when you upload your application to Apple Store or create AdHoc.
+    //
+#ifndef DEBUG
+    [QBSettings useProductionEnvironmentForPushNotifications:YES];
+#endif
+    
     
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];

@@ -20,8 +20,14 @@
     if (self) {
         self.title = NSLocalizedString(@"Auth", @"Auth");
         self.tabBarItem.image = [UIImage imageNamed:@"circle"];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(socialLoginDialogDidClose) name:QuickbloxSocialDialogDidCloseNotification object:nil];
     }
     return self;
+}
+
+- (void)socialLoginDialogDidClose{
+    NSLog(@"socialLoginDialogDidClose");
 }
 							
 - (void)viewDidLoad
@@ -79,8 +85,8 @@
                 // Create session with User auth
                 case 1:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.userLogin = @"emma";
-                    extendedAuthRequest.userPassword = @"emma";
+                    extendedAuthRequest.userLogin = @"iostest3355";
+                    extendedAuthRequest.userPassword = @"iostest3355";
                     
                     if(withContext){
                         [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self context:testContext];
@@ -93,7 +99,7 @@
                 // Create session with Social provider
                 case 2:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.socialProvider = @"facebook";
+                    extendedAuthRequest.socialProvider = @"twitter";
                     extendedAuthRequest.scope = @[@"publish_stream"];
                     
                     if(withContext){

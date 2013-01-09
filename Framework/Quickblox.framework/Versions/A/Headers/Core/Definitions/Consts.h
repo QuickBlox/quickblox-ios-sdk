@@ -41,6 +41,8 @@ extern NSString* const QuickbloxSocialAuthTwitterCallback;
 extern NSString* const QuickbloxSocialAuthFacebookCallback;
 extern NSString* const QuickbloxSocialAuthFailure;
 
+// Notifications
+extern NSString* const QuickbloxSocialDialogDidCloseNotification;
 
 #define kBaseServiceDateNotSet [NSDate dateWithTimeIntervalSince1970:0] 
 #define kBaseServiceObjectNotSet nil

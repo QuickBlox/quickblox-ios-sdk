@@ -54,28 +54,31 @@
 // QuickBlox API queries delegate
 - (void)completedWithResult:(Result *)result{
     
-    // QuickBlox application authorization result
-    if([result isKindOfClass:[QBAAuthSessionCreationResult class]]){
+    // Success result
+    if(result.success){
         
-        // Success result
-        if(result.success){
-            // Hide splash & show main controller
+        // QuickBlox session creation result
+        if([result isKindOfClass:[QBAAuthSessionCreationResult class]]){
             
             // Register as subscriber for Push Notifications
             [QBMessages TRegisterSubscriptionWithDelegate:self];
             
-            [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
+        // QuickBlox register for Push Notifications result
+        }else if([result isKindOfClass:[QBMRegisterSubscriptionTaskResult class]]){
             
-        // show Errors
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
-                                                            message:[result.errors description]
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", "")
-                                                  otherButtonTitles:nil];
-            [alert show];
-            [alert release];
+            // Hide splash & show main controller
+            [self hideSplash];
         }
+        
+    // show Errors
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
+                                                        message:[result.errors description]
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", "")
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
     }
 }
 

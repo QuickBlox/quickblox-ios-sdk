@@ -469,8 +469,8 @@
 					armv7,
 					armv7s,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework/build/Framework\"",
@@ -482,8 +482,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
+				PROVISIONING_PROFILE = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -497,8 +497,8 @@
 					armv7,
 					armv7s,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework/build/Framework\"",
@@ -510,8 +510,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
+				PROVISIONING_PROFILE = "81C59E21-1F63-4B73-9E53-245195C190E9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "81C59E21-1F63-4B73-9E53-245195C190E9";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
