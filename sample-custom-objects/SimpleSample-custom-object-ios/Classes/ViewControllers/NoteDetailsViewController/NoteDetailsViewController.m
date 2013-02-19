@@ -96,20 +96,23 @@
     self.statusLabel.text = [[customObject fields] objectForKey:@"status"];
     
     // set comments
-    NSArray *comments = [[[customObject fields] objectForKey:@"comment"] componentsSeparatedByString:@"-c-"];
-    [self.comentsTextView setText:nil];
-    int count = 1;
-    for(NSString *comment in comments){
-        if(count == 1){
-            NSString *str = [[NSString alloc] initWithFormat:@"#%d %@\n\n",count, comment];
-            [self.comentsTextView setText:str];
-            [str release];
-        }else{
-            NSString *str = [[NSString alloc] initWithFormat:@"%@#%d %@\n\n", self.comentsTextView.text, count, comment];
-            [self.comentsTextView setText:str];
-            [str release];
+    NSString *commentsAsString = [[customObject fields] objectForKey:@"comment"];
+    if(![commentsAsString isKindOfClass:NSNull.class]){
+        NSArray *comments = [commentsAsString componentsSeparatedByString:@"-c-"];
+        [self.comentsTextView setText:nil];
+        int count = 1;
+        for(NSString *comment in comments){
+            if(count == 1){
+                NSString *str = [[NSString alloc] initWithFormat:@"#%d %@\n\n",count, comment];
+                [self.comentsTextView setText:str];
+                [str release];
+            }else{
+                NSString *str = [[NSString alloc] initWithFormat:@"%@#%d %@\n\n", self.comentsTextView.text, count, comment];
+                [self.comentsTextView setText:str];
+                [str release];
+            }
+            count++;
         }
-        count++;
     }
 }
 

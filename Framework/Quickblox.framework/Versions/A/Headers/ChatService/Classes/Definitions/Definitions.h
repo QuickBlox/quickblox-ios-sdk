@@ -6,4 +6,6 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
+#import "Enums.h"
 #import "Delegates.h"
+#import "Consts.h"

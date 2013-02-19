@@ -89,7 +89,7 @@
             // Hide splash & show main controller
             [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
             QBLGeoDataPagedResult *geoDataGetRes = (QBLGeoDataPagedResult *)result;
-            [DataManager shared].checkinArray  = geoDataGetRes.geodata;
+            [DataManager shared].checkinArray  = [[geoDataGetRes.geodata mutableCopy] autorelease];
         // Errors
         }else{
             NSLog(@"Errors=%@", result.errors);

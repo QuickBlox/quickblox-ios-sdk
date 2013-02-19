@@ -100,6 +100,24 @@
 
 
 #pragma mark -
+#pragma mark HTTPS
+
+/**
+ Enable/disable HTTPS for queries
+ 
+ @param useHTTPS Enable HTTPS for queries. Default value: NO. 
+ */
++ (void)useHTTPS:(BOOL)useHTTPS;
+
+/**
+ Current protocol to perform queries to QuickBlox
+ 
+ @return YES if HTTPS is enabled;
+ */
++ (BOOL)isUseHTTPS;
+
+
+#pragma mark -
 #pragma mark Logging
 
 /**
@@ -169,5 +187,23 @@
  @return YES if we use Production environment for Push Notifications
  */
 + (BOOL)isUseProductionEnvironmentForPushNotifications;
+
+
+#pragma mark -
+#pragma mark Video Chat
+
+/**
+ Set Video Chat configuration
+ 
+ @param configuration New configuration
+ */
++ (void)setVideoChatConfiguration:(NSDictionary *)configuration;
+
+/**
+ Get Video Chat configuration
+ 
+ @return Video Chat current configuration
+ */
++ (NSDictionary *)videoChatConfiguration;
 
 @end

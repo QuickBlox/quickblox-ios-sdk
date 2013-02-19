@@ -20,9 +20,12 @@
 
 - (void)reset;
 
+
 #pragma mark -
 #pragma mark Server endpoint url
 
 + (NSString *)serverEndpointURL;
++ (NSString *)chatServerEndpointURL;
++ (NSString *)chatMUCServerEndpointURL;
 
 @end

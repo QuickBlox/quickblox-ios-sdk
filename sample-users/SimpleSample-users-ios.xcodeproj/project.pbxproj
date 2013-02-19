@@ -27,6 +27,11 @@
 		FA43ADEA152B95A3000A2EF7 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43ADDE152B95A3000A2EF7 /* MainViewController.xib */; };
 		FA43ADEB152B95A3000A2EF7 /* RegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43ADDF152B95A3000A2EF7 /* RegistrationViewController.xib */; };
 		FA43ADED152B95A3000A2EF7 /* UserDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43ADE1152B95A3000A2EF7 /* UserDetailsViewController.xib */; };
+		FAC8B9EB16D2D59400F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9EA16D2D59400F03311 /* CoreMedia.framework */; };
+		FAC8B9ED16D2D59A00F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9EC16D2D59A00F03311 /* CoreVideo.framework */; };
+		FAC8B9EF16D2D59F00F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9EE16D2D59F00F03311 /* AVFoundation.framework */; };
+		FAC8B9F116D2D5A400F03311 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F016D2D5A400F03311 /* Accelerate.framework */; };
+		FAC8B9F316D2D5AA00F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F216D2D5AA00F03311 /* AudioToolbox.framework */; };
 		FAE86FDC15EB6B9D002E16AA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86FDB15EB6B9D002E16AA /* libresolv.dylib */; };
 		FAF4BB3F15F4F6A0009E15D4 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB2C15F4F6A0009E15D4 /* EditViewController.m */; };
 		FAF4BB4015F4F6A0009E15D4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB2F15F4F6A0009E15D4 /* LoginViewController.m */; };
@@ -69,6 +74,11 @@
 		FA43ADDE152B95A3000A2EF7 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		FA43ADDF152B95A3000A2EF7 /* RegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationViewController.xib; sourceTree = "<group>"; };
 		FA43ADE1152B95A3000A2EF7 /* UserDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserDetailsViewController.xib; sourceTree = "<group>"; };
+		FAC8B9EA16D2D59400F03311 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FAC8B9EC16D2D59A00F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAC8B9EE16D2D59F00F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FAC8B9F016D2D5A400F03311 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		FAC8B9F216D2D5AA00F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FAE86FDB15EB6B9D002E16AA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		FAF4BB2B15F4F6A0009E15D4 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
 		FAF4BB2C15F4F6A0009E15D4 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
@@ -98,6 +108,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC8B9F316D2D5AA00F03311 /* AudioToolbox.framework in Frameworks */,
+				FAC8B9F116D2D5A400F03311 /* Accelerate.framework in Frameworks */,
+				FAC8B9EF16D2D59F00F03311 /* AVFoundation.framework in Frameworks */,
+				FAC8B9ED16D2D59A00F03311 /* CoreVideo.framework in Frameworks */,
+				FAC8B9EB16D2D59400F03311 /* CoreMedia.framework in Frameworks */,
 				ED6EE61816773EAC004BCAC7 /* Quickblox.framework in Frameworks */,
 				43900C4016246C090041381B /* libxml2.dylib in Frameworks */,
 				FAE86FDC15EB6B9D002E16AA /* libresolv.dylib in Frameworks */,
@@ -136,6 +151,11 @@
 		FA43AD09152B8ABD000A2EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAC8B9F216D2D5AA00F03311 /* AudioToolbox.framework */,
+				FAC8B9F016D2D5A400F03311 /* Accelerate.framework */,
+				FAC8B9EE16D2D59F00F03311 /* AVFoundation.framework */,
+				FAC8B9EC16D2D59A00F03311 /* CoreVideo.framework */,
+				FAC8B9EA16D2D59400F03311 /* CoreMedia.framework */,
 				FA43AD83152B8B3F000A2EF7 /* libz.dylib */,
 				43900C3F16246C090041381B /* libxml2.dylib */,
 				FAE86FDB15EB6B9D002E16AA /* libresolv.dylib */,
@@ -439,6 +459,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Info.plist";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61070765-F7A1-4048-BB1E-5CD876A4090E";
@@ -457,6 +487,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Info.plist";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

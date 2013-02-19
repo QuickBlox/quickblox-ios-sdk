@@ -33,9 +33,6 @@
     [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
     
-    // Additional setup
-    [QBSettings setRestAPIVersion:@"0.1.1"]; // version of server API
-    
     // create two  UIViewControllers
     UIViewController *mapViewControleler, *latestCheckinsViewControleler;
     mapViewControleler = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];

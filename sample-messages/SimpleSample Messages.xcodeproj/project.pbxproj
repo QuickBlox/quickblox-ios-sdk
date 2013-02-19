@@ -21,6 +21,11 @@
 		FA39FB5515EF55BB002F9D26 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB5315EF55BB002F9D26 /* logo.png */; };
 		FA39FB6215EF56B0002F9D26 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB6015EF56B0002F9D26 /* MainViewController.xib */; };
 		FA39FB6315EF56B0002F9D26 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB6115EF56B0002F9D26 /* SplashViewController.xib */; };
+		FAC8B9F516D2D69B00F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F416D2D69B00F03311 /* CoreVideo.framework */; };
+		FAC8B9F716D2D6A000F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F616D2D6A000F03311 /* CoreMedia.framework */; };
+		FAC8B9F916D2D6A500F03311 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F816D2D6A400F03311 /* Accelerate.framework */; };
+		FAC8B9FB16D2D6AA00F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */; };
+		FAC8B9FD16D2D6AF00F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */; };
 		FAE86FE915EB6CE4002E16AA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86FE815EB6CE4002E16AA /* libresolv.dylib */; };
 		FAFA572C14ED23410057B9B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA572B14ED23410057B9B5 /* UIKit.framework */; };
 		FAFA572E14ED23410057B9B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA572D14ED23410057B9B5 /* Foundation.framework */; };
@@ -55,6 +60,11 @@
 		FA39FB5315EF55BB002F9D26 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		FA39FB6015EF56B0002F9D26 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		FA39FB6115EF56B0002F9D26 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
+		FAC8B9F416D2D69B00F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAC8B9F616D2D6A000F03311 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FAC8B9F816D2D6A400F03311 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FAE86FE815EB6CE4002E16AA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		FAFA572714ED23410057B9B5 /* SimpleSample Messages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample Messages.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFA572B14ED23410057B9B5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -78,6 +88,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC8B9FD16D2D6AF00F03311 /* AudioToolbox.framework in Frameworks */,
+				FAC8B9FB16D2D6AA00F03311 /* AVFoundation.framework in Frameworks */,
+				FAC8B9F916D2D6A500F03311 /* Accelerate.framework in Frameworks */,
+				FAC8B9F716D2D6A000F03311 /* CoreMedia.framework in Frameworks */,
+				FAC8B9F516D2D69B00F03311 /* CoreVideo.framework in Frameworks */,
 				ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */,
 				43900C39162469680041381B /* libxml2.dylib in Frameworks */,
 				FA19A33F15FE6B3D00B5B2CC /* QuartzCore.framework in Frameworks */,
@@ -204,6 +219,11 @@
 		FAFA572A14ED23410057B9B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */,
+				FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */,
+				FAC8B9F816D2D6A400F03311 /* Accelerate.framework */,
+				FAC8B9F616D2D6A000F03311 /* CoreMedia.framework */,
+				FAC8B9F416D2D69B00F03311 /* CoreVideo.framework */,
 				ED6EE60216773C46004BCAC7 /* Quickblox.framework */,
 				FA19A33E15FE6B3D00B5B2CC /* QuartzCore.framework */,
 				FAE86FE815EB6CE4002E16AA /* libresolv.dylib */,
@@ -398,6 +418,16 @@
 				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample Messages/SimpleSample Messages-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
@@ -421,6 +451,11 @@
 				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample Messages/SimpleSample Messages-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "81C59E21-1F63-4B73-9E53-245195C190E9";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "81C59E21-1F63-4B73-9E53-245195C190E9";

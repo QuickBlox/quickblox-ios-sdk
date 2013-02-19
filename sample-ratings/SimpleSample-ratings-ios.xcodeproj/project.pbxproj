@@ -54,6 +54,11 @@
 		FA6ECF9115BEA59D00833341 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF7915BEA59D00833341 /* InfoPlist.strings */; };
 		FA6ECF9215BEA59D00833341 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6ECF7B15BEA59D00833341 /* main.m */; };
 		FA6ECF9315BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF7C15BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist */; };
+		FAC8B9E116D2D4A200F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E016D2D4A200F03311 /* CoreVideo.framework */; };
+		FAC8B9E316D2D4A700F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E216D2D4A600F03311 /* CoreMedia.framework */; };
+		FAC8B9E516D2D4AD00F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E416D2D4AD00F03311 /* AVFoundation.framework */; };
+		FAC8B9E716D2D4B300F03311 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E616D2D4B300F03311 /* Accelerate.framework */; };
+		FAC8B9E916D2D4C500F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E816D2D4C500F03311 /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +119,11 @@
 		FA6ECF7B15BEA59D00833341 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FA6ECF7C15BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SimpleSample-ratings-ios-Info.plist"; sourceTree = "<group>"; };
 		FA6ECF7D15BEA59D00833341 /* SimpleSample-ratings-ios-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SimpleSample-ratings-ios-Prefix.pch"; sourceTree = "<group>"; };
+		FAC8B9E016D2D4A200F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAC8B9E216D2D4A600F03311 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FAC8B9E416D2D4AD00F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FAC8B9E616D2D4B300F03311 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		FAC8B9E816D2D4C500F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +131,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC8B9E916D2D4C500F03311 /* AudioToolbox.framework in Frameworks */,
+				FAC8B9E716D2D4B300F03311 /* Accelerate.framework in Frameworks */,
+				FAC8B9E516D2D4AD00F03311 /* AVFoundation.framework in Frameworks */,
+				FAC8B9E316D2D4A700F03311 /* CoreMedia.framework in Frameworks */,
+				FAC8B9E116D2D4A200F03311 /* CoreVideo.framework in Frameworks */,
 				ED6EE60A16773CE1004BCAC7 /* Quickblox.framework in Frameworks */,
 				ED3BA49915AC1E04002B8CFE /* libxml2.dylib in Frameworks */,
 				ED3BA49715AC1DD8002B8CFE /* libresolv.dylib in Frameworks */,
@@ -160,6 +175,11 @@
 		ED3BA44915AC1097002B8CFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAC8B9E816D2D4C500F03311 /* AudioToolbox.framework */,
+				FAC8B9E616D2D4B300F03311 /* Accelerate.framework */,
+				FAC8B9E416D2D4AD00F03311 /* AVFoundation.framework */,
+				FAC8B9E216D2D4A600F03311 /* CoreMedia.framework */,
+				FAC8B9E016D2D4A200F03311 /* CoreVideo.framework */,
 				ED3BA49815AC1E04002B8CFE /* libxml2.dylib */,
 				ED3BA49615AC1DD8002B8CFE /* libresolv.dylib */,
 				ED3BA49415AC1DC9002B8CFE /* libz.dylib */,
@@ -521,6 +541,16 @@
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "SimpleSample-ratings-ios";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -542,6 +572,11 @@
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "SimpleSample-ratings-ios";
 				PROVISIONING_PROFILE = "1124D8DF-7AAA-42DA-AD58-8DDEA35CEFB8";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

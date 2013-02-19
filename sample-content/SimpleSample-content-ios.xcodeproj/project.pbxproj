@@ -31,6 +31,11 @@
 		FAC3D16815BF082800038395 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D15815BF082800038395 /* DataManager.m */; };
 		FAC3D16915BF082800038395 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAC3D15915BF082800038395 /* InfoPlist.strings */; };
 		FAC3D16A15BF082800038395 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D15B15BF082800038395 /* main.m */; };
+		FAC8B9C316D2CF2400F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9C216D2CF2400F03311 /* CoreVideo.framework */; };
+		FAC8B9C516D2CF2B00F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9C416D2CF2B00F03311 /* CoreMedia.framework */; };
+		FAC8B9C716D2CF3600F03311 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9C616D2CF3600F03311 /* Accelerate.framework */; };
+		FAC8B9C916D2CF3A00F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9C816D2CF3A00F03311 /* AudioToolbox.framework */; };
+		FAC8B9CB16D2CF4100F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9CA16D2CF4100F03311 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +71,11 @@
 		FAC3D15B15BF082800038395 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAC3D16215BF082800038395 /* SimpleSample-content-ios-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SimpleSample-content-ios-Info.plist"; sourceTree = "<group>"; };
 		FAC3D16315BF082800038395 /* SimpleSample-content-ios-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SimpleSample-content-ios-Prefix.pch"; sourceTree = "<group>"; };
+		FAC8B9C216D2CF2400F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAC8B9C416D2CF2B00F03311 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FAC8B9C616D2CF3600F03311 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		FAC8B9C816D2CF3A00F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FAC8B9CA16D2CF4100F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +83,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC8B9CB16D2CF4100F03311 /* AVFoundation.framework in Frameworks */,
+				FAC8B9C916D2CF3A00F03311 /* AudioToolbox.framework in Frameworks */,
+				FAC8B9C716D2CF3600F03311 /* Accelerate.framework in Frameworks */,
+				FAC8B9C516D2CF2B00F03311 /* CoreMedia.framework in Frameworks */,
+				FAC8B9C316D2CF2400F03311 /* CoreVideo.framework in Frameworks */,
 				ED6EE5EA16773486004BCAC7 /* Quickblox.framework in Frameworks */,
 				ED49FAEF15B5798700154AE8 /* MobileCoreServices.framework in Frameworks */,
 				ED49FAE815B5788900154AE8 /* SystemConfiguration.framework in Frameworks */,
@@ -112,6 +127,11 @@
 			isa = PBXGroup;
 			children = (
 				ED6EE5E916773486004BCAC7 /* Quickblox.framework */,
+				FAC8B9CA16D2CF4100F03311 /* AVFoundation.framework */,
+				FAC8B9C816D2CF3A00F03311 /* AudioToolbox.framework */,
+				FAC8B9C616D2CF3600F03311 /* Accelerate.framework */,
+				FAC8B9C416D2CF2B00F03311 /* CoreMedia.framework */,
+				FAC8B9C216D2CF2400F03311 /* CoreVideo.framework */,
 				ED49FAE715B5788900154AE8 /* SystemConfiguration.framework */,
 				ED49FAE315B5787A00154AE8 /* libresolv.dylib */,
 				ED49FAEE15B5798700154AE8 /* MobileCoreServices.framework */,
@@ -363,6 +383,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-content-ios/SimpleSample-content-ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "SimpleSample-content-ios";
 				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61070765-F7A1-4048-BB1E-5CD876A4090E";
@@ -381,6 +412,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-content-ios/SimpleSample-content-ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "SimpleSample-content-ios";
 				WRAPPER_EXTENSION = app;
 			};

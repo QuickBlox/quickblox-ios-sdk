@@ -40,7 +40,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
      // add pins to map
-    if([mapView.annotations count] == 0){
+    if([mapView.annotations count] <= 1){
         for(QBLGeoData *geodata in [DataManager shared].checkinArray){
             CLLocationCoordinate2D coord = {.latitude= geodata.latitude, .longitude= geodata.longitude};
             MapPin *pin = [[MapPin alloc] initWithCoordinate:coord];

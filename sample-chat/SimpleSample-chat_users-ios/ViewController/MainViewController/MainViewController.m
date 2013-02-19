@@ -246,9 +246,13 @@
             [chatViewController setOpponent:selectedUser];
             [self.navigationController pushViewController:chatViewController animated:YES];
             [chatViewController release];
+            
+        // Mark
         }else if(![self.selectedUsers containsObject:selectedUser]){
             [self.selectedUsers addObject:selectedUser];
             [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+            
+        // Unmark
         }else{
             [self.selectedUsers removeObject:selectedUser];
             [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
@@ -418,7 +422,7 @@
             }
             
             // Create room
-            [[QBChat instance] createPrivateRoomWithName:roomName];
+            [[QBChat instance] createOrJoinRoomWithName:roomName membersOnly:YES persistent:NO];
         }
     }
 }
@@ -493,23 +497,29 @@
     [self.tableView reloadData];
 }
 
-// Chat Room did create
-- (void)chatRoomDidCreate:(QBChatRoom*)room{
-
-    // save our room
-    [[[DataManager shared] rooms] addObject:room];
-
-    // add selected users to room
-    NSMutableArray *userIDs = [[NSMutableArray alloc] init];
-    for(QBUUser *user in self.selectedUsers){
-        [userIDs addObject:[NSNumber numberWithInt:user.ID]];
+// Fired when you did enter to room
+- (void)chatRoomDidEnter:(QBChatRoom *)room{
+    NSLog(@"Main Controller chatRoomDidEnter");
+    
+    if([[DataManager shared].rooms indexOfObjectIdenticalTo:room] == NSNotFound){
+        // save our room
+        [[[DataManager shared] rooms] addObject:room];
     }
-    [room addUsers:userIDs];
     
-    [userIDs release];
-    
-    [self.senderUsers removeAllObjects];
-    [self.selectedUsers removeAllObjects];
+    // add users if are creating room
+    if([self.selectedUsers count] > 0){
+        // add selected users to room
+        NSMutableArray *userIDs = [[NSMutableArray alloc] init];
+        for(QBUUser *user in self.selectedUsers){
+            [userIDs addObject:[NSNumber numberWithInt:user.ID]];
+        }
+        [room addUsers:userIDs];
+        
+        [userIDs release];
+        
+        [self.senderUsers removeAllObjects];
+        [self.selectedUsers removeAllObjects];
+    }
     
     // show chat view controller
     ChatViewController *chatViewController = [[[ChatViewController alloc] init] autorelease];
@@ -517,25 +527,6 @@
     [chatViewController setCurrentRoom:room];
     [self.selectedUsers removeAllObjects];
     [self.navigationController pushViewController:chatViewController animated:YES];
-}
-
-
-// Fired when you did enter to room
-- (void)chatRoomDidEnter:(NSString *)roomName{
-    NSLog(@"Main Controller chatRoomDidEnter");
-    
-    roomName = [[NSArray arrayWithArray:[roomName componentsSeparatedByString:@"@"]] objectAtIndex:0];
-    
-    for(QBChatRoom *selectedRoom in [DataManager shared].rooms){
-        if([selectedRoom.name isEqualToString:roomName]){
-            
-            // Show Chat view controller
-            ChatViewController *chatViewController = [[[ChatViewController alloc] init] autorelease];
-            [chatViewController setTitle:[selectedRoom name]];
-            [chatViewController setCurrentRoom:selectedRoom];
-            [self.navigationController pushViewController:chatViewController animated:YES];
-        }
-    }
 }
 
 // Fired when you did not enter to room

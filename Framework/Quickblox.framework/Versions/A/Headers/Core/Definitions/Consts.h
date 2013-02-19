@@ -12,6 +12,9 @@
 
 #define QBToken @"Qb-Token"
 
+#define qbhttp @"http"
+#define qbhttps @"https"
+
 extern NSString* const kBaseServiceErrorDomain;
 extern NSString* const kBaseServiceErrorKeyDescription;
 extern NSString* const kBaseServiceErrorKeyInner;

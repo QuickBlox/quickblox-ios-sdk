@@ -152,6 +152,7 @@
                     QBCBlob *blob = [QBCBlob blob];
                     blob.ID = 904;
                     blob.name = @"My Image File";
+                    blob.tags = @"man,car";
                     
                     if(withContext){
                         [QBContent updateBlob:blob delegate:self context:testContext];
