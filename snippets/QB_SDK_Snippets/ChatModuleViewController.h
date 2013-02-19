@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ChatModuleViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, QBChatDelegate>{
-    QBChatRoom* testRoom;
 }
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
+@property (retain, nonatomic) QBChatRoom *testRoom;
 @end

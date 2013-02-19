@@ -5,7 +5,7 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-// frameworkVersion 1.4.1
+// frameworkVersion 1.5
 
 #import "Core/BaseServiceFramework.h"
 #import "AuthService/AuthServiceFramework.h"

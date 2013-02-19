@@ -43,8 +43,8 @@
     UIViewController *viewController8 = [[[CustomObjectsModuleViewController alloc] initWithNibName:@"CustomObjectsModuleViewController" bundle:nil] autorelease];
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController8, viewController3, viewController4, viewController6,
-                                             viewController5, viewController7, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController8, viewController7, viewController4, viewController6,
+                                             viewController5, viewController3, nil];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     
@@ -52,26 +52,15 @@
     [QBSettings setApplicationID:92];
     [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
-    
-    // If you use Push Notifications - you have to use lines bellow when you upload your application to Apple Store or create AdHoc.
-    //
-#ifndef DEBUG
-    [QBSettings useProductionEnvironmentForPushNotifications:YES];
-#endif
 
     
 
-    
-//    // Application from test zone
-//    //
+    // Test zone
 //    // Set QuickBlox credentials
 //    [QBSettings setApplicationID:6];
 //    [QBSettings setAuthorizationKey:@"4EGTYEqm6ESVRVV"];
 //    [QBSettings setAuthorizationSecret:@"Zh7mgXWzLxamK8x"];
 //    [QBSettings setServerZone:QBServerZoneStage];
-//#ifndef DEBUG
-//    [QBSettings useProductionEnvironmentForPushNotifications:YES];
-//#endif
     
     return YES;
 }
@@ -104,9 +93,9 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Notifications" message:[userInfo description] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//    [alert show];
-//    [alert release];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Push Notifications" message:[userInfo description] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
 }
 
 

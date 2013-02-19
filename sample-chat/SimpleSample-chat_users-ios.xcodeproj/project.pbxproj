@@ -51,6 +51,11 @@
 		FAC54D6216170C3200A12A20 /* sendButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAC54D6016170C3200A12A20 /* sendButton@2x.png */; };
 		FAC54D8D161746D200A12A20 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC54D8C161746D200A12A20 /* RegistrationViewController.m */; };
 		FAC54D8F161748AE00A12A20 /* RegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC54D8E161748AE00A12A20 /* RegistrationViewController.xib */; };
+		FAEE165816C52E4800E32171 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE165716C52E4800E32171 /* AudioToolbox.framework */; };
+		FAEE165A16C52E4E00E32171 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE165916C52E4D00E32171 /* CoreMedia.framework */; };
+		FAEE165C16C52E5300E32171 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE165B16C52E5300E32171 /* Accelerate.framework */; };
+		FAEE165E16C52E5A00E32171 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE165D16C52E5A00E32171 /* CoreVideo.framework */; };
+		FAEE166016C52E5F00E32171 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE165F16C52E5F00E32171 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +115,11 @@
 		FAC54D8B161746D200A12A20 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
 		FAC54D8C161746D200A12A20 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		FAC54D8E161748AE00A12A20 /* RegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationViewController.xib; sourceTree = "<group>"; };
+		FAEE165716C52E4800E32171 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FAEE165916C52E4D00E32171 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FAEE165B16C52E5300E32171 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		FAEE165D16C52E5A00E32171 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAEE165F16C52E5F00E32171 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +127,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAEE166016C52E5F00E32171 /* AVFoundation.framework in Frameworks */,
+				FAEE165E16C52E5A00E32171 /* CoreVideo.framework in Frameworks */,
+				FAEE165C16C52E5300E32171 /* Accelerate.framework in Frameworks */,
+				FAEE165A16C52E4E00E32171 /* CoreMedia.framework in Frameworks */,
+				FAEE165816C52E4800E32171 /* AudioToolbox.framework in Frameworks */,
 				ED6EE61F1677410A004BCAC7 /* Quickblox.framework in Frameworks */,
 				434E9CD71608A06F00A4FB2D /* CoreData.framework in Frameworks */,
 				434E9CD51608A06300A4FB2D /* CoreLocation.framework in Frameworks */,
@@ -261,6 +276,11 @@
 		43774BDC160893D500DDBF12 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAEE165F16C52E5F00E32171 /* AVFoundation.framework */,
+				FAEE165D16C52E5A00E32171 /* CoreVideo.framework */,
+				FAEE165B16C52E5300E32171 /* Accelerate.framework */,
+				FAEE165916C52E4D00E32171 /* CoreMedia.framework */,
+				FAEE165716C52E4800E32171 /* AudioToolbox.framework */,
 				ED6EE61E1677410A004BCAC7 /* Quickblox.framework */,
 				434E9CD61608A06F00A4FB2D /* CoreData.framework */,
 				434E9CD41608A06300A4FB2D /* CoreLocation.framework */,
@@ -338,7 +358,7 @@
 		43774BD0160893D500DDBF12 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Ruslan;
 			};
 			buildConfigurationList = 43774BD3160893D500DDBF12 /* Build configuration list for PBXProject "SimpleSample-chat_users-ios" */;
@@ -427,6 +447,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
@@ -461,6 +484,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
@@ -500,6 +526,16 @@
 				GCC_PREFIX_HEADER = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF5C2D6C-B3AA-4907-AC17-CEF070B29BF7";
@@ -525,6 +561,11 @@
 				GCC_PREFIX_HEADER = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";

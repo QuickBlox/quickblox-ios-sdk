@@ -43,6 +43,11 @@
 		FA43AE1E152B965E000A2EF7 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43AE15152B965E000A2EF7 /* LoginViewController.xib */; };
 		FA43AE1F152B965E000A2EF7 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43AE16152B965E000A2EF7 /* MapViewController.xib */; };
 		FA43AE20152B965E000A2EF7 /* RegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA43AE17152B965E000A2EF7 /* RegistrationViewController.xib */; };
+		FAC8B9D716D2D33300F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9D616D2D33300F03311 /* AVFoundation.framework */; };
+		FAC8B9D916D2D33700F03311 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9D816D2D33700F03311 /* Accelerate.framework */; };
+		FAC8B9DB16D2D33D00F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */; };
+		FAC8B9DD16D2D34200F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DC16D2D34200F03311 /* CoreMedia.framework */; };
+		FAC8B9DF16D2D34B00F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DE16D2D34B00F03311 /* AudioToolbox.framework */; };
 		FAE86FF215EB705E002E16AA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86FF115EB705E002E16AA /* libresolv.dylib */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +99,11 @@
 		FA43AE15152B965E000A2EF7 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		FA43AE16152B965E000A2EF7 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		FA43AE17152B965E000A2EF7 /* RegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrationViewController.xib; sourceTree = "<group>"; };
+		FAC8B9D616D2D33300F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FAC8B9D816D2D33700F03311 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAC8B9DC16D2D34200F03311 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FAC8B9DE16D2D34B00F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FAE86FF115EB705E002E16AA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -102,6 +112,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC8B9DF16D2D34B00F03311 /* AudioToolbox.framework in Frameworks */,
+				FAC8B9DD16D2D34200F03311 /* CoreMedia.framework in Frameworks */,
+				FAC8B9DB16D2D33D00F03311 /* CoreVideo.framework in Frameworks */,
+				FAC8B9D916D2D33700F03311 /* Accelerate.framework in Frameworks */,
+				FAC8B9D716D2D33300F03311 /* AVFoundation.framework in Frameworks */,
 				ED6EE5FC16773B96004BCAC7 /* Quickblox.framework in Frameworks */,
 				FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */,
 				8A2F268514F7F1F900292876 /* CoreLocation.framework in Frameworks */,
@@ -146,6 +161,11 @@
 		8A2F265A14F7F0D300292876 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAC8B9DE16D2D34B00F03311 /* AudioToolbox.framework */,
+				FAC8B9DC16D2D34200F03311 /* CoreMedia.framework */,
+				FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */,
+				FAC8B9D816D2D33700F03311 /* Accelerate.framework */,
+				FAC8B9D616D2D33300F03311 /* AVFoundation.framework */,
 				FA38CC5A1614758600BDD29A /* libxml2.2.dylib */,
 				FAE86FF115EB705E002E16AA /* libresolv.dylib */,
 				8A2F268614F7F1FF00292876 /* libz.dylib */,
@@ -439,6 +459,16 @@
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "SimpleSample-location_users-ios";
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF0288AA-998C-4684-9C01-C6670357947E";
@@ -460,6 +490,11 @@
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "SimpleSample-location_users-ios";
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
 				TARGETED_DEVICE_FAMILY = 1;

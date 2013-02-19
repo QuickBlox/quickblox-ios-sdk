@@ -19,7 +19,7 @@ enum {
 	DDXMLElementDeclarationKind     = XML_ELEMENT_DECL,
 	DDXMLNotationDeclarationKind    = XML_NOTATION_NODE
 };
-typedef NSUInteger DDXMLNodeKind;
+typedef NSUInteger QBDDXMLNodeKind;
 
 enum {
 	DDXMLNodeOptionsNone            = 0,
@@ -76,7 +76,7 @@ enum {
 
 #pragma mark --- Properties ---
 
-- (DDXMLNodeKind)kind;
+- (QBDDXMLNodeKind)kind;
 
 - (void)setName:(NSString *)name;
 - (NSString *)name;

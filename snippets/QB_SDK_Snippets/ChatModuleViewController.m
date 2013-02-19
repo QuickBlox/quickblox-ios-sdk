@@ -8,7 +8,7 @@
 
 #import "ChatModuleViewController.h"
 
-#define testRoomName @"footballFansFroup5"
+#define testRoomName @"publicroom444"
 
 @interface ChatModuleViewController ()
 
@@ -16,6 +16,7 @@
 
 @implementation ChatModuleViewController
 @synthesize tableView = _tableView;
+@synthesize testRoom;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -186,13 +187,13 @@
                 // Login
                 case 0:{
                     QBUUser *user = [QBUUser user];
-#if (TARGET_IPHONE_SIMULATOR)
-                    user.ID = 298;
-                    user.password = @"bobbobbob";
-#else
+//#if (TARGET_IPHONE_SIMULATOR)
+//                    user.ID = 298;
+//                    user.password = @"bobbobbob";
+//#else
                     user.ID = 300;
                     user.password = @"emma";
-#endif
+//#endif
                     [[QBChat instance] loginWithUser:user];
                 }
                     
@@ -229,7 +230,6 @@
                     QBChatMessage* message = [[QBChatMessage alloc] init];
                     [message setText:@"Hello iOS developer!"];
                     [message setRecipientID:300];
-                    [message setSenderID:300];
                     
                     [[QBChat instance] sendMessage:message];
                     
@@ -245,13 +245,19 @@
             switch (indexPath.row) {
                 // Create new public room with name
                 case 0:{
-                    [[QBChat instance] createRoomWithName:testRoomName];// room's name must be without spaces
+                    self.testRoom = nil;
+                    
+                    // room's name must be without spaces
+                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:NO];
                 }
                 break;
                     
                 // Create new only members room with name
                 case 1:{
-                    [[QBChat instance] createPrivateRoomWithName:testRoomName];// room's name must be without spaces
+                    self.testRoom = nil;
+                    
+                    // room's name must be without spaces
+                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:YES persistent:NO];
                 }
                     break;
                     
@@ -269,7 +275,7 @@
                     
                 // Send message
                 case 4:{
-                    [[QBChat instance] sendMessage:@"hello" toRoom:testRoom];
+                    [[QBChat instance] sendMessage:@"Hello to room!" toRoom:testRoom];
                 }
                 break;
                 
@@ -348,26 +354,24 @@
 //
 
 - (void)chatDidReceiveListOfRooms:(NSArray *)_rooms{
-    NSLog(@"Did receive list of rooms:");
+    NSLog(@"Did receive list of rooms: %@", _rooms);
     for (QBChatRoom* room in _rooms) {
         if([room.name isEqualToString:testRoomName]){
-            testRoom = [room retain];
+            self.testRoom = room;
         }
-        NSLog(@"%@",[room name]);
     }
-}
-
-- (void)chatRoomDidCreate:(QBChatRoom*)room{
-    NSLog(@"Room did create: %@", room.name);
-    testRoom = [room retain];
 }
 
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName{
     NSLog(@"Did receive message: %@, from room %@", message, roomName);
 }
 
-- (void)chatRoomDidEnter:(NSString *)roomName{
-     NSLog(@"chatRoomDidEnter: %@", roomName);
+- (void)chatRoomDidEnter:(QBChatRoom *)room{
+    if(room != self.testRoom){
+        self.testRoom = room;
+    }
+
+    NSLog(@"chatRoomDidEnter: %@ %@", room.name, room.xmppRoom);
 }
 
 - (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error{
@@ -376,6 +380,7 @@
 
 - (void)chatRoomDidLeave:(NSString *)roomName{
     NSLog(@"chatRoomDidLeave: %@", roomName);
+    self.testRoom = nil;
 }
 
 - (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName{

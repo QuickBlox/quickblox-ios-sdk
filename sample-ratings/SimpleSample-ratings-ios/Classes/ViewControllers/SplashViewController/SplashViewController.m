@@ -24,7 +24,9 @@
     [super viewDidLoad];
     [activityIndicator startAnimating];  
     
-    // QuickBlox application authorization
+    // Your app connects to QuickBlox server here.
+    //
+    // QuickBlox session creation
     QBASessionCreationRequest *extendedAuthRequest = [[QBASessionCreationRequest alloc] init];
     extendedAuthRequest.userLogin = @"emma";
     extendedAuthRequest.userPassword = @"emma";

@@ -103,7 +103,6 @@
         // send message
         QBChatMessage *message = [[QBChatMessage alloc] init];
         message.recipientID = opponent.ID;
-        message.senderID = [[DataManager shared] currentUser].ID;
         message.text = self.sendMessageField.text;
         [[QBChat instance] sendMessage:message];
 
