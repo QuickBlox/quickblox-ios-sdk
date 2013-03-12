@@ -50,7 +50,6 @@
     NSData *MESSAGE_INTEGRITY;
 }
 @property (nonatomic, retain) QBGCDAsyncUdpSocket *udpSocketVideo;
-@property (nonatomic, retain) QBGCDAsyncUdpSocket *udpSocketAudio;
 
 @property (nonatomic, retain) QBGCDAsyncSocket *tcpSocketControl;
 @property (nonatomic, retain) QBGCDAsyncSocket *tcpSocketData;
@@ -91,6 +90,7 @@ enum QBTURNResponseType{
     TURNResponseTypePermisison,
     TURNResponseTypeConnectionAttempt,
     TURNResponseTypeConnectionBind,
+    TURNResponseTypeConnectionBindFail,
     TURNResponseTypeRefresh,
     TURNResponseTypeIndication,
     TURNResponseTypeUndefined

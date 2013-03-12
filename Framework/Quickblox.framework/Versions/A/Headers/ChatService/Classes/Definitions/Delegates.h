@@ -16,6 +16,8 @@
  set [QBChat instance].delegate to your implementation instance to receive callbacks from QBChat
  */
 
+@class QBChatContactList;
+
 @protocol QBChatDelegate <NSObject>
 @optional
 
@@ -63,6 +65,16 @@
 
 
 #pragma mark -
+#pragma mark Roster
+
+- (void)chatDidReceiveContactList:(QBChatContactList *)contactList;
+
+- (void)chatDidAddedUserWithID:(NSUInteger)userID andName:(NSString*)userName toContactList:(QBChatContactList*)contactList;
+
+- (void)chatDidRemovedUserWithID:(NSUInteger)userID fromContactList:(QBChatContactList*)contactList;
+
+
+#pragma mark -
 #pragma mark Rooms
 
 /**
@@ -79,6 +91,14 @@
  @param roomName Name of room which reeived message
  */
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName;
+
+/**
+ Called when received room information. 
+ 
+ @param information Room information
+ @param roomName Name of room 
+ */
+- (void)chatRoomDidReceiveInformation:(NSDictionary *)information room:(NSString *)roomName;
 
 /**
  Fired when you did enter to room
@@ -103,6 +123,13 @@
 - (void)chatRoomDidLeave:(NSString *)roomName;
 
 /**
+ Fired when you did destroy room
+ 
+ @param Name of room which you have destroyed
+ */
+- (void)chatRoomDidDestroy:(NSString *)roomName;
+
+/**
  Called in case changing online users  
  
  @param onlineUsers Array of online users
@@ -117,6 +144,14 @@
  @param roomName Name of room which provides access to join
  */
 - (void)chatRoomDidReceiveListOfUsers:(NSArray *)users room:(NSString *)roomName;
+
+/**
+ Called in case receiving list of active users (joined)
+ 
+ @param users Array of joined users
+ @param roomName Name of room
+ */
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users room:(NSString *)roomName;
 
 
 #pragma mark -

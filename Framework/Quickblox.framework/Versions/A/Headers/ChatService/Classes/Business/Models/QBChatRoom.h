@@ -21,10 +21,17 @@
 /**
  Room's name
  */
-@property (readonly) NSString *name;
+@property (readonly, assign) NSString *name;
+
+/**
+ Is current user joined this room
+ */
+@property (readonly, assign) BOOL isJoined;
 
 /**
  Init QBChatRoom instance with name
+ If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
+ If room name contains ("),(&),('),(/),(:),(<),(>),(@) (double quote, ampersand, single quote, forward slash, colon, less than, greater than, at-sign) characters - they will be removed.
  
  @return QBChatRoom instance
  */
@@ -59,6 +66,16 @@
  Request all room's users, users who can join room
  */
 - (void)requestUsers;
+
+/**
+ Request room's online users
+ */
+- (void)requestOnlineUsers;
+
+/**
+ Request room information
+ */
+- (void)requestInformation;
 
 /**
  Get nick name of current room's creator

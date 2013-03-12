@@ -34,7 +34,6 @@
 @property(nonatomic, readonly) NSData* rawBody;
 @property(nonatomic, readonly) NSData* rawBodyWithoutEncode;
 @property(nonatomic, readonly) NSString* httpMethod;
-@property(readonly) NSURLRequest *request;
 
 @property(readonly) QBASIHTTPRequest* asirequestAsync;
 

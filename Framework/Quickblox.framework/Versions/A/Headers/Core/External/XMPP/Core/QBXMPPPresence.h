@@ -19,10 +19,12 @@
 + (QBXMPPPresence *)presence;
 + (QBXMPPPresence *)presenceWithType:(NSString *)type;
 + (QBXMPPPresence *)presenceWithType:(NSString *)type to:(QBXMPPJID *)to;
++ (QBXMPPPresence *)presenceWithStatus:(NSString *)status;
 
 - (id)init;
 - (id)initWithType:(NSString *)type;
 - (id)initWithType:(NSString *)type to:(QBXMPPJID *)to;
+- (id)initWithStatus:(NSString *)status;
 
 - (NSString *)type;
 
