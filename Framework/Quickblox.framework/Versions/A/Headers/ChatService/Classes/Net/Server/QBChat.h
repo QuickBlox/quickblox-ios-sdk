@@ -2,7 +2,7 @@
 //  QBChat.h
 //  Chat
 //
-//  Copyright 2012 QuickBlox team. All rights reserved.
+//  Copyright 2013 QuickBlox team. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -29,7 +29,13 @@ typedef enum QBChatServiceError {
     QBUUser *qbUser;
 }
 
+/** QBChat delegate for callbacks */
+@property (nonatomic, retain) id<QBChatDelegate> delegate;
 
+/** Mute Video Chat */
+@property (nonatomic, assign) BOOL muteVideoChat;
+
+    
 #pragma mark -
 #pragma mark Base Messaging
 
@@ -41,10 +47,10 @@ typedef enum QBChatServiceError {
 + (QBChat *)instance;
 
 /**
- Authorize on QBChat
+ Authorize on QuickBlox Chat
  
  @param user QBUUser structure represents user's login. Required user's fields: ID, password;
- @return NO if user was logged in before method call, YES if user was not logged in
+ @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)loginWithUser:(QBUUser *)user;
 
@@ -58,7 +64,7 @@ typedef enum QBChatServiceError {
 /**
  Logout current user from Chat
  
- @return YES if user was logged in before method call, NO if user was not logged in
+ @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)logout;
 
@@ -66,12 +72,14 @@ typedef enum QBChatServiceError {
  Send message
  
  @param message QBChatMessage structure which contains message text and recipient id
- @return YES if user was logged in before method call, NO if user was not logged in
+ @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendMessage:(QBChatMessage *)message;
 
 /**
  Send presence message to Chat server. Session will be closed in 90 seconds since last activity.
+ 
+ @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendPresence;
 
@@ -82,71 +90,113 @@ typedef enum QBChatServiceError {
  */
 - (QBUUser *)currentUser;
 
-/**
- QBChat delegate for callbacks
- */
-@property (nonatomic, retain) id<QBChatDelegate> delegate;
-
 
 #pragma mark -
 #pragma mark Rooms
 
 /**
- Create room or join if room with this name already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called
+ Create room or join if room with this name already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
+ If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
+ If room name contains ("),(&),('),(/),(:),(<),(>),(@) (double quote, ampersand, single quote, forward slash, colon, less than, greater than, at-sign) characters - they will be removed.
  
  @param name Room name
  @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
  @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
+ @return YES if the request was sent successfully. If not - see log.
  */
-- (void)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent;
+- (BOOL)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent;
 
 /**
  Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
  
  @param room Room to join
+ @return YES if the request was sent successfully. If not - see log.
  */
-- (void)joinRoom:(QBChatRoom *)room;
+- (BOOL)joinRoom:(QBChatRoom *)room;
 
 /**
  Leave joined room. QBChatDelegate's method 'chatRoomDidLeave:' will be called
  
  @param room Room to leave
+ @return YES if the request was sent successfully. If not - see log.
  */
-- (void)leaveRoom:(QBChatRoom *)room;
+- (BOOL)leaveRoom:(QBChatRoom *)room;
+
+/**
+ Destroy room. You can destroy room only if you are room owner or added to only members room by its owner. QBChatDelegate's method 'chatRoomDidDestroy:' will be called
+ 
+ @param room Room to destroy
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)destroyRoom:(QBChatRoom *)room;
 
 /**
  Send message to room
  
  @param message Message body
  @param room Room to send message
+ @return YES if the request was sent successfully. If not - see log.
  */
-- (void)sendMessage:(NSString *)message toRoom:(QBChatRoom *)room;
+- (BOOL)sendMessage:(NSString *)message toRoom:(QBChatRoom *)room;
 
 /**
  Send request for getting list of public groups. QBChatDelegate's method 'chatDidReceiveListOfRooms:' will be called
+ 
+ @return YES if the request was sent successfully. If not - see log.
  */
-- (void)requestAllRooms;
+- (BOOL)requestAllRooms;
+
+/**
+ Send request for getting room information. QBChatDelegate's method 'chatRoomDidReceiveInformation:room:' will be called
+ 
+ @param room Room, which information you need to retrieve
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)requestRoomInformation:(QBChatRoom *)room;
+
+/**
+ Request users who are able to join a room. QBChatDelegate's method 'chatRoomDidReceiveListOfUsers:room:' will be called
+ 
+ @param room Room
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)requestRoomUsers:(QBChatRoom *)room;
+
+/**
+ Request users who are joined a room. QBChatDelegate's method 'chatRoomDidReceiveListOfOnlineUsers:room:' will be called
+ 
+ @param room Room
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)requestRoomOnlineUsers:(QBChatRoom *)room;
 
 /**
  Send request to adding users to room.
  
- @param usersIDs Array of users' IDs 
+ @param usersIDs Array of users' IDs
  @param room Room in which users will be added
+ @return YES if the request was sent successfully. If not - see log.
  */
-- (void)addUsers:(NSArray *)usersIDs toRoom:(QBChatRoom *)room;
-
-/**
- Request users who are able to join a room. QBChatDelegate's method 'chatRoomDidReceiveListOfUsers:room:' will be called
- */
-- (void)requestRoomUsers:(QBChatRoom *)room;
+- (BOOL)addUsers:(NSArray *)usersIDs toRoom:(QBChatRoom *)room;
 
 /**
  Send request to remove users from room
  
  @param usersIDs Array of users' IDs
  @param room Room from which users will be removed
+ @return YES if the request was sent successfully. If not - see log.
  */
-- (void)deleteUsers:(NSArray *)usersIDs fromRoom:(QBChatRoom *)room;
+- (BOOL)deleteUsers:(NSArray *)usersIDs fromRoom:(QBChatRoom *)room;
+
+/**
+ Validate room name.
+ If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
+ If room name contains ("),(&),('),(/),(:),(<),(>),(@) (double quote, ampersand, single quote, forward slash, colon, less than, greater than, at-sign) characters - they will be removed.
+ 
+ @param roomName Name of room
+ @return Valid name of room
+ */
++ (NSString *)roomNameToValidRoomName:(NSString *)roomName;
 
 
 #pragma mark -
@@ -179,7 +229,6 @@ typedef enum QBChatServiceError {
 #pragma mark -
 #pragma mark Deprecated
 
-
 /**
  @warning *Deprecated in QB iOS SDK 1.5:* You have to use method '- (void)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent' with isMembersOnly=NO and isPersistent=NO params instead
  
@@ -187,7 +236,7 @@ typedef enum QBChatServiceError {
  
  @param name Room name
  */
-- (void)createRoomWithName:(NSString *)name __attribute__((deprecated()));
+- (BOOL)createRoomWithName:(NSString *)name __attribute__((deprecated()));
 
 /**
  @warning *Deprecated in QB iOS SDK 1.5:* You have to use method '- (void)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent' with isMembersOnly=YES and isPersistent=NO params instead
@@ -196,6 +245,6 @@ typedef enum QBChatServiceError {
  
  @param name Room name
  */
-- (void)createPrivateRoomWithName:(NSString *)name __attribute__((deprecated()));
+- (BOOL)createPrivateRoomWithName:(NSString *)name __attribute__((deprecated()));
 
 @end

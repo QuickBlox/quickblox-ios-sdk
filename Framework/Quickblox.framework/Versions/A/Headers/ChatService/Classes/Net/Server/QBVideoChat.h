@@ -25,7 +25,10 @@
 #define qbvideochat_sendTURNRelayAddress @"qbvideochat_sendTURNRelayAddress"
 
 
-@interface QBVideoChat : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface QBVideoChat : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>{
+    
+}
+@property (assign) NSUInteger videoChatOpponentID;
 
 + (QBVideoChat *)instanceWithXMPPStream:(QBXMPPStream *)xmppStream;
 
@@ -33,6 +36,8 @@
 - (void)acceptCall;
 - (void)rejectCall;
 - (void)finishCall;
+
+- (void)enableMicrophone:(BOOL)isEnable;
 
 - (void)didReceiveVideoMessage:(QBXMPPMessage *)message;
 

@@ -24,16 +24,7 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import <Accelerate/Accelerate.h>
-
-#if defined __MAC_OS_X_VERSION_MAX_ALLOWED
-    #define USING_OSX 
-    #include <CoreAudio/CoreAudio.h>
-#else
-    #define USING_IOS
-#endif
-
 #include <Block.h>
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -73,15 +64,10 @@ OSStatus qbRenderCallback (void						*inRefCon,
                          UInt32						inNumberFrames,
                          AudioBufferList				* ioData);
 
-
-#if defined (USING_IOS)
 void qbSessionPropertyListener(void *                  inClientData,
 							 AudioSessionPropertyID  inID,
 							 UInt32                  inDataSize,
 							 const void *            inData);
-
-#endif
-
 
 void qbSessionInterruptionListener(void *inClientData, UInt32 inInterruption);
 
@@ -92,13 +78,8 @@ void qbSessionInterruptionListener(void *inClientData, UInt32 inInterruption);
 typedef void (^QBOutputBlock)(float *data, UInt32 numFrames, UInt32 numChannels);
 typedef void (^QBInputBlock)(float *data, UInt32 numFrames, UInt32 numChannels);
 
-
-#if defined (USING_IOS)
-@interface QBNovocaine : NSObject <UIAlertViewDelegate>
-#elif defined (USING_OSX)
-@interface QBNovocaine : NSObject
-#endif
-{    
+@interface QBNovocaine : NSObject <UIAlertViewDelegate>{
+    
 	// Audio Handling
 	AudioUnit inputUnit;
     AudioUnit outputUnit;
@@ -123,16 +104,6 @@ typedef void (^QBInputBlock)(float *data, UInt32 numFrames, UInt32 numChannels);
     float *outData;
 	
 	BOOL playing;
-    // BOOL playThroughEnabled;
-	
-    
-#if defined (USING_OSX)
-    AudioDeviceID *deviceIDs;
-    NSMutableArray *deviceNames;
-    AudioDeviceID defaultInputDeviceID;
-    NSString *defaultDeviceName;
-#endif
-    
 }
 
 @property AudioUnit inputUnit;
@@ -155,17 +126,6 @@ typedef void (^QBInputBlock)(float *data, UInt32 numFrames, UInt32 numChannels);
 @property float *inData;
 @property float *outData;
 
-#if defined (USING_OSX)
-@property AudioDeviceID *deviceIDs;
-@property (nonatomic, retain) NSMutableArray *deviceNames;
-@property  AudioDeviceID defaultInputDeviceID;
-@property (nonatomic, retain) NSString *defaultInputDeviceName;
-@property  AudioDeviceID defaultOutputDeviceID;
-@property (nonatomic, retain) NSString *defaultOutputDeviceName;
-- (void)enumerateAudioDevices;
-#endif
-
-
 // Singleton methods
 + (QBNovocaine *) audioManager;
 
@@ -175,15 +135,11 @@ typedef void (^QBInputBlock)(float *data, UInt32 numFrames, UInt32 numChannels);
 - (void)pause;
 - (void)setupAudio;
 - (void)ifAudioInputIsAvailableThenSetupAudioSession;
-
-#if defined ( USING_IOS )
 - (void)checkSessionProperties;
 - (void)checkAudioSource;
-#endif
-
 - (void)routeToSpeaker;
 - (void)routeToHeadphone;
--(void) routeSpeaker;
--(void) routeToDefaultSpeaker;
+- (void)routeSpeaker;
+- (void)routeToDefaultSpeaker;
 
 @end

@@ -136,6 +136,25 @@
 
 
 #pragma mark -
+#pragma mark Timeout
+
+/**
+ Set request timeout
+ 
+ @param timeOutseconds timeout in seconds
+ */
+
++ (void)setTimeOutSeconds:(int)timeOutseconds;
+
+/**
+ Get request timeout.
+ 
+ @return Request timeout in seconds
+ */
++ (int)timeOutSeconds;
+
+
+#pragma mark -
 #pragma mark REST-API-Version
 
 /**

@@ -12,6 +12,8 @@
 }
 @property (nonatomic, retain) PagedRequest *pagedRequest;
 @property (nonatomic, retain) NSString *ids;
+@property (nonatomic, retain) NSArray *logins;
+@property (nonatomic, retain) NSArray *emails;
 
 -(id)initWithRequest:(PagedRequest *)_pagedRequest;
 

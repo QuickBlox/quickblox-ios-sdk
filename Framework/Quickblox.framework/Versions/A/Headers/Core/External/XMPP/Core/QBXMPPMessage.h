@@ -21,6 +21,7 @@
 - (id)init;
 
 - (BOOL)isChatMessage;
+- (BOOL)isNormalMessage;
 - (BOOL)isChatMessageWithBody;
 - (BOOL)isErrorMessage;
 - (BOOL)isMessageWithBody;
