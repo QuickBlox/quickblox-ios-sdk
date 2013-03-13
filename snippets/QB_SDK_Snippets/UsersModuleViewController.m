@@ -64,7 +64,7 @@
     if(section == 0){
         return 6;
     }else if(section == 1){
-        return 10;
+        return 12;
     }else if(section == 2){
         return 1;
     }else if(section == 3){
@@ -187,37 +187,36 @@
                 }
                     break;
                     
-                // Get users with ids
-                case 1:{
-                    if(withAdditionalRequest){
-                        PagedRequest *pagedRequest = [PagedRequest request];
-                        pagedRequest.perPage = 3;
-                        pagedRequest.page = 2;
-                        
-                        if(withContext){
-                            [QBUsers usersWithIDs:@"291,298" pagedRequest:pagedRequest delegate:self context:testContext];
-                        }else{
-                            [QBUsers usersWithIDs:@"291,298" pagedRequest:pagedRequest delegate:self];
-                        }
-                        
-                    }else{
-                        if(withContext){
-                            [QBUsers usersWithIDs:@"291,298" delegate:self context:testContext];
-                        }else{
-                            [QBUsers usersWithIDs:@"291,298" delegate:self];
-                        }
-                    }
-                }
-                    break;
-
-                    
                 // Get user by ID
-                case 2:{
+                case 1:{
                     if(withContext){
                         [QBUsers userWithID:14605 delegate:self context:testContext];
                     }else{
                         [QBUsers userWithID:14605 delegate:self];
                     }  
+                }
+                    break;
+                    
+                // Get users with ids
+                case 2:{
+                    if(withAdditionalRequest){
+                        PagedRequest *pagedRequest = [PagedRequest request];
+                        pagedRequest.perPage = 3;
+                        pagedRequest.page = 1;
+                        
+                        if(withContext){
+                            [QBUsers usersWithIDs:@"300,298" pagedRequest:pagedRequest delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithIDs:@"300,298" pagedRequest:pagedRequest delegate:self];
+                        }
+                        
+                    }else{
+                        if(withContext){
+                            [QBUsers usersWithIDs:@"300,298" delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithIDs:@"300,298" delegate:self];
+                        }
+                    }
                 }
                     break;
                     
@@ -231,10 +230,33 @@
                 }
                     break;
                     
-                // Get users by fullname
+                // Get user by logins
                 case 4:{
                     if(withAdditionalRequest){
-                        PagedRequest *pagedRequest = [[PagedRequest alloc] init];
+                        PagedRequest *pagedRequest = [PagedRequest request];
+                        pagedRequest.perPage = 3;
+                        pagedRequest.page = 1;
+
+                        if(withContext){
+                            [QBUsers usersWithLogins:@[@"emma", @"Javck"] pagedRequest:pagedRequest delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithLogins:@[@"emma", @"Javck"] pagedRequest:pagedRequest delegate:self];
+                        }
+                        
+                    }else{
+                        if(withContext){
+                            [QBUsers usersWithLogins:@[@"emma", @"Javck"] delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithLogins:@[@"emma", @"Javck"] delegate:self];
+                        }
+                    }
+                }
+                    break;
+                    
+                // Get users by fullname
+                case 5:{
+                    if(withAdditionalRequest){
+                        PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 1;
                         pagedRequest.page = 1;
                         
@@ -243,8 +265,7 @@
                         }else{
                             [QBUsers usersWithFullName:@"Javck Bold" pagedRequest:pagedRequest delegate:self];
                         }
-                        
-                        [pagedRequest release];
+  
                     }else{
                         if(withContext){
                             [QBUsers usersWithFullName:@"Javck Bold" delegate:self context:testContext];
@@ -256,7 +277,7 @@
                     break;
                     
                 // Get user by facebook ID
-                case 5:{
+                case 6:{
                     if(withContext){
                         [QBUsers userWithFacebookID:@"124343453463463" delegate:self context:testContext];
                     }else{
@@ -266,7 +287,7 @@
                     break;
                     
                 // Get user by twitter ID
-                case 6:{
+                case 7:{
                     if(withContext){
                         [QBUsers userWithTwitterID:@"142345256" delegate:self context:testContext];
                     }else{
@@ -276,7 +297,7 @@
                     break;
                     
                 // Get user by email
-                case 7:{
+                case 8:{
                     if(withContext){
                         [QBUsers userWithEmail:@"Javck@mail.com" delegate:self context:testContext];
                     }else{
@@ -285,8 +306,31 @@
                 }
                     break;
                     
+                // Get user by emails
+                case 9:{
+                    if(withAdditionalRequest){
+                        PagedRequest *pagedRequest = [PagedRequest request];
+                        pagedRequest.perPage = 5;
+                        pagedRequest.page = 1;
+                        
+                        if(withContext){
+                            [QBUsers usersWithEmails:@[@"Javck@mail.com", @"abc@gmail.com"] pagedRequest:pagedRequest delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithEmails:@[@"Javck@mail.com", @"abc@gmail.com"] pagedRequest:pagedRequest delegate:self];
+                        }
+                        
+                    }else{
+                        if(withContext){
+                            [QBUsers usersWithEmails:@[@"Javck@mail.com", @"abc@gmail.com"] delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithEmails:@[@"Javck@mail.com", @"abc@gmail.com"] delegate:self];
+                        }
+                    }
+                }
+                    break;
+                    
                 // Get users by tags
-                case 8:{
+                case 10:{
                     if(withContext){
                         [QBUsers usersWithTags:[NSArray arrayWithObjects:@"man", nil] delegate:self context:testContext];
                     }else{
@@ -296,7 +340,7 @@
                     break;
                     
                 // Get user by external ID
-                case 9:{
+                case 11:{
                     if(withContext){
                         [QBUsers userWithExternalID:555 delegate:self context:testContext];
                     }else{
@@ -430,30 +474,36 @@
                     cell.textLabel.text = @"Get all users";
                     break;
                 case 1:
-                    cell.textLabel.text = @"Get users with ids";
+                    cell.textLabel.text = @"Get user by ID";
                     break;
                 case 2:
-                    cell.textLabel.text = @"Get user by ID";
+                    cell.textLabel.text = @"Get users with ids";
                     break;
                 case 3:
                     cell.textLabel.text = @"Get user by login";
                     break;
                 case 4:
-                    cell.textLabel.text = @"Get users by fullname";
+                    cell.textLabel.text = @"Get user by logins";
                     break;
                 case 5:
-                    cell.textLabel.text = @"Get user by facebook ID";
+                    cell.textLabel.text = @"Get users by fullname";
                     break;
                 case 6:
-                    cell.textLabel.text = @"Get user by twitter ID";
+                    cell.textLabel.text = @"Get user by facebook ID";
                     break;
                 case 7:
-                    cell.textLabel.text = @"Get user by email";
+                    cell.textLabel.text = @"Get user by twitter ID";
                     break;
                 case 8:
-                    cell.textLabel.text = @"Get users by tags";
+                    cell.textLabel.text = @"Get user by email";
                     break;
                 case 9:
+                    cell.textLabel.text = @"Get user by emails";
+                    break;
+                case 10:
+                    cell.textLabel.text = @"Get users by tags";
+                    break;
+                case 11:
                     cell.textLabel.text = @"Get user by external ID";
                     break;
                 default:
