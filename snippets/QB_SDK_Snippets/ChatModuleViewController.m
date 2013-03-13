@@ -264,7 +264,7 @@
                     self.testRoom = nil;
                     
                     // room's name must be without spaces
-                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:YES];
+                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:NO];
                 }
                 break;
                     
@@ -303,7 +303,7 @@
                 
                 // Add users to room
                 case 6:{
-                    NSNumber *user = [NSNumber numberWithInt:298];
+                    NSNumber *user = [NSNumber numberWithInt:4335];
                     NSArray *users = [NSArray arrayWithObject:user];
                     
                     [[QBChat instance] addUsers:users toRoom:testRoom];

@@ -9,7 +9,6 @@
 #import "LocationModuleViewController.h"
 
 @interface LocationModuleViewController ()
-
 @end
 
 @implementation LocationModuleViewController
