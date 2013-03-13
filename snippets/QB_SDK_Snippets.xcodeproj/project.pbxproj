@@ -14,7 +14,7 @@
 		FA08976D15DFAC4A009A60AE /* CustomObjectsModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA08976C15DFAC4A009A60AE /* CustomObjectsModuleViewController.m */; };
 		FA08977215DFAC6B009A60AE /* ChatModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA08976E15DFAC6B009A60AE /* ChatModuleViewController.xib */; };
 		FA08977315DFAC6B009A60AE /* CustomObjectsModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA08977015DFAC6B009A60AE /* CustomObjectsModuleViewController.xib */; };
-		FA45F64916D2923E00494306 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA45F64816D2923E00494306 /* Quickblox.framework */; };
+		FA11A90816F068580062DA8D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA11A90716F068580062DA8D /* Quickblox.framework */; };
 		FA7493F5166D061100CAC8E1 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7493F4166D061000CAC8E1 /* icon.png */; };
 		FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4D1D157E66CA00476EF7 /* UIKit.framework */; };
 		FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4D1F157E66CA00476EF7 /* Foundation.framework */; };
@@ -60,7 +60,7 @@
 		FA08976C15DFAC4A009A60AE /* CustomObjectsModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomObjectsModuleViewController.m; sourceTree = "<group>"; };
 		FA08976F15DFAC6B009A60AE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ChatModuleViewController.xib; sourceTree = "<group>"; };
 		FA08977115DFAC6B009A60AE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CustomObjectsModuleViewController.xib; sourceTree = "<group>"; };
-		FA45F64816D2923E00494306 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		FA11A90716F068580062DA8D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA7493F4166D061000CAC8E1 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		FA8E4D19157E66CA00476EF7 /* Snippets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snippets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8E4D1D157E66CA00476EF7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -127,7 +127,7 @@
 				FA8E4F291580A66000476EF7 /* CFNetwork.framework in Frameworks */,
 				FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */,
 				FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */,
-				FA45F64916D2923E00494306 /* Quickblox.framework in Frameworks */,
+				FA11A90816F068580062DA8D /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +157,7 @@
 		FA8E4D1C157E66CA00476EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FA45F64816D2923E00494306 /* Quickblox.framework */,
+				FA11A90716F068580062DA8D /* Quickblox.framework */,
 				FAEE165516C50B6100E32171 /* AudioToolbox.framework */,
 				FAEE165316C50AD700E32171 /* CoreMedia.framework */,
 				FAEE165116C50AC400E32171 /* Accelerate.framework */,
@@ -489,7 +489,7 @@
 					armv7,
 					armv7s,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (Y55R2UKMZS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -511,7 +511,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";
+				PROVISIONING_PROFILE = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
@@ -526,8 +526,8 @@
 					armv7,
 					armv7s,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
@@ -543,8 +543,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "8051AFB2-B2D6-4F54-86F7-465107A82ED7";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A3BD5519-8C48-4370-B783-A8B6A7D20DCF";
+				PROVISIONING_PROFILE = "81C59E21-1F63-4B73-9E53-245195C190E9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "81C59E21-1F63-4B73-9E53-245195C190E9";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

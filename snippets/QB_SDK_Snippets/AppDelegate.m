@@ -41,6 +41,7 @@
     UIViewController *viewController6 = [[[ContentModuleViewController alloc] initWithNibName:@"ContentModuleViewController" bundle:nil] autorelease];
     UIViewController *viewController7 = [[[ChatModuleViewController alloc] initWithNibName:@"ChatModuleViewController" bundle:nil] autorelease];
     UIViewController *viewController8 = [[[CustomObjectsModuleViewController alloc] initWithNibName:@"CustomObjectsModuleViewController" bundle:nil] autorelease];
+
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController8, viewController7, viewController4, viewController6,
@@ -52,10 +53,8 @@
     [QBSettings setApplicationID:92];
     [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
-
     
-
-    // Test zone
+//    // Test zone
 //    // Set QuickBlox credentials
 //    [QBSettings setApplicationID:6];
 //    [QBSettings setAuthorizationKey:@"4EGTYEqm6ESVRVV"];

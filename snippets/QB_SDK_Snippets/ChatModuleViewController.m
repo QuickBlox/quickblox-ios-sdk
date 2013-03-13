@@ -8,7 +8,7 @@
 
 #import "ChatModuleViewController.h"
 
-#define testRoomName @"publicroom444"
+#define testRoomName @"mypublicroom"
 
 @interface ChatModuleViewController ()
 
@@ -63,7 +63,7 @@
             numberOfRows = 1;
             break;
         case 2:
-            numberOfRows = 9;
+            numberOfRows = 12;
             break;
     }
     return numberOfRows;
@@ -80,6 +80,9 @@
             break;
         case 2:
             headerTitle = @"Rooms";
+            break;
+        case 3:
+            headerTitle = @"Contact List";
             break;
         default:
             headerTitle = @"";
@@ -98,7 +101,7 @@
     }
     
     switch (indexPath.section) {
-            // section Sign In/Sign Out
+        // section Sign In/Sign Out
         case 0:
             switch (indexPath.row) {
                 case 0:
@@ -122,12 +125,12 @@
             }
             break;
             
-            // section 1 to 1 chat
+        // section 1 to 1 chat
         case 1:
             [cell.textLabel setText:@"Send message"];
             break;
             
-            // section Rooms
+        // section Rooms
         case 2:
             switch (indexPath.row) {
                 case 0:
@@ -165,11 +168,24 @@
                 case 8:
                     [cell.textLabel setText:@"Request room users"];
                     break;
+                
+                case 9:
+                    [cell.textLabel setText:@"Request room online users"];
+                    break;
                     
+                case 10:
+                    [cell.textLabel setText:@"Request room information"];
+                    break;
+                    
+                case 11:
+                    [cell.textLabel setText:@"Destroy room"];
+                    break;
                     
                 default:
                     break;
             }
+            break;
+        
         default:
             break;
     }
@@ -228,7 +244,7 @@
                 case 0:{
 
                     QBChatMessage* message = [[QBChatMessage alloc] init];
-                    [message setText:@"Hello iOS developer!"];
+                    [message setText:@"Hello QuickBlox developer!"];
                     [message setRecipientID:300];
                     
                     [[QBChat instance] sendMessage:message];
@@ -248,7 +264,7 @@
                     self.testRoom = nil;
                     
                     // room's name must be without spaces
-                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:NO];
+                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:YES];
                 }
                 break;
                     
@@ -275,7 +291,7 @@
                     
                 // Send message
                 case 4:{
-                    [[QBChat instance] sendMessage:@"Hello to room!" toRoom:testRoom];
+                    [[QBChat instance] sendMessage:@"Hello QuickBlox developer!" toRoom:testRoom];
                 }
                 break;
                 
@@ -308,10 +324,31 @@
                     [[QBChat instance] requestRoomUsers:testRoom];
                 }
                 break;
+                    
+                // Request room online users
+                case 9:{
+                    QBChatRoom *_room = [[QBChatRoom alloc] initWithRoomName:testRoomName];
+                    [_room requestOnlineUsers];
+                    [_room release];
+                }
+                    break;
+                    
+                // Request room information
+                case 10:{
+                    [[QBChat instance] requestRoomInformation:testRoom];
+                }
+                    break;
+                    
+                // Destroy room
+                case 11:{
+                    [[QBChat instance] destroyRoom:testRoom];
+                }
+                    break;
                 
                 default:
                     break;
             }
+            break;
             
         default:
             break;
@@ -383,12 +420,24 @@
     self.testRoom = nil;
 }
 
+- (void)chatRoomDidDestroy:(NSString *)roomName{
+    NSLog(@"chatRoomDidDestroy: %@", roomName);
+}
+
+- (void)chatRoomDidReceiveInformation:(NSDictionary *)information room:(NSString *)roomName{
+    NSLog(@"chatRoomDidReceiveInformation %@, %@",roomName, information);
+}
+
 - (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName{
     NSLog(@"chatRoomDidChangeOnlineUsers %@, %@",roomName, onlineUsers);
 }
 
 - (void)chatRoomDidReceiveListOfUsers:(NSArray *)users room:(NSString *)roomName{
     NSLog(@"chatRoomDidReceiveListOfUsers %@, %@",roomName, users);
+}
+
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users room:(NSString *)roomName{
+     NSLog(@"chatRoomDidReceiveListOfOnlineUsers %@, %@",roomName, users);
 }
 
 - (void)dealloc {
