@@ -23,6 +23,10 @@
     
     self.navigationController.navigationBarHidden = NO;
     [self setTitle:@"Login"];
+    
+    
+//    self.loginField.text = @"bobbobbob";
+//    self.passwordField.text = @"bobbobbob";
 }
 
 - (void)viewDidUnload
