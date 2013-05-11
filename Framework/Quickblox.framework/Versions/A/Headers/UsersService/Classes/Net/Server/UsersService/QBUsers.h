@@ -361,6 +361,35 @@
 
 
 #pragma mark -
+#pragma mark Get Users with phone numbers
+
+/**
+ Retrieve users with phone numbers (max 10 users, for more - use equivalent method with 'pagedRequest' argument)
+ 
+ Type of Result - QBUUserPagedResult
+ 
+ @param phoneNumbers Pnone numbers of users which you want to retrieve
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+/**
+ Retrieve users with phone numbers (with extended set of pagination parameters)
+ 
+ Type of Result - QBUUserPagedResult
+ 
+ @param phoneNumbers Pnone numbers of users which you want to retrieve
+ @param pagedRequest paged request
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
 #pragma mark Get User with external ID
 
 /**

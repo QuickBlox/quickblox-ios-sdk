@@ -24,8 +24,8 @@
     //
     // Create extended session request (for push notifications)
     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-    extendedAuthRequest.userLogin = @"emma";
-    extendedAuthRequest.userPassword = @"emma";
+    extendedAuthRequest.userLogin = @"bobbobbob";
+    extendedAuthRequest.userPassword = @"bobbobbob";
     
     // QuickBlox session creation
     [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self];

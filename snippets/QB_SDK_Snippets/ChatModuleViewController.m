@@ -8,7 +8,7 @@
 
 #import "ChatModuleViewController.h"
 
-#define testRoomName @"mypublicroom"
+#define testRoomName @"AmazingCreativeRoom"
 
 @interface ChatModuleViewController ()
 

@@ -488,6 +488,10 @@
     
     // Save new rooms
     for(QBChatRoom *room in rooms){
+        if([room.name isEqualToString:@"publicroom"]){
+            continue;
+        }
+        
         if(![[DataManager shared].rooms containsObject:room]){
             [[DataManager shared].rooms addObject:room];
         }

@@ -292,9 +292,9 @@
                     
                     // Send push
                     if(withContext){
-                        [QBMessages TSendPush:message toUsers:@"45288" delegate:self context:testContext];
+                        [QBMessages TSendPush:message toUsers:@"300" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPush:message toUsers:@"45288" delegate:self];
+                        [QBMessages TSendPush:message toUsers:@"300" delegate:self];
                     }
                     
                     [message release];

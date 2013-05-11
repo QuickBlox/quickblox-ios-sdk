@@ -374,7 +374,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -396,7 +396,7 @@
 				);
 				PRODUCT_NAME = "SimpleSample-content-ios";
 				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "61070765-F7A1-4048-BB1E-5CD876A4090E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8051AFB2-B2D6-4F54-86F7-465107A82ED7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
