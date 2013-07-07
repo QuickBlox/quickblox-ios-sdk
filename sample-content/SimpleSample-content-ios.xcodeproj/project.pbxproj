@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		43900C60162470230041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C5F162470230041381B /* Default-568h@2x.png */; };
+		BF011E73178968550076CA3B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF011E72178968550076CA3B /* QuartzCore.framework */; };
+		BF011E7717896B940076CA3B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF011E7617896B940076CA3B /* icon.png */; };
 		ED49FAA815B56E5200154AE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA715B56E5200154AE8 /* UIKit.framework */; };
 		ED49FAAA15B56E5200154AE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA915B56E5200154AE8 /* Foundation.framework */; };
 		ED49FAAC15B56E5200154AE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAAB15B56E5200154AE8 /* CoreGraphics.framework */; };
@@ -40,7 +42,9 @@
 
 /* Begin PBXFileReference section */
 		43900C5F162470230041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ED49FAA315B56E5200154AE8 /* SimpleSample-content-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-content-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF011E72178968550076CA3B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BF011E7617896B940076CA3B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		ED49FAA315B56E5200154AE8 /* Content.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Content.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED49FAA715B56E5200154AE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ED49FAA915B56E5200154AE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ED49FAAB15B56E5200154AE8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -83,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF011E73178968550076CA3B /* QuartzCore.framework in Frameworks */,
 				FAC8B9CB16D2CF4100F03311 /* AVFoundation.framework in Frameworks */,
 				FAC8B9C916D2CF3A00F03311 /* AudioToolbox.framework in Frameworks */,
 				FAC8B9C716D2CF3600F03311 /* Accelerate.framework in Frameworks */,
@@ -118,7 +123,7 @@
 		ED49FAA415B56E5200154AE8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ED49FAA315B56E5200154AE8 /* SimpleSample-content-ios.app */,
+				ED49FAA315B56E5200154AE8 /* Content.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 		ED49FAA615B56E5200154AE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF011E72178968550076CA3B /* QuartzCore.framework */,
 				ED6EE5E916773486004BCAC7 /* Quickblox.framework */,
 				FAC8B9CA16D2CF4100F03311 /* AVFoundation.framework */,
 				FAC8B9C816D2CF3A00F03311 /* AudioToolbox.framework */,
@@ -199,6 +205,7 @@
 			children = (
 				43900C5F162470230041381B /* Default-568h@2x.png */,
 				FAB04CFC15FDD6A400627F01 /* logo.png */,
+				BF011E7617896B940076CA3B /* icon.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -255,7 +262,7 @@
 			);
 			name = "SimpleSample-content-ios";
 			productName = SimpleSampleContent;
-			productReference = ED49FAA315B56E5200154AE8 /* SimpleSample-content-ios.app */;
+			productReference = ED49FAA315B56E5200154AE8 /* Content.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -294,6 +301,7 @@
 				FAB04D0315FDD6A400627F01 /* PhotoViewController.xib in Resources */,
 				FAB04D0415FDD6A400627F01 /* SplashViewController.xib in Resources */,
 				43900C60162470230041381B /* Default-568h@2x.png in Resources */,
+				BF011E7717896B940076CA3B /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -394,9 +402,9 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "SimpleSample-content-ios";
+				PRODUCT_NAME = Content;
 				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8051AFB2-B2D6-4F54-86F7-465107A82ED7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -418,7 +426,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "SimpleSample-content-ios";
+				PRODUCT_NAME = Content;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

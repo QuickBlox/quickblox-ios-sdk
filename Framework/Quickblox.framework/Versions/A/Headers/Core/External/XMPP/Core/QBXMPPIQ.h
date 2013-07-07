@@ -25,6 +25,7 @@
 + (QBXMPPIQ *)iq;
 + (QBXMPPIQ *)iqWithType:(NSString *)type;
 + (QBXMPPIQ *)iqWithType:(NSString *)type to:(QBXMPPJID *)jid;
++ (QBXMPPIQ *)iqWithType:(NSString *)type toStr:(NSString *)to elementID:(NSString *)eid;
 + (QBXMPPIQ *)iqWithType:(NSString *)type to:(QBXMPPJID *)jid elementID:(NSString *)eid;
 + (QBXMPPIQ *)iqWithType:(NSString *)type to:(QBXMPPJID *)jid elementID:(NSString *)eid child:(NSXMLElement *)childElement;
 
@@ -35,6 +36,7 @@
 - (id)init;
 - (id)initWithType:(NSString *)type;
 - (id)initWithType:(NSString *)type to:(QBXMPPJID *)jid;
+- (id)initWithType:(NSString *)type toStr:(NSString *)to elementID:(NSString *)eid;
 - (id)initWithType:(NSString *)type to:(QBXMPPJID *)jid elementID:(NSString *)eid;
 - (id)initWithType:(NSString *)type to:(QBXMPPJID *)jid elementID:(NSString *)eid child:(NSXMLElement *)childElement;
 

@@ -36,5 +36,4 @@
 -(void)handleEndOfElement:(NSString*)elementName;
 -(void)handleText:(NSString*)text currentElement:(NSString*)element;
 -(void)handleData:(NSData*)data currentElement:(NSString*)element;
-
 @end

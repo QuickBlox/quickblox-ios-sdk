@@ -85,9 +85,9 @@
                 case 0:{
                     
                     if(withContext){
-                        [QBUsers logInWithUserLogin:@"gram" password:@"gramgram" delegate:self context:testContext];
+                        [QBUsers logInWithUserLogin:@"injoitUser1" password:@"injoitUser1" delegate:self context:testContext];
                     }else{
-                        [QBUsers logInWithUserLogin:@"iostest3355" password:@"iostest3355"  delegate:self];
+                        [QBUsers logInWithUserLogin:@"injoitUser1" password:@"injoitUser1"  delegate:self];
                     }
                 }
                     break;
@@ -364,7 +364,8 @@
                     user.externalUserID = 555;
                     user.tags = [NSArray arrayWithObjects:@"man", @"travel", nil];
                     user.website = @"www.mysite.com";
-                    
+                    user.phone = @"88234234";
+
                     if(withContext){
                         [QBUsers updateUser:user delegate:self context:testContext];
                     }else{

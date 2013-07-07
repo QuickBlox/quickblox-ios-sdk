@@ -30,24 +30,7 @@
 extern "C" {
 #endif
 	
-static void QBCheckError(OSStatus error, const char *operation)
-{
-	if (error == noErr) return;
-	
-	char str[20];
-	// see if it appears to be a 4-char-code
-	*(UInt32 *)(str + 1) = CFSwapInt32HostToBig(error);
-	if (isprint(str[1]) && isprint(str[2]) && isprint(str[3]) && isprint(str[4])) {
-		str[0] = str[5] = '\'';
-		str[6] = '\0';
-	} else
-		// no, format it as an integer
-		sprintf(str, "%d", (int)error);
-    
-	fprintf(stderr, "Error: %s (%s)\n", operation, str);
-    
-	exit(1);
-}
+static void QBCheckError(OSStatus error, const char *operation);
 
 
 OSStatus qbInputCallback (void						*inRefCon,
@@ -126,6 +109,8 @@ typedef void (^QBInputBlock)(float *data, UInt32 numFrames, UInt32 numChannels);
 @property float *inData;
 @property float *outData;
 
+@property BOOL managingFromApplication;
+
 // Singleton methods
 + (QBNovocaine *) audioManager;
 
@@ -134,12 +119,12 @@ typedef void (^QBInputBlock)(float *data, UInt32 numFrames, UInt32 numChannels);
 - (void)play;
 - (void)pause;
 - (void)setupAudio;
+- (void)initializeInputUnit;
+- (void)releaseInputUnit;
 - (void)ifAudioInputIsAvailableThenSetupAudioSession;
 - (void)checkSessionProperties;
 - (void)checkAudioSource;
 - (void)routeToSpeaker;
 - (void)routeToHeadphone;
-- (void)routeSpeaker;
-- (void)routeToDefaultSpeaker;
 
 @end

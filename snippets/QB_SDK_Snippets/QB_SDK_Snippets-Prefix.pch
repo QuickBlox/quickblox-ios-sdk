@@ -9,7 +9,7 @@
 #endif
 
 #define withContext YES
-#define withAdditionalRequest NO
+#define withAdditionalRequest YES
 #define testContext @"testContext"
 
 #ifdef __OBJC__

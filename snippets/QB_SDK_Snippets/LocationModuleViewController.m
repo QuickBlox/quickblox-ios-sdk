@@ -9,6 +9,7 @@
 #import "LocationModuleViewController.h"
 
 @interface LocationModuleViewController ()
+
 @end
 
 @implementation LocationModuleViewController
@@ -116,9 +117,9 @@
                 // Update GeoData
                 case 3:{
                     QBLGeoData *geodata = [QBLGeoData geoData];
-                    geodata.ID = 34638;
-                    geodata.latitude = 13.2344;
-                    geodata.longitude = -42.23523;
+                    geodata.ID = 125176;
+                    geodata.latitude = 43.2344;
+                    geodata.longitude = -12.23523;
                     geodata.status = @"Hello, Man!";
                     
                     if(withContext){
@@ -143,7 +144,7 @@
                 // Delete multiple GeoData
                 case 5:{
                     QBLGeoDataDeleteRequest *deleteRequest = [[QBLGeoDataDeleteRequest alloc] init];
-                    deleteRequest.days = 2;
+                    deleteRequest.days = 5;
                     
                     if(withContext){
                         [QBLocation deleteGeoDataWithRequest:deleteRequest delegate:self context:testContext];

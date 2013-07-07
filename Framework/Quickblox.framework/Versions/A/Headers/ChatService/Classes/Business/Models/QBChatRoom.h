@@ -13,20 +13,22 @@
  */
 
 @interface QBChatRoom : NSObject <NSCoding, NSCopying>{
-@private
-	NSString* name;
-    id xmppRoom;
 }
 
 /**
- Room's name
+ Room name
  */
-@property (readonly, assign) NSString *name;
+@property (readonly) NSString *name;
+
+/**
+ Room JID
+ */
+@property (readonly) NSString *JID;
 
 /**
  Is current user joined this room
  */
-@property (readonly, assign) BOOL isJoined;
+@property (readonly) BOOL isJoined;
 
 /**
  Init QBChatRoom instance with name
@@ -76,21 +78,5 @@
  Request room information
  */
 - (void)requestInformation;
-
-/**
- Get nick name of current room's creator
- */
-- (NSString *)ownerNick;
-
-/**
- Get room name
- */
-- (NSString*)roomName;
-
-
-
-// private methods (do not use them)
-- (void)setXmppRoom:(id)room;
-- (id)xmppRoom;
 
 @end

@@ -57,6 +57,7 @@ public:
 	SInt64 NumChannels() {return mNumChannels; }
 	
 	void Clear();
+    void PrintData();
 	
 	// Analytics
 	float Mean(const SInt64 whichChannel = 0);

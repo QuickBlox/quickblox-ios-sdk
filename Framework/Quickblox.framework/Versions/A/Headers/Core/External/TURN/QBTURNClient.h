@@ -34,7 +34,7 @@
 #define xorPeerAddressKey @"xorPeerAddres"
 
 // Enable/disable auth (some TURN servers use auth, in some we can disable it)
-#define authEnable YES
+//#define authEnable YES
 
 // Enable/disable log
 #define log 1
@@ -61,13 +61,13 @@
 // over UDP
 - (void)sendAllocationRequest;
 - (void)sendPermissionRequestWithPeer:(NSData *)peer;
-- (void)sendRefreshRequest;
+- (void)sendRefreshRequestWithLifetime:(int)lifetime;
 //
 // over TCP
 - (void)sendAllocationRequestTCP;
 - (void)sendPermissionTCPRequestWithPeer:(NSData *)peer;
 - (void)sendConnectionBindRequestTCPWithConnectionID:(NSData *)connectionID;
-- (void)sendRefreshRequestTCP;
+- (void)sendRefreshRequestTCPWithLifetime:(int)lifetime;
 
 // STUN
 //
@@ -78,6 +78,9 @@
 // over TCP
 - (void)sendBindingRequestTCP;
 - (void)sendIndicationMessageTCP;
+
+// other
+- (void)setTcpSocketControl:(QBGCDAsyncSocket *)_tcpSocketControl andConnect:(BOOL)connect;
 
 @end
 
@@ -108,4 +111,5 @@ enum QBTURNResponseType{
 - (void)didReceiveConnectionBind;
 - (void)didFailWithError:(NSString *) error code:(int)errorCode;
 - (void)didConnectToTURNServerUsingTCP:(QBGCDAsyncSocket *)socket;
+- (void)chatTURNServerDidDisconnect;
 @end

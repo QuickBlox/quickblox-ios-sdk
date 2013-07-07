@@ -7,5 +7,12 @@
 //
 
 enum QBVideoChatConferenceType{
-    QBVideoChatConferenceTypeAudioAndVideo
+    QBVideoChatConferenceTypeUndefined = 0,
+    QBVideoChatConferenceTypeAudioAndVideo = 1,
+    QBVideoChatConferenceTypeAudio = 2,
+};
+
+enum QBContactListItemStatus{
+    QBContactListItemStatusOnline = 1,
+    QBContactListItemStatusOffline = 0,
 };

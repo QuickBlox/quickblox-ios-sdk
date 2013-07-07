@@ -286,15 +286,16 @@
                     NSMutableDictionary *aps = [NSMutableDictionary dictionary];
                     [aps setObject:@"default" forKey:QBMPushMessageSoundKey];
                     [aps setObject:mesage forKey:QBMPushMessageAlertKey];
+                    [aps setObject:@"5" forKey:QBMPushMessageBadgeKey];
                     [payload setObject:aps forKey:QBMPushMessageApsKey];
                     
                     QBMPushMessage *message = [[QBMPushMessage alloc] initWithPayload:payload];
                     
                     // Send push
                     if(withContext){
-                        [QBMessages TSendPush:message toUsers:@"300" delegate:self context:testContext];
+                        [QBMessages TSendPush:message toUsers:@"218650" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPush:message toUsers:@"300" delegate:self];
+                        [QBMessages TSendPush:message toUsers:@"218650" delegate:self];
                     }
                     
                     [message release];
@@ -304,9 +305,9 @@
                 // TSendPushWithText to users' ids
                 case 3:{
                     if(withContext){
-                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"45288" delegate:self context:testContext];
+                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"218650" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"45288" delegate:self];
+                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"218650" delegate:self];
                     }
                 }
                     break;

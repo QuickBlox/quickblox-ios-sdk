@@ -66,7 +66,9 @@ typedef enum QBGCDAsyncSocketError GCDAsyncSocketError;
 	dispatch_source_t writeTimer;
 	
 	NSMutableArray *readQueue;
-	NSMutableArray *writeQueue;
+	@public NSMutableArray *writeQueue;
+    @public NSMutableArray *writeVideoDataQueue;
+    @public NSMutableArray *writeAudioDataQueue;
 	
 	QBGCDAsyncReadPacket *currentRead;
 	QBGCDAsyncWritePacket *currentWrite;

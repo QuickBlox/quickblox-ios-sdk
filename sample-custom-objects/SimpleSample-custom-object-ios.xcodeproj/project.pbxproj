@@ -30,6 +30,7 @@
 		43E1415A160334B400891AD7 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E14159160334B400891AD7 /* libxml2.dylib */; };
 		43E1415C160334C100891AD7 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E1415B160334C100891AD7 /* libresolv.dylib */; };
 		43E1415E160334CD00891AD7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E1415D160334CD00891AD7 /* libz.dylib */; };
+		BF011E71178967DF0076CA3B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF011E70178967DE0076CA3B /* QuartzCore.framework */; };
 		ED6EE5F1167734CB004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5F0167734CB004BCAC7 /* Quickblox.framework */; };
 		FA876505160875E400EB1B58 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764F9160875E400EB1B58 /* MainViewController.m */; };
 		FA876506160875E400EB1B58 /* NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764FC160875E400EB1B58 /* NewNoteViewController.m */; };
@@ -45,7 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43658AE81603174E000F6748 /* SimpleSample-custom-object-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-custom-object-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43658AE81603174E000F6748 /* Custom Objects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Custom Objects.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43658AEC1603174E000F6748 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		43658AEE1603174E000F6748 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		43658AF01603174E000F6748 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -72,6 +73,7 @@
 		43E14159160334B400891AD7 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		43E1415B160334C100891AD7 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		43E1415D160334CD00891AD7 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		BF011E70178967DE0076CA3B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ED6EE5F0167734CB004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA8764F8160875E400EB1B58 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		FA8764F9160875E400EB1B58 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -97,6 +99,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF011E71178967DF0076CA3B /* QuartzCore.framework in Frameworks */,
+				43658AF11603174E000F6748 /* CoreGraphics.framework in Frameworks */,
 				FAC8B9D516D2D04F00F03311 /* Accelerate.framework in Frameworks */,
 				FAC8B9D316D2D04800F03311 /* CoreMedia.framework in Frameworks */,
 				FAC8B9D116D2D04300F03311 /* CoreVideo.framework in Frameworks */,
@@ -113,7 +117,6 @@
 				43E141461603340300891AD7 /* CoreData.framework in Frameworks */,
 				43658AED1603174E000F6748 /* UIKit.framework in Frameworks */,
 				43658AEF1603174E000F6748 /* Foundation.framework in Frameworks */,
-				43658AF11603174E000F6748 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,7 +136,7 @@
 		43658AE91603174E000F6748 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				43658AE81603174E000F6748 /* SimpleSample-custom-object-ios.app */,
+				43658AE81603174E000F6748 /* Custom Objects.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 		43658AEB1603174E000F6748 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF011E70178967DE0076CA3B /* QuartzCore.framework */,
 				FAC8B9D416D2D04F00F03311 /* Accelerate.framework */,
 				FAC8B9D216D2D04800F03311 /* CoreMedia.framework */,
 				FAC8B9D016D2D04300F03311 /* CoreVideo.framework */,
@@ -309,7 +313,7 @@
 			);
 			name = "SimpleSample-custom-object-ios";
 			productName = "SimpleSample-custom-object-ios";
-			productReference = 43658AE81603174E000F6748 /* SimpleSample-custom-object-ios.app */;
+			productReference = 43658AE81603174E000F6748 /* Custom Objects.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -438,7 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -458,9 +462,9 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Custom Objects";
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF0288AA-998C-4684-9C01-C6670357947E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -484,7 +488,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Custom Objects";
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF0288AA-998C-4684-9C01-C6670357947E";
 				WRAPPER_EXTENSION = app;
