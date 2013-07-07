@@ -6,13 +6,13 @@
 #import <Foundation/Foundation.h>
 
 #import "QBXMPP.h"
-#import "QBXMPPRoomOccupant.h"
 
 #define requestRoomUsersQueryIDPrefix @"561003"
 
-@interface QBXMPPRoom : QBXMPPModule
+@interface QBXMPPRoom : QBXMPPModule <NSCopying>
 {
-	NSString *roomName;
+	NSString *roomJID;
+    NSString *naturalLanguageRoomName;
 	NSString *nickName;
 	NSString *subject;
 	NSString *invitedUser;
@@ -23,10 +23,13 @@
     BOOL isPersistentRoom;
 }
 
-- (id)initWithRoomName:(NSString *)roomName nickName:(NSString *)nickName;
-- (id)initWithRoomName:(NSString *)roomName nickName:(NSString *)nickName dispatchQueue:(dispatch_queue_t)queue;
+- (id)initWithRoomJID:(NSString *)aRoomJID nickName:(NSString *)aNickName
+        naturalLanguageRoomName:(NSString *)aNaturalLanguageRoomName;
+- (id)initWithRoomJID:(NSString *)aRoomJID nickName:(NSString *)aNickName
+        naturalLanguageRoomName:(NSString *)aNaturalLanguageRoomName dispatchQueue:(dispatch_queue_t)queue;
 
-@property (readonly) NSString *roomName;
+@property (readonly) NSString *roomJID;
+@property (readonly) NSString *naturalLanguageRoomName;
 @property (readonly) NSString *nickName;
 @property (readonly) NSString *subject;
 
@@ -53,6 +56,8 @@
 - (void)requestUsers;
 
 - (void)sendMessage:(NSString *)msg;
+- (void)sendPresenceWithStatus:(NSString *)status;
+- (void)sendPresenceWithParameters:(NSDictionary *)parameters;
 
 + (NSDictionary *)Errors;
 

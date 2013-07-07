@@ -43,6 +43,7 @@
 		43774BEE160893D500DDBF12 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43774BED160893D500DDBF12 /* AppDelegate.m */; };
 		43EB039F1609BC2000A330FB /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EB039E1609BC2000A330FB /* pin.png */; };
 		43EB46A816241D4F00A88FF1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EB46A716241D4F00A88FF1 /* Default-568h@2x.png */; };
+		BF011E751789696E0076CA3B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF011E741789696E0076CA3B /* QuartzCore.framework */; };
 		ED6EE61F1677410A004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE61E1677410A004BCAC7 /* Quickblox.framework */; };
 		FAC54D3A1616FA0300A12A20 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC54D391616FA0300A12A20 /* ChatMessageTableViewCell.m */; };
 		FAC54D3D1616FA2700A12A20 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC54D3C1616FA2700A12A20 /* UserTableViewCell.m */; };
@@ -91,7 +92,7 @@
 		434E9CD41608A06300A4FB2D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		434E9CD61608A06F00A4FB2D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4374372E160C5E93006BAFCF /* room-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "room-icon.png"; sourceTree = "<group>"; };
-		43774BD9160893D500DDBF12 /* SimpleSample-chat_users-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-chat_users-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43774BD9160893D500DDBF12 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43774BDD160893D500DDBF12 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		43774BDF160893D500DDBF12 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		43774BE1160893D500DDBF12 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,6 +104,7 @@
 		43774BED160893D500DDBF12 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		43EB039E1609BC2000A330FB /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		43EB46A716241D4F00A88FF1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		BF011E741789696E0076CA3B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ED6EE61E1677410A004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FAC54D381616FA0300A12A20 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageTableViewCell.h; sourceTree = "<group>"; };
 		FAC54D391616FA0300A12A20 /* ChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageTableViewCell.m; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF011E751789696E0076CA3B /* QuartzCore.framework in Frameworks */,
 				FAEE166016C52E5F00E32171 /* AVFoundation.framework in Frameworks */,
 				FAEE165E16C52E5A00E32171 /* CoreVideo.framework in Frameworks */,
 				FAEE165C16C52E5300E32171 /* Accelerate.framework in Frameworks */,
@@ -268,7 +271,7 @@
 		43774BDA160893D500DDBF12 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				43774BD9160893D500DDBF12 /* SimpleSample-chat_users-ios.app */,
+				43774BD9160893D500DDBF12 /* Chat.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 		43774BDC160893D500DDBF12 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF011E741789696E0076CA3B /* QuartzCore.framework */,
 				FAEE165F16C52E5F00E32171 /* AVFoundation.framework */,
 				FAEE165D16C52E5A00E32171 /* CoreVideo.framework */,
 				FAEE165B16C52E5300E32171 /* Accelerate.framework */,
@@ -349,7 +353,7 @@
 			);
 			name = "SimpleSample-chat_users-ios";
 			productName = "SimpleSample-chat_users-ios";
-			productReference = 43774BD9160893D500DDBF12 /* SimpleSample-chat_users-ios.app */;
+			productReference = 43774BD9160893D500DDBF12 /* Chat.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -515,7 +519,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (Y55R2UKMZS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -536,9 +540,9 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Chat;
 				PROVISIONING_PROFILE = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF0288AA-998C-4684-9C01-C6670357947E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
@@ -566,7 +570,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Chat;
 				PROVISIONING_PROFILE = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";
 				SDKROOT = iphoneos;

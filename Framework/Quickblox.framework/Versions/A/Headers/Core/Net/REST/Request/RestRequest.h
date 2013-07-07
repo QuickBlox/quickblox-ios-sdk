@@ -13,8 +13,8 @@
 	NSArray *files;
 	NSData *body;
 	NSObject<RestRequestDelegate>* delegate;
-	//ProgressDispatcher* uploadDispatcher;
-	//ProgressDispatcher* downloadDispatcher;
+	ProgressDispatcher *uploadDispatcher;
+	ProgressDispatcher *downloadDispatcher;
 	NSRecursiveLock *canceledLock;
 	NSObject<Cancelable>* canceler;
 	BOOL isCanceled;
@@ -39,8 +39,8 @@
 
 
 @property(readonly) NSURL *finalURL;
-//@property(nonatomic, retain) ProgressDispatcher* uploadDispatcher;
-//@property(nonatomic, retain) ProgressDispatcher* downloadDispatcher;
+@property(nonatomic, retain) ProgressDispatcher *uploadDispatcher;
+@property(nonatomic, retain) ProgressDispatcher *downloadDispatcher;
 @property(nonatomic, retain) NSRecursiveLock *canceledLock;
 @property(nonatomic, retain) NSObject<Cancelable>* canceler;
 @property(nonatomic) BOOL shouldRedirect;

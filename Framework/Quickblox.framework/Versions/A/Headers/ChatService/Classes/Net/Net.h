@@ -6,4 +6,5 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
+#import "Server/QBVideoChat.h"
 #import "Server/QBChat.h"

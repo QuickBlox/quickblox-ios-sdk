@@ -9,6 +9,7 @@
 
 #define kStopVideoChatCallStatus_OpponentDidNotAnswer @"kStopVideoChatCallStatus_OpponentDidNotAnswer"
 #define kStopVideoChatCallStatus_Manually @"kStopVideoChatCallStatus_Manually"
+#define kStopVideoChatCallStatus_BadConnection @"kStopVideoChatCallStatus_BadConnection"
 
 /**
  QBChatDelegate protocol definition
@@ -16,7 +17,7 @@
  set [QBChat instance].delegate to your implementation instance to receive callbacks from QBChat
  */
 
-@class QBChatContactList;
+@class QBContactList, QBChatRoom, QBChatMessage;
 
 @protocol QBChatDelegate <NSObject>
 @optional
@@ -53,7 +54,7 @@
  
  @param error Error code from QBChatServiceError enum
  */
-- (void)chatDidFailWithError:(int)error;
+- (void)chatDidFailWithError:(int)code;
 
 /**
  Called in case receiving presence
@@ -65,13 +66,28 @@
 
 
 #pragma mark -
-#pragma mark Roster
+#pragma mark Contact list
 
-- (void)chatDidReceiveContactList:(QBChatContactList *)contactList;
+/**
+ Called in case receiving contact request
+ 
+ @param userID User ID from which received contact request
+ */
+- (void)chatDidReceiveContactAddRequestFromUser:(NSUInteger)userID;
 
-- (void)chatDidAddedUserWithID:(NSUInteger)userID andName:(NSString*)userName toContactList:(QBChatContactList*)contactList;
+/**
+ Called in case changing contact list
+ */
+- (void)chatContactListDidChange:(QBContactList *)contactList;
 
-- (void)chatDidRemovedUserWithID:(NSUInteger)userID fromContactList:(QBChatContactList*)contactList;
+/**
+ Called in case changing contact's online status
+ 
+ @param userID User which online status has changed
+ @param isOnline New user status (online or offline)
+ @param status Custom user status
+ */
+- (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status;
 
 
 #pragma mark -
@@ -99,6 +115,11 @@
  @param roomName Name of room 
  */
 - (void)chatRoomDidReceiveInformation:(NSDictionary *)information room:(NSString *)roomName;
+
+/**
+ Fired when room was successfully created
+ */
+- (void)chatRoomDidCreate:(NSString*)roomName;
 
 /**
  Fired when you did enter to room
@@ -161,9 +182,18 @@
  Called in case when opponent is calling to you
  
  @param userID ID of uopponent
- @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' value only available now
+ @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
  */
 -(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID conferenceType:(enum QBVideoChatConferenceType)conferenceType;
+
+/**
+ Called in case when opponent is calling to you
+ 
+ @param userID ID of uopponent
+ @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
+ @param customParameters Custom caller parameters
+ */
+-(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID conferenceType:(enum QBVideoChatConferenceType)conferenceType customParameters:(NSDictionary *)customParameters;
 
 /**
  Called in case when you are calling to user, but hi hasn't answered
@@ -178,6 +208,14 @@
  @param userID ID of opponent
  */
 -(void) chatCallDidAcceptByUser:(NSUInteger)userID;
+
+/**
+ Called in case when opponent has accepted you call
+ 
+ @param userID ID of opponent
+ @param customParameters Custom caller parameters
+ */
+-(void) chatCallDidAcceptByUser:(NSUInteger)userID customParameters:(NSDictionary *)customParameters;
 
 /**
  Called in case when opponent has rejected you call
@@ -195,6 +233,15 @@
 -(void) chatCallDidStopByUser:(NSUInteger)userID status:(NSString *)status;
 
 /**
+ Called in case when opponent has finished call
+ 
+ @param userID ID of opponent
+ @param status Reason of finish call. There are 2 reasons: 1) Opponent did not answer - 'kStopVideoChatCallStatus_OpponentDidNotAnswer'. 2) Opponent finish call with method 'finishCall' - 'kStopVideoChatCallStatus_Manually'
+ @param customParameters Custom caller parameters
+ */
+-(void) chatCallDidStopByUser:(NSUInteger)userID status:(NSString *)status customParameters:(NSDictionary *)customParameters;
+
+/**
  Called in case when call has started
  
  @param userID ID of opponent
@@ -202,29 +249,18 @@
 -(void) chatCallDidStartWithUser:(NSUInteger)userID;
 
 /**
- Set view to which will be rendered opponent's video stream
- 
- @return UIImageView, to which will be rendered opponent's video stream
+ Called in case when start using TURN relay for video chat (not p2p).
  */
-- (UIImageView *) viewToRenderOpponentVideoStream;
-
-/**
-  Set view to which will be rendered your video stream
- 
- @return UIImageView, to which will be rendered your video stream
- */
-- (UIImageView *) viewToRenderOwnVideoStream;
+- (void)didStartUseTURNForVideoChat;
 
 
-#pragma mark -
-#pragma mark Deprecated
+// TDB
+- (void)chatTURNServerDidDisconnect;
+- (void)chatTURNServerdidFailWithError:(NSError *)error;
+- (void)chatDidPassConnectionStep:(int)step totalSteps:(int)totalSteps;
 
-/**
- @warning *Deprecated in QB iOS SDK 1.5:* This method will never be called now. Instead of it '- (void)chatRoomDidEnter:(QBChatRoom *)room' will be called.
- 
- Fired when room was successfully created
- */
-- (void)chatRoomDidCreate:(QBChatRoom*)room __attribute__((deprecated()));
+- (void)chatDidEexceedWriteVideoQueueMaxOperationsThresholdWithCount:(int)operationsInQueue;
+- (void)chatDidEexceedWriteAudioQueueMaxOperationsThresholdWithCount:(int)operationsInQueue;
 
 @end
 

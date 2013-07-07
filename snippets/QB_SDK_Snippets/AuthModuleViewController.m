@@ -79,8 +79,10 @@
                 // Create session with User auth
                 case 1:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.userLogin = @"emma";
-                    extendedAuthRequest.userPassword = @"emma";
+                    extendedAuthRequest.userLogin = @"injoitUser1"; // ID: 218650
+                    extendedAuthRequest.userPassword = @"injoitUser1";
+//                    extendedAuthRequest.userLogin = @"injoitUser2"; // ID: 218651
+//                    extendedAuthRequest.userPassword = @"injoitUser2";
                     
                     if(withContext){
                         [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self context:testContext];
@@ -107,9 +109,9 @@
                 // Create session with Social access token
                 case 3:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.socialProvider = @"twitter";
-                    extendedAuthRequest.socialProviderAccessToken = @"183566025-TxJG7zCQAVNs6WRaRIVBXPxfaIvHXRIts9lGF1Zw";
-                    extendedAuthRequest.socialProviderAccessTokenSecret = @"Hfv7UTtgLIGD89AkndSAdqloEpam16m48YSwhF6od7g";
+                    extendedAuthRequest.socialProvider = @"facebook";
+                    extendedAuthRequest.socialProviderAccessToken = @"BAAE74iZBvNR0BAFCnyIIvdbdslDZCbIyzqDtT1oWg4dYYQoUl2tsBGMAZCFJX1x2x0h116OF0rObZC3WwtjjtS9rHiwcsvwvlI4pk0RTObCZAvkfUZCGxatsLykeWmC4JDAMN9rPtRev1Oi2bDxoBp5tHApkHOQwA1kPZA3fZBLo4IzsORF5aGK27XZCpyRZBbLMgCl9lmnbpEF8oVKOdz3uhUQ6qN8QJUynMZD";
+//                    extendedAuthRequest.socialProviderAccessTokenSecret = @"Hfv7UTtgLIGD89AkndSAdqloEpam16m48YSwhF6od7g";
                     
                     if(withContext){
                         [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self context:testContext];

@@ -66,7 +66,7 @@
 		FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FAE86FE815EB6CE4002E16AA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
-		FAFA572714ED23410057B9B5 /* SimpleSample Messages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample Messages.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAFA572714ED23410057B9B5 /* Messages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFA572B14ED23410057B9B5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FAFA572D14ED23410057B9B5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FAFA572F14ED23410057B9B5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -211,7 +211,7 @@
 		FAFA572814ED23410057B9B5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FAFA572714ED23410057B9B5 /* SimpleSample Messages.app */,
+				FAFA572714ED23410057B9B5 /* Messages.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,7 +279,7 @@
 			);
 			name = "SimpleSample Messages";
 			productName = "SimpleSample Messages";
-			productReference = FAFA572714ED23410057B9B5 /* SimpleSample Messages.app */;
+			productReference = FAFA572714ED23410057B9B5 /* Messages.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -407,8 +407,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -428,9 +428,9 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
+				PRODUCT_NAME = Messages;
+				PROVISIONING_PROFILE = "8A37E6EF-9D98-46E2-9EC2-74E6745251E8";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8A37E6EF-9D98-46E2-9EC2-74E6745251E8";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -456,7 +456,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Messages;
 				PROVISIONING_PROFILE = "81C59E21-1F63-4B73-9E53-245195C190E9";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "81C59E21-1F63-4B73-9E53-245195C190E9";
 				TARGETED_DEVICE_FAMILY = 1;

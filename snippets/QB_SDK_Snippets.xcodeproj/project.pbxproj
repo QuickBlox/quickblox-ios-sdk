@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BFAAF5221785B247009379B9 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5211785B247009379B9 /* Quickblox.framework */; };
 		EDEEAB9F15D16A49002BE39D /* ChatModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEEAB9E15D16A49002BE39D /* ChatModuleViewController.m */; };
 		EDEEB07A15D17668002BE39D /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEEB07715D17668002BE39D /* libresolv.dylib */; };
 		EDEEB07B15D17668002BE39D /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDEEB07815D17668002BE39D /* libxml2.dylib */; };
@@ -14,7 +15,6 @@
 		FA08976D15DFAC4A009A60AE /* CustomObjectsModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA08976C15DFAC4A009A60AE /* CustomObjectsModuleViewController.m */; };
 		FA08977215DFAC6B009A60AE /* ChatModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA08976E15DFAC6B009A60AE /* ChatModuleViewController.xib */; };
 		FA08977315DFAC6B009A60AE /* CustomObjectsModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA08977015DFAC6B009A60AE /* CustomObjectsModuleViewController.xib */; };
-		FA11A90816F068580062DA8D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA11A90716F068580062DA8D /* Quickblox.framework */; };
 		FA7493F5166D061100CAC8E1 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA7493F4166D061000CAC8E1 /* icon.png */; };
 		FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4D1D157E66CA00476EF7 /* UIKit.framework */; };
 		FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4D1F157E66CA00476EF7 /* Foundation.framework */; };
@@ -42,6 +42,7 @@
 		FA901D0E15B952FF007BDC68 /* UsersModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA901D0315B952FF007BDC68 /* UsersModuleViewController.xib */; };
 		FA901D0F15B952FF007BDC68 /* YellowStar.png in Resources */ = {isa = PBXBuildFile; fileRef = FA901D0515B952FF007BDC68 /* YellowStar.png */; };
 		FAB295521613842E000FD80F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB295511613842E000FD80F /* Default-568h@2x.png */; };
+		FABB375317538FEF00760531 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABB375217538FEF00760531 /* QuartzCore.framework */; };
 		FAE86F7615E92971002E16AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86F7515E92971002E16AA /* CoreGraphics.framework */; };
 		FAEE164C16C50AA000E32171 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE164B16C50AA000E32171 /* AVFoundation.framework */; };
 		FAEE165016C50ABA00E32171 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE164F16C50ABA00E32171 /* CoreVideo.framework */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BFAAF5211785B247009379B9 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		EDEEAB9D15D16A49002BE39D /* ChatModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatModuleViewController.h; sourceTree = "<group>"; };
 		EDEEAB9E15D16A49002BE39D /* ChatModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatModuleViewController.m; sourceTree = "<group>"; };
 		EDEEB07715D17668002BE39D /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
@@ -60,7 +62,6 @@
 		FA08976C15DFAC4A009A60AE /* CustomObjectsModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomObjectsModuleViewController.m; sourceTree = "<group>"; };
 		FA08976F15DFAC6B009A60AE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ChatModuleViewController.xib; sourceTree = "<group>"; };
 		FA08977115DFAC6B009A60AE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CustomObjectsModuleViewController.xib; sourceTree = "<group>"; };
-		FA11A90716F068580062DA8D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA7493F4166D061000CAC8E1 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		FA8E4D19157E66CA00476EF7 /* Snippets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snippets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8E4D1D157E66CA00476EF7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -98,6 +99,7 @@
 		FA901D0415B952FF007BDC68 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/UsersModuleViewController.xib; sourceTree = "<group>"; };
 		FA901D0615B952FF007BDC68 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/YellowStar.png; sourceTree = "<group>"; };
 		FAB295511613842E000FD80F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		FABB375217538FEF00760531 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FAE86F7515E92971002E16AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		FAEE164B16C50AA000E32171 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FAEE164F16C50ABA00E32171 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -111,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FABB375317538FEF00760531 /* QuartzCore.framework in Frameworks */,
 				FAEE165616C50B6100E32171 /* AudioToolbox.framework in Frameworks */,
 				FAEE165416C50AD700E32171 /* CoreMedia.framework in Frameworks */,
 				FAEE165216C50AC500E32171 /* Accelerate.framework in Frameworks */,
@@ -127,7 +130,7 @@
 				FA8E4F291580A66000476EF7 /* CFNetwork.framework in Frameworks */,
 				FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */,
 				FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */,
-				FA11A90816F068580062DA8D /* Quickblox.framework in Frameworks */,
+				BFAAF5221785B247009379B9 /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +160,8 @@
 		FA8E4D1C157E66CA00476EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FA11A90716F068580062DA8D /* Quickblox.framework */,
+				BFAAF5211785B247009379B9 /* Quickblox.framework */,
+				FABB375217538FEF00760531 /* QuartzCore.framework */,
 				FAEE165516C50B6100E32171 /* AudioToolbox.framework */,
 				FAEE165316C50AD700E32171 /* CoreMedia.framework */,
 				FAEE165116C50AC400E32171 /* Accelerate.framework */,
@@ -489,10 +493,12 @@
 					armv7,
 					armv7s,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework/build/Framework\"",
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -511,8 +517,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7576ABE7-8CB3-42F5-B1C1-22D1C88F0C68";
+				PROVISIONING_PROFILE = "8A37E6EF-9D98-46E2-9EC2-74E6745251E8";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8A37E6EF-9D98-46E2-9EC2-74E6745251E8";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -530,6 +536,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework/build/Framework\"",
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -543,8 +551,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "81C59E21-1F63-4B73-9E53-245195C190E9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "81C59E21-1F63-4B73-9E53-245195C190E9";
+				PROVISIONING_PROFILE = "C54D4760-0DDA-4355-9605-032526C23309";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C54D4760-0DDA-4355-9605-032526C23309";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

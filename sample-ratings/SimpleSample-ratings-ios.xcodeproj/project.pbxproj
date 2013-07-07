@@ -11,6 +11,7 @@
 		438146731600A13200A508F5 /* images.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 438146701600A13200A508F5 /* images.jpg */; };
 		43900C10162455930041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C0F162455930041381B /* Default-568h@2x.png */; };
 		43ECA73D1600984D005DC731 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43ECA73F1600984D005DC731 /* SplashViewController.xib */; };
+		BFAAF52A1785D513009379B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5291785D513009379B9 /* QuartzCore.framework */; };
 		ED3BA44B15AC1097002B8CFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44A15AC1097002B8CFE /* UIKit.framework */; };
 		ED3BA44D15AC1097002B8CFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44C15AC1097002B8CFE /* Foundation.framework */; };
 		ED3BA44F15AC1097002B8CFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44E15AC1097002B8CFE /* CoreGraphics.framework */; };
@@ -66,7 +67,8 @@
 		438146701600A13200A508F5 /* images.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpg; sourceTree = "<group>"; };
 		43900C0F162455930041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43ECA73E1600984D005DC731 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SplashViewController.xib; sourceTree = "<group>"; };
-		ED3BA44615AC1097002B8CFE /* SimpleSample-ratings-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-ratings-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFAAF5291785D513009379B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ED3BA44615AC1097002B8CFE /* Ratings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ratings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED3BA44A15AC1097002B8CFE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ED3BA44C15AC1097002B8CFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ED3BA44E15AC1097002B8CFE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -131,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFAAF52A1785D513009379B9 /* QuartzCore.framework in Frameworks */,
 				FAC8B9E916D2D4C500F03311 /* AudioToolbox.framework in Frameworks */,
 				FAC8B9E716D2D4B300F03311 /* Accelerate.framework in Frameworks */,
 				FAC8B9E516D2D4AD00F03311 /* AVFoundation.framework in Frameworks */,
@@ -167,7 +170,7 @@
 		ED3BA44715AC1097002B8CFE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ED3BA44615AC1097002B8CFE /* SimpleSample-ratings-ios.app */,
+				ED3BA44615AC1097002B8CFE /* Ratings.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 		ED3BA44915AC1097002B8CFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFAAF5291785D513009379B9 /* QuartzCore.framework */,
 				FAC8B9E816D2D4C500F03311 /* AudioToolbox.framework */,
 				FAC8B9E616D2D4B300F03311 /* Accelerate.framework */,
 				FAC8B9E416D2D4AD00F03311 /* AVFoundation.framework */,
@@ -359,7 +363,7 @@
 			);
 			name = "SimpleSample-ratings-ios";
 			productName = QuickQuiz;
-			productReference = ED3BA44615AC1097002B8CFE /* SimpleSample-ratings-ios.app */;
+			productReference = ED3BA44615AC1097002B8CFE /* Ratings.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -531,7 +535,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -551,9 +555,9 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "SimpleSample-ratings-ios";
+				PRODUCT_NAME = Ratings;
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -577,7 +581,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "SimpleSample-ratings-ios";
+				PRODUCT_NAME = Ratings;
 				PROVISIONING_PROFILE = "1124D8DF-7AAA-42DA-AD58-8DDEA35CEFB8";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;

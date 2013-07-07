@@ -1,14 +1,14 @@
 //
-//  QBDateTimeHelper.h
+//  DateTimeHelper.h
 //  Quickblox
 //
-//  Created by IgorKh on 5/11/13.
+//  Created by IgorKh on 4/17/13.
 //  Copyright (c) 2013 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface QBDateTimeHelper : NSObject
+@interface DateTimeHelper : NSObject
 
 + (NSDate *)dateFromISO8601:(NSString *)str;
 

@@ -68,8 +68,10 @@
         case 1:{
             if(withAdditionalRequest){
                 NSMutableDictionary *getRequest = [NSMutableDictionary dictionary];
-                [getRequest setObject:@"100" forKey:@"rating[gt]"];
-                [getRequest setObject:@"291" forKey:@"user_id"];
+//                [getRequest setObject:@"100" forKey:@"rating[gt]"];
+//                [getRequest setObject:@"291" forKey:@"user_id"];
+                [getRequest setObject:@"1000" forKey:@"limit"];
+//                [getRequest setObject:@"2" forKey:@"skip"];
                 
                 if(withContext){
                     [QBCustomObjects objectsWithClassName:@"SuperSample" extendedRequest:getRequest delegate:self context:testContext];

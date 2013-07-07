@@ -150,8 +150,8 @@
                 // Update blob
                 case 4:{
                     QBCBlob *blob = [QBCBlob blob];
-                    blob.ID = 904;
-                    blob.name = @"My Image File";
+                    blob.ID = 36135;
+                    blob.name = @"Myr";
                     blob.tags = @"man,car";
                     
                     if(withContext){
@@ -405,5 +405,12 @@
     [self completedWithResult:result];
 }
 
+-(void)setProgress:(float)progress{
+     NSLog(@"setProgress %f", progress);
+}
+
+-(void)setUploadProgress:(float)progress{
+    NSLog(@"setUploadProgress %f", progress);
+}
 
 @end

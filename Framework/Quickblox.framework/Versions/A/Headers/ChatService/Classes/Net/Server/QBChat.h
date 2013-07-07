@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 /**
  QBChatServiceError enum defines following connection error codes:
@@ -32,10 +33,10 @@ typedef enum QBChatServiceError {
 /** QBChat delegate for callbacks */
 @property (nonatomic, retain) id<QBChatDelegate> delegate;
 
-/** Mute Video Chat */
-@property (nonatomic, assign) BOOL muteVideoChat;
+/** Contact list */
+@property (nonatomic, readonly) QBContactList *contactList;
 
-    
+
 #pragma mark -
 #pragma mark Base Messaging
 
@@ -77,11 +78,25 @@ typedef enum QBChatServiceError {
 - (BOOL)sendMessage:(QBChatMessage *)message;
 
 /**
- Send presence message to Chat server. Session will be closed in 90 seconds since last activity.
+ Send presence message. Session will be closed in 90 seconds since last activity.
  
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendPresence;
+
+/**
+ Send presence message with status. Session will be closed in 90 seconds since last activity.
+ 
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendPresenceWithStatus:(NSString *)status;
+
+/**
+ Send direct presence message with status to user. User must be in your contact list.
+ 
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendDirectPresenceWithStatus:(NSString *)status toUser:(NSUInteger)userID;
 
 /**
  Get current chat user
@@ -89,6 +104,42 @@ typedef enum QBChatServiceError {
  @return An instance of QBUUser
  */
 - (QBUUser *)currentUser;
+
+
+#pragma mark -
+#pragma mark Contact list
+
+/**
+ Add user to contact list request
+ 
+ @param userID ID of user which you would like to add to contact list
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)addUserToContactListRequest:(NSUInteger)userID;
+
+/**
+ Remove user from contact list
+ 
+ @param userID ID of user which you would like to remove from contact list
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)removeUserFromContactList:(NSUInteger)userID;
+
+/**
+ Confirm add to contact list request
+ 
+ @param userID ID of user from which you would like to confirm add to contact request
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)confirmAddContactRequest:(NSUInteger)userID;
+
+/**
+ Reject add to contact list request
+ 
+ @param userID ID of user from which you would like to reject add to contact request
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)rejectAddContactRequest:(NSUInteger)userID;
 
 
 #pragma mark -
@@ -140,6 +191,15 @@ typedef enum QBChatServiceError {
 - (BOOL)sendMessage:(NSString *)message toRoom:(QBChatRoom *)room;
 
 /**
+ Send presence with parameters to room
+ 
+ @param parameters Presence parameters
+ @param room Room to send presence
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room;
+
+/**
  Send request for getting list of public groups. QBChatDelegate's method 'chatDidReceiveListOfRooms:' will be called
  
  @return YES if the request was sent successfully. If not - see log.
@@ -188,42 +248,24 @@ typedef enum QBChatServiceError {
  */
 - (BOOL)deleteUsers:(NSArray *)usersIDs fromRoom:(QBChatRoom *)room;
 
-/**
- Validate room name.
- If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
- If room name contains ("),(&),('),(/),(:),(<),(>),(@) (double quote, ampersand, single quote, forward slash, colon, less than, greater than, at-sign) characters - they will be removed.
- 
- @param roomName Name of room
- @return Valid name of room
- */
-+ (NSString *)roomNameToValidRoomName:(NSString *)roomName;
-
 
 #pragma mark -
 #pragma mark VideoChat
 
 /**
- Call user
+ Create and register new video chat instance
+
+ @return Autoreleased instance of QBVideoChat;
+ */
+- (QBVideoChat *)createAndRegisterVideoChatInstance;
+
+
+/**
+ Unregister video chat instance
  
- @param userID ID of opponent
- @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' value only available now
+ @param videoChat Instance of video chat
  */
--(void) callUser:(NSUInteger)userID conferenceType:(enum QBVideoChatConferenceType)conferenceType;
-
-/**
- Accept call
- */
--(void) acceptCall;
-
-/**
- Reject call
- */
--(void) rejectCall;
-
-/**
- Finish call
- */
--(void) finishCall;
+- (void)unregisterVideoChatInstance:(QBVideoChat *)videoChat;
 
 
 #pragma mark -

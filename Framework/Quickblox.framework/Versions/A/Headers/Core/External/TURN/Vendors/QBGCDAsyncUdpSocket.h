@@ -72,7 +72,12 @@ typedef enum QBGCDAsyncUdpSocketError QBGCDAsyncUdpSocketError;
 typedef BOOL (^QBGCDAsyncUdpSocketReceiveFilterBlock)(NSData *data, NSData *address, id *context);
 
 
-@interface QBGCDAsyncUdpSocket : NSObject
+@interface QBGCDAsyncUdpSocket : NSObject{
+@public
+    NSMutableArray *sendQueue;
+    NSMutableArray *sendVideoDataQueue;
+    NSMutableArray *sendAudioDataQueue;
+}
 
 /**
  * GCDAsyncUdpSocket uses the standard delegate paradigm,

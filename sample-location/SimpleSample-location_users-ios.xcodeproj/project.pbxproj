@@ -53,7 +53,7 @@
 
 /* Begin PBXFileReference section */
 		43900C2516245E3F0041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		8A2F265714F7F0D300292876 /* SimpleSample-location_users-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleSample-location_users-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A2F265714F7F0D300292876 /* Location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Location.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2F265B14F7F0D300292876 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8A2F265D14F7F0D300292876 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8A2F265F14F7F0D300292876 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -153,7 +153,7 @@
 		8A2F265814F7F0D300292876 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8A2F265714F7F0D300292876 /* SimpleSample-location_users-ios.app */,
+				8A2F265714F7F0D300292876 /* Location.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,7 +327,7 @@
 			);
 			name = "SimpleSample-location_users-ios";
 			productName = wqeqwe;
-			productReference = 8A2F265714F7F0D300292876 /* SimpleSample-location_users-ios.app */;
+			productReference = 8A2F265714F7F0D300292876 /* Location.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -449,7 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -469,9 +469,9 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "SimpleSample-location_users-ios";
+				PRODUCT_NAME = Location;
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF0288AA-998C-4684-9C01-C6670357947E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -495,7 +495,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "SimpleSample-location_users-ios";
+				PRODUCT_NAME = Location;
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;

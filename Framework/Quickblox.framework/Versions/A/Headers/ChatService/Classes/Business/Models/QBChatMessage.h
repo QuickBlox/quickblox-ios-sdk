@@ -14,7 +14,7 @@
 
 @interface QBChatMessage : NSObject <NSCoding, NSCopying>{
 @private
-    NSUInteger ID;
+    NSString *ID;
     NSString *text;
     
     NSUInteger recipientID;
@@ -22,17 +22,19 @@
     
     NSDate *datetime;
     BOOL delayed;
+    
+    NSMutableDictionary *customParameters;
 }
 
 /**
  Unique identifier of message (sequential number)
  */
-@property (nonatomic, assign) NSUInteger ID;
+@property (nonatomic, copy) NSString *ID;
 
 /**
  Message text
  */
-@property (nonatomic, retain) NSString *text;
+@property (nonatomic, copy) NSString *text;
 
 /**
  Message receiver ID
@@ -47,12 +49,21 @@
 /**
  Message datetime
  */
-@property (nonatomic, retain) NSDate *datetime;
+@property (nonatomic, copy) NSDate *datetime;
 
 /**
  Is this message delayed
  */
 @property (nonatomic, assign) BOOL delayed;
 
+/**
+ Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.
+ */
+@property (nonatomic, retain) NSMutableDictionary *customParameters;
+
+/** Create new message
+ @return New instance of QBChatMessage
+ */
++ (instancetype)message;
 
 @end

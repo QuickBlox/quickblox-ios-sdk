@@ -12,4 +12,4 @@
 }
 @property (retain, nonatomic) IBOutlet UITableView *tableView;
 @property (retain, nonatomic) QBChatRoom *testRoom;
-@end
+@end   
