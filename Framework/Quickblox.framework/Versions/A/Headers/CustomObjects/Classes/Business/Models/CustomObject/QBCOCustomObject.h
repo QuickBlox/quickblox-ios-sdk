@@ -11,6 +11,8 @@
 /** Overview */
 /** This class represents QuickBlox custom object. */
 
+@class QBCOPermissions;
+
 @interface QBCOCustomObject : NSObject <NSCoding, NSCopying>{
 @private
     NSString *className;
@@ -20,6 +22,7 @@
     NSString *parentID;
     NSDate *createdAt;
     NSDate *updatedAt;
+    QBCOPermissions *permissions;
 }
 
 /** Object ID */
@@ -41,7 +44,10 @@
 @property (nonatomic) NSUInteger userID;
 
 /** Custom object's fields */
-@property (nonatomic,retain) NSMutableDictionary* fields;
+@property (nonatomic, retain) NSMutableDictionary *fields;
+
+/** Object permissions */
+@property (nonatomic, retain) QBCOPermissions *permissions;
 
 /** Create new custom object
  @return New instance of QBCustomObject

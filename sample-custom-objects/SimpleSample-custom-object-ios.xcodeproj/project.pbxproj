@@ -46,7 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43658AE81603174E000F6748 /* Custom Objects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Custom Objects.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43658AE81603174E000F6748 /* Custom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Custom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43658AEC1603174E000F6748 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		43658AEE1603174E000F6748 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		43658AF01603174E000F6748 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,7 +136,7 @@
 		43658AE91603174E000F6748 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				43658AE81603174E000F6748 /* Custom Objects.app */,
+				43658AE81603174E000F6748 /* Custom.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -313,7 +313,7 @@
 			);
 			name = "SimpleSample-custom-object-ios";
 			productName = "SimpleSample-custom-object-ios";
-			productReference = 43658AE81603174E000F6748 /* Custom Objects.app */;
+			productReference = 43658AE81603174E000F6748 /* Custom.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -462,7 +462,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "Custom Objects";
+				PRODUCT_NAME = Custom;
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
 				WRAPPER_EXTENSION = app;
@@ -488,7 +488,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_NAME = "Custom Objects";
+				PRODUCT_NAME = Custom;
 				PROVISIONING_PROFILE = "CF0288AA-998C-4684-9C01-C6670357947E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CF0288AA-998C-4684-9C01-C6670357947E";
 				WRAPPER_EXTENSION = app;

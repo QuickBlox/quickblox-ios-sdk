@@ -11,6 +11,7 @@
     QBCOCustomObject *_object;
     
     NSString *currentArrayElement;
+    QBCOPermissionsAnswer *permissionsAnswer;
 }
 
 @property (nonatomic, readonly) QBCOCustomObject *object;

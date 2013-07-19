@@ -18,4 +18,10 @@
 /** Count of objects */
 @property (nonatomic, readonly) NSUInteger count;
 
+/** Skip parameter */
+@property (nonatomic, readonly) NSUInteger skip;
+
+/** Limit parameter */
+@property (nonatomic, readonly) NSUInteger limit;
+
 @end
