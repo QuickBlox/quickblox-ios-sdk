@@ -36,6 +36,10 @@
  */
 + (NSString *)roomNameToValidRoomName:(NSString *)roomName;
 
+// Presense utils
++ (NSString *)parsePresenseShowToString:(enum QBPresenseShow)show;
++ (enum QBPresenseShow)parsePresenseShowToEnum:(NSString *)show;
+
 // Image rotation
 + (CGImageRef)CGImageRotatedByAngle:(CGImageRef)imgRef angle:(CGFloat)angle;
 

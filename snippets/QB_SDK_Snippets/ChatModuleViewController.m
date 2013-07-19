@@ -8,7 +8,7 @@
 
 #import "ChatModuleViewController.h"
 
-#define testRoomName @"liverpoolFansRoom"
+#define testRoomName @"xmppchat"
 
 #define ADMIN_ID 291
 
@@ -263,8 +263,8 @@
                 case 0:{
                     QBUUser *user = [QBUUser user];
 #if TARGET_IPHONE_SIMULATOR
-                    user.ID = 218651;
-                    user.password = @"injoitUser2";
+                    user.ID = 218650;
+                    user.password = @"injoitUser1";
 #else
                     user.ID = 218650;
                     user.password = @"injoitUser1";
@@ -428,13 +428,13 @@
                     
                 // Send message
                 case 4:{
-                    [[QBChat instance] sendMessage:@"Hello QuickBlox developer!" toRoom:testRoom];
+                    [[QBChat instance] sendMessage:@"Hello QuickBlox team, this is iOS SDK mate!" toRoom:testRoom];
                 }
                 break;
                     
                 // Send presence
                 case 5:{
-                    [[QBChat instance] sendPresenceWithParameters:@{@"job": @"developer", @"sex": @"man"} toRoom:testRoom];
+                    [[QBChat instance] sendPresenceWithParameters:@{@"job": @"manager", @"sex": @"man"} toRoom:testRoom];
                 }
                     break;
                 

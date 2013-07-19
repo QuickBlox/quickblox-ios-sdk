@@ -47,6 +47,9 @@
 /** Recipients - should contain a string of user ids divided by comas.*/
 @property (nonatomic,retain) NSString *usersIDs;
 
+/** Recipients - should contain a string of user external ids divided by comas.*/
+@property (nonatomic,retain) NSString *usersExternalIDs;
+
 /** Recipients tags - should contain a string of user tags divided by comas. Recipients (users) must have at LEAST ONE tag that specified in list.*/
 @property (nonatomic,retain) NSString *usersTagsAny;
 

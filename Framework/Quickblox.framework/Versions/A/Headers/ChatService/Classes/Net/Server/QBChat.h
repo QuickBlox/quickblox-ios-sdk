@@ -148,7 +148,8 @@ typedef enum QBChatServiceError {
 /**
  Create room or join if room with this name already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
  If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
- If room name contains ("),(&),('),(/),(:),(<),(>),(@) (double quote, ampersand, single quote, forward slash, colon, less than, greater than, at-sign) characters - they will be removed.
+ If room name contains ("),(\),(&),('),(/),(:),(<),(>),(@),((),()),(:),(;)  characters - they will be removed.
+ As user room nickname we will use user ID
  
  @param name Room name
  @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
@@ -156,6 +157,19 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent;
+
+/**
+ Create room or join if room with this name already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
+ If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
+ If room name contains ("),(\),(&),('),(/),(:),(<),(>),(@),((),()),(:),(;)  characters - they will be removed.
+ 
+ @param name Room name
+ @param nickname User nickname wich will be used in room 
+ @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
+ @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)createOrJoinRoomWithName:(NSString *)name nickname:(NSString *)nickname membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent;
 
 /**
  Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
@@ -198,6 +212,18 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room;
+
+/**
+ Send presence with status, show, priority, custom parameters to room
+ 
+ @param status Element contains character data specifying a natural-language description of availability status 
+ @param show Element contains non-human-readable character data that specifies the particular availability status of an entity or specific resource. 
+ @param priority Element contains non-human-readable character data that specifies the priority level of the resource. The value MUST be an integer between -128 and +127.
+ @param customParameters Custom parameters
+ @param room Room to send presence
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendPresenceWithStatus:(NSString *)status show:(enum QBPresenseShow)show priority:(short)priority customParameters:(NSDictionary *)customParameters toRoom:(QBChatRoom *)room;
 
 /**
  Send request for getting list of public groups. QBChatDelegate's method 'chatDidReceiveListOfRooms:' will be called
@@ -266,27 +292,5 @@ typedef enum QBChatServiceError {
  @param videoChat Instance of video chat
  */
 - (void)unregisterVideoChatInstance:(QBVideoChat *)videoChat;
-
-
-#pragma mark -
-#pragma mark Deprecated
-
-/**
- @warning *Deprecated in QB iOS SDK 1.5:* You have to use method '- (void)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent' with isMembersOnly=NO and isPersistent=NO params instead
- 
- Create public room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
- 
- @param name Room name
- */
-- (BOOL)createRoomWithName:(NSString *)name __attribute__((deprecated()));
-
-/**
- @warning *Deprecated in QB iOS SDK 1.5:* You have to use method '- (void)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent' with isMembersOnly=YES and isPersistent=NO params instead
- 
- Create private room (only members). QBChatDelegate's method 'chatRoomDidEnter:' will be called
- 
- @param name Room name
- */
-- (BOOL)createPrivateRoomWithName:(NSString *)name __attribute__((deprecated()));
 
 @end

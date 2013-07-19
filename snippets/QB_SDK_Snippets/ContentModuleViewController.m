@@ -406,7 +406,7 @@
 }
 
 -(void)setProgress:(float)progress{
-     NSLog(@"setProgress %f", progress);
+//     NSLog(@"setProgress %f", progress);
 }
 
 -(void)setUploadProgress:(float)progress{

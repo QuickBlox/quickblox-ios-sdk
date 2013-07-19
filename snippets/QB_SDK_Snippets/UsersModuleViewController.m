@@ -64,7 +64,7 @@
     if(section == 0){
         return 6;
     }else if(section == 1){
-        return 12;
+        return 14;
     }else if(section == 2){
         return 1;
     }else if(section == 3){
@@ -230,7 +230,7 @@
                 }
                     break;
                     
-                // Get user by logins
+                // Get users by logins
                 case 4:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
@@ -286,8 +286,31 @@
                 }
                     break;
                     
-                // Get user by twitter ID
+                // Get users by facebook IDs
                 case 7:{
+                    if(withAdditionalRequest){
+                        PagedRequest *pagedRequest = [PagedRequest request];
+                        pagedRequest.perPage = 10;
+                        pagedRequest.page = 1;
+                        
+                        if(withContext){
+                            [QBUsers usersWithFacebookIDs:@[@"424353563564544ffd",@"100000773956777"] pagedRequest:pagedRequest delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithFacebookIDs:@[@"424353563564544ffd",@"100000773956777"] pagedRequest:pagedRequest delegate:self];
+                        }
+                        
+                    }else{
+                        if(withContext){
+                            [QBUsers usersWithFacebookIDs:@[@"424353563564544ffd",@"100000773956777"] delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithFacebookIDs:@[@"424353563564544ffd",@"100000773956777"] delegate:self];
+                        }
+                    }
+                }
+                    break;
+                    
+                // Get user by twitter ID
+                case 8:{
                     if(withContext){
                         [QBUsers userWithTwitterID:@"142345256" delegate:self context:testContext];
                     }else{
@@ -296,8 +319,31 @@
                 }
                     break;
                     
+                // Get users by twitter IDs
+                case 9:{
+                    if(withAdditionalRequest){
+                        PagedRequest *pagedRequest = [PagedRequest request];
+                        pagedRequest.perPage = 10;
+                        pagedRequest.page = 1;
+                        
+                        if(withContext){
+                            [QBUsers usersWithTwitterIDs:@[@"2342355245346",@"789789789789"] pagedRequest:pagedRequest delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithTwitterIDs:@[@"2342355245346",@"789789789789"] pagedRequest:pagedRequest delegate:self];
+                        }
+                        
+                    }else{
+                        if(withContext){
+                            [QBUsers usersWithTwitterIDs:@[@"2342355245346",@"789789789789"] delegate:self context:testContext];
+                        }else{
+                            [QBUsers usersWithTwitterIDs:@[@"2342355245346",@"789789789789"] delegate:self];
+                        }
+                    }
+                }
+                    break;
+                    
                 // Get user by email
-                case 8:{
+                case 10:{
                     if(withContext){
                         [QBUsers userWithEmail:@"Javck@mail.com" delegate:self context:testContext];
                     }else{
@@ -307,7 +353,7 @@
                     break;
                     
                 // Get user by emails
-                case 9:{
+                case 11:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 5;
@@ -330,7 +376,7 @@
                     break;
                     
                 // Get users by tags
-                case 10:{
+                case 12:{
                     if(withContext){
                         [QBUsers usersWithTags:[NSArray arrayWithObjects:@"man", nil] delegate:self context:testContext];
                     }else{
@@ -340,7 +386,7 @@
                     break;
                     
                 // Get user by external ID
-                case 11:{
+                case 13:{
                     if(withContext){
                         [QBUsers userWithExternalID:555 delegate:self context:testContext];
                     }else{
@@ -484,7 +530,7 @@
                     cell.textLabel.text = @"Get user by login";
                     break;
                 case 4:
-                    cell.textLabel.text = @"Get user by logins";
+                    cell.textLabel.text = @"Get users by logins";
                     break;
                 case 5:
                     cell.textLabel.text = @"Get users by fullname";
@@ -493,18 +539,24 @@
                     cell.textLabel.text = @"Get user by facebook ID";
                     break;
                 case 7:
-                    cell.textLabel.text = @"Get user by twitter ID";
+                    cell.textLabel.text = @"Get users by facebook IDs";
                     break;
                 case 8:
-                    cell.textLabel.text = @"Get user by email";
+                    cell.textLabel.text = @"Get user by twitter ID";
                     break;
                 case 9:
-                    cell.textLabel.text = @"Get user by emails";
+                    cell.textLabel.text = @"Get users by twitter IDs";
                     break;
                 case 10:
-                    cell.textLabel.text = @"Get users by tags";
+                    cell.textLabel.text = @"Get user by email";
                     break;
                 case 11:
+                    cell.textLabel.text = @"Get users by emails";
+                    break;
+                case 12:
+                    cell.textLabel.text = @"Get users by tags";
+                    break;
+                case 13:
                     cell.textLabel.text = @"Get user by external ID";
                     break;
                 default:

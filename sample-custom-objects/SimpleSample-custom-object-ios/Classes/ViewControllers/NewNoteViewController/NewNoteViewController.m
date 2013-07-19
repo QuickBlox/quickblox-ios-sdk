@@ -91,6 +91,8 @@
         if(result.success){
             QBCOCustomObjectResult *res = (QBCOCustomObjectResult *)result;
             
+            NSLog(@"new obj: %@", res.object);
+            
             // add note to storage
             [[[DataManager shared] notes] addObject:res.object];
             

@@ -33,11 +33,24 @@
 /**
  Init QBChatRoom instance with name
  If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
- If room name contains ("),(&),('),(/),(:),(<),(>),(@) (double quote, ampersand, single quote, forward slash, colon, less than, greater than, at-sign) characters - they will be removed.
+ If room name contains ("),(\),(&),('),(/),(:),(<),(>),(@),((),()),(:),(;)  characters - they will be removed.
+ As user room nickname we will use user ID
  
+ @param roomName Room name
  @return QBChatRoom instance
  */
 - (id)initWithRoomName:(NSString *)roomName;
+
+/**
+ Init QBChatRoom instance with name & user nickname
+ If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
+ If room name contains ("),(\),(&),('),(/),(:),(<),(>),(@),((),()),(:),(;)  characters - they will be removed.
+ 
+ @param roomName Room name
+ @param nickname User nickname wich will be used in room
+ @return QBChatRoom instance
+ */
+- (id)initWithRoomName:(NSString *)roomName nickname:(NSString *)nickname;
 
 /**
  Add users to current room. Array users contains users' ids

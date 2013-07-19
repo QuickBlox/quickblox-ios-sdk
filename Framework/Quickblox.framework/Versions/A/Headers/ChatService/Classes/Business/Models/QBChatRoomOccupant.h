@@ -10,16 +10,16 @@
 
 @interface QBChatRoomOccupant : NSObject
 {
-	NSUInteger userID;
+	NSString *nickname;
     NSString *status;
     NSDictionary *parameters;
 }
 
-+ (QBChatRoomOccupant *)occupantWithUserID:(NSUInteger)aUserID parameters:(NSDictionary *)parameters;
++ (QBChatRoomOccupant *)occupantWithUserNickname:(NSString *)aNickname parameters:(NSDictionary *)parameters;
 
-- (id)initWithUserID:(NSUInteger)aUserID  parameters:(NSDictionary *)parameters;
+- (id)initWithUserNickname:(NSString *)aNickname  parameters:(NSDictionary *)parameters;
 
-@property (readonly) NSUInteger userID;
+@property (readonly) NSString *nickname;
 @property (readonly) NSDictionary *parameters;
 
 @end

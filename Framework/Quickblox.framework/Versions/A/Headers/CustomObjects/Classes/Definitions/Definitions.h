@@ -6,4 +6,7 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-#define dataElement @"data"
+#import "Enums.h"
+#import "Consts.h"
+
+

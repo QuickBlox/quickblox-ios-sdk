@@ -31,6 +31,19 @@
 
 
 /**
+ Retrieve objects with IDs
+ 
+ Type of Result - QBCOObjectsResult
+ 
+ @param className Name of class
+ @param IDs Identifiers of objects to be retrieved
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCOObjectsResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)objectsWithClassName:(NSString *)className IDs:(NSArray *)IDs delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)objectsWithClassName:(NSString *)className IDs:(NSArray *)IDs delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+/**
  Retrieve objects
  
  Type of Result - QBCOObjectsResult
@@ -116,5 +129,22 @@
  */
 + (NSObject<Cancelable> *)deleteObjectWithID:(NSString *)objectID className:(NSString *)className delegate:(NSObject<QBActionStatusDelegate> *)delegate;
 + (NSObject<Cancelable> *)deleteObjectWithID:(NSString *)objectID className:(NSString *)className delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Permissions
+
+/**
+ Retrieve permissions for object with ID
+ 
+ Type of Result - QBCOPermissionsResult
+ 
+ @param className Name of class
+ @param ID Identifier of object which permissions will be retrieved
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCOObjectsResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)permissionsForObjectWithClassName:(NSString *)className ID:(NSString *)ID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)permissionsForObjectWithClassName:(NSString *)className ID:(NSString *)ID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
 
 @end

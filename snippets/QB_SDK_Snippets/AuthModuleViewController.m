@@ -79,8 +79,8 @@
                 // Create session with User auth
                 case 1:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.userLogin = @"injoitUser1"; // ID: 218650
-                    extendedAuthRequest.userPassword = @"injoitUser1";
+                    extendedAuthRequest.userLogin = @"injoitUser2"; // ID: 218650
+                    extendedAuthRequest.userPassword = @"injoitUser2";
 //                    extendedAuthRequest.userLogin = @"injoitUser2"; // ID: 218651
 //                    extendedAuthRequest.userPassword = @"injoitUser2";
                     
@@ -95,8 +95,8 @@
                 // Create session with Social provider
                 case 2:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.socialProvider = @"facebook";
-                    extendedAuthRequest.scope = @[@"publish_stream"];
+                    extendedAuthRequest.socialProvider = @"twitter";
+//                    extendedAuthRequest.scope = @[@"publish_stream"];
                     
                     if(withContext){
                         [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self context:testContext];
@@ -204,6 +204,7 @@
             QBAAuthSessionCreationResult *res = (QBAAuthSessionCreationResult *)result;
             NSLog(@"QBAAuthSessionCreationResult, session=%@, \n token=%@, \n socialProviderToken=%@, \n socialProviderTokenExpiresAt=%@", res.session, res.token, res.socialProviderToken, res.socialProviderTokenExpiresAt);
             
+            
         // Destroy session result
         }else if([result isKindOfClass:QBAAuthResult.class]){
             NSLog(@"Destroy session OK");
@@ -223,5 +224,6 @@
     
     [self completedWithResult:result];
 }
+
 
 @end

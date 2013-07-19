@@ -329,6 +329,35 @@
 
 
 #pragma mark -
+#pragma mark Get Users Facebook IDs
+
+/**
+ Retrieve users with facebook ids (max 10 users, for more - use equivalent method with 'pagedRequest' argument)
+ 
+ Type of Result - QBUUserPagedResult
+ 
+ @param facebookIDs Facebook IDs of users which you want to retrieve
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+/**
+ Retrieve users with facebook ids (with extended set of pagination parameters)
+ 
+ Type of Result - QBUUserPagedResult
+ 
+ @param facebookIDs Facebook IDs of users which you want to retrieve
+ @param pagedRequest paged request
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
 #pragma mark Get User with Twitter ID
 
 /**
@@ -342,6 +371,35 @@
  */
 + (NSObject<Cancelable> *)userWithTwitterID:(NSString *)userTwitterID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
 + (NSObject<Cancelable> *)userWithTwitterID:(NSString *)userTwitterID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Get Users Twitter IDs
+
+/**
+ Retrieve users with twitter ids (max 10 users, for more - use equivalent method with 'pagedRequest' argument)
+ 
+ Type of Result - QBUUserPagedResult
+ 
+ @param twitterIDs Twitter IDs of users which you want to retrieve
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+/**
+ Retrieve users with twitter ids (with extended set of pagination parameters)
+ 
+ Type of Result - QBUUserPagedResult
+ 
+ @param twitterIDs Twitter IDs of users which you want to retrieve
+ @param pagedRequest paged request
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
 
 
 #pragma mark -

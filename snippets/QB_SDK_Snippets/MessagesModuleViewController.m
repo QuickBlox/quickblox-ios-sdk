@@ -167,7 +167,8 @@
                 case 0:{
                     QBMEvent *event = [QBMEvent event];
                     event.notificationType = QBMNotificationTypePush;
-                    event.usersIDs = @"14605,300";
+//                    event.usersExternalIDs = @"12312312,44";
+//                    event.usersIDs = @"14605,300";
                     event.isDevelopmentEnvironment = YES;
                     event.type = QBMEventTypeOneShot; 
                     //
@@ -280,6 +281,7 @@
                     
                 // TSendPush to users' ids
                 case 2:{
+                    
                     NSString *mesage = @"Hello man!";
                     
                     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
@@ -326,9 +328,9 @@
                     
                     // Send push
                     if(withContext){
-                        [QBMessages TSendPush:message toUsersWithAnyOfTheseTags:@"man,car" delegate:self context:testContext];
+                        [QBMessages TSendPush:message toUsersWithAnyOfTheseTags:@"devdevdev2" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPush:message toUsersWithAnyOfTheseTags:@"man,car" delegate:self];
+                        [QBMessages TSendPush:message toUsersWithAnyOfTheseTags:@"devdevdev2" delegate:self];
                     }
                     
                     [message release];
@@ -338,9 +340,9 @@
                 // TSendPushWithText to users' tags
                 case 5:{
                     if(withContext){
-                        [QBMessages TSendPushWithText:@"Hello World" toUsersWithAnyOfTheseTags:@"man,car" delegate:self context:testContext];
+                        [QBMessages TSendPushWithText:@"Hello World" toUsersWithAnyOfTheseTags:@"devdevdev2" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPushWithText:@"Hello World" toUsersWithAnyOfTheseTags:@"man,car" delegate:self];
+                        [QBMessages TSendPushWithText:@"Hello World" toUsersWithAnyOfTheseTags:@"devdevdev2" delegate:self];
                     }
                 }
                     break;
