@@ -204,10 +204,10 @@
                 [object.fields setObject:@"345" forKey:@"rating"];
                 
                 QBCOPermissions *permissions = [QBCOPermissions permissions];
-//                permissions.readAccess = QBCOPermissionsAccessOpen;
+                permissions.readAccess = QBCOPermissionsAccessOpen;
 //                //
                 permissions.updateAccess = QBCOPermissionsAccessOpenForGroups;
-                permissions.usersGroupsForUpdateAccess = @[@"go,lf", @"women"];
+                permissions.usersGroupsForUpdateAccess = @[@"golf", @"women"];
                 //
                 permissions.deleteAccess = QBCOPermissionsAccessOpenForUsersIDs;
                 permissions.usersIDsForDeleteAccess = @[@3060, @63635];

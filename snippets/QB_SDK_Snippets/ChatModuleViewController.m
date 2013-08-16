@@ -401,6 +401,7 @@
                     // room's name must be without spaces
                     [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:NO];
                     
+                    
                 }
                 break;
                     
