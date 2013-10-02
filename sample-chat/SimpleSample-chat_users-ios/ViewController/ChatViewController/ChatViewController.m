@@ -238,10 +238,10 @@ static CGFloat padding = 20.0;
         
         bgImage = [[UIImage imageNamed:@"orange.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
         
-        [cell.message setFrame:CGRectMake(padding, padding*2, size.width+padding, size.height+padding)];
+        [cell.message setFrame:CGRectMake(padding, padding*2-5, size.width+padding, size.height+padding)];
         
         [cell.backgroundImageView setFrame:CGRectMake( cell.message.frame.origin.x - padding/2,
-                                              cell.message.frame.origin.y - padding/2,
+                                              cell.message.frame.origin.y+5 - padding/2,
                                               size.width+padding, 
                                               size.height+padding)];
         
@@ -259,12 +259,12 @@ static CGFloat padding = 20.0;
         bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
         
         [cell.message setFrame:CGRectMake(320 - size.width - padding,
-                                                     padding*2, 
+                                                     padding*2-5,
                                                      size.width+padding, 
                                                      size.height+padding)];
         
         [cell.backgroundImageView setFrame:CGRectMake(cell.message.frame.origin.x - padding/2,
-                                              cell.message.frame.origin.y - padding/2,
+                                              cell.message.frame.origin.y+5 - padding/2,
                                               size.width+padding, 
                                               size.height+padding)];
         
