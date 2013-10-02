@@ -204,7 +204,7 @@
         
         QBCOCustomObject *selectedRoom = [[[DataManager shared] rooms] objectAtIndex:indexPath.row];
         
-        [[QBChat instance] createOrJoinRoomWithName:selectedRoom.fields[@"name"] membersOnly:NO persistent:NO];
+        [[QBChat instance] createOrJoinRoomWithName:selectedRoom.fields[@"name"] membersOnly:NO persistent:YES];
 
     // Mark/unmark users
     }else {
@@ -377,7 +377,7 @@
             [QBCustomObjects createObject:roomObj delegate:self];
 
             //
-            [[QBChat instance] createOrJoinRoomWithName:roomName membersOnly:NO persistent:NO];
+            [[QBChat instance] createOrJoinRoomWithName:roomName membersOnly:NO persistent:YES];
         }
     }
 }
