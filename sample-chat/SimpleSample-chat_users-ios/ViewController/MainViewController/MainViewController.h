@@ -14,13 +14,7 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, QBActionStatusDelegate, QBChatDelegate>{
-    
-    NSTimer *sendPresenceTimer; 
-    NSTimer *requestRoomsTimer;
-    NSTimer *requesAllUsersTimer;
 }
-
-@property (nonatomic, retain) NSTimer *requesAllUsersTimer;
 
 @property (nonatomic, retain) NSMutableArray *users;
 @property (nonatomic, retain) NSMutableArray *selectedUsers;
@@ -32,5 +26,6 @@
 
 - (void)login;
 - (void)startChat;
+- (void)updateUsers;
 
 @end

@@ -22,8 +22,6 @@
 @synthesize selectedUsers;
 @synthesize senderUsers;
 
-@synthesize requesAllUsersTimer;
-
 #pragma mark -
 #pragma mark View controller's lifecycle
 
@@ -65,7 +63,6 @@
     [self setToolBar:nil];
     [self setTableView:nil];
     [self setSearchBar:nil];
-    [self setRequesAllUsersTimer:nil];
     
     [super viewDidUnload];
 }
@@ -80,8 +77,6 @@
     [tableView release];
     [searchBar release];
     [users release];
-    [sendPresenceTimer release];
-    [requestRoomsTimer release];
     [super dealloc];
 }
 
@@ -108,23 +103,12 @@
     if([DataManager shared].currentUser){
         
         // send presence
-        if(sendPresenceTimer == nil){
-            sendPresenceTimer = [[NSTimer scheduledTimerWithTimeInterval:10
-                                                                  target:self 
-                                                                selector:@selector(sendPresence) 
+        [NSTimer scheduledTimerWithTimeInterval:10 target:[QBChat instance] selector:@selector(sendPresence)
                                                                 userInfo:nil 
-                                                                 repeats:YES] retain];
-        }
+                                                                 repeats:YES];
         
         // retrieve rooms
-        if(requestRoomsTimer == nil){
-            requestRoomsTimer= [[NSTimer scheduledTimerWithTimeInterval:10
-                                                                 target:self 
-                                                               selector:@selector(updateRooms) 
-                                                               userInfo:nil 
-                                                                repeats:YES] retain];
-        }
-        [requestRoomsTimer fire];
+        [self updateRooms];
     }
 }
 
@@ -149,7 +133,7 @@
 
 // update rooms
 - (void)updateRooms {
-	[[QBChat instance] requestAllRooms];
+	[QBCustomObjects objectsWithClassName:@"ChatRoom" delegate:self];
 }
 
 - (void) login{
@@ -201,17 +185,8 @@
                                                        delegate:self
                                               cancelButtonTitle:@"Cancel"
                                               otherButtonTitles:@"Start", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         [alert setTag:2];
-        UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 31.0)];
-        [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-        [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [theTextField setBackgroundColor:[UIColor whiteColor]];
-        [theTextField setTextAlignment:UITextAlignmentCenter];
-        theTextField.tag = 101;
-        [alert addSubview:theTextField];
-        [theTextField release];
-        
         [alert show];
         [alert release];
     }
@@ -227,10 +202,9 @@
     // Select room
     if([[[DataManager shared] rooms] count] > 0 && indexPath.section == 0){
         
-        QBChatRoom *selectedRoom = [[[DataManager shared] rooms] objectAtIndex:indexPath.row];
+        QBCOCustomObject *selectedRoom = [[[DataManager shared] rooms] objectAtIndex:indexPath.row];
         
-        // Join room
-        [selectedRoom joinRoom];
+        [[QBChat instance] createOrJoinRoomWithName:selectedRoom.fields[@"name"] membersOnly:NO persistent:NO];
 
     // Mark/unmark users
     }else {
@@ -297,8 +271,8 @@
     if([[[DataManager shared] rooms] count] && indexPath.section == 0){
         
         // set room's name & icon
-        QBChatRoom *room = [[[DataManager shared] rooms] objectAtIndex:indexPath.row];
-        [cell.text setText:room.name];
+        QBCOCustomObject *room = [[[DataManager shared] rooms] objectAtIndex:indexPath.row];
+        [cell.text setText:room.fields[@"name"]];
         [cell.icon setImage:[UIImage imageNamed:@"room-icon.png"]];
         
     // User's cell
@@ -340,10 +314,10 @@
     
         if([self.senderUsers containsObject:user]){
             [cell setBackgroundColor:color];
-            [[(UserTableViewCell *)cell text] setBackgroundColor:color];
+            [(UserTableViewCell *)cell setBackgroundColor:color];
         }else {
             [cell setBackgroundColor:[UIColor clearColor]];
-            [[(UserTableViewCell *)cell text] setBackgroundColor:[UIColor clearColor]];
+            [(UserTableViewCell *)cell setBackgroundColor:[UIColor clearColor]];
         }
     }
 }
@@ -391,38 +365,19 @@
     // Room's topic alert
     if(alertView.tag == 2 && buttonIndex == 1){
         
-        NSString *roomName = ((UITextField *)[alertView viewWithTag:101]).text;
+        NSString *roomName = [alertView textFieldAtIndex:0].text;
         
         // check name
         if(roomName.length > 0){
             
-            int count = 0;
-            
-            // Join if already exist
-            for(QBChatRoom *roomInList in [[DataManager shared] rooms]){
-                if([[roomInList name] isEqualToString:roomName]){
-                    
-                    QBChatRoom *selectedRoom = [[[DataManager shared] rooms] objectAtIndex:count];
-                    
-                    // Join room
-                    [selectedRoom joinRoom];
-                    
-                    [self.senderUsers removeAllObjects];
-                    [self.selectedUsers removeAllObjects];
-                    
-                    // Show Chat view controller
-                    ChatViewController *chatViewController = [[[ChatViewController alloc] init] autorelease];
-                    [chatViewController setTitle:[selectedRoom name]];
-                    [chatViewController setCurrentRoom:selectedRoom];
-                    [self.navigationController pushViewController:chatViewController animated:YES];
-                    
-                    return;
-                }
-                count++;
-            }
-            
             // Create room
-            [[QBChat instance] createOrJoinRoomWithName:roomName membersOnly:YES persistent:NO];
+            QBCOCustomObject *roomObj = [QBCOCustomObject customObject];
+            roomObj.className = @"ChatRoom";
+            [roomObj.fields setObject:roomName forKey:@"name"];
+            [QBCustomObjects createObject:roomObj delegate:self];
+
+            //
+            [[QBChat instance] createOrJoinRoomWithName:roomName membersOnly:NO persistent:NO];
         }
     }
 }
@@ -448,7 +403,22 @@
             // reload table
             [self.tableView reloadData];
         }
-	}
+        
+    // get rooms
+	}else if([result isKindOfClass:QBCOCustomObjectPagedResult.class]){
+        QBCOCustomObjectPagedResult *res = (QBCOCustomObjectPagedResult *)result;
+
+        // save rooms
+        [DataManager shared].rooms = [[res.objects mutableCopy] autorelease];
+        
+        // reload table
+        [self.tableView reloadData];
+    
+    // create room
+    } else if([result isKindOfClass:QBCOCustomObjectResult.class]){
+        QBCOCustomObjectResult *res = (QBCOCustomObjectResult *)result;
+        [[DataManager shared].rooms addObject:res.object];
+    }
 }
 
 
@@ -476,39 +446,9 @@
     
 }
 
-// Called in case receiving list of avaible to join rooms.
-- (void)chatDidReceiveListOfRooms:(NSArray *)rooms{
-
-    // clear old rooms
-    for(QBChatRoom *room in [NSArray arrayWithArray:[DataManager shared].rooms]){
-        if(![rooms containsObject:room]){
-            [[DataManager shared].rooms removeObject:room];
-        }
-    }
-    
-    // Save new rooms
-    for(QBChatRoom *room in rooms){
-        if([room.name isEqualToString:@"publicroom"]){
-            continue;
-        }
-        
-        if(![[DataManager shared].rooms containsObject:room]){
-            [[DataManager shared].rooms addObject:room];
-        }
-    }
-	
-    // reload table
-    [self.tableView reloadData];
-}
-
 // Fired when you did enter to room
 - (void)chatRoomDidEnter:(QBChatRoom *)room{
     NSLog(@"Main Controller chatRoomDidEnter");
-    
-    if([[DataManager shared].rooms indexOfObjectIdenticalTo:room] == NSNotFound){
-        // save our room
-        [[[DataManager shared] rooms] addObject:room];
-    }
     
     // add users if are creating room
     if([self.selectedUsers count] > 0){
