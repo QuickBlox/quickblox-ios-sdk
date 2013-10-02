@@ -60,7 +60,6 @@
         if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
             // back button was pressed.
             [[QBChat instance] leaveRoom:self.currentRoom];
-            [[DataManager shared].rooms removeObject:self.currentRoom];
         }
     }
 }
@@ -224,9 +223,12 @@ static CGFloat padding = 20.0;
         
 	
 	CGSize textSize = { 260.0, 10000.0 };
+    
+    
 	CGSize size = [message sizeWithFont:[UIFont boldSystemFontOfSize:13]
 					  constrainedToSize:textSize
 						  lineBreakMode:UILineBreakModeWordWrap];
+    
 	size.width += (padding/2);
 	
     

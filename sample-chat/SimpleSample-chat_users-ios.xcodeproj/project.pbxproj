@@ -529,7 +529,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -542,7 +542,7 @@
 				);
 				PRODUCT_NAME = Chat;
 				PROVISIONING_PROFILE = "B00A6F0F-84E0-4638-BD82-9AE2E475D90E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4004F0C4-0FE4-4A79-96E8-94DC84396883";
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
@@ -564,7 +564,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-chat_users-ios/SimpleSample-chat_users-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

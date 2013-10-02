@@ -69,17 +69,9 @@
         // Success result
         if(result.success){
             
-            // retrieve all users periodicaly
-            if(((MainViewController *)self.delegate).requesAllUsersTimer == nil){
-                
-                ((MainViewController *)self.delegate).requesAllUsersTimer= [NSTimer scheduledTimerWithTimeInterval:120
-                                                                                                            target:self.delegate
-                                                                                                          selector:@selector(updateUsers)
-                                                                                                          userInfo:nil
-                                                                                                           repeats:YES];
-                [((MainViewController *)self.delegate).requesAllUsersTimer fire];
-            }
-            
+            // retrieve all users
+            [((MainViewController *)self.delegate) updateUsers];
+
             // hide splash
             [self performSelector:@selector(hideSplash) withObject:nil afterDelay:0.5];
         }
