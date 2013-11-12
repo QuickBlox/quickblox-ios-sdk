@@ -55,23 +55,6 @@
     [QBSettings setApplicationID:92];
     [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
-    
-//    // QBB XMPP Chat web
-//    [QBSettings setApplicationID:3212];
-//    [QBSettings setAuthorizationKey:@"qRHLA4tTtUdZWvn"];
-//    [QBSettings setAuthorizationSecret:@"XfazkswyMEHk2Xx"];
-    
-//    // One partner
-//    [QBSettings setApplicationID:2117];
-//    [QBSettings setAuthorizationKey:@"GWBn9h6Jp5y3wA6"];
-//    [QBSettings setAuthorizationSecret:@"QhY65shs5WeBRL2"];
-    
-//    // test server
-//    // Set QuickBlox credentials
-//    [QBSettings setServerZone:QBServerZoneStage];
-//    [QBSettings setApplicationID:22];
-//    [QBSettings setAuthorizationKey:@"xGRzM9GDkuC5RB2"];
-//    [QBSettings setAuthorizationSecret:@"bM3WqUc5Kyu3mWE"];
 
     return YES;
 }
