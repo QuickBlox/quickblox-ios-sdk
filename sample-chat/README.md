@@ -12,4 +12,6 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-chat_users-ios](http://quickblox.com/developers/SimpleSample-chat_users-ios)
 
+<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_1.png" alt="Login">
+
 ![buddy](http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_1.png) &nbsp;&nbsp;&nbsp;&nbsp; ![Chat](http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_2.png) &nbsp;&nbsp;&nbsp;&nbsp; ![Chat](http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_3.png) &nbsp;&nbsp;&nbsp;&nbsp; ![Chat](http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_4.png)
