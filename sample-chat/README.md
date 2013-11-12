@@ -12,8 +12,8 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-chat_users-ios](http://quickblox.com/developers/SimpleSample-chat_users-ios)
 
-<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_1.png" alt="Chat login screen" width="200">
-<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_2.png" alt="1-1 Chat" width="200">
-<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_3.png" alt="Chat rooms" width="200">
-<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_4.png" alt="All users" width="200">
+<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_1.png" border="1" alt="Chat login screen" width="200">
+<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_2.png" border="1" alt="1-1 Chat" width="200">
+<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_3.png" border="1" alt="Chat rooms" width="200">
+<img src="http://files.quickblox.com/QuickBlox_iOS_Chat_sample2_4.png" border="1" alt="All users" width="200">
 
