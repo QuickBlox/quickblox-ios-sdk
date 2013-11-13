@@ -102,7 +102,18 @@
 
     // Group Chat
     }else if(self.chatRoom != nil){
+        
+//        // Replace the next line with these lines if you would like to connect to Web XMPP Chat widget
+//        //
+//        NSDictionary *messageAsDictionary = @{@"message": self.messageTextField.text};
+//        NSData *messageAsData = [NSJSONSerialization dataWithJSONObject:messageAsDictionary options:0 error:nil];
+//        NSString *message =[[NSString alloc] initWithData:messageAsData encoding:NSUTF8StringEncoding];
+//        NSString *escapedMessage = [CharactersEscapeService escape:message];
+//        //
+//        [[ChatService instance] sendMessage:escapedMessage toRoom:self.chatRoom];
+        
         [[ChatService instance] sendMessage:self.messageTextField.text toRoom:self.chatRoom];
+        
     }
     
     // Reload table
@@ -111,8 +122,7 @@
         [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messages count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     
-    // Hide keyboard & clean text field
-    [self.messageTextField resignFirstResponder];
+    // Clean text field
     [self.messageTextField setText:nil];
 }
 
@@ -168,14 +178,14 @@
     
     QBChatMessage *message = (QBChatMessage *)self.messages[indexPath.row];
     //
-    [cell configureCellWithMessage:message];
+    [cell configureCellWithMessage:message is1To1Chat:self.opponent != nil];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     QBChatMessage *chatMessage = (QBChatMessage *)[self.messages objectAtIndex:indexPath.row];
-    CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage];
+    CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage is1To1Chat:self.opponent != nil];
     return cellHeight;
 }
 

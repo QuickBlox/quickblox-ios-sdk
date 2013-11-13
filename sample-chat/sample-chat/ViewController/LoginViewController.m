@@ -54,7 +54,8 @@
 }
 
 - (IBAction)login:(id)sender{
-    // Authenticate user
+    // Login QuickBlox user
+    //
     [QBUsers logInWithUserLogin:self.loginTextField.text
                        password:self.passwordTextField.text
                        delegate:self context:typicalLoginContext];
@@ -63,6 +64,8 @@
 }
 
 - (IBAction)connectWithFacebook:(id)sender{
+    // Login user with Facebook account
+    //
     [QBUsers logInWithSocialProvider:@"facebook"
                                scope:nil
                             delegate:self context:socialLoginContext];
@@ -71,6 +74,8 @@
 }
 
 - (IBAction)connectWithTwitter:(id)sender{
+    // Login user with Twitter account
+    //
     [QBUsers logInWithSocialProvider:@"twitter"
                                scope:nil
                             delegate:self context:socialLoginContext];
@@ -105,7 +110,7 @@
             [[LocalStorageService shared] setCurrentUser: res.user];
 
             
-            // Login to Chat
+            // Login to QuickBlox Chat
             //
             [[ChatService instance] loginWithUser:[LocalStorageService shared].currentUser completionBlock:^{
                 

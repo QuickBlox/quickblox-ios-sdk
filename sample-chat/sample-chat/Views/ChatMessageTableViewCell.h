@@ -14,7 +14,7 @@
 @property (nonatomic, strong) UILabel     *dateLabel;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
-+ (CGFloat)heightForCellWithMessage:(QBChatMessage *)message;
-- (void)configureCellWithMessage:(QBChatMessage *)message;
++ (CGFloat)heightForCellWithMessage:(QBChatMessage *)message is1To1Chat:(BOOL)is1To1Chat;
+- (void)configureCellWithMessage:(QBChatMessage *)message is1To1Chat:(BOOL)is1To1Chat;
 
 @end
