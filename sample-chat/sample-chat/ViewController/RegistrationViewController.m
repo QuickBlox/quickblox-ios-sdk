@@ -44,11 +44,13 @@
 }
 
 - (IBAction)registration:(id)sender{
+
+    // create QuickBlox User
+    //
     QBUUser *user = [QBUUser user];
 	user.password = self.passwordTextField.text;
     user.login = self.loginTextField.text;
-    
-    // create User
+    //
 	[QBUsers signUp:user delegate:self context:registrationContext];
     
     [self.activityIndicatorView startAnimating];
@@ -101,7 +103,8 @@
                 }];
                 
             }else{
-                // Login
+                // Login to QuickBlox
+                //
                 [QBUsers logInWithUserLogin:self.loginTextField.text
                                    password:self.passwordTextField.text
                                    delegate:self context:loginContext];
