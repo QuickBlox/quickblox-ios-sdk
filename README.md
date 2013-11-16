@@ -22,7 +22,7 @@ This project contains QuickBlox iOS SDK, that includes
 
 To start work you should just put framework into your project and call desired methods.
 
-Latest framework file you can download from [downloads page](https://github.com/QuickBlox/quickblox-ios-sdk/downloads).
+Latest framework file you can download from [GitHub](https://github.com/QuickBlox/quickblox-ios-sdk/archive/master.zip).
 
 ## Documentation
 
