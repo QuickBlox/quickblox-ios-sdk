@@ -11,7 +11,6 @@ This project contains QuickBlox iOS SDK, that includes
 * [snippets](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/snippets) (shows main use cases of using this one)
 * samples (separated samples for each QuickBlox module)
   * [Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat)
-  * [VideoChat Sample](http://quickblox.com/developers/SimpleSample-videochat-ios)
   * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
   * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
   * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
