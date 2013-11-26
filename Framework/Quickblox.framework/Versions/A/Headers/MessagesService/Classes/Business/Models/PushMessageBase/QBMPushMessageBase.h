@@ -16,6 +16,6 @@
 
 - (id)initWithPayload:(NSDictionary *)payload;
 - (NSString *)json;
-- (int)charsLeft;
+- (NSInteger)charsLeft;
 
 @end

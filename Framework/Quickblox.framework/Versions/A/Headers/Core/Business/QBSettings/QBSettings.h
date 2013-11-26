@@ -241,6 +241,24 @@
 
 
 #pragma mark -
+#pragma mark Content settings
+
+/**
+ Set Content bucked
+ 
+ @param bucket New bucket name
+ */
++ (void)setContentBucket:(NSString *)bucket;
+
+/**
+ Get Content bucked
+ 
+ @return Content current bucket
+ */
++ (NSString *)contentBucket;
+
+
+#pragma mark -
 #pragma mark Video Chat
 
 /**

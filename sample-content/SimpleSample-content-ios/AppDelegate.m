@@ -37,6 +37,7 @@
     MainViewController *_mainController = [[MainViewController alloc] init];
     [_mainController setTitle:@"User's Gallery"];
     _navController = [[UINavigationController alloc] initWithRootViewController:_mainController];
+    _navController.navigationBar.translucent = NO;
     [_mainController release];
     
     self.window.rootViewController = _navController;

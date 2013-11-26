@@ -23,3 +23,28 @@ enum QBPresenseShow{
     QBPresenseShowDND = 3, // The entity or resource is busy (dnd = "Do Not Disturb").
     QBPresenseShowXA = 4, // The entity or resource is away for an extended period (xa = "eXtended Away").
 };
+
+enum QBVideoChatState {
+    QBVideoChatStateUnknown = 0,
+    
+    QBVideoChatStateCalling = 1,
+    QBVideoChatStateAcceptCall = 2,
+    
+    QBVideoChatBinding = 3,
+    QBVideoChatWaitingOpponentAddressSTUN = 4,
+    QBVideoChatSendingDataSTUN = 5,
+    
+    QBSetupVideoAllocationInProgress = 6,
+    QBSetupVideoAllocationDone = 7,
+    QBSetupVideoSetupPermissionsInProgress = 8,
+    QBSetupVideoSetupPermissionsDone = 9,
+    
+    QBSetupVideoSetupWaitingPeerAttempt = 10,
+    QBSetupVideoSetupConnectionBindInProgress = 11,
+    QBSetupVideoSetupConnectingToRelay = 12,
+    
+    QBSetupVideoWaitingOpponentDataTURN = 13,
+    QBSetuoVideoSendingDataTURN = 14,
+    
+    QBVideoChatStateRejectCall = 15,
+};

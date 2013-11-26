@@ -13,9 +13,6 @@
 + (NSString *)stringFromData:(NSData *)data;
 + (NSData *)dataFromString:(NSString *)string encoding:(NSStringEncoding)encoding;
 + (NSData *)dataFromString:(NSString *)string;
-+ (NSString *)encodeBase64WithData:(NSData *)objData; 
-+ (NSString *)encodeBase64WithString:(NSString *)strData;
-+ (NSData *)decodeBase64WithString:(NSString *)strBase64;
 
 + (unsigned)parseIntFromData:(NSData *)data;
 

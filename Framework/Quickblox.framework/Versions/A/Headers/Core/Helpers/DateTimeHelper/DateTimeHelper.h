@@ -12,4 +12,6 @@
 
 + (NSDate *)dateFromISO8601:(NSString *)str;
 
++ (NSDate *)dateFromQBTokenHeader:(NSString *)str;
+
 @end

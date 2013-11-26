@@ -166,9 +166,9 @@
                 // Create Event - notification will be delivered to all possible devices for specified users.
                 case 0:{
                     QBMEvent *event = [QBMEvent event];
-                    event.notificationType = QBMNotificationTypePush;
+                    event.notificationType = QBMNotificationTypeEmail;
 //                    event.usersExternalIDs = @"12312312,44";
-//                    event.usersIDs = @"14605,300";
+                    event.usersIDs = @"33";
                     event.isDevelopmentEnvironment = YES;
                     event.type = QBMEventTypeOneShot; 
                     //
@@ -295,9 +295,9 @@
                     
                     // Send push
                     if(withContext){
-                        [QBMessages TSendPush:message toUsers:@"218650" delegate:self context:testContext];
+                        [QBMessages TSendPush:message toUsers:@"23" delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPush:message toUsers:@"218650" delegate:self];
+                        [QBMessages TSendPush:message toUsers:@"23" delegate:self];
                     }
                     
                     [message release];

@@ -12,7 +12,7 @@
 /** Overview */
 /** This class is the main entry point to work with Quickblox Location module. */
 
-@interface QBLocation : BaseService {
+@interface QBLocation : QBBaseModule {
     
 }
 

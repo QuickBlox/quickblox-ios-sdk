@@ -11,7 +11,7 @@
 /** Overview */
 /** This class is the main entry point to work with Quickblox Auth module. */
 
-@interface QBAuth : BaseService {
+@interface QBAuth : QBBaseModule {
 
 }
 

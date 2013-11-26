@@ -54,7 +54,7 @@
  
  @param error Error code from QBChatServiceError enum
  */
-- (void)chatDidFailWithError:(int)code;
+- (void)chatDidFailWithError:(NSInteger)code;
 
 /**
  Called in case receiving presence
@@ -184,7 +184,7 @@
  @param userID ID of uopponent
  @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
  */
--(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID conferenceType:(enum QBVideoChatConferenceType)conferenceType;
+-(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID withSessionID:(NSString*)sessionID conferenceType:(enum QBVideoChatConferenceType)conferenceType;
 
 /**
  Called in case when opponent is calling to you
@@ -193,7 +193,7 @@
  @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
  @param customParameters Custom caller parameters
  */
--(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID conferenceType:(enum QBVideoChatConferenceType)conferenceType customParameters:(NSDictionary *)customParameters;
+-(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID withSessionID:(NSString*)sessionID conferenceType:(enum QBVideoChatConferenceType)conferenceType customParameters:(NSDictionary *)customParameters;
 
 /**
  Called in case when you are calling to user, but hi hasn't answered
@@ -245,8 +245,9 @@
  Called in case when call has started
  
  @param userID ID of opponent
+ @param sessionID ID of session
  */
--(void) chatCallDidStartWithUser:(NSUInteger)userID;
+-(void) chatCallDidStartWithUser:(NSUInteger)userID sessionID:(NSString *)sessionID;
 
 /**
  Called in case when start using TURN relay for video chat (not p2p).
@@ -257,10 +258,15 @@
 // TDB
 - (void)chatTURNServerDidDisconnect;
 - (void)chatTURNServerdidFailWithError:(NSError *)error;
-- (void)chatDidPassConnectionStep:(int)step totalSteps:(int)totalSteps;
+- (void)chatDidPassConnectionStep:(NSUInteger)step totalSteps:(NSUInteger)totalSteps;
 
-- (void)chatDidEexceedWriteVideoQueueMaxOperationsThresholdWithCount:(int)operationsInQueue;
-- (void)chatDidEexceedWriteAudioQueueMaxOperationsThresholdWithCount:(int)operationsInQueue;
+- (void)chatDidEexceedWriteVideoQueueMaxOperationsThresholdWithCount:(NSUInteger)operationsInQueue;
+- (void)chatDidEexceedWriteAudioQueueMaxOperationsThresholdWithCount:(NSUInteger)operationsInQueue;
+
+#pragma mark -
+#pragma mark Custom audio session
+
+- (void)didReceiveAudioData:(float *)data lenght:(NSUInteger)lenght channels:(int)channels;
 
 @end
 

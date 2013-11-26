@@ -12,7 +12,7 @@
 /** Overview */
 /** This class is the main entry point to work with Quickblox Users module, user data and profiles management. */
 
-@interface QBUsers : BaseService {
+@interface QBUsers : QBBaseModule {
 
 }
 
@@ -26,7 +26,7 @@
  
  @param login Login of QBUUser which authenticates.
  @param password Password of QBUUser which authenticates.
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserAuthenticateResult class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)logInWithUserLogin:(NSString *)login password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate;
@@ -39,7 +39,7 @@
  
  @param email Email of QBUUser which authenticates.
  @param password Password of QBUUser which authenticates.
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserAuthenticateResult class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)logInWithUserEmail:(NSString *)email password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate;
@@ -53,7 +53,7 @@
  
  @param provider Social provider. Posible values: facebook, twitter.
  @param scope Permission. Permissions for choosen provider.
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserAuthenticateResult class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope delegate:(NSObject<QBActionStatusDelegate> *)delegate;
@@ -68,7 +68,7 @@
  @param provider Social provider. Posible values: facebook, twitter.
  @param accessToken Social provider access token.
  @param accessTokenSecret Social provider access token secret.
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserAuthenticateResult class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider accessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret delegate:(NSObject<QBActionStatusDelegate> *)delegate;

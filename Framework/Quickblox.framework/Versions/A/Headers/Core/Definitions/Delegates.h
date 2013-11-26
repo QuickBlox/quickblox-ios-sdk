@@ -46,9 +46,9 @@
 @end
 
 
-@class RestResponse;
+@class QBRestResponse;
 @protocol RestRequestDelegate<LoadProgressDelegate>
--(void)completedWithResponse:(RestResponse*)response;
+-(void)completedWithResponse:(QBRestResponse*)response;
 @end
 
 

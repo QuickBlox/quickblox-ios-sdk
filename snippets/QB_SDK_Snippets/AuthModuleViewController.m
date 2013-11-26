@@ -79,10 +79,8 @@
                 // Create session with User auth
                 case 1:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.userLogin = @"injoitUser2"; // ID: 218650
-                    extendedAuthRequest.userPassword = @"injoitUser2";
-//                    extendedAuthRequest.userLogin = @"injoitUser2"; // ID: 218651
-//                    extendedAuthRequest.userPassword = @"injoitUser2";
+                    extendedAuthRequest.userLogin = @"supersample-ios"; // ID: 218651
+                    extendedAuthRequest.userPassword = @"supersample-ios";
                     
                     if(withContext){
                         [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self context:testContext];
@@ -95,7 +93,7 @@
                 // Create session with Social provider
                 case 2:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.socialProvider = @"twitter";
+                    extendedAuthRequest.socialProvider = @"facebook";
 //                    extendedAuthRequest.scope = @[@"publish_stream"];
                     
                     if(withContext){
@@ -110,7 +108,7 @@
                 case 3:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
                     extendedAuthRequest.socialProvider = @"facebook";
-                    extendedAuthRequest.socialProviderAccessToken = @"BAAE74iZBvNR0BAFCnyIIvdbdslDZCbIyzqDtT1oWg4dYYQoUl2tsBGMAZCFJX1x2x0h116OF0rObZC3WwtjjtS9rHiwcsvwvlI4pk0RTObCZAvkfUZCGxatsLykeWmC4JDAMN9rPtRev1Oi2bDxoBp5tHApkHOQwA1kPZA3fZBLo4IzsORF5aGK27XZCpyRZBbLMgCl9lmnbpEF8oVKOdz3uhUQ6qN8QJUynMZD";
+                    extendedAuthRequest.socialProviderAccessToken = @"CAAFox8fU5dUBAKg0dCytfoLHQHM3xrDPFLZBg8vdrlIhOFACbqjh3l3whr4riNrZCmhZAJFKoQrwzdXjETlgxEycGHV5yWF4BJA39KwfZAM2z1FWZAk9kLZAM11K7ZCGo0TZBZAjg3JeMip8o34OXzaRVqvcMtLzWr8z0uFRmyhr4LdNW9rGSHVfBue3P8eP7aVUNgvxqNeocl1w9ZAmyWTaxZA";
 //                    extendedAuthRequest.socialProviderAccessTokenSecret = @"Hfv7UTtgLIGD89AkndSAdqloEpam16m48YSwhF6od7g";
                     
                     if(withContext){

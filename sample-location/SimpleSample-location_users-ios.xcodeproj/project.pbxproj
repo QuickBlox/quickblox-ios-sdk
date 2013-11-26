@@ -28,6 +28,7 @@
 		BB9A7D14160C903400292E44 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9A7D13160C903400292E44 /* pin.png */; };
 		BB9A7D311611C64B00292E44 /* tab_icon_chekin.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9A7D2F1611C64A00292E44 /* tab_icon_chekin.png */; };
 		BBEB4A9F1614479000940E63 /* tab_icon_globe.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEB4A9E1614479000940E63 /* tab_icon_globe.png */; };
+		BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED31843E2120044D9E0 /* Security.framework */; };
 		ED6EE5FC16773B96004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */; };
 		FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA38CC5A1614758600BDD29A /* libxml2.2.dylib */; };
 		FA38CC6B1614767600BDD29A /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA38CC6A1614767600BDD29A /* DataManager.m */; };
@@ -78,6 +79,7 @@
 		BB9A7D13160C903400292E44 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		BB9A7D2F1611C64A00292E44 /* tab_icon_chekin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_chekin.png; sourceTree = "<group>"; };
 		BBEB4A9E1614479000940E63 /* tab_icon_globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_globe.png; sourceTree = "<group>"; };
+		BFA79ED31843E2120044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA38CC5A1614758600BDD29A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		FA38CC691614767600BDD29A /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */,
 				FAC8B9DF16D2D34B00F03311 /* AudioToolbox.framework in Frameworks */,
 				FAC8B9DD16D2D34200F03311 /* CoreMedia.framework in Frameworks */,
 				FAC8B9DB16D2D33D00F03311 /* CoreVideo.framework in Frameworks */,
@@ -161,6 +164,7 @@
 		8A2F265A14F7F0D300292876 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFA79ED31843E2120044D9E0 /* Security.framework */,
 				FAC8B9DE16D2D34B00F03311 /* AudioToolbox.framework */,
 				FAC8B9DC16D2D34200F03311 /* CoreMedia.framework */,
 				FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */,
@@ -458,7 +462,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -489,7 +493,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

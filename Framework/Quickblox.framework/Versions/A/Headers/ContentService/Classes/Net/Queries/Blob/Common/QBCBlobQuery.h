@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QBCBlobQuery : Query {
+@interface QBCBlobQuery : QBQuery {
 
 }
 

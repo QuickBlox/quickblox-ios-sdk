@@ -14,7 +14,7 @@
 #import "RateView.h"
 #import "Movie.h"
 
-@interface MovieDetailsViewController : UIViewController <RateViewDelegate, QBActionStatusDelegate>
+@interface MovieDetailsViewController : UIViewController <UIActionSheetDelegate, QBActionStatusDelegate>
 
 @property (retain, nonatomic) IBOutlet UITextView *detailsText;
 @property (retain, nonatomic) IBOutlet UIImageView *moviImageView;
@@ -22,7 +22,6 @@
 
 @property (nonatomic, retain) Movie *movie;
 @property (nonatomic, retain) RateView *ratingView;
-@property (nonatomic, retain) RateView *alertRatingView;
 
 - (IBAction)rate:(id)sender;
 

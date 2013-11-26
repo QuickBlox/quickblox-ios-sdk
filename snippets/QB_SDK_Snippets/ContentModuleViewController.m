@@ -50,7 +50,7 @@
         case 0:
             return 11;
         case 1:
-            return 2;
+            return 3;
             
         default:
             break;
@@ -150,7 +150,7 @@
                 // Update blob
                 case 4:{
                     QBCBlob *blob = [QBCBlob blob];
-                    blob.ID = 36135;
+                    blob.ID = 65263;
                     blob.name = @"Myr";
                     blob.tags = @"man,car";
                     
@@ -219,9 +219,9 @@
                 // Download file with UID
                 case 10:{
                     if(withContext){
-                        [QBContent downloadFileWithUID:@"a75ebcd6ce8a4bc4a36f8c3600e254fb00" delegate:self context:testContext];
+                        [QBContent downloadFileWithUID:@"38efcba6c2474ff5821a336e77a1ebb800" delegate:self context:testContext];
                     }else{
-                        [QBContent downloadFileWithUID:@"a75ebcd6ce8a4bc4a36f8c3600e254fb00" delegate:self];
+                        [QBContent downloadFileWithUID:@"38efcba6c2474ff5821a336e77a1ebb800" delegate:self];
                     }
                 }
                     break;
@@ -236,7 +236,7 @@
             switch (indexPath.row) {
                 // TUploadFile
                 case 0:{
-                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"YellowStar" ofType:@"png"]];
+                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"London" ofType:@"jpg"]];
                     
                     if(withContext){
                         [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:YES delegate:self context:testContext];
@@ -249,12 +249,28 @@
                 // TDownloadFileWithBlobID
                 case 1:{
                     if(withContext){
-                        [QBContent TDownloadFileWithBlobID:6281 delegate:self context:testContext];
+                        [QBContent TDownloadFileWithBlobID:70358 delegate:self context:testContext];
                     }else{
-                        [QBContent TDownloadFileWithBlobID:6281 delegate:self];
+                        [QBContent TDownloadFileWithBlobID:70358 delegate:self];
                     }
                 }
                     break;
+                    
+                // TUpdateFile
+                case 2:{
+                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"plus" ofType:@"png"]];
+                    QBCBlob *blob = [QBCBlob blob];
+                    blob.ID = 65268;
+                    blob.name = @"Plus";
+                    
+                    if(withContext){
+                        [QBContent TUpdateFileWithData:file file:blob delegate:self context:testContext];
+                    }else{
+                        [QBContent TUpdateFileWithData:file file:blob delegate:self];
+                    }
+                }
+                    break;
+                    
                 default:
                     break;
             }
@@ -338,6 +354,11 @@
                     break;
                 case 1:{
                     cell.textLabel.text = @"TDownloadFileWithBlobID";
+                }
+                    break;
+                    
+                case 2:{
+                    cell.textLabel.text = @"TUpdateFileWithData";
                 }
                     break;
                 default:

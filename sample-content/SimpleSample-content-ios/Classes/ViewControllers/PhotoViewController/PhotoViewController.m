@@ -27,6 +27,7 @@
         }
         
         photoDisplayer.opaque = NO;
+        photoDisplayer.contentMode = UIViewContentModeScaleAspectFit;
         [photoDisplayer setImage:imageToDisplay];
         [self.view addSubview:photoDisplayer];
         [photoDisplayer release];

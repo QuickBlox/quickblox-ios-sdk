@@ -3,13 +3,13 @@
 //  BaseService
 //
 //
-@class Query;
+@class QBQuery;
 
 @interface Answer : NSObject {
 	NSMutableArray *errors;
 }
 @property (nonatomic, retain) NSMutableArray* errors;
-@property (nonatomic, assign) Query* query;
+@property (nonatomic, assign) QBQuery* query;
 
 -(Result*)allocResult;
 

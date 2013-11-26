@@ -9,7 +9,7 @@
 
 /** QBMEvent class declaration. */
 /** Overview */
-/** Event representation. If you want to send Apple push - use concrete subsclasses QBMPushEvent. */
+/** Event representation. If you want to send Apple push - use the QBMApplePushEvent subclass. */
 
 @interface QBMEvent : Entity <NSCoding, NSCopying>{
     BOOL active;
@@ -30,9 +30,9 @@
     
     NSDate *date;
     NSDate *endDate;
-    int period;
+    NSUInteger period;
     
-    int occuredCount;
+    NSUInteger occuredCount;
 }
 
 /** Event state. If you want to send specific notification more than once - just edit Event & set this field to 'YES', Then push will be send immediately, without creating a new one Event. */
@@ -85,10 +85,10 @@
  31557600 (1 year).
  Required: No, if the envent's 'type' = QBMEventTypeOneShot, QBMEventTypeMultiShot or QBMEventTypeFixedDate
  Yes, if the envent's 'type' = QBMEventTypePeriodDate */
-@property (nonatomic) int period;
+@property (nonatomic) NSUInteger period;
 
 /** Event's occured count */
-@property (nonatomic) int occuredCount;
+@property (nonatomic) NSUInteger occuredCount;
 
 /** Event's sender ID */
 @property (nonatomic) NSUInteger senderID;

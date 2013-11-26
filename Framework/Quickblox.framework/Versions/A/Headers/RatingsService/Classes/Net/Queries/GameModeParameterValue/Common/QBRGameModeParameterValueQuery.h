@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QBRGameModeParameterValueQuery : Query
+@interface QBRGameModeParameterValueQuery : QBQuery
 
 @end

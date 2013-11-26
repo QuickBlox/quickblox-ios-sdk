@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface QBLGeoDataQuery : Query {
+@interface QBLGeoDataQuery : QBQuery {
 
 }
 

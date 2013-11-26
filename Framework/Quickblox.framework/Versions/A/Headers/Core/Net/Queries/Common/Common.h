@@ -5,5 +5,5 @@
  *
  */
 
-#import "Base/Query.h"
+#import "Base/QBQuery.h"
 #import "Paged/PagedQuery.h"

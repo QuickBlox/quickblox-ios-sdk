@@ -5,5 +5,5 @@
  *
  */
 
-#import "Request/RestRequest.h"
-#import "Response/RestResponse.h"
+#import "Request/QBRestRequest.h"
+#import "Response/QBRestResponse.h"

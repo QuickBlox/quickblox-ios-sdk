@@ -6,6 +6,6 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-@interface QBCOCustomObjectQuery : Query
+@interface QBCOCustomObjectQuery : QBQuery
 
 @end

@@ -13,7 +13,10 @@
 }
 
 /** Custom video capture session */
-@property (retain) AVCaptureSession *customVideoChatCaptureSession;
+@property (nonatomic) BOOL isUseCustomVideoChatCaptureSession;
+
+/** Custom audio session */
+@property (nonatomic) BOOL isUseCustomAudioChatSession;
 
 /** Set view to which will be rendered opponent's video stream */
 @property (retain) UIView *viewToRenderOpponentVideoStream;
@@ -30,12 +33,20 @@
 /** Switch to back camera */
 @property (nonatomic, assign) BOOL useBackCamera;
 
+/** Switch between speaker/headphone. Bu default - NO */
+@property (nonatomic, assign) BOOL useHeadphone;
+
 /** A Boolean value that determines whether camera flash is enabled */
 @property (nonatomic, assign, getter=isCameraFlashEnabled) BOOL cameraFlashEnabled;
 
 /** A Boolean value that determines whether microphone is enabled */ 
 @property (nonatomic, assign, getter=isMicrophoneEnabled) BOOL microphoneEnabled;
 
+/** Video chat instance custom identifier */
+@property (nonatomic, retain, readonly) NSString *sessionID;
+
+/** Video chat instance state */
+@property (nonatomic, readonly) enum QBVideoChatState state;
 
 /**
  Call user. After this your opponent will be receiving one call request per second during 15 seconds to QBChatDelegate's method 'chatDidReceiveCallRequestFromUser:conferenceType:'
@@ -59,22 +70,30 @@
  */
 - (void)cancelCall;
 
+
 /**
  Accept call. Opponent will receive accept signal in QBChatDelegate's method 'chatCallDidAcceptByUser:'
+ 
+ @param userID ID of opponent
+ @param conferenceType Type of conference
  */
-- (void)acceptCall;
+- (void)acceptCallWithOpponentID:(NSUInteger)userID conferenceType:(enum QBVideoChatConferenceType)conferenceType;
 
 /**
  Accept call with custom parameters. Opponent will receive accept signal in QBChatDelegate's method 'chatCallDidAcceptByUser:customParameters:'
  
+ @param userID ID of opponent
+ @param conferenceType Type of conference
  @param customParameters Custom parameters
  */
-- (void)acceptCallWithCustomParameters:(NSDictionary *)customParameters;
+- (void)acceptCallWithOpponentID:(NSUInteger)userID conferenceType:(enum QBVideoChatConferenceType)conferenceType customParameters:(NSDictionary *)customParameters;
 
 /**
  Reject call. Opponent will receive reject signal in QBChatDelegate's method 'chatCallDidRejectByUser:'
+ 
+ @param userID ID of opponent
  */
-- (void)rejectCall;
+- (void)rejectCallWithOpponentID:(NSUInteger)userID;
 
 /**
  Finish call. Opponent will receive finish signal in QBChatDelegate's method 'chatCallDidStopByUser:status:' with status=kStopVideoChatCallStatus_Manually 
@@ -121,9 +140,11 @@
 - (void)processVideoChatCaptureAudioData:(float *)data numFrames:(UInt32)numFrames numChannels:(UInt32) numChannels;
 
 
-
-// TDB
+// Development methods
+//
 - (void)drainWriteVideoQueue;
 - (void)drainWriteAudioQueue;
+//
+- (void)suspendStream:(BOOL)isSuspend;
 
 @end

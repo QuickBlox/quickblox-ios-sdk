@@ -6,7 +6,7 @@
 //  Copyright 2011 QuickBlox. All rights reserved.
 //
 
-@interface QBRatings : BaseService {
+@interface QBRatings : QBBaseModule {
     
 }
 

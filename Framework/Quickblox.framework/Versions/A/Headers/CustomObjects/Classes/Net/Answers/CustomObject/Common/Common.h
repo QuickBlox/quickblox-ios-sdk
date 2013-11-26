@@ -7,4 +7,5 @@
 //
 
 #import "Base/QBCOCustomObjectAnswer.h"
+#import "Base/QBCOMultiDeleteAnswer.h"
 #import "Paged/QBCOCustomObjectPagedAnswer.h"

@@ -15,7 +15,7 @@
 
 #define IMAGE_WIDTH 100
 #define IMAGE_HEIGHT 100
-#define START_POSITION_X 22
+#define START_POSITION_X 5
 #define START_POSITION_Y 10
 #define MARGING 5
 #define IMAGES_IN_ROW 3
