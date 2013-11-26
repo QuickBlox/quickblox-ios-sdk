@@ -47,6 +47,11 @@
 @property (nonatomic, assign) NSUInteger senderID;
 
 /**
+ Message sender nick, use only for group Chat 
+ */
+@property (nonatomic, copy) NSString *senderNick;
+
+/**
  Message datetime
  */
 @property (nonatomic, copy) NSDate *datetime;
@@ -65,5 +70,22 @@
  @return New instance of QBChatMessage
  */
 + (instancetype)message;
+
+/** Save message to history in Custom Objects
+ 
+ @param classname Custom Objects class name
+ @param additionalParameters Additional Custom Objects fields
+ */
+- (void)saveWhenDeliveredToCustomObjectsWithClassName:(NSString *)classname additionalParameters:(NSDictionary *)additionalParameters;
+
+/**
+ Custom Objects class name 
+ */
+@property (nonatomic, readonly) NSString *customObjectsClassName;
+
+/**
+ Additional Custom Objects fields
+ */
+@property (nonatomic, readonly) NSDictionary *customObjectsAdditionalParameters;
 
 @end

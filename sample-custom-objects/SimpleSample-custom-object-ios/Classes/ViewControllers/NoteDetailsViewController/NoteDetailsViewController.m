@@ -52,20 +52,11 @@
 - (IBAction)addComment:(id)sender {
     // Show alert for enter new comment
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New comment"
-                                                    message:@"\n"
+                                                    message:nil
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Add", nil];
-    
-    UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 31.0)];
-    [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-    [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-    [theTextField setBackgroundColor:[UIColor whiteColor]];
-    [theTextField setTextAlignment:UITextAlignmentCenter];
-    theTextField.tag = 101;
-    [alert addSubview:theTextField];
-    [theTextField release];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alert show];
     [alert release];
@@ -162,7 +153,7 @@
         switch (buttonIndex) {
             case 1:{
                 // change comments & update custom object
-                NSString *comments = [[[NSString alloc] initWithFormat:@"%@-c-%@", [[customObject fields] objectForKey:@"comment"], ((UITextField *)[alertView viewWithTag:101]).text] autorelease];
+                NSString *comments = [[[NSString alloc] initWithFormat:@"%@-c-%@", [[customObject fields] objectForKey:@"comment"], [alertView textFieldAtIndex:0].text] autorelease];
 
                 [[customObject fields] setObject:comments forKey:@"comment"];
             

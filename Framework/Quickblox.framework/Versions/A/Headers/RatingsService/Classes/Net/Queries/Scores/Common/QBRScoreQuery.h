@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QBRScoreQuery : Query
+@interface QBRScoreQuery : QBQuery
 
 @end

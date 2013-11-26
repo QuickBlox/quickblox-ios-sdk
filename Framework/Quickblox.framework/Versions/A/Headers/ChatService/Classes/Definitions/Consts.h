@@ -24,8 +24,18 @@ extern NSString* const kQBVideoChatP2PTimeout;
 #define qbvideochat_rejectCall @"qbvideochat_rejectCall"
 #define qbvideochat_stopCall @"qbvideochat_stopCall"
 #define qbvideochat_sendPublicAddress @"qbvideochat_sendPublicAddress"
+//
+#define qbvideochat_p2pIsNotPossible @"qbvideochat_p2pIsNotPossible"
 #define qbvideochat_sendTURNRelayAddress @"qbvideochat_sendTURNRelayAddress"
 
+
+#define qbChatMessageExtraParams @"extraParams"
+#define qbChatMessageQuickBloxExtension @"quickblox"
+#define qbChatPresenceExtension @"x"
+#define qbChatPresenceExtensionXMLNS @"http://chat.quickblox.com/presence_extension"
+#define qbChatMessageExtraParamSessionID @"sessionID"
+#define qbChatMessageExtraParamCallType @"callType"
+#define qbChatMessageExtraParamProtocol @"protocol"
 
 // TCP/UDP video/audio packets tags
 #define sendUDPAudioDataTag 7007
@@ -47,14 +57,14 @@ extern NSString* const kQBVideoChatP2PTimeout;
 //
 #define qbChatConnectionStep1AcceptedCall 1
 //
-#define qbChatConnectionStep2ConnectingToTURNServer 2
-#define qbChatConnectionStep3ConnectedToTURNServer 3
+#define qbChatConnectionStep2SentBuindingRequestToTURNServer 2
+#define qbChatConnectionStep3ReceivedBuindingResponseFromTURNServer 3
 //
-#define qbChatConnectionStep4SentBuindingRequestToTURNServer 4
-#define qbChatConnectionStep5ReceivedBuindingResponseFromTURNServer 5
+#define qbChatConnectionStep4SentPublicAddressToOpponent 4
+#define qbChatConnectionStep5ReceivedOpponentPublicAddress 5
+#define qbChatConnectionStep6ConnectingToTURNServer 6
+#define qbChatConnectionStep7ConnectedToTURNServer 7
 //
-#define qbChatConnectionStep6SentPublicAddressToOpponent 6
-#define qbChatConnectionStep7ReceivedOpponentPublicAddress 7
 //
 #define qbChatConnectionStep8SentAllocationRequestToTURNServer 8
 #define qbChatConnectionStep9ReceivedAllocationResponseFromTURNServer 9

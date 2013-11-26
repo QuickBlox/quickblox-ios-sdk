@@ -24,6 +24,7 @@
     NSUInteger refCount;
     NSString *tags;
     BOOL isPublic;
+    BOOL isNew;
     
     QBCBlobObjectAccess *blobObjectAccess;
 }
@@ -63,6 +64,9 @@
 
 /** File's visibility */
 @property (nonatomic) BOOL isPublic;
+
+/** Set as YES if you want to updated blob's file */
+@property (nonatomic) BOOL isNew;
 
 /** Create new blob
  @return New instance of QBCBlob

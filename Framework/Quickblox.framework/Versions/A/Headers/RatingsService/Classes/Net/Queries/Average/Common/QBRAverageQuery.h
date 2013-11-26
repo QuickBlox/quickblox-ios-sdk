@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QBRAverageQuery : Query
+@interface QBRAverageQuery : QBQuery
 
 @end

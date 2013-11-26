@@ -8,3 +8,4 @@
 
 #import "Permissions/Permissions.h"
 #import "CustomObject/CustomObjects.h"
+#import "File/File.h"

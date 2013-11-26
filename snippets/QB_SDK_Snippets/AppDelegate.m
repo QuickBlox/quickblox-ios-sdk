@@ -51,11 +51,11 @@
     // show Chat
     self.tabBarController.selectedIndex = 3;
     
-//    // Set QuickBlox credentials
+    // credentials
     [QBSettings setApplicationID:92];
     [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
-
+    
     return YES;
 }
 
@@ -84,8 +84,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    // Получили пуш!
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
     // userInfo
     NSLog(@"push %@", userInfo);
 }

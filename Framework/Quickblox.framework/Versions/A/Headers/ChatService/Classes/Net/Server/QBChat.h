@@ -36,6 +36,9 @@ typedef enum QBChatServiceError {
 /** Contact list */
 @property (nonatomic, readonly) QBContactList *contactList;
 
+/** Array of registered video chat instances */
+@property (readonly) NSMutableArray *registeredVideoChatInstances;
+
 
 #pragma mark -
 #pragma mark Base Messaging
@@ -285,6 +288,13 @@ typedef enum QBChatServiceError {
  */
 - (QBVideoChat *)createAndRegisterVideoChatInstance;
 
+/**
+ Create and register new video chat instance with particular session ID
+ 
+ @param sessionID Video chat session ID
+ @return Autoreleased instance of QBVideoChat;
+ */
+- (QBVideoChat *)createAndRegisterVideoChatInstanceWithSessionID:(NSString *)sessionID;
 
 /**
  Unregister video chat instance
@@ -292,5 +302,11 @@ typedef enum QBChatServiceError {
  @param videoChat Instance of video chat
  */
 - (void)unregisterVideoChatInstance:(QBVideoChat *)videoChat;
+
+
+#pragma mark -
+#pragma mark Misc
+
+- (void)sendGetIQWithXmlns:(NSString *)xmlns node:(NSString *)node;
 
 @end

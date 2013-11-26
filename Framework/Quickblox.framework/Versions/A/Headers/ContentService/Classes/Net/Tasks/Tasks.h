@@ -8,5 +8,6 @@
 
 #import "DownloadFile/QBCFileDownloadTask.h"
 #import "UploadFile/QBCFileUploadTask.h"
+#import "UpdateFile/QBCFileUpdateTask.h"
 
 

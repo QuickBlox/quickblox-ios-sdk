@@ -7,4 +7,5 @@
 //
 
 #import "Base/QBCOCustomObjectResult.h"
+#import "Base/QBCOMultiDeleteResult.h"
 #import "Paged/QBCOCustomObjectPagedResult.h"

@@ -10,7 +10,7 @@
 
 @class QBLPlaceAnswer;
 
-@interface QBLPlacesQuery : Query {
+@interface QBLPlacesQuery : QBQuery {
 
 }
 

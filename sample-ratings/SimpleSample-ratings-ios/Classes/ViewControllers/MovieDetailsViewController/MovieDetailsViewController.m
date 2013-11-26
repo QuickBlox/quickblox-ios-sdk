@@ -20,7 +20,6 @@
 @synthesize movie;
 @synthesize detailsText;
 @synthesize moviImageView;
-@synthesize alertRatingView;
 
 - (void)viewDidLoad
 {
@@ -38,11 +37,6 @@
     self.ratingView.editable = NO;
     self.ratingView.rate = [movie rating];
     [self.view addSubview:self.ratingView];
-    
-    self.alertRatingView = [[[RateView alloc] initWithFrameBig:CGRectMake(20, 80, 240, 30)] autorelease];
-    self.alertRatingView.alignment = RateViewAlignmentLeft;
-    self.alertRatingView.editable = YES;
-    self.alertRatingView.delegate = self;
     
     if(IS_HEIGHT_GTE_568){
         CGRect frame = self.ratingView.frame;
@@ -69,22 +63,23 @@
 - (void)dealloc {
     [detailsText release];
     [ratingButton release];
-    [alertRatingView release];
     [super dealloc];
 }
 
 - (IBAction)rate:(id)sender {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Ratings" message:@"Rate this film\n\n\n" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-    [alert addSubview:self.alertRatingView];
-    [alert show];
-    [alert release];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Rate movie" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"1", @"2", @"3", @"4", @"5", nil];
+    [sheet showInView:self.view];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{ 
-    QBRScore *score = [QBRScore score];
-    score.gameModeID = [movie gameModeID];
-    score.value = alertRatingView.rate;
-    [QBRatings createScore:score delegate:nil];
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex > 0){
+        QBRScore *score = [QBRScore score];
+        score.gameModeID = [movie gameModeID];
+        score.value = buttonIndex + 1;
+        [QBRatings createScore:score delegate:nil];
+    }
+    
+    [actionSheet release];
 }
 
 @end

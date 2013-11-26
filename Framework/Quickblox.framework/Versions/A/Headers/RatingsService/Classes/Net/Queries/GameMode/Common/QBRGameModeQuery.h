@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QBRGameModeQuery : Query{
+@interface QBRGameModeQuery : QBQuery{
     
 }
 

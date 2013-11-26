@@ -40,6 +40,9 @@
     
     // connect views to tabBar
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    if(QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+        self.tabBarController.tabBar.translucent = NO;
+    }
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapViewControleler, latestCheckinsViewControleler, nil];
     [mapViewControleler release];
     [latestCheckinsViewControleler release];

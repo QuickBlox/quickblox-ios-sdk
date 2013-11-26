@@ -19,8 +19,7 @@ enum RestMethodKind
 	RestMethodKindDELETE = 1,
 	RestMethodKindGET,
 	RestMethodKindPOST,
-	RestMethodKindPUT,
-    RestMethodKindHEAD
+	RestMethodKindPUT
 };
 
 //QBASIHTTPRequest
@@ -65,13 +64,11 @@ enum QBLogLevel
 enum RestRequestBuildStyle
 {
 	RestRequestBuildStyleParams,
-	RestRequestBuildStyleMultipartFormData,
-	RestRequestBuildStyleBinary
+	RestRequestBuildStyleMultipartFormData
 };
 
 enum FileParameterType
 {
-	FileParameterTypePath,
 	FileParameterTypeData
 };
 

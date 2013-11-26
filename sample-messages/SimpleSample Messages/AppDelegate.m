@@ -38,7 +38,7 @@
     
     // show splash controller
     self.splashViewController = [[[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil] autorelease];
-    self.window.rootViewController = (UIViewController*)self.splashViewController;
+    self.window.rootViewController = (UIViewController *)self.splashViewController;
     [self.window makeKeyAndVisible];
     
     return YES;

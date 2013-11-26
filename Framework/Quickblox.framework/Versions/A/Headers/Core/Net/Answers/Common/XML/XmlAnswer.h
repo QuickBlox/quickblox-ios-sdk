@@ -19,6 +19,8 @@
 @property (nonatomic,readonly) NSString *prevElement;
 @property (nonatomic,readonly) NSString *prevPrevElement;
 @property (nonatomic,readonly) NSString *prevPrevPrevElement;
+@property (nonatomic,readonly) NSString *prevPrevPrevPrevElement;
+@property (nonatomic,readonly) NSString *prevPrevPrevPrevPrevElement;
 
 @property (nonatomic) NSStringEncoding encodeEncoding;
 @property (nonatomic) NSStringEncoding decodeEncoding;

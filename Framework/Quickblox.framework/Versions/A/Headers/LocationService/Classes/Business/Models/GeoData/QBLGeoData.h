@@ -23,7 +23,7 @@
 	QBUUser *user;
     NSUInteger applicationID;
     
-    int createdAtTimestamp;
+    NSUInteger createdAtTimestamp;
 }
 /** Latitude */
 @property (nonatomic) CLLocationDegrees latitude;
@@ -44,7 +44,7 @@
 @property (nonatomic, assign) NSUInteger applicationID;
 
 /** Timestamp of create geodata */
-@property (nonatomic) int createdAtTimestamp;
+@property (nonatomic) NSUInteger createdAtTimestamp;
 
 /** Create new GeoData
  @return New instance of QBLGeoData

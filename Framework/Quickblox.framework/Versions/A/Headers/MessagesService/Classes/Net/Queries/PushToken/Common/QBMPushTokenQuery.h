@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface QBMPushTokenQuery : Query {
+@interface QBMPushTokenQuery : QBQuery {
 
 }
 

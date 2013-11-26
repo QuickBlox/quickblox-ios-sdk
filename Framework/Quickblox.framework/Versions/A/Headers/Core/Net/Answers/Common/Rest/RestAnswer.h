@@ -11,15 +11,12 @@
 	
 @protected
 	enum RestAnswerKind kind;
-	RestResponse* response;
+	QBRestResponse *response;
 }
-@property(nonatomic,readonly) enum RestAnswerKind kind;
-@property(nonatomic,readonly) enum RestAnswerKind expectedKind;
-@property(nonatomic,readonly) RestResponse* response;
+@property (nonatomic, readonly) enum RestAnswerKind kind;
+@property (nonatomic, readonly) QBRestResponse *response;
 
--(id)initWithResponse:(RestResponse*) tresponse;
--(void)load;
--(void)handleStatus;
--(void)handleResponseError:(NSError*)error;
+- (id)initWithResponse:(QBRestResponse *) response;
+- (void)load;
 
 @end

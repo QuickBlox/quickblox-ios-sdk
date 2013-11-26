@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface PagedQuery : Query {
+@interface PagedQuery : QBQuery {
 	NSUInteger page;
 	NSUInteger perPage;
 }

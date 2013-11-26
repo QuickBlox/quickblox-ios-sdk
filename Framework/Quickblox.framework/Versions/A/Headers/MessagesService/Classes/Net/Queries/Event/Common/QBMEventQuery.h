@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface QBMEventQuery : Query {
+@interface QBMEventQuery : QBQuery {
 }
 
 @end

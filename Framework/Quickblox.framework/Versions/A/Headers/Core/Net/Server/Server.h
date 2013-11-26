@@ -4,4 +4,4 @@
  *
  *
  */
-#import "BaseService/BaseService.h"
+#import "BaseService/QBBaseModule.h"

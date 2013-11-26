@@ -17,7 +17,8 @@
     UIView* _modalBackgroundView;
 }
 @property (retain) SocialLoginAnswer *answer;
-@property (retain) QBASIWebPageRequest *request;
+@property (readonly) NSMutableURLRequest *request;
+@property (readonly) id operation;
 
 - (void) showWithHTML:(NSString *)html andBaseURL:(NSURL *)baseURL;
 - (void) hide;

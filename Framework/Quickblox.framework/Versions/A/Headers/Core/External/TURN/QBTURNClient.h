@@ -54,7 +54,7 @@
 @property (nonatomic, retain) QBGCDAsyncSocket *tcpSocketControl;
 @property (nonatomic, retain) QBGCDAsyncSocket *tcpSocketData;
 
-@property (nonatomic, assign) id<QBTURNClientDelegate>delegate;
+@property (nonatomic, retain) id<QBTURNClientDelegate>delegate;
 
 // TURN
 //
@@ -109,7 +109,7 @@ enum QBTURNResponseType{
 - (void)didReceiveData:(NSData *) data;
 - (void)didReceiveConnectionAttempt:(NSDictionary *) data;
 - (void)didReceiveConnectionBind;
-- (void)didFailWithError:(NSString *) error code:(int)errorCode;
+- (void)didFailWithError:(NSString *) error code:(NSInteger)errorCode;
 - (void)didConnectToTURNServerUsingTCP:(QBGCDAsyncSocket *)socket;
 - (void)chatTURNServerDidDisconnect;
 @end

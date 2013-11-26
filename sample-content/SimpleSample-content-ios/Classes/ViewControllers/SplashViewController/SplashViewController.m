@@ -71,7 +71,7 @@
                 
                 // send request for getting user's filelist
                 PagedRequest *pagedRequest = [[PagedRequest alloc] init];    
-                [pagedRequest setPerPage:10];
+                [pagedRequest setPerPage:20];
                 
                 [QBContent blobsWithPagedRequest:pagedRequest delegate:self];
                 

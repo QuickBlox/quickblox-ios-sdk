@@ -48,7 +48,9 @@
     }else{
         toolbar.frame = CGRectMake(0, self.view.frame.size.height-87, self.view.frame.size.width, 44);
     }
-    
+    if(QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+        toolbar.frame = CGRectMake(toolbar.frame.origin.x, toolbar.frame.origin.y-20, toolbar.frame.size.width, toolbar.frame.size.height);
+    }
     [toolbar setItems:[NSArray arrayWithObject:uploadItem]];
     [uploadItem release];
     [self.view addSubview:toolbar];
@@ -146,7 +148,7 @@
 
 // when photo is selected from gallery - > upload it to server
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage* selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];   
+    UIImage* selectedImage = [info valueForKey:UIImagePickerControllerOriginalImage];
     NSData* imageData = UIImagePNGRepresentation(selectedImage);
     
     // Show image on gallery

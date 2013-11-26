@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		43900C32162468880041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C31162468880041381B /* Default-568h@2x.png */; };
 		43900C39162469680041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C38162469680041381B /* libxml2.dylib */; };
+		BFA79ED61843E4280044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED51843E4280044D9E0 /* Security.framework */; };
 		ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE60216773C46004BCAC7 /* Quickblox.framework */; };
 		FA19A32315FE4F5C00B5B2CC /* RichContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA19A32215FE4F5C00B5B2CC /* RichContentViewController.xib */; };
 		FA19A33215FE4F6A00B5B2CC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32A15FE4F6A00B5B2CC /* MainViewController.m */; };
@@ -44,6 +45,7 @@
 		43900C31162468880041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43900C38162469680041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		43EB468A16241A9C00A88FF1 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		BFA79ED51843E4280044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ED6EE60216773C46004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA19A32215FE4F5C00B5B2CC /* RichContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RichContentViewController.xib; sourceTree = "<group>"; };
 		FA19A32915FE4F6A00B5B2CC /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA79ED61843E4280044D9E0 /* Security.framework in Frameworks */,
 				FAC8B9FD16D2D6AF00F03311 /* AudioToolbox.framework in Frameworks */,
 				FAC8B9FB16D2D6AA00F03311 /* AVFoundation.framework in Frameworks */,
 				FAC8B9F916D2D6A500F03311 /* Accelerate.framework in Frameworks */,
@@ -219,6 +222,7 @@
 		FAFA572A14ED23410057B9B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFA79ED51843E4280044D9E0 /* Security.framework */,
 				FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */,
 				FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */,
 				FAC8B9F816D2D6A400F03311 /* Accelerate.framework */,
@@ -417,7 +421,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample Messages/SimpleSample Messages-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -429,8 +433,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Messages;
-				PROVISIONING_PROFILE = "8A37E6EF-9D98-46E2-9EC2-74E6745251E8";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8A37E6EF-9D98-46E2-9EC2-74E6745251E8";
+				PROVISIONING_PROFILE = "FD294064-6629-4785-97BC-45EF6E0C01E4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FD294064-6629-4785-97BC-45EF6E0C01E4";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -450,7 +454,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample Messages/SimpleSample Messages-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

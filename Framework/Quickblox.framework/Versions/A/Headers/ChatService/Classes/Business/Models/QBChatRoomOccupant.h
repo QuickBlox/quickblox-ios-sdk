@@ -11,7 +11,6 @@
 @interface QBChatRoomOccupant : NSObject
 {
 	NSString *nickname;
-    NSString *status;
     NSDictionary *parameters;
 }
 

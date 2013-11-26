@@ -17,6 +17,6 @@
 
 -(id)initWithRequest:(QBASessionCreationRequest *)_sessionCreationRequest;
 
--(void)signRequest:(RestRequest *)request;
+-(void)signRequest:(QBRestRequest *)request;
 
 @end

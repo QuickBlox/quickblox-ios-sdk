@@ -18,13 +18,14 @@
 	// Filters
 	NSDate *createdAt;
 	NSUInteger userID;
+    NSArray *userIDs;
 	NSString *userName;
 	
 	// Diapazones
 	NSDate *minCreatedAt;
 	NSDate *maxCreatedAt;
 	struct QBLGeoDataRect geoRect;
-	NSInteger radius;
+	NSUInteger radius;
 	
 	// Sorting
 	BOOL sortAsc;
@@ -46,6 +47,9 @@
 /** User id. When specified, it will return only the instances created by QBUUser with id = userID. */
 @property (nonatomic) NSUInteger userID;
 
+/** User ids. When specified, it will return only the instances created by QBUUsers with ids = userIDs. */
+@property (nonatomic, retain) NSArray *userIDs;
+
 /** Substring. Search for API Users full_name and login fields. When specified, it will return only the instances created by API Users who have in login or full_name passed substring.*/
 @property (nonatomic, retain) NSString *userName;
 
@@ -63,7 +67,7 @@
 @property (nonatomic) struct QBLGeoDataRect geoRect;
 
 /** With 'current_position' describes GeoCircle - "circle" on the earth's surface, given the coordinates 'current_position' and this distance in meters ('radius'). */
-@property (nonatomic) NSInteger radius;
+@property (nonatomic) NSUInteger radius;
 
 
 #pragma mark -

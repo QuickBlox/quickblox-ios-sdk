@@ -8,9 +8,9 @@
 
 #import "ChatModuleViewController.h"
 
-#define testRoomName @"xmppchat"
+#define testRoomName @"crazyRoom"
 
-#define ADMIN_ID 291
+#define ADMIN_ID 103894
 
 
 @interface ChatModuleViewController ()
@@ -262,13 +262,8 @@
                 // Login
                 case 0:{
                     QBUUser *user = [QBUUser user];
-#if TARGET_IPHONE_SIMULATOR
-                    user.ID = 218650;
-                    user.password = @"injoitUser1";
-#else
-                    user.ID = 218650;
-                    user.password = @"injoitUser1";
-#endif
+                    user.ID = 291;
+                    user.password = @"supersample-ios";
                     [[QBChat instance] loginWithUser:user];
                 }
                     
@@ -277,6 +272,10 @@
                 // Is logged in
                 case 1:{
                     [[QBChat instance] isLoggedIn];
+                    
+                    for(int i=0; i<30;++i){
+                        [[QBChat instance] requestAllRooms];
+                    }
                 }
                     break;
                     
@@ -309,9 +308,9 @@
                 // send direct Presence with status
                 case 2:{
 #if TARGET_IPHONE_SIMULATOR
-                    [[QBChat instance] sendDirectPresenceWithStatus:@"morning" toUser:218650];
+                    [[QBChat instance] sendDirectPresenceWithStatus:@"morning" toUser:33];
 #else
-                    [[QBChat instance] sendDirectPresenceWithStatus:@"morning" toUser:218651];
+                    [[QBChat instance] sendDirectPresenceWithStatus:@"morning" toUser:33];
 #endif
                 }
                     break;
@@ -328,13 +327,8 @@
                 case 0:{
 
                     QBChatMessage *message = [QBChatMessage message];
-                    [message setText:@"Hello QuickBlox developer!"];
-                    [message setCustomParameters:@{@"playSound": @YES}];
-#if TARGET_IPHONE_SIMULATOR
-                    [message setRecipientID:218650];
-#else
-                    [message setRecipientID:218651];
-#endif
+                    [message setText:@"Hello amigo"];
+                    [message setRecipientID:291];
                     [[QBChat instance] sendMessage:message];
                 }
                 default:
@@ -349,9 +343,9 @@
                 // Add user to contact list request
                 case 0:{
 #if TARGET_IPHONE_SIMULATOR
-                    [[QBChat instance] addUserToContactListRequest:218650];
+                    [[QBChat instance] addUserToContactListRequest:3144];
 #else
-                    [[QBChat instance] addUserToContactListRequest:218651];
+                    [[QBChat instance] addUserToContactListRequest:3144];
 #endif
                 }
                     break;
@@ -359,9 +353,9 @@
                 // Confirm add request
                 case 1:{
 #if TARGET_IPHONE_SIMULATOR
-                    [[QBChat instance] confirmAddContactRequest:218650];
+                    [[QBChat instance] confirmAddContactRequest:3153];
 #else
-                    [[QBChat instance] confirmAddContactRequest:218651];
+                    [[QBChat instance] confirmAddContactRequest:3153];
 #endif
                 }
                     break;
@@ -399,8 +393,7 @@
                     self.testRoom = nil;
                     
                     // room's name must be without spaces
-                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:NO];
-                    
+                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:NO persistent:YES];
                     
                 }
                 break;
@@ -429,7 +422,7 @@
                     
                 // Send message
                 case 4:{
-                    [[QBChat instance] sendMessage:@"Hello QuickBlox team, this is iOS SDK mate!" toRoom:testRoom];
+                    [[QBChat instance] sendMessage:@"Hello QuickBlox team, this is iOS SDK mat" toRoom:testRoom];
                 }
                 break;
                     
@@ -557,11 +550,6 @@
 
 - (void)chatDidReceiveListOfRooms:(NSArray *)_rooms{
     NSLog(@"Did receive list of rooms: %@", _rooms);
-    for (QBChatRoom* room in _rooms) {
-        if([room.name isEqualToString:testRoomName]){
-            self.testRoom = room;
-        }
-    }
 }
 
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName{

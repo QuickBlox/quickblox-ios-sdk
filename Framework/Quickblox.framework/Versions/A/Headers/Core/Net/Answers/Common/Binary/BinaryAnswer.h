@@ -7,10 +7,10 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BinaryAnswer : RestAnswer {
-	NSData* loadedData;
+@interface BinaryAnswer : XmlAnswer {
+	NSData *loadedData;
 }
 
-@property (nonatomic,readonly) NSData* loadedData;
+@property (nonatomic,readonly) NSData *loadedData;
 
 @end

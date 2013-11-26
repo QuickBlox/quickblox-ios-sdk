@@ -10,6 +10,7 @@
 		43900C60162470230041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C5F162470230041381B /* Default-568h@2x.png */; };
 		BF011E73178968550076CA3B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF011E72178968550076CA3B /* QuartzCore.framework */; };
 		BF011E7717896B940076CA3B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF011E7617896B940076CA3B /* icon.png */; };
+		BFA23406184271E400A6714D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA23405184271E400A6714D /* Security.framework */; };
 		ED49FAA815B56E5200154AE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA715B56E5200154AE8 /* UIKit.framework */; };
 		ED49FAAA15B56E5200154AE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA915B56E5200154AE8 /* Foundation.framework */; };
 		ED49FAAC15B56E5200154AE8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAAB15B56E5200154AE8 /* CoreGraphics.framework */; };
@@ -44,6 +45,7 @@
 		43900C5F162470230041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BF011E72178968550076CA3B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BF011E7617896B940076CA3B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		BFA23405184271E400A6714D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ED49FAA315B56E5200154AE8 /* Content.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Content.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED49FAA715B56E5200154AE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ED49FAA915B56E5200154AE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -87,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA23406184271E400A6714D /* Security.framework in Frameworks */,
 				BF011E73178968550076CA3B /* QuartzCore.framework in Frameworks */,
 				FAC8B9CB16D2CF4100F03311 /* AVFoundation.framework in Frameworks */,
 				FAC8B9C916D2CF3A00F03311 /* AudioToolbox.framework in Frameworks */,
@@ -131,6 +134,7 @@
 		ED49FAA615B56E5200154AE8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFA23405184271E400A6714D /* Security.framework */,
 				BF011E72178968550076CA3B /* QuartzCore.framework */,
 				ED6EE5E916773486004BCAC7 /* Quickblox.framework */,
 				FAC8B9CA16D2CF4100F03311 /* AVFoundation.framework */,
@@ -381,8 +385,8 @@
 		ED49FAC215B56E5200154AE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -391,7 +395,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-content-ios/SimpleSample-content-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -403,8 +407,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Content;
-				PROVISIONING_PROFILE = "61070765-F7A1-4048-BB1E-5CD876A4090E";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
+				PROVISIONING_PROFILE = "800A6590-3F7C-43E1-85E7-EA207E320634";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "800A6590-3F7C-43E1-85E7-EA207E320634";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -420,7 +424,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-content-ios/SimpleSample-content-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

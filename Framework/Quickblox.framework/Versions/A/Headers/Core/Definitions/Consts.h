@@ -6,7 +6,7 @@
  */
 
 #define N(V) (V==nil)?@"":V
-#define S(S,F) [NSString stringWithFormat:S,F]
+#define S(S,...) [NSString stringWithFormat:S,__VA_ARGS__]
 
 #define quickbloxStandartServerUrl @"quickblox.com"
 

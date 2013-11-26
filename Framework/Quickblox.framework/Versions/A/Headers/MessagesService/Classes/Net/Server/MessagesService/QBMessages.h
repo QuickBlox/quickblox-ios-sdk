@@ -11,7 +11,7 @@
 /** Overview: */
 /** This is a hub class for all Messages-related actions. */
 
-@interface QBMessages : BaseService {
+@interface QBMessages : QBBaseModule {
     
 }
 

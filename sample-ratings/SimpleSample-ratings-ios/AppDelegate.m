@@ -36,6 +36,7 @@
     // create navigation controller with root main view controller
     MainViewController *mainViewController = [[MainViewController alloc] init];
     self.navigationController = [[[UINavigationController alloc] initWithRootViewController:mainViewController] autorelease];
+    self.navigationController.navigationBar.translucent = NO;
     [mainViewController release];
     
     [self.window setRootViewController:self.navigationController];

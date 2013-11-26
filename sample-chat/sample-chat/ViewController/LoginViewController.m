@@ -101,7 +101,7 @@
             // Read about Chat password there http://quickblox.com/developers/Chat#Password
             //
             if([((__bridge NSString *)contextInfo) isEqualToString:socialLoginContext]){
-                res.user.password = [BaseService sharedService].token;
+                res.user.password = [QBBaseModule sharedModule].token;
             }else{
                 res.user.password = self.passwordTextField.text;
             }

@@ -20,6 +20,9 @@
 + (QBChatMessage *)messageFromXMPPMessage:(id)message roomNick:(NSString *)roomNick;
 + (id)xmppMessageFromQBChatMessage:(QBChatMessage *)message;
 
+// Presense utils
++ (NSDictionary *)parametersFromPresence:(id)presence;
+
 // Rooms utils
 + (NSString *)roomNameFromJID:(NSString *)roomJID;
 + (NSString *)roomJIDFromName:(NSString *)roomName;
@@ -44,8 +47,9 @@
 + (CGImageRef)CGImageRotatedByAngle:(CGImageRef)imgRef angle:(CGFloat)angle;
 
 
-// Extract custom params from XMPPMessage
+// Extract custom params
 + (NSMutableDictionary *)customParametersFromXMPPMessage:(id)message;
++ (void)setCustomParameters:(NSDictionary *)customParameters extensionName:(NSString *)extensionName toXMPPMessage:(id)message;
 
 // Internet
 + (NSString *)getIPAddress;

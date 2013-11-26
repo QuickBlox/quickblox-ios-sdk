@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		43900C1B16245DCA0041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C1A16245DCA0041381B /* Default-568h@2x.png */; };
 		43900C4016246C090041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C3F16246C090041381B /* libxml2.dylib */; };
+		BFA79EDA1843E8BA0044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED91843E8BA0044D9E0 /* Security.framework */; };
 		BFAAF5241785B343009379B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5231785B343009379B9 /* QuartzCore.framework */; };
 		BFAAF5281785CC7B009379B9 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5271785CC7B009379B9 /* Quickblox.framework */; };
 		FA43AD0B152B8ABD000A2EF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA43AD0A152B8ABD000A2EF7 /* UIKit.framework */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		43900C1A16245DCA0041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43900C3F16246C090041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		BFA79ED91843E8BA0044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFAAF5231785B343009379B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BFAAF5271785CC7B009379B9 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA43AD06152B8ABD000A2EF7 /* Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Users.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFA79EDA1843E8BA0044D9E0 /* Security.framework in Frameworks */,
 				BFAAF5241785B343009379B9 /* QuartzCore.framework in Frameworks */,
 				FAC8B9F316D2D5AA00F03311 /* AudioToolbox.framework in Frameworks */,
 				FAC8B9F116D2D5A400F03311 /* Accelerate.framework in Frameworks */,
@@ -154,6 +157,7 @@
 		FA43AD09152B8ABD000A2EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFA79ED91843E8BA0044D9E0 /* Security.framework */,
 				BFAAF5271785CC7B009379B9 /* Quickblox.framework */,
 				BFAAF5231785B343009379B9 /* QuartzCore.framework */,
 				FAC8B9F216D2D5AA00F03311 /* AudioToolbox.framework */,
@@ -463,6 +467,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -491,6 +496,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

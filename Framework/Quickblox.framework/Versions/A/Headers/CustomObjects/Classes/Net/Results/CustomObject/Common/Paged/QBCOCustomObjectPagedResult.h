@@ -24,4 +24,7 @@
 /** Limit parameter */
 @property (nonatomic, readonly) NSUInteger limit;
 
+/** Not found objects (!= nil in case when use multi updated objects) */
+@property (nonatomic, readonly) NSArray *notFoundObjectsIDs;
+
 @end

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QBCBlobObjectAccessQuery : Query
+@interface QBCBlobObjectAccessQuery : QBQuery
 
 @end
