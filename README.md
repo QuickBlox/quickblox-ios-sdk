@@ -1,3 +1,8 @@
+# QuickBlox 
+QuickBlox - Communication & cloud backend (BaaS) platform which brings superpowers to mobile apps. 
+
+QuickBlox is a suite of communication features & data services (APIs, SDKs, code samples, admin panel, tutorials) which help digital agencies, mobile developers and publishers to add great functionality to smartphone applications. 
+
 # QuickBlox iOS SDK
 
 This project contains QuickBlox iOS SDK, that includes
@@ -17,7 +22,7 @@ This project contains QuickBlox iOS SDK, that includes
 
 To start work you should just put framework into your project and call desired methods.
 
-Latest framework file you can download from [downloads page](https://github.com/QuickBlox/quickblox-ios-sdk/downloads).
+Latest framework file you can download from [GitHub](https://github.com/QuickBlox/quickblox-ios-sdk/archive/master.zip).
 
 ## Documentation
 
@@ -26,7 +31,7 @@ Latest framework file you can download from [downloads page](https://github.com/
 
 ## Oh, please, please show me the code
 
-iOS SDK is really simple to use. Just in few minutes you can power your mobile app with huge amount of awesome functions to store, pass and represent your data. 
+iOS SDK is really simple to use. Just in few minutes you can power your mobile app with huge amount of awesome communication features & data services.
 
 ### 1. Get app credentials
 
@@ -41,7 +46,7 @@ The common way to interact with QuickBlox can be presented with following sequen
 1. [Initialize framework with application credentials](#41-initialize-framework-with-application-credentials)
 2. [Create session](#42-create-session)
 3. [Login with existing user or register new one](#43-registerlogin)
-4. [Perform actions with any QuickBlox data entities (users, locations, files, custom objects, pushes etc.)](#44-perform-actions)
+4. [Perform actions with QuickBlox communication services and any data entities (users, locations, files, custom objects, pushes etc.)](#44-perform-actions)
 
 #### 4.1 Initialize framework with application credentials
 
@@ -97,7 +102,47 @@ then authorize user
 }
 ```
 
+to authorise user in Chat
+```objectivec
+QBUUser *currentUser = [QBUUser user];
+currentUser.ID = 2569; // your current user's ID
+currentUser.password = @"garrySant88"; // your current user's password   
+ 
+// set Chat delegate
+[QBChat instance].delegate = self;
+ 
+// login to Chat
+[[QBChat instance] loginWithUser:currentUser];
+ 
+#pragma mark -
+#pragma mark QBChatDelegate
+ 
+// Chat delegate
+-(void) chatDidLogin{
+    // You have successfully signed in to QuickBlox Chat
+}
+```
+
 #### 4.4. Perform actions
+
+Send Chat message
+
+```objectivec
+// send message
+QBChatMessage *message = [QBChatMessage message];
+message.recipientID = 546; // opponent's id
+message.text = @"Hi mate!";
+ 
+[[QBChat instance] sendMessage:message];
+ 
+ 
+#pragma mark -
+#pragma mark QBChatDelegate
+ 
+- (void)chatDidReceiveMessage:(QBChatMessage *)message{
+    NSLog(@"New message: %@", message);
+}
+```
 
 Create new location for Indiana Jones
 
@@ -136,12 +181,12 @@ iOS Framework provides following classes to interact with QuickBlox API (each cl
 
 * QBAuth
 * QBUsers
+* QBChat
 * QBCustomObjects
 * QBLocation
 * QBContent
 * QBRatings
 * QBMessages
-* QBChat
 
 ## See also
 
