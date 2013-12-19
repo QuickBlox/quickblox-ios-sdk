@@ -533,9 +533,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)",
-					"\\\"$(SRCROOT)/../Framework/build/Framework\\\"",
-					"/Users/igorkhomenko/workspace/quickblox-ios-sdk/Framework",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QB_SDK_Snippets/QB_SDK_Snippets-Prefix.pch";
@@ -569,9 +568,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Loveworld New Media LLC (SC6R224USC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)",
-					"\\\"$(SRCROOT)/../Framework/build/Framework\\\"",
-					"/Users/igorkhomenko/workspace/quickblox-ios-sdk/Framework",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "QB_SDK_Snippets/QB_SDK_Snippets-Prefix.pch";
