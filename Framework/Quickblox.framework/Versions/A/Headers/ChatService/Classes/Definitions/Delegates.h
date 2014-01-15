@@ -266,7 +266,7 @@
 #pragma mark -
 #pragma mark Custom audio session
 
-- (void)didReceiveAudioData:(float *)data lenght:(NSUInteger)lenght channels:(int)channels;
+- (void)didReceiveAudioBuffer:(AudioBuffer)buffer;
 
 @end
 
