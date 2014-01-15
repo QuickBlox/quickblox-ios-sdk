@@ -131,13 +131,11 @@
 - (void)processVideoChatCaptureVideoSample:(CMSampleBufferRef)sampleBuffer;
 
 /**
- If novocain is initialized in client app - use this method to back audio data to video chat.
+ If QBAudioIOService is initialized in client app - use this method to back audio data to video chat.
  
- @param data Audio data
- @param numFrames Number of frames
- @param numChannels Number of channels
+ @param buffer AudioBuffer structure with LPCM audio data
  */
-- (void)processVideoChatCaptureAudioData:(float *)data numFrames:(UInt32)numFrames numChannels:(UInt32) numChannels;
+- (void)processVideoChatCaptureAudioBuffer:(AudioBuffer)buffer;
 
 
 // Development methods
