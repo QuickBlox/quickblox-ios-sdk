@@ -83,9 +83,9 @@
  */
 
 typedef enum {
-    AFSSLPinningModeNone,
-    AFSSLPinningModePublicKey,
-    AFSSLPinningModeCertificate,
+    QBAFSSLPinningModeNone,
+    QBAFSSLPinningModePublicKey,
+    QBAFSSLPinningModeCertificate,
 } QBAFURLConnectionOperationSSLPinningMode;
 
 @interface QBAFURLConnectionOperation : NSOperation <NSURLConnectionDelegate,

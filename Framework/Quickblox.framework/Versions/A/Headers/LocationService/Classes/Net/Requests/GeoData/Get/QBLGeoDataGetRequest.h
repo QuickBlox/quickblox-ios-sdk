@@ -25,7 +25,7 @@
 	NSDate *minCreatedAt;
 	NSDate *maxCreatedAt;
 	struct QBLGeoDataRect geoRect;
-	NSUInteger radius;
+	CGFloat radius;
 	
 	// Sorting
 	BOOL sortAsc;
@@ -66,8 +66,8 @@
 /** If this parameter is correct, must return instances with coordinates that fall within the rectangle and its border. You need two points to build a rectangle (first point -- South West, second -- North East).*/
 @property (nonatomic) struct QBLGeoDataRect geoRect;
 
-/** With 'current_position' describes GeoCircle - "circle" on the earth's surface, given the coordinates 'current_position' and this distance in meters ('radius'). */
-@property (nonatomic) NSUInteger radius;
+/** With 'current_position' describes GeoCircle - "circle" on the earth's surface, given the coordinates 'current_position' and this distance in km ('radius'). */
+@property (nonatomic) CGFloat radius;
 
 
 #pragma mark -
