@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreAudio/CoreAudioTypes.h>
 
-#define qbSampleRateT  8000.0
-#define qbBufferFrameSize 256
-#define qbIOBufferDuration qbBufferFrameSize / qbSampleRateT  // There’s one other hardware characteristic you may want to configure: audio hardware I/O buffer duration. The default duration is about 23 ms at a 44.1 kHz sample rate, equivalent to a slice size of 1,024 samples. If I/O latency is critical in your app, you can request a smaller duration, down to about 0.005 ms (equivalent to 256 samples),
-
 #define qbiLBCBufferFrameSize 480
+#define qbiLBCOutputBufferSize 512
+#define qbBufferFrameSize 128
+#define qbIOBufferDuration qbBufferFrameSize / qbSampleRateT  // There’s one other hardware characteristic you may want to configure: audio hardware I/O buffer duration. The default duration is about 23 ms at a 44.1 kHz sample rate, equivalent to a slice size of 1,024 samples. If I/O latency is critical in your app, you can request a smaller duration, down to about 0.005 ms (equivalent to 256 samples),
+#define qbSampleRateT  8000.0
 
 @interface QBAudioIOService : NSObject
 

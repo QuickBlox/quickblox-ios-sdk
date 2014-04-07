@@ -28,4 +28,14 @@
  */
 @property (atomic, assign, getter=isOnline) BOOL online;
 
+/**
+ User subscription state. Read more about states http://xmpp.org/rfcs/rfc3921.html#roster
+ */
+@property (atomic, assign) enum QBPresenseSubscriptionState subscriptionState;
+
+
+// Helpers: translate subscriptionState to and from string to and from enum
++ (enum QBPresenseSubscriptionState)subscriptionStateFromString:(NSString *)subscriptionState;
++ (NSString *)subscriptionStateToString:(enum QBPresenseSubscriptionState)subscriptionState;
+
 @end
