@@ -457,8 +457,8 @@
 		FA43AD25152B8ABD000A2EF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -479,8 +479,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Users;
-				PROVISIONING_PROFILE = "1576CACB-6248-4BD8-B223-5B9427767808";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1576CACB-6248-4BD8-B223-5B9427767808";
+				PROVISIONING_PROFILE = "E65F6C59-7597-41F2-9A02-B0453D6532AF";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A867B64F-16E5-42D5-8A20-D97656BF1406";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

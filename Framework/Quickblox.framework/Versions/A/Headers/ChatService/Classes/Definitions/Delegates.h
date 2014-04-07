@@ -9,6 +9,7 @@
 
 #define kStopVideoChatCallStatus_OpponentDidNotAnswer @"kStopVideoChatCallStatus_OpponentDidNotAnswer"
 #define kStopVideoChatCallStatus_Manually @"kStopVideoChatCallStatus_Manually"
+#define kStopVideoChatCallStatus_Cancel @"kStopVideoChatCallStatus_Cancel"
 #define kStopVideoChatCallStatus_BadConnection @"kStopVideoChatCallStatus_BadConnection"
 
 /**

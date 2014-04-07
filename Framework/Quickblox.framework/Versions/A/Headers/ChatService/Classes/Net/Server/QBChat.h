@@ -36,6 +36,9 @@ typedef enum QBChatServiceError {
 /** Contact list */
 @property (nonatomic, readonly) QBContactList *contactList;
 
+/** Contact list mechanism */
+@property (nonatomic, assign) BOOL useMutualSubscriptionForContactList;
+
 /** Array of registered video chat instances */
 @property (readonly) NSMutableArray *registeredVideoChatInstances;
 

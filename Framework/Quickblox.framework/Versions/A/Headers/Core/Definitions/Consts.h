@@ -66,3 +66,5 @@ extern NSString* const QuickbloxSocialDialogDidCloseNotification;
 #define E2(A,B) @throw [NSException exceptionWithName:A reason:B userInfo:nil];
 #define EB(B,C) E(kBaseServiceException, B,C)
 #define EB2(B) E2(kBaseServiceException, B)
+
+#define QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)

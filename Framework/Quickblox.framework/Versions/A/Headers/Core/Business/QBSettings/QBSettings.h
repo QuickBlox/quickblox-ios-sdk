@@ -137,7 +137,7 @@
 /**
  Enable/disable HTTPS for queries
  
- @param useHTTPS Enable HTTPS for queries. Default value: NO. 
+ @param useHTTPS Enable HTTPS for queries. Default value: YES.
  */
 + (void)useHTTPS:(BOOL)useHTTPS;
 
@@ -147,6 +147,24 @@
  @return YES if HTTPS is enabled;
  */
 + (BOOL)isUseHTTPS;
+
+
+#pragma mark -
+#pragma mark TLS for Chat
+
+/**
+ Enable/disable TLS for chat
+ 
+ @param useTLSForChat Enable TLS for chat. Default value: YES.
+ */
++ (void)useTLSForChat:(BOOL)useTLSForChat;
+
+/**
+ Current protocol to work with Chat
+ 
+ @return YES if TLS is enabled;
+ */
++ (BOOL)isUseTLSForChat;
 
 
 #pragma mark -
