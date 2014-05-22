@@ -23,10 +23,12 @@
 
 
 #pragma mark -
-#pragma mark Server endpoint url
+#pragma mark Endpoints
 
 + (NSString *)serverEndpointURL;
 + (NSString *)chatServerEndpointURL;
 + (NSString *)chatMUCServerEndpointURL;
++ (NSString *)contentBucketName;
++ (NSString *)turnServerEndpointURL;
 
 @end

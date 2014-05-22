@@ -153,6 +153,7 @@
     
     // Show image on gallery
     UIImageView* imageView = [[UIImageView alloc] initWithImage:selectedImage];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self showImage:imageView];
     [imageView release];
     [imagePicker dismissModalViewControllerAnimated:NO];
@@ -187,6 +188,7 @@
                 // Add image to gallery
                 [[DataManager instance] savePicture:[UIImage imageWithData:[res file]]];
                 UIImageView* imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[res file]]];
+                imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [self showImage:imageView];
                 [imageView release];
                 //
@@ -202,6 +204,10 @@
             [self downloadFile];
         }
     }
+}
+
+-(void)setProgress:(float)progress{
+    NSLog(@"progress: %f", progress);
 }
 
 @end

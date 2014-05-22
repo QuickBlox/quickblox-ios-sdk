@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSArray *phoneNumbers;
 @property (nonatomic, retain) NSArray *facebookIDs;
 @property (nonatomic, retain) NSArray *twitterIDs;
+@property (nonatomic, retain) NSDictionary *extendedRequest;
 
 -(id)initWithRequest:(PagedRequest *)_pagedRequest;
 

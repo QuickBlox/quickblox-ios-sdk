@@ -60,27 +60,23 @@
  */
 + (NSString *)authorizationSecret;
 
-
-#pragma mark -
-#pragma mark Server domain
+/**
+ Set account key
+ 
+ @param accountKey Account key - from admin.quickblox.com
+ */
++ (void)setAccountKey:(NSString *)accountKey;
 
 /**
- Set server's domain (by default: quickblox.com)
+ Get account key
  
- @param domain New server's domain
+ @return Current account key
  */
-+ (void)setServerDomain:(NSString *)domain;
-
-/**
- Get server's domain
- 
- @return Current server's domain
- */
-+ (NSString *)serverDomain;
++ (NSString *)accountKey;
 
 
 #pragma mark -
-#pragma mark Hardcoded Server domains
+#pragma mark Endpoints
 
 /**
  Set server's API domain
@@ -110,25 +106,33 @@
  */
 + (NSString *)serverChatDomain;
 
-
-#pragma mark -
-#pragma mark Server zone
+/**
+ Set TURN server domain
+ 
+ @param turnDomain New TURN server domain
+ */
++ (void)setTURNServerDomain:(NSString *)turnDomain;
 
 /**
- Set server's zone (by default: QBServerZoneProduction). Posible values: QBServerZoneProduction -> api.quickblox.com, QBServerZoneStage -> api.stage.quickblox.com
+ Get TURN server domain
  
- @param zone New server's zone
+ @return Current TURN server domain
  */
-+ (void)setServerZone:(enum QBServerZone)zone;
++ (NSString *)TURNServerDomain;
 
 /**
- Get server's zone
+ Set Content bucket
  
- @return Current server's zone
+ @param bucket New bucket name
  */
-+ (enum QBServerZone)serverZone;
++ (void)setContentBucket:(NSString *)bucket;
 
-+ (NSString *)serverZoneAsString;
+/**
+ Get Content bucket
+ 
+ @return Current bucket
+ */
++ (NSString *)contentBucket;
 
 
 #pragma mark -
@@ -137,16 +141,20 @@
 /**
  Enable/disable HTTPS for queries
  
+ @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS set by default now
+ 
  @param useHTTPS Enable HTTPS for queries. Default value: YES.
  */
-+ (void)useHTTPS:(BOOL)useHTTPS;
++ (void)useHTTPS:(BOOL)useHTTPS __attribute__((deprecated("No need to call this method, HTTPS set by default now")));
 
 /**
  Current protocol to perform queries to QuickBlox
  
+ @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS set by default now
+ 
  @return YES if HTTPS is enabled;
  */
-+ (BOOL)isUseHTTPS;
++ (BOOL)isUseHTTPS __attribute__((deprecated("No need to call this method, HTTPS set by default now")));
 
 
 #pragma mark -
@@ -228,16 +236,20 @@
 /**
  Enable session expiration auto handler
  
+ @warning *Deprecated in QB iOS SDK 1.8.5:* Use [QBBaseModule sharedModule].tokenExpirationDate to get session expiration date and recreate a session if need
+ 
  @param isEnable New session expiration auto handler's state
  */
-+ (void)enableSessionExpirationAutoHandler:(BOOL)isEnable;
++ (void)enableSessionExpirationAutoHandler:(BOOL)isEnable __attribute__((deprecated("Use [QBBaseModule sharedModule].tokenExpirationDate to get session expiration date and recreate a session if need")));
 
 /**
  Get session expiration auto handler's state
  
+ @warning *Deprecated in QB iOS SDK 1.8.5:* Use [QBBaseModule sharedModule].tokenExpirationDate to get session expiration date and recreate a session if need
+ 
  @return Current session expiration auto handler's state
  */
-+ (BOOL)isEnabledSessionExpirationAutoHandler;
++ (BOOL)isEnabledSessionExpirationAutoHandler __attribute__((deprecated("Use [QBBaseModule sharedModule].tokenExpirationDate to get session expiration date and recreate a session if need")));
 
 
 #pragma mark -
@@ -256,24 +268,6 @@
  @return YES if we use Production environment for Push Notifications
  */
 + (BOOL)isUseProductionEnvironmentForPushNotifications;
-
-
-#pragma mark -
-#pragma mark Content settings
-
-/**
- Set Content bucked
- 
- @param bucket New bucket name
- */
-+ (void)setContentBucket:(NSString *)bucket;
-
-/**
- Get Content bucked
- 
- @return Content current bucket
- */
-+ (NSString *)contentBucket;
 
 
 #pragma mark -

@@ -8,8 +8,6 @@
 #define N(V) (V==nil)?@"":V
 #define S(S,...) [NSString stringWithFormat:S,__VA_ARGS__]
 
-#define quickbloxStandartServerUrl @"quickblox.com"
-
 #define QBToken @"Qb-Token"
 
 #define qbhttp @"http"
@@ -35,6 +33,7 @@ extern NSString* const kBaseServiceErrorSocialCredentialsNotFound;
 //Exceptions
 extern NSString* const kBaseServiceExceptionMissedAuthorization;
 extern NSString* const kBaseServiceExceptionMissedCredentials;
+extern NSString* const kBaseServiceExceptionMissedAccountKey;
 
 //Service Names
 extern NSString* const QuickbloxServiceChat;

@@ -5,14 +5,16 @@
  *
  */
 
+
+@class Result;
+@class QBRestResponse;
+
+
 /** Protocol of cancelable objects, mostly used with asynchronous operations */
 @protocol Cancelable
 /** Cancel current execution */
 -(void)cancel;
 @end
-
-
-@class Result;
 
 /** Protocol for asynchronous requests delegates */
 @protocol QBActionStatusDelegate
@@ -27,28 +29,13 @@
 /** Called when operation progress has changed */
 -(void)setProgress:(float)progress;
 
-/** Called when upload operation progress has changed */
--(void)setUploadProgress:(float)progress;
-
 @end
 
 
-@protocol ProgressDelegate
--(void)setProgress:(float)progress;
-@end
-
-
-@protocol LoadProgressDelegate
--(void)setUploadProgress:(float)progress;
--(void)setDownloadProgress:(float)progress;
+@protocol RestRequestDelegate
+-(void)completedWithResponse:(QBRestResponse*)response;
 @optional
 -(void)setProgress:(float)progress;
-@end
-
-
-@class QBRestResponse;
-@protocol RestRequestDelegate<LoadProgressDelegate>
--(void)completedWithResponse:(QBRestResponse*)response;
 @end
 
 

@@ -23,8 +23,8 @@
     //
     // QuickBlox session creation
     QBASessionCreationRequest *extendedAuthRequest = [[QBASessionCreationRequest alloc] init];
-    extendedAuthRequest.userLogin = @"injoitUser1";
-    extendedAuthRequest.userPassword = @"injoitUser1";
+    extendedAuthRequest.userLogin = @"quickbloxUser1";
+    extendedAuthRequest.userPassword = @"quickbloxUser1";
     
     [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self];
     
