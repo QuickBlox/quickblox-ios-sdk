@@ -10,7 +10,6 @@
 extern NSString* const kQBVideoChatVideoFramesPerSecond;
 extern NSString* const kQBVideoChatCallTimeout;
 extern NSString* const kQBVideoChatBadConnectionTimeout;
-extern NSString* const kQBVideoChatTURNServerEndPoint;
 extern NSString* const kQBVideoChatFrameQualityPreset;
 extern NSString* const kQBVideoChatWriteQueueMaxVideoOperationsThreshold;
 extern NSString* const kQBVideoChatWriteQueueMaxAudioOperationsThreshold;

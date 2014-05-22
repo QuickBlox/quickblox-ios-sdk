@@ -26,9 +26,9 @@
 		BB66162916072E3600DBADD4 /* fcebook_login.png in Resources */ = {isa = PBXBuildFile; fileRef = BB66162816072E3500DBADD4 /* fcebook_login.png */; };
 		BB66162B16072E5000DBADD4 /* twitter_login.png in Resources */ = {isa = PBXBuildFile; fileRef = BB66162A16072E5000DBADD4 /* twitter_login.png */; };
 		BB9A7D14160C903400292E44 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9A7D13160C903400292E44 /* pin.png */; };
-		BB9A7D311611C64B00292E44 /* tab_icon_chekin.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9A7D2F1611C64A00292E44 /* tab_icon_chekin.png */; };
-		BBEB4A9F1614479000940E63 /* tab_icon_globe.png in Resources */ = {isa = PBXBuildFile; fileRef = BBEB4A9E1614479000940E63 /* tab_icon_globe.png */; };
 		BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED31843E2120044D9E0 /* Security.framework */; };
+		BFD5AA8A192E28DA00A54874 /* speech_bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFD5AA88192E28DA00A54874 /* speech_bubble@2x.png */; };
+		BFD5AA8D192E28EB00A54874 /* globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFD5AA8C192E28EB00A54874 /* globe@2x.png */; };
 		ED6EE5FC16773B96004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */; };
 		FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA38CC5A1614758600BDD29A /* libxml2.2.dylib */; };
 		FA38CC6B1614767600BDD29A /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA38CC6A1614767600BDD29A /* DataManager.m */; };
@@ -77,9 +77,9 @@
 		BB66162816072E3500DBADD4 /* fcebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fcebook_login.png; sourceTree = "<group>"; };
 		BB66162A16072E5000DBADD4 /* twitter_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_login.png; sourceTree = "<group>"; };
 		BB9A7D13160C903400292E44 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
-		BB9A7D2F1611C64A00292E44 /* tab_icon_chekin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_chekin.png; sourceTree = "<group>"; };
-		BBEB4A9E1614479000940E63 /* tab_icon_globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab_icon_globe.png; sourceTree = "<group>"; };
 		BFA79ED31843E2120044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BFD5AA88192E28DA00A54874 /* speech_bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speech_bubble@2x.png"; sourceTree = "<group>"; };
+		BFD5AA8C192E28EB00A54874 /* globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "globe@2x.png"; sourceTree = "<group>"; };
 		ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA38CC5A1614758600BDD29A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		FA38CC691614767600BDD29A /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
@@ -211,9 +211,9 @@
 		FA39FB6D15EF6F85002F9D26 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				BFD5AA8C192E28EB00A54874 /* globe@2x.png */,
+				BFD5AA88192E28DA00A54874 /* speech_bubble@2x.png */,
 				43900C2516245E3F0041381B /* Default-568h@2x.png */,
-				BBEB4A9E1614479000940E63 /* tab_icon_globe.png */,
-				BB9A7D2F1611C64A00292E44 /* tab_icon_chekin.png */,
 				BB9A7D13160C903400292E44 /* pin.png */,
 				BB66162A16072E5000DBADD4 /* twitter_login.png */,
 				BB66162816072E3500DBADD4 /* fcebook_login.png */,
@@ -368,6 +368,7 @@
 				FA43AE1E152B965E000A2EF7 /* LoginViewController.xib in Resources */,
 				FA43AE1F152B965E000A2EF7 /* MapViewController.xib in Resources */,
 				FA43AE20152B965E000A2EF7 /* RegistrationViewController.xib in Resources */,
+				BFD5AA8A192E28DA00A54874 /* speech_bubble@2x.png in Resources */,
 				FA39FB7115EF6F85002F9D26 /* Default.png in Resources */,
 				FA39FB7215EF6F85002F9D26 /* icon.png in Resources */,
 				FA39FB7315EF6F85002F9D26 /* logo.png in Resources */,
@@ -375,9 +376,8 @@
 				BB66162916072E3600DBADD4 /* fcebook_login.png in Resources */,
 				BB66162B16072E5000DBADD4 /* twitter_login.png in Resources */,
 				BB12344C1608827100491A31 /* LatestCheckinsViewController.xib in Resources */,
+				BFD5AA8D192E28EB00A54874 /* globe@2x.png in Resources */,
 				BB9A7D14160C903400292E44 /* pin.png in Resources */,
-				BB9A7D311611C64B00292E44 /* tab_icon_chekin.png in Resources */,
-				BBEB4A9F1614479000940E63 /* tab_icon_globe.png in Resources */,
 				43900C2616245E3F0041381B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

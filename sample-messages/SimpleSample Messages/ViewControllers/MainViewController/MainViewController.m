@@ -11,8 +11,7 @@
 #import "PushMessage.h"
 
 @implementation MainViewController
-@synthesize users = _users;
-@synthesize messageBody, receivedMassages, toUserName, usersPickerView;
+@synthesize messageBody, receivedMessages;
 @synthesize messages;
 
 - (id)init{
@@ -23,23 +22,10 @@
     return self;
 }
 
-- (void)viewDidUnload{
-    
-    self.messageBody = nil;
-    self.receivedMassages = nil;
-    self.toUserName = nil;
-    self.usersPickerView = nil;
-    self.receivedMassages = nil;
-    
-    [super viewDidUnload];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPushDidReceive object:nil];
-}
-
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-    receivedMassages.layer.cornerRadius = 5;
+    receivedMessages.layer.cornerRadius = 5;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(pushDidReceive:) 
@@ -58,7 +44,7 @@
     PushMessage *pushMessage = [PushMessage pushMessageWithMessage:message richContentFilesIDs:pushRichContent];
     [self.messages addObject:pushMessage];
 
-    [receivedMassages reloadData];
+    [receivedMessages reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
@@ -67,15 +53,8 @@
 
 // Send push notification
 - (IBAction)sendButtonDidPress:(id)sender{
-
-    // not selected receiver(user)
-   if([toUserName.text length] == 0 || [_users count] == 0){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please select user." message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-        
     // empty text
-    }else if([messageBody.text length] == 0){
+    if([messageBody.text length] == 0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter some text" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alert show];
         [alert release];
@@ -83,17 +62,9 @@
     // send push
     }else{
         
-        // Create message
-        NSString *mesage = [NSString stringWithFormat:@"%@: %@", 
-                            ((QBUUser *)[_users objectAtIndex:[usersPickerView selectedRowInComponent:0]]).login,  
-                            messageBody.text];
-        
-        // receiver (user id)
-        NSUInteger userID = ((QBUUser *)[_users objectAtIndex:[usersPickerView selectedRowInComponent:0]]).ID;
-        
         // Send push
-        [QBMessages TSendPushWithText:mesage 
-                             toUsers:[NSString stringWithFormat:@"%d", userID] 
+        [QBMessages TSendPushWithText:messageBody.text
+                             toUsers:@"1074264"
                             delegate:self];
         
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -102,34 +73,12 @@
     }
 }
 
-// Select receiver
-- (IBAction)selectUserButtonDidPress:(id)sender{
-    if(_users != nil){
-         [self showPickerWithUsers];
-        
-    // retrieve all users
-    }else{
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
-        // Retrieve QuickBlox users for current application
-        PagedRequest *pagetRequest = [[[PagedRequest alloc] init] autorelease];
-        pagetRequest.perPage = 30;
-        [QBUsers usersWithPagedRequest:pagetRequest delegate:self];
-    }
-}
-
-- (void) showPickerWithUsers{
-    [usersPickerView reloadAllComponents];
-    [usersPickerView setHidden:NO];
-}
-
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [messageBody resignFirstResponder];
 }
 
 - (void) dealloc{
     [messages release];
-    [_users release];
     [super dealloc];
 }
 
@@ -141,25 +90,8 @@
 -(void)completedWithResult:(Result*)result{
     // QuickBlox get Users result
     
-    if([result isKindOfClass:[QBUUserPagedResult  class]]){
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-        // Success result
-		if(result.success){
-            
-            // save users & show picker
-            QBUUserPagedResult *res = (QBUUserPagedResult  *)result;
-            self.users = res.users;
-            [self showPickerWithUsers];
-        
-        // Errors
-		}else {
-            NSLog(@"Errors=%@", result.errors);
-		}
-        
-    
     // Send Push result
-    }else if([result isKindOfClass:[QBMSendPushTaskResult class]]){
+    if([result isKindOfClass:[QBMSendPushTaskResult class]]){
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
         // Success result
@@ -175,33 +107,12 @@
     }
 }
 
-- (IBAction)buttonRichClicked:(UIButton*)sender{
+- (void)buttonRichClicked:(UIButton *)sender{
     // Show rich content
     RichContentViewController *richContentViewController = [[RichContentViewController alloc] init];
     richContentViewController.message = [self.messages objectAtIndex:sender.tag];
     [self presentModalViewController:richContentViewController animated:YES];
     [richContentViewController release];
-}
-
-
-#pragma mark -
-#pragma mark UIPickerViewDataSource & UIPickerViewDelegate
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return [_users count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return ((QBUUser *)[_users objectAtIndex:row]).login;
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    [toUserName setText: ((QBUUser *)[_users objectAtIndex:row]).login];
-     [usersPickerView setHidden:YES];
 }
 
 

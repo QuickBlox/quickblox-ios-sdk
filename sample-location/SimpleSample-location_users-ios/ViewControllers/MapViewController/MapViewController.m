@@ -26,7 +26,7 @@
     if (self) {
         // Custom initialization
 		self.title = NSLocalizedString(@"Map", nil);
-		self.tabBarItem.image = [UIImage imageNamed:@"tab_icon_globe.png"];
+		self.tabBarItem.image = [UIImage imageNamed:@"globe.png"];
     }
     return self;
 }
@@ -80,19 +80,8 @@
                                                         delegate:self
                                                         cancelButtonTitle:@"Canсel"
                                                         otherButtonTitles:@"Check In", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         alert.tag = 2;
-        
-        // add text field to alert
-        UITextField *theTextField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 31.0)];
-        [theTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-        [theTextField setAutocapitalizationType:UITextAutocapitalizationTypeWords];
-        [theTextField setBorderStyle:UITextBorderStyleRoundedRect];
-        [theTextField setBackgroundColor:[UIColor whiteColor]];
-        [theTextField setTextAlignment:UITextAlignmentCenter];
-        theTextField.tag = 101;
-        
-        [alert addSubview:theTextField];
-        [theTextField release];
         [alert show];
         [alert release];
     }
@@ -165,7 +154,7 @@
                 QBLGeoData *geoData = [QBLGeoData geoData];
                 geoData.latitude = locationManager.location.coordinate.latitude;
                 geoData.longitude = locationManager.location.coordinate.longitude;
-                geoData.status = ((UITextField *)[alertView viewWithTag:101]).text;
+                geoData.status = [alertView textFieldAtIndex:0].text;
                 
                 // post own location
                 [QBLocation createGeoData:geoData delegate:self];

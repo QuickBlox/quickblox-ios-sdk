@@ -55,6 +55,10 @@
     [QBSettings setApplicationID:92];
     [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
+    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
+#ifndef DEBUG
+    [QBSettings useProductionEnvironmentForPushNotifications:YES];
+#endif
     
     return YES;
 }

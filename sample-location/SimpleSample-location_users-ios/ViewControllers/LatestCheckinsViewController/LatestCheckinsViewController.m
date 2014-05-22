@@ -24,7 +24,7 @@
     if (self) {
         // Custom initialization
 		self.title = NSLocalizedString(@"Latest checkins", nil);
-		self.tabBarItem.image = [UIImage imageNamed:@"tab_icon_chekin.png"];
+		self.tabBarItem.image = [UIImage imageNamed:@"speech_bubble.png"];
         
     }
     return self;
