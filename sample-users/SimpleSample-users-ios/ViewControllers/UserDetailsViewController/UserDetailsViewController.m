@@ -25,19 +25,6 @@
     [super dealloc];
 }
 
-- (void)viewDidUnload
-{
-    self.lastRequestAtLabel = nil;
-    self.loginLabel = nil;
-    self.fullNameLabel = nil;
-    self.phoneLabel = nil;
-    self.emailLabel = nil;
-    self.websiteLabel = nil;
-    self.tagLabel = nil;
-    
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

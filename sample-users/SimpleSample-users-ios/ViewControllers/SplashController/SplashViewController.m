@@ -1,24 +1,14 @@
 //
-//  SplashController.m
+//  SplashViewController.m
 //  SimpleSample-users-ios
 //
 //  Created by Danil on 04.10.11.
 //  Copyright 2011 QuickBlox. All rights reserved.
 //
 
-#import "SplashController.h"
+#import "SplashViewController.h"
 
-@implementation SplashController
-@synthesize wheel = _wheel;
-
-- (void)viewDidUnload{
-    self.wheel = nil;
-    [super viewDidUnload];
-}
-
-- (void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-}
+@implementation SplashViewController
 
 - (void) viewDidLoad
 {

@@ -15,6 +15,6 @@
 
 @property (nonatomic, retain) NSMutableArray *movies;
 
-+(DataManager *)shared;
++ (instancetype)shared;
 
 @end

@@ -40,13 +40,6 @@
     [self.tableView reloadData];
 }
 
-- (void)viewDidUnload
-{
-    [self setTableView:nil];
-    [self setSearchBar:nil];
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -58,7 +51,6 @@
     [searchArray release];
     [super dealloc];
 }
-
 
 - (IBAction)addNewNote:(id)sender {
     NewNoteViewController *newNoteViewController = [[NewNoteViewController alloc] init];

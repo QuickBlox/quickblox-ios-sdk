@@ -31,13 +31,6 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    [self setScrollView:nil];
-    [self setDownloadProgress:nil];
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

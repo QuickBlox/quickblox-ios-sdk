@@ -32,7 +32,7 @@
         [self addSubview:self.movieImageView];
         
         self.movieName = [[[UILabel alloc] init] autorelease];
-        [self.movieName setFrame:CGRectMake(80, 10, 220, 20)];
+        [self.movieName setFrame:CGRectMake(80, 4, 220, 20)];
         [self.movieName setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.movieName];
         

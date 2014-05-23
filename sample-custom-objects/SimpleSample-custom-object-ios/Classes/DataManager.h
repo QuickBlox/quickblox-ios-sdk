@@ -15,6 +15,6 @@
 
 @property (nonatomic, retain) NSMutableArray *notes;
 
-+(DataManager *)shared;
++ (instancetype)shared;
 
 @end

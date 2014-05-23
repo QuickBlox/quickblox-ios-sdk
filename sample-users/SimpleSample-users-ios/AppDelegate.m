@@ -34,7 +34,7 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
     // Show Splash
-    self.splashController = [[[SplashController alloc] initWithNibName:@"SplashViewController" bundle:nil] autorelease];
+    self.splashController = [[[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil] autorelease];
     self.window.rootViewController = (UIViewController*)self.splashController;
     [self.window makeKeyAndVisible];
     

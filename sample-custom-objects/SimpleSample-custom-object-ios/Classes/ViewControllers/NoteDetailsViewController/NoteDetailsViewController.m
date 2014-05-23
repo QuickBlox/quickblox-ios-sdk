@@ -28,14 +28,6 @@
     
 }
 
-- (void)viewDidUnload
-{
-    [self setNoteLabel:nil];
-    [self setStatusLabel:nil];
-    [self setComentsTextView:nil];
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
