@@ -177,6 +177,10 @@ NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForReso
         // Success, do something
     }
 }
+
+-(void)setProgress:(float)progress{
+    NSLog(@"progress: %f", progress);
+}
 ```
 
 iOS Framework provides following classes to interact with QuickBlox API (each class has suite of static methods):
