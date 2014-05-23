@@ -42,25 +42,6 @@
     [self retrieveUsers];
 }
 
-- (void)viewDidUnload
-{
-    self.toolBar = nil;
-    self.searchBar = nil;
-    self.myTableView = nil;
-    [_cell release];
-    [signInButton release];
-    [signUpButton release];
-    [logoutButton release];
-    [editButton release];
-    
-    [detailsController release];
-    [editController release];
-    [loginController release];
-    [registrationController release];
-    
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

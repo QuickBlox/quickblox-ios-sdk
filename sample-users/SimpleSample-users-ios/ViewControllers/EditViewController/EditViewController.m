@@ -21,20 +21,6 @@
     [super dealloc];
 }
 
-- (void)viewDidUnload
-{
-    self.tagsField = nil;
-    self.fullNameField = nil;
-    self.phoneField = nil;
-    self.emailField = nil;
-    self.websiteField = nil;
-    self.tagsField = nil;
-    
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

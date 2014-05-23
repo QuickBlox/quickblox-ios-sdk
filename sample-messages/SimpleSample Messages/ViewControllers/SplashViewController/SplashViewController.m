@@ -11,12 +11,6 @@
 @implementation SplashViewController
 @synthesize wheel = _wheel;
 
-- (void)viewDidUnload{
-    self.wheel = nil;
-
-    [super viewDidUnload];
-}
-
 - (void) viewDidLoad {
     [super viewDidLoad];
 

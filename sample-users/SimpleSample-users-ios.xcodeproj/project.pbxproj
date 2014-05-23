@@ -39,7 +39,7 @@
 		FAF4BB4015F4F6A0009E15D4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB2F15F4F6A0009E15D4 /* LoginViewController.m */; };
 		FAF4BB4115F4F6A0009E15D4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3215F4F6A0009E15D4 /* MainViewController.m */; };
 		FAF4BB4215F4F6A0009E15D4 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3515F4F6A0009E15D4 /* RegistrationViewController.m */; };
-		FAF4BB4315F4F6A0009E15D4 /* SplashController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3815F4F6A0009E15D4 /* SplashController.m */; };
+		FAF4BB4315F4F6A0009E15D4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3815F4F6A0009E15D4 /* SplashViewController.m */; };
 		FAF4BB4415F4F6A0009E15D4 /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3B15F4F6A0009E15D4 /* UserDetailsViewController.m */; };
 		FAF4BB4515F4F6A0009E15D4 /* CustomTableViewCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3E15F4F6A0009E15D4 /* CustomTableViewCellCell.m */; };
 		FAF4BB4E15F4F6E6009E15D4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4715F4F6E6009E15D4 /* Default.png */; };
@@ -92,8 +92,8 @@
 		FAF4BB3215F4F6A0009E15D4 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		FAF4BB3415F4F6A0009E15D4 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
 		FAF4BB3515F4F6A0009E15D4 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
-		FAF4BB3715F4F6A0009E15D4 /* SplashController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashController.h; sourceTree = "<group>"; };
-		FAF4BB3815F4F6A0009E15D4 /* SplashController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashController.m; sourceTree = "<group>"; };
+		FAF4BB3715F4F6A0009E15D4 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
+		FAF4BB3815F4F6A0009E15D4 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		FAF4BB3A15F4F6A0009E15D4 /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsViewController.h; sourceTree = "<group>"; };
 		FAF4BB3B15F4F6A0009E15D4 /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
 		FAF4BB3D15F4F6A0009E15D4 /* CustomTableViewCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCellCell.h; sourceTree = "<group>"; };
@@ -278,8 +278,8 @@
 		FAF4BB3615F4F6A0009E15D4 /* SplashController */ = {
 			isa = PBXGroup;
 			children = (
-				FAF4BB3715F4F6A0009E15D4 /* SplashController.h */,
-				FAF4BB3815F4F6A0009E15D4 /* SplashController.m */,
+				FAF4BB3715F4F6A0009E15D4 /* SplashViewController.h */,
+				FAF4BB3815F4F6A0009E15D4 /* SplashViewController.m */,
 			);
 			path = SplashController;
 			sourceTree = "<group>";
@@ -399,7 +399,7 @@
 				FAF4BB4015F4F6A0009E15D4 /* LoginViewController.m in Sources */,
 				FAF4BB4115F4F6A0009E15D4 /* MainViewController.m in Sources */,
 				FAF4BB4215F4F6A0009E15D4 /* RegistrationViewController.m in Sources */,
-				FAF4BB4315F4F6A0009E15D4 /* SplashController.m in Sources */,
+				FAF4BB4315F4F6A0009E15D4 /* SplashViewController.m in Sources */,
 				FAF4BB4415F4F6A0009E15D4 /* UserDetailsViewController.m in Sources */,
 				FAF4BB4515F4F6A0009E15D4 /* CustomTableViewCellCell.m in Sources */,
 			);

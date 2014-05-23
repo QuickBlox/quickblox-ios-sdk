@@ -16,7 +16,7 @@
 @property (nonatomic,retain) NSMutableArray* fileList;
 @property (nonatomic,retain) NSMutableArray* images;
 
-+(DataManager*)instance;
++ (instancetype)instance;
 
 -(void)savePicture:(UIImage*)image;
 

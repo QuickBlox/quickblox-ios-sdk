@@ -21,16 +21,6 @@
     [super dealloc];
 }
 
-- (void)viewDidUnload
-{
-    [self setUserName:nil];
-    [self setPassword:nil];
-    [self setActivityIndicator:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations

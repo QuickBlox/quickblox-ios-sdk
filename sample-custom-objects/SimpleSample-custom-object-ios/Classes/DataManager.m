@@ -10,16 +10,28 @@
 
 @implementation DataManager
 
-static DataManager *dataManager = nil;
-
 @synthesize notes;
 
-+(DataManager *)shared{
-    if(!dataManager){
-        dataManager = [[DataManager alloc] init];
-        dataManager.notes = [[[NSMutableArray alloc] init] autorelease];
-    }
-    return dataManager;
++ (instancetype)shared
+{
+	static id instance_ = nil;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		instance_ = [[self alloc] init];
+	});
+	
+	return instance_;
 }
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.notes = [[[NSMutableArray alloc] init] autorelease];
+    }
+    return self;
+}
+
 
 @end

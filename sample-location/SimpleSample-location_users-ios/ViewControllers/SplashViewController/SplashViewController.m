@@ -10,15 +10,8 @@
 #import "AppDelegate.h"
 #import "DataManager.h"
 
-
 @implementation SplashViewController
 @synthesize wheel = _wheel;
-
-- (void)viewDidUnload{
-    self.wheel = nil;
-
-    [super viewDidUnload];
-}
 
 - (void) viewDidLoad {
     // Your app connects to QuickBlox server here.

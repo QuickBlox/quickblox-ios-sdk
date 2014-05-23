@@ -15,11 +15,16 @@ static DataManager* instance = nil;
 @synthesize fileList = _fileList;
 @synthesize images = _images;
 
-+(DataManager*)instance{
-    if (!instance) {
-        instance = [[DataManager alloc] init];
-    }
-    return instance;
++ (instancetype)instance
+{
+	static id instance_ = nil;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{
+		instance_ = [[self alloc] init];
+	});
+	
+	return instance_;
 }
 
 -(void)savePicture:(UIImage *)image{

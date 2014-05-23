@@ -42,13 +42,6 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    [self setDelegate:nil];
-    [self setActivityIndicator:nil];
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -62,6 +55,8 @@
     [delegate release];
     [super dealloc];
 }
+
+
 #pragma mark -
 #pragma mark QBActionStatusDelegate
 

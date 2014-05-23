@@ -11,11 +11,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SplashController.h"
+#import "SplashViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (retain, nonatomic) UIWindow *window;
-@property (retain, nonatomic) SplashController* splashController;
+@property (retain, nonatomic) SplashViewController *splashController;
 
 @end
