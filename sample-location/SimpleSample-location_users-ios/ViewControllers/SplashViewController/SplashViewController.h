@@ -13,8 +13,8 @@
 // between other users & how to see other users' locations)
 //
 
-@interface SplashViewController : UIViewController <QBActionStatusDelegate>{
-}
+@interface SplashViewController : UIViewController
+
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *wheel;
 
 - (void)hideSplash;

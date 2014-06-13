@@ -29,10 +29,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBSettings setApplicationID:92];
-    [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
-    [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
-    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
+    [QBApplication sharedApplication].applicationId = 92;
+    [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
+    [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
+    
+//    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
     // create two  UIViewControllers
     UIViewController *mapViewControleler, *latestCheckinsViewControleler;

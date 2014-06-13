@@ -13,81 +13,53 @@
 @implementation SplashViewController
 @synthesize wheel = _wheel;
 
-- (void) viewDidLoad {
-    // Your app connects to QuickBlox server here.
-    // QuickBlox session creation
-    [QBAuth createSessionWithDelegate:self];
-    
+- (void) viewDidLoad
+{
     [super viewDidLoad];
     
-    if(IS_HEIGHT_GTE_568){
+    [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
+        [[QBSession currentSession] startSessionWithDetails:session exparationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
+        
+        QBLGeoDataFilter* filter = [QBLGeoDataFilter new];
+        filter.lastOnly = YES;
+        filter.sortBy = GeoDataSortByKindCreatedAt;
+
+        
+        [QBRequest geoDataWithFilter:filter page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:70]
+                        successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
+                            [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
+                            [DataManager shared].checkinArray = objects;
+        } errorBlock:^(QBResponse *response) {
+            NSLog(@"Error = %@", response.error);
+        }];
+        
+    } errorBlock:^(QBResponse *response) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
+                                                        message:[response.error description]
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", "")
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }];
+    
+    if(IS_HEIGHT_GTE_568) {
         CGRect frame = self.wheel.frame;
         frame.origin.y += 44;
         [self.wheel setFrame:frame];
     }
 }
 
-- (void)hideSplash {
-
-    AppDelegate* myDelegate = (((AppDelegate*) [UIApplication sharedApplication].delegate));
+- (void)hideSplash
+{
+    AppDelegate* myDelegate = (((AppDelegate *)[UIApplication sharedApplication].delegate));
     
-    [self presentModalViewController:myDelegate.tabBarController animated:YES];
+    [self presentViewController:myDelegate.tabBarController animated:YES completion:nil];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    // Return YES for supported orientations
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(Result *)result{
-    
-    // QuickBlox application authorization result
-    if([result isKindOfClass:[QBAAuthSessionCreationResult class]]){
-        
-        // Success result
-        if(result.success){
-                        
-            // retrieve users' points
-            // create QBLGeoDataSearchRequest entity
-            QBLGeoDataGetRequest *getRequest = [[QBLGeoDataGetRequest alloc] init];
-            getRequest.lastOnly = YES; // Only last location
-            getRequest.perPage = 70; // only 70 points
-            getRequest.sortBy = GeoDataSortByKindCreatedAt;
-            
-            // retieve user's points
-            [QBLocation geoDataWithRequest:getRequest delegate:self];
-            [getRequest release];
-            
-        // show Errors
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
-                                                message:[result.errors description]
-                                                delegate:nil
-                                                cancelButtonTitle:NSLocalizedString(@"OK", "")
-                                                otherButtonTitles:nil];
-            [alert show];
-            [alert release];
-        }
-    }
-    // Retrieve users' points result
-	else if([result isKindOfClass:[QBLGeoDataPagedResult class]]){
-        
-        // Success result
-        if (result.success) {
-            // Hide splash & show main controller
-            [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
-            QBLGeoDataPagedResult *geoDataGetRes = (QBLGeoDataPagedResult *)result;
-            [DataManager shared].checkinArray  = [[geoDataGetRes.geodata mutableCopy] autorelease];
-        // Errors
-        }else{
-            NSLog(@"Errors=%@", result.errors);
-        }
-    }
 }
 
 @end

@@ -132,10 +132,10 @@
     if(alertView.tag == 1) {
         switch (buttonIndex) {
             case 1:
-                [self presentModalViewController:registrationController animated:YES];
+                [self presentViewController:registrationController animated:YES completion:nil];
                 break;
             case 2:
-                [self presentModalViewController:loginController animated:YES];
+                [self presentViewController:loginController animated:YES completion:nil];
                 break;
             default:
                 break;
