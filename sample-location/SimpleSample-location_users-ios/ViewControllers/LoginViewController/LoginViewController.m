@@ -18,9 +18,6 @@
 @end
 
 @implementation LoginViewController
-@synthesize loginTextField;
-@synthesize passwordTextField;
-@synthesize activityIndicator;
 
 - (void(^)(QBResponse *, QBUUser *))onSuccess
 {
@@ -53,7 +50,10 @@
 
 - (void)login
 {
-    [QBRequest logInWithUserLogin:loginTextField.text password:passwordTextField.text successBlock:[self onSuccess] errorBlock:[self onFailure]];
+    [QBRequest logInWithUserLogin:self.loginTextField.text
+                         password:self.passwordTextField.text
+                     successBlock:[self onSuccess]
+                       errorBlock:[self onFailure]];
     
     [self.activityIndicator startAnimating];
 }

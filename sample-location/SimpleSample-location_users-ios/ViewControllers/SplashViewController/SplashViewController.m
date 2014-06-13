@@ -10,8 +10,13 @@
 #import "AppDelegate.h"
 #import "DataManager.h"
 
+@interface SplashViewController ()
+
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *wheel;
+
+@end
+
 @implementation SplashViewController
-@synthesize wheel = _wheel;
 
 - (void) viewDidLoad
 {
