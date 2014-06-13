@@ -452,6 +452,7 @@
 		8A2F267914F7F0D300292876 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -484,6 +485,7 @@
 		8A2F267A14F7F0D300292876 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

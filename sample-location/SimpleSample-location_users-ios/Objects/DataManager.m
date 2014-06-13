@@ -25,10 +25,5 @@ static DataManager *instance = nil;
 	return instance;
 }
 
--(void) dealloc{
-    [checkinArray release];
-    [_currentUser release];
-	[super dealloc];
-}
 
 @end

@@ -15,7 +15,7 @@
 
 @interface SplashViewController : UIViewController
 
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *wheel;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *wheel;
 
 - (void)hideSplash;
 

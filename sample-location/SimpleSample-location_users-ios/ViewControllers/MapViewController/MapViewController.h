@@ -16,9 +16,9 @@
 @interface MapViewController : UIViewController <QBActionStatusDelegate, UIAlertViewDelegate> {
     CLLocationManager* locationManager;
 }
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic, retain) IBOutlet UIViewController *loginController;
-@property (nonatomic, retain) IBOutlet UIViewController *registrationController;
+@property (nonatomic, strong) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) IBOutlet UIViewController *loginController;
+@property (nonatomic, strong) IBOutlet UIViewController *registrationController;
 
 - (IBAction) checkIn:(id)sender;
 

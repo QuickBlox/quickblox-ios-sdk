@@ -23,7 +23,6 @@
         QBLGeoDataFilter* filter = [QBLGeoDataFilter new];
         filter.lastOnly = YES;
         filter.sortBy = GeoDataSortByKindCreatedAt;
-
         
         [QBRequest geoDataWithFilter:filter page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:70]
                         successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
@@ -40,7 +39,6 @@
                                               cancelButtonTitle:NSLocalizedString(@"OK", "")
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
     }];
     
     if(IS_HEIGHT_GTE_568) {

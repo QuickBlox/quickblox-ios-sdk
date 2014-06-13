@@ -9,8 +9,6 @@
 // It shows last users' checkins.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface LatestCheckinsViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface LatestCheckinsViewController : UITableViewController
 
 @end

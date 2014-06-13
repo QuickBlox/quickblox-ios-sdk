@@ -18,13 +18,6 @@
 @synthesize tabBarController = _tabBarController;
 @synthesize splashController;
 
-- (void)dealloc
-{
-    [splashController release];
-    [_window release];
-    [_tabBarController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,7 +25,6 @@
     [QBApplication sharedApplication].applicationId = 92;
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
-    
 //    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
     // create two  UIViewControllers
@@ -41,20 +33,16 @@
     latestCheckinsViewControleler = [[LatestCheckinsViewController alloc] initWithNibName:@"LatestCheckinsViewController" bundle:nil];
     
     // connect views to tabBar
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController = [[UITabBarController alloc] init];
     if(QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
         self.tabBarController.tabBar.translucent = NO;
     }
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapViewControleler, latestCheckinsViewControleler, nil];
-    [mapViewControleler release];
-    [latestCheckinsViewControleler release];
+    self.tabBarController.viewControllers = @[mapViewControleler, latestCheckinsViewControleler];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // show splash controller
-    self.splashController = [[[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil] autorelease];
+    self.splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     
     self.window.rootViewController = (UIViewController*)self.splashController;
     [self.window makeKeyAndVisible];

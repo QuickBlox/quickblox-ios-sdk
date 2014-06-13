@@ -9,100 +9,93 @@
 #import "LoginViewController.h"
 #import "DataManager.h"
 
+@interface LoginViewController () <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) IBOutlet UITextField *loginTextField;
+@property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@end
+
 @implementation LoginViewController
-@synthesize login;
-@synthesize password;
+@synthesize loginTextField;
+@synthesize passwordTextField;
 @synthesize activityIndicator;
 
-- (void)dealloc {
-    [login release];
-    [password release];
-    [activityIndicator release];
-    [super dealloc];
+- (void(^)(QBResponse *, QBUUser *))onSuccess
+{
+    return ^(QBResponse *response, QBUUser *user) {
+        [[DataManager shared] setCurrentUser:user];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful"
+                                                        message:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        [alert show];
+        [self.activityIndicator stopAnimating];
+    };
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void(^)(QBResponse *))onFailure
+{
+    return ^(QBResponse *response) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                        message:[response.error description]
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        alert.tag = 1;
+        [alert show];
+        [self.activityIndicator stopAnimating];
+    };
 }
 
-// User Sign In
-- (IBAction)next:(id)sender {
-    // Authenticate user
-    [QBUsers logInWithUserLogin:login.text password:password.text delegate:self];
+- (void)login
+{
+    [QBRequest logInWithUserLogin:loginTextField.text password:passwordTextField.text successBlock:[self onSuccess] errorBlock:[self onFailure]];
     
-    [activityIndicator startAnimating];
+    [self.activityIndicator startAnimating];
 }
 
-- (IBAction)back:(id)sender {
+- (IBAction)nextButtonTouched:(id)sender
+{
+    [self login];
+}
+
+- (IBAction)back:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)loginWithFaceBook:(id)sender {
-    [QBUsers logInWithSocialProvider:@"facebook" scope:nil delegate:self];
+- (IBAction)loginWithFaceBook:(id)sender
+{
+    [QBRequest logInWithSocialProvider:@"facebook" scope:nil successBlock:[self onSuccess] errorBlock:[self onFailure]];
 }
 
-- (IBAction)loginWithTwitter:(id)sender {
-    [QBUsers logInWithSocialProvider:@"twitter" scope:nil delegate:self];
+- (IBAction)loginWithTwitter:(id)sender
+{
+    [QBRequest logInWithSocialProvider:@"twitter" scope:nil successBlock:[self onSuccess] errorBlock:[self onFailure]];
 }
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
--(void)completedWithResult:(Result *)result {
-    // QuickBlox User authenticate result
-    if([result isKindOfClass:[QBUUserLogInResult class]]){
-
-        // Success result
-		if(result.success){
-            QBUUserLogInResult *res = (QBUUserLogInResult *)result;
-            
-            // save current user
-            
-            [[DataManager shared] setCurrentUser:[res user]];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful"
-                                                            message:nil
-                                                            delegate:self
-                                                            cancelButtonTitle:@"Ok"
-                                                            otherButtonTitles: nil];
-            [alert show];
-            [alert release];
-            
-        // Errors
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-                                                            message:[result.errors description]
-                                                            delegate:self
-                                                            cancelButtonTitle:@"Ok"
-                                                            otherButtonTitles: nil];
-            alert.tag = 1;
-            [alert show];
-            [alert release];
-        
-        }
-    }
-    
-    [activityIndicator stopAnimating];
-}
-
 
 #pragma mark -
 #pragma mark UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)_textField
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [_textField resignFirstResponder];
-    [self next:nil];
+    [textField resignFirstResponder];
+    [self login];
     return YES;
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [password resignFirstResponder];
-    [login resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    [self.loginTextField resignFirstResponder];
 }
+
+#pragma mark - 
+#pragma marl UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

@@ -11,16 +11,6 @@
 // for example mark his position for other users.
 //
 
-@interface LoginViewController : UIViewController <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate> {    
-    UITextField *login;
-    UITextField *password;
-    UIActivityIndicatorView *activityIndicator;
-}
-@property (nonatomic, retain) IBOutlet UITextField *login;
-@property (nonatomic, retain) IBOutlet UITextField *password;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-
-- (IBAction)next:(id)sender;
-- (IBAction)back:(id)sender;
+@interface LoginViewController : UIViewController
 
 @end
