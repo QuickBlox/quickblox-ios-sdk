@@ -22,7 +22,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
 		self.title = NSLocalizedString(@"Latest checkins", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"speech_bubble.png"];
         

@@ -10,68 +10,66 @@
 #import "MapPin.h"
 #import "DataManager.h"
 
-@interface MapViewController ()
+@interface MapViewController () <QBActionStatusDelegate, UIAlertViewDelegate>
+
+@property (nonatomic, strong) CLLocationManager* locationManager;
+@property (nonatomic, strong) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) IBOutlet UIViewController *loginController;
+@property (nonatomic, strong) IBOutlet UIViewController *registrationController;
 
 @end
 
 @implementation MapViewController
 
-@synthesize mapView;
-@synthesize loginController;
-@synthesize registrationController;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
 		self.title = NSLocalizedString(@"Map", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"globe.png"];
     }
     return self;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
-    locationManager = [CLLocationManager new];
-    [locationManager startUpdatingLocation];
+    self.locationManager = [CLLocationManager new];
+    [self.locationManager startUpdatingLocation];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-     // add pins to map
-    if([mapView.annotations count] <= 1){
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    if([self.mapView.annotations count] <= 1){
         for(QBLGeoData *geodata in [DataManager shared].checkinArray){
-            CLLocationCoordinate2D coord = {.latitude= geodata.latitude, .longitude= geodata.longitude};
+            CLLocationCoordinate2D coord = {.latitude = geodata.latitude, .longitude = geodata.longitude};
             MapPin *pin = [[MapPin alloc] initWithCoordinate:coord];
             pin.subtitle = geodata.status;
             pin.title = geodata.user.login ? geodata.user.login : geodata.user.email;
-            [mapView addAnnotation:pin];
+            [self.mapView addAnnotation:pin];
         }
     }
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 // Show checkin view
-- (IBAction) checkIn:(id)sender {
-    
+- (IBAction)checkIn:(id)sender
+{
     // Show alert if user did not logged in
     
-    if([DataManager shared].currentUser == nil){
+    if([DataManager shared].currentUser == nil) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You must first be authorized."
                                                         message:nil
-                                                        delegate:self
-                                                        cancelButtonTitle:@"Cancel"
-                                                        otherButtonTitles:@"Sign Up", @"Sign In", nil];
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Sign Up", @"Sign In", nil];
         alert.tag = 1;
         [alert show];
-
     // Show alert for check in
-    }else{
+    } else {
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter your message"
                                                         message:@"\n"
@@ -84,60 +82,26 @@
     }
 }
 
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(Result *)result  {
-     
-     if ([result isKindOfClass:[QBLGeoDataResult class]]){
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-        // Success result
-        if (result.success){
-            QBLGeoDataResult *geoDataRes = (QBLGeoDataResult *)result;
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in was successful!"
-                                                        message:[NSString stringWithFormat:@"Your coordinates: \n Latitude: %g \n Longitude: %g",geoDataRes.geoData.latitude, geoDataRes.geoData.longitude]
-                                                        delegate:self 
-                                                        cancelButtonTitle:@"Ok" 
-                                                        otherButtonTitles: nil];
-            [alert show];
-            
-        // Errors
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in wasn't successful"
-                                                        message:[result.errors description]
-                                                        delegate:self 
-                                                        cancelButtonTitle:@"Ok" 
-                                                        otherButtonTitles: nil];
-            [alert show];
-        }
-    }
-}
-
-
 #pragma mark -
 #pragma mark UIAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     // User didn't auth  alert
     if(alertView.tag == 1) {
         switch (buttonIndex) {
             case 1:
-                [self presentViewController:registrationController animated:YES completion:nil];
+                [self presentViewController:self.registrationController animated:YES completion:nil];
                 break;
             case 2:
-                [self presentViewController:loginController animated:YES completion:nil];
+                [self presentViewController:self.loginController animated:YES completion:nil];
                 break;
             default:
                 break;
         }
         
     // Check in   alert
-    }else if(alertView.tag == 2){
+    }else if(alertView.tag == 2) {
         switch (buttonIndex) {
             case 1: {
                 
@@ -147,12 +111,30 @@
                 //
                 // create QBLGeoData entity
                 QBLGeoData *geoData = [QBLGeoData geoData];
-                geoData.latitude = locationManager.location.coordinate.latitude;
-                geoData.longitude = locationManager.location.coordinate.longitude;
+                geoData.latitude = self.locationManager.location.coordinate.latitude;
+                geoData.longitude = self.locationManager.location.coordinate.longitude;
                 geoData.status = [alertView textFieldAtIndex:0].text;
                 
                 // post own location
-                [QBLocation createGeoData:geoData delegate:self];
+                [QBRequest createGeoData:geoData successBlock:^(QBResponse *response, QBLGeoData *geoData) {
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in was successful!"
+                                                                    message:[NSString stringWithFormat:@"Your coordinates: \n Latitude: %g \n Longitude: %g",geoData.latitude, geoData.longitude]
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                } errorBlock:^(QBResponse *response) {
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in wasn't successful"
+                                                                    message:[response.error description]
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                }];
                 
                 break;
             }

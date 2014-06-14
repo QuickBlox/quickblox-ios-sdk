@@ -8,85 +8,74 @@
 
 #import "RegistrationViewController.h"
 
+@interface RegistrationViewController () <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
+@property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@end
+
 @implementation RegistrationViewController
-@synthesize userName;
-@synthesize password;
-@synthesize activityIndicator;
 
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)signUp
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-// User Sign Up
-- (IBAction)next:(id)sender  {
     // Create QuickBlox User entity
-    QBUUser *user = [QBUUser user];       
-	user.password = password.text;
-    user.login = userName.text;
+    QBUUser *user = [QBUUser user];
+	user.password = self.passwordTextField.text;
+    user.login = self.userNameTextField.text;
     
-    // create User
-	[QBUsers signUp:user delegate:self];
+    [QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration was successful. Please now sign in."
+                                                        message:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } errorBlock:^(QBResponse *response) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                        message:[response.error description]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+    }];
     
-    [activityIndicator startAnimating];
+    [self.activityIndicator startAnimating];
 }
 
-- (IBAction)back:(id)sender {
+- (IBAction)nextButtonTouched:(id)sender
+{
+    [self signUp];
+}
+
+- (IBAction)back:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
--(void)completedWithResult:(Result*)result{
-    
-    // QuickBlox User creation result
-    if([result isKindOfClass:[QBUUserResult class]]){
-        
-        // Success result
-		if(result.success){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration was successful. Please now sign in." message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alert show];
-		
-        // Errors
-        }else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors" 
-                                                            message:[NSString stringWithFormat:@"%@",result.errors] 
-                                                           delegate:nil 
-                                                  cancelButtonTitle:@"Okay" 
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
-		}
-	}	
-    
-    [activityIndicator stopAnimating];
-}
-
 
 #pragma mark -
 #pragma mark UITextFieldDelegate
 
-- (BOOL)textFieldShouldReturn:(UITextField *)_textField{ 
-    [_textField resignFirstResponder];
-    [self next:nil];
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self nextButtonTouched:nil];
     return YES;
 }
-
 
 #pragma mark
 #pragma mark UIAlertView delegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
      [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [password resignFirstResponder];
-    [userName resignFirstResponder];
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.passwordTextField resignFirstResponder];
+    [self.userNameTextField resignFirstResponder];
 }
 
 @end

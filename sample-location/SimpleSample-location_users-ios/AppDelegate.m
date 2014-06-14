@@ -29,8 +29,8 @@
     
     // create two  UIViewControllers
     UIViewController *mapViewControleler, *latestCheckinsViewControleler;
-    mapViewControleler = [[MapViewController alloc] initWithNibName:@"MapViewController" bundle:nil];
-    latestCheckinsViewControleler = [[LatestCheckinsViewController alloc] initWithNibName:@"LatestCheckinsViewController" bundle:nil];
+    mapViewControleler = [[MapViewController alloc] initWithNibName:nil bundle:nil];
+    latestCheckinsViewControleler = [[LatestCheckinsViewController alloc] initWithNibName:nil bundle:nil];
     
     // connect views to tabBar
     self.tabBarController = [[UITabBarController alloc] init];
@@ -44,7 +44,7 @@
     // show splash controller
     self.splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     
-    self.window.rootViewController = (UIViewController*)self.splashController;
+    self.window.rootViewController = (UIViewController *)self.splashController;
     [self.window makeKeyAndVisible];
     
     return YES;

@@ -9,8 +9,6 @@
 // This class presents storage for user's checkins
 //
 
-#import <Foundation/Foundation.h>
-
 @interface DataManager : NSObject
 
 @property (nonatomic, strong) NSArray *checkinArray;

@@ -10,14 +10,11 @@
 // Then shows splash screen that creates QuickBlox session in order to use QuickBlox API.
 //
 
-#import <UIKit/UIKit.h>
-#import "SplashViewController.h"
-
+@class SplashViewController;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-
 @property (nonatomic, strong) SplashViewController* splashController;
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) UITabBarController *tabBarController;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) UITabBarController *tabBarController;
 
 @end
