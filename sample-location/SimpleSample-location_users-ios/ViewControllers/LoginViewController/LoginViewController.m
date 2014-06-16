@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "DataManager.h"
 
-@interface LoginViewController () <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate>
+@interface LoginViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *loginTextField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextField;

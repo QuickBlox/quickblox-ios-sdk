@@ -317,6 +317,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = QuickBlox;
 			};
 			buildConfigurationList = 8A2F265114F7F0D300292876 /* Build configuration list for PBXProject "SimpleSample-location_users-ios" */;
 			compatibilityVersion = "Xcode 3.2";

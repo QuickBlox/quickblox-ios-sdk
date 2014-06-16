@@ -9,17 +9,16 @@
 #import "MapPin.h"
 
 @implementation MapPin
-@synthesize  coordinate;
-@synthesize title, subtitle;
 
-- (id)initWithCoordinate: (CLLocationCoordinate2D) _coordinate{
+- (id)initWithCoordinate:(CLLocationCoordinate2D) coordinate
+{
     self = [super init];
-    if(self){
-        self.coordinate = _coordinate;
+    
+    if(self) {
+        self.coordinate = coordinate;
     }
     
 	return self;
 }
-
 
 @end

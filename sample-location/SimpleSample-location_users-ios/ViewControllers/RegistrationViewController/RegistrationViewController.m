@@ -8,7 +8,7 @@
 
 #import "RegistrationViewController.h"
 
-@interface RegistrationViewController () <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate>
+@interface RegistrationViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextField;

@@ -10,7 +10,7 @@
 #import "MapPin.h"
 #import "DataManager.h"
 
-@interface MapViewController () <QBActionStatusDelegate, UIAlertViewDelegate>
+@interface MapViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
@@ -43,8 +43,8 @@
 {
     [super viewWillAppear:animated];
 
-    if([self.mapView.annotations count] <= 1){
-        for(QBLGeoData *geodata in [DataManager instance].checkinArray){
+    if([self.mapView.annotations count] <= 1) {
+        for(QBLGeoData *geodata in [DataManager instance].checkinArray) {
             CLLocationCoordinate2D coord = {.latitude = geodata.latitude, .longitude = geodata.longitude};
             MapPin *pin = [[MapPin alloc] initWithCoordinate:coord];
             pin.subtitle = geodata.status;
@@ -73,9 +73,9 @@
 
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter your message"
                                                         message:@"\n"
-                                                        delegate:self
-                                                        cancelButtonTitle:@"Canсel"
-                                                        otherButtonTitles:@"Check In", nil];
+                                                       delegate:self
+                                              cancelButtonTitle:@"Canсel"
+                                              otherButtonTitles:@"Check In", nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         alert.tag = 2;
         [alert show];
@@ -104,7 +104,6 @@
     }else if(alertView.tag == 2) {
         switch (buttonIndex) {
             case 1: {
-                
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
                 
                 // Check in

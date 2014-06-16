@@ -12,12 +12,14 @@
 #import "SplashViewController.h"
 #import "LoginViewController.h"
 
+@interface AppDelegate()
+
+@property (nonatomic, strong) SplashViewController* splashController;
+@property (nonatomic, strong) UITabBarController* tabBarController;
+
+@end
+
 @implementation AppDelegate
-
-@synthesize window = _window;
-@synthesize tabBarController = _tabBarController;
-@synthesize splashController;
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -33,17 +35,17 @@
     latestCheckinsViewControleler = [[LatestCheckinsViewController alloc] initWithNibName:nil bundle:nil];
     
     // connect views to tabBar
-    self.tabBarController = [[UITabBarController alloc] init];
-    if(QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
+    self.tabBarController = [UITabBarController new];
+    
+    if(QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         self.tabBarController.tabBar.translucent = NO;
     }
+    
     self.tabBarController.viewControllers = @[mapViewControleler, latestCheckinsViewControleler];
     
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    // show splash controller
-    self.splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
-    
+    self.splashController = [[SplashViewController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = (UIViewController *)self.splashController;
     [self.window makeKeyAndVisible];
     
