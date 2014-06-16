@@ -6,17 +6,17 @@
 //  Copyright 2011 QuickBlox. All rights reserved.
 //
 
-#import "SplashViewController.h"
-#import "AppDelegate.h"
-#import "DataManager.h"
+#import "SSLSplashViewController.h"
+#import "SSLAppDelegate.h"
+#import "SSLDataManager.h"
 
-@interface SplashViewController ()
+@interface SSLSplashViewController ()
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *wheel;
 
 @end
 
-@implementation SplashViewController
+@implementation SSLSplashViewController
 
 - (void) viewDidLoad
 {
@@ -32,7 +32,7 @@
         [QBRequest geoDataWithFilter:filter page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:70]
                         successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
                             [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
-                            [DataManager instance].checkinArray = objects;
+                            [[SSLDataManager instance] saveCheckins:objects];
         } errorBlock:^(QBResponse *response) {
             NSLog(@"Error = %@", response.error);
         }];
@@ -49,7 +49,7 @@
 
 - (void)hideSplash
 {
-    AppDelegate* myDelegate = (((AppDelegate *)[UIApplication sharedApplication].delegate));
+    SSLAppDelegate* myDelegate = (((SSLAppDelegate *)[UIApplication sharedApplication].delegate));
     
     [self presentViewController:myDelegate.tabBarController animated:YES completion:nil];
 }

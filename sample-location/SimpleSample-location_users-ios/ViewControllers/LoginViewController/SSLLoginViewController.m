@@ -6,10 +6,10 @@
 //  Copyright 2011 QuickBlox. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "DataManager.h"
+#import "SSLLoginViewController.h"
+#import "SSLDataManager.h"
 
-@interface LoginViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface SSLLoginViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *loginTextField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
@@ -17,12 +17,12 @@
 
 @end
 
-@implementation LoginViewController
+@implementation SSLLoginViewController
 
 - (void(^)(QBResponse *, QBUUser *))onSuccess
 {
     return ^(QBResponse *response, QBUUser *user) {
-        [[DataManager instance] setCurrentUser:user];
+        [[SSLDataManager instance] saveCurrentUser:user];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful"
                                                         message:nil

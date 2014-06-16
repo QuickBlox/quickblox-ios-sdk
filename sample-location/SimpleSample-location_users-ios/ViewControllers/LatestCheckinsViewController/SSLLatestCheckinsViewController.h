@@ -9,6 +9,6 @@
 // It shows last users' checkins.
 //
 
-@interface LatestCheckinsViewController : UITableViewController
+@interface SSLLatestCheckinsViewController : UITableViewController
 
 @end

@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-#import "MapViewController.h"
-#import "MapPin.h"
-#import "DataManager.h"
+#import "SSLMapViewController.h"
+#import "SSLMapPin.h"
+#import "SSLDataManager.h"
 
-@interface MapViewController () <UIAlertViewDelegate>
+@interface SSLMapViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation MapViewController
+@implementation SSLMapViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,9 +44,9 @@
     [super viewWillAppear:animated];
 
     if([self.mapView.annotations count] <= 1) {
-        for(QBLGeoData *geodata in [DataManager instance].checkinArray) {
+        for(QBLGeoData *geodata in [SSLDataManager instance].checkins) {
             CLLocationCoordinate2D coord = {.latitude = geodata.latitude, .longitude = geodata.longitude};
-            MapPin *pin = [[MapPin alloc] initWithCoordinate:coord];
+            SSLMapPin *pin = [[SSLMapPin alloc] initWithCoordinate:coord];
             pin.subtitle = geodata.status;
             pin.title = geodata.user.login ? geodata.user.login : geodata.user.email;
             [self.mapView addAnnotation:pin];
@@ -59,7 +59,7 @@
 {
     // Show alert if user did not logged in
     
-    if([DataManager instance].currentUser == nil) {
+    if([SSLDataManager instance].currentUser == nil) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You must first be authorized."
                                                         message:nil

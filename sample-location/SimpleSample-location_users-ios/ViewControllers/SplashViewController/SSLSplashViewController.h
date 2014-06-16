@@ -13,6 +13,6 @@
 // between other users & how to see other users' locations)
 //
 
-@interface SplashViewController : UIViewController
+@interface SSLSplashViewController : UIViewController
 
 @end

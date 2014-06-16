@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegistrationViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSLRegistrationViewController">
             <connections>
                 <outlet property="activityIndicator" destination="22" id="23"/>
                 <outlet property="passwordTextField" destination="6" id="e6Z-jS-toQ"/>

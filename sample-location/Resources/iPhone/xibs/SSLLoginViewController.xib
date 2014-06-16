@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSLLoginViewController">
             <connections>
                 <outlet property="activityIndicator" destination="14" id="16"/>
                 <outlet property="loginTextField" destination="4" id="fxL-Gq-BVS"/>

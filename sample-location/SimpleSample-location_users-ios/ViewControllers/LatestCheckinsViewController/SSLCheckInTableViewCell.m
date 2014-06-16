@@ -6,16 +6,16 @@
 //
 //
 
-#import "CheckInTableViewCell.h"
+#import "SSLCheckInTableViewCell.h"
 
-@interface CheckInTableViewCell ()
+@interface SSLCheckInTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *checkinsLabel;
 
 @end
 
-@implementation CheckInTableViewCell
+@implementation SSLCheckInTableViewCell
 
 - (void)configureWithGeoData:(QBLGeoData *)geoData
 {

@@ -11,6 +11,6 @@
 // for example mark his position for other users.
 //
 
-@interface LoginViewController : UIViewController
+@interface SSLLoginViewController : UIViewController
 
 @end

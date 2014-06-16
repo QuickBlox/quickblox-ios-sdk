@@ -6,19 +6,28 @@
 //
 //
 
-#import "DataManager.h"
+#import "SSLDataManager.h"
 
-
-@implementation DataManager
+@implementation SSLDataManager
 
 + (instancetype)instance
 {
-    static DataManager *instance = nil;
+    static SSLDataManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [self new];
     });
     return instance;
+}
+
+- (void)saveCheckins:(NSArray *)checkins
+{
+    _checkins = checkins;
+}
+
+- (void)saveCurrentUser:(QBUUser *)user
+{
+    _currentUser = user;
 }
 
 @end

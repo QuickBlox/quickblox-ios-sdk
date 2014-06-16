@@ -6,20 +6,20 @@
 //
 //
 
-#import "LatestCheckinsViewController.h"
-#import "AppDelegate.h"
-#import "SplashViewController.h"
-#import "DataManager.h"
-#import "LoginViewController.h"
-#import "CheckInTableViewCell.h"
+#import "SSLLatestCheckinsViewController.h"
+#import "SSLAppDelegate.h"
+#import "SSLSplashViewController.h"
+#import "SSLDataManager.h"
+#import "SSLLoginViewController.h"
+#import "SSLCheckInTableViewCell.h"
 
 static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
 
-@interface LatestCheckinsViewController () <UITableViewDataSource>
+@interface SSLLatestCheckinsViewController () <UITableViewDataSource>
 
 @end
 
-@implementation LatestCheckinsViewController
+@implementation SSLLatestCheckinsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,7 +34,7 @@ static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CheckInTableViewCell" bundle:nil]
+    [self.tableView registerNib:[UINib nibWithNibName:@"SSLCheckInTableViewCell" bundle:nil]
          forCellReuseIdentifier:CheckInCellIdentifier];
     self.tableView.contentInset = (UIEdgeInsets){20, 0, 0, 0};
 }
@@ -44,14 +44,14 @@ static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [DataManager instance].checkinArray.count;
+    return [SSLDataManager instance].checkins.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    QBLGeoData *geodata = ([DataManager instance].checkinArray)[indexPath.row];
+    QBLGeoData *geodata = ([SSLDataManager instance].checkins)[indexPath.row];
     
-    CheckInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckInCellIdentifier];
+    SSLCheckInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckInCellIdentifier];
     
     [cell configureWithGeoData:geodata];
    

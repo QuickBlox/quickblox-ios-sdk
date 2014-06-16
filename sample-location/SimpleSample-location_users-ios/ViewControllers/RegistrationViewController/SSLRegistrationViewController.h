@@ -9,6 +9,6 @@
 // This class enables new user registration QB user
 //
 
-@interface RegistrationViewController : UIViewController
+@interface SSLRegistrationViewController : UIViewController
 
 @end

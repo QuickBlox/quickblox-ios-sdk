@@ -6,20 +6,20 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-#import "AppDelegate.h"
-#import "MapViewController.h"
-#import "LatestCheckinsViewController.h"
-#import "SplashViewController.h"
-#import "LoginViewController.h"
+#import "SSLAppDelegate.h"
+#import "SSLMapViewController.h"
+#import "SSLLatestCheckinsViewController.h"
+#import "SSLSplashViewController.h"
+#import "SSLLoginViewController.h"
 
-@interface AppDelegate()
+@interface SSLAppDelegate()
 
-@property (nonatomic, strong) SplashViewController* splashController;
+@property (nonatomic, strong) SSLSplashViewController* splashController;
 @property (nonatomic, strong) UITabBarController* tabBarController;
 
 @end
 
-@implementation AppDelegate
+@implementation SSLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -31,8 +31,8 @@
     
     // create two  UIViewControllers
     UIViewController *mapViewControleler, *latestCheckinsViewControleler;
-    mapViewControleler = [[MapViewController alloc] initWithNibName:nil bundle:nil];
-    latestCheckinsViewControleler = [[LatestCheckinsViewController alloc] initWithNibName:nil bundle:nil];
+    mapViewControleler = [[SSLMapViewController alloc] initWithNibName:nil bundle:nil];
+    latestCheckinsViewControleler = [[SSLLatestCheckinsViewController alloc] initWithNibName:nil bundle:nil];
     
     // connect views to tabBar
     self.tabBarController = [UITabBarController new];
@@ -45,7 +45,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
-    self.splashController = [[SplashViewController alloc] initWithNibName:nil bundle:nil];
+    self.splashController = [[SSLSplashViewController alloc] initWithNibName:nil bundle:nil];
     self.window.rootViewController = (UIViewController *)self.splashController;
     [self.window makeKeyAndVisible];
     

@@ -6,7 +6,7 @@
 //
 //
 
-@interface CheckInTableViewCell : UITableViewCell
+@interface SSLCheckInTableViewCell : UITableViewCell
 
 - (void)configureWithGeoData:(QBLGeoData *)geoData;
 

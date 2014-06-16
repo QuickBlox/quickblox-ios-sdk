@@ -6,9 +6,9 @@
 //  Copyright 2011 QuickBlox. All rights reserved.
 //
 
-#import "RegistrationViewController.h"
+#import "SSLRegistrationViewController.h"
 
-@interface RegistrationViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface SSLRegistrationViewController () <UIAlertViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *userNameTextField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation RegistrationViewController
+@implementation SSLRegistrationViewController
 
 - (void)signUp
 {
