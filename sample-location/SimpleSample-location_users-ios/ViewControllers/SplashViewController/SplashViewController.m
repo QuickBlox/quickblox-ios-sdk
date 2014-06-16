@@ -45,12 +45,6 @@
                                               otherButtonTitles:nil];
         [alert show];
     }];
-    
-    if(IS_HEIGHT_GTE_568) {
-        CGRect frame = self.wheel.frame;
-        frame.origin.y += 44;
-        [self.wheel setFrame:frame];
-    }
 }
 
 - (void)hideSplash
@@ -58,11 +52,6 @@
     AppDelegate* myDelegate = (((AppDelegate *)[UIApplication sharedApplication].delegate));
     
     [self presentViewController:myDelegate.tabBarController animated:YES completion:nil];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
