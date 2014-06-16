@@ -14,6 +14,6 @@
 @property (nonatomic, strong) NSArray *checkinArray;
 @property (nonatomic, strong) QBUUser *currentUser;
 
-+ (DataManager *) shared;
++ (instancetype) instance;
 
 @end

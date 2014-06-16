@@ -32,7 +32,7 @@
         [QBRequest geoDataWithFilter:filter page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:70]
                         successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
                             [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
-                            [DataManager shared].checkinArray = objects;
+                            [DataManager instance].checkinArray = objects;
         } errorBlock:^(QBResponse *response) {
             NSLog(@"Error = %@", response.error);
         }];

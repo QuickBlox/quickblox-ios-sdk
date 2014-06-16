@@ -8,22 +8,17 @@
 
 #import "DataManager.h"
 
-static DataManager *instance = nil;
 
 @implementation DataManager
 
-@synthesize checkinArray;
-@synthesize currentUser = _currentUser;
-
-+ (DataManager *)shared {
-	@synchronized (self) {
-		if (instance == nil){
-            instance = [[self alloc] init];
-        }
-	}
-	
-	return instance;
++ (instancetype)instance
+{
+    static DataManager *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [self new];
+    });
+    return instance;
 }
-
 
 @end

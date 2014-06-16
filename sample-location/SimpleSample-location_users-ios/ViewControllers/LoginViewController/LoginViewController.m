@@ -22,7 +22,7 @@
 - (void(^)(QBResponse *, QBUUser *))onSuccess
 {
     return ^(QBResponse *response, QBUUser *user) {
-        [[DataManager shared] setCurrentUser:user];
+        [[DataManager instance] setCurrentUser:user];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful"
                                                         message:nil

@@ -11,8 +11,11 @@
 #import "SplashViewController.h"
 #import "DataManager.h"
 #import "LoginViewController.h"
+#import "CheckInTableViewCell.h"
 
-@interface LatestCheckinsViewController () <UITableViewDataSource, UITableViewDelegate>
+static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
+
+@interface LatestCheckinsViewController () <UITableViewDataSource>
 
 @end
 
@@ -24,73 +27,35 @@
     if (self) {
 		self.title = NSLocalizedString(@"Latest checkins", nil);
 		self.tabBarItem.image = [UIImage imageNamed:@"speech_bubble.png"];
-        
     }
     return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CheckInTableViewCell" bundle:nil]
+         forCellReuseIdentifier:CheckInCellIdentifier];
+    self.tableView.contentInset = (UIEdgeInsets){20, 0, 0, 0};
 }
 
 #pragma mark -
 #pragma mark Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[DataManager shared].checkinArray count];
+    return [DataManager instance].checkinArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    QBLGeoData *geodata = ([DataManager shared].checkinArray)[indexPath.row];
-        
-    static NSString *CellIdentifier = @"Checkins";
+    QBLGeoData *geodata = ([DataManager instance].checkinArray)[indexPath.row];
     
-	UILabel	*name;			// name
-    UILabel	*checkins;		// checkins
-	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
-        // create photo
-        UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectMake(20, 4, 42, 38)];
-        [photo setImage:[UIImage imageNamed:@"pin.png"]];
-        photo.tag = 1101;
-        [cell.contentView addSubview:photo];
-        
-        // create name 
-        name = [[UILabel alloc] initWithFrame:CGRectMake(85, 2, 155, 20)];
-        name.tag = 1102;
-        [name setFont:[UIFont boldSystemFontOfSize:15]];
-        [name setTextColor:[UIColor colorWithRed:0.172 green:0.278 blue:0.521 alpha:1]];
-        [name setBackgroundColor:[UIColor clearColor]];
-        [cell.contentView addSubview:name];
-        
-        // create cheсkins
-        checkins = [[UILabel alloc] initWithFrame:CGRectMake(85, 20, 155, 20)];
-        checkins.tag = 1103;
-        [checkins setFont:[UIFont systemFontOfSize:14]];
-        [checkins setTextColor:[UIColor grayColor]];
-        [checkins setBackgroundColor:[UIColor clearColor]];
-        [cell.contentView addSubview:checkins];
-        
-    } else {
-        name = (UILabel *)[cell.contentView viewWithTag:1102];
-        checkins = (UILabel *)[cell.contentView viewWithTag:1103];
-    }
-    if (geodata.user.login!=nil) {
-        name.text=geodata.user.login;
-    }else{
-        name.text=geodata.user.fullName;
-    }
-    checkins.text=geodata.status;
-    cell.contentView.tag = indexPath.row;
-        
+    CheckInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckInCellIdentifier];
+    
+    [cell configureWithGeoData:geodata];
+   
     return cell;
 }
-
 
 @end

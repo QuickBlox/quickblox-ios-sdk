@@ -44,7 +44,7 @@
     [super viewWillAppear:animated];
 
     if([self.mapView.annotations count] <= 1){
-        for(QBLGeoData *geodata in [DataManager shared].checkinArray){
+        for(QBLGeoData *geodata in [DataManager instance].checkinArray){
             CLLocationCoordinate2D coord = {.latitude = geodata.latitude, .longitude = geodata.longitude};
             MapPin *pin = [[MapPin alloc] initWithCoordinate:coord];
             pin.subtitle = geodata.status;
@@ -59,7 +59,7 @@
 {
     // Show alert if user did not logged in
     
-    if([DataManager shared].currentUser == nil) {
+    if([DataManager instance].currentUser == nil) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You must first be authorized."
                                                         message:nil
