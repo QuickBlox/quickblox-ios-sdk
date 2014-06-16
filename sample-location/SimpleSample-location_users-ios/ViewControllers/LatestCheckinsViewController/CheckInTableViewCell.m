@@ -19,7 +19,7 @@
 
 - (void)configureWithGeoData:(QBLGeoData *)geoData
 {
-    self.nameLabel.text = geoData.user.fullName ? geoData.user.fullName : geoData.user.login;
+    self.nameLabel.text = geoData.user.login;
     self.checkinsLabel.text = geoData.status;
 }
 
