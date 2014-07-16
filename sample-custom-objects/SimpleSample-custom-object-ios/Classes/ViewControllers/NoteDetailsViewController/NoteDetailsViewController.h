@@ -13,10 +13,10 @@
 
 @interface NoteDetailsViewController : UIViewController <QBActionStatusDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
 
-@property (retain, nonatomic) IBOutlet UILabel *noteLabel;
-@property (retain, nonatomic) IBOutlet UILabel *statusLabel;
-@property (retain, nonatomic) IBOutlet UITextView *comentsTextView;
-@property (retain, nonatomic) QBCOCustomObject *customObject;
+@property (strong, nonatomic) IBOutlet UILabel *noteLabel;
+@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) IBOutlet UITextView *comentsTextView;
+@property (strong, nonatomic) QBCOCustomObject *customObject;
 
 - (void) reloadData;
 

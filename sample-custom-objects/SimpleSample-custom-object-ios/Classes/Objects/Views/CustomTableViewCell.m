@@ -21,18 +21,16 @@
         // Initialization code
         UIImageView *backgroundImageView = [[UIImageView alloc] init];
         [backgroundImageView setFrame:CGRectMake(0, 0, 320, 80)];
-        [backgroundImageView setImage:[UIImage imageNamed:@"imagesbackground.jpeg"]];
+        [backgroundImageView setImage:[UIImage imageNamed:@"Background"]];
         [backgroundImageView setAlpha:0.7];
         [self addSubview:backgroundImageView];
-        [backgroundImageView release];
-        
+
         UILabel *note = [[UILabel alloc] init];
         [note setFrame:CGRectMake(10, 10, 60, 20)];
         [note setText:@"Note: "];
         [note setBackgroundColor:[UIColor clearColor]];
         [note setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:17]];
         [self addSubview:note];
-        [note release];
         
         noteLabel = [[UILabel alloc] init];
         [self.noteLabel setFrame:CGRectMake(70, 10, 260, 20)];
@@ -45,7 +43,6 @@
         [status setBackgroundColor:[UIColor clearColor]];
         [status setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:17]];
         [self addSubview:status];
-        [status release];
         
         statusLabel = [[UILabel alloc] init];
         [self.statusLabel setFrame:CGRectMake(70, 30, 260, 20)];
@@ -58,7 +55,6 @@
         [date setBackgroundColor:[UIColor clearColor]];
         [date setFont:[UIFont fontWithName:@"TrebuchetMS-Bold" size:17]];
         [self addSubview:date];
-        [date release];
         
         dataLabel = [[UILabel alloc] init];
         [self.dataLabel setFrame:CGRectMake(70, 50, 260, 20)];
@@ -70,12 +66,5 @@
     return self;
 }
 
--(void)dealloc{
-    [noteLabel release];
-    [dataLabel release];
-    [statusLabel release];
-    
-    [super dealloc];
-}
 
 @end
