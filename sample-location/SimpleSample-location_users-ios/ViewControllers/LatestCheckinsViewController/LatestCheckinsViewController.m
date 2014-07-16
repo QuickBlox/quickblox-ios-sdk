@@ -57,14 +57,13 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         
         // create photo
         UIImageView *photo = [[UIImageView alloc] initWithFrame:CGRectMake(20, 4, 42, 38)];
         [photo setImage:[UIImage imageNamed:@"pin.png"]];
         photo.tag = 1101;
         [cell.contentView addSubview:photo];
-        [photo release];
         
         // create name 
         name = [[UILabel alloc] initWithFrame:CGRectMake(85, 2, 155, 20)];
@@ -73,7 +72,6 @@
         [name setTextColor:[UIColor colorWithRed:0.172 green:0.278 blue:0.521 alpha:1]];
         [name setBackgroundColor:[UIColor clearColor]];
         [cell.contentView addSubview:name];
-        [name release];
         
         // create cheсkins
         checkins = [[UILabel alloc] initWithFrame:CGRectMake(85, 20, 155, 20)];
@@ -82,7 +80,6 @@
         [checkins setTextColor:[UIColor grayColor]];
         [checkins setBackgroundColor:[UIColor clearColor]];
         [cell.contentView addSubview:checkins];
-        [checkins release];
         
     }else{
         name = (UILabel *)[cell.contentView viewWithTag:1102];

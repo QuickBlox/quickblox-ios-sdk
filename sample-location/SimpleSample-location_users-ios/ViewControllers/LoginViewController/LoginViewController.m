@@ -14,12 +14,6 @@
 @synthesize password;
 @synthesize activityIndicator;
 
-- (void)dealloc {
-    [login release];
-    [password release];
-    [activityIndicator release];
-    [super dealloc];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
@@ -35,7 +29,7 @@
 }
 
 - (IBAction)back:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)loginWithFaceBook:(id)sender {
@@ -68,7 +62,6 @@
                                                             cancelButtonTitle:@"Ok"
                                                             otherButtonTitles: nil];
             [alert show];
-            [alert release];
             
         // Errors
         }else{
@@ -79,7 +72,6 @@
                                                             otherButtonTitles: nil];
             alert.tag = 1;
             [alert show];
-            [alert release];
         
         }
     }
@@ -107,7 +99,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(alertView.tag != 1){
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

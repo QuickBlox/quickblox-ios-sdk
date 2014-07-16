@@ -31,7 +31,7 @@
 
     AppDelegate* myDelegate = (((AppDelegate*) [UIApplication sharedApplication].delegate));
     
-    [self presentModalViewController:myDelegate.tabBarController animated:YES];
+    [self presentViewController:myDelegate.tabBarController animated:YES completion:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
@@ -61,7 +61,6 @@
             
             // retieve user's points
             [QBLocation geoDataWithRequest:getRequest delegate:self];
-            [getRequest release];
             
         // show Errors
         }else{
@@ -71,7 +70,6 @@
                                                 cancelButtonTitle:NSLocalizedString(@"OK", "")
                                                 otherButtonTitles:nil];
             [alert show];
-            [alert release];
         }
     }
     // Retrieve users' points result
@@ -82,7 +80,7 @@
             // Hide splash & show main controller
             [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
             QBLGeoDataPagedResult *geoDataGetRes = (QBLGeoDataPagedResult *)result;
-            [DataManager shared].checkinArray  = [[geoDataGetRes.geodata mutableCopy] autorelease];
+            [DataManager shared].checkinArray  = [geoDataGetRes.geodata mutableCopy];
         // Errors
         }else{
             NSLog(@"Errors=%@", result.errors);
