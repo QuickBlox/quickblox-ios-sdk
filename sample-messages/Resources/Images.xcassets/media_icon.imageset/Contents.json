@@ -2,9 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Default-568h@2x.png",
-      "unassigned" : true,
-      "subtype" : "retina4",
+      "scale" : "1x",
+      "filename" : "media_icon.png"
+    },
+    {
+      "idiom" : "universal",
       "scale" : "2x"
     }
   ],
