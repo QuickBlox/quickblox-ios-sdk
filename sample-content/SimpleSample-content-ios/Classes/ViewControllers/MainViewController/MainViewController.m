@@ -73,7 +73,7 @@
 #pragma mark Core
 
 -(void)downloadFile{
-    int fileID = [(QBCBlob *)[[[DataManager instance] fileList] lastObject] ID];
+    NSUInteger fileID = [(QBCBlob *)[[[DataManager instance] fileList] lastObject] ID];
     if(fileID > 0){
         // Download file from QuickBlox server
         [QBContent TDownloadFileWithBlobID:fileID delegate:self];
