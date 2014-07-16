@@ -13,10 +13,10 @@
 
 @interface Movie : NSObject
 
-@property (nonatomic, retain) NSString *movieImage;
-@property (nonatomic, retain) NSString *movieName;
-@property (nonatomic, retain) NSString *movieRating;
-@property (nonatomic, retain) NSString *movieDetails;
+@property (nonatomic, strong) NSString *movieImage;
+@property (nonatomic, strong) NSString *movieName;
+@property (nonatomic, strong) NSString *movieRating;
+@property (nonatomic, strong) NSString *movieDetails;
 @property (nonatomic) NSInteger gameModeID;
 @property (nonatomic) CGFloat rating;
 

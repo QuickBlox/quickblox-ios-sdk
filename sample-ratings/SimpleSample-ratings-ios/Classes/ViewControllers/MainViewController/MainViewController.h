@@ -15,6 +15,6 @@
 
 @interface MainViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
-@property (retain, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

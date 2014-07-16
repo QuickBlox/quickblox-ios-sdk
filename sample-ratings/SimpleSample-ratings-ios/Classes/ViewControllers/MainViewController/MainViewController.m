@@ -35,16 +35,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
-    [tableView release];
-    [super dealloc];
-}
 
 - (void) showMovieDetails:(int)index{
     MovieDetailsViewController *detailsViewController = [[MovieDetailsViewController alloc] init];
     [detailsViewController setMovie:[[[DataManager shared] movies] objectAtIndex:index]];
     [self.navigationController pushViewController:detailsViewController animated:YES];
-    [detailsViewController release];
 }
 
 
@@ -69,7 +64,7 @@
     
     CustomTableViewCell* cell = [_tableView dequeueReusableCellWithIdentifier:SimpleTableIdentifier];
     if (cell == nil){
-        cell = [[[CustomTableViewCell alloc] init] autorelease];
+        cell = [[CustomTableViewCell alloc] init];
     }
     
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;

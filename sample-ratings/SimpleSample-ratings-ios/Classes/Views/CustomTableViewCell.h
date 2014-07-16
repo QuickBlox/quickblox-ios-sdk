@@ -15,9 +15,9 @@
 
 @interface CustomTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) UIImageView *movieImageView;
-@property (nonatomic, retain) UILabel *movieName;
-@property (nonatomic, retain) RateView *ratingView;
-@property (nonatomic, retain) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIImageView *movieImageView;
+@property (nonatomic, strong) UILabel *movieName;
+@property (nonatomic, strong) RateView *ratingView;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @end

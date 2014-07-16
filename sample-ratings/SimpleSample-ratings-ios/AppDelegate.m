@@ -15,12 +15,6 @@
 @synthesize window = _window;
 @synthesize navigationController;
 
-- (void)dealloc
-{
-    [_window release];
-    [navigationController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,22 +24,20 @@
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
 
     // create navigation controller with root main view controller
     MainViewController *mainViewController = [[MainViewController alloc] init];
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:mainViewController] autorelease];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
     self.navigationController.navigationBar.translucent = NO;
-    [mainViewController release];
     
     [self.window setRootViewController:self.navigationController];
 
     // Show splash
     SplashViewController* splashScreen = [[SplashViewController alloc] init];
     [splashScreen setDelegate:mainViewController];
-    [navigationController presentModalViewController:splashScreen animated:NO];
-    [splashScreen release];
+    [navigationController presentViewController:splashScreen animated:YES completion:nil];
 
     return YES;
 }

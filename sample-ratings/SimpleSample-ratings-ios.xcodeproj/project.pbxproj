@@ -55,7 +55,6 @@
 		FA6ECF8915BEA59D00833341 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6ECF6715BEA59D00833341 /* AppDelegate.m */; };
 		FA6ECF9115BEA59D00833341 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF7915BEA59D00833341 /* InfoPlist.strings */; };
 		FA6ECF9215BEA59D00833341 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6ECF7B15BEA59D00833341 /* main.m */; };
-		FA6ECF9315BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF7C15BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist */; };
 		FAC8B9E116D2D4A200F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E016D2D4A200F03311 /* CoreVideo.framework */; };
 		FAC8B9E316D2D4A700F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E216D2D4A600F03311 /* CoreMedia.framework */; };
 		FAC8B9E516D2D4AD00F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E416D2D4AD00F03311 /* AVFoundation.framework */; };
@@ -376,7 +375,7 @@
 		ED3BA43D15AC1097002B8CFE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = ED3BA44015AC1097002B8CFE /* Build configuration list for PBXProject "SimpleSample-ratings-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -405,7 +404,6 @@
 				FA6ECF8315BEA59D00833341 /* logo.png in Resources */,
 				43ECA73D1600984D005DC731 /* SplashViewController.xib in Resources */,
 				FA6ECF9115BEA59D00833341 /* InfoPlist.strings in Resources */,
-				FA6ECF9315BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist in Resources */,
 				438146731600A13200A508F5 /* images.jpg in Resources */,
 				431EE5151600A42A00E85366 /* images.jpeg in Resources */,
 				FA023ED01602335C00948B7E /* fight_club.jpg in Resources */,
@@ -490,7 +488,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				COPY_PHASE_STRIP = NO;
@@ -503,10 +506,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "DAE2D3F8-2688-4CB9-9C29-64A223CB206C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAE2D3F8-2688-4CB9-9C29-64A223CB206C";
 				SDKROOT = iphoneos;
@@ -517,14 +524,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -538,6 +553,7 @@
 		ED3BA46515AC1097002B8CFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -548,7 +564,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -569,6 +585,7 @@
 		ED3BA46615AC1097002B8CFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Conark Intelmed";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -579,7 +596,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

@@ -13,7 +13,7 @@
 
 @interface DataManager : NSObject
 
-@property (nonatomic, retain) NSMutableArray *movies;
+@property (nonatomic, strong) NSMutableArray *movies;
 
 + (instancetype)shared;
 
