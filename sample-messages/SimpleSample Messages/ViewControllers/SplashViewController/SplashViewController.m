@@ -33,7 +33,7 @@
 
 - (void)hideSplash {
     // hide splash & show main controller
-    [self presentModalViewController:[[[MainViewController alloc] init] autorelease] animated:YES];
+    [self presentViewController:[[MainViewController alloc] init] animated:YES completion:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
@@ -72,7 +72,6 @@
                                               cancelButtonTitle:NSLocalizedString(@"OK", "")
                                               otherButtonTitles:nil];
         [alert show];
-        [alert release];
     }
 }
 

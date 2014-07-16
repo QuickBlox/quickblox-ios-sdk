@@ -13,8 +13,8 @@
 
 @interface PushMessage : NSObject {
 }
-@property (nonatomic, retain) NSString *message;
-@property (nonatomic, retain) NSArray *richContentFilesIDs;
+@property (nonatomic, strong) NSString *message;
+@property (nonatomic, strong) NSArray *richContentFilesIDs;
 
 + (PushMessage *)pushMessageWithMessage:(NSString *)_message richContentFilesIDs:(NSString *)_richContentFilesIDs;
 
