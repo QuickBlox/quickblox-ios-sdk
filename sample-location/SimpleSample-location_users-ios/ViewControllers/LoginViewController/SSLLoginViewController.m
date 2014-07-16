@@ -8,8 +8,9 @@
 
 #import "SSLLoginViewController.h"
 #import "SSLDataManager.h"
+#import <MTBlockAlertView.h>
 
-@interface SSLLoginViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+@interface SSLLoginViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *loginTextField;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
@@ -24,12 +25,14 @@
     return ^(QBResponse *response, QBUUser *user) {
         [[SSLDataManager instance] saveCurrentUser:user];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful"
-                                                        message:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles: nil];
-        [alert show];
+        [MTBlockAlertView showWithTitle:@"Authentification successful"
+                                message:nil
+                      cancelButtonTitle:@"Ok"
+                       otherButtonTitle:nil
+                         alertViewStyle:UIAlertViewStyleDefault
+                        completionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }];
         [self.activityIndicator stopAnimating];
     };
 }
@@ -37,13 +40,12 @@
 - (void(^)(QBResponse *))onFailure
 {
     return ^(QBResponse *response) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-                                                        message:[response.error description]
-                                                       delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles: nil];
-        alert.tag = 1;
-        [alert show];
+        [MTBlockAlertView showWithTitle:@"Errors"
+                                message:[response.error description]
+                      cancelButtonTitle:@"Ok"
+                       otherButtonTitle:nil
+                         alertViewStyle:UIAlertViewStyleDefault
+                        completionBlock:nil];
         [self.activityIndicator stopAnimating];
     };
 }
@@ -92,16 +94,6 @@
 {
     [self.passwordTextField resignFirstResponder];
     [self.loginTextField resignFirstResponder];
-}
-
-#pragma mark - 
-#pragma marl UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(alertView.tag != 1){
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 @end

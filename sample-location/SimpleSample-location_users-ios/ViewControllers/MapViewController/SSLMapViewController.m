@@ -9,6 +9,7 @@
 #import "SSLMapViewController.h"
 #import "SSLMapPin.h"
 #import "SSLDataManager.h"
+#import <MTBlockAlertView.h>
 
 @interface SSLMapViewController () <UIAlertViewDelegate>
 
@@ -54,31 +55,68 @@
     }
 }
 
-// Show checkin view
 - (IBAction)checkIn:(id)sender
 {
     // Show alert if user did not logged in
-    
     if([SSLDataManager instance].currentUser == nil) {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"You must first be authorized."
-                                                        message:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Sign Up", @"Sign In", nil];
-        alert.tag = 1;
-        [alert show];
+        MTBlockAlertView* alertView = [[MTBlockAlertView alloc] initWithTitle:@"You must first be authorized."
+                                                                      message:nil
+                                                            completionHanlder:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                                                switch (buttonIndex) {
+                                                                    case 1:
+                                                                        [self presentViewController:self.registrationController animated:YES completion:nil];
+                                                                        break;
+                                                                    case 2:
+                                                                        [self presentViewController:self.loginController animated:YES completion:nil];
+                                                                        break;
+                                                                    default:
+                                                                        break;
+                                                                }
+                                                            }
+                                                            cancelButtonTitle:@"Cancel"
+                                                            otherButtonTitles:@"Sign Up", @"Sign In", nil];
+        [alertView show];
     // Show alert for check in
     } else {
-
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter your message"
-                                                        message:@"\n"
-                                                       delegate:self
-                                              cancelButtonTitle:@"Canсel"
-                                              otherButtonTitles:@"Check In", nil];
-        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alert.tag = 2;
-        [alert show];
+        MTBlockAlertView* alertView = [[MTBlockAlertView alloc] initWithTitle:@"Please enter your message"
+                                                                      message:@"\n"
+                                                            completionHanlder:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                                                if (buttonIndex == 1) {
+                                                                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+                                                                    
+                                                                    // Check in
+                                                                    //
+                                                                    // create QBLGeoData entity
+                                                                    QBLGeoData *geoData = [QBLGeoData geoData];
+                                                                    geoData.latitude = self.locationManager.location.coordinate.latitude;
+                                                                    geoData.longitude = self.locationManager.location.coordinate.longitude;
+                                                                    geoData.status = [alertView textFieldAtIndex:0].text;
+                                                                    
+                                                                    // post own location
+                                                                    [QBRequest createGeoData:geoData successBlock:^(QBResponse *response, QBLGeoData *geoData) {
+                                                                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                                                        
+                                                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in was successful!"
+                                                                                                                        message:[NSString stringWithFormat:@"Your coordinates: \n Latitude: %g \n Longitude: %g",geoData.latitude, geoData.longitude]
+                                                                                                                       delegate:self
+                                                                                                              cancelButtonTitle:@"Ok"
+                                                                                                              otherButtonTitles:nil];
+                                                                        [alert show];
+                                                                    } errorBlock:^(QBResponse *response) {
+                                                                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                                                        
+                                                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in wasn't successful"
+                                                                                                                        message:[response.error description]
+                                                                                                                       delegate:self
+                                                                                                              cancelButtonTitle:@"Ok"
+                                                                                                              otherButtonTitles:nil];
+                                                                        [alert show];
+                                                                    }];
+                                                                }
+                                                            }
+                                                            cancelButtonTitle:@"Canсel"
+                                                            otherButtonTitles:@"Check In", nil];
+        [alertView show];
     }
 }
 
@@ -89,51 +127,12 @@
 {
     // User didn't auth  alert
     if(alertView.tag == 1) {
-        switch (buttonIndex) {
-            case 1:
-                [self presentViewController:self.registrationController animated:YES completion:nil];
-                break;
-            case 2:
-                [self presentViewController:self.loginController animated:YES completion:nil];
-                break;
-            default:
-                break;
-        }
         
     // Check in   alert
     }else if(alertView.tag == 2) {
         switch (buttonIndex) {
             case 1: {
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-                
-                // Check in
-                //
-                // create QBLGeoData entity
-                QBLGeoData *geoData = [QBLGeoData geoData];
-                geoData.latitude = self.locationManager.location.coordinate.latitude;
-                geoData.longitude = self.locationManager.location.coordinate.longitude;
-                geoData.status = [alertView textFieldAtIndex:0].text;
-                
-                // post own location
-                [QBRequest createGeoData:geoData successBlock:^(QBResponse *response, QBLGeoData *geoData) {
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in was successful!"
-                                                                    message:[NSString stringWithFormat:@"Your coordinates: \n Latitude: %g \n Longitude: %g",geoData.latitude, geoData.longitude]
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"Ok"
-                                                          otherButtonTitles:nil];
-                    [alert show];
-                } errorBlock:^(QBResponse *response) {
-                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check in wasn't successful"
-                                                                    message:[response.error description]
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"Ok"
-                                                          otherButtonTitles:nil];
-                    [alert show];
-                }];
                 
                 break;
             }

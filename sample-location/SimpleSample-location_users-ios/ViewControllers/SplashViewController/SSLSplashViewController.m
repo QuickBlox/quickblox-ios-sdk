@@ -31,7 +31,10 @@
         
         [QBRequest geoDataWithFilter:filter page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:70]
                         successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
-                            [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                SSLAppDelegate* myDelegate = (((SSLAppDelegate *)[UIApplication sharedApplication].delegate));
+                                [self presentViewController:myDelegate.tabBarController animated:YES completion:nil];
+                            });
                             [[SSLDataManager instance] saveCheckins:objects];
         } errorBlock:^(QBResponse *response) {
             NSLog(@"Error = %@", response.error);
@@ -45,13 +48,6 @@
                                               otherButtonTitles:nil];
         [alert show];
     }];
-}
-
-- (void)hideSplash
-{
-    SSLAppDelegate* myDelegate = (((SSLAppDelegate *)[UIApplication sharedApplication].delegate));
-    
-    [self presentViewController:myDelegate.tabBarController animated:YES completion:nil];
 }
 
 @end
