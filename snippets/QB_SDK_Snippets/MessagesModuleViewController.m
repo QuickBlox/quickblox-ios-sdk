@@ -40,7 +40,7 @@
         case 1:
             return 3;
         case 2:
-            return 6;
+            return 5;
         case 3:
             return 6;
             
@@ -83,7 +83,7 @@
                 case 0:{
                     QBMPushToken *pushToken = [QBMPushToken pushToken];
                     pushToken.isEnvironmentDevelopment = YES;
-                    pushToken.clientIdentificationSequence = @"aa557232bc237245ba67686484efab";
+//                    pushToken.clientIdentificationSequence = @"...";
                     
                     if(withContext){
                         [QBMessages createPushToken:pushToken delegate:self context:testContext]; 
@@ -111,7 +111,7 @@
                 // Create Subscription
                 case 0:{
                     QBMSubscription *subscription = [QBMSubscription subscription];
-                    subscription.notificationChannel = QBMNotificatioChannelAPNS;
+                    subscription.notificationChannel = QBMNotificationChannelEmail;
                     
                     if(withContext){
                         [QBMessages createSubscription:subscription delegate:self context:testContext]; 
@@ -153,13 +153,19 @@
                 // Create Event - notification will be delivered to all possible devices for specified users.
                 case 0:{
                     QBMEvent *event = [QBMEvent event];
-                    event.notificationType = QBMNotificationTypeEmail;
-//                    event.usersExternalIDs = @"12312312,44";
-                    event.usersIDs = @"33";
-                    event.isDevelopmentEnvironment = YES;
+                    event.notificationType = QBMNotificationTypePush;
+                    event.usersIDs = [@(UserID1) description];
+                    event.isDevelopmentEnvironment = ![QBSettings isUseProductionEnvironmentForPushNotifications];
                     event.type = QBMEventTypeOneShot; 
                     //
-                    event.message = @"New message is available for you";
+                    NSMutableDictionary  *dictPush=[NSMutableDictionary  dictionaryWithObjectsAndKeys:@"😄", @"message", nil];
+                    [dictPush setObject:@"value1" forKey:@"param1"];
+                    //
+                    NSError *error = nil;
+                    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
+                    NSString *json = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
+                    //
+                    event.message = json;
                     
                     if(withContext){
                         [QBMessages createEvent:event delegate:self context:testContext]; 
@@ -192,7 +198,6 @@
                             [QBMessages eventsWithPagedRequest:pagedRequest delegate:self];
                         }
                         
-                        [pagedRequest release];
                         
                     }else{
                         if(withContext){
@@ -202,16 +207,6 @@
                         }
                     } 
 
-                }
-                    break;
-                
-                // Get Pull Events
-                case 3:{
-                    if(withContext){
-                        [QBMessages pullEventsWithDelegate:self context:testContext];
-                    }else{
-                        [QBMessages pullEventsWithDelegate:self];
-                    }
                 }
                     break;
                     
@@ -268,35 +263,32 @@
                     
                 // TSendPush to users' ids
                 case 2:{
-                    
-                    NSString *mesage = @"Hello man!";
-                    
                     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
                     NSMutableDictionary *aps = [NSMutableDictionary dictionary];
                     [aps setObject:@"default" forKey:QBMPushMessageSoundKey];
-                    [aps setObject:mesage forKey:QBMPushMessageAlertKey];
+                    [aps setObject:@"Hello World 😄 amigo" forKey:QBMPushMessageAlertKey];
                     [aps setObject:@"5" forKey:QBMPushMessageBadgeKey];
+                    [aps setObject:@"PLAY" forKey:@"aps_key2"];
                     [payload setObject:aps forKey:QBMPushMessageApsKey];
                     
                     QBMPushMessage *message = [[QBMPushMessage alloc] initWithPayload:payload];
                     
                     // Send push
                     if(withContext){
-                        [QBMessages TSendPush:message toUsers:@"23" delegate:self context:testContext];
+                        [QBMessages TSendPush:message toUsers:[@(UserID1) description] delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPush:message toUsers:@"23" delegate:self];
+                        [QBMessages TSendPush:message toUsers:[@(UserID1) description] delegate:self];
                     }
                     
-                    [message release];
                 }
                     break;
                     
                 // TSendPushWithText to users' ids
                 case 3:{
                     if(withContext){
-                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"218650" delegate:self context:testContext];
+                        [QBMessages TSendPushWithText:@"Hello World 😄 amigo" toUsers:[@(UserID1) description] delegate:self context:testContext];
                     }else{
-                        [QBMessages TSendPushWithText:@"Hello World" toUsers:@"218650" delegate:self];
+                        [QBMessages TSendPushWithText:@"Hello World 😄 amigo" toUsers:[@(UserID1) description] delegate:self];
                     }
                 }
                     break;
@@ -320,7 +312,6 @@
                         [QBMessages TSendPush:message toUsersWithAnyOfTheseTags:@"devdevdev2" delegate:self];
                     }
                     
-                    [message release];
                 }
                     break;
                     
@@ -345,11 +336,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -518,6 +509,10 @@
     NSLog(@"completedWithResult, context=%@", contextInfo);
     
     [self completedWithResult:result];
+}
+
+-(void)setProgress:(float)progress{
+    NSLog(@"setProgress %f", progress);
 }
 
 

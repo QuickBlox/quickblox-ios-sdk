@@ -8,3 +8,13 @@
 
 #import "Server/QBVideoChat.h"
 #import "Server/QBChat.h"
+
+#import "Queries/ChatQueries.h"
+#import "Answers/Base/QBChatDialogAnswer.h"
+#import "Answers/QBChatDialogPagedAnswer.h"
+#import "Answers/QBChatHistoryMessageAnswer.h"
+
+
+#import "Results/QBDialogsPagedResult.h"
+#import "Results/QBChatHistoryMessageResult.h"
+#import "Results/Base/QBChatDialogResult.h"

@@ -42,6 +42,8 @@
 @property (nonatomic, assign) BOOL isMembersOnlyRoom;
 @property (nonatomic, assign) BOOL isPersistentRoom;
 
+@property (retain) NSDictionary *historyAttribute;
+
 - (void)createOrJoinRoom;
 - (void)joinRoom;
 - (void)leaveRoom;
@@ -55,7 +57,7 @@
 
 - (void)requestUsers;
 
-- (void)sendMessage:(NSString *)msg;
+- (void)sendMessage:(QBXMPPMessage *)msg;
 - (void)sendPresenceWithStatus:(NSString *)status;
 - (void)sendPresenceWithParameters:(NSDictionary *)parameters;
 

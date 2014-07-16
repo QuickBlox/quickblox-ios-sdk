@@ -51,7 +51,7 @@ typedef enum QBChatServiceError {
  
  @return QBChat Chat service singleton
  */
-+ (QBChat *)instance;
++ (instancetype)instance;
 
 /**
  Authorize on QuickBlox Chat
@@ -165,6 +165,18 @@ typedef enum QBChatServiceError {
 - (BOOL)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent;
 
 /**
+ Create room or join if room with this JID already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
+ As user room nickname we will use user ID
+ 
+ @param roomJID Room JID
+ @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
+ @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
+ @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)createOrJoinRoomWithJID:(NSString *)roomJID membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent historyAttribute:(NSDictionary *)historyAttribute;
+
+/**
  Create room or join if room with this name already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
  If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
  If room name contains ("),(\),(&),('),(/),(:),(<),(>),(@),((),()),(:),(;)  characters - they will be removed.
@@ -177,6 +189,19 @@ typedef enum QBChatServiceError {
  */
 - (BOOL)createOrJoinRoomWithName:(NSString *)name nickname:(NSString *)nickname membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent;
 
+
+/**
+ Create room or join if room with this JID already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
+ 
+ @param roomJID Room JID
+ @param nickname User nickname wich will be used in room
+ @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
+ @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
+ @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)createOrJoinRoomWithJID:(NSString *)roomJID nickname:(NSString *)nickname membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent historyAttribute:(NSDictionary *)historyAttribute;
+
 /**
  Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
  
@@ -184,6 +209,15 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)joinRoom:(QBChatRoom *)room;
+
+/**
+ Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
+ 
+ @param room Room to join
+ @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)joinRoom:(QBChatRoom *)room historyAttribute:(NSDictionary *)historyAttribute;
 
 /**
  Leave joined room. QBChatDelegate's method 'chatRoomDidLeave:' will be called
@@ -204,11 +238,22 @@ typedef enum QBChatServiceError {
 /**
  Send message to room
  
+ @warning *Deprecated in QB iOS SDK 1.9:* Use sendChatMessage:toRoom: instead
+ 
  @param message Message body
  @param room Room to send message
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendMessage:(NSString *)message toRoom:(QBChatRoom *)room;
+- (BOOL)sendMessage:(NSString *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendChatMessage:toRoom: instead")));
+
+/**
+ Send chat message to room
+ 
+ @param message Message body
+ @param room Room to send message
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendChatMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)room;
 
 /**
  Send presence with parameters to room
@@ -308,8 +353,110 @@ typedef enum QBChatServiceError {
 
 
 #pragma mark -
-#pragma mark Misc
+#pragma mark Retrive Dialogs
 
-- (void)sendGetIQWithXmlns:(NSString *)xmlns node:(NSString *)node;
+/**
+ Retrieve chat dialogs
+ 
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBDialogsPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)dialogsWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)dialogsWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+/**
+ Retrieve chat dialogs, with extended request
+ 
+ @param extendedRequest Extended set of request parameters
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBDialogsPagedResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)dialogsWithExtendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)dialogsWithExtendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Create dialog
+
+/**
+ Create chat dialog
+ 
+ @param dialog Entity if a new dialog
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)createDialog:(QBChatDialog *)dialog delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)createDialog:(QBChatDialog *)dialog delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Update dialog
+
+/**
+ Update existing chat dialog
+ 
+ @param dialogID ID of a dialog to update
+ @param extendedRequest Set of parameters to update
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)updateDialogWithID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)updateDialogWithID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Retrive Messages
+
+/**
+ Retrieve all chat messages within particular dialog
+ 
+ @param dialogID ID of a dialog
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatHistoryMessageResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+/**
+ Retrieve all chat messages within particular dialog, with extended request
+ 
+ @param dialogID ID of a dialog
+ @param extendedRequest Extended set of request parameters
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatHistoryMessageResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Update Message
+
+/**
+ Update existing chat message - mark it as read
+ 
+ @param message Entity of a chat message to update
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)updateMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)updateMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Delete Message
+
+/**
+ Delete existing chat message
+ 
+ @param messageID ID of a message to delete
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)deleteMessageWithID:(NSString *)messageID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)deleteMessageWithID:(NSString *)messageID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
 
 @end

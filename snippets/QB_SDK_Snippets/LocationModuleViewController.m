@@ -63,20 +63,23 @@
                     geodata.longitude = -12.23523;
                     geodata.status = @"Hello, world";
                     
-                    if(withContext){
-                        [QBLocation createGeoData:geodata delegate:self context:testContext];
-                    }else{
-                        [QBLocation createGeoData:geodata delegate:self];
-                    } 
+                    [QBLocation createGeoData:geodata andSendPushWithText:@"Hello amigo" toAllUsersWithinRadius:0.1 delegate:self];
+                    
+                    
+//                    if(withContext){
+//                        [QBLocation createGeoData:geodata delegate:self context:testContext];
+//                    }else{
+//                        [QBLocation createGeoData:geodata delegate:self];
+//                    } 
                 }
                     break;
                     
                 // Get GeoData with ID
                 case 1:{
                     if(withContext){
-                        [QBLocation geoDataWithID:34706 delegate:self context:testContext];
+                        [QBLocation geoDataWithID:649473 delegate:self context:testContext];
                     }else{
-                        [QBLocation geoDataWithID:34706 delegate:self];
+                        [QBLocation geoDataWithID:649473 delegate:self];
                     } 
                 }
                     break;
@@ -84,11 +87,13 @@
                 // Get multiple GeoData
                 case 2:{
                     QBLGeoDataGetRequest *getRequest = [[QBLGeoDataGetRequest alloc] init];
-                    getRequest.status = YES;
-                    getRequest.lastOnly = YES;
-                    getRequest.sortBy = GeoDataSortByKindLatitude;
-                    getRequest.radius = 100;
-                    getRequest.currentPosition = CLLocationCoordinate2DMake(23.55, -12.66);
+                    getRequest.page = 1;
+                    getRequest.perPage = 100;
+//                    getRequest.status = YES;
+//                    getRequest.lastOnly = YES;
+//                    getRequest.sortBy = GeoDataSortByKindLatitude;
+//                    getRequest.radius = 0.4;
+//                    getRequest.currentPosition = CLLocationCoordinate2DMake(23.55, -12.66);
                     
                     if(withContext){
                         [QBLocation geoDataWithRequest:getRequest delegate:self context:testContext];
@@ -96,7 +101,6 @@
                         [QBLocation geoDataWithRequest:getRequest delegate:self];
                     } 
                     
-                    [getRequest release];
 
                 }
                     break;
@@ -139,7 +143,6 @@
                         [QBLocation deleteGeoDataWithRequest:deleteRequest delegate:self];
                     } 
                     
-                    [deleteRequest release];
                 }
                     break;
             }
@@ -152,8 +155,8 @@
                 // Create Place
                 case 0:{
                     QBLPlace *place = [QBLPlace place];
-                    place.geoDataID = 34691;
-                    place.photoID = 447;
+                    place.geoDataID = 649473;
+                    place.photoID = 110278;
                     place.title = @"My place title";
                     place.address = @"London, Gadge st, 34";
                     place.placeDescription = @"My place description";
@@ -179,7 +182,6 @@
                             [QBLocation placesWithPagedRequest:pagedRequest delegate:self];
                         }  
                         
-                        [pagedRequest release];
                     }else{
                         if(withContext){
                             [QBLocation placesWithDelegate:self context:testContext];
@@ -235,11 +237,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

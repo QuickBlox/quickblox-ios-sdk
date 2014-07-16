@@ -55,3 +55,15 @@ enum QBPresenseSubscriptionState{
     QBPresenseSubscriptionStateFrom = 3, // the contact has a subscription to the user's presence information, but the user does not have a subscription to the contact's presence information
     QBPresenseSubscriptionStateBoth = 4, //  both the user and the contact have subscriptions to each other's presence information
 };
+
+
+enum QBChatDialogType {
+    QBChatDialogTypePublicGroup = 1,
+    QBChatDialogTypeGroup = 2,
+    QBChatDialogTypePrivate = 3,
+};
+
+enum QBChatHistoryMessageType {
+    QBChatHistoryMessageTypeText = 1
+};
+

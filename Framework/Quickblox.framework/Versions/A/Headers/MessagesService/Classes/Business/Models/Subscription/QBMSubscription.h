@@ -10,13 +10,13 @@
 /** Class represents user subscription to push chanell */
 
 @interface QBMSubscription : Entity <NSCoding, NSCopying>{
-	QBMNotificatioChannel notificationChannel;
+	QBMNotificationChannel notificationChannel;
 	NSString *deviceUDID;
     NSString *devicePlatform;
     NSString *url;
 }
 /** Declare which notification channels could be used to notify user about events. */
-@property (nonatomic) QBMNotificatioChannel notificationChannel;
+@property (nonatomic) QBMNotificationChannel notificationChannel;
 
 /** Device UDID */
 @property (nonatomic, retain) NSString *deviceUDID;
@@ -36,7 +36,7 @@
 #pragma mark -
 #pragma mark Converters
 
-+ (enum QBMNotificatioChannel)notificationChannelFromString:(NSString *)notificationChannel;
-+ (NSString *)notificationChannelToString:(enum QBMNotificatioChannel)notificationChannel;
++ (enum QBMNotificationChannel)notificationChannelFromString:(NSString *)notificationChannel;
++ (NSString *)notificationChannelToString:(enum QBMNotificationChannel)notificationChannel;
 
 @end

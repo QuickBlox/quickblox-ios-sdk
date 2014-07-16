@@ -22,27 +22,21 @@
 @synthesize window = _window;
 @synthesize tabBarController = _tabBarController;
 
-- (void)dealloc
-{
-    [_window release];
-    [_tabBarController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    UIViewController *viewController1 = [[[AuthModuleViewController alloc] initWithNibName:@"AuthModuleViewController" bundle:nil] autorelease];
-    UIViewController *viewController2 = [[[UsersModuleViewController alloc] initWithNibName:@"UsersModuleViewController" bundle:nil] autorelease];
-    UIViewController *viewController3 = [[[LocationModuleViewController alloc] initWithNibName:@"LocationModuleViewController" bundle:nil] autorelease];
-    UIViewController *viewController4 = [[[MessagesModuleViewController alloc] initWithNibName:@"MessagesModuleViewController" bundle:nil] autorelease];
-    UIViewController *viewController5 = [[[RatingsModuleViewController alloc] initWithNibName:@"RatingsModuleViewController" bundle:nil] autorelease];
-    UIViewController *viewController6 = [[[ContentModuleViewController alloc] initWithNibName:@"ContentModuleViewController" bundle:nil] autorelease];
-    UIViewController *viewController7 = [[[ChatModuleViewController alloc] initWithNibName:@"ChatModuleViewController" bundle:nil] autorelease];
-    UIViewController *viewController8 = [[[CustomObjectsModuleViewController alloc] initWithNibName:@"CustomObjectsModuleViewController" bundle:nil] autorelease];
+    UIViewController *viewController1 = [[AuthModuleViewController alloc] initWithNibName:@"AuthModuleViewController" bundle:nil];
+    UIViewController *viewController2 = [[UsersModuleViewController alloc] initWithNibName:@"UsersModuleViewController" bundle:nil];
+    UIViewController *viewController3 = [[LocationModuleViewController alloc] initWithNibName:@"LocationModuleViewController" bundle:nil];
+    UIViewController *viewController4 = [[MessagesModuleViewController alloc] initWithNibName:@"MessagesModuleViewController" bundle:nil];
+    UIViewController *viewController5 = [[RatingsModuleViewController alloc] initWithNibName:@"RatingsModuleViewController" bundle:nil];
+    UIViewController *viewController6 = [[ContentModuleViewController alloc] initWithNibName:@"ContentModuleViewController" bundle:nil];
+    UIViewController *viewController7 = [[ChatModuleViewController alloc] initWithNibName:@"ChatModuleViewController" bundle:nil];
+    UIViewController *viewController8 = [[CustomObjectsModuleViewController alloc] initWithNibName:@"CustomObjectsModuleViewController" bundle:nil];
     
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:viewController1, viewController2, viewController8, viewController7, viewController4, viewController6,
                                              viewController5, viewController3, nil];
     self.window.rootViewController = self.tabBarController;
@@ -50,31 +44,29 @@
     
     // show Chat
     self.tabBarController.selectedIndex = 3;
-    
-    // credentials
-    [QBSettings setApplicationID:92];
-    [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
-    [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
-    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
+
+    // Setun QuickBlox application
+    //
+    [QBSettings setApplicationID:AppID];
+    [QBSettings setAuthorizationKey:AuthKey];
+    [QBSettings setAuthorizationSecret:AuthSecret];
+    [QBSettings setAccountKey:AccountKey];
+    [QBSettings setServerApiDomain:ServerApiDomain];
+    [QBSettings setServerChatDomain:ServerChatDomain];
 #ifndef DEBUG
-    [QBSettings useProductionEnvironmentForPushNotifications:YES];
+    [QBSettings  useProductionEnvironmentForPushNotifications:YES];
 #endif
     
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    [[QBChat instance] logout];
 }
 
 
@@ -91,7 +83,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     // userInfo
-    NSLog(@"push %@", userInfo);
+    NSLog(@"New Push received\n: %@", userInfo);
 }
 
 

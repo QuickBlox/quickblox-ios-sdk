@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BFA79EDC1843E9280044D9E0 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79EDB1843E9280044D9E0 /* Quickblox.framework */; };
 		BFAF9F8B180589CB009CE7F5 /* London.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFAF9F89180589CB009CE7F5 /* London.jpg */; };
+		BFCEAD271976907E006279FC /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCEAD261976907E006279FC /* Quickblox.framework */; };
 		BFEAE6DE183CD95B00A995EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEAE6DD183CD95B00A995EB /* Security.framework */; };
 		BFEEA5A417D8A7BE00A9879C /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEEA5A217D8A7BE00A9879C /* plus.png */; };
 		EDEEAB9F15D16A49002BE39D /* ChatModuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEEAB9E15D16A49002BE39D /* ChatModuleViewController.m */; };
@@ -55,10 +55,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BFA79EDB1843E9280044D9E0 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		BFAF9F8A180589CB009CE7F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = en; path = en.lproj/London.jpg; sourceTree = "<group>"; };
+		BFCEAD261976907E006279FC /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		BFEAE6DD183CD95B00A995EB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFEEA5A317D8A7BE00A9879C /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = Resources/en.lproj/plus.png; sourceTree = "<group>"; };
+		BFF47A31196D2C06006120F0 /* QBApplicationConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBApplicationConfig.h; sourceTree = "<group>"; };
 		EDEEAB9D15D16A49002BE39D /* ChatModuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatModuleViewController.h; sourceTree = "<group>"; };
 		EDEEAB9E15D16A49002BE39D /* ChatModuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatModuleViewController.m; sourceTree = "<group>"; };
 		EDEEB07715D17668002BE39D /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
@@ -122,6 +123,7 @@
 				BFEAE6DE183CD95B00A995EB /* Security.framework in Frameworks */,
 				FABB375317538FEF00760531 /* QuartzCore.framework in Frameworks */,
 				FAEE165616C50B6100E32171 /* AudioToolbox.framework in Frameworks */,
+				FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */,
 				FAEE165416C50AD700E32171 /* CoreMedia.framework in Frameworks */,
 				FAEE165216C50AC500E32171 /* Accelerate.framework in Frameworks */,
 				FAEE165016C50ABA00E32171 /* CoreVideo.framework in Frameworks */,
@@ -136,8 +138,7 @@
 				FA8E4F2C1580A67200476EF7 /* SystemConfiguration.framework in Frameworks */,
 				FA8E4F291580A66000476EF7 /* CFNetwork.framework in Frameworks */,
 				FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */,
-				FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */,
-				BFA79EDC1843E9280044D9E0 /* Quickblox.framework in Frameworks */,
+				BFCEAD271976907E006279FC /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +168,8 @@
 		FA8E4D1C157E66CA00476EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BFA79EDB1843E9280044D9E0 /* Quickblox.framework */,
+				BFCEAD261976907E006279FC /* Quickblox.framework */,
+				FA8E4D1F157E66CA00476EF7 /* Foundation.framework */,
 				BFEAE6DD183CD95B00A995EB /* Security.framework */,
 				FABB375217538FEF00760531 /* QuartzCore.framework */,
 				FAEE165516C50B6100E32171 /* AudioToolbox.framework */,
@@ -185,7 +187,6 @@
 				FA8E4F2B1580A67200476EF7 /* SystemConfiguration.framework */,
 				FA8E4F281580A66000476EF7 /* CFNetwork.framework */,
 				FA8E4D1D157E66CA00476EF7 /* UIKit.framework */,
-				FA8E4D1F157E66CA00476EF7 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -215,6 +216,7 @@
 				FA901CE015B94BFB007BDC68 /* main.m */,
 				FA901CE315B94BFB007BDC68 /* QB_SDK_Snippets-Info.plist */,
 				FA901CE415B94BFB007BDC68 /* QB_SDK_Snippets-Prefix.pch */,
+				BFF47A31196D2C06006120F0 /* QBApplicationConfig.h */,
 			);
 			path = QB_SDK_Snippets;
 			sourceTree = "<group>";
@@ -265,8 +267,13 @@
 		FA8E4D10157E66C900476EF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Injoit;
+				TargetAttributes = {
+					FA8E4D18157E66CA00476EF7 = {
+						DevelopmentTeam = 8885H5G2YX;
+					};
+				};
 			};
 			buildConfigurationList = FA8E4D13157E66C900476EF7 /* Build configuration list for PBXProject "QB_SDK_Snippets" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -452,11 +459,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					armv6,
-				);
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -473,10 +478,14 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -495,11 +504,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					armv6,
-				);
+				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -509,8 +516,11 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -528,12 +538,12 @@
 		FA8E4D46157E66CA00476EF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -552,8 +562,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "FD294064-6629-4785-97BC-45EF6E0C01E4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FD294064-6629-4785-97BC-45EF6E0C01E4";
+				PROVISIONING_PROFILE = "4A7273D7-268E-4266-B796-A8956D96DE97";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4A7273D7-268E-4266-B796-A8956D96DE97";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
@@ -563,12 +573,12 @@
 		FA8E4D47157E66CA00476EF7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Loveworld New Media LLC (SC6R224USC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Loveworld New Media LLC (SC6R224USC)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -582,8 +592,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Snippets;
-				PROVISIONING_PROFILE = "E084D2EC-6523-48ED-B89F-65D4872FEF30";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E084D2EC-6523-48ED-B89F-65D4872FEF30";
+				PROVISIONING_PROFILE = "A867B64F-16E5-42D5-8A20-D97656BF1406";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A867B64F-16E5-42D5-8A20-D97656BF1406";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

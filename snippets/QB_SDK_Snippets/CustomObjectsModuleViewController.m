@@ -52,9 +52,9 @@
             // Get object with ID
             case 0:{
                 if(withContext){
-                    [QBCustomObjects objectWithClassName:@"SuperSample" ID:@"51c9ab92535c12951b0032d6" delegate:self context:testContext];
+                    [QBCustomObjects objectWithClassName:@"SuperSample" ID:@"537a2d78535c12673d0001c5" delegate:self context:testContext];
                 }else{
-                    [QBCustomObjects objectWithClassName:@"SuperSample" ID:@"51c9ab92535c12951b0032d6" delegate:self];
+                    [QBCustomObjects objectWithClassName:@"SuperSample" ID:@"537a2d78535c12673d0001c5" delegate:self];
                 }
             }
                 break;
@@ -71,37 +71,49 @@
                 
             // Get objects
             case 2:{
-                if(withAdditionalRequest){
-                    NSMutableDictionary *getRequest = [NSMutableDictionary dictionary];
-                    [getRequest setObject:@"10" forKey:@"limit"];
-//                    [getRequest setObject:@"123123232" forKey:@"created_at[gt]"];
-//                    [getRequest setObject:@"How is going on" forKey:@"text[or]"];
-//                    [getRequest setObject:@"send,send2" forKey:@"text2[or]"];
-                    [getRequest setObject:@"vote" forKey:@"output"];
-                    
-                    if(withContext){ //SuperSample
-                        [QBCustomObjects objectsWithClassName:@"SuperSample" extendedRequest:getRequest delegate:self context:testContext];
-                    }else{
-                        [QBCustomObjects objectsWithClassName:@"SuperSample" extendedRequest:getRequest delegate:self];
-                    }
-                }else{
-                    if(withContext){
-                        [QBCustomObjects objectsWithClassName:@"SuperSample" delegate:self context:testContext];
-                    }else{
-                        [QBCustomObjects objectsWithClassName:@"SuperSample" delegate:self];
-                    }
-                }
+                NSMutableDictionary *getRequest = [NSMutableDictionary dictionary];
+                    [getRequest setObject:@"0" forKey:@"using_gps"];
+                    [getRequest setObject:@"1" forKey:@"sex"];
+                    [getRequest setObject:@"117" forKey:@"nationality"];
+                    [getRequest setObject:@"1000" forKey:@"limit"];
+                    [QBCustomObjects objectsWithClassName:@"SuperSample" extendedRequest:getRequest delegate:self];
+
+
+                
+                
+//                if(withAdditionalRequest){
+//                    NSMutableDictionary *getRequest = [NSMutableDictionary dictionary];
+//                    [getRequest setObject:@"10" forKey:@"limit"];
+////                    [getRequest setObject:@"123123232" forKey:@"created_at[gt]"];
+////                    [getRequest setObject:@"How is going on" forKey:@"text[or]"];
+//                    [getRequest setObject:@"send,send2" forKey:@"user_id"];
+//                        [getRequest setObject:@"send,send2" forKey:@"SenderId"];
+//                    [getRequest setObject:@"vote" forKey:@"output"];
+//                    
+//                    if(withContext){ //SuperSample
+//                        [QBCustomObjects objectsWithClassName:@"TestMessageSent" extendedRequest:getRequest delegate:self context:testContext];
+//                    }else{
+//                        [QBCustomObjects objectsWithClassName:@"TestMessageSent" extendedRequest:getRequest delegate:self];
+//                    }
+//                }else{
+//                    if(withContext){
+//                        [QBCustomObjects objectsWithClassName:@"TestMessageSent" delegate:self context:testContext];
+//                    }else{
+//                        [QBCustomObjects objectsWithClassName:@"TestMessageSent" delegate:self];
+//                    }
+//                }
             }
                 break;
                 
             // Create object
             case 3:{
                 QBCOCustomObject *object = [QBCOCustomObject customObject];
-                object.className = @"TestMessageSent";
-//                [object.fields setObject:@"2049124" forKey:@"rating"];
+                object.className = @"SuperSample";
+//                [object.fields setObject:@"2049124" forKey:@"interests"];
 //                [object.fields setObject:@"21312" forKey:@"test_signal"];
 //                [object.fields setObject:@"NO" forKey:@"vote"];
-                [object.fields setObject:@"How is going on" forKey:@"text"];
+//                [object.fields setObject:@"How is going on" forKey:@"text"];
+                [object.fields setObject:@[@"a,b"] forKey:@"interests"];
                 
                 if(withContext){
                     [QBCustomObjects createObject:object delegate:self context:testContext];
@@ -120,12 +132,6 @@
                 QBCOCustomObject *object2 = [QBCOCustomObject customObject];
                 [object2.fields setObject:@"12" forKey:@"rating"];
                 //
-                QBCOPermissions *permissions = [QBCOPermissions permissions];
-                permissions.readAccess = QBCOPermissionsAccessOpen;
-                permissions.updateAccess = QBCOPermissionsAccessOpenForGroups;
-                permissions.usersGroupsForUpdateAccess = @[@"golf", @"women"];
-                object2.permissions = permissions;
-                
                 if(withContext){
                     [QBCustomObjects createObjects:@[object1, object2] className:@"SuperSample" delegate:self context:testContext];
                 }else{
@@ -138,13 +144,11 @@
             case 5:{
                 QBCOCustomObject *object = [QBCOCustomObject customObject];
                 object.className = @"SuperSample";
-                [object.fields setObject:@"21312" forKey:@"test_signal"];
-                [object.fields setObject:@"NO" forKey:@"vote"];
-                [object.fields setObject:@[@"football", @"golf", @"car", @"tag"] forKey:@"interests"];
-                object.ID = @"52027b23535c129fa5000eb6";
+//                [object.fields setObject:@"44" forKey:@"push[interests][]"];
+                object.ID = @"53bd0980677db314cf104605";
                 
                 NSMutableDictionary *specialUpdateParams = [NSMutableDictionary dictionary];
-                [specialUpdateParams setObject:@"phone" forKey:@"push[interests]"];
+                [specialUpdateParams setObject:@"44" forKey:@"push[interests][]"];
                 
                 if(withContext){
                     [QBCustomObjects updateObject:object specialUpdateOperators:specialUpdateParams delegate:self context:testContext];
@@ -168,7 +172,7 @@
                 QBCOPermissions *permissions = [QBCOPermissions permissions];
                 permissions.readAccess = QBCOPermissionsAccessOpen;
                 permissions.updateAccess = QBCOPermissionsAccessOpenForGroups;
-                permissions.usersGroupsForUpdateAccess = @[@"golf", @"women"];
+                permissions.usersGroupsForUpdateAccess = [NSMutableArray arrayWithObjects:@"golf", @"women", nil];
                 object2.permissions = permissions;
                 //
                 //
@@ -186,8 +190,8 @@
                 
             // Delete object
             case 7:{
-                NSString *ID = @"520c7e0d535c12ab3f01af62";
-                NSString *className = @"Appointments";
+                NSString *ID = @"53bd0980677db314cf104605";
+                NSString *className = @"SuperSample";
                 
                 if(withContext){
                     [QBCustomObjects deleteObjectWithID:ID className:className delegate:self context:testContext];
@@ -234,13 +238,13 @@
                 
                 QBCOPermissions *permissions = [QBCOPermissions permissions];
                 permissions.readAccess = QBCOPermissionsAccessOpenForUsersIDs;
-                permissions.usersIDsForReadAccess = @[@22, @34];
+                permissions.usersIDsForReadAccess = [NSMutableArray arrayWithObjects:@22, @34, nil];
                 //
                 permissions.updateAccess = QBCOPermissionsAccessOpenForGroups;
-                permissions.usersGroupsForUpdateAccess = @[@"golf", @"women"];
+                permissions.usersGroupsForUpdateAccess = [NSMutableArray arrayWithObjects:@"golf", @"women", nil];
                 //
                 permissions.deleteAccess = QBCOPermissionsAccessOpenForUsersIDs;
-                permissions.usersIDsForDeleteAccess = @[@134234, @14123123, @1212124];
+                permissions.usersIDsForDeleteAccess = [NSMutableArray arrayWithObjects:@134234, @1342334, nil];
                 
                 object.permissions = permissions;
                 
@@ -256,16 +260,16 @@
             case 2:{
                 QBCOCustomObject *object = [QBCOCustomObject customObject];
                 object.className = @"SuperSample";
-                [object.fields setObject:@"345" forKey:@"rating"];
+                [object.fields setObject:@[@"a,b"] forKey:@"interests"];
                 
                 QBCOPermissions *permissions = [QBCOPermissions permissions];
 //                permissions.readAccess = QBCOPermissionsAccessOpen;
 //                //
                 permissions.updateAccess = QBCOPermissionsAccessOpenForGroups;
-                permissions.usersGroupsForUpdateAccess = @[@"go,lf", @"women"];
+                permissions.usersGroupsForUpdateAccess = [NSMutableArray arrayWithObjects:@"golf", @"women", nil];
                 //
                 permissions.deleteAccess = QBCOPermissionsAccessOpenForUsersIDs;
-                permissions.usersIDsForDeleteAccess = @[@3060, @63635];
+                permissions.usersIDsForDeleteAccess = [NSMutableArray arrayWithObjects:@3060, @63635, nil];
                 
                 object.permissions = permissions;
                 
@@ -327,11 +331,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -418,7 +422,7 @@
         // Get objects
         }else if([result isKindOfClass:QBCOCustomObjectPagedResult.class]){
             QBCOCustomObjectPagedResult *res = (QBCOCustomObjectPagedResult *)result;
-            NSLog(@"QBCOCustomObjectPagedResult, objects=%@, count=%d, skip=%d, limit=%d, notFoundObjectsIDs=%@", res.objects, res.count, res.skip, res.limit, res.notFoundObjectsIDs);
+            NSLog(@"QBCOCustomObjectPagedResult, objects=%@, count=%lu, skip=%lu, limit=%lu, notFoundObjectsIDs=%@", res.objects, (unsigned long)res.count, (unsigned long)res.skip, (unsigned long)res.limit, res.notFoundObjectsIDs);
 
         // get permissions
         }else if([result isKindOfClass:QBCOPermissionsResult.class]){
