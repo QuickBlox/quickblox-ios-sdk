@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43900C60162470230041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C5F162470230041381B /* Default-568h@2x.png */; };
 		BF011E73178968550076CA3B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF011E72178968550076CA3B /* QuartzCore.framework */; };
-		BF011E7717896B940076CA3B /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF011E7617896B940076CA3B /* icon.png */; };
+		BF6860EF1976C72600496FFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF6860EE1976C72600496FFB /* Images.xcassets */; };
 		BFA23406184271E400A6714D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA23405184271E400A6714D /* Security.framework */; };
 		ED49FAA815B56E5200154AE8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA715B56E5200154AE8 /* UIKit.framework */; };
 		ED49FAAA15B56E5200154AE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAA915B56E5200154AE8 /* Foundation.framework */; };
@@ -26,7 +25,6 @@
 		FAB04CF715FDD68B00627F01 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF015FDD68B00627F01 /* MainViewController.m */; };
 		FAB04CF815FDD68B00627F01 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF315FDD68B00627F01 /* PhotoViewController.m */; };
 		FAB04CF915FDD68B00627F01 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF615FDD68B00627F01 /* SplashViewController.m */; };
-		FAB04D0115FDD6A400627F01 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FAB04CFC15FDD6A400627F01 /* logo.png */; };
 		FAB04D0215FDD6A400627F01 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04CFE15FDD6A400627F01 /* MainViewController.xib */; };
 		FAB04D0315FDD6A400627F01 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04CFF15FDD6A400627F01 /* PhotoViewController.xib */; };
 		FAB04D0415FDD6A400627F01 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04D0015FDD6A400627F01 /* SplashViewController.xib */; };
@@ -42,9 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43900C5F162470230041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BF011E72178968550076CA3B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		BF011E7617896B940076CA3B /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		BF6860EE1976C72600496FFB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../Images.xcassets; sourceTree = "<group>"; };
 		BFA23405184271E400A6714D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		ED49FAA315B56E5200154AE8 /* Content.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Content.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED49FAA715B56E5200154AE8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -65,7 +62,6 @@
 		FAB04CF315FDD68B00627F01 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		FAB04CF515FDD68B00627F01 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		FAB04CF615FDD68B00627F01 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
-		FAB04CFC15FDD6A400627F01 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		FAB04CFE15FDD6A400627F01 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		FAB04CFF15FDD6A400627F01 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
 		FAB04D0015FDD6A400627F01 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
@@ -197,22 +193,12 @@
 		FAB04CFA15FDD6A400627F01 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FAB04CFB15FDD6A400627F01 /* images */,
+				BF6860EE1976C72600496FFB /* Images.xcassets */,
 				FAB04CFD15FDD6A400627F01 /* xibs */,
 			);
 			name = Resources;
 			path = "SimpleSample-content-ios/Resources";
 			sourceTree = SOURCE_ROOT;
-		};
-		FAB04CFB15FDD6A400627F01 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				43900C5F162470230041381B /* Default-568h@2x.png */,
-				FAB04CFC15FDD6A400627F01 /* logo.png */,
-				BF011E7617896B940076CA3B /* icon.png */,
-			);
-			path = images;
-			sourceTree = "<group>";
 		};
 		FAB04CFD15FDD6A400627F01 /* xibs */ = {
 			isa = PBXGroup;
@@ -275,7 +261,7 @@
 		ED49FA9A15B56E5200154AE8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = ED49FA9D15B56E5200154AE8 /* Build configuration list for PBXProject "SimpleSample-content-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -300,12 +286,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC3D16915BF082800038395 /* InfoPlist.strings in Resources */,
-				FAB04D0115FDD6A400627F01 /* logo.png in Resources */,
+				BF6860EF1976C72600496FFB /* Images.xcassets in Resources */,
 				FAB04D0215FDD6A400627F01 /* MainViewController.xib in Resources */,
 				FAB04D0315FDD6A400627F01 /* PhotoViewController.xib in Resources */,
 				FAB04D0415FDD6A400627F01 /* SplashViewController.xib in Resources */,
-				43900C60162470230041381B /* Default-568h@2x.png in Resources */,
-				BF011E7717896B940076CA3B /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +327,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -355,10 +344,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -367,13 +360,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -385,6 +386,9 @@
 		ED49FAC215B56E5200154AE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -395,7 +399,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-content-ios/SimpleSample-content-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -416,6 +420,9 @@
 		ED49FAC315B56E5200154AE8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -424,7 +431,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-content-ios/SimpleSample-content-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-content-ios/SimpleSample-content-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
