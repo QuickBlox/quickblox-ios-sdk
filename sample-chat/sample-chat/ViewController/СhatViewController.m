@@ -9,12 +9,13 @@
 #import "СhatViewController.h"
 #import "ChatMessageTableViewCell.h"
 
-@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, QBActionStatusDelegate>
 
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
+@property (nonatomic, strong) QBChatRoom *chatRoom;
 
 - (IBAction)sendMessage:(id)sender;
 
@@ -27,12 +28,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    if(self.opponent != nil){
-        self.messages = [[LocalStorageService shared] messageHistoryWithUserID:self.opponent.ID];
-    }else{
-        self.messages = [NSMutableArray array];
-    }
-    
+    self.messages = [NSMutableArray array];
+
     self.messagesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
@@ -52,20 +49,19 @@
                                                  name:kNotificationDidReceiveNewMessageFromRoom object:nil];
     
     // Set title
-    if(self.opponent != nil){
-        self.title = self.opponent.login;
-    }else if(self.chatRoom != nil){
-        self.title = self.chatRoom.name;
-    }
-    
-    
+    self.title = self.dialog.name;
+
     // Join room
-    if(self.chatRoom != nil && ![self.chatRoom isJoined]){
+    if(self.dialog.type != QBChatDialogTypePrivate){
+        self.chatRoom = [self.dialog chatRoom];
         [[ChatService instance] joinRoom:self.chatRoom completionBlock:^(QBChatRoom *joinedChatRoom) {
-            // add the Admin to room
-            [joinedChatRoom addUsers:@[@291]];
+            // joined
+            NSLog(@"joined");
         }];
     }
+    
+    // get messages history
+    [QBChat messagesWithDialogID:self.dialog.ID extendedRequest:nil delegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -74,6 +70,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.chatRoom leaveRoom];
+    self.chatRoom = nil;
 }
 
 -(BOOL)hidesBottomBarWhenPushed
@@ -89,22 +86,25 @@
         return;
     }
     
+    // create a message
+    QBChatMessage *message = [[QBChatMessage alloc] init];
+    message.text = self.messageTextField.text;
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"save_to_history"] = @YES;
+    [message setCustomParameters:params];
+    
     // 1-1 Chat
-    if(self.opponent != nil){
+    if(self.dialog.type == QBChatDialogTypePrivate){
         // send message
-        QBChatMessage *message = [[QBChatMessage alloc] init];
-        message.recipientID = self.opponent.ID;
-        message.text = self.messageTextField.text;
+        message.recipientID = [self.dialog recipientID];
+
         [[ChatService instance] sendMessage:message];
         
-        // save message to history
-        [[LocalStorageService shared] saveMessageToHistory:message withUserID:message.recipientID];
+        // save message
+        [self.messages addObject:message];
 
     // Group Chat
-    }else if(self.chatRoom != nil){
-        QBChatMessage *message = [[QBChatMessage alloc] init];
-        message.text = self.messageTextField.text;
-        //
+    }else {
         [[ChatService instance] sendMessage:message toRoom:self.chatRoom];
     }
     
@@ -123,6 +123,14 @@
 #pragma mark Chat Notifications
 
 - (void)chatDidReceiveMessageNotification:(NSNotification *)notification{
+
+    QBChatMessage *message = notification.userInfo[kMessage];
+    if(message.senderID != self.dialog.recipientID){
+        return;
+    }
+    
+    // save message
+    [self.messages addObject:message];
     
     // Reload table
     [self.messagesTableView reloadData];
@@ -134,12 +142,13 @@
 
 - (void)chatRoomDidReceiveMessageNotification:(NSNotification *)notification{
     QBChatMessage *message = notification.userInfo[kMessage];
-    NSString *roomName = notification.userInfo[kRoomName];
+    NSString *roomJID = notification.userInfo[kRoomJID];
     
-    if([self.chatRoom.JID rangeOfString:roomName].length <=0 ){
+    if(![self.chatRoom.JID isEqualToString:roomJID]){
         return;
     }
     
+    // save message
     [self.messages addObject:message];
     
     // Reload table
@@ -168,16 +177,16 @@
         cell = [[ChatMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ChatMessageCellIdentifier];
     }
     
-    QBChatMessage *message = (QBChatMessage *)self.messages[indexPath.row];
+    QBChatAbstractMessage *message = self.messages[indexPath.row];
     //
-    [cell configureCellWithMessage:message is1To1Chat:self.opponent != nil];
+    [cell configureCellWithMessage:message];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    QBChatMessage *chatMessage = (QBChatMessage *)[self.messages objectAtIndex:indexPath.row];
-    CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage is1To1Chat:self.opponent != nil];
+    QBChatAbstractMessage *chatMessage = [self.messages objectAtIndex:indexPath.row];
+    CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage];
     return cellHeight;
 }
 
@@ -216,6 +225,21 @@
                                                   self.messagesTableView.frame.size.width,
                                                   self.messagesTableView.frame.size.height+219);
     }];
+}
+
+
+#pragma mark -
+#pragma mark QBActionStatusDelegate
+
+- (void)completedWithResult:(Result *)result
+{
+    if (result.success && [result isKindOfClass:QBChatHistoryMessageResult.class]) {
+        QBChatHistoryMessageResult *res = (QBChatHistoryMessageResult *)result;
+        NSArray *messages = res.messages;
+        self.messages = [messages mutableCopy];
+        //
+        [self.messagesTableView reloadData];
+    }
 }
 
 @end

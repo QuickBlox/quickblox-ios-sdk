@@ -35,15 +35,12 @@
 		BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC3180E9E9B00E64AC4 /* libz.1.2.5.dylib */; };
 		BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */; };
 		BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */; };
-		BFE6FBCE180EA2F300E64AC4 /* ChatRoomsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* ChatRoomsViewController.m */; };
+		BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */; };
 		BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */; };
 		BFE6FBD2180EA31600E64AC4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */; };
 		BFE6FBDC180EE50200E64AC4 /* NMPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBDB180EE50200E64AC4 /* NMPaginator.m */; };
 		BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */; };
 		BFE6FBE5180F295100E64AC4 /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE4180F295100E64AC4 /* LocalStorageService.m */; };
-		BFE6FBE8180FF56400E64AC4 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE7180FF56400E64AC4 /* MainTabBarController.m */; };
-		BFE6FBEB180FF68100E64AC4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBEA180FF68100E64AC4 /* LoginViewController.m */; };
-		BFE6FBEE180FF69100E64AC4 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBED180FF69100E64AC4 /* RegistrationViewController.m */; };
 		BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */; };
 		BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -92,8 +89,8 @@
 		BFE6FBC3180E9E9B00E64AC4 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.9.dylib; path = usr/lib/libresolv.9.dylib; sourceTree = SDKROOT; };
 		BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		BFE6FBCA180EA2F300E64AC4 /* ChatRoomsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomsViewController.h; sourceTree = "<group>"; };
-		BFE6FBCB180EA2F300E64AC4 /* ChatRoomsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomsViewController.m; sourceTree = "<group>"; };
+		BFE6FBCA180EA2F300E64AC4 /* DialogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogsViewController.h; sourceTree = "<group>"; };
+		BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogsViewController.m; sourceTree = "<group>"; };
 		BFE6FBCC180EA2F300E64AC4 /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
 		BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
 		BFE6FBD0180EA31600E64AC4 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
@@ -104,12 +101,6 @@
 		BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersPaginator.m; sourceTree = "<group>"; };
 		BFE6FBE3180F295100E64AC4 /* LocalStorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageService.h; sourceTree = "<group>"; };
 		BFE6FBE4180F295100E64AC4 /* LocalStorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalStorageService.m; sourceTree = "<group>"; };
-		BFE6FBE6180FF56400E64AC4 /* MainTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBarController.h; sourceTree = "<group>"; };
-		BFE6FBE7180FF56400E64AC4 /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
-		BFE6FBE9180FF68100E64AC4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		BFE6FBEA180FF68100E64AC4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		BFE6FBEC180FF69100E64AC4 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
-		BFE6FBED180FF69100E64AC4 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "СhatViewController.h"; sourceTree = "<group>"; };
 		BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "СhatViewController.m"; sourceTree = "<group>"; };
 		BFE6FBF31812E0F800E64AC4 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageTableViewCell.h; sourceTree = "<group>"; };
@@ -229,18 +220,12 @@
 		BFE6FBC9180EA2F300E64AC4 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BFE6FBCA180EA2F300E64AC4 /* ChatRoomsViewController.h */,
-				BFE6FBCB180EA2F300E64AC4 /* ChatRoomsViewController.m */,
+				BFE6FBCA180EA2F300E64AC4 /* DialogsViewController.h */,
+				BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */,
 				BFE6FBCC180EA2F300E64AC4 /* UsersViewController.h */,
 				BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */,
 				BFE6FBD0180EA31600E64AC4 /* SplashViewController.h */,
 				BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */,
-				BFE6FBE6180FF56400E64AC4 /* MainTabBarController.h */,
-				BFE6FBE7180FF56400E64AC4 /* MainTabBarController.m */,
-				BFE6FBE9180FF68100E64AC4 /* LoginViewController.h */,
-				BFE6FBEA180FF68100E64AC4 /* LoginViewController.m */,
-				BFE6FBEC180FF69100E64AC4 /* RegistrationViewController.h */,
-				BFE6FBED180FF69100E64AC4 /* RegistrationViewController.m */,
 				BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */,
 				BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */,
 			);
@@ -399,16 +384,13 @@
 				BFB4627C18150EB00010AE49 /* ChatService.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
-				BFE6FBEE180FF69100E64AC4 /* RegistrationViewController.m in Sources */,
 				BFE6FBDC180EE50200E64AC4 /* NMPaginator.m in Sources */,
-				BFE6FBEB180FF68100E64AC4 /* LoginViewController.m in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
-				BFE6FBE8180FF56400E64AC4 /* MainTabBarController.m in Sources */,
 				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
 				BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
 				BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */,
-				BFE6FBCE180EA2F300E64AC4 /* ChatRoomsViewController.m in Sources */,
+				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				BFE6FBE5180F295100E64AC4 /* LocalStorageService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,6 @@
 
 #import "UsersViewController.h"
 #import "UsersPaginator.h"
-#import "MainTabBarController.h"
 #import "СhatViewController.h"
 
 @interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate>
@@ -49,20 +48,10 @@
 #pragma mark
 #pragma mark Storyboard
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-    // check if users is logged in
-    if([LocalStorageService shared].currentUser == nil){
-        [((MainTabBarController *)self.tabBarController) showUserIsNotLoggedInAlert];
-        return NO;
-    }
-    
-    return YES;
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     ChatViewController *destinationViewController = (ChatViewController *)segue.destinationViewController;
     QBUUser *user = (QBUUser *)self.users[((UITableViewCell *)sender).tag];
-    destinationViewController.opponent = user;
+//    destinationViewController.opponent = user;
 }
 
 

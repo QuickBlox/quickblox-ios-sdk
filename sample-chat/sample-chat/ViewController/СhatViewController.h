@@ -10,7 +10,6 @@
 
 @interface ChatViewController : UIViewController
 
-@property (nonatomic, strong) QBUUser *opponent;
-@property (nonatomic, strong) QBChatRoom *chatRoom;
+@property (nonatomic, strong) QBChatDialog *dialog;
 
 @end

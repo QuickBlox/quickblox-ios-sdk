@@ -10,8 +10,8 @@
 
 #define kNotificationDidReceiveNewMessage @"kNotificationDidReceiveNewMessage"
 #define kNotificationDidReceiveNewMessageFromRoom @"kNotificationDidReceiveNewMessageFromRoom"
-#define kMessage @"message"
-#define kRoomName @"roomName"
+#define kMessage @"kMessage"
+#define kRoomJID @"kRoomJID"
 
 @interface ChatService : NSObject
 

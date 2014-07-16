@@ -29,21 +29,8 @@ static UIImage *aquaBubble;
     aquaBubble = [[UIImage imageNamed:@"aquaBubble"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
 }
 
-+ (CGFloat)heightForCellWithMessage:(QBChatMessage *)message is1To1Chat:(BOOL)is1To1Chat
++ (CGFloat)heightForCellWithMessage:(QBChatAbstractMessage *)message
 {
-//    // Replace the next line with these lines if you would like to connect to Web XMPP Chat widget
-//    //
-//    NSString *text;
-//    if(!is1To1Chat){
-//        NSString *unescapedMessage = [CharactersEscapeService unescape:message.text];
-//        NSData *messageAsData = [unescapedMessage dataUsingEncoding:NSUTF8StringEncoding];
-//        NSError *error;
-//        NSMutableDictionary *messageAsDictionary = [NSJSONSerialization JSONObjectWithData:messageAsData options:NSJSONReadingAllowFragments error:&error];
-//        text = messageAsDictionary[@"message"];
-//    }else{
-//        text = message.text;
-//    }
-    
     NSString *text = message.text;
 
     
@@ -82,22 +69,8 @@ static UIImage *aquaBubble;
     return self;
 }
 
-- (void)configureCellWithMessage:(QBChatMessage *)message is1To1Chat:(BOOL)is1To1Chat
-{
-    // set message
-    
-//    // Replace the next line with these lines if you would like to connect to Web XMPP Chat widget
-//    //
-//    if(!is1To1Chat){
-//        NSString *unescapedMessage = [CharactersEscapeService unescape:message.text];
-//        NSData *messageAsData = [unescapedMessage dataUsingEncoding:NSUTF8StringEncoding];
-//        NSError *error;
-//        NSMutableDictionary *messageAsDictionary = [NSJSONSerialization JSONObjectWithData:messageAsData options:NSJSONReadingAllowFragments error:&error];
-//        self.messageTextView.text = messageAsDictionary[@"message"];
-//    }else{
-//        self.messageTextView.text = message.text;
-//    }
-    
+- (void)configureCellWithMessage:(QBChatAbstractMessage *)message
+{    
     self.messageTextView.text = message.text;
     
     

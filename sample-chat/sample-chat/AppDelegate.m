@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ChatRoomsViewController.h"
-#import "MainTabBarController.h"
+#import "DialogsViewController.h"
 
 @implementation AppDelegate
 
@@ -21,9 +20,6 @@
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-    tabBarController.delegate = self;
-
     return YES;
 }
 							
@@ -52,23 +48,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-
-#pragma mark
-#pragma mark UITabBarControllerDelegate
-
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UINavigationController *)viewController
-{
-    // check if user is logged in
-    if([viewController.topViewController isKindOfClass:[ChatRoomsViewController class]] &&
-       [LocalStorageService shared].currentUser == nil) {
-        
-        [((MainTabBarController *)self.window.rootViewController) showUserIsNotLoggedInAlert];
-        return NO;
-    }
-
-    return YES;
 }
 
 @end

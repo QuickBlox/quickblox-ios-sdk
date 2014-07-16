@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="rkf-Gp-YH3">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Users View Controller - Users-->
@@ -10,7 +10,7 @@
             <objects>
                 <viewController title="Users" id="CZ4-MO-1fc" customClass="UsersViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2VE-Yg-loa">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a user to chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rmX-dI-vPV">
@@ -21,7 +21,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nOe-Ur-qeN">
-                                <rect key="frame" x="0.0" y="40" width="320" height="415"/>
+                                <rect key="frame" x="0.0" y="40" width="320" height="528"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -45,9 +45,6 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="1Ve-9p-jH0" kind="push" id="MEK-7a-jEw"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -67,20 +64,20 @@
             </objects>
             <point key="canvasLocation" x="1175" y="-138"/>
         </scene>
-        <!--Chat Rooms View Controller - Chat Rooms-->
+        <!--Dialogs View Controller - Chat Rooms-->
         <scene sceneID="ot8-2e-RuS">
             <objects>
-                <viewController title="Chat Rooms" id="QUy-BD-bpt" customClass="ChatRoomsViewController" sceneMemberID="viewController">
+                <viewController title="Chat Rooms" id="QUy-BD-bpt" customClass="DialogsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gMD-aP-Fq6">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="y8m-JE-Pir">
-                                <rect key="frame" x="-1" y="43" width="320" height="412"/>
+                                <rect key="frame" x="-1" y="43" width="320" height="461"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ChatRoomCellIdentifier" textLabel="1LV-1b-fMM" imageView="BDK-Dx-t1d" style="IBUITableViewCellStyleDefault" id="HC3-b1-FSJ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ChatRoomCellIdentifier" textLabel="1LV-1b-fMM" detailTextLabel="aO0-pC-X0P" imageView="BDK-Dx-t1d" style="IBUITableViewCellStyleSubtitle" id="HC3-b1-FSJ">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HC3-b1-FSJ" id="ucw-e6-4tE">
@@ -88,7 +85,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1LV-1b-fMM">
-                                                    <rect key="frame" x="84" y="0.0" width="201" height="43"/>
+                                                    <rect key="frame" x="84" y="3" width="34" height="22"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -98,6 +95,13 @@
                                                     <rect key="frame" x="15" y="0.0" width="54" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aO0-pC-X0P">
+                                                    <rect key="frame" x="84" y="25" width="43" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -110,7 +114,7 @@
                                     <outlet property="delegate" destination="QUy-BD-bpt" id="k4L-H3-7fr"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a room to enter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XHA-0B-gTi">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a dialog to chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XHA-0B-gTi">
                                 <rect key="frame" x="-2" y="0.0" width="320" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -127,18 +131,18 @@
                     <navigationItem key="navigationItem" title="Chat Rooms" id="eq7-DE-EwA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DkM-we-UnK">
                             <connections>
-                                <action selector="createRoom:" destination="QUy-BD-bpt" id="bMJ-IX-lsv"/>
+                                <action selector="createDialog:" destination="QUy-BD-bpt" id="QtX-Bh-Ufv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="FaT-vj-Mu8" id="DId-Ol-qv9"/>
-                        <outlet property="chatRoomsTableView" destination="y8m-JE-Pir" id="7BV-bb-6jF"/>
+                        <outlet property="dialogsTableView" destination="y8m-JE-Pir" id="0Mb-ec-1PO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qq-4t-Ow8" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1179" y="532"/>
+            <point key="canvasLocation" x="1184" y="532"/>
         </scene>
         <!--Chat View Controller - Chat-->
         <scene sceneID="LtF-Ct-8zW">
@@ -189,30 +193,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2d6-vg-kVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1853" y="229"/>
-        </scene>
-        <!--Main Tab Bar Controller-->
-        <scene sceneID="Vex-rW-GRa">
-            <objects>
-                <tabBarController id="8YX-ce-x5E" customClass="MainTabBarController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="nIU-yh-tSs"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="JQR-rB-NYL">
-                        <rect key="frame" x="0.0" y="431" width="320" height="49"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="5LB-E6-FOz" kind="relationship" relationship="viewControllers" id="SUk-Ux-ee1"/>
-                        <segue destination="rkf-Gp-YH3" kind="relationship" relationship="viewControllers" id="M8t-EP-wfW"/>
-                        <segue destination="uG1-x6-d0O" kind="modal" identifier="ShowSplashViewControllerSegue" id="bKR-1t-3EH"/>
-                        <segue destination="ZgQ-Lg-rGk" kind="modal" identifier="ShowLoginViewControllerSegue" id="Gqy-CH-CwY"/>
-                        <segue destination="8Ro-v3-bZf" kind="modal" identifier="ShowRegistrationViewControllerSegue" id="Xtb-wZ-kaw"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-300" y="220"/>
+            <point key="canvasLocation" x="1849" y="532"/>
         </scene>
         <!--Splash View Controller - Splash-->
         <scene sceneID="Odo-By-wGh">
@@ -261,204 +242,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f4V-uA-BRY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="180" y="1300"/>
-        </scene>
-        <!--Login View Controller-->
-        <scene sceneID="asn-uG-Gc7">
-            <objects>
-                <viewController id="ZgQ-Lg-rGk" customClass="LoginViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="P2N-hN-CgE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" id="nWv-4m-Tyx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Login" id="klz-JN-QD7">
-                                        <barButtonItem key="rightBarButtonItem" title="Back" id="28N-dl-4W9">
-                                            <connections>
-                                                <action selector="back:" destination="ZgQ-Lg-rGk" id="H6W-XU-Shx"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NJA-He-cnS">
-                                <rect key="frame" x="36" y="154" width="62" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iR4-To-vh6">
-                                <rect key="frame" x="36" y="199" width="83" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bobbobbob" borderStyle="roundedRect" minimumFontSize="17" id="TNa-70-36P">
-                                <rect key="frame" x="136" y="150" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="ZgQ-Lg-rGk" id="zJM-X4-8PJ"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bobbobbob" borderStyle="roundedRect" minimumFontSize="17" id="1cX-ZV-hcw">
-                                <rect key="frame" x="136" y="195" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="ZgQ-Lg-rGk" id="UUC-PU-049"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MPC-vj-nda">
-                                <rect key="frame" x="124" y="251" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="login:" destination="ZgQ-Lg-rGk" eventType="touchUpInside" id="u5P-4Q-6OX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TmN-gt-Q8Q">
-                                <rect key="frame" x="51" y="331" width="224" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="facebookButton">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="connectWithFacebook:" destination="ZgQ-Lg-rGk" eventType="touchUpInside" id="0WX-P6-8N8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0BY-A3-aVD">
-                                <rect key="frame" x="54" y="385" width="219" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="twitterButton">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="connectWithTwitter:" destination="ZgQ-Lg-rGk" eventType="touchUpInside" id="ef2-aN-4Ru"/>
-                                </connections>
-                            </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="rJQ-Lq-LOX">
-                                <rect key="frame" x="148" y="289" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="activityIndicatorView" destination="rJQ-Lq-LOX" id="nhT-cB-UIw"/>
-                        <outlet property="loginTextField" destination="TNa-70-36P" id="K4I-6W-xD3"/>
-                        <outlet property="navigationBar" destination="nWv-4m-Tyx" id="85Z-La-1Af"/>
-                        <outlet property="passwordTextField" destination="1cX-ZV-hcw" id="H7b-J1-mLr"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nPC-ZV-Vlx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="666" y="1309"/>
-        </scene>
-        <!--Registration View Controller-->
-        <scene sceneID="CYH-aj-CAu">
-            <objects>
-                <viewController id="8Ro-v3-bZf" customClass="RegistrationViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Nv9-Sm-vOP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" id="4Ud-W7-x4h">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Title" id="gTc-vw-Rrf">
-                                        <barButtonItem key="rightBarButtonItem" title="Back" id="0sh-UE-WgK">
-                                            <connections>
-                                                <action selector="back:" destination="8Ro-v3-bZf" id="Pu8-NR-Rau"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eLC-75-Ex5">
-                                <rect key="frame" x="33" y="192" width="62" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oEA-2q-Lly">
-                                <rect key="frame" x="33" y="237" width="83" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="DPe-el-SRI">
-                                <rect key="frame" x="132" y="188" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ro-v3-bZf" id="qcB-yb-D6m"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="blj-62-FNR">
-                                <rect key="frame" x="131" y="233" width="169" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="8Ro-v3-bZf" id="An5-hs-eAF"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dae-Iw-d6V">
-                                <rect key="frame" x="104" y="289" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
-                                <state key="normal" title="Register"/>
-                                <connections>
-                                    <action selector="registration:" destination="8Ro-v3-bZf" eventType="touchUpInside" id="uo3-Uq-Yr4"/>
-                                </connections>
-                            </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" id="7BL-UQ-BYd">
-                                <rect key="frame" x="142" y="327" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="activityIndicatorView" destination="7BL-UQ-BYd" id="eoo-5c-H0P"/>
-                        <outlet property="loginTextField" destination="DPe-el-SRI" id="OG0-em-tgg"/>
-                        <outlet property="navigationBar" destination="4Ud-W7-x4h" id="vOv-HP-XGV"/>
-                        <outlet property="passwordTextField" destination="blj-62-FNR" id="mit-21-M35"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AeL-Yo-HsZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1175" y="1291"/>
-        </scene>
-        <!--Navigation Controller - Users-->
-        <scene sceneID="RFi-YP-kJ1">
-            <objects>
-                <navigationController title="Users" automaticallyAdjustsScrollViewInsets="NO" id="5LB-E6-FOz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Users" image="first" id="u1e-5L-l1D"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="yLc-3P-X4N">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="CZ4-MO-1fc" kind="relationship" relationship="rootViewController" id="D9e-BB-oUg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vji-gR-6No" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="653" y="-138"/>
+            <point key="canvasLocation" x="1184" y="1308"/>
         </scene>
         <!--Navigation Controller - Chat Rooms-->
         <scene sceneID="JZN-L0-ZFS">
@@ -473,20 +257,18 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="QUy-BD-bpt" kind="relationship" relationship="rootViewController" id="1dJ-CB-FLq"/>
+                        <segue destination="uG1-x6-d0O" kind="modal" identifier="ShowSplashViewControllerSegue" id="78I-a3-eNU"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ShA-Zq-H2p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="653" y="532"/>
+            <point key="canvasLocation" x="545" y="532"/>
         </scene>
     </scenes>
     <resources>
         <image name="Logo" width="320" height="229"/>
         <image name="chatRoomIcon" width="125" height="100"/>
-        <image name="facebookButton" width="215" height="41"/>
-        <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
-        <image name="twitterButton" width="219" height="45"/>
         <image name="userIcon" width="128" height="128"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -494,7 +276,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="MEK-7a-jEw"/>
-    </inferredMetricsTieBreakers>
 </document>

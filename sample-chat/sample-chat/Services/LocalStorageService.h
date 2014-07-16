@@ -13,7 +13,5 @@
 @property (nonatomic, strong) QBUUser *currentUser;
 
 + (instancetype)shared;
-- (void)saveMessageToHistory:(QBChatMessage *)message withUserID:(NSUInteger)userID;
-- (NSMutableArray *)messageHistoryWithUserID:(NSUInteger)userID;
 
 @end
