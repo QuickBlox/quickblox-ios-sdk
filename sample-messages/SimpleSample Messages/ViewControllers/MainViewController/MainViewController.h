@@ -17,13 +17,11 @@
 
 @interface MainViewController : UIViewController <UIAlertViewDelegate, QBActionStatusDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>{
 }
-@property (nonatomic, retain) NSMutableArray *messages;
+@property (nonatomic, strong) NSMutableArray *messages;
 
-@property (nonatomic, retain) IBOutlet UITextField *messageBody;
-@property (retain, nonatomic) IBOutlet UITableView *receivedMessages;
+@property (nonatomic, strong) IBOutlet UITextField *messageBody;
+@property (strong, nonatomic) IBOutlet UITableView *receivedMessages;
 
 - (IBAction)sendButtonDidPress:(id)sender;
-
-- (void) showPickerWithUsers;
 
 @end

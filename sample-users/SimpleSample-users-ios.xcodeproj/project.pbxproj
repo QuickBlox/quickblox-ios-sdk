@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43900C1B16245DCA0041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C1A16245DCA0041381B /* Default-568h@2x.png */; };
 		43900C4016246C090041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C3F16246C090041381B /* libxml2.dylib */; };
 		BFA79EDA1843E8BA0044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED91843E8BA0044D9E0 /* Security.framework */; };
 		BFAAF5241785B343009379B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5231785B343009379B9 /* QuartzCore.framework */; };
 		BFAAF5281785CC7B009379B9 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5271785CC7B009379B9 /* Quickblox.framework */; };
+		BFCEAD291976A1C8006279FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD281976A1C8006279FC /* Images.xcassets */; };
 		FA43AD0B152B8ABD000A2EF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA43AD0A152B8ABD000A2EF7 /* UIKit.framework */; };
 		FA43AD0D152B8ABD000A2EF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA43AD0C152B8ABD000A2EF7 /* Foundation.framework */; };
 		FA43AD0F152B8ABD000A2EF7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA43AD0E152B8ABD000A2EF7 /* CoreGraphics.framework */; };
@@ -42,21 +42,15 @@
 		FAF4BB4315F4F6A0009E15D4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3815F4F6A0009E15D4 /* SplashViewController.m */; };
 		FAF4BB4415F4F6A0009E15D4 /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3B15F4F6A0009E15D4 /* UserDetailsViewController.m */; };
 		FAF4BB4515F4F6A0009E15D4 /* CustomTableViewCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3E15F4F6A0009E15D4 /* CustomTableViewCellCell.m */; };
-		FAF4BB4E15F4F6E6009E15D4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4715F4F6E6009E15D4 /* Default.png */; };
-		FAF4BB4F15F4F6E6009E15D4 /* fcebook_login.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4815F4F6E6009E15D4 /* fcebook_login.png */; };
-		FAF4BB5015F4F6E6009E15D4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4915F4F6E6009E15D4 /* icon.png */; };
-		FAF4BB5115F4F6E6009E15D4 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4A15F4F6E6009E15D4 /* logo.png */; };
-		FAF4BB5215F4F6E6009E15D4 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4B15F4F6E6009E15D4 /* pin.png */; };
-		FAF4BB5415F4F6E6009E15D4 /* twitter_login.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4D15F4F6E6009E15D4 /* twitter_login.png */; };
 		FAF4BB5615F4F6F7009E15D4 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB5515F4F6F7009E15D4 /* SplashViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43900C1A16245DCA0041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43900C3F16246C090041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		BFA79ED91843E8BA0044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFAAF5231785B343009379B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BFAAF5271785CC7B009379B9 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		BFCEAD281976A1C8006279FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FA43AD06152B8ABD000A2EF7 /* Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Users.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA43AD0A152B8ABD000A2EF7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FA43AD0C152B8ABD000A2EF7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -98,12 +92,6 @@
 		FAF4BB3B15F4F6A0009E15D4 /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
 		FAF4BB3D15F4F6A0009E15D4 /* CustomTableViewCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCellCell.h; sourceTree = "<group>"; };
 		FAF4BB3E15F4F6A0009E15D4 /* CustomTableViewCellCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCellCell.m; sourceTree = "<group>"; };
-		FAF4BB4715F4F6E6009E15D4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		FAF4BB4815F4F6E6009E15D4 /* fcebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fcebook_login.png; sourceTree = "<group>"; };
-		FAF4BB4915F4F6E6009E15D4 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		FAF4BB4A15F4F6E6009E15D4 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
-		FAF4BB4B15F4F6E6009E15D4 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
-		FAF4BB4D15F4F6E6009E15D4 /* twitter_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_login.png; sourceTree = "<group>"; };
 		FAF4BB5515F4F6F7009E15D4 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,7 +193,7 @@
 		FA43ADD3152B95A3000A2EF7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FAF4BB4615F4F6E6009E15D4 /* images */,
+				BFCEAD281976A1C8006279FC /* Images.xcassets */,
 				FA43ADDA152B95A3000A2EF7 /* xibs */,
 			);
 			path = Resources;
@@ -302,21 +290,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		FAF4BB4615F4F6E6009E15D4 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				43900C1A16245DCA0041381B /* Default-568h@2x.png */,
-				FAF4BB4715F4F6E6009E15D4 /* Default.png */,
-				FAF4BB4815F4F6E6009E15D4 /* fcebook_login.png */,
-				FAF4BB4915F4F6E6009E15D4 /* icon.png */,
-				FAF4BB4A15F4F6E6009E15D4 /* logo.png */,
-				FAF4BB4B15F4F6E6009E15D4 /* pin.png */,
-				FAF4BB4D15F4F6E6009E15D4 /* twitter_login.png */,
-			);
-			name = images;
-			path = iPhone/images;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -369,20 +342,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA43AD8A152B8BAE000A2EF7 /* InfoPlist.strings in Resources */,
+				BFCEAD291976A1C8006279FC /* Images.xcassets in Resources */,
 				FA43ADE7152B95A3000A2EF7 /* CustomTableViewCell.xib in Resources */,
 				FA43ADE8152B95A3000A2EF7 /* EditViewController.xib in Resources */,
 				FA43ADE9152B95A3000A2EF7 /* LoginViewController.xib in Resources */,
 				FA43ADEA152B95A3000A2EF7 /* MainViewController.xib in Resources */,
 				FA43ADEB152B95A3000A2EF7 /* RegistrationViewController.xib in Resources */,
 				FA43ADED152B95A3000A2EF7 /* UserDetailsViewController.xib in Resources */,
-				FAF4BB4E15F4F6E6009E15D4 /* Default.png in Resources */,
-				FAF4BB4F15F4F6E6009E15D4 /* fcebook_login.png in Resources */,
-				FAF4BB5015F4F6E6009E15D4 /* icon.png in Resources */,
-				FAF4BB5115F4F6E6009E15D4 /* logo.png in Resources */,
-				FAF4BB5215F4F6E6009E15D4 /* pin.png in Resources */,
-				FAF4BB5415F4F6E6009E15D4 /* twitter_login.png in Resources */,
 				FAF4BB5615F4F6F7009E15D4 /* SplashViewController.xib in Resources */,
-				43900C1B16245DCA0041381B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +441,8 @@
 		FA43AD25152B8ABD000A2EF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
@@ -497,8 +466,9 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Users;
-				PROVISIONING_PROFILE = "E65F6C59-7597-41F2-9A02-B0453D6532AF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A867B64F-16E5-42D5-8A20-D97656BF1406";
+				PROVISIONING_PROFILE = "4A7273D7-268E-4266-B796-A8956D96DE97";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C6E1DA29-58CA-41B9-95FC-F50C5054F2B1";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -506,6 +476,8 @@
 		FA43AD26152B8ABD000A2EF7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -522,6 +494,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Users;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -14,17 +14,11 @@
 @synthesize richContentFilesIDs;
 
 + (PushMessage *)pushMessageWithMessage:(NSString *)_message richContentFilesIDs:(NSString *)_richContentFilesIDs{
-    PushMessage *pushMessage = [[[[self class] alloc] init] autorelease];
+    PushMessage *pushMessage = [[[self class] alloc] init];
     pushMessage.message = _message;
     pushMessage.richContentFilesIDs = [_richContentFilesIDs componentsSeparatedByString:@","];
     return pushMessage;
 }
 
--(void) dealloc{
-    self.message = nil;
-    self.richContentFilesIDs = nil;
-    
-    [super dealloc];
-}
 
 @end

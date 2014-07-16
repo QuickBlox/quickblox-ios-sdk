@@ -57,7 +57,6 @@
     if([messageBody.text length] == 0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter some text" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alert show];
-        [alert release];
     
     // send push
     }else{
@@ -77,10 +76,6 @@
     [messageBody resignFirstResponder];
 }
 
-- (void) dealloc{
-    [messages release];
-    [super dealloc];
-}
 
 
 #pragma mark -
@@ -98,7 +93,6 @@
         if(result.success){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message sent successfully" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
-            [alert release];
             
         // Errors
         }else{
@@ -111,8 +105,7 @@
     // Show rich content
     RichContentViewController *richContentViewController = [[RichContentViewController alloc] init];
     richContentViewController.message = [self.messages objectAtIndex:sender.tag];
-    [self presentModalViewController:richContentViewController animated:YES];
-    [richContentViewController release];
+    [self presentViewController:richContentViewController animated:YES completion:nil];
 }
 
 
@@ -135,7 +128,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     PushMessage *pushMessage = [self.messages objectAtIndex:indexPath.row];
