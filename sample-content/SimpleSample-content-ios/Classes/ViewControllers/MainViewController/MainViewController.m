@@ -29,10 +29,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [imageViews release];
-    [super dealloc];
-}
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -41,7 +37,7 @@
     [scroll setMaximumZoomScale:4];
     
     // Show toolbar
-    UIBarButtonItem* uploadItem = [[UIBarButtonItem alloc] initWithTitle:@"Add new image" style:UIBarButtonSystemItemAdd  target:self action:@selector(selectPicture)];
+    UIBarButtonItem* uploadItem = [[UIBarButtonItem alloc] initWithTitle:@"Add new image" style:(UIBarButtonItemStyle)UIBarButtonSystemItemAdd  target:self action:@selector(selectPicture)];
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     if(IS_HEIGHT_GTE_568){
         toolbar.frame = CGRectMake(0, self.view.frame.size.height+1, self.view.frame.size.width, 44);
@@ -52,9 +48,7 @@
         toolbar.frame = CGRectMake(toolbar.frame.origin.x, toolbar.frame.origin.y-20, toolbar.frame.size.width, toolbar.frame.size.height);
     }
     [toolbar setItems:[NSArray arrayWithObject:uploadItem]];
-    [uploadItem release];
     [self.view addSubview:toolbar];
-    [toolbar release];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -98,7 +92,6 @@
     image.userInteractionEnabled = YES;
     UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showFullScreenPicture:)];
     [image addGestureRecognizer:tapRecognizer];
-    [tapRecognizer release];
     
     [scroll addSubview:image];
     currentImageX += IMAGE_WIDTH;
@@ -122,7 +115,6 @@
     UIImageView* selectedImageView = (UIImageView*)[tapRecognizer view];
     PhotoViewController* photoController = [[PhotoViewController alloc] initWithImage:selectedImageView.image];
     [self.navigationController pushViewController:photoController animated:YES];
-    [photoController release];
 }
 
 // Show Picker for select picture from iPhone gallery to add to your gallery
@@ -132,7 +124,7 @@
     imagePicker.delegate = self;
     imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
-    [self presentModalViewController:imagePicker animated:NO];
+    [self presentViewController:imagePicker animated:YES completion:nil];
 }
 
 
@@ -148,9 +140,7 @@
     UIImageView* imageView = [[UIImageView alloc] initWithImage:selectedImage];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self showImage:imageView];
-    [imageView release];
-    [imagePicker dismissModalViewControllerAnimated:NO];
-    [imagePicker release];
+    [imagePicker dismissViewControllerAnimated:YES completion:nil];
     
     
     // Upload file to QuickBlox server
@@ -158,8 +148,7 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [imagePicker dismissModalViewControllerAnimated:NO];
-    [imagePicker release];
+    [imagePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -183,7 +172,6 @@
                 UIImageView* imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[res file]]];
                 imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [self showImage:imageView];
-                [imageView release];
                 //
                 [[[DataManager instance] fileList] removeLastObject];
                 

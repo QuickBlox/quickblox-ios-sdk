@@ -13,8 +13,8 @@
 @interface DataManager : NSObject{
     
 }
-@property (nonatomic,retain) NSMutableArray* fileList;
-@property (nonatomic,retain) NSMutableArray* images;
+@property (nonatomic,strong) NSMutableArray* fileList;
+@property (nonatomic,strong) NSMutableArray* images;
 
 + (instancetype)instance;
 

@@ -28,8 +28,8 @@
     
     NSMutableArray* imageViews;
 }
-@property (retain, nonatomic) IBOutlet UIScrollView *scroll;
-@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic,retain) UIImagePickerController* imagePicker;
+@property (strong, nonatomic) IBOutlet UIScrollView *scroll;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic,strong) UIImagePickerController* imagePicker;
 
 @end

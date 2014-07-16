@@ -15,12 +15,6 @@
 @synthesize window = _window;
 @synthesize navController = _navController;
 
-- (void)dealloc
-{
-    [_window release];
-    [_navController release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,21 +26,19 @@
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
     MainViewController *_mainController = [[MainViewController alloc] init];
     [_mainController setTitle:@"User's Gallery"];
     _navController = [[UINavigationController alloc] initWithRootViewController:_mainController];
     _navController.navigationBar.translucent = NO;
-    [_mainController release];
     
     self.window.rootViewController = _navController;
     [self.window makeKeyAndVisible];
 
     SplashViewController *splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
-    [_navController presentModalViewController:splashController animated:NO];
-    [splashController release];
+    [_navController presentViewController:splashController animated:YES completion:nil];
 
     return YES;
 }
