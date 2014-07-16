@@ -13,8 +13,8 @@
 
 @interface CustomTableViewCell : UITableViewCell
 
-@property (nonatomic, retain) UILabel *noteLabel;
-@property (nonatomic, retain) UILabel *statusLabel;
-@property (nonatomic, retain) UILabel *dataLabel;
+@property (nonatomic, strong) UILabel *noteLabel;
+@property (nonatomic, strong) UILabel *statusLabel;
+@property (nonatomic, strong) UILabel *dataLabel;
 
 @end

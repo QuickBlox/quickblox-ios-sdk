@@ -13,8 +13,8 @@
 
 @interface NewNoteViewController : UIViewController <QBActionStatusDelegate, UITextViewDelegate>
 
-@property (retain, nonatomic) IBOutlet UITextView *noteTextField;
-@property (retain, nonatomic) IBOutlet UITextView *commentTextField;
+@property (strong, nonatomic) IBOutlet UITextView *noteTextField;
+@property (strong, nonatomic) IBOutlet UITextView *commentTextField;
 
 - (IBAction)back:(id)sender;
 - (IBAction)next:(id)sender;
