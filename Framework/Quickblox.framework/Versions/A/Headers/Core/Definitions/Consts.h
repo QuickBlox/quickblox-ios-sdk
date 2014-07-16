@@ -5,6 +5,8 @@
  *
  */
 
+#import <Foundation/Foundation.h>
+
 #define N(V) (V==nil)?@"":V
 #define S(S,...) [NSString stringWithFormat:S,__VA_ARGS__]
 

@@ -176,6 +176,38 @@
 
 
 #pragma mark -
+#pragma mark Chat proxy
+
+/**
+ Set Chat SOCKS5 proxy host
+ 
+ @param host SOCKS5 proxy host
+ */
++ (void)setChatSOCKS5ProxyHost:(NSString *)host;
+
+/**
+ Get сhat SOCKS5 proxy host
+ 
+ @return Current сhat SOCKS5 proxy host
+ */
++ (NSString *)chatSOCKS5ProxyHost;
+
+/**
+ Set Chat SOCKS5 proxy port
+ 
+ @param port SOCKS5 proxy port
+ */
++ (void)setChatSOCKS5ProxyPort:(NSUInteger)port;
+
+/**
+ Get сhat SOCKS5 proxy port
+ 
+ @return Current сhat SOCKS5 proxy port
+ */
++ (NSUInteger)chatSOCKS5ProxyPort;
+
+
+#pragma mark -
 #pragma mark Logging
 
 /**

@@ -14,6 +14,7 @@
 
 @implementation UsersModuleViewController
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -22,7 +23,7 @@
         self.tabBarItem.image = [UIImage imageNamed:@"circle"];
     }
     return self;
-}
+}                        
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -51,7 +52,7 @@
     if(section == 0){
         return 6;
     }else if(section == 1){
-        return 14;
+        return 15;
     }else if(section == 2){
         return 1;
     }else if(section == 3){
@@ -72,9 +73,9 @@
                 case 0:{
                     
                     if(withContext){
-                        [QBUsers logInWithUserLogin:@"igorigor" password:@"igorigor" delegate:self context:testContext];
+                        [QBUsers logInWithUserLogin:UserLogin1 password:UserPassword1 delegate:self context:testContext];
                     }else{
-                        [QBUsers logInWithUserLogin:@"igorigor" password:@"igorigor"  delegate:self];
+                        [QBUsers logInWithUserLogin:UserLogin1 password:UserPassword1  delegate:self];
                     }
                 }
                     break;
@@ -83,9 +84,9 @@
                 case 1:{
                     
                     if(withContext){;
-                        [QBUsers logInWithUserEmail:@"qbuserqqqq34r5@gmail.com" password:@"qbuserr345" delegate:self context:testContext];
+                        [QBUsers logInWithUserEmail:@"qbuserqqqq3354r50@gmail.com" password:@"qbuserr345" delegate:self context:testContext];
                     }else{
-                        [QBUsers logInWithUserEmail:@"qbuserqqqq34r5@gmail.com" password:@"qbuserr345" delegate:self];
+                        [QBUsers logInWithUserEmail:@"qbuserqqqq3354r50@gmail.com" password:@"qbuserr345" delegate:self];
                     }
                 }
                     break;
@@ -94,9 +95,9 @@
                 case 2:{
                     
                     if(withContext){;
-                        [QBUsers logInWithSocialProvider:@"facebook" scope:@[@"publish_stream"] delegate:self context:testContext];
+                        [QBUsers logInWithSocialProvider:@"twitter" scope:nil delegate:self context:testContext];
                     }else{
-                        [QBUsers logInWithSocialProvider:@"facebook" scope:@[@"publish_stream"] delegate:self];
+                        [QBUsers logInWithSocialProvider:@"twitter" scope:nil  delegate:self];
                     }
                 }
                     break;
@@ -125,12 +126,14 @@
                 // User Sign Up
                 case 5:{
                     QBUUser *user = [QBUUser user];
-                    user.email = @"qbuserqqqq34r5@gmail.com";
-                    user.password = @"qbuserr345"; // 250813
+                    user.email = @"qbus624r2250@gmail.com";
+                    user.login = @"qwerwerwerwer";
+                    user.password = @"qbuserr3453"; // 250813
+                    user.customData = @"my data";
                     user.externalUserID = 1234;
-                    user.facebookID = @"124343453qq463463";
+                    user.facebookID = @"124343453463463";
                     user.twitterID = @"14234345256";
-//                    user.fullName = @"Javck Bold";
+                    user.fullName = @"22Javck Bold";
 //                    user.email = @"Javck@mail.com";
 //                    user.phone = @"0947773823";
 //                    user.tags = [NSArray arrayWithObjects:@"man", @"travel", nil];
@@ -174,18 +177,32 @@
                 }
                     break;
                     
-                // Get user by ID
+                // Get users with extended requests
                 case 1:{
+                    NSMutableDictionary *filters = [NSMutableDictionary dictionary];
+                    filters[@"order"] = @"desc date last_request_at";
+                    filters[@"page"] = @"2";
                     if(withContext){
-                        [QBUsers userWithID:14605 delegate:self context:testContext];
+                        [QBUsers usersWithExtendedRequest:filters delegate:self context:testContext];
                     }else{
-                        [QBUsers userWithID:14605 delegate:self];
+                        [QBUsers usersWithExtendedRequest:filters delegate:self];
+                    }
+                    
+                    break;
+                }
+                    
+                // Get user by ID
+                case 2:{
+                    if(withContext){
+                        [QBUsers userWithID:94745399 delegate:self context:testContext];
+                    }else{
+                        [QBUsers userWithID:94745399 delegate:self];
                     }  
                 }
                     break;
                     
                 // Get users with ids
-                case 2:{
+                case 3:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 3;
@@ -208,7 +225,7 @@
                     break;
                     
                 // Get user by login
-                case 3:{
+                case 4:{
                     if(withContext){
                         [QBUsers userWithLogin:@"Javck" delegate:self context:testContext];
                     }else{
@@ -218,7 +235,7 @@
                     break;
                     
                 // Get users by logins
-                case 4:{
+                case 5:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 3;
@@ -241,7 +258,7 @@
                     break;
                     
                 // Get users by fullname
-                case 5:{
+                case 6:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 1;
@@ -264,7 +281,7 @@
                     break;
                     
                 // Get user by facebook ID
-                case 6:{
+                case 7:{
                     if(withContext){
                         [QBUsers userWithFacebookID:@"124343453463463" delegate:self context:testContext];
                     }else{
@@ -274,7 +291,7 @@
                     break;
                     
                 // Get users by facebook IDs
-                case 7:{
+                case 8:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 10;
@@ -297,7 +314,7 @@
                     break;
                     
                 // Get user by twitter ID
-                case 8:{
+                case 9:{
                     if(withContext){
                         [QBUsers userWithTwitterID:@"142345256" delegate:self context:testContext];
                     }else{
@@ -307,7 +324,7 @@
                     break;
                     
                 // Get users by twitter IDs
-                case 9:{
+                case 10:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 10;
@@ -330,7 +347,7 @@
                     break;
                     
                 // Get user by email
-                case 10:{
+                case 11:{
                     if(withContext){
                         [QBUsers userWithEmail:@"Javck@mail.com" delegate:self context:testContext];
                     }else{
@@ -340,7 +357,7 @@
                     break;
                     
                 // Get user by emails
-                case 11:{
+                case 12:{
                     if(withAdditionalRequest){
                         PagedRequest *pagedRequest = [PagedRequest request];
                         pagedRequest.perPage = 5;
@@ -363,7 +380,7 @@
                     break;
                     
                 // Get users by tags
-                case 12:{
+                case 13:{
                     if(withContext){
                         [QBUsers usersWithTags:[NSArray arrayWithObjects:@"man", nil] delegate:self context:testContext];
                     }else{
@@ -373,7 +390,7 @@
                     break;
                     
                 // Get user by external ID
-                case 13:{
+                case 14:{
                     if(withContext){
                         [QBUsers userWithExternalID:555 delegate:self context:testContext];
                     }else{
@@ -393,11 +410,12 @@
                 // Update user by ID
                 case 0:{
                     QBUUser *user = [QBUUser user];
-                    user.ID = 673504;
+                    user.ID = 2960;
                     user.externalUserID = 555666;
-                    user.tags = [NSArray arrayWithObjects:@"man", @"travel", nil];
+                    user.tags = [NSMutableArray arrayWithObjects:@"man", @"travel", nil];
                     user.website = @"www.mysite.com";
                     user.phone = @"88234234";
+                    user.customData = @"my new data";
 
                     if(withContext){
                         [QBUsers updateUser:user delegate:self context:testContext];
@@ -445,9 +463,9 @@
                 // Reset User's password with email
                 case 0:{
                     if(withContext){
-                        [QBUsers resetUserPasswordWithEmail:@"khig@gmail.com" delegate:self context:testContext];
+                        [QBUsers resetUserPasswordWithEmail:@"qbus624r2250@gmail.com" delegate:self context:testContext];
                     }else{
-                        [QBUsers resetUserPasswordWithEmail:@"khig@gmail.com" delegate:self];
+                        [QBUsers resetUserPasswordWithEmail:@"qbus624r2250@gmail.com" delegate:self];
                     } 
                 }
                     break;
@@ -466,11 +484,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -505,45 +523,48 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = @"Get all users";
+                    cell.textLabel.text = @"Get users";
                     break;
                 case 1:
-                    cell.textLabel.text = @"Get user by ID";
+                    cell.textLabel.text = @"Get users with extended request";
                     break;
                 case 2:
-                    cell.textLabel.text = @"Get users with ids";
+                    cell.textLabel.text = @"Get user by ID";
                     break;
                 case 3:
-                    cell.textLabel.text = @"Get user by login";
+                    cell.textLabel.text = @"Get users with ids";
                     break;
                 case 4:
-                    cell.textLabel.text = @"Get users by logins";
+                    cell.textLabel.text = @"Get user by login";
                     break;
                 case 5:
-                    cell.textLabel.text = @"Get users by fullname";
+                    cell.textLabel.text = @"Get users by logins";
                     break;
                 case 6:
-                    cell.textLabel.text = @"Get user by facebook ID";
+                    cell.textLabel.text = @"Get users by fullname";
                     break;
                 case 7:
-                    cell.textLabel.text = @"Get users by facebook IDs";
+                    cell.textLabel.text = @"Get user by facebook ID";
                     break;
                 case 8:
-                    cell.textLabel.text = @"Get user by twitter ID";
+                    cell.textLabel.text = @"Get users by facebook IDs";
                     break;
                 case 9:
-                    cell.textLabel.text = @"Get users by twitter IDs";
+                    cell.textLabel.text = @"Get user by twitter ID";
                     break;
                 case 10:
-                    cell.textLabel.text = @"Get user by email";
+                    cell.textLabel.text = @"Get users by twitter IDs";
                     break;
                 case 11:
-                    cell.textLabel.text = @"Get users by emails";
+                    cell.textLabel.text = @"Get user by email";
                     break;
                 case 12:
-                    cell.textLabel.text = @"Get users by tags";
+                    cell.textLabel.text = @"Get users by emails";
                     break;
                 case 13:
+                    cell.textLabel.text = @"Get users by tags";
+                    break;
+                case 14:
                     cell.textLabel.text = @"Get user by external ID";
                     break;
                 default:
@@ -597,6 +618,9 @@
     return cell;
 }
 
+#pragma mark -
+#pragma mark QBActionStatusDelegate
+
 // QuickBlox queries delegate
 - (void)completedWithResult:(Result *)result{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -617,13 +641,13 @@
         // Create user/
         }else if([result isKindOfClass:QBUUserResult.class]){
             QBUUserResult *res = (QBUUserResult *)result;
-            NSLog(@"QBUUserResult, userID=%d", res.user.ID);
+            NSLog(@"QBUUserResult, userID=%lu", (unsigned long)res.user.ID);
             
             static NSMutableString *usersStr;
             
             // success result
             if(result.success){
-                NSString *user = [NSString stringWithFormat:@"%d-1@chat.gaydar.quickblox.com;%@", res.user.ID, res.user.login];
+                NSString *user = [NSString stringWithFormat:@"%lu-1@chat.gaydar.quickblox.com;%@", (unsigned long)res.user.ID, res.user.login];
                 if(usersStr == nil){
                     usersStr = [[NSMutableString alloc] init];
                     [usersStr appendString:@"\n"];

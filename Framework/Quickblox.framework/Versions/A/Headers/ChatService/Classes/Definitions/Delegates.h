@@ -110,7 +110,15 @@
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName;
 
 /**
- Called when received room information. 
+ Called when room receives a message.
+ 
+ @param message Received message
+ @param roomJID Room JID
+ */
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID;
+
+/**
+ Called when received room information.
  
  @param information Room information
  @param roomName Name of room 
@@ -120,7 +128,7 @@
 /**
  Fired when room was successfully created
  */
-- (void)chatRoomDidCreate:(NSString*)roomName;
+- (void)chatRoomDidCreate:(NSString *)roomName;
 
 /**
  Fired when you did enter to room
@@ -132,17 +140,32 @@
 /**
  Called when you didn't enter to room
  
- @param room which you haven't joined
+ @param room Name of room which you haven't joined
  @param error Error
  */
 - (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error;
 
 /**
+ Called when you didn't enter to room
+ 
+ @param roomJID  JID of room which you haven't joined
+ @param error Error
+ */
+- (void)chatRoomDidNotEnterRoomWithJID:(NSString *)roomJID error:(NSError *)error;
+
+/**
  Fired when you did leave room
  
- @param Name of room which you have leaved
+ @param roomName Name of room which you have leaved
  */
 - (void)chatRoomDidLeave:(NSString *)roomName;
+
+/**
+ Fired when you did leave room
+ 
+ @param roomJID JID of room which you have leaved
+ */
+- (void)chatRoomDidLeaveRoomWithJID:(NSString *)roomJID;
 
 /**
  Fired when you did destroy room
@@ -160,6 +183,14 @@
 - (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName;
 
 /**
+ Called in case changing online users
+ 
+ @param onlineUsers Array of online users
+ @param roomJID JID of room in which has changed online users list
+ */
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers roomJID:(NSString *)roomJID;
+
+/**
  Called in case receiving list of users who can join room
  
  @param users Array of users which are able to join room
@@ -168,12 +199,20 @@
 - (void)chatRoomDidReceiveListOfUsers:(NSArray *)users room:(NSString *)roomName;
 
 /**
- Called in case receiving list of active users (joined)
+ Called in case receiving list of online users
  
  @param users Array of joined users
  @param roomName Name of room
  */
 - (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users room:(NSString *)roomName;
+
+/**
+ Called in case receiving list of online users
+ 
+ @param users Array of joined users
+ @param roomJID JID of room
+ */
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users roomJID:(NSString *)roomJID;
 
 
 #pragma mark -

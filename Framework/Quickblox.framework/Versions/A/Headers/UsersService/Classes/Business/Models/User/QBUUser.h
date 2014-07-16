@@ -28,6 +28,7 @@
     NSString *password;
     NSString *oldPassword;
     NSDate *lastRequestAt;
+    NSString *customData;
 }
 
 /** ID of User in external system. */
@@ -68,6 +69,9 @@
 
 /** User's last activity */
 @property (nonatomic, retain) NSDate *lastRequestAt;
+
+/** User's custom data field */
+@property (nonatomic, retain) NSString *customData;
 
 /** Create new user
  @return New instance of QBUUser

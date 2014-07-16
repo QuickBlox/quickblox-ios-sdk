@@ -8,12 +8,11 @@
 
 #import "ChatModuleViewController.h"
 
-#define testRoomName @"crazyRoom"
+#define testRoomName @"test_name_room_public"
 
 #define ADMIN_ID 103894
 
-
-@interface ChatModuleViewController ()
+@interface ChatModuleViewController () <QBActionStatusDelegate>
 
 @end
 
@@ -30,6 +29,7 @@
         
         // set Chat delegate
         [[QBChat instance] setDelegate:self];
+        [QBChat instance].useMutualSubscriptionForContactList = NO;
     }
     return self;
 }
@@ -40,7 +40,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -56,10 +56,13 @@
             numberOfRows = 1;
             break;
         case 3:
-            numberOfRows = 4;
+            numberOfRows = 13;
             break;
         case 4:
-            numberOfRows = 13;
+            numberOfRows = 4;
+            break;
+        case 5:
+            numberOfRows = 6;
             break;
     }
     return numberOfRows;
@@ -78,24 +81,28 @@
             headerTitle = @"1 to 1 chat";
             break;
         case 3:
-            headerTitle = @"Contact List";
+            headerTitle = @"Rooms";
             break;
         case 4:
-            headerTitle = @"Rooms";
+            headerTitle = @"Contact List";
+            break;
+        case 5:
+            headerTitle = @"History";
             break;
         default:
             headerTitle = @"";
             break;
+            
     }
     return headerTitle;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -147,32 +154,9 @@
             [cell.textLabel setText:@"Send message"];
             break;
             
-        // section Contact list
-        case 3:
-            switch (indexPath.row) {
-                case 0:
-                    [cell.textLabel setText:@"Add user to contact list request"];
-                    break;
-                    
-                case 1:
-                    [cell.textLabel setText:@"Confirm add request"];
-                    break;
-                    
-                case 2:
-                    [cell.textLabel setText:@"Reject add request"];
-                    break;
-                    
-                case 3:
-                    [cell.textLabel setText:@"Remove user from contact list"];
-                    break;
-                    
-                default:
-                    break;
-            }
-            break;
             
         // section Rooms
-        case 4:
+        case 3:
             switch (indexPath.row) {
                 case 0:
                     [cell.textLabel setText:@"Create public room"];
@@ -230,6 +214,59 @@
                     break;
             }
             break;
+            
+        // section Contact list
+        case 4:
+            switch (indexPath.row) {
+                case 0:
+                    [cell.textLabel setText:@"Add user to contact list request"];
+                    break;
+                    
+                case 1:
+                    [cell.textLabel setText:@"Confirm add request"];
+                    break;
+                    
+                case 2:
+                    [cell.textLabel setText:@"Reject add request"];
+                    break;
+                    
+                case 3:
+                    [cell.textLabel setText:@"Remove user from contact list"];
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 5:
+            switch (indexPath.row) {
+                case 0:
+                    [cell.textLabel setText:@"Get Dialogs"];
+                    break;
+                    
+                case 1:
+                    [cell.textLabel setText:@"Get Messages"];
+                    break;
+                    
+                case 2:
+                    [cell.textLabel setText:@"Create Dialog"];
+                    break;
+                    
+                case 3:
+                    [cell.textLabel setText:@"Update Dialog"];
+                    break;
+                    
+                case 4:
+                    [cell.textLabel setText:@"Update Message"];
+                    break;
+                    
+                case 5:
+                    [cell.textLabel setText:@"Delete Message"];
+                    break;
+                    
+            }
+            break;
         
         default:
             break;
@@ -249,8 +286,9 @@
                 // Login
                 case 0:{
                     QBUUser *user = [QBUUser user];
-                    user.ID = 291;
-                    user.password = @"supersample-ios";
+                    user.ID = UserID1;
+                    user.password = UserPasswordForChat1;
+
                     [[QBChat instance] loginWithUser:user];
                 }
                     
@@ -259,10 +297,6 @@
                 // Is logged in
                 case 1:{
                     [[QBChat instance] isLoggedIn];
-                    
-                    for(int i=0; i<30;++i){
-                        [[QBChat instance] requestAllRooms];
-                    }
                 }
                     break;
                     
@@ -294,11 +328,7 @@
                     
                 // send direct Presence with status
                 case 2:{
-#if TARGET_IPHONE_SIMULATOR
                     [[QBChat instance] sendDirectPresenceWithStatus:@"morning" toUser:33];
-#else
-                    [[QBChat instance] sendDirectPresenceWithStatus:@"morning" toUser:33];
-#endif
                 }
                     break;
                     
@@ -310,70 +340,34 @@
         // 1 to 1 chat
         case 2:
             switch (indexPath.row) {
-                // send message
+                // send chat 1-1 message
                 case 0:{
 
                     QBChatMessage *message = [QBChatMessage message];
-                    [message setText:@"Hello amigo"];
-                    [message setRecipientID:291];
+                    [message setText:[NSString stringWithFormat:@"banana%d", rand()]];
+                    [message setRecipientID:UserID2];
+                    //
+//                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//                    params[@"date_sent"] = @((int)[[NSDate date] timeIntervalSince1970]);
+//                    params[@"save_to_history"] = @YES;
+//                    [message setCustomParameters:params];
+//                    QBChatAttachment *attachment = QBChatAttachment.new;
+//                    attachment.type = @"image";
+//                    attachment.ID = @"47863";
+//                    [message setAttachments:@[attachment]];
+                    //
                     [[QBChat instance] sendMessage:message];
+                    
+                    
                 }
                 default:
                     break;
             }
             break;
             
-        // Contact list
-        case 3:
-            switch (indexPath.row) {
-                    
-                // Add user to contact list request
-                case 0:{
-#if TARGET_IPHONE_SIMULATOR
-                    [[QBChat instance] addUserToContactListRequest:3144];
-#else
-                    [[QBChat instance] addUserToContactListRequest:3144];
-#endif
-                }
-                    break;
-                  
-                // Confirm add request
-                case 1:{
-#if TARGET_IPHONE_SIMULATOR
-                    [[QBChat instance] confirmAddContactRequest:3153];
-#else
-                    [[QBChat instance] confirmAddContactRequest:3153];
-#endif
-                }
-                    break;
-                    
-                // Reject add request
-                case 2:{
-#if TARGET_IPHONE_SIMULATOR
-                    [[QBChat instance] rejectAddContactRequest:218650];
-#else
-                    [[QBChat instance] rejectAddContactRequest:218651];
-#endif
-                }
-                    break;
-                    
-                // Remove user from contact list
-                case 3:{
-#if TARGET_IPHONE_SIMULATOR
-                    [[QBChat instance] removeUserFromContactList:218650];
-#else
-                    [[QBChat instance] removeUserFromContactList:218651];
-#endif
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-            break;
             
         // Rooms
-        case 4:
+        case 3:
             switch (indexPath.row) {
                 // Create new public room with name
                 case 0:{
@@ -390,14 +384,14 @@
                     self.testRoom = nil;
                     
                     // room's name must be without spaces
-                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:YES persistent:NO];
+                    [[QBChat instance] createOrJoinRoomWithName:testRoomName membersOnly:YES persistent:YES];
                 }
                     break;
                     
                 // Join room
                 case 2:{
-                    self.testRoom= [[QBChatRoom alloc] initWithRoomName:testRoomName];
-                    [[QBChat instance] joinRoom:testRoom];
+                    self.testRoom = [[QBChatRoom alloc] initWithRoomJID:testRoomJID];
+                    [self.testRoom joinRoomWithHistoryAttribute:@{@"maxstanzas": @"50"}];
                 }
                 break;
                 
@@ -409,7 +403,19 @@
                     
                 // Send message
                 case 4:{
-                    [[QBChat instance] sendMessage:@"Hello QuickBlox team, this is iOS SDK mat" toRoom:testRoom];
+                    QBChatMessage *message = [QBChatMessage message];
+                    [message setText:[NSString stringWithFormat:@"banana%d", rand()]];
+                    //
+//                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//                    params[@"date_sent"] = @((int)[[NSDate date] timeIntervalSince1970]);
+//                    params[@"save_to_history"] = @YES;
+//                    [message setCustomParameters:params];
+//                    QBChatAttachment *attachment = QBChatAttachment.new;
+//                    attachment.type = @"image";
+//                    attachment.ID = @"47863";
+//                    [message setAttachments:@[attachment]];
+                    //
+                    [[QBChat instance] sendChatMessage:message toRoom:testRoom];
                 }
                 break;
                     
@@ -427,7 +433,7 @@
                 
                 // Add users to room
                 case 7:{
-                    NSNumber *user = [NSNumber numberWithInt:291];
+                    NSNumber *user = [NSNumber numberWithInt:298];
                     NSArray *users = [NSArray arrayWithObject:user];
                     
                     [[QBChat instance] addUsers:users toRoom:testRoom];
@@ -436,7 +442,7 @@
                 
                 // Delete users from room
                 case 8:{
-                    NSNumber *user = [NSNumber numberWithInt:298];
+                    NSNumber *user = [NSNumber numberWithInt:1279283];
                     NSArray *users = [NSArray arrayWithObject:user];
                     
                     [[QBChat instance] deleteUsers:users fromRoom:testRoom];
@@ -451,9 +457,8 @@
                     
                 // Request room online users
                 case 10:{
-                    QBChatRoom *_room = [[QBChatRoom alloc] initWithRoomName:testRoomName];
+                    QBChatRoom *_room = [[QBChatRoom alloc] initWithRoomJID:testRoomJID];
                     [_room requestOnlineUsers];
-                    [_room release];
                 }
                     break;
                     
@@ -474,8 +479,153 @@
             }
             break;
             
+        // Contact list
+        case 4:
+            switch (indexPath.row) {
+                    
+                // Add user to contact list request
+                case 0:{
+                    [[QBChat instance] addUserToContactListRequest:946391];
+                }
+                    break;
+                    
+                // Confirm add request
+                case 1:{
+                    [[QBChat instance] confirmAddContactRequest:946390];
+                }
+                    break;
+                    
+                // Reject add request
+                case 2:{
+                    [[QBChat instance] rejectAddContactRequest:946390];
+                }
+                    break;
+                    
+                // Remove user from contact list
+                case 3:{
+                    [[QBChat instance] removeUserFromContactList:946391];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            break;
+            
+        case 5:
+            switch (indexPath.row) {
+                case 0:
+                {
+                    NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
+                    extendedRequest[@"limit"] = @(100);
+//                    extendedRequest[@"occupants_ids[all]"] = @"2960,3146,31478";
+                    //
+                    if(withContext){
+                        [QBChat dialogsWithExtendedRequest:extendedRequest delegate:self context:testContext];
+                    }else{
+                        [QBChat dialogsWithExtendedRequest:extendedRequest delegate:self];
+                    }
+                }
+                    break;
+                    
+                case 1:
+                {
+                    NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
+                    extendedRequest[@"limit"] = @(100);
+                    //
+                    if(withContext){
+                        [QBChat messagesWithDialogID:@"53c39cfbe4b077ddd43e95b2" extendedRequest:extendedRequest delegate:self context:testContext];
+                    }else{
+                        [QBChat messagesWithDialogID:@"53c39cfbe4b077ddd43e95b2" extendedRequest:extendedRequest delegate:self];
+                    }
+                }
+                    break;
+                    
+                case 2:
+                {
+                    QBChatDialog *chatDialog = [QBChatDialog new];
+                    chatDialog.name = @"World cup 2014";
+                    chatDialog.occupantIDs = @[@(testUserID2)];
+                    chatDialog.type = QBChatDialogTypeGroup;
+                    //
+                    if(withContext){
+                        [QBChat createDialog:chatDialog delegate:self context:testContext];
+                    }else{
+                        [QBChat createDialog:chatDialog delegate:self];
+                    }
+
+                }
+                    break;
+                    
+                case 3:
+                {
+                    NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
+                    extendedRequest[@"pull_all[occupants_ids][]"] = @"3129";
+                    extendedRequest[@"name"] = @"Team room 55";
+                    //
+                    if(withContext){
+                        [QBChat updateDialogWithID:@"53c40525efa35756ae000027" extendedRequest:extendedRequest delegate:self context:testContext];
+                    }else{
+                        [QBChat updateDialogWithID:@"53c40525efa35756ae000027" extendedRequest:extendedRequest delegate:self];
+                    }
+                    
+                }
+                    break;
+                    
+                case 4:
+                {
+                    QBChatHistoryMessage *message = [QBChatHistoryMessage new];
+                    message.ID = @"53aabe15e4b077ddd43e7fd3";
+                    message.dialogID = @"53a99a7be4b094c7c6d31b41";
+                    message.read = YES;
+                    //
+                    if(withContext){
+                        [QBChat updateMessage:message delegate:self context:testContext];
+                    }else{
+                        [QBChat updateMessage:message delegate:self];
+                    }
+                }
+                    break;
+                    
+                case 5:
+                {
+                    if(withContext){
+                        [QBChat deleteMessageWithID:@"53a04938e4b0afa821474844" delegate:self context:testContext];
+                    }else{
+                        [QBChat deleteMessageWithID:@"53a04938e4b0afa821474844" delegate:self];
+                    }
+                }
+                    break;
+            }
+            break;
+            
         default:
             break;
+    }
+}
+
+
+#pragma mark - 
+#pragma mark QBActionStatusDelegate
+
+- (void)completedWithResult:(Result *)result
+{
+    if (result.success && [result isKindOfClass:[QBDialogsPagedResult class]]) {
+        QBDialogsPagedResult *pagedResult = (QBDialogsPagedResult *)result;
+        NSArray *dialogs = pagedResult.dialogs;
+        NSLog(@"Dialogs: %@", dialogs);
+        
+    } else if (result.success && [result isKindOfClass:QBChatHistoryMessageResult.class]) {
+        QBChatHistoryMessageResult *res = (QBChatHistoryMessageResult *)result;
+        NSArray *messages = res.messages;
+        NSLog(@"Messages: %@", messages);
+        
+    } else if (result.success && [result isKindOfClass:QBChatDialogResult.class]) {
+        QBChatDialogResult *res = (QBChatDialogResult *)result;
+        NSLog(@"Dilog: %@", res.dialog);
+        
+    }else{
+        NSLog(@"result: %@", result);
     }
 }
 
@@ -483,113 +633,139 @@
 #pragma mark -
 #pragma mark QBChatDelegate
 
-//********************** Auth
-//
+#pragma mark Auth
 
--(void) chatDidLogin{
+-(void) chatDidLogin
+{
     NSLog(@"Did login");
-
-    [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(sendPresence) userInfo:nil repeats:YES];
+    
+    [NSTimer scheduledTimerWithTimeInterval:30 target:[QBChat instance] selector:@selector(sendPresence) userInfo:nil repeats:YES];
 }
 
-- (void)sendPresence{
-    [[QBChat instance] sendPresence];
-}
-
-- (void)chatDidNotLogin{
+- (void)chatDidNotLogin
+{
     NSLog(@"Did not login");
 }
 
-- (void)chatDidReceivePresenceOfUser:(NSUInteger)userID type:(NSString *)type{
-     NSLog(@"chatDidReceivePresenceOfUser %i, type: %@ ", userID, type);
+- (void)chatDidFailWithError:(NSInteger)code
+{
+    NSLog(@"Did Fail With Error code: %ld", (long)code);
 }
 
-//********************** Messaging
-//
 
--(void)chatDidNotSendMessage:(QBChatMessage *)message{
-    NSLog(@"Did not send message");
-}
+#pragma mark 1-1 Messaging
 
-- (void)chatDidReceiveMessage:(QBChatMessage *)message{
+- (void)chatDidReceiveMessage:(QBChatMessage *)message
+{
     NSLog(@"Did receive message: %@", message);
 }
 
-//********************** Contact list
-//
 
-- (void)chatDidReceiveContactAddRequestFromUser:(NSUInteger)userID{
-    NSLog(@"chatDidReceiveContactAddRequestFromUser %d", userID);
+#pragma mark Group chat
+
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName
+{
+    NSLog(@"Did receive message: %@, from room %@", message, roomName);
 }
 
-- (void)chatContactListDidChange:(QBContactList *)contactList{
+- (void)chatRoomDidCreate:(NSString *)roomName
+{
+    NSLog(@"chatRoomDidCreate: %@", roomName);
+}
+
+- (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error
+{
+    NSLog(@"chatRoomDidNotEnter: %@  %@", roomName, error);
+}
+
+- (void)chatRoomDidLeave:(NSString *)roomName
+{
+    NSLog(@"chatRoomDidLeave: %@", roomName);
+    self.testRoom = nil;
+}
+
+- (void)chatRoomDidDestroy:(NSString *)roomName
+{
+    NSLog(@"chatRoomDidDestroy: %@", roomName);
+}
+
+- (void)chatRoomDidReceiveInformation:(NSDictionary *)information room:(NSString *)roomName
+{
+    NSLog(@"chatRoomDidReceiveInformation %@, %@",roomName, information);
+}
+
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName
+{
+    NSLog(@"chatRoomDidChangeOnlineUsers %@, %@",roomName, onlineUsers);
+}
+
+- (void)chatRoomDidReceiveListOfUsers:(NSArray *)users room:(NSString *)roomName
+{
+    NSLog(@"chatRoomDidReceiveListOfUsers %@, %@",roomName, users);
+}
+
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users room:(NSString *)roomName
+{
+     NSLog(@"chatRoomDidReceiveListOfOnlineUsers %@, %@",roomName, users);
+}
+
+- (void)chatDidReceiveListOfRooms:(NSArray *)_rooms
+{
+    NSLog(@"Did receive list of rooms: %@", _rooms);
+}
+
+
+#pragma mark Group chat (Chat 2.0)
+
+- (void)chatRoomDidEnter:(QBChatRoom *)room
+{
+    NSLog(@"Room did enter: %@", room);
+}
+
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID
+{
+    NSLog(@"Did receive message: %@, from roomJID %@", message, roomJID);
+}
+
+- (void)chatRoomDidNotEnterRoomWithJID:(NSString *)roomJID error:(NSError *)error
+{
+    NSLog(@"Did not enter room with JID %@, error: %@", roomJID, error);
+}
+
+- (void)chatRoomDidLeaveRoomWithJID:(NSString *)roomJID
+{
+    NSLog(@"Room did leave with JID %@", roomJID);
+}
+
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers roomJID:(NSString *)roomJID
+{
+     NSLog(@"Room did change online users: %@, room JID: %@",onlineUsers, roomJID);
+}
+
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users roomJID:(NSString *)roomJID
+{
+    NSLog(@"Room did receive list of online users %@, room JID: %@",users, roomJID);
+}
+
+
+#pragma mark Contact list
+
+- (void)chatDidReceiveContactAddRequestFromUser:(NSUInteger)userID
+{
+    NSLog(@"chatDidReceiveContactAddRequestFromUser %lu", (unsigned long)userID);
+}
+
+- (void)chatContactListDidChange:(QBContactList *)contactList
+{
     if([contactList.contacts count] > 0 || [contactList.pendingApproval count] > 0){
         NSLog(@"contactList %@", contactList);
     }
 }
 
-- (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status{
-     NSLog(@"chatDidReceiveContactItemActivity, user: %d, isOnline: %d, status: %@", userID, isOnline, status);
+- (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status
+{
+    NSLog(@"chatDidReceiveContactItemActivity, user: %lu, isOnline: %d, status: %@", (unsigned long)userID, isOnline, status);
 }
 
-//********************** Rooms
-//
-
-- (void)chatDidReceiveListOfRooms:(NSArray *)_rooms{
-    NSLog(@"Did receive list of rooms: %@", _rooms);
-}
-
-- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName{
-    NSLog(@"Did receive message: %@, from room %@", message, roomName);
-}
-
-- (void)chatRoomDidCreate:(NSString *)roomName{
-    NSLog(@"chatRoomDidCreate: %@", roomName);
-}
-
-- (void)chatRoomDidEnter:(QBChatRoom *)room{
-    if(room != self.testRoom){
-        self.testRoom = room;
-    }
-    
-    // add admin to room
-    [room addUsers:@[@ADMIN_ID]];
-
-    NSLog(@"chatRoomDidEnter: %@", room);
-}
-
-- (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error{
-    NSLog(@"chatRoomDidNotEnter: %@  %@", roomName, error);
-}
-
-- (void)chatRoomDidLeave:(NSString *)roomName{
-    NSLog(@"chatRoomDidLeave: %@", roomName);
-    self.testRoom = nil;
-}
-
-- (void)chatRoomDidDestroy:(NSString *)roomName{
-    NSLog(@"chatRoomDidDestroy: %@", roomName);
-}
-
-- (void)chatRoomDidReceiveInformation:(NSDictionary *)information room:(NSString *)roomName{
-    NSLog(@"chatRoomDidReceiveInformation %@, %@",roomName, information);
-}
-
-- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName{
-    NSLog(@"chatRoomDidChangeOnlineUsers %@, %@",roomName, onlineUsers);
-}
-
-- (void)chatRoomDidReceiveListOfUsers:(NSArray *)users room:(NSString *)roomName{
-    NSLog(@"chatRoomDidReceiveListOfUsers %@, %@",roomName, users);
-}
-
-- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users room:(NSString *)roomName{
-     NSLog(@"chatRoomDidReceiveListOfOnlineUsers %@, %@",roomName, users);
-}
-
-- (void)dealloc {
-    [testRoom release];
-    [super dealloc];
-}
     
 @end
