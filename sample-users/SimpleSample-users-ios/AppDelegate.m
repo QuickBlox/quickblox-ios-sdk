@@ -14,14 +14,6 @@
 @synthesize window = _window;
 @synthesize splashController;
 
-
-- (void)dealloc
-{
-    [splashController release];
-    [_window release];
-    [super dealloc];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
@@ -31,10 +23,10 @@
     [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Show Splash
-    self.splashController = [[[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil] autorelease];
+    self.splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.window.rootViewController = (UIViewController*)self.splashController;
     [self.window makeKeyAndVisible];
     

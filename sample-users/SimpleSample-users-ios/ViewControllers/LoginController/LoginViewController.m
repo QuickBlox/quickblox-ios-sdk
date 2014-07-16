@@ -38,7 +38,7 @@
 
 - (IBAction)back:(id)sender 
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)loginWithFaceBook:(id)sender {
@@ -69,7 +69,6 @@
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
-            [alert release];
             
             [mainController loggedIn];
 		
@@ -82,7 +81,6 @@
                                                   otherButtonTitles: nil];
             alert.tag = 1;
             [alert show];
-            [alert release];
         }
     }
     
@@ -107,7 +105,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(alertView.tag != 1){
-        [self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

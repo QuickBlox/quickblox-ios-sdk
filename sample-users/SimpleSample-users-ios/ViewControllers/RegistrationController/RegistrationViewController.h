@@ -11,9 +11,9 @@
 
 @interface RegistrationViewController : UIViewController <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate> {
 }
-@property (nonatomic, retain) IBOutlet UITextField *userName;
-@property (nonatomic, retain) IBOutlet UITextField *password;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) IBOutlet UITextField *userName;
+@property (nonatomic, strong) IBOutlet UITextField *password;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)next:(id)sender;
 - (IBAction)back:(id)sender;

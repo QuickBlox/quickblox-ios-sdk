@@ -32,19 +32,19 @@
     UIBarButtonItem *editButton;
 }
 
-@property (nonatomic, retain) IBOutlet LoginViewController *loginController;
-@property (nonatomic, retain) IBOutlet RegistrationViewController *registrationController;
-@property (nonatomic, retain) IBOutlet EditViewController *editController;
-@property (nonatomic, retain) IBOutlet UserDetailsViewController *detailsController;
-@property (nonatomic, retain) IBOutlet CustomTableViewCellCell* _cell;
+@property (nonatomic, strong) IBOutlet LoginViewController *loginController;
+@property (nonatomic, strong) IBOutlet RegistrationViewController *registrationController;
+@property (nonatomic, strong) IBOutlet EditViewController *editController;
+@property (nonatomic, strong) IBOutlet UserDetailsViewController *detailsController;
+@property (nonatomic, strong) IBOutlet CustomTableViewCellCell* _cell;
 
-@property (nonatomic, retain) QBUUser *currentUser;
-@property (nonatomic, retain) NSArray* users;
-@property (nonatomic, retain) NSMutableArray* searchUsers;
+@property (nonatomic, strong) QBUUser *currentUser;
+@property (nonatomic, strong) NSArray* users;
+@property (nonatomic, strong) NSMutableArray* searchUsers;
 
-@property (nonatomic, retain) IBOutlet UITableView* myTableView;
-@property (retain, nonatomic) IBOutlet UIToolbar *toolBar;
-@property (retain, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, strong) IBOutlet UITableView* myTableView;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 - (void) retrieveUsers;
 

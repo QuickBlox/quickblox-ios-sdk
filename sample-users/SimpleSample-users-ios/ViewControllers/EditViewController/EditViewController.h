@@ -16,16 +16,16 @@
 
 @interface EditViewController : UIViewController <QBActionStatusDelegate>{
 }
-@property (nonatomic, assign) QBUUser* user;
+@property (nonatomic, weak) QBUUser* user;
 
-@property (nonatomic, retain) IBOutlet UITextField* loginFiled;
-@property (nonatomic, retain) IBOutlet UITextField* fullNameField;
-@property (nonatomic, retain) IBOutlet UITextField* phoneField;
-@property (nonatomic, retain) IBOutlet UITextField* emailField;
-@property (nonatomic, retain) IBOutlet UITextField* websiteField;
-@property (nonatomic, retain) IBOutlet UITextField *tagsField;
+@property (nonatomic, strong) IBOutlet UITextField* loginFiled;
+@property (nonatomic, strong) IBOutlet UITextField* fullNameField;
+@property (nonatomic, strong) IBOutlet UITextField* phoneField;
+@property (nonatomic, strong) IBOutlet UITextField* emailField;
+@property (nonatomic, strong) IBOutlet UITextField* websiteField;
+@property (nonatomic, strong) IBOutlet UITextField *tagsField;
 
-@property (nonatomic, retain) IBOutlet MainViewController* mainController;
+@property (nonatomic, strong) IBOutlet MainViewController* mainController;
 
 - (IBAction) update:(id)sender;
 - (IBAction) back:(id)sender;

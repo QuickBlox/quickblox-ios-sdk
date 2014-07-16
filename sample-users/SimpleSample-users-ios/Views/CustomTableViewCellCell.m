@@ -12,12 +12,6 @@
 
 @synthesize userTag, userLogin;
 
-- (void) dealloc
-{
-    [userTag release];
-    [userLogin release];
-    [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

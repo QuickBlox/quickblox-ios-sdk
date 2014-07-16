@@ -42,7 +42,7 @@
 
 - (IBAction)back:(id)sender 
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -58,7 +58,6 @@
 		if(result.success){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration was successful. Please now sign in." message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
-            [alert release];
 		
         // Errors
         }else{
@@ -68,7 +67,6 @@
                                                   cancelButtonTitle:@"Ok" 
                                                   otherButtonTitles:nil, nil];
             [alert show];
-            [alert release];
 		}
 	}	
     
@@ -92,7 +90,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-     [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

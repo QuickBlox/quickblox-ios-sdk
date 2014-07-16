@@ -18,14 +18,6 @@
 @synthesize searchUsers;
 @synthesize users, myTableView, _cell, editController, detailsController;
 
-- (void)dealloc
-{
-    [users release];
-    [searchUsers release];
-    [_currentUser release];
-
-    [super dealloc];
-}
 
 - (void)viewDidLoad
 {
@@ -52,14 +44,14 @@
 {
     // show User Sign In controller
     loginController.mainController = self;
-    [self presentModalViewController:loginController animated:YES];
+    [self presentViewController:loginController animated:YES completion:nil];
 }
 
 // User Sign Up
 - (IBAction) signUp:(id)sender
 {
     // show User Sign Up controller
-    [self presentModalViewController:(UIViewController *)registrationController animated:YES];
+    [self presentViewController:registrationController animated:YES completion:nil];
 }
 
 // Logout User
@@ -76,7 +68,7 @@
 - (IBAction)edit:(id)sender
 {
     editController.mainController = self;
-    [self presentModalViewController:editController animated:YES];
+    [self presentViewController:editController animated:YES completion:nil];
 }
 
 - (void)notLoggedIn
@@ -90,7 +82,6 @@
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 170;
     NSArray *items = [NSArray arrayWithObjects: editButton, fixedSpace, logoutButton, nil];
-    [fixedSpace release];
     
     [self.toolBar setItems:items animated:NO];
 }
@@ -103,7 +94,6 @@
     PagedRequest* request = [[PagedRequest alloc] init];
     request.perPage = 100;
 	[QBUsers usersWithPagedRequest:request delegate:self];
-	[request release];
 }
 
 // QuickBlox API queries delegate
@@ -118,7 +108,7 @@
             // update table
             QBUUserPagedResult *usersSearchRes = (QBUUserPagedResult *)result;
             self.users = usersSearchRes.users;
-            self.searchUsers = [[users mutableCopy] autorelease];
+            self.searchUsers = [users mutableCopy];
             [myTableView reloadData];
         
         // Errors
@@ -140,7 +130,7 @@
     
     // show user details
     detailsController.choosedUser = [self.searchUsers objectAtIndex:[indexPath row]];
-    [self presentModalViewController:detailsController animated:YES];
+    [self presentViewController:detailsController animated:YES completion:nil];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
