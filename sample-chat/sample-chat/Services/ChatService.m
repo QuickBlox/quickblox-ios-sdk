@@ -57,8 +57,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] sendMessage:message];
 }
 
-- (void)sendMessage:(NSString *)message toRoom:(QBChatRoom *)chatRoom{
-    [[QBChat instance] sendMessage:message toRoom:chatRoom];
+- (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom{
+    [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
 }
 
 - (void)createOrJoinRoomWithName:(NSString *)roomName completionBlock:(void(^)(QBChatRoom *))completionBlock{

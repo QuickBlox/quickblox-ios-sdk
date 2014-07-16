@@ -102,18 +102,10 @@
 
     // Group Chat
     }else if(self.chatRoom != nil){
-        
-//        // Replace the next line with these lines if you would like to connect to Web XMPP Chat widget
-//        //
-//        NSDictionary *messageAsDictionary = @{@"message": self.messageTextField.text};
-//        NSData *messageAsData = [NSJSONSerialization dataWithJSONObject:messageAsDictionary options:0 error:nil];
-//        NSString *message =[[NSString alloc] initWithData:messageAsData encoding:NSUTF8StringEncoding];
-//        NSString *escapedMessage = [CharactersEscapeService escape:message];
-//        //
-//        [[ChatService instance] sendMessage:escapedMessage toRoom:self.chatRoom];
-        
-        [[ChatService instance] sendMessage:self.messageTextField.text toRoom:self.chatRoom];
-        
+        QBChatMessage *message = [[QBChatMessage alloc] init];
+        message.text = self.messageTextField.text;
+        //
+        [[ChatService instance] sendMessage:message toRoom:self.chatRoom];
     }
     
     // Reload table
