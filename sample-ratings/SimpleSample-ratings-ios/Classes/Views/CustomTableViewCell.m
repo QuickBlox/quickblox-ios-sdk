@@ -24,7 +24,7 @@
         
         self.backgroundImageView = [[UIImageView alloc] init];
         [self.backgroundImageView setFrame:CGRectMake(0, 0, 320, 70)];
-        [self.backgroundImageView setImage:[UIImage imageNamed:@"images.jpeg"]];
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"MovieItemBackground"]];
         [self addSubview:self.backgroundImageView];
         
         self.movieImageView = [[UIImageView alloc] init];
