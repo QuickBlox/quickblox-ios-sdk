@@ -10,21 +10,4 @@
 
 @implementation Movie
 
-@synthesize movieName;
-@synthesize movieImage;
-@synthesize movieRating;
-@synthesize movieDetails;
-@synthesize gameModeID;
-@synthesize rating;
-
-
--(void) dealloc{
-    [movieName release];
-    [movieImage release];
-    [movieRating release];
-    [movieDetails release];
-    
-    [super dealloc];
-}
-
 @end

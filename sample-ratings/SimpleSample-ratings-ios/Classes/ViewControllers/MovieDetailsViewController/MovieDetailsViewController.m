@@ -32,7 +32,7 @@
     [self.moviImageView setImage:[UIImage imageNamed:[movie movieImage]]];
     
     
-    self.ratingView = [[[RateView alloc] initWithFrameBig:CGRectMake(40, 328, 240, 40)] autorelease];
+    self.ratingView = [[RateView alloc] initWithFrameBig:CGRectMake(40, 328, 240, 40)];
     self.ratingView.alignment = RateViewAlignmentLeft;
     self.ratingView.editable = NO;
     self.ratingView.rate = [movie rating];
@@ -50,11 +50,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
-    [detailsText release];
-    [ratingButton release];
-    [super dealloc];
-}
 
 - (IBAction)rate:(id)sender {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Rate movie" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"1", @"2", @"3", @"4", @"5", nil];
@@ -69,7 +64,6 @@
         [QBRatings createScore:score delegate:nil];
     }
     
-    [actionSheet release];
 }
 
 @end

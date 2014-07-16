@@ -33,7 +33,6 @@
     
     [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self];
     
-    [extendedAuthRequest release];
     
     if(IS_HEIGHT_GTE_568){
         CGRect frame = self.activityIndicator.frame;
@@ -48,13 +47,9 @@
 }
 
 -(void)hideSplashScreen{
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)dealloc{
-    [delegate release];
-    [super dealloc];
-}
 
 
 #pragma mark -
@@ -80,7 +75,6 @@
                                                   cancelButtonTitle:NSLocalizedString(@"OK", "")
                                                   otherButtonTitles:nil];
             [alert show];
-            [alert release];
         }
         
     // Get average ratings result
