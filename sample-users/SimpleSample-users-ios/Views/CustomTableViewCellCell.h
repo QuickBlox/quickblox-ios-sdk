@@ -14,7 +14,7 @@
     UILabel* userTag;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel* userLogin;
-@property (nonatomic, retain) IBOutlet UILabel* userTag;
+@property (nonatomic, strong) IBOutlet UILabel* userLogin;
+@property (nonatomic, strong) IBOutlet UILabel* userTag;
 
 @end

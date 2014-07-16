@@ -17,10 +17,10 @@
 
 @interface LoginViewController : UIViewController <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate> {    
 }
-@property (nonatomic, retain) IBOutlet UITextField *login;
-@property (nonatomic, retain) IBOutlet UITextField *password;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, assign) IBOutlet MainViewController* mainController;
+@property (nonatomic, strong) IBOutlet UITextField *login;
+@property (nonatomic, strong) IBOutlet UITextField *password;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet MainViewController* mainController;
 
 - (IBAction)next:(id)sender;
 - (IBAction)back:(id)sender;
