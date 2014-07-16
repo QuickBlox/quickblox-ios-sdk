@@ -74,4 +74,11 @@
     }
 }
 
+- (void)setProgress:(float)progress{
+    _progressView.progress = progress;
+    if(progress == 1){
+        _progressView.hidden = YES;
+    }
+}
+
 @end
