@@ -16,9 +16,9 @@
     UITextField *password;
     UIActivityIndicatorView *activityIndicator;
 }
-@property (nonatomic, retain) IBOutlet UITextField *login;
-@property (nonatomic, retain) IBOutlet UITextField *password;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) IBOutlet UITextField *login;
+@property (nonatomic, strong) IBOutlet UITextField *password;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)next:(id)sender;
 - (IBAction)back:(id)sender;

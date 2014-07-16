@@ -18,14 +18,6 @@
 @synthesize tabBarController = _tabBarController;
 @synthesize splashController;
 
-- (void)dealloc
-{
-    [splashController release];
-    [_window release];
-    [_tabBarController release];
-    [super dealloc];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
@@ -40,20 +32,18 @@
     latestCheckinsViewControleler = [[LatestCheckinsViewController alloc] initWithNibName:@"LatestCheckinsViewController" bundle:nil];
     
     // connect views to tabBar
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController = [[UITabBarController alloc] init];
     if(QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")){
         self.tabBarController.tabBar.translucent = NO;
     }
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:mapViewControleler, latestCheckinsViewControleler, nil];
-    [mapViewControleler release];
-    [latestCheckinsViewControleler release];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Override point for customization after application launch.
     
     // show splash controller
-    self.splashController = [[[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil] autorelease];
+    self.splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     
     self.window.rootViewController = (UIViewController*)self.splashController;
     [self.window makeKeyAndVisible];

@@ -47,7 +47,6 @@
             pin.subtitle = geodata.status;
             pin.title = geodata.user.login ? geodata.user.login : geodata.user.email;
             [mapView addAnnotation:pin];
-            [pin release];
         }
     }
 }
@@ -70,7 +69,6 @@
                                                         otherButtonTitles:@"Sign Up", @"Sign In", nil];
         alert.tag = 1;
         [alert show];
-        [alert release];
 
     // Show alert for check in
     }else{
@@ -83,7 +81,6 @@
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         alert.tag = 2;
         [alert show];
-        [alert release];
     }
 }
 
@@ -107,7 +104,6 @@
                                                         cancelButtonTitle:@"Ok" 
                                                         otherButtonTitles: nil];
             [alert show];
-            [alert release];
             
         // Errors
         }else{
@@ -117,7 +113,6 @@
                                                         cancelButtonTitle:@"Ok" 
                                                         otherButtonTitles: nil];
             [alert show];
-            [alert release];
         }
     }
 }
@@ -132,10 +127,10 @@
     if(alertView.tag == 1) {
         switch (buttonIndex) {
             case 1:
-                [self presentModalViewController:registrationController animated:YES];
+                [self presentViewController:registrationController animated:YES completion:nil];
                 break;
             case 2:
-                [self presentModalViewController:loginController animated:YES];
+                [self presentViewController:loginController animated:YES completion:nil];
                 break;
             default:
                 break;
@@ -144,7 +139,7 @@
     // Check in   alert
     }else if(alertView.tag == 2){
         switch (buttonIndex) {
-            case 1:
+            case 1: {
                 
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
                 
@@ -160,18 +155,12 @@
                 [QBLocation createGeoData:geoData delegate:self];
                 
                 break;
+            }
             default:
                 break;
         }
     }
 }
 
-- (void)dealloc {
-    [locationManager release];
-    [mapView release];
-    [loginController release];
-    [registrationController release];    
-    [super dealloc];
-}
 
 @end

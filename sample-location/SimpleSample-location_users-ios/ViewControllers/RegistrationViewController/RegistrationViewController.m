@@ -13,13 +13,6 @@
 @synthesize password;
 @synthesize activityIndicator;
 
-- (void)dealloc
-{
-    [userName release];
-    [password release];
-    [activityIndicator release];
-    [super dealloc];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -41,7 +34,7 @@
 }
 
 - (IBAction)back:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -58,7 +51,6 @@
 		if(result.success){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration was successful. Please now sign in." message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
             [alert show];
-            [alert release];
 		
         // Errors
         }else {
@@ -68,7 +60,6 @@
                                                   cancelButtonTitle:@"Okay" 
                                                   otherButtonTitles:nil, nil];
             [alert show];
-            [alert release];
 		}
 	}	
     
@@ -90,7 +81,7 @@
 #pragma mark UIAlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-     [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43900C2616245E3F0041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C2516245E3F0041381B /* Default-568h@2x.png */; };
 		8A2F265C14F7F0D300292876 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265B14F7F0D300292876 /* UIKit.framework */; };
 		8A2F265E14F7F0D300292876 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265D14F7F0D300292876 /* Foundation.framework */; };
 		8A2F266014F7F0D300292876 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265F14F7F0D300292876 /* CoreGraphics.framework */; };
@@ -23,18 +22,11 @@
 		8AC09DCA14FF710400658181 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC09DC614FF710400658181 /* main.m */; };
 		BB12344C1608827100491A31 /* LatestCheckinsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB12344B1608827100491A31 /* LatestCheckinsViewController.xib */; };
 		BB1234501608829200491A31 /* LatestCheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB12344F1608829200491A31 /* LatestCheckinsViewController.m */; };
-		BB66162916072E3600DBADD4 /* fcebook_login.png in Resources */ = {isa = PBXBuildFile; fileRef = BB66162816072E3500DBADD4 /* fcebook_login.png */; };
-		BB66162B16072E5000DBADD4 /* twitter_login.png in Resources */ = {isa = PBXBuildFile; fileRef = BB66162A16072E5000DBADD4 /* twitter_login.png */; };
-		BB9A7D14160C903400292E44 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = BB9A7D13160C903400292E44 /* pin.png */; };
+		BF6860E91976C14500496FFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF6860E81976C14500496FFB /* Images.xcassets */; };
 		BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED31843E2120044D9E0 /* Security.framework */; };
-		BFD5AA8A192E28DA00A54874 /* speech_bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFD5AA88192E28DA00A54874 /* speech_bubble@2x.png */; };
-		BFD5AA8D192E28EB00A54874 /* globe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFD5AA8C192E28EB00A54874 /* globe@2x.png */; };
 		ED6EE5FC16773B96004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */; };
 		FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA38CC5A1614758600BDD29A /* libxml2.2.dylib */; };
 		FA38CC6B1614767600BDD29A /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA38CC6A1614767600BDD29A /* DataManager.m */; };
-		FA39FB7115EF6F85002F9D26 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB6E15EF6F85002F9D26 /* Default.png */; };
-		FA39FB7215EF6F85002F9D26 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB6F15EF6F85002F9D26 /* icon.png */; };
-		FA39FB7315EF6F85002F9D26 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB7015EF6F85002F9D26 /* logo.png */; };
 		FA39FB7515EF6FA2002F9D26 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB7415EF6FA2002F9D26 /* SplashViewController.xib */; };
 		FA39FB8F15EF7110002F9D26 /* MapPin.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB8E15EF7110002F9D26 /* MapPin.m */; };
 		FA39FBA215EF715A002F9D26 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB9815EF715A002F9D26 /* LoginViewController.m */; };
@@ -53,7 +45,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43900C2516245E3F0041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		8A2F265714F7F0D300292876 /* Location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Location.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2F265B14F7F0D300292876 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8A2F265D14F7F0D300292876 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -74,19 +65,12 @@
 		BB12344B1608827100491A31 /* LatestCheckinsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LatestCheckinsViewController.xib; sourceTree = "<group>"; };
 		BB12344E1608829200491A31 /* LatestCheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LatestCheckinsViewController.h; sourceTree = "<group>"; };
 		BB12344F1608829200491A31 /* LatestCheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LatestCheckinsViewController.m; sourceTree = "<group>"; };
-		BB66162816072E3500DBADD4 /* fcebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fcebook_login.png; sourceTree = "<group>"; };
-		BB66162A16072E5000DBADD4 /* twitter_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_login.png; sourceTree = "<group>"; };
-		BB9A7D13160C903400292E44 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		BF6860E81976C14500496FFB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BFA79ED31843E2120044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		BFD5AA88192E28DA00A54874 /* speech_bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speech_bubble@2x.png"; sourceTree = "<group>"; };
-		BFD5AA8C192E28EB00A54874 /* globe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "globe@2x.png"; sourceTree = "<group>"; };
 		ED6EE5FB16773B96004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		FA38CC5A1614758600BDD29A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		FA38CC691614767600BDD29A /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		FA38CC6A1614767600BDD29A /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
-		FA39FB6E15EF6F85002F9D26 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		FA39FB6F15EF6F85002F9D26 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		FA39FB7015EF6F85002F9D26 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		FA39FB7415EF6FA2002F9D26 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 		FA39FB8D15EF7110002F9D26 /* MapPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPin.h; sourceTree = "<group>"; };
 		FA39FB8E15EF7110002F9D26 /* MapPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPin.m; sourceTree = "<group>"; };
@@ -208,22 +192,6 @@
 			path = LatestCheckinsViewController;
 			sourceTree = "<group>";
 		};
-		FA39FB6D15EF6F85002F9D26 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				BFD5AA8C192E28EB00A54874 /* globe@2x.png */,
-				BFD5AA88192E28DA00A54874 /* speech_bubble@2x.png */,
-				43900C2516245E3F0041381B /* Default-568h@2x.png */,
-				BB9A7D13160C903400292E44 /* pin.png */,
-				BB66162A16072E5000DBADD4 /* twitter_login.png */,
-				BB66162816072E3500DBADD4 /* fcebook_login.png */,
-				FA39FB6E15EF6F85002F9D26 /* Default.png */,
-				FA39FB6F15EF6F85002F9D26 /* icon.png */,
-				FA39FB7015EF6F85002F9D26 /* logo.png */,
-			);
-			path = images;
-			sourceTree = "<group>";
-		};
 		FA39FB7615EF6FFC002F9D26 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				FA43AE0E152B965E000A2EF7 /* iPhone */,
+				BF6860E81976C14500496FFB /* Images.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -296,7 +265,6 @@
 		FA43AE0E152B965E000A2EF7 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				FA39FB6D15EF6F85002F9D26 /* images */,
 				FA43AE14152B965E000A2EF7 /* xibs */,
 			);
 			path = iPhone;
@@ -340,7 +308,7 @@
 		8A2F264E14F7F0D300292876 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = 8A2F265114F7F0D300292876 /* Build configuration list for PBXProject "SimpleSample-location_users-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -365,20 +333,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AC09DC914FF710400658181 /* InfoPlist.strings in Resources */,
+				BF6860E91976C14500496FFB /* Images.xcassets in Resources */,
 				FA43AE1E152B965E000A2EF7 /* LoginViewController.xib in Resources */,
 				FA43AE1F152B965E000A2EF7 /* MapViewController.xib in Resources */,
 				FA43AE20152B965E000A2EF7 /* RegistrationViewController.xib in Resources */,
-				BFD5AA8A192E28DA00A54874 /* speech_bubble@2x.png in Resources */,
-				FA39FB7115EF6F85002F9D26 /* Default.png in Resources */,
-				FA39FB7215EF6F85002F9D26 /* icon.png in Resources */,
-				FA39FB7315EF6F85002F9D26 /* logo.png in Resources */,
 				FA39FB7515EF6FA2002F9D26 /* SplashViewController.xib in Resources */,
-				BB66162916072E3600DBADD4 /* fcebook_login.png in Resources */,
-				BB66162B16072E5000DBADD4 /* twitter_login.png in Resources */,
 				BB12344C1608827100491A31 /* LatestCheckinsViewController.xib in Resources */,
-				BFD5AA8D192E28EB00A54874 /* globe@2x.png in Resources */,
-				BB9A7D14160C903400292E44 /* pin.png in Resources */,
-				43900C2616245E3F0041381B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,7 +368,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -420,10 +385,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -433,13 +402,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -452,6 +429,9 @@
 		8A2F267914F7F0D300292876 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -462,7 +442,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -484,6 +464,9 @@
 		8A2F267A14F7F0D300292876 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,7 +476,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

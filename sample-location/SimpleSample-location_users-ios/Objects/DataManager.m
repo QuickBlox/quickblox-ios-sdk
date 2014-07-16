@@ -8,27 +8,22 @@
 
 #import "DataManager.h"
 
-static DataManager *instance = nil;
-
 @implementation DataManager
 
 @synthesize checkinArray;
 @synthesize currentUser = _currentUser;
 
-+ (DataManager *)shared {
-	@synchronized (self) {
-		if (instance == nil){
-            instance = [[self alloc] init];
-        }
-	}
++ (instancetype)shared
+{
+	static id instance_ = nil;
+	static dispatch_once_t onceToken;
 	
-	return instance;
+	dispatch_once(&onceToken, ^{
+		instance_ = [[self alloc] init];
+	});
+	
+	return instance_;
 }
 
--(void) dealloc{
-    [checkinArray release];
-    [_currentUser release];
-	[super dealloc];
-}
 
 @end
