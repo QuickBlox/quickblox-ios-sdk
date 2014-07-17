@@ -86,20 +86,25 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
-    QBChatDialog *chatRoom = self.dialogs[indexPath.row];
+    QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     cell.tag  = indexPath.row;
     
-    cell.textLabel.text = chatRoom.name;
-    
-    switch (chatRoom.type) {
-        case QBChatDialogTypePrivate:
+    switch (chatDialog.type) {
+        case QBChatDialogTypePrivate:{
             cell.detailTextLabel.text = @"private";
+            QBUUser *recipient = [LocalStorageService shared].usersAsDictionary[@(chatDialog.recipientID)];
+            cell.textLabel.text = recipient.login == nil ? recipient.email : recipient.login;
+        }
             break;
-        case QBChatDialogTypeGroup:
+        case QBChatDialogTypeGroup:{
             cell.detailTextLabel.text = @"group";
+            cell.textLabel.text = chatDialog.name;
+        }
             break;
-        case QBChatDialogTypePublicGroup:
+        case QBChatDialogTypePublicGroup:{
             cell.detailTextLabel.text = @"public group";
+            cell.textLabel.text = chatDialog.name;
+        }
             break;
             
         default:
@@ -125,6 +130,18 @@
         //
         NSArray *dialogs = pagedResult.dialogs;
         self.dialogs = [dialogs mutableCopy];
+        
+        // Get dialogs users
+        PagedRequest *pagedRequest = [PagedRequest request];
+        pagedRequest.perPage = 100;
+        //
+        NSSet *dialogsUsersIDs = pagedResult.dialogsUsersIDs;
+        //
+        [QBUsers usersWithIDs:[[dialogsUsersIDs allObjects] componentsJoinedByString:@","] pagedRequest:pagedRequest delegate:self];
+
+    }else if (result.success && [result isKindOfClass:[QBUUserPagedResult class]]) {
+        QBUUserPagedResult *res = (QBUUserPagedResult *)result;
+        [LocalStorageService shared].users = res.users;
         //
         [self.dialogsTableView reloadData];
         [self.activityIndicator stopAnimating];
