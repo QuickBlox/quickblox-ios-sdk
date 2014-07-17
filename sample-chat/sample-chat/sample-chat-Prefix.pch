@@ -26,3 +26,5 @@
 
 #define kShowSplashViewControllerSegue @"ShowSplashViewControllerSegue"
 #define kShowUsersViewControllerSegue @"ShowUsersViewControllerSegue"
+#define kShowChatViewControllerSegue @"ShowChatViewControllerSegue"
+#define kShowNewChatViewControllerSegue @"ShowNewChatViewControllerSegue"

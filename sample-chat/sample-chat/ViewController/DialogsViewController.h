@@ -10,4 +10,6 @@
 
 @interface DialogsViewController : UIViewController
 
+@property (strong, nonatomic) QBChatDialog *createdDialog;
+
 @end

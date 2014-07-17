@@ -9,8 +9,9 @@
 #import "UsersViewController.h"
 #import "UsersPaginator.h"
 #import "СhatViewController.h"
+#import "DialogsViewController.h"
 
-@interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate>
+@interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate, QBActionStatusDelegate>
 
 @property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic, strong) NSMutableArray *selectedUsers;
@@ -63,7 +64,6 @@
     
     NSMutableArray *selectedUsersIDs = [NSMutableArray array];
     NSMutableArray *selectedUsersNames = [NSMutableArray array];
-    
     for(QBUUser *user in self.selectedUsers){
         [selectedUsersIDs addObject:@(user.ID)];
         [selectedUsersNames addObject:user.login == nil ? user.email : user.login];
@@ -73,11 +73,11 @@
     if(self.selectedUsers.count == 1){
         chatDialog.type = QBChatDialogTypePrivate;
     }else{
-        chatDialog.name = [selectedUsersNames description];
+        chatDialog.name = [selectedUsersNames componentsJoinedByString:@","];
         chatDialog.type = QBChatDialogTypeGroup;
     }
     
-    [QBChat createDialog:chatDialog delegate:nil];
+    [QBChat createDialog:chatDialog delegate:self];
 }
 
 
@@ -180,6 +180,32 @@
             // fetch next page of results
             [self fetchNextPage];
         }
+    }
+}
+
+
+#pragma mark -
+#pragma mark QBActionStatusDelegate
+
+// QuickBlox API queries delegate
+- (void)completedWithResult:(Result *)result{
+    if (result.success && [result isKindOfClass:[QBChatDialogResult class]]) {
+        // dialog created
+        
+        QBChatDialogResult *dialogRes = (QBChatDialogResult *)result;
+        
+        DialogsViewController *dialogsViewController = self.navigationController.viewControllers[0];
+        dialogsViewController.createdDialog = dialogRes.dialog;
+        
+        [self.navigationController popViewControllerAnimated:YES];
+  
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                        message:[[result errors] componentsJoinedByString:@","]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        [alert show];
     }
 }
 

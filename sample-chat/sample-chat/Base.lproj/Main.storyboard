@@ -72,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-T1-AhA" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1175" y="-138"/>
+            <point key="canvasLocation" x="1827" y="-170"/>
         </scene>
         <!--Dialogs View Controller - Chat dialogs-->
         <scene sceneID="ot8-2e-RuS">
@@ -115,7 +115,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="1Ve-9p-jH0" kind="push" identifier="ChatViewControllerSeque" id="EZE-r6-yZD"/>
+                                            <segue destination="1Ve-9p-jH0" kind="push" identifier="ShowChatViewControllerSegue" id="EZE-r6-yZD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -142,18 +142,19 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DkM-we-UnK">
                             <connections>
                                 <action selector="createDialog:" destination="QUy-BD-bpt" id="QtX-Bh-Ufv"/>
-                                <segue destination="CZ4-MO-1fc" kind="push" identifier="ShowUsersViewControllerSegue" id="wQP-Oh-GRr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="FaT-vj-Mu8" id="DId-Ol-qv9"/>
                         <outlet property="dialogsTableView" destination="y8m-JE-Pir" id="0Mb-ec-1PO"/>
+                        <segue destination="CZ4-MO-1fc" kind="push" identifier="ShowUsersViewControllerSegue" id="PLW-wL-73s"/>
+                        <segue destination="1Ve-9p-jH0" kind="push" identifier="ShowNewChatViewControllerSegue" id="cei-T3-6Dz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qq-4t-Ow8" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184" y="532"/>
+            <point key="canvasLocation" x="1175" y="564"/>
         </scene>
         <!--Chat View Controller - Chat-->
         <scene sceneID="LtF-Ct-8zW">
@@ -204,7 +205,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2d6-vg-kVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1849" y="532"/>
+            <point key="canvasLocation" x="1827" y="564"/>
         </scene>
         <!--Splash View Controller - Splash-->
         <scene sceneID="Odo-By-wGh">
@@ -273,7 +274,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ShA-Zq-H2p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="545" y="532"/>
+            <point key="canvasLocation" x="541" y="564"/>
         </scene>
     </scenes>
     <resources>
@@ -287,4 +288,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="cei-T3-6Dz"/>
+    </inferredMetricsTieBreakers>
 </document>

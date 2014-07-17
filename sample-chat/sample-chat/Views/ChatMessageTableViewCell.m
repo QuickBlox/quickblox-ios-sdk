@@ -80,6 +80,8 @@ static UIImage *aquaBubble;
                                         constrainedToSize:textSize
                                             lineBreakMode:NSLineBreakByWordWrapping];
     
+    NSLog(@"message: %@", message);
+    
 	size.width += 10;
     
     NSString *time = [messageDateFormatter stringFromDate:message.datetime];
