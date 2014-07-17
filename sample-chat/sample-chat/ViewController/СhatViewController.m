@@ -97,6 +97,7 @@
     if(self.dialog.type == QBChatDialogTypePrivate){
         // send message
         message.recipientID = [self.dialog recipientID];
+        message.senderID = [LocalStorageService shared].currentUser.ID;
 
         [[ChatService instance] sendMessage:message];
         
@@ -236,7 +237,7 @@
     if (result.success && [result isKindOfClass:QBChatHistoryMessageResult.class]) {
         QBChatHistoryMessageResult *res = (QBChatHistoryMessageResult *)result;
         NSArray *messages = res.messages;
-        self.messages = [messages mutableCopy];
+        [self.messages addObjectsFromArray:[messages mutableCopy]];
         //
         [self.messagesTableView reloadData];
     }

@@ -100,7 +100,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     }
 }
 
-- (void)chatDidFailWithError:(int)code{
+- (void)chatDidFailWithError:(NSInteger)code{
     // relogin here
     [[QBChat instance] loginWithUser:self.currentUser];
 }

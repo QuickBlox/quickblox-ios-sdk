@@ -11,7 +11,7 @@
 
 @interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource, QBActionStatusDelegate>
 
-@property (nonatomic, strong) NSArray *dialogs;
+@property (nonatomic, strong) NSMutableArray *dialogs;
 @property (nonatomic, weak) IBOutlet UITableView *dialogsTableView;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
@@ -19,14 +19,13 @@
 
 @implementation DialogsViewController
 
-
 #pragma mark
 #pragma mark ViewController lyfe cycle
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    if(self.dialogs == nil && [LocalStorageService shared].currentUser != nil){
+    if([LocalStorageService shared].currentUser != nil){
         [self.activityIndicator startAnimating];
         
         // get dialogs
@@ -42,6 +41,10 @@
         // Show splash
         [self.navigationController performSegueWithIdentifier:kShowSplashViewControllerSegue sender:nil];
     });
+    
+    if(self.createdDialog != nil){
+        [self performSegueWithIdentifier:kShowNewChatViewControllerSegue sender:nil];
+    }
 }
 
 
@@ -49,7 +52,7 @@
 #pragma mark Actions
 
 - (IBAction)createDialog:(id)sender{
-    [self.navigationController performSegueWithIdentifier:kShowUsersViewControllerSegue sender:nil];
+    [self performSegueWithIdentifier:kShowUsersViewControllerSegue sender:nil];
 }
 
 
@@ -60,8 +63,13 @@
     if([segue.destinationViewController isKindOfClass:ChatViewController.class]){
         ChatViewController *destinationViewController = (ChatViewController *)segue.destinationViewController;
         
-        QBChatDialog *dialog= self.dialogs[((UITableViewCell *)sender).tag];
-        destinationViewController.dialog = dialog;
+        if(self.createdDialog != nil){
+            destinationViewController.dialog = self.createdDialog;
+            self.createdDialog = nil;
+        }else{
+            QBChatDialog *dialog = self.dialogs[((UITableViewCell *)sender).tag];
+            destinationViewController.dialog = dialog;
+        }
     }
 }
 
@@ -116,7 +124,7 @@
         QBDialogsPagedResult *pagedResult = (QBDialogsPagedResult *)result;
         //
         NSArray *dialogs = pagedResult.dialogs;
-        self.dialogs = dialogs;
+        self.dialogs = [dialogs mutableCopy];
         //
         [self.dialogsTableView reloadData];
         [self.activityIndicator stopAnimating];
