@@ -107,7 +107,7 @@ static UIImage *aquaBubble;
         self.backgroundImageView.image = aquaBubble;
         
         self.dateLabel.textAlignment = NSTextAlignmentRight;
-        self.dateLabel.text = [NSString stringWithFormat:@"%d, %@", message.senderID, time];
+        self.dateLabel.text = [NSString stringWithFormat:@"%lu, %@", (unsigned long)message.senderID, time];
     }
 }
 

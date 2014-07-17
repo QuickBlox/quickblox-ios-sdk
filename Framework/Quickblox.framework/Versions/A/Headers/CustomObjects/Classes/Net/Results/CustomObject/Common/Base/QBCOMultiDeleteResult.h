@@ -12,8 +12,13 @@
 
 @interface QBCOMultiDeleteResult : Result
 
+/** An array of deleted objects IDs */
 @property (nonatomic, readonly) NSArray *deletedObjectsIDs;
+
+/** An array of objects IDs which were not found */
 @property (nonatomic, readonly) NSArray *notFoundObjectsIDs;
+
+/** An array of objects IDs which user wasn't be able to delete due to wrong permissions */
 @property (nonatomic, readonly) NSArray *wrongPermissionsObjectsIDs;
 
 @end

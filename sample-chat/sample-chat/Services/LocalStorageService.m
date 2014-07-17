@@ -22,4 +22,16 @@
 	return instance;
 }
 
+- (void)setUsers:(NSArray *)users
+{
+    _users = users;
+    
+    NSMutableDictionary *__usersAsDictionary = [NSMutableDictionary dictionary];
+    for(QBUUser *user in users){
+        [__usersAsDictionary setObject:user forKey:@(user.ID)];
+    }
+    
+    _usersAsDictionary = [__usersAsDictionary copy];
+}
+
 @end

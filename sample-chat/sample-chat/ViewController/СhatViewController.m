@@ -49,7 +49,12 @@
                                                  name:kNotificationDidReceiveNewMessageFromRoom object:nil];
     
     // Set title
-    self.title = self.dialog.name;
+    if(self.dialog.type == QBChatDialogTypePrivate){
+        QBUUser *recipient = [LocalStorageService shared].usersAsDictionary[@(self.dialog.recipientID)];
+        self.title = recipient.login == nil ? recipient.email : recipient.login;
+    }else{
+        self.title = self.dialog.name;
+    }
 
     // Join room
     if(self.dialog.type != QBChatDialogTypePrivate){
