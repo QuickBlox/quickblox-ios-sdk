@@ -13,6 +13,7 @@ This project contains QuickBlox iOS SDK, that includes
 * [snippets](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/snippets) (shows main use cases of using this one)
 * samples (separated samples for each QuickBlox module)
   * [Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat)
+  * [VideoChat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat)
   * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
   * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
   * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
@@ -188,6 +189,7 @@ iOS Framework provides following classes to interact with QuickBlox API (each cl
 * QBAuth
 * QBUsers
 * QBChat
+* QBVideoChat
 * QBCustomObjects
 * QBLocation
 * QBContent
