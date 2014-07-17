@@ -225,9 +225,9 @@
                     NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"London" ofType:@"jpg"]];
                     
                     if(withContext){
-                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:YES delegate:self context:testContext];
+                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/jpg" isPublic:YES delegate:self context:testContext];
                     }else{
-                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:YES delegate:self];
+                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/jpg" isPublic:YES delegate:self];
                     }
                 }
                     break;
@@ -244,10 +244,10 @@
                     
                 // TUpdateFile
                 case 2:{
-                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"plus" ofType:@"png"]];
+                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"London" ofType:@"jpg"]];
                     QBCBlob *blob = [QBCBlob blob];
                     blob.ID = 65268;
-                    blob.name = @"Plus";
+                    blob.name = @"London";
                     
                     if(withContext){
                         [QBContent TUpdateFileWithData:file file:blob delegate:self context:testContext];

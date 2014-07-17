@@ -291,9 +291,9 @@
             // Upload file
             case 0:{
                 QBCOFile *file = [QBCOFile file];
-                file.name = @"plus";
-                file.contentType = @"image/png";
-                file.data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"plus" ofType:@"png"]];
+                file.name = @"London";
+                file.contentType = @"image/jpg";
+                file.data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"London" ofType:@"jpg"]];
                 
                 if(withContext){
                     [QBCustomObjects uploadFile:file className:@"Movie" objectID:@"5256c265535c128020000182" fileFieldName:@"image" delegate:self];
