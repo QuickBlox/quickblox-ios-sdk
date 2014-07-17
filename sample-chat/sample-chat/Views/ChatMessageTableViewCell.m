@@ -21,7 +21,7 @@ static UIImage *aquaBubble;
     
     // init message datetime formatter
     messageDateFormatter = [[NSDateFormatter alloc] init];
-    [messageDateFormatter setDateFormat: @"yyyy-mm-dd HH:mm:ss"];
+    [messageDateFormatter setDateFormat: @"yyyy-mm-dd HH:mm"];
     [messageDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
     
     // init bubbles
@@ -94,7 +94,7 @@ static UIImage *aquaBubble;
         self.backgroundImageView.image = orangeBubble;
         
         self.dateLabel.textAlignment = NSTextAlignmentLeft;
-        self.dateLabel.text = [NSString stringWithFormat:@"%@ %@", [[LocalStorageService shared].currentUser login], time];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@, %@", [[LocalStorageService shared].currentUser login], time];
         
     } else {
         [self.messageTextView setFrame:CGRectMake(320-size.width-padding/2, padding+5, size.width, size.height+padding)];
@@ -105,7 +105,7 @@ static UIImage *aquaBubble;
         self.backgroundImageView.image = aquaBubble;
         
         self.dateLabel.textAlignment = NSTextAlignmentRight;
-        self.dateLabel.text = [NSString stringWithFormat:@"%d %@", message.senderID, time];
+        self.dateLabel.text = [NSString stringWithFormat:@"%d, %@", message.senderID, time];
     }
 }
 

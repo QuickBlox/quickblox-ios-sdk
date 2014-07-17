@@ -51,6 +51,7 @@
             //
             QBUUser *currentUser = [QBUUser user];
             currentUser.ID = res.session.userID;
+            currentUser.login = demoUserLogin;
             currentUser.password = demoUserPassword;
             //
             [[LocalStorageService shared] setCurrentUser:currentUser];
@@ -64,8 +65,6 @@
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                     [self dismissViewControllerAnimated:YES completion:nil];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoggedInNotification object:nil];
                 });
             }];
 

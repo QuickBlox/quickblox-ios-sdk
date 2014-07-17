@@ -62,7 +62,7 @@
 		BFBD3C951832CFAF009D090B /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		BFBD3C971833D654009D090B /* CharactersEscapeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharactersEscapeService.h; sourceTree = "<group>"; };
 		BFBD3C981833D654009D090B /* CharactersEscapeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharactersEscapeService.m; sourceTree = "<group>"; };
-		BFE6FB72180E8EF100E64AC4 /* sample-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFE6FB72180E8EF100E64AC4 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB75180E8EF100E64AC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BFE6FB79180E8EF100E64AC4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -157,7 +157,7 @@
 		BFE6FB73180E8EF100E64AC4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BFE6FB72180E8EF100E64AC4 /* sample-chat.app */,
+				BFE6FB72180E8EF100E64AC4 /* Chat.app */,
 				BFE6FB96180E8EF100E64AC4 /* sample-chatTests.xctest */,
 			);
 			name = Products;
@@ -297,7 +297,7 @@
 			);
 			name = "sample-chat";
 			productName = "sample-chat";
-			productReference = BFE6FB72180E8EF100E64AC4 /* sample-chat.app */;
+			productReference = BFE6FB72180E8EF100E64AC4 /* Chat.app */;
 			productType = "com.apple.product-type.application";
 		};
 		BFE6FB95180E8EF100E64AC4 /* sample-chatTests */ = {
@@ -522,7 +522,7 @@
 					"-ObjC",
 					"-lxml2",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Chat;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -547,7 +547,7 @@
 					"-ObjC",
 					"-lxml2",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Chat;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
