@@ -24,8 +24,5 @@
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-#define kUserLoggedInNotification @"kUserLoggedInNotification"
-
 #define kShowSplashViewControllerSegue @"ShowSplashViewControllerSegue"
-#define kShowLoginViewControllerSegue @"ShowLoginViewControllerSegue"
-#define kShowRegistrationViewControllerSegue @"ShowRegistrationViewControllerSegue"
+#define kShowUsersViewControllerSegue @"ShowUsersViewControllerSegue"

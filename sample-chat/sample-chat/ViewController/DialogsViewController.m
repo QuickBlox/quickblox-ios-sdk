@@ -49,7 +49,7 @@
 #pragma mark Actions
 
 - (IBAction)createDialog:(id)sender{
-
+    [self.navigationController performSegueWithIdentifier:kShowUsersViewControllerSegue sender:nil];
 }
 
 
@@ -57,15 +57,12 @@
 #pragma mark Storyboard
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ChatViewController *destinationViewController = (ChatViewController *)segue.destinationViewController;
-    
-    QBChatDialog *dialog;
-    if([sender isKindOfClass:[UITableViewCell class]]){
-        dialog = self.dialogs[((UITableViewCell *)sender).tag];
-    }else{
-        dialog = sender;
+    if([segue.destinationViewController isKindOfClass:ChatViewController.class]){
+        ChatViewController *destinationViewController = (ChatViewController *)segue.destinationViewController;
+        
+        QBChatDialog *dialog= self.dialogs[((UITableViewCell *)sender).tag];
+        destinationViewController.dialog = dialog;
     }
-    destinationViewController.dialog = dialog;
 }
 
 

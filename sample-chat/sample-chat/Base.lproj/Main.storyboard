@@ -10,10 +10,10 @@
             <objects>
                 <viewController title="Users" id="CZ4-MO-1fc" customClass="UsersViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2VE-Yg-loa">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a user to chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rmX-dI-vPV">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select users to chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rmX-dI-vPV">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -21,19 +21,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nOe-Ur-qeN">
-                                <rect key="frame" x="0.0" y="40" width="320" height="528"/>
+                                <rect key="frame" x="0.0" y="40" width="320" height="426"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserCellIdentifier" textLabel="qlg-Cd-bmZ" imageView="g8M-no-p0T" style="IBUITableViewCellStyleDefault" id="2RO-CJ-Dlf">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCellIdentifier" textLabel="qlg-Cd-bmZ" imageView="g8M-no-p0T" style="IBUITableViewCellStyleDefault" id="2RO-CJ-Dlf">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2RO-CJ-Dlf" id="pSf-hL-a5V">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qlg-Cd-bmZ">
-                                                    <rect key="frame" x="73" y="0.0" width="212" height="43"/>
+                                                    <rect key="frame" x="73" y="0.0" width="232" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -52,6 +52,16 @@
                                     <outlet property="delegate" destination="CZ4-MO-1fc" id="790-ES-HkF"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pCY-AL-nAh">
+                                <rect key="frame" x="0.0" y="467" width="320" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <state key="normal" title="Create dialog">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createDialog:" destination="CZ4-MO-1fc" eventType="touchUpInside" id="CxX-Ij-8Eb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -64,10 +74,10 @@
             </objects>
             <point key="canvasLocation" x="1175" y="-138"/>
         </scene>
-        <!--Dialogs View Controller - Chat Rooms-->
+        <!--Dialogs View Controller - Chat dialogs-->
         <scene sceneID="ot8-2e-RuS">
             <objects>
-                <viewController title="Chat Rooms" id="QUy-BD-bpt" customClass="DialogsViewController" sceneMemberID="viewController">
+                <viewController title="Chat dialogs" id="QUy-BD-bpt" customClass="DialogsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gMD-aP-Fq6">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -128,10 +138,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Chat Rooms" id="eq7-DE-EwA">
+                    <navigationItem key="navigationItem" title="Chat dialogs" id="eq7-DE-EwA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DkM-we-UnK">
                             <connections>
                                 <action selector="createDialog:" destination="QUy-BD-bpt" id="QtX-Bh-Ufv"/>
+                                <segue destination="CZ4-MO-1fc" kind="push" identifier="ShowUsersViewControllerSegue" id="wQP-Oh-GRr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
