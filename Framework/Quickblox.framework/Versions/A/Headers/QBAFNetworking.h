@@ -29,15 +29,6 @@
     #import "QBAFURLConnectionOperation.h"
 
     #import "QBAFHTTPRequestOperation.h"
-//    #import "AFJSONRequestOperation.h"
-//    #import "AFXMLRequestOperation.h"
-//    #import "AFPropertyListRequestOperation.h"
-    #import "QBAFHTTPClient.h"
 
-//    #import "AFImageRequestOperation.h"
-//
-//    #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-//        #import "AFNetworkActivityIndicatorManager.h"
-//        #import "UIImageView+AFNetworking.h"
-//    #endif
+    #import "QBAFHTTPClient.h"
 #endif /* _QBAFNETWORKING_ */

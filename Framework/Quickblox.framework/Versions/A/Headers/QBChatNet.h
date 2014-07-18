@@ -8,3 +8,15 @@
 
 #import <Quickblox/QBVideoChat.h>
 #import <Quickblox/QBChat.h>
+#import <Quickblox/QBChatQuery.h>
+
+#import <Quickblox/QBDialogGetQuery.h>
+#import <Quickblox/QBChatHistoryMessageGetQuery.h>
+#import <Quickblox/QBChatDialogCreateQuery.h>
+#import <Quickblox/QBChatDialogUpdateQuery.h>
+#import <Quickblox/QBChatHistoryMessageUpdateQuery.h>
+#import <Quickblox/QBChatHistoryMessageDeleteQuery.h>
+
+#import <Quickblox/QBChatDialogResult.h>
+#import <Quickblox/QBChatHistoryMessageResult.h>
+#import <Quickblox/QBDialogsPagedResult.h>

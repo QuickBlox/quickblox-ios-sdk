@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "QBLocationStructs.h"
-#import "QBLocationEnums.h"
 
 @interface QBLGeoDataFilter : NSObject
 

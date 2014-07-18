@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ChatEnums.h"
 
+@class QBChatRoom;
 @interface QBChatDialog : NSObject <NSCoding, NSCopying> {
 @private
     NSString *ID;
@@ -17,6 +18,7 @@
     NSString *lastMessageText;
     NSDate *lastMessageDate;
     NSUInteger lastMessageUserID;
+    NSUInteger unreadMessagesCount;
     NSArray *occupantIDs;
     enum QBChatDialogType type;
 }
@@ -42,7 +44,17 @@
 /** User ID of last opponent in private or group chat */
 @property (nonatomic, assign) NSUInteger lastMessageUserID;
 
+/** Number of unread messages in this dialog */
+@property (nonatomic, assign) NSUInteger unreadMessagesCount;
+
 /** Array of user ids in chat. For private chat count = 2 */
 @property (nonatomic, retain) NSArray *occupantIDs;
+
+
+/** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise or if you aren't logged in to Chat.  */
+@property (nonatomic, readonly) NSInteger recipientID;
+
+/** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
+@property (nonatomic, readonly) QBChatRoom *chatRoom;
 
 @end

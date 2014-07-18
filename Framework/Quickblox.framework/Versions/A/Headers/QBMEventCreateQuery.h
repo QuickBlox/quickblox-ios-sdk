@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBMEventQuery.h>
+#import "QBMEventQuery.h"
 
 @class QBMEvent;
 @interface QBMEventCreateQuery : QBMEventQuery {

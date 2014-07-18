@@ -17,6 +17,7 @@
 @interface QBChatUtils : NSObject
 
 // QBUser <-> JID
++ (NSString *)JIDFromCurrentUserID:(NSUInteger)userID;
 + (NSString *)JIDFromUserID:(NSUInteger)userID;
 + (NSUInteger)userIDFromJID:(NSString *)jid;
 
@@ -58,5 +59,7 @@
 
 // Internet
 + (NSString *)getIPAddress;
+
++ (void)extractParametersToRequestURL:(NSMutableDictionary *)parameters requestURL:(NSMutableString *)requestURL;
 
 @end
