@@ -108,7 +108,6 @@
                             [QBContent blobsWithPagedRequest:pagedRequest delegate:self];
                         }
                         
-                        [pagedRequest release];
                     }else{
                         [QBContent blobsWithDelegate:self];
                     }
@@ -128,7 +127,6 @@
                             [QBContent taggedBlobsWithPagedRequest:pagedRequest delegate:self];
                         }
                         
-                        [pagedRequest release];
                     }else{
                         [QBContent taggedBlobsWithDelegate:self];
                     }
@@ -192,7 +190,7 @@
                     
                 // Upload file
                 case 9:{
-                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"YellowStar" ofType:@"png"]];
+                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"London" ofType:@"jpg"]];
                     //
                     // Note: 'blobWithWriteAccess' - you must obtain this object from 'createBlob' query result 
                     //
@@ -227,9 +225,9 @@
                     NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"London" ofType:@"jpg"]];
                     
                     if(withContext){
-                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:YES delegate:self context:testContext];
+                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/jpg" isPublic:YES delegate:self context:testContext];
                     }else{
-                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:YES delegate:self];
+                        [QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/jpg" isPublic:YES delegate:self];
                     }
                 }
                     break;
@@ -237,19 +235,19 @@
                 // TDownloadFileWithBlobID
                 case 1:{
                     if(withContext){
-                        [QBContent TDownloadFileWithBlobID:70358 delegate:self context:testContext];
+                        [QBContent TDownloadFileWithBlobID:6 delegate:self context:testContext];
                     }else{
-                        [QBContent TDownloadFileWithBlobID:70358 delegate:self];
+                        [QBContent TDownloadFileWithBlobID:6 delegate:self];
                     }
                 }
                     break;
                     
                 // TUpdateFile
                 case 2:{
-                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"plus" ofType:@"png"]];
+                    NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"London" ofType:@"jpg"]];
                     QBCBlob *blob = [QBCBlob blob];
                     blob.ID = 65268;
-                    blob.name = @"Plus";
+                    blob.name = @"London";
                     
                     if(withContext){
                         [QBContent TUpdateFileWithData:file file:blob delegate:self context:testContext];
@@ -271,11 +269,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
@@ -390,7 +388,7 @@
         // Upload file task result
         }else if([result isKindOfClass:QBCFileUploadTaskResult.class]){
             QBCFileUploadTaskResult *res = (QBCFileUploadTaskResult *)result;
-            NSLog(@"QBCFileUploadTaskResult, uploadedBlob=%@", res.uploadedBlob);
+            NSLog(@"QBCFileUploadTaskResult, uploadedBlob=%@", res.uploadedBlob.publicUrl);
             
         // Download file task result
         }else if([result isKindOfClass:QBCFileDownloadTaskResult.class]){
@@ -415,11 +413,7 @@
 }
 
 -(void)setProgress:(float)progress{
-//     NSLog(@"setProgress %f", progress);
-}
-
--(void)setUploadProgress:(float)progress{
-    NSLog(@"setUploadProgress %f", progress);
+     NSLog(@"setProgress %f", progress);
 }
 
 @end

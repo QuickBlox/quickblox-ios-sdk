@@ -8,12 +8,13 @@
 
 #import "UsersViewController.h"
 #import "UsersPaginator.h"
-#import "MainTabBarController.h"
 #import "СhatViewController.h"
+#import "DialogsViewController.h"
 
-@interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate>
+@interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate, QBActionStatusDelegate>
 
 @property (nonatomic, strong) NSMutableArray *users;
+@property (nonatomic, strong) NSMutableArray *selectedUsers;
 @property (nonatomic, weak) IBOutlet UITableView *usersTableView;
 @property (nonatomic, strong) UsersPaginator *paginator;
 @property (nonatomic, strong) UILabel *footerLabel;
@@ -31,38 +32,52 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidLogin)
-                                                 name:kUserLoggedInNotification object:nil];
-    
     self.users = [NSMutableArray array];
+    self.selectedUsers = [NSMutableArray array];
     self.paginator = [[UsersPaginator alloc] initWithPageSize:10 delegate:self];
 }
 
-- (void)userDidLogin{
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self.activityIndicator startAnimating];
+    
     [self setupTableViewFooter];
     
     // Fetch 10 users
     [self.paginator fetchFirstPage];
 }
 
-
-#pragma mark
-#pragma mark Storyboard
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-    // check if users is logged in
-    if([LocalStorageService shared].currentUser == nil){
-        [((MainTabBarController *)self.tabBarController) showUserIsNotLoggedInAlert];
-        return NO;
+- (IBAction)createDialog:(id)sender{
+    if(self.selectedUsers.count == 0){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                        message:@"Please choose at least one user"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        [alert show];
+        return;
     }
     
-    return YES;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    ChatViewController *destinationViewController = (ChatViewController *)segue.destinationViewController;
-    QBUUser *user = (QBUUser *)self.users[((UITableViewCell *)sender).tag];
-    destinationViewController.opponent = user;
+    
+    QBChatDialog *chatDialog = [QBChatDialog new];
+    
+    NSMutableArray *selectedUsersIDs = [NSMutableArray array];
+    NSMutableArray *selectedUsersNames = [NSMutableArray array];
+    for(QBUUser *user in self.selectedUsers){
+        [selectedUsersIDs addObject:@(user.ID)];
+        [selectedUsersNames addObject:user.login == nil ? user.email : user.login];
+    }
+    chatDialog.occupantIDs = selectedUsersIDs;
+    
+    if(self.selectedUsers.count == 1){
+        chatDialog.type = QBChatDialogTypePrivate;
+    }else{
+        chatDialog.name = [selectedUsersNames componentsJoinedByString:@","];
+        chatDialog.type = QBChatDialogTypeGroup;
+    }
+    
+    [QBChat createDialog:chatDialog delegate:self];
 }
 
 
@@ -102,8 +117,8 @@
 - (void)updateTableViewFooter
 {
     if ([self.paginator.results count] != 0){
-        self.footerLabel.text = [NSString stringWithFormat:@"%d results out of %d",
-                                 [self.paginator.results count], self.paginator.total];
+        self.footerLabel.text = [NSString stringWithFormat:@"%lu results out of %ld",
+                                 (unsigned long)[self.paginator.results count], (long)self.paginator.total];
     }else{
         self.footerLabel.text = @"";
     }
@@ -128,11 +143,28 @@
     cell.tag = indexPath.row;
     cell.textLabel.text = user.login;
     
+     if([self.selectedUsers containsObject:user]){
+         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+     }else{
+         cell.accessoryType = UITableViewCellAccessoryNone;
+     }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    UITableViewCell *selectedCell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    QBUUser *user = (QBUUser *)self.users[indexPath.row];
+    if([self.selectedUsers containsObject:user]){
+        [self.selectedUsers removeObject:user];
+        selectedCell.accessoryType = UITableViewCellAccessoryNone;
+    }else{
+        [self.selectedUsers addObject:user];
+        selectedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
 }
 
 
@@ -148,6 +180,32 @@
             // fetch next page of results
             [self fetchNextPage];
         }
+    }
+}
+
+
+#pragma mark -
+#pragma mark QBActionStatusDelegate
+
+// QuickBlox API queries delegate
+- (void)completedWithResult:(Result *)result{
+    if (result.success && [result isKindOfClass:[QBChatDialogResult class]]) {
+        // dialog created
+        
+        QBChatDialogResult *dialogRes = (QBChatDialogResult *)result;
+        
+        DialogsViewController *dialogsViewController = self.navigationController.viewControllers[0];
+        dialogsViewController.createdDialog = dialogRes.dialog;
+        
+        [self.navigationController popViewControllerAnimated:YES];
+  
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                        message:[[result errors] componentsJoinedByString:@","]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        [alert show];
     }
 }
 

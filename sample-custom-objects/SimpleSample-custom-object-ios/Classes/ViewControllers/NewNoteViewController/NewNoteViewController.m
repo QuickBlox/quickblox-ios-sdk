@@ -22,14 +22,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
-    [noteTextField release];
-    [commentTextField release];
-    [super dealloc];
-}
 
 - (IBAction)back:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)next:(id)sender {
@@ -52,7 +47,6 @@
                                                cancelButtonTitle:@"Ok"
                                                otherButtonTitles:nil];
         [allert show];
-        [allert release];
     }
 }
 
@@ -88,7 +82,7 @@
             [[[DataManager shared] notes] addObject:res.object];
             
             // hide screen
-            [self dismissModalViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }
 }

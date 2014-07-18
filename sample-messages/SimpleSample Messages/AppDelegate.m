@@ -13,11 +13,6 @@
 @synthesize window = _window;
 @synthesize splashViewController;
 
-- (void)dealloc {
-    [splashViewController release];
-    [_window release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -35,11 +30,11 @@
 #endif
     
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
     // show splash controller
-    self.splashViewController = [[[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil] autorelease];
+    self.splashViewController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
     self.window.rootViewController = (UIViewController *)self.splashViewController;
     [self.window makeKeyAndVisible];
     
@@ -55,7 +50,7 @@
     NSMutableDictionary *pushInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:message, @"message", nil];
     
     // get push rich content
-    NSString *richContent = [[userInfo objectForKey:QBMPushMessageApsKey] objectForKey:@"rich_content"];
+    NSString *richContent = [userInfo objectForKey:@"rich_content"];
     if(richContent != nil){
         [pushInfo setObject:richContent forKey:@"rich_content"];
     }

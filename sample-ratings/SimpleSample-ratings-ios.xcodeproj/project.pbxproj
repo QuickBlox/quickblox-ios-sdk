@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		431EE5151600A42A00E85366 /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 431EE5141600A42A00E85366 /* images.jpeg */; };
-		438146731600A13200A508F5 /* images.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 438146701600A13200A508F5 /* images.jpg */; };
-		43900C10162455930041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C0F162455930041381B /* Default-568h@2x.png */; };
 		43ECA73D1600984D005DC731 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43ECA73F1600984D005DC731 /* SplashViewController.xib */; };
 		BFA79ED81843E6580044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED71843E6580044D9E0 /* Security.framework */; };
 		BFAAF52A1785D513009379B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5291785D513009379B9 /* QuartzCore.framework */; };
+		BFCEAD2C1976A97F006279FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD2B1976A97F006279FC /* Images.xcassets */; };
+		BFCEAD3B1976ABDF006279FC /* fight_club.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD341976ABDF006279FC /* fight_club.jpg */; };
+		BFCEAD3C1976ABDF006279FC /* godfather.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD351976ABDF006279FC /* godfather.jpg */; };
+		BFCEAD3D1976ABDF006279FC /* hachiko.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD361976ABDF006279FC /* hachiko.jpg */; };
+		BFCEAD3E1976ABDF006279FC /* harry_potter.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD371976ABDF006279FC /* harry_potter.jpg */; };
+		BFCEAD3F1976ABDF006279FC /* shawshank_redemption.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD381976ABDF006279FC /* shawshank_redemption.jpg */; };
+		BFCEAD401976ABDF006279FC /* ted.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD391976ABDF006279FC /* ted.jpg */; };
+		BFCEAD411976ABDF006279FC /* the_lord_of_the_rings.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD3A1976ABDF006279FC /* the_lord_of_the_rings.jpg */; };
 		ED3BA44B15AC1097002B8CFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44A15AC1097002B8CFE /* UIKit.framework */; };
 		ED3BA44D15AC1097002B8CFE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44C15AC1097002B8CFE /* Foundation.framework */; };
 		ED3BA44F15AC1097002B8CFE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA44E15AC1097002B8CFE /* CoreGraphics.framework */; };
@@ -25,21 +30,6 @@
 		ED3BA49715AC1DD8002B8CFE /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA49615AC1DD8002B8CFE /* libresolv.dylib */; };
 		ED3BA49915AC1E04002B8CFE /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BA49815AC1E04002B8CFE /* libxml2.dylib */; };
 		ED6EE60A16773CE1004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE60916773CE1004BCAC7 /* Quickblox.framework */; };
-		FA023ED01602335C00948B7E /* fight_club.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC01602335C00948B7E /* fight_club.jpg */; };
-		FA023ED11602335C00948B7E /* godfather.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC11602335C00948B7E /* godfather.jpg */; };
-		FA023ED21602335C00948B7E /* hachiko.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC21602335C00948B7E /* hachiko.jpg */; };
-		FA023ED31602335C00948B7E /* harry_potter.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC31602335C00948B7E /* harry_potter.jpg */; };
-		FA023ED41602335C00948B7E /* shawshank_redemption.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC41602335C00948B7E /* shawshank_redemption.jpg */; };
-		FA023ED51602335C00948B7E /* ted.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC51602335C00948B7E /* ted.jpg */; };
-		FA023ED61602335C00948B7E /* the_lord_of_the_rings.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC61602335C00948B7E /* the_lord_of_the_rings.jpg */; };
-		FA023ED71602335C00948B7E /* StarEmpty.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC81602335C00948B7E /* StarEmpty.png */; };
-		FA023ED81602335C00948B7E /* StarEmpty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023EC91602335C00948B7E /* StarEmpty@2x.png */; };
-		FA023ED91602335C00948B7E /* StarEmptyLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023ECA1602335C00948B7E /* StarEmptyLarge.png */; };
-		FA023EDA1602335C00948B7E /* StarEmptyLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023ECB1602335C00948B7E /* StarEmptyLarge@2x.png */; };
-		FA023EDB1602335C00948B7E /* StarFull.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023ECC1602335C00948B7E /* StarFull.png */; };
-		FA023EDC1602335C00948B7E /* StarFull@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023ECD1602335C00948B7E /* StarFull@2x.png */; };
-		FA023EDD1602335C00948B7E /* StarFullLarge.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023ECE1602335C00948B7E /* StarFullLarge.png */; };
-		FA023EDE1602335C00948B7E /* StarFullLarge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA023ECF1602335C00948B7E /* StarFullLarge@2x.png */; };
 		FA023EF81602339A00948B7E /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA023EEC1602339A00948B7E /* SplashViewController.m */; };
 		FA023EF91602339A00948B7E /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA023EEF1602339A00948B7E /* CustomTableViewCell.m */; };
 		FA023EFA1602339A00948B7E /* RateView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA023EF11602339A00948B7E /* RateView.m */; };
@@ -49,13 +39,9 @@
 		FA023F081602345300948B7E /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA023F061602345300948B7E /* MovieDetailsViewController.m */; };
 		FA023F0E1602348100948B7E /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FA023F0B1602348100948B7E /* DataManager.m */; };
 		FA023F0F1602348100948B7E /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = FA023F0D1602348100948B7E /* Movie.m */; };
-		FA6ECF8115BEA59D00833341 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF5C15BEA59D00833341 /* Default.png */; };
-		FA6ECF8215BEA59D00833341 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF5D15BEA59D00833341 /* icon.png */; };
-		FA6ECF8315BEA59D00833341 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF5E15BEA59D00833341 /* logo.png */; };
 		FA6ECF8915BEA59D00833341 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6ECF6715BEA59D00833341 /* AppDelegate.m */; };
 		FA6ECF9115BEA59D00833341 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF7915BEA59D00833341 /* InfoPlist.strings */; };
 		FA6ECF9215BEA59D00833341 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6ECF7B15BEA59D00833341 /* main.m */; };
-		FA6ECF9315BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA6ECF7C15BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist */; };
 		FAC8B9E116D2D4A200F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E016D2D4A200F03311 /* CoreVideo.framework */; };
 		FAC8B9E316D2D4A700F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E216D2D4A600F03311 /* CoreMedia.framework */; };
 		FAC8B9E516D2D4AD00F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9E416D2D4AD00F03311 /* AVFoundation.framework */; };
@@ -64,12 +50,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		431EE5141600A42A00E85366 /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
-		438146701600A13200A508F5 /* images.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpg; sourceTree = "<group>"; };
-		43900C0F162455930041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43ECA73E1600984D005DC731 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SplashViewController.xib; sourceTree = "<group>"; };
 		BFA79ED71843E6580044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFAAF5291785D513009379B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BFCEAD2B1976A97F006279FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BFCEAD341976ABDF006279FC /* fight_club.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fight_club.jpg; sourceTree = "<group>"; };
+		BFCEAD351976ABDF006279FC /* godfather.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = godfather.jpg; sourceTree = "<group>"; };
+		BFCEAD361976ABDF006279FC /* hachiko.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hachiko.jpg; sourceTree = "<group>"; };
+		BFCEAD371976ABDF006279FC /* harry_potter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = harry_potter.jpg; sourceTree = "<group>"; };
+		BFCEAD381976ABDF006279FC /* shawshank_redemption.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = shawshank_redemption.jpg; sourceTree = "<group>"; };
+		BFCEAD391976ABDF006279FC /* ted.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ted.jpg; sourceTree = "<group>"; };
+		BFCEAD3A1976ABDF006279FC /* the_lord_of_the_rings.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = the_lord_of_the_rings.jpg; sourceTree = "<group>"; };
 		ED3BA44615AC1097002B8CFE /* Ratings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ratings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED3BA44A15AC1097002B8CFE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ED3BA44C15AC1097002B8CFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -83,21 +74,6 @@
 		ED3BA49615AC1DD8002B8CFE /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		ED3BA49815AC1E04002B8CFE /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		ED6EE60916773CE1004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		FA023EC01602335C00948B7E /* fight_club.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fight_club.jpg; sourceTree = "<group>"; };
-		FA023EC11602335C00948B7E /* godfather.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = godfather.jpg; sourceTree = "<group>"; };
-		FA023EC21602335C00948B7E /* hachiko.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hachiko.jpg; sourceTree = "<group>"; };
-		FA023EC31602335C00948B7E /* harry_potter.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = harry_potter.jpg; sourceTree = "<group>"; };
-		FA023EC41602335C00948B7E /* shawshank_redemption.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = shawshank_redemption.jpg; sourceTree = "<group>"; };
-		FA023EC51602335C00948B7E /* ted.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ted.jpg; sourceTree = "<group>"; };
-		FA023EC61602335C00948B7E /* the_lord_of_the_rings.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = the_lord_of_the_rings.jpg; sourceTree = "<group>"; };
-		FA023EC81602335C00948B7E /* StarEmpty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarEmpty.png; sourceTree = "<group>"; };
-		FA023EC91602335C00948B7E /* StarEmpty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarEmpty@2x.png"; sourceTree = "<group>"; };
-		FA023ECA1602335C00948B7E /* StarEmptyLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarEmptyLarge.png; sourceTree = "<group>"; };
-		FA023ECB1602335C00948B7E /* StarEmptyLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarEmptyLarge@2x.png"; sourceTree = "<group>"; };
-		FA023ECC1602335C00948B7E /* StarFull.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarFull.png; sourceTree = "<group>"; };
-		FA023ECD1602335C00948B7E /* StarFull@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarFull@2x.png"; sourceTree = "<group>"; };
-		FA023ECE1602335C00948B7E /* StarFullLarge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StarFullLarge.png; sourceTree = "<group>"; };
-		FA023ECF1602335C00948B7E /* StarFullLarge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StarFullLarge@2x.png"; sourceTree = "<group>"; };
 		FA023EEB1602339A00948B7E /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		FA023EEC1602339A00948B7E /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		FA023EEE1602339A00948B7E /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
@@ -114,9 +90,6 @@
 		FA023F0B1602348100948B7E /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		FA023F0C1602348100948B7E /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
 		FA023F0D1602348100948B7E /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
-		FA6ECF5C15BEA59D00833341 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		FA6ECF5D15BEA59D00833341 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		FA6ECF5E15BEA59D00833341 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		FA6ECF6615BEA59D00833341 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FA6ECF6715BEA59D00833341 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FA6ECF7A15BEA59D00833341 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -160,6 +133,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BFCEAD331976ABDF006279FC /* movies */ = {
+			isa = PBXGroup;
+			children = (
+				BFCEAD341976ABDF006279FC /* fight_club.jpg */,
+				BFCEAD351976ABDF006279FC /* godfather.jpg */,
+				BFCEAD361976ABDF006279FC /* hachiko.jpg */,
+				BFCEAD371976ABDF006279FC /* harry_potter.jpg */,
+				BFCEAD381976ABDF006279FC /* shawshank_redemption.jpg */,
+				BFCEAD391976ABDF006279FC /* ted.jpg */,
+				BFCEAD3A1976ABDF006279FC /* the_lord_of_the_rings.jpg */,
+			);
+			path = movies;
+			sourceTree = "<group>";
+		};
 		ED3BA43B15AC1097002B8CFE = {
 			isa = PBXGroup;
 			children = (
@@ -202,35 +189,6 @@
 				ED3BA44E15AC1097002B8CFE /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FA023EBF1602335C00948B7E /* movies */ = {
-			isa = PBXGroup;
-			children = (
-				FA023EC01602335C00948B7E /* fight_club.jpg */,
-				FA023EC11602335C00948B7E /* godfather.jpg */,
-				FA023EC21602335C00948B7E /* hachiko.jpg */,
-				FA023EC31602335C00948B7E /* harry_potter.jpg */,
-				FA023EC41602335C00948B7E /* shawshank_redemption.jpg */,
-				FA023EC51602335C00948B7E /* ted.jpg */,
-				FA023EC61602335C00948B7E /* the_lord_of_the_rings.jpg */,
-			);
-			path = movies;
-			sourceTree = "<group>";
-		};
-		FA023EC71602335C00948B7E /* stars */ = {
-			isa = PBXGroup;
-			children = (
-				FA023EC81602335C00948B7E /* StarEmpty.png */,
-				FA023EC91602335C00948B7E /* StarEmpty@2x.png */,
-				FA023ECA1602335C00948B7E /* StarEmptyLarge.png */,
-				FA023ECB1602335C00948B7E /* StarEmptyLarge@2x.png */,
-				FA023ECC1602335C00948B7E /* StarFull.png */,
-				FA023ECD1602335C00948B7E /* StarFull@2x.png */,
-				FA023ECE1602335C00948B7E /* StarFullLarge.png */,
-				FA023ECF1602335C00948B7E /* StarFullLarge@2x.png */,
-			);
-			path = stars;
 			sourceTree = "<group>";
 		};
 		FA023EE31602339A00948B7E /* ViewControllers */ = {
@@ -295,25 +253,11 @@
 		FA6ECF5715BEA59D00833341 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FA6ECF5815BEA59D00833341 /* images */,
+				BFCEAD331976ABDF006279FC /* movies */,
 				FA6ECF6115BEA59D00833341 /* xibs */,
+				BFCEAD2B1976A97F006279FC /* Images.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		FA6ECF5815BEA59D00833341 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				FA023EBF1602335C00948B7E /* movies */,
-				FA023EC71602335C00948B7E /* stars */,
-				FA6ECF5C15BEA59D00833341 /* Default.png */,
-				FA6ECF5D15BEA59D00833341 /* icon.png */,
-				FA6ECF5E15BEA59D00833341 /* logo.png */,
-				438146701600A13200A508F5 /* images.jpg */,
-				431EE5141600A42A00E85366 /* images.jpeg */,
-				43900C0F162455930041381B /* Default-568h@2x.png */,
-			);
-			path = images;
 			sourceTree = "<group>";
 		};
 		FA6ECF6115BEA59D00833341 /* xibs */ = {
@@ -376,7 +320,7 @@
 		ED3BA43D15AC1097002B8CFE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0510;
 			};
 			buildConfigurationList = ED3BA44015AC1097002B8CFE /* Build configuration list for PBXProject "SimpleSample-ratings-ios" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -400,32 +344,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA6ECF8115BEA59D00833341 /* Default.png in Resources */,
-				FA6ECF8215BEA59D00833341 /* icon.png in Resources */,
-				FA6ECF8315BEA59D00833341 /* logo.png in Resources */,
+				BFCEAD2C1976A97F006279FC /* Images.xcassets in Resources */,
+				BFCEAD3D1976ABDF006279FC /* hachiko.jpg in Resources */,
 				43ECA73D1600984D005DC731 /* SplashViewController.xib in Resources */,
+				BFCEAD411976ABDF006279FC /* the_lord_of_the_rings.jpg in Resources */,
+				BFCEAD3B1976ABDF006279FC /* fight_club.jpg in Resources */,
+				BFCEAD3E1976ABDF006279FC /* harry_potter.jpg in Resources */,
+				BFCEAD3C1976ABDF006279FC /* godfather.jpg in Resources */,
+				BFCEAD401976ABDF006279FC /* ted.jpg in Resources */,
 				FA6ECF9115BEA59D00833341 /* InfoPlist.strings in Resources */,
-				FA6ECF9315BEA59D00833341 /* SimpleSample-ratings-ios-Info.plist in Resources */,
-				438146731600A13200A508F5 /* images.jpg in Resources */,
-				431EE5151600A42A00E85366 /* images.jpeg in Resources */,
-				FA023ED01602335C00948B7E /* fight_club.jpg in Resources */,
-				FA023ED11602335C00948B7E /* godfather.jpg in Resources */,
-				FA023ED21602335C00948B7E /* hachiko.jpg in Resources */,
-				FA023ED31602335C00948B7E /* harry_potter.jpg in Resources */,
-				FA023ED41602335C00948B7E /* shawshank_redemption.jpg in Resources */,
-				FA023ED51602335C00948B7E /* ted.jpg in Resources */,
-				FA023ED61602335C00948B7E /* the_lord_of_the_rings.jpg in Resources */,
-				FA023ED71602335C00948B7E /* StarEmpty.png in Resources */,
-				FA023ED81602335C00948B7E /* StarEmpty@2x.png in Resources */,
-				FA023ED91602335C00948B7E /* StarEmptyLarge.png in Resources */,
-				FA023EDA1602335C00948B7E /* StarEmptyLarge@2x.png in Resources */,
-				FA023EDB1602335C00948B7E /* StarFull.png in Resources */,
-				FA023EDC1602335C00948B7E /* StarFull@2x.png in Resources */,
-				FA023EDD1602335C00948B7E /* StarFullLarge.png in Resources */,
-				FA023EDE1602335C00948B7E /* StarFullLarge@2x.png in Resources */,
+				BFCEAD3F1976ABDF006279FC /* shawshank_redemption.jpg in Resources */,
 				FA023EFF160233E700948B7E /* MainViewController.xib in Resources */,
 				FA023F00160233E700948B7E /* MovieDetailsViewController.xib in Resources */,
-				43900C10162455930041381B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,7 +420,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				COPY_PHASE_STRIP = NO;
@@ -503,10 +438,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "DAE2D3F8-2688-4CB9-9C29-64A223CB206C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAE2D3F8-2688-4CB9-9C29-64A223CB206C";
 				SDKROOT = iphoneos;
@@ -517,14 +456,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -538,6 +485,9 @@
 		ED3BA46515AC1097002B8CFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -548,7 +498,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",
@@ -569,6 +519,9 @@
 		ED3BA46615AC1097002B8CFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Conark Intelmed";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -579,7 +532,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Prefix.pch";
 				INFOPLIST_FILE = "SimpleSample-ratings-ios/SimpleSample-ratings-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-ObjC",

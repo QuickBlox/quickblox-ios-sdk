@@ -8,20 +8,14 @@
 
 #import "SplashViewController.h"
 
+#define demoUserLogin @"igorquickblox"
+#define demoUserPassword @"igorquickblox"
+
 @interface SplashViewController () <QBActionStatusDelegate>
 
 @end
 
 @implementation SplashViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -31,7 +25,11 @@
     // Your app connects to QuickBlox server here.
     //
     // QuickBlox session creation
-	[QBAuth createSessionWithDelegate:self];
+    QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
+    extendedAuthRequest.userLogin = demoUserLogin;
+    extendedAuthRequest.userPassword = demoUserPassword;
+    //
+	[QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self];
 }
 
 
@@ -46,15 +44,40 @@
         
         // Success result
         if(result.success){
+
+            QBAAuthSessionCreationResult *res = (QBAAuthSessionCreationResult *)result;
             
-            double delayInSeconds = 1.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                // hide splash
-                [self dismissViewControllerAnimated:YES completion:nil];
+            // Save current user
+            //
+            QBUUser *currentUser = [QBUUser user];
+            currentUser.ID = res.session.userID;
+            currentUser.login = demoUserLogin;
+            currentUser.password = demoUserPassword;
+            //
+            [[LocalStorageService shared] setCurrentUser:currentUser];
+            
+            // Login to QuickBlox Chat
+            //
+            [[ChatService instance] loginWithUser:currentUser completionBlock:^{
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:kUserLoggedInNotification object:nil];
-            });
+                // hide alert after delay
+                double delayInSeconds = 1.0;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                });
+            }];
+
+        }else{
+            NSString *errorMessage = [[result.errors description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
+            errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                            message:errorMessage
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles: nil];
+            [alert show];
         }
     }
 }

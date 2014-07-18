@@ -36,13 +36,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc {
-    [message release];
-    [super dealloc];
-}
 
 - (IBAction)back:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -68,7 +64,6 @@
             [self.scrollView setContentSize:CGSizeMake(320, 420 * (imageNumber + 1))];
             [self.scrollView addSubview:imageView];
             
-            [imageView release];
             
             ++imageNumber;
             
@@ -76,6 +71,13 @@
                 [downloadProgress stopAnimating];
             }
         }
+    }
+}
+
+- (void)setProgress:(float)progress{
+    _progressView.progress = progress;
+    if(progress == 1){
+        _progressView.hidden = YES;
     }
 }
 

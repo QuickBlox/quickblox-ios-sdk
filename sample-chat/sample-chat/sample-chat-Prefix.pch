@@ -13,6 +13,8 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
+    #import <SystemConfiguration/SystemConfiguration.h>
     #import <Quickblox/Quickblox.h>
 
     #import "LocalStorageService.h"
@@ -22,8 +24,7 @@
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-#define kUserLoggedInNotification @"kUserLoggedInNotification"
-
 #define kShowSplashViewControllerSegue @"ShowSplashViewControllerSegue"
-#define kShowLoginViewControllerSegue @"ShowLoginViewControllerSegue"
-#define kShowRegistrationViewControllerSegue @"ShowRegistrationViewControllerSegue"
+#define kShowUsersViewControllerSegue @"ShowUsersViewControllerSegue"
+#define kShowChatViewControllerSegue @"ShowChatViewControllerSegue"
+#define kShowNewChatViewControllerSegue @"ShowNewChatViewControllerSegue"

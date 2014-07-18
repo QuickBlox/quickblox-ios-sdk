@@ -67,9 +67,9 @@
                 // Create session with User auth
                 case 1:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                    extendedAuthRequest.userLogin = @"supersample-ios"; // ID: 218651
-                    extendedAuthRequest.userPassword = @"supersample-ios";
-                    
+                    extendedAuthRequest.userLogin = UserLogin1;
+                    extendedAuthRequest.userPassword = UserPassword1;
+//
                     if(withContext){
                         [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self context:testContext];
                     }else{
@@ -96,7 +96,10 @@
                 case 3:{
                     QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
                     extendedAuthRequest.socialProvider = @"facebook";
-                    extendedAuthRequest.socialProviderAccessToken = @"CAAFox8fU5dUBAKg0dCytfoLHQHM3xrDPFLZBg8vdrlIhOFACbqjh3l3whr4riNrZCmhZAJFKoQrwzdXjETlgxEycGHV5yWF4BJA39KwfZAM2z1FWZAk9kLZAM11K7ZCGo0TZBZAjg3JeMip8o34OXzaRVqvcMtLzWr8z0uFRmyhr4LdNW9rGSHVfBue3P8eP7aVUNgvxqNeocl1w9ZAmyWTaxZA";
+                    extendedAuthRequest.socialProviderAccessToken = @"CAACEdEose0cBACAEDQSzjf9TcycrEZC8ZCLYGnFNgo3WpzSIredZBSFY2wla6u1CtZBfwXnQI2LAyJZCBuV4XtsLhZBp6ONaKdJk41eVqThZBJsQwPvSdt80MLk5xIK5eFWxIdLUk9mej9e6qRsVQlrixbekuXvPEkjmrDRG6MVCyzfQfraotZCTI0v19qtpxz4ZD";
+                    
+//                    extendedAuthRequest.socialProvider = @"twitter";
+//                    extendedAuthRequest.socialProviderAccessToken = @"183566025-TxJG7zCQAVNs6WRaRIVBXPxfaIvHXRIts9lGF1Zw";
 //                    extendedAuthRequest.socialProviderAccessTokenSecret = @"Hfv7UTtgLIGD89AkndSAdqloEpam16m48YSwhF6od7g";
                     
                     if(withContext){
@@ -133,11 +136,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
@@ -209,6 +212,10 @@
     NSLog(@"completedWithResult, context=%@", contextInfo);
     
     [self completedWithResult:result];
+}
+
+-(void)setProgress:(float)progress{
+    NSLog(@"setProgress %f", progress);
 }
 
 

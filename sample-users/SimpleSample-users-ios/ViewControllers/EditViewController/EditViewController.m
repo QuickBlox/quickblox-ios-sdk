@@ -15,12 +15,6 @@
 @implementation EditViewController
 @synthesize user, loginFiled, fullNameField, phoneField, emailField, websiteField, tagsField, mainController;
 
--(void)dealloc
-{
-    [mainController release];
-    [super dealloc];
-}
-
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -87,7 +81,6 @@
     {
         NSMutableArray *array = [[NSMutableArray alloc] initWithArray:[[tagsField.text stringByReplacingOccurrencesOfString:@" " withString:@""] componentsSeparatedByString:@","]];
         user.tags = array;
-        [array release];
     }
     
     // update user
@@ -99,7 +92,7 @@
 - (IBAction)back:(id)sender
 {
     loginFiled.text = nil;
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -123,7 +116,6 @@
                                                   cancelButtonTitle:@"Ok" 
                                                   otherButtonTitles:nil, nil];
             [alert show];
-            [alert release];
             
             mainController.currentUser = user;
         
@@ -135,7 +127,6 @@
                                                     cancelButtonTitle:@"Okay" 
                                                     otherButtonTitles:nil, nil];
             [alert show];
-            [alert release];
         }
     }
 }

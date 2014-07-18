@@ -22,21 +22,21 @@
     if (self) {
         // Initialization code
         
-        self.backgroundImageView = [[[UIImageView alloc] init] autorelease];
+        self.backgroundImageView = [[UIImageView alloc] init];
         [self.backgroundImageView setFrame:CGRectMake(0, 0, 320, 70)];
-        [self.backgroundImageView setImage:[UIImage imageNamed:@"images.jpeg"]];
+        [self.backgroundImageView setImage:[UIImage imageNamed:@"MovieItemBackground"]];
         [self addSubview:self.backgroundImageView];
         
-        self.movieImageView = [[[UIImageView alloc] init] autorelease];
+        self.movieImageView = [[UIImageView alloc] init];
         [self.movieImageView setFrame:CGRectMake(2, 2, 46, 66)];
         [self addSubview:self.movieImageView];
         
-        self.movieName = [[[UILabel alloc] init] autorelease];
+        self.movieName = [[UILabel alloc] init];
         [self.movieName setFrame:CGRectMake(80, 4, 220, 20)];
         [self.movieName setBackgroundColor:[UIColor clearColor]];
         [self addSubview:self.movieName];
         
-        self.ratingView = [[[RateView alloc] initWithFrame:CGRectMake(80, 40, 220, 30)] autorelease];
+        self.ratingView = [[RateView alloc] initWithFrame:CGRectMake(80, 40, 220, 30)];
         self.ratingView.alignment = RateViewAlignmentLeft;
         self.ratingView.editable = NO;
         [self addSubview:self.ratingView];
@@ -46,10 +46,4 @@
     return self;
 }
 
-- (void)dealloc {
-    [movieName release];
-    [ratingView release];
-    [movieImageView release];
-    [super dealloc];
-}
 @end

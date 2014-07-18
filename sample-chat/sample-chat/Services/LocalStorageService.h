@@ -11,9 +11,9 @@
 @interface LocalStorageService : NSObject
 
 @property (nonatomic, strong) QBUUser *currentUser;
+@property (nonatomic, strong) NSArray *users;
+@property (nonatomic, readonly) NSDictionary *usersAsDictionary;
 
 + (instancetype)shared;
-- (void)saveMessageToHistory:(QBChatMessage *)message withUserID:(NSUInteger)userID;
-- (NSMutableArray *)messageHistoryWithUserID:(NSUInteger)userID;
 
 @end

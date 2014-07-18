@@ -14,15 +14,15 @@
 
 @interface UserDetailsViewController : UIViewController{
 }
-@property (nonatomic, retain) IBOutlet UILabel *lastRequestAtLabel;
-@property (nonatomic, retain) IBOutlet UILabel *loginLabel;
-@property (nonatomic, retain) IBOutlet UILabel *fullNameLabel;
-@property (nonatomic, retain) IBOutlet UILabel *phoneLabel;
-@property (nonatomic, retain) IBOutlet UILabel *emailLabel;
-@property (nonatomic, retain) IBOutlet UILabel *websiteLabel;
-@property (nonatomic, retain) IBOutlet UILabel *tagLabel;
+@property (nonatomic, strong) IBOutlet UILabel *lastRequestAtLabel;
+@property (nonatomic, strong) IBOutlet UILabel *loginLabel;
+@property (nonatomic, strong) IBOutlet UILabel *fullNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *phoneLabel;
+@property (nonatomic, strong) IBOutlet UILabel *emailLabel;
+@property (nonatomic, strong) IBOutlet UILabel *websiteLabel;
+@property (nonatomic, strong) IBOutlet UILabel *tagLabel;
 
-@property (nonatomic, retain) QBUUser *choosedUser;
+@property (nonatomic, strong) QBUUser *choosedUser;
 
 - (IBAction)back:(id)sender;
 

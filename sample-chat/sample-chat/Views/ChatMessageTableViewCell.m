@@ -21,7 +21,7 @@ static UIImage *aquaBubble;
     
     // init message datetime formatter
     messageDateFormatter = [[NSDateFormatter alloc] init];
-    [messageDateFormatter setDateFormat: @"yyyy-mm-dd HH:mm:ss"];
+    [messageDateFormatter setDateFormat: @"yyyy-mm-dd HH:mm"];
     [messageDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
     
     // init bubbles
@@ -29,21 +29,8 @@ static UIImage *aquaBubble;
     aquaBubble = [[UIImage imageNamed:@"aquaBubble"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
 }
 
-+ (CGFloat)heightForCellWithMessage:(QBChatMessage *)message is1To1Chat:(BOOL)is1To1Chat
++ (CGFloat)heightForCellWithMessage:(QBChatAbstractMessage *)message
 {
-//    // Replace the next line with these lines if you would like to connect to Web XMPP Chat widget
-//    //
-//    NSString *text;
-//    if(!is1To1Chat){
-//        NSString *unescapedMessage = [CharactersEscapeService unescape:message.text];
-//        NSData *messageAsData = [unescapedMessage dataUsingEncoding:NSUTF8StringEncoding];
-//        NSError *error;
-//        NSMutableDictionary *messageAsDictionary = [NSJSONSerialization JSONObjectWithData:messageAsData options:NSJSONReadingAllowFragments error:&error];
-//        text = messageAsDictionary[@"message"];
-//    }else{
-//        text = message.text;
-//    }
-    
     NSString *text = message.text;
 
     
@@ -82,22 +69,8 @@ static UIImage *aquaBubble;
     return self;
 }
 
-- (void)configureCellWithMessage:(QBChatMessage *)message is1To1Chat:(BOOL)is1To1Chat
-{
-    // set message
-    
-//    // Replace the next line with these lines if you would like to connect to Web XMPP Chat widget
-//    //
-//    if(!is1To1Chat){
-//        NSString *unescapedMessage = [CharactersEscapeService unescape:message.text];
-//        NSData *messageAsData = [unescapedMessage dataUsingEncoding:NSUTF8StringEncoding];
-//        NSError *error;
-//        NSMutableDictionary *messageAsDictionary = [NSJSONSerialization JSONObjectWithData:messageAsData options:NSJSONReadingAllowFragments error:&error];
-//        self.messageTextView.text = messageAsDictionary[@"message"];
-//    }else{
-//        self.messageTextView.text = message.text;
-//    }
-    
+- (void)configureCellWithMessage:(QBChatAbstractMessage *)message
+{    
     self.messageTextView.text = message.text;
     
     
@@ -106,6 +79,8 @@ static UIImage *aquaBubble;
 	CGSize size = [self.messageTextView.text sizeWithFont:[UIFont boldSystemFontOfSize:13]
                                         constrainedToSize:textSize
                                             lineBreakMode:NSLineBreakByWordWrapping];
+    
+    NSLog(@"message: %@", message);
     
 	size.width += 10;
     
@@ -121,7 +96,7 @@ static UIImage *aquaBubble;
         self.backgroundImageView.image = orangeBubble;
         
         self.dateLabel.textAlignment = NSTextAlignmentLeft;
-        self.dateLabel.text = [NSString stringWithFormat:@"%@ %@", [[LocalStorageService shared].currentUser login], time];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@, %@", [[LocalStorageService shared].currentUser login], time];
         
     } else {
         [self.messageTextView setFrame:CGRectMake(320-size.width-padding/2, padding+5, size.width, size.height+padding)];
@@ -132,7 +107,7 @@ static UIImage *aquaBubble;
         self.backgroundImageView.image = aquaBubble;
         
         self.dateLabel.textAlignment = NSTextAlignmentRight;
-        self.dateLabel.text = [NSString stringWithFormat:@"%d %@", message.senderID, time];
+        self.dateLabel.text = [NSString stringWithFormat:@"%lu, %@", (unsigned long)message.senderID, time];
     }
 }
 

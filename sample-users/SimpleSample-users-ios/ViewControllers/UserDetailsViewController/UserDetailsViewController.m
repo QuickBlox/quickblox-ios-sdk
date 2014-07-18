@@ -19,11 +19,6 @@
 @synthesize tagLabel;
 @synthesize choosedUser;
 
--(void)dealloc
-{
-    [choosedUser release];
-    [super dealloc];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -41,7 +36,6 @@
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     lastRequestAtLabel.text = [dateFormatter stringFromDate:choosedUser.lastRequestAt ?
                                choosedUser.lastRequestAt : choosedUser.createdAt];
-    [dateFormatter release];
     
     fullNameLabel.text = choosedUser.fullName;
     phoneLabel.text = choosedUser.phone;
@@ -85,7 +79,7 @@
 
 - (IBAction)back:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -15,7 +15,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-    #import <Quickblox/Quickblox.h>
+    #import <CFNetwork/CFNetwork.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
+    #import <Quickblox/Quickblox.h>
+    #import "QBApplicationConfig.h"
 #endif

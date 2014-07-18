@@ -8,9 +8,7 @@
 
 #import "LocalStorageService.h"
 
-@implementation LocalStorageService{
-    NSMutableDictionary *messagesHistory;
-}
+@implementation LocalStorageService
 
 + (instancetype)shared
 {
@@ -24,34 +22,16 @@
 	return instance;
 }
 
-- (id)init
+- (void)setUsers:(NSArray *)users
 {
-    self = [super init];
-    if(self){
-        messagesHistory = [NSMutableDictionary dictionary];
+    _users = users;
+    
+    NSMutableDictionary *__usersAsDictionary = [NSMutableDictionary dictionary];
+    for(QBUUser *user in users){
+        [__usersAsDictionary setObject:user forKey:@(user.ID)];
     }
-    return self;
+    
+    _usersAsDictionary = [__usersAsDictionary copy];
 }
-
-- (void)saveMessageToHistory:(QBChatMessage *)message withUserID:(NSUInteger)userID
-{
-    NSMutableArray *messages = [messagesHistory objectForKey:@(userID)];
-    if(messages == nil){
-        messages = [NSMutableArray array];
-        [messagesHistory setObject:messages forKey:@(userID)];
-    }
-    [messages addObject:message];
-}
-
-- (NSMutableArray *)messageHistoryWithUserID:(NSUInteger)userID
-{
-    NSMutableArray *messages = [messagesHistory objectForKey:@(userID)];
-    if(messages == nil){
-        messages = [NSMutableArray array];
-        [messagesHistory setObject:messages forKey:@(userID)];
-    }
-    return messages;
-}
-
 
 @end

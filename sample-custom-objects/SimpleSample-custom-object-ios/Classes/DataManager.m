@@ -28,7 +28,7 @@
 {
     self = [super init];
     if (self) {
-        self.notes = [[[NSMutableArray alloc] init] autorelease];
+        self.notes = [[NSMutableArray alloc] init];
     }
     return self;
 }

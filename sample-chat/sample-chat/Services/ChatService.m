@@ -57,8 +57,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] sendMessage:message];
 }
 
-- (void)sendMessage:(NSString *)message toRoom:(QBChatRoom *)chatRoom{
-    [[QBChat instance] sendMessage:message toRoom:chatRoom];
+- (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom{
+    [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
 }
 
 - (void)createOrJoinRoomWithName:(NSString *)roomName completionBlock:(void(^)(QBChatRoom *))completionBlock{
@@ -70,7 +70,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock{
     self.joinRoomCompletionBlock = completionBlock;
     
-    [[QBChat instance] joinRoom:room];
+    [room joinRoomWithHistoryAttribute:@{@"maxstanzas": @"0"}];
 }
 
 - (void)leaveRoom:(QBChatRoom *)room{
@@ -100,7 +100,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     }
 }
 
-- (void)chatDidFailWithError:(int)code{
+- (void)chatDidFailWithError:(NSInteger)code{
     // relogin here
     [[QBChat instance] loginWithUser:self.currentUser];
 }
@@ -108,9 +108,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (void)chatRoomDidEnter:(QBChatRoom *)room{
     self.joinRoomCompletionBlock(room);
     self.joinRoomCompletionBlock = nil;
-    
-    // To be able to edit rooms, created by API users, in Admin panel - just add Admin user ID to room
-    [room addUsers:@[@(291)]];
 }
 
 - (void)chatDidReceiveListOfRooms:(NSArray *)rooms{
@@ -122,20 +119,17 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     // play sound notification
     [self playNotificationSound];
     
-    // save message to history
-    [[LocalStorageService shared] saveMessageToHistory:message withUserID:message.senderID];
-    
     // notify observers
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidReceiveNewMessage
                                                         object:nil userInfo:@{kMessage: message}];
 }
 
-- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName{
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID{
     // play sound notification
     [self playNotificationSound];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidReceiveNewMessageFromRoom
-                                                        object:nil userInfo:@{kMessage: message, kRoomName: roomName}];
+                                                        object:nil userInfo:@{kMessage: message, kRoomJID: roomJID}];
 }
 
 

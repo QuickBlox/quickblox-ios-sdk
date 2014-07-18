@@ -205,7 +205,6 @@
                             [QBRatings topNScores:3 gameModeID:114 extendedRequest:getRequest delegate:self];
                         } 
                         
-                        [getRequest release];
                     }else{
                         if(withContext){
                             [QBRatings topNScores:3 gameModeID:114 delegate:self context:testContext];
@@ -229,7 +228,6 @@
                             [QBRatings scoresWithUserID:14605 extendedRequest:getRequest delegate:self];
                         } 
                         
-                        [getRequest release];
                     }else{
                         if(withContext){
                             [QBRatings scoresWithUserID:14605 delegate:self context:testContext];
@@ -321,11 +319,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *reuseIdentifier = [NSString stringWithFormat:@"%d", indexPath.row];
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     
     UITableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if(cell == nil){
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     

@@ -17,7 +17,7 @@
 @interface SplashViewController : UIViewController <QBActionStatusDelegate>{
     
 }
-@property (nonatomic, assign) IBOutlet UIActivityIndicatorView *wheel;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *wheel;
 
 - (void)hideSplash;
 

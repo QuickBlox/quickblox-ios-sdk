@@ -10,6 +10,6 @@
 
 @interface ChatModuleViewController : UIViewController<UITableViewDataSource,UITableViewDelegate, QBChatDelegate>{
 }
-@property (retain, nonatomic) IBOutlet UITableView *tableView;
-@property (retain, nonatomic) QBChatRoom *testRoom;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) QBChatRoom *testRoom;
 @end   

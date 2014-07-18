@@ -16,12 +16,12 @@
 
 @interface MovieDetailsViewController : UIViewController <UIActionSheetDelegate, QBActionStatusDelegate>
 
-@property (retain, nonatomic) IBOutlet UITextView *detailsText;
-@property (retain, nonatomic) IBOutlet UIImageView *moviImageView;
-@property (retain, nonatomic) IBOutlet UIButton *ratingButton;
+@property (strong, nonatomic) IBOutlet UITextView *detailsText;
+@property (strong, nonatomic) IBOutlet UIImageView *moviImageView;
+@property (strong, nonatomic) IBOutlet UIButton *ratingButton;
 
-@property (nonatomic, retain) Movie *movie;
-@property (nonatomic, retain) RateView *ratingView;
+@property (nonatomic, strong) Movie *movie;
+@property (nonatomic, strong) RateView *ratingView;
 
 - (IBAction)rate:(id)sender;
 

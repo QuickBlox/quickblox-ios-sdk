@@ -29,9 +29,9 @@ typedef enum {
 @property(nonatomic, assign) CGFloat rate;
 @property(nonatomic, assign) CGFloat padding;
 @property(nonatomic, assign) BOOL editable;
-@property(nonatomic, retain) UIImage *fullStarImage;
-@property(nonatomic, retain) UIImage *emptyStarImage;
-@property(nonatomic, assign) NSObject<RateViewDelegate> *delegate;
+@property(nonatomic, strong) UIImage *fullStarImage;
+@property(nonatomic, strong) UIImage *emptyStarImage;
+@property(nonatomic, weak) NSObject<RateViewDelegate> *delegate;
 
 - (RateView *)initWithFrame:(CGRect)frame;
 - (RateView *)initWithFrameBig:(CGRect)frame;
