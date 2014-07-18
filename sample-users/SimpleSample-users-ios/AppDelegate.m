@@ -16,18 +16,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBSettings setApplicationID:92];
-    [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
-    [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
+    [QBApplication sharedApplication].applicationId = 92.0;
+    [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
+    [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Show Splash
-    self.splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
-    self.window.rootViewController = (UIViewController*)self.splashController;
+    self.splashController = [[SplashViewController alloc] initWithNibName:nil bundle:nil];
+    self.window.rootViewController = self.splashController;
     [self.window makeKeyAndVisible];
     
     return YES;

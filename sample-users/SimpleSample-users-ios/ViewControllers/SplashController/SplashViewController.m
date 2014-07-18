@@ -8,62 +8,38 @@
 
 #import "SplashViewController.h"
 
+@interface SplashViewController ()
+
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *wheel;
+
+@end
+
 @implementation SplashViewController
 
-- (void) viewDidLoad
+- (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     // Your app connects to QuickBlox server here.
     //
     // QuickBlox session creation
-    [QBAuth createSessionWithDelegate:self];
     
-    [super viewDidLoad];
-    
-    if(IS_HEIGHT_GTE_568){
-        CGRect frame = self.wheel.frame;
-        frame.origin.y += 44;
-        [self.wheel setFrame:frame];
-    }
+    [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
+        [[QBSession currentSession] startSessionWithDetails:session exparationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
+        [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
+    } errorBlock:^(QBResponse *response) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
+                                                        message:[response.error description]
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", "")
+                                              otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 - (void)hideSplash
 {
-    // show main controller
-    [self presentViewController:[[MainViewController alloc] init]  animated:YES completion:nil];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(Result *)result{
-    
-    // QuickBlox application authorization result
-    if([result isKindOfClass:[QBAAuthSessionCreationResult class]]){
-        
-        // Success result
-        if(result.success){
-            
-            // Hide splash & show main controller
-            [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
-            
-        // show Errors
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
-                                                            message:[result.errors description]
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", "")
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }
-    }
+    [self presentViewController:[MainViewController new] animated:YES completion:nil];
 }
 
 @end

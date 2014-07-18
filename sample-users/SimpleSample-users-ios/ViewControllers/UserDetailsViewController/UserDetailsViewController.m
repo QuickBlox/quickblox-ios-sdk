@@ -9,7 +9,6 @@
 #import "UserDetailsViewController.h"
 
 @implementation UserDetailsViewController
-
 @synthesize lastRequestAtLabel;
 @synthesize loginLabel;
 @synthesize fullNameLabel;
@@ -18,12 +17,6 @@
 @synthesize websiteLabel;
 @synthesize tagLabel;
 @synthesize choosedUser;
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
 -(void)viewWillAppear:(BOOL)animated
 {

@@ -15,23 +15,21 @@
 @synthesize activityIndicator;
 @synthesize mainController;
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [password resignFirstResponder];
     [login resignFirstResponder];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 // User Sign In
 - (IBAction)next:(id)sender
 {
     // Authenticate user
-    [QBUsers logInWithUserLogin:login.text password:password.text delegate:self];
+    [QBRequest logInWithUserEmail:login.text password:password.text successBlock:^(QBResponse *response, QBUUser *user) {
+        
+    } errorBlock:^(QBResponse *response) {
+        
+    }];
 
     [activityIndicator startAnimating];
 }

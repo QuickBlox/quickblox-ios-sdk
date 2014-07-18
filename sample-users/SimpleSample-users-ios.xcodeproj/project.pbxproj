@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43900C1B16245DCA0041381B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43900C1A16245DCA0041381B /* Default-568h@2x.png */; };
 		43900C4016246C090041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C3F16246C090041381B /* libxml2.dylib */; };
+		867440F3197958B2006D1686 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 867440F2197958B2006D1686 /* Images.xcassets */; };
 		BFA79EDA1843E8BA0044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED91843E8BA0044D9E0 /* Security.framework */; };
 		BFAAF5241785B343009379B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5231785B343009379B9 /* QuartzCore.framework */; };
 		BFAAF5281785CC7B009379B9 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5271785CC7B009379B9 /* Quickblox.framework */; };
@@ -42,18 +42,12 @@
 		FAF4BB4315F4F6A0009E15D4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3815F4F6A0009E15D4 /* SplashViewController.m */; };
 		FAF4BB4415F4F6A0009E15D4 /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3B15F4F6A0009E15D4 /* UserDetailsViewController.m */; };
 		FAF4BB4515F4F6A0009E15D4 /* CustomTableViewCellCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF4BB3E15F4F6A0009E15D4 /* CustomTableViewCellCell.m */; };
-		FAF4BB4E15F4F6E6009E15D4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4715F4F6E6009E15D4 /* Default.png */; };
-		FAF4BB4F15F4F6E6009E15D4 /* fcebook_login.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4815F4F6E6009E15D4 /* fcebook_login.png */; };
-		FAF4BB5015F4F6E6009E15D4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4915F4F6E6009E15D4 /* icon.png */; };
-		FAF4BB5115F4F6E6009E15D4 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4A15F4F6E6009E15D4 /* logo.png */; };
-		FAF4BB5215F4F6E6009E15D4 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4B15F4F6E6009E15D4 /* pin.png */; };
-		FAF4BB5415F4F6E6009E15D4 /* twitter_login.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB4D15F4F6E6009E15D4 /* twitter_login.png */; };
 		FAF4BB5615F4F6F7009E15D4 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAF4BB5515F4F6F7009E15D4 /* SplashViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43900C1A16245DCA0041381B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		43900C3F16246C090041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		867440F2197958B2006D1686 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BFA79ED91843E8BA0044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFAAF5231785B343009379B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BFAAF5271785CC7B009379B9 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
@@ -98,12 +92,6 @@
 		FAF4BB3B15F4F6A0009E15D4 /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
 		FAF4BB3D15F4F6A0009E15D4 /* CustomTableViewCellCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCellCell.h; sourceTree = "<group>"; };
 		FAF4BB3E15F4F6A0009E15D4 /* CustomTableViewCellCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCellCell.m; sourceTree = "<group>"; };
-		FAF4BB4715F4F6E6009E15D4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		FAF4BB4815F4F6E6009E15D4 /* fcebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fcebook_login.png; sourceTree = "<group>"; };
-		FAF4BB4915F4F6E6009E15D4 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		FAF4BB4A15F4F6E6009E15D4 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
-		FAF4BB4B15F4F6E6009E15D4 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
-		FAF4BB4D15F4F6E6009E15D4 /* twitter_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_login.png; sourceTree = "<group>"; };
 		FAF4BB5515F4F6F7009E15D4 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,7 +193,7 @@
 		FA43ADD3152B95A3000A2EF7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FAF4BB4615F4F6E6009E15D4 /* images */,
+				867440F2197958B2006D1686 /* Images.xcassets */,
 				FA43ADDA152B95A3000A2EF7 /* xibs */,
 			);
 			path = Resources;
@@ -302,21 +290,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		FAF4BB4615F4F6E6009E15D4 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				43900C1A16245DCA0041381B /* Default-568h@2x.png */,
-				FAF4BB4715F4F6E6009E15D4 /* Default.png */,
-				FAF4BB4815F4F6E6009E15D4 /* fcebook_login.png */,
-				FAF4BB4915F4F6E6009E15D4 /* icon.png */,
-				FAF4BB4A15F4F6E6009E15D4 /* logo.png */,
-				FAF4BB4B15F4F6E6009E15D4 /* pin.png */,
-				FAF4BB4D15F4F6E6009E15D4 /* twitter_login.png */,
-			);
-			name = images;
-			path = iPhone/images;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -343,7 +316,7 @@
 		FA43ACFD152B8ABC000A2EF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Injoit;
 			};
 			buildConfigurationList = FA43AD00152B8ABC000A2EF7 /* Build configuration list for PBXProject "SimpleSample-users-ios" */;
@@ -369,20 +342,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA43AD8A152B8BAE000A2EF7 /* InfoPlist.strings in Resources */,
+				867440F3197958B2006D1686 /* Images.xcassets in Resources */,
 				FA43ADE7152B95A3000A2EF7 /* CustomTableViewCell.xib in Resources */,
 				FA43ADE8152B95A3000A2EF7 /* EditViewController.xib in Resources */,
 				FA43ADE9152B95A3000A2EF7 /* LoginViewController.xib in Resources */,
 				FA43ADEA152B95A3000A2EF7 /* MainViewController.xib in Resources */,
 				FA43ADEB152B95A3000A2EF7 /* RegistrationViewController.xib in Resources */,
 				FA43ADED152B95A3000A2EF7 /* UserDetailsViewController.xib in Resources */,
-				FAF4BB4E15F4F6E6009E15D4 /* Default.png in Resources */,
-				FAF4BB4F15F4F6E6009E15D4 /* fcebook_login.png in Resources */,
-				FAF4BB5015F4F6E6009E15D4 /* icon.png in Resources */,
-				FAF4BB5115F4F6E6009E15D4 /* logo.png in Resources */,
-				FAF4BB5215F4F6E6009E15D4 /* pin.png in Resources */,
-				FAF4BB5415F4F6E6009E15D4 /* twitter_login.png in Resources */,
 				FAF4BB5615F4F6F7009E15D4 /* SplashViewController.xib in Resources */,
-				43900C1B16245DCA0041381B /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +379,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				COPY_PHASE_STRIP = NO;
@@ -425,10 +397,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "DAE2D3F8-2688-4CB9-9C29-64A223CB206C";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DAE2D3F8-2688-4CB9-9C29-64A223CB206C";
 				SDKROOT = iphoneos;
@@ -439,13 +415,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -457,6 +441,9 @@
 		FA43AD25152B8ABD000A2EF7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -488,6 +475,9 @@
 		FA43AD26152B8ABD000A2EF7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

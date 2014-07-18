@@ -7,8 +7,36 @@
 //
 
 #import "MainViewController.h"
+#import "UserDetailsViewController.h"
+#import "LoginViewController.h"
+#import "EditViewController.h"
+#import "CustomTableViewCellCell.h"
+#import "RegistrationViewController.h"
 
-@implementation MainViewController
+@interface MainViewController () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
+
+@property (nonatomic, strong) IBOutlet LoginViewController *loginController;
+@property (nonatomic, strong) IBOutlet RegistrationViewController *registrationController;
+@property (nonatomic, strong) IBOutlet EditViewController *editController;
+@property (nonatomic, strong) IBOutlet UserDetailsViewController *detailsController;
+@property (nonatomic, strong) IBOutlet CustomTableViewCellCell* _cell;
+
+@property (nonatomic, strong) NSArray* users;
+@property (nonatomic, strong) NSMutableArray* searchUsers;
+
+@property (nonatomic, strong) IBOutlet UITableView* myTableView;
+@property (nonatomic, strong) IBOutlet UIToolbar *toolBar;
+@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
+
+@end
+
+@implementation MainViewController {
+    UIBarButtonItem *signInButton;
+    UIBarButtonItem *signUpButton;
+    UIBarButtonItem *logoutButton;
+    UIBarButtonItem *editButton;
+}
+
 @synthesize toolBar;
 @synthesize searchBar;
 
@@ -18,10 +46,12 @@
 @synthesize searchUsers;
 @synthesize users, myTableView, _cell, editController, detailsController;
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.myTableView registerNib:[UINib nibWithNibName:@"CustomTableViewCell" bundle:nil]
+           forCellReuseIdentifier:@"SimpleTableIdentifier"];
     
     signInButton = [[UIBarButtonItem alloc] initWithTitle:@"Sign in" style:UIBarButtonItemStyleBordered target:self action:@selector(signIn:)];
     signUpButton = [[UIBarButtonItem alloc] initWithTitle:@"Sign up" style:UIBarButtonItemStyleBordered target:self action:@selector(signUp:)];
@@ -34,13 +64,8 @@
     [self retrieveUsers];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 // User Sign In
-- (IBAction)signIn:(id)sender
+- (void)signIn:(id)sender
 {
     // show User Sign In controller
     loginController.mainController = self;
@@ -48,24 +73,24 @@
 }
 
 // User Sign Up
-- (IBAction) signUp:(id)sender
+- (void)signUp:(id)sender
 {
     // show User Sign Up controller
     [self presentViewController:registrationController animated:YES completion:nil];
 }
 
 // Logout User
-- (IBAction)logout:(id)sender
+- (void)logout:(id)sender
 {
     self.currentUser = nil;
     
     // logout user
-    [QBUsers logOutWithDelegate:nil];
+    [QBRequest logOutWithSuccessBlock:nil errorBlock:nil];
     
     [self notLoggedIn];
 }
 
-- (IBAction)edit:(id)sender
+- (void)edit:(id)sender
 {
     editController.mainController = self;
     [self presentViewController:editController animated:YES completion:nil];
@@ -73,7 +98,7 @@
 
 - (void)notLoggedIn
 {
-    NSArray *items = [NSArray arrayWithObjects:signInButton, signUpButton, nil];
+    NSArray *items = @[signInButton, signUpButton];
     [self.toolBar setItems:items animated:NO];
 }
 
@@ -81,45 +106,27 @@
 {
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     fixedSpace.width = 170;
-    NSArray *items = [NSArray arrayWithObjects: editButton, fixedSpace, logoutButton, nil];
+    NSArray *items = @[editButton, fixedSpace, logoutButton];
     
     [self.toolBar setItems:items animated:NO];
 }
 
 // Retrieve QuickBlox Users
-- (void) retrieveUsers{
+- (void)retrieveUsers
+{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // retrieve 100 users
-    PagedRequest* request = [[PagedRequest alloc] init];
-    request.perPage = 100;
-	[QBUsers usersWithPagedRequest:request delegate:self];
-}
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(Result *)result
-{
-    // Retrieve Users result
-    if([result isKindOfClass:[QBUUserPagedResult class]])
-    {
-        // Success result
-        if (result.success)
-        {
-            // update table
-            QBUUserPagedResult *usersSearchRes = (QBUUserPagedResult *)result;
-            self.users = usersSearchRes.users;
-            self.searchUsers = [users mutableCopy];
-            [myTableView reloadData];
-        
-        // Errors
-        }else{
-            NSLog(@"Errors=%@", result.errors); 
-        }
-        
+    [QBRequest usersForPage:[QBGeneralResponsePage responsePageWithCurrentPage:0 perPage:100] successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *arrayOfUsers) {
+        self.users = arrayOfUsers;
+        self.searchUsers = [arrayOfUsers mutableCopy];
+        [myTableView reloadData];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"Errors = %@", response.error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
 }
-
 
 #pragma mark -
 #pragma mark TableViewDataSource & TableViewDelegate
@@ -129,7 +136,7 @@
     [self.searchBar resignFirstResponder];
     
     // show user details
-    detailsController.choosedUser = [self.searchUsers objectAtIndex:[indexPath row]];
+    detailsController.choosedUser = (self.searchUsers)[[indexPath row]];
     [self presentViewController:detailsController animated:YES completion:nil];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -146,23 +153,18 @@
     static NSString* SimpleTableIdentifier = @"SimpleTableIdentifier";
     
     CustomTableViewCellCell* cell = [tableView dequeueReusableCellWithIdentifier:SimpleTableIdentifier];
-    if (cell == nil)
-    {
-        [[NSBundle mainBundle] loadNibNamed:@"CustomTableViewCell" owner:self options:nil];
-        cell = _cell;
-    }
-    QBUUser* obtainedUser = [self.searchUsers objectAtIndex:[indexPath row]];
-    if(obtainedUser.login != nil){
+    
+    QBUUser* obtainedUser = (self.searchUsers)[[indexPath row]];
+    if (obtainedUser.login != nil) {
         cell.userLogin.text = obtainedUser.login;
-    }
-    else{
-         cell.userLogin.text = obtainedUser.email;
+    } else {
+        cell.userLogin.text = obtainedUser.email;
     }
     
-    for(NSString *tag in obtainedUser.tags){
-        if([cell.userTag.text length] == 0){
-             cell.userTag.text = tag;
-        }else{
+    for (NSString *tag in obtainedUser.tags) {
+        if ([cell.userTag.text length] == 0) {
+            cell.userTag.text = tag;
+        } else {
             cell.userTag.text = [NSString stringWithFormat:@"%@, %@", cell.userTag.text, tag];
         }
     }
@@ -170,7 +172,7 @@
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;
 }
@@ -179,34 +181,32 @@
 #pragma mark -
 #pragma mark UISearchBarDelegate
 
--(void) searchBarSearchButtonClicked:(UISearchBar *)SearchBar{
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
     [self.searchBar resignFirstResponder];
 }
 
--(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
     [self.searchUsers removeAllObjects];
     
-    if([searchText length] == 0){
-        
+    if([searchText length] == 0) {
         [self.searchUsers addObjectsFromArray:self.users];
-        
-    }else{
-        for(QBUUser *user in self.users){
-            
+    } else {
+        for(QBUUser *user in self.users) {
             NSRange loginRange = NSMakeRange(NSNotFound, 0);
-            if(user.login != nil){
+            if (user.login != nil) {
                 loginRange = [user.login rangeOfString:searchText options:NSCaseInsensitiveSearch];
             }
             NSRange fullNameRange = NSMakeRange(NSNotFound, 0);
-            if(user.fullName != nil){
+            if (user.fullName != nil) {
                 fullNameRange= [user.fullName rangeOfString:searchText options:NSCaseInsensitiveSearch];
             }
             NSRange tagsRange = NSMakeRange(NSNotFound, 0);
-            if(user.tags != nil && [user.tags count] > 0){
-                tagsRange = [[user.tags description] rangeOfString:searchText options:NSCaseInsensitiveSearch];;
+            if(user.tags != nil && [user.tags count] > 0) {
+                tagsRange = [[user.tags description] rangeOfString:searchText options:NSCaseInsensitiveSearch];
             }
-            if(loginRange.location != NSNotFound || fullNameRange.location != NSNotFound || tagsRange.location != NSNotFound){
+            if (loginRange.location != NSNotFound || fullNameRange.location != NSNotFound || tagsRange.location != NSNotFound) {
                 [self.searchUsers addObject:user];
             }
         }

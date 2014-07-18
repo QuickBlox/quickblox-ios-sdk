@@ -13,47 +13,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UserDetailsViewController.h"
-#import "LoginViewController.h"
-#import "EditViewController.h"
-#import "CustomTableViewCellCell.h"
-#import "RegistrationViewController.h"
 
 @class UserDetailsViewController;
 @class EditViewController;
 @class LoginViewController;
 @class RegistrationViewController;
+@class CustomTableViewCellCell;
 
-@interface MainViewController : UIViewController <QBActionStatusDelegate, UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>{
-
-    UIBarButtonItem *signInButton;
-    UIBarButtonItem *signUpButton;
-    UIBarButtonItem *logoutButton;
-    UIBarButtonItem *editButton;
-}
-
-@property (nonatomic, strong) IBOutlet LoginViewController *loginController;
-@property (nonatomic, strong) IBOutlet RegistrationViewController *registrationController;
-@property (nonatomic, strong) IBOutlet EditViewController *editController;
-@property (nonatomic, strong) IBOutlet UserDetailsViewController *detailsController;
-@property (nonatomic, strong) IBOutlet CustomTableViewCellCell* _cell;
+@interface MainViewController : UIViewController
 
 @property (nonatomic, strong) QBUUser *currentUser;
-@property (nonatomic, strong) NSArray* users;
-@property (nonatomic, strong) NSMutableArray* searchUsers;
 
-@property (nonatomic, strong) IBOutlet UITableView* myTableView;
-@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
-
-- (void) retrieveUsers;
-
-- (IBAction) signIn:(id)sender;
-- (IBAction) signUp:(id)sender;
-- (IBAction) edit:(id)sender;
-- (IBAction) logout:(id)sender;
-
-- (void) loggedIn;
-- (void) notLoggedIn;
+- (void)loggedIn;
 
 @end
