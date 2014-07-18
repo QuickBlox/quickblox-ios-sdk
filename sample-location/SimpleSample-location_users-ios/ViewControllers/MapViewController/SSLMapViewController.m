@@ -116,6 +116,7 @@
                                                             }
                                                             cancelButtonTitle:@"Canсel"
                                                             otherButtonTitles:@"Check In", nil];
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
         [alertView show];
     }
 }
