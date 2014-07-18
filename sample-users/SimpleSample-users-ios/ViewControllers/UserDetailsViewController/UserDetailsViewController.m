@@ -8,6 +8,18 @@
 
 #import "UserDetailsViewController.h"
 
+@interface UserDetailsViewController ()
+
+@property (nonatomic, strong) IBOutlet UILabel *lastRequestAtLabel;
+@property (nonatomic, strong) IBOutlet UILabel *loginLabel;
+@property (nonatomic, strong) IBOutlet UILabel *fullNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *phoneLabel;
+@property (nonatomic, strong) IBOutlet UILabel *emailLabel;
+@property (nonatomic, strong) IBOutlet UILabel *websiteLabel;
+@property (nonatomic, strong) IBOutlet UILabel *tagLabel;
+
+@end
+
 @implementation UserDetailsViewController
 @synthesize lastRequestAtLabel;
 @synthesize loginLabel;
@@ -18,7 +30,7 @@
 @synthesize tagLabel;
 @synthesize choosedUser;
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -35,10 +47,10 @@
     emailLabel.text = choosedUser.email;
     websiteLabel.text = choosedUser.website;
     
-    for(NSString *tag in choosedUser.tags){
-        if([tagLabel.text length] == 0){
+    for (NSString *tag in choosedUser.tags){
+        if([tagLabel.text length] == 0) {
             tagLabel.text = tag;
-        }else{
+        } else {
             tagLabel.text = [NSString stringWithFormat:@"%@, %@", tagLabel.text, tag];
         }
     }
@@ -48,22 +60,26 @@
         fullNameLabel.text = @"empty"; 
         fullNameLabel.alpha = 0.3;
     }
+    
     if ([choosedUser.phone length] == 0) 
     {
         phoneLabel.text = @"empty"; 
         phoneLabel.alpha = 0.3;
     }
+    
     if ([choosedUser.email length] == 0) 
     {
         emailLabel.text = @"empty"; 
         emailLabel.alpha = 0.3;
     }
-    if ([choosedUser.website length] == 0) 
+    
+    if([choosedUser.website length] == 0)
     {
         websiteLabel.text = @"empty"; 
         websiteLabel.alpha = 0.3;
     }
-    if ([choosedUser.tags count] == 0)
+    
+    if([choosedUser.tags count] == 0)
     {
         tagLabel.text = @"empty";
         tagLabel.alpha = 0.3;

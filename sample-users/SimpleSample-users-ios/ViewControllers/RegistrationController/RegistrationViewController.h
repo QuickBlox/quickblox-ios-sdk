@@ -9,13 +9,6 @@
 // This class enables new user registration QB user
 //
 
-@interface RegistrationViewController : UIViewController <QBActionStatusDelegate, UIAlertViewDelegate, UITextFieldDelegate> {
-}
-@property (nonatomic, strong) IBOutlet UITextField *userName;
-@property (nonatomic, strong) IBOutlet UITextField *password;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
-
-- (IBAction)next:(id)sender;
-- (IBAction)back:(id)sender;
+@interface RegistrationViewController : UIViewController 
 
 @end

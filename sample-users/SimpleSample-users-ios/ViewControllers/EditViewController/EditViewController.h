@@ -10,25 +10,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainViewController.h"
 
 @class MainViewController;
 
-@interface EditViewController : UIViewController <QBActionStatusDelegate>{
-}
+@interface EditViewController : UIViewController
+
 @property (nonatomic, weak) QBUUser* user;
 
-@property (nonatomic, strong) IBOutlet UITextField* loginFiled;
-@property (nonatomic, strong) IBOutlet UITextField* fullNameField;
-@property (nonatomic, strong) IBOutlet UITextField* phoneField;
-@property (nonatomic, strong) IBOutlet UITextField* emailField;
-@property (nonatomic, strong) IBOutlet UITextField* websiteField;
-@property (nonatomic, strong) IBOutlet UITextField *tagsField;
-
 @property (nonatomic, strong) IBOutlet MainViewController* mainController;
-
-- (IBAction) update:(id)sender;
-- (IBAction) back:(id)sender;
-- (IBAction) hideKeyboard:(id)sender;
 
 @end

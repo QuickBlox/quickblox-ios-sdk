@@ -8,22 +8,23 @@
 
 #import "RegistrationViewController.h"
 
+@interface RegistrationViewController () <UIAlertViewDelegate, UITextFieldDelegate>
+
+@property (nonatomic, strong) IBOutlet UITextField *userName;
+@property (nonatomic, strong) IBOutlet UITextField *password;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@end
 
 @implementation RegistrationViewController
 @synthesize userName;
 @synthesize password;
 @synthesize activityIndicator;
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [password resignFirstResponder];
     [userName resignFirstResponder];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 // User Sign Up
@@ -35,7 +36,21 @@
     user.login = userName.text;
     
     // create User
-	[QBUsers signUp:user delegate:self];
+    [QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration was successful. Please now sign in."
+                                                        message:nil delegate:self
+                                              cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        [activityIndicator stopAnimating];
+    } errorBlock:^(QBResponse *response) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                        message:[response.error description]
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
+        [activityIndicator stopAnimating];
+    }];
     
     [activityIndicator startAnimating];
 }
@@ -43,34 +58,6 @@
 - (IBAction)back:(id)sender 
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
--(void)completedWithResult:(Result*)result{
-    // QuickBlox User creation result
-    if([result isKindOfClass:[QBUUserResult class]]){
-        
-        // Success result
-		if(result.success){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Registration was successful. Please now sign in." message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alert show];
-		
-        // Errors
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors" 
-                                                            message:[result.errors description]
-                                                           delegate:nil 
-                                                  cancelButtonTitle:@"Ok" 
-                                                  otherButtonTitles:nil, nil];
-            [alert show];
-		}
-	}	
-    
-    [activityIndicator stopAnimating];
 }
 
 

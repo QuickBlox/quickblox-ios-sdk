@@ -9,6 +9,14 @@
 #import "LoginViewController.h"
 #import "MainViewController.h"
 
+@interface LoginViewController ()
+
+@property (nonatomic, strong) IBOutlet UITextField *login;
+@property (nonatomic, strong) IBOutlet UITextField *password;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@end
+
 @implementation LoginViewController
 @synthesize login;
 @synthesize password;
@@ -21,15 +29,39 @@
     [login resignFirstResponder];
 }
 
+- (void (^)(QBResponse *response, QBUUser *user))successBlock
+{
+    return ^(QBResponse *response, QBUUser *user) {
+        // save current user
+        mainController.currentUser = user;
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        
+        [mainController loggedIn];
+        [activityIndicator stopAnimating];
+    };
+}
+
+- (QBRequestErrorBlock)errorBlock
+{
+    return ^(QBResponse *response) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                        message:[response.error description]
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        alert.tag = 1;
+        [alert show];
+        [activityIndicator stopAnimating];
+    };
+}
+
 // User Sign In
 - (IBAction)next:(id)sender
 {
     // Authenticate user
-    [QBRequest logInWithUserEmail:login.text password:password.text successBlock:^(QBResponse *response, QBUUser *user) {
-        
-    } errorBlock:^(QBResponse *response) {
-        
-    }];
+    [QBRequest logInWithUserEmail:login.text password:password.text successBlock:[self successBlock] errorBlock:[self errorBlock]];
 
     [activityIndicator startAnimating];
 }
@@ -39,50 +71,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)loginWithFaceBook:(id)sender {
-    [QBUsers logInWithSocialProvider:@"facebook" scope:nil delegate:self];
+- (IBAction)loginWithFaceBook:(id)sender
+{
+    [QBRequest logInWithSocialProvider:@"facebook" scope:nil successBlock:[self successBlock] errorBlock:[self errorBlock]];
 }
 
-- (IBAction)loginWithTwitter:(id)sender {
-    [QBUsers logInWithSocialProvider:@"twitter" scope:nil delegate:self];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
--(void)completedWithResult:(Result *)result{
-    
-    // QuickBlox User authenticate result
-    if([result isKindOfClass:[QBUUserLogInResult class]]){
-		
-        // Success result
-        if(result.success){
-            
-            QBUUserLogInResult *res = (QBUUserLogInResult *)result;
-            
-            // save current user
-            mainController.currentUser = res.user;
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentification successful" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-            [alert show];
-            
-            [mainController loggedIn];
-		
-        // Errors
-        }else{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-                                                            message:[result.errors description]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles: nil];
-            alert.tag = 1;
-            [alert show];
-        }
-    }
-    
-    [activityIndicator stopAnimating];
+- (IBAction)loginWithTwitter:(id)sender
+{
+    [QBRequest logInWithSocialProvider:@"twitter" scope:nil successBlock:[self successBlock] errorBlock:[self errorBlock]];
 }
 
 

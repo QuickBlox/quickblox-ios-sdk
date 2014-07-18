@@ -155,6 +155,7 @@
     CustomTableViewCellCell* cell = [tableView dequeueReusableCellWithIdentifier:SimpleTableIdentifier];
     
     QBUUser* obtainedUser = (self.searchUsers)[[indexPath row]];
+
     if (obtainedUser.login != nil) {
         cell.userLogin.text = obtainedUser.login;
     } else {
