@@ -12,7 +12,7 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-chat_users-ios](http://quickblox.com/developers/SimpleSample-chat_users-ios)
 
-<img src="http://files.quickblox.com/iOS_chat2_0_sample1.png" border="1" alt="List chat dialogs" width="200">
-<img src="http://files.quickblox.com/iOS_chat2_0_sample3.png" border="1" alt="Chat screen" width="200">
-<img src="http://files.quickblox.com/iOS_chat2_0_sample2.png" border="1" alt="Users" width="200">
+<img src="http://files.quickblox.com/iOS_chat2_0_sample1.png" border="1" alt="List chat dialogs" width="200"> 
+<img src="http://files.quickblox.com/iOS_chat2_0_sample3.png" border="1" alt="Chat screen" width="200"> 
+<img src="http://files.quickblox.com/iOS_chat2_0_sample2.png" border="1" alt="Users" width="200"> 
 
