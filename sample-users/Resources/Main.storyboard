@@ -579,7 +579,7 @@
                     <navigationItem key="navigationItem" id="wHP-1h-ptS">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="h5C-di-UxF">
                             <connections>
-                                <action selector="hideKeyboard:" destination="jVq-Lq-4nv" id="0WF-aH-jgh"/>
+                                <action selector="updateButtonTouched:" destination="jVq-Lq-4nv" id="BRQ-1J-ZQk"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

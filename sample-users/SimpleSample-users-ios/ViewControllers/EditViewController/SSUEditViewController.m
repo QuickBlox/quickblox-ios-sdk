@@ -51,12 +51,7 @@
     [self.websiteTextField resignFirstResponder];
 }
 
-- (IBAction)hideKeyboard:(id)sender
-{
-    [sender resignFirstResponder];
-}
-
-- (void)updateButtonTouched:(id)sender
+- (IBAction)updateButtonTouched:(id)sender
 {
     QBUUser* currentUser = [[SSUUserCache instance].currentUser copy];
     if ([self.loginTextField.text length] != 0) currentUser.login = self.loginTextField.text;

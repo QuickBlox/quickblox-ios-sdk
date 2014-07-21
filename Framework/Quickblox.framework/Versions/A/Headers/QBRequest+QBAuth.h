@@ -67,7 +67,7 @@
  User LogIn with social provider
 
  @param provider Social provider. Posible values: facebook, twitter.
- @param scope Permission. Permissions for choosen provider.
+ @param scope Permission. Permissions for choosen provider. Should not be nil.
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;

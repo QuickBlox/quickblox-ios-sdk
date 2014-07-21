@@ -49,7 +49,7 @@
     @weakify(self);
     return ^(QBResponse *response) {
         @strongify(self);
-        self.loginState.isLoggedIn = YES;
+        self.loginState.isLoggedIn = NO;
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
                                                         message:[response.error description]
@@ -64,13 +64,12 @@
 - (void)login
 {
     // Authenticate user
-    [QBRequest logInWithUserEmail:self.loginTextField.text password:self.passwordTextField.text
+    [QBRequest logInWithUserLogin:self.loginTextField.text password:self.passwordTextField.text
                      successBlock:[self successBlock] errorBlock:[self errorBlock]];
     
     [self.activityIndicator startAnimating];
 }
 
-// User Sign In
 - (IBAction)next:(id)sender
 {
     [self login];

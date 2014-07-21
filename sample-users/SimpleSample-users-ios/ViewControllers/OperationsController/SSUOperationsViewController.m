@@ -23,6 +23,14 @@
 
 @implementation SSUOperationsViewController
 
+- (SSULoginState *)loginState
+{
+    if (_loginState == nil) {
+        _loginState = [SSULoginState new];
+    }
+    return _loginState;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -43,7 +51,9 @@
         @strongify(self);
         self.loginState.isLoggedIn = NO;
         [self refreshButtons];
-    } errorBlock:nil];
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"Response error: %@", [response.error description]);
+    }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
