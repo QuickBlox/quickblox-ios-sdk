@@ -13,4 +13,4 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/samples/simplesample-messages_users-ios/](http://quickblox.com/samples/simplesample-messages_users-ios/)
 
-![Send push & receive pushes](http://files.quickblox.com/iOS_push_sample1.PNG) &nbsp;&nbsp;&nbsp;&nbsp; ![Rich content](http://files.quickblox.com/iOS_push_sample2.PNG)
+![Send push & receive pushes](http://files.quickblox.com/iOS_push_sample11.PNG) &nbsp;&nbsp;&nbsp;&nbsp; ![Rich content](http://files.quickblox.com/iOS_push_sample22.PNG)
