@@ -17,6 +17,6 @@
     #import <MapKit/MapKit.h>
     #import <CoreData/CoreData.h>
     #import <QuartzCore/QuartzCore.h>
-
-    #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height == 568.0f
+    #import <libextobjc/EXTScope.h>
+    #import <MTBlockAlertView/MTBlockAlertView.h>
 #endif

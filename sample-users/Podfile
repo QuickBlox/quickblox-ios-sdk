@@ -1,0 +1,3 @@
+platform :ios, '7.0'
+pod 'MTBlockAlertView', '~> 0.1.1'
+pod 'libextobjc/EXTScope', '~> 0.4'
