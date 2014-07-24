@@ -14,10 +14,14 @@
 @property (nonatomic, readwrite) NSDictionary *headers;
 @property (nonatomic, readwrite) NSData *data;
 @property (nonatomic, readwrite) NSError *error;
+@property (nonatomic, readwrite) NSURL *requestUrl;
 
 + (QBResponse *)responseWithData:(NSData *)data error:(NSError *)error;
 + (QBResponse *)responseWithData:(NSData *)data error:(NSError *)error headers:(NSDictionary *)headers;
 + (QBResponse *)responseWithData:(NSData *)data error:(NSError *)error headers:(NSDictionary *)headers status:(QBResponseStatusCode)status;
++ (QBResponse *)responseWithData:(NSData *)data error:(NSError *)error
+                         headers:(NSDictionary *)headers status:(QBResponseStatusCode)status
+                      requestUrl:(NSURL *)requestUrl;
 
 - (instancetype)initWithData:(NSData *)data error:(NSError *)error;
 

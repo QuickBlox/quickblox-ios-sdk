@@ -27,5 +27,6 @@ typedef NS_ENUM(NSInteger, QBResponseStatusCode){
 @property (nonatomic, readonly) NSDictionary *headers;
 @property (nonatomic, readonly) NSData *data;
 @property (nonatomic, readonly) NSError *error;
+@property (nonatomic, readonly) NSURL *requestUrl;
 
 @end

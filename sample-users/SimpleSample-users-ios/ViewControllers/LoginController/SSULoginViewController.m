@@ -27,20 +27,25 @@
     [self.loginTextField resignFirstResponder];
 }
 
+- (void)successfullLoginWithUser:(QBUUser *)user
+{
+    self.loginState.isLoggedIn = YES;
+    
+    [[SSUUserCache instance] saveUser:user];
+    
+    [MTBlockAlertView showWithTitle:@"Authentification successful" message:nil completionBlock:^(UIAlertView *alertView) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    
+    [self.activityIndicator stopAnimating];
+}
+
 - (void (^)(QBResponse *response, QBUUser *user))successBlock
 {
     @weakify(self);
     return ^(QBResponse *response, QBUUser *user) {
         @strongify(self);
-        self.loginState.isLoggedIn = YES;
-        
-        [[SSUUserCache instance] saveUser:user];
-        
-        [MTBlockAlertView showWithTitle:@"Authentification successful" message:nil completionBlock:^(UIAlertView *alertView) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        
-        [self.activityIndicator stopAnimating];
+        [self successfullLoginWithUser:user];
     };
 }
 
@@ -77,14 +82,12 @@
 
 - (IBAction)loginWithFaceBook:(id)sender
 {
-    [QBRequest logInWithSocialProvider:@"facebook" scope:@[] successBlock:[self successBlock]
-                            errorBlock:[self errorBlock]];
+    [QBRequest logInWithSocialProvider:@"facebook" scope:@[] successBlock:[self successBlock] errorBlock:[self errorBlock]];
 }
 
 - (IBAction)loginWithTwitter:(id)sender
 {
-    [QBRequest logInWithSocialProvider:@"twitter" scope:@[] successBlock:[self successBlock]
-                            errorBlock:[self errorBlock]];
+    [QBRequest logInWithSocialProvider:@"twitter" scope:@[] successBlock:[self successBlock] errorBlock:[self errorBlock]];
 }
 
 

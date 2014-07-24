@@ -70,8 +70,7 @@
  @param scope Permission. Permissions for choosen provider. Should not be nil.
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
-
++ (QBRequest *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope successBlock:(void (^)(QBResponse *response, QBUUser* user))successBlock errorBlock:(void (^)(QBResponse *response))errorBlock;
 
 /**
  User LogIn with social provider's token
@@ -81,7 +80,9 @@
  @param accessTokenSecret Social provider access token secret.
  @return An instance of QBRequest for cancel operation mainly.
  */
-//+ (QBRequest *)logInWithSocialProvider:(NSString *)provider accessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret successBlock:(void (^)(QBResponse *response, QBUUser *user, NSString *htmlString))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)logInWithSocialProvider:(NSString *)provider accessToken:(NSString *)accessToken
+                     accessTokenSecret:(NSString *)accessTokenSecret successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock
+                            errorBlock:(void (^)(QBResponse *response))errorBlock;
 
 #pragma mark -  LogOut
 

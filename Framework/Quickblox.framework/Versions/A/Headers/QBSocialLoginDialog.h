@@ -10,6 +10,13 @@
 
 @class SocialLoginAnswer;
 
+@class QBSocialLoginDialog;
+@protocol QBSocialLoginDialogDelegate <NSObject>
+
+- (void)socialLogin:(QBSocialLoginDialog *)dialog receivedXmlString:(NSString *)xmlString headers:(NSDictionary *)headers;
+
+@end
+
 @interface QBSocialLoginDialog : UIView <UIWebViewDelegate>{
     UIWebView* _webView;
     UIActivityIndicatorView* _spinner;
@@ -21,6 +28,8 @@
 @property (retain) SocialLoginAnswer *answer;
 @property (readonly) NSMutableURLRequest *request;
 @property (readonly) id operation;
+
+@property (copy) void (^onSuccessfullResponse)(NSData *jsonUser, NSDictionary* headers);
 
 - (void) showWithHTML:(NSString *)html andBaseURL:(NSURL *)baseURL;
 - (void) hide;
