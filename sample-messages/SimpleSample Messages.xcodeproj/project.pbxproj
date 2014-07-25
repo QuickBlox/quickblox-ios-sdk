@@ -11,9 +11,9 @@
 		BFA79ED61843E4280044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED51843E4280044D9E0 /* Security.framework */; };
 		BFCEAD2E1976AB4D006279FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD2D1976AB4D006279FC /* Images.xcassets */; };
 		ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE60216773C46004BCAC7 /* Quickblox.framework */; };
-		FA19A32315FE4F5C00B5B2CC /* RichContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA19A32215FE4F5C00B5B2CC /* RichContentViewController.xib */; };
+		FA19A32315FE4F5C00B5B2CC /* SSMRichContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA19A32215FE4F5C00B5B2CC /* SSMRichContentViewController.xib */; };
 		FA19A33215FE4F6A00B5B2CC /* SSMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32A15FE4F6A00B5B2CC /* SSMMainViewController.m */; };
-		FA19A33315FE4F6A00B5B2CC /* RichContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32D15FE4F6A00B5B2CC /* RichContentViewController.m */; };
+		FA19A33315FE4F6A00B5B2CC /* SSMRichContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32D15FE4F6A00B5B2CC /* SSMRichContentViewController.m */; };
 		FA19A33415FE4F6A00B5B2CC /* SSMSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A33015FE4F6A00B5B2CC /* SSMSplashViewController.m */; };
 		FA19A33715FE4F9F00B5B2CC /* SSMPushMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A33615FE4F9F00B5B2CC /* SSMPushMessage.m */; };
 		FA19A33F15FE6B3D00B5B2CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA19A33E15FE6B3D00B5B2CC /* QuartzCore.framework */; };
@@ -44,11 +44,11 @@
 		BFA79ED51843E4280044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFCEAD2D1976AB4D006279FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		ED6EE60216773C46004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		FA19A32215FE4F5C00B5B2CC /* RichContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RichContentViewController.xib; sourceTree = "<group>"; };
+		FA19A32215FE4F5C00B5B2CC /* SSMRichContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSMRichContentViewController.xib; sourceTree = "<group>"; };
 		FA19A32915FE4F6A00B5B2CC /* SSMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMMainViewController.h; sourceTree = "<group>"; };
 		FA19A32A15FE4F6A00B5B2CC /* SSMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMMainViewController.m; sourceTree = "<group>"; };
-		FA19A32C15FE4F6A00B5B2CC /* RichContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichContentViewController.h; sourceTree = "<group>"; };
-		FA19A32D15FE4F6A00B5B2CC /* RichContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichContentViewController.m; sourceTree = "<group>"; };
+		FA19A32C15FE4F6A00B5B2CC /* SSMRichContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMRichContentViewController.h; sourceTree = "<group>"; };
+		FA19A32D15FE4F6A00B5B2CC /* SSMRichContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMRichContentViewController.m; sourceTree = "<group>"; };
 		FA19A32F15FE4F6A00B5B2CC /* SSMSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMSplashViewController.h; sourceTree = "<group>"; };
 		FA19A33015FE4F6A00B5B2CC /* SSMSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMSplashViewController.m; sourceTree = "<group>"; };
 		FA19A33515FE4F9F00B5B2CC /* SSMPushMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMPushMessage.h; sourceTree = "<group>"; };
@@ -139,8 +139,8 @@
 		FA19A32B15FE4F6A00B5B2CC /* RichContentViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FA19A32C15FE4F6A00B5B2CC /* RichContentViewController.h */,
-				FA19A32D15FE4F6A00B5B2CC /* RichContentViewController.m */,
+				FA19A32C15FE4F6A00B5B2CC /* SSMRichContentViewController.h */,
+				FA19A32D15FE4F6A00B5B2CC /* SSMRichContentViewController.m */,
 			);
 			path = RichContentViewController;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 			children = (
 				FA39FB6015EF56B0002F9D26 /* SSMMainViewController.xib */,
 				FA39FB6115EF56B0002F9D26 /* SSMSplashViewController.xib */,
-				FA19A32215FE4F5C00B5B2CC /* RichContentViewController.xib */,
+				FA19A32215FE4F5C00B5B2CC /* SSMRichContentViewController.xib */,
 			);
 			name = xibs;
 			path = Resources/iPhone/xibs;
@@ -305,7 +305,7 @@
 				FAFA573614ED23410057B9B5 /* InfoPlist.strings in Resources */,
 				FA39FB6215EF56B0002F9D26 /* SSMMainViewController.xib in Resources */,
 				FA39FB6315EF56B0002F9D26 /* SSMSplashViewController.xib in Resources */,
-				FA19A32315FE4F5C00B5B2CC /* RichContentViewController.xib in Resources */,
+				FA19A32315FE4F5C00B5B2CC /* SSMRichContentViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,7 +319,7 @@
 				FAFA573814ED23410057B9B5 /* main.m in Sources */,
 				FAFA573C14ED23410057B9B5 /* SSMAppDelegate.m in Sources */,
 				FA19A33215FE4F6A00B5B2CC /* SSMMainViewController.m in Sources */,
-				FA19A33315FE4F6A00B5B2CC /* RichContentViewController.m in Sources */,
+				FA19A33315FE4F6A00B5B2CC /* SSMRichContentViewController.m in Sources */,
 				FA19A33415FE4F6A00B5B2CC /* SSMSplashViewController.m in Sources */,
 				FA19A33715FE4F9F00B5B2CC /* SSMPushMessage.m in Sources */,
 			);

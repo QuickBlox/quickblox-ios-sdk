@@ -7,7 +7,7 @@
 //
 
 #import "SSMMainViewController.h"
-#import "RichContentViewController.h"
+#import "SSMRichContentViewController.h"
 #import "SSMPushMessage.h"
 
 @interface SSMMainViewController () <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
@@ -95,7 +95,7 @@
 
 - (void)showRichContentControllerForMessage:(SSMPushMessage *)message
 {
-    RichContentViewController *richContentViewController = [[RichContentViewController alloc] init];
+    SSMRichContentViewController *richContentViewController = [[SSMRichContentViewController alloc] init];
     richContentViewController.message = message;
     [self presentViewController:richContentViewController animated:YES completion:nil];
 }

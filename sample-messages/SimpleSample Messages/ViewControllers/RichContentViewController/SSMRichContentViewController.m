@@ -6,17 +6,20 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-#import "RichContentViewController.h"
+#import "SSMRichContentViewController.h"
+#import "SSMPushMessage.h"
 
-@interface RichContentViewController ()
+@interface SSMRichContentViewController () <QBActionStatusDelegate>
+
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIProgressView *progressView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *downloadProgress;
 
 @end
 
-@implementation RichContentViewController
-
-@synthesize scrollView;
-@synthesize message;
-@synthesize downloadProgress;
+@implementation SSMRichContentViewController {
+    int imageNumber;
+}
 
 - (void)viewDidLoad
 {
@@ -25,13 +28,14 @@
     imageNumber = 0;
     
     // Download rich content
-    for(NSString *fileID in self.message.richContentFilesIDs){
+    for (NSString *fileID in self.message.richContentFilesIDs) {
         [self.downloadProgress startAnimating];
         [QBContent TDownloadFileWithBlobID:[fileID intValue] delegate:self];
     }
 }
 
-- (IBAction)back:(id)sender {
+- (IBAction)back:(id)sender
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -40,15 +44,14 @@
 #pragma mark QBActionStatusDelegate
 
 // QuickBlox API queries delegate
--(void)completedWithResult:(Result*)result{
-            
+-(void)completedWithResult:(Result*)result
+{
     // Download rich content result
-    if([result isKindOfClass:[QBCFileDownloadTaskResult class]]){
+    if ([result isKindOfClass:[QBCFileDownloadTaskResult class]]) {
         QBCFileDownloadTaskResult *res = (QBCFileDownloadTaskResult *)result;
         
         // Success result
-        if(res.success){
-
+        if (res.success) {
             // show image
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, imageNumber * 420, 320, 420)];
             [imageView setBackgroundColor:[UIColor clearColor]];
@@ -58,19 +61,19 @@
             [self.scrollView setContentSize:CGSizeMake(320, 420 * (imageNumber + 1))];
             [self.scrollView addSubview:imageView];
             
-            
             ++imageNumber;
             
-            if(imageNumber == [message.richContentFilesIDs count]){
-                [downloadProgress stopAnimating];
+            if (imageNumber == [self.message.richContentFilesIDs count]) {
+                [self.downloadProgress stopAnimating];
             }
         }
     }
 }
 
-- (void)setProgress:(float)progress{
+- (void)setProgress:(float)progress
+{
     _progressView.progress = progress;
-    if(progress == 1){
+    if (progress == 1) {
         _progressView.hidden = YES;
     }
 }
