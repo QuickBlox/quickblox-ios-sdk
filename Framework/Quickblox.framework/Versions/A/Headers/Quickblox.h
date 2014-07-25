@@ -20,3 +20,4 @@
 #import <Quickblox/QBAuthHeader.h>
 #import <Quickblox/QBLocationHeader.h>
 #import <Quickblox/QBUsersHeader.h>
+#import <Quickblox/QBMessagesHeader.h>
