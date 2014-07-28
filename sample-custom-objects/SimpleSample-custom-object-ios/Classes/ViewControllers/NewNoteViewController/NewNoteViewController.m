@@ -17,12 +17,6 @@
 @synthesize commentTextField;
 @synthesize noteTextField;
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
 - (IBAction)back:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -34,9 +28,9 @@
         // Create note
         QBCOCustomObject *object = [QBCOCustomObject customObject];
         object.className = customClassName;
-        [object.fields setObject:self.noteTextField.text forKey:@"note"];
-        [object.fields setObject:self.commentTextField.text forKey:@"comment"];
-        [object.fields setObject:@"New" forKey:@"status"];
+        (object.fields)[@"note"] = self.noteTextField.text;
+        (object.fields)[@"comment"] = self.commentTextField.text;
+        (object.fields)[@"status"] = @"New";
         
         [QBCustomObjects createObject:object delegate:self];
         

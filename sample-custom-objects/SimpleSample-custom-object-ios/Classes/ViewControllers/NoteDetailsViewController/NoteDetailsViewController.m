@@ -66,11 +66,11 @@
 
 - (void) reloadData{
     // set note & status
-    self.noteLabel.text = [[customObject fields] objectForKey:@"note"];
-    self.statusLabel.text = [[customObject fields] objectForKey:@"status"];
+    self.noteLabel.text = [customObject fields][@"note"];
+    self.statusLabel.text = [customObject fields][@"status"];
     
     // set comments
-    NSString *commentsAsString = [[customObject fields] objectForKey:@"comment"];
+    NSString *commentsAsString = [customObject fields][@"comment"];
     if(![commentsAsString isKindOfClass:NSNull.class]){
         NSArray *comments = [commentsAsString componentsSeparatedByString:@"-c-"];
         [self.comentsTextView setText:nil];
@@ -112,7 +112,7 @@
     if(status){
         
         // chabge status & update custom object
-        [[customObject fields] setObject:status forKey:@"status"];
+        [customObject fields][@"status"] = status;
         [QBCustomObjects updateObject:customObject delegate:self];
         
         // refresh table
@@ -134,9 +134,9 @@
         switch (buttonIndex) {
             case 1:{
                 // change comments & update custom object
-                NSString *comments = [[NSString alloc] initWithFormat:@"%@-c-%@", [[customObject fields] objectForKey:@"comment"], [alertView textFieldAtIndex:0].text];
+                NSString *comments = [[NSString alloc] initWithFormat:@"%@-c-%@", [customObject fields][@"comment"], [alertView textFieldAtIndex:0].text];
 
-                [[customObject fields] setObject:comments forKey:@"comment"];
+                [customObject fields][@"comment"] = comments;
             
                 [QBCustomObjects updateObject:customObject delegate:self];
             
