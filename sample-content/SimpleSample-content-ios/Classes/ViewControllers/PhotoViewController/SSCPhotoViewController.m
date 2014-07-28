@@ -6,37 +6,26 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-#import "PhotoViewController.h"
+#import "SSCPhotoViewController.h"
 
-@interface PhotoViewController ()
+@interface SSCPhotoViewController ()
 
 @end
 
-@implementation PhotoViewController
+@implementation SSCPhotoViewController
 
--(id)initWithImage:(UIImage*)imageToDisplay{
+- (id)initWithImage:(UIImage*)imageToDisplay
+{
     self = [super init];
     if (self) {
-        
         // Show full screen image
         UIImageView* photoDisplayer = [[UIImageView alloc] init];
-        if(IS_HEIGHT_GTE_568){
-            [photoDisplayer setFrame:CGRectMake(0, 0, 400, 508)];
-        }else{
-            [photoDisplayer setFrame:CGRectMake(0, 0, 400, 420)];
-        }
-        
         photoDisplayer.opaque = NO;
         photoDisplayer.contentMode = UIViewContentModeScaleAspectFit;
         [photoDisplayer setImage:imageToDisplay];
         [self.view addSubview:photoDisplayer];
     }
     return self;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end

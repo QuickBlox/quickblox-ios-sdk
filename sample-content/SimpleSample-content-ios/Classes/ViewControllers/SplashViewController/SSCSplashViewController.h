@@ -12,10 +12,6 @@
 // with QuickBlox Content module (in particular, how to organize user's gallery, download\upload images to it)
 //
 
-#import <UIKit/UIKit.h>
-
-@interface SplashViewController : UIViewController<QBActionStatusDelegate>
-
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@interface SSCSplashViewController : UIViewController
 
 @end

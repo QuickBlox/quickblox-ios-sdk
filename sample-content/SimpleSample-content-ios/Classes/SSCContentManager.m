@@ -6,30 +6,31 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DataManager.h"
+#import "SSCContentManager.h"
 
-static DataManager* instance = nil;
+static SSCContentManager* instance = nil;
 
-@implementation DataManager
+@implementation SSCContentManager
 
 @synthesize fileList = _fileList;
 @synthesize images = _images;
 
 + (instancetype)instance
 {
-	static id instance_ = nil;
+	static id instance = nil;
 	static dispatch_once_t onceToken;
 	
 	dispatch_once(&onceToken, ^{
-		instance_ = [[self alloc] init];
+		instance = [SSCContentManager new];
 	});
 	
-	return instance_;
+	return instance;
 }
 
--(void)savePicture:(UIImage *)image{
+- (void)savePicture:(UIImage *)image
+{
     if (!_images) {
-        _images = [[NSMutableArray alloc] init];
+        _images = [NSMutableArray array];
     }
     [_images addObject:image];
 }

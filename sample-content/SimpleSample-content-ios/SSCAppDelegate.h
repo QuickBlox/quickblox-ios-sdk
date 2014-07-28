@@ -10,12 +10,8 @@
 // Then shows splash screen that creates QuickBlox session in order to use QuickBlox API.
 //
 
-#import <UIKit/UIKit.h>
+@interface SSCAppDelegate : UIResponder <UIApplicationDelegate>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) UINavigationController* navController;
+@property (nonatomic, strong) UIWindow* window;
 
 @end

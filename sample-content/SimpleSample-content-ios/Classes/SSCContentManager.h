@@ -8,16 +8,13 @@
 // This class is a store of user's images
 //
 
-#import <Foundation/Foundation.h>
+@interface SSCContentManager : NSObject
 
-@interface DataManager : NSObject{
-    
-}
 @property (nonatomic,strong) NSMutableArray* fileList;
 @property (nonatomic,strong) NSMutableArray* images;
 
 + (instancetype)instance;
 
--(void)savePicture:(UIImage*)image;
+- (void)savePicture:(UIImage*)image;
 
 @end

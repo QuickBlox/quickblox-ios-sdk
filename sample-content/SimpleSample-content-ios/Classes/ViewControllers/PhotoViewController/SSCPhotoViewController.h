@@ -9,9 +9,7 @@
 // This class shows picture from user's gallery in full screen
 //
 
-#import <UIKit/UIKit.h>
-
-@interface PhotoViewController : UIViewController
+@interface SSCPhotoViewController : UIViewController
 
 -(id)initWithImage:(UIImage*)imageToDisplay;
 

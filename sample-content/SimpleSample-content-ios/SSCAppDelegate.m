@@ -6,39 +6,34 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-#import "AppDelegate.h"
-#import "MainViewController.h"
-#import "SplashViewController.h"
+#import "SSCAppDelegate.h"
+#import "SSCMainViewController.h"
+#import "SSCSplashViewController.h"
 
-@implementation AppDelegate
+@interface SSCAppDelegate ()
 
-@synthesize window = _window;
-@synthesize navController = _navController;
+@property (strong, nonatomic) UINavigationController* navigationController;
 
+@end
+
+@implementation SSCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBSettings setApplicationID:92];
-    [QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
-    [QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
+    [QBApplication sharedApplication].applicationId = 92;
+    [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
+    [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
-    MainViewController *_mainController = [[MainViewController alloc] init];
-    [_mainController setTitle:@"User's Gallery"];
-    _navController = [[UINavigationController alloc] initWithRootViewController:_mainController];
-    _navController.navigationBar.translucent = NO;
-    
-    self.window.rootViewController = _navController;
-    [self.window makeKeyAndVisible];
+    SSCSplashViewController *splashController = [[SSCSplashViewController alloc] initWithNibName:nil bundle:nil];
 
-    SplashViewController *splashController = [[SplashViewController alloc] initWithNibName:@"SplashViewController" bundle:nil];
-    [_navController presentViewController:splashController animated:YES completion:nil];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:splashController];
+    self.navigationController.navigationBarHidden = YES;
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = self.navigationController;
+    [self.window makeKeyAndVisible];
 
     return YES;
 }

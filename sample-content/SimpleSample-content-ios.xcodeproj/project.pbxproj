@@ -22,14 +22,14 @@
 		ED49FAE815B5788900154AE8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAE715B5788900154AE8 /* SystemConfiguration.framework */; };
 		ED49FAEF15B5798700154AE8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED49FAEE15B5798700154AE8 /* MobileCoreServices.framework */; };
 		ED6EE5EA16773486004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5E916773486004BCAC7 /* Quickblox.framework */; };
-		FAB04CF715FDD68B00627F01 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF015FDD68B00627F01 /* MainViewController.m */; };
-		FAB04CF815FDD68B00627F01 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF315FDD68B00627F01 /* PhotoViewController.m */; };
-		FAB04CF915FDD68B00627F01 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF615FDD68B00627F01 /* SplashViewController.m */; };
-		FAB04D0215FDD6A400627F01 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04CFE15FDD6A400627F01 /* MainViewController.xib */; };
-		FAB04D0315FDD6A400627F01 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04CFF15FDD6A400627F01 /* PhotoViewController.xib */; };
-		FAB04D0415FDD6A400627F01 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04D0015FDD6A400627F01 /* SplashViewController.xib */; };
-		FAC3D16415BF082800038395 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D14B15BF082800038395 /* AppDelegate.m */; };
-		FAC3D16815BF082800038395 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D15815BF082800038395 /* DataManager.m */; };
+		FAB04CF715FDD68B00627F01 /* SSCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF015FDD68B00627F01 /* SSCMainViewController.m */; };
+		FAB04CF815FDD68B00627F01 /* SSCPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF315FDD68B00627F01 /* SSCPhotoViewController.m */; };
+		FAB04CF915FDD68B00627F01 /* SSCSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB04CF615FDD68B00627F01 /* SSCSplashViewController.m */; };
+		FAB04D0215FDD6A400627F01 /* SSCMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04CFE15FDD6A400627F01 /* SSCMainViewController.xib */; };
+		FAB04D0315FDD6A400627F01 /* SSCPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04CFF15FDD6A400627F01 /* SSCPhotoViewController.xib */; };
+		FAB04D0415FDD6A400627F01 /* SSCSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB04D0015FDD6A400627F01 /* SSCSplashViewController.xib */; };
+		FAC3D16415BF082800038395 /* SSCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D14B15BF082800038395 /* SSCAppDelegate.m */; };
+		FAC3D16815BF082800038395 /* SSCContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D15815BF082800038395 /* SSCContentManager.m */; };
 		FAC3D16915BF082800038395 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAC3D15915BF082800038395 /* InfoPlist.strings */; };
 		FAC3D16A15BF082800038395 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC3D15B15BF082800038395 /* main.m */; };
 		FAC8B9C316D2CF2400F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9C216D2CF2400F03311 /* CoreVideo.framework */; };
@@ -56,19 +56,19 @@
 		ED49FAE715B5788900154AE8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		ED49FAEE15B5798700154AE8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		ED6EE5E916773486004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		FAB04CEF15FDD68B00627F01 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		FAB04CF015FDD68B00627F01 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		FAB04CF215FDD68B00627F01 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
-		FAB04CF315FDD68B00627F01 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
-		FAB04CF515FDD68B00627F01 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
-		FAB04CF615FDD68B00627F01 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
-		FAB04CFE15FDD6A400627F01 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
-		FAB04CFF15FDD6A400627F01 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
-		FAB04D0015FDD6A400627F01 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SplashViewController.xib; sourceTree = "<group>"; };
-		FAC3D14A15BF082800038395 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		FAC3D14B15BF082800038395 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FAC3D15715BF082800038395 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
-		FAC3D15815BF082800038395 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		FAB04CEF15FDD68B00627F01 /* SSCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCMainViewController.h; sourceTree = "<group>"; };
+		FAB04CF015FDD68B00627F01 /* SSCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCMainViewController.m; sourceTree = "<group>"; };
+		FAB04CF215FDD68B00627F01 /* SSCPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCPhotoViewController.h; sourceTree = "<group>"; };
+		FAB04CF315FDD68B00627F01 /* SSCPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCPhotoViewController.m; sourceTree = "<group>"; };
+		FAB04CF515FDD68B00627F01 /* SSCSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCSplashViewController.h; sourceTree = "<group>"; };
+		FAB04CF615FDD68B00627F01 /* SSCSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCSplashViewController.m; sourceTree = "<group>"; };
+		FAB04CFE15FDD6A400627F01 /* SSCMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSCMainViewController.xib; sourceTree = "<group>"; };
+		FAB04CFF15FDD6A400627F01 /* SSCPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSCPhotoViewController.xib; sourceTree = "<group>"; };
+		FAB04D0015FDD6A400627F01 /* SSCSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSCSplashViewController.xib; sourceTree = "<group>"; };
+		FAC3D14A15BF082800038395 /* SSCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCAppDelegate.h; sourceTree = "<group>"; };
+		FAC3D14B15BF082800038395 /* SSCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCAppDelegate.m; sourceTree = "<group>"; };
+		FAC3D15715BF082800038395 /* SSCContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCContentManager.h; sourceTree = "<group>"; };
+		FAC3D15815BF082800038395 /* SSCContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCContentManager.m; sourceTree = "<group>"; };
 		FAC3D15A15BF082800038395 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FAC3D15B15BF082800038395 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FAC3D16215BF082800038395 /* SimpleSample-content-ios-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SimpleSample-content-ios-Info.plist"; sourceTree = "<group>"; };
@@ -166,8 +166,8 @@
 		FAB04CEE15FDD68B00627F01 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FAB04CEF15FDD68B00627F01 /* MainViewController.h */,
-				FAB04CF015FDD68B00627F01 /* MainViewController.m */,
+				FAB04CEF15FDD68B00627F01 /* SSCMainViewController.h */,
+				FAB04CF015FDD68B00627F01 /* SSCMainViewController.m */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
@@ -175,8 +175,8 @@
 		FAB04CF115FDD68B00627F01 /* PhotoViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FAB04CF215FDD68B00627F01 /* PhotoViewController.h */,
-				FAB04CF315FDD68B00627F01 /* PhotoViewController.m */,
+				FAB04CF215FDD68B00627F01 /* SSCPhotoViewController.h */,
+				FAB04CF315FDD68B00627F01 /* SSCPhotoViewController.m */,
 			);
 			path = PhotoViewController;
 			sourceTree = "<group>";
@@ -184,8 +184,8 @@
 		FAB04CF415FDD68B00627F01 /* SplashViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FAB04CF515FDD68B00627F01 /* SplashViewController.h */,
-				FAB04CF615FDD68B00627F01 /* SplashViewController.m */,
+				FAB04CF515FDD68B00627F01 /* SSCSplashViewController.h */,
+				FAB04CF615FDD68B00627F01 /* SSCSplashViewController.m */,
 			);
 			path = SplashViewController;
 			sourceTree = "<group>";
@@ -203,9 +203,9 @@
 		FAB04CFD15FDD6A400627F01 /* xibs */ = {
 			isa = PBXGroup;
 			children = (
-				FAB04CFE15FDD6A400627F01 /* MainViewController.xib */,
-				FAB04CFF15FDD6A400627F01 /* PhotoViewController.xib */,
-				FAB04D0015FDD6A400627F01 /* SplashViewController.xib */,
+				FAB04CFE15FDD6A400627F01 /* SSCMainViewController.xib */,
+				FAB04CFF15FDD6A400627F01 /* SSCPhotoViewController.xib */,
+				FAB04D0015FDD6A400627F01 /* SSCSplashViewController.xib */,
 			);
 			path = xibs;
 			sourceTree = "<group>";
@@ -213,8 +213,8 @@
 		FAC3D14915BF082800038395 /* SimpleSample-content-ios */ = {
 			isa = PBXGroup;
 			children = (
-				FAC3D14A15BF082800038395 /* AppDelegate.h */,
-				FAC3D14B15BF082800038395 /* AppDelegate.m */,
+				FAC3D14A15BF082800038395 /* SSCAppDelegate.h */,
+				FAC3D14B15BF082800038395 /* SSCAppDelegate.m */,
 				FAC3D14C15BF082800038395 /* Classes */,
 				FAB04CFA15FDD6A400627F01 /* Resources */,
 				FAC3D15915BF082800038395 /* InfoPlist.strings */,
@@ -229,8 +229,8 @@
 			isa = PBXGroup;
 			children = (
 				FAB04CED15FDD68B00627F01 /* ViewControllers */,
-				FAC3D15715BF082800038395 /* DataManager.h */,
-				FAC3D15815BF082800038395 /* DataManager.m */,
+				FAC3D15715BF082800038395 /* SSCContentManager.h */,
+				FAC3D15815BF082800038395 /* SSCContentManager.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -287,9 +287,9 @@
 			files = (
 				FAC3D16915BF082800038395 /* InfoPlist.strings in Resources */,
 				BF6860EF1976C72600496FFB /* Images.xcassets in Resources */,
-				FAB04D0215FDD6A400627F01 /* MainViewController.xib in Resources */,
-				FAB04D0315FDD6A400627F01 /* PhotoViewController.xib in Resources */,
-				FAB04D0415FDD6A400627F01 /* SplashViewController.xib in Resources */,
+				FAB04D0215FDD6A400627F01 /* SSCMainViewController.xib in Resources */,
+				FAB04D0315FDD6A400627F01 /* SSCPhotoViewController.xib in Resources */,
+				FAB04D0415FDD6A400627F01 /* SSCSplashViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,12 +300,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAC3D16415BF082800038395 /* AppDelegate.m in Sources */,
-				FAC3D16815BF082800038395 /* DataManager.m in Sources */,
+				FAC3D16415BF082800038395 /* SSCAppDelegate.m in Sources */,
+				FAC3D16815BF082800038395 /* SSCContentManager.m in Sources */,
 				FAC3D16A15BF082800038395 /* main.m in Sources */,
-				FAB04CF715FDD68B00627F01 /* MainViewController.m in Sources */,
-				FAB04CF815FDD68B00627F01 /* PhotoViewController.m in Sources */,
-				FAB04CF915FDD68B00627F01 /* SplashViewController.m in Sources */,
+				FAB04CF715FDD68B00627F01 /* SSCMainViewController.m in Sources */,
+				FAB04CF815FDD68B00627F01 /* SSCPhotoViewController.m in Sources */,
+				FAB04CF915FDD68B00627F01 /* SSCSplashViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
