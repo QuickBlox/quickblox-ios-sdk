@@ -52,12 +52,9 @@
                     </connections>
                 </textView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20">
-                    <rect key="frame" x="20" y="194" width="280" height="137"/>
+                    <rect key="frame" x="20" y="194" width="280" height="253"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="137" id="Z4v-dn-E66"/>
-                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <connections>
@@ -67,6 +64,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="20" secondAttribute="bottom" constant="33" id="46M-cp-2aF"/>
                 <constraint firstItem="10" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="5iq-Nd-mQ1"/>
                 <constraint firstItem="27" firstAttribute="top" secondItem="1" secondAttribute="top" id="79H-Sg-dwi"/>
                 <constraint firstItem="12" firstAttribute="leading" secondItem="20" secondAttribute="leading" id="7zB-tt-m2Y"/>

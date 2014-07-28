@@ -261,7 +261,9 @@
 		ED49FA9A15B56E5200154AE8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SSC;
 				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = QuickBlox;
 			};
 			buildConfigurationList = ED49FA9D15B56E5200154AE8 /* Build configuration list for PBXProject "SimpleSample-content-ios" */;
 			compatibilityVersion = "Xcode 3.2";

@@ -63,7 +63,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15">
-                    <rect key="frame" x="20" y="125" width="280" height="230"/>
+                    <rect key="frame" x="20" y="125" width="280" height="298"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -98,14 +98,14 @@
                 <constraint firstItem="22" firstAttribute="top" secondItem="1" secondAttribute="top" id="3gj-eF-dve"/>
                 <constraint firstItem="13" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="5qf-aJ-8Kx"/>
                 <constraint firstItem="14" firstAttribute="baseline" secondItem="13" secondAttribute="baseline" id="6Nm-yF-S7M"/>
-                <constraint firstItem="4" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="81" id="9xW-19-8Ua"/>
+                <constraint firstItem="4" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="13" id="9xW-19-8Ua"/>
                 <constraint firstItem="17" firstAttribute="trailing" secondItem="14" secondAttribute="trailing" id="AvC-f1-7ZC"/>
                 <constraint firstItem="16" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="20" id="B2F-Gx-cRX"/>
                 <constraint firstItem="15" firstAttribute="top" secondItem="18" secondAttribute="bottom" constant="8" symbolic="YES" id="Bok-gG-Ho4"/>
                 <constraint firstAttribute="trailing" secondItem="15" secondAttribute="trailing" constant="20" symbolic="YES" id="DBc-DY-Vbs"/>
                 <constraint firstItem="16" firstAttribute="baseline" secondItem="17" secondAttribute="baseline" id="EBe-aV-MFP"/>
                 <constraint firstItem="22" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="HKn-Ov-jBc"/>
-                <constraint firstItem="15" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="O1j-un-Iox"/>
+                <constraint firstItem="15" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" constant="34" id="O1j-un-Iox"/>
                 <constraint firstItem="14" firstAttribute="leading" secondItem="13" secondAttribute="trailing" constant="8" symbolic="YES" id="O9K-bE-4Vs"/>
                 <constraint firstItem="18" firstAttribute="top" secondItem="17" secondAttribute="bottom" constant="14" id="TNO-hJ-lWN"/>
                 <constraint firstItem="14" firstAttribute="top" secondItem="13" secondAttribute="top" id="Tjd-OK-d26"/>
