@@ -9,8 +9,6 @@
 // This class presents table cell, that used for show note information 
 //
 
-#import <UIKit/UIKit.h>
-
 @interface CustomTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel *noteLabel;

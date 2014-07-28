@@ -7,8 +7,8 @@
 //
 
 #import "SSCOMainViewController.h"
-#import "NoteDetailsViewController.h"
-#import "NewNoteViewController.h"
+#import "SSCONoteDetailsViewController.h"
+#import "SSCONewNoteViewController.h"
 #import "CustomTableViewCell.h"
 
 @interface SSCOMainViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -63,13 +63,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.searchArray removeAllObjects];
-    [self.searchArray addObjectsFromArray:[[DataManager shared] notes]];
+    [self.searchArray addObjectsFromArray:[[SSCONotesStorage shared] notes]];
     [self.tableView reloadData];
 }
 
 - (void)addNewNote:(id)sender
 {
-    NewNoteViewController *newNoteViewController = [NewNoteViewController new];
+    SSCONewNoteViewController *newNoteViewController = [SSCONewNoteViewController new];
     [self.navigationController pushViewController:newNoteViewController animated:YES];
 }
 
@@ -81,8 +81,8 @@
     [self.searchDisplayController.searchBar resignFirstResponder];
     
     // Show particular note
-    NoteDetailsViewController *noteDetailsViewController = [[NoteDetailsViewController alloc] init];
-    QBCOCustomObject *customObject = (QBCOCustomObject *)[[DataManager shared] notes][indexPath.row];
+    SSCONoteDetailsViewController *noteDetailsViewController = [[SSCONoteDetailsViewController alloc] init];
+    QBCOCustomObject *customObject = (QBCOCustomObject *)[[SSCONotesStorage shared] notes][indexPath.row];
     noteDetailsViewController.customObject = customObject;
     [self.navigationController pushViewController:noteDetailsViewController animated:YES];
 }
@@ -133,10 +133,10 @@
     [self.searchArray removeAllObjects];
     
     if ([searchText length] == 0) {
-        [self.searchArray addObjectsFromArray:[[DataManager shared] notes]];
+        [self.searchArray addObjectsFromArray:[[SSCONotesStorage shared] notes]];
         [self.searchDisplayController.searchBar resignFirstResponder];
     } else {
-        for (QBCOCustomObject *object in [[DataManager shared] notes]) {
+        for (QBCOCustomObject *object in [[SSCONotesStorage shared] notes]) {
             NSRange note = [(object.fields)[@"note"] rangeOfString:searchText options:NSCaseInsensitiveSearch];
             if (note.location != NSNotFound) {
                 [self.searchArray addObject:object];

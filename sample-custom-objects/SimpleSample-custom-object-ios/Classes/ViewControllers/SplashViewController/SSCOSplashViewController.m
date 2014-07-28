@@ -23,7 +23,7 @@
         [[QBSession currentSession] startSessionWithDetails:session exparationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
         [QBRequest objectsWithClassName:customClassName
                            successBlock:^(QBResponse *response, NSArray *objects, NSArray *notFoundObjectsIds, QBResponsePage *page) {
-                               [[[DataManager shared] notes] addObjectsFromArray:objects];
+                               [[SSCONotesStorage shared] addNotes:objects];
                                [self performSelector:@selector(hideSplashScreen) withObject:self afterDelay:2];
                            } errorBlock:[self handleErrorBlock]];
     };

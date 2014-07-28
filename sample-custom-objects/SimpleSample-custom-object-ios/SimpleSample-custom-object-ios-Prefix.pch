@@ -16,6 +16,6 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <Quickblox/Quickblox.h>
+    #import "SSCONotesStorage.h"
 #endif
 
-#import "DataManager.h"
