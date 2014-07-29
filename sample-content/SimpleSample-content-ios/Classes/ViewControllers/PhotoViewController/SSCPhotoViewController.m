@@ -10,22 +10,36 @@
 
 @interface SSCPhotoViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+
 @end
 
 @implementation SSCPhotoViewController
 
-- (id)initWithImage:(UIImage*)imageToDisplay
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        // Show full screen image
-        UIImageView* photoDisplayer = [[UIImageView alloc] init];
-        photoDisplayer.opaque = NO;
-        photoDisplayer.contentMode = UIViewContentModeScaleAspectFit;
-        [photoDisplayer setImage:imageToDisplay];
-        [self.view addSubview:photoDisplayer];
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.extendedLayoutIncludesOpaqueBars = NO;
+        self.automaticallyAdjustsScrollViewInsets = NO;
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.title = @"Photo";
+    self.photoImageView.image = self.photoImage;
 }
 
 @end

@@ -14,7 +14,7 @@
 #define IMAGES_IN_ROW 3
 
 #import "SSCMainViewController.h"
-#import "PhotoViewController.h"
+#import "SSCPhotoViewController.h"
 
 @interface SSCMainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, QBActionStatusDelegate, UIGestureRecognizerDelegate>
 
@@ -44,10 +44,11 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"Content";
 
     CGRect appframe = [[UIScreen mainScreen] bounds];
     [self.scrollView setContentSize:appframe.size];
@@ -60,10 +61,18 @@
     [self.view addSubview:toolbar];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationItem.hidesBackButton = YES;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (![[DataManager instance] images]) {
+    if ([[SSCContentManager instance] imageArrayIsEmpty]) {
         
         // Download user's files
         [self downloadFile];
@@ -77,14 +86,14 @@
 
 - (void)downloadFile
 {
-    NSUInteger fileID = [(QBCBlob *)[[[DataManager instance] fileList] lastObject] ID];
+    NSUInteger fileID = [[[SSCContentManager instance] lastObjectFromFileList] ID];
     if (fileID > 0) {
         // Download file from QuickBlox server
         [QBContent TDownloadFileWithBlobID:fileID delegate:self];
     }
     
     // end of files
-    if ([[DataManager instance] fileList].count == 0) {
+    if ([[SSCContentManager instance] fileListIsEmpty]) {
         [self.activityIndicator stopAnimating];
         self.activityIndicator.hidden = YES;
     }
@@ -120,7 +129,8 @@
 {
     UITapGestureRecognizer* tapRecognizer = (UITapGestureRecognizer*)sender;
     UIImageView* selectedImageView = (UIImageView*)[tapRecognizer view];
-    PhotoViewController* photoController = [[PhotoViewController alloc] initWithImage:selectedImageView.image];
+    SSCPhotoViewController* photoController = [SSCPhotoViewController new];
+    photoController.photoImage = selectedImageView.image;
     [self.navigationController pushViewController:photoController animated:YES];
 }
 
@@ -175,18 +185,18 @@
             if ([res file]) {   
                 
                 // Add image to gallery
-                [[DataManager instance] savePicture:[UIImage imageWithData:[res file]]];
+                [[SSCContentManager instance] savePicture:[UIImage imageWithData:[res file]]];
                 UIImageView* imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[res file]]];
                 imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [self showImage:imageView];
                 //
-                [[[DataManager instance] fileList] removeLastObject];
+                [[SSCContentManager instance] removeLastObjectFromFileList];
                 
                 // Download next file
                 [self downloadFile];
             }          
         } else {
-            [[[DataManager instance] fileList] removeLastObject];
+            [[SSCContentManager instance] removeLastObjectFromFileList];
             
             // download next file
             [self downloadFile];

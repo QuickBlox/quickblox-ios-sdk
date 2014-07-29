@@ -8,7 +8,12 @@
 
 #import "SSCContentManager.h"
 
-static SSCContentManager* instance = nil;
+@interface SSCContentManager ()
+
+@property (nonatomic, strong) NSMutableArray* fileList;
+@property (nonatomic, strong) NSMutableArray* images;
+
+@end
 
 @implementation SSCContentManager
 
@@ -33,6 +38,31 @@ static SSCContentManager* instance = nil;
         _images = [NSMutableArray array];
     }
     [_images addObject:image];
+}
+
+- (void)saveFileList:(NSArray *)fileList
+{
+    self.fileList = [NSMutableArray arrayWithArray:fileList];
+}
+
+- (QBCBlob *)lastObjectFromFileList
+{
+    return [self.fileList lastObject];
+}
+
+- (BOOL)fileListIsEmpty
+{
+    return self.fileList.count == 0;
+}
+
+- (void)removeLastObjectFromFileList
+{
+    [self.fileList removeLastObject];
+}
+
+- (BOOL)imageArrayIsEmpty
+{
+    return (self.images.count == 0);
 }
 
 @end

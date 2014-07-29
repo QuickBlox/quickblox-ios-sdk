@@ -10,11 +10,14 @@
 
 @interface SSCContentManager : NSObject
 
-@property (nonatomic,strong) NSMutableArray* fileList;
-@property (nonatomic,strong) NSMutableArray* images;
-
 + (instancetype)instance;
 
+- (void)saveFileList:(NSArray *)fileList;
+- (QBCBlob *)lastObjectFromFileList;
+- (BOOL)fileListIsEmpty;
+- (void)removeLastObjectFromFileList;
+
 - (void)savePicture:(UIImage*)image;
+- (BOOL)imageArrayIsEmpty;
 
 @end

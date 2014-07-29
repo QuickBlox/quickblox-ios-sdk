@@ -11,6 +11,6 @@
 
 @interface SSCPhotoViewController : UIViewController
 
--(id)initWithImage:(UIImage*)imageToDisplay;
+@property (nonatomic, strong) UIImage* photoImage;
 
 @end

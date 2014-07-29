@@ -51,26 +51,24 @@
     [self.navigationController pushViewController:[SSCMainViewController new] animated:YES];
 }
 
-
 #pragma mark -
 #pragma mark QBActionStatusDelegate
 
 // QuickBlox API queries delegate
--(void)completedWithResult:(Result *)result
+- (void)completedWithResult:(Result *)result
 {
-    if ([result isKindOfClass:[QBCBlobPagedResult class]]){
+    if ([result isKindOfClass:[QBCBlobPagedResult class]]) {
         // Success result
-        if(result.success){
+        if (result.success) {
             QBCBlobPagedResult *res = (QBCBlobPagedResult *)result; 
             
             // Save user's filelist
-            [DataManager instance].fileList = [res.blobs mutableCopy];
+            [[SSCContentManager instance] saveFileList:res.blobs];
             
             // hid splash screen
             [self performSelector:@selector(hideSplashScreen) withObject:self afterDelay:1];
         }
     }
 }
-
 
 @end
