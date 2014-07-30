@@ -94,6 +94,9 @@ typedef enum QBChatServiceError {
  */
 - (BOOL)sendMessage:(QBChatMessage *)message;
 
+
+- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *))sentBlock;
+
 /**
  Send presence message. Session will be closed in 90 seconds since last activity.
  
@@ -454,6 +457,21 @@ typedef enum QBChatServiceError {
  */
 + (NSObject<Cancelable> *)updateMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate;
 + (NSObject<Cancelable> *)updateMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Update Messages
+
+/**
+ Mark mesasges as read
+ 
+ @param messagesIDs An array of IDs of chat messages to read
+ @param dialogID ID of a dialog
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)markMessagesAsRead:(NSArray *)messagesIDs dialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)markMessagesAsRead:(NSArray *)messagesIDs dialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
 
 
 #pragma mark -

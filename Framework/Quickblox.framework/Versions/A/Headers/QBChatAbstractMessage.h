@@ -33,16 +33,16 @@
 /**
  Message datetime
  */
-@property (nonatomic, copy) NSDate *datetime;
+@property (nonatomic, retain) NSDate *datetime;
 
 /**
  Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.
  */
-@property (nonatomic, copy) NSMutableDictionary *customParameters;
+@property (nonatomic, retain) NSMutableDictionary *customParameters;
 
 /**
  Array of attachments. Array of QBChatAttachment instances.
  */
-@property (nonatomic, copy) NSArray *attachments;
+@property (nonatomic, retain) NSArray *attachments;
 
 @end

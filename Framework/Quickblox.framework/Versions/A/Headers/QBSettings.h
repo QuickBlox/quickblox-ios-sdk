@@ -165,7 +165,7 @@
 /**
  Enable/disable TLS for chat
  
- @param useTLSForChat Enable TLS for chat. Default value: YES.
+ @param useTLSForChat Enable TLS for chat. Default value: NO.
  */
 + (void)useTLSForChat:(BOOL)useTLSForChat;
 
@@ -175,6 +175,24 @@
  @return YES if TLS is enabled;
  */
 + (BOOL)isUseTLSForChat;
+
+
+#pragma mark -
+#pragma mark Chat Stream Management
+
+/**
+ Enable/disable Stream Management for chat
+ 
+ @param useStreamManagementForChat Enable Stream Management for chat. Default value: NO
+ */
++ (void)useStreamManagementForChat:(BOOL)useStreamManagementForChat;
+
+/**
+ Check if Stream Management is enable for Chat
+ 
+ @return YES if Stream Management is enabled
+ */
++ (BOOL)isUseStreamManagementForChat;
 
 
 #pragma mark -

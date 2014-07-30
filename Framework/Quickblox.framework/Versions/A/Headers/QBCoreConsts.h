@@ -9,6 +9,8 @@
 
 #define N(V) (V==nil)?@"":V
 #define S(S,...) [NSString stringWithFormat:S,__VA_ARGS__]
+#define QBUrlEncode(obj) [EncodeHelper urlencode:obj]
+#define QBAddPercentEscapes(str) [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
 
 #define QBToken @"Qb-Token"
 

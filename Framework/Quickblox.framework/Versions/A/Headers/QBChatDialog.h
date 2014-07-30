@@ -50,7 +50,6 @@
 /** Array of user ids in chat. For private chat count = 2 */
 @property (nonatomic, retain) NSArray *occupantIDs;
 
-
 /** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise or if you aren't logged in to Chat.  */
 @property (nonatomic, readonly) NSInteger recipientID;
 

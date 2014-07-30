@@ -13,3 +13,4 @@
 #import <Quickblox/QBContactListItem.h>
 #import <Quickblox/QBChatDialog.h>
 #import <Quickblox/QBChatHistoryMessage.h>
+#import <Quickblox/QBStreamManagementCallbackObject.h>

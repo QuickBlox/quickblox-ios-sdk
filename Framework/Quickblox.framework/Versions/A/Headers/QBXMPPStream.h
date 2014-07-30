@@ -51,7 +51,13 @@ typedef enum QBXMPPStreamErrorCode XMPPStreamErrorCode;
 	
 	UInt64 numberOfBytesSent;
 	UInt64 numberOfBytesReceived;
+    
+    // Stream Management
+    //
+    UInt64 numberOfHandledStanzas;
+    UInt64 numberOfStanzasSent;
 	
+    
 	QBXMPPParser *parser;
 	NSError *parserError;
 	
@@ -244,6 +250,11 @@ typedef enum QBXMPPStreamErrorCode XMPPStreamErrorCode;
 @property (readonly) UInt64 numberOfBytesSent;
 @property (readonly) UInt64 numberOfBytesReceived;
 
+
+@property (readonly) UInt64 numberOfStanzasSent;
+@property (readonly) UInt64 numberOfHandledStanzas;
+
+
 /**
  * Affects the funtionality of the byte counter.
  * 
@@ -267,6 +278,9 @@ typedef enum QBXMPPStreamErrorCode XMPPStreamErrorCode;
  * The default value is NO.
 **/
 @property (readwrite, assign) BOOL enableBackgroundingOnSocket;
+
+
+@property (nonatomic, assign) BOOL streamManagementEnabled;
 
 #endif
 
@@ -343,7 +357,7 @@ typedef enum QBXMPPStreamErrorCode XMPPStreamErrorCode;
 - (void)disconnect;
 - (void)disconnectAfterSending;
 
-- (void)closeStream;
+- (void)sendCloseStream;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Security
@@ -450,6 +464,13 @@ typedef enum QBXMPPStreamErrorCode XMPPStreamErrorCode;
 - (BOOL)authenticateAnonymously:(NSError **)errPtr;
 
 - (void)handleAuth1:(NSXMLElement *)response;
+
+
+#pragma mark Stream Management
+
+- (BOOL)isStreamManagementSupported;
+- (void)enableStreamManagement;
+- (void)sendRequestAcknowledgement;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Server Info
@@ -832,5 +853,9 @@ typedef enum QBXMPPStreamErrorCode XMPPStreamErrorCode;
 **/
 - (void)xmppStream:(QBXMPPStream *)sender didRegisterModule:(id)module;
 - (void)xmppStream:(QBXMPPStream *)sender willUnregisterModule:(id)module;
+
+
+- (void)xmppStream:(QBXMPPStream *)sender didStreamManagementEnabled:(NSXMLElement *)element;
+- (void)xmppStream:(QBXMPPStream *)sender didReceiveRequestAcknowledgementAnswerElement:(NSXMLElement *)element;
 
 @end
