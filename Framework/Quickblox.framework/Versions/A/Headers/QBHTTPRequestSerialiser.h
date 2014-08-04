@@ -26,7 +26,7 @@
 
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method
                                  URLString:(NSString *)URLString
-                                parameters:(id)parameters
+                                forRequest:(QBRequest *)request
                                      error:(NSError *__autoreleasing *)error;
 
 @end

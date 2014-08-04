@@ -20,7 +20,6 @@
 - (void(^)(QBResponse *, QBASession *))sessionSuccessBlock
 {
     return ^(QBResponse *response, QBASession *session) {
-        [[QBSession currentSession] startSessionWithDetails:session exparationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
         PagedRequest *pagedRequest = [[PagedRequest alloc] init];
         [pagedRequest setPerPage:20];
         

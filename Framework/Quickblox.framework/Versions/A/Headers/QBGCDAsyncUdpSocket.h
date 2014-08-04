@@ -550,7 +550,7 @@ typedef BOOL (^QBGCDAsyncUdpSocketSendFilterBlock)(NSData *data, NSData *address
  *     If data is nil or zero-length, this method does nothing.
  *     If passing NSMutableData, please read the thread-safety notice below.
  * 
- * @param address
+ * @param remoteAddr
  *     The address to send the data to (specified as a sockaddr structure wrapped in a NSData object).
  * 
  * @param timeout

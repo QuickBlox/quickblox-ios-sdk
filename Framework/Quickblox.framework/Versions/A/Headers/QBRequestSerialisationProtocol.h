@@ -36,6 +36,7 @@
 */
 - (NSURLRequest *)requestBySerialisingRequest:(NSURLRequest *)request withParameters:(NSDictionary *)parameters error:(NSError *__autoreleasing *)error;
 
+// TODO: ??? Move to Object category for serialisation
 - (NSDictionary *)generateParametersForObject:(id)object;
 
 @end

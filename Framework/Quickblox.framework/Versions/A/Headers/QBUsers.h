@@ -35,8 +35,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)logInWithUserLogin:(NSString *)login password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)logInWithUserLogin:(NSString *)login password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)logInWithUserLogin:(NSString *)login password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest logInWithUserLogin:password:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)logInWithUserLogin:(NSString *)login password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest logInWithUserLogin:password:successBlock:errorBlock:]' instead.")));
 
 /**
  User LogIn with email
@@ -48,8 +49,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)logInWithUserEmail:(NSString *)email password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)logInWithUserEmail:(NSString *)email password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)logInWithUserEmail:(NSString *)email password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest logInWithUserEmail:password:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)logInWithUserEmail:(NSString *)email password:(NSString *)password delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest logInWithUserEmail:password:successBlock:errorBlock:]' instead.")));
 
 
 /**
@@ -62,8 +64,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest logInWithSocialProvider:scope:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider scope:(NSArray *)scope delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest logInWithSocialProvider:scope:successBlock:errorBlock:]' instead.")));
 
 
 /**
@@ -77,8 +80,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLoginResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider accessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider accessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider accessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest logInWithSocialProvider:accessToken:accessTokenSecret:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)logInWithSocialProvider:(NSString *)provider accessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest logInWithSocialProvider:accessToken:accessTokenSecret:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -92,8 +96,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLogoutResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)logOutWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)logOutWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)logOutWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest logOutWithSuccessBlock:errorBlock:]' instead.")));
++ (NSObject<Cancelable> *)logOutWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest logOutWithSuccessBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -107,8 +111,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithSuccessBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithSuccessBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve all Users for current account (with extended set of pagination parameters)
@@ -119,8 +124,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersForPage:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersForPage:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve all Users for current account with extended request
@@ -146,8 +152,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)signUp:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)signUp:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)signUp:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest signUp:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)signUp:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest signUp:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -162,8 +169,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)userWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)userWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)userWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest userWithID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)userWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest userWithID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -178,8 +186,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithIDs:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithIDs:page:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve users with ids (with extended set of pagination parameters)
@@ -191,8 +200,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithIDs:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithIDs:(NSString *)ids pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithIDs:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -207,8 +217,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)userWithLogin:(NSString *)userLogin delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)userWithLogin:(NSString *)userLogin delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)userWithLogin:(NSString *)userLogin delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest userWithLogin:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)userWithLogin:(NSString *)userLogin delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest userWithLogin:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -223,8 +234,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithLogins:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithLogins:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve users with logins (with extended set of pagination parameters)
@@ -236,8 +248,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithLogins:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithLogins:(NSArray *)logins pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithLogins:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -253,8 +266,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithFullName:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithFullName:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve Users by full name for current account (with extended set of pagination parameters)
@@ -266,8 +280,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithFullName:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithFullName:(NSString *)userFullName pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithFullName:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -283,8 +298,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithTags:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithTags:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve Users by tags for current account (with extended set of pagination parameters)
@@ -296,8 +312,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithTags:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithTags:(NSArray *)tags pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithTags:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -312,8 +329,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithPhoneNumbers:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithPhoneNumbers:page:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve users with phone numbers (with extended set of pagination parameters)
@@ -325,8 +343,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithPhoneNumbers:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithPhoneNumbers:(NSArray *)phoneNumbers pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithPhoneNumbers:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -341,8 +360,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)userWithFacebookID:(NSString *)userFacebookID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)userWithFacebookID:(NSString *)userFacebookID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)userWithFacebookID:(NSString *)userFacebookID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest userWithFacebookID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)userWithFacebookID:(NSString *)userFacebookID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest userWithFacebookID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -357,8 +377,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithFacebookIDs:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithFacebookIDs:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve users with facebook ids (with extended set of pagination parameters)
@@ -370,8 +391,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithFacebookIDs:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithFacebookIDs:(NSArray *)facebookIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithFacebookIDs:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -386,8 +408,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)userWithTwitterID:(NSString *)userTwitterID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)userWithTwitterID:(NSString *)userTwitterID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)userWithTwitterID:(NSString *)userTwitterID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest userWithTwitterID:successBlock:errorBlock:]' instead.")));
++ (NSObject<Cancelable> *)userWithTwitterID:(NSString *)userTwitterID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest userWithTwitterID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -402,8 +424,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithTwitterIDs:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithTwitterIDs:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve users with twitter ids (with extended set of pagination parameters)
@@ -415,8 +438,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithTwitterIDs:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithTwitterIDs:(NSArray *)twitterIDs pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithTwitterIDs:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -431,8 +455,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)userWithEmail:(NSString *)userEmail delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)userWithEmail:(NSString *)userEmail delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)userWithEmail:(NSString *)userEmail delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest userWithEmail:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)userWithEmail:(NSString *)userEmail delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest userWithEmail:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -447,8 +472,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithEmails:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithEmails:successBlock:errorBlock:]' instead.")));
 
 /**
  Retrieve users with email (with extended set of pagination parameters)
@@ -460,8 +486,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest usersWithEmails:page:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)usersWithEmails:(NSArray *)emails pagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest usersWithEmails:page:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -476,8 +503,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)userWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)userWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)userWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest userWithExternalID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)userWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest userWithExternalID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -492,8 +520,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)updateUser:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)updateUser:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)updateUser:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest updateUser:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)updateUser:(QBUUser *)user delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest updateUser:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -508,8 +537,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)deleteUserWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)deleteUserWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)deleteUserWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest deleteUserWithID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)deleteUserWithID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest deleteUserWithID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -524,8 +554,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)deleteUserWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)deleteUserWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)deleteUserWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest deleteUserWithExternalID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)deleteUserWithExternalID:(NSUInteger)userExternalID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest deleteUserWithExternalID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -540,7 +571,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)resetUserPasswordWithEmail:(NSString *)email delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)resetUserPasswordWithEmail:(NSString *)email delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)resetUserPasswordWithEmail:(NSString *)email delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest resetUserPasswordWithEmail:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable> *)resetUserPasswordWithEmail:(NSString *)email delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest resetUserPasswordWithEmail:successBlock:errorBlock:]' instead.")));
 
 @end

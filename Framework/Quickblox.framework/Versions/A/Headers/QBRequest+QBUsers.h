@@ -55,7 +55,7 @@
 /**
  Retrieve users with ids (max 10 users)
 
- @param ids IDs of users which you want to retrieve
+ @param IDs IDs of users which you want to retrieve
  @param successBlock Block with response, page and users instances if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
@@ -65,7 +65,7 @@
 /**
  Retrieve users with ids (with extended set of pagination parameters)
  
- @param ids IDs of users which you want to retrieve
+ @param IDs IDs of users which you want to retrieve
  @param page Pagination parameters
  @param successBlock Block with response, page and users instances if request succeded
  @param errorBlock Block with response instance if request failed
@@ -285,7 +285,7 @@
 /**
  Retrieve users with email (max 10 users)
 
- @param email Emails of users which you want to retrieve
+ @param emails Emails of users which you want to retrieve
  @param successBlock Block with response, page and users instances if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
@@ -296,7 +296,7 @@
 /**
  Retrieve users with email (with extended set of pagination parameters)
 
- @param email Emails of users which you want to retrieve
+ @param emails Emails of users which you want to retrieve
  @param page Pagination parameters
  @param successBlock Block with response, page and users instances if request succeded
  @param errorBlock Block with response instance if request failed

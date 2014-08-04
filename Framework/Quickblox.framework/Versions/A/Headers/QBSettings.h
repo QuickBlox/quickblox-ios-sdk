@@ -97,7 +97,7 @@
 /**
  Set server's Chat domain
  
- @param apiDomain New server's Chat domain
+ @param chatDomain New server's Chat domain
  */
 + (void)setServerChatDomain:(NSString *)chatDomain;
 

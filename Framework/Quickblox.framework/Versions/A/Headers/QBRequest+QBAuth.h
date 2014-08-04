@@ -48,7 +48,7 @@
 *
 * @param login Login of QBUUser which authenticates.
 * @param password Password of QBUUser which authenticates.
-* @param completionBlock An callback. Will return QBUserSessionInformation class if request is successful.
+* @param successBlock An callback. Will return QBUserSessionInformation class if request is successful.
 * @return An instance of QBRequest for cancel operation mainly.
 */
 + (QBRequest *)logInWithUserLogin:(NSString *)login password:(NSString *)password successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
@@ -91,7 +91,7 @@
 
  Type of Result - QBUUserLogOutResult
 
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLogoutResult class.
+ @param successBlock An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserLogoutResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (QBRequest *)logOutWithSuccessBlock:(void (^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;

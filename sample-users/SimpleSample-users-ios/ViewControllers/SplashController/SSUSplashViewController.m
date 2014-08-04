@@ -33,7 +33,6 @@
     // QuickBlox session creation
     
     [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
-        [[QBSession currentSession] startSessionWithDetails:session exparationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
         [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
     } errorBlock:^(QBResponse *response) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
