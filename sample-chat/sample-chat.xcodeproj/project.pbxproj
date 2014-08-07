@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
-		BFBD3C961832CFAF009D090B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFBD3C951832CFAF009D090B /* Quickblox.framework */; };
 		BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBD3C981833D654009D090B /* CharactersEscapeService.m */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
 		BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */; };
@@ -59,7 +58,6 @@
 		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
 		BFB4627B18150EB00010AE49 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatService.m; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
-		BFBD3C951832CFAF009D090B /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		BFBD3C971833D654009D090B /* CharactersEscapeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharactersEscapeService.h; sourceTree = "<group>"; };
 		BFBD3C981833D654009D090B /* CharactersEscapeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharactersEscapeService.m; sourceTree = "<group>"; };
 		BFE6FB72180E8EF100E64AC4 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,7 +118,6 @@
 				BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */,
 				BFE6FBBC180E9E8500E64AC4 /* CoreMedia.framework in Frameworks */,
 				BFE6FBBA180E9E7E00E64AC4 /* AudioToolbox.framework in Frameworks */,
-				BFBD3C961832CFAF009D090B /* Quickblox.framework in Frameworks */,
 				BFE6FBB8180E9E7800E64AC4 /* CoreLocation.framework in Frameworks */,
 				BFE6FBB6180E9E7400E64AC4 /* CoreData.framework in Frameworks */,
 				BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */,
@@ -166,7 +163,6 @@
 		BFE6FB74180E8EF100E64AC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BFBD3C951832CFAF009D090B /* Quickblox.framework */,
 				BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */,
 				BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */,
 				BFE6FBC3180E9E9B00E64AC4 /* libz.1.2.5.dylib */,
@@ -464,7 +460,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -496,7 +492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -523,6 +519,7 @@
 					"-lxml2",
 				);
 				PRODUCT_NAME = Chat;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -548,6 +545,7 @@
 					"-lxml2",
 				);
 				PRODUCT_NAME = Chat;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

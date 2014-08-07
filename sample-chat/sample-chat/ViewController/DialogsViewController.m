@@ -131,20 +131,19 @@
         NSArray *dialogs = pagedResult.dialogs;
         self.dialogs = [dialogs mutableCopy];
         
-        // Get dialogs users
-        PagedRequest *pagedRequest = [PagedRequest request];
-        pagedRequest.perPage = 100;
-        //
+        QBGeneralResponsePage *pagedRequest = [QBGeneralResponsePage responsePageWithCurrentPage:0 perPage:100];
+                //
         NSSet *dialogsUsersIDs = pagedResult.dialogsUsersIDs;
         //
-        [QBUsers usersWithIDs:[[dialogsUsersIDs allObjects] componentsJoinedByString:@","] pagedRequest:pagedRequest delegate:self];
+        [QBRequest usersWithIDs:[[dialogsUsersIDs allObjects] componentsJoinedByString:@","] page:pagedRequest successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+            
+            [LocalStorageService shared].users = users;
+            //
+            [self.dialogsTableView reloadData];
+            [self.activityIndicator stopAnimating];
+            
+        } errorBlock:nil];
 
-    }else if (result.success && [result isKindOfClass:[QBUUserPagedResult class]]) {
-        QBUUserPagedResult *res = (QBUUserPagedResult *)result;
-        [LocalStorageService shared].users = res.users;
-        //
-        [self.dialogsTableView reloadData];
-        [self.activityIndicator stopAnimating];
     }
 }
 
