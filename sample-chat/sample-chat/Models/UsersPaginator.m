@@ -28,18 +28,4 @@
         NSLog(@"%@", response.error);
     }];
 }
-
-
-#pragma mark
-#pragma mark QBActionStatusDelegate
-
-- (void)completedWithResult:(Result *)result
-{
-    // Got users
-    //
-    if(result.success){
-        
-    }
-}
-
 @end
