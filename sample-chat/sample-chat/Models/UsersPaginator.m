@@ -19,10 +19,14 @@
     // Retrieve QuickBlox users
     // 10 users per page
     //
-    PagedRequest *request = [[PagedRequest alloc] init];
-	request.perPage = pageSize;
-	request.page = page;
-	[QBUsers usersWithPagedRequest:request delegate:self];
+    QBGeneralResponsePage *responsePage = [QBGeneralResponsePage responsePageWithCurrentPage:page perPage:pageSize];
+    [QBRequest usersForPage:responsePage successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+        
+        [self receivedResults:users total:page.totalEntries];
+        
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"%@", response.error);
+    }];
 }
 
 
@@ -34,8 +38,7 @@
     // Got users
     //
     if(result.success){
-        QBUUserPagedResult *res = (QBUUserPagedResult*)result;
-        [self receivedResults:res.users total:res.totalEntries];
+        
     }
 }
 
