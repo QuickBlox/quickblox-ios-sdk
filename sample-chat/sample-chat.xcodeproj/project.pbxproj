@@ -514,6 +514,7 @@
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
+					"-lstdc++",
 					"-ObjC",
 					"-lxml2",
 				);
