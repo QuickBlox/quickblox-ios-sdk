@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14D1F5101993B83D0007FDD6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14D1F50F1993B83D0007FDD6 /* libz.dylib */; };
-		14D1F5121993B8420007FDD6 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14D1F5111993B8420007FDD6 /* libxml2.dylib */; };
-		14D1F5141993B8470007FDD6 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14D1F5131993B8470007FDD6 /* libresolv.dylib */; };
-		14D1F68F1993C0E00007FDD6 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14D1F68E1993C0E00007FDD6 /* Quickblox.framework */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBD3C981833D654009D090B /* CharactersEscapeService.m */; };
@@ -35,6 +31,9 @@
 		BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBBD180E9E8A00E64AC4 /* Accelerate.framework */; };
 		BFE6FBC0180E9E9000E64AC4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBBF180E9E9000E64AC4 /* CoreVideo.framework */; };
 		BFE6FBC2180E9E9600E64AC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC1180E9E9600E64AC4 /* AVFoundation.framework */; };
+		BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC3180E9E9B00E64AC4 /* libz.1.2.5.dylib */; };
+		BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */; };
+		BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */; };
 		BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */; };
 		BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */; };
 		BFE6FBD2180EA31600E64AC4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */; };
@@ -56,10 +55,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		14D1F50F1993B83D0007FDD6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		14D1F5111993B8420007FDD6 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		14D1F5131993B8470007FDD6 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
-		14D1F68E1993C0E00007FDD6 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = Framework/build/Framework/Quickblox.framework; sourceTree = "<group>"; };
 		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
 		BFB4627B18150EB00010AE49 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatService.m; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
@@ -115,10 +110,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14D1F68F1993C0E00007FDD6 /* Quickblox.framework in Frameworks */,
-				14D1F5141993B8470007FDD6 /* libresolv.dylib in Frameworks */,
-				14D1F5121993B8420007FDD6 /* libxml2.dylib in Frameworks */,
-				14D1F5101993B83D0007FDD6 /* libz.dylib in Frameworks */,
+				BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */,
+				BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */,
+				BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */,
 				BFE6FBC2180E9E9600E64AC4 /* AVFoundation.framework in Frameworks */,
 				BFE6FBC0180E9E9000E64AC4 /* CoreVideo.framework in Frameworks */,
 				BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */,
@@ -169,10 +163,6 @@
 		BFE6FB74180E8EF100E64AC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				14D1F68E1993C0E00007FDD6 /* Quickblox.framework */,
-				14D1F5131993B8470007FDD6 /* libresolv.dylib */,
-				14D1F5111993B8420007FDD6 /* libxml2.dylib */,
-				14D1F50F1993B83D0007FDD6 /* libz.dylib */,
 				BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */,
 				BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */,
 				BFE6FBC3180E9E9B00E64AC4 /* libz.1.2.5.dylib */,
@@ -516,7 +506,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)",
+					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../Framework\"",
 					"$(PROJECT_DIR)/Framework/build/Framework",
 				);
@@ -524,17 +514,9 @@
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Framework/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Framework/build/Debug-iphonesimulator",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
-					"-framework",
-					UIKit,
-					"-framework",
-					Foundation,
+					"-lxml2",
 				);
 				PRODUCT_NAME = Chat;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -550,9 +532,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)",
+					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../Framework\"",
-					"$(PROJECT_DIR)/Framework/build/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -564,11 +545,9 @@
 					"$(PROJECT_DIR)/Framework/build/Debug-iphonesimulator",
 				);
 				OTHER_LDFLAGS = (
+					"-lstdc++",
 					"-ObjC",
-					"-framework",
-					UIKit,
-					"-framework",
-					Foundation,
+					"-lxml2",
 				);
 				PRODUCT_NAME = Chat;
 				TARGETED_DEVICE_FAMILY = "1,2";
