@@ -222,7 +222,8 @@
  
  @param text composed push notification's text to send
  @param usersTags users tags who will get the message. Contain a string of users tags divided by comas.
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBMSendPushTaskResult class.
+ @param successBlock Block with response and token instances if request succeded
+ @param errorBlock Block with response instance and QBMEvent instance if request failed
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (QBRequest *)sendPushWithText:(NSString *)text toUsersWithAnyOfTheseTags:(NSString *)usersTags successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock errorBlock:(void (^)(NSError *error))errorBlock;

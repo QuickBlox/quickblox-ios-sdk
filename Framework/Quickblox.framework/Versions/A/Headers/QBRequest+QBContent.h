@@ -160,7 +160,8 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
 */
-+ (QBRequest *)blobObjectAccessWithBlobID:(NSUInteger)blobID successBlock:(void(^)(QBResponse *response, QBCBlobObjectAccess *objectAccess))successBlock
++ (QBRequest *)blobObjectAccessWithBlobID:(NSUInteger)blobID
+                             successBlock:(void(^)(QBResponse *response, QBCBlobObjectAccess *objectAccess))successBlock
                                errorBlock:(void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
@@ -175,7 +176,8 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)uploadFile:(NSData *)data blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess
++ (QBRequest *)uploadFile:(NSData *)data
+      blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess
              successBlock:(void(^)(QBResponse *response))successBlock
                errorBlock:(void(^)(QBResponse *response))errorBlock;
 
@@ -191,10 +193,56 @@
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 + (QBRequest *)downloadFileWithUID:(NSString *)UID
-                      successBlock:(void(^)(QBResponse *response))successBlock
+                      successBlock:(void(^)(QBResponse *response, NSData *fileData))successBlock
                         errorBlock:(void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Tasks
+
+/**
+ Upload File task. Contains 3 requests: Create Blob, upload file, declaring file uploaded
+ 
+ @param data file to be uploaded
+ @param fileName name of the file
+ @param contentType type of the content in mime format
+ @param isPublic blob's visibility
+ @param successBlock Block with response if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)TUploadFile:(NSData*)data
+                  fileName:(NSString*)fileName
+               contentType:(NSString*)contentType
+                  isPublic:(BOOL)isPublic
+              successBlock:(void(^)(QBResponse *response))successBlock
+                errorBlock:(void(^)(QBResponse *response))errorBlock;
+
+/**
+ Download File task. Contains 2 requests: Get Blob with ID, download file
+
+ @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
+ @param successBlock Block with response and fileData if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
+
++ (QBRequest *)TDownloadFileWithBlobID:(NSUInteger)blobID
+                          successBlock:(void(^)(QBResponse *response, NSData *fileData))successBlock
+                            errorBlock:(void(^)(QBResponse *response))errorBlock;
+
+/**
+ Update File task. Contains 3 quieries: Update Blob, Upload file, Declaring file uploaded
+ 
+ @param data file to be uploaded
+ @param blob file which need to be updated
+ @param successBlock Block with response if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
+
++ (QBRequest *)TUpdateFileWithData:(NSData *)data
+                              file:(QBCBlob *)file
+                      successBlock:(void(^)(QBResponse *response))successBlock
+                        errorBlock:(void(^)(QBResponse *response))errorBlock;
 
 @end

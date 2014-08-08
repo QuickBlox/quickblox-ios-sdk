@@ -10,6 +10,6 @@
 
 @interface QBSession ()
 
-@property (nonatomic, readwrite) NSDate *sessionExparationDate;
+@property (nonatomic, readwrite) NSDate *sessionExpirationDate;
 
 @end
