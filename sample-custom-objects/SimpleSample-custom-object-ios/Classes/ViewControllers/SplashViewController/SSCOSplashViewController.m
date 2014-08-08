@@ -20,7 +20,6 @@
 - (void(^)(QBResponse *, QBASession *))sessionSuccessBlock
 {
     return ^(QBResponse *response, QBASession *session) {
-        [[QBSession currentSession] startSessionWithDetails:session exparationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
         [QBRequest objectsWithClassName:customClassName
                            successBlock:^(QBResponse *response, NSArray *objects, NSArray *notFoundObjectsIds, QBResponsePage *page) {
                                [[SSCONotesStorage shared] addNotes:objects];

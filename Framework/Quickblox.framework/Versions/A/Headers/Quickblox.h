@@ -22,3 +22,4 @@
 #import <Quickblox/QBUsersHeader.h>
 #import <Quickblox/QBMessagesHeader.h>
 #import <Quickblox/QBCustomObjectsHeader.h>
+#import <Quickblox/QBContentHeader.h>

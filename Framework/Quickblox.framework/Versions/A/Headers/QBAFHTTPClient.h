@@ -98,6 +98,7 @@ typedef enum {
     QBAFPropertyListParameterEncoding,
 } QBAFHTTPClientParameterEncoding;
 
+
 @class QBAFHTTPRequestOperation;
 @protocol QBAFMultipartFormData;
 
@@ -638,4 +639,23 @@ extern NSTimeInterval const kQBAFUploadStream3GSuggestedDelay;
 - (void)throttleBandwidthWithPacketSize:(NSUInteger)numberOfBytes
                                   delay:(NSTimeInterval)delay;
 
+@end
+
+extern NSArray * QBAFQueryStringPairsFromDictionary(NSDictionary *dictionary);
+extern NSArray * QBAFQueryStringPairsFromKeyAndValue(NSString *key, id value);
+
+@interface QBAFQueryStringPair : NSObject
+@property (readwrite, nonatomic, strong) id field;
+@property (readwrite, nonatomic, strong) id value;
+
+- (id)initWithField:(id)field value:(id)value;
+
+- (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)stringEncoding;
+@end
+
+@interface QBAFStreamingMultipartFormData : NSObject <QBAFMultipartFormData>
+- (id)initWithURLRequest:(NSMutableURLRequest *)urlRequest
+          stringEncoding:(NSStringEncoding)encoding;
+
+- (NSMutableURLRequest *)requestByFinalizingMultipartFormData;
 @end

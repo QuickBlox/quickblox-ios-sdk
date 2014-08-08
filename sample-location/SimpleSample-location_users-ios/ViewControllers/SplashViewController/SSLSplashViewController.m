@@ -22,9 +22,7 @@
 {
     [super viewDidLoad];
     
-    [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
-        [[QBSession currentSession] startSessionWithDetails:session exparationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
-        
+    [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {        
         QBLGeoDataFilter* filter = [QBLGeoDataFilter new];
         filter.lastOnly = YES;
         filter.sortBy = GeoDataSortByKindCreatedAt;

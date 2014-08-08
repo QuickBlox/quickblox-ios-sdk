@@ -35,8 +35,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCBlobResult class.    
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
-+ (NSObject<Cancelable>*)createBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)createBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)createBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest createBlob:successBlock:errorBlock:]' instead.")));
++ (NSObject<Cancelable>*)createBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest createBlob:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -51,7 +51,7 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBCBlobResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */ 
-+ (NSObject<Cancelable>*)blobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate;
++ (NSObject<Cancelable>*)blobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest blobWithID:successBlock:errorBlock:]' instead.")));
 + (NSObject<Cancelable>*)blobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
 
 
@@ -66,8 +66,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCBlobPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable>*)blobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)blobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)blobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest blobsWithSuccessBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)blobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest blobsWithSuccessBlock:errorBlock:]' instead.")));
 
 /**
  Get list of blob for the current User (with extended set of pagination parameters)
@@ -78,8 +79,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable>*)blobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)blobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)blobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest blobsForPage:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)blobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest blobsForPage:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -93,8 +95,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCBlobPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable>*)taggedBlobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)taggedBlobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)taggedBlobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest taggedBlobsWithSuccessBlock:errorBlock:]' instead.")));
++ (NSObject<Cancelable>*)taggedBlobsWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest taggedBlobsWithSuccessBlock:errorBlock:]' instead.")));
 
 /**
  Get list of tagged blobs for the current User (with extended set of pagination parameters)
@@ -105,8 +107,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBUUserPagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable>*)taggedBlobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)taggedBlobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)taggedBlobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest taggedBlobsForPage:successBlock:errorBlock:]' instead.")));
++ (NSObject<Cancelable>*)taggedBlobsWithPagedRequest:(PagedRequest *)pagedRequest delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest taggedBlobsForPage:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -121,8 +123,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBCBlobResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */ 
-+ (NSObject<Cancelable>*)updateBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)updateBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)updateBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest updateBlob:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)updateBlob:(QBCBlob*)blob delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest updateBlob:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -137,8 +140,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
-+ (NSObject<Cancelable>*)deleteBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)deleteBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)deleteBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest deleteBlobWithID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)deleteBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest deleteBlobWithID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -153,8 +157,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
-+ (NSObject<Cancelable>*)retainBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)retainBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)retainBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest retainBlobWithID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)retainBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest retainBlobWithID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -170,8 +175,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
-+ (NSObject<Cancelable>*)completeBlobWithID:(NSUInteger)blobID size:(NSUInteger)size delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)completeBlobWithID:(NSUInteger)blobID size:(NSUInteger)size delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)completeBlobWithID:(NSUInteger)blobID size:(NSUInteger)size delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest completeBlobWithID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)completeBlobWithID:(NSUInteger)blobID size:(NSUInteger)size delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest completeBlobWithID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -186,8 +192,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBCBlobObjectAccessResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
-+ (NSObject<Cancelable>*)blobObjectAccessWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)blobObjectAccessWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)blobObjectAccessWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest blobObjectAccessWithBlobID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)blobObjectAccessWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest blobObjectAccessWithBlobID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -203,8 +210,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
-+ (NSObject<Cancelable>*)uploadFile:(NSData *)data blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)uploadFile:(NSData *)data blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)uploadFile:(NSData *)data blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest uploadFile:blobWithWriteAccess:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)uploadFile:(NSData *)data blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest uploadFile:blobWithWriteAccess:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -219,8 +227,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBCFileResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
-+ (NSObject<Cancelable>*)downloadFileWithUID:(NSString *)UID delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)downloadFileWithUID:(NSString *)UID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)downloadFileWithUID:(NSString *)UID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest downloadFileWithUID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)downloadFileWithUID:(NSString *)UID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest downloadFileWithUID:successBlock:errorBlock:]' instead.")));
 
 
 #pragma mark -
@@ -287,7 +296,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBCUploadFileTaskResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable>*)TDownloadFileWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate;
-+ (NSObject<Cancelable>*)TDownloadFileWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context;
++ (NSObject<Cancelable>*)TDownloadFileWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest downloadFileWithUID:successBlock:errorBlock:]' instead.")));
+///
++ (NSObject<Cancelable>*)TDownloadFileWithBlobID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest downloadFileWithUID:successBlock:errorBlock:]' instead.")));
 
 @end
