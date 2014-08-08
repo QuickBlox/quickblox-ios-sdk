@@ -10,5 +10,6 @@
 #define Quickblox_QBCustomObjectsHeader_h
 
 #import <Quickblox/QBRequest+QBCustomObjects.h>
+#import <Quickblox/QBCOFile.h>
 
 #endif

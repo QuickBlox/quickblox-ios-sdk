@@ -15,15 +15,15 @@
 
 @property (nonatomic, readonly) QBUUser *currentUser;
 @property (nonatomic, readonly) QBASession *sessionDetails;
-@property (nonatomic, readonly) NSDate *sessionExparationDate;
+@property (nonatomic, readonly) NSDate *sessionExpirationDate;
 
 @property (nonatomic, readonly) NSString *socialProviderToken;
-@property (nonatomic, readonly) NSDate *socialProviderTokenExparationDate;
+@property (nonatomic, readonly) NSDate *socialProviderTokenExpirationDate;
 
 @property (nonatomic, readonly, getter=isTokenValid) BOOL tokenValid;
 
-- (void)startSessionWithDetails:(QBASession *)session exparationDate:(NSDate *)sessionDate;
-- (void)startSessionForUser:(QBUUser *)user withDetails:(QBASession *)session exparationDate:(NSDate *)sessionDate;
+- (void)startSessionWithDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
+- (void)startSessionForUser:(QBUUser *)user withDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
 - (void)endSession;
 
 @end

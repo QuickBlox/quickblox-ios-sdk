@@ -23,7 +23,7 @@
 /**
  Create geo data
  
- @param geodata An instance of QBLGeoData
+ @param geoData An instance of QBLGeoData
  @param successBlock Block with response and geodata instances if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
@@ -37,7 +37,7 @@
 /**
  Get geo data by ID
  
- @param geodataID ID of instance of QBLGeoData that will be retrieved
+ @param geoDataId ID of instance of QBLGeoData that will be retrieved
  @param successBlock Block with response and geodata instances if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
@@ -90,7 +90,7 @@
 /**
  Create place
  
- @param data An instance of QBLPlace
+ @param place An instance of QBLPlace
  @param successBlock Block with response and place instances if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
@@ -103,7 +103,7 @@
 /**
  Update place
  
- @param data An instance of QBLPlace
+ @param place An instance of QBLPlace
  @param successBlock Block with response and place instances if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
