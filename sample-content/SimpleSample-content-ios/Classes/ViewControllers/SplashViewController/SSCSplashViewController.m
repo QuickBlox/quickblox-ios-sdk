@@ -9,7 +9,7 @@
 #import "SSCSplashViewController.h"
 #import "SSCMainViewController.h"
 
-@interface SSCSplashViewController () <QBActionStatusDelegate>
+@interface SSCSplashViewController ()
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 

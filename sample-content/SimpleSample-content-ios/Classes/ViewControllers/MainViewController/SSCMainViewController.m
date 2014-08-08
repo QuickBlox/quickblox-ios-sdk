@@ -49,7 +49,7 @@
     [super viewDidLoad];
     
     self.title = @"Content";
-
+    
     CGRect appframe = [[UIScreen mainScreen] bounds];
     [self.scrollView setContentSize:appframe.size];
     [self.scrollView setMaximumZoomScale:4];
@@ -78,7 +78,7 @@
         [self downloadFile];
         
         [self.activityIndicator startAnimating];
-    }    
+    }
 }
 
 #pragma mark -
@@ -112,7 +112,6 @@
             
         }];
         
-       // [QBContent TDownloadFileWithBlobID:fileID delegate:self];
     }
     
     // end of files
@@ -185,7 +184,7 @@
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
     
     // Upload file to QuickBlox server
-    [QBContent TUploadFile:imageData fileName:@"Great Image" contentType:@"image/png" isPublic:NO delegate:self];
+    [QBRequest TUploadFile:imageData fileName:@"Great Image" contentType:@"image/png" isPublic:NO successBlock:nil errorBlock:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
