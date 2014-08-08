@@ -20,10 +20,18 @@
 - (void(^)(QBResponse *, QBASession *))sessionSuccessBlock
 {
     return ^(QBResponse *response, QBASession *session) {
-        PagedRequest *pagedRequest = [[PagedRequest alloc] init];
-        [pagedRequest setPerPage:20];
+        [[QBSession currentSession] startSessionWithDetails:session expirationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
+        QBGeneralResponsePage *page = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:20];
+        [QBRequest blobsForPage:page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *blobs) {
+            
+            [[SSCContentManager instance] saveFileList:blobs];
+            
+            // hide splash screen
+            [self performSelector:@selector(hideSplashScreen) withObject:self afterDelay:1];
+        } errorBlock:^(QBResponse *response) {
+            NSLog(@"error: %@", response.error);
+        }];
         
-        [QBContent blobsWithPagedRequest:pagedRequest delegate:self];
     };
 }
 
@@ -35,39 +43,19 @@
     // Your app connects to QuickBlox server here.
     
     QBSessionParameters *parameters = [QBSessionParameters new];
-    parameters.userLogin = @"quickbloxUser1";
-    parameters.userPassword = @"quickbloxUser1";
+    parameters.userLogin = @"igorquickblox";
+    parameters.userPassword = @"igorquickblox";
     
     [QBRequest createSessionWithExtendedParameters:parameters successBlock:[self sessionSuccessBlock]
                                         errorBlock:^(QBResponse *response) {
                                             NSLog(@"Response error %@:", response.error);
-    }];
+                                        }];
 }
 
 - (void)hideSplashScreen
 {
     [self.activityIndicator stopAnimating];
     [self.navigationController pushViewController:[SSCMainViewController new] animated:YES];
-}
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(Result *)result
-{
-    if ([result isKindOfClass:[QBCBlobPagedResult class]]) {
-        // Success result
-        if (result.success) {
-            QBCBlobPagedResult *res = (QBCBlobPagedResult *)result; 
-            
-            // Save user's filelist
-            [[SSCContentManager instance] saveFileList:res.blobs];
-            
-            // hid splash screen
-            [self performSelector:@selector(hideSplashScreen) withObject:self afterDelay:1];
-        }
-    }
 }
 
 @end

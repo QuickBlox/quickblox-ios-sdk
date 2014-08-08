@@ -86,10 +86,33 @@
 
 - (void)downloadFile
 {
-    NSUInteger fileID = [[[SSCContentManager instance] lastObjectFromFileList] ID];
+    NSString *fileID = [[[SSCContentManager instance] lastObjectFromFileList] UID];
     if (fileID > 0) {
         // Download file from QuickBlox server
-        [QBContent TDownloadFileWithBlobID:fileID delegate:self];
+        [QBRequest downloadFileWithUID:fileID successBlock:^(QBResponse *response, NSData *fileData) {
+            if ( fileData ) {
+                
+                // Add image to gallery
+                [[SSCContentManager instance] savePicture:[UIImage imageWithData: fileData]];
+                UIImageView* imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:fileData]];
+                imageView.contentMode = UIViewContentModeScaleAspectFit;
+                [self showImage:imageView];
+                //
+                [[SSCContentManager instance] removeLastObjectFromFileList];
+                
+                // Download next file
+                [self downloadFile];
+            } else {
+                [[SSCContentManager instance] removeLastObjectFromFileList];
+                
+                // download next file
+                [self downloadFile];
+            }
+        } errorBlock:^(QBResponse *response) {
+            
+        }];
+        
+       // [QBContent TDownloadFileWithBlobID:fileID delegate:self];
     }
     
     // end of files
@@ -168,45 +191,6 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(Result *)result
-{
-    // Download file result
-    if ([result isKindOfClass:QBCFileDownloadTaskResult.class]) {
-        // Success result
-        if (result.success) {
-            QBCFileDownloadTaskResult *res = (QBCFileDownloadTaskResult *)result;
-            if ([res file]) {   
-                
-                // Add image to gallery
-                [[SSCContentManager instance] savePicture:[UIImage imageWithData:[res file]]];
-                UIImageView* imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:[res file]]];
-                imageView.contentMode = UIViewContentModeScaleAspectFit;
-                [self showImage:imageView];
-                //
-                [[SSCContentManager instance] removeLastObjectFromFileList];
-                
-                // Download next file
-                [self downloadFile];
-            }          
-        } else {
-            [[SSCContentManager instance] removeLastObjectFromFileList];
-            
-            // download next file
-            [self downloadFile];
-        }
-    }
-}
-
-- (void)setProgress:(float)progress
-{
-    NSLog(@"progress: %f", progress);
 }
 
 @end
