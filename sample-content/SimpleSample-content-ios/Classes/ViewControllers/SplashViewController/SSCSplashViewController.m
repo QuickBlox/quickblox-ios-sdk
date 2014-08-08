@@ -20,7 +20,6 @@
 - (void(^)(QBResponse *, QBASession *))sessionSuccessBlock
 {
     return ^(QBResponse *response, QBASession *session) {
-        [[QBSession currentSession] startSessionWithDetails:session expirationDate:[DateTimeHelper dateFromQBTokenHeader:response.headers[@"QB-Token-ExpirationDate"]]];
         QBGeneralResponsePage *page = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:20];
         [QBRequest blobsForPage:page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *blobs) {
             
