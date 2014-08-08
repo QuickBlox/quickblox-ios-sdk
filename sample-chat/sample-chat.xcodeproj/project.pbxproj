@@ -508,7 +508,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../Framework\"",
-					"$(PROJECT_DIR)/Framework/build/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
