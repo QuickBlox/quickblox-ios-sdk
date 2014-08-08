@@ -538,11 +538,6 @@
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Framework/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/Framework/build/Debug-iphonesimulator",
-				);
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-ObjC",
