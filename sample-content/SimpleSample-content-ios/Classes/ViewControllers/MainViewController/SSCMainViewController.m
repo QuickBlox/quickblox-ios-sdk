@@ -183,9 +183,14 @@
     [self showImage:imageView];
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
     
+    // Show progress
+    QBRequestStatusUpdateBlock block = ^(QBRequest *request, QBRequestStatus *status) {
+        NSLog(@"%f", status.percentOfCompletion);
+    };
     // Upload file to QuickBlox server
-    [QBRequest TUploadFile:imageData fileName:@"Great Image" contentType:@"image/png" isPublic:NO successBlock:nil errorBlock:nil];
-}
+
+    QBRequest *req = [QBRequest TUploadFile:imageData fileName:@"Great Image" contentType:@"image/png" isPublic:NO successBlock:nil errorBlock:nil];
+    req.updateBlock = block;}
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
