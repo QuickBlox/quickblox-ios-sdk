@@ -56,9 +56,7 @@
     
     // Show toolbar
     UIBarButtonItem* uploadItem = [[UIBarButtonItem alloc] initWithTitle:@"Add new image" style:(UIBarButtonItemStyle)UIBarButtonSystemItemAdd  target:self action:@selector(selectPicture)];
-    UIToolbar *toolbar = [[UIToolbar alloc] init];
-    [toolbar setItems:[NSArray arrayWithObject:uploadItem]];
-    [self.view addSubview:toolbar];
+    self.navigationItem.rightBarButtonItem = uploadItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
