@@ -84,10 +84,14 @@
 
 - (void)downloadFile
 {
+    NSString *name =[[[SSCContentManager instance] lastObjectFromFileList] name];
     NSString *fileID = [[[SSCContentManager instance] lastObjectFromFileList] UID];
     if (fileID > 0) {
         // Download file from QuickBlox server
-        [QBRequest downloadFileWithUID:fileID successBlock:^(QBResponse *response, NSData *fileData) {
+        QBRequestStatusUpdateBlock updateBlock = ^(QBRequest *req, QBRequestStatus *status){
+            NSLog(@"progress for %@: %f", name, status.percentOfCompletion);
+        };
+        QBRequest *req = [QBRequest downloadFileWithUID:fileID successBlock:^(QBResponse *response, NSData *fileData) {
             if ( fileData ) {
                 
                 // Add image to gallery
@@ -107,8 +111,12 @@
                 [self downloadFile];
             }
         } errorBlock:^(QBResponse *response) {
+            [[SSCContentManager instance] removeLastObjectFromFileList];
             
+            // download next file
+            [self downloadFile];
         }];
+        req.updateBlock = updateBlock;
         
     }
     

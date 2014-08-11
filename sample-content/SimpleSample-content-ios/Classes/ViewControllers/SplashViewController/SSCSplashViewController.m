@@ -42,8 +42,8 @@
     // Your app connects to QuickBlox server here.
     
     QBSessionParameters *parameters = [QBSessionParameters new];
-    parameters.userLogin = @"igorquickblox";
-    parameters.userPassword = @"igorquickblox";
+    parameters.userLogin = @"igorquickblox2";
+    parameters.userPassword = @"igorquickblox2";
     
     [QBRequest createSessionWithExtendedParameters:parameters successBlock:[self sessionSuccessBlock]
                                         errorBlock:^(QBResponse *response) {
