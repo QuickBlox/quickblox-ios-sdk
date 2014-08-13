@@ -80,7 +80,7 @@ static UIImage *aquaBubble;
                                         constrainedToSize:textSize
                                             lineBreakMode:NSLineBreakByWordWrapping];
     
-    NSLog(@"message: %@", message);
+//    NSLog(@"message: %@", message);
     
 	size.width += 10;
     
