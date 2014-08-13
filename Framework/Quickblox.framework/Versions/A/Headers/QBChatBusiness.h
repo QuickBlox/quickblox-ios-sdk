@@ -14,3 +14,4 @@
 #import <Quickblox/QBChatDialog.h>
 #import <Quickblox/QBChatHistoryMessage.h>
 #import <Quickblox/QBStreamManagementCallbackObject.h>
+#import <Quickblox/QBChatAttachment.h>

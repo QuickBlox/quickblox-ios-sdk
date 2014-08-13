@@ -20,6 +20,7 @@
     NSUInteger lastMessageUserID;
     NSUInteger unreadMessagesCount;
     NSArray *occupantIDs;
+    NSUInteger userID;
     enum QBChatDialogType type;
 }
 
@@ -35,6 +36,9 @@
 /** Group chat name. If chat type is private, name will be nil */
 @property (nonatomic, retain) NSString *name;
 
+/** Group chat photo. Can contain a link to a file in Content module, Custom Objects module or just a web link. */
+@property (nonatomic, retain) NSString *photo;
+
 /** Last message text in private or group chat */
 @property (nonatomic, retain) NSString *lastMessageText;
 
@@ -49,6 +53,9 @@
 
 /** Array of user ids in chat. For private chat count = 2 */
 @property (nonatomic, retain) NSArray *occupantIDs;
+
+/** Dialog owner */
+@property (nonatomic, assign) NSUInteger userID;
 
 /** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise or if you aren't logged in to Chat.  */
 @property (nonatomic, readonly) NSInteger recipientID;

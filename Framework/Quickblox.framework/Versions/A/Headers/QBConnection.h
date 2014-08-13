@@ -6,9 +6,10 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
-    QBConnectionZoneTypeProduction      = 1,
-    QBConnectionZoneTypeDevelopment     = 2,
-    QBConnectionZoneTypeStage           = 3
+    QBConnectionZoneTypeAutomatic       = 1, //Default. Endpoints are loaded from QuickBlox
+    QBConnectionZoneTypeProduction      = 2,
+    QBConnectionZoneTypeDevelopment     = 3,
+    QBConnectionZoneTypeStage           = 4
 };
 
 @class QBRequest;
