@@ -28,4 +28,9 @@
 */
 @property (nonatomic, copy) NSString *restAPIVersion;
 
+/**
+* Production or development environment for push notifications
+*/
+@property (nonatomic, assign) BOOL productionEnvironmentForPushesEnabled;
+
 @end

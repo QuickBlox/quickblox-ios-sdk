@@ -35,10 +35,11 @@
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable>*) createGameModeWithTitle:(NSString*)title 
-                                      delegate:(NSObject<QBActionStatusDelegate>*)delegate;
+                                      delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
 + (NSObject<Cancelable>*) createGameModeWithTitle:(NSString*)title 
                                       delegate:(NSObject<QBActionStatusDelegate>*)delegate 
-                                       context:(void*)context;
+                                       context:(void*)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -54,10 +55,11 @@
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable>*) gameModeWithID:(NSUInteger)gameModeId
-                                delegate:(NSObject<QBActionStatusDelegate>*)delegate;
+                                delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
 + (NSObject<Cancelable>*) gameModeWithID:(NSUInteger)gameModeId
                                 delegate:(NSObject<QBActionStatusDelegate>*)delegate 
-                                 context:(void*)context;
+                                 context:(void*)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -71,9 +73,10 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRGameModePagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable>*) gameModesWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate;
++ (NSObject<Cancelable>*) gameModesWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
 + (NSObject<Cancelable>*) gameModesWithDelegate:(NSObject<QBActionStatusDelegate>*)delegate 
-                                 context:(void*)context;
+                                 context:(void*)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -89,10 +92,11 @@
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable>*) updateGameMode:(QBRGameMode *)gameMode
-                                delegate:(NSObject<QBActionStatusDelegate>*)delegate;
+                                delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
 + (NSObject<Cancelable>*) updateGameMode:(QBRGameMode *)gameMode
                                 delegate:(NSObject<QBActionStatusDelegate>*)delegate 
-                                 context:(void*)context;
+                                 context:(void*)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -108,10 +112,11 @@
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable>*) deleteGameModeWithID:(NSUInteger)gameModeId
-                                      delegate:(NSObject<QBActionStatusDelegate>*)delegate;
+                                      delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
 + (NSObject<Cancelable>*) deleteGameModeWithID:(NSUInteger)gameModeId
                                       delegate:(NSObject<QBActionStatusDelegate>*)delegate 
-                                       context:(void*)context;
+                                       context:(void*)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -130,8 +135,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScoreResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)createScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)createScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)createScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)createScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -146,8 +152,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScoreResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)updateScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)updateScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)updateScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)updateScore:(QBRScore *)score delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -162,8 +169,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScoreResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)scoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)scoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)scoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)scoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -178,8 +186,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScoreResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)deleteScoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)deleteScoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)deleteScoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)deleteScoreWithID:(NSUInteger)scoreId delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -195,8 +204,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScorePagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 /**
  Retrieve top N results by GameMode identifier.
@@ -209,8 +219,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScorePagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)topNScores:(int)topN gameModeID:(NSUInteger)gameModeID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -225,8 +236,8 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScorePagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
++ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 /**
  Retrieve Scores for user.
@@ -238,8 +249,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRScorePagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject <QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject <QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)scoresWithUserID:(NSUInteger)userID extendedRequest:(QBRScoreGetRequest *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -258,8 +270,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRAvarageResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)averageWithGameModeID:(NSUInteger)gameModeId delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)averageWithGameModeID:(NSUInteger)gameModeId delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
++ (NSObject<Cancelable> *)averageWithGameModeID:(NSUInteger)gameModeId delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)averageWithGameModeID:(NSUInteger)gameModeId delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -
@@ -273,9 +286,9 @@
  @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBRAvaragePagedResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (NSObject<Cancelable> *)averagesForApplicationWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)averagesForApplicationWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
-
++ (NSObject<Cancelable> *)averagesForApplicationWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("Use Custom Objects module API instead instead.")));
+///
++ (NSObject<Cancelable> *)averagesForApplicationWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("Use Custom Objects module API instead instead.")));
 
 
 #pragma mark -

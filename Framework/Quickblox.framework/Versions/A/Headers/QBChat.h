@@ -446,6 +446,20 @@ typedef enum QBChatServiceError {
 
 
 #pragma mark -
+#pragma mark Create message
+
+/**
+ Create chat message
+ 
+ @param message Entity if a new message
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)createMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)createMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
 #pragma mark Update Message
 
 /**

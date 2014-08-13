@@ -214,7 +214,7 @@
                   fileName:(NSString*)fileName
                contentType:(NSString*)contentType
                   isPublic:(BOOL)isPublic
-              successBlock:(void(^)(QBResponse *response))successBlock
+              successBlock:(void(^)(QBResponse *response, QBCBlob* blob))successBlock
                 errorBlock:(void(^)(QBResponse *response))errorBlock;
 
 /**

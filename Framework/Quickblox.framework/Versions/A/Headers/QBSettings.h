@@ -312,14 +312,14 @@
  
  @param useProductionEnvironment Enable production environment for Push Notifications. Default value: NO. 
  */
-+ (void)useProductionEnvironmentForPushNotifications:(BOOL)useProductionEnvironment;
++ (void)useProductionEnvironmentForPushNotifications:(BOOL)useProductionEnvironment __attribute__((deprecated("Use [QBApplication sharedApplication].productionEnvironmentForPushesEnabled instead")));
 
 /**
  Determine current environment for Push Notifications
  
  @return YES if we use Production environment for Push Notifications
  */
-+ (BOOL)isUseProductionEnvironmentForPushNotifications;
++ (BOOL)isUseProductionEnvironmentForPushNotifications __attribute__((deprecated("Use [QBApplication sharedApplication].productionEnvironmentForPushesEnabled instead")));
 
 
 #pragma mark -
