@@ -40,7 +40,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 6;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -63,6 +63,9 @@
             break;
         case 5:
             numberOfRows = 6;
+            break;
+        case 6:
+            numberOfRows = 7;
             break;
     }
     return numberOfRows;
@@ -88,6 +91,9 @@
             break;
         case 5:
             headerTitle = @"History";
+            break;
+        case 6:
+            headerTitle = @"Privacy list";
             break;
         default:
             headerTitle = @"";
@@ -239,6 +245,7 @@
             }
             break;
             
+        // Chat 2.0
         case 5:
             switch (indexPath.row) {
                 case 0:
@@ -267,6 +274,38 @@
                     
             }
             break;
+            
+        // Privacy list
+        case 6:
+            switch (indexPath.row) {
+                case 0:
+                    [cell.textLabel setText:@"Create Privacy List"];
+                    break;
+                    
+                case 1:
+                    [cell.textLabel setText:@"Delete Privacy List"];
+                    break;
+                    
+                case 2:
+                    [cell.textLabel setText:@"Block user"];
+                    break;
+                    
+                case 3:
+                    [cell.textLabel setText:@"Unblock user"];
+                    break;
+                case 4:
+                    [cell.textLabel setText:@"Retrieve list names"];
+                    break;
+                case 5:
+                    [cell.textLabel setText:@"Retrieve 'public' list"];
+                    break;
+                case 6:
+                    [cell.textLabel setText:@"Set 'public' list as default"];
+                    break;
+                    
+                default:
+                    break;
+            }
         
         default:
             break;
@@ -599,6 +638,68 @@
             }
             break;
             
+            
+        case 6:
+            switch (indexPath.row) {
+                    //set (create) privacy list
+                case 0:
+                {
+                    
+                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:UserID2 action:DENY];
+                    QBPrivacyList *list = [[QBPrivacyList alloc] initWithName:@"public" items:@[item]];
+                    [[QBChat instance] setPrivacyList:list];
+                }
+                    break;
+                    
+                    //remove privacy list
+                case 1:{
+                    
+                    [[QBChat instance] removePrivacyListWithName:@"public"];
+                }
+                    break;
+                    
+                    //block user 2
+                case 2:
+                {
+                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:UserID2 action:DENY];
+                    QBPrivacyList *list = [[QBPrivacyList alloc] initWithName:@"public" items:@[item]];
+                    [[QBChat instance] setPrivacyList:list];
+                    
+                }
+                    break;
+                    
+                    //unblock user
+                case 3:
+                {
+                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:UserID2 action:ALLOW];
+                    QBPrivacyList *list = [[QBPrivacyList alloc] initWithName:@"public" items:@[item]];
+                    [[QBChat instance] setPrivacyList:list];
+                }
+                    break;
+                    
+                    //get list names
+                case 4:
+                {
+                    [[QBChat instance] retrievePrivacyListNames];
+                }
+                    break;
+                    
+                    //get public list
+                case 5:
+                {
+                    [[QBChat instance] retrievePrivacyListWithName:@"public"];
+                }
+                    break;
+                    
+                    //set list "public" as default
+                case 6:
+                {
+                    [[QBChat instance] setDefaultPrivacyListWithName:@"public"];
+                }
+                    break;
+            }
+            break;
+            
         default:
             break;
     }
@@ -765,6 +866,44 @@
 - (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status
 {
     NSLog(@"chatDidReceiveContactItemActivity, user: %lu, isOnline: %d, status: %@", (unsigned long)userID, isOnline, status);
+}
+
+#pragma mark Privacy
+
+- (void)chatDidSetPrivacyListWithName:(NSString *)name{
+    NSLog(@"chatDidSetPrivacyListWithName %@", name);
+    NSLog(@"if you created 'public' list and you want the rules to be applied then you need to make public list active'");
+}
+
+- (void)chatDidRemovedPrivacyListWithName:(NSString *)name{
+    NSLog(@"chatDidRemovedPrivacyListWithName %@", name);
+}
+
+- (void)chatDidSetActivePrivacyListWithName:(NSString *)name{
+    NSLog(@"chatDidSetActivePrivacyListWithName %@", name);
+}
+
+- (void)chatDidSetDefaultPrivacyListWithName:(NSString *)name{
+    NSLog(@"chatDidSetDefaultPrivacyListWithName %@", name);
+}
+- (void)chatDidReceivePrivacyListNames:(NSArray *)listNames{
+    NSLog(@"chatDidReceivePrivacyListNames: %@", listNames);
+}
+
+- (void)chatDidReceivePrivacyList:(QBPrivacyList *)privacyList{
+    NSLog(@"chatDidReceivePrivacyList: %@", privacyList);
+}
+
+- (void)chatDidNotReceivePrivacyListWithName:(NSString *)name error:(id)error{
+    NSLog(@"chatDidNotReceivePrivacyListWithName: %@ due to error:%@", name, error);
+}
+
+- (void)chatDidNotSetPrivacyListWithName:(NSString *)name error:(id)error{
+    NSLog(@"chatDidNotSetPrivacyListWithName: %@ due to error:%@", name, error);
+}
+
+- (void)chatDidNotSendMessage:(QBChatMessage *)message error:(NSError *)error{
+    NSLog(@"chatDidNotSendMessage: %@ \nerror:%@", message, error);
 }
 
     
