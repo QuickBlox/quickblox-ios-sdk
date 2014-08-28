@@ -54,21 +54,20 @@ The common way to interact with QuickBlox can be presented with following sequen
 #### 4.1 Initialize framework with application credentials
 
 ```objectivec
-[QBSettings setApplicationID:92];
-[QBSettings setAuthorizationKey:@"wJHdOcQSxXQGWx5"];
-[QBSettings setAuthorizationSecret:@"BTFsj7Rtt27DAmT"];
+[QBApplication sharedApplication].applicationId = 92;
+[QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
+[QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
+[QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
 ```
 
 #### 4.2. Create session
 
 ```objectivec
-[QBAuth createSessionWithDelegate:self];
-
-- (void)completedWithResult:(Result *)result{
-    if(result.success && [result isKindOfClass:QBAAuthSessionCreationResult.class]){
-        // Success, do something
-    }
-}
+[QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
+    //Your Quickblox session was created successfully
+} errorBlock:^(QBResponse *response) {
+    //Handle error here
+}];
 ```
 
 #### 4.3. Register/login
@@ -80,29 +79,22 @@ QBUUser *user = [QBUUser user];
 user.login = @"garry";
 user.password = @"garry5santos";
 
-[QBUsers signUp:user delegate:self];
-
-- (void)completedWithResult:(Result *)result{
-    if(result.success && [result isKindOfClass:QBUUserResult.class]){
-        // Success, do something
-        QBUUserResult *userResult = (QBUUserResult *)result;
-        NSLog(@"New user=%@", userResult.user);
-    }
-}
+[QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
+    // Success, do something
+} errorBlock:^(QBResponse *response) {
+    // error handling
+}];
 ```
 
 then authorize user
 
 ```objectivec
-[QBUsers logInWithUserLogin:@"garry" password:@"garry5santos"  delegate:self];
-
-- (void)completedWithResult:(Result *)result{
-    if(result.success && [result isKindOfClass:QBUUserLogInResult.class]){
-        // Success, do something
-        QBUUserLogInResult *userResult = (QBUUserLogInResult *)result;
-        NSLog(@"Logged In user=%@", userResult.user);
-    }
-}
+[QBRequest logInWithUserLogin:@"garry" password:@"garry5santos" successBlock:^(QBResponse *response, QBUUser *user){
+    // Request succeded
+} errorBlock:^(QBResponse *response) {
+    // error handling
+    NSLog(@"error: %@", response.error);
+}];
 ```
 
 to authorise user in Chat
@@ -154,16 +146,12 @@ QBLGeoData *location = [QBLGeoData geoData];
 location.latitude = 23.2344;
 location.longitude = -12.23523;
 location.status = @"Hello, world, I'm Indiana Jones, I'm at London right now!";
-
-[QBLocation createGeoData:location delegate:self];
-
-- (void)completedWithResult:(Result *)result{
-    if(result.success && [result isKindOfClass:QBLGeoDataResult.class]){
-        // Success, do something
-        QBLGeoDataResult *locationResult = (QBLGeoDataResult *)result;
-        NSLog(@"New location=%@", locationResult.geoData);
-    }
-}
+ 
+[QBRequest createGeoData:location successBlock:^(QBResponse *response, QBLGeoData *geoData) {
+    // Request succeded
+} errorBlock:^(QBResponse *response) {
+    // error handling
+}];
 ```
 
 or put Image into storage
@@ -171,17 +159,13 @@ or put Image into storage
 ```objectivec
 NSData *file = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"YellowStar" ofType:@"png"]];
 
-[QBContent TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:YES delegate:self];
+[QBRequest TUploadFile:file fileName:@"Great Image" contentType:@"image/png" isPublic:NO successBlock:^(QBResponse *response, QBCBlob *blob) {
+    // File uploaded
+} statusBlock:^(QBRequest *request, QBRequestStatus *status) {
+    // Progress
+    NSLog(@"%f", status.percentOfCompletion);
+} errorBlock:nil];
 
-- (void)completedWithResult:(Result *)result{
-    if(result.success && [result isKindOfClass:QBCFileUploadTaskResult.class]){
-        // Success, do something
-    }
-}
-
--(void)setProgress:(float)progress{
-    NSLog(@"progress: %f", progress);
-}
 ```
 
 iOS Framework provides following classes to interact with QuickBlox API (each class has suite of static methods):
