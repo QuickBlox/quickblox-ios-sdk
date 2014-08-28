@@ -1,0 +1,3 @@
+PODS_QUICKBLOX_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/QuickBlox"
+PODS_QUICKBLOX_HEADER_SEARCH_PATHS = /usr/include/libxml2
+PODS_QUICKBLOX_OTHER_LDFLAGS = -lresolv -lxml2 -lstdc++ -lz -framework AVFoundation -framework Accelerate -framework AudioToolbox -framework CFNetwork -framework CoreData -framework CoreGraphics -framework CoreLocation -framework CoreMedia -framework CoreVideo -framework MobileCoreServices -framework Quickblox -framework SystemConfiguration -framework UIKit
