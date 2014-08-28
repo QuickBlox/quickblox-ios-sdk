@@ -1,0 +1,552 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		43900C39162469680041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C38162469680041381B /* libxml2.dylib */; };
+		B2765F8A7A3B410C87A1E86E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E741BC0CB0A04E9FBA421665 /* libPods.a */; };
+		BFA79ED61843E4280044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED51843E4280044D9E0 /* Security.framework */; };
+		BFCEAD2E1976AB4D006279FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD2D1976AB4D006279FC /* Images.xcassets */; };
+		ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE60216773C46004BCAC7 /* Quickblox.framework */; };
+		FA19A32315FE4F5C00B5B2CC /* SSMRichContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA19A32215FE4F5C00B5B2CC /* SSMRichContentViewController.xib */; };
+		FA19A33215FE4F6A00B5B2CC /* SSMMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32A15FE4F6A00B5B2CC /* SSMMainViewController.m */; };
+		FA19A33315FE4F6A00B5B2CC /* SSMRichContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A32D15FE4F6A00B5B2CC /* SSMRichContentViewController.m */; };
+		FA19A33415FE4F6A00B5B2CC /* SSMSplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A33015FE4F6A00B5B2CC /* SSMSplashViewController.m */; };
+		FA19A33715FE4F9F00B5B2CC /* SSMPushMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = FA19A33615FE4F9F00B5B2CC /* SSMPushMessage.m */; };
+		FA19A33F15FE6B3D00B5B2CC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA19A33E15FE6B3D00B5B2CC /* QuartzCore.framework */; };
+		FA39FB6215EF56B0002F9D26 /* SSMMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB6015EF56B0002F9D26 /* SSMMainViewController.xib */; };
+		FA39FB6315EF56B0002F9D26 /* SSMSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA39FB6115EF56B0002F9D26 /* SSMSplashViewController.xib */; };
+		FAC8B9F516D2D69B00F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F416D2D69B00F03311 /* CoreVideo.framework */; };
+		FAC8B9F716D2D6A000F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F616D2D6A000F03311 /* CoreMedia.framework */; };
+		FAC8B9F916D2D6A500F03311 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9F816D2D6A400F03311 /* Accelerate.framework */; };
+		FAC8B9FB16D2D6AA00F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */; };
+		FAC8B9FD16D2D6AF00F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */; };
+		FAE86FE915EB6CE4002E16AA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86FE815EB6CE4002E16AA /* libresolv.dylib */; };
+		FAFA572C14ED23410057B9B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA572B14ED23410057B9B5 /* UIKit.framework */; };
+		FAFA572E14ED23410057B9B5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA572D14ED23410057B9B5 /* Foundation.framework */; };
+		FAFA573014ED23410057B9B5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA572F14ED23410057B9B5 /* CoreGraphics.framework */; };
+		FAFA573614ED23410057B9B5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FAFA573414ED23410057B9B5 /* InfoPlist.strings */; };
+		FAFA573814ED23410057B9B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA573714ED23410057B9B5 /* main.m */; };
+		FAFA573C14ED23410057B9B5 /* SSMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFA573B14ED23410057B9B5 /* SSMAppDelegate.m */; };
+		FAFA575414ED43420057B9B5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA575314ED43420057B9B5 /* CFNetwork.framework */; };
+		FAFA575614ED434B0057B9B5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA575514ED434A0057B9B5 /* SystemConfiguration.framework */; };
+		FAFA575814ED43520057B9B5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA575714ED43520057B9B5 /* MobileCoreServices.framework */; };
+		FAFA575A14ED435F0057B9B5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA575914ED435F0057B9B5 /* CoreLocation.framework */; };
+		FAFA575C14ED43680057B9B5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAFA575B14ED43680057B9B5 /* libz.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		43900C38162469680041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		43EB468A16241A9C00A88FF1 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		BFA79ED51843E4280044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BFCEAD2D1976AB4D006279FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E741BC0CB0A04E9FBA421665 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED6EE60216773C46004BCAC7 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		FA19A32215FE4F5C00B5B2CC /* SSMRichContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSMRichContentViewController.xib; sourceTree = "<group>"; };
+		FA19A32915FE4F6A00B5B2CC /* SSMMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMMainViewController.h; sourceTree = "<group>"; };
+		FA19A32A15FE4F6A00B5B2CC /* SSMMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMMainViewController.m; sourceTree = "<group>"; };
+		FA19A32C15FE4F6A00B5B2CC /* SSMRichContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMRichContentViewController.h; sourceTree = "<group>"; };
+		FA19A32D15FE4F6A00B5B2CC /* SSMRichContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMRichContentViewController.m; sourceTree = "<group>"; };
+		FA19A32F15FE4F6A00B5B2CC /* SSMSplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMSplashViewController.h; sourceTree = "<group>"; };
+		FA19A33015FE4F6A00B5B2CC /* SSMSplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMSplashViewController.m; sourceTree = "<group>"; };
+		FA19A33515FE4F9F00B5B2CC /* SSMPushMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMPushMessage.h; sourceTree = "<group>"; };
+		FA19A33615FE4F9F00B5B2CC /* SSMPushMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMPushMessage.m; sourceTree = "<group>"; };
+		FA19A33E15FE6B3D00B5B2CC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FA39FB6015EF56B0002F9D26 /* SSMMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSMMainViewController.xib; sourceTree = "<group>"; };
+		FA39FB6115EF56B0002F9D26 /* SSMSplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSMSplashViewController.xib; sourceTree = "<group>"; };
+		FAC8B9F416D2D69B00F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		FAC8B9F616D2D6A000F03311 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		FAC8B9F816D2D6A400F03311 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FAE86FE815EB6CE4002E16AA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
+		FAFA572714ED23410057B9B5 /* Messages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messages.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAFA572B14ED23410057B9B5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FAFA572D14ED23410057B9B5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FAFA572F14ED23410057B9B5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FAFA573314ED23410057B9B5 /* SimpleSample Messages-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimpleSample Messages-Info.plist"; sourceTree = "<group>"; };
+		FAFA573514ED23410057B9B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FAFA573714ED23410057B9B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FAFA573914ED23410057B9B5 /* SimpleSample Messages-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleSample Messages-Prefix.pch"; sourceTree = "<group>"; };
+		FAFA573A14ED23410057B9B5 /* SSMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SSMAppDelegate.h; path = "SimpleSample Messages/SSMAppDelegate.h"; sourceTree = "<group>"; };
+		FAFA573B14ED23410057B9B5 /* SSMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SSMAppDelegate.m; path = "SimpleSample Messages/SSMAppDelegate.m"; sourceTree = "<group>"; };
+		FAFA575314ED43420057B9B5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FAFA575514ED434A0057B9B5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FAFA575714ED43520057B9B5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		FAFA575914ED435F0057B9B5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FAFA575B14ED43680057B9B5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FAFA572414ED23410057B9B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFA79ED61843E4280044D9E0 /* Security.framework in Frameworks */,
+				FAC8B9FD16D2D6AF00F03311 /* AudioToolbox.framework in Frameworks */,
+				FAC8B9FB16D2D6AA00F03311 /* AVFoundation.framework in Frameworks */,
+				FAC8B9F916D2D6A500F03311 /* Accelerate.framework in Frameworks */,
+				FAC8B9F716D2D6A000F03311 /* CoreMedia.framework in Frameworks */,
+				FAC8B9F516D2D69B00F03311 /* CoreVideo.framework in Frameworks */,
+				ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */,
+				43900C39162469680041381B /* libxml2.dylib in Frameworks */,
+				FA19A33F15FE6B3D00B5B2CC /* QuartzCore.framework in Frameworks */,
+				FAE86FE915EB6CE4002E16AA /* libresolv.dylib in Frameworks */,
+				FAFA575C14ED43680057B9B5 /* libz.dylib in Frameworks */,
+				FAFA575A14ED435F0057B9B5 /* CoreLocation.framework in Frameworks */,
+				FAFA573014ED23410057B9B5 /* CoreGraphics.framework in Frameworks */,
+				FAFA575814ED43520057B9B5 /* MobileCoreServices.framework in Frameworks */,
+				FAFA575614ED434B0057B9B5 /* SystemConfiguration.framework in Frameworks */,
+				FAFA575414ED43420057B9B5 /* CFNetwork.framework in Frameworks */,
+				FAFA572C14ED23410057B9B5 /* UIKit.framework in Frameworks */,
+				FAFA572E14ED23410057B9B5 /* Foundation.framework in Frameworks */,
+				B2765F8A7A3B410C87A1E86E /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA19A32415FE4F6A00B5B2CC /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				FA19A33515FE4F9F00B5B2CC /* SSMPushMessage.h */,
+				FA19A33615FE4F9F00B5B2CC /* SSMPushMessage.m */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		FA19A32715FE4F6A00B5B2CC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA19A32815FE4F6A00B5B2CC /* MainViewController */,
+				FA19A32B15FE4F6A00B5B2CC /* RichContentViewController */,
+				FA19A32E15FE4F6A00B5B2CC /* SplashViewController */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		FA19A32815FE4F6A00B5B2CC /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FA19A32915FE4F6A00B5B2CC /* SSMMainViewController.h */,
+				FA19A32A15FE4F6A00B5B2CC /* SSMMainViewController.m */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		FA19A32B15FE4F6A00B5B2CC /* RichContentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FA19A32C15FE4F6A00B5B2CC /* SSMRichContentViewController.h */,
+				FA19A32D15FE4F6A00B5B2CC /* SSMRichContentViewController.m */,
+			);
+			path = RichContentViewController;
+			sourceTree = "<group>";
+		};
+		FA19A32E15FE4F6A00B5B2CC /* SplashViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FA19A32F15FE4F6A00B5B2CC /* SSMSplashViewController.h */,
+				FA19A33015FE4F6A00B5B2CC /* SSMSplashViewController.m */,
+			);
+			path = SplashViewController;
+			sourceTree = "<group>";
+		};
+		FA39FB5F15EF56B0002F9D26 /* xibs */ = {
+			isa = PBXGroup;
+			children = (
+				FA39FB6015EF56B0002F9D26 /* SSMMainViewController.xib */,
+				FA39FB6115EF56B0002F9D26 /* SSMSplashViewController.xib */,
+				FA19A32215FE4F5C00B5B2CC /* SSMRichContentViewController.xib */,
+			);
+			name = xibs;
+			path = Resources/iPhone/xibs;
+			sourceTree = SOURCE_ROOT;
+		};
+		FA43ADBF152B94A9000A2EF7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FA43ADC8152B94DB000A2EF7 /* iPhone */,
+				BFCEAD2D1976AB4D006279FC /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = SOURCE_ROOT;
+		};
+		FA43ADC8152B94DB000A2EF7 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				FA39FB5F15EF56B0002F9D26 /* xibs */,
+			);
+			path = iPhone;
+			sourceTree = "<group>";
+		};
+		FAFA571C14ED23410057B9B5 = {
+			isa = PBXGroup;
+			children = (
+				FAFA573A14ED23410057B9B5 /* SSMAppDelegate.h */,
+				FAFA573B14ED23410057B9B5 /* SSMAppDelegate.m */,
+				FAFA573114ED23410057B9B5 /* SimpleSample Messages */,
+				FA43ADBF152B94A9000A2EF7 /* Resources */,
+				FAFA572A14ED23410057B9B5 /* Frameworks */,
+				FAFA572814ED23410057B9B5 /* Products */,
+				6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		FAFA572814ED23410057B9B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FAFA572714ED23410057B9B5 /* Messages.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FAFA572A14ED23410057B9B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BFA79ED51843E4280044D9E0 /* Security.framework */,
+				FAC8B9FC16D2D6AE00F03311 /* AudioToolbox.framework */,
+				FAC8B9FA16D2D6AA00F03311 /* AVFoundation.framework */,
+				FAC8B9F816D2D6A400F03311 /* Accelerate.framework */,
+				FAC8B9F616D2D6A000F03311 /* CoreMedia.framework */,
+				FAC8B9F416D2D69B00F03311 /* CoreVideo.framework */,
+				ED6EE60216773C46004BCAC7 /* Quickblox.framework */,
+				FA19A33E15FE6B3D00B5B2CC /* QuartzCore.framework */,
+				FAE86FE815EB6CE4002E16AA /* libresolv.dylib */,
+				43EB468A16241A9C00A88FF1 /* libxml2.2.dylib */,
+				43900C38162469680041381B /* libxml2.dylib */,
+				FAFA575B14ED43680057B9B5 /* libz.dylib */,
+				FAFA575914ED435F0057B9B5 /* CoreLocation.framework */,
+				FAFA575714ED43520057B9B5 /* MobileCoreServices.framework */,
+				FAFA575514ED434A0057B9B5 /* SystemConfiguration.framework */,
+				FAFA575314ED43420057B9B5 /* CFNetwork.framework */,
+				FAFA572B14ED23410057B9B5 /* UIKit.framework */,
+				FAFA572D14ED23410057B9B5 /* Foundation.framework */,
+				FAFA572F14ED23410057B9B5 /* CoreGraphics.framework */,
+				E741BC0CB0A04E9FBA421665 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FAFA573114ED23410057B9B5 /* SimpleSample Messages */ = {
+			isa = PBXGroup;
+			children = (
+				FA19A32415FE4F6A00B5B2CC /* Objects */,
+				FA19A32715FE4F6A00B5B2CC /* ViewControllers */,
+				FAFA573214ED23410057B9B5 /* Supporting Files */,
+			);
+			path = "SimpleSample Messages";
+			sourceTree = "<group>";
+		};
+		FAFA573214ED23410057B9B5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FAFA573314ED23410057B9B5 /* SimpleSample Messages-Info.plist */,
+				FAFA573414ED23410057B9B5 /* InfoPlist.strings */,
+				FAFA573714ED23410057B9B5 /* main.m */,
+				FAFA573914ED23410057B9B5 /* SimpleSample Messages-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FAFA572614ED23410057B9B5 /* SimpleSample Messages */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAFA574814ED23420057B9B5 /* Build configuration list for PBXNativeTarget "SimpleSample Messages" */;
+			buildPhases = (
+				135EB994D6D54156899A8AC6 /* Check Pods Manifest.lock */,
+				FAFA572314ED23410057B9B5 /* Sources */,
+				FAFA572414ED23410057B9B5 /* Frameworks */,
+				FAFA572514ED23410057B9B5 /* Resources */,
+				24D2C622C3FD479F8D8A2411 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SimpleSample Messages";
+			productName = "SimpleSample Messages";
+			productReference = FAFA572714ED23410057B9B5 /* Messages.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FAFA571E14ED23410057B9B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SSM;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = QuickBlox;
+			};
+			buildConfigurationList = FAFA572114ED23410057B9B5 /* Build configuration list for PBXProject "SimpleSample Messages" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FAFA571C14ED23410057B9B5;
+			productRefGroup = FAFA572814ED23410057B9B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FAFA572614ED23410057B9B5 /* SimpleSample Messages */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FAFA572514ED23410057B9B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFCEAD2E1976AB4D006279FC /* Images.xcassets in Resources */,
+				FAFA573614ED23410057B9B5 /* InfoPlist.strings in Resources */,
+				FA39FB6215EF56B0002F9D26 /* SSMMainViewController.xib in Resources */,
+				FA39FB6315EF56B0002F9D26 /* SSMSplashViewController.xib in Resources */,
+				FA19A32315FE4F5C00B5B2CC /* SSMRichContentViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		135EB994D6D54156899A8AC6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		24D2C622C3FD479F8D8A2411 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FAFA572314ED23410057B9B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAFA573814ED23410057B9B5 /* main.m in Sources */,
+				FAFA573C14ED23410057B9B5 /* SSMAppDelegate.m in Sources */,
+				FA19A33215FE4F6A00B5B2CC /* SSMMainViewController.m in Sources */,
+				FA19A33315FE4F6A00B5B2CC /* SSMRichContentViewController.m in Sources */,
+				FA19A33415FE4F6A00B5B2CC /* SSMSplashViewController.m in Sources */,
+				FA19A33715FE4F9F00B5B2CC /* SSMPushMessage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FAFA573414ED23410057B9B5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAFA573514ED23410057B9B5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FAFA574614ED23420057B9B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "CF60DFC2-A5C8-4223-829E-78AF37725D24";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FAFA574714ED23420057B9B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "CF60DFC2-A5C8-4223-829E-78AF37725D24";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FAFA574914ED23420057B9B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
+					/usr/include/libxml2,
+				);
+				INFOPLIST_FILE = "SimpleSample Messages/SimpleSample Messages-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				PRODUCT_NAME = Messages;
+				PROVISIONING_PROFILE = "F98989A1-3765-4F2D-8C30-5ECBE1C81B5F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4A7273D7-268E-4266-B796-A8956D96DE97";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FAFA574A14ED23420057B9B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../Framework\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SimpleSample Messages/SimpleSample Messages-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
+					/usr/include/libxml2,
+				);
+				INFOPLIST_FILE = "SimpleSample Messages/SimpleSample Messages-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
+				PRODUCT_NAME = Messages;
+				PROVISIONING_PROFILE = "290D0E4E-4255-499C-A01C-8E6DCBCB760C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "290D0E4E-4255-499C-A01C-8E6DCBCB760C";
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FAFA572114ED23410057B9B5 /* Build configuration list for PBXProject "SimpleSample Messages" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAFA574614ED23420057B9B5 /* Debug */,
+				FAFA574714ED23420057B9B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAFA574814ED23420057B9B5 /* Build configuration list for PBXNativeTarget "SimpleSample Messages" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAFA574914ED23420057B9B5 /* Debug */,
+				FAFA574A14ED23420057B9B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FAFA571E14ED23410057B9B5 /* Project object */;
+}
