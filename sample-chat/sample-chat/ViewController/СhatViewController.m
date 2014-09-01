@@ -61,7 +61,6 @@
         self.chatRoom = [self.dialog chatRoom];
         [[ChatService instance] joinRoom:self.chatRoom completionBlock:^(QBChatRoom *joinedChatRoom) {
             // joined
-            NSLog(@"joined");
         }];
     }
     
