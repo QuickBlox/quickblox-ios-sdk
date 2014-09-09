@@ -43,6 +43,7 @@
         [self registerForRemoteNotifications];
         [self.wheel stopAnimating];
         
+        [self hideSplash];
     } errorBlock:[self handleError]];
 }
 
