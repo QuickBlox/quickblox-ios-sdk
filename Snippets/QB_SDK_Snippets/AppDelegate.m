@@ -56,6 +56,7 @@
     [QBConnection registerServiceKey:AuthKey];
     [QBConnection registerServiceSecret:AuthSecret];
     [QBSettings setAccountKey:AccountKey];
+    
     //
     [QBConnection setApiDomain:ServerApiDomain forServiceZone:QBConnectionZoneTypeProduction];
     [QBConnection setServiceZone:QBConnectionZoneTypeProduction];

@@ -24,7 +24,7 @@
 #define testUserID1 1501966
 #define testUserLogin1 @"igorquickblox3"
 #define testUserPassword1 @"igorquickblox3"
-#define testUserEmail1 @"igorquickblox3x@gmail.com"
+#define testUserEmail1 @"igorquickblox3@gmail.com"
 #define testUserPasswordForChat1 testUserPassword1
 //
 #define testUserID2 1501969
