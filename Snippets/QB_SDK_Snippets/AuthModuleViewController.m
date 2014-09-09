@@ -61,6 +61,7 @@
                     if (useNewAPI) {
                         QBSessionParameters *parameters = [[QBSessionParameters alloc] init];
                         parameters.userLogin = UserLogin1;
+//                        parameters.userEmail = UserEmail1;
                         parameters.userPassword = UserPassword1;
                         
                         [QBRequest createSessionWithExtendedParameters:parameters successBlock:^(QBResponse *response, QBASession *session) {
