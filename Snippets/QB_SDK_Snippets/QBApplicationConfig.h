@@ -6,9 +6,12 @@
 //  Copyright (c) 2014 Injoit. All rights reserved.
 //
 
-//#ifdef __i386__
+#ifdef __i386__ // 32 bit simulator
     #define UseTestUser1
-//#endif
+#endif
+#ifdef __LP64__ // 64 bit simulator
+    #define UseTestUser1
+#endif
 
 // Shared
 //
