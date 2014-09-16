@@ -321,7 +321,7 @@ static BOOL done = NO;
                     
                     // Add user to contact list request
                 case 0:{
-                    [[QBChat instance] addUserToContactListRequest:946391];
+                    [[QBChat instance] addUserToContactListRequest:UserID2];
                 }
                     break;
                     
