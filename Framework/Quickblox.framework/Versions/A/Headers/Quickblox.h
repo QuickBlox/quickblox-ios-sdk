@@ -4,7 +4,7 @@
 //
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
-// frameworkVersion 2.0.6
+// frameworkVersion 2.0.7
 
 #import <Quickblox/BaseServiceFramework.h>
 #import <Quickblox/AuthServiceFramework.h>
