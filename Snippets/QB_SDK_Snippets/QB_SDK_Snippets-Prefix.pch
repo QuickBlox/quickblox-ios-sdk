@@ -4,7 +4,7 @@
 
 #import <Availability.h>
 
-#define useNewAPI YES
+#define useNewAPI NO
 #define withQBContext YES
 #define withAdditionalRequest YES
 #define testContext @"testContext"
