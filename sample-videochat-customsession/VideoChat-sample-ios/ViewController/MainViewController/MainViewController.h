@@ -35,7 +35,6 @@
 @property (strong) NSNumber *opponentID;
 @property (strong) QBVideoChat *videoChat;
 @property (strong) UIAlertView *callAlert;
-@property (strong) AVCaptureSession *captureSession;
 
 - (IBAction)call:(id)sender;
 - (void)reject;

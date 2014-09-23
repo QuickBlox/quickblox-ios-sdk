@@ -6,11 +6,11 @@
 // project.
 
 
-// libextobjc/EXTKeyPathCoding
-#define COCOAPODS_POD_AVAILABLE_libextobjc_EXTKeyPathCoding
-#define COCOAPODS_VERSION_MAJOR_libextobjc_EXTKeyPathCoding 0
-#define COCOAPODS_VERSION_MINOR_libextobjc_EXTKeyPathCoding 4
-#define COCOAPODS_VERSION_PATCH_libextobjc_EXTKeyPathCoding 0
+// MTBlockAlertView
+#define COCOAPODS_POD_AVAILABLE_MTBlockAlertView
+#define COCOAPODS_VERSION_MAJOR_MTBlockAlertView 0
+#define COCOAPODS_VERSION_MINOR_MTBlockAlertView 1
+#define COCOAPODS_VERSION_PATCH_MTBlockAlertView 1
 
 // libextobjc/EXTScope
 #define COCOAPODS_POD_AVAILABLE_libextobjc_EXTScope

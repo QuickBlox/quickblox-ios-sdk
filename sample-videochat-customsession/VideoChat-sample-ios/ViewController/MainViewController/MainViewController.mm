@@ -8,32 +8,23 @@
 
 #import "MainViewController.h"
 #import "AppDelegate.h"
-
-#import "TPCircularBuffer.h"
-
-#define kBufferLength 32768
-#define qbAudioDataSizeForSecods(second) 512*(32*second)
+#import "CaptureSessionManager.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface MainViewController ()
+@property (nonatomic) CaptureSessionManager *captureSessionManager;
 @end
 
-@implementation MainViewController{
-    TPCircularBuffer circularBuffer;
-}
+@implementation MainViewController
 
 @synthesize opponentID;
-
-- (void)dealloc{
-    
-    // Release buffer resources
-    TPCircularBufferCleanup(&circularBuffer);
-    
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    // Configure UI
+    //
     opponentVideoView.layer.borderWidth = 1;
     opponentVideoView.layer.borderColor = [[UIColor grayColor] CGColor];
     opponentVideoView.layer.cornerRadius = 5;
@@ -48,11 +39,56 @@
         videoOutput.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.8, 0.8);
     }
     
-    
     // Setup Video & Audio capture
     //
-    [self setupVideoCapture];
-	[self setupAudioCapture];
+    _captureSessionManager = [CaptureSessionManager new];
+    AVCaptureVideoPreviewLayer *videoPreviewLayer = [_captureSessionManager setupVideoCapture];
+    [videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    CGRect layerRect = [[myVideoView layer] bounds];
+    [videoPreviewLayer setBounds:layerRect];
+    [videoPreviewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect),CGRectGetMidY(layerRect))];
+    myVideoView.hidden = NO;
+    [myVideoView.layer addSublayer:videoPreviewLayer];
+    //
+    //
+	[_captureSessionManager setupAudioCapture];
+    
+    
+    // Set output blocks
+    //
+    __weak typeof(self) weakSelf = self;
+    _captureSessionManager.audioOutputBlock = ^(AudioBuffer buffer){
+        // forward audio data to video chat
+        //
+        [weakSelf.videoChat processVideoChatCaptureAudioBuffer:buffer];
+    };
+    _captureSessionManager.videoOutputBlock = ^(CMSampleBufferRef buffer){
+        // forward video data to video chat
+        //
+        [weakSelf.videoChat processVideoChatCaptureVideoSample:buffer];
+    };
+    
+    
+    // Set block for recording result
+    //
+    _captureSessionManager.recordVideoResultBlock = ^(NSString *URL){
+        
+        [MTBlockAlertView showWithTitle:nil
+                                message:@"Would you like to watch the recorded video?"
+                      cancelButtonTitle:@"No"
+                       otherButtonTitle:@"Yes"
+                         alertViewStyle:UIAlertViewStyleDefault
+                        completionBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                            // Yes
+                            if (buttonIndex == 1) {
+                                NSURL *videoURL = [NSURL fileURLWithPath:URL];
+                                MPMoviePlayerViewController *playerVC = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+                                
+                                // Present the movie player view controller
+                                [weakSelf presentViewController:playerVC animated:YES completion:nil];
+                            }
+                        }];
+    };
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -66,170 +102,14 @@
 
 
 #pragma mark -
-#pragma mark Video and audio setup
-
--(void) setupVideoCapture{
-	self.captureSession = [[AVCaptureSession alloc] init];
-    
-    __block NSError *error = nil;
-    
-    // set preset
-    [self.captureSession setSessionPreset:AVCaptureSessionPresetLow];
-    
-    
-    // Setup the Video input
-    AVCaptureDevice *videoDevice = [self frontFacingCamera];
-    //
-    AVCaptureDeviceInput *captureVideoInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
-    if(error){
-        QBDLogEx(@"deviceInputWithDevice Video error: %@", error);
-    }else{
-        if ([self.captureSession  canAddInput:captureVideoInput]){
-            [self.captureSession addInput:captureVideoInput];
-        }else{
-            QBDLogEx(@"cantAddInput Video");
-        }
-    }
-    
-    // Setup Video output
-    AVCaptureVideoDataOutput *videoCaptureOutput = [[AVCaptureVideoDataOutput alloc] init];
-    videoCaptureOutput.alwaysDiscardsLateVideoFrames = YES;
-    //
-    // Set the video output to store frame in BGRA (It is supposed to be faster)
-    NSString* key = (NSString*)kCVPixelBufferPixelFormatTypeKey;
-    NSNumber* value = [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA];
-    NSDictionary* videoSettings = [NSDictionary dictionaryWithObject:value forKey:key];
-    [videoCaptureOutput setVideoSettings:videoSettings];
-    /*And we create a capture session*/
-    if([self.captureSession canAddOutput:videoCaptureOutput]){
-        [self.captureSession addOutput:videoCaptureOutput];
-    }else{
-        QBDLogEx(@"cantAddOutput");
-    }
-    
-	
-    // set FPS
-    int framesPerSecond = 3;
-    AVCaptureConnection *conn = [videoCaptureOutput connectionWithMediaType:AVMediaTypeVideo];
-    if (conn.isVideoMinFrameDurationSupported){
-        conn.videoMinFrameDuration = CMTimeMake(1, framesPerSecond);
-    }
-    if (conn.isVideoMaxFrameDurationSupported){
-        conn.videoMaxFrameDuration = CMTimeMake(1, framesPerSecond);
-    }
-    
-    // set portrait orientation
-    [conn setVideoOrientation:AVCaptureVideoOrientationPortrait];
-    
-    /*We create a serial queue to handle the processing of our frames*/
-    dispatch_queue_t callbackQueue= dispatch_queue_create("cameraQueue", NULL);
-    [videoCaptureOutput setSampleBufferDelegate:self queue:callbackQueue];
-    
-    // Add preview layer
-    AVCaptureVideoPreviewLayer *prewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.captureSession];
-	[prewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    CGRect layerRect = [[myVideoView layer] bounds];
-	[prewLayer setBounds:layerRect];
-	[prewLayer setPosition:CGPointMake(CGRectGetMidX(layerRect),CGRectGetMidY(layerRect))];
-    myVideoView.hidden = NO;
-    [myVideoView.layer addSublayer:prewLayer];
-	
-	
-    /*We start the capture*/
-    [self.captureSession startRunning];
-}
-
--(void) setupAudioCapture{
-    // start audio IO
-    //
-    [[QBAudioIOService shared] start];
-    
-    // Route audio to speaker
-    //
-    [[QBAudioIOService shared] routeToSpeaker];
-	
-    // Create ring buffer
-    //
-    TPCircularBufferInit(&circularBuffer, kBufferLength);
-    
-    // Start processing
-    //
-	[[QBAudioIOService shared] setInputBlock:^(AudioBuffer buffer){
-        [self.videoChat processVideoChatCaptureAudioBuffer:buffer];
-    }];
-    //
-    [[QBAudioIOService shared] start];
-}
-
-- (void)captureOutput:(AVCaptureOutput *)captureOutput  didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-	[self.videoChat processVideoChatCaptureVideoSample:sampleBuffer];
-}
-
-- (AVCaptureDevice *) cameraWithPosition:(AVCaptureDevicePosition) position{
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    for (AVCaptureDevice *device in devices) {
-        if ([device position] == position) {
-            return device;
-        }
-    }
-    return nil;
-}
-
-- (AVCaptureDevice *) backFacingCamera{
-    return [self cameraWithPosition:AVCaptureDevicePositionBack];
-}
-
-- (AVCaptureDevice *) frontFacingCamera{
-    return [self cameraWithPosition:AVCaptureDevicePositionFront];
-}
-
-- (void)didReceiveAudioBuffer:(AudioBuffer)buffer{
-	
-    // Put audio into circular buffer
-    //
-    TPCircularBufferProduceBytes(&circularBuffer, buffer.mData, buffer.mDataByteSize);
-    
-    // Get number of bytes in circular buffer
-    //
-    int32_t availableBytes;
-    TPCircularBufferTail(&circularBuffer, &availableBytes);
-
-    // If output block is NIL and we have audio data for 0.5 second
-    //
-	if([[QBAudioIOService shared] outputBlock] == nil && availableBytes > qbAudioDataSizeForSecods(0.5)){
-        
-        QBDLogEx(@"Set output block");
-        [[QBAudioIOService shared] setOutputBlock:^(AudioBuffer buffer) {
-            
-            int32_t availableBytesInBuffer;
-            void *cbuffer = TPCircularBufferTail(&circularBuffer, &availableBytesInBuffer);
-            
-            // Read audio data if exist
-            if(availableBytesInBuffer > 0){
-                int min = MIN(buffer.mDataByteSize, availableBytesInBuffer);
-                memcpy(buffer.mData, cbuffer, min);
-                TPCircularBufferConsume(&circularBuffer, min);
-            }else{
-                // No data to play -> mute output
-                QBDLogEx(@"No data to play -> mute output");
-                [[QBAudioIOService shared] setOutputBlock:nil];
-            }
-            
-            // If there is to much audio data to play -> clear buffer & mute output
-            //
-            if(availableBytes > qbAudioDataSizeForSecods(3)) {
-                QBDLogEx(@"There is to much audio data to play -> clear buffer & mute output");
-                TPCircularBufferClear(&circularBuffer);
-                
-                [[QBAudioIOService shared] setOutputBlock:nil];
-            }
-        }];
-	}
-}
-
-
-#pragma mark -
 #pragma mark Actions
+
+- (IBAction)changeRecordingSwitch:(id)sender{
+    
+    // Enable/disable recording
+    //
+    _captureSessionManager.enabledRecording = [sender isOn];
+}
 
 - (IBAction)audioOutputDidChange:(UISegmentedControl *)sender{
     if(sender.selectedSegmentIndex == 0){
@@ -240,37 +120,7 @@
 }
 
 - (IBAction)videoOutputDidChange:(UISegmentedControl *)sender{
-    [self.captureSession beginConfiguration];
-    
-    // remove old input
-    [self.captureSession removeInput:[self.captureSession inputs][0]];
-    
-    // choose proper input
-    AVCaptureDevice *__videoDevice;
-    if(sender.selectedSegmentIndex == 0){
-        __videoDevice = [self frontFacingCamera];
-    }else{
-        __videoDevice = [self backFacingCamera];
-    }
-    
-    // add new one
-    NSError *error = nil;
-    AVCaptureDeviceInput *captureVideoInput = [AVCaptureDeviceInput deviceInputWithDevice:__videoDevice error:&error];
-    if(error){
-        QBDLogEx(@"deviceInputWithDevice error: %@", error);
-    }else{
-        if ([self.captureSession  canAddInput:captureVideoInput]){
-            [self.captureSession addInput:captureVideoInput];
-        }else{
-            QBDLogEx(@"cantAddInput");
-        }
-    }
-    
-    // set portrait orientation
-    AVCaptureConnection *conn = [self.captureSession.outputs[0] connectionWithMediaType:AVMediaTypeVideo];
-    [conn setVideoOrientation:AVCaptureVideoOrientationPortrait];
-    
-    [self.captureSession commitConfiguration];
+    [_captureSessionManager changeVideoOutput:sender.selectedSegmentIndex != 0];
 }
 
 - (IBAction)call:(id)sender{
@@ -517,11 +367,17 @@
 //    NSLog(@"_____TURN_____TURN_____");
 }
 
+- (void)didReceiveAudioBuffer:(AudioBuffer)buffer{
+    [_captureSessionManager processAudioBuffer:buffer];
+}
+
 
 #pragma mark -
 #pragma mark UIAlertView
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    // Call alert
     switch (buttonIndex) {
         // Reject
         case 0:
