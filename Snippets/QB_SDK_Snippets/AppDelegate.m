@@ -74,11 +74,11 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-	[QBRequest registerSubscriptionForDeviceToken:deviceToken successBlock:^(QBResponse *response, NSArray *subscriptions) {
-		NSLog(@"Successfull response!");
-	} errorBlock:^(QBError *error) {
-		NSLog(@"Response error:%@", error);
-	}];
+//	[QBRequest registerSubscriptionForDeviceToken:deviceToken successBlock:^(QBResponse *response, NSArray *subscriptions) {
+//		NSLog(@"Successfull response!");
+//	} errorBlock:^(QBError *error) {
+//		NSLog(@"Response error:%@", error);
+//	}];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
