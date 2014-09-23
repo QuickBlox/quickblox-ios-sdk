@@ -19,6 +19,9 @@
 		43774BE0160893D500DDBF12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43774BDF160893D500DDBF12 /* Foundation.framework */; };
 		43774BE2160893D500DDBF12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43774BE1160893D500DDBF12 /* CoreGraphics.framework */; };
 		7208BD0D93744996AA2DF1F4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D6A055B51645A8BA6EBC02 /* libPods.a */; };
+		BF0576BD19D1D20700EB6386 /* CaptureSessionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF0576BA19D1D20700EB6386 /* CaptureSessionManager.mm */; };
+		BF0576BE19D1D20700EB6386 /* MediaFileMerger.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0576BC19D1D20700EB6386 /* MediaFileMerger.m */; };
+		BF0576C019D1FF2300EB6386 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0576BF19D1FF2300EB6386 /* MediaPlayer.framework */; };
 		BF67F8581843F6410066F4C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF67F8571843F6410066F4C9 /* Security.framework */; };
 		BF6860FB1978142500496FFB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF6860FA1978142500496FFB /* Media.xcassets */; };
 		BF6860FD197814B200496FFB /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF6860FC197814B200496FFB /* Quickblox.framework */; };
@@ -60,6 +63,11 @@
 		43774BE1160893D500DDBF12 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		69A84F60F2774FF99474A2D5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		A8D6A055B51645A8BA6EBC02 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF0576B919D1D20700EB6386 /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
+		BF0576BA19D1D20700EB6386 /* CaptureSessionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CaptureSessionManager.mm; sourceTree = "<group>"; };
+		BF0576BB19D1D20700EB6386 /* MediaFileMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaFileMerger.h; sourceTree = "<group>"; };
+		BF0576BC19D1D20700EB6386 /* MediaFileMerger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaFileMerger.m; sourceTree = "<group>"; };
+		BF0576BF19D1FF2300EB6386 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BF67F8571843F6410066F4C9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF6860FA1978142500496FFB /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BF6860FC197814B200496FFB /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
@@ -104,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF0576C019D1FF2300EB6386 /* MediaPlayer.framework in Frameworks */,
 				BF67F8581843F6410066F4C9 /* Security.framework in Frameworks */,
 				FAFF373916C2BF4100676978 /* AudioToolbox.framework in Frameworks */,
 				FAFF373716C2BF0500676978 /* Accelerate.framework in Frameworks */,
@@ -153,6 +162,7 @@
 		43774BDC160893D500DDBF12 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BF0576BF19D1FF2300EB6386 /* MediaPlayer.framework */,
 				BF6860FC197814B200496FFB /* Quickblox.framework */,
 				BF67F8571843F6410066F4C9 /* Security.framework */,
 				FAFF373816C2BF4100676978 /* AudioToolbox.framework */,
@@ -177,9 +187,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BF0576B819D1D20700EB6386 /* AudioVideoCapture */ = {
+			isa = PBXGroup;
+			children = (
+				BF0576B919D1D20700EB6386 /* CaptureSessionManager.h */,
+				BF0576BA19D1D20700EB6386 /* CaptureSessionManager.mm */,
+				BF0576BB19D1D20700EB6386 /* MediaFileMerger.h */,
+				BF0576BC19D1D20700EB6386 /* MediaFileMerger.m */,
+			);
+			path = AudioVideoCapture;
+			sourceTree = "<group>";
+		};
 		BFE69A7A19D1A56500940907 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				BF0576B819D1D20700EB6386 /* AudioVideoCapture */,
 				BFE69A7B19D1A56500940907 /* AudioFileWriter */,
 				BFE69A8819D1A56500940907 /* TPCircularBuffer */,
 			);
@@ -402,9 +424,11 @@
 				BFE69A9119D1A56500940907 /* CAXException.cpp in Sources */,
 				FA078F7C16C94833003E8E5A /* AppDelegate.m in Sources */,
 				FA078F7E16C94833003E8E5A /* main.m in Sources */,
+				BF0576BD19D1D20700EB6386 /* CaptureSessionManager.mm in Sources */,
 				BFE69A8D19D1A56500940907 /* AQRecorder.mm in Sources */,
 				BFE69A9019D1A56500940907 /* CAStreamBasicDescription.cpp in Sources */,
 				BFE69A9219D1A56500940907 /* TPCircularBuffer+AudioBufferList.mm in Sources */,
+				BF0576BE19D1D20700EB6386 /* MediaFileMerger.m in Sources */,
 				FA078F8816C94833003E8E5A /* MainViewController.mm in Sources */,
 				BFE69A8E19D1A56500940907 /* CADebugMacros.cpp in Sources */,
 				BFE69A8F19D1A56500940907 /* CADebugPrintf.cpp in Sources */,
