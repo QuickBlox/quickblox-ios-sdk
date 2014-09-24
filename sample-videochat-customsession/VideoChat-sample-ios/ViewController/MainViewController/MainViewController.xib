@@ -41,7 +41,7 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="person.png" id="24" userLabel="OpponentVideo">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="person.png" id="24" userLabel="OpponentVideo" customClass="OpponentVideoView">
                     <rect key="frame" x="77" y="49" width="176" height="189"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>

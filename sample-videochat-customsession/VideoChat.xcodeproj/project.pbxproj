@@ -25,6 +25,8 @@
 		BF67F8581843F6410066F4C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF67F8571843F6410066F4C9 /* Security.framework */; };
 		BF6860FB1978142500496FFB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF6860FA1978142500496FFB /* Media.xcassets */; };
 		BF6860FD197814B200496FFB /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF6860FC197814B200496FFB /* Quickblox.framework */; };
+		BF7CE7C819D31185004CCC19 /* OpponentVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7CE7C719D31185004CCC19 /* OpponentVideoView.m */; };
+		BF7CE7CC19D3166A004CCC19 /* OpponentVideoWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7CE7CB19D3166A004CCC19 /* OpponentVideoWriter.m */; };
 		BFE69A8D19D1A56500940907 /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = BFE69A7D19D1A56500940907 /* AQRecorder.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BFE69A8E19D1A56500940907 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE69A7F19D1A56500940907 /* CADebugMacros.cpp */; };
 		BFE69A8F19D1A56500940907 /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BFE69A8119D1A56500940907 /* CADebugPrintf.cpp */; };
@@ -71,6 +73,10 @@
 		BF67F8571843F6410066F4C9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF6860FA1978142500496FFB /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		BF6860FC197814B200496FFB /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		BF7CE7C619D31185004CCC19 /* OpponentVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpponentVideoView.h; sourceTree = "<group>"; };
+		BF7CE7C719D31185004CCC19 /* OpponentVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpponentVideoView.m; sourceTree = "<group>"; };
+		BF7CE7CA19D3166A004CCC19 /* OpponentVideoWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpponentVideoWriter.h; sourceTree = "<group>"; };
+		BF7CE7CB19D3166A004CCC19 /* OpponentVideoWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpponentVideoWriter.m; sourceTree = "<group>"; };
 		BFE69A7C19D1A56500940907 /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQRecorder.h; sourceTree = "<group>"; };
 		BFE69A7D19D1A56500940907 /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQRecorder.mm; sourceTree = "<group>"; };
 		BFE69A7F19D1A56500940907 /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
@@ -198,9 +204,28 @@
 			path = AudioVideoCapture;
 			sourceTree = "<group>";
 		};
+		BF7CE7C519D31177004CCC19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BF7CE7C619D31185004CCC19 /* OpponentVideoView.h */,
+				BF7CE7C719D31185004CCC19 /* OpponentVideoView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BF7CE7C919D3165C004CCC19 /* OpponentVideoWriter */ = {
+			isa = PBXGroup;
+			children = (
+				BF7CE7CA19D3166A004CCC19 /* OpponentVideoWriter.h */,
+				BF7CE7CB19D3166A004CCC19 /* OpponentVideoWriter.m */,
+			);
+			path = OpponentVideoWriter;
+			sourceTree = "<group>";
+		};
 		BFE69A7A19D1A56500940907 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				BF7CE7C919D3165C004CCC19 /* OpponentVideoWriter */,
 				BF0576B819D1D20700EB6386 /* AudioVideoCapture */,
 				BFE69A7B19D1A56500940907 /* AudioFileWriter */,
 				BFE69A8819D1A56500940907 /* TPCircularBuffer */,
@@ -250,6 +275,7 @@
 			children = (
 				FA078F6116C94833003E8E5A /* AppDelegate.h */,
 				FA078F6216C94833003E8E5A /* AppDelegate.m */,
+				BF7CE7C519D31177004CCC19 /* View */,
 				BFE69A7A19D1A56500940907 /* External */,
 				FA078F7316C94833003E8E5A /* ViewController */,
 			);
@@ -343,7 +369,7 @@
 		43774BD0160893D500DDBF12 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Ruslan;
 				TargetAttributes = {
 					43774BD8160893D500DDBF12 = {
@@ -422,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFE69A9119D1A56500940907 /* CAXException.cpp in Sources */,
+				BF7CE7C819D31185004CCC19 /* OpponentVideoView.m in Sources */,
 				FA078F7C16C94833003E8E5A /* AppDelegate.m in Sources */,
 				FA078F7E16C94833003E8E5A /* main.m in Sources */,
 				BF0576BD19D1D20700EB6386 /* CaptureSessionManager.mm in Sources */,
@@ -429,6 +456,7 @@
 				BFE69A9019D1A56500940907 /* CAStreamBasicDescription.cpp in Sources */,
 				BFE69A9219D1A56500940907 /* TPCircularBuffer+AudioBufferList.mm in Sources */,
 				BF0576BE19D1D20700EB6386 /* MediaFileMerger.m in Sources */,
+				BF7CE7CC19D3166A004CCC19 /* OpponentVideoWriter.m in Sources */,
 				FA078F8816C94833003E8E5A /* MainViewController.mm in Sources */,
 				BFE69A8E19D1A56500940907 /* CADebugMacros.cpp in Sources */,
 				BFE69A8F19D1A56500940907 /* CADebugPrintf.cpp in Sources */,
@@ -460,10 +488,12 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -503,10 +533,12 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
