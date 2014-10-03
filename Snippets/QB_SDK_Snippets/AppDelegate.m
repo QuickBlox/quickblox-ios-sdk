@@ -65,6 +65,8 @@
     
     [QBSettings setServerApiDomain:ServerApiDomain];
     
+
+    
 #ifndef DEBUG
     [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;
 #endif
