@@ -639,6 +639,8 @@ static BOOL done = NO;
 - (void)chatDidReceiveMessage:(QBChatMessage *)message
 {
     NSLog(@"Did receive message: %@", message);
+    
+    [[QBChat instance] readMessage:message];
 }
 
 - (void)chatDidNotSendMessage:(QBChatMessage *)message
