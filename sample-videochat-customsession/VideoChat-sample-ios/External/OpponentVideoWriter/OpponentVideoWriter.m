@@ -26,8 +26,9 @@
     CVPixelBufferPoolRelease(self.adaptor.pixelBufferPool);
     
     __weak typeof(self) weakSelf = self;
+
     [self.videoWriter finishWritingWithCompletionHandler:^{
-        if (self.videoWriter.status == AVAssetWriterStatusCompleted){
+        if (weakSelf.videoWriter.status == AVAssetWriterStatusCompleted){
             NSURL *outputVideoFileURL = [weakSelf.videoWriter outputURL];
             
             if(completionBlock != nil){
@@ -41,8 +42,8 @@
             weakSelf.adaptor = nil;
         }
         
-        if (self.videoWriter.status == AVAssetWriterStatusFailed) {
-            NSAssert(NO, [self.videoWriter.error description]);
+        if (weakSelf.videoWriter.status == AVAssetWriterStatusFailed) {
+            NSAssert(NO, [weakSelf.videoWriter.error description]);
         }
     }];
     
