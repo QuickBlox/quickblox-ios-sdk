@@ -12,4 +12,4 @@ SPEC CHECKSUMS:
   libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
   MTBlockAlertView: bd376f8b9f0ea945ed21e4c75aa0bb9afe3e782d
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.2

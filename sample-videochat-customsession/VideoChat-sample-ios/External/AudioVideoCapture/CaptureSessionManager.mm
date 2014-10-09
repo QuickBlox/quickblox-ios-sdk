@@ -141,10 +141,13 @@
     
     // Start processing
     //
+    __weak __typeof(self)weakSelf = self;
     [[QBAudioIOService shared] setInputBlock:^(AudioBuffer buffer){
-        if(self.audioOutputBlock != nil){
-            self.audioOutputBlock(buffer);
-        }
+        
+            
+            if(weakSelf.audioOutputBlock != nil){
+                weakSelf.audioOutputBlock(buffer);
+            }
     }];
     //
     [[QBAudioIOService shared] start];
@@ -324,31 +327,34 @@
 			NSURL* outputAudioFileURL = [NSURL fileURLWithPath:audioFilePath];
             self.recorder->StopRecord();
 			
-            @weakify(self);
+            __weak __typeof(self)weakSelf = self;
+            
             [self.videoWriterInput markAsFinished];
 			[self.videoWriter finishWritingWithCompletionHandler:^{
-                @strongify(self);
+                
 				if (self.videoWriter.status == AVAssetWriterStatusCompleted)
 				{
-					NSURL* outputVideoFileURL = [self.videoWriter outputURL];
+					NSURL* outputVideoFileURL = [weakSelf.videoWriter outputURL];
 					// prepare for merging with audio and sending to QB
-					[self finishedRecordingVideoAtURL:outputVideoFileURL
+					[weakSelf finishedRecordingVideoAtURL:outputVideoFileURL
                                         andAudioAtURL:outputAudioFileURL
                                       andBackgroundId:identifier];
 				}
 				
-				if (self.videoWriter.status == AVAssetWriterStatusFailed) {
-					NSAssert(NO, [self.videoWriter.error description]);
+				if (weakSelf.videoWriter.status == AVAssetWriterStatusFailed) {
+					NSAssert(NO, [weakSelf.videoWriter.error description]);
 				}
-                [self setupAssetWriter];
+                [weakSelf setupAssetWriter];
 			}];
 		}
 	}
 }
 
 - (void)finishWritingVideoAndAudioAtBackground {
+    
 	@synchronized(self.videoWriter) {
-		if (self.videoWriter.status == AVAssetWriterStatusWriting) {
+	__weak __typeof(self)weakSelf = self;
+        if (self.videoWriter.status == AVAssetWriterStatusWriting) {
 			__block UIBackgroundTaskIdentifier identifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
 				[[UIApplication sharedApplication] endBackgroundTask:identifier];
 			}];
@@ -357,14 +363,13 @@
 			NSURL* outputAudioFileURL = [NSURL fileURLWithPath:audioFilePath];
             self.recorder->StopRecord();
 			
-            @weakify(self);
             [self.videoWriterInput markAsFinished];
 			[self.videoWriter finishWritingWithCompletionHandler:^{
-                @strongify(self);
-				if (self.videoWriter.status == AVAssetWriterStatusCompleted)
+            
+				if (weakSelf.videoWriter.status == AVAssetWriterStatusCompleted)
 				{
-					NSURL *outputVideoFileURL = [self.videoWriter outputURL];
-					[self finishedRecordingVideoAtURL:outputVideoFileURL
+					NSURL *outputVideoFileURL = [weakSelf.videoWriter outputURL];
+					[weakSelf finishedRecordingVideoAtURL:outputVideoFileURL
                                         andAudioAtURL:outputAudioFileURL];
 				}
 			}];
@@ -394,11 +399,13 @@
     [self.mediaFileMerger mergeVideoFile:outputVideoFileURL
                            withAudioFile:outputAudioFileURL
                            andCompletion:^(BOOL success, NSString *outputFilePath) {
+                               
+                               __weak __typeof(self)weakSelf = self;
                                NSAssert([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath], @"Output file was not created!");
                                
                                dispatch_async(dispatch_get_main_queue(), ^{
-                                   if(self.recordVideoResultBlock != nil){
-                                       self.recordVideoResultBlock(outputFilePath);
+                                   if(weakSelf.recordVideoResultBlock != nil){
+                                       weakSelf.recordVideoResultBlock(outputFilePath);
                                    }
                                });
                            }];
