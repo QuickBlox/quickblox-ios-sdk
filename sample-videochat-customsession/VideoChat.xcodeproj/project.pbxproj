@@ -18,6 +18,7 @@
 		43774BDE160893D500DDBF12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43774BDD160893D500DDBF12 /* UIKit.framework */; };
 		43774BE0160893D500DDBF12 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43774BDF160893D500DDBF12 /* Foundation.framework */; };
 		43774BE2160893D500DDBF12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43774BE1160893D500DDBF12 /* CoreGraphics.framework */; };
+		55FE969619E6B9660009FA7C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF6860FC197814B200496FFB /* Quickblox.framework */; };
 		7208BD0D93744996AA2DF1F4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D6A055B51645A8BA6EBC02 /* libPods.a */; };
 		BF0576BD19D1D20700EB6386 /* CaptureSessionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF0576BA19D1D20700EB6386 /* CaptureSessionManager.mm */; };
 		BF0576BE19D1D20700EB6386 /* MediaFileMerger.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0576BC19D1D20700EB6386 /* MediaFileMerger.m */; };
@@ -138,6 +139,7 @@
 				43774BE0160893D500DDBF12 /* Foundation.framework in Frameworks */,
 				43774BE2160893D500DDBF12 /* CoreGraphics.framework in Frameworks */,
 				7208BD0D93744996AA2DF1F4 /* libPods.a in Frameworks */,
+				55FE969619E6B9660009FA7C /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +584,7 @@
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/andrey/Projects/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VideoChat-sample-ios/videoChat-Prefix.pch";
@@ -615,6 +618,7 @@
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"/Users/andrey/Projects/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VideoChat-sample-ios/videoChat-Prefix.pch";
