@@ -144,19 +144,21 @@
     __weak __typeof(self)weakSelf = self;
     [[QBAudioIOService shared] setInputBlock:^(AudioBuffer buffer){
         
-            
+        @autoreleasepool {
             if(weakSelf.audioOutputBlock != nil){
                 weakSelf.audioOutputBlock(buffer);
             }
+        }
     }];
     //
     [[QBAudioIOService shared] start];
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput  didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    
-    if(self.videoOutputBlock != nil){
-        self.videoOutputBlock(sampleBuffer);
+    @autoreleasepool {
+        if(self.videoOutputBlock != nil){
+            self.videoOutputBlock(sampleBuffer);
+        }
     }
     
     if (self.enabledRecording) {
