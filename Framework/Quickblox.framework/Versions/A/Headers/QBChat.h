@@ -99,6 +99,14 @@ typedef enum QBChatServiceError {
 - (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *))sentBlock;
 
 /**
+ Send "Read message" status back to sender
+ 
+ @param message original message received from user
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)readMessage:(QBChatMessage *)message;
+
+/**
  Send presence message. Session will be closed in 90 seconds since last activity.
  
  @return YES if the request was sent successfully. If not - see log.
@@ -418,6 +426,20 @@ typedef enum QBChatServiceError {
  */
 + (NSObject<Cancelable> *)updateDialogWithID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate;
 + (NSObject<Cancelable> *)updateDialogWithID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
+
+
+#pragma mark -
+#pragma mark Delete dialog
+
+/**
+ Delete chat dialog
+ 
+ @param dialogID ID of a dialog to delete
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (NSObject<Cancelable> *)deleteDialogWithID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
++ (NSObject<Cancelable> *)deleteDialogWithID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
 
 
 #pragma mark -

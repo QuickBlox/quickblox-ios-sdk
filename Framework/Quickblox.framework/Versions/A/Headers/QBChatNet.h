@@ -11,6 +11,7 @@
 #import <Quickblox/QBChatQuery.h>
 
 #import <Quickblox/QBCDialogGetQuery.h>
+#import <Quickblox/QBChatDialogDeleteQuery.h>
 #import <Quickblox/QBCMessageGetQuery.h>
 #import <Quickblox/QBChatDialogCreateQuery.h>
 #import <Quickblox/QBChatDialogUpdateQuery.h>
