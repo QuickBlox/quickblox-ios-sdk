@@ -211,9 +211,11 @@ void AQRecorder::StartRecord(CFStringRef inRecordFile)
 		
         CFStringRef recordFileEncoded = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)recordFile, NULL, NULL, kCFStringEncodingUTF8);
 		url = CFURLCreateWithString(kCFAllocatorDefault, recordFileEncoded, NULL);
+        CFRelease(recordFileEncoded);
 		
 		// create the audio file
 		OSStatus status = AudioFileCreateWithURL(url, kAudioFileCAFType, &mRecordFormat, kAudioFileFlags_EraseFile, &mRecordFile);
+        CFRelease(url);
         
         XThrowIfError(status, "AudioFileCreateWithURL failed");
 		
