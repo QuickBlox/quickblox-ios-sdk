@@ -1,5 +1,5 @@
 <h2> QuickBlox SimpleSample Ratings iOS</h2>
-<font color="red">Ratings module is marked as '''obsolete''' by QuickBlox team and we highly recommend to use [Custom Objects module](http://quickblox.com/developers/SimpleSample-customObjects-ios) to build Ratings / Leaderboard stuff.</font>
+<pre>Ratings module is marked as '''obsolete''' by QuickBlox team and we highly recommend to use [Custom Objects module](http://quickblox.com/developers/SimpleSample-customObjects-ios) to build Ratings / Leaderboard stuff.</pre>
 
 This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to integrate ratings features into yours apps. 
 
