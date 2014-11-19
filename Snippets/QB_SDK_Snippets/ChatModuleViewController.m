@@ -415,9 +415,9 @@ static BOOL done = NO;
                 case 4:
                 {
                     QBChatHistoryMessage *msg = [[QBChatHistoryMessage alloc] init];
-                    msg.dialogID = @"53db8798535c125e8e000902";
+                    msg.dialogID = @"546cd5069c295333e5000057";
                     msg.text = @"hello amigo";
-                    msg.recipientID = 1022637;
+//                    msg.recipientID = UserID2;
                     //
                     QBChatAttachment *attachment = QBChatAttachment.new;
                     attachment.type = @"image";
@@ -434,6 +434,7 @@ static BOOL done = NO;
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
                     params[@"name"] = @"Igor";
                     params[@"age"] = @(4);
+                    params[@"send_to_chat"] = @"1";
                     [msg setCustomParameters:params];
                     
                     if(withQBContext){
@@ -640,7 +641,7 @@ static BOOL done = NO;
 {
     NSLog(@"Did receive message: %@", message);
     
-    [[QBChat instance] readMessage:message];
+//    [[QBChat instance] readMessage:message];
 }
 
 - (void)chatDidNotSendMessage:(QBChatMessage *)message
