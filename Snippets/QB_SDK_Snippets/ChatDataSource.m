@@ -33,7 +33,7 @@
             numberOfRows = 4;
             break;
         case 5:
-            numberOfRows = 6;
+            numberOfRows = 8;
             break;
         case 6:
             numberOfRows = 7;
@@ -254,10 +254,18 @@
                     break;
                     
                 case 4:
-                    [cell.textLabel setText:@"Update Message"];
+                    [cell.textLabel setText:@"Create Message"];
                     break;
                     
                 case 5:
+                    [cell.textLabel setText:@"Update Message"];
+                    break;
+                    
+                case 6:
+                    [cell.textLabel setText:@"Mark Message as read"];
+                    break;
+                    
+                case 7:
                     [cell.textLabel setText:@"Delete Message"];
                     break;
                     
