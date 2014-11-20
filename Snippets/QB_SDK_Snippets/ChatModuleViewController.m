@@ -157,7 +157,7 @@ static BOOL done = NO;
             switch (indexPath.row) {
                 // send chat 1-1 message
                 case 0:{
-                    QBChatMessage *message = [QBChatMessage message];
+                    QBChatMessage *message = [QBChatMessage markableMessage];
                     [message setText:[NSString stringWithFormat:@"banana%d", rand()]];
                     [message setRecipientID:UserID2];
                     
@@ -415,26 +415,27 @@ static BOOL done = NO;
                 case 4:
                 {
                     QBChatHistoryMessage *msg = [[QBChatHistoryMessage alloc] init];
-                    msg.dialogID = @"546cd5069c295333e5000057";
-                    msg.text = @"hello amigo";
+                    msg.dialogID = @"546d14c19c29532398000496";
+                    msg.text = @"hello amigo 44";
 //                    msg.recipientID = UserID2;
                     //
-                    QBChatAttachment *attachment = QBChatAttachment.new;
-                    attachment.type = @"image";
-                    attachment.ID = @"47863";
-                    attachment.url = @"www.com";
-                    //
-                    QBChatAttachment *attachment2 = QBChatAttachment.new;
-                    attachment2.type = @"image";
-                    attachment2.ID = @"47863";
-                    attachment2.url = @"www.com";
-                    //
-                    [msg setAttachments:@[attachment, attachment2]];
-                    //
+//                    QBChatAttachment *attachment = QBChatAttachment.new;
+//                    attachment.type = @"image";
+//                    attachment.ID = @"47863";
+//                    attachment.url = @"www.com";
+//                    //
+//                    QBChatAttachment *attachment2 = QBChatAttachment.new;
+//                    attachment2.type = @"image";
+//                    attachment2.ID = @"47863";
+//                    attachment2.url = @"www.com";
+//                    //
+//                    [msg setAttachments:@[attachment, attachment2]];
+//                    //
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                    params[@"name"] = @"Igor";
-                    params[@"age"] = @(4);
+//                    params[@"name"] = @"Igor";
+//                    params[@"age"] = @(4);
                     params[@"send_to_chat"] = @"1";
+//                     params[@"save_to_history"] = @"1";
                     [msg setCustomParameters:params];
                     
                     if(withQBContext){
