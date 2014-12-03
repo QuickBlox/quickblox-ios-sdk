@@ -6,62 +6,37 @@
 //  Copyright (c) 2014 Injoit. All rights reserved.
 //
 
-//#ifdef __i386__ // 32 bit simulator
-//    #define UseTestUser1
-//#endif
-//#ifdef __LP64__ // 64 bit simulator
-//    #define UseTestUser1
-//#endif
+#ifdef __i386__ // 32 bit simulator
+    #define UseTestUser1
+#endif
+#ifdef __LP64__ // 64 bit simulator
+    #define UseTestUser1
+#endif
 
-//// Shared
-////
-//#define AppID 92
-//#define AuthKey @"wJHdOcQSxXQGWx5"
-//#define AuthSecret @"BTFsj7Rtt27DAmT"
-//#define AccountKey @"7yvNe17TnjNUqDoPwfqp"
-////
-//#define ServerApiDomain nil
-//#define ServerChatDomain nil
-//#define ContentBucket nil
-////
-//#define testUserID1 1501966
-//#define testUserLogin1 @"igorquickblox3"
-//#define testUserPassword1 @"igorquickblox3"
-//#define testUserEmail1 @"igorquickblox3@gmail.com"
-//#define testUserPasswordForChat1 testUserPassword1
-////
-//#define testUserID2 1501969
-//#define testUserLogin2 @"igorquickblox4"
-//#define testUserPassword2 @"igorquickblox4"
-//#define testUserEmail2 @"igorquickblox4@gmail.com"
-//#define testUserPasswordForChat2 testUserPassword2
-////
-//#define testRoomJID @"92_53fe05c5535c12666f01336d@muc.chat.quickblox.com"
-
-// alamaula dev
+// Shared
 //
-#define AppID 2
-#define AuthKey @"NF6N2gJqPXQk5ax"
-#define AuthSecret @"pLLC-RpHgHpqBzy"
-#define AccountKey @""
+#define AppID 92
+#define AuthKey @"wJHdOcQSxXQGWx5"
+#define AuthSecret @"BTFsj7Rtt27DAmT"
+#define AccountKey @"7yvNe17TnjNUqDoPwfqp"
 //
-#define ServerApiDomain @"https://apialamauladev.quickblox.com"
-#define ServerChatDomain @"chatalamauladev.quickblox.com"
+#define ServerApiDomain nil
+#define ServerChatDomain nil
 #define ContentBucket nil
 //
-#define testUserID1 3915
+#define testUserID1 1501966
 #define testUserLogin1 @"igorquickblox3"
 #define testUserPassword1 @"igorquickblox3"
 #define testUserEmail1 @"igorquickblox3@gmail.com"
 #define testUserPasswordForChat1 testUserPassword1
 //
-#define testUserID2 3916
+#define testUserID2 1501969
 #define testUserLogin2 @"igorquickblox4"
 #define testUserPassword2 @"igorquickblox4"
 #define testUserEmail2 @"igorquickblox4@gmail.com"
 #define testUserPasswordForChat2 testUserPassword2
 //
-#define testRoomJID @"2_546d14c19c29532398000496@muc.chatalamauladev.quickblox.com"
+#define testRoomJID @"92_53fe05c5535c12666f01336d@muc.chat.quickblox.com"
 
 
 //#define AppID 99
@@ -86,7 +61,6 @@
 //#define testUserPasswordForChat2 testUserPassword2
 ////
 //#define testRoomJID @"92_53fe05c5535c12666f01336d@muc.chat.quickblox.com"
-
 
 #ifdef UseTestUser1
     #define UserID1 testUserID1
