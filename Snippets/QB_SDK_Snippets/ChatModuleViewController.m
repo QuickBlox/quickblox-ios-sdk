@@ -415,7 +415,7 @@ static BOOL done = NO;
                 case 4:
                 {
                     QBChatHistoryMessage *msg = [[QBChatHistoryMessage alloc] init];
-                    msg.dialogID = @"546d14c19c29532398000496";
+                    msg.dialogID = @"546dce359c295393c8000027";
                     msg.text = @"hello amigo 44";
 //                    msg.recipientID = UserID2;
                     //
