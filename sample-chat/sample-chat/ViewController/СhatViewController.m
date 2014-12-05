@@ -244,6 +244,7 @@
         [self.messages addObjectsFromArray:[messages mutableCopy]];
         //
         [self.messagesTableView reloadData];
+        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     }
 }
 
