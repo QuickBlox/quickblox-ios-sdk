@@ -497,7 +497,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -519,7 +519,7 @@
 				);
 				PRODUCT_NAME = Messages;
 				PROVISIONING_PROFILE = "290D0E4E-4255-499C-A01C-8E6DCBCB760C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "290D0E4E-4255-499C-A01C-8E6DCBCB760C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4A7273D7-268E-4266-B796-A8956D96DE97";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
