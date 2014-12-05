@@ -323,6 +323,15 @@ typedef enum QBChatServiceError {
 - (BOOL)requestRoomUsers:(QBChatRoom *)room;
 
 /**
+ Request users with affiliation. QBChatDelegate's method 'chatRoomDidReceiveListOfUsers:room:' will be called
+ 
+ @param affiliation User's affiliation
+ @param room Room
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)requestRoomUsersWithAffiliation:(NSString *)affiliation room:(QBChatRoom *)room;
+
+/**
  Request users who are joined a room. QBChatDelegate's method 'chatRoomDidReceiveListOfOnlineUsers:room:' will be called
  
  @param room Room
