@@ -11,6 +11,7 @@
 
 @class QBChatMessage;
 @class QBChatRoom;
+@class QBXMPPMessage;
 
 #define xmppRoomField @"xmppRoom"
 
@@ -50,7 +51,10 @@
 
 // Image rotation
 + (CGImageRef)CGImageRotatedByAngle:(CGImageRef)imgRef angle:(CGFloat)angle;
+// Extract custom params & attachments
 
++ (NSDictionary *)customParametersFromModuleMessage:(QBXMPPMessage *)moduleMessage;
++ (void)setCustomParametersForModuleMessage:(NSDictionary *)customParameters toXMPPMessage:(QBXMPPMessage *)xmppMessage;
 
 // Extract custom params & attachments
 + (NSMutableDictionary *)customParametersFromXMPPMessage:(id)message;

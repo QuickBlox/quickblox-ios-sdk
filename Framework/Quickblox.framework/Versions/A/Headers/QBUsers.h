@@ -565,10 +565,10 @@
 /**
  Reset user's password. User with this email will retrieve email instruction for reset password.
  
- Type of Result - Result
+ Type of QBResult - QBResult
  
  @param email User's email
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)resetUserPasswordWithEmail:(NSString *)email delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest resetUserPasswordWithEmail:successBlock:errorBlock:]' instead.")));

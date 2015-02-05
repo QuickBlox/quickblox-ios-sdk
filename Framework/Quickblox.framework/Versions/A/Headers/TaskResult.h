@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 
-@interface TaskResult : Result {
+@interface TaskResult : QBResult{
 	NSMutableArray *errorsList;
-	Result *failedResult;
+	QBResult *failedResult;
 }
 @property (nonatomic,retain) NSMutableArray *errorsList;
-@property (nonatomic,retain) Result *failedResult;
+@property (nonatomic,retain) QBResult *failedResult;
 
-+ (TaskResult *)failedWithResult:(Result *)result;
++ (TaskResult *)failedWithResult:(QBResult *)result;
 
 @end

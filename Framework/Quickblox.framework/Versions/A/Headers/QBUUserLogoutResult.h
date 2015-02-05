@@ -6,14 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 
 /** QBUUserLogOutResult class declaration. */
 /** Overview */
 /** This class is an instance, which will be returned to user after Sign Out. */
 
-@interface QBUUserLogOutResult : Result {
+@interface QBUUserLogOutResult : QBResult{
 }
 
 @end

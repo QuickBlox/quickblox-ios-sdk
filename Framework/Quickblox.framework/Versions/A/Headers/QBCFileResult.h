@@ -6,13 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 /** QBCFileResult class declaration. */
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for download a file. */
 
-@interface QBCFileResult : Result {
+@interface QBCFileResult : QBResult{
     
 }
 /** File */

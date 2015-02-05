@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBRAverage;
 
@@ -15,7 +15,7 @@
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for get average. */
 
-@interface QBRAverageResult : Result {
+@interface QBRAverageResult : QBResult{
 }
 
 /** An instance of QBRAverage. */

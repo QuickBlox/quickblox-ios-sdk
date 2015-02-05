@@ -38,12 +38,11 @@ typedef enum QBChatServiceError {
 
 @interface QBChat : NSObject{
 @private
-    id<QBChatDelegate> delegate;
     QBUUser *qbUser;
 }
 
 /** QBChat delegate for callbacks */
-@property (nonatomic, retain) id<QBChatDelegate> delegate;
+@property (nonatomic, assign) id<QBChatDelegate> delegate;
 
 /** Contact list */
 @property (nonatomic, readonly) QBContactList *contactList;
@@ -96,7 +95,7 @@ typedef enum QBChatServiceError {
 - (BOOL)sendMessage:(QBChatMessage *)message;
 
 
-- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *))sentBlock;
+- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock;
 
 /**
  Send "Read message" status back to sender
@@ -498,7 +497,7 @@ typedef enum QBChatServiceError {
  Update existing chat message - mark it as read
  
  @param message Entity of a chat message to update
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)updateMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate;
@@ -513,7 +512,7 @@ typedef enum QBChatServiceError {
  
  @param messagesIDs An array of IDs of chat messages to read
  @param dialogID ID of a dialog
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)markMessagesAsRead:(NSArray *)messagesIDs dialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
@@ -527,7 +526,7 @@ typedef enum QBChatServiceError {
  Delete existing chat message
  
  @param messageID ID of a message to delete
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (NSObject<Cancelable> *)deleteMessageWithID:(NSString *)messageID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
