@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBRGameModeParameterValue;
 
@@ -15,7 +15,7 @@
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for create/get/update game mode parameter value. Represent a single game mode parameter value. */
 
-@interface QBRGameModeParameterValueResult : Result
+@interface QBRGameModeParameterValueResult : QBResult
 
 /** An instance of QBRGameModeParameterValue.*/
 @property (nonatomic, readonly) QBRGameModeParameterValue *gameModeParameterValue;

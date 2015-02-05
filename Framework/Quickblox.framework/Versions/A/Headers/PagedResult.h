@@ -5,10 +5,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 
-@interface PagedResult : Result {
+@interface PagedResult : QBResult{
 
 }
 @property(nonatomic, readonly) NSUInteger currentPage;

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBUUser;
 
@@ -15,7 +15,7 @@
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request to Users module. Represent a single user. */
 
-@interface QBUUserResult : Result {
+@interface QBUUserResult : QBResult{
 
 }
 

@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 /** QBCBlobResult class declaration. */
 /** Overview */
@@ -14,7 +14,7 @@
 
 @class QBCBlob;
 
-@interface QBCBlobResult : Result {
+@interface QBCBlobResult : QBResult{
 @protected
 	QBCBlob* blob;
 }

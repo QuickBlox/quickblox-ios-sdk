@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import "QBGCDAsyncSocket.h"
-#import "QBGCDMulticastDelegate.h"
 #if TARGET_OS_IPHONE
   #import "QBDDXML.h"
 #endif
@@ -14,6 +13,8 @@
 @class QBXMPPPresence;
 @class QBXMPPModule;
 @class QBXMPPElementReceipt;
+@class QBGCDMulticastDelegate;
+
 @protocol QBXMPPStreamDelegate;
 
 #if TARGET_OS_IPHONE

@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 QuickBlox. All rights reserved.
 //
 
-#import "Result.h"
+#import "QBResult.h"
 /** QBChatHistoryMessageResult class declaration. */
 /** Overview */
 /** This class is an instance, which will be returned to the user after he made ​​the request for get chat messages. */
 
-@interface QBChatHistoryMessageResult : Result
+@interface QBChatHistoryMessageResult : QBResult
 
 /** An array of QBChatHistoryMessage objects */
 @property (nonatomic, readonly) NSMutableArray *messages;

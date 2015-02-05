@@ -5,7 +5,7 @@
 //
 
 @class QBQuery;
-@class Result;
+@class QBResult;
 
 @interface Answer : NSObject {
 	NSMutableArray *errors;
@@ -13,6 +13,6 @@
 @property (nonatomic, retain) NSMutableArray* errors;
 @property (nonatomic, assign) QBQuery* query;
 
--(Result*)allocResult;
+-(QBResult *)allocResult;
 
 @end

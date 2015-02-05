@@ -6,7 +6,7 @@
  */
 
 
-@class Result;
+@class QBResult;
 @class QBRestResponse;
 
 
@@ -21,10 +21,10 @@
 
 @optional
 /** Called when operation has completed */
--(void)completedWithResult:(Result*)result;
+-(void)completedWithResult:(QBResult *)result;
 
 /** Called when operation has completed and context was set upon starting of the operation */
--(void)completedWithResult:(Result*)result context:(void*)contextInfo;
+-(void)completedWithResult:(QBResult *)result context:(void*)contextInfo;
 
 /** Called when operation progress has changed */
 -(void)setProgress:(float)progress;
