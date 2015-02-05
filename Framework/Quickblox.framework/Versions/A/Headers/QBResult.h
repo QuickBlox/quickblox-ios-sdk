@@ -1,5 +1,5 @@
 //
-//  Result.h
+//  QBResult.h
 //  Core
 //
 
@@ -8,11 +8,11 @@
 @class Request;
 @class Answer;
 
-/** Result class declaration */
+/** QBResult class declaration */
 /** Overview */
-/** This class represents a Result instance. */
+/** This class represents a QBResult instance. */
 
-@interface Result : NSObject {
+@interface QBResult : NSObject {
 	Request *request;
 	Answer *answer;
 }

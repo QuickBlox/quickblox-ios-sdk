@@ -8,11 +8,11 @@
 
 /** QBCOCustomObjectPagedResult class declaration. */
 /** Overview */
-#import "Result.h"
+#import "QBResult.h"
 
 /** This class is an instance, which will be returned to user after he made ​​the request to Custom Objects module. Represent an array of custom objects. */
 
-@interface QBCOCustomObjectPagedResult : Result
+@interface QBCOCustomObjectPagedResult : QBResult
 
 /** Array of QBCOCustomObject objects */
 @property (nonatomic,readonly) NSArray *objects;

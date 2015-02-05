@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBLPlace;
 
@@ -14,7 +14,7 @@
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for create/search place. Represent a single place. */
 
-@interface QBLPlaceResult : Result {
+@interface QBLPlaceResult : QBResult{
 }
 
 /** An instance of QBLPlace.*/

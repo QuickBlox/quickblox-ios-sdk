@@ -6,7 +6,7 @@
 //  Copyright 2011 QuickBlox team. All rights reserved.
 //
 
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBMEvent;
 
@@ -14,7 +14,7 @@
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for create/get event. */
 
-@interface QBMEventResult : Result {
+@interface QBMEventResult : QBResult{
     
 }
 
