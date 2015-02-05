@@ -134,10 +134,10 @@
 /** 
  Delete Blob
  
- Type of Result - Result
+ Type of QBResult - QBResult
  
  @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
 + (NSObject<Cancelable>*)deleteBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest deleteBlobWithID:successBlock:errorBlock:]' instead.")));
@@ -151,10 +151,10 @@
 /** 
  Increasing a number of the links to the file
  
- Type of Result - Result
+ Type of QBResult - QBResult
  
  @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
 + (NSObject<Cancelable>*)retainBlobWithID:(NSUInteger)blobID delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest retainBlobWithID:successBlock:errorBlock:]' instead.")));
@@ -168,11 +168,11 @@
 /** 
  Declaring Blob uploaded with ID
  
- Type of Result - Result
+ Type of QBResult - QBResult
  
  @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
  @param size Size of uploaded file, in bytes
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
 + (NSObject<Cancelable>*)completeBlobWithID:(NSUInteger)blobID size:(NSUInteger)size delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest completeBlobWithID:successBlock:errorBlock:]' instead.")));
@@ -203,11 +203,11 @@
 /** 
  Upload file using BlobObjectAccess
  
- Type of Result - Result
+ Type of QBResult - QBResult
  
  @param data File
  @param access An instance of QBCBlobObjectAccess
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of Result class.
+ @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained. Upon finish of the request, result will be an instance of QBResult class.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation. 
  */
 + (NSObject<Cancelable>*)uploadFile:(NSData *)data blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess delegate:(NSObject<QBActionStatusDelegate>*)delegate __attribute__((deprecated("use '+[QBRequest uploadFile:blobWithWriteAccess:successBlock:errorBlock:]' instead.")));

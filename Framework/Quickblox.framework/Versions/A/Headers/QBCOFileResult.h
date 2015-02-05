@@ -8,10 +8,10 @@
 
 /** QBCOFileResult class declaration. */
 /** Overview */
-#import "Result.h"
+#import "QBResult.h"
 
 /** This class is an instance, which will be returned to user after he made ​​the request for download a file. */
-@interface QBCOFileResult : Result
+@interface QBCOFileResult : QBResult
 
 /** File */
 @property (nonatomic,readonly) NSData* data;

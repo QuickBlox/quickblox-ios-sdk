@@ -6,14 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBCBlobObjectAccess;
 
 /** QBCBlobObjectAccessResult class declaration. */
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for get file as BlobObjectAccess with read access */
-@interface QBCBlobObjectAccessResult : Result {
+@interface QBCBlobObjectAccessResult : QBResult{
 }
 
 /** An instance of QBCBlobObjectAccess.*/

@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Result.h"
+#import "QBResult.h"
 
 /** QBMEventPagedResult class declaration. */
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for get events. */
 
-@interface QBMEventPagedResult : Result
+@interface QBMEventPagedResult : QBResult
 
 /** Array of QBMEvent objects */
 @property (nonatomic,readonly) NSArray *events;

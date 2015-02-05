@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBRScore;
 
@@ -15,7 +15,7 @@
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for create/get/edit score. Represent a single score. */
 
-@interface QBRScoreResult : Result {
+@interface QBRScoreResult : QBResult{
 }
 
 /** An instance of QBRScore. */

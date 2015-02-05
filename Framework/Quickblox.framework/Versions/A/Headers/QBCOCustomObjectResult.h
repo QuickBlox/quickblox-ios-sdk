@@ -8,13 +8,13 @@
 
 /** QBCOCustomObjectResult class declaration. */
 /** Overview */
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBCOCustomObject;
 
 /** This class is an instance, which will be returned to user after he made ​​the request for create/get/update/delete custom object. Represent a single custom object. */
 
-@interface QBCOCustomObjectResult : Result
+@interface QBCOCustomObjectResult : QBResult
 
 /** An instance of QBCOCustomObject.*/
 @property (nonatomic,readonly) QBCOCustomObject *object;

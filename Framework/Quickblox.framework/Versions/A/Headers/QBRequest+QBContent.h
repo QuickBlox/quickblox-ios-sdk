@@ -124,7 +124,7 @@
 /**
  Declaring Blob uploaded with ID
  
- Type of Result - Result
+ Type of QBResult - QBResult
  
  @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
  @param size Size of uploaded file, in bytes

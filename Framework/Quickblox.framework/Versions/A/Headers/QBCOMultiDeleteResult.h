@@ -8,11 +8,11 @@
 
 /** QBCOMultiDeleteResult class declaration. */
 /** Overview */
-#import "Result.h"
+#import "QBResult.h"
 
 /** This class is an instance, which will be returned to user after he made ​​the request for delete objects by IDs */
 
-@interface QBCOMultiDeleteResult : Result
+@interface QBCOMultiDeleteResult : QBResult
 
 /** An array of deleted objects IDs */
 @property (nonatomic, readonly) NSArray *deletedObjectsIDs;

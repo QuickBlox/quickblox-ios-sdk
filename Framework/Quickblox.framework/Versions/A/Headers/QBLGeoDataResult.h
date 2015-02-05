@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 @class QBLGeoData;
 
@@ -15,7 +15,7 @@
 /** Overview */
 /** This class is an instance, which will be returned to user after he made ​​the request for create geodata. Represent a single geodatum. */
 
-@interface QBLGeoDataResult : Result {
+@interface QBLGeoDataResult : QBResult{
 }
 
 /** An instance of QBLGeoData.*/

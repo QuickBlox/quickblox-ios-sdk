@@ -5,10 +5,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Result.h"
+#import "QBResult.h"
 
 
-@interface BinaryResult : Result {
+@interface BinaryResult : QBResult{
 
 }
 @property (nonatomic,readonly) NSData* data;
