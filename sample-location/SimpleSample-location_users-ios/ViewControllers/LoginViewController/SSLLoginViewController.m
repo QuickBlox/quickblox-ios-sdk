@@ -70,15 +70,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)loginWithFaceBook:(id)sender
-{
-    [QBRequest logInWithSocialProvider:@"facebook" scope:nil successBlock:[self onSuccess] errorBlock:[self onFailure]];
-}
-
-- (IBAction)loginWithTwitter:(id)sender
-{
-    [QBRequest logInWithSocialProvider:@"twitter" scope:nil successBlock:[self onSuccess] errorBlock:[self onFailure]];
-}
 
 #pragma mark -
 #pragma mark UITextFieldDelegate

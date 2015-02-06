@@ -70,7 +70,7 @@
                                               otherButtonTitles:nil];
         [alert show];
     } else {
-        [QBRequest sendPushWithText:self.messageBodyTextField.text toUsers:@"1074264" successBlock:^(QBResponse *response, NSArray *events) {
+        [QBRequest sendPushWithText:self.messageBodyTextField.text toUsers:@"2288232" successBlock:^(QBResponse *response, NSArray *events) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message sent successfully" message:nil
                                                            delegate:self
                                                   cancelButtonTitle:@"Ok"

@@ -211,12 +211,12 @@
 - (void)keyboardWillShow:(NSNotification *)note
 {
     [UIView animateWithDuration:0.3 animations:^{
-		self.messageTextField.transform = CGAffineTransformMakeTranslation(0, -215);
-        self.sendMessageButton.transform = CGAffineTransformMakeTranslation(0, -215);
+		self.messageTextField.transform = CGAffineTransformMakeTranslation(0, -250);
+        self.sendMessageButton.transform = CGAffineTransformMakeTranslation(0, -250);
         self.messagesTableView.frame = CGRectMake(self.messagesTableView.frame.origin.x,
                                                   self.messagesTableView.frame.origin.y,
                                                   self.messagesTableView.frame.size.width,
-                                                  self.messagesTableView.frame.size.height-219);
+                                                  self.messagesTableView.frame.size.height-252);
     }];
 }
 
@@ -228,7 +228,7 @@
         self.messagesTableView.frame = CGRectMake(self.messagesTableView.frame.origin.x,
                                                   self.messagesTableView.frame.origin.y,
                                                   self.messagesTableView.frame.size.width,
-                                                  self.messagesTableView.frame.size.height+219);
+                                                  self.messagesTableView.frame.size.height+252);
     }];
 }
 
@@ -236,15 +236,17 @@
 #pragma mark -
 #pragma mark QBActionStatusDelegate
 
-- (void)completedWithResult:(Result *)result
+- (void)completedWithResult:(QBResult *)result
 {
     if (result.success && [result isKindOfClass:QBChatHistoryMessageResult.class]) {
         QBChatHistoryMessageResult *res = (QBChatHistoryMessageResult *)result;
         NSArray *messages = res.messages;
-        [self.messages addObjectsFromArray:[messages mutableCopy]];
-        //
-        [self.messagesTableView reloadData];
-        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        if(messages.count > 0){
+            [self.messages addObjectsFromArray:[messages mutableCopy]];
+            //
+            [self.messagesTableView reloadData];
+            [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
     }
 }
 

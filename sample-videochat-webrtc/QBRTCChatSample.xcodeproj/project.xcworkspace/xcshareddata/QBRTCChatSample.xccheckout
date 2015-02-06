@@ -14,7 +14,7 @@
 		<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>QBRTCChatSample/QBRTCChatSample.xcodeproj</string>
+	<string>sample-videochat-webrtc/QBRTCChatSample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
