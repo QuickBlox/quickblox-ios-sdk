@@ -12,6 +12,7 @@
 #import <QuickbloxWebRTC/QBGLVideoView.h>
 #import <QuickbloxWebRTC/QBRTCVideoTrack.h>
 #import <QuickbloxWebRTC/QBRTCClientDelegate.h>
+#import <QuickbloxWebRTC/QBICEServer.h>
 #import <QuickbloxWebRTC/QBRTCTypes.h>
 
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
