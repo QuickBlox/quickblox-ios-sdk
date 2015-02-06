@@ -9,7 +9,7 @@
 #import "SSMRichContentViewController.h"
 #import "SSMPushMessage.h"
 
-@interface SSMRichContentViewController () <QBActionStatusDelegate>
+@interface SSMRichContentViewController ()
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
@@ -61,45 +61,6 @@
 - (IBAction)back:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
--(void)completedWithResult:(Result*)result
-{
-    // Download rich content result
-    if ([result isKindOfClass:[QBCFileDownloadTaskResult class]]) {
-        QBCFileDownloadTaskResult *res = (QBCFileDownloadTaskResult *)result;
-        
-        // Success result
-        if (res.success) {
-            // show image
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, imageNumber * 420, 320, 420)];
-            [imageView setBackgroundColor:[UIColor clearColor]];
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
-            imageView.image = [UIImage imageWithData:res.file];
-            
-            [self.scrollView setContentSize:CGSizeMake(320, 420 * (imageNumber + 1))];
-            [self.scrollView addSubview:imageView];
-            
-            ++imageNumber;
-            
-            if (imageNumber == [self.message.richContentFilesIDs count]) {
-                [self.downloadProgress stopAnimating];
-            }
-        }
-    }
-}
-
-- (void)setProgress:(float)progress
-{
-    _progressView.progress = progress;
-    if (progress == 1) {
-        _progressView.hidden = YES;
-    }
 }
 
 @end
