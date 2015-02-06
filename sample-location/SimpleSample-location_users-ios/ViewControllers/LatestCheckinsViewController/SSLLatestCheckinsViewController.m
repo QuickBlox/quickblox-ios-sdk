@@ -15,7 +15,7 @@
 
 static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
 
-@interface SSLLatestCheckinsViewController () <UITableViewDataSource>
+@interface SSLLatestCheckinsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -56,6 +56,10 @@ static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
     [cell configureWithGeoData:geodata];
    
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
 }
 
 @end
