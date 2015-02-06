@@ -12,6 +12,10 @@
 
 - (id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
 
++ (void)setICEServers:(NSArray *)iceServers;
+
++ (NSArray *)iceServers;
+
 /**
  *  Set dialing time interval
  *  Default value 5 sec
