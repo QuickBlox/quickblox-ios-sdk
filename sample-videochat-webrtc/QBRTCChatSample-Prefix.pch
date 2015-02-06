@@ -25,10 +25,11 @@
     #import "QBRTCTypes.h"
     #import "QBGLVideoView.h"
     #import "QBRTCVideoTrack.h"
-    #import "QBRTCChat.h"
-    #import "QBRTCChatDelegate.h"
+    #import "QBRTCClient.h"
+    #import "QBRTCClientDelegate.h"
     #import "QBRTCSession.h"
     #import "QBRTCConfig.h"
+    #import "QBICEServer.h"
 #else
     #import <QuickbloxWebRTC/QuickbloxWebRTC.h>
 #endif
