@@ -188,7 +188,7 @@
 #pragma mark QBActionStatusDelegate
 
 // QuickBlox API queries delegate
-- (void)completedWithResult:(Result *)result{
+- (void)completedWithResult:(QBResult *)result{
     if (result.success && [result isKindOfClass:[QBChatDialogResult class]]) {
         // dialog created
         

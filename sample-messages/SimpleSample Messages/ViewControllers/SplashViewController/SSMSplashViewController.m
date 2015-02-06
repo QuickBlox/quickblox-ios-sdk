@@ -35,8 +35,8 @@
 
     // Create extended session request (for push notifications)
     QBSessionParameters *parameters = [QBSessionParameters new];
-    parameters.userLogin = @"injoitUser1";
-    parameters.userPassword = @"injoitUser1";
+    parameters.userLogin = @"qbuser321";
+    parameters.userPassword = @"qbuser321";
     
     // QuickBlox session creation
     [QBRequest createSessionWithExtendedParameters:parameters successBlock:^(QBResponse *response, QBASession *session) {

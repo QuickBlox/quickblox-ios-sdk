@@ -554,7 +554,6 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
-					"/Users/igorkhomenko/workspace/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -587,7 +586,6 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
-					"/Users/igorkhomenko/workspace/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
