@@ -56,6 +56,7 @@
 - (void)rejectInvitationWithMessage:(NSString *)reasonForRejection;
 
 - (void)requestUsers;
+- (void)requestUsersWithAffiliation:(NSString *)affiliation;
 
 - (void)sendMessage:(QBXMPPMessage *)msg;
 - (void)sendPresenceWithStatus:(NSString *)status;

@@ -402,13 +402,32 @@
 
 
 #pragma mark -
-#pragma mark Delivery status
+#pragma mark Delivered status
 
 /**
  Called when you received a confirmation about message delivery
+ 
+ @warning *Deprecated in QB iOS SDK 2.0.7:* Use chatDidDeliverMessageWithID: instead
+ 
  @param packetID ID of an original message
  */
-- (void)chatDidDeliverMessageWithPacketID:(NSString *)packetID;
+- (void)chatDidDeliverMessageWithPacketID:(NSString *)packetID __attribute__((deprecated("use 'chatDidDeliverMessageWithID:' instead.")));
+
+/**
+ Called when you received a confirmation about message delivery
+ @param messageID ID of an original message
+ */
+- (void)chatDidDeliverMessageWithID:(NSString *)messageID;
+
+
+#pragma mark -
+#pragma mark Read status
+
+/**
+ Called when you received a confirmation about message read
+ @param messageID ID of an original message
+ */
+- (void)chatDidReadMessageWithID:(NSString *)messageID;
 
 
 #pragma mark -
