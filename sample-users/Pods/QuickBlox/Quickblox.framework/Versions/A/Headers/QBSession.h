@@ -23,6 +23,7 @@
 @property (nonatomic, readonly, getter=isTokenValid) BOOL tokenValid;
 
 - (void)startSessionWithDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
+- (void)startSessionWithToken:(NSString *)token expirationDate:(NSDate *)sessionDate;
 - (void)startSessionForUser:(QBUUser *)user withDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
 - (void)saveSocialProviderDetailsFromHeaders:(NSDictionary *)headers;
 - (void)endSession;
