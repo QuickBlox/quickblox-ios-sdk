@@ -1,6 +1,0 @@
-FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/QuickBlox"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/MTBlockAlertView" "${PODS_ROOT}/Headers/QuickBlox" "${PODS_ROOT}/Headers/libextobjc" /usr/include/libxml2
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/MTBlockAlertView" -isystem "${PODS_ROOT}/Headers/QuickBlox" -isystem "${PODS_ROOT}/Headers/libextobjc"
-OTHER_LDFLAGS = -ObjC -lresolv -lxml2 -lstdc++ -lz -framework AVFoundation -framework Accelerate -framework AudioToolbox -framework CFNetwork -framework CoreData -framework CoreGraphics -framework CoreLocation -framework CoreMedia -framework CoreVideo -framework MobileCoreServices -framework Quickblox -framework SystemConfiguration -framework UIKit
-PODS_ROOT = ${SRCROOT}/Pods

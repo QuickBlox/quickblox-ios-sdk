@@ -1,18 +1,18 @@
 PODS:
-  - libextobjc/EXTScope (0.4):
+  - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
-  - libextobjc/RuntimeExtensions (0.4)
+  - libextobjc/RuntimeExtensions (0.4.1)
   - MTBlockAlertView (0.1.1)
-  - QuickBlox (2.0)
+  - QuickBlox (2.0.12)
 
 DEPENDENCIES:
   - libextobjc/EXTScope (~> 0.4)
   - MTBlockAlertView (~> 0.1.1)
-  - QuickBlox (~> 2.0)
+  - QuickBlox
 
 SPEC CHECKSUMS:
-  libextobjc: ba42e4111f433273a886cd54f0ddaddb7f62f82f
+  libextobjc: d6146fce3ebea986b7f75fcb4c967639200b88b0
   MTBlockAlertView: bd376f8b9f0ea945ed21e4c75aa0bb9afe3e782d
-  QuickBlox: ef4cfc2817ad4e99a46b850dabd4819402da7331
+  QuickBlox: 25cdc68711e8e43c1588c23044a7eb7e787eafd4
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.36.0.beta.2
