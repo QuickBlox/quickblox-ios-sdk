@@ -113,6 +113,11 @@
 - (void)requestUsers;
 
 /**
+ Request room's users with affiliation
+ */
+- (void)requestUsersWithAffiliation:(NSString *)affiliation;
+
+/**
  Request room's online users
  */
 - (void)requestOnlineUsers;

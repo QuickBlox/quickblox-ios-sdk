@@ -62,4 +62,8 @@
 
 + (void)extractParametersToRequestURL:(NSMutableDictionary *)parameters requestURL:(NSMutableString *)requestURL;
 
+
+// MongoDb ID
++ (NSString *)generateMongoDBID;
+
 @end
