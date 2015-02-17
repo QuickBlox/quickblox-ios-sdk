@@ -11,7 +11,7 @@
 @interface QBICEServer : NSObject
 
 /**
- *  Initializer for RTCICEServer taking uri, username, and password.
+ *  Initializer for RTCICEServer taking url, username, and password.
  */
 + (instancetype)serverWithURL:(NSURL *)URL
                      username:(NSString *)username

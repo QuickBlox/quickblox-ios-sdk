@@ -12,13 +12,51 @@
 
 - (id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
 
+/**
+ * Set custom ICE servers
+ *
+    For example:
+
+    NSURL *stunUrl =
+    [NSURL URLWithString:@"stun:stun.l.google.com:19302"];
+    
+    QBICEServer *stunServer =
+    [QBICEServer serverWithURL:stunUrl
+                      username:@""
+                      password:@""];
+ 
+    NSURL *turnUDPUrl =
+    [NSURL URLWithString:@"turn:turnserver.quickblox.com:3478?transport=udp"];
+    
+    QBICEServer *turnUDPServer =
+    [QBICEServer serverWithURL:turnUDPUrl
+                      username:@"user"
+                      password:@"user"];
+    
+    NSURL *turnTCPUrl =
+    [NSURL URLWithString:@"turn:turnserver.quickblox.com:3478?transport=tcp"];
+ 
+    RTCICEServer* turnTCPServer =
+    [QBICEServer serverWithURL:turnTCPUrl
+                      username:@"user"
+                      password:@"user"];
+ 
+    [QBRTCConfig setICEServers:@[stunServer, turnUDPServer, turnTCPServer]];
+ *
+ * @param iceServers array of QBICEServer instances
+ */
 + (void)setICEServers:(NSArray *)iceServers;
 
+/**
+ *  Get custom ICE servers
+ *
+ *  @return array of QBICEServer instances
+ */
 + (NSArray *)iceServers;
 
 /**
  *  Set dialing time interval
- *  Default value 5 sec
+ *  Default value: 5 sec
  *
  *  @param dialingTimeInterval time in sec
  */
@@ -26,7 +64,7 @@
 
 /**
  *  Set anser time interval
- *  Default value 45 sec
+ *  Default value: 45 sec
  *
  *  @param answerTimeInterval time interval in sec
  */
@@ -39,7 +77,13 @@
  */
 + (void)setMaxOpponentsCount:(NSUInteger)maxOpponentsCount;
 
-#pragma mark - Private API
+/**
+ *  Set disconnect time interval
+ *
+ *  Default value: 30 sec
+ *  @param disconnectTimeInterval time interval in sec
+ */
++ (void)setDisconnectTimeInterval:(NSTimeInterval)disconnectTimeInterval;
 
 /**
  *  Dialing time interval
@@ -61,5 +105,12 @@
  *  @return current value
  */
 + (NSUInteger)maxOpponentsCount;
+
+/**
+ * Disconnect time interval
+ *
+ *  @return current value
+ */
++ (NSTimeInterval)disconnectTimeInterval;
 
 @end
