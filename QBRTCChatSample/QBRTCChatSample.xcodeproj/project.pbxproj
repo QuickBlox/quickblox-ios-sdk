@@ -750,22 +750,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/QBRTCChatSample/Quickblox",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = "QBRTCChatSample-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Quickblox\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-				);
+				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
 				INFOPLIST_FILE = QBRTCChatSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/andrey/Projects/SDK-ios-WebRTC/QuickbloxWebRTC/Framework/QuickbloxWebRTC/QuickbloxWebRTC/WebRTC",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = QBRTCChatSample;
 				PROVISIONING_PROFILE = "3f3666e5-0de4-4af0-a260-af8921b354dd";
@@ -782,22 +775,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/QBRTCChatSample/Quickblox",
+					"\"$(SRCROOT)/../Framework\"",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = "QBRTCChatSample-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/Quickblox\"",
-					"\"$(SDKROOT)/usr/include/libxml2\"",
-				);
+				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
 				INFOPLIST_FILE = QBRTCChatSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/andrey/Projects/SDK-ios-WebRTC/QuickbloxWebRTC/Framework/QuickbloxWebRTC/QuickbloxWebRTC/WebRTC",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = QBRTCChatSample;
 				PROVISIONING_PROFILE = "c5bc715c-854a-4156-b89f-53bfed325937";
