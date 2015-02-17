@@ -10,13 +10,17 @@ typedef NS_ENUM(NSUInteger, QBRTCConnectionState) {
     
     QBRTCConnectionUnknow,
     QBRTCConnectionNew,
-    QBRTCConnectionWait,
+    QBRTCConnectionPending,
     QBRTCConnectionConnecting,
-    QBRTCConnectionDisconnected,
+    QBRTCConnectionChecking,
     QBRTCConnectionConnected,
+    QBRTCConnectionDisconnected,
+    
     QBRTCConnectionClosed,
-    QBRTCConnectionNotAnser,
-    QBRTCConnectionReject,
+    QBRTCConnectionDisconnectTimeout,
+    QBRTCConnectionNoAnswer,
+    QBRTCConnectionRejected,
+    QBRTCConnectionHangUp,
     QBRTCConnectionFailed
 };
 

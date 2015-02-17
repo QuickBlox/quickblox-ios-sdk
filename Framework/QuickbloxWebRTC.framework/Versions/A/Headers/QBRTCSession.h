@@ -10,6 +10,7 @@
 #import "QBRTCTypes.h"
 
 @class QBPeerChannel;
+@class QBRTCVideoTrack;
 
 @interface QBRTCSession : NSObject
 
@@ -39,7 +40,7 @@
 @property (strong, nonatomic, readonly) NSArray *opponents;
 
 /**
- *  Conferenct type QBConferenceTypeAudio - audio conference, QBConferenceTypeVideo - video conference
+ *  Conference type QBConferenceTypeAudio - audio conference, QBConferenceTypeVideo - video conference
  */
 @property (assign, nonatomic, readonly) QBConferenceType conferenceType;
 
@@ -65,26 +66,18 @@
 - (void)rejectCall:(NSDictionary *)userInfo;
 
 /**
- * HangUp
+ * Hang up
  *
  * @param userInfo The user information dictionary for the accept call. May be nil.
  */
 - (void)hangUp:(NSDictionary *)userInfo;
 
 /**
- *  Add user to current session
- *
- *  @param userID   ID of opponent
- *  @param userInfo The user information dictionary for the accept call. May be nil.
- */
-- (BOOL)addUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
-
-/**
  *  Switch Front / Back video input. (Default: Front camera)
  *
  *  @param block isFrontCamera YES/NO
  */
-- (void)switchCameraPosition:(void (^)(BOOL isFrontCamera))block;
+- (void)switchCamera:(void (^)(BOOL isFrontCamera))block;
 
 /**
  * Switch audio output. (Defaults: ipad - speaker, iphone - headphone )
@@ -94,11 +87,20 @@
 - (void)switchAudioOutput:(void (^)(BOOL isSpeaker))block;
 
 /**
- * Connection state for opponent
+ *  Remote track with opponent ID
  *
- * @param userID ID of opponent
+ *  @param userID ID of opponent
  *
- * @return QBRTCConnectionState
+ *  @return QBRTCVideoTrack instance
+ */
+- (QBRTCVideoTrack *)remoteVideoTrackWithUserID:(NSNumber *)userID;
+
+/**
+ *  Connection state for opponent
+ *
+ *  @param userID ID of opponent
+ *
+ *  @return ID of opponent
  */
 - (QBRTCConnectionState)connectionStateForUser:(NSNumber *)userID;
 
