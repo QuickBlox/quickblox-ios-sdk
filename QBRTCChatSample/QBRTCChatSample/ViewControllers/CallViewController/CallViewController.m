@@ -112,7 +112,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [self configureLocalVideoView];
     [self configureToolBar];
     
-    self.localVideoView.hidden = YES;
+
     self.callTimeLabel.text = @"";
     self.callTimeLabel.hidden = YES;
     [self viewWillTransitionToSize:self.view.frame.size];
@@ -395,7 +395,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 - (void)session:(QBRTCSession *)session didReceiveLocalVideoTrack:(QBRTCVideoTrack *)videoTrack {
     
     NSAssert(self.session == session, @"Need update this case");
-    self.localVideoView.hidden = NO;
     [self.localVideoView setVideoTrack:videoTrack];
 }
 
