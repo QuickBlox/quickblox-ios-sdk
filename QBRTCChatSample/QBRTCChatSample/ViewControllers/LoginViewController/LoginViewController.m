@@ -44,7 +44,8 @@ const CGFloat kInfoHeaderHeight = 50;
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     
-    return [NSString stringWithFormat:@"v:%@ %@\nbuild %@", version, QB_VERSION_STR, build];
+    return [NSString stringWithFormat:@"v:%@ %@\nbuild %@\nQBv%@:r%@",
+            version, QB_VERSION_STR, build, QuickbloxWebRTCFrameworkVersion, QuickbloxWebRTCRevision];
 }
 
 #pragma makr - UITableViewDataSource
@@ -100,8 +101,8 @@ const CGFloat kInfoHeaderHeight = 50;
 - (void)logInChatWithUser:(QBUUser *)user {
     
     [SVProgressHUD setBackgroundColor:user.color];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"Login chat", nil)];
     
-    [SVProgressHUD showWithStatus:@"Login chat"];
     __weak __typeof(self)weakSelf = self;
     [[ConnectionManager instance] logInWithUser:user
                                      completion:^(BOOL error)
@@ -113,7 +114,8 @@ const CGFloat kInfoHeaderHeight = 50;
                                            sender:nil];
          }
          else {
-             [SVProgressHUD showErrorWithStatus:@"Login chat error!"];
+             
+             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Login chat error!", nil)];
          }
      }];
 }

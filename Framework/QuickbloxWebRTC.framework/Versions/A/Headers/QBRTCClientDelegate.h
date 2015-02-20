@@ -57,6 +57,14 @@
 - (void)session:(QBRTCSession *)session didReceiveRemoteVideoTrack:(QBRTCVideoTrack *)videoTrack fromUser:(NSNumber *)userID;
 
 /**
+ *  Called in case when connection state changed
+ *
+ *  @param session QBRTCSession instance
+ *  @param userID  ID of opponent
+ */
+- (void)session:(QBRTCSession *)session connectionClosedForUser:(NSNumber *)userID;
+
+/**
  *  Called in case when connection initiated
  *
  *  @param session QBRTCSession instance
