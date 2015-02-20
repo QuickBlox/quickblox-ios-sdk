@@ -35,13 +35,14 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *audioOutputItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *declineItem;
 
+@property (weak, nonatomic) IBOutlet UIButton *switchCameraBtn;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
 
-@property (strong, nonatomic) NSTimer *callTimer;
 
 @property (assign, nonatomic) NSTimeInterval timeDuration;
+@property (strong, nonatomic) NSTimer *callTimer;
 @property (assign, nonatomic) NSTimer *beepTimer;
 
 @end
@@ -55,14 +56,18 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [QBRTCClient.instance addDelegate:self];
-    
     self.selectedItemIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     
+    [self configureGUI];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [QBRTCClient.instance addDelegate:self];
     QBUUser *caller  = [ConnectionManager.instance userWithID:self.session.callerID];
     [ConnectionManager.instance.me isEqual:caller] ? [self startCall] : [self acceptCall];
-    
-    [self configureGUI];
+    [self.opponentsCollectionView reloadData];
 }
 
 - (void)beep:(NSTimer *)timer {
@@ -112,10 +117,11 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [self configureLocalVideoView];
     [self configureToolBar];
     
-
     self.callTimeLabel.text = @"";
     self.callTimeLabel.hidden = YES;
     [self viewWillTransitionToSize:self.view.frame.size];
+    
+    self.switchCameraBtn.hidden = YES;
 }
 
 - (void)configureNavigationBar {
@@ -132,10 +138,11 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 - (void)configureLocalVideoView {
     // drop shadow
+
     [self.localVideoView.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.localVideoView.layer setShadowOpacity:0.8];
-    [self.localVideoView.layer setShadowRadius:3.0];
-    [self.localVideoView.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+    [self.localVideoView.layer setShadowOpacity:0.5];
+    [self.localVideoView.layer setShadowRadius:5.0];
+    [self.localVideoView.layer setShadowOffset:CGSizeMake(5.0, 5.0)];
 }
 
 - (void)configureToolBar {
@@ -201,6 +208,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 - (IBAction)pressEnableVideoBtn:(IAButton *)sender {
     
     self.session.videoEnabled = !self.session.videoEnabled;
+    self.switchCameraBtn.hidden = !self.session.videoEnabled;
 }
 
 - (IBAction)pressHandUpBtn:(IAButton *)sender {
@@ -213,11 +221,10 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 - (IBAction)pressSwitchCameraBtn:(UIButton *)sender {
     
-    sender.enabled = NO;
-    
+    sender.hidden = YES;
     [self.session switchCamera:^(BOOL isFrontCamera) {
+        sender.hidden = NO;
         NSLog(@"Is front camera - %d", isFrontCamera);
-        sender.enabled = YES;
     }];
 }
 
@@ -251,10 +258,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     //User connection indicator
     cell.connectionState = [self.session connectionStateForUser:userID];
-    
-    if (cell.tag == 0) {
-        cell.tag = indexPath.row + 1;
-    }
     
     //User marker
     [cell setColorMarkerText:[NSString stringWithFormat:@"%lu", (unsigned long)user.index + 1]
@@ -395,6 +398,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 - (void)session:(QBRTCSession *)session didReceiveLocalVideoTrack:(QBRTCVideoTrack *)videoTrack {
     
     NSAssert(self.session == session, @"Need update this case");
+    self.switchCameraBtn.hidden = NO;
     [self.localVideoView setVideoTrack:videoTrack];
 }
 
@@ -442,7 +446,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     if (!self.callTimer) {
         
-        
         self.callTimeLabel.hidden = NO;
         self.callTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshTimeInterval
                                                           target:self
@@ -451,6 +454,17 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
                                                          repeats:YES];
     }
     
+    [self reloadWithUserID:userID];
+}
+
+/**
+ *  Called in case when connection state changed
+ *
+ *  @param session QBRTCSession instance
+ *  @param userID  ID of opponent
+ */
+- (void)session:(QBRTCSession *)session connectionClosedForUser:(NSNumber *)userID {
+    NSAssert(self.session == session, @"Need update this case");
     [self reloadWithUserID:userID];
 }
 
@@ -509,10 +523,12 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         [self.callTimer invalidate];
         self.callTimer = nil;
         
+        self.toolbar.userInteractionEnabled = NO;
+        self.localVideoView.hidden = YES;
+        
         [UIView animateWithDuration:0.5 animations:^{
             
-            self.toolbar.hidden = YES;
-            self.localVideoView.hidden = YES;
+            self.toolbar.alpha = 0.4;
         }];
         
         self.callTimeLabel.text = [NSString stringWithFormat:@"End - %@", [self stringWithTimeDuration:self.timeDuration]];

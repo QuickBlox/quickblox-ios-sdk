@@ -9,7 +9,7 @@
 #import "ConnectionManager.h"
 #import "UsersDataSource.h"
 
-const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
+const NSTimeInterval kChatPresenceTimeInterval = 45;
 
 @interface ConnectionManager()
 
@@ -18,7 +18,6 @@ const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
 @property (copy, nonatomic) void(^chatLoginCompletionBlock)(BOOL error);
 @property (strong, nonatomic) QBUUser *me;
 @property (strong, nonatomic) NSTimer *presenceTimer;
-
 
 @end
 
@@ -73,12 +72,18 @@ const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
 
 - (void)chatDidNotLogin {
     
-    self.chatLoginCompletionBlock(YES);
-    self.chatLoginCompletionBlock = nil;
+    if (self.chatLoginCompletionBlock) {
+        self.chatLoginCompletionBlock(YES);
+        self.chatLoginCompletionBlock = nil;
+    }
 }
 
 - (void)chatDidFailWithError:(NSInteger)code {
     
+    if (self.chatLoginCompletionBlock) {
+        self.chatLoginCompletionBlock(YES);
+        self.chatLoginCompletionBlock = nil;
+    }
 }
 
 - (void)chatDidLogin {
@@ -88,12 +93,11 @@ const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
     self.presenceTimer =
     [NSTimer scheduledTimerWithTimeInterval:kChatPresenceTimeInterval
                                      target:self
-                                   selector:@selector(chatPresence:)
+                                   selector:@selector(sendChatPresence:)
                                    userInfo:nil
                                     repeats:YES];
     
     if (self.chatLoginCompletionBlock) {
-        
         self.chatLoginCompletionBlock(NO);
         self.chatLoginCompletionBlock = nil;
     }
@@ -101,7 +105,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
 
 #pragma mark - Send chat presence
 
-- (void)chatPresence:(NSTimer *)timer {
+- (void)sendChatPresence:(NSTimer *)timer {
     
     [[QBChat instance] sendPresence];
 }
@@ -111,10 +115,13 @@ const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
 - (NSArray *)usersWithIDS:(NSArray *)ids {
     
     NSMutableArray *users = [NSMutableArray arrayWithCapacity:ids.count];
-    [ids enumerateObjectsUsingBlock:^(NSNumber *userID, NSUInteger idx, BOOL *stop){
-         QBUUser *user = [self userWithID:userID];
-         [users addObject:user];
-     }];
+    [ids enumerateObjectsUsingBlock:^(NSNumber *userID,
+                                      NSUInteger idx,
+                                      BOOL *stop){
+        
+        QBUUser *user = [self userWithID:userID];
+        [users addObject:user];
+    }];
     
     return users;
 }
@@ -122,9 +129,11 @@ const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
 - (NSArray *)idsWithUsers:(NSArray *)users {
     
     NSMutableArray *ids = [NSMutableArray arrayWithCapacity:users.count];
-    [users enumerateObjectsUsingBlock:^(QBUUser  *obj, NSUInteger idx, BOOL *stop){
-         [ids addObject:@(obj.ID)];
-     }];
+    [users enumerateObjectsUsingBlock:^(QBUUser  *obj,
+                                        NSUInteger idx,
+                                        BOOL *stop){
+        [ids addObject:@(obj.ID)];
+    }];
     
     return ids;
 }
@@ -157,13 +166,15 @@ const NSTimeInterval kChatPresenceTimeInterval = 45; //Sec
 - (QBUUser *)userWithID:(NSNumber *)userID {
     
     __block QBUUser *resultUser = nil;
-    [self.users enumerateObjectsUsingBlock:^(QBUUser *user, NSUInteger idx, BOOL *stop) {
+    [self.users enumerateObjectsUsingBlock:^(QBUUser *user,
+                                             NSUInteger idx,
+                                             BOOL *stop) {
         
         if (user.ID == userID.integerValue) {
+            
             resultUser =  user;
             *stop = YES;
         }
-        
     }];
     
     return resultUser;

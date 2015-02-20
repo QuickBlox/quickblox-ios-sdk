@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		551473BC1A88C5FA00D61A4F /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 551473BB1A88C5FA00D61A4F /* CallViewController.m */; };
 		55205B5F1A9355A300813618 /* devUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55205B5E1A9355A300813618 /* devUsers.plist */; };
+		552BD39C1A97997300AE1F10 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552BD39A1A97997300AE1F10 /* Quickblox.framework */; };
+		552BD39D1A97997300AE1F10 /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552BD39B1A97997300AE1F10 /* QuickbloxWebRTC.framework */; };
 		5596799A1A8253FD0043FACD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 559679991A8253FD0043FACD /* Images.xcassets */; };
 		55B1C7301A7BE76700AF110D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1C6E01A7BE76700AF110D /* AppDelegate.m */; };
 		55B1C7311A7BE76700AF110D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55B1C6E11A7BE76700AF110D /* Main.storyboard */; };
@@ -38,8 +40,6 @@
 		55B1C74E1A7BE76700AF110D /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1C7291A7BE76700AF110D /* CornerView.m */; };
 		55B1C74F1A7BE76700AF110D /* QBLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1C72C1A7BE76700AF110D /* QBLogoView.m */; };
 		55B1C7501A7BE76700AF110D /* UserPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1C72F1A7BE76700AF110D /* UserPicView.m */; };
-		55B1C7551A7BE85400AF110D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55B1C7531A7BE85400AF110D /* Quickblox.framework */; };
-		55BA0C4F1A93BA43008F2DCD /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BA0C4E1A93BA43008F2DCD /* QuickbloxWebRTC.framework */; };
 		55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */; };
 		55CF63AA1A3AFF2E00FE8D19 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A91A3AFF2E00FE8D19 /* libz.dylib */; };
 		55CF63AC1A3AFF5E00FE8D19 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63AB1A3AFF5E00FE8D19 /* MobileCoreServices.framework */; };
@@ -69,6 +69,8 @@
 		551473BA1A88C5FA00D61A4F /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
 		551473BB1A88C5FA00D61A4F /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
 		55205B5E1A9355A300813618 /* devUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = devUsers.plist; path = QBRTCChatSample/devUsers.plist; sourceTree = "<group>"; };
+		552BD39A1A97997300AE1F10 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		552BD39B1A97997300AE1F10 /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickbloxWebRTC.framework; path = ../Framework/QuickbloxWebRTC.framework; sourceTree = "<group>"; };
 		559679991A8253FD0043FACD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = QBRTCChatSample/Images.xcassets; sourceTree = "<group>"; };
 		55B1C6DF1A7BE76700AF110D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		55B1C6E01A7BE76700AF110D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -119,8 +121,6 @@
 		55B1C72C1A7BE76700AF110D /* QBLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBLogoView.m; sourceTree = "<group>"; };
 		55B1C72E1A7BE76700AF110D /* UserPicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPicView.h; sourceTree = "<group>"; };
 		55B1C72F1A7BE76700AF110D /* UserPicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPicView.m; sourceTree = "<group>"; };
-		55B1C7531A7BE85400AF110D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
-		55BA0C4E1A93BA43008F2DCD /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickbloxWebRTC.framework; sourceTree = "<group>"; };
 		55BC83D01A7BEAEA00EC27BE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = QBRTCChatSample/Info.plist; sourceTree = "<group>"; };
 		55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		55CF63A91A3AFF2E00FE8D19 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -148,14 +148,14 @@
 				55F6BDD21A3F22BE0080C326 /* libicucore.dylib in Frameworks */,
 				55F6BDD01A3F221B0080C326 /* libc++.dylib in Frameworks */,
 				55F6BDCE1A3F22010080C326 /* libsqlite3.dylib in Frameworks */,
-				55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */,
-				55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */,
-				55B1C7551A7BE85400AF110D /* Quickblox.framework in Frameworks */,
-				55BA0C4F1A93BA43008F2DCD /* QuickbloxWebRTC.framework in Frameworks */,
 				55CF63B01A3B007700FE8D19 /* libresolv.dylib in Frameworks */,
 				55CF63AE1A3B004200FE8D19 /* libxml2.dylib in Frameworks */,
-				55CF63AC1A3AFF5E00FE8D19 /* MobileCoreServices.framework in Frameworks */,
+				552BD39C1A97997300AE1F10 /* Quickblox.framework in Frameworks */,
+				552BD39D1A97997300AE1F10 /* QuickbloxWebRTC.framework in Frameworks */,
 				55CF63AA1A3AFF2E00FE8D19 /* libz.dylib in Frameworks */,
+				55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */,
+				55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */,
+				55CF63AC1A3AFF5E00FE8D19 /* MobileCoreServices.framework in Frameworks */,
 				55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,7 +184,6 @@
 			children = (
 				55B1C6DF1A7BE76700AF110D /* AppDelegate.h */,
 				55B1C6E01A7BE76700AF110D /* AppDelegate.m */,
-				55B1C6FE1A7BE76700AF110D /* Quickblox */,
 				55B1C7511A7BE78300AF110D /* Stroryboards & xibs */,
 				55B1C6ED1A7BE76700AF110D /* Classes */,
 				55B1C70D1A7BE76700AF110D /* ViewControllers */,
@@ -279,15 +278,6 @@
 				55B1C6F91A7BE76700AF110D /* UsersDataSource.m */,
 			);
 			path = UsersDataSource;
-			sourceTree = "<group>";
-		};
-		55B1C6FE1A7BE76700AF110D /* Quickblox */ = {
-			isa = PBXGroup;
-			children = (
-				55BA0C4E1A93BA43008F2DCD /* QuickbloxWebRTC.framework */,
-				55B1C7531A7BE85400AF110D /* Quickblox.framework */,
-			);
-			path = Quickblox;
 			sourceTree = "<group>";
 		};
 		55B1C7011A7BE76700AF110D /* Sounds */ = {
@@ -484,15 +474,17 @@
 		AB35EE3F551E29A444EB63EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				552BD39A1A97997300AE1F10 /* Quickblox.framework */,
+				552BD39B1A97997300AE1F10 /* QuickbloxWebRTC.framework */,
 				55F6BDD11A3F22BE0080C326 /* libicucore.dylib */,
 				55F6BDCF1A3F221B0080C326 /* libc++.dylib */,
 				55F6BDCD1A3F22010080C326 /* libsqlite3.dylib */,
-				55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */,
-				55F6BDC91A3F21CC0080C326 /* GLKit.framework */,
 				55CF63AF1A3B007700FE8D19 /* libresolv.dylib */,
 				55CF63AD1A3B004200FE8D19 /* libxml2.dylib */,
-				55CF63AB1A3AFF5E00FE8D19 /* MobileCoreServices.framework */,
 				55CF63A91A3AFF2E00FE8D19 /* libz.dylib */,
+				55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */,
+				55F6BDC91A3F21CC0080C326 /* GLKit.framework */,
+				55CF63AB1A3AFF5E00FE8D19 /* MobileCoreServices.framework */,
 				55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;

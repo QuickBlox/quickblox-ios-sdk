@@ -12,8 +12,8 @@
 #define QB_DEFAULT_ICE_SERVERS 0
 
 const CGFloat kQBRingThickness = 1.f;
-const NSTimeInterval kQBAnswerTimeInterval = 25.f;
-const NSTimeInterval kQBRTCDisconnectTimeInterval = 15.f;
+const NSTimeInterval kQBAnswerTimeInterval = 60.f;
+const NSTimeInterval kQBRTCDisconnectTimeInterval = 30.f;
 
 const NSUInteger kQBApplicationID = 92;
 NSString *const kQBRegisterServiceKey = @"wJHdOcQSxXQGWx5";
@@ -41,7 +41,7 @@ NSString *const kQBAccountKey = @"7yvNe17TnjNUqDoPwfqp";
     NSURL *turnTCPUrl =
     [NSURL URLWithString:@"turn:turnserver.quickblox.com:3478?transport=tcp"];
     
-    RTCICEServer* turnTCPServer =
+    QBICEServer* turnTCPServer =
     [QBICEServer serverWithURL:turnTCPUrl
                        username:@"user"
                        password:@"user"];
@@ -73,7 +73,9 @@ NSString *const kQBAccountKey = @"7yvNe17TnjNUqDoPwfqp";
     [QBSettings setAccountKey:kQBAccountKey];
     [QBSettings setLogLevel:QBLogLevelNothing];
     
+    
     //QuickbloxWebRTC preferences
+//    [QBRTCConfig setDTLSEnabled:YES];
     [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
     [QBRTCConfig setDisconnectTimeInterval:kQBRTCDisconnectTimeInterval];
     [QBRTCConfig setICEServers:self.iceServers];
