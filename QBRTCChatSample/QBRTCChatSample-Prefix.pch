@@ -33,7 +33,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Quickblox/Quickblox.h>
 
-#if (QB_RTC_SAMPLE_MODE == 1) || (QB_RTC_SAMPLE_MODE == 3) || (QB_RTC_SAMPLE_MODE == 2)
+#if (QB_RTC_SAMPLE_MODE == 1)
     #import "QBRTCTypes.h"
     #import "QBGLVideoView.h"
     #import "QBRTCVideoTrack.h"

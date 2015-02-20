@@ -109,14 +109,19 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="8eo-E0-uXn"/>
                                     <barButtonItem style="plain" id="p8E-Jj-Z0e">
                                         <view key="customView" contentMode="scaleToFill" id="OTk-1d-jhw">
-                                            <rect key="frame" x="515" y="10" width="68" height="58"/>
+                                            <rect key="frame" x="504" y="10" width="80" height="60"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZA-jU-2jm">
-                                                    <rect key="frame" x="-1" y="14" width="69" height="36"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZA-jU-2jm">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="60"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="Iax-Mx-2f4"/>
+                                                        <constraint firstAttribute="height" constant="60" id="nlT-ii-dVY"/>
+                                                    </constraints>
                                                     <string key="text">Build:
-1.0.56</string>
+1.0.56
+qb0.1.3r3213</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -126,6 +131,10 @@
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="KZA-jU-2jm" secondAttribute="trailing" id="5IT-3t-rPv"/>
+                                                <constraint firstItem="KZA-jU-2jm" firstAttribute="bottom" secondItem="OTk-1d-jhw" secondAttribute="bottomMargin" constant="8" id="K36-rg-kWb"/>
+                                            </constraints>
                                         </view>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </barButtonItem>
@@ -152,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E5f-1V-hIr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="352" y="284"/>
+            <point key="canvasLocation" x="345" y="284"/>
         </scene>
         <!--Settings Call View Controller-->
         <scene sceneID="wLz-TW-LeC">
@@ -564,6 +573,7 @@
                         <outlet property="opponentVideoView" destination="oGx-wR-mCX" id="TGl-UD-D9h"/>
                         <outlet property="opponentsCollectionView" destination="hTE-3e-Inu" id="ICa-en-bhu"/>
                         <outlet property="switchAudioOutputBtn" destination="MCj-Hw-usB" id="vR6-1g-UXw"/>
+                        <outlet property="switchCameraBtn" destination="lyG-Rj-AlC" id="6md-O6-Dr3"/>
                         <outlet property="toolbar" destination="eoK-9a-VXr" id="pw9-zh-Tk6"/>
                     </connections>
                 </viewController>

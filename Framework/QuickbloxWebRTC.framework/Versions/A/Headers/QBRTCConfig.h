@@ -55,6 +55,20 @@
 + (NSArray *)iceServers;
 
 /**
+ *  Enable / Disable Datagram Transport Layer Security
+ *
+ *  @param enabled YES/NO (default YES)
+ */
++ (void)setDTLSEnabled:(BOOL)enabled;
+
+/**
+ *  Datagram Transport Layer Security state
+ *
+ *  @return current value (default YES)
+ */
++ (BOOL)DTLSEnabled;
+
+/**
  *  Set dialing time interval
  *  Default value: 5 sec
  *
