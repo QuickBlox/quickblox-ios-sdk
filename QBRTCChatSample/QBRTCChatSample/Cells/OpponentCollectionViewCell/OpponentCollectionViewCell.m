@@ -86,6 +86,13 @@
                 
                 break;
                 
+            case QBRTCConnectionClosed:
+                
+                self.statusLabel.text = @"Closed";
+                [self.activityIndicator stopAnimating];
+                
+                break;
+                
             case QBRTCConnectionHangUp:
                 
                 self.statusLabel.text = @"Hung Up";

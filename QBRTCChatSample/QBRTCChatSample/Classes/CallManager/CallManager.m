@@ -117,7 +117,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     
     if (self.session) {
         
-        [session rejectCall:@{@"reason" : @""}];
+        [session rejectCall:@{@"reason" : @"beasy"}];
         return;
     }
     
