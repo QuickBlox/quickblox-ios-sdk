@@ -19,9 +19,6 @@
 		BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FB85180E8EF100E64AC4 /* AppDelegate.m */; };
 		BFE6FB89180E8EF100E64AC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE6FB87180E8EF100E64AC4 /* Main.storyboard */; };
 		BFE6FB91180E8EF100E64AC4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFE6FB90180E8EF100E64AC4 /* Images.xcassets */; };
-		BFE6FB98180E8EF100E64AC4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB97180E8EF100E64AC4 /* XCTest.framework */; };
-		BFE6FB99180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
-		BFE6FB9A180E8EF100E64AC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB79180E8EF100E64AC4 /* UIKit.framework */; };
 		BFE6FBB0180E9E5300E64AC4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBAF180E9E5300E64AC4 /* CFNetwork.framework */; };
 		BFE6FBB2180E9E5E00E64AC4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBB1180E9E5E00E64AC4 /* SystemConfiguration.framework */; };
 		BFE6FBB4180E9E6800E64AC4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBB3180E9E6800E64AC4 /* MobileCoreServices.framework */; };
@@ -46,16 +43,6 @@
 		BFFCF7A719AE27700065AE21 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7A619AE27700065AE21 /* Quickblox.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		BFE6FB9B180E8EF100E64AC4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFE6FB6A180E8EF100E64AC4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BFE6FB71180E8EF100E64AC4;
-			remoteInfo = "sample-chat";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		9FFAEACF57C4405D906A4932 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
@@ -75,7 +62,6 @@
 		BFE6FB85180E8EF100E64AC4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		BFE6FB88180E8EF100E64AC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BFE6FB90180E8EF100E64AC4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		BFE6FB96180E8EF100E64AC4 /* sample-chatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sample-chatTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB97180E8EF100E64AC4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		BFE6FBAF180E9E5300E64AC4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BFE6FBB1180E9E5E00E64AC4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -136,16 +122,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BFE6FB93180E8EF100E64AC4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BFE6FB98180E8EF100E64AC4 /* XCTest.framework in Frameworks */,
-				BFE6FB9A180E8EF100E64AC4 /* UIKit.framework in Frameworks */,
-				BFE6FB99180E8EF100E64AC4 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -163,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				BFE6FB72180E8EF100E64AC4 /* Chat.app */,
-				BFE6FB96180E8EF100E64AC4 /* sample-chatTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,24 +283,6 @@
 			productReference = BFE6FB72180E8EF100E64AC4 /* Chat.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BFE6FB95180E8EF100E64AC4 /* sample-chatTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BFE6FBAA180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "sample-chatTests" */;
-			buildPhases = (
-				BFE6FB92180E8EF100E64AC4 /* Sources */,
-				BFE6FB93180E8EF100E64AC4 /* Frameworks */,
-				BFE6FB94180E8EF100E64AC4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BFE6FB9C180E8EF100E64AC4 /* PBXTargetDependency */,
-			);
-			name = "sample-chatTests";
-			productName = "sample-chatTests";
-			productReference = BFE6FB96180E8EF100E64AC4 /* sample-chatTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -337,9 +294,6 @@
 				TargetAttributes = {
 					BFE6FB71180E8EF100E64AC4 = {
 						DevelopmentTeam = 8885H5G2YX;
-					};
-					BFE6FB95180E8EF100E64AC4 = {
-						TestTargetID = BFE6FB71180E8EF100E64AC4;
 					};
 				};
 			};
@@ -357,7 +311,6 @@
 			projectRoot = "";
 			targets = (
 				BFE6FB71180E8EF100E64AC4 /* sample-chat */,
-				BFE6FB95180E8EF100E64AC4 /* sample-chatTests */,
 			);
 		};
 /* End PBXProject section */
@@ -371,13 +324,6 @@
 				BFE6FB91180E8EF100E64AC4 /* Images.xcassets in Resources */,
 				BFE6FB80180E8EF100E64AC4 /* InfoPlist.strings in Resources */,
 				BFE6FB89180E8EF100E64AC4 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BFE6FB94180E8EF100E64AC4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,22 +382,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BFE6FB92180E8EF100E64AC4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		BFE6FB9C180E8EF100E64AC4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BFE6FB71180E8EF100E64AC4 /* sample-chat */;
-			targetProxy = BFE6FB9B180E8EF100E64AC4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BFE6FB7E180E8EF100E64AC4 /* InfoPlist.strings */ = {
@@ -607,46 +538,6 @@
 			};
 			name = Release;
 		};
-		BFE6FBAB180E8EF100E64AC4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/sample-chat.app/sample-chat";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "sample-chatTests/sample-chatTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		BFE6FBAC180E8EF100E64AC4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/sample-chat.app/sample-chat";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
-				INFOPLIST_FILE = "sample-chatTests/sample-chatTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -664,15 +555,6 @@
 			buildConfigurations = (
 				BFE6FBA8180E8EF100E64AC4 /* Debug */,
 				BFE6FBA9180E8EF100E64AC4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BFE6FBAA180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "sample-chatTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BFE6FBAB180E8EF100E64AC4 /* Debug */,
-				BFE6FBAC180E8EF100E64AC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
