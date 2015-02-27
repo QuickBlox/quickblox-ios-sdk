@@ -186,7 +186,7 @@ NSString *const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionView
 
 - (IBAction)pressSwitchCameraBtn:(IAButton *)sender {
 
-    [self.session switchCameraPosition:^(BOOL isFrontCamera) {
+    [self.session switchCamera:^(BOOL isFrontCamera) {
         
         NSLog(@"Is front camera - %d", isFrontCamera);
     }];
