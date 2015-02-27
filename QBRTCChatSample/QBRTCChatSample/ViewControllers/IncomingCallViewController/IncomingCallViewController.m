@@ -114,17 +114,19 @@
     self.dialignTimer = nil;
     
     [QBRTCClient.instance removeDelegate:self];
-    [[QMSoundManager shared] stopAllSounds];
+    [QMSysPlayer stopAllSounds];
 }
 
 - (IBAction)pressAcceptCall:(id)sender {
+    
     [self cleanUp];
     [self.containerViewController next];
 }
 
 - (IBAction)pressDeclineBtn:(id)sender {
+    
     [self cleanUp];
-    [self.session rejectCall:@{@"key" : @"value"}];
+    [self.session rejectCall:@{@"reject" : @"busy"}];
 }
 
 - (void)sessionWillClose:(QBRTCSession *)session {

@@ -94,7 +94,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 - (void)acceptCall {
     
-    [[QMSoundManager shared] stopAllSounds];
+    [QMSysPlayer stopAllSounds];
     
     NSMutableArray *usersIDS = self.session.opponents.mutableCopy;
     
@@ -107,7 +107,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     QBUUser *currentUser = ConnectionManager.instance.me;
     
-    NSDictionary *userInfo = @{ @"userName" : currentUser.fullName };
+    NSDictionary *userInfo = @{@"userName" : currentUser.fullName };
     [self.session acceptCall:userInfo];
 }
 
@@ -441,7 +441,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         
         [self.beepTimer invalidate];
         self.beepTimer = nil;
-        [[QMSoundManager shared] stopAllSounds];
+        [QMSysPlayer stopAllSounds];
     }
     
     if (!self.callTimer) {
@@ -517,7 +517,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
             
             [self.beepTimer invalidate];
             self.beepTimer = nil;
-            [[QMSoundManager shared] stopAllSounds];
+            [QMSysPlayer stopAllSounds];
         }
         
         [self.callTimer invalidate];
