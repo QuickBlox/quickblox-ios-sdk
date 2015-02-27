@@ -45,8 +45,7 @@ NSString *const kPasswordKey = @"password";
         [self loadUsers];
         
         _colors =
-        @[
-          [UIColor colorWithRed:0.992 green:0.510 blue:0.035 alpha:1.000],
+        @[[UIColor colorWithRed:0.992 green:0.510 blue:0.035 alpha:1.000],
           [UIColor colorWithRed:0.039 green:0.376 blue:1.000 alpha:1.000],
           [UIColor colorWithRed:0.984 green:0.000 blue:0.498 alpha:1.000],
           [UIColor colorWithRed:0.204 green:0.644 blue:0.251 alpha:1.000],
@@ -55,15 +54,14 @@ NSString *const kPasswordKey = @"password";
           [UIColor colorWithRed:0.765 green:0.000 blue:0.086 alpha:1.000],
           [UIColor colorWithWhite:0.537 alpha:1.000],
           [UIColor colorWithRed:0.786 green:0.706 blue:0.000 alpha:1.000],
-          [UIColor colorWithRed:0.740 green:0.624 blue:0.797 alpha:1.000]
-          ];
+          [UIColor colorWithRed:0.740 green:0.624 blue:0.797 alpha:1.000]];
     }
     
     return self;
 }
 
 - (void)loadUsers {
-        
+    
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@Users", QB_VERSION_STR]
                                                           ofType:@"plist"];
     
@@ -92,7 +90,7 @@ NSString *const kPasswordKey = @"password";
 - (QBUUser *)userWithID:(NSNumber *)userID
                   login:(NSString *)login
                fullName:(NSString *)fullName
-                passowrd:(NSString *)password {
+               passowrd:(NSString *)password {
     
     QBUUser *user = [QBUUser user];
     user.ID = userID.integerValue;
