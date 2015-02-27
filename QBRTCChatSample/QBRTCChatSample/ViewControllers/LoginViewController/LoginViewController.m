@@ -39,13 +39,14 @@ const CGFloat kInfoHeaderHeight = 50;
 
 #pragma mark - Verison
 
-- (NSString *) version {
+- (NSString *)version {
     
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
+    NSString *appBuild = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
+    NSString *version = [NSString stringWithFormat:@"v:%@ %@\nbuild %@\nQBv%@:r%@",
+                         appVersion, QB_VERSION_STR, appBuild, QuickbloxWebRTCFrameworkVersion, QuickbloxWebRTCRevision];
     
-    return [NSString stringWithFormat:@"v:%@ %@\nbuild %@\nQBv%@:r%@",
-            version, QB_VERSION_STR, build, QuickbloxWebRTCFrameworkVersion, QuickbloxWebRTCRevision];
+    return version;
 }
 
 #pragma makr - UITableViewDataSource
