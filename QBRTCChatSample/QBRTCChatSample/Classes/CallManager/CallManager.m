@@ -117,7 +117,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     
     if (self.session) {
         
-        [session rejectCall:@{@"reason" : @"beasy"}];
+        [session rejectCall:@{@"reject" : @"busy"}];
         return;
     }
     
@@ -143,6 +143,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
 
 - (void)sessionWillClose:(QBRTCSession *)session {
     
+    NSLog(@"session will close");
 }
 
 - (void)sessionDidClose:(QBRTCSession *)session {
