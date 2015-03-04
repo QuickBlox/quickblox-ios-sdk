@@ -36,7 +36,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.userInteractionEnabled = NO;
     
-    _bgColor = [UIColor colorWithRed:1.000 green:0.632 blue:0.525 alpha:1.000];
+    _bgColor = [UIColor clearColor];
     _cornerRadius = 6;
     _fontSize = 16;
 }

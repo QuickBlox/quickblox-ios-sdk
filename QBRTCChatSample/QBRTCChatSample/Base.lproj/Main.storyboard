@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C94b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bMu-hz-b0y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14D87h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bMu-hz-b0y">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -125,9 +125,6 @@ qb0.1.3r3213</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=compact-widthClass=compact" fixedFrame="YES">
-                                                        <rect key="frame" x="0.0" y="7" width="52" height="44"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -242,15 +239,15 @@ qb0.1.3r3213</string>
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jcW-lE-HBo"/>
-                                    <barButtonItem title="Video Call" id="tTQ-g1-Qbn">
-                                        <connections>
-                                            <action selector="pressVideoCallBtn:" destination="paO-S8-ef2" id="CK2-w4-xRH"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Xrk-cM-VUE"/>
                                     <barButtonItem title="Audio Call" id="FkC-Ar-wEG">
                                         <connections>
                                             <action selector="pressAudioCallBtn:" destination="paO-S8-ef2" id="3fV-Wu-5Cs"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Xrk-cM-VUE"/>
+                                    <barButtonItem title="Video Call" id="tTQ-g1-Qbn">
+                                        <connections>
+                                            <action selector="pressVideoCallBtn:" destination="paO-S8-ef2" id="CK2-w4-xRH"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ege-6J-qaG"/>
@@ -289,29 +286,38 @@ qb0.1.3r3213</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGx-wR-mCX" customClass="QBGLVideoView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="-44" width="600" height="644"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Call time: 00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OQM-HC-YRT">
-                                        <rect key="frame" x="15" y="68" width="130" height="21"/>
+                                        <rect key="frame" x="8" y="67" width="130" height="21"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="70P-RC-nGH"/>
                                             <constraint firstAttribute="height" constant="21" id="Nba-db-sqf"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.0" alpha="0.58999999999999997" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="1" alpha="0.69000000000000006" colorSpace="calibratedWhite"/>
                                         <size key="shadowOffset" width="1" height="-1"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="OQM-HC-YRT" firstAttribute="leading" secondItem="oGx-wR-mCX" secondAttribute="leading" constant="15" id="EyH-XJ-dKC"/>
-                                    <constraint firstItem="OQM-HC-YRT" firstAttribute="top" secondItem="oGx-wR-mCX" secondAttribute="top" constant="68" id="brp-JL-a1m"/>
+                                    <constraint firstItem="OQM-HC-YRT" firstAttribute="leading" secondItem="oGx-wR-mCX" secondAttribute="leading" constant="8" id="EyH-XJ-dKC"/>
+                                    <constraint firstItem="OQM-HC-YRT" firstAttribute="top" secondItem="oGx-wR-mCX" secondAttribute="top" constant="67" id="brp-JL-a1m"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kc5-my-X1D" customClass="CornerView">
+                                <rect key="frame" x="28" y="47" width="93" height="28"/>
+                                <color key="backgroundColor" red="0.20000001789999999" green="0.60392159219999997" blue="0.97254908080000002" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="3Wk-cW-rCc"/>
+                                    <constraint firstAttribute="width" constant="93" id="bwZ-lv-nYX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="JgN-7r-Aoa" customClass="QBGLVideoView">
-                                <rect key="frame" x="480" y="72" width="110" height="110"/>
+                                <rect key="frame" x="480" y="28" width="110" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lyG-Rj-AlC">
                                         <rect key="frame" x="63" y="83" width="25" height="18"/>
@@ -520,6 +526,7 @@ qb0.1.3r3213</string>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eoK-9a-VXr" secondAttribute="trailing" id="0OY-ea-rfy"/>
                             <constraint firstItem="JgN-7r-Aoa" firstAttribute="top" secondItem="c8d-am-Z5a" secondAttribute="bottom" constant="8" id="1sw-cZ-1d2"/>
+                            <constraint firstItem="kc5-my-X1D" firstAttribute="top" secondItem="c8d-am-Z5a" secondAttribute="bottom" constant="27" id="4nA-Gh-z2h"/>
                             <constraint firstItem="XTp-LY-B6b" firstAttribute="top" secondItem="eoK-9a-VXr" secondAttribute="bottom" id="Dz8-k2-tNo"/>
                             <constraint firstItem="eoK-9a-VXr" firstAttribute="top" secondItem="hTE-3e-Inu" secondAttribute="bottom" id="RKi-dp-2ZS"/>
                             <constraint firstAttribute="trailing" secondItem="hTE-3e-Inu" secondAttribute="trailing" id="SE2-a6-PrY"/>
@@ -540,6 +547,7 @@ qb0.1.3r3213</string>
                             </constraint>
                             <constraint firstItem="eoK-9a-VXr" firstAttribute="leading" secondItem="v23-UM-TA3" secondAttribute="leading" id="fFU-o3-qDJ"/>
                             <constraint firstItem="eoK-9a-VXr" firstAttribute="top" secondItem="hTE-3e-Inu" secondAttribute="bottom" id="n0K-zB-YSB"/>
+                            <constraint firstItem="kc5-my-X1D" firstAttribute="leading" secondItem="v23-UM-TA3" secondAttribute="leading" constant="28" id="uqp-mM-ObH"/>
                             <constraint firstAttribute="trailing" secondItem="oGx-wR-mCX" secondAttribute="trailing" id="wCc-7e-gUi"/>
                         </constraints>
                         <variation key="default">
@@ -560,7 +568,7 @@ qb0.1.3r3213</string>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Logged in as User 5" id="Y55-qE-QHW"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="audioOutputItem" destination="Snr-Zf-yoF" id="0fR-6U-M78"/>
                         <outlet property="callTimeLabel" destination="OQM-HC-YRT" id="FV2-bU-bmB"/>
@@ -568,6 +576,7 @@ qb0.1.3r3213</string>
                         <outlet property="declineItem" destination="BB8-OR-4Er" id="jiz-rC-Jkg"/>
                         <outlet property="enableVideoBtn" destination="KDJ-84-pDF" id="uxH-LX-IDn"/>
                         <outlet property="localVideoView" destination="JgN-7r-Aoa" id="z7X-kt-hHs"/>
+                        <outlet property="markerView" destination="kc5-my-X1D" id="hdc-MQ-fCa"/>
                         <outlet property="micItem" destination="6bw-lh-byV" id="Vrd-of-0sg"/>
                         <outlet property="microphoneBtn" destination="x5r-gc-fw5" id="siv-BZ-UHo"/>
                         <outlet property="opponentVideoView" destination="oGx-wR-mCX" id="TGl-UD-D9h"/>
