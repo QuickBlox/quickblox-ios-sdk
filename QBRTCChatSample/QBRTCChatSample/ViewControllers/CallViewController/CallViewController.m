@@ -13,6 +13,7 @@
 #import "SVProgressHUD.h"
 #import "IAButton.h"
 #import "QMSoundManager.h"
+#import "CornerView.h"
 
 NSString *const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
 const NSTimeInterval kRefreshTimeInterval = 1.f;
@@ -29,6 +30,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (weak, nonatomic) IBOutlet IAButton *switchAudioOutputBtn;
 @property (weak, nonatomic) IBOutlet IAButton *enableVideoBtn;
 @property (weak, nonatomic) IBOutlet IAButton *declineBtn;
+@property (weak, nonatomic) IBOutlet CornerView *markerView;
 
 @property (weak, nonatomic) IBOutlet UILabel *callTimeLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *micItem;
@@ -39,7 +41,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
-
 
 @property (assign, nonatomic) NSTimeInterval timeDuration;
 @property (strong, nonatomic) NSTimer *callTimer;
@@ -56,8 +57,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.selectedItemIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
     [self configureGUI];
 }
 
@@ -67,29 +66,24 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [QBRTCClient.instance addDelegate:self];
     QBUUser *caller  = [ConnectionManager.instance userWithID:self.session.callerID];
     [ConnectionManager.instance.me isEqual:caller] ? [self startCall] : [self acceptCall];
-    [self.opponentsCollectionView reloadData];
-}
 
-- (void)beep:(NSTimer *)timer {
-    
-    [QMSoundManager playCallingSound];
+    [self.opponentsCollectionView reloadData];
 }
 
 - (void)startCall {
     
     self.users = [ConnectionManager.instance usersWithIDS:self.session.opponents];
-    
+    //Start call
     NSDictionary *userInfo = @{ @"userName" : ConnectionManager.instance.me.fullName };
     [self.session startCall:userInfo];
-    
+    //Begin play calling sound
     self.beepTimer =
     [NSTimer scheduledTimerWithTimeInterval:[QBRTCConfig dialingTimeInterval]
                                      target:self
-                                   selector:@selector(beep:)
+                                   selector:@selector(playCallingSound:)
                                    userInfo:nil
                                     repeats:YES];
-    
-    [QMSoundManager playCallingSound];
+    [self playCallingSound:nil];
 }
 
 - (void)acceptCall {
@@ -97,16 +91,14 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [QMSysPlayer stopAllSounds];
     
     NSMutableArray *usersIDS = self.session.opponents.mutableCopy;
-    
     NSNumber *me = @(ConnectionManager.instance.me.ID);
     [usersIDS removeObject:me];
-    
     [usersIDS addObject:self.session.callerID];
     
     self.users =  [ConnectionManager.instance usersWithIDS:usersIDS];
     
     QBUUser *currentUser = ConnectionManager.instance.me;
-    
+    //Accept call
     NSDictionary *userInfo = @{@"userName" : currentUser.fullName };
     [self.session acceptCall:userInfo];
 }
@@ -117,11 +109,15 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [self configureLocalVideoView];
     [self configureToolBar];
     
+    self.markerView.fontSize = 15;
     self.callTimeLabel.text = @"";
     self.callTimeLabel.hidden = YES;
-    [self viewWillTransitionToSize:self.view.frame.size];
-    
     self.switchCameraBtn.hidden = YES;
+    self.localVideoView.hidden = YES;
+    //Default selection
+    self.selectedItemIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self viewWillTransitionToSize:self.view.frame.size];
 }
 
 - (void)configureNavigationBar {
@@ -153,11 +149,11 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     [self.toolbar setShadowImage:[[UIImage alloc] init]
               forToolbarPosition:UIToolbarPositionAny];
+    
     UIColor *gSelected = [UIColor colorWithWhite:0.502 alpha:0.640];
     UIColor *redBG = [UIColor colorWithRed:0.906 green:0.000 blue:0.191 alpha:0.8];
     UIColor *redSelected = [UIColor colorWithRed:0.916 green:0.668 blue:0.683 alpha:1.f];
     UIColor *bg = [UIColor colorWithWhite:1.000 alpha:0.840];
-    
     //Configure buttons
     [self configureAIButton:self.declineBtn
               withImageName:@"decline"
@@ -184,7 +180,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
                                                       action:nil];
         //Update tool bar
         NSArray *items = @[fs, self.micItem, fs, self.audioOutputItem, fs, self.declineItem, fs];
-        
         [self.toolbar setItems:items];
     }
     else {
@@ -268,6 +263,9 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         
         cell.selected = YES;
         [self.opponentVideoView setVideoTrack:videoTrack];
+        
+        self.markerView.bgColor = user.color;
+        self.markerView.title = user.fullName;
     }
     else {
         
@@ -355,8 +353,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  * Called in case when you are calling to user, but he hasn't answered
- *
- * @param userID ID of opponent
  */
 - (void)session:(QBRTCSession *)session userDoesNotRespond:(NSNumber *)userID {
     
@@ -367,8 +363,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  * Called in case when opponent has rejected you call
- *
- * @param userID ID of opponent
  */
 - (void)session:(QBRTCSession *)session rejectedByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
@@ -379,9 +373,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when opponent hung up
- *
- *  @param session QBRTCSession instance
- *  @param userID  ID of opponent
  */
 - (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID {
     
@@ -392,8 +383,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when receive local video track
- *
- *  @param videoTrack
  */
 - (void)session:(QBRTCSession *)session didReceiveLocalVideoTrack:(QBRTCVideoTrack *)videoTrack {
     
@@ -404,11 +393,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when receive remote video track from opponent
- *
- *  @param videoTrack QBRTCVideoTrack instance
- *  @param userID     ID of opponent
  */
-
 - (void)session:(QBRTCSession *)session didReceiveRemoteVideoTrack:(QBRTCVideoTrack *)videoTrack fromUser:(NSNumber *)userID {
     
     NSAssert(self.session == session, @"Need update this case");
@@ -417,9 +402,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when connection initiated
- *
- *  @param session QBRTCSession instance
- *  @param userID  ID of opponent
  */
 - (void)session:(QBRTCSession *)session startConnectionToUser:(NSNumber *)userID {
     
@@ -429,9 +411,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when connection is established with opponent
- *
- *  @param session QBRTCSession instance
- *  @param userID  ID of opponent
  */
 - (void)session:(QBRTCSession *)session connectedToUser:(NSNumber *)userID {
     
@@ -459,20 +438,15 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when connection state changed
- *
- *  @param session QBRTCSession instance
- *  @param userID  ID of opponent
  */
 - (void)session:(QBRTCSession *)session connectionClosedForUser:(NSNumber *)userID {
+    
     NSAssert(self.session == session, @"Need update this case");
     [self reloadWithUserID:userID];
 }
 
 /**
  *  Called in case when disconnected from opponent
- *
- *  @param session QBRTCSession instance
- *  @param userID  ID of opponent
  */
 - (void)session:(QBRTCSession *)session disconnectedFromUser:(NSNumber *)userID {
     
@@ -482,9 +456,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when disconnected by timeout
- *
- *  @param session QBRTCSession instance
- *  @param userID  QBRTCSession instance
  */
 - (void)session:(QBRTCSession *)session disconnectTimeoutForUser:(NSNumber *)userID {
     
@@ -494,9 +465,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when connection failed with user
- *
- *  @param session QBRTCSession instance
- *  @param userID  ID of opponent
  */
 - (void)session:(QBRTCSession *)session connectionFailedWithUser:(NSNumber *)userID {
     
@@ -506,8 +474,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 /**
  *  Called in case when session will close
- *
- *  @param session QBRTCSession instance
  */
 - (void)sessionWillClose:(QBRTCSession *)session {
     
@@ -541,9 +507,14 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [self.opponentsCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
-#pragma mark - refresh call time
+#pragma mark - Timers actions
 
-- (void)refreshCallTime:(NSTimer *)timer {
+- (void)playCallingSound:(id)sender {
+    
+    [QMSoundManager playCallingSound];
+}
+
+- (void)refreshCallTime:(id)sender {
     
     self.timeDuration += kRefreshTimeInterval;
     self.callTimeLabel.text = [NSString stringWithFormat:@"Call time - %@", [self stringWithTimeDuration:self.timeDuration]];

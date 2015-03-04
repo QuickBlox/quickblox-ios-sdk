@@ -134,7 +134,6 @@ NSString *const kCallViewControllerSegueIdentifier = @"CallViewController";
     toViewController.view.autoresizingMask = self.view.autoresizingMask;
     toViewController.view.frame = self.view.bounds;
     
-    
     // If this is the initial presentation, add the new child with no animation.
     if (!fromViewController) {
         
