@@ -40,7 +40,7 @@
             cornerView.bgColor = color;
             cornerView.title = title;
             cornerView;
-        }) ];
+        })];
     
         backButtonItem;
     });
@@ -61,7 +61,7 @@
 
 - (UIView *)headerViewWithFrame:(CGRect)headerRect text:(NSString *)text {
     
-    return  ({
+    return ({
         
         UIView *infoHeaderView = [[UIView alloc] initWithFrame:headerRect];
         infoHeaderView.backgroundColor = [UIColor colorWithWhite:0.965 alpha:0.890];
