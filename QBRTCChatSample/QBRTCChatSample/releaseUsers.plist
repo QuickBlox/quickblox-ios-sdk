@@ -6,83 +6,83 @@
 	<array>
 		<dict>
 			<key>login</key>
-			<string>@user1</string>
+			<string>webrtc_user1</string>
 			<key>fullName</key>
 			<string>User 1</string>
 			<key>ID</key>
-			<string>2077886</string>
+			<string>2436251</string>
 		</dict>
         <dict>
             <key>login</key>
-            <string>@user2</string>
+            <string>webrtc_user2</string>
             <key>fullName</key>
             <string>User 2</string>
             <key>ID</key>
-            <string>2077894</string>
+            <string>2436254</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user3</string>
+            <string>webrtc_user3</string>
             <key>fullName</key>
             <string>User 3</string>
             <key>ID</key>
-            <string>2077896</string>
+            <string>2436257</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user4</string>
+            <string>webrtc_user4</string>
             <key>fullName</key>
             <string>User 4</string>
             <key>ID</key>
-            <string>2436023</string>
+            <string>2436258</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user5</string>
+            <string>webrtc_user5</string>
             <key>fullName</key>
             <string>User 5</string>
             <key>ID</key>
-            <string>2077900</string>
+            <string>2436259</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user6</string>
+            <string>webrtc_user6</string>
             <key>fullName</key>
             <string>User 6</string>
             <key>ID</key>
-            <string>2077901</string>
+            <string>2436262</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user7</string>
+            <string>webrtc_user7</string>
             <key>fullName</key>
             <string>User 7</string>
             <key>ID</key>
-            <string>2077902</string>
+            <string>2436263</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user8</string>
+            <string>webrtc_user8</string>
             <key>fullName</key>
             <string>User 8</string>
             <key>ID</key>
-            <string>2077904</string>
+            <string>2436265</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user9</string>
+            <string>webrtc_user9</string>
             <key>fullName</key>
             <string>User 9</string>
             <key>ID</key>
-            <string>2077906</string>
+            <string>2436266</string>
         </dict>
         <dict>
             <key>login</key>
-            <string>@user10</string>
+            <string>webrtc_user10</string>
             <key>fullName</key>
             <string>User 10</string>
             <key>ID</key>
-            <string>2077907</string>
+            <string>2436269</string>
         </dict>
 	</array>
 </dict>
