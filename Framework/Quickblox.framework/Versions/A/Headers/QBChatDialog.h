@@ -20,6 +20,7 @@
     NSUInteger lastMessageUserID;
     NSUInteger unreadMessagesCount;
     NSArray *occupantIDs;
+    NSMutableDictionary *data;
     NSUInteger userID;
     enum QBChatDialogType type;
 }
@@ -53,6 +54,9 @@
 
 /** Array of user ids in chat. For private chat count = 2 */
 @property (nonatomic, retain) NSArray *occupantIDs;
+
+/** The dictionaty with data */
+@property (nonatomic, retain) NSMutableDictionary *data;
 
 /** Dialog owner */
 @property (nonatomic, assign) NSUInteger userID;

@@ -11,6 +11,7 @@
 @class QBChatDialog;
 @interface QBChatDialogAnswer : XmlAnswer {
     NSMutableArray *occupantsIds;
+    NSMutableDictionary *data;
 }
 
 @property (nonatomic, retain) QBChatDialog *dialog;

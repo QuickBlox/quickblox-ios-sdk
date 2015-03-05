@@ -270,7 +270,7 @@
 }
 
 // QuickBlox queries delegate
-- (void)completedWithResult:(Result *)result{
+- (void)completedWithResult:(QBResult *)result{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // success result
@@ -328,7 +328,7 @@
 }
 
 // QuickBlox queries delegate (with context)
-- (void)completedWithResult:(Result *)result context:(void *)contextInfo{
+- (void)completedWithResult:(QBResult *)result context:(void *)contextInfo{
     NSLog(@"completedWithResult, context=%@", contextInfo);
     
     [self completedWithResult:result];
