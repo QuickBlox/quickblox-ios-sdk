@@ -388,6 +388,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     NSAssert(self.session == session, @"Need update this case");
     self.switchCameraBtn.hidden = NO;
+    self.localVideoView.hidden = NO;
     [self.localVideoView setVideoTrack:videoTrack];
 }
 
