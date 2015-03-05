@@ -385,6 +385,7 @@ static BOOL done = NO;
                     chatDialog.occupantIDs = @[@(UserID2)];
                     chatDialog.type = QBChatDialogTypeGroup;
                     chatDialog.photo = @"www.com";
+                    chatDialog.data = @{@"data[field1]": @"hello"};
                     //
                     if(withQBContext){
                         [QBChat createDialog:chatDialog delegate:self context:testContext];
@@ -583,7 +584,7 @@ static BOOL done = NO;
 #pragma mark -
 #pragma mark QBActionStatusDelegate
 
-- (void)completedWithResult:(Result *)result
+- (void)completedWithResult:(QBResult *)result
 {
     if (result.success && [result isKindOfClass:[QBDialogsPagedResult class]]) {
         QBDialogsPagedResult *pagedResult = (QBDialogsPagedResult *)result;

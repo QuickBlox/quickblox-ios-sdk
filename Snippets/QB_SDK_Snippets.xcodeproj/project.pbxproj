@@ -16,6 +16,7 @@
 		BF1D8A9619A0E0B1000F4F64 /* RatingsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1D8A9519A0E0B1000F4F64 /* RatingsDataSource.m */; };
 		BF1D8A9919A0E274000F4F64 /* CustomObjectsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1D8A9819A0E274000F4F64 /* CustomObjectsDataSource.m */; };
 		BF6860F5197808F800496FFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF6860F4197808F800496FFB /* Images.xcassets */; };
+		BF7777DC1AA8883500BFB659 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4D1F157E66CA00476EF7 /* Foundation.framework */; };
 		BFAF9F8B180589CB009CE7F5 /* London.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BFAF9F89180589CB009CE7F5 /* London.jpg */; };
 		BFEAE6DE183CD95B00A995EB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEAE6DD183CD95B00A995EB /* Security.framework */; };
 		BFFCF7AD19AE2AF30065AE21 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7AC19AE2AF30065AE21 /* Quickblox.framework */; };
@@ -27,7 +28,6 @@
 		FA08977215DFAC6B009A60AE /* ChatModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA08976E15DFAC6B009A60AE /* ChatModuleViewController.xib */; };
 		FA08977315DFAC6B009A60AE /* CustomObjectsModuleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA08977015DFAC6B009A60AE /* CustomObjectsModuleViewController.xib */; };
 		FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4D1D157E66CA00476EF7 /* UIKit.framework */; };
-		FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4D1F157E66CA00476EF7 /* Foundation.framework */; };
 		FA8E4F291580A66000476EF7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4F281580A66000476EF7 /* CFNetwork.framework */; };
 		FA8E4F2C1580A67200476EF7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4F2B1580A67200476EF7 /* SystemConfiguration.framework */; };
 		FA8E4F2E1580A67700476EF7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8E4F2D1580A67700476EF7 /* MobileCoreServices.framework */; };
@@ -138,7 +138,7 @@
 				BFFCF7AD19AE2AF30065AE21 /* Quickblox.framework in Frameworks */,
 				FABB375317538FEF00760531 /* QuartzCore.framework in Frameworks */,
 				FAEE165616C50B6100E32171 /* AudioToolbox.framework in Frameworks */,
-				FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */,
+				BF7777DC1AA8883500BFB659 /* Foundation.framework in Frameworks */,
 				FAEE165416C50AD700E32171 /* CoreMedia.framework in Frameworks */,
 				FAEE165216C50AC500E32171 /* Accelerate.framework in Frameworks */,
 				FAEE165016C50ABA00E32171 /* CoreVideo.framework in Frameworks */,
@@ -153,7 +153,6 @@
 				FA8E4F2C1580A67200476EF7 /* SystemConfiguration.framework in Frameworks */,
 				FA8E4F291580A66000476EF7 /* CFNetwork.framework in Frameworks */,
 				FA8E4D1E157E66CA00476EF7 /* UIKit.framework in Frameworks */,
-				FA8E4D20157E66CA00476EF7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				BFFCF7AC19AE2AF30065AE21 /* Quickblox.framework */,
-				FA8E4D1F157E66CA00476EF7 /* Foundation.framework */,
 				BFEAE6DD183CD95B00A995EB /* Security.framework */,
 				FABB375217538FEF00760531 /* QuartzCore.framework */,
 				FAEE165516C50B6100E32171 /* AudioToolbox.framework */,
@@ -302,7 +300,7 @@
 		FA8E4D10157E66C900476EF7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Injoit;
 			};
 			buildConfigurationList = FA8E4D13157E66C900476EF7 /* Build configuration list for PBXProject "QB_SDK_Snippets" */;
@@ -464,10 +462,12 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -484,7 +484,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -509,10 +509,12 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -522,7 +524,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "E5CAA9E3-FC92-4382-B53A-AE8E2462BA07";

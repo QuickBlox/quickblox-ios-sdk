@@ -655,7 +655,7 @@
 #pragma mark QBActionStatusDelegate
 
 // QuickBlox queries delegate
-- (void)completedWithResult:(Result *)result{
+- (void)completedWithResult:(QBResult *)result{
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
 //    // success result
@@ -699,7 +699,7 @@
 
             
             // Reset password
-        }else if([result isKindOfClass:Result.class]){
+        }else if([result isKindOfClass:QBResult.class]){
             NSLog(@"Reset password OK");
         }
 
@@ -713,7 +713,7 @@
 }
 
 // QuickBlox queries delegate (with context)
-- (void)completedWithResult:(Result *)result context:(void *)contextInfo{
+- (void)completedWithResult:(QBResult *)result context:(void *)contextInfo{
     NSLog(@"completedWithResult, context=%@", contextInfo);
     
     [self completedWithResult:result];
