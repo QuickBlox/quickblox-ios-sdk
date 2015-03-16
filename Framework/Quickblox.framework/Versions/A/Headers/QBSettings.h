@@ -178,24 +178,6 @@
 
 
 #pragma mark -
-#pragma mark Chat Stream Management
-
-/**
- Enable/disable Stream Management for chat
- 
- @param useStreamManagementForChat Enable Stream Management for chat. Default value: NO
- */
-+ (void)useStreamManagementForChat:(BOOL)useStreamManagementForChat;
-
-/**
- Check if Stream Management is enable for Chat
- 
- @return YES if Stream Management is enabled
- */
-+ (BOOL)isUseStreamManagementForChat;
-
-
-#pragma mark -
 #pragma mark Chat proxy
 
 /**

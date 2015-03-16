@@ -17,6 +17,6 @@
 @property (nonatomic, retain) NSDate *socialProviderTokenExpiresAt;
 
 - (void)returnResult;
-- (void)populateAnswer:(NSString *)responce headers:(NSDictionary *)headers;
+- (void)populateAnswer:(NSString *)response headers:(NSDictionary *)headers;
 
 @end

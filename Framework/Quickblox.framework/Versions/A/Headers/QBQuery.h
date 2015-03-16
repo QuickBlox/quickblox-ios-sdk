@@ -12,19 +12,15 @@
 @protocol Cancelable;
 @protocol QBActionStatusDelegate;
 
-@interface QBQuery : NSObject<Perform,RestRequestDelegate,Cancelable, QBActionStatusDelegate>
-{
-	NSObject<QBActionStatusDelegate> *delegate;
-	NSObject<Cancelable> *canceler;
+@interface QBQuery : NSObject<Perform,RestRequestDelegate,Cancelable, QBActionStatusDelegate> {
+    
 	BOOL isCanceled;
-	NSRecursiveLock *canceledLock;
-	id context;
-	enum RestRequestBuildStyle requestBuildStyle;
 }
-@property (nonatomic,retain) NSObject<QBActionStatusDelegate> *delegate;
-@property (nonatomic,retain) NSObject<Cancelable> *canceler;
-@property (nonatomic,retain) NSRecursiveLock *canceledLock;
-@property (nonatomic,retain) id context;
+
+@property (nonatomic, strong) NSObject<QBActionStatusDelegate> *delegate;
+@property (nonatomic, weak) NSObject<Cancelable> *canceler;
+@property (nonatomic, strong) NSRecursiveLock *canceledLock;
+@property (nonatomic, copy) id context;
 @property (nonatomic) enum RestRequestBuildStyle requestBuildStyle;
 
 - (RestAnswer *)allocAnswer;

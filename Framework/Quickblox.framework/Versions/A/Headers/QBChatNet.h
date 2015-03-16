@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
 
-#import <Quickblox/QBVideoChat.h>
 #import <Quickblox/QBChat.h>
 #import <Quickblox/QBChatQuery.h>
 

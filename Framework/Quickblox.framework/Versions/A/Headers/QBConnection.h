@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 typedef enum QBConnectionZoneType{
     QBConnectionZoneTypeAutomatic = 1, //Default. Endpoints are loaded from QuickBlox
     QBConnectionZoneTypeProduction      = 2,
@@ -13,8 +14,15 @@ typedef enum QBConnectionZoneType{
 } QBConnectionZoneType;
 
 @class QBRequest;
+@class QBResponse;
+@class QBSessionParameters;
 
 @interface QBConnection : NSObject
+
+/**
+ *Use auto create session, default - NO
+ */
++ (void)setAutoCreateSessionEnabled:(BOOL)enabled;
 
 #pragma mark - Settings methods
 /**
@@ -39,11 +47,24 @@ typedef enum QBConnectionZoneType{
 + (void)setServiceZone:(QBConnectionZoneType)serviceZone;
 
 /**
+* A Boolean value indicating whether the manager is enabled.
+
+* If YES, the manager will change status bar network activity indicator according to network operation notifications it receives. The default value is NO.
+*/
++ (void)setNetworkIndicatorManagerEnabled:(BOOL)enabled;
+
+/**
+ A Boolean value indicating whether the network activity indicator is currently displayed in the status bar.
+*/
++ (BOOL)isNetworkIndicatorVisible;
+
+/**
 * Allow to set custom domain for specific zone.
 *
 * @param apiDomain - Domain for service i.e. http://my_custom_domain.com. Possible to pass nil to return to default settings
 * @param zone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeProduction
 */
 + (void)setApiDomain:(NSString *)apiDomain forServiceZone:(enum QBConnectionZoneType)zone;
+
 
 @end

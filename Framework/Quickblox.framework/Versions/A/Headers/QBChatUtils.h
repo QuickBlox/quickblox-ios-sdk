@@ -11,9 +11,7 @@
 
 @class QBChatMessage;
 @class QBChatRoom;
-@class QBXMPPMessage;
-
-#define xmppRoomField @"xmppRoom"
+@class XMPPMessage;
 
 @interface QBChatUtils : NSObject
 
@@ -33,7 +31,7 @@
 + (NSString *)roomNameFromJID:(NSString *)roomJID;
 + (NSString *)roomJIDFromName:(NSString *)roomName;
 
-+ (QBChatRoom *)roomFromJID:(NSString *)roomJID name:(NSString *)roomName andAddDelegate:(BOOL)addDelegate;
+//+ (QBChatRoom *)roomFromJID:(NSString *)roomJID name:(NSString *)roomName andAddDelegate:(BOOL)addDelegate;
 
 /**
  Validate room name.
@@ -51,10 +49,10 @@
 
 // Image rotation
 + (CGImageRef)CGImageRotatedByAngle:(CGImageRef)imgRef angle:(CGFloat)angle;
-// Extract custom params & attachments
 
-+ (NSDictionary *)customParametersFromModuleMessage:(QBXMPPMessage *)moduleMessage;
-+ (void)setCustomParametersForModuleMessage:(NSDictionary *)customParameters toXMPPMessage:(QBXMPPMessage *)xmppMessage;
+//Extract custom params for headline
++ (NSDictionary *)customParametersFromModuleMessage:(XMPPMessage *)moduleMessage;
++ (void)setCustomParametersForModuleMessage:(NSDictionary *)customParameters toXMPPMessage:(XMPPMessage *)xmppMessage;
 
 // Extract custom params & attachments
 + (NSMutableDictionary *)customParametersFromXMPPMessage:(id)message;

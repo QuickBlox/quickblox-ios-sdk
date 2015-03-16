@@ -32,6 +32,22 @@ extern NSString *const kPresenseSubscriptionStateBoth;
 #define qbvideochat_sendTURNRelayAddress @"qbvideochat_sendTURNRelayAddress"
 
 
+#define discoItems @"http://jabber.org/protocol/disco#items"
+#define discoInfo @"http://jabber.org/protocol/disco#info"
+#define mucOwner @"http://jabber.org/protocol/muc#owner"
+#define mucAdmin @"http://jabber.org/protocol/muc#admin"
+
+
+#define requestAllRoomsQueryIDPrefix @"561002"
+// 561003
+#define requestRoomInformationQueryIDPrefix @"561004"
+#define requestRoomOnlineUsersQueryIDPrefix @"561005"
+// 561006
+#define requestDestroyRoomQueryIDPrefix @"561007"
+//
+#define requestServiceDiscoveryInformationQueryIDPrefix @"561008"
+
+
 #define qbChatMessageExtraParams @"extraParams"
 #define qbChatMessageQuickBloxExtension @"quickblox"
 #define qbChatPresenceExtension @"x"

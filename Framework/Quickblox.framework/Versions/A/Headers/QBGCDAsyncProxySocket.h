@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 ChatSecure. All rights reserved.
 //
 
-#import "QBGCDAsyncSocket.h"
+#import "GCDAsyncSocket.h"
 
 typedef NS_ENUM(int16_t, QBGCDAsyncSocketSOCKSVersion) {
     QBGCDAsyncSocketSOCKSVersion4 = 0,    // Not implemented
@@ -19,7 +19,7 @@ typedef NS_ENUM(int16_t, QBGCDAsyncProxySocketError) {
     QBGCDAsyncProxySocketAuthenticationError
 };
 
-@interface QBGCDAsyncProxySocket : QBGCDAsyncSocket <QBGCDAsyncSocketDelegate>
+@interface QBGCDAsyncProxySocket : GCDAsyncSocket <GCDAsyncSocketDelegate>
 
 // SOCKS proxy settings
 @property (nonatomic, strong, readonly) NSString *proxyHost;

@@ -5,8 +5,8 @@
 //  Created by Andrey on 01.12.14.
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
 //
-@class QBXMPPMessage;
-@class QBXMPPStream;
+@class XMPPMessage;
+@class XMPPStream;
 
 @protocol QBModuleProtocol <NSObject>
 
@@ -19,6 +19,6 @@
 @required
 
 - (NSString *)moduleIdentifier;
-- (void)handleMessage:(QBXMPPMessage *)message;
+- (void)handleMessage:(XMPPMessage *)message;
 
 @end

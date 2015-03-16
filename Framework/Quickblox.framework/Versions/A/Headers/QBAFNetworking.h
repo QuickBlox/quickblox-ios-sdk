@@ -30,5 +30,7 @@
 
     #import "QBAFHTTPRequestOperation.h"
 
+    #import "QBAFNetworkActivityIndicatorManager.h"
+
     #import "QBAFHTTPClient.h"
 #endif /* _QBAFNETWORKING_ */

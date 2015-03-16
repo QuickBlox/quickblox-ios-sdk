@@ -8,31 +8,26 @@
 
 #import <Foundation/Foundation.h>
 #import "ChatEnums.h"
+
 /**
  QBContactListItem structure. Represents user's contact list item
  */
-
-@interface QBContactListItem : NSObject{
-@private
-    NSUInteger userID;
-    BOOL online;
-}
+@interface QBContactListItem : NSObject
 
 /**
  Unique identifier of user
  */
-@property (atomic, assign) NSUInteger userID;
+@property (nonatomic, assign) NSUInteger userID;
 
 /**
  User status (online/offline)
  */
-@property (atomic, assign, getter=isOnline) BOOL online;
+@property (nonatomic, assign, getter=isOnline) BOOL online;
 
 /**
  User subscription state. Read more about states http://xmpp.org/rfcs/rfc3921.html#roster
  */
-@property (atomic, assign) enum QBPresenseSubscriptionState subscriptionState;
-
+@property (nonatomic, assign) enum QBPresenseSubscriptionState subscriptionState;
 
 // Helpers: translate subscriptionState to and from string to and from enum
 + (enum QBPresenseSubscriptionState)subscriptionStateFromString:(NSString *)subscriptionState;
