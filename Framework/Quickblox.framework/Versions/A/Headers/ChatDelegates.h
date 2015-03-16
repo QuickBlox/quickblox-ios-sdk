@@ -15,13 +15,14 @@
 /**
  QBChatDelegate protocol definition
  This protocol defines methods signatures for callbacks. Implement this protocol in your class and
- set [QBChat instance].delegate to your implementation instance to receive callbacks from QBChat
+ add [QBChat instance].addDelegate to your implementation instance to receive callbacks from QBChat
  */
 
 @class QBContactList, QBChatRoom, QBChatMessage, QBPrivacyList;
 
 @protocol QBChatDelegate <NSObject>
 @optional
+
 
 #pragma mark -
 #pragma mark Base IM
@@ -56,7 +57,14 @@
  
  @param error Error code from QBChatServiceError enum
  */
-- (void)chatDidFailWithError:(NSInteger)code;
+- (void)chatDidFailWithError:(NSInteger)code __attribute__((deprecated("Use chatDidFailWithStreamError:")));
+
+/**
+ chatDidFailWithStreamError fired when connection error
+ 
+ @param error XMPPStream Error
+ */
+- (void)chatDidFailWithStreamError:(NSError *)error;
 
 /**
  Called in case receiving presence
@@ -65,6 +73,14 @@
  @param type Presence type
  */
 - (void)chatDidReceivePresenceOfUser:(NSUInteger)userID type:(NSString *)type;
+
+
+/**
+ Fired when received service discovery information
+ 
+ @param features Array of server features
+ */
+- (void)chatDidReceiveServiceDiscoveryInformation:(NSArray *)features;
 
 
 #pragma mark -
@@ -78,7 +94,7 @@
 - (void)chatDidReceiveContactAddRequestFromUser:(NSUInteger)userID;
 
 /**
- Called in case changing contact list
+ Called in case of changing contact list
  */
 - (void)chatContactListDidChange:(QBContactList *)contactList;
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
+		860C01F11AB3497D001F4941 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7A619AE27700065AE21 /* Quickblox.framework */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBD3C981833D654009D090B /* CharactersEscapeService.m */; };
@@ -40,7 +41,6 @@
 		BFE6FBE5180F295100E64AC4 /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE4180F295100E64AC4 /* LocalStorageService.m */; };
 		BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */; };
 		BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */; };
-		BFFCF7A719AE27700065AE21 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7A619AE27700065AE21 /* Quickblox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,7 +106,7 @@
 				BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */,
 				BFE6FBC2180E9E9600E64AC4 /* AVFoundation.framework in Frameworks */,
 				BFE6FBC0180E9E9000E64AC4 /* CoreVideo.framework in Frameworks */,
-				BFFCF7A719AE27700065AE21 /* Quickblox.framework in Frameworks */,
+				860C01F11AB3497D001F4941 /* Quickblox.framework in Frameworks */,
 				BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */,
 				BFE6FBBC180E9E8500E64AC4 /* CoreMedia.framework in Frameworks */,
 				BFE6FBBA180E9E7E00E64AC4 /* AudioToolbox.framework in Frameworks */,
@@ -485,6 +485,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
+					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -495,6 +496,10 @@
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
+				);
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-ObjC",
@@ -517,6 +522,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					"\"$(SRCROOT)/../Framework\"",
+					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -527,6 +533,10 @@
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
+				);
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-ObjC",

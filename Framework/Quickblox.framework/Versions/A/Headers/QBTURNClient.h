@@ -15,7 +15,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import "QBGCDAsyncSocket.h"
+#import "GCDAsyncSocket.h"
 #import "QBGCDAsyncUdpSocket.h"
 
 // TURN default port
@@ -41,7 +41,7 @@
 #define TURNLog(...) if (log) NSLog(__VA_ARGS__)
 
 @protocol QBTURNClientDelegate;
-@interface QBTURNClient : NSObject <QBGCDAsyncUdpSocketDelegate, QBGCDAsyncSocketDelegate>{
+@interface QBTURNClient : NSObject <QBGCDAsyncUdpSocketDelegate, GCDAsyncSocketDelegate>{
     NSData *magicCookie;
     
     NSData *NONCE;
@@ -51,8 +51,8 @@
 }
 @property (nonatomic, retain) QBGCDAsyncUdpSocket *udpSocketVideo;
 
-@property (nonatomic, retain) QBGCDAsyncSocket *tcpSocketControl;
-@property (nonatomic, retain) QBGCDAsyncSocket *tcpSocketData;
+@property (nonatomic, retain) GCDAsyncSocket *tcpSocketControl;
+@property (nonatomic, retain) GCDAsyncSocket *tcpSocketData;
 
 @property (nonatomic, retain) id<QBTURNClientDelegate>delegate;
 
@@ -80,7 +80,7 @@
 - (void)sendIndicationMessageTCP;
 
 // other
-- (void)setTcpSocketControl:(QBGCDAsyncSocket *)_tcpSocketControl andConnect:(BOOL)connect;
+- (void)setTcpSocketControl:(GCDAsyncSocket *)_tcpSocketControl andConnect:(BOOL)connect;
 
 @end
 
@@ -110,6 +110,6 @@ enum QBTURNResponseType{
 - (void)didReceiveConnectionAttempt:(NSDictionary *) data;
 - (void)didReceiveConnectionBind;
 - (void)didFailWithError:(NSString *) error code:(NSInteger)errorCode;
-- (void)didConnectToTURNServerUsingTCP:(QBGCDAsyncSocket *)socket;
+- (void)didConnectToTURNServerUsingTCP:(GCDAsyncSocket *)socket;
 - (void)chatTURNServerDidDisconnect;
 @end

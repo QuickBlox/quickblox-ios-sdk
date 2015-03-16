@@ -20,7 +20,7 @@ typedef enum QBPrivacyItemAction {
     DENY,
 } QBPrivacyItemAction;
 
-#import "QBDDXMLElement.h"
+#import "DDXMLElement.h"
 /** QBPrivacyItem structure represents privacy object for managing privacy lists . */
 @interface QBPrivacyItem : NSObject
 
@@ -41,11 +41,11 @@ typedef enum QBPrivacyItemAction {
 /// action can be ALLOW or DENY
 @property (assign) QBPrivacyItemAction action;
 
-- (QBDDXMLElement *)convertToNSXMLElement;
+- (DDXMLElement *)convertToNSXMLElement;
 @end
 
 
-@interface QBDDXMLElement (QBPrivacyItem)
+@interface DDXMLElement (QBPrivacyItem)
 
 - (QBPrivacyItem *)convertToQBPrivacyItem;
 @end

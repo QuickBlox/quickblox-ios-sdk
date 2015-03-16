@@ -14,13 +14,13 @@
 
 + (instancetype)globalConnection;
 
-+ (instancetype)globalSessionConnection;
-
 @property (nonatomic, readonly) NSOperationQueue *operationQueue;
+@property (strong, nonatomic) NSMutableArray *operations;
 
 @property (nonatomic, readonly) NSString *serviceAuthKey;
 @property (nonatomic, readonly) NSString *serviceAuthSecret;
 @property (nonatomic, readonly) QBConnectionZoneType serviceZone;
+
 @property (nonatomic, readonly) NSString *apiDomain;
 
 // Auto constructed parameter based on apiDomain, ServiceZone and servicePath.
@@ -28,7 +28,6 @@
 
 // Parameters that could be overridden in class cluster methods
 @property (nonatomic, copy) NSString *servicePath;
-@property (nonatomic) BOOL requireSessionHeader;
 
 - (instancetype)initWithServicePath:(NSString *)servicePath;
 

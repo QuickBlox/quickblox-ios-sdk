@@ -26,7 +26,6 @@
     
     NSString *name;
     
-    BOOL isEnvironmentDevelopment;
     id message;
     enum QBMEventType type;
     
