@@ -76,7 +76,7 @@
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 + (QBRequest *)usersWithIDs:(NSArray *)IDs page:(QBGeneralResponsePage *)page
-			   successBlock:(void (^)(QBResponse *, QBGeneralResponsePage *, NSArray *))successBlock
+			   successBlock:(void (^)(QBResponse *response, QBGeneralResponsePage *page, NSArray *users))successBlock
 				 errorBlock:(void (^)(QBResponse *))errorBlock;
 
 #pragma mark - Get User with login

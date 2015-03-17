@@ -29,7 +29,27 @@
         [self.activityIndicator startAnimating];
         
         // get dialogs
-        [QBChat dialogsWithExtendedRequest:nil delegate:self];
+        
+        __weak __typeof(self)weakSelf = self;
+        [QBRequest dialogsWithSuccessBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs) {
+
+            weakSelf.dialogs = dialogObjects.mutableCopy;
+            
+            QBGeneralResponsePage *pagedRequest = [QBGeneralResponsePage responsePageWithCurrentPage:0 perPage:100];
+
+            [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:pagedRequest
+                       successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+                
+                [LocalStorageService shared].users = users;
+
+                [weakSelf.dialogsTableView reloadData];
+                [weakSelf.activityIndicator stopAnimating];
+                
+            } errorBlock:nil];
+
+        } errorBlock:^(QBResponse *response) {
+            
+        }];
     }
 }
 
@@ -117,34 +137,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(QBResult *)result{
-    if (result.success && [result isKindOfClass:[QBDialogsPagedResult class]]) {
-        QBDialogsPagedResult *pagedResult = (QBDialogsPagedResult *)result;
-        //
-        NSArray *dialogs = pagedResult.dialogs;
-        self.dialogs = [dialogs mutableCopy];
-        
-        QBGeneralResponsePage *pagedRequest = [QBGeneralResponsePage responsePageWithCurrentPage:0 perPage:100];
-                //
-        NSSet *dialogsUsersIDs = pagedResult.dialogsUsersIDs;
-        //
-        [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:pagedRequest successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-            
-            [LocalStorageService shared].users = users;
-            //
-            [self.dialogsTableView reloadData];
-            [self.activityIndicator stopAnimating];
-            
-        } errorBlock:nil];
-
-    }
 }
 
 @end

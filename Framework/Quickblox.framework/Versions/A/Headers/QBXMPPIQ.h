@@ -25,10 +25,13 @@
 + (QBXMPPIQ *)iq;
 + (QBXMPPIQ *)iqWithType:(NSString *)type;
 + (QBXMPPIQ *)iqWithType:(NSString *)type to:(QBXMPPJID *)jid;
-+ (QBXMPPIQ *)iqWithType:(NSString *)type toStr:(NSString *)to elementID:(NSString *)eid;
 + (QBXMPPIQ *)iqWithType:(NSString *)type to:(QBXMPPJID *)jid elementID:(NSString *)eid;
++ (QBXMPPIQ *)iqWithType:(NSString *)type toStr:(NSString *)to elementID:(NSString *)eid;
 + (QBXMPPIQ *)iqWithType:(NSString *)type to:(QBXMPPJID *)jid elementID:(NSString *)eid child:(NSXMLElement *)childElement;
 
++ (QBXMPPIQ *)iqWithType:(NSString *)type elementID:(NSString *)eid;
++ (QBXMPPIQ *)iqWithType:(NSString *)type elementID:(NSString *)eid child:(NSXMLElement *)childElement;
++ (QBXMPPIQ *)iqWithType:(NSString *)type child:(NSXMLElement *)childElement;
 /**
  * Creates and returns a new XMPPIQ element.
  * If the type or elementID parameters are nil, those attributes will not be added.

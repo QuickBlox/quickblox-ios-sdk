@@ -97,7 +97,7 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)createEvent:(QBMEvent *)event successBlock:(void (^)(QBResponse *, NSArray *))successBlock
++ (QBRequest *)createEvent:(QBMEvent *)event successBlock:(void (^)(QBResponse *response, NSArray *events))successBlock
                 errorBlock:(QBRequestErrorBlock)errorBlock;
 
 /** Retrieve all events which were created by current user  (with extended set of pagination parameters)
@@ -107,7 +107,8 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)eventsForPage:(QBGeneralResponsePage *)page successBlock:(void (^)(QBResponse *response, QBGeneralResponsePage* page, NSArray *events))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)eventsForPage:(QBGeneralResponsePage *)page successBlock:(void (^)(QBResponse *response, QBGeneralResponsePage* page, NSArray *events))successBlock
+                  errorBlock:(QBRequestErrorBlock)errorBlock;
 
 #pragma mark -
 #pragma mark Get Event with ID
@@ -160,7 +161,23 @@
  @param errorBlock Block with response error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
++ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock
+                                       errorBlock:(void (^)(QBError *error))errorBlock;
+
+#pragma mark -
+#pragma mark Register Subscription Task With Custom UDID
+
+/** Create subscription for current device.
+ 
+ This method registers push token on the server if they are not registered yet, then creates a Subscription and associates it with curent User.
+ 
+ @param deviceToken Token received from application:didRegisterForRemoteNotificationsWithDeviceToken: method
+ @param uniqueDeviceIdentifier device unique identifier
+ @param successBlock Block with response and subscriptions instances if request succeded
+ @param errorBlock Block with response error if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken uniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
 
 #pragma mark -
 #pragma mark Unregister Subscription Task
@@ -188,7 +205,8 @@
  @param errorBlock Block with error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage toUsers:(NSString *)usersIDs successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
++ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage toUsers:(NSString *)usersIDs successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock
+             errorBlock:(void (^)(QBError *error))errorBlock;
 
 /** Send simple push notification to users
  
@@ -200,7 +218,8 @@
  @param errorBlock Block with error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPushWithText:(NSString *)text toUsers:(NSString *)usersIDs successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
++ (QBRequest *)sendPushWithText:(NSString *)text toUsers:(NSString *)usersIDs successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock
+                     errorBlock:(void (^)(QBError *error))errorBlock;
 
 #pragma mark -
 #pragma mark Send Push Task, to users with tags
@@ -215,7 +234,8 @@
  @param errorBlock Block with error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage toUsersWithAnyOfTheseTags:(NSString *)usersTags successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
++ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage toUsersWithAnyOfTheseTags:(NSString *)usersTags successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock
+             errorBlock:(void (^)(QBError *error))errorBlock;
 
 /** Send simple push notification to users with tags
  
@@ -227,6 +247,7 @@
  @param errorBlock Block with response instance and QBMEvent instance if request failed
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPushWithText:(NSString *)text toUsersWithAnyOfTheseTags:(NSString *)usersTags successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
++ (QBRequest *)sendPushWithText:(NSString *)text toUsersWithAnyOfTheseTags:(NSString *)usersTags successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock
+                     errorBlock:(void (^)(QBError *error))errorBlock;
 
 @end

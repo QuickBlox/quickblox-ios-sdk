@@ -15,4 +15,5 @@
 
 - (id)initWithDialog:(QBChatDialog *)dialog;
 
+
 @end
