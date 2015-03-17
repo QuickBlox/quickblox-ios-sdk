@@ -12,6 +12,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
+		<key>B415C5F5923FD1699E46B5668327F083B9C32C51</key>
+		<string>github.com:QuickBlox/SDK-ios-WebRTC.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>QBRTCChatSample/QBRTCChatSample.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../../..</string>
+		<key>B415C5F5923FD1699E46B5668327F083B9C32C51</key>
+		<string>../../../../SDK-ios-WebRTC</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
@@ -35,6 +39,14 @@
 			<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
 			<key>IDESourceControlWCCName</key>
 			<string>quickblox-ios-sdk</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B415C5F5923FD1699E46B5668327F083B9C32C51</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDK-ios-WebRTC</string>
 		</dict>
 	</array>
 </dict>
