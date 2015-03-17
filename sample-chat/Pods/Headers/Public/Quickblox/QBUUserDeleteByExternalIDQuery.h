@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/UsersService/Classes/Net/Queries/User/DeleteByExternalID/QBUUserDeleteByExternalIDQuery.h

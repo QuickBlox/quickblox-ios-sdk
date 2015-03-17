@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Net/Queries/Permissions/Get/QBCOPermissionsGetQuery.h

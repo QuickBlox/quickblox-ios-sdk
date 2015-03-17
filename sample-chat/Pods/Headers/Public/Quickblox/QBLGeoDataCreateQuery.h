@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Queries/GeoData/Create/QBLGeoDataCreateQuery.h

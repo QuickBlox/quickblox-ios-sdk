@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/RatingsService/Classes/Net/Queries/GameMode/Update/QBRGameModeUpdateQuery.h

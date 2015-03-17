@@ -1,0 +1,146 @@
+
+// To check if a library is compiled with CocoaPods you
+// can use the `COCOAPODS` macro definition which is
+// defined in the xcconfigs so it is available in
+// headers also when they are imported in the client
+// project.
+
+
+// Quickblox
+#define COCOAPODS_POD_AVAILABLE_Quickblox
+#define COCOAPODS_VERSION_MAJOR_Quickblox 2
+#define COCOAPODS_VERSION_MINOR_Quickblox 1
+#define COCOAPODS_VERSION_PATCH_Quickblox 0
+
+// Quickblox/AuthServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_AuthServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_AuthServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_AuthServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_AuthServiceFramework 0
+
+// Quickblox/BaseServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_BaseServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_BaseServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_BaseServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_BaseServiceFramework 0
+
+// Quickblox/BaseServiceFrameworkARC
+#define COCOAPODS_POD_AVAILABLE_Quickblox_BaseServiceFrameworkARC
+#define COCOAPODS_VERSION_MAJOR_Quickblox_BaseServiceFrameworkARC 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_BaseServiceFrameworkARC 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_BaseServiceFrameworkARC 0
+
+// Quickblox/ChatServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_ChatServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_ChatServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_ChatServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_ChatServiceFramework 0
+
+// Quickblox/ChatServiceFrameworkARC
+#define COCOAPODS_POD_AVAILABLE_Quickblox_ChatServiceFrameworkARC
+#define COCOAPODS_VERSION_MAJOR_Quickblox_ChatServiceFrameworkARC 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_ChatServiceFrameworkARC 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_ChatServiceFrameworkARC 0
+
+// Quickblox/ContentServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_ContentServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_ContentServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_ContentServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_ContentServiceFramework 0
+
+// Quickblox/CustomObjectsFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_CustomObjectsFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_CustomObjectsFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_CustomObjectsFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_CustomObjectsFramework 0
+
+// Quickblox/Header
+#define COCOAPODS_POD_AVAILABLE_Quickblox_Header
+#define COCOAPODS_VERSION_MAJOR_Quickblox_Header 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_Header 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_Header 0
+
+// Quickblox/LocationServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_LocationServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_LocationServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_LocationServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_LocationServiceFramework 0
+
+// Quickblox/MessagesServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_MessagesServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_MessagesServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_MessagesServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_MessagesServiceFramework 0
+
+// Quickblox/QBAFNetworking
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBAFNetworking
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBAFNetworking 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBAFNetworking 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBAFNetworking 0
+
+// Quickblox/QBAuth
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBAuth
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBAuth 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBAuth 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBAuth 0
+
+// Quickblox/QBBase64
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBBase64
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBBase64 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBBase64 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBBase64 0
+
+// Quickblox/QBChat
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBChat
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBChat 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBChat 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBChat 0
+
+// Quickblox/QBContent
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBContent
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBContent 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBContent 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBContent 0
+
+// Quickblox/QBCore
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBCore
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBCore 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBCore 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBCore 0
+
+// Quickblox/QBCustomObjects
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBCustomObjects
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBCustomObjects 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBCustomObjects 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBCustomObjects 0
+
+// Quickblox/QBLocation
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBLocation
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBLocation 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBLocation 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBLocation 0
+
+// Quickblox/QBMessages
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBMessages
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBMessages 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBMessages 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBMessages 0
+
+// Quickblox/QBUsers
+#define COCOAPODS_POD_AVAILABLE_Quickblox_QBUsers
+#define COCOAPODS_VERSION_MAJOR_Quickblox_QBUsers 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_QBUsers 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_QBUsers 0
+
+// Quickblox/RatingsServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_RatingsServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_RatingsServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_RatingsServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_RatingsServiceFramework 0
+
+// Quickblox/UsersServiceFramework
+#define COCOAPODS_POD_AVAILABLE_Quickblox_UsersServiceFramework
+#define COCOAPODS_VERSION_MAJOR_Quickblox_UsersServiceFramework 2
+#define COCOAPODS_VERSION_MINOR_Quickblox_UsersServiceFramework 1
+#define COCOAPODS_VERSION_PATCH_Quickblox_UsersServiceFramework 0
+

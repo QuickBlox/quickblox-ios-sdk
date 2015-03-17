@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Net/Answers/File/FileBinaryAnswer/QBCOFileBinaryAnswer.h

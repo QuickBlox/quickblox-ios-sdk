@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/AuthService/Classes/Net/Requests/Auth/QBAuthRequests.h

@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/UsersService/Classes/Net/Answers/User/Logout/QBUUserLogoutAnswer.h

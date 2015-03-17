@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/ContentService/Classes/Net/Queries/Blob/Update/QBCBlobUpdateQuery.h

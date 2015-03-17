@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Net/Results/File/File/QBCOFileResult.h

@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/QBUsers/QBRequest+QBUsers.h

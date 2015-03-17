@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Queries/Places/Delete/QBLPlaceDeleteQuery.h

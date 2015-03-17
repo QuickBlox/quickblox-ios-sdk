@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/AuthService/Classes/Net/Results/Auth/Common/QBAAuthResult.h

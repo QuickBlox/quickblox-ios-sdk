@@ -1,10 +1,86 @@
 PODS:
-  - MTBlockAlertView (0.1.1)
+  - Quickblox (2.1):
+    - Quickblox/AuthServiceFramework (= 2.1)
+    - Quickblox/BaseServiceFramework (= 2.1)
+    - Quickblox/BaseServiceFrameworkARC (= 2.1)
+    - Quickblox/ChatServiceFramework (= 2.1)
+    - Quickblox/ChatServiceFrameworkARC (= 2.1)
+    - Quickblox/ContentServiceFramework (= 2.1)
+    - Quickblox/CustomObjectsFramework (= 2.1)
+    - Quickblox/Header (= 2.1)
+    - Quickblox/LocationServiceFramework (= 2.1)
+    - Quickblox/MessagesServiceFramework (= 2.1)
+    - Quickblox/QBAFNetworking (= 2.1)
+    - Quickblox/QBAuth (= 2.1)
+    - Quickblox/QBBase64 (= 2.1)
+    - Quickblox/QBChat (= 2.1)
+    - Quickblox/QBContent (= 2.1)
+    - Quickblox/QBCore (= 2.1)
+    - Quickblox/QBCustomObjects (= 2.1)
+    - Quickblox/QBLocation (= 2.1)
+    - Quickblox/QBMessages (= 2.1)
+    - Quickblox/QBUsers (= 2.1)
+    - Quickblox/RatingsServiceFramework (= 2.1)
+    - Quickblox/UsersServiceFramework (= 2.1)
+  - Quickblox/AuthServiceFramework (2.1):
+    - Quickblox/BaseServiceFramework
+  - Quickblox/BaseServiceFramework (2.1):
+    - Quickblox/QBAFNetworking
+    - Quickblox/QBBase64
+    - Quickblox/QBCore
+  - Quickblox/BaseServiceFrameworkARC (2.1)
+  - Quickblox/ChatServiceFramework (2.1):
+    - Quickblox/BaseServiceFramework
+    - Quickblox/UsersServiceFramework
+  - Quickblox/ChatServiceFrameworkARC (2.1):
+    - Quickblox/BaseServiceFramework
+    - Quickblox/UsersServiceFramework
+  - Quickblox/ContentServiceFramework (2.1):
+    - Quickblox/BaseServiceFramework
+  - Quickblox/CustomObjectsFramework (2.1):
+    - Quickblox/BaseServiceFramework
+  - Quickblox/Header (2.1)
+  - Quickblox/LocationServiceFramework (2.1):
+    - Quickblox/BaseServiceFramework
+  - Quickblox/MessagesServiceFramework (2.1):
+    - Quickblox/BaseServiceFramework
+  - Quickblox/QBAFNetworking (2.1)
+  - Quickblox/QBAuth (2.1):
+    - Quickblox/QBCore
+  - Quickblox/QBBase64 (2.1)
+  - Quickblox/QBChat (2.1):
+    - Quickblox/ChatServiceFramework
+    - Quickblox/QBCore
+  - Quickblox/QBContent (2.1):
+    - Quickblox/ContentServiceFramework
+    - Quickblox/QBCore
+  - Quickblox/QBCore (2.1)
+  - Quickblox/QBCustomObjects (2.1):
+    - Quickblox/CustomObjectsFramework
+    - Quickblox/QBCore
+  - Quickblox/QBLocation (2.1):
+    - Quickblox/LocationServiceFramework
+    - Quickblox/QBCore
+  - Quickblox/QBMessages (2.1):
+    - Quickblox/MessagesServiceFramework
+    - Quickblox/QBCore
+  - Quickblox/QBUsers (2.1):
+    - Quickblox/QBCore
+    - Quickblox/UsersServiceFramework
+  - Quickblox/RatingsServiceFramework (2.1):
+    - Quickblox/BaseServiceFramework
+    - Quickblox/LocationServiceFramework
+  - Quickblox/UsersServiceFramework (2.1):
+    - Quickblox/BaseServiceFramework
 
 DEPENDENCIES:
-  - MTBlockAlertView (~> 0.1.1)
+  - Quickblox (from `../../SDK-iOS/`)
+
+EXTERNAL SOURCES:
+  Quickblox:
+    :path: ../../SDK-iOS/
 
 SPEC CHECKSUMS:
-  MTBlockAlertView: bd376f8b9f0ea945ed21e4c75aa0bb9afe3e782d
+  Quickblox: 534a41eaf490b3a4182794e21003c7183e4d60e4
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.35.0
