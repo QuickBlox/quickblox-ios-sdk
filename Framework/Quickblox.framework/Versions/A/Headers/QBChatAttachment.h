@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface QBChatAttachment : NSObject <NSCoding, NSCopying> {
-    NSString *type;
-    NSString *url;
-    NSString *ID;
+
 }
 
 /** Type of attachment: audio/video/image */

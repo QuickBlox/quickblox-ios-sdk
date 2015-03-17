@@ -19,7 +19,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 @property (copy) CompletionBlock loginCompletionBlock;
 @property (copy) JoinRoomCompletionBlock joinRoomCompletionBlock;
-@property (copy) CompletionBlockWithResult requestRoomsCompletionBlock;
 
 @end
 
@@ -40,7 +39,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (id)init{
     self = [super init];
     if(self){
-        [QBChat instance].delegate = self;
+        
+        [[QBChat instance] addDelegate:self];
     }
     return self;
 }
@@ -61,11 +61,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
 }
 
-- (void)createOrJoinRoomWithName:(NSString *)roomName completionBlock:(void(^)(QBChatRoom *))completionBlock{
-    self.joinRoomCompletionBlock = completionBlock;
-    
-    [[QBChat instance] createOrJoinRoomWithName:roomName membersOnly:NO persistent:YES];
-}
 
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock{
     self.joinRoomCompletionBlock = completionBlock;
@@ -75,12 +70,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void)leaveRoom:(QBChatRoom *)room{
     [[QBChat instance] leaveRoom:room];
-}
-
-- (void)requestRoomsWithCompletionBlock:(void(^)(NSArray *))completionBlock{
-    self.requestRoomsCompletionBlock = completionBlock;
-    
-    [[QBChat instance]  requestAllRooms];
 }
 
 
@@ -108,11 +97,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (void)chatRoomDidEnter:(QBChatRoom *)room{
     self.joinRoomCompletionBlock(room);
     self.joinRoomCompletionBlock = nil;
-}
-
-- (void)chatDidReceiveListOfRooms:(NSArray *)rooms{
-    self.requestRoomsCompletionBlock(rooms);
-    self.requestRoomsCompletionBlock = nil;
 }
 
 - (void)chatDidReceiveMessage:(QBChatMessage *)message{

@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 QuickBlox. All rights reserved.
 //
 
-@interface QBSessionParameters : NSObject
+@interface QBSessionParameters : NSObject <NSCoding>
 
 /// Social network provider. Posible values: facebook, twitter
 @property(nonatomic, retain) NSString *socialProvider;

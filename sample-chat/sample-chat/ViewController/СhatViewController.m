@@ -65,7 +65,22 @@
     }
     
     // get messages history
-    [QBChat messagesWithDialogID:self.dialog.ID extendedRequest:nil delegate:self];
+    
+    __weak __typeof(self)weakSelf = self;
+    [QBRequest messagesWithDialogID:self.dialog.ID successBlock:^(QBResponse *response, NSArray *messages) {
+        
+        if(messages.count > 0){
+            [weakSelf.messages addObjectsFromArray:messages];
+            //
+            [weakSelf.messagesTableView reloadData];
+            [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:weakSelf.messages.count-1 inSection:0]
+                                              atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
+
+        
+    } errorBlock:^(QBResponse *response) {
+        
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -230,24 +245,6 @@
                                                   self.messagesTableView.frame.size.width,
                                                   self.messagesTableView.frame.size.height+252);
     }];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-- (void)completedWithResult:(QBResult *)result
-{
-    if (result.success && [result isKindOfClass:QBChatHistoryMessageResult.class]) {
-        QBChatHistoryMessageResult *res = (QBChatHistoryMessageResult *)result;
-        NSArray *messages = res.messages;
-        if(messages.count > 0){
-            [self.messages addObjectsFromArray:[messages mutableCopy]];
-            //
-            [self.messagesTableView reloadData];
-            [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        }
-    }
 }
 
 @end
