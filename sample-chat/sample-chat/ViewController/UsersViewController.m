@@ -77,7 +77,24 @@
         chatDialog.type = QBChatDialogTypeGroup;
     }
     
-    [QBChat createDialog:chatDialog delegate:self];
+    __weak __typeof(self)weakSelf = self;
+    [QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
+        
+            DialogsViewController *dialogsViewController = weakSelf.navigationController.viewControllers[0];
+            dialogsViewController.createdDialog = createdDialog;
+            
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+
+    } errorBlock:^(QBResponse *response) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
+                                                        message:response.error.error.localizedDescription
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles: nil];
+        [alert show];
+        
+    }];
 }
 
 
@@ -182,33 +199,6 @@
         }
     }
 }
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(QBResult *)result{
-    if (result.success && [result isKindOfClass:[QBChatDialogResult class]]) {
-        // dialog created
-        
-        QBChatDialogResult *dialogRes = (QBChatDialogResult *)result;
-        
-        DialogsViewController *dialogsViewController = self.navigationController.viewControllers[0];
-        dialogsViewController.createdDialog = dialogRes.dialog;
-        
-        [self.navigationController popViewControllerAnimated:YES];
-  
-    }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-                                                        message:[[result errors] componentsJoinedByString:@","]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles: nil];
-        [alert show];
-    }
-}
-
 
 #pragma mark
 #pragma mark NMPaginatorDelegate

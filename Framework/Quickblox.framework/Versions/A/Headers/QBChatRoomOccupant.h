@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QBChatRoomOccupant : NSObject
+@interface QBChatRoomOccupant : NSObject <NSCoding>
 {
 	NSString *nickname;
     NSDictionary *parameters;

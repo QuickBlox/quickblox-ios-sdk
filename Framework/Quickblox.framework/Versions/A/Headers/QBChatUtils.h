@@ -13,12 +13,10 @@
 @class QBChatRoom;
 @class QBXMPPMessage;
 
-#define xmppRoomField @"xmppRoom"
-
 @interface QBChatUtils : NSObject
 
 // QBUser <-> JID
-+ (NSString *)JIDFromCurrentUserID:(NSUInteger)userID;
++ (NSString *)JIDFromCurrentUserID:(NSUInteger)userID resource:(NSString *)resource;
 + (NSString *)JIDFromUserID:(NSUInteger)userID;
 + (NSUInteger)userIDFromJID:(NSString *)jid;
 
@@ -33,7 +31,7 @@
 + (NSString *)roomNameFromJID:(NSString *)roomJID;
 + (NSString *)roomJIDFromName:(NSString *)roomName;
 
-+ (QBChatRoom *)roomFromJID:(NSString *)roomJID name:(NSString *)roomName andAddDelegate:(BOOL)addDelegate;
+//+ (QBChatRoom *)roomFromJID:(NSString *)roomJID name:(NSString *)roomName andAddDelegate:(BOOL)addDelegate;
 
 /**
  Validate room name.
@@ -51,8 +49,8 @@
 
 // Image rotation
 + (CGImageRef)CGImageRotatedByAngle:(CGImageRef)imgRef angle:(CGFloat)angle;
-// Extract custom params & attachments
 
+//Extract custom params for headline
 + (NSDictionary *)customParametersFromModuleMessage:(QBXMPPMessage *)moduleMessage;
 + (void)setCustomParametersForModuleMessage:(NSDictionary *)customParameters toXMPPMessage:(QBXMPPMessage *)xmppMessage;
 

@@ -2,41 +2,29 @@
 
 @class QBGCDMulticastDelegateEnumerator;
 
-struct QBGCDMulticastDelegateListNode {
-	__unsafe_unretained id delegate;
-	dispatch_queue_t delegateQueue;
-	struct QBGCDMulticastDelegateListNode * prev;
-    struct QBGCDMulticastDelegateListNode * next;
-    int32_t retainCount;
-};
-typedef struct QBGCDMulticastDelegateListNode GCDMulticastDelegateListNode;
-
 /**
- * This class provides multicast delegate functionality.
- * That is, it provides a means for managing a list of delegates,
- * and any method invocations to an instance of the class are automatically forwarded to all delegates.
- * 
+ * This class provides multicast delegate functionality. That is:
+ * - it provides a means for managing a list of delegates
+ * - any method invocations to an instance of this class are automatically forwarded to all delegates
+ *
  * For example:
- * 
+ *
  * // Make this method call on every added delegate (there may be several)
  * [multicastDelegate cog:self didFindThing:thing];
- * 
+ *
  * This allows multiple delegates to be added to an xmpp stream or any xmpp module,
  * which in turn makes development easier as there can be proper separation of logically different code sections.
- * 
+ *
  * In addition, this makes module development easier,
- * as multiple delegates can be handled in the same manner as the traditional single delegate paradigm.
- * 
+ * as multiple delegates can usually be handled in a manner similar to the traditional single delegate paradigm.
+ *
  * This class also provides proper support for GCD queues.
  * So each delegate specifies which queue they would like their delegate invocations to be dispatched onto.
- * 
+ *
  * All delegate dispatching is done asynchronously (which is a critically important architectural design).
-**/
+ **/
 
 @interface QBGCDMulticastDelegate : NSObject
-{
-	GCDMulticastDelegateListNode *delegateList;
-}
 
 - (void)addDelegate:(id)delegate delegateQueue:(dispatch_queue_t)delegateQueue;
 - (void)removeDelegate:(id)delegate delegateQueue:(dispatch_queue_t)delegateQueue;
@@ -48,16 +36,14 @@ typedef struct QBGCDMulticastDelegateListNode GCDMulticastDelegateListNode;
 - (NSUInteger)countOfClass:(Class)aClass;
 - (NSUInteger)countForSelector:(SEL)aSelector;
 
+- (BOOL)hasDelegateThatRespondsToSelector:(SEL)aSelector;
+
 - (QBGCDMulticastDelegateEnumerator *)delegateEnumerator;
 
 @end
 
+
 @interface QBGCDMulticastDelegateEnumerator : NSObject
-{
-	NSUInteger numDelegates;
-	NSUInteger currentDelegateIndex;
-	GCDMulticastDelegateListNode **delegates;
-}
 
 - (NSUInteger)count;
 - (NSUInteger)countOfClass:(Class)aClass;

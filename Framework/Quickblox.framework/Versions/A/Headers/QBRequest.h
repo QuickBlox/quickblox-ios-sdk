@@ -40,10 +40,15 @@ typedef void (^QBRequestErrorBlock)(QBResponse *response);
 @property (nonatomic, strong) NSArray *responseSerialisators;
 
 @property (nonatomic, copy) NSDictionary *headers;
-@property (nonatomic, copy) NSDictionary *parameters;
 @property (nonatomic, copy) NSData *body;
-
 @property (nonatomic) NSStringEncoding encoding;
+
+@property (nonatomic, copy, readonly) NSDictionary *parameters;
+
+- (void)addParametersFromDictionary:(NSDictionary *)otherDictionary;
+- (void)addParameter:(id)obj forKey:(NSString *)key;
+- (void)removeParameterForKey:(NSString *)key;
+- (void)extractParametersFromDictionary:(NSDictionary *)parameters;
 
 - (instancetype)initWithCompletionBlock:(QBRequestCompletionBlock)completionBlock;
 - (instancetype)initWithUpdateBlock:(QBRequestStatusUpdateBlock)updateBlock completionBlock:(QBRequestCompletionBlock)completionBlock;
