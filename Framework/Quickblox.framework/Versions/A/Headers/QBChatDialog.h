@@ -10,23 +10,14 @@
 #import "ChatEnums.h"
 
 @class QBChatRoom;
-@interface QBChatDialog : NSObject <NSCoding, NSCopying> {
-@private
-    NSString *ID;
-    NSString *name;
-    NSString *roomJID;
-    NSString *lastMessageText;
-    NSDate *lastMessageDate;
-    NSUInteger lastMessageUserID;
-    NSUInteger unreadMessagesCount;
-    NSArray *occupantIDs;
-    NSMutableDictionary *data;
-    NSUInteger userID;
-    enum QBChatDialogType type;
-}
+
+@interface QBChatDialog : NSObject <NSCoding, NSCopying>
 
 /** Object ID */
 @property (nonatomic, retain) NSString *ID;
+
+/** Created date */
+@property (nonatomic, retain) NSDate *createdAt;
 
 /** Room JID. If private chat, room JID will be nil */
 @property (nonatomic, retain) NSString *roomJID;
@@ -56,7 +47,7 @@
 @property (nonatomic, retain) NSArray *occupantIDs;
 
 /** The dictionaty with data */
-@property (nonatomic, retain) NSMutableDictionary *data;
+@property (nonatomic, retain) NSDictionary *data;
 
 /** Dialog owner */
 @property (nonatomic, assign) NSUInteger userID;
@@ -66,5 +57,18 @@
 
 /** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
 @property (nonatomic, readonly) QBChatRoom *chatRoom;
+
+
+/** Constructor */
+- (instancetype)initWithDialogID:(NSString *)dialogID;
+
+/** Occupants ids to push. Use for update dialog */
+- (void)setPushOccupantsIDs:(NSArray *)occupantsIDs;
+- (NSArray *)pushOccupantsIDs;
+
+/** Occupants ids to pull. Use for update dialog */
+- (void)setPullOccupantsIDs:(NSArray *)occupantsIDs;
+- (NSArray *)pullOccupantsIDs;
+
 
 @end

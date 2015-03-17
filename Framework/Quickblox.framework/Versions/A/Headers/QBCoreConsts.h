@@ -6,6 +6,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "QBSettings.h"
+#import "AsyncLogger.h"
 
 #define N(V) (V==nil)?@"":V
 #define S(S,...) [NSString stringWithFormat:S,__VA_ARGS__]
@@ -76,3 +78,6 @@ extern NSString* const QuickbloxSocialDialogDidCloseNotification;
 #define EB2(B) E2(kBaseServiceException, B)
 
 #define QB_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+#define QB_DISABLE_FOR_UNIT_TESTING if(NSClassFromString(@"SenTestCase") == nil && NSClassFromString(@"XCTest") == nil){
+#define QB_END_DISABLE }

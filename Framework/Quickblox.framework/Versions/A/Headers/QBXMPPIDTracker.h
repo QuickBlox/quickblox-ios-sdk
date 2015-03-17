@@ -80,6 +80,8 @@
  * This class is NOT thread-safe.
  * It is designed to be used within a thread-safe context (e.g. within a single dispatch_queue).
 **/
+
+@class QBXMPPElement;
 @interface QBXMPPIDTracker : NSObject
 {
 	dispatch_queue_t queue;
@@ -97,7 +99,13 @@
 
 - (void)addID:(NSString *)elementID trackingInfo:(id <QBXMPPTrackingInfo>)trackingInfo;
 
+- (void)addElement:(QBXMPPElement *)element target:(id)target selector:(SEL)selector timeout:(NSTimeInterval)timeout;
+
+- (void)addElement:(QBXMPPElement *)element trackingInfo:(id <QBXMPPTrackingInfo>)trackingInfo;
+
 - (BOOL)invokeForID:(NSString *)elementID withObject:(id)obj;
+
+- (NSUInteger)numberOfIDs;
 
 - (void)removeID:(NSString *)elementID;
 - (void)removeAllIDs;
@@ -113,6 +121,8 @@
 @property (nonatomic, readonly) NSTimeInterval timeout;
 
 @property (nonatomic, readwrite, copy) NSString *elementID;
+
+@property (nonatomic, readwrite, copy) QBXMPPElement *element;
 
 - (void)createTimerWithDispatchQueue:(dispatch_queue_t)queue;
 - (void)cancelTimer;
@@ -135,6 +145,7 @@
 	NSTimeInterval timeout;
 	
 	NSString *elementID;
+    QBXMPPElement *element;
 	dispatch_source_t timer;
 }
 

@@ -20,6 +20,9 @@
 /** Identifies client device in 3-rd party service like APNS, C2DM, MPNS, BBPS.*/
 @property(nonatomic, retain) NSString *clientIdentificationSequence;
 
+/** Set custom UDID or use auto-generated UDID if customUDID is nil */
+@property(nonatomic, retain) NSString *customUDID;
+
 /** Determine application mode. It allows conveniently separate development and production modes. */
 @property(nonatomic) BOOL isEnvironmentDevelopment;
 
@@ -27,5 +30,10 @@
  @return New instance of QBMPushToken
  */
 + (QBMPushToken *)pushToken;
+
+/** Create new push token
+ @return New instance of QBMPushToken with custom UDID
+ */
++ (QBMPushToken *)pushTokenWithCustomUDID:(NSString *)customUDID;
 
 @end

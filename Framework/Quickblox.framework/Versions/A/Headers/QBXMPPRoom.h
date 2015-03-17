@@ -9,7 +9,7 @@
 
 #define requestRoomUsersQueryIDPrefix @"561003"
 
-@interface QBXMPPRoom : QBXMPPModule <NSCopying>
+@interface QBXMPPRoom : QBXMPPModule <NSCoding, NSCopying>
 {
 	NSString *roomJID;
     NSString *naturalLanguageRoomName;

@@ -11,8 +11,8 @@
 @class QBChatMessage;
 @interface QBStreamManagementCallbackObject : NSObject
 
-@property (copy) void (^callbackBlock)(NSError *);
-@property (assign) NSUInteger currentNumberOfStanzasSent;
-@property (copy) QBChatMessage *chatMessage;
+@property (copy, nonatomic) void (^callbackBlock)(NSError *);
+@property (assign, nonatomic) NSUInteger currentNumberOfStanzasSent;
+@property (copy, nonatomic) id object;
 
 @end
