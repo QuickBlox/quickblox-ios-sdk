@@ -1,0 +1,3 @@
+PODS_QUICKBLOX_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2"
+PODS_QUICKBLOX_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/../../../SDK-iOS/Framework/Core/External/XMPP/Vendor/libidn"
+PODS_QUICKBLOX_OTHER_LDFLAGS = -ObjC -l"iconv" -l"idn" -l"stdc++" -l"xml2" -framework "MobileCoreServices" -framework "SystemConfiguration"

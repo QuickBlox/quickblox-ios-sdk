@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/ContentService/Classes/Net/Answers/S3/Post/QBCS3PostAnswer.h

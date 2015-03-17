@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
-		860C01F11AB3497D001F4941 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7A619AE27700065AE21 /* Quickblox.framework */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBD3C981833D654009D090B /* CharactersEscapeService.m */; };
@@ -44,7 +43,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9FFAEACF57C4405D906A4932 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		23D10173847AD149B78F9958 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4C764B814CE4091E30E27BF1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
 		BFB4627B18150EB00010AE49 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatService.m; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
@@ -106,7 +106,6 @@
 				BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */,
 				BFE6FBC2180E9E9600E64AC4 /* AVFoundation.framework in Frameworks */,
 				BFE6FBC0180E9E9000E64AC4 /* CoreVideo.framework in Frameworks */,
-				860C01F11AB3497D001F4941 /* Quickblox.framework in Frameworks */,
 				BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */,
 				BFE6FBBC180E9E8500E64AC4 /* CoreMedia.framework in Frameworks */,
 				BFE6FBBA180E9E7E00E64AC4 /* AudioToolbox.framework in Frameworks */,
@@ -131,7 +130,7 @@
 				BFE6FB7B180E8EF100E64AC4 /* sample-chat */,
 				BFE6FB74180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB73180E8EF100E64AC4 /* Products */,
-				9FFAEACF57C4405D906A4932 /* Pods.xcconfig */,
+				D8BDA4B1A6C990FA2165D669 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -261,6 +260,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		D8BDA4B1A6C990FA2165D669 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4C764B814CE4091E30E27BF1 /* Pods.debug.xcconfig */,
+				23D10173847AD149B78F9958 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -357,7 +365,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -438,6 +446,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -469,6 +478,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -476,7 +486,7 @@
 		};
 		BFE6FBA8180E8EF100E64AC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FFAEACF57C4405D906A4932 /* Pods.xcconfig */;
+			baseConfigurationReference = 4C764B814CE4091E30E27BF1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -489,22 +499,14 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
-					/usr/include/libxml2,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
-				OTHER_LDFLAGS = (
-					"-lstdc++",
-					"-ObjC",
-					"-lxml2",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Chat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -513,7 +515,7 @@
 		};
 		BFE6FBA9180E8EF100E64AC4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9FFAEACF57C4405D906A4932 /* Pods.xcconfig */;
+			baseConfigurationReference = 23D10173847AD149B78F9958 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -526,22 +528,14 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"${PODS_ROOT}/Headers\"",
-					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
-					/usr/include/libxml2,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
-				OTHER_LDFLAGS = (
-					"-lstdc++",
-					"-ObjC",
-					"-lxml2",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Chat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

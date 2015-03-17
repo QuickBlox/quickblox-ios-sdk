@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/QBCustomObjects/QBConnection+QBCustomObjects.h

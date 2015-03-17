@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/UsersService/Classes/Net/Results/User/Common/QBUsersResultsCommon.h

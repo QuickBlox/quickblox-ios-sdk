@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/MessagesService/Classes/Definitions/QBMessagesDefinitions.h

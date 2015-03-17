@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/CustomObjects/Classes/QBCustomObjectsClasses.h

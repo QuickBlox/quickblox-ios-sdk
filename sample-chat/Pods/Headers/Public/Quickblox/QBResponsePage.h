@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/QBCore/QBResponsePage.h

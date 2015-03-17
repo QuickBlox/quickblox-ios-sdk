@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/RatingsService/Classes/Net/Results/Average/Common/Base/QBRAverageResult.h

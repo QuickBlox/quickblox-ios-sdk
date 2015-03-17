@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/Core/Net/Answers/Common/Binary/BinaryAnswer.h

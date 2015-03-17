@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/MessagesService/Classes/Net/Results/Event/Common/Paged/QBMEventPagedResult.h

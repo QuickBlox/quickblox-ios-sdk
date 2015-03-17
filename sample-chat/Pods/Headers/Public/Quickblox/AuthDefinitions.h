@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/AuthService/Classes/Definitions/AuthDefinitions.h
