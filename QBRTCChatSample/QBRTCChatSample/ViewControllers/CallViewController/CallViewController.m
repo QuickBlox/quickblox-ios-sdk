@@ -46,6 +46,8 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (strong, nonatomic) NSTimer *callTimer;
 @property (assign, nonatomic) NSTimer *beepTimer;
 
+@property (assign, nonatomic) AVAudioSessionCategoryOptions defaultCategoryOptions;
+
 @end
 
 @implementation CallViewController
@@ -58,6 +60,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [super viewDidLoad];
     
     [self configureGUI];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,6 +71,8 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [ConnectionManager.instance.me isEqual:caller] ? [self startCall] : [self acceptCall];
 
     [self.opponentsCollectionView reloadData];
+    
+    self.defaultCategoryOptions = self.session.audioCategoryOptions;
 }
 
 - (void)startCall {
@@ -217,18 +222,26 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 - (IBAction)pressSwitchCameraBtn:(UIButton *)sender {
     
     sender.hidden = YES;
+    __weak __typeof(self)weakSelf = self;
     [self.session switchCamera:^(BOOL isFrontCamera) {
+        
         sender.hidden = NO;
-        NSLog(@"Is front camera - %d", isFrontCamera);
+        NSLog(@"%ld", (long) weakSelf.session.currentCaptureDevicePosition);
     }];
 }
 
 - (IBAction)pressSwitchAudioOutput:(id)sender {
     
-    [self.session switchAudioOutput:^(BOOL isSpeaker) {
+    if (self.session.audioCategoryOptions != AVAudioSessionCategoryOptionDefaultToSpeaker) {
         
-        NSLog(@"Is speaker - %d", isSpeaker);
-    }];
+        self.session.audioCategoryOptions = AVAudioSessionCategoryOptionDefaultToSpeaker;
+    }
+    else {
+        
+        self.session.audioCategoryOptions = self.defaultCategoryOptions;
+    }
+    
+    NSLog(@"%lu", (unsigned long)self.session.audioCategoryOptions);
 }
 
 #pragma mark - UICollectionViewDataSource
