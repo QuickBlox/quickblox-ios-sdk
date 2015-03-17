@@ -25,6 +25,15 @@
 @property (assign, nonatomic) BOOL videoEnabled;
 
 /**
+ *  Indicating the physical position of an AVCaptureDevice's hardware on the system.
+ */
+@property (assign, nonatomic, readonly) AVCaptureDevicePosition currentCaptureDevicePosition;
+
+/**
+ * Set audio session category options
+ */
+@property (assign, nonatomic) AVAudioSessionCategoryOptions audioCategoryOptions;
+/**
  *  Unique session identifier
  */
 @property (strong, nonatomic, readonly) NSString *ID;
@@ -84,7 +93,7 @@
  *
  * @param block isSpeaker YES/NO
  */
-- (void)switchAudioOutput:(void (^)(BOOL isSpeaker))block;
+- (void)switchAudioOutput:(void (^)(BOOL isSpeaker))block __attribute__((deprecated("use '+[QBRTCSession seAudioCategoryOptions:'.")));
 
 /**
  *  Remote track with opponent ID

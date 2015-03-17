@@ -119,4 +119,7 @@
  */
 - (void)sessionWillClose:(QBRTCSession *)session;
 
+
+- (void)session:(QBRTCSession *)session setAudioCategoryError:(NSError *)error;
+
 @end
