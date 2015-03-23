@@ -9,7 +9,7 @@
 #import <Availability.h>
 
 //0-release, 1-dev, 2-qa, 3-android
-#define QB_RTC_SAMPLE_MODE 0
+#define QB_RTC_SAMPLE_MODE 1
 
 #if (QB_RTC_SAMPLE_MODE == 0)
     #define QB_VERSION_STR @"release"
@@ -33,7 +33,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Quickblox/Quickblox.h>
 
-#if (QB_RTC_SAMPLE_MODE == 1) || (QB_RTC_SAMPLE_MODE == 3)
+#if (QB_RTC_SAMPLE_MODE == 0)
     #import "QBRTCTypes.h"
     #import "QBGLVideoView.h"
     #import "QBRTCVideoTrack.h"
