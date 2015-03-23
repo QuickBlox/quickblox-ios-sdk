@@ -26,6 +26,7 @@ const CGFloat kAnimationLength = 0.15;
     self = [super initWithCoder:coder];
     if (self) {
         self.multipleTouchEnabled = NO;
+        self.exclusiveTouch = YES;
         self.backgroundColor = nil;
         self.layer.borderWidth = 1.0f;
         [self setDefaultStyles];
