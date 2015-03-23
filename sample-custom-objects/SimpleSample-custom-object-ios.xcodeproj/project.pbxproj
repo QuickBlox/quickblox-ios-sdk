@@ -29,7 +29,6 @@
 		BF6860EB1976C36000496FFB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF6860EA1976C36000496FFB /* Images.xcassets */; };
 		BFA23414184365D500A6714D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA23413184365D500A6714D /* Security.framework */; };
 		BFFCF7A919AE28D80065AE21 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7A819AE28D80065AE21 /* Quickblox.framework */; };
-		ED6EE5F1167734CB004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE5F0167734CB004BCAC7 /* Quickblox.framework */; };
 		FA876505160875E400EB1B58 /* SSCOMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764F9160875E400EB1B58 /* SSCOMainViewController.m */; };
 		FA876506160875E400EB1B58 /* SSCONewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764FC160875E400EB1B58 /* SSCONewNoteViewController.m */; };
 		FA876507160875E400EB1B58 /* SSCONoteDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8764FF160875E400EB1B58 /* SSCONoteDetailsViewController.m */; };
@@ -104,7 +103,6 @@
 				FAC8B9D116D2D04300F03311 /* CoreVideo.framework in Frameworks */,
 				FAC8B9CF16D2D03C00F03311 /* AudioToolbox.framework in Frameworks */,
 				FAC8B9CD16D2D03600F03311 /* AVFoundation.framework in Frameworks */,
-				ED6EE5F1167734CB004BCAC7 /* Quickblox.framework in Frameworks */,
 				43E1415E160334CD00891AD7 /* libz.dylib in Frameworks */,
 				43E1415C160334C100891AD7 /* libresolv.dylib in Frameworks */,
 				43E1415A160334B400891AD7 /* libxml2.dylib in Frameworks */,
@@ -311,7 +309,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SSCO;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = QuickBlox;
 			};
 			buildConfigurationList = 43658AE21603174E000F6748 /* Build configuration list for PBXProject "SimpleSample-custom-object-ios" */;
@@ -386,9 +384,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -419,9 +419,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

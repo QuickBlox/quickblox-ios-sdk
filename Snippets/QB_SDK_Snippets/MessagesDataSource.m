@@ -17,7 +17,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return 2;
+            return 3;
         case 1:
             return 3;
         case 2:
@@ -71,8 +71,11 @@
                     cell.textLabel.text = @"Create Push Token";
                 }
                     break;
-                    
                 case 1:{
+                    cell.textLabel.text = @"Create Push Token with UDID";
+                }
+                    break;
+                case 2:{
                     cell.textLabel.text = @"Delete Push Token";
                 }
                     break;

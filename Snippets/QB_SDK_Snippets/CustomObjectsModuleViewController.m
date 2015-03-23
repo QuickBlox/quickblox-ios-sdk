@@ -34,7 +34,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // objects
     if(indexPath.section == 0){
@@ -278,7 +277,7 @@
             // Get permission
             case 0:{
 				if (useNewAPI) {
-					[QBRequest permissionsForObjectWithClassName:MovieClass ID:@"53f0c0dc6fd1dfa9c43c8af5"
+					[QBRequest permissionsForObjectWithClassName:MovieClass ID:@"54195886efa357d388000056"
 													successBlock:^(QBResponse *response, QBCOPermissions *permissions) {
 														NSLog(@"Successfull response!");
 													} errorBlock:^(QBResponse *response) {
@@ -449,7 +448,6 @@
 
 //// QuickBlox queries delegate
 - (void)completedWithResult:(QBResult *)result{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // success result
     if(result.success){
