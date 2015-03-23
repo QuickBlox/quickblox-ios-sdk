@@ -9,7 +9,6 @@
 #import "MessagesModuleViewController.h"
 #import "MessagesDataSource.h"
 
-
 @interface MessagesModuleViewController ()
 @property (nonatomic) MessagesDataSource *dataSource;
 @end
@@ -34,7 +33,6 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     switch (indexPath.section) {
         // Push Token
@@ -63,9 +61,32 @@
 					
                 }
                     break;
+                    // Create Push Token with custom UDID
+                case 1:{
+                    
+                    QBMPushToken *pushToken = [QBMPushToken pushTokenWithCustomUDID:@"2b6f0cc904d137be2e1730235f5664094b831186"];
+                    pushToken.isEnvironmentDevelopment = ![QBApplication sharedApplication].productionEnvironmentForPushesEnabled;
+                    pushToken.clientIdentificationSequence = @"6862604cbf607dd18af35f1c87af838fbe384fea37b1e38662d8b666c0dbd743";
+                    
+                    if (useNewAPI) {
+                        [QBRequest createPushToken:pushToken successBlock:^(QBResponse *response, QBMPushToken *token) {
+                            NSLog(@"Successfull response!");
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"Response error:%@", response.error);
+                        }];
+                    } else {
+                        if(withQBContext){
+                            [QBMessages createPushToken:pushToken delegate:self context:testContext];
+                        }else{
+                            [QBMessages createPushToken:pushToken delegate:self];
+                        }
+                    }
+                    
+                }
+                    break;
                     
                 // Delete Push Token
-                case 1:{
+                case 2:{
 					
 					if (useNewAPI) {
 						[QBRequest deletePushTokenWithID:1498447 successBlock:^(QBResponse *response) {
@@ -91,7 +112,7 @@
                 // Create Subscription
                 case 0:{
                     QBMSubscription *subscription = [QBMSubscription subscription];
-                    subscription.notificationChannel = QBMNotificationChannelEmail;
+                    subscription.notificationChannel = QBMNotificationChannelAPNS;
                     
 					if (useNewAPI) {
 						[QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
@@ -156,40 +177,51 @@
             switch (indexPath.row) {
                 // Create Event - notification will be delivered to all possible devices for specified users.
                 case 0:{
-                    QBMEvent *event = [QBMEvent event];
-                    event.notificationType = QBMNotificationTypePush;
-//                    event.usersIDs = [@(UserID1) description];
-//                    event.usersExternalIDs = @"123, 456";
-//                    event.usersTagsAll = @"man";
-                    event.usersTagsAny = @"people, people, people2, man";
-//                    event.usersTagsExclude = @"alien";
-                    event.isDevelopmentEnvironment = ![QBApplication sharedApplication].productionEnvironmentForPushesEnabled;
-                    event.type = QBMEventTypeOneShot; 
-                    //
-                    NSMutableDictionary  *dictPush=[NSMutableDictionary  dictionaryWithObjectsAndKeys:@"Message received 😃 from Bob", @"message", nil];
-                    [dictPush setObject:@"44" forKey:@"ios_badge"];
-                    [dictPush setObject:@"mysound.wav" forKey:@"ios_sound"];
-                    [dictPush setObject:@"234" forKey:@"user_id"];
-                    //
-                    NSError *error = nil;
-                    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
-                    NSString *json = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
-                    //
-                    event.message = json;
+//                    QBMEvent *event = [QBMEvent event];
+//                    event.notificationType = QBMNotificationTypePush;
+////                    event.usersIDs = [@(UserID1) description];
+////                    event.usersExternalIDs = @"123, 456";
+////                    event.usersTagsAll = @"man";
+//                    event.usersTagsAny = @"people, people, people2, man";
+////                    event.usersTagsExclude = @"alien";
+//                    event.isDevelopmentEnvironment = ![QBApplication sharedApplication].productionEnvironmentForPushesEnabled;
+//                    event.type = QBMEventTypeOneShot; 
+//                    //
+//                    NSMutableDictionary  *dictPush=[NSMutableDictionary  dictionaryWithObjectsAndKeys:@"Message received 😃 from Bob", @"message", nil];
+//                    [dictPush setObject:@"44" forKey:@"ios_badge"];
+//                    [dictPush setObject:@"mysound.wav" forKey:@"ios_sound"];
+//                    [dictPush setObject:@"234" forKey:@"user_id"];
+//                    //
+//                    NSError *error = nil;
+//                    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
+//                    NSString *json = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
+//                    //
+//                    event.message = json;
+//                    
+//					if (useNewAPI) {
+//						[QBRequest createEvent:event successBlock:^(QBResponse *response, NSArray *events) {
+//							NSLog(@"Successfull response!");
+//						} errorBlock:^(QBResponse *response) {
+//							NSLog(@"Response error:%@", response.error);
+//						}];
+//					} else {
+//						if(withQBContext){
+//							[QBMessages createEvent:event delegate:self context:testContext];
+//						}else{
+//							[QBMessages createEvent:event delegate:self];
+//						}
+//					}
                     
-					if (useNewAPI) {
-						[QBRequest createEvent:event successBlock:^(QBResponse *response, NSArray *events) {
-							NSLog(@"Successfull response!");
-						} errorBlock:^(QBResponse *response) {
-							NSLog(@"Response error:%@", response.error);
-						}];
-					} else {
-						if(withQBContext){
-							[QBMessages createEvent:event delegate:self context:testContext];
-						}else{
-							[QBMessages createEvent:event delegate:self];
-						}
-					}
+                    QBMEvent *event2 = [QBMEvent event];
+                    event2.message = @"hello";
+                    event2.notificationType = QBMNotificationTypeEmail;
+                    event2.type = QBMEventTypeOneShot;
+                    event2.usersIDs = [@([[ConfigManager sharedManager] testUserId1]) description];
+                    [QBRequest createEvent:event2 successBlock:^(QBResponse *response, NSArray *events) {
+                        NSLog(@"Successfull response!");
+                    } errorBlock:^(QBResponse *response) {
+                        NSLog(@"Response error:%@", response.error);
+                    }];
 					
                 }
                     break;
@@ -296,7 +328,21 @@
                 // TRegisterSubscription
                 case 0:{
 					if (useNewAPI) {
-                        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+                        
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+                        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+                            
+                            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+                            [[UIApplication sharedApplication] registerForRemoteNotifications];
+                        }
+                        else{
+                            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+                        }
+#else
+                        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+#endif
+                        
+                        
 					} else {
 						if(withQBContext){
 							[QBMessages TRegisterSubscriptionWithDelegate:self context:testContext];
@@ -338,7 +384,7 @@
                     QBMPushMessage *message = [[QBMPushMessage alloc] initWithPayload:payload];
                     
 					if (useNewAPI) {
-						[QBRequest sendPush:message toUsers:[@(UserID1) description] successBlock:^(QBResponse *response, QBMEvent *event) {
+						[QBRequest sendPush:message toUsers:[@([[ConfigManager sharedManager] testUserId1]) description] successBlock:^(QBResponse *response, QBMEvent *event) {
 							NSLog(@"Successfull response!");
 						} errorBlock:^(QBError *error) {
 							NSLog(@"Response error:%@", error);
@@ -346,9 +392,9 @@
 					} else {
 						// Send push
 						if(withQBContext){
-							[QBMessages TSendPush:message toUsers:[@(UserID1) description] delegate:self context:testContext];
+							[QBMessages TSendPush:message toUsers:[@([[ConfigManager sharedManager] testUserId1]) description] delegate:self context:testContext];
 						}else{
-							[QBMessages TSendPush:message toUsers:[@(UserID1) description] delegate:self];
+							[QBMessages TSendPush:message toUsers:[@([[ConfigManager sharedManager] testUserId1]) description] delegate:self];
 						}
 					}
                     
@@ -358,16 +404,16 @@
                 // TSendPushWithText to users' ids
                 case 3:{
 					if (useNewAPI) {
-						[QBRequest sendPushWithText:@"Hello World <>😄 amigo" toUsers:[@(UserID1) description] successBlock:^(QBResponse *response, NSArray *events) {
+						[QBRequest sendPushWithText:@"Hello World <>😄 amigo" toUsers:[@([[ConfigManager sharedManager] testUserId1]) description] successBlock:^(QBResponse *response, NSArray *events) {
 							NSLog(@"Successfull response!");
 						} errorBlock:^(QBError *error) {
 							NSLog(@"Response error:%@", error);
 						}];
 					} else {
 						if(withQBContext){
-							[QBMessages TSendPushWithText:@"Hello World" toUsers:[@(UserID1) description] delegate:self context:testContext];
+							[QBMessages TSendPushWithText:@"Hello World" toUsers:[@([[ConfigManager sharedManager] testUserId1]) description] delegate:self context:testContext];
 						}else{
-							[QBMessages TSendPushWithText:@"Hello World" toUsers:[@(UserID1) description] delegate:self];
+							[QBMessages TSendPushWithText:@"Hello World" toUsers:[@([[ConfigManager sharedManager] testUserId1]) description] delegate:self];
 						}
 					}
 
@@ -435,7 +481,6 @@
 
 // QuickBlox queries delegate
 - (void)completedWithResult:(QBResult *)result{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // success result
     if(result.success){

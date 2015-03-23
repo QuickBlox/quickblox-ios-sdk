@@ -9,7 +9,6 @@
 #import "LocationModuleViewController.h"
 #import "LocationDataSource.h"
 
-
 @interface LocationModuleViewController ()
 @property (nonatomic) LocationDataSource *dataSource;
 @end
@@ -34,7 +33,6 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     switch (indexPath.section) {
         // GeoData
@@ -93,7 +91,7 @@
 //						filter.radius = 0.4;
 //						filter.currentPosition = CLLocationCoordinate2DMake(23.55,  -12.68);
 						
-						[QBRequest geoDataWithFilter:filter page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:10]
+						[QBRequest geoDataWithFilter:filter page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:5]
 										successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
 							NSLog(@"Successfull response!");
 						} errorBlock:^(QBResponse *response) {
@@ -318,7 +316,6 @@
 
 // QuickBlox queries delegate
 - (void)completedWithResult:(QBResult *)result{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // success result
     if(result.success){

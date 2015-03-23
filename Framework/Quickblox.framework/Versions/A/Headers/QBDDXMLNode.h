@@ -5,27 +5,27 @@
 
 
 enum {
-	DDXMLInvalidKind                = 0,
-	DDXMLDocumentKind               = XML_DOCUMENT_NODE,
-	DDXMLElementKind                = XML_ELEMENT_NODE,
-	DDXMLAttributeKind              = XML_ATTRIBUTE_NODE,
-	DDXMLNamespaceKind              = XML_NAMESPACE_DECL,
-	DDXMLProcessingInstructionKind  = XML_PI_NODE,
-	DDXMLCommentKind                = XML_COMMENT_NODE,
-	DDXMLTextKind                   = XML_TEXT_NODE,
-	DDXMLDTDKind                    = XML_DTD_NODE,
-	DDXMLEntityDeclarationKind      = XML_ENTITY_DECL,
-	DDXMLAttributeDeclarationKind   = XML_ATTRIBUTE_DECL,
-	DDXMLElementDeclarationKind     = XML_ELEMENT_DECL,
-	DDXMLNotationDeclarationKind    = XML_NOTATION_NODE
+	QBDDXMLInvalidKind                = 0,
+	QBDDXMLDocumentKind               = XML_DOCUMENT_NODE,
+	QBDDXMLElementKind                = XML_ELEMENT_NODE,
+	QBDDXMLAttributeKind              = XML_ATTRIBUTE_NODE,
+	QBDDXMLNamespaceKind              = XML_NAMESPACE_DECL,
+	QBDDXMLProcessingInstructionKind  = XML_PI_NODE,
+	QBDDXMLCommentKind                = XML_COMMENT_NODE,
+	QBDDXMLTextKind                   = XML_TEXT_NODE,
+	QBDDXMLDTDKind                    = XML_DTD_NODE,
+	QBDDXMLEntityDeclarationKind      = XML_ENTITY_DECL,
+	QBDDXMLAttributeDeclarationKind   = XML_ATTRIBUTE_DECL,
+	QBDDXMLElementDeclarationKind     = XML_ELEMENT_DECL,
+	QBDDXMLNotationDeclarationKind    = XML_NOTATION_NODE
 };
 typedef NSUInteger QBDDXMLNodeKind;
 
 enum {
-	DDXMLNodeOptionsNone            = 0,
-	DDXMLNodeExpandEmptyElement     = 1 << 1,
-	DDXMLNodeCompactEmptyElement    = 1 << 2,
-	DDXMLNodePrettyPrint            = 1 << 17,
+	QBDDXMLNodeOptionsNone            = 0,
+	QBDDXMLNodeExpandEmptyElement     = 1 << 1,
+	QBDDXMLNodeCompactEmptyElement    = 1 << 2,
+	QBDDXMLNodePrettyPrint            = 1 << 17,
 };
 
 
