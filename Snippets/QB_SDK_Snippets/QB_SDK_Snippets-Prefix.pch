@@ -5,7 +5,7 @@
 #import <Availability.h>
 
 #define useNewAPI NO
-#define withQBContext YES
+#define withQBContext NO
 #define withAdditionalRequest YES
 #define testContext @"testContext"
 
@@ -16,6 +16,7 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
 
+    #import "ConfigManager.h"
     #import <Quickblox/Quickblox.h>
-    #import "QBApplicationConfig.h"
+
 #endif

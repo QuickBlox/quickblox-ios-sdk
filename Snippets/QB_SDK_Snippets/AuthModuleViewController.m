@@ -8,7 +8,11 @@
 
 #import "AuthModuleViewController.h"
 #import "AuthDataSource.h"
-
+//
+#import <Quickblox/QBRequest+QBAuth.h>
+#import <Quickblox/QBResponse.h>
+#import <Quickblox/QBSessionParameters.h>
+#import <Quickblox/QBSession.h>
 
 @interface AuthModuleViewController ()
 @property (nonatomic) AuthDataSource *dataSource;
@@ -33,7 +37,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     switch (indexPath.section) {
         // Session creation
@@ -60,20 +63,19 @@
                 case 1:{
                     if (useNewAPI) {
                         QBSessionParameters *parameters = [[QBSessionParameters alloc] init];
-                        parameters.userLogin = UserLogin1;
-//                        parameters.userEmail = UserEmail1;
-                        parameters.userPassword = UserPassword1;
+                        parameters.userLogin = [[ConfigManager sharedManager] testUserLogin1];
+                        parameters.userPassword = [[ConfigManager sharedManager] testUserPassword1];
                         
                         [QBRequest createSessionWithExtendedParameters:parameters successBlock:^(QBResponse *response, QBASession *session) {
                             NSLog(@"Successfull response!");
                         } errorBlock:^(QBResponse *response) {
-                            NSLog(@"Response error: %@", response.error);
+                            NSLog(@"Response error: %@", response.error.reasons);
                         }];
                     } else {
                         
                         QBASessionCreationRequest *extendedAuthRequest = [QBASessionCreationRequest request];
-                        extendedAuthRequest.userLogin = UserLogin1;
-                        extendedAuthRequest.userPassword = UserPassword1;
+                        extendedAuthRequest.userLogin = [[ConfigManager sharedManager] testUserLogin1];
+                        extendedAuthRequest.userPassword = [[ConfigManager sharedManager] testUserPassword1];
                         
                         if(withQBContext){
                             [QBAuth createSessionWithExtendedRequest:extendedAuthRequest delegate:self context:testContext];
@@ -172,7 +174,6 @@
 
 // QuickBlox queries delegate
 - (void)completedWithResult:(QBResult *)result{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // success result
     if(result.success){

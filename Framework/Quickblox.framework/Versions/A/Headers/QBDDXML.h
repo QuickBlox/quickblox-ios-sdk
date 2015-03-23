@@ -21,50 +21,50 @@
   #define NSXMLDocumentKind DDXMLDocumentKind
 #endif
 #ifndef NSXMLElementKind
-  #define NSXMLElementKind DDXMLElementKind
+  #define NSXMLElementKind QBDDXMLElementKind
 #endif
 #ifndef NSXMLAttributeKind
-  #define NSXMLAttributeKind DDXMLAttributeKind
+  #define NSXMLAttributeKind QBDDXMLAttributeKind
 #endif
 #ifndef NSXMLNamespaceKind
-  #define NSXMLNamespaceKind DDXMLNamespaceKind
+  #define NSXMLNamespaceKind QBDDXMLNamespaceKind
 #endif
 #ifndef NSXMLProcessingInstructionKind
   #define NSXMLProcessingInstructionKind DDXMLProcessingInstructionKind
 #endif
 #ifndef NSXMLCommentKind
-  #define NSXMLCommentKind DDXMLCommentKind
+  #define NSXMLCommentKind QBDDXMLCommentKind
 #endif
 #ifndef NSXMLTextKind
-  #define NSXMLTextKind DDXMLTextKind
+  #define NSXMLTextKind QBDDXMLTextKind
 #endif
 #ifndef NSXMLDTDKind
-  #define NSXMLDTDKind DDXMLDTDKind
+  #define NSXMLDTDKind QBDDXMLDTDKind
 #endif
 #ifndef NSXMLEntityDeclarationKind
-  #define NSXMLEntityDeclarationKind DDXMLEntityDeclarationKind
+  #define NSXMLEntityDeclarationKind QBDDXMLEntityDeclarationKind
 #endif
 #ifndef NSXMLAttributeDeclarationKind
-  #define NSXMLAttributeDeclarationKind DDXMLAttributeDeclarationKind
+  #define NSXMLAttributeDeclarationKind QBDDXMLAttributeDeclarationKind
 #endif
 #ifndef NSXMLElementDeclarationKind
-  #define NSXMLElementDeclarationKind DDXMLElementDeclarationKind
+  #define NSXMLElementDeclarationKind QBDDXMLElementDeclarationKind
 #endif
 #ifndef NSXMLNotationDeclarationKind
-  #define NSXMLNotationDeclarationKind DDXMLNotationDeclarationKind
+  #define NSXMLNotationDeclarationKind QBDDXMLNotationDeclarationKind
 #endif
 
 #ifndef NSXMLNodeOptionsNone
-  #define NSXMLNodeOptionsNone DDXMLNodeOptionsNone
+  #define NSXMLNodeOptionsNone QBDDXMLNodeOptionsNone
 #endif
 #ifndef NSXMLNodeExpandEmptyElement
-  #define NSXMLNodeExpandEmptyElement DDXMLNodeExpandEmptyElement
+  #define NSXMLNodeExpandEmptyElement QBDDXMLNodeExpandEmptyElement
 #endif
 #ifndef NSXMLNodeCompactEmptyElement
-  #define NSXMLNodeCompactEmptyElement DDXMLNodeCompactEmptyElement
+  #define NSXMLNodeCompactEmptyElement QBDDXMLNodeCompactEmptyElement
 #endif
 #ifndef NSXMLNodePrettyPrint
-  #define NSXMLNodePrettyPrint DDXMLNodePrettyPrint
+  #define NSXMLNodePrettyPrint QBDDXMLNodePrettyPrint
 #endif
 
 // KissXML has rather straight-forward memory management:
