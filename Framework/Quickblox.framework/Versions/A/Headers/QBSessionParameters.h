@@ -9,24 +9,24 @@
 @interface QBSessionParameters : NSObject <NSCoding>
 
 /// Social network provider. Posible values: facebook, twitter
-@property(nonatomic, retain) NSString *socialProvider;
+@property(nonatomic, strong) NSString *socialProvider;
 
 /// Permissions for choosen social provider
-@property(nonatomic, retain) NSArray *scope;
+@property(nonatomic, strong) NSArray *scope;
 
 /// Social network provider's access token
-@property(nonatomic, retain) NSString *socialProviderAccessToken;
+@property(nonatomic, strong) NSString *socialProviderAccessToken;
 
 /// Social network provider's access token secret (need only for Twitter)
-@property(nonatomic, retain) NSString *socialProviderAccessTokenSecret;
+@property(nonatomic, strong) NSString *socialProviderAccessTokenSecret;
 
 /// QBUUser login.
-@property(nonatomic, retain) NSString *userLogin;
+@property(nonatomic, strong) NSString *userLogin;
 
 /// QBUUser email.
-@property(nonatomic, retain) NSString *userEmail;
+@property(nonatomic, strong) NSString *userEmail;
 
 /// QBUUser password.
-@property(nonatomic, retain) NSString *userPassword;
+@property(nonatomic, strong) NSString *userPassword;
 
 @end

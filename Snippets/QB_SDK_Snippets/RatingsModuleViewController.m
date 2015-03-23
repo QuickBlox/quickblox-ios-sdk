@@ -33,7 +33,6 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     switch (indexPath.section) {
         // Game Mode
@@ -271,7 +270,6 @@
 
 // QuickBlox queries delegate
 - (void)completedWithResult:(QBResult *)result{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // success result
     if(result.success){
