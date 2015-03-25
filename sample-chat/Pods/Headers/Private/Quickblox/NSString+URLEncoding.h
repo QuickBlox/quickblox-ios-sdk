@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/QBCore/NSString+URLEncoding.h

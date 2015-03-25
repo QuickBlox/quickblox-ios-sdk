@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/Core/External/XMPP/Extensions/GoogleSharedStatus/XMPPGoogleSharedStatus.h

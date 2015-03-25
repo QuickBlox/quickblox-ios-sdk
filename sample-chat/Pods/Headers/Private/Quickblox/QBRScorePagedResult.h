@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/RatingsService/Classes/Net/Results/Scores/Common/Paged/QBRScorePagedResult.h

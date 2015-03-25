@@ -40,7 +40,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (id)init{
     self = [super init];
     if(self){
-        [QBChat instance].delegate = self;
+        [[QBChat instance] addDelegate:self];
     }
     return self;
 }
@@ -61,12 +61,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
 }
 
-- (void)createOrJoinRoomWithName:(NSString *)roomName completionBlock:(void(^)(QBChatRoom *))completionBlock{
-    self.joinRoomCompletionBlock = completionBlock;
-    
-    [[QBChat instance] createOrJoinRoomWithName:roomName membersOnly:NO persistent:YES];
-}
-
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock{
     self.joinRoomCompletionBlock = completionBlock;
     
@@ -76,13 +70,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (void)leaveRoom:(QBChatRoom *)room{
     [[QBChat instance] leaveRoom:room];
 }
-
-- (void)requestRoomsWithCompletionBlock:(void(^)(NSArray *))completionBlock{
-    self.requestRoomsCompletionBlock = completionBlock;
-    
-    [[QBChat instance]  requestAllRooms];
-}
-
 
 #pragma mark
 #pragma mark QBChatDelegate
@@ -110,6 +97,11 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     self.joinRoomCompletionBlock = nil;
 }
 
+- (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error
+{
+    NSLog(@"Not entered!");
+}
+
 - (void)chatDidReceiveListOfRooms:(NSArray *)rooms{
     self.requestRoomsCompletionBlock(rooms);
     self.requestRoomsCompletionBlock = nil;
@@ -131,7 +123,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidReceiveNewMessageFromRoom
                                                         object:nil userInfo:@{kMessage: message, kRoomJID: roomJID}];
 }
-
 
 #pragma mark
 #pragma mark Additional

@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/QBAuth/QBASessionSerialisation.h

@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/ContentService/Classes/Net/Server/ContentService/QBContent.h

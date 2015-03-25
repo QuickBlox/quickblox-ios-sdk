@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/ChatService/Classes/Business/QBChatBusiness.h

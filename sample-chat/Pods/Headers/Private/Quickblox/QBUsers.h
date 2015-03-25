@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/UsersService/Classes/Net/Server/UsersService/QBUsers.h

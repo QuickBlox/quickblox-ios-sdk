@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/MessagesService/Classes/Business/Models/Subscription/QBMSubscription.h

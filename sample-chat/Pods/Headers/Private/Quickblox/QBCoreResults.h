@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/Core/Net/Results/QBCoreResults.h

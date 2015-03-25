@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/ContentService/Classes/Net/Tasks/DownloadFile/QBCFileDownloadTask.h

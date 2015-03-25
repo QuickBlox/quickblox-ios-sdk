@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/MessagesService/Classes/Net/Results/Tasks/RegisterSubscription/QBMRegisterSubscriptionTaskResult.h

@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/RatingsService/Classes/Net/Results/GameMode/Common/Base/QBRGameModeResult.h

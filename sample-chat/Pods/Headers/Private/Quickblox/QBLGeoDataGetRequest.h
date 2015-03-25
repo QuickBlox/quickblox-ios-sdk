@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Requests/GeoData/Get/QBLGeoDataGetRequest.h

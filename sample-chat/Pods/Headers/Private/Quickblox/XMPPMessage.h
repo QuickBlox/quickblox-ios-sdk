@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/Core/External/XMPP/Core/XMPPMessage.h

@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/MessagesService/Classes/Net/Queries/Event/Create/QBMEventCreateQuery.h

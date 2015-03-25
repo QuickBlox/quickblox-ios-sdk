@@ -22,9 +22,7 @@
 - (void)sendMessage:(QBChatMessage *)message;
 
 - (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom;
-- (void)createOrJoinRoomWithName:(NSString *)roomName completionBlock:(void(^)(QBChatRoom *))completionBlock;
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock;
 - (void)leaveRoom:(QBChatRoom *)room;
-- (void)requestRoomsWithCompletionBlock:(void(^)(NSArray *))completionBlock;
 
 @end
