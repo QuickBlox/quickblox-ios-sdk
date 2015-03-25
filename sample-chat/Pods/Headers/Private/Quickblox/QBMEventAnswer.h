@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/MessagesService/Classes/Net/Answers/Event/Common/Base/QBMEventAnswer.h

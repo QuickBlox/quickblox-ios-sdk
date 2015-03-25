@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Net/Answers/CustomObject/Common/Base/QBCOMultiDeleteAnswer.h

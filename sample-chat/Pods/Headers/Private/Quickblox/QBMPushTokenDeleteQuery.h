@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/MessagesService/Classes/Net/Queries/PushToken/Delete/QBMPushTokenDeleteQuery.h

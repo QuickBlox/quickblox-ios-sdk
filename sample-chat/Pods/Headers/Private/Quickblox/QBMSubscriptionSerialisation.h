@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/QBMessages/QBMSubscriptionSerialisation.h

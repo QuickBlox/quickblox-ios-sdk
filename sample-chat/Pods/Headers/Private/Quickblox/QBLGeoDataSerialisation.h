@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/QBLocation/QBLGeoDataSerialisation.h

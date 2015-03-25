@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Answers/GeoData/Common/Paged/QBLGeoDataPagedAnswer.h

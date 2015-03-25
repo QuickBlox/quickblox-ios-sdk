@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/LocationService/Classes/Business/Models/GeoData/QBLGeoData.h

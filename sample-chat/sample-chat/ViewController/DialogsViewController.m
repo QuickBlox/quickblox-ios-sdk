@@ -9,7 +9,7 @@
 #import "DialogsViewController.h"
 #import "СhatViewController.h"
 
-@interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource, QBActionStatusDelegate>
+@interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *dialogs;
 @property (nonatomic, weak) IBOutlet UITableView *dialogsTableView;
@@ -19,17 +19,38 @@
 
 @implementation DialogsViewController
 
+- (void(^)(QBResponse *))handleError
+{
+    return ^(QBResponse *response) {
+        NSLog(@"error: %@", [response.error description]);
+    };
+}
+
 #pragma mark
 #pragma mark ViewController lyfe cycle
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     if([LocalStorageService shared].currentUser != nil){
         [self.activityIndicator startAnimating];
         
         // get dialogs
-        [QBChat dialogsWithExtendedRequest:nil delegate:self];
+        [QBRequest dialogsWithSuccessBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs) {
+            self.dialogs = [dialogObjects mutableCopy];
+            
+            QBGeneralResponsePage *pagedRequest = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100];
+            
+            [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:pagedRequest successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+                
+                [LocalStorageService shared].users = users;
+                //
+                [self.dialogsTableView reloadData];
+                [self.activityIndicator stopAnimating];
+                                                         
+            } errorBlock:[self handleError]];
+        } errorBlock:[self handleError]];
     }
 }
 
@@ -117,34 +138,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-// QuickBlox API queries delegate
-- (void)completedWithResult:(QBResult *)result{
-    if (result.success && [result isKindOfClass:[QBDialogsPagedResult class]]) {
-        QBDialogsPagedResult *pagedResult = (QBDialogsPagedResult *)result;
-        //
-        NSArray *dialogs = pagedResult.dialogs;
-        self.dialogs = [dialogs mutableCopy];
-        
-        QBGeneralResponsePage *pagedRequest = [QBGeneralResponsePage responsePageWithCurrentPage:0 perPage:100];
-                //
-        NSSet *dialogsUsersIDs = pagedResult.dialogsUsersIDs;
-        //
-        [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:pagedRequest successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-            
-            [LocalStorageService shared].users = users;
-            //
-            [self.dialogsTableView reloadData];
-            [self.activityIndicator stopAnimating];
-            
-        } errorBlock:nil];
-
-    }
 }
 
 @end

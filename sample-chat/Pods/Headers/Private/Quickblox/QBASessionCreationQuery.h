@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/AuthService/Classes/Net/Queries/Auth/SessionCreation/QBASessionCreationQuery.h

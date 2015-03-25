@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/Core/Business/Models/Entity/Entity.h

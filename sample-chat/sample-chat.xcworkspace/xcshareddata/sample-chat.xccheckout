@@ -12,6 +12,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
+		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
+		<string>github.com:QuickBlox/SDK-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>sample-chat/sample-chat.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
+		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
+		<string>../../../SDK-iOS</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
@@ -35,6 +39,14 @@
 			<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
 			<key>IDESourceControlWCCName</key>
 			<string>quickblox-ios-sdk</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E650A564D3C23A22EE433AE21D0EA044E7E7A475</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDK-iOS</string>
 		</dict>
 	</array>
 </dict>
