@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Root View Controller-->
+        <scene sceneID="pbE-gL-ft9">
+            <objects>
+                <tableViewController id="cFd-TC-mYp" customClass="LoginTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PgB-wC-IcO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="dGR-A0-T7A" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGR-A0-T7A" id="H5W-gB-D6d">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egd-1G-oIf" customClass="CornerView" customModule="sample_chat_swift" customModuleProvider="target">
+                                            <rect key="frame" x="14" y="10" width="25" height="25"/>
+                                            <color key="backgroundColor" red="1" green="0.3514364123" blue="0.26619486869999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="kUz-ar-qPK"/>
+                                                <constraint firstAttribute="height" constant="25" id="lA5-nH-hef"/>
+                                            </constraints>
+                                        </view>
+                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3F-oh-jvS">
+                                            <rect key="frame" x="60" y="12" width="532" height="21"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="hnM-aH-P4c"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="V3F-oh-jvS" firstAttribute="leading" secondItem="egd-1G-oIf" secondAttribute="trailing" constant="21" id="MnB-Ax-O6z"/>
+                                        <constraint firstItem="egd-1G-oIf" firstAttribute="leading" secondItem="H5W-gB-D6d" secondAttribute="leadingMargin" constant="6" id="W2U-Pa-22Q"/>
+                                        <constraint firstItem="V3F-oh-jvS" firstAttribute="top" secondItem="H5W-gB-D6d" secondAttribute="topMargin" constant="4" id="d68-HJ-tTP"/>
+                                        <constraint firstItem="V3F-oh-jvS" firstAttribute="trailing" secondItem="H5W-gB-D6d" secondAttribute="trailingMargin" constant="33" id="jlO-56-BqP"/>
+                                        <constraint firstItem="egd-1G-oIf" firstAttribute="top" secondItem="H5W-gB-D6d" secondAttribute="topMargin" constant="2" id="z2w-NR-FNS"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="colorMarker" destination="egd-1G-oIf" id="mcr-9j-ngu"/>
+                                    <outlet property="userDescriptionLabel" destination="V3F-oh-jvS" id="XLM-bU-OU1"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cFd-TC-mYp" id="RVm-wN-CTO"/>
+                            <outlet property="delegate" destination="cFd-TC-mYp" id="H2C-OX-16t"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="Ach-ib-q8S"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aJb-GV-wYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="918" y="372"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="qZH-Iu-xjY">
+            <objects>
+                <navigationController id="6S5-ka-IgZ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="G9g-Xq-NgR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="cFd-TC-mYp" kind="relationship" relationship="rootViewController" id="CDa-yD-NAt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TdV-XA-g9Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="98" y="372"/>
+        </scene>
+    </scenes>
+</document>
