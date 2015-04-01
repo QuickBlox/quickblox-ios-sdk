@@ -21,9 +21,7 @@ class UsersDataSource {
     private var testUsers: [QBUUser] = []
     var colors: [UIColor] = []
 
-    static let instance = UsersDataSource()
-
-    private init() {
+    required init() {
         self.loadUsers()
         self.colors = [
             UIColor(red: 0.992, green:0.510, blue:0.035, alpha:1.000),

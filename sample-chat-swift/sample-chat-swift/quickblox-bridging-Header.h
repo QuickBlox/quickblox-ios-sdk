@@ -15,5 +15,6 @@
 @import MobileCoreServices;
 
 #import <Quickblox/Quickblox.h>
+#import <SVProgressHUD.h>
 
 #endif

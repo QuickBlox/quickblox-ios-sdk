@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../SDK-ios/Framework/Quickblox.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:sample-chat-swift.xcodeproj">
    </FileRef>
 </Workspace>
