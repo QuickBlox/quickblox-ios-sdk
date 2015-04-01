@@ -9,25 +9,49 @@
 import UIKit
 
 class ConnectionManager: NSObject, QBChatDelegate {
-    private var presenceTimer:NSTimer!
-    private var chatLoginCompletion:((Bool) -> Void)!
-    
-    
     static let instance = ConnectionManager()
     
-    func logInWithUser(user: QBUUser, completion: (success: Bool) -> Void){
-        
-        QBChat.instance().addDelegate(self)
-        QBChat.instance().loginWithUser(user)
-        
-        if( QBChat.instance().isLoggedIn() ){
-                completion(success: true)
-        }
-        else{
-            self.chatLoginCompletion = completion
-        }
+    private var presenceTimer:NSTimer!
+    private var chatLoginCompletion:((Bool, String?) -> Void)!
+    var dialogs:[QBChatDialog]?
+    var dialogsUsers:[QBUUser]?
+    var usersDataSource:UsersDataSource
+    var currentUser:QBUUser?
+    
+    
+     private override init() {
+        self.usersDataSource = UsersDataSource()
     }
     
+    func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
+        var params = QBSessionParameters()
+        params.userLogin = user.login
+        params.userPassword = user.password
+        
+        QBRequest.createSessionWithExtendedParameters(params, successBlock: { [weak self ] (response: QBResponse!, session: QBASession!) -> Void in
+            var conm = ConnectionManager.instance
+            
+            conm.currentUser = QBUUser()
+            conm.currentUser!.ID = session.userID
+            conm.currentUser!.login = user.login
+            conm.currentUser!.password = user.password
+            
+            
+            QBChat.instance().addDelegate(self)
+            QBChat.instance().loginWithUser(user)
+            
+            if( QBChat.instance().isLoggedIn() ){
+                completion(success: true, errorMessage: nil)
+            }
+            else{
+                conm.chatLoginCompletion = completion
+            }
+            
+            }) { (response: QBResponse!) -> Void in
+                completion(success: false, errorMessage: response.error.error.localizedDescription)
+                println(response.error.error.localizedDescription)
+        }
+    }
     
     /**
     *   Chat delegates
@@ -35,7 +59,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
     
     func chatDidFailWithError(code: Int) {
         if self.chatLoginCompletion != nil {
-            self.chatLoginCompletion(false)
+            self.chatLoginCompletion(false, "chat did fail with code" + String(code))
             self.chatLoginCompletion = nil
         }
     }
@@ -44,7 +68,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
         self.presenceTimer = NSTimer.scheduledTimerWithTimeInterval(kChatPresenceTimeInterval, target: self, selector: Selector("sendChatPresence"), userInfo: nil, repeats: true)
         
         if self.chatLoginCompletion != nil {
-            self.chatLoginCompletion(true)
+            self.chatLoginCompletion(true, nil)
             self.chatLoginCompletion = nil
         }
         

@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable
 class CornerView: UIView {
-    @IBInspectable override var backgroundColor: UIColor! { didSet { self.setNeedsDisplay() } }
+    @IBInspectable override var backgroundColor: UIColor? { didSet { self.setNeedsDisplay() } }
     @IBInspectable var title: String = "" { didSet { self.setNeedsDisplay() } }
     @IBInspectable var fontSize: Float = 16 { didSet { self.setNeedsDisplay() } }
     @IBInspectable var cornerRadius:Float = 6 {
