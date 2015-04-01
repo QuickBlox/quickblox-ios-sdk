@@ -11,13 +11,13 @@ import UIKit
 extension QBUUser {
     var color: UIColor {
         get{
-            return UsersDataSource.instance.colorAtUser(self)
+            return ConnectionManager.instance.usersDataSource.colorAtUser(self)
         }
     }
     
     var index:UInt {
         get{
-            if let index = find(UsersDataSource.instance.users, self){
+            if let index = find(ConnectionManager.instance.usersDataSource.users, self){
                 return UInt(index)
             }
             else{
