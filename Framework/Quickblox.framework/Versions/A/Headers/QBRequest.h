@@ -30,7 +30,7 @@ typedef void (^QBRequestErrorBlock)(QBResponse *response);
 @interface QBRequest : NSObject
 
 @property (nonatomic, getter=isCancelled, readonly) BOOL canceled;
-
+@property (nonatomic, weak) NSOperation *operation;
 @property (nonatomic, copy) QBRequestCompletionBlock completionBlock;
 @property (nonatomic, copy) QBRequestStatusUpdateBlock updateBlock;
 
