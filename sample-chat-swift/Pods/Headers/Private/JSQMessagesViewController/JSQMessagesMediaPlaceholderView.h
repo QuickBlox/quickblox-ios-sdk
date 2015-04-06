@@ -1,0 +1,1 @@
+../../../JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesMediaPlaceholderView.h

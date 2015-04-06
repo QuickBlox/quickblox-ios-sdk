@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1433B4941ACD4747006DE260 /* QBChatMessage+JSQMessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1433B4931ACD4747006DE260 /* QBChatMessage+JSQMessageData.swift */; };
 		1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7911AC9948600A39692 /* AppDelegate.swift */; };
 		1437A7941AC9948600A39692 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7931AC9948600A39692 /* ViewController.swift */; };
 		1437A7971AC9948600A39692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7951AC9948600A39692 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1433B4931ACD4747006DE260 /* QBChatMessage+JSQMessageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "QBChatMessage+JSQMessageData.swift"; path = "Extensions/QBChatMessage+JSQMessageData.swift"; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				146DE97B1ACAA78000F203A5 /* QBUUser+Color.swift */,
+				1433B4931ACD4747006DE260 /* QBChatMessage+JSQMessageData.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				146DE97C1ACAA78000F203A5 /* QBUUser+Color.swift in Sources */,
 				14FAE0461ACAEB5D001D8525 /* ConnectionManager.swift in Sources */,
 				14FD97BD1ACC219D005DB0C4 /* SelectOpponentViewController.swift in Sources */,
+				1433B4941ACD4747006DE260 /* QBChatMessage+JSQMessageData.swift in Sources */,
 				1437A7941AC9948600A39692 /* ViewController.swift in Sources */,
 				146315281ACBE1780072B077 /* DialogsViewController.swift in Sources */,
 				1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */,
