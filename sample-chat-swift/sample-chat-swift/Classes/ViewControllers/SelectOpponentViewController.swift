@@ -15,18 +15,6 @@ class SelectOpponentViewController: LoginTableViewController {
         self.checkCreateChatButtonState()
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.checkCreateChatButtonState()
-    }
-    
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        self.checkCreateChatButtonState()
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return super.tableView(tableView, numberOfRowsInSection: section) - 1 // without current user
-    }
-    
     func checkCreateChatButtonState() {
         self.navigationItem.rightBarButtonItem?.enabled = tableView.indexPathsForSelectedRows()?.count != nil
     }
@@ -74,4 +62,21 @@ class SelectOpponentViewController: LoginTableViewController {
             }
         }
     }
+    
+    /**
+    UITableView delegate methods
+    */
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.checkCreateChatButtonState()
+    }
+    
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        self.checkCreateChatButtonState()
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return super.tableView(tableView, numberOfRowsInSection: section) - 1 // without current user
+    }
+
 }

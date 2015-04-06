@@ -15,6 +15,30 @@ class LoginTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    func logInChatWithUser(user: QBUUser){
+        SVProgressHUD.showWithStatus("Loading", maskType: SVProgressHUDMaskType.Clear)
+        
+        ConnectionManager.instance.logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
+            
+            if( success ){
+                SVProgressHUD.showSuccessWithStatus("Logged in")
+                
+                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+                dispatch_after(delay, dispatch_get_main_queue(), {[weak self] () ->  Void in
+                    
+                    self?.performSegueWithIdentifier("goToSelectOponnents", sender: nil)
+                    })
+            }
+            else{
+                SVProgressHUD.showErrorWithStatus(errorMessage)
+            }
+        })
+    }
+    
+    /**
+    UITableView delegate methods
+    */
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -40,26 +64,6 @@ class LoginTableViewController: UITableViewController {
         
         var user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
         self.logInChatWithUser(user);
-    }
-    
-    func logInChatWithUser(user: QBUUser){
-        SVProgressHUD.showWithStatus("Loading")
-        
-        ConnectionManager.instance.logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
-            
-            if( success ){
-                SVProgressHUD.showSuccessWithStatus("Logged in")
-                
-                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-                dispatch_after(delay, dispatch_get_main_queue(), {[weak self] () ->  Void in
-                    
-                    self?.performSegueWithIdentifier("goToSelectOponnents", sender: nil)
-                    })
-            }
-            else{
-                SVProgressHUD.showErrorWithStatus(errorMessage)
-            }
-        })
     }
     
 }
