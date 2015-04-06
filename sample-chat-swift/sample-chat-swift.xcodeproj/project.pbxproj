@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143725B51AD28AB700624980 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143725B41AD28AB700624980 /* Quickblox.framework */; };
 		1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7911AC9948600A39692 /* AppDelegate.swift */; };
 		1437A7941AC9948600A39692 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7931AC9948600A39692 /* ViewController.swift */; };
 		1437A7971AC9948600A39692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7951AC9948600A39692 /* Main.storyboard */; };
@@ -28,13 +29,13 @@
 		14FAE0461ACAEB5D001D8525 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FAE0451ACAEB5D001D8525 /* ConnectionManager.swift */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
-		14FAE0501ACAF4D6001D8525 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE04F1ACAF4D6001D8525 /* Quickblox.framework */; };
 		14FD97BD1ACC219D005DB0C4 /* SelectOpponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FD97BC1ACC219D005DB0C4 /* SelectOpponentViewController.swift */; };
 		68440E1A11797B0339FE642C /* UsersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6844032D32F069FADE16948E /* UsersDataSource.swift */; };
 		A0333BD5494F93495AA5E952 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E69ADA571A81376B6A81AA3 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		143725B41AD28AB700624980 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +62,6 @@
 		14FAE0451ACAEB5D001D8525 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = Services/ConnectionManager.swift; sourceTree = "<group>"; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		14FAE04F1ACAF4D6001D8525 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		14FD97BC1ACC219D005DB0C4 /* SelectOpponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectOpponentViewController.swift; path = ViewControllers/SelectOpponentViewController.swift; sourceTree = "<group>"; };
 		6844032D32F069FADE16948E /* UsersDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersDataSource.swift; sourceTree = "<group>"; };
 		7E69ADA571A81376B6A81AA3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14FAE0501ACAF4D6001D8525 /* Quickblox.framework in Frameworks */,
+				143725B51AD28AB700624980 /* Quickblox.framework in Frameworks */,
 				14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */,
 				14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */,
 				146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */,
@@ -90,7 +90,6 @@
 		1437A7831AC9948600A39692 = {
 			isa = PBXGroup;
 			children = (
-				14FAE04F1ACAF4D6001D8525 /* Quickblox.framework */,
 				14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */,
 				14FAE0471ACAEF0B001D8525 /* libresolv.dylib */,
 				146DE9781ACAA42600F203A5 /* libz.dylib */,
@@ -202,6 +201,7 @@
 		5B6D920FF484FAD0667CB524 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				143725B41AD28AB700624980 /* Quickblox.framework */,
 				7E69ADA571A81376B6A81AA3 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -480,7 +480,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -512,7 +512,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
