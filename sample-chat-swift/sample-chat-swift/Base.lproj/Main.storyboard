@@ -75,6 +75,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="eXk-Yp-tgG">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24N-zT-SMv">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                    <state key="normal" title="Show available dialogs">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <segue destination="kUh-9G-GLK" kind="show" id="h7N-vW-FCh"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="24N-zT-SMv" firstAttribute="top" secondItem="eXk-Yp-tgG" secondAttribute="top" id="BKC-GO-1mK"/>
+                                <constraint firstAttribute="trailing" secondItem="24N-zT-SMv" secondAttribute="trailing" id="leh-n6-4da"/>
+                                <constraint firstItem="24N-zT-SMv" firstAttribute="leading" secondItem="eXk-Yp-tgG" secondAttribute="leading" id="n8d-pQ-Q2R"/>
+                                <constraint firstAttribute="bottom" secondItem="24N-zT-SMv" secondAttribute="bottom" id="ork-ey-3Dy"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="C3G-5X-W4U" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -180,7 +203,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chatRoomIcon" id="BYm-la-I4f">
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bubble_min.png" id="BYm-la-I4f">
                                                     <rect key="frame" x="15" y="0.0" width="54" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
@@ -214,6 +237,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="UBA-wP-6VG" id="60L-0F-yNo"/>
+                        <segue destination="3e3-Lk-tKV" kind="show" identifier="goToChat" id="R4t-SD-z75"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KFh-0u-971" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -239,7 +263,7 @@
         <!--Chat-->
         <scene sceneID="6XW-3T-EaS">
             <objects>
-                <viewController title="Chat" id="3e3-Lk-tKV" customClass="ChatViewController" sceneMemberID="viewController">
+                <viewController title="Chat" id="3e3-Lk-tKV" customClass="ChatViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HwU-aZ-a47"/>
                         <viewControllerLayoutGuide type="bottom" id="2kO-hk-7BI"/>
@@ -247,63 +271,17 @@
                     <view key="view" contentMode="scaleToFill" id="oVR-4q-jmr">
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3FF-Y8-QRn">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="570"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="3e3-Lk-tKV" id="rIy-Iz-lbA"/>
-                                    <outlet property="delegate" destination="3e3-Lk-tKV" id="r5U-AH-QSC"/>
-                                </connections>
-                            </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="y3i-4t-dK3">
-                                <rect key="frame" x="0.0" y="570" width="559" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="3e3-Lk-tKV" id="tjo-Dn-nks"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZK-Mf-86S">
-                                <rect key="frame" x="564" y="570" width="36" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="36" id="YOb-Dt-60G"/>
-                                </constraints>
-                                <state key="normal" title="Send">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendMessage:" destination="3e3-Lk-tKV" eventType="touchUpInside" id="KnC-5W-pIT"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="3FF-Y8-QRn" secondAttribute="trailing" id="1Va-xv-uND"/>
-                            <constraint firstItem="3FF-Y8-QRn" firstAttribute="top" secondItem="oVR-4q-jmr" secondAttribute="top" id="6Is-ew-5lK"/>
-                            <constraint firstItem="2kO-hk-7BI" firstAttribute="top" secondItem="y3i-4t-dK3" secondAttribute="bottom" id="ICp-Ud-b3M"/>
-                            <constraint firstItem="y3i-4t-dK3" firstAttribute="leading" secondItem="oVR-4q-jmr" secondAttribute="leading" id="XSX-nA-LBn"/>
-                            <constraint firstItem="3FF-Y8-QRn" firstAttribute="leading" secondItem="oVR-4q-jmr" secondAttribute="leading" id="XrD-dD-0i8"/>
-                            <constraint firstItem="y3i-4t-dK3" firstAttribute="top" secondItem="3FF-Y8-QRn" secondAttribute="bottom" id="Y03-A9-LwE"/>
-                            <constraint firstAttribute="trailing" secondItem="9ZK-Mf-86S" secondAttribute="trailing" id="jOd-Ol-cr2"/>
-                            <constraint firstItem="9ZK-Mf-86S" firstAttribute="leading" secondItem="y3i-4t-dK3" secondAttribute="trailing" constant="5" id="xNM-g1-kV0"/>
-                            <constraint firstItem="2kO-hk-7BI" firstAttribute="top" secondItem="9ZK-Mf-86S" secondAttribute="bottom" id="yB2-V5-gSW"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rcX-ux-scM"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="messageTextField" destination="y3i-4t-dK3" id="bY9-sm-XA6"/>
-                        <outlet property="messagesTableView" destination="3FF-Y8-QRn" id="XhI-TW-Gtu"/>
-                        <outlet property="sendMessageButton" destination="9ZK-Mf-86S" id="sxf-R2-uB6"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4G8-y7-QcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2271" y="695"/>
+            <point key="canvasLocation" x="2418" y="734"/>
         </scene>
     </scenes>
     <resources>
-        <image name="chatRoomIcon" width="128" height="128"/>
+        <image name="bubble_min.png" width="48" height="35"/>
     </resources>
 </document>

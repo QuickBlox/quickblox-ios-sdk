@@ -9,6 +9,8 @@
 import UIKit
 
 class DialogsViewController: UIViewController, UITableViewDelegate {
+    private var selectedDialog: QBChatDialog?
+    private let kChatSegueIdentifier = "goToChat"
     
     @IBOutlet weak var tableView:UITableView!
     
@@ -23,13 +25,14 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
             
             var pagedRequest = QBGeneralResponsePage(currentPage: 0, perPage: 100)
             
-            QBRequest.usersWithIDs(Array(dialogsUsersIDs), page: pagedRequest, successBlock: {[unowned self] (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
+            QBRequest.usersWithIDs(Array(dialogsUsersIDs), page: pagedRequest, successBlock: {[weak self] (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
                 
                 SVProgressHUD.showSuccessWithStatus("Completed!")
                 
                 ConnectionManager.instance.dialogsUsers = users as? [QBUUser]
                 
-                self.tableView.reloadData()
+                
+                self?.tableView.reloadData()
                 
                 }, errorBlock: { (response: QBResponse!) -> Void in
                     SVProgressHUD.showErrorWithStatus("Can't download users")
@@ -43,19 +46,19 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        selectedDialog = ConnectionManager.instance.dialogs![indexPath.row]
+        self.performSegueWithIdentifier(kChatSegueIdentifier , sender: nil)
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if let dialogs = ConnectionManager.instance.dialogs {
-            return dialogs.count
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == kChatSegueIdentifier {
+            if let chatVC = segue.destinationViewController as? ChatViewController {
+                chatVC.dialog = self.selectedDialog
+            }
         }
-        
-        return 0
     }
-    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("dialogcell", forIndexPath: indexPath) as! UITableViewCell
@@ -83,49 +86,15 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
         return cell
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the specified item to be editable.
-    return true
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
-    */
     
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let dialogs = ConnectionManager.instance.dialogs {
+            return dialogs.count
+        }
+        return 0
     }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the item to be re-orderable.
-    return true
-    }
-    */
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }
