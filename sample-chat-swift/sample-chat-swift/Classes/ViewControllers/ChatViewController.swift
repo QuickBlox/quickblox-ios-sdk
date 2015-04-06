@@ -70,7 +70,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         message.senderID = ConnectionManager.instance.currentUser!.ID
         message.customParameters = ["save_to_history": 1]
         if( dialog?.type.value == QBChatDialogTypePrivate.value ) {
-            SVProgressHUD.showWithStatus("Sending")
+            SVProgressHUD.showWithStatus("Sending", maskType: SVProgressHUDMaskType.Clear)
             var occupantsIDs = dialog!.occupantIDs as! [UInt]
             message.recipientID = UInt(occupantsIDs.filter{$0 != ConnectionManager.instance.currentUser!.ID}[0])
             message.text = text

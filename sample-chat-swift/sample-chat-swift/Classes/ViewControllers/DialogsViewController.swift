@@ -17,7 +17,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SVProgressHUD.showWithStatus("Loading")
+        SVProgressHUD.showWithStatus("Loading", maskType: SVProgressHUDMaskType.Clear)
         
         QBRequest.dialogsWithSuccessBlock({ (response: QBResponse!, dialogs: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!) -> Void in
             
