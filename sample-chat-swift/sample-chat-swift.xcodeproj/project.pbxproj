@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		143725B51AD28AB700624980 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143725B41AD28AB700624980 /* Quickblox.framework */; };
+		141E58141AD2A56E0090829D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143725B41AD28AB700624980 /* Quickblox.framework */; };
 		1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7911AC9948600A39692 /* AppDelegate.swift */; };
 		1437A7941AC9948600A39692 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7931AC9948600A39692 /* ViewController.swift */; };
 		1437A7971AC9948600A39692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7951AC9948600A39692 /* Main.storyboard */; };
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				143725B51AD28AB700624980 /* Quickblox.framework in Frameworks */,
+				141E58141AD2A56E0090829D /* Quickblox.framework in Frameworks */,
 				14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */,
 				14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */,
 				146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */,
@@ -486,6 +486,7 @@
 					"$(inherited)",
 					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphoneos",
 					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphonesimulator",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sample-chat-swift-cfysppzwdssmxsdxlclnkgciajhh/Build/Products/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -518,6 +519,7 @@
 					"$(inherited)",
 					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphoneos",
 					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphonesimulator",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sample-chat-swift-cfysppzwdssmxsdxlclnkgciajhh/Build/Products/Debug-iphoneos",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",

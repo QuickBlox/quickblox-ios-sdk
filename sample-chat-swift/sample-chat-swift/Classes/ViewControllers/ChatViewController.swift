@@ -15,9 +15,15 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dialog?.chatRoom.joinRoom() // sendChatMessageWithoutJoin temporary not working
+        if let chatRoom = dialog?.chatRoom {
+            chatRoom.joinRoom() // sendChatMessageWithoutJoin temporary not working
+        }
         
         QBChat.instance().addDelegate(self)
+        
+        // needed by block in method QBChat.instance().sendMessage(message, sentBlock
+        QBChat.instance().streamManagementEnabled = true
+        
         inputToolbar.contentView.leftBarButtonItem = nil
         automaticallyScrollsToMostRecentMessage = true
         // remove avatars
@@ -66,9 +72,8 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         if( dialog?.type.value == QBChatDialogTypePrivate.value ) {
             SVProgressHUD.showWithStatus("Sending")
             var occupantsIDs = dialog!.occupantIDs as! [UInt]
-            message.recipientID = occupantsIDs.filter{$0 != ConnectionManager.instance.currentUser!.ID}[0]
+            message.recipientID = UInt(occupantsIDs.filter{$0 != ConnectionManager.instance.currentUser!.ID}[0])
             message.text = text
-            self.inputToolbar.contentView.textView.text = ""
             QBChat.instance().sendMessage(message, sentBlock: { (error: NSError!) -> Void in
                 if error != nil {
                     self.messages.append(message)
@@ -137,7 +142,11 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     }
     
     func chatDidReceiveMessage(message: QBChatMessage!) {
-        self.messages.append(message)
+        // append my sent messages in self.didPressSendButton:
+        if message.senderID != ConnectionManager.instance.currentUser?.ID {
+            self.messages.append(message)
+            self.finishReceivingMessageAnimated(true)
+        }
     }
     
     func chatRoomDidReceiveMessage(message: QBChatMessage!, fromRoomJID roomJID: String!) {
@@ -150,7 +159,6 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
                 self.messages.append(message)
                 self.finishReceivingMessageAnimated(true)
             }
-            
         }
     }
     
