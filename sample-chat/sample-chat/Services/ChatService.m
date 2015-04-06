@@ -40,6 +40,9 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (id)init{
     self = [super init];
     if(self){
+        [QBChat instance].streamManagementEnabled = YES;
+        [QBChat instance].streamManagementSendMessageTimeout = 10.0f;
+        [QBChat instance].streamResumptionEnabled = YES;
         [[QBChat instance] addDelegate:self];
     }
     return self;
@@ -134,7 +137,7 @@ static SystemSoundID soundID;
         NSString *path = [NSString stringWithFormat: @"%@/sound.mp3", [[NSBundle mainBundle] resourcePath]];
         NSURL *filePath = [NSURL fileURLWithPath: path isDirectory: NO];
 
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
+//        AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
     }
     
     AudioServicesPlaySystemSound(soundID);

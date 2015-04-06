@@ -9,7 +9,7 @@
 #import "СhatViewController.h"
 #import "ChatMessageTableViewCell.h"
 
-@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, QBActionStatusDelegate>
+@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;
@@ -65,7 +65,12 @@
     }
     
     // get messages history
-    [QBChat messagesWithDialogID:self.dialog.ID extendedRequest:nil delegate:self];
+    [QBRequest messagesWithDialogID:self.dialog.ID extendedRequest:nil forPage:[QBResponsePage responsePageWithLimit:1000 skip:0] successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
+        [self.messages addObjectsFromArray:[messages mutableCopy]];
+        //
+        [self.messagesTableView reloadData];
+        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    } errorBlock:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -103,7 +108,13 @@
         message.recipientID = [self.dialog recipientID];
         message.senderID = [LocalStorageService shared].currentUser.ID;
 
-        [[ChatService instance] sendMessage:message];
+        [[QBChat instance] sendMessage:message sentBlock:^(NSError *error) {
+            if (error == nil) {
+                NSLog(@"Sent!");
+            } else {
+                NSLog(@"Sending error: %@", [error description]);
+            }
+        }];
         
         // save message
         [self.messages addObject:message];
@@ -230,24 +241,6 @@
                                                   self.messagesTableView.frame.size.width,
                                                   self.messagesTableView.frame.size.height+252);
     }];
-}
-
-
-#pragma mark -
-#pragma mark QBActionStatusDelegate
-
-- (void)completedWithResult:(QBResult *)result
-{
-    if (result.success && [result isKindOfClass:QBChatHistoryMessageResult.class]) {
-        QBChatHistoryMessageResult *res = (QBChatHistoryMessageResult *)result;
-        NSArray *messages = res.messages;
-        if(messages.count > 0){
-            [self.messages addObjectsFromArray:[messages mutableCopy]];
-            //
-            [self.messagesTableView reloadData];
-            [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.messages.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        }
-    }
 }
 
 @end

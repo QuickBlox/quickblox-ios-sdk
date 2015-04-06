@@ -331,6 +331,8 @@ naturalLanguageRoomName:(NSString *)aNaturalLanguageRoomName dispatchQueue:(disp
 
 @interface XMPPRoom (Quickblox)
 
+@property (nonatomic, strong) NSString* myNickname;
+
 - (void)requestUsers;
 - (void)requestUsersWithAffiliation:(NSString *)affiliation;
 
