@@ -72,7 +72,8 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
             QBChat.instance().sendMessage(message, sentBlock: { (error: NSError!) -> Void in
                 if error != nil {
                     self.messages.append(message)
-                    self.collectionView.reloadData()
+                    
+                    self.finishSendingMessageAnimated(true)
                     SVProgressHUD.dismiss()
                 }
                 else {
@@ -85,9 +86,8 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
             message.senderNick = ConnectionManager.instance.currentUser?.fullName
             
             QBChat.instance().sendChatMessageWithoutJoin(message, toRoom: dialog?.chatRoom)
-            self.messages.append(message)
-            self.collectionView.reloadData()
-            self.inputToolbar.contentView.textView.text = ""
+            // will call self.finishSendingMessageAnimated for group chat message in chatRoomDidReceiveMessage
+            
         }
     }
     
@@ -132,10 +132,26 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     *  QBChat delegate methods
     */
     
-    func chatDidReceiveMessage(message: QBChatMessage!) {
-        self.messages.append(message)
-        self.collectionView.reloadData()
+    func chatDidNotSendMessage(message: QBChatMessage!, error: NSError!) {
+        
     }
     
+    func chatDidReceiveMessage(message: QBChatMessage!) {
+        self.messages.append(message)
+    }
+    
+    func chatRoomDidReceiveMessage(message: QBChatMessage!, fromRoomJID roomJID: String!) {
+        if roomJID == self.dialog?.roomJID {
+            if message.senderID == ConnectionManager.instance.currentUser?.ID {
+                self.messages.append(message)
+                self.finishSendingMessageAnimated(true)
+            }
+            else {
+                self.messages.append(message)
+                self.finishReceivingMessageAnimated(true)
+            }
+            
+        }
+    }
     
 }
