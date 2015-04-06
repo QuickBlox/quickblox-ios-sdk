@@ -54,8 +54,11 @@
         "Framework/Core/Net/REST/Request/QBRestRequest.{h,m}",
         "Framework/Core/Net/REST/Response/QBRestResponse.{h,m}",
         "Framework/Core/External/AFNetworking-1.x/**/*.{h,m}",
-        "Framework/Core/External/Base64/**/*.{h,m}"
-      ]
+        "Framework/Core/External/Base64/**/*.{h,m}",
+        "Framework/Core/External/Vendor/*.{h,m}"
+      ],
+      "vendored_libraries": "Framework/Core/External/XMPP/Vendor/libidn/libidn.a",
+      "libraries": "idn"
     },
     {
       "name": "BaseServiceFramework",
@@ -68,7 +71,8 @@
         "Framework/Core/Net/REST/Request/QBRestRequest.{h,m}",
         "Framework/Core/Net/REST/Response/QBRestResponse.{h,m}",
         "Framework/Core/External/AFNetworking-1.x/**/*.{h,m}",
-        "Framework/Core/External/Base64/**/*.{h,m}"
+        "Framework/Core/External/Base64/**/*.{h,m}",
+        "Framework/Core/External/Vendor/*.{h,m}"
       ],
       "dependencies": {
         "Quickblox/QBCore": [
@@ -82,12 +86,10 @@
         ]
       },
       "frameworks": "SystemConfiguration",
-      "vendored_libraries": "Framework/Core/External/XMPP/Vendor/libidn/libidn.a",
       "libraries": [
         "iconv",
         "xml2",
-        "stdc++",
-        "idn"
+        "stdc++"
       ],
       "xcconfig": {
         "HEADER_SEARCH_PATHS": "\"$(SDKROOT)/usr/include/libxml2\""

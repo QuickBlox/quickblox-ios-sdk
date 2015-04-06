@@ -12,6 +12,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
+		<key>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</key>
+		<string>github.com:QuickBlox/XMPPFramework.git</string>
 		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
 		<string>github.com:QuickBlox/SDK-ios.git</string>
 	</dict>
@@ -21,6 +23,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
+		<key>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</key>
+		<string>../../../SDK-iOS/Framework/Core/External/XMPP</string>
 		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
 		<string>../../../SDK-iOS</string>
 	</dict>
@@ -47,6 +51,14 @@
 			<string>E650A564D3C23A22EE433AE21D0EA044E7E7A475</string>
 			<key>IDESourceControlWCCName</key>
 			<string>SDK-iOS</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>XMPP</string>
 		</dict>
 	</array>
 </dict>
