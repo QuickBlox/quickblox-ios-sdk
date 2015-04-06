@@ -36,16 +36,15 @@ class ConnectionManager: NSObject, QBChatDelegate {
             conm.currentUser!.login = user.login
             conm.currentUser!.password = user.password
             
+            if QBChat.instance().isLoggedIn() {
+                QBChat.instance().logout()
+            }
             
             QBChat.instance().addDelegate(self)
             QBChat.instance().loginWithUser(user)
             
-            if( QBChat.instance().isLoggedIn() ){
-                completion(success: true, errorMessage: nil)
-            }
-            else{
-                conm.chatLoginCompletion = completion
-            }
+            conm.chatLoginCompletion = completion
+
             
             }) { (response: QBResponse!) -> Void in
                 completion(success: false, errorMessage: response.error.error.localizedDescription)
