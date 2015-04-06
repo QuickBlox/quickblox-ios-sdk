@@ -6,8 +6,8 @@
 
 #import <Foundation/Foundation.h>
 
-
 typedef NS_ENUM(NSInteger, QBResponseStatusCode){
+    QBResponseStatusCodeCancelled           = NSURLErrorCancelled,
     QBResponseStatusCodeUnknown             = -1,
     QBResponseStatusCodeAccepted            = 202,
     QBResponseStatusCodeCreated             = 201,
