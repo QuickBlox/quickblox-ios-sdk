@@ -1,0 +1,1 @@
+../../../JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessagesCollectionViewDataSource.h

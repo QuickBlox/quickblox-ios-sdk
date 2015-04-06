@@ -16,5 +16,9 @@
 
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
+#import <JSQMessageData.h>
+#import <JSQMessages.h>
+#import <JSQMessagesBubbleImageFactory.h>
+#import <JSQMessagesBubbleImage.h>
 
 #endif
