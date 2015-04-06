@@ -8,6 +8,8 @@
 
 
 class SelectOpponentViewController: LoginTableViewController {
+    private let kChatSegueIdentifier = "goToChat"
+    private var createdDialog: QBChatDialog?
     
     override func viewDidLoad() {
         self.checkCreateChatButtonState()
@@ -53,15 +55,23 @@ class SelectOpponentViewController: LoginTableViewController {
             chatDialog.name = ", ".join(usersToChat.map({ $0.login ?? $0.email }))
         }
         
-        QBRequest.createDialog(chatDialog, successBlock: { (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
+        QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
             SVProgressHUD.showSuccessWithStatus("Dialog created!")
+            self!.createdDialog = createdDialog
+            self?.performSegueWithIdentifier(self!.kChatSegueIdentifier, sender: nil)
             println(createdDialog)
             
             }) { (response: QBResponse!) -> Void in
                 println(response.error.error)
                 SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
         }
-        
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == kChatSegueIdentifier {
+            if let chatVC = segue.destinationViewController as? ChatViewController {
+                chatVC.dialog = self.createdDialog
+            }
+        }
+    }
 }
