@@ -125,7 +125,10 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         else if let qbChatHistoryMessage = qbMessage as? QBChatHistoryMessage {
             var sender: QBUUser?
             if let users = ConnectionManager.instance.dialogsUsers {
-                sender = users.filter(){$0.ID == qbChatHistoryMessage.senderID}[0]
+                let filteredUsers = users.filter({$0.ID == qbChatHistoryMessage.senderID})
+                if filteredUsers.count > 0 {
+                    sender = filteredUsers[0]
+                }
             }
             jsqMessage = JSQMessage(senderId: String(qbChatHistoryMessage.senderID), senderDisplayName: sender?.fullName ?? String(qbChatHistoryMessage.senderID), date: qbChatHistoryMessage.datetime, text: qbChatHistoryMessage.text)
         }
@@ -138,7 +141,9 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     */
     
     func chatDidNotSendMessage(message: QBChatMessage!, error: NSError!) {
-        
+        if error.code == 503 {
+            UIAlertView(title: "Can't send a message", message: "You are in the blacklist", delegate: nil, cancelButtonTitle: "Okaaay").show()
+        }
     }
     
     func chatDidReceiveMessage(message: QBChatMessage!) {
@@ -162,4 +167,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         }
     }
     
+    deinit{
+        QBChat.instance().removeDelegate(self)
+    }
 }
