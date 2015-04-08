@@ -15,12 +15,14 @@ class ConnectionManager: NSObject, QBChatDelegate {
     private var chatLoginCompletion:((Bool, String?) -> Void)!
     var dialogs:[QBChatDialog]?
     var dialogsUsers:[QBUUser]?
-    var usersDataSource:UsersDataSource
     var currentUser:QBUUser?
     
+    let usersDataSource:UsersDataSource = UsersDataSource()
+    let privacyManager:PrivacyManager = PrivacyManager()
     
      private override init() {
-        self.usersDataSource = UsersDataSource()
+        super.init()
+        QBChat.instance().addDelegate(self)
     }
     
     func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
@@ -29,23 +31,27 @@ class ConnectionManager: NSObject, QBChatDelegate {
         params.userPassword = user.password
         
         QBRequest.createSessionWithExtendedParameters(params, successBlock: { [weak self ] (response: QBResponse!, session: QBASession!) -> Void in
-            var conm = ConnectionManager.instance
-            
-            conm.currentUser = QBUUser()
-            conm.currentUser!.ID = session.userID
-            conm.currentUser!.login = user.login
-            conm.currentUser!.password = user.password
-            
-            if QBChat.instance().isLoggedIn() {
-                QBChat.instance().logout()
+            if let strongSelf = self{
+                var conm = ConnectionManager.instance
+                
+                conm.currentUser = QBUUser()
+                conm.currentUser!.ID = session.userID
+                conm.currentUser!.login = user.login
+                conm.currentUser!.password = user.password
+                
+                if QBChat.instance().isLoggedIn() {
+                    QBChat.instance().logout()
+                    if strongSelf.dialogs != nil {
+                        strongSelf.dialogs = []
+                        strongSelf.dialogsUsers = []
+                    }
+                    strongSelf.privacyManager.reset()
+                }
+                
+//                QBChat.instance().addDelegate(strongSelf)
+                QBChat.instance().loginWithUser(user)
+                conm.chatLoginCompletion = completion
             }
-            
-            QBChat.instance().addDelegate(self)
-            QBChat.instance().loginWithUser(user)
-            
-            conm.chatLoginCompletion = completion
-
-            
             }) { (response: QBResponse!) -> Void in
                 completion(success: false, errorMessage: response.error.error.localizedDescription)
                 println(response.error.error.localizedDescription)
@@ -71,9 +77,17 @@ class ConnectionManager: NSObject, QBChatDelegate {
             self.chatLoginCompletion = nil
         }
         
+        self.privacyManager.retrieveDefaultPrivacyList()
+        
     }
     
     func sendChatPresence() {
-        QBChat.instance().sendPresence()
+        if QBChat.instance().isLoggedIn() {
+            QBChat.instance().sendPresence()
+        }
+    }
+    
+    deinit{
+        QBChat.instance().removeDelegate(self)
     }
 }
