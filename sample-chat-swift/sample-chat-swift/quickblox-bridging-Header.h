@@ -14,11 +14,14 @@
 @import SystemConfiguration;
 @import MobileCoreServices;
 
+
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
 #import <JSQMessageData.h>
 #import <JSQMessages.h>
 #import <JSQMessagesBubbleImageFactory.h>
 #import <JSQMessagesBubbleImage.h>
+#import "SWTableViewCell.h"
+#import "NSMutableArray+SWUtilityButtons.h"
 
 #endif

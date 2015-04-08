@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		141E58141AD2A56E0090829D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143725B41AD28AB700624980 /* Quickblox.framework */; };
+		14349DF01AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DE51AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m */; };
+		14349DF11AD2E14900674085 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DE71AD2E14900674085 /* SWCellScrollView.m */; };
+		14349DF21AD2E14900674085 /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DE91AD2E14900674085 /* SWLongPressGestureRecognizer.m */; };
+		14349DF31AD2E14900674085 /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DEB1AD2E14900674085 /* SWTableViewCell.m */; };
+		14349DF41AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DED1AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.m */; };
+		14349DF51AD2E14900674085 /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DEF1AD2E14900674085 /* SWUtilityButtonView.m */; };
 		1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7911AC9948600A39692 /* AppDelegate.swift */; };
 		1437A7941AC9948600A39692 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7931AC9948600A39692 /* ViewController.swift */; };
 		1437A7971AC9948600A39692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7951AC9948600A39692 /* Main.storyboard */; };
@@ -24,8 +29,11 @@
 		14646A881ACC41680016FFCB /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14646A871ACC41680016FFCB /* ChatViewController.swift */; };
 		146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 146DE9781ACAA42600F203A5 /* libz.dylib */; };
 		146DE97C1ACAA78000F203A5 /* QBUUser+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146DE97B1ACAA78000F203A5 /* QBUUser+Color.swift */; };
+		149FF5031AD3CBA0009CCDCD /* SwiftAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF5021AD3CBA0009CCDCD /* SwiftAlert.swift */; };
+		149FF5061AD3E1B1009CCDCD /* PrivacyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF5051AD3E1B1009CCDCD /* PrivacyManager.swift */; };
 		14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */; };
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
+		14BC89C61AD57C0800AD41DA /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC89C51AD57C0800AD41DA /* Quickblox.framework */; };
 		14FAE0461ACAEB5D001D8525 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FAE0451ACAEB5D001D8525 /* ConnectionManager.swift */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
@@ -35,7 +43,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		143725B41AD28AB700624980 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		14349DE41AD2E14900674085 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+SWUtilityButtons.h"; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		14349DE51AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+SWUtilityButtons.m"; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		14349DE61AD2E14900674085 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWCellScrollView.h; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWCellScrollView.h"; sourceTree = "<group>"; };
+		14349DE71AD2E14900674085 /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWCellScrollView.m; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWCellScrollView.m"; sourceTree = "<group>"; };
+		14349DE81AD2E14900674085 /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWLongPressGestureRecognizer.h; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWLongPressGestureRecognizer.h"; sourceTree = "<group>"; };
+		14349DE91AD2E14900674085 /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWLongPressGestureRecognizer.m; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWLongPressGestureRecognizer.m"; sourceTree = "<group>"; };
+		14349DEA1AD2E14900674085 /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWTableViewCell.h; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWTableViewCell.h"; sourceTree = "<group>"; };
+		14349DEB1AD2E14900674085 /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWTableViewCell.m; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWTableViewCell.m"; sourceTree = "<group>"; };
+		14349DEC1AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonTapGestureRecognizer.h; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWUtilityButtonTapGestureRecognizer.h"; sourceTree = "<group>"; };
+		14349DED1AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonTapGestureRecognizer.m; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWUtilityButtonTapGestureRecognizer.m"; sourceTree = "<group>"; };
+		14349DEE1AD2E14900674085 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonView.h; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWUtilityButtonView.h"; sourceTree = "<group>"; };
+		14349DEF1AD2E14900674085 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonView.m; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWUtilityButtonView.m"; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,9 +75,12 @@
 		14646A871ACC41680016FFCB /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = ViewControllers/ChatViewController.swift; sourceTree = "<group>"; };
 		146DE9781ACAA42600F203A5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		146DE97B1ACAA78000F203A5 /* QBUUser+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "QBUUser+Color.swift"; path = "Extensions/QBUUser+Color.swift"; sourceTree = "<group>"; };
+		149FF5021AD3CBA0009CCDCD /* SwiftAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAlert.swift; path = Views/SwiftAlert.swift; sourceTree = "<group>"; };
+		149FF5051AD3E1B1009CCDCD /* PrivacyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PrivacyManager.swift; path = Services/PrivacyManager/PrivacyManager.swift; sourceTree = "<group>"; };
 		14A4DCC41AC9A5210046D45C /* quickblox-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quickblox-bridging-Header.h"; sourceTree = "<group>"; };
 		14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		14BC89C51AD57C0800AD41DA /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		14FAE0451ACAEB5D001D8525 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = Services/ConnectionManager.swift; sourceTree = "<group>"; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -74,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				141E58141AD2A56E0090829D /* Quickblox.framework in Frameworks */,
+				14BC89C61AD57C0800AD41DA /* Quickblox.framework in Frameworks */,
 				14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */,
 				14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */,
 				146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */,
@@ -87,14 +109,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14349DE21AD2E12F00674085 /* objcClasses */ = {
+			isa = PBXGroup;
+			children = (
+				14349DE31AD2E13700674085 /* SWTableViewCell */,
+			);
+			name = objcClasses;
+			sourceTree = "<group>";
+		};
+		14349DE31AD2E13700674085 /* SWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				14349DE41AD2E14900674085 /* NSMutableArray+SWUtilityButtons.h */,
+				14349DE51AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m */,
+				14349DE61AD2E14900674085 /* SWCellScrollView.h */,
+				14349DE71AD2E14900674085 /* SWCellScrollView.m */,
+				14349DE81AD2E14900674085 /* SWLongPressGestureRecognizer.h */,
+				14349DE91AD2E14900674085 /* SWLongPressGestureRecognizer.m */,
+				14349DEA1AD2E14900674085 /* SWTableViewCell.h */,
+				14349DEB1AD2E14900674085 /* SWTableViewCell.m */,
+				14349DEC1AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.h */,
+				14349DED1AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.m */,
+				14349DEE1AD2E14900674085 /* SWUtilityButtonView.h */,
+				14349DEF1AD2E14900674085 /* SWUtilityButtonView.m */,
+			);
+			name = SWTableViewCell;
+			sourceTree = "<group>";
+		};
 		1437A7831AC9948600A39692 = {
 			isa = PBXGroup;
 			children = (
-				14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */,
-				14FAE0471ACAEF0B001D8525 /* libresolv.dylib */,
-				146DE9781ACAA42600F203A5 /* libz.dylib */,
-				14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */,
-				14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */,
 				1437A78E1AC9948600A39692 /* sample-chat-swift */,
 				1437A7A41AC9948600A39692 /* sample-chat-swiftTests */,
 				1437A78D1AC9948600A39692 /* Products */,
@@ -114,6 +158,7 @@
 		1437A78E1AC9948600A39692 /* sample-chat-swift */ = {
 			isa = PBXGroup;
 			children = (
+				14349DE21AD2E12F00674085 /* objcClasses */,
 				144E3EB41ACA8E5300E62645 /* Resources */,
 				68440F807651CA93C348EB22 /* Classes */,
 				1437A7911AC9948600A39692 /* AppDelegate.swift */,
@@ -178,6 +223,7 @@
 			children = (
 				144E3EC51ACA916100E62645 /* UserTableViewCell.swift */,
 				144E3EC71ACA924200E62645 /* CornerView.swift */,
+				149FF5021AD3CBA0009CCDCD /* SwiftAlert.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -190,9 +236,18 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		149FF5041AD3E19B009CCDCD /* PrivacyManager */ = {
+			isa = PBXGroup;
+			children = (
+				149FF5051AD3E1B1009CCDCD /* PrivacyManager.swift */,
+			);
+			name = PrivacyManager;
+			sourceTree = "<group>";
+		};
 		14FAE0421ACAEB10001D8525 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				149FF5041AD3E19B009CCDCD /* PrivacyManager */,
 				14FAE0451ACAEB5D001D8525 /* ConnectionManager.swift */,
 			);
 			name = Services;
@@ -201,7 +256,12 @@
 		5B6D920FF484FAD0667CB524 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				143725B41AD28AB700624980 /* Quickblox.framework */,
+				14BC89C51AD57C0800AD41DA /* Quickblox.framework */,
+				14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */,
+				14FAE0471ACAEF0B001D8525 /* libresolv.dylib */,
+				146DE9781ACAA42600F203A5 /* libz.dylib */,
+				14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */,
+				14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */,
 				7E69ADA571A81376B6A81AA3 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -350,13 +410,21 @@
 				1437A7B51AC999D700A39692 /* Constants.swift in Sources */,
 				144E3EC81ACA924200E62645 /* CornerView.swift in Sources */,
 				146DE97C1ACAA78000F203A5 /* QBUUser+Color.swift in Sources */,
+				149FF5061AD3E1B1009CCDCD /* PrivacyManager.swift in Sources */,
 				14FAE0461ACAEB5D001D8525 /* ConnectionManager.swift in Sources */,
+				14349DF11AD2E14900674085 /* SWCellScrollView.m in Sources */,
 				14FD97BD1ACC219D005DB0C4 /* SelectOpponentViewController.swift in Sources */,
+				14349DF01AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m in Sources */,
+				14349DF21AD2E14900674085 /* SWLongPressGestureRecognizer.m in Sources */,
+				14349DF31AD2E14900674085 /* SWTableViewCell.m in Sources */,
 				1437A7941AC9948600A39692 /* ViewController.swift in Sources */,
 				146315281ACBE1780072B077 /* DialogsViewController.swift in Sources */,
 				1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */,
+				14349DF51AD2E14900674085 /* SWUtilityButtonView.m in Sources */,
 				144E3EC61ACA916100E62645 /* UserTableViewCell.swift in Sources */,
 				14646A881ACC41680016FFCB /* ChatViewController.swift in Sources */,
+				149FF5031AD3CBA0009CCDCD /* SwiftAlert.swift in Sources */,
+				14349DF41AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				68440E1A11797B0339FE642C /* UsersDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,7 +454,6 @@
 		1437A7A91AC9948600A39692 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -430,7 +497,6 @@
 		1437A7AA1AC9948600A39692 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -472,22 +538,18 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/seven/Documents/work/quickblox-samples/Framework",
+					"\"$(SRCROOT)/../Framework\"",
+					"\"$(SRCROOT)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SDKROOT)/usr/include/libxml2",
+					"\"$(PROJECT_DIR)\"/../Framework/**",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphoneos",
-					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphonesimulator",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sample-chat-swift-cfysppzwdssmxsdxlclnkgciajhh/Build/Products/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
@@ -505,22 +567,18 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/seven/Documents/work/quickblox-samples/Framework",
+					"\"$(SRCROOT)/../Framework\"",
+					"\"$(SRCROOT)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SDKROOT)/usr/include/libxml2",
+					"\"$(PROJECT_DIR)\"/../Framework/**",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphoneos",
-					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphonesimulator",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/sample-chat-swift-cfysppzwdssmxsdxlclnkgciajhh/Build/Products/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
