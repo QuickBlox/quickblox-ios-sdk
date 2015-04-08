@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class QBPrivacyItem;
+
 /// QBPrivacyList class represents collection for storing objects of QBPrivacyItem type
 @interface QBPrivacyList : NSObject
 
