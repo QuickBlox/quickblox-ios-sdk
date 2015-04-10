@@ -46,8 +46,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (strong, nonatomic) NSTimer *callTimer;
 @property (assign, nonatomic) NSTimer *beepTimer;
 
-@property (assign, nonatomic) AVAudioSessionCategoryOptions defaultCategoryOptions;
-
 @end
 
 @implementation CallViewController
@@ -60,7 +58,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [super viewDidLoad];
     
     [self configureGUI];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -71,8 +68,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [ConnectionManager.instance.me isEqual:caller] ? [self startCall] : [self acceptCall];
 
     [self.opponentsCollectionView reloadData];
-    
-    self.defaultCategoryOptions = self.session.audioCategoryOptions;
 }
 
 - (void)startCall {
@@ -81,6 +76,10 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     //Start call
     NSDictionary *userInfo = @{ @"userName" : ConnectionManager.instance.me.fullName };
     [self.session startCall:userInfo];
+
+    if (self.session.conferenceType == QBConferenceTypeAudio) {
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
+    }
     //Begin play calling sound
     self.beepTimer =
     [NSTimer scheduledTimerWithTimeInterval:[QBRTCConfig dialingTimeInterval]
@@ -102,6 +101,9 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     self.users =  [ConnectionManager.instance usersWithIDS:usersIDS];
     
+    if (self.session.conferenceType == QBConferenceTypeAudio) {
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
+    }
     QBUUser *currentUser = ConnectionManager.instance.me;
     //Accept call
     NSDictionary *userInfo = @{@"userName" : currentUser.fullName };
@@ -230,18 +232,19 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     }];
 }
 
+
 - (IBAction)pressSwitchAudioOutput:(id)sender {
     
-    if (self.session.audioCategoryOptions != AVAudioSessionCategoryOptionDefaultToSpeaker) {
-        
-        self.session.audioCategoryOptions = AVAudioSessionCategoryOptionDefaultToSpeaker;
+    QBSoundRoute route = [QBSoundRouter instance].currentSoundRoute;
+    
+    if (route == QBSoundRouteSpeaker) {
+
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
     }
     else {
         
-        self.session.audioCategoryOptions = self.defaultCategoryOptions;
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteSpeaker;
     }
-    
-    NSLog(@"%lu", (unsigned long)self.session.audioCategoryOptions);
 }
 
 #pragma mark - UICollectionViewDataSource
