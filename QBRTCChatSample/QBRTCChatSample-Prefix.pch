@@ -9,7 +9,7 @@
 #import <Availability.h>
 
 //0-release, 1-dev, 2-qa, 3-android
-#define QB_RTC_SAMPLE_MODE 1
+#define QB_RTC_SAMPLE_MODE 0
 
 #if (QB_RTC_SAMPLE_MODE == 0)
     #define QB_VERSION_STR @"release"
@@ -42,6 +42,7 @@
     #import "QBRTCSession.h"
     #import "QBRTCConfig.h"
     #import "QBICEServer.h"
+    #import "QBSoundRouter.h"
 
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;
@@ -51,4 +52,5 @@ FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;
 #endif
 
 #endif
+
 

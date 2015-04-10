@@ -13,8 +13,9 @@
 #import "SVProgressHUD.h"
 
 NSString *const kCheckUserTableViewCellIdentifier = @"CheckUserTableViewCellIdentifier";
+NSString *const kStunViewControllerIdentifier = @"StunViewController";
 
-const CGFloat kSettingsInfoHeaderHeight = 40;
+const CGFloat kSettingsInfoHeaderHeight = 25;
 
 @interface SettingsCallViewController ()
 
@@ -50,6 +51,13 @@ const CGFloat kSettingsInfoHeaderHeight = 40;
     }];
     
     self.title = [NSString stringWithFormat:@"Logged in as %@", ConnectionManager.instance.me.fullName];
+   
+    UIBarButtonItem *anotherButton =
+    [[UIBarButtonItem alloc] initWithTitle:@"STUN"
+                                     style:UIBarButtonItemStylePlain
+                                    target:self action:@selector(pressSelectStun:)];
+    
+    self.navigationItem.rightBarButtonItem = anotherButton;
 }
 
 #pragma mark - UITableViewDataSource
@@ -69,8 +77,9 @@ const CGFloat kSettingsInfoHeaderHeight = 40;
     CheckUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCheckUserTableViewCellIdentifier];
     
     QBUUser *user = self.users[indexPath.row];
+    NSString *text = [NSString stringWithFormat:@"%lu", (unsigned long)user.index + 1];
     
-    [cell setColorMarkerText:[NSString stringWithFormat:@"%lu", (unsigned long)user.index + 1]
+    [cell setColorMarkerText:text
                     andColor:user.color];
     
     cell.userDescription = [NSString stringWithFormat:@"%@", user.fullName];
@@ -94,10 +103,18 @@ const CGFloat kSettingsInfoHeaderHeight = 40;
                      withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     
-    return [self headerViewWithFrame:CGRectMake(0, 0, tableView.frame.size.width, kSettingsInfoHeaderHeight)
-                                text:NSLocalizedString(@"Select users you want to call", nil)];
+    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
+        
+        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
+        tableViewHeaderFooterView.textLabel.text = NSLocalizedString(@"Select users you want to call", nil);
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    return @"header";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -106,6 +123,14 @@ const CGFloat kSettingsInfoHeaderHeight = 40;
 }
 
 #pragma mark Actions
+
+- (void)pressSelectStun:(id)sender {
+    
+    UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:kStunViewControllerIdentifier];
+    [self presentViewController:navVC animated:YES completion:^{
+        
+    }];
+}
 
 - (IBAction)pressAudioCallBtn:(id)sender {
     

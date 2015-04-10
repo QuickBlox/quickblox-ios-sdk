@@ -16,7 +16,7 @@
 NSString *const kSettingsCallSegueIdentifier = @"SettingsCallSegue";
 NSString *const kUserTableViewCellIdentifier =  @"UserTableViewCellIdentifier";
 
-const CGFloat kInfoHeaderHeight = 50;
+const CGFloat kInfoHeaderHeight = 44;
 
 @interface LoginViewController()
 
@@ -70,10 +70,17 @@ const CGFloat kInfoHeaderHeight = 50;
     return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     
-    return [self headerViewWithFrame:CGRectMake(0, 0, tableView.frame.size.width, kInfoHeaderHeight)
-                                text:NSLocalizedString(@"Login as any user on this device and another(s) users on another device", nil)];
+    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
+        
+        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
+        tableViewHeaderFooterView.textLabel.text = NSLocalizedString(@"Login as any user on this device and another(s) users on another device", nil);
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"header";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
