@@ -13,20 +13,27 @@
 /// QBPrivacyList class represents collection for storing objects of QBPrivacyItem type
 @interface QBPrivacyList : NSObject
 
+- (instancetype)init __attribute__((unavailable("init not available")));
+
 /**
- @param items array of QBPrivacyItems
- @param name name of privacy list
+ @param name name of privacy list, must contain at least one character
  @return QBPrivacyList instance
  */
-- (instancetype)initWithName:(NSString *)name items:(NSArray *)items;
+- (instancetype)initWithName:(NSString *)name;
+
+/**
+ @param items array of QBPrivacyItems
+ @param name name of privacy list, must contain at least one character
+ @return QBPrivacyList instance
+ */
+- (instancetype)initWithName:(NSString *)name items:(NSArray *)items NS_DESIGNATED_INITIALIZER;
 
 /// add object to items array
 /// @param privacyItem privacy item
 - (void)addObject:(QBPrivacyItem *)privacyItem;
 
-
 /// name of privacy list
-@property (retain) NSString *name;
+@property (copy) NSString *name;
 
 /// items array of privacy items
 @property (retain) NSMutableArray *items;
