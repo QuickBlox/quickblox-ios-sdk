@@ -8,10 +8,12 @@
 
 import UIKit
 
-class UserTableViewCell: UITableViewCell {
+class UserTableViewCell: SWTableViewCell {
     @IBOutlet private weak var colorMarker: CornerView!
     @IBOutlet private weak var userDescriptionLabel: UILabel!
     
+    var user: QBUUser?
+    var dialogID = ""
     
     var userDescription:String! {
         didSet {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		141392581ADD4A0F00EFEBE7 /* SwiftAlertWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141392571ADD4A0F00EFEBE7 /* SwiftAlertWithTextField.swift */; };
+		1413925A1ADD51D900EFEBE7 /* GroupChatUsersInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141392591ADD51D900EFEBE7 /* GroupChatUsersInfoTableViewController.swift */; };
 		14349DF01AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DE51AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m */; };
 		14349DF11AD2E14900674085 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DE71AD2E14900674085 /* SWCellScrollView.m */; };
 		14349DF21AD2E14900674085 /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DE91AD2E14900674085 /* SWLongPressGestureRecognizer.m */; };
@@ -14,7 +16,6 @@
 		14349DF41AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DED1AD2E14900674085 /* SWUtilityButtonTapGestureRecognizer.m */; };
 		14349DF51AD2E14900674085 /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 14349DEF1AD2E14900674085 /* SWUtilityButtonView.m */; };
 		1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7911AC9948600A39692 /* AppDelegate.swift */; };
-		1437A7941AC9948600A39692 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7931AC9948600A39692 /* ViewController.swift */; };
 		1437A7971AC9948600A39692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7951AC9948600A39692 /* Main.storyboard */; };
 		1437A7991AC9948600A39692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7981AC9948600A39692 /* Images.xcassets */; };
 		1437A79C1AC9948600A39692 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1437A79A1AC9948600A39692 /* LaunchScreen.xib */; };
@@ -25,6 +26,7 @@
 		144E3EBF1ACA8FD900E62645 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144E3EBE1ACA8FD900E62645 /* LoginTableViewController.swift */; };
 		144E3EC61ACA916100E62645 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144E3EC51ACA916100E62645 /* UserTableViewCell.swift */; };
 		144E3EC81ACA924200E62645 /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144E3EC71ACA924200E62645 /* CornerView.swift */; };
+		1461FED21AD7F7D4009CCF57 /* SwipeableTableViewCellWithBlockButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1461FED11AD7F7D4009CCF57 /* SwipeableTableViewCellWithBlockButtons.swift */; };
 		146315281ACBE1780072B077 /* DialogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146315271ACBE1780072B077 /* DialogsViewController.swift */; };
 		14646A881ACC41680016FFCB /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14646A871ACC41680016FFCB /* ChatViewController.swift */; };
 		146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 146DE9781ACAA42600F203A5 /* libz.dylib */; };
@@ -33,7 +35,7 @@
 		149FF5061AD3E1B1009CCDCD /* PrivacyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FF5051AD3E1B1009CCDCD /* PrivacyManager.swift */; };
 		14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */; };
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
-		14BC89C61AD57C0800AD41DA /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BC89C51AD57C0800AD41DA /* Quickblox.framework */; };
+		14F09EE71AD7CEBE005199B9 /* UserBlockButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F09EE61AD7CEBE005199B9 /* UserBlockButtons.swift */; };
 		14FAE0461ACAEB5D001D8525 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FAE0451ACAEB5D001D8525 /* ConnectionManager.swift */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
@@ -43,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		141392571ADD4A0F00EFEBE7 /* SwiftAlertWithTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAlertWithTextField.swift; path = Views/SwiftAlertWithTextField.swift; sourceTree = "<group>"; };
+		141392591ADD51D900EFEBE7 /* GroupChatUsersInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupChatUsersInfoTableViewController.swift; path = ViewControllers/GroupChatUsersInfoTableViewController.swift; sourceTree = "<group>"; };
 		14349DE41AD2E14900674085 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+SWUtilityButtons.h"; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		14349DE51AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+SWUtilityButtons.m"; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		14349DE61AD2E14900674085 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWCellScrollView.h; path = "../../../../../Downloads/SWTableViewCell-master/SWTableViewCell/PodFiles/SWCellScrollView.h"; sourceTree = "<group>"; };
@@ -58,7 +62,6 @@
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1437A7931AC9948600A39692 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1437A7961AC9948600A39692 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1437A7981AC9948600A39692 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1437A79B1AC9948600A39692 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 		144E3EBE1ACA8FD900E62645 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginTableViewController.swift; path = ViewControllers/LoginTableViewController.swift; sourceTree = "<group>"; };
 		144E3EC51ACA916100E62645 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewCell.swift; path = Views/UserTableViewCell.swift; sourceTree = "<group>"; };
 		144E3EC71ACA924200E62645 /* CornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CornerView.swift; path = Views/CornerView.swift; sourceTree = "<group>"; };
+		1461FED11AD7F7D4009CCF57 /* SwipeableTableViewCellWithBlockButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwipeableTableViewCellWithBlockButtons.swift; path = Views/SwipeableTableViewCellWithBlockButtons.swift; sourceTree = "<group>"; };
 		146315271ACBE1780072B077 /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DialogsViewController.swift; path = ViewControllers/DialogsViewController.swift; sourceTree = "<group>"; };
 		14646A871ACC41680016FFCB /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = ViewControllers/ChatViewController.swift; sourceTree = "<group>"; };
 		146DE9781ACAA42600F203A5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -80,7 +84,7 @@
 		14A4DCC41AC9A5210046D45C /* quickblox-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quickblox-bridging-Header.h"; sourceTree = "<group>"; };
 		14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		14BC89C51AD57C0800AD41DA /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		14F09EE61AD7CEBE005199B9 /* UserBlockButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserBlockButtons.swift; path = Extensions/UserBlockButtons.swift; sourceTree = "<group>"; };
 		14FAE0451ACAEB5D001D8525 /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionManager.swift; path = Services/ConnectionManager.swift; sourceTree = "<group>"; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -96,7 +100,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14BC89C61AD57C0800AD41DA /* Quickblox.framework in Frameworks */,
 				14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */,
 				14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */,
 				146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */,
@@ -162,7 +165,6 @@
 				144E3EB41ACA8E5300E62645 /* Resources */,
 				68440F807651CA93C348EB22 /* Classes */,
 				1437A7911AC9948600A39692 /* AppDelegate.swift */,
-				1437A7931AC9948600A39692 /* ViewController.swift */,
 				1437A7951AC9948600A39692 /* Main.storyboard */,
 				1437A7981AC9948600A39692 /* Images.xcassets */,
 				1437A79A1AC9948600A39692 /* LaunchScreen.xib */,
@@ -214,6 +216,8 @@
 				144E3EBE1ACA8FD900E62645 /* LoginTableViewController.swift */,
 				14FD97BC1ACC219D005DB0C4 /* SelectOpponentViewController.swift */,
 				14646A871ACC41680016FFCB /* ChatViewController.swift */,
+				1461FED11AD7F7D4009CCF57 /* SwipeableTableViewCellWithBlockButtons.swift */,
+				141392591ADD51D900EFEBE7 /* GroupChatUsersInfoTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -224,6 +228,8 @@
 				144E3EC51ACA916100E62645 /* UserTableViewCell.swift */,
 				144E3EC71ACA924200E62645 /* CornerView.swift */,
 				149FF5021AD3CBA0009CCDCD /* SwiftAlert.swift */,
+				14F09EE61AD7CEBE005199B9 /* UserBlockButtons.swift */,
+				141392571ADD4A0F00EFEBE7 /* SwiftAlertWithTextField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -256,7 +262,6 @@
 		5B6D920FF484FAD0667CB524 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				14BC89C51AD57C0800AD41DA /* Quickblox.framework */,
 				14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */,
 				14FAE0471ACAEF0B001D8525 /* libresolv.dylib */,
 				146DE9781ACAA42600F203A5 /* libz.dylib */,
@@ -408,16 +413,19 @@
 			files = (
 				144E3EBF1ACA8FD900E62645 /* LoginTableViewController.swift in Sources */,
 				1437A7B51AC999D700A39692 /* Constants.swift in Sources */,
+				1461FED21AD7F7D4009CCF57 /* SwipeableTableViewCellWithBlockButtons.swift in Sources */,
 				144E3EC81ACA924200E62645 /* CornerView.swift in Sources */,
 				146DE97C1ACAA78000F203A5 /* QBUUser+Color.swift in Sources */,
 				149FF5061AD3E1B1009CCDCD /* PrivacyManager.swift in Sources */,
+				1413925A1ADD51D900EFEBE7 /* GroupChatUsersInfoTableViewController.swift in Sources */,
 				14FAE0461ACAEB5D001D8525 /* ConnectionManager.swift in Sources */,
+				14F09EE71AD7CEBE005199B9 /* UserBlockButtons.swift in Sources */,
 				14349DF11AD2E14900674085 /* SWCellScrollView.m in Sources */,
 				14FD97BD1ACC219D005DB0C4 /* SelectOpponentViewController.swift in Sources */,
 				14349DF01AD2E14900674085 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				14349DF21AD2E14900674085 /* SWLongPressGestureRecognizer.m in Sources */,
+				141392581ADD4A0F00EFEBE7 /* SwiftAlertWithTextField.swift in Sources */,
 				14349DF31AD2E14900674085 /* SWTableViewCell.m in Sources */,
-				1437A7941AC9948600A39692 /* ViewController.swift in Sources */,
 				146315281ACBE1780072B077 /* DialogsViewController.swift in Sources */,
 				1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */,
 				14349DF51AD2E14900674085 /* SWUtilityButtonView.m in Sources */,
@@ -550,10 +558,7 @@
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"$(inherited)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 			};
@@ -564,7 +569,7 @@
 			baseConfigurationReference = 7FBD5AF00180CA0A016ADA39 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
@@ -579,10 +584,7 @@
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"$(inherited)",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 			};

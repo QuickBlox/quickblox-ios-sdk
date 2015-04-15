@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Choose user-->
+        <!--Select user-->
         <scene sceneID="pbE-gL-ft9">
             <objects>
                 <tableViewController id="cFd-TC-mYp" customClass="LoginTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
@@ -59,7 +59,7 @@
                             <outlet property="delegate" destination="cFd-TC-mYp" id="H2C-OX-16t"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Choose user" id="Ach-ib-q8S"/>
+                    <navigationItem key="navigationItem" title="Select user" id="Ach-ib-q8S"/>
                     <connections>
                         <segue destination="3ff-8d-9pb" kind="show" identifier="goToSelectOponnents" id="Pzf-K6-R94"/>
                     </connections>
@@ -77,11 +77,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="eXk-Yp-tgG">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24N-zT-SMv">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <rect key="frame" x="0.0" y="26" width="600" height="54"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <state key="normal" title="Show available dialogs">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -90,14 +90,32 @@
                                         <segue destination="kUh-9G-GLK" kind="show" identifier="" id="h7N-vW-FCh"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select opponents" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH2-NN-FuR">
+                                    <rect key="frame" x="0.0" y="5" width="600" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="dwX-xy-pai"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="24N-zT-SMv" firstAttribute="top" secondItem="eXk-Yp-tgG" secondAttribute="top" id="BKC-GO-1mK"/>
+                                <constraint firstItem="SH2-NN-FuR" firstAttribute="top" secondItem="eXk-Yp-tgG" secondAttribute="top" constant="5" id="FsZ-cO-Q7j"/>
+                                <constraint firstItem="24N-zT-SMv" firstAttribute="top" secondItem="SH2-NN-FuR" secondAttribute="bottom" id="KFM-hR-PAI"/>
+                                <constraint firstItem="SH2-NN-FuR" firstAttribute="leading" secondItem="eXk-Yp-tgG" secondAttribute="leading" id="lJP-l6-oSt"/>
+                                <constraint firstAttribute="trailing" secondItem="SH2-NN-FuR" secondAttribute="trailing" id="lNJ-BG-hQY"/>
                                 <constraint firstAttribute="trailing" secondItem="24N-zT-SMv" secondAttribute="trailing" id="leh-n6-4da"/>
                                 <constraint firstItem="24N-zT-SMv" firstAttribute="leading" secondItem="eXk-Yp-tgG" secondAttribute="leading" id="n8d-pQ-Q2R"/>
                                 <constraint firstAttribute="bottom" secondItem="24N-zT-SMv" secondAttribute="bottom" id="ork-ey-3Dy"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="BKC-GO-1mK"/>
+                                </mask>
+                            </variation>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="C3G-5X-W4U" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
@@ -145,16 +163,16 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Select opponents" id="Iav-xC-5Zn">
+                    <navigationItem key="navigationItem" title="Logged in as" id="Iav-xC-5Zn">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="O7K-fz-vwY">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NPR-SX-7ci">
                                 <rect key="frame" x="514" y="7" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="create chat">
+                                <state key="normal" title="join chat">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="createChat" destination="3ff-8d-9pb" eventType="touchUpInside" id="5zt-Na-L6i"/>
+                                    <action selector="createChatButtonPressed" destination="3ff-8d-9pb" eventType="touchUpInside" id="8fi-6f-Sqc"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -193,7 +211,7 @@
                                 <rect key="frame" x="0.0" y="114" width="600" height="442"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="dialogcell" textLabel="XeG-H9-uYk" detailTextLabel="6hA-ln-8uo" imageView="BYm-la-I4f" style="IBUITableViewCellStyleSubtitle" id="WQc-ZM-8Qc" customClass="SWTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="dialogcell" textLabel="XeG-H9-uYk" detailTextLabel="6hA-ln-8uo" imageView="BYm-la-I4f" style="IBUITableViewCellStyleSubtitle" id="WQc-ZM-8Qc" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
                                         <rect key="frame" x="140" y="278" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WQc-ZM-8Qc" id="Ry1-Xv-NL2">
@@ -277,18 +295,83 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rcX-ux-scM"/>
+                    <navigationItem key="navigationItem" id="rcX-ux-scM">
+                        <barButtonItem key="rightBarButtonItem" title="Info" id="UZt-Ef-Ucc">
+                            <connections>
+                                <segue destination="0FA-X7-tAD" kind="show" id="DZ8-NE-5AE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4G8-y7-QcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2418" y="734"/>
         </scene>
+        <!--chat users-->
+        <scene sceneID="Lce-dk-DPs">
+            <objects>
+                <tableViewController id="0FA-X7-tAD" customClass="GroupChatUsersInfoTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hH2-0M-Sec">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="VNS-sq-PF9" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNS-sq-PF9" id="6eo-19-gDa">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dbs-P6-M2G" customClass="CornerView" customModule="sample_chat_swift" customModuleProvider="target">
+                                            <rect key="frame" x="14" y="10" width="25" height="25"/>
+                                            <color key="backgroundColor" red="1" green="0.3514364123" blue="0.26619486869999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="mec-jk-WpE"/>
+                                                <constraint firstAttribute="width" constant="25" id="t3u-Xo-qZG"/>
+                                            </constraints>
+                                        </view>
+                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5p4-2r-hK6">
+                                            <rect key="frame" x="60" y="12" width="532" height="21"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="d4g-TR-NJN"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="dbs-P6-M2G" firstAttribute="leading" secondItem="6eo-19-gDa" secondAttribute="leadingMargin" constant="6" id="CK6-rw-jSb"/>
+                                        <constraint firstItem="5p4-2r-hK6" firstAttribute="trailing" secondItem="6eo-19-gDa" secondAttribute="trailingMargin" constant="33" id="MHV-dx-gSd"/>
+                                        <constraint firstItem="5p4-2r-hK6" firstAttribute="top" secondItem="6eo-19-gDa" secondAttribute="topMargin" constant="4" id="V4A-K6-77T"/>
+                                        <constraint firstItem="5p4-2r-hK6" firstAttribute="leading" secondItem="dbs-P6-M2G" secondAttribute="trailing" constant="21" id="hde-bf-coj"/>
+                                        <constraint firstItem="dbs-P6-M2G" firstAttribute="top" secondItem="6eo-19-gDa" secondAttribute="topMargin" constant="2" id="hfk-1y-pAv"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="colorMarker" destination="dbs-P6-M2G" id="odk-Gb-mdV"/>
+                                    <outlet property="userDescriptionLabel" destination="5p4-2r-hK6" id="j8D-AI-mzG"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0FA-X7-tAD" id="8UO-Jp-n8u"/>
+                            <outlet property="delegate" destination="0FA-X7-tAD" id="eaE-mW-fOJ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="chat users" id="A4A-Dp-q1R"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s9Z-np-maA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3066" y="734"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bubble_min.png" width="48" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="R4t-SD-z75"/>
+        <segue reference="k6E-hp-7pJ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,5 +1,4 @@
 PODS:
-  - MTBlockAlertView (0.1.1)
 
 DEPENDENCIES:
   - MTBlockAlertView (~> 0.1.1)
