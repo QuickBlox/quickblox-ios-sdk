@@ -10,9 +10,14 @@
 class SelectOpponentViewController: LoginTableViewController {
     private let kChatSegueIdentifier = "goToChat"
     private var createdDialog: QBChatDialog?
+    private var delegate : SwipeableTableViewCellWithBlockButtons!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        self.delegate = SwipeableTableViewCellWithBlockButtons()
+        self.delegate.tableView = self.tableView
         self.checkCreateChatButtonState()
+        self.navigationItem.title = "Welcome, " + ConnectionManager.instance.currentUser!.login
     }
     
     func checkCreateChatButtonState() {
@@ -20,7 +25,21 @@ class SelectOpponentViewController: LoginTableViewController {
     }
     
     // called when create chat button is pressed
-    @IBAction func createChat() {
+    @IBAction func createChatButtonPressed() {
+        var selectedIndexes = self.tableView.indexPathsForSelectedRows() as! [NSIndexPath]
+        if selectedIndexes.count == 1 {
+            createChatWithName(nil)
+        }
+        else{
+            SwiftAlertWithTextField(title: "Enter chat name", message: nil, showOver:self, didClickOk: { [unowned self] (text) -> Void in
+                self.createChatWithName(text)
+                }) { () -> Void in
+                    // cancel
+            }
+        }
+    }
+    
+    func createChatWithName(name: String?){
         var selectedIndexes = self.tableView.indexPathsForSelectedRows() as! [NSIndexPath]
         
         var usersToChat: [QBUUser] = []
@@ -40,7 +59,14 @@ class SelectOpponentViewController: LoginTableViewController {
         }
         else {
             chatDialog.type = QBChatDialogTypeGroup
-            chatDialog.name = ", ".join(usersToChat.map({ $0.login ?? $0.email }))
+            if name != nil && !name!.isEmpty {
+                chatDialog.name = name!
+            }
+            else{
+                var chatName = ConnectionManager.instance.currentUser!.login + "_" + ", ".join(usersToChat.map({ $0.login ?? $0.email }))
+                chatName = chatName.stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                chatDialog.name = chatName
+            }
         }
         
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
@@ -66,6 +92,24 @@ class SelectOpponentViewController: LoginTableViewController {
     /**
     UITableView delegate methods
     */
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
+        let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
+        
+        cell.rightUtilityButtons = UserBlockButtons.blockButtonsForUser(user)
+        cell.user = user
+        cell.delegate = self.delegate
+        
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
+        if user.ID == ConnectionManager.instance.currentUser!.ID {
+            return 0; // hide current user
+        }
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.checkCreateChatButtonState()
@@ -75,8 +119,4 @@ class SelectOpponentViewController: LoginTableViewController {
         self.checkCreateChatButtonState()
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return super.tableView(tableView, numberOfRowsInSection: section) - 1 // without current user
-    }
-
 }

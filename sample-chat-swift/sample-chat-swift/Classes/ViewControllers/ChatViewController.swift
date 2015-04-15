@@ -8,6 +8,7 @@
 
 class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     var dialog: QBChatDialog?
+    var messagesDownloadRequest : QBRequest? // ability to cancel downloading messages
     var messages: [QBChatAbstractMessage] = []
     
     let outgoingBubbleImageView: JSQMessagesBubbleImage = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor()!)
@@ -16,7 +17,10 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let chatRoom = dialog?.chatRoom {
-            chatRoom.joinRoom() // sendChatMessageWithoutJoin temporary not working
+            chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0]) // sendChatMessageWithoutJoin temporary not working
+        }
+        else {
+            self.navigationItem.rightBarButtonItem = nil // remove "info" button
         }
         
         QBChat.instance().addDelegate(self)
@@ -39,11 +43,14 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     
     func loadMessages() {
         SVProgressHUD.showWithStatus("Loading messages...")
-        QBRequest.messagesWithDialogID(dialog?.ID, successBlock: { [weak self] (response: QBResponse!, downloadedMessages: [AnyObject]!) -> Void in
+        messagesDownloadRequest = QBRequest.messagesWithDialogID(dialog?.ID, successBlock: { [weak self] (response: QBResponse!, downloadedMessages: [AnyObject]!) -> Void in
             SVProgressHUD.showSuccessWithStatus("Loaded!")
+            
             if let strongSelf = self,  downloadedHistoryMessages =  downloadedMessages as? [QBChatHistoryMessage] {
+                strongSelf.messagesDownloadRequest = nil
                 strongSelf.messages = downloadedHistoryMessages
                 strongSelf.collectionView.reloadData()
+                strongSelf.scrollToBottomAnimated(true)
             }
             }) { (response: QBResponse!) -> Void in
                 println(response.error.error.localizedDescription)
@@ -74,17 +81,12 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
             var occupantsIDs = dialog!.occupantIDs as! [UInt]
             message.recipientID = UInt(occupantsIDs.filter{$0 != ConnectionManager.instance.currentUser!.ID}[0])
             message.text = text
-            QBChat.instance().sendMessage(message, sentBlock: { (error: NSError!) -> Void in
-                if error != nil {
-                    self.messages.append(message)
-                    
-                    self.finishSendingMessageAnimated(true)
-                    SVProgressHUD.dismiss()
-                }
-                else {
-                    SVProgressHUD.showErrorWithStatus("can't send")
-                }
-            })
+            QBChat.instance().sendMessage(message)
+            
+            self.messages.append(message)
+            
+            self.finishSendingMessageAnimated(true)
+            SVProgressHUD.dismiss()
         }
         else{
             message.text = text
@@ -92,8 +94,8 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
             
             QBChat.instance().sendChatMessageWithoutJoin(message, toRoom: dialog?.chatRoom)
             // will call self.finishSendingMessageAnimated for group chat message in chatRoomDidReceiveMessage
-            
         }
+        self.inputToolbar.contentView.textView.text = ""
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
@@ -106,7 +108,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count
+        return self.messages.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -144,30 +146,61 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         if error.code == 503 {
             UIAlertView(title: "Can't send a message", message: "You are in the blacklist", delegate: nil, cancelButtonTitle: "Okaaay").show()
         }
+        else if error.code == 403 {
+            UIAlertView(title: "Can't send a message", message: "forbidden", delegate: nil, cancelButtonTitle: "Okaaay").show()
+        }
+        
+        // remove my last message and restore text input
+        let excludedLastMessage = messages.filter({$0.senderID == ConnectionManager.instance.currentUser!.ID}).last
+        messages = messages.filter({$0 != excludedLastMessage})
+        self.inputToolbar.contentView.textView.text = excludedLastMessage!.text
+        self.collectionView.reloadData()
+        
+        SVProgressHUD.dismiss()
     }
+    
     
     func chatDidReceiveMessage(message: QBChatMessage!) {
-        // append my sent messages in self.didPressSendButton:
-        if message.senderID != ConnectionManager.instance.currentUser?.ID {
+        if self.dialog!.chatRoom == nil {
             self.messages.append(message)
-            self.finishReceivingMessageAnimated(true)
-        }
-    }
-    
-    func chatRoomDidReceiveMessage(message: QBChatMessage!, fromRoomJID roomJID: String!) {
-        if roomJID == self.dialog?.roomJID {
-            if message.senderID == ConnectionManager.instance.currentUser?.ID {
-                self.messages.append(message)
-                self.finishSendingMessageAnimated(true)
-            }
-            else {
-                self.messages.append(message)
+            if message.senderID != ConnectionManager.instance.currentUser?.ID {
                 self.finishReceivingMessageAnimated(true)
             }
         }
     }
     
+    func chatRoomDidReceiveMessage(message: QBChatMessage!, fromRoomJID roomJID: String!) {
+        if roomJID == self.dialog?.roomJID {
+            // filter duplicates
+            if !self.messages.filter({$0.ID == message.ID}).isEmpty {
+                return
+            }
+            
+            self.messages.append(message)
+            if message.senderID == ConnectionManager.instance.currentUser?.ID {
+                self.finishSendingMessageAnimated(true)
+            }
+            else {
+                self.finishReceivingMessageAnimated(true)
+            }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let groupChatInfoVC = segue.destinationViewController as? GroupChatUsersInfoTableViewController {
+            groupChatInfoVC.chatDialog = self.dialog
+        }
+    }
+    
     deinit{
+        if let downloadingRequest = messagesDownloadRequest {
+            downloadingRequest.cancel()
+            SVProgressHUD.dismiss()
+        }
+        if let chatRoom = dialog?.chatRoom {
+            chatRoom.leaveRoom()
+        }
+        
         QBChat.instance().removeDelegate(self)
     }
 }
