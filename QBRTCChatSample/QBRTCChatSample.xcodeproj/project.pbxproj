@@ -24,7 +24,6 @@
 		5501A8E71AD562B600D0AE0D /* releaseUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5501A8E21AD562B500D0AE0D /* releaseUsers.plist */; };
 		5501A8E81AD562B600D0AE0D /* STUNDatasource.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5501A8E31AD562B500D0AE0D /* STUNDatasource.plist */; };
 		551473BC1A88C5FA00D61A4F /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 551473BB1A88C5FA00D61A4F /* CallViewController.m */; };
-		554006AD1AD8228E00B06063 /* libWebRTC-8976-arm-intel-Release.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 554006AC1AD8228E00B06063 /* libWebRTC-8976-arm-intel-Release.a */; };
 		555D5AA11AD6CC0300E2DB6D /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 555D5AA01AD6CC0300E2DB6D /* libxml2.2.dylib */; };
 		55B1C7301A7BE76700AF110D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B1C6E01A7BE76700AF110D /* AppDelegate.m */; };
 		55B1C7311A7BE76700AF110D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55B1C6E11A7BE76700AF110D /* Main.storyboard */; };
@@ -49,28 +48,13 @@
 		55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */; };
 		55CF63AA1A3AFF2E00FE8D19 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A91A3AFF2E00FE8D19 /* libz.dylib */; };
 		55CF63B01A3B007700FE8D19 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63AF1A3B007700FE8D19 /* libresolv.dylib */; };
-		55E1569B1AD6C14500C62699 /* QBBackgroundTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156541AD6C14400C62699 /* QBBackgroundTimer.m */; };
-		55E1569C1AD6C14500C62699 /* QBDisplayLinkTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156571AD6C14400C62699 /* QBDisplayLinkTimer.m */; };
-		55E1569D1AD6C14500C62699 /* QBGLVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156591AD6C14400C62699 /* QBGLVideoView.m */; };
-		55E1569E1AD6C14500C62699 /* QBICEServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1565C1AD6C14400C62699 /* QBICEServer.m */; };
-		55E1569F1AD6C14500C62699 /* QBMediaStreamManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1565F1AD6C14400C62699 /* QBMediaStreamManager.m */; };
-		55E156A01AD6C14500C62699 /* QBPeerChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156611AD6C14400C62699 /* QBPeerChannel.m */; };
-		55E156A11AD6C14500C62699 /* QBRTCClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156631AD6C14400C62699 /* QBRTCClient.m */; };
-		55E156A21AD6C14500C62699 /* QBRTCConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156661AD6C14400C62699 /* QBRTCConfig.m */; };
-		55E156A31AD6C14500C62699 /* QBRTCSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156681AD6C14400C62699 /* QBRTCSession.m */; };
-		55E156A41AD6C14500C62699 /* QBRTCSessionDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1566A1AD6C14400C62699 /* QBRTCSessionDescription.m */; };
-		55E156A51AD6C14500C62699 /* QBRTCSignalProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E1566D1AD6C14500C62699 /* QBRTCSignalProcessor.m */; };
-		55E156A61AD6C14500C62699 /* QBRTCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156701AD6C14500C62699 /* QBRTCUtils.m */; };
-		55E156A71AD6C14500C62699 /* QBRTCVideoTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156721AD6C14500C62699 /* QBRTCVideoTrack.m */; };
-		55E156A81AD6C14500C62699 /* QBSignalChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156751AD6C14500C62699 /* QBSignalChannel.m */; };
-		55E156A91AD6C14500C62699 /* QBSignalingSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156771AD6C14500C62699 /* QBSignalingSpec.m */; };
-		55E156AA1AD6C14500C62699 /* QBSoundRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E156791AD6C14500C62699 /* QBSoundRouter.m */; };
 		55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */; };
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
 		55F6BDCE1A3F22010080C326 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCD1A3F22010080C326 /* libsqlite3.dylib */; };
 		55F6BDD01A3F221B0080C326 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCF1A3F221B0080C326 /* libc++.dylib */; };
 		55F6BDD21A3F22BE0080C326 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDD11A3F22BE0080C326 /* libicucore.dylib */; };
+		55FD2E581ADE743400EBC235 /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FD2E571ADE743400EBC235 /* QuickbloxWebRTC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,7 +91,6 @@
 		5501A8E31AD562B500D0AE0D /* STUNDatasource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = STUNDatasource.plist; sourceTree = "<group>"; };
 		551473BA1A88C5FA00D61A4F /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
 		551473BB1A88C5FA00D61A4F /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
-		554006AC1AD8228E00B06063 /* libWebRTC-8976-arm-intel-Release.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libWebRTC-8976-arm-intel-Release.a"; sourceTree = "<group>"; };
 		555D5AA01AD6CC0300E2DB6D /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		55B1C6DF1A7BE76700AF110D /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = QBRTCChatSample/AppDelegate.h; sourceTree = "<group>"; };
 		55B1C6E01A7BE76700AF110D /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = QBRTCChatSample/AppDelegate.m; sourceTree = "<group>"; };
@@ -154,78 +137,13 @@
 		55D87D4D1A80F83200542C61 /* QBRTCChatSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QBRTCChatSample-Prefix.pch"; sourceTree = "<group>"; };
 		55E076E31A30817800118D23 /* QBRTCChatSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QBRTCChatSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E076FC1A30817900118D23 /* QBRTCChatSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QBRTCChatSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		55E156531AD6C14400C62699 /* QBBackgroundTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBBackgroundTimer.h; sourceTree = "<group>"; };
-		55E156541AD6C14400C62699 /* QBBackgroundTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBBackgroundTimer.m; sourceTree = "<group>"; };
-		55E156551AD6C14400C62699 /* QBChatPrivateAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBChatPrivateAPI.h; sourceTree = "<group>"; };
-		55E156561AD6C14400C62699 /* QBDisplayLinkTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBDisplayLinkTimer.h; sourceTree = "<group>"; };
-		55E156571AD6C14400C62699 /* QBDisplayLinkTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBDisplayLinkTimer.m; sourceTree = "<group>"; };
-		55E156581AD6C14400C62699 /* QBGLVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBGLVideoView.h; sourceTree = "<group>"; };
-		55E156591AD6C14400C62699 /* QBGLVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBGLVideoView.m; sourceTree = "<group>"; };
-		55E1565A1AD6C14400C62699 /* QBGLVideoViewPrivateAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBGLVideoViewPrivateAPI.h; sourceTree = "<group>"; };
-		55E1565B1AD6C14400C62699 /* QBICEServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBICEServer.h; sourceTree = "<group>"; };
-		55E1565C1AD6C14400C62699 /* QBICEServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBICEServer.m; sourceTree = "<group>"; };
-		55E1565D1AD6C14400C62699 /* QBICEServerPrivateAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBICEServerPrivateAPI.h; sourceTree = "<group>"; };
-		55E1565E1AD6C14400C62699 /* QBMediaStreamManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBMediaStreamManager.h; sourceTree = "<group>"; };
-		55E1565F1AD6C14400C62699 /* QBMediaStreamManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBMediaStreamManager.m; sourceTree = "<group>"; };
-		55E156601AD6C14400C62699 /* QBPeerChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBPeerChannel.h; sourceTree = "<group>"; };
-		55E156611AD6C14400C62699 /* QBPeerChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBPeerChannel.m; sourceTree = "<group>"; };
-		55E156621AD6C14400C62699 /* QBRTCClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCClient.h; sourceTree = "<group>"; };
-		55E156631AD6C14400C62699 /* QBRTCClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCClient.m; sourceTree = "<group>"; };
-		55E156641AD6C14400C62699 /* QBRTCClientDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCClientDelegate.h; sourceTree = "<group>"; };
-		55E156651AD6C14400C62699 /* QBRTCConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCConfig.h; sourceTree = "<group>"; };
-		55E156661AD6C14400C62699 /* QBRTCConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCConfig.m; sourceTree = "<group>"; };
-		55E156671AD6C14400C62699 /* QBRTCSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCSession.h; sourceTree = "<group>"; };
-		55E156681AD6C14400C62699 /* QBRTCSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCSession.m; sourceTree = "<group>"; };
-		55E156691AD6C14400C62699 /* QBRTCSessionDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCSessionDescription.h; sourceTree = "<group>"; };
-		55E1566A1AD6C14400C62699 /* QBRTCSessionDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCSessionDescription.m; sourceTree = "<group>"; };
-		55E1566B1AD6C14500C62699 /* QBRTCSessionPrivateAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCSessionPrivateAPI.h; sourceTree = "<group>"; };
-		55E1566C1AD6C14500C62699 /* QBRTCSignalProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCSignalProcessor.h; sourceTree = "<group>"; };
-		55E1566D1AD6C14500C62699 /* QBRTCSignalProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCSignalProcessor.m; sourceTree = "<group>"; };
-		55E1566E1AD6C14500C62699 /* QBRTCTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCTypes.h; sourceTree = "<group>"; };
-		55E1566F1AD6C14500C62699 /* QBRTCUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCUtils.h; sourceTree = "<group>"; };
-		55E156701AD6C14500C62699 /* QBRTCUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCUtils.m; sourceTree = "<group>"; };
-		55E156711AD6C14500C62699 /* QBRTCVideoTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCVideoTrack.h; sourceTree = "<group>"; };
-		55E156721AD6C14500C62699 /* QBRTCVideoTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCVideoTrack.m; sourceTree = "<group>"; };
-		55E156731AD6C14500C62699 /* QBRTCVideoTrackPrivateAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCVideoTrackPrivateAPI.h; sourceTree = "<group>"; };
-		55E156741AD6C14500C62699 /* QBSignalChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBSignalChannel.h; sourceTree = "<group>"; };
-		55E156751AD6C14500C62699 /* QBSignalChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBSignalChannel.m; sourceTree = "<group>"; };
-		55E156761AD6C14500C62699 /* QBSignalingSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBSignalingSpec.h; sourceTree = "<group>"; };
-		55E156771AD6C14500C62699 /* QBSignalingSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBSignalingSpec.m; sourceTree = "<group>"; };
-		55E156781AD6C14500C62699 /* QBSoundRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBSoundRouter.h; sourceTree = "<group>"; };
-		55E156791AD6C14500C62699 /* QBSoundRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBSoundRouter.m; sourceTree = "<group>"; };
-		55E1567A1AD6C14500C62699 /* QuickbloxWebRTC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickbloxWebRTC.h; sourceTree = "<group>"; };
-		55E1567D1AD6C14500C62699 /* RTCAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCAudioSource.h; sourceTree = "<group>"; };
-		55E1567E1AD6C14500C62699 /* RTCAudioTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCAudioTrack.h; sourceTree = "<group>"; };
-		55E1567F1AD6C14500C62699 /* RTCDataChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCDataChannel.h; sourceTree = "<group>"; };
-		55E156801AD6C14500C62699 /* RTCEAGLVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCEAGLVideoView.h; sourceTree = "<group>"; };
-		55E156811AD6C14500C62699 /* RTCI420Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCI420Frame.h; sourceTree = "<group>"; };
-		55E156821AD6C14500C62699 /* RTCICECandidate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCICECandidate.h; sourceTree = "<group>"; };
-		55E156831AD6C14500C62699 /* RTCICEServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCICEServer.h; sourceTree = "<group>"; };
-		55E156841AD6C14500C62699 /* RTCMediaConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaConstraints.h; sourceTree = "<group>"; };
-		55E156851AD6C14500C62699 /* RTCMediaSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaSource.h; sourceTree = "<group>"; };
-		55E156861AD6C14500C62699 /* RTCMediaStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaStream.h; sourceTree = "<group>"; };
-		55E156871AD6C14500C62699 /* RTCMediaStreamTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCMediaStreamTrack.h; sourceTree = "<group>"; };
-		55E156881AD6C14500C62699 /* RTCNSGLVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCNSGLVideoView.h; sourceTree = "<group>"; };
-		55E156891AD6C14500C62699 /* RTCOpenGLVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCOpenGLVideoRenderer.h; sourceTree = "<group>"; };
-		55E1568A1AD6C14500C62699 /* RTCPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPair.h; sourceTree = "<group>"; };
-		55E1568B1AD6C14500C62699 /* RTCPeerConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPeerConnection.h; sourceTree = "<group>"; };
-		55E1568C1AD6C14500C62699 /* RTCPeerConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPeerConnectionDelegate.h; sourceTree = "<group>"; };
-		55E1568D1AD6C14500C62699 /* RTCPeerConnectionFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCPeerConnectionFactory.h; sourceTree = "<group>"; };
-		55E1568E1AD6C14500C62699 /* RTCSessionDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCSessionDescription.h; sourceTree = "<group>"; };
-		55E1568F1AD6C14500C62699 /* RTCSessionDescriptionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCSessionDescriptionDelegate.h; sourceTree = "<group>"; };
-		55E156901AD6C14500C62699 /* RTCStatsDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCStatsDelegate.h; sourceTree = "<group>"; };
-		55E156911AD6C14500C62699 /* RTCStatsReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCStatsReport.h; sourceTree = "<group>"; };
-		55E156921AD6C14500C62699 /* RTCTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCTypes.h; sourceTree = "<group>"; };
-		55E156931AD6C14500C62699 /* RTCVideoCapturer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoCapturer.h; sourceTree = "<group>"; };
-		55E156941AD6C14500C62699 /* RTCVideoRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoRenderer.h; sourceTree = "<group>"; };
-		55E156951AD6C14500C62699 /* RTCVideoSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoSource.h; sourceTree = "<group>"; };
-		55E156961AD6C14500C62699 /* RTCVideoTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTCVideoTrack.h; sourceTree = "<group>"; };
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		55F6BDC91A3F21CC0080C326 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		55F6BDCD1A3F22010080C326 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		55F6BDCF1A3F221B0080C326 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		55F6BDD11A3F22BE0080C326 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		55FD2E571ADE743400EBC235 /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickbloxWebRTC.framework; path = ../Framework/QuickbloxWebRTC.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,11 +157,11 @@
 				55F6BDCE1A3F22010080C326 /* libsqlite3.dylib in Frameworks */,
 				55CF63B01A3B007700FE8D19 /* libresolv.dylib in Frameworks */,
 				55CF63AA1A3AFF2E00FE8D19 /* libz.dylib in Frameworks */,
+				55FD2E581ADE743400EBC235 /* QuickbloxWebRTC.framework in Frameworks */,
 				5501A8A21AD3F61700D0AE0D /* Quickblox.framework in Frameworks */,
 				55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */,
 				55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */,
 				55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */,
-				554006AD1AD8228E00B06063 /* libWebRTC-8976-arm-intel-Release.a in Frameworks */,
 				55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -483,8 +401,6 @@
 		55B1C7201A7BE76700AF110D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				55E156521AD6C14400C62699 /* Classes */,
-				55E1567B1AD6C14500C62699 /* WebRTC */,
 				55B1C7211A7BE76700AF110D /* AIButton */,
 				55B1C7241A7BE76700AF110D /* CheckMarkView */,
 				55B1C7271A7BE76700AF110D /* CornerView */,
@@ -580,109 +496,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		55E156521AD6C14400C62699 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				55E156531AD6C14400C62699 /* QBBackgroundTimer.h */,
-				55E156541AD6C14400C62699 /* QBBackgroundTimer.m */,
-				55E156551AD6C14400C62699 /* QBChatPrivateAPI.h */,
-				55E156561AD6C14400C62699 /* QBDisplayLinkTimer.h */,
-				55E156571AD6C14400C62699 /* QBDisplayLinkTimer.m */,
-				55E156581AD6C14400C62699 /* QBGLVideoView.h */,
-				55E156591AD6C14400C62699 /* QBGLVideoView.m */,
-				55E1565A1AD6C14400C62699 /* QBGLVideoViewPrivateAPI.h */,
-				55E1565B1AD6C14400C62699 /* QBICEServer.h */,
-				55E1565C1AD6C14400C62699 /* QBICEServer.m */,
-				55E1565D1AD6C14400C62699 /* QBICEServerPrivateAPI.h */,
-				55E1565E1AD6C14400C62699 /* QBMediaStreamManager.h */,
-				55E1565F1AD6C14400C62699 /* QBMediaStreamManager.m */,
-				55E156601AD6C14400C62699 /* QBPeerChannel.h */,
-				55E156611AD6C14400C62699 /* QBPeerChannel.m */,
-				55E156621AD6C14400C62699 /* QBRTCClient.h */,
-				55E156631AD6C14400C62699 /* QBRTCClient.m */,
-				55E156641AD6C14400C62699 /* QBRTCClientDelegate.h */,
-				55E156651AD6C14400C62699 /* QBRTCConfig.h */,
-				55E156661AD6C14400C62699 /* QBRTCConfig.m */,
-				55E156671AD6C14400C62699 /* QBRTCSession.h */,
-				55E156681AD6C14400C62699 /* QBRTCSession.m */,
-				55E156691AD6C14400C62699 /* QBRTCSessionDescription.h */,
-				55E1566A1AD6C14400C62699 /* QBRTCSessionDescription.m */,
-				55E1566B1AD6C14500C62699 /* QBRTCSessionPrivateAPI.h */,
-				55E1566C1AD6C14500C62699 /* QBRTCSignalProcessor.h */,
-				55E1566D1AD6C14500C62699 /* QBRTCSignalProcessor.m */,
-				55E1566E1AD6C14500C62699 /* QBRTCTypes.h */,
-				55E1566F1AD6C14500C62699 /* QBRTCUtils.h */,
-				55E156701AD6C14500C62699 /* QBRTCUtils.m */,
-				55E156711AD6C14500C62699 /* QBRTCVideoTrack.h */,
-				55E156721AD6C14500C62699 /* QBRTCVideoTrack.m */,
-				55E156731AD6C14500C62699 /* QBRTCVideoTrackPrivateAPI.h */,
-				55E156741AD6C14500C62699 /* QBSignalChannel.h */,
-				55E156751AD6C14500C62699 /* QBSignalChannel.m */,
-				55E156761AD6C14500C62699 /* QBSignalingSpec.h */,
-				55E156771AD6C14500C62699 /* QBSignalingSpec.m */,
-				55E156781AD6C14500C62699 /* QBSoundRouter.h */,
-				55E156791AD6C14500C62699 /* QBSoundRouter.m */,
-				55E1567A1AD6C14500C62699 /* QuickbloxWebRTC.h */,
-			);
-			name = Classes;
-			path = "../../../../SDK-ios-WebRTC/QuickbloxWebRTC/Framework/QuickbloxWebRTC/QuickbloxWebRTC/Classes";
-			sourceTree = "<group>";
-		};
-		55E1567B1AD6C14500C62699 /* WebRTC */ = {
-			isa = PBXGroup;
-			children = (
-				55E1567C1AD6C14500C62699 /* Headers */,
-				55E156971AD6C14500C62699 /* libs */,
-			);
-			name = WebRTC;
-			path = "../../../../SDK-ios-WebRTC/QuickbloxWebRTC/Framework/QuickbloxWebRTC/QuickbloxWebRTC/WebRTC";
-			sourceTree = "<group>";
-		};
-		55E1567C1AD6C14500C62699 /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				55E1567D1AD6C14500C62699 /* RTCAudioSource.h */,
-				55E1567E1AD6C14500C62699 /* RTCAudioTrack.h */,
-				55E1567F1AD6C14500C62699 /* RTCDataChannel.h */,
-				55E156801AD6C14500C62699 /* RTCEAGLVideoView.h */,
-				55E156811AD6C14500C62699 /* RTCI420Frame.h */,
-				55E156821AD6C14500C62699 /* RTCICECandidate.h */,
-				55E156831AD6C14500C62699 /* RTCICEServer.h */,
-				55E156841AD6C14500C62699 /* RTCMediaConstraints.h */,
-				55E156851AD6C14500C62699 /* RTCMediaSource.h */,
-				55E156861AD6C14500C62699 /* RTCMediaStream.h */,
-				55E156871AD6C14500C62699 /* RTCMediaStreamTrack.h */,
-				55E156881AD6C14500C62699 /* RTCNSGLVideoView.h */,
-				55E156891AD6C14500C62699 /* RTCOpenGLVideoRenderer.h */,
-				55E1568A1AD6C14500C62699 /* RTCPair.h */,
-				55E1568B1AD6C14500C62699 /* RTCPeerConnection.h */,
-				55E1568C1AD6C14500C62699 /* RTCPeerConnectionDelegate.h */,
-				55E1568D1AD6C14500C62699 /* RTCPeerConnectionFactory.h */,
-				55E1568E1AD6C14500C62699 /* RTCSessionDescription.h */,
-				55E1568F1AD6C14500C62699 /* RTCSessionDescriptionDelegate.h */,
-				55E156901AD6C14500C62699 /* RTCStatsDelegate.h */,
-				55E156911AD6C14500C62699 /* RTCStatsReport.h */,
-				55E156921AD6C14500C62699 /* RTCTypes.h */,
-				55E156931AD6C14500C62699 /* RTCVideoCapturer.h */,
-				55E156941AD6C14500C62699 /* RTCVideoRenderer.h */,
-				55E156951AD6C14500C62699 /* RTCVideoSource.h */,
-				55E156961AD6C14500C62699 /* RTCVideoTrack.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		55E156971AD6C14500C62699 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				554006AC1AD8228E00B06063 /* libWebRTC-8976-arm-intel-Release.a */,
-			);
-			path = libs;
-			sourceTree = "<group>";
-		};
 		AB35EE3F551E29A444EB63EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				555D5AA01AD6CC0300E2DB6D /* libxml2.2.dylib */,
+				55FD2E571ADE743400EBC235 /* QuickbloxWebRTC.framework */,
 				55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */,
 				5501A8A11AD3F61700D0AE0D /* Quickblox.framework */,
 				55F6BDD11A3F22BE0080C326 /* libicucore.dylib */,
@@ -816,21 +634,12 @@
 			files = (
 				55B1C7341A7BE76700AF110D /* UserTableViewCell.m in Sources */,
 				55B1C7461A7BE76700AF110D /* BaseViewController.m in Sources */,
-				55E156A91AD6C14500C62699 /* QBSignalingSpec.m in Sources */,
 				55B1C74A1A7BE76700AF110D /* SettingsCallViewController.m in Sources */,
 				55B1C7331A7BE76700AF110D /* OpponentCollectionViewCell.m in Sources */,
 				5501A89A1AD3E2E300D0AE0D /* QMSoundManager.m in Sources */,
 				55B1C7431A7BE76700AF110D /* SVIndefiniteAnimatedView.m in Sources */,
-				55E1569D1AD6C14500C62699 /* QBGLVideoView.m in Sources */,
-				55E156A61AD6C14500C62699 /* QBRTCUtils.m in Sources */,
-				55E156A11AD6C14500C62699 /* QBRTCClient.m in Sources */,
-				55E156A21AD6C14500C62699 /* QBRTCConfig.m in Sources */,
-				55E156A31AD6C14500C62699 /* QBRTCSession.m in Sources */,
-				55E1569C1AD6C14500C62699 /* QBDisplayLinkTimer.m in Sources */,
 				55B1C74F1A7BE76700AF110D /* QBLogoView.m in Sources */,
 				55B1C7301A7BE76700AF110D /* AppDelegate.m in Sources */,
-				55E156A01AD6C14500C62699 /* QBPeerChannel.m in Sources */,
-				55E156A41AD6C14500C62699 /* QBRTCSessionDescription.m in Sources */,
 				55B1C74C1A7BE76700AF110D /* IAButton.m in Sources */,
 				55B1C7471A7BE76700AF110D /* ContainerViewController.m in Sources */,
 				55B1C7481A7BE76700AF110D /* IncomingCallViewController.m in Sources */,
@@ -838,21 +647,14 @@
 				55B1C73C1A7BE76700AF110D /* main.m in Sources */,
 				55B1C7501A7BE76700AF110D /* UserPicView.m in Sources */,
 				55B1C74E1A7BE76700AF110D /* CornerView.m in Sources */,
-				55E156AA1AD6C14500C62699 /* QBSoundRouter.m in Sources */,
 				55B1C7451A7BE76700AF110D /* SVProgressHUD.m in Sources */,
 				551473BC1A88C5FA00D61A4F /* CallViewController.m in Sources */,
-				55E1569F1AD6C14500C62699 /* QBMediaStreamManager.m in Sources */,
 				5501A8C41AD4112700D0AE0D /* StunViewController.m in Sources */,
-				55E1569B1AD6C14500C62699 /* QBBackgroundTimer.m in Sources */,
-				55E156A71AD6C14500C62699 /* QBRTCVideoTrack.m in Sources */,
-				55E156A81AD6C14500C62699 /* QBSignalChannel.m in Sources */,
 				55B1C74D1A7BE76700AF110D /* CheckMarkView.m in Sources */,
 				5501A8981AD3E2E300D0AE0D /* CallManager.m in Sources */,
 				5501A8991AD3E2E300D0AE0D /* ConnectionManager.m in Sources */,
 				55B1C7321A7BE76700AF110D /* CheckUserTableViewCell.m in Sources */,
-				55E156A51AD6C14500C62699 /* QBRTCSignalProcessor.m in Sources */,
 				55B1C7491A7BE76700AF110D /* LoginViewController.m in Sources */,
-				55E1569E1AD6C14500C62699 /* QBICEServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -976,7 +778,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
-					"/Users/andrey/Projects/quickblox-ios-sdk/Framework",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = "QBRTCChatSample-Prefix.pch";
@@ -984,10 +785,7 @@
 				INFOPLIST_FILE = QBRTCChatSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/andrey/Projects/SDK-ios-WebRTC/QuickbloxWebRTC/Framework/QuickbloxWebRTC/QuickbloxWebRTC/WebRTC/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = QBRTCChatSample;
@@ -995,7 +793,6 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
-				"VALID_ARCHS[sdk=iphonesimulator*]" = x86_64;
 			};
 			name = Debug;
 		};
@@ -1009,7 +806,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
-					"/Users/andrey/Projects/quickblox-ios-sdk/Framework",
 				);
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
 				GCC_PREFIX_HEADER = "QBRTCChatSample-Prefix.pch";
@@ -1017,10 +813,7 @@
 				INFOPLIST_FILE = QBRTCChatSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/andrey/Projects/SDK-ios-WebRTC/QuickbloxWebRTC/Framework/QuickbloxWebRTC/QuickbloxWebRTC/WebRTC/libs",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = QBRTCChatSample;
 				PROVISIONING_PROFILE = "8167ef38-4b98-4550-be1c-167027a7ce74";

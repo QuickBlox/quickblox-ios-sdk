@@ -12,8 +12,8 @@
 #define QB_DEFAULT_ICE_SERVERS 0
 
 const CGFloat kQBRingThickness = 1.f;
-const NSTimeInterval kQBAnswerTimeInterval = 120.f;
-const NSTimeInterval kQBRTCDisconnectTimeInterval = 120.f;
+const NSTimeInterval kQBAnswerTimeInterval = 60.f;
+const NSTimeInterval kQBRTCDisconnectTimeInterval = 30.f;
 
 const NSUInteger kQBApplicationID = 92;
 NSString *const kQBRegisterServiceKey = @"wJHdOcQSxXQGWx5";
@@ -34,7 +34,7 @@ NSString *const kQBAccountKey = @"7yvNe17TnjNUqDoPwfqp";
     //QuickbloxWebRTC preferences
     [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
     [QBRTCConfig setDisconnectTimeInterval:kQBRTCDisconnectTimeInterval];
-    [QBRTCConfig setDialingTimeInterval:20];
+    [QBRTCConfig setDialingTimeInterval:5];
     
     //SVProgressHUD preferences
     [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
