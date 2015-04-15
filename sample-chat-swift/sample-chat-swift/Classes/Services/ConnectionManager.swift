@@ -71,14 +71,21 @@ class ConnectionManager: NSObject, QBChatDelegate {
     
     func chatDidLogin() {
         self.presenceTimer = NSTimer.scheduledTimerWithTimeInterval(kChatPresenceTimeInterval, target: self, selector: Selector("sendChatPresence"), userInfo: nil, repeats: true)
-        
+        self.privacyManager.retrieveDefaultPrivacyList()
+    }
+    
+    func chatDidReceivePrivacyList(privacyList: QBPrivacyList!) {
         if self.chatLoginCompletion != nil {
             self.chatLoginCompletion(true, nil)
             self.chatLoginCompletion = nil
         }
-        
-        self.privacyManager.retrieveDefaultPrivacyList()
-        
+    }
+    
+    func chatDidNotReceivePrivacyListWithName(name: String!, error: AnyObject!) {
+        if self.chatLoginCompletion != nil {
+            self.chatLoginCompletion(true, nil)
+            self.chatLoginCompletion = nil
+        }
     }
     
     func sendChatPresence() {

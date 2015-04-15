@@ -35,7 +35,7 @@ class PrivacyManager : NSObject, QBChatDelegate {
     }
     
     func retrieveDefaultPrivacyList() {
-        assert(QBChat.instance().isLoggedIn());
+        assert(QBChat.instance().isLoggedIn())
         QBChat.instance().retrievePrivacyListWithName("default")
     }
     
@@ -89,9 +89,6 @@ class PrivacyManager : NSObject, QBChatDelegate {
     }
     
     func unblockUserInP2PChat(user: QBUUser) {
-        if self.privacyList.items == nil {
-            return
-        }
         for (index, element) in enumerate(self.privacyList.items){
             if let privacyItem = element as? QBPrivacyItem{
                 if privacyItem.type.value == USER_ID.value && privacyItem.valueForType == user.ID {
