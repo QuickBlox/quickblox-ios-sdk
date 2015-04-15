@@ -71,7 +71,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
         return;
     }
     
-    [[QBSoundRouter instance] beginVoiceChat];
+    [QBSoundRouter.instance initialize];
     
     NSArray *opponentsIDs = [ConnectionManager.instance idsWithUsers:users];
     
@@ -103,7 +103,8 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
 
 #pragma mark - QBWebRTCChatDelegate
 
-- (void)didReceiveNewSession:(QBRTCSession *)session {
+- (void)didReceiveNewSession:(QBRTCSession *)session userInfo:(NSDictionary *)userInfo {
+    
     
     if (self.session) {
         
@@ -113,7 +114,9 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     
     self.session = session;
     
-    [[QBSoundRouter instance] beginVoiceChat];
+    NSParameterAssert(userInfo[@"newcall"]);
+    
+    [QBSoundRouter.instance initialize];
     
     [QMSoundManager playRingtoneSound];
     
@@ -136,8 +139,8 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
 }
 
 - (void)sessionWillClose:(QBRTCSession *)session {
+    if (self.session == session)
     
-    [[QBSoundRouter instance] endVoiceChat];
     NSLog(@"session will close");
 }
 
@@ -147,6 +150,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
+            [QBSoundRouter.instance deinitialize];
             self.session = nil;
             [self.containerVC dismissViewControllerAnimated:NO completion:nil];
             self.containerVC = nil;
