@@ -47,10 +47,10 @@ class LoginTableViewController: UITableViewController {
         return ConnectionManager.instance.usersDataSource.users.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    internal override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("UserTableViewCellIdentifier", forIndexPath: indexPath) as! UserTableViewCell
 
-        var user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
+        let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
         
         cell.setColorMarkerText(String(indexPath.row+1), color: user.color)
         cell.userDescription = user.fullName
