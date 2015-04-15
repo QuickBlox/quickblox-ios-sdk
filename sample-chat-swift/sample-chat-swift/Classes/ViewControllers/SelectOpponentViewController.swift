@@ -20,6 +20,11 @@ class SelectOpponentViewController: LoginTableViewController {
         self.navigationItem.title = "Welcome, " + ConnectionManager.instance.currentUser!.login
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
+    
     func checkCreateChatButtonState() {
         self.navigationItem.rightBarButtonItem?.enabled = tableView.indexPathsForSelectedRows()?.count != nil
     }
@@ -100,6 +105,9 @@ class SelectOpponentViewController: LoginTableViewController {
         cell.user = user
         cell.delegate = self.delegate
         
+        if user.ID == ConnectionManager.instance.currentUser!.ID {
+            cell.hidden = true // hide current user
+        }
         return cell
     }
     
