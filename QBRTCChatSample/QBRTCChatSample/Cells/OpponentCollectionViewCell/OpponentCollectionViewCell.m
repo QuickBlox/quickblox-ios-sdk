@@ -32,6 +32,7 @@
     self.statusLabel.text = @"";
     self.userPic.picColor = [UIColor colorWithWhite:0.269 alpha:0.930];
     self.backgroundColor = [UIColor colorWithWhite:0.724 alpha:0.880];
+    self.remoteVideoView.skipBlackFrames = YES;
     self.layer.borderWidth = 1.0;
 }
 
@@ -63,13 +64,14 @@
                 
                 self.statusLabel.text = @"Pending";
                 [self.activityIndicator stopAnimating];
+                
                 break;
                 
             case QBRTCConnectionChecking:
                 
                 self.statusLabel.text = @"Checking";
                 [self.activityIndicator startAnimating];
-                
+    
                 break;
                 
             case QBRTCConnectionConnecting:

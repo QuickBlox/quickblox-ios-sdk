@@ -43,7 +43,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
            completion:(void (^)(BOOL error))completion {
     
     [QBChat.instance loginWithUser:user];
-    QBChat.instance.delegate = self;
+    [QBChat.instance addDelegate:self];
     
     self.me = user;
     

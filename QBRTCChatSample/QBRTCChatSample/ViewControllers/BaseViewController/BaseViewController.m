@@ -28,7 +28,7 @@
 
 - (UIBarButtonItem *)cornerBarButtonWithColor:(UIColor *)color
                                          title:(NSString *)title
-                                didTouchesEnd:(void(^)(void))action {
+                                didTouchesEnd:(dispatch_block_t)action {
     
     return ({
         
@@ -46,7 +46,7 @@
     });
 }
 
-- (void)setDefaultBackBarButtonItem:(void(^)(void))didTouchesEndAction {
+- (void)setDefaultBackBarButtonItem:(dispatch_block_t)didTouchesEndAction {
     
     UIBarButtonItem *backBarButtonItem =
     [self cornerBarButtonWithColor:ConnectionManager.instance.me.color
@@ -57,31 +57,6 @@
      }];
     
     self.navigationItem.leftBarButtonItem = backBarButtonItem;
-}
-
-- (UIView *)headerViewWithFrame:(CGRect)headerRect text:(NSString *)text {
-    
-    return ({
-        
-        UIView *infoHeaderView = [[UIView alloc] initWithFrame:headerRect];
-        infoHeaderView.backgroundColor = [UIColor colorWithWhite:0.965 alpha:0.890];
-        infoHeaderView.autoresizingMask =  UIViewAutoresizingFlexibleWidth;
-        
-        [infoHeaderView addSubview:({
-            
-            UILabel *infoLabel = [[UILabel alloc] initWithFrame:headerRect];
-            infoLabel.text = text;
-            infoLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
-            infoLabel.textColor = [UIColor colorWithRed:0.248 green:0.267 blue:0.305 alpha:1.000];
-            infoLabel.textAlignment = NSTextAlignmentCenter;
-            infoLabel.numberOfLines = 0;
-            infoLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-            
-            infoLabel;
-        })];
-        
-        infoHeaderView;
-    });
 }
 
 @end

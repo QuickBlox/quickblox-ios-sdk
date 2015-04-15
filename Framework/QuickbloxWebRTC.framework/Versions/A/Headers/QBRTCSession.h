@@ -32,7 +32,8 @@
 /**
  * Set audio session category options
  */
-@property (assign, nonatomic) AVAudioSessionCategoryOptions audioCategoryOptions;
+@property (assign, nonatomic) AVAudioSessionCategoryOptions audioCategoryOptions __attribute__((deprecated("use 'QBSoundRouter'.")));
+
 /**
  *  Unique session identifier
  */
@@ -56,28 +57,30 @@
 - (id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
 
 /**
- *  Start call
+ *  Start call. Opponent will receive new session signal in QBRTCClientDelegate method 'didReceiveNewSession:userInfo:
+ *
+ * @param userInfo The user information dictionary for the stat call. May be nil.
  */
 - (void)startCall:(NSDictionary *)userInfo;
 
 /**
- * Accept call with userInfo.
+ * Accept call. Opponent's will receive accept signal in QBRTCClientDelegate method 'session:acceptByUser:userInfo:'
  *
  * @param userInfo The user information dictionary for the accept call. May be nil.
  */
 - (void)acceptCall:(NSDictionary *)userInfo;
 
 /**
- * Reject call. Opponent will receive reject signal in QBChatDelegate's method 'callDidRejectByUser:'
+ * Reject call. Opponent's will receive reject signal in QBRTCClientDelegate method 'session:rejectedByUser:userInfo:'
  *
- * @param userInfo The user information dictionary for the accept call. May be nil.
+ * @param userInfo The user information dictionary for the reject call. May be nil.
  */
 - (void)rejectCall:(NSDictionary *)userInfo;
 
 /**
- * Hang up
+ * Hang up. Opponent's will receive hung up signal in QBRTCClientDelegate method 'session:hungUpByUser:userInfo:'
  *
- * @param userInfo The user information dictionary for the accept call. May be nil.
+ * @param userInfo The user information dictionary for the hang up. May be nil.
  */
 - (void)hangUp:(NSDictionary *)userInfo;
 
@@ -87,13 +90,6 @@
  *  @param block isFrontCamera YES/NO
  */
 - (void)switchCamera:(void (^)(BOOL isFrontCamera))block;
-
-/**
- * Switch audio output. (Defaults: ipad - speaker, iphone - headphone )
- *
- * @param block isSpeaker YES/NO
- */
-- (void)switchAudioOutput:(void (^)(BOOL isSpeaker))block __attribute__((deprecated("use '+[QBRTCSession seAudioCategoryOptions:'.")));
 
 /**
  *  Remote track with opponent ID
