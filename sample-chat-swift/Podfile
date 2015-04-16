@@ -1,4 +1,6 @@
 platform :ios, "7.0"
 
-pod "SVProgressHUD"
-pod 'JSQMessagesViewController' 
+pod 'SVProgressHUD'
+pod 'JSQMessagesViewController'
+
+pod 'Quickblox'
