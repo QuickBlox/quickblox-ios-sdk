@@ -18,6 +18,12 @@
 #define COCOAPODS_VERSION_MINOR_JSQSystemSoundPlayer 0
 #define COCOAPODS_VERSION_PATCH_JSQSystemSoundPlayer 1
 
+// Quickblox
+#define COCOAPODS_POD_AVAILABLE_Quickblox
+#define COCOAPODS_VERSION_MAJOR_Quickblox 2
+#define COCOAPODS_VERSION_MINOR_Quickblox 2
+#define COCOAPODS_VERSION_PATCH_Quickblox 3
+
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
 #define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
