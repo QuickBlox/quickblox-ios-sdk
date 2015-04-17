@@ -47,6 +47,7 @@ class UserBlockButtons: NSObject, SWTableViewCellDelegate{
         }
         return [deleteButton!]
     }
+    
     class func blockButtonsForUser(user: QBUUser!) -> [UIButton]{
         var title = "Block"
         var color = UIColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 1.0)

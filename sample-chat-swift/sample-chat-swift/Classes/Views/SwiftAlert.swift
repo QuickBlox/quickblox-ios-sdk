@@ -12,24 +12,25 @@ class SwiftAlert: NSObject, UIAlertViewDelegate {
     
     private var callBack : ((Int) -> (Void))?
     private var unmanaged : Unmanaged<NSObject>?
-    var alert: UIAlertView?
+    var alert: UIAlertView
     
     /**
     :param: cancelButtonTitle cancelButtonTitle has index 0
     */
     init(title: String?, message: String?, cancelButtonTitle: String?, otherButtonTitle:[String], didClick closure:(buttonIndex:Int) -> Void) {
+        alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelButtonTitle)
         super.init() // To set the delegate as self we need to call its super.init() first.
-        alert = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: cancelButtonTitle)
+        alert.delegate = self
         
         //Add buttons from otherButtonTitle
         for (index, title) in enumerate(otherButtonTitle) {
-            alert?.addButtonWithTitle(title)
+            alert.addButtonWithTitle(title)
         }
         
         self.callBack = closure
         self.unmanaged = Unmanaged.passRetained(self)
         
-        alert?.show()
+        alert.show()
     }
     
     internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {

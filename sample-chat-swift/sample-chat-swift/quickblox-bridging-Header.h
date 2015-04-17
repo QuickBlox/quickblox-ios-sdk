@@ -23,5 +23,6 @@
 #import <JSQMessagesBubbleImage.h>
 #import "SWTableViewCell.h"
 #import "NSMutableArray+SWUtilityButtons.h"
+#import "UIAlertDialog.h"
 
 #endif
