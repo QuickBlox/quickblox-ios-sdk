@@ -23,6 +23,7 @@ class SelectOpponentViewController: LoginTableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
+        self.checkCreateChatButtonState()
     }
     
     func checkCreateChatButtonState() {
@@ -30,21 +31,28 @@ class SelectOpponentViewController: LoginTableViewController {
     }
     
     // called when create chat button is pressed
-    @IBAction func createChatButtonPressed() {
+    @IBAction func createChatButtonPressed(sender: UIButton) {
+        sender.enabled = false
+        
         var selectedIndexes = self.tableView.indexPathsForSelectedRows() as! [NSIndexPath]
         if selectedIndexes.count == 1 {
-            createChatWithName(nil)
+            createChatWithName(nil, completion: { () -> Void in
+                sender.enabled = true
+            })
         }
         else{
             SwiftAlertWithTextField(title: "Enter chat name", message: nil, showOver:self, didClickOk: { [unowned self] (text) -> Void in
-                self.createChatWithName(text)
+                self.createChatWithName(text, completion: { () -> Void in
+                    sender.enabled = true
+                })
                 }) { () -> Void in
                     // cancel
+                    sender.enabled = true
             }
         }
     }
     
-    func createChatWithName(name: String?){
+    func createChatWithName(name: String?, completion: () -> Void){
         var selectedIndexes = self.tableView.indexPathsForSelectedRows() as! [NSIndexPath]
         
         var usersToChat: [QBUUser] = []
@@ -76,11 +84,12 @@ class SelectOpponentViewController: LoginTableViewController {
         
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
             SVProgressHUD.showSuccessWithStatus("Dialog created!")
+            completion()
             self!.createdDialog = createdDialog
             self?.performSegueWithIdentifier(self!.kChatSegueIdentifier, sender: nil)
             println(createdDialog)
-            
             }) { (response: QBResponse!) -> Void in
+                completion()
                 println(response.error.error)
                 SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
         }

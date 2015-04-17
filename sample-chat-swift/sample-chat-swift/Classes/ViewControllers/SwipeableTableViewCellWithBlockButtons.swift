@@ -15,7 +15,7 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
     */
     
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
-        assert( cell.isKindOfClass(UserTableViewCell))
+        assert(cell.isKindOfClass(UserTableViewCell))
         
         var cell = cell as! UserTableViewCell
         
@@ -26,16 +26,14 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
             if let pressedButton = cell.rightUtilityButtons[index] as? UIButton {
                 // block button
                 if pressedButton.tag == 0 {
-                    let actionSheetController: UIAlertController = UIAlertController(title: "Additional actions", message: nil, preferredStyle: .ActionSheet)
+                    let actionSheetController = UIAlertDialog(style: UIAlertDialogStyle.ActionSheet, title: "Additional actions", andMessage: nil)
                     
-                    let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in }
-                    actionSheetController.addAction(cancelAction)
-                    
+                    /// P2P block
                     let selectedUser = cell.user!
                     let userIsBlockedInP2P = ConnectionManager.instance.privacyManager.isUserInBlockListP2P(selectedUser)
                     var messageP2P = userIsBlockedInP2P ? "Unblock user in 1-1 chat" : "Block user in 1-1 chat"
                     
-                    let UserP2PAction: UIAlertAction = UIAlertAction(title: messageP2P, style: .Default) { action -> Void in
+                    actionSheetController.addButtonWithTitle(messageP2P, andHandler: { (index: Int) -> Void in
                         if userIsBlockedInP2P {
                             ConnectionManager.instance.privacyManager.unblockUserInP2PChat(selectedUser)
                         }
@@ -44,14 +42,13 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             ConnectionManager.instance.privacyManager.blockUserInP2PChat(selectedUser)
                         }
                         strongTableView.reloadRowsAtIndexPaths([cellIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
-                    }
-                    actionSheetController.addAction(UserP2PAction)
+                    })
                     
+                    /// Groupchat block
+                    let userIsBlockedInGroupChats = ConnectionManager.instance.privacyManager.isUserInBlockListGroupChats(selectedUser)
+                    var messageGroupChat = userIsBlockedInGroupChats ? "Unblock user in all group chats" : "Block user in all group chats"
                     
-                    var messageGroupChat = userIsBlockedInP2P ? "Unblock user in all group chats" : "Block user in all group chats"
-                    let userIsBlockedInGroupChats = ConnectionManager.instance.privacyManager.isUserInBlockListP2P(selectedUser)
-                    
-                    let blockUserGroupChatAction: UIAlertAction = UIAlertAction(title: messageGroupChat, style: .Default) { action -> Void in
+                    actionSheetController.addButtonWithTitle(messageGroupChat, andHandler: { (index: Int) -> Void in
                         if userIsBlockedInGroupChats {
                             ConnectionManager.instance.privacyManager.unblockUserInGroupChats(selectedUser)
                         }
@@ -60,11 +57,14 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             ConnectionManager.instance.privacyManager.blockUserInGroupChats(selectedUser)
                         }
                         strongTableView.reloadRowsAtIndexPaths([cellIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
-                    }
-                    actionSheetController.addAction(blockUserGroupChatAction)
+                    })
+                    
+                    
+                    actionSheetController.addButtonWithTitle("Cancel", andHandler: nil)
                     
                     let appDelegate  = UIApplication.sharedApplication().delegate as! AppDelegate
-                    appDelegate.window!.rootViewController!.presentViewController(actionSheetController, animated: true, completion: nil)
+                    actionSheetController.showInViewController(appDelegate.window!.rootViewController!)
+                    
                 }
                 else if pressedButton.tag == 1 {
                     // delete button
