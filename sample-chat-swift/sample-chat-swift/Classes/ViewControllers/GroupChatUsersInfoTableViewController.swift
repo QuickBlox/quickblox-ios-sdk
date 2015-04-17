@@ -27,8 +27,11 @@ class GroupChatUsersInfoTableViewController: LoginTableViewController {
         
         let currentOccupantID = occupantsIDs[indexPath.row]
         if let dialogsUsers = ConnectionManager.instance.dialogsUsers {
-            let currentUser = dialogsUsers.filter({$0.ID == currentOccupantID })[0]
-            cell.userDescription = currentUser.email ?? currentUser.login
+            let filteredUsers = dialogsUsers.filter({$0.ID == currentOccupantID })
+            if !filteredUsers.isEmpty {
+                let currentUser = filteredUsers[0]
+                cell.userDescription = currentUser.email ?? currentUser.login
+            }
         }
 
         return cell
