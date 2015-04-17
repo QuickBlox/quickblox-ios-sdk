@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Select user-->
+        <!--Select user to login to Chat-->
         <scene sceneID="pbE-gL-ft9">
             <objects>
                 <tableViewController id="cFd-TC-mYp" customClass="LoginTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
@@ -59,9 +59,9 @@
                             <outlet property="delegate" destination="cFd-TC-mYp" id="H2C-OX-16t"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select user" id="Ach-ib-q8S"/>
+                    <navigationItem key="navigationItem" title="Select user to login to Chat" id="Ach-ib-q8S"/>
                     <connections>
-                        <segue destination="3ff-8d-9pb" kind="show" identifier="goToSelectOponnents" id="Pzf-K6-R94"/>
+                        <segue destination="kUh-9G-GLK" kind="show" identifier="goToDialogs" id="fwx-Pz-Z8F"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJb-GV-wYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -77,45 +77,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="eXk-Yp-tgG">
-                            <rect key="frame" x="0.0" y="64" width="600" height="80"/>
+                            <rect key="frame" x="0.0" y="64" width="600" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24N-zT-SMv">
-                                    <rect key="frame" x="0.0" y="26" width="600" height="54"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                    <state key="normal" title="Show available dialogs">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="kUh-9G-GLK" kind="show" identifier="" id="h7N-vW-FCh"/>
-                                    </connections>
-                                </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select opponents" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH2-NN-FuR">
                                     <rect key="frame" x="0.0" y="5" width="600" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="dwX-xy-pai"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="24N-zT-SMv" firstAttribute="top" secondItem="eXk-Yp-tgG" secondAttribute="top" id="BKC-GO-1mK"/>
                                 <constraint firstItem="SH2-NN-FuR" firstAttribute="top" secondItem="eXk-Yp-tgG" secondAttribute="top" constant="5" id="FsZ-cO-Q7j"/>
-                                <constraint firstItem="24N-zT-SMv" firstAttribute="top" secondItem="SH2-NN-FuR" secondAttribute="bottom" id="KFM-hR-PAI"/>
                                 <constraint firstItem="SH2-NN-FuR" firstAttribute="leading" secondItem="eXk-Yp-tgG" secondAttribute="leading" id="lJP-l6-oSt"/>
                                 <constraint firstAttribute="trailing" secondItem="SH2-NN-FuR" secondAttribute="trailing" id="lNJ-BG-hQY"/>
-                                <constraint firstAttribute="trailing" secondItem="24N-zT-SMv" secondAttribute="trailing" id="leh-n6-4da"/>
-                                <constraint firstItem="24N-zT-SMv" firstAttribute="leading" secondItem="eXk-Yp-tgG" secondAttribute="leading" id="n8d-pQ-Q2R"/>
-                                <constraint firstAttribute="bottom" secondItem="24N-zT-SMv" secondAttribute="bottom" id="ork-ey-3Dy"/>
                             </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="BKC-GO-1mK"/>
-                                </mask>
-                            </variation>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="C3G-5X-W4U" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
@@ -172,7 +152,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="createChatButtonPressed" destination="3ff-8d-9pb" eventType="touchUpInside" id="8fi-6f-Sqc"/>
+                                    <action selector="createChatButtonPressed:" destination="3ff-8d-9pb" eventType="touchUpInside" id="e7r-3V-Ge2"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -184,9 +164,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yln-v5-u6S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1592" y="372"/>
+            <point key="canvasLocation" x="958" y="1130"/>
         </scene>
-        <!--Dialogs View Controller-->
+        <!--Dialogs-->
         <scene sceneID="xLo-Lg-37L">
             <objects>
                 <viewController id="kUh-9G-GLK" customClass="DialogsViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
@@ -195,7 +175,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7tB-hr-5zd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="u18-Lg-UBa">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a dialog to chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFj-SE-fei">
@@ -257,14 +237,31 @@
                             <constraint firstItem="EFj-SE-fei" firstAttribute="top" secondItem="phq-Ka-wSI" secondAttribute="bottom" id="efw-TN-gSK"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Dialogs" id="bmx-cq-v74">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Zcm-ZY-ygz">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="u6a-tr-QvZ">
+                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="New Chat">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goToOpponents:" destination="kUh-9G-GLK" eventType="touchUpInside" id="jge-1F-dUh"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="UBA-wP-6VG" id="60L-0F-yNo"/>
                         <segue destination="3e3-Lk-tKV" kind="show" identifier="goToChat" id="R4t-SD-z75"/>
+                        <segue destination="3ff-8d-9pb" kind="show" identifier="goToSelectOpponents" id="8Kt-Ue-5O2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KFh-0u-971" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2418" y="40"/>
+            <point key="canvasLocation" x="1712" y="372"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qZH-Iu-xjY">
@@ -306,18 +303,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4G8-y7-QcB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2418" y="734"/>
+            <point key="canvasLocation" x="1712" y="1130"/>
         </scene>
-        <!--chat users-->
+        <!--List of chat participants-->
         <scene sceneID="Lce-dk-DPs">
             <objects>
                 <tableViewController id="0FA-X7-tAD" customClass="GroupChatUsersInfoTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hH2-0M-Sec">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hH2-0M-Sec">
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="VNS-sq-PF9" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="VNS-sq-PF9" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNS-sq-PF9" id="6eo-19-gDa">
@@ -332,7 +329,7 @@
                                             </constraints>
                                         </view>
                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5p4-2r-hK6">
-                                            <rect key="frame" x="60" y="12" width="532" height="21"/>
+                                            <rect key="frame" x="60" y="12" width="565" height="21"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="d4g-TR-NJN"/>
@@ -361,11 +358,11 @@
                             <outlet property="delegate" destination="0FA-X7-tAD" id="eaE-mW-fOJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="chat users" id="A4A-Dp-q1R"/>
+                    <navigationItem key="navigationItem" title="List of chat participants" id="A4A-Dp-q1R"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s9Z-np-maA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3066" y="734"/>
+            <point key="canvasLocation" x="2360" y="1130"/>
         </scene>
     </scenes>
     <resources>

@@ -26,7 +26,7 @@ class LoginTableViewController: UITableViewController {
                 let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
                 dispatch_after(delay, dispatch_get_main_queue(), {[weak self] () ->  Void in
                     
-                    self?.performSegueWithIdentifier("goToSelectOponnents", sender: nil)
+                    self?.performSegueWithIdentifier("goToDialogs", sender: nil)
                     })
             }
             else{

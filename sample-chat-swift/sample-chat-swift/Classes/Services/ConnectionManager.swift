@@ -91,6 +91,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
     func sendChatPresence() {
         if QBChat.instance().isLoggedIn() {
             QBChat.instance().sendPresence()
+            println( QBChat.instance().delegates() )
         }
     }
     

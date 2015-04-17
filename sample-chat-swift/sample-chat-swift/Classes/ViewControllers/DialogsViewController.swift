@@ -11,9 +11,14 @@ import UIKit
 class DialogsViewController: UIViewController, UITableViewDelegate {
     private var selectedDialog: QBChatDialog?
     private let kChatSegueIdentifier = "goToChat"
+    private let kOpponentsSegueIdentifier = "goToSelectOpponents"
     @IBOutlet weak var tableView:UITableView!
     
     private var delegate : SwipeableTableViewCellWithBlockButtons!
+    
+    @IBAction private func goToOpponents(sender: AnyObject?){
+        self.performSegueWithIdentifier(kOpponentsSegueIdentifier, sender: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,10 +80,15 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
         case QBChatDialogTypePrivate.value:
             cell.detailTextLabel?.text = "private"
             if let users = ConnectionManager.instance.dialogsUsers {
-                var recipient = users.filter(){ $0.ID == UInt(chatDialog.recipientID) }[0]
-                cell.textLabel?.text = recipient.login ?? recipient.email
-                cell.rightUtilityButtons = UserBlockButtons.blockButtonsForDialogType(chatDialog.type, user: recipient, includeDeleteButton: true)
-                cell.user = recipient
+                if chatDialog.recipientID != -1 { // not logined in chat
+                    var filteredUsers = users.filter(){ $0.ID == UInt(chatDialog.recipientID) }
+                    if !filteredUsers.isEmpty {
+                        var recipient = filteredUsers[0]
+                        cell.textLabel?.text = recipient.login ?? recipient.email
+                        cell.rightUtilityButtons = UserBlockButtons.blockButtonsForDialogType(chatDialog.type, user: recipient, includeDeleteButton: true)
+                        cell.user = recipient
+                    }
+                }
             }
             
         case QBChatDialogTypeGroup.value:
