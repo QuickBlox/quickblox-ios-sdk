@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCustomObjects/QBRequest+QBCustomObjects.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBRequest+QBCustomObjects.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBLocation/QBRequest+QBLocation.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBRequest+QBLocation.h

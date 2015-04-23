@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Business/Models/QBPrivacyList.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBPrivacyList.h

@@ -46,6 +46,15 @@
 - (void)chatDidNotSendMessage:(QBChatMessage *)message error:(NSError *)error;
 
 /**
+ didNotSendMessage fired when message cannot be send to the group chat
+ 
+ @param message message passed to sendMessage method into QBChat
+ @roomJid JID of the room
+ @param error Error
+ */
+- (void)chatDidNotSendMessage:(QBChatMessage *)message toRoomJid:(NSString *)roomJid error:(NSError *)error;
+
+/**
  didReceiveMessage fired when new message was received from QBChat
  
  @param message Message received from Chat
@@ -230,98 +239,6 @@
  @param roomJID JID of room
  */
 - (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users roomJID:(NSString *)roomJID;
-
-
-#pragma mark -
-#pragma mark Video Chat
-
-/**
- Called in case when opponent is calling to you
- 
- @param userID ID of uopponent
- @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
- */
--(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID withSessionID:(NSString*)sessionID conferenceType:(enum QBVideoChatConferenceType)conferenceType;
-
-/**
- Called in case when opponent is calling to you
- 
- @param userID ID of uopponent
- @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
- @param customParameters Custom caller parameters
- */
--(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID withSessionID:(NSString*)sessionID conferenceType:(enum QBVideoChatConferenceType)conferenceType customParameters:(NSDictionary *)customParameters;
-
-/**
- Called in case when you are calling to user, but hi hasn't answered
- 
- @param userID ID of opponent
- */
--(void) chatCallUserDidNotAnswer:(NSUInteger)userID;
-
-/**
- Called in case when opponent has accepted you call
- 
- @param userID ID of opponent
- */
--(void) chatCallDidAcceptByUser:(NSUInteger)userID;
-
-/**
- Called in case when opponent has accepted you call
- 
- @param userID ID of opponent
- @param customParameters Custom caller parameters
- */
--(void) chatCallDidAcceptByUser:(NSUInteger)userID customParameters:(NSDictionary *)customParameters;
-
-/**
- Called in case when opponent has rejected you call
- 
- @param userID ID of opponent
- */
--(void) chatCallDidRejectByUser:(NSUInteger)userID;
-
-/**
- Called in case when opponent has finished call
- 
- @param userID ID of opponent
- @param status Reason of finish call. There are 2 reasons: 1) Opponent did not answer - 'kStopVideoChatCallStatus_OpponentDidNotAnswer'. 2) Opponent finish call with method 'finishCall' - 'kStopVideoChatCallStatus_Manually'
- */
--(void) chatCallDidStopByUser:(NSUInteger)userID status:(NSString *)status;
-
-/**
- Called in case when opponent has finished call
- 
- @param userID ID of opponent
- @param status Reason of finish call. There are 2 reasons: 1) Opponent did not answer - 'kStopVideoChatCallStatus_OpponentDidNotAnswer'. 2) Opponent finish call with method 'finishCall' - 'kStopVideoChatCallStatus_Manually'
- @param customParameters Custom caller parameters
- */
--(void) chatCallDidStopByUser:(NSUInteger)userID status:(NSString *)status customParameters:(NSDictionary *)customParameters;
-
-/**
- Called in case when call has started
- 
- @param userID ID of opponent
- @param sessionID ID of session
- */
--(void) chatCallDidStartWithUser:(NSUInteger)userID sessionID:(NSString *)sessionID;
-
-/**
- Called in case when start using TURN relay for video chat (not p2p).
- */
-- (void)didStartUseTURNForVideoChat;
-
-
-#pragma mark -
-#pragma mark Custom audio session
-
-/**
- Called in case when user uses custom audio session for video chat
- 
- @param buffer Audio buffer
- */
-- (void)didReceiveAudioBuffer:(AudioBuffer)buffer;
-
 
 #pragma mark -
 #pragma mark Privacy

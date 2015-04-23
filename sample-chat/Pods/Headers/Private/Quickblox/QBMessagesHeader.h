@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBMessages/QBMessagesHeader.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBMessagesHeader.h

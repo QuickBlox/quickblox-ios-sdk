@@ -21,7 +21,10 @@
   "subspecs": [
     {
       "name": "Header",
-      "source_files": "Framework/Quickblox.{h}",
+      "source_files": [
+        "Framework/Quickblox.{h}",
+        "Framework/PublicHeaders/**.{h}"
+      ],
       "requires_arc": true
     },
     {
@@ -55,7 +58,9 @@
         "Framework/Core/Net/REST/Response/QBRestResponse.{h,m}",
         "Framework/Core/External/AFNetworking-1.x/**/*.{h,m}",
         "Framework/Core/External/Base64/**/*.{h,m}",
-        "Framework/Core/External/Vendor/*.{h,m}"
+        "Framework/Core/External/Vendor/*.{h,m}",
+        "Framework/Core/UI/Social/*.{h,m}",
+        "Framework/Core/Business/Models/Entity/QBCEntity.m"
       ],
       "vendored_libraries": "Framework/Core/External/XMPP/Vendor/libidn/libidn.a",
       "libraries": "idn"
@@ -72,7 +77,9 @@
         "Framework/Core/Net/REST/Response/QBRestResponse.{h,m}",
         "Framework/Core/External/AFNetworking-1.x/**/*.{h,m}",
         "Framework/Core/External/Base64/**/*.{h,m}",
-        "Framework/Core/External/Vendor/*.{h,m}"
+        "Framework/Core/External/Vendor/*.{h,m}",
+        "Framework/Core/UI/Social/*.{h,m}",
+        "Framework/Core/Business/Models/Entity/QBCEntity.m"
       ],
       "dependencies": {
         "Quickblox/QBCore": [
@@ -161,7 +168,8 @@
         "Framework/ChatService/Classes/Net/Server/QBMulticastDelegate.{h,m}",
         "Framework/ChatService/Classes/Business/Models/QBChatDialog.{h,m}",
         "Framework/ChatService/Classes/Business/Models/QBChatRoom.{h,m}",
-        "Framework/ChatService/Classes/Utils/QBXMLDictionary.{h,m}"
+        "Framework/ChatService/Classes/Utils/QBXMLDictionary.{h,m}",
+        "Framework/ChatService/Classes/Utils/QBChatUtils.{h,m}"
       ],
       "dependencies": {
         "Quickblox/BaseServiceFramework": [
@@ -181,7 +189,8 @@
         "Framework/ChatService/Classes/Net/Server/QBMulticastDelegate.{h,m}",
         "Framework/ChatService/Classes/Business/Models/QBChatDialog.{h,m}",
         "Framework/ChatService/Classes/Business/Models/QBChatRoom.{h,m}",
-        "Framework/ChatService/Classes/Utils/QBXMLDictionary.{h,m}"
+        "Framework/ChatService/Classes/Utils/QBXMLDictionary.{h,m}",
+        "Framework/ChatService/Classes/Utils/QBChatUtils.{h,m}"
       ],
       "dependencies": {
         "Quickblox/UsersServiceFramework": [

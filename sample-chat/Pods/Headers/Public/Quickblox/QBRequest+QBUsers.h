@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBUsers/QBRequest+QBUsers.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBRequest+QBUsers.h

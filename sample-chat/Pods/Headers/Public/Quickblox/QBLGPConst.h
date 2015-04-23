@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Definitions/GPConst/QBLGPConst.h
+../../../../../../SDK-iOS/Framework/QBLocation/QBLGPConst.h

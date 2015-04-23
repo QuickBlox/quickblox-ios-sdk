@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/Core/Definitions/QBCoreDelegates.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCoreDelegates.h

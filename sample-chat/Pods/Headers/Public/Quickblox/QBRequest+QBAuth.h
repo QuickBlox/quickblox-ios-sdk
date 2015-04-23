@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBAuth/QBRequest+QBAuth.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBRequest+QBAuth.h

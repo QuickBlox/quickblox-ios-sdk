@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Business/Models/PushEvent/QBMApplePushEvent.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBMApplePushEvent.h

@@ -111,12 +111,12 @@
  Mark messages as read
  
  @param dialogID dialog ID
- @param messageIDs array of chat message IDs to mark as read
+ @param messageIDs set of chat message IDs to mark as read
  @param successBlock Block with response instance if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QBRequest *)markMessagesAsRead:(NSArray *)messageIDs dialogID:(NSString *)dialogID successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)markMessagesAsRead:(NSSet *)messageIDs dialogID:(NSString *)dialogID successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
 /**
  Delete existing chat message
@@ -129,6 +129,6 @@
 + (QBRequest *)deleteMessageWithID:(NSString *)messageID successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
 
-+ (QBRequest *)deleteMessagesWithIDs:(NSArray *)messageIDs successBlock:(void(^)(QBResponse *responce))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteMessagesWithIDs:(NSSet *)messageIDs successBlock:(void(^)(QBResponse *responce))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
 @end

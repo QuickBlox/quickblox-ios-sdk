@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Business/Models/PushMessage/QBMPushMessage.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBMPushMessage.h

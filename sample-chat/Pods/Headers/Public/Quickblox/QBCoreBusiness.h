@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/Core/Business/QBCoreBusiness.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCoreBusiness.h

@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/AuthService/Classes/Net/Answers/AuthAnswers.h

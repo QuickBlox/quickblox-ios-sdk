@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Definitions/QBLocationEnums.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBLocationEnums.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBUsers/QBConnection+QBUsers.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBConnection+QBUsers.h

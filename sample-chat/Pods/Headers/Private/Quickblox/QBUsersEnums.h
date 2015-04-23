@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/UsersService/Classes/Definitions/QBUsersEnums.h

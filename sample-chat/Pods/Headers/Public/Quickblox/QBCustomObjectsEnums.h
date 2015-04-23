@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Definitions/QBCustomObjectsEnums.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCustomObjectsEnums.h

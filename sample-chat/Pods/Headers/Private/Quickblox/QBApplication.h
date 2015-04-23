@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCore/QBApplication.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBApplication.h

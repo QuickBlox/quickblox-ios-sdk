@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/ContentService/Classes/Net/Queries/Blob/Upload/QBCBlobUploadQuery.h

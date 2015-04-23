@@ -9,6 +9,7 @@
 #ifndef Quickblox_QBUsersHeader_h
 #define Quickblox_QBUsersHeader_h
 
+#import <Quickblox/QBUUser.h>
 #import <Quickblox/QBRequest+QBUsers.h>
 
 #endif

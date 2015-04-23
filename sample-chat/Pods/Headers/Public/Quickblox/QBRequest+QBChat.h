@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBChat/QBRequest+QBChat.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBRequest+QBChat.h

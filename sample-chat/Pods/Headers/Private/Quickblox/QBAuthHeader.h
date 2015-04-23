@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBAuth/QBAuthHeader.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBAuthHeader.h

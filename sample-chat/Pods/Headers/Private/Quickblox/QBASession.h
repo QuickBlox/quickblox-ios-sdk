@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/AuthService/Classes/Business/Models/Session/QBASession.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBASession.h

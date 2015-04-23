@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "QBLogger.h"
-#import "QBCoreEnums.h"
 
 /** QBSettings class declaration */
 /** Overview */
@@ -107,6 +106,13 @@
  @return Current server's Chat domain
  */
 + (NSString *)serverChatDomain;
+
+/**
+ *  MUC chat server domain
+ *
+ *  @return Current server's MUC chat domain
+ */
++ (NSString *)chatServerMUCDomain;
 
 /**
  Set TURN server domain
@@ -302,23 +308,5 @@
  @return YES if we use Production environment for Push Notifications
  */
 + (BOOL)isUseProductionEnvironmentForPushNotifications __attribute__((deprecated("Use [QBApplication sharedApplication].productionEnvironmentForPushesEnabled instead")));
-
-
-#pragma mark -
-#pragma mark Video Chat
-
-/**
- Set Video Chat configuration
- 
- @param configuration New configuration
- */
-+ (void)setVideoChatConfiguration:(NSDictionary *)configuration;
-
-/**
- Get Video Chat configuration
- 
- @return Video Chat current configuration
- */
-+ (NSDictionary *)videoChatConfiguration;
 
 @end

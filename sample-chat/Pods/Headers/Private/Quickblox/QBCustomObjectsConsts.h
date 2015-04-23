@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Definitions/QBCustomObjectsConsts.h
+../../../../../../SDK-iOS/Framework/QBCustomObjects/QBCustomObjectsConsts.h

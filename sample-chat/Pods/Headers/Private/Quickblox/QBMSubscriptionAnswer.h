@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Net/Answers/Subscription/Common/Base/QBMSubscriptionAnswer.h

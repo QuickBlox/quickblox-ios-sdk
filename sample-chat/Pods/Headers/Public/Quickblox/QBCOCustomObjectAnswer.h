@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Net/Answers/CustomObject/Common/Base/QBCOCustomObjectAnswer.h

@@ -1,0 +1,1 @@
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCEntity.h

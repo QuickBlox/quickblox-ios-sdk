@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/RatingsService/Classes/Business/Models/QBRatingsModels.h

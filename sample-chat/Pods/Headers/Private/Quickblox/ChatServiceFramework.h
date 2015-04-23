@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/ChatServiceFramework.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/ChatServiceFramework.h

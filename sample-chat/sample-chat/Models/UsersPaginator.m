@@ -8,7 +8,7 @@
 
 #import "UsersPaginator.h"
 
-@interface UsersPaginator () <QBActionStatusDelegate>
+@interface UsersPaginator ()
 
 @end
 

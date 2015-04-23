@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/RatingsService/Classes/Net/Queries/GameMode/Get/QBRGameModeGetQuery.h

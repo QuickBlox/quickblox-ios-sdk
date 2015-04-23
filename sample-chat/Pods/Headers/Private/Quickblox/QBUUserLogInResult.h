@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/UsersService/Classes/Net/Results/User/LogIn/QBUUserLogInResult.h

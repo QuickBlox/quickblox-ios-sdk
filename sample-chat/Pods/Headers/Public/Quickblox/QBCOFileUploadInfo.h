@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCustomObjects/QBCOFileUploadInfo.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCOFileUploadInfo.h

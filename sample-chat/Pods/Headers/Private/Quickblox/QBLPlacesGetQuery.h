@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Queries/Places/Get/QBLPlacesGetQuery.h

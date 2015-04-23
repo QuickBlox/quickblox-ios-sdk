@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Results/Place/Common/Paged/QBLPlacePagedResult.h

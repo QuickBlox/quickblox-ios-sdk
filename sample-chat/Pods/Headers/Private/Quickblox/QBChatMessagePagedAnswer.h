@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Net/Answers/Paged/QBChatMessagePagedAnswer.h

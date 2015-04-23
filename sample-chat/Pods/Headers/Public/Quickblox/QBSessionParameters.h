@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBAuth/QBSessionParameters.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBSessionParameters.h

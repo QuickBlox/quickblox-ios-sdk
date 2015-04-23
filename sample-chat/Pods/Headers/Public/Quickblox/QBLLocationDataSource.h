@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Business/DataSources/Location/QBLLocationDataSource.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBLLocationDataSource.h

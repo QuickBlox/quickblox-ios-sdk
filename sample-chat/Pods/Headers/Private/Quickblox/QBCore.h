@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCore/QBCore.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCore.h

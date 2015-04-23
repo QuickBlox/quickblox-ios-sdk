@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Business/Models/QBMessagesModels.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBContent/QBContentHeader.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBContentHeader.h

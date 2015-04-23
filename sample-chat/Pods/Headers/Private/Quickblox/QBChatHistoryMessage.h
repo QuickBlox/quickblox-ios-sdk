@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Business/Models/QBChatHistoryMessage.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBChatHistoryMessage.h

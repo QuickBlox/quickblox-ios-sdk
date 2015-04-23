@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/UsersService/Classes/Net/Answers/User/Common/Paged/QBUUserPagedAnswer.h

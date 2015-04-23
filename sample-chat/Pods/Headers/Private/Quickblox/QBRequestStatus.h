@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCore/QBRequestStatus.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBRequestStatus.h
