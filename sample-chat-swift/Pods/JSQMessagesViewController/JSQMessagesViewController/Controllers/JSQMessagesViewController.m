@@ -1,4 +1,4 @@
-//
+
 //  Created by Jesse Squires
 //  http://www.jessesquires.com
 //
@@ -162,6 +162,9 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     _collectionView.dataSource = nil;
     _collectionView.delegate = nil;
     _collectionView = nil;
+    
+    _inputToolbar.contentView.textView.delegate = nil;
+    _inputToolbar.delegate = nil;
     _inputToolbar = nil;
 
     _toolbarHeightConstraint = nil;
@@ -221,8 +224,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)viewWillAppear:(BOOL)animated
 {
-//    NSParameterAssert(self.senderId != nil);
-//    NSParameterAssert(self.senderDisplayName != nil);
+    NSParameterAssert(self.senderId != nil);
+    NSParameterAssert(self.senderDisplayName != nil);
 
     [super viewWillAppear:animated];
     [self.view layoutIfNeeded];
@@ -745,7 +748,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
     [menu setTargetRect:selectedCellMessageBubbleFrame inView:self.view];
     [menu setMenuVisible:YES animated:YES];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(jsq_didReceiveMenuWillShowNotification:)
                                                  name:UIMenuControllerWillShowMenuNotification
