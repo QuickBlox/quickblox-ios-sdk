@@ -11,9 +11,9 @@
 
 typedef enum QBPrivacyItemType {
 	USER_ID,
+    GROUP_USER_ID,
 	GROUP,
-	SUBSCRIPTION,
-    GROUP_USER_ID
+	SUBSCRIPTION
 } QBPrivacyItemType;
 
 typedef enum QBPrivacyItemAction {
@@ -42,7 +42,7 @@ typedef enum QBPrivacyItemAction {
 /// action can be ALLOW or DENY
 @property (assign) QBPrivacyItemAction action;
 
-- (QBDDXMLElement *)convertToNSXMLElement;
+- (QBDDXMLElement *)convertToNSXMLElementWithOrder:(NSUInteger) order;
 @end
 
 
