@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ContentService/Classes/Definitions/QBContentEnums.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBContentEnums.h

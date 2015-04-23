@@ -11,7 +11,9 @@
 #define demoUserLogin @"igorquickblox"
 #define demoUserPassword @"igorquickblox"
 
-@interface SplashViewController () <QBActionStatusDelegate>
+#import <Quickblox/QBASession.h>
+
+@interface SplashViewController ()
 
 @end
 
@@ -30,10 +32,9 @@
     extendedAuthRequest.userPassword = demoUserPassword;
     //
     [QBRequest createSessionWithExtendedParameters:extendedAuthRequest successBlock:^(QBResponse *response, QBASession *session) {
-        
-        
         // Save current user
         //
+        
         QBUUser *currentUser = [QBUUser user];
         currentUser.ID = session.userID;
         currentUser.login = demoUserLogin;

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Definitions/QBLocationStructs.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBLocationStructs.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/Core/BaseServiceFramework.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/BaseServiceFramework.h

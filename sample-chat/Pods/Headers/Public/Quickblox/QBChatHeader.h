@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBChat/QBChatHeader.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBChatHeader.h

@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/RatingsService/Classes/Net/Results/GameMode/Common/Paged/QBRGameModePagedResult.h

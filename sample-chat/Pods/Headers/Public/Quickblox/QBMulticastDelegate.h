@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Net/Server/QBMulticastDelegate.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBMulticastDelegate.h

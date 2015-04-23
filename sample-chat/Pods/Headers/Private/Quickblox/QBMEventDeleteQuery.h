@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Net/Queries/Event/Delete/QBMEventDeleteQuery.h

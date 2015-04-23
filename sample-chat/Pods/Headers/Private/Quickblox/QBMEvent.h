@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Business/Models/Event/QBMEvent.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBMEvent.h

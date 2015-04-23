@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBLocation/QBLGeoDataFilter.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBLGeoDataFilter.h

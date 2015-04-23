@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Definitions/QBMessagesEnums.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBMessagesEnums.h

@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/AuthService/Classes/Net/Queries/Auth/Common/QBAAuthQuery.h

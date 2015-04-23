@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/Core/Business/Models/ApplicationRedelegate/QBApplicationRedelegate.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/UsersService/Classes/Business/Models/User/QBUUser.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBUUser.h

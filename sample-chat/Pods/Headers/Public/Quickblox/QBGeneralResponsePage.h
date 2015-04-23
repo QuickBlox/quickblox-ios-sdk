@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCore/QBGeneralResponsePage.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBGeneralResponsePage.h

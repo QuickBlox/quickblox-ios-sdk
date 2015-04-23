@@ -4,7 +4,7 @@
 //
 //  Copyright 2010 QuickBlox team. All rights reserved.
 //
-#import "Entity.h"
+#import "QBCEntity.h"
 #import "QBMSubscription.h"
 #import "QBMessagesEnums.h"
 
@@ -12,7 +12,7 @@
 /** Overview */
 /** Class represents user subscription to push chanell */
 
-@interface QBMSubscription : Entity <NSCoding, NSCopying>{
+@interface QBMSubscription : QBCEntity <NSCoding, NSCopying>{
 	QBMNotificationChannel notificationChannel;
 	NSString *deviceUDID;
     NSString *devicePlatform;

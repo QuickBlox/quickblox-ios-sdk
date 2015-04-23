@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Definitions/ChatDelegates.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/ChatDelegates.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/MessagesService/Classes/Business/Models/PushToken/QBMPushToken.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBMPushToken.h

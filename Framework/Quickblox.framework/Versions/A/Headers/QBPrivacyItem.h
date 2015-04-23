@@ -11,8 +11,9 @@
 
 typedef enum QBPrivacyItemType {
 	USER_ID,
+    GROUP_USER_ID,
 	GROUP,
-	SUBSCRIPTION,
+	SUBSCRIPTION
 } QBPrivacyItemType;
 
 typedef enum QBPrivacyItemAction {
@@ -20,19 +21,19 @@ typedef enum QBPrivacyItemAction {
     DENY,
 } QBPrivacyItemAction;
 
-#import "DDXMLElement.h"
+@class DDXMLElement;
 /** QBPrivacyItem structure represents privacy object for managing privacy lists . */
 @interface QBPrivacyItem : NSObject
 
 /**
- @param type can be USER_ID, SUBSCRIPTION or GROUP
+ @param type can be USER_ID, SUBSCRIPTION, GROUP or GROUP_USER_ID
  @param valueForType value for type
  @param action can be ALLOW or DENY
  @return QBPrivacyItem instance
  */
 - (instancetype)initWithType:(QBPrivacyItemType)type valueForType:(NSUInteger)valueForType action:(QBPrivacyItemAction)action;
 
-/// type can be USER_ID, SUBSCRIPTION or GROUP
+/// type can be USER_ID, SUBSCRIPTION, GROUP OR GROUP_USER_ID( to block user in all group chats )
 @property (assign) QBPrivacyItemType type;
 
 /// valueForType value for type
@@ -41,11 +42,5 @@ typedef enum QBPrivacyItemAction {
 /// action can be ALLOW or DENY
 @property (assign) QBPrivacyItemAction action;
 
-- (DDXMLElement *)convertToNSXMLElement;
-@end
-
-
-@interface DDXMLElement (QBPrivacyItem)
-
-- (QBPrivacyItem *)convertToQBPrivacyItem;
+- (DDXMLElement *)convertToNSXMLElementWithOrder:(NSUInteger) order;
 @end

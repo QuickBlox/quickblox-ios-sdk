@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Results/GeoData/QBGeoDataResults.h

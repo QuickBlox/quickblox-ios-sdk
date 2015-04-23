@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/LocationService/Classes/Net/Answers/Place/Common/Base/QBLPlaceAnswer.h

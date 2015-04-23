@@ -16,6 +16,12 @@
  */
 @property (nonatomic, copy) NSString *dialogID;
 
+/** Created date */
+@property (nonatomic, retain) NSDate *createdAt;
+
+/** Updated date */
+@property (nonatomic, retain) NSDate *updatedAt;
+
 /**
  Message flag. Mark this flag
  */

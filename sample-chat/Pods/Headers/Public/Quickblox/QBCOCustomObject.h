@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Business/Models/CustomObject/QBCOCustomObject.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCOCustomObject.h

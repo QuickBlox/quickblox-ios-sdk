@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ContentService/Classes/Business/Models/BlobObjectAccess/QBCBlobObjectAccess.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBCBlobObjectAccess.h

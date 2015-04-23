@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/ContentService/Classes/Definitions/QBContentDefinitions.h

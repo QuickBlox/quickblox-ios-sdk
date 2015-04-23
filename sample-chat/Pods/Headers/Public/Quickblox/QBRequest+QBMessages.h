@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBMessages/QBRequest+QBMessages.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBRequest+QBMessages.h

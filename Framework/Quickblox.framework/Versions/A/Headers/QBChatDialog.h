@@ -17,7 +17,7 @@
 @property (nonatomic, retain) NSString *ID;
 
 /** Created date */
-@property (nonatomic, retain) NSDate* createdAt;
+@property (nonatomic, retain) NSDate *createdAt;
 
 /** Room JID. If private chat, room JID will be nil */
 @property (nonatomic, retain) NSString *roomJID;
@@ -46,8 +46,8 @@
 /** Array of user ids in chat. For private chat count = 2 */
 @property (nonatomic, retain) NSArray *occupantIDs;
 
-/** The dictionaty with data */
-@property (nonatomic, retain) NSMutableDictionary *data;
+/** The dictionary with data */
+@property (nonatomic, retain) NSDictionary *data;
 
 /** Dialog owner */
 @property (nonatomic, assign) NSUInteger userID;
@@ -62,7 +62,7 @@
 /** Constructor */
 - (instancetype)initWithDialogID:(NSString *)dialogID;
 
-/** Occupants ids to push to chat dialog. Use for update dialog */
+/** Occupants ids to push. Use for update dialog */
 - (void)setPushOccupantsIDs:(NSArray *)occupantsIDs;
 - (NSArray *)pushOccupantsIDs;
 

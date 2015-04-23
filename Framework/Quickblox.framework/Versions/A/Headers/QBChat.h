@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "ChatEnums.h"
-#import "QBCoreDelegates.h"
 
 @protocol QBChatDelegate;
 @class QBUUser;
@@ -61,8 +60,10 @@ typedef enum QBChatServiceError {
 /** Contact list mechanism */
 @property (nonatomic, assign) BOOL useMutualSubscriptionForContactList;
 
-/** Array of registered video chat instances */
-@property (readonly) NSMutableArray *registeredVideoChatInstances;
+/**
+ *  Background mode for stream. By default is NO. Should be set before login to chat. Do not works on simulator.
+ */
+@property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
 
 
 #pragma mark -
@@ -115,6 +116,15 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)loginWithUser:(QBUUser *)user;
+
+/**
+ Authorize on QuickBlox Chat
+ 
+ @param user QBUUser structure represents user's login. Required user's fields: ID, password.
+ @param resource The resource identifier of user.
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)loginWithUser:(QBUUser *)user resource:(NSString *)resource;
 
 /**
  Check if current user logged into Chat
@@ -559,141 +569,5 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)deleteUsers:(NSArray *)usersIDs fromRoom:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-
-
-/**
- Retrieve chat dialogs
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest dialogsWithSuccessBlock:errorBlock:]' instead.
- 
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBDialogsPagedResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)dialogsWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest dialogsWithSuccessBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)dialogsWithDelegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest dialogsWithSuccessBlock:errorBlock:]' instead.")));
-
-/**
- Retrieve chat dialogs, with extended request
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest dialogsForPage:extendedRequest:successBlock:errorBlock:]' instead."
- 
- @param extendedRequest Extended set of request parameters
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBDialogsPagedResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)dialogsWithExtendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest dialogsForPage:extendedRequest:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)dialogsWithExtendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest dialogsForPage:successBlock:errorBlock:]' instead.")));
-
-/**
- Create chat dialog
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest createDialog:successBlock:errorBlock:]' instead.
- 
- @param dialog Entity if a new dialog
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)createDialog:(QBChatDialog *)dialog delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest createDialog:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)createDialog:(QBChatDialog *)dialog delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest createDialog:successBlock:errorBlock:]' instead.")));
-
-/**
- Update existing chat dialog
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest updateDialog:successBlock:errorBlock:]' instead.
- 
- @param dialogID ID of a dialog to update
- @param extendedRequest Set of parameters to update
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)updateDialogWithID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest updateDialog:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)updateDialogWithID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest updateDialog:successBlock:errorBlock:]' instead.")));
-
-/**
- Delete chat dialog
- 
- @warning *Deprecated in QB iOS SDK 2.1:*
- 
- @param dialogID ID of a dialog to delete
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)deleteDialogWithID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate;
-+ (NSObject<Cancelable> *)deleteDialogWithID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context;
-
-/**
- Retrieve all chat messages within particular dialog
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest messagesWithDialogID:successBlock:errorBlock:]' instead.
- 
- @param dialogID ID of a dialog
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatHistoryMessageResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest messagesWithDialogID:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest messagesWithDialogID:successBlock:errorBlock:]' instead.")));
-
-/**
- Retrieve all chat messages within particular dialog, with extended request
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest messagesWithDialogID:forPage:successBlock:errorBlock:]' instead.
- 
- @param dialogID ID of a dialog
- @param extendedRequest Extended set of request parameters
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatHistoryMessageResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest messagesWithDialogID:forPage:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)messagesWithDialogID:(NSString *)dialogID extendedRequest:(NSMutableDictionary *)extendedRequest delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest messagesWithDialogID:forPage:successBlock:errorBlock:]' instead.")));
-
-/**
- Create chat message
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest createMessage:successBlock:errorBlock:]' instead.
- 
- @param message Entity if a new message
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBChatDialogResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)createMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest createMessage:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)createMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest createMessage:successBlock:errorBlock:]' instead.")));
-
-/**
- Update existing chat message - mark it as read
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest updateMessage:successBlock:errorBlock:]' instead.
- 
- @param message Entity of a chat message to update
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)updateMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest updateMessage:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)updateMessage:(QBChatHistoryMessage *)message delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest updateMessage:successBlock:errorBlock:]' instead.")));
-
-/**
- Mark mesasges as read
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest markMessagesAsRead:dialogID:successBlock:errorBlock:]' instead.
- 
- @param messagesIDs An array of IDs of chat messages to read
- @param dialogID ID of a dialog
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)markMessagesAsRead:(NSArray *)messagesIDs dialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest markMessagesAsRead:dialogID:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)markMessagesAsRead:(NSArray *)messagesIDs dialogID:(NSString *)dialogID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest markMessagesAsRead:dialogID:successBlock:errorBlock:]' instead.")));
-
-/**
- Delete existing chat message
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use '+[QBRequest deleteMessageWithID:successBlock:errorBlock:]' instead.
- 
- @param messageID ID of a message to delete
- @param delegate An object for callback, must adopt QBActionStatusDelegate protocol. The delegate is retained.  Upon finish of the request, result will be an instance of QBResult class.
- @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
- */
-+ (NSObject<Cancelable> *)deleteMessageWithID:(NSString *)messageID delegate:(NSObject<QBActionStatusDelegate> *)delegate __attribute__((deprecated("use '+[QBRequest deleteMessageWithID:successBlock:errorBlock:]' instead.")));
-+ (NSObject<Cancelable> *)deleteMessageWithID:(NSString *)messageID delegate:(NSObject<QBActionStatusDelegate> *)delegate context:(void *)context __attribute__((deprecated("use '+[QBRequest deleteMessageWithID:successBlock:errorBlock:]' instead.")));
 
 @end

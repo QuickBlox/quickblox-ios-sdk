@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Definitions/QBChatDefinitions.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBChatDefinitions.h

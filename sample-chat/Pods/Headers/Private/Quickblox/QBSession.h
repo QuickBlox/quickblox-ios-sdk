@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCore/QBSession.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBSession.h

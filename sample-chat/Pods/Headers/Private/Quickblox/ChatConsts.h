@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Definitions/ChatConsts.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/ChatConsts.h

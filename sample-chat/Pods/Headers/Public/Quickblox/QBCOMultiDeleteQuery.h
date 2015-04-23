@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/CustomObjects/Classes/Net/Queries/CustomObject/Delete/QBCOMultiDeleteQuery.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/QBCore/QBLogger.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBLogger.h

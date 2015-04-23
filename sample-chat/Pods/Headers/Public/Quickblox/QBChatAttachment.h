@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Business/Models/QBChatAttachment.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBChatAttachment.h

@@ -1,1 +1,1 @@
-../../../../../../SDK-iOS/Framework/ChatService/Classes/Business/Models/QBContactList.h
+../../../../../../SDK-iOS/Framework/PublicHeaders/QBContactList.h

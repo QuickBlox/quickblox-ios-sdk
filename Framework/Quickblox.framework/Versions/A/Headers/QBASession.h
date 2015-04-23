@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Entity.h"
+#import "QBCEntity.h"
 
 /** QBASession class declaration  */
 /** Overview:*/
 /** This class represents session information. */
 
-@interface QBASession : Entity <NSCoding, NSCopying>{
+@interface QBASession : QBCEntity <NSCoding, NSCopying>{
 @private
     NSString *token;
     NSUInteger applicationID;
