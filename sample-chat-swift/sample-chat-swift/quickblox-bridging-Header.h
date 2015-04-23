@@ -17,12 +17,11 @@
 
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
-#import <JSQMessageData.h>
 #import <JSQMessages.h>
 #import <JSQMessagesBubbleImageFactory.h>
 #import <JSQMessagesBubbleImage.h>
 #import "SWTableViewCell.h"
 #import "NSMutableArray+SWUtilityButtons.h"
 #import "UIAlertDialog.h"
-
+#import "JSQMessagesViewController+PublicNotifications.h"
 #endif
