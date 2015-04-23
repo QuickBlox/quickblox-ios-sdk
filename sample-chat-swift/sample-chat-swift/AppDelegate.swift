@@ -9,16 +9,18 @@
 import UIKit
 
 
+//let kQBApplicationID:UInt = 4
+//let kQBRegisterServiceKey = "TpJMfJkRSCZwcWR"
+//let kQBRegisterServiceSecret = "KuYYp7QWv3KDYGG"
+//let kQBAccountKey = "Cp1RttEg7NaayajyNgKR"
 let kQBApplicationID:UInt = 92
 let kQBRegisterServiceKey = "wJHdOcQSxXQGWx5"
 let kQBRegisterServiceSecret = "BTFsj7Rtt27DAmT"
 let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -27,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
         QBSettings.setAccountKey(kQBAccountKey)
         QBSettings.setLogLevel(QBLogLevel.Debug)
+//        QBConnection.setApiDomain("https://apiuat.quickblox.kijiji.ca", forServiceZone: QBConnectionZoneTypeAutomatic)
+//        QBSettings.setServerChatDomain("chatuat.quickblox.kijiji.ca")
         
         return true
     }

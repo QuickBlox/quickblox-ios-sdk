@@ -41,6 +41,7 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             UIAlertView(title: nil, message: "Note that you will not receive any private message from this user", delegate: nil, cancelButtonTitle: "Ok").show()
                             ConnectionManager.instance.privacyManager.blockUserInP2PChat(selectedUser)
                         }
+                        // update block/unblock title
                         strongTableView.reloadRowsAtIndexPaths([cellIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
                     })
                     
@@ -56,11 +57,9 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             UIAlertView(title: nil, message: "Note that you will not receive any group chat message from this user", delegate: nil, cancelButtonTitle: "Ok").show()
                             ConnectionManager.instance.privacyManager.blockUserInGroupChats(selectedUser)
                         }
+                        // update block/unblock title
                         strongTableView.reloadRowsAtIndexPaths([cellIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
                     })
-                    
-                    
-                    actionSheetController.addButtonWithTitle("Cancel", andHandler: nil)
                     
                     let appDelegate  = UIApplication.sharedApplication().delegate as! AppDelegate
                     actionSheetController.showInViewController(appDelegate.window!.rootViewController!)

@@ -16,7 +16,7 @@ class CornerView: UIView {
     @IBInspectable var cornerRadius:Float = 6 {
         didSet(oldRadius) {
             if oldRadius < 0 {
-                cornerRadius=0
+                cornerRadius = 0
             }
             else {
                 self.setNeedsDisplay()
