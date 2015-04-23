@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/PublicHeaders/QBConnection+QBUsers.h

@@ -1,86 +1,30 @@
 PODS:
-  - Quickblox (2.1):
-    - Quickblox/AuthServiceFramework (= 2.1)
-    - Quickblox/BaseServiceFramework (= 2.1)
-    - Quickblox/BaseServiceFrameworkARC (= 2.1)
-    - Quickblox/ChatServiceFramework (= 2.1)
-    - Quickblox/ChatServiceFrameworkARC (= 2.1)
-    - Quickblox/ContentServiceFramework (= 2.1)
-    - Quickblox/CustomObjectsFramework (= 2.1)
-    - Quickblox/Header (= 2.1)
-    - Quickblox/LocationServiceFramework (= 2.1)
-    - Quickblox/MessagesServiceFramework (= 2.1)
-    - Quickblox/QBAFNetworking (= 2.1)
-    - Quickblox/QBAuth (= 2.1)
-    - Quickblox/QBBase64 (= 2.1)
-    - Quickblox/QBChat (= 2.1)
-    - Quickblox/QBContent (= 2.1)
-    - Quickblox/QBCore (= 2.1)
-    - Quickblox/QBCustomObjects (= 2.1)
-    - Quickblox/QBLocation (= 2.1)
-    - Quickblox/QBMessages (= 2.1)
-    - Quickblox/QBUsers (= 2.1)
-    - Quickblox/RatingsServiceFramework (= 2.1)
-    - Quickblox/UsersServiceFramework (= 2.1)
-  - Quickblox/AuthServiceFramework (2.1):
-    - Quickblox/BaseServiceFramework
-  - Quickblox/BaseServiceFramework (2.1):
-    - Quickblox/QBAFNetworking
-    - Quickblox/QBBase64
-    - Quickblox/QBCore
-  - Quickblox/BaseServiceFrameworkARC (2.1)
-  - Quickblox/ChatServiceFramework (2.1):
-    - Quickblox/BaseServiceFramework
-    - Quickblox/UsersServiceFramework
-  - Quickblox/ChatServiceFrameworkARC (2.1):
-    - Quickblox/BaseServiceFramework
-    - Quickblox/UsersServiceFramework
-  - Quickblox/ContentServiceFramework (2.1):
-    - Quickblox/BaseServiceFramework
-  - Quickblox/CustomObjectsFramework (2.1):
-    - Quickblox/BaseServiceFramework
-  - Quickblox/Header (2.1)
-  - Quickblox/LocationServiceFramework (2.1):
-    - Quickblox/BaseServiceFramework
-  - Quickblox/MessagesServiceFramework (2.1):
-    - Quickblox/BaseServiceFramework
-  - Quickblox/QBAFNetworking (2.1)
-  - Quickblox/QBAuth (2.1):
-    - Quickblox/QBCore
-  - Quickblox/QBBase64 (2.1)
-  - Quickblox/QBChat (2.1):
-    - Quickblox/ChatServiceFramework
-    - Quickblox/QBCore
-  - Quickblox/QBContent (2.1):
-    - Quickblox/ContentServiceFramework
-    - Quickblox/QBCore
-  - Quickblox/QBCore (2.1)
-  - Quickblox/QBCustomObjects (2.1):
-    - Quickblox/CustomObjectsFramework
-    - Quickblox/QBCore
-  - Quickblox/QBLocation (2.1):
-    - Quickblox/LocationServiceFramework
-    - Quickblox/QBCore
-  - Quickblox/QBMessages (2.1):
-    - Quickblox/MessagesServiceFramework
-    - Quickblox/QBCore
-  - Quickblox/QBUsers (2.1):
-    - Quickblox/QBCore
-    - Quickblox/UsersServiceFramework
-  - Quickblox/RatingsServiceFramework (2.1):
-    - Quickblox/BaseServiceFramework
-    - Quickblox/LocationServiceFramework
-  - Quickblox/UsersServiceFramework (2.1):
-    - Quickblox/BaseServiceFramework
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.5.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
 
 DEPENDENCIES:
-  - Quickblox (from `../../SDK-iOS/`)
-
-EXTERNAL SOURCES:
-  Quickblox:
-    :path: ../../SDK-iOS/
+  - AFNetworking
 
 SPEC CHECKSUMS:
-  Quickblox: 222e80f04c558f19f6d753c070fe54b79b71cf38
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
 
 COCOAPODS: 0.36.3
