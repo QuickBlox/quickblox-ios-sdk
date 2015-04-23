@@ -32,7 +32,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     switch (indexPath.section) {
         // Sign In, Sign Out, Sign Up
@@ -41,16 +40,19 @@
                 // User Login with login
                 case 0:{
                     if (useNewAPI) {
-                       [QBRequest logInWithUserLogin:UserLogin1 password:UserPassword1 successBlock:^(QBResponse *response, QBUUser *user) {
+                       [QBRequest logInWithUserLogin:[[ConfigManager sharedManager] testUserLogin1] password:[[ConfigManager sharedManager] testUserPassword1] successBlock:^(QBResponse *response, QBUUser *user) {
                            NSLog(@"Successfull response!");
+                            if([[QBChat instance] isLoggedIn]){
+                                [[QBChat instance] logout];
+                            }
                        } errorBlock:^(QBResponse *response) {
                            NSLog(@"Response error: %@", response.error);
                        }];
                     } else {
                         if(withQBContext){
-                            [QBUsers logInWithUserLogin:UserLogin1 password:UserPassword1 delegate:self context:testContext];
+                            [QBUsers logInWithUserLogin:[[ConfigManager sharedManager] testUserLogin1] password:[[ConfigManager sharedManager] testUserPassword1] delegate:self context:testContext];
                         }else{
-                            [QBUsers logInWithUserLogin:UserLogin1 password:UserPassword1  delegate:self];
+                            [QBUsers logInWithUserLogin:[[ConfigManager sharedManager] testUserLogin1] password:[[ConfigManager sharedManager] testUserPassword1]  delegate:self];
                         }
                     }
                 }
@@ -59,16 +61,16 @@
                 // User Login with email
                 case 1:{
                     if (useNewAPI) {
-                        [QBRequest logInWithUserEmail:UserEmail1 password:UserPassword1 successBlock:^(QBResponse *response, QBUUser *user) {
+                        [QBRequest logInWithUserEmail:[[ConfigManager sharedManager] testUserEmail1] password:[[ConfigManager sharedManager] testUserPassword1] successBlock:^(QBResponse *response, QBUUser *user) {
                              NSLog(@"Successfull response!");
                         } errorBlock:^(QBResponse *response) {
                             NSLog(@"Response error: %@", response.error);
                         }];
                     } else {
                         if(withQBContext){;
-                            [QBUsers logInWithUserEmail:UserEmail1 password:UserPassword1 delegate:self context:testContext];
+                            [QBUsers logInWithUserEmail:[[ConfigManager sharedManager] testUserEmail1] password:[[ConfigManager sharedManager] testUserPassword1] delegate:self context:testContext];
                         }else{
-                            [QBUsers logInWithUserEmail:UserEmail1 password:UserPassword1 delegate:self];
+                            [QBUsers logInWithUserEmail:[[ConfigManager sharedManager] testUserEmail1] password:[[ConfigManager sharedManager] testUserPassword1] delegate:self];
                         }
                     }
                 }
@@ -95,7 +97,7 @@
                 // User Login with social access token
                 case 3:{
                     if (useNewAPI) {
-                        [QBRequest logInWithSocialProvider:@"facebook" accessToken:@"CAAEra8jNdnkBABAnhaesXZCceUvsKFywMg91gJueUdkproXpAp10ckxLZACTYblnxO7RmMroIV62VhmjdgHpcQFP2v8EKwOs7ZBWche562PlniDdEyeVFK0oIdkDWGRknbfvxo5NySLkK8tnVTVMAPqkNA8vpluIJtO1fYC2PJKiKZAgfhUMpGgD8J2y8UvP9YoSIKUmG5GY9ZCGBCPY4" accessTokenSecret:nil successBlock:^(QBResponse *response, QBUUser *user) {
+                        [QBRequest logInWithSocialProvider:@"facebook" accessToken:@"5CAAEra8jNdnkBABAnhaesXZCceUvsKFywMg91gJueUdkproXpAp10ckxLZACTYblnxO7RmMroIV62VhmjdgHpcQFP2v8EKwOs7ZBWche562PlniDdEyeVFK0oIdkDWGRknbfvxo5NySLkK8tnVTVMAPqkNA8vpluIJtO1fYC2PJKiKZAgfhUMpGgD8J2y8UvP9YoSIKUmG5GY9ZCGBCPY4" accessTokenSecret:nil successBlock:^(QBResponse *response, QBUUser *user) {
                              NSLog(@"Successfull response!");
                         } errorBlock:^(QBResponse *response) {
                             NSLog(@"Response error: %@", response.error);
@@ -131,18 +133,14 @@
                 // User Sign Up
                 case 5:{
                     QBUUser *user = [QBUUser user];
-                    user.email = @"ig223or@quickblox.com";
-                    user.login = @"qwer3werwerwe22r";
-                    user.password = @"qbuserr3453"; // 250813
-                    user.customData = @"my data";
-                    user.externalUserID = 63242344;
-                    user.facebookID = @"12343443453463463";
-                    user.twitterID = @"1422345345256";
-                    user.fullName = @"22Javck Bold";
-//                    user.email = @"Javck@mail.com";
-                    user.phone = @"+0947773823";
-//                    user.tags = [NSArray arrayWithObjects:@"man", @"travel", nil];
-//                    user.website = @"www.mysite.com";
+                    user.email = @"this.andrey@gmail.com";
+                    user.password = @"1014588101";
+//                    user.customData = @"my data";
+//                    user.externalUserID = 63242344;
+//                    user.facebookID = @"12343443453463463";
+//                    user.twitterID = @"1422345345256";
+//                    user.fullName = @"22Javck Bold";
+//                    user.phone = @"+0947773823";
 
                     if (useNewAPI) {
                         [QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
@@ -224,16 +222,16 @@
                 // Get user with ID
                 case 2:{
                     if (useNewAPI) {
-                        [QBRequest userWithID:UserID1 successBlock:^(QBResponse *response, QBUUser *user) {
+                        [QBRequest userWithID:[[ConfigManager sharedManager] testUserId1] successBlock:^(QBResponse *response, QBUUser *user) {
                             NSLog(@"Successfull response!");
                         } errorBlock:^(QBResponse *response) {
                             NSLog(@"Response error: %@", response.error);
                         }];
                     } else {
                         if(withQBContext){
-                            [QBUsers userWithID:UserID1 delegate:self context:testContext];
+                            [QBUsers userWithID:[[ConfigManager sharedManager] testUserId1] delegate:self context:testContext];
                         }else{
-                            [QBUsers userWithID:UserID1 delegate:self];
+                            [QBUsers userWithID:[[ConfigManager sharedManager] testUserId1] delegate:self];
                         }
                     }
                 }
@@ -243,7 +241,7 @@
                 case 3:{
                     if (useNewAPI) {
                         QBGeneralResponsePage* page = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:10];
-                        [QBRequest usersWithIDs:@[@(300),@(298)] page:page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+                        [QBRequest usersWithIDs:@[@(39714),@(39715)] page:page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
                              NSLog(@"Successfull response!");
                         } errorBlock:^(QBResponse *response) {
                             NSLog(@"Response error: %@", response.error);
@@ -547,11 +545,13 @@
                 // Update user by ID
                 case 0:{
                     QBUUser *user = [QBUUser user];
-                    user.ID = testUserID1;
-                    user.tags = [NSMutableArray arrayWithObjects:@"man2", @"travel2", nil];
-                    user.website = @"www.mysite2.com";
-                    user.phone = @"+78234234";
-                    user.customData = @"my new data2";
+                    user.ID = [[ConfigManager sharedManager] testUserId1];
+//                    user.tags = [NSMutableArray arrayWithObjects:@"man2", @"travel2", nil];
+//                    user.website = @"www.mysite2.com";
+//                    user.phone = @"+78234234";
+//                    user.customData = @"my new data2";
+                    user.password = @"igorquickblox3";
+                    user.oldPassword = @"igorquickblox3";
 
                     if (useNewAPI) {
                         [QBRequest updateUser:user successBlock:^(QBResponse *response, QBUUser *user) {
@@ -623,16 +623,16 @@
                 // Reset User's password with email
                 case 0:{
                     if (useNewAPI) {
-                        [QBRequest resetUserPasswordWithEmail:UserEmail1 successBlock:^(QBResponse *response) {
+                        [QBRequest resetUserPasswordWithEmail:@"this.andrey@gmail.com" successBlock:^(QBResponse *response) {
                              NSLog(@"Successfull response!");
                         } errorBlock:^(QBResponse *response) {
                             NSLog(@"Response error: %@", response.error);
                         }];
                     } else {
                         if(withQBContext){
-                            [QBUsers resetUserPasswordWithEmail:UserEmail1 delegate:self context:testContext];
+                            [QBUsers resetUserPasswordWithEmail:[[ConfigManager sharedManager] testUserEmail1] delegate:self context:testContext];
                         }else{
-                            [QBUsers resetUserPasswordWithEmail:UserEmail1 delegate:self];
+                            [QBUsers resetUserPasswordWithEmail:[[ConfigManager sharedManager] testUserEmail1] delegate:self];
                         }
                     }
                 }
@@ -656,9 +656,7 @@
 
 // QuickBlox queries delegate
 - (void)completedWithResult:(QBResult *)result{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    
-//    // success result
+
     if(result.success){
     
         // User Login

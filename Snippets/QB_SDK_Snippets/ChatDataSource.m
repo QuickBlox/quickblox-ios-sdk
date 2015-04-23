@@ -11,7 +11,7 @@
 @implementation ChatDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 9;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -27,13 +27,13 @@
             numberOfRows = 2;
             break;
         case 3:
-            numberOfRows = 13;
+            numberOfRows = 14;
             break;
         case 4:
             numberOfRows = 4;
             break;
         case 5:
-            numberOfRows = 8;
+            numberOfRows = 9;
             break;
         case 6:
             numberOfRows = 7;
@@ -43,6 +43,8 @@
             break;
         case 8:
             numberOfRows = 1;
+        case 9:
+            numberOfRows = 2;
             break;
     }
     return numberOfRows;
@@ -77,6 +79,9 @@
             break;
         case 8:
             headerTitle = @"Delivered status";
+            break;
+        case 9:
+            headerTitle = @"Message carbons";
             break;
         default:
             headerTitle = @"";
@@ -174,36 +179,40 @@
                 case 4:
                     [cell.textLabel setText:@"Send message to room"];
                     break;
-                    
+                
                 case 5:
+                    [cell.textLabel setText:@"Send message to room w/o join"];
+                    break;
+                
+                case 6:
                     [cell.textLabel setText:@"Send presence to room"];
                     break;
                     
-                case 6:
+                case 7:
                     [cell.textLabel setText:@"Request all rooms"];
                     break;
                     
-                case 7:
+                case 8:
                     [cell.textLabel setText:@"Add users to room"];
                     break;
                     
-                case 8:
+                case 9:
                     [cell.textLabel setText:@"Delete users from room"];
                     break;
                     
-                case 9:
+                case 10:
                     [cell.textLabel setText:@"Request room users"];
                     break;
                     
-                case 10:
+                case 11:
                     [cell.textLabel setText:@"Request room online users"];
                     break;
                     
-                case 11:
+                case 12:
                     [cell.textLabel setText:@"Request room information"];
                     break;
                     
-                case 12:
+                case 13:
                     [cell.textLabel setText:@"Destroy room"];
                     break;
                     
@@ -254,18 +263,22 @@
                     break;
                     
                 case 4:
-                    [cell.textLabel setText:@"Create Message"];
+                    [cell.textLabel setText:@"Delete Dialog"];
                     break;
                     
                 case 5:
-                    [cell.textLabel setText:@"Update Message"];
+                    [cell.textLabel setText:@"Create Message"];
                     break;
                     
                 case 6:
-                    [cell.textLabel setText:@"Mark Message as read"];
+                    [cell.textLabel setText:@"Update Message"];
                     break;
                     
                 case 7:
+                    [cell.textLabel setText:@"Mark Message as read"];
+                    break;
+                    
+                case 8:
                     [cell.textLabel setText:@"Delete Message"];
                     break;
                     
@@ -316,6 +329,16 @@
             break;
         case 8:
             [cell.textLabel setText:@"Mark as delivered"];
+            break;
+        case 9:
+            switch (indexPath.row) {
+                case 0:
+                    [cell.textLabel setText:@"Enable message carbons"];
+                    break;
+                case 1:
+                    [cell.textLabel setText:@"Disable message carbons"];
+                    break;
+            }
             break;
         default:
             break;

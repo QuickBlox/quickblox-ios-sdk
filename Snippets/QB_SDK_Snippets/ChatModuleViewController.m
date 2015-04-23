@@ -10,10 +10,8 @@
 #import "ChatDataSource.h"
 
 #define testRoomName @"meetingroom2"
-
-#define ADMIN_ID 103894
-
-#define DefaultPrivacyListName @"public2"
+#define DefaultPrivacyListName @"public3"
+#define TestMessage @"Hello world!"
 
 @interface ChatModuleViewController () <QBActionStatusDelegate,UITableViewDelegate, QBChatDelegate>
 
@@ -37,13 +35,19 @@
         self.tabBarItem.image = [UIImage imageNamed:@"circle.png"];
         
         // set Chat delegate
-        [[QBChat instance] setDelegate:self];
-//        [QBSettings useTLSForChat:YES];
-//        [QBSettings useStreamManagementForChat:YES];
+        [[QBChat instance] addDelegate:self];
         [QBChat instance].useMutualSubscriptionForContactList = NO;
+        //
+        [QBChat instance].autoReconnectEnabled = YES;
+        [QBChat instance].streamManagementEnabled = YES;
+//        [QBChat instance].streamResumptionEnabled = YES;
+        [QBChat instance].streamManagementSendMessageTimeout = 5;
+        
+        [QBSettings useTLSForChat:YES];
     }
     return self;
 }
+
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -56,11 +60,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(willTerminate)
                                                  name:UIApplicationWillTerminateNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(willEnterForeground)
-                                                 name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
     
     self.dataSource = [[ChatDataSource alloc] init];
@@ -76,16 +75,9 @@
     [[QBChat instance] logout];
 }
 
-static BOOL done = NO;
-
 - (void)willTerminate
 {
     [[QBChat instance] logout];
-}
-
-- (void)willEnterForeground
-{
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -99,8 +91,8 @@ static BOOL done = NO;
                     // Login
                 case 0:{
                     QBUUser *user = [QBUUser user];
-                    user.ID = UserID1;
-                    user.password = UserPasswordForChat1;
+                    user.ID = [[ConfigManager sharedManager] testUserId1];
+                    user.password =[[ConfigManager sharedManager] testUserPassword1];
                     
                     [[QBChat instance] loginWithUser:user];
                     
@@ -118,6 +110,8 @@ static BOOL done = NO;
                     //  Logout
                 case 2:{
                     [[QBChat instance] logout];
+                    
+                    [presenceTimer invalidate];
                 }
                     break;
                     
@@ -157,23 +151,26 @@ static BOOL done = NO;
             switch (indexPath.row) {
                 // send chat 1-1 message
                 case 0:{
-                    QBChatMessage *message = [QBChatMessage markableMessage];
-                    [message setText:[NSString stringWithFormat:@"banana%d", rand()]];
-                    [message setRecipientID:UserID2];
+
+                    QBChatMessage *message = [QBChatMessage message];
+                    message.text = TestMessage;
                     
-                    //
+                    [message setRecipientID:[[ConfigManager sharedManager] testUserId2]];
+                    
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                    params[@"date_sent"] = @((int)[[NSDate date] timeIntervalSince1970]);
+                    params[@"date_sent"] = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
                     params[@"save_to_history"] = @YES;
-                    params[@"param1"] = @"value1";
-                    params[@"param2"] = @"value2";
+                    params[@"data"] = @"{\"key1\": \"value1\", \"key2\": \"value2\"}";
                     [message setCustomParameters:params];
-                    //                    QBChatAttachment *attachment = QBChatAttachment.new;
-                    //                    attachment.type = @"image";
-                    //                    attachment.ID = @"47863";
-                    //                    [message setAttachments:@[attachment]];
-                    //
                     
+                    QBChatAttachment *attachment = QBChatAttachment.new;
+                    attachment.type = @"location";
+                    attachment.url = @"https://qbprod.s3.amazonaws.com/5a8a3f91894144ef84d76ae98139c9a800";
+                    QBChatAttachment *attachment2 = QBChatAttachment.new;
+                    attachment2.type = @"video";
+                    attachment2.ID = @"22";
+                    [message setAttachments:@[attachment, attachment2]];
+                
                     [[QBChat instance] sendMessage:message];
                 }
                     break;
@@ -181,8 +178,8 @@ static BOOL done = NO;
                 // send chat 1-1 message with 'sent' status
                 case 1:{
                     QBChatMessage *message = [QBChatMessage message];
-                    [message setText:[NSString stringWithFormat:@"banana%d 😄", rand()]];
-                    [message setRecipientID:UserID2];
+                    [message setText:[NSString stringWithFormat:@"Hello %d", rand()]];
+                    [message setRecipientID:[[ConfigManager sharedManager] testUserId2]];
 
                     [[QBChat instance] sendMessage:message sentBlock:^(NSError *error) {
                         NSLog(@"message: %@, sent: %d", message.text, error == nil);
@@ -208,7 +205,7 @@ static BOOL done = NO;
                 }
                     break;
                     
-                    // Create new only members room with name
+                // Create new only members room with name
                 case 1:{
                     self.testRoom = nil;
                     
@@ -217,95 +214,112 @@ static BOOL done = NO;
                 }
                     break;
                     
-                    // Join room
+                // Join room
                 case 2:{
-                    self.testRoom = [[QBChatRoom alloc] initWithRoomJID:testRoomJID];
-                    [self.testRoom joinRoomWithHistoryAttribute:@{@"maxstanzas": @"50"}];
+                    if(self.testRoom == nil){
+                        self.testRoom = [[QBChatRoom alloc] initWithRoomJID:[[ConfigManager sharedManager] dialogJid]];
+                    }
+                    [self.testRoom joinRoomWithHistoryAttribute:@{@"maxstanzas": @"1"}];
                 }
                     break;
                     
-                    // Leave room
+                // Leave room
                 case 3:{
                     [[QBChat instance] leaveRoom:_testRoom];
                 }
                     break;
                     
-                    // Send message
+                // Send message
                 case 4:{
                     QBChatMessage *message = [QBChatMessage message];
-                    [message setText:[NSString stringWithFormat:@"banana%d 1279282 test", rand()]];
+                    message.text = TestMessage;
                     //
                     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                    //                    params[@"date_sent"] = @((int)[[NSDate date] timeIntervalSince1970]);
                     params[@"save_to_history"] = @YES;
-//                    params[@"dialog_id"] = @"231231211";
                     [message setCustomParameters:params];
-                    //                    QBChatAttachment *attachment = QBChatAttachment.new;
-                    //                    attachment.type = @"image";
-                    //                    attachment.ID = @"47863";
-                    //                    [message setAttachments:@[attachment]];
                     //
                     QBChatAttachment *attachment2 = QBChatAttachment.new;
                     attachment2.type = @"video";
                     attachment2.ID = @"47863";
                     [message setAttachments:@[attachment2]];
                     //
-                    [[QBChat instance] sendChatMessage:message toRoom:_testRoom];
+                    
+                    [[QBChat instance] sendChatMessage:message toRoom:self.testRoom];
                 }
                     break;
-                    
-                    // Send presence
+                
+                // Send message w\o join
                 case 5:{
+                    QBChatMessage *message = [QBChatMessage message];
+                    message.text = TestMessage;
+                    //
+                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                    params[@"save_to_history"] = @YES;
+                    [message setCustomParameters:params];
+                    //
+                    QBChatAttachment *attachment2 = QBChatAttachment.new;
+                    attachment2.type = @"video";
+                    attachment2.ID = @"47863";
+                    [message setAttachments:@[attachment2]];
+                    //
+                    if(self.testRoom == nil){
+                        self.testRoom = [[QBChatRoom alloc] initWithRoomJID:[[ConfigManager sharedManager] dialogJid]];
+                    }
+                    [self.testRoom sendMessageWithoutJoin:message];
+                }
+                break;
+                
+                // Send presence
+                case 6:{
                     [[QBChat instance] sendPresenceWithParameters:@{@"job": @"manager", @"sex": @"man"} toRoom:_testRoom];
                 }
                     break;
                     
-                    // Request all rooms
-                case 6:{
+                // Request all rooms
+                case 7:{
                     [[QBChat instance] requestAllRooms];
                 }
                     break;
                     
                     // Add users to room
-                case 7:{
-                    NSNumber *user = [NSNumber numberWithInt:298];
-                    NSArray *users = [NSArray arrayWithObject:user];
+                case 8:{
+                    NSArray *users = [NSArray arrayWithObject:@([[ConfigManager sharedManager] testUserId2])];
                     
                     [[QBChat instance] addUsers:users toRoom:_testRoom];
                 }
                     break;
                     
                     // Delete users from room
-                case 8:{
-                    NSNumber *user = [NSNumber numberWithInt:1279283];
-                    NSArray *users = [NSArray arrayWithObject:user];
+                case 9:{
+                    NSArray *users = [NSArray arrayWithObject:@([[ConfigManager sharedManager] testUserId2])];
                     
                     [[QBChat instance] deleteUsers:users fromRoom:_testRoom];
                 }
                     break;
                     
                     // Request room users
-                case 9:{
-                    [[QBChat instance] requestRoomUsers:_testRoom];
+                case 10:{
+//                    [[QBChat instance] requestRoomUsers:_testRoom];
+                    [[QBChat instance] requestRoomUsersWithAffiliation:@"admin" room:_testRoom];
                 }
                     break;
                     
                     // Request room online users
-                case 10:{
-                    QBChatRoom *_room = [[QBChatRoom alloc] initWithRoomJID:testRoomJID];
+                case 11:{
+                    QBChatRoom *_room = [[QBChatRoom alloc] initWithRoomJID:[[ConfigManager sharedManager] dialogJid]];
                     [_room requestOnlineUsers];
                 }
                     break;
                     
                     // Request room information
-                case 11:{
-                     self.testRoom = [[QBChatRoom alloc] initWithRoomJID:testRoomJID];
+                case 12:{
+                     self.testRoom = [[QBChatRoom alloc] initWithRoomJID:[[ConfigManager sharedManager] dialogJid]];
                     [[QBChat instance] requestRoomInformation:_testRoom];
                 }
                     break;
                     
                     // Destroy room
-                case 12:{
+                case 13:{
                     [[QBChat instance] destroyRoom:_testRoom];
                 }
                     break;
@@ -321,25 +335,33 @@ static BOOL done = NO;
                     
                     // Add user to contact list request
                 case 0:{
-                    [[QBChat instance] addUserToContactListRequest:UserID2];
+                    [[QBChat instance] addUserToContactListRequest:[[ConfigManager sharedManager] testUserId2] sentBlock:^(NSError *error) {
+                         NSLog(@"error: %@", error);
+                    }];
                 }
                     break;
                     
                     // Confirm add request
                 case 1:{
-                    [[QBChat instance] confirmAddContactRequest:946390];
+                    [[QBChat instance] confirmAddContactRequest:[[ConfigManager sharedManager] testUserId2] sentBlock:^(NSError *error) {
+                         NSLog(@"error: %@", error);
+                    }];
                 }
                     break;
                     
                     // Reject add request
                 case 2:{
-                    [[QBChat instance] rejectAddContactRequest:946390];
+                    [[QBChat instance] rejectAddContactRequest:[[ConfigManager sharedManager] testUserId2] sentBlock:^(NSError *error) {
+                         NSLog(@"error: %@", error);
+                    }];
                 }
                     break;
                     
                     // Remove user from contact list
                 case 3:{
-                    [[QBChat instance] removeUserFromContactList:946391];
+                    [[QBChat instance] removeUserFromContactList:[[ConfigManager sharedManager] testUserId2] sentBlock:^(NSError *error) {
+                        NSLog(@"error: %@", error);
+                    }];
                 }
                     break;
                     
@@ -352,15 +374,28 @@ static BOOL done = NO;
             switch (indexPath.row) {
                 case 0:
                 {
-                    NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
-                    extendedRequest[@"limit"] = @(100);
-
-                    //                    extendedRequest[@"occupants_ids[all]"] = @"2960,3146,31478";
-                    //
-                    if(withQBContext){
-                        [QBChat dialogsWithExtendedRequest:extendedRequest delegate:self context:testContext];
-                    }else{
-                        [QBChat dialogsWithExtendedRequest:extendedRequest delegate:self];
+                    if( useNewAPI ){
+//                        NSMutableDictionary *extRequest = @{@"_id" : @"548184908a472ba18ddf5cd6"}.mutableCopy;
+                        
+                        QBResponsePage *page = [QBResponsePage responsePageWithLimit:100 skip:0];
+                        [QBRequest dialogsForPage:page extendedRequest:nil successBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, QBResponsePage *page) {
+                            
+                            NSLog(@"dialogsForPage: %@", dialogObjects);
+                            NSLog(@"dialogsUsersIDs: %@", dialogsUsersIDs);
+                            NSLog(@"page: %@", page);
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"dialogsForPage error: %@", response.error);
+                        }];
+                    }
+                    else {
+                        NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
+                        extendedRequest[@"limit"] = @(100);
+                        
+                        if(withQBContext){
+                            [QBChat dialogsWithExtendedRequest:extendedRequest delegate:self context:testContext];
+                        }else{
+                            [QBChat dialogsWithExtendedRequest:extendedRequest delegate:self];
+                        }
                     }
                 }
                     break;
@@ -368,12 +403,23 @@ static BOOL done = NO;
                 case 1:
                 {
                     NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
-                    extendedRequest[@"limit"] = @(100);
-                    //
-                    if(withQBContext){
-                        [QBChat messagesWithDialogID:@"53edaff0535c1227d9008d34" extendedRequest:extendedRequest delegate:self context:testContext];
-                    }else{
-                        [QBChat messagesWithDialogID:@"53edaff0535c1227d9008d34" extendedRequest:extendedRequest delegate:self];
+                    extendedRequest[@"date_sent[gt]"] = @(1232);
+                    QBResponsePage *resPage = [QBResponsePage responsePageWithLimit:5 skip:0];
+                    
+                    if( useNewAPI ){
+                        [QBRequest messagesWithDialogID:[[ConfigManager sharedManager] dialogId] extendedRequest:extendedRequest forPage:resPage successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *responcePage) {
+                            NSLog(@"Messages: %@", messages);
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"messagesWithDialogID error: %@", response.error);
+                        }];
+                    }
+                    else{
+			
+                        if(withQBContext){
+                            [QBChat messagesWithDialogID:[[ConfigManager sharedManager] dialogId] extendedRequest:extendedRequest delegate:self context:testContext];
+                        }else{
+                            [QBChat messagesWithDialogID:[[ConfigManager sharedManager] dialogId] extendedRequest:extendedRequest delegate:self];
+                        }
                     }
                 }
                     break;
@@ -381,16 +427,27 @@ static BOOL done = NO;
                 case 2:
                 {
                     QBChatDialog *chatDialog = [QBChatDialog new];
-                    chatDialog.name = @"World cup 2014 😄";
-                    chatDialog.occupantIDs = @[@(UserID2)];
+                    chatDialog.name = @"Smoky Mooo";
+                    chatDialog.occupantIDs = @[@([[ConfigManager sharedManager] testUserId2])];
                     chatDialog.type = QBChatDialogTypeGroup;
-                    chatDialog.photo = @"www.com";
-                    chatDialog.data = @{@"data[field1]": @"hello"};
+                    chatDialog.photo = @"www.testlink.com";
+                    chatDialog.data = @{@"class_name": @"dialog_data",
+                                        @"age": @4};
+                    
                     //
-                    if(withQBContext){
-                        [QBChat createDialog:chatDialog delegate:self context:testContext];
-                    }else{
-                        [QBChat createDialog:chatDialog delegate:self];
+                    if( useNewAPI ){
+                        [QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
+                            NSLog(@"Success, dialog: %@", createdDialog);
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"error create dialog: %@", response.error);
+                        }];
+                    }
+                    else{
+                        if( withQBContext ){
+                            [QBChat createDialog:chatDialog delegate:self context:testContext];
+                        }else{
+                            [QBChat createDialog:chatDialog delegate:self];
+                        }
                     }
                     
                 }
@@ -398,90 +455,164 @@ static BOOL done = NO;
                     
                 case 3:
                 {
-                    NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
-                    extendedRequest[@"push_all[occupants_ids][]"] = @"292";
-                    extendedRequest[@"name"] = @"Team ee room 55";
-                    extendedRequest[@"photo"] = @"11111";
-                    
-                    //
-                    if(withQBContext){
-                        [QBChat updateDialogWithID:@"53edaff0535c1227d9008d34" extendedRequest:extendedRequest delegate:self context:testContext];
-                    }else{
-                        [QBChat updateDialogWithID:@"53edaff0535c1227d9008d34" extendedRequest:extendedRequest delegate:self];
+                    if ( useNewAPI ){
+                        QBChatDialog *updateDialog = [[QBChatDialog alloc] initWithDialogID:[[ConfigManager sharedManager] dialogId]];
+                        updateDialog.pushOccupantsIDs = @[@300, @301, @302];
+                        updateDialog.photo = @"www.empty.com";
+                        updateDialog.name = @"my name";
+                        updateDialog.data = @{@"class_name": @"dialog_data",
+                                              @"age": @33};
+                        
+                        [QBRequest updateDialog:updateDialog successBlock:^(QBResponse *responce, QBChatDialog *dialog) {
+                            NSLog(@"Updated dialog: %@", dialog);
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"Error while updating dialog: %@", response.error);
+                        }];
+                    }
+                    else{
+                        NSMutableDictionary *extendedRequest = [NSMutableDictionary new];
+                        extendedRequest[@"pull_all[occupants_ids][]"] = @"301";
+                        extendedRequest[@"name"] = @"Team22";
+                        extendedRequest[@"photo"] = @"yeahhh22";
+                        
+                        if(withQBContext){
+                            [QBChat updateDialogWithID:[[ConfigManager sharedManager] dialogId] extendedRequest:extendedRequest delegate:self context:testContext];
+                        }else{
+                            [QBChat updateDialogWithID:[[ConfigManager sharedManager] dialogId] extendedRequest:extendedRequest delegate:self];
+                        }
                     }
                     
                 }
                     break;
                     
-                case 4:
+                case 4: 
                 {
-                    QBChatHistoryMessage *msg = [[QBChatHistoryMessage alloc] init];
-                    msg.dialogID = @"546dce359c295393c8000027";
-                    msg.text = @"hello amigo 44";
-//                    msg.recipientID = UserID2;
-                    //
-//                    QBChatAttachment *attachment = QBChatAttachment.new;
-//                    attachment.type = @"image";
-//                    attachment.ID = @"47863";
-//                    attachment.url = @"www.com";
-//                    //
-//                    QBChatAttachment *attachment2 = QBChatAttachment.new;
-//                    attachment2.type = @"image";
-//                    attachment2.ID = @"47863";
-//                    attachment2.url = @"www.com";
-//                    //
-//                    [msg setAttachments:@[attachment, attachment2]];
-//                    //
-                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-//                    params[@"name"] = @"Igor";
-//                    params[@"age"] = @(4);
-                    params[@"send_to_chat"] = @"1";
-//                     params[@"save_to_history"] = @"1";
-                    [msg setCustomParameters:params];
-                    
-                    if(withQBContext){
-                        [QBChat createMessage:msg delegate:self context:testContext];
-                    }else{
-                        [QBChat createMessage:msg delegate:self];
+                    if (useNewAPI) {
+                        [QBRequest deleteDialogWithID:@"54fda689535c125b0700bbfa" successBlock:^(QBResponse *responce) {
+                            NSLog(@"dialog was deleted");
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"error: %@", response.error);
+                        }];
+                    } else {
+                        if(withQBContext){
+                            [QBChat deleteDialogWithID:[[ConfigManager sharedManager] dialogId] delegate:self context:testContext];
+                        }else{
+                            [QBChat deleteDialogWithID:[[ConfigManager sharedManager] dialogId] delegate:self];
+                        }
                     }
                 }
                     break;
                     
                 case 5:
                 {
-                    QBChatHistoryMessage *message = [QBChatHistoryMessage new];
-                    message.ID = @"53aabe15e4b077ddd43e7fd3";
-                    message.dialogID = @"53a99a7be4b094c7c6d31b41";
-                    message.read = YES;
+                    
+                    QBChatHistoryMessage *msg = [[QBChatHistoryMessage alloc] init];
+                    msg.dialogID = @"54fda666535c12834e06b108";
+                    msg.text = @"Test message";
+                    msg.recipientID = 2394285;
                     //
-                    if(withQBContext){
-                        [QBChat updateMessage:message delegate:self context:testContext];
-                    }else{
-                        [QBChat updateMessage:message delegate:self];
+                    QBChatAttachment *attachment = QBChatAttachment.new;
+                    attachment.type = @"image";
+                    attachment.ID = @"47863";
+                    attachment.url = @"www.com";
+                    //
+                    QBChatAttachment *attachment2 = QBChatAttachment.new;
+                    attachment2.type = @"image";
+                    attachment2.ID = @"47863";
+                    attachment2.url = @"www.com";
+                    //
+                    [msg setAttachments:@[attachment, attachment2]];
+
+                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                    params[@"name"] = @"Igor";
+                    [msg setCustomParameters:params];
+                    
+                    if( useNewAPI ){
+                        [QBRequest createMessage:msg successBlock:^(QBResponse *response, QBChatHistoryMessage *createdMessage) {
+                            NSLog(@"success: %@", createdMessage);
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"ERROR: %@", response.error);
+                        }];
                     }
+                    else {
+                        if( withQBContext ){
+                            [QBChat createMessage:msg delegate:self context:testContext];
+                        }else{
+                            [QBChat createMessage:msg delegate:self];
+                        }
+                    }
+        
+                    
                 }
                     break;
                     
                 case 6:
                 {
-                    NSString *dialogID = @"53d10eede4b02f496c21549f";
-                    NSArray *mesagesIDs = @[@"53aabe15e4b077ddd43e7fd3", @"53aabe15e4b077ddd43e7fd7"];
-                    mesagesIDs = nil;
+                    QBChatHistoryMessage *message = [QBChatHistoryMessage new];
+                    message.ID = @"54fdbb69535c12c2e407c672";
+                    message.dialogID = @"54fda666535c12834e06b108";
+                    message.read = YES;
                     //
-                    if(withQBContext){
-                        [QBChat markMessagesAsRead:mesagesIDs dialogID:dialogID delegate:self context:testContext];
-                    }else{
-                        [QBChat markMessagesAsRead:mesagesIDs dialogID:dialogID delegate:self];
+                    if( useNewAPI ){
+                        [QBRequest updateMessage:message successBlock:^(QBResponse *response) {
+                            NSLog(@"success");
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"ERROR: %@", response.error);
+                        }];
                     }
+                    else{
+                        
+                        if( withQBContext ){
+                            [QBChat updateMessage:message delegate:self context:testContext];
+                        }else{
+                            [QBChat updateMessage:message delegate:self];
+                        }
+                    }
+                    
                 }
                     break;
                     
                 case 7:
                 {
-                    if(withQBContext){
-                        [QBChat deleteMessageWithID:@"53a04938e4b0afa821474844" delegate:self context:testContext];
+                    NSString *dialogID = @"54fda666535c12834e06b108";
+                    
+                    if( useNewAPI ){
+                        NSSet *mesagesIDs = [NSSet setWithObjects:@"54fdbb69535c12c2e407c672", @"54fdbb69535c12c2e407c673", nil];
+                        
+                        [QBRequest markMessagesAsRead:mesagesIDs dialogID:dialogID successBlock:^(QBResponse *response) {
+                            NSLog(@"sucess");
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"markMessagesAsRead error %@", response.error);
+                        }];
                     }else{
-                        [QBChat deleteMessageWithID:@"53a04938e4b0afa821474844" delegate:self];
+                        NSArray *mesagesIDs = [NSArray arrayWithObjects:@"54fdbb69535c12c2e407c672", @"54fdbb69535c12c2e407c673", nil];
+                        
+                        if( withQBContext ){
+                            [QBChat markMessagesAsRead:mesagesIDs dialogID:dialogID delegate:self context:testContext];
+                        }else{
+                            [QBChat markMessagesAsRead:mesagesIDs dialogID:dialogID delegate:self];
+                        }
+                    }
+                }
+                    break;
+                    
+                case 8:
+                {
+                    if( useNewAPI ){
+                        NSSet *mesagesIDs = [NSSet setWithObjects:@"54fdbb69535c12c2e407c672", @"54fdbb69535c12c2e407c673", nil];
+                        
+                        [QBRequest deleteMessagesWithIDs:mesagesIDs successBlock:^(QBResponse *response) {
+                            NSLog(@"success");
+                        } errorBlock:^(QBResponse *response) {
+                            NSLog(@"deleteMessageWithID error:%@", response.error);
+                        }];
+                    }
+                    else{
+                        if( withQBContext ){
+                            [QBChat deleteMessageWithID:@"53a04938e4b0afa821474844" delegate:self context:testContext];
+                        }else{
+                            [QBChat deleteMessageWithID:@"53a04938e4b0afa821474844" delegate:self];
+                        }
                     }
                 }
                     break;
@@ -497,7 +628,7 @@ static BOOL done = NO;
                 case 0:
                 {
                     
-                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:UserID2 action:DENY];
+                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:[[ConfigManager sharedManager] testUserId2] action:DENY];
                     QBPrivacyList *list = [[QBPrivacyList alloc] initWithName:DefaultPrivacyListName items:@[item]];
                     [[QBChat instance] setPrivacyList:list];
                 }
@@ -513,7 +644,7 @@ static BOOL done = NO;
                 //block user 2
                 case 2:
                 {
-                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:UserID2 action:DENY];
+                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:[[ConfigManager sharedManager] testUserId2] action:DENY];
                     QBPrivacyList *list = [[QBPrivacyList alloc] initWithName:DefaultPrivacyListName items:@[item]];
                     [[QBChat instance] setPrivacyList:list];
                     
@@ -523,7 +654,7 @@ static BOOL done = NO;
                 //unblock user
                 case 3:
                 {
-                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:UserID2 action:ALLOW];
+                    QBPrivacyItem *item = [[QBPrivacyItem alloc] initWithType:USER_ID valueForType:[[ConfigManager sharedManager] testUserId2] action:ALLOW];
                     QBPrivacyList *list = [[QBPrivacyList alloc] initWithName:DefaultPrivacyListName items:@[item]];
                     [[QBChat instance] setPrivacyList:list];
                 }
@@ -556,13 +687,13 @@ static BOOL done = NO;
                     //send typing
                 case 0:
                 {
-                    [[QBChat instance] sendUserIsTypingToUserWithID:UserID2];
+                    [[QBChat instance] sendUserIsTypingToUserWithID:[[ConfigManager sharedManager] testUserId2]];
                 }
                     break;
                     //send stop typing
                 case 1:
                 {
-                    [[QBChat instance] sendUserStopTypingToUserWithID:UserID2];
+                    [[QBChat instance] sendUserStopTypingToUserWithID:[[ConfigManager sharedManager] testUserId2]];
                 }
                     break;
             }
@@ -570,9 +701,26 @@ static BOOL done = NO;
         case 8:{
             QBChatMessage *mess = [QBChatMessage markableMessage];
             mess.text = @"markable message";
-            [mess setRecipientID:UserID2];
+            [mess setRecipientID:[[ConfigManager sharedManager] testUserId2]];
             [[QBChat instance] sendMessage:mess];
         }
+            break;
+            
+        case 9:
+            switch (indexPath.row) {
+                    // enable carbons
+                case 0:
+                {
+                    [[QBChat instance] setCarbonsEnabled:YES];
+                }
+                    break;
+                    // disable carbons
+                case 1:
+                {
+                    [[QBChat instance] setCarbonsEnabled:NO];
+                }
+                    break;
+            }
             break;
         default:
             break;
@@ -589,7 +737,7 @@ static BOOL done = NO;
     if (result.success && [result isKindOfClass:[QBDialogsPagedResult class]]) {
         QBDialogsPagedResult *pagedResult = (QBDialogsPagedResult *)result;
         NSArray *dialogs = pagedResult.dialogs;
-        NSLog(@"Dialogs: %@", dialogs);
+        NSLog(@"Dialogs: %d", dialogs.count);
         
     } else if (result.success && [result isKindOfClass:QBChatHistoryMessageResult.class]) {
         QBChatHistoryMessageResult *res = (QBChatHistoryMessageResult *)result;
@@ -607,8 +755,6 @@ static BOOL done = NO;
     }else{
         NSLog(@"result: %@", result);
     }
-    
-    done = YES;
 }
 
 
@@ -620,11 +766,15 @@ static BOOL done = NO;
 -(void) chatDidLogin
 {
     NSLog(@"Did login");
+
+//    [presenceTimer invalidate];
+//    presenceTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:[QBChat instance] selector:@selector(sendPresence) userInfo:nil repeats:YES];
     
-    [presenceTimer invalidate];
-    presenceTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:[QBChat instance] selector:@selector(sendPresence) userInfo:nil repeats:YES];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
-     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//    [[QBChat instance] setCarbonsEnabled:YES];
+    
+//    [[QBChat instance] requestServiceDiscoveryInformation];
 }
 
 - (void)chatDidNotLogin
@@ -635,6 +785,12 @@ static BOOL done = NO;
 - (void)chatDidFailWithError:(NSInteger)code
 {
     NSLog(@"Did Fail With Error code: %ld", (long)code);
+    [presenceTimer invalidate];
+}
+
+- (void)chatDidReceiveServiceDiscoveryInformation:(NSArray *)features
+{
+    
 }
 
 #pragma mark 1-1 Messaging
@@ -643,12 +799,16 @@ static BOOL done = NO;
 {
     NSLog(@"Did receive message: %@", message);
     
-//    [[QBChat instance] readMessage:message];
+    // Read message if need
+    //
+    if([message markable]){
+        [[QBChat instance] readMessage:message];
+    }
 }
 
-- (void)chatDidNotSendMessage:(QBChatMessage *)message
+- (void)chatDidNotSendMessage:(QBChatMessage *)message error:(NSError *)error
 {
-      NSLog(@"Did not send message: %@", message);
+    NSLog(@"Did not send message: %@, error: %@", message, error);
 }
 
 
@@ -672,7 +832,6 @@ static BOOL done = NO;
 - (void)chatRoomDidLeave:(NSString *)roomName
 {
     NSLog(@"chatRoomDidLeave: %@", roomName);
-    self.testRoom = nil;
 }
 
 - (void)chatRoomDidDestroy:(NSString *)roomName
@@ -711,7 +870,9 @@ static BOOL done = NO;
 - (void)chatRoomDidEnter:(QBChatRoom *)room
 {
     NSLog(@"Room did enter: %@", room);
-    self.testRoom = room;
+    if(self.testRoom == nil){
+        self.testRoom = room;
+    }
 }
 
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID
@@ -749,9 +910,7 @@ static BOOL done = NO;
 
 - (void)chatContactListDidChange:(QBContactList *)contactList
 {
-    if([contactList.contacts count] > 0 || [contactList.pendingApproval count] > 0){
-        NSLog(@"contactList %@", contactList);
-    }
+    NSLog(@"contactList %@", contactList);
 }
 
 - (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status
@@ -794,9 +953,6 @@ static BOOL done = NO;
     NSLog(@"chatDidNotSetPrivacyListWithName: %@ due to error:%@", name, error);
 }
 
-- (void)chatDidNotSendMessage:(QBChatMessage *)message error:(NSError *)error{
-    NSLog(@"chatDidNotSendMessage: %@ \nerror:%@", message, error);
-}
 
 #pragma mark -
 #pragma mark Typing Status
@@ -811,11 +967,20 @@ static BOOL done = NO;
 
 }
 
-#pragma mark -
-#pragma mark Chat Status
 
-- (void)chatDidDeliverMessageWithPacketID:(NSString *)packetID{
-    NSLog(@"chatDidDeliverMessageWithPacketID: %@", packetID);
+#pragma mark -
+#pragma mark Delivered status
+
+- (void)chatDidDeliverMessageWithID:(NSString *)messageID{
+    NSLog(@"chatDidDeliverMessageWithID: %@", messageID);
+}
+
+
+#pragma mark -
+#pragma mark Read status
+
+- (void)chatDidReadMessageWithID:(NSString *)messageID{
+    NSLog(@"chatDidReadMessageWithID: %@", messageID);
 }
 
 @end

@@ -56,19 +56,6 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     return self;
 }
 
-#pragma mark - Container VC
-
-- (ContainerViewController *)containerVC {
-    
-    if (!_containerVC) {
-        
-        _containerVC =
-        [self.mainStoryboard instantiateViewControllerWithIdentifier:kContainerViewControllerID];
-    }
-    
-    return _containerVC;
-}
-
 #pragma mark - RootViewController
 
 - (UIViewController *)rootViewController {
@@ -84,6 +71,8 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
         return;
     }
     
+    [QBSoundRouter.instance initialize];
+    
     NSArray *opponentsIDs = [ConnectionManager.instance idsWithUsers:users];
     
     QBRTCSession *session =
@@ -98,7 +87,8 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
         [self.mainStoryboard instantiateViewControllerWithIdentifier:kCallViewControllerID];
         
         callVC.session = self.session;
-        
+        NSAssert(!self.containerVC, @"Muste be nil");
+        self.containerVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kContainerViewControllerID];
         self.containerVC.viewControllers = @[callVC];
         self.containerVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self.rootViewController presentViewController:self.containerVC
@@ -113,7 +103,8 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
 
 #pragma mark - QBWebRTCChatDelegate
 
-- (void)didReceiveNewSession:(QBRTCSession *)session {
+- (void)didReceiveNewSession:(QBRTCSession *)session userInfo:(NSDictionary *)userInfo {
+    
     
     if (self.session) {
         
@@ -123,6 +114,10 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     
     self.session = session;
     
+    NSParameterAssert(userInfo[@"newcall"]);
+    
+    [QBSoundRouter.instance initialize];
+    
     [QMSoundManager playRingtoneSound];
     
     IncomingCallViewController *incomingVC =
@@ -130,7 +125,9 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     
     CallViewController *callVC =
     [self.mainStoryboard instantiateViewControllerWithIdentifier:kCallViewControllerID];
-    
+   
+    NSAssert(!self.containerVC, @"Muste be nil");
+    self.containerVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kContainerViewControllerID];
     self.containerVC.viewControllers = @[incomingVC, callVC];
     
     incomingVC.session = session;
@@ -142,6 +139,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
 }
 
 - (void)sessionWillClose:(QBRTCSession *)session {
+    if (self.session == session)
     
     NSLog(@"session will close");
 }
@@ -152,6 +150,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
+            [QBSoundRouter.instance deinitialize];
             self.session = nil;
             [self.containerVC dismissViewControllerAnimated:NO completion:nil];
             self.containerVC = nil;

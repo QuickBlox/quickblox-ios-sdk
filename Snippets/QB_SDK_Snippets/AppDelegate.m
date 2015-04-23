@@ -17,6 +17,10 @@
 #import "ChatModuleViewController.h"
 #import "CustomObjectsModuleViewController.h"
 
+@interface AppDelegate() <QBChatDelegate>
+
+@end
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -52,35 +56,47 @@
 
     // Setup QuickBlox application
     //
-    [QBApplication sharedApplication].applicationId = AppID;
-    [QBConnection registerServiceKey:AuthKey];
-    [QBConnection registerServiceSecret:AuthSecret];
-    [QBSettings setAccountKey:AccountKey];
-    
+    [QBApplication sharedApplication].applicationId = [[ConfigManager sharedManager] appId];
+    [QBConnection registerServiceKey:[[ConfigManager sharedManager] authKey]];
+    [QBConnection registerServiceSecret:[[ConfigManager sharedManager] authSecret]];
+    [QBSettings setAccountKey:[[ConfigManager sharedManager] accountKey]];
     //
-    [QBConnection setApiDomain:ServerApiDomain forServiceZone:QBConnectionZoneTypeProduction];
-    [QBConnection setServiceZone:QBConnectionZoneTypeProduction];
-    [QBSettings setServerChatDomain:ServerChatDomain];
-    [QBSettings setContentBucket:ContentBucket];
-    
-    [QBSettings setServerApiDomain:ServerApiDomain];
-    
 
+    [QBConnection setApiDomain:[[ConfigManager sharedManager] apiDomain] forServiceZone:QBConnectionZoneTypeProduction];
+    [QBConnection setServiceZone:QBConnectionZoneTypeProduction];
+    
+    [QBConnection setAutoCreateSessionEnabled:YES];
+    
+    [QBSettings setServerChatDomain:[[ConfigManager sharedManager] chatDomain]];
+    [QBSettings setContentBucket:[[ConfigManager sharedManager] bucketName]];
     
 #ifndef DEBUG
     [QBApplication sharedApplication].productionEnvironmentForPushesEnabled = YES;
 #endif
     
+    [QBConnection setNetworkIndicatorManagerEnabled:YES];
+    
     return YES;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-//	[QBRequest registerSubscriptionForDeviceToken:deviceToken successBlock:^(QBResponse *response, NSArray *subscriptions) {
-//		NSLog(@"Successfull response!");
-//	} errorBlock:^(QBError *error) {
-//		NSLog(@"Response error:%@", error);
-//	}];
+    if (useNewAPI) {
+        [QBRequest registerSubscriptionForDeviceToken:deviceToken uniqueDeviceIdentifier:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
+                                         successBlock:^(QBResponse *response, NSArray *subscriptions) {
+            NSLog(@"Successfull response!");
+        } errorBlock:^(QBError *error) {
+            NSLog(@"Response error:%@", error);
+        }];
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
@@ -90,14 +106,8 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    
 }
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
-
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {

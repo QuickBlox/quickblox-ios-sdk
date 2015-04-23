@@ -20,9 +20,10 @@
     // 10 users per page
     //
     QBGeneralResponsePage *responsePage = [QBGeneralResponsePage responsePageWithCurrentPage:page perPage:pageSize];
+    __weak __typeof(self)weakSelf = self;
     [QBRequest usersForPage:responsePage successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
         
-        [self receivedResults:users total:page.totalEntries];
+        [weakSelf receivedResults:users total:page.totalEntries];
         
     } errorBlock:^(QBResponse *response) {
         NSLog(@"%@", response.error);

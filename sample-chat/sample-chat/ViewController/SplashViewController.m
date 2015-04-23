@@ -31,6 +31,7 @@
     extendedAuthRequest.userLogin = demoUserLogin;
     extendedAuthRequest.userPassword = demoUserPassword;
     //
+    __weak __typeof(self)weakSelf = self;
     [QBRequest createSessionWithExtendedParameters:extendedAuthRequest successBlock:^(QBResponse *response, QBASession *session) {
         // Save current user
         //
@@ -50,13 +51,12 @@
             double delayInSeconds = 1.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
             });
         }];
         
-        
-        
     } errorBlock:^(QBResponse *response) {
+        
         NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
         errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
         
