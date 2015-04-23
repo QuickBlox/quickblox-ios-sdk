@@ -20,6 +20,11 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
         self.performSegueWithIdentifier(kOpponentsSegueIdentifier, sender: nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = SwipeableTableViewCellWithBlockButtons()
@@ -85,20 +90,19 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
                     if !filteredUsers.isEmpty {
                         var recipient = filteredUsers[0]
                         cell.textLabel?.text = recipient.login ?? recipient.email
-                        cell.rightUtilityButtons = UserBlockButtons.blockButtonsForDialogType(chatDialog.type, user: recipient, includeDeleteButton: true)
+                        cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForDialogType(chatDialog.type, user: recipient, includeDeleteButton: true)
                         cell.user = recipient
                     }
                 }
             }
-            
         case QBChatDialogTypeGroup.value:
             cell.detailTextLabel?.text = "group"
             cell.textLabel?.text = chatDialog.name
-            cell.rightUtilityButtons = UserBlockButtons.blockButtonsForDialogType(chatDialog.type, user: nil, includeDeleteButton: true)
+            cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForDialogType(chatDialog.type, user: nil, includeDeleteButton: true)
         case QBChatDialogTypePublicGroup.value:
             cell.detailTextLabel?.text = "public group"
             cell.textLabel?.text = chatDialog.name
-            cell.rightUtilityButtons = UserBlockButtons.blockButtonsForDialogType(chatDialog.type, user: nil, includeDeleteButton: true)
+            cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForDialogType(chatDialog.type, user: nil, includeDeleteButton: true)
         default:
             break
         }

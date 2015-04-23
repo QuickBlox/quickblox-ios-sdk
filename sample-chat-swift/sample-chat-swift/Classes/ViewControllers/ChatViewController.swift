@@ -7,60 +7,59 @@
 //
 
 class ChatViewController: JSQMessagesViewController, QBChatDelegate {
+    let messagesBond: ArrayBond<QBChatAbstractMessage> = ArrayBond<QBChatAbstractMessage>()
+    var showLoadingIndicator: Bond<Bool>!
     var dialog: QBChatDialog?
-    var messagesDownloadRequest : QBRequest? // ability to cancel downloading messages
-    var messages: [QBChatAbstractMessage] = []
     
-    let outgoingBubbleImageView: JSQMessagesBubbleImage = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor()!)
-    let incomingBubbleImageView = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
+    var chatViewModel: ChatViewModel!
     
+    let refreshControl = UIRefreshControl()
+    
+    let kCellOutgoingReuseIdentifier = "kCellOutgoingReuseIdentifier"
+    let kCellIncomingReuseIdentifier = "kCellIncomingReuseIdentifier"
     override func viewDidLoad() {
         super.viewDidLoad()
+        assert(dialog != nil)
+        
+        self.chatViewModel = ChatViewModel(currentUserID: ConnectionManager.instance.currentUser!.ID, dialog: dialog!)
+        
+        self.startMessagesObserver()
         if let chatRoom = dialog?.chatRoom {
             chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0]) // sendChatMessageWithoutJoin temporary not working
         }
         else {
             self.navigationItem.rightBarButtonItem = nil // remove "info" button
         }
-        
         QBChat.instance().addDelegate(self)
         
         // needed by block in method QBChat.instance().sendMessage(message, sentBlock
         QBChat.instance().streamManagementEnabled = true
         
-        inputToolbar.contentView.leftBarButtonItem = nil
-        automaticallyScrollsToMostRecentMessage = true
+        self.collectionView.collectionViewLayout.springinessEnabled = false
+        self.inputToolbar.contentView.leftBarButtonItem = nil
+        self.automaticallyScrollsToMostRecentMessage = true
         // remove avatars
         self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
         self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
         
-        // set owner of dialog ( currentUser )
-        self.senderId = ConnectionManager.instance.currentUser?.ID.description
-        self.senderDisplayName = ConnectionManager.instance.currentUser?.fullName
         
-        self.loadMessages()
+        // set dialog owner ( currentUser )
+        self.senderId = ConnectionManager.instance.currentUser?.ID.description
+        self.senderDisplayName = ConnectionManager.instance.currentUser?.fullName ?? ConnectionManager.instance.currentUser?.login
+        self.chatViewModel.loadMoreMessages()
+        
+        self.addRefreshControl()
     }
     
-    func loadMessages() {
-        SVProgressHUD.showWithStatus("Loading messages...")
-        messagesDownloadRequest = QBRequest.messagesWithDialogID(dialog?.ID, successBlock: { [weak self] (response: QBResponse!, downloadedMessages: [AnyObject]!) -> Void in
-            SVProgressHUD.showSuccessWithStatus("Loaded!")
-            
-            if let strongSelf = self,  downloadedHistoryMessages =  downloadedMessages as? [QBChatHistoryMessage] {
-                strongSelf.messagesDownloadRequest = nil
-                strongSelf.messages = downloadedHistoryMessages
-                strongSelf.collectionView.reloadData()
-                strongSelf.scrollToBottomAnimated(true)
-            }
-            }) { (response: QBResponse!) -> Void in
-                println(response.error.error.localizedDescription)
-                SVProgressHUD.showErrorWithStatus("Error loading messages")
-        }
+    func addRefreshControl() {
+        refreshControl.addTarget(self.chatViewModel, action: "loadMoreMessages", forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView.addSubview(refreshControl)
+        self.collectionView.alwaysBounceVertical = true
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        collectionView.collectionViewLayout.springinessEnabled = true
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        SVProgressHUD.dismiss()
     }
     
     /**
@@ -78,12 +77,11 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         message.customParameters = ["save_to_history": 1]
         if( dialog?.type.value == QBChatDialogTypePrivate.value ) {
             SVProgressHUD.showWithStatus("Sending", maskType: SVProgressHUDMaskType.Clear)
-            var occupantsIDs = dialog!.occupantIDs as! [UInt]
-            message.recipientID = UInt(occupantsIDs.filter{$0 != ConnectionManager.instance.currentUser!.ID}[0])
+            message.recipientID = self.chatViewModel.recipientID
             message.text = text
             QBChat.instance().sendMessage(message)
             
-            self.messages.append(message)
+            self.chatViewModel.messages.append(message)
             
             self.finishSendingMessageAnimated(true)
             SVProgressHUD.dismiss()
@@ -91,35 +89,33 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         else{
             message.text = text
             message.senderNick = ConnectionManager.instance.currentUser?.fullName
+            QBChat.instance().sendChatMessageWithoutJoin(message, toRoom: self.dialog?.chatRoom)
             
-            QBChat.instance().sendChatMessageWithoutJoin(message, toRoom: dialog?.chatRoom)
             // will call self.finishSendingMessageAnimated for group chat message in chatRoomDidReceiveMessage
         }
         self.inputToolbar.contentView.textView.text = ""
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
-        var image: JSQMessagesBubbleImage?
-        
-        let message = messages[indexPath.row]
-        
-        // check out who sent the message
-        return message.senderID == ConnectionManager.instance.currentUser?.ID ? outgoingBubbleImageView : incomingBubbleImageView;
+        return self.chatViewModel.bubbleImageViewForMessageAtIndex(indexPath.row)
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.messages.count
+        return self.chatViewModel.messages.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell: JSQMessagesCollectionViewCell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
+        var cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
+        
         cell.textView.textColor = UIColor.blackColor()
+        cell.messageID = self.chatViewModel.messages[indexPath.row].ID
+        cell.textView.selectable = false
         
         return cell
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        var qbMessage = messages[indexPath.row]
+        var qbMessage = chatViewModel.messages[indexPath.row]
         var jsqMessage: JSQMessage?
         if let qbChatMessage = qbMessage as? QBChatMessage {
             jsqMessage = JSQMessage(senderId: String(qbChatMessage.senderID), senderDisplayName: qbChatMessage.senderNick ?? qbChatMessage.senderID.description, date: qbChatMessage.datetime, text: qbChatMessage.text)
@@ -137,6 +133,19 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         
         return jsqMessage
     }
+
+    // disable text selection
+    override func jsq_didReceiveMenuWillHideNotification(notification: NSNotification!) {
+        if let indexPath = self.selectedIndexPathForMenu {
+            var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as? JSQMessagesCollectionViewCell
+            
+            if cell != nil {
+                cell?.textView.selectable = false
+            }
+        }
+        super.jsq_didReceiveMenuWillHideNotification(notification)
+    }
+    
     
     /**
     *  QBChat delegate methods
@@ -151,9 +160,10 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         }
         
         // remove my last message and restore text input
-        let excludedLastMessage = messages.filter({$0.senderID == ConnectionManager.instance.currentUser!.ID}).last
-        messages = messages.filter({$0 != excludedLastMessage})
-        self.inputToolbar.contentView.textView.text = excludedLastMessage!.text
+        if let lastMessage = self.chatViewModel.myLastMessage {
+            self.inputToolbar.contentView.textView.text = lastMessage.text
+            self.chatViewModel.messages.removeLast()
+        }
         self.collectionView.reloadData()
         
         SVProgressHUD.dismiss()
@@ -162,7 +172,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     
     func chatDidReceiveMessage(message: QBChatMessage!) {
         if self.dialog!.chatRoom == nil {
-            self.messages.append(message)
+            self.chatViewModel.messages.append(message)
             if message.senderID != ConnectionManager.instance.currentUser?.ID {
                 self.finishReceivingMessageAnimated(true)
             }
@@ -172,11 +182,11 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     func chatRoomDidReceiveMessage(message: QBChatMessage!, fromRoomJID roomJID: String!) {
         if roomJID == self.dialog?.roomJID {
             // filter duplicates
-            if !self.messages.filter({$0.ID == message.ID}).isEmpty {
+            if !self.chatViewModel.messages.filter({$0.ID == message.ID}).isEmpty {
                 return
             }
             
-            self.messages.append(message)
+            self.chatViewModel.messages.append(message)
             if message.senderID == ConnectionManager.instance.currentUser?.ID {
                 self.finishSendingMessageAnimated(true)
             }
@@ -186,21 +196,81 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         }
     }
     
+    /**
+    UIMenu delegate method
+    */
+    
+    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool {
+        if action == Selector("delete:"){
+            return true
+        }
+        return super.collectionView(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
+        if action == Selector("delete:"){
+            
+        }
+        else{
+            super.collectionView(collectionView, performAction: action, forItemAtIndexPath: indexPath, withSender: sender)
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let groupChatInfoVC = segue.destinationViewController as? GroupChatUsersInfoTableViewController {
             groupChatInfoVC.chatDialog = self.dialog
         }
     }
     
-    deinit{
-        if let downloadingRequest = messagesDownloadRequest {
-            downloadingRequest.cancel()
+    /**
+    Observers
+    */
+    
+    func startMessagesObserver() {
+        // start observing messages array of chatViewModel
+        self.chatViewModel.messages ->> messagesBond
+        
+        messagesBond.didInsertListener = { [weak self] (array, indices) in
             SVProgressHUD.dismiss()
+            if let strongSelf = self {
+                let firstRun = strongSelf.collectionView.numberOfItemsInSection(0) == 0
+                
+                if firstRun {
+                    strongSelf.finishReceivingMessage()
+                    strongSelf.scrollToBottomAnimated(true)
+                }
+                else {
+                    var indexPaths = indices.map({NSIndexPath(forItem: $0, inSection: 0)})
+                    strongSelf.collectionView.insertItemsAtIndexPaths(indexPaths)
+                }
+            }
         }
+        messagesBond.didRemoveListener = { [weak self] (array, indices) in
+            SVProgressHUD.dismiss()
+            if let strongSelf = self {
+                var indexPaths = indices.map({NSIndexPath(forItem: $0, inSection: 0)})
+                strongSelf.collectionView.deleteItemsAtIndexPaths(indexPaths)
+            }
+        }
+        
+        self.showLoadingIndicator = Bond() { [unowned self] (showLoadingIndicator: Bool) in
+            if showLoadingIndicator {
+                self.refreshControl.beginRefreshing()
+                SVProgressHUD.showWithStatus("Loading messages...")
+            }
+            else {
+                self.refreshControl.endRefreshing()
+                SVProgressHUD.dismiss()
+            }
+        }
+        self.chatViewModel.showLoadingIndicator ->> self.showLoadingIndicator
+    }
+    
+    deinit{
         if let chatRoom = dialog?.chatRoom {
             chatRoom.leaveRoom()
         }
-        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         QBChat.instance().removeDelegate(self)
     }
 }
