@@ -16,7 +16,7 @@
 #import "SSCMainViewController.h"
 #import "SSCPhotoViewController.h"
 
-@interface SSCMainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, QBActionStatusDelegate, UIGestureRecognizerDelegate>
+@interface SSCMainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -143,6 +143,11 @@
         currentImageY += IMAGE_HEIGHT;
         currentImageY += MARGING;
         picturesInRowCounter = 0;
+        
+        // update scroll size
+        CGRect appframe = [[UIScreen mainScreen] bounds];
+        appframe.size.height = currentImageY+IMAGE_HEIGHT;
+        [self.scrollView setContentSize:appframe.size];
     }
 }
 
@@ -188,10 +193,12 @@
     [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
     
     // Upload file to QuickBlox server
-    [QBRequest TUploadFile:imageData fileName:@"Great Image" contentType:@"image/png" isPublic:NO successBlock:nil statusBlock:^(QBRequest *request, QBRequestStatus *status) {
-        // Progress
-        NSLog(@"%f", status.percentOfCompletion);
-    }  errorBlock:nil];
+    [QBRequest TUploadFile:imageData fileName:@"Great Image" contentType:@"image/png" isPublic:NO
+              successBlock:nil
+               statusBlock:^(QBRequest *request, QBRequestStatus *status) {
+                   // Progress
+                   NSLog(@"%f", status.percentOfCompletion);
+               }  errorBlock:nil];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

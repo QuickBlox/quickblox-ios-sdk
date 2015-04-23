@@ -19,16 +19,11 @@
  */
 - (UIBarButtonItem *)cornerBarButtonWithColor:(UIColor *)color
                                          title:(NSString *)title
-                                didTouchesEnd:(void(^)(void))action;
+                                didTouchesEnd:(dispatch_block_t)action;
 /**
  *  Default back button
  */
-- (void)setDefaultBackBarButtonItem:(void(^)(void))didTouchesEndAction;
-
-/**
- *  Default header view
- */
-- (UIView *)headerViewWithFrame:(CGRect)headerRect text:(NSString *)text;
+- (void)setDefaultBackBarButtonItem:(dispatch_block_t)didTouchesEndAction;
 
 /**
  *  Configure IAButton

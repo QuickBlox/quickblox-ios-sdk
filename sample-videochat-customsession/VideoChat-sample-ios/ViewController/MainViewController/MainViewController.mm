@@ -109,7 +109,7 @@
     
     // Start sending chat presence
     //
-    [QBChat instance].delegate = self;
+    [[QBChat instance] addDelegate:self];
     [NSTimer scheduledTimerWithTimeInterval:30 target:[QBChat instance] selector:@selector(sendPresence) userInfo:nil repeats:YES];
 }
 

@@ -93,7 +93,7 @@
     
     // Set QuickBlox Chat delegate
     //
-    [QBChat instance].delegate = self;
+    [[QBChat instance] addDelegate:self];
     
     QBUUser *user = [QBUUser user];
     user.ID = session.userID;

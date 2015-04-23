@@ -9,10 +9,10 @@
 #import "ContentModuleViewController.h"
 #import "ContentDataSource.h"
 
-
 @interface ContentModuleViewController ()
 @property (nonatomic) ContentDataSource *dataSource;
 @property (nonatomic) QBCBlob *blobWithWriteAccess;
+@property (strong, nonatomic) id <Cancelable> cancelable;
 @end
 
 @implementation ContentModuleViewController
@@ -34,7 +34,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     switch (indexPath.section) {
         // Blobs
@@ -69,16 +68,17 @@
                 case 1:{
                     
                     if (useNewAPI) {
-                        [QBRequest blobWithID:164893 successBlock:^(QBResponse *response, QBCBlob *blob) {
-                            NSLog(@"Successfull response!");
+                        [QBRequest blobWithID:238197 successBlock:^(QBResponse *response, QBCBlob *blob) {
+                            NSLog(@"Successfull response! %@", blob.publicUrl);
+                            
                         } errorBlock:^(QBResponse *response) {
                             NSLog(@"Response error: %@", response.error);
                         }];
                     } else {
                         if(withQBContext){
-                            [QBContent blobWithID:164893 delegate:self context:testContext];
+                            [QBContent blobWithID:230555 delegate:self context:testContext];
                         }else{
-                            [QBContent blobWithID:164893 delegate:self];
+                            [QBContent blobWithID:230555 delegate:self];
                         }
                     }
                 }
@@ -263,7 +263,7 @@
                     
                 // Download file with UID
                 case 9:{
-                    NSString *uid = @"0f1042d7ed704cc289573c5a458175de00";
+                    NSString *uid = @"d816966db53640e68b304a3cd4e5c0c100";
                     if (useNewAPI) {
                         [QBRequest downloadFileWithUID:uid successBlock:^(QBResponse *response, NSData *fileData) {
                             NSLog(@"Successfull response!");
@@ -313,7 +313,7 @@
                 // TDownloadFileWithBlobID
                 case 1:{
                     if (useNewAPI) {
-                        QBRequest *request = [QBRequest TDownloadFileWithBlobID:215457 successBlock:^(QBResponse *response, NSData *fileData) {
+                        QBRequest *request = [QBRequest TDownloadFileWithBlobID:231217 successBlock:^(QBResponse *response, NSData *fileData) {
                             NSLog(@"Successfull response!");
                         } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
                             NSLog(@"download progress: %f", status.percentOfCompletion);
@@ -322,9 +322,10 @@
                         }];
                     } else {
                         if(withQBContext){
-                            [QBContent TDownloadFileWithBlobID:215457 delegate:self context:testContext];
+                            [QBContent TDownloadFileWithBlobID:231217 delegate:self context:testContext];
                         }else{
-                            [QBContent TDownloadFileWithBlobID:215457 delegate:self];
+                            self.cancelable = [QBContent TDownloadFileWithBlobID:231217 delegate:self];
+                            
                         }
                     }
                 }
@@ -363,12 +364,12 @@
             break;
         default:
             break;
-    }    
+    }
+    
 }
 
 // QuickBlox queries delegate
 - (void)completedWithResult:(QBResult *)result{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
     // success result
     if(result.success){
@@ -402,8 +403,9 @@
             
         // Download file task result
         }else if([result isKindOfClass:QBCFileDownloadTaskResult.class]){
-            QBCFileDownloadTaskResult *res = (QBCFileDownloadTaskResult *)result;
-            NSLog(@"QBCFileDownloadTaskResult, file=%@", res.file);
+            [self.cancelable cancel];
+//            QBCFileDownloadTaskResult *res = (QBCFileDownloadTaskResult *)result;
+//            NSLog(@"QBCFileDownloadTaskResult, file=%@", res.file);
             
         // Upload file result
         }else{

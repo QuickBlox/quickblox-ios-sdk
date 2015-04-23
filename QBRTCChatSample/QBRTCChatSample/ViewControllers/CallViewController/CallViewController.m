@@ -46,8 +46,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (strong, nonatomic) NSTimer *callTimer;
 @property (assign, nonatomic) NSTimer *beepTimer;
 
-@property (assign, nonatomic) AVAudioSessionCategoryOptions defaultCategoryOptions;
-
 @end
 
 @implementation CallViewController
@@ -60,7 +58,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [super viewDidLoad];
     
     [self configureGUI];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -71,16 +68,18 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [ConnectionManager.instance.me isEqual:caller] ? [self startCall] : [self acceptCall];
 
     [self.opponentsCollectionView reloadData];
-    
-    self.defaultCategoryOptions = self.session.audioCategoryOptions;
 }
 
 - (void)startCall {
     
     self.users = [ConnectionManager.instance usersWithIDS:self.session.opponents];
     //Start call
-    NSDictionary *userInfo = @{ @"userName" : ConnectionManager.instance.me.fullName };
+    NSDictionary *userInfo = @{@"newcall" : @"newcall"};
     [self.session startCall:userInfo];
+
+    if (self.session.conferenceType == QBConferenceTypeAudio) {
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
+    }
     //Begin play calling sound
     self.beepTimer =
     [NSTimer scheduledTimerWithTimeInterval:[QBRTCConfig dialingTimeInterval]
@@ -102,9 +101,12 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     self.users =  [ConnectionManager.instance usersWithIDS:usersIDS];
     
-    QBUUser *currentUser = ConnectionManager.instance.me;
+    if (self.session.conferenceType == QBConferenceTypeAudio) {
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
+    }
+    
     //Accept call
-    NSDictionary *userInfo = @{@"userName" : currentUser.fullName };
+    NSDictionary *userInfo = @{@"accept" : @"hello"};
     [self.session acceptCall:userInfo];
 }
 
@@ -119,6 +121,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     self.callTimeLabel.hidden = YES;
     self.switchCameraBtn.hidden = YES;
     self.localVideoView.hidden = YES;
+    self.opponentVideoView.skipBlackFrames = YES;
     //Default selection
     self.selectedItemIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     
@@ -144,6 +147,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [self.localVideoView.layer setShadowOpacity:0.5];
     [self.localVideoView.layer setShadowRadius:5.0];
     [self.localVideoView.layer setShadowOffset:CGSizeMake(5.0, 5.0)];
+    self.localVideoView.skipBlackFrames = YES;
 }
 
 - (void)configureToolBar {
@@ -216,7 +220,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [self.callTimer invalidate];
     self.callTimer = nil;
     
-    [self.session hangUp:@{@"session" : @"hang up"}];
+    [self.session hangUp:@{@"hangup" : @"hang up"}];
 }
 
 - (IBAction)pressSwitchCameraBtn:(UIButton *)sender {
@@ -230,18 +234,19 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     }];
 }
 
+
 - (IBAction)pressSwitchAudioOutput:(id)sender {
     
-    if (self.session.audioCategoryOptions != AVAudioSessionCategoryOptionDefaultToSpeaker) {
-        
-        self.session.audioCategoryOptions = AVAudioSessionCategoryOptionDefaultToSpeaker;
+    QBSoundRoute route = [QBSoundRouter instance].currentSoundRoute;
+    
+    if (route == QBSoundRouteSpeaker) {
+
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
     }
     else {
         
-        self.session.audioCategoryOptions = self.defaultCategoryOptions;
+        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteSpeaker;
     }
-    
-    NSLog(@"%lu", (unsigned long)self.session.audioCategoryOptions);
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -374,23 +379,31 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     }
 }
 
+- (void)session:(QBRTCSession *)session acceptByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
+    
+}
+
 /**
  * Called in case when opponent has rejected you call
  */
 - (void)session:(QBRTCSession *)session rejectedByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
     if (session == self.session) {
+
         [self reloadWithUserID:userID];
+        NSLog(@"%@", userInfo);
     }
 }
 
 /**
  *  Called in case when opponent hung up
  */
-- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID {
+- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
     if (self.session == session) {
+        
         [self reloadWithUserID:userID];
+        NSLog(@"%@", userInfo);
     }
 }
 

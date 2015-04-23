@@ -11,8 +11,8 @@ DEPENDENCIES:
   - QuickBlox
 
 SPEC CHECKSUMS:
-  libextobjc: d6146fce3ebea986b7f75fcb4c967639200b88b0
-  MTBlockAlertView: bd376f8b9f0ea945ed21e4c75aa0bb9afe3e782d
-  QuickBlox: 25cdc68711e8e43c1588c23044a7eb7e787eafd4
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
+  MTBlockAlertView: 6a37bcf0fc677da69e0c3457be41bb1eb2415484
+  QuickBlox: 14d87c290587ebcde637a4fb68fbbf699b3bc0f3
 
-COCOAPODS: 0.36.0.beta.2
+COCOAPODS: 0.36.0
