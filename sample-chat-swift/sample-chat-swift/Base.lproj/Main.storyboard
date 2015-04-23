@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -98,7 +98,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="C3G-5X-W4U" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="C3G-5X-W4U" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C3G-5X-W4U" id="VXp-aq-zlY">
@@ -113,7 +113,7 @@
                                             </constraints>
                                         </view>
                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebd-7q-adB">
-                                            <rect key="frame" x="60" y="12" width="532" height="21"/>
+                                            <rect key="frame" x="60" y="12" width="565" height="21"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="KVq-vh-n7U"/>
@@ -146,7 +146,7 @@
                     <navigationItem key="navigationItem" title="Logged in as" id="Iav-xC-5Zn">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="O7K-fz-vwY">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NPR-SX-7ci">
-                                <rect key="frame" x="514" y="7" width="100" height="30"/>
+                                <rect key="frame" x="534" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="join chat">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -191,7 +191,7 @@
                                 <rect key="frame" x="0.0" y="114" width="600" height="442"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="dialogcell" textLabel="XeG-H9-uYk" detailTextLabel="6hA-ln-8uo" imageView="BYm-la-I4f" style="IBUITableViewCellStyleSubtitle" id="WQc-ZM-8Qc" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationLevel="-1" indentationWidth="0.0" reuseIdentifier="dialogcell" textLabel="XeG-H9-uYk" detailTextLabel="6hA-ln-8uo" imageView="BYm-la-I4f" style="IBUITableViewCellStyleSubtitle" id="WQc-ZM-8Qc" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
                                         <rect key="frame" x="140" y="278" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WQc-ZM-8Qc" id="Ry1-Xv-NL2">
@@ -205,7 +205,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bubble_min.png" id="BYm-la-I4f">
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BYm-la-I4f">
                                                     <rect key="frame" x="15" y="0.0" width="54" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
@@ -241,7 +241,7 @@
                     <navigationItem key="navigationItem" title="Dialogs" id="bmx-cq-v74">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Zcm-ZY-ygz">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="u6a-tr-QvZ">
-                                <rect key="frame" x="-23" y="-15" width="133" height="30"/>
+                                <rect key="frame" x="534" y="7" width="70" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="New Chat">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -293,7 +293,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="rcX-ux-scM">
-                        <barButtonItem key="rightBarButtonItem" title="Info" id="UZt-Ef-Ucc">
+                        <barButtonItem key="rightBarButtonItem" title="Info" width="50" id="UZt-Ef-Ucc">
                             <connections>
                                 <segue destination="0FA-X7-tAD" kind="show" id="DZ8-NE-5AE"/>
                             </connections>
@@ -365,10 +365,7 @@
             <point key="canvasLocation" x="2360" y="1130"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="bubble_min.png" width="48" height="35"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="k6E-hp-7pJ"/>
+        <segue reference="R4t-SD-z75"/>
     </inferredMetricsTieBreakers>
 </document>
