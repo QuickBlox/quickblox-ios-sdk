@@ -11,6 +11,7 @@
 
 #import <Quickblox/QBApplication.h>
 #import <Quickblox/QBSession.h>
+#import <Quickblox/QBASession.h>
 #import <Quickblox/QBResponsePage.h>
 #import <Quickblox/QBGeneralResponsePage.h>
 #import <Quickblox/QBLogger.h>
