@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/Core/External/XMPP/Categories/NSXMLElement+XMPP.h

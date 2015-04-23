@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
+		86D9BAF51AE93ABC00D4E705 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7A619AE27700065AE21 /* Quickblox.framework */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBD3C981833D654009D090B /* CharactersEscapeService.m */; };
@@ -106,6 +107,7 @@
 				BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */,
 				BFE6FBC2180E9E9600E64AC4 /* AVFoundation.framework in Frameworks */,
 				BFE6FBC0180E9E9000E64AC4 /* CoreVideo.framework in Frameworks */,
+				86D9BAF51AE93ABC00D4E705 /* Quickblox.framework in Frameworks */,
 				BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */,
 				BFE6FBBC180E9E8500E64AC4 /* CoreMedia.framework in Frameworks */,
 				BFE6FBBA180E9E7E00E64AC4 /* AudioToolbox.framework in Frameworks */,

@@ -1,3 +1,4 @@
 platform :ios, '6.0'
 
-pod 'Quickblox', :path => '../../SDK-iOS/'
+#unused - just to check that there are no duplicate symbols issues
+pod 'AFNetworking'

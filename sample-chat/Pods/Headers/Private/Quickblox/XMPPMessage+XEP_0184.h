@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/Core/External/XMPP/Extensions/XEP-0184/XMPPMessage+XEP_0184.h

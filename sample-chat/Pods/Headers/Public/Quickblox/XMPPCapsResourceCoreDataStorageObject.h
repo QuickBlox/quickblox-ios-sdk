@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/Core/External/XMPP/Extensions/XEP-0115/CoreDataStorage/XMPPCapsResourceCoreDataStorageObject.h

@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/Core/UI/QBCoreUI.h

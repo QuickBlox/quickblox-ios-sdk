@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/QBLocation/QBLArrayOfPlacesSerialisation.h

@@ -1,1 +1,0 @@
-../../../../../../SDK-iOS/Framework/Core/External/XMPP/Authentication/Anonymous/XMPPAnonymousAuthentication.h
