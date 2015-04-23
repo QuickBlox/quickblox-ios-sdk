@@ -67,8 +67,9 @@ class SelectOpponentViewController: LoginTableViewController {
         var chatDialog = QBChatDialog()
         chatDialog.occupantIDs = usersToChat.map{ $0.ID }
         
+        chatDialog.type = QBChatDialogTypeGroup
         if usersToChat.count == 1 {
-            chatDialog.type = QBChatDialogTypePrivate
+            chatDialog.type =  QBChatDialogTypePrivate
         }
         else {
             chatDialog.type = QBChatDialogTypeGroup
@@ -85,8 +86,8 @@ class SelectOpponentViewController: LoginTableViewController {
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
             SVProgressHUD.showSuccessWithStatus("Dialog created!")
             completion()
-            self!.createdDialog = createdDialog
-            self?.performSegueWithIdentifier(self!.kChatSegueIdentifier, sender: nil)
+            self?.createdDialog = createdDialog
+            self?.performSegueWithIdentifier(self?.kChatSegueIdentifier, sender: nil)
             println(createdDialog)
             }) { (response: QBResponse!) -> Void in
                 completion()
@@ -110,7 +111,7 @@ class SelectOpponentViewController: LoginTableViewController {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
         let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
         
-        cell.rightUtilityButtons = UserBlockButtons.blockButtonsForUser(user)
+        cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForUser(user)
         cell.user = user
         cell.delegate = self.delegate
         
@@ -123,7 +124,7 @@ class SelectOpponentViewController: LoginTableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
         if user.ID == ConnectionManager.instance.currentUser!.ID {
-            return 0; // hide current user
+            return 0 // hide current user
         }
         return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }

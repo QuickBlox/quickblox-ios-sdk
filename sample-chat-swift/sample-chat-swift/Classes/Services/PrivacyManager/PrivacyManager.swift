@@ -125,7 +125,7 @@ class PrivacyManager : NSObject, QBChatDelegate {
     
     func chatDidReceivePrivacyList(privacyList: QBPrivacyList!) {
         if receivedPrivacyList {
-            return;
+            return
         }
         self.privacyList = privacyList
         receivedPrivacyList = true

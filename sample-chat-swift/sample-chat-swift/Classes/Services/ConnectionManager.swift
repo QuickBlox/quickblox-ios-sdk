@@ -15,6 +15,8 @@ class ConnectionManager: NSObject, QBChatDelegate {
     private var chatLoginCompletion:((Bool, String?) -> Void)!
     var dialogs:[QBChatDialog]?
     var dialogsUsers:[QBUUser]?
+    var messagesIDsToDelete: DynamicArray<String> = DynamicArray(Array())
+    let messagesBond = ArrayBond<String>()
     var currentUser:QBUUser?
     
     let usersDataSource:UsersDataSource = UsersDataSource()
@@ -23,6 +25,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
      private override init() {
         super.init()
         QBChat.instance().addDelegate(self)
+        self.startObservingMessagesToDelete()
     }
     
     func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
@@ -44,11 +47,11 @@ class ConnectionManager: NSObject, QBChatDelegate {
                     if strongSelf.dialogs != nil {
                         strongSelf.dialogs = []
                         strongSelf.dialogsUsers = []
+                        strongSelf.messagesIDsToDelete.removeAll(false)
                     }
                     strongSelf.privacyManager.reset()
                 }
                 
-//                QBChat.instance().addDelegate(strongSelf)
                 QBChat.instance().loginWithUser(user)
                 conm.chatLoginCompletion = completion
             }
@@ -95,7 +98,33 @@ class ConnectionManager: NSObject, QBChatDelegate {
         }
     }
     
+    /**
+    Observers
+    */
+    func startObservingMessagesToDelete() {
+        
+        messagesBond.didInsertListener = { [unowned self] (array, indices) in
+            var messIDs = NSArray(array: self.messagesIDsToDelete.value)
+            var messIDsSet: Set<NSObject> = NSSet(array: messIDs as [AnyObject]) as Set<NSObject>
+            
+            QBRequest.deleteMessagesWithIDs(messIDsSet, successBlock: { [weak self] (response: QBResponse!) -> Void in
+                println(response)
+                if let strongSelf = self {
+                    for (index, object) in enumerate(messIDs) {
+                        strongSelf.messagesIDsToDelete.removeAtIndex(index)
+                    }
+                }
+                }, errorBlock: { (response: QBResponse!) -> Void in
+                    println(response.error)
+            })
+        }
+        
+        self.messagesIDsToDelete ->> messagesBond
+    }
+    
     deinit{
         QBChat.instance().removeDelegate(self)
     }
+    
+    
 }
