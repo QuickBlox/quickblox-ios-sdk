@@ -11,6 +11,8 @@ import UIKit
 class ConnectionManager: NSObject, QBChatDelegate {
     static let instance = ConnectionManager()
     
+    var request: QBRequest?
+    
     private var presenceTimer:NSTimer!
     private var chatLoginCompletion:((Bool, String?) -> Void)!
     var dialogs:[QBChatDialog]?
@@ -33,7 +35,8 @@ class ConnectionManager: NSObject, QBChatDelegate {
         params.userLogin = user.login
         params.userPassword = user.password
         
-        QBRequest.createSessionWithExtendedParameters(params, successBlock: { [weak self ] (response: QBResponse!, session: QBASession!) -> Void in
+        request = QBRequest.createSessionWithExtendedParameters(params, successBlock: { [weak self ] (response: QBResponse!, session: QBASession!) -> Void in
+            self?.request = nil
             if let strongSelf = self{
                 var conm = ConnectionManager.instance
                 
@@ -55,7 +58,8 @@ class ConnectionManager: NSObject, QBChatDelegate {
                 QBChat.instance().loginWithUser(user)
                 conm.chatLoginCompletion = completion
             }
-            }) { (response: QBResponse!) -> Void in
+            }) {[weak self] (response: QBResponse!) -> Void in
+                self?.request = nil
                 completion(success: false, errorMessage: response.error.error.localizedDescription)
                 println(response.error.error.localizedDescription)
         }
@@ -109,9 +113,14 @@ class ConnectionManager: NSObject, QBChatDelegate {
             
             QBRequest.deleteMessagesWithIDs(messIDsSet, successBlock: { [weak self] (response: QBResponse!) -> Void in
                 println(response)
+                // remove deleted message from our messagesIDsToDelete
                 if let strongSelf = self {
-                    for (index, object) in enumerate(messIDs) {
-                        strongSelf.messagesIDsToDelete.removeAtIndex(index)
+                    for deletedMessage in messIDs {
+                        for (index, message) in enumerate(strongSelf.messagesIDsToDelete){
+                            if message == deletedMessage as! String {
+                                strongSelf.messagesIDsToDelete.removeAtIndex(index)
+                            }
+                        }
                     }
                 }
                 }, errorBlock: { (response: QBResponse!) -> Void in
