@@ -13,11 +13,6 @@ class UserTableViewCellModel: NSObject {
     var textLabelText: String = ""
     var user: QBUUser?
     
-    init(dialogType: QBChatDialogType, user: QBUUser?) {
-        super.init()
-        rightUtilityButtons = self.blockButtonsForDialogType(dialogType, user: user)
-    }
-    
     init(dialog: QBChatDialog) {
         super.init()
         if dialog.type.value == QBChatDialogTypePrivate.value {
@@ -45,8 +40,7 @@ class UserTableViewCellModel: NSObject {
             self.textLabelText = dialog.name
             rightUtilityButtons = self.blockButtonsForDialogType(dialog.type, user: nil)
         }
-        
-        
+
     }
     
     init(user: QBUUser!) {

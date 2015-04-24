@@ -207,15 +207,6 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         return super.collectionView(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender)
     }
     
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
-        if action == Selector("delete:"){
-            
-        }
-        else{
-            super.collectionView(collectionView, performAction: action, forItemAtIndexPath: indexPath, withSender: sender)
-        }
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let groupChatInfoVC = segue.destinationViewController as? GroupChatUsersInfoTableViewController {
             groupChatInfoVC.chatDialog = self.dialog
