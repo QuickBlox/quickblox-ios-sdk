@@ -16,7 +16,7 @@ class UserTableViewCellModel: NSObject {
     init(dialog: QBChatDialog) {
         super.init()
         if dialog.type.value == QBChatDialogTypePrivate.value {
-            self.detailTextLabelText = "private"
+            self.detailTextLabelText = "SA_STR_PRIVATE".localized
             if dialog.recipientID != -1 {
                 if let users = ConnectionManager.instance.dialogsUsers {
                     var filteredUsers = users.filter(){ $0.ID == UInt(dialog.recipientID) }
@@ -30,10 +30,10 @@ class UserTableViewCellModel: NSObject {
             }
         }
         else if dialog.type.value == QBChatDialogTypeGroup.value {
-            self.detailTextLabelText = "group"
+            self.detailTextLabelText = "SA_STR_GROUP".localized
         }
         else {
-            self.detailTextLabelText = "public group"
+            self.detailTextLabelText = "SA_STR_PUBLIC_GROUP".localized
         }
         
         if self.textLabelText.isEmpty {
@@ -50,7 +50,8 @@ class UserTableViewCellModel: NSObject {
     
     func blockButtonsForDialogType(dialogType: QBChatDialogType, user: QBUUser?) -> [UIButton]{
         var deleteButton = UIButton()
-        deleteButton.setTitle("Delete", forState: UIControlState.Normal)
+        
+        deleteButton.setTitle("SA_STR_DELETE".localized, forState: UIControlState.Normal)
         deleteButton.backgroundColor = UIColor.redColor()
         deleteButton.tag = 1
         
@@ -60,11 +61,11 @@ class UserTableViewCellModel: NSObject {
                     var title: String
                     var color: UIColor
                     if ConnectionManager.instance.privacyManager.isUserInBlockList(strongUser) {
-                        title = "Unblock"
+                        title = "SA_STR_UNBLOCK".localized
                         color = UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0)
                     }
                     else {
-                        title = "Block"
+                        title = "SA_STR_BLOCK".localized
                         color = UIColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 1.0)
                     }
                     
@@ -79,10 +80,10 @@ class UserTableViewCellModel: NSObject {
     }
     
     func blockButtonsForUser(user: QBUUser!) -> [UIButton]{
-        var title = "Block"
+        var title = "SA_STR_BLOCK".localized
         var color = UIColor(red: 0.8, green: 0.0, blue: 0.0, alpha: 1.0)
         if ConnectionManager.instance.privacyManager.isUserInBlockList(user) {
-            title = "Unblock"
+            title = "SA_STR_UNBLOCK".localized
             color = UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0)
         }
         

@@ -16,17 +16,17 @@ class LoginTableViewController: UITableViewController {
     }
     
     func logInChatWithUser(user: QBUUser){
-        SVProgressHUD.showWithStatus("Loading", maskType: SVProgressHUDMaskType.Clear)
+        SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         
         ConnectionManager.instance.logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
             
             if( success ){
-                SVProgressHUD.showSuccessWithStatus("Logged in")
+                SVProgressHUD.showSuccessWithStatus("SA_STR_LOGGED_IN".localized)
                 
                 let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
                 dispatch_after(delay, dispatch_get_main_queue(), {[weak self] () ->  Void in
                     
-                    self?.performSegueWithIdentifier("goToDialogs", sender: nil)
+                    self?.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
                     })
             }
             else{
@@ -48,7 +48,7 @@ class LoginTableViewController: UITableViewController {
     }
 
     internal override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("UserTableViewCellIdentifier", forIndexPath: indexPath) as! UserTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! UserTableViewCell
 
         let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
         
