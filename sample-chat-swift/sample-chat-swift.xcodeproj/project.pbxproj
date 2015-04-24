@@ -378,7 +378,6 @@
 				1437A7891AC9948600A39692 /* Frameworks */,
 				1437A78A1AC9948600A39692 /* Resources */,
 				68E04C85563E877E993200DD /* Copy Pods Resources */,
-				A4E61EA81688068CCD9097EA /* Find unused imports */,
 			);
 			buildRules = (
 			);
@@ -452,20 +451,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		A4E61EA81688068CCD9097EA /* Find unused imports */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Find unused imports";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"/Users/seven/Library/Application Support/Developer/Shared/Xcode/Plug-ins/xcfui.xcplugin/Contents/Resources/fui_script.sh\" \"/Users/seven/Documents/work/quickblox-samples/sample-chat-swift\"";
 		};
 		EAECCB3C711AD9900A715D5E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
