@@ -53,7 +53,6 @@ class UsersDataSource {
 
     private func loadUsers() {
         let plistPath = NSBundle.mainBundle().pathForResource(Constants.QB_VERSION_STR + "Users", ofType: "plist")
-//        let plistPath = NSBundle.mainBundle().pathForResource("kiUsers", ofType: "plist") //NSBundle.mainBundle().pathForResource(Constants.QB_VERSION_STR + "Users", ofType: "plist")
         let dictionary = NSDictionary(contentsOfFile: plistPath!)
 
         var swiftDict: Dictionary<String, AnyObject!> = Dictionary<String, AnyObject!>()
