@@ -8,7 +8,6 @@
 
 
 class SelectOpponentViewController: LoginTableViewController {
-    private let kChatSegueIdentifier = "goToChat"
     private var createdDialog: QBChatDialog?
     private var delegate : SwipeableTableViewCellWithBlockButtons!
     
@@ -17,7 +16,7 @@ class SelectOpponentViewController: LoginTableViewController {
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
         self.checkCreateChatButtonState()
-        self.navigationItem.title = "Welcome, " + ConnectionManager.instance.currentUser!.login
+        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ConnectionManager.instance.currentUser!.login
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -41,7 +40,7 @@ class SelectOpponentViewController: LoginTableViewController {
             })
         }
         else{
-            SwiftAlertWithTextField(title: "Enter chat name", message: nil, showOver:self, didClickOk: { [unowned self] (text) -> Void in
+            SwiftAlertWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { [unowned self] (text) -> Void in
                 self.createChatWithName(text, completion: { () -> Void in
                     sender.enabled = true
                 })
@@ -84,10 +83,10 @@ class SelectOpponentViewController: LoginTableViewController {
         }
         
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
-            SVProgressHUD.showSuccessWithStatus("Dialog created!")
+            SVProgressHUD.showSuccessWithStatus("Dialog created")
             completion()
             self?.createdDialog = createdDialog
-            self?.performSegueWithIdentifier(self?.kChatSegueIdentifier, sender: nil)
+            self?.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized, sender: nil)
             println(createdDialog)
             }) { (response: QBResponse!) -> Void in
                 completion()
@@ -97,7 +96,7 @@ class SelectOpponentViewController: LoginTableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == kChatSegueIdentifier {
+        if segue.identifier == "SA_STR_SEGUE_GO_TO_CHAT".localized {
             if let chatVC = segue.destinationViewController as? ChatViewController {
                 chatVC.dialog = self.createdDialog
             }

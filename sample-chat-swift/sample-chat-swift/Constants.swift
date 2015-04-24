@@ -26,5 +26,4 @@ class Constants{
         }
         return ""
     }
-    
 }

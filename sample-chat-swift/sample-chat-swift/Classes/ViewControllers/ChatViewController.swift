@@ -15,8 +15,6 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     
     let refreshControl = UIRefreshControl()
     
-    let kCellOutgoingReuseIdentifier = "kCellOutgoingReuseIdentifier"
-    let kCellIncomingReuseIdentifier = "kCellIncomingReuseIdentifier"
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(dialog != nil)
@@ -76,7 +74,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         message.senderID = ConnectionManager.instance.currentUser!.ID
         message.customParameters = ["save_to_history": 1]
         if( dialog?.type.value == QBChatDialogTypePrivate.value ) {
-            SVProgressHUD.showWithStatus("Sending", maskType: SVProgressHUDMaskType.Clear)
+            SVProgressHUD.showWithStatus("SA_STR_SENDING".localized, maskType: SVProgressHUDMaskType.Clear)
             message.recipientID = self.chatViewModel.recipientID
             message.text = text
             QBChat.instance().sendMessage(message)
@@ -153,10 +151,10 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     
     func chatDidNotSendMessage(message: QBChatMessage!, error: NSError!) {
         if error.code == 503 {
-            UIAlertView(title: "Can't send a message", message: "You are in the blacklist", delegate: nil, cancelButtonTitle: "Okaaay").show()
+            UIAlertView(title: "Can't send a message", message: "You are in the blacklist", delegate: nil, cancelButtonTitle: "Ok").show()
         }
         else if error.code == 403 {
-            UIAlertView(title: "Can't send a message", message: "forbidden", delegate: nil, cancelButtonTitle: "Okaaay").show()
+            UIAlertView(title: "Can't send a message", message: "forbidden", delegate: nil, cancelButtonTitle: "Ok").show()
         }
         
         // remove my last message and restore text input
@@ -247,7 +245,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         self.showLoadingIndicator = Bond() { [unowned self] (showLoadingIndicator: Bool) in
             if showLoadingIndicator {
                 self.refreshControl.beginRefreshing()
-                SVProgressHUD.showWithStatus("Loading messages...")
+                SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized)
             }
             else {
                 self.refreshControl.endRefreshing()
