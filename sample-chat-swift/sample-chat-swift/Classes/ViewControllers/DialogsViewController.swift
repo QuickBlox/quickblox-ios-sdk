@@ -81,32 +81,12 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
         cell.delegate = delegate
         cell.dialogID = chatDialog.ID
         
-        switch( chatDialog.type.value ) {
-        case QBChatDialogTypePrivate.value:
-            cell.detailTextLabel?.text = "private"
-            if let users = ConnectionManager.instance.dialogsUsers {
-                if chatDialog.recipientID != -1 { // not logined in chat
-                    var filteredUsers = users.filter(){ $0.ID == UInt(chatDialog.recipientID) }
-                    if !filteredUsers.isEmpty {
-                        var recipient = filteredUsers[0]
-                        cell.textLabel?.text = recipient.login ?? recipient.email
-                        cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForDialogType(chatDialog.type, user: recipient, includeDeleteButton: true)
-                        cell.user = recipient
-                    }
-                }
-            }
-        case QBChatDialogTypeGroup.value:
-            cell.detailTextLabel?.text = "group"
-            cell.textLabel?.text = chatDialog.name
-            cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForDialogType(chatDialog.type, user: nil, includeDeleteButton: true)
-        case QBChatDialogTypePublicGroup.value:
-            cell.detailTextLabel?.text = "public group"
-            cell.textLabel?.text = chatDialog.name
-            cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForDialogType(chatDialog.type, user: nil, includeDeleteButton: true)
-        default:
-            break
-        }
+        var cellModel = UserTableViewCellModel(dialog: chatDialog)
         
+        cell.detailTextLabel?.text = cellModel.detailTextLabelText
+        cell.textLabel?.text = cellModel.textLabelText
+        cell.rightUtilityButtons = cellModel.rightUtilityButtons
+        cell.user = cellModel.user
         return cell
     }
     
