@@ -65,7 +65,13 @@ class ChatViewModel: NSObject {
     
     func startObservingForDeletedMessages() {
         deletedMessagesBond.willRemoveListener = { [unowned self] (array, indices) in
+            if array.count == 0 {
+                return
+            }
             for index in indices {
+                if array.count <= index {
+                    return
+                }
                 var messageID = array[index] as String
                 
                 // remove message
