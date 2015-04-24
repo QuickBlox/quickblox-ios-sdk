@@ -23,7 +23,9 @@
 		144E3EBA1ACA8E5D00E62645 /* releaseUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 144E3EB71ACA8E5D00E62645 /* releaseUsers.plist */; };
 		146673CF1AE7AFCE00509C17 /* kiUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 146673CE1AE7AFCE00509C17 /* kiUsers.plist */; };
 		146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 146DE9781ACAA42600F203A5 /* libz.dylib */; };
+		147DA9D91AEA730C0001F691 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 147DA9D81AEA730C0001F691 /* Localizable.strings */; };
 		147E76FA1AE117E10067340A /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 147E76F91AE117E10067340A /* UIAlertDialog.m */; };
+		1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493F7991AEA525F00FA51A4 /* String+Localized.swift */; };
 		14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */; };
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
@@ -60,10 +62,10 @@
 		140478D31AE539DC00BC383F /* Bond+Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+Functional.swift"; sourceTree = "<group>"; };
 		140478D41AE539DC00BC383F /* Bond+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+Operators.swift"; sourceTree = "<group>"; };
 		140478D51AE539DC00BC383F /* Bond+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+UIView.swift"; sourceTree = "<group>"; };
+		1429A59F1AEA7EDC00AE3923 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1437A7961AC9948600A39692 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1437A7981AC9948600A39692 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1437A7A61AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7A71AC9948600A39692 /* sample_chat_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sample_chat_swiftTests.swift; sourceTree = "<group>"; };
@@ -75,8 +77,11 @@
 		146673CB1AE7A5DD00509C17 /* JSQMessagesViewController+PublicNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JSQMessagesViewController+PublicNotifications.h"; path = "Categories/JSQMessagesViewController+PublicNotifications.h"; sourceTree = "<group>"; };
 		146673CE1AE7AFCE00509C17 /* kiUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = kiUsers.plist; sourceTree = "<group>"; };
 		146DE9781ACAA42600F203A5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		147DA9D81AEA730C0001F691 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		147DA9DA1AEA73160001F691 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		147E76F81AE117D90067340A /* UIAlertDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAlertDialog.h; sourceTree = "<group>"; };
 		147E76F91AE117E10067340A /* UIAlertDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertDialog.m; sourceTree = "<group>"; };
+		1493F7991AEA525F00FA51A4 /* String+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		14A4DCC41AC9A5210046D45C /* quickblox-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quickblox-bridging-Header.h"; sourceTree = "<group>"; };
 		14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -148,6 +153,7 @@
 		1437A7831AC9948600A39692 = {
 			isa = PBXGroup;
 			children = (
+				147DA9D81AEA730C0001F691 /* Localizable.strings */,
 				1437A78E1AC9948600A39692 /* sample-chat-swift */,
 				1437A7A41AC9948600A39692 /* sample-chat-swiftTests */,
 				1437A78D1AC9948600A39692 /* Products */,
@@ -308,6 +314,7 @@
 			children = (
 				140478CE1AE5397400BC383F /* Bond */,
 				68440F958A8E07D1A6ECBE19 /* QBUUser+Color.swift */,
+				1493F7991AEA525F00FA51A4 /* String+Localized.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -407,7 +414,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
 			);
 			mainGroup = 1437A7831AC9948600A39692;
@@ -428,6 +434,7 @@
 				1437A7971AC9948600A39692 /* Main.storyboard in Resources */,
 				144E3EBA1ACA8E5D00E62645 /* releaseUsers.plist in Resources */,
 				144E3EB81ACA8E5D00E62645 /* devUsers.plist in Resources */,
+				147DA9D91AEA730C0001F691 /* Localizable.strings in Resources */,
 				144E3EB91ACA8E5D00E62645 /* qaUsers.plist in Resources */,
 				1437A7991AC9948600A39692 /* Images.xcassets in Resources */,
 				146673CF1AE7AFCE00509C17 /* kiUsers.plist in Resources */,
@@ -483,6 +490,7 @@
 				684405DFCD6BDCDE9C6C01DA /* SWTableViewCell.m in Sources */,
 				6844092644F749AC14ADA55A /* SWUtilityButtonView.m in Sources */,
 				140478D01AE5399D00BC383F /* Bond.swift in Sources */,
+				1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */,
 				140478D71AE539DC00BC383F /* Bond+Foundation.swift in Sources */,
 				684408CE77B18BB94EA1A05E /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				140478DA1AE539DC00BC383F /* Bond+UIView.swift in Sources */,
@@ -515,7 +523,8 @@
 		1437A7951AC9948600A39692 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1437A7961AC9948600A39692 /* Base */,
+				147DA9DA1AEA73160001F691 /* Base */,
+				1429A59F1AEA7EDC00AE3923 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

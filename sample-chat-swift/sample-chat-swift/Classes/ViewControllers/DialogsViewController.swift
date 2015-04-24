@@ -30,7 +30,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
         
-        SVProgressHUD.showWithStatus("Loading", maskType: SVProgressHUDMaskType.Clear)
+        SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         
         QBRequest.dialogsWithSuccessBlock({ [weak self] (response: QBResponse!, dialogs: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!) -> Void in
             
@@ -40,18 +40,18 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
             
             QBRequest.usersWithIDs(Array(dialogsUsersIDs), page: pagedRequest, successBlock: { (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
                 
-                SVProgressHUD.showSuccessWithStatus("Completed!")
+                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
                 
                 ConnectionManager.instance.dialogsUsers = users as? [QBUUser]
                 
                 self?.tableView.reloadData()
                 
                 }, errorBlock: { (response: QBResponse!) -> Void in
-                    SVProgressHUD.showErrorWithStatus("Can't download users")
+                    SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_USERS".localized)
                     println(response.error.error)
             })
             }, errorBlock: { (response: QBResponse!) -> Void in
-                SVProgressHUD.showErrorWithStatus("Can't download dialogs")
+                SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_DIALOGS".localized)
                 println(response.error.error)
         })
     }
@@ -73,7 +73,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("dialogcell", forIndexPath: indexPath) as! UserTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_DIALOG".localized, forIndexPath: indexPath) as! UserTableViewCell
         
         var chatDialog = ConnectionManager.instance.dialogs![indexPath.row]
         
