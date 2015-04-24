@@ -111,7 +111,8 @@ class SelectOpponentViewController: LoginTableViewController {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
         let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
         
-        cell.rightUtilityButtons = UserTableViewCellModel.blockButtonsForUser(user)
+        var cellModel = UserTableViewCellModel(user: user)
+        cell.rightUtilityButtons = cellModel.rightUtilityButtons
         cell.user = user
         cell.delegate = self.delegate
         
