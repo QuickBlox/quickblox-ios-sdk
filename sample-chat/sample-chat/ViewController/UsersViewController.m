@@ -11,7 +11,7 @@
 #import "СhatViewController.h"
 #import "DialogsViewController.h"
 
-@interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate, QBActionStatusDelegate>
+@interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate>
 
 @property (nonatomic, strong) NSMutableArray *users;
 @property (nonatomic, strong) NSMutableArray *selectedUsers;

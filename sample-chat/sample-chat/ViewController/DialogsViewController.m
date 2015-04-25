@@ -9,7 +9,7 @@
 #import "DialogsViewController.h"
 #import "СhatViewController.h"
 
-@interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource, QBActionStatusDelegate>
+@interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *dialogs;
 @property (nonatomic, weak) IBOutlet UITableView *dialogsTableView;
