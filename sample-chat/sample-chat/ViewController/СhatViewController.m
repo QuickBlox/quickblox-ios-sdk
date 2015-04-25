@@ -65,7 +65,6 @@
     }
     
     // get messages history
-    
     __weak __typeof(self)weakSelf = self;
     [QBRequest messagesWithDialogID:self.dialog.ID successBlock:^(QBResponse *response, NSArray *messages) {
         
