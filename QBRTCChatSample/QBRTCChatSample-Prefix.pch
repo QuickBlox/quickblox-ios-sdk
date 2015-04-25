@@ -33,7 +33,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <Quickblox/Quickblox.h>
 
-#if (QB_RTC_SAMPLE_MODE == 1) || (QB_RTC_SAMPLE_MODE == 3)
+#if (QB_RTC_SAMPLE_MODE == 1)
+
     #import "QBRTCTypes.h"
     #import "QBGLVideoView.h"
     #import "QBRTCVideoTrack.h"
@@ -42,6 +43,7 @@
     #import "QBRTCSession.h"
     #import "QBRTCConfig.h"
     #import "QBICEServer.h"
+    #import "QBSoundRouter.h"
 
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;
@@ -51,4 +53,5 @@ FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;
 #endif
 
 #endif
+
 

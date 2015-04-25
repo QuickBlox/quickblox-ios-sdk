@@ -12,6 +12,11 @@
 
 @interface QBGLVideoView : UIView
 
+/**
+ *  Skip black frames, default value NO (experimental)
+ */
+@property (assign, nonatomic) BOOL skipBlackFrames;
+
 @property (weak, nonatomic) id <QBGLVideoViewDelegate> delegate;
 
 /**

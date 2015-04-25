@@ -29,3 +29,9 @@ typedef NS_ENUM (NSUInteger, QBConferenceType){
     QBConferenceTypeAudio,
     QBConferenceTypeVideo
 };
+
+typedef NS_ENUM(NSUInteger, QBSoundRoute) {
+    QBSoundRouteNotDefined,
+    QBSoundRouteSpeaker,
+    QBSoundRouteReceiver
+};
