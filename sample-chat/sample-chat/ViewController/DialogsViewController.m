@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) NSMutableArray *dialogs;
 @property (nonatomic, weak) IBOutlet UITableView *dialogsTableView;
-@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -26,7 +25,7 @@
     [super viewWillAppear:animated];
     
     if([LocalStorageService shared].currentUser != nil){
-        [self.activityIndicator startAnimating];
+        [SVProgressHUD showWithStatus:@"Loading"];
         
         // get dialogs
         
@@ -43,7 +42,7 @@
                 [LocalStorageService shared].users = users;
 
                 [weakSelf.dialogsTableView reloadData];
-                [weakSelf.activityIndicator stopAnimating];
+                [SVProgressHUD dismiss];
                 
             } errorBlock:nil];
 
