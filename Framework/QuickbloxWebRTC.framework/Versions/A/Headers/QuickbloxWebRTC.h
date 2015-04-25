@@ -14,8 +14,9 @@
 #import <QuickbloxWebRTC/QBRTCClientDelegate.h>
 #import <QuickbloxWebRTC/QBICEServer.h>
 #import <QuickbloxWebRTC/QBRTCTypes.h>
+#import <QuickbloxWebRTC/QBSoundRouter.h>
 
-//1.0.1
+//1.0.3
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
-//8442
+//9004
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;

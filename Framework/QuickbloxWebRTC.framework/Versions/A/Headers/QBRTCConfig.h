@@ -17,31 +17,20 @@
  *
     For example:
 
-    NSURL *stunUrl =
-    [NSURL URLWithString:@"stun:stun.l.google.com:19302"];
-    
-    QBICEServer *stunServer =
-    [QBICEServer serverWithURL:stunUrl
-                      username:@""
-                      password:@""];
+ NSURL *stunUrl = [NSURL URLWithString:@"stun:turn.quickblox.com"];
+ QBICEServer *stunServer = 
+ [QBICEServer serverWithURL:stunUrl username:@"quickblox" password:@"baccb97ba2d92d71e26eb9886da5f1e0"];
  
-    NSURL *turnUDPUrl =
-    [NSURL URLWithString:@"turn:turnserver.quickblox.com:3478?transport=udp"];
-    
-    QBICEServer *turnUDPServer =
-    [QBICEServer serverWithURL:turnUDPUrl
-                      username:@"user"
-                      password:@"user"];
-    
-    NSURL *turnTCPUrl =
-    [NSURL URLWithString:@"turn:turnserver.quickblox.com:3478?transport=tcp"];
+ NSURL *turnUDPUrl = [NSURL URLWithString:@"turn:turn.quickblox.com:3478?transport=udp"];
+ QBICEServer *turnUDPServer =
+ [QBICEServer serverWithURL:turnUDPUrl username:@"quickblox" password:@"baccb97ba2d92d71e26eb9886da5f1e0"];
  
-    RTCICEServer* turnTCPServer =
-    [QBICEServer serverWithURL:turnTCPUrl
-                      username:@"user"
-                      password:@"user"];
+ NSURL *turnTCPUrl = [NSURL URLWithString:@"turn:turn.quickblox.com:3478?transport=tcp"];
+ QBICEServer* turnTCPServer =
+ [QBICEServer serverWithURL:turnTCPUrl username:@"quickblox" password:@"baccb97ba2d92d71e26eb9886da5f1e0"];
  
-    [QBRTCConfig setICEServers:@[stunServer, turnUDPServer, turnTCPServer]];
+ [QBRTCConfig setICEServers:@[stunServer, turnUDPServer, turnTCPServer]];
+ 
  *
  * @param iceServers array of QBICEServer instances
  */
@@ -85,13 +74,6 @@
 + (void)setAnswerTimeInterval:(NSTimeInterval)answerTimeInterval;
 
 /**
- *  Set max connections in conference
- *
- *  @param maxOpponentsCount max opponents in conference
- */
-+ (void)setMaxOpponentsCount:(NSUInteger)maxOpponentsCount;
-
-/**
  *  Set disconnect time interval
  *
  *  Default value: 30 sec
@@ -112,13 +94,6 @@
  *  @return current anser time interval;
  */
 + (NSTimeInterval)answerTimeInterval;
-
-/**
- *  Max connections in conference
- *
- *  @return current value
- */
-+ (NSUInteger)maxOpponentsCount;
 
 /**
  * Disconnect time interval

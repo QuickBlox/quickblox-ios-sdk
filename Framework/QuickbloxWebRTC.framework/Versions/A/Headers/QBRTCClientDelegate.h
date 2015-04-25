@@ -13,11 +13,20 @@
 @optional
 
 /**
+ * DEPRICATED
  *  Called in case when started new session with you
  *
  *  @param session QBWebRTCSession instance
  */
-- (void)didReceiveNewSession:(QBRTCSession *)session;
+- (void)didReceiveNewSession:(QBRTCSession *)session __attribute__((deprecated("use 'didReceiveNewSession:userInfo'.")));
+
+/**
+ *  Called in case when started new session with you
+ *
+ *  @param session  QBWebRTCSession instance
+ *  @param userInfo The user information dictionary for the new session. May be nil.
+ */
+- (void)didReceiveNewSession:(QBRTCSession *)session userInfo:(NSDictionary *)userInfo;
 
 /**
  * Called in case when you are calling to user, but he hasn't answered
@@ -30,8 +39,16 @@
  * Called in case when opponent has rejected you call
  *
  * @param userID ID of opponent
+ * @param userInfo The user information dictionary for the reject call. May be nil.
  */
 - (void)session:(QBRTCSession *)session rejectedByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
+
+/**
+ * Called in case when opponent has accept you call
+ *
+ * @param userID ID of opponent
+ */
+- (void)session:(QBRTCSession *)session acceptByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
 
 /**
  *  Called in case when opponent hung up
@@ -39,7 +56,16 @@
  *  @param session QBRTCSession instance
  *  @param userID  ID of opponent
  */
-- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID;
+- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID __attribute__((deprecated("use 'session:hungUpByUser:userInfo'.")));
+
+/**
+ *  Called in case when opponent hung up
+ *
+ *  @param session QBRTCSession instance
+ *  @param userID  ID of opponent
+ *  @param userInfo The user information dictionary for the hung up. May be nil.
+ */
+- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
 
 /**
  *  Called in case when receive local video track
@@ -109,7 +135,6 @@
  *
  *  @param session QBRTCSession instance
  */
-
 - (void)sessionDidClose:(QBRTCSession *)session;
 
 /**
