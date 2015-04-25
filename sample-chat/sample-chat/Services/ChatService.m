@@ -39,8 +39,11 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (id)init{
     self = [super init];
     if(self){
-        
         [[QBChat instance] addDelegate:self];
+        //
+        [QBChat instance].autoReconnectEnabled = YES;
+        //
+        [QBChat instance].streamManagementEnabled = YES;
     }
     return self;
 }
@@ -61,10 +64,15 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] sendMessage:message];
 }
 
+- (void)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock{
+    [[QBChat instance] sendMessage:message sentBlock:^(NSError *error) {
+        sentBlock(error);
+    }];
+}
+
 - (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom{
     [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
 }
-
 
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock{
     self.joinRoomCompletionBlock = completionBlock;
