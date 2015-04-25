@@ -18,8 +18,11 @@
 + (instancetype)instance;
 
 - (void)loginWithUser:(QBUUser *)user completionBlock:(void(^)())completionBlock;
+- (void)logout;
+
 - (void)sendMessage:(QBChatMessage *)message;
 - (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom;
+
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock;
 - (void)leaveRoom:(QBChatRoom *)room;
 

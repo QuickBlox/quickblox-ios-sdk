@@ -53,6 +53,10 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] loginWithUser:user];
 }
 
+- (void)logout{
+    [[QBChat instance] logout];
+}
+
 - (void)sendMessage:(QBChatMessage *)message{
     [[QBChat instance] sendMessage:message];
 }
