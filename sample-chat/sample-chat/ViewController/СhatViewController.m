@@ -9,7 +9,7 @@
 #import "СhatViewController.h"
 #import "ChatMessageTableViewCell.h"
 
-@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, QBActionStatusDelegate>
+@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;

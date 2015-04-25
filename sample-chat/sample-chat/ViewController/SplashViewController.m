@@ -11,7 +11,7 @@
 #define demoUserLogin @"igorquickblox"
 #define demoUserPassword @"igorquickblox"
 
-@interface SplashViewController () <QBActionStatusDelegate>
+@interface SplashViewController ()
 
 @end
 
