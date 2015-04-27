@@ -36,7 +36,7 @@
     
     // Logout from chat
     //
-    [[ChatService instance] logout];
+    [[ChatService shared] logout];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -46,7 +46,7 @@
     // Login to QuickBlox Chat
     //
     [SVProgressHUD showWithStatus:@"Restoring chat session"];
-    [[ChatService instance] loginWithUser:[LocalStorageService shared].currentUser completionBlock:^{
+    [[ChatService shared] loginWithUser:[ChatService shared].currentUser completionBlock:^{
         [SVProgressHUD dismiss];
     }];
 }
@@ -79,7 +79,6 @@
 {
     NSLog(@"New Push received\n: %@", userInfo);
     
-    NSString *userId = userInfo[@"user_id"];
     NSString *dialogId = userInfo[@"dialog_id"];
     
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"

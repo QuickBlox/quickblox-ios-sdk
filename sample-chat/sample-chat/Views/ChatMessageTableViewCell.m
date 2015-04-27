@@ -79,7 +79,7 @@ static UIImage *aquaBubble;
     NSString *time = [message.datetime timeAgoSinceNow];
     
     // Left/Right bubble
-    if ([LocalStorageService shared].currentUser.ID == message.senderID) {
+    if ([ChatService shared].currentUser.ID == message.senderID) {
         [self.messageTextView setFrame:CGRectMake(padding, padding+5, size.width, size.height+padding)];
         [self.messageTextView sizeToFit];
         
@@ -88,7 +88,7 @@ static UIImage *aquaBubble;
         self.backgroundImageView.image = orangeBubble;
         
         self.dateLabel.textAlignment = NSTextAlignmentLeft;
-        self.dateLabel.text = [NSString stringWithFormat:@"%@, %@", [[LocalStorageService shared].currentUser login], time];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@, %@", [[ChatService shared].currentUser login], time];
         
     } else {
         [self.messageTextView setFrame:CGRectMake(320-size.width-padding/2, padding+5, size.width, size.height+padding)];
@@ -99,7 +99,9 @@ static UIImage *aquaBubble;
         self.backgroundImageView.image = aquaBubble;
         
         self.dateLabel.textAlignment = NSTextAlignmentRight;
-        self.dateLabel.text = [NSString stringWithFormat:@"%lu, %@", (unsigned long)message.senderID, time];
+        
+        QBUUser *sender = [ChatService shared].usersAsDictionary[@(message.senderID)];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@, %@", sender.login == nil ? (sender.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)sender.ID] : sender.fullName) : sender.login, time];
     }
 }
 

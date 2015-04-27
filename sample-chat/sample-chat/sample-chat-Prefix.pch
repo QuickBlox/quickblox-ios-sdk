@@ -21,7 +21,6 @@
     #import "NSDate+DateTools.h"
 
     #import "SoundService.h"
-    #import "LocalStorageService.h"
     #import "ChatService.h"
 #endif
 
