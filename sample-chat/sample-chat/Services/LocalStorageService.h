@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) QBUUser *currentUser;
 @property (nonatomic, strong) NSArray *users;
+@property (nonatomic, strong) NSMutableArray *dialogs;
 @property (nonatomic, readonly) NSDictionary *usersAsDictionary;
 
 + (instancetype)shared;

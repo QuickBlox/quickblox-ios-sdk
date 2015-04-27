@@ -8,8 +8,10 @@
 
 #import "SplashViewController.h"
 
-#define demoUserLogin @"igorquickblox"
-#define demoUserPassword @"igorquickblox"
+#define demoUserLogin1 @"igorquickblox"
+#define demoUserPassword1 @"igorquickblox"
+#define demoUserLogin2 @"Dimple"
+#define demoUserPassword2 @"Dimple12"
 
 @interface SplashViewController ()
 
@@ -26,8 +28,15 @@
     //
     // QuickBlox session creation
     QBSessionParameters *extendedAuthRequest = [[QBSessionParameters alloc] init];
-    extendedAuthRequest.userLogin = demoUserLogin;
-    extendedAuthRequest.userPassword = demoUserPassword;
+    NSString *model = [[UIDevice currentDevice] model];
+    if ([model isEqualToString:@"iPhone Simulator"]) {
+        extendedAuthRequest.userLogin = demoUserLogin1;
+        extendedAuthRequest.userPassword = demoUserPassword1;
+    }else{
+        extendedAuthRequest.userLogin = demoUserLogin2;
+        extendedAuthRequest.userPassword = demoUserPassword2;
+    }
+
     //
     __weak __typeof(self)weakSelf = self;
     [QBRequest createSessionWithExtendedParameters:extendedAuthRequest successBlock:^(QBResponse *response, QBASession *session) {
@@ -37,15 +46,20 @@
         //
         QBUUser *currentUser = [QBUUser user];
         currentUser.ID = session.userID;
-        currentUser.login = demoUserLogin;
-        currentUser.password = demoUserPassword;
+        if ([model isEqualToString:@"iPhone Simulator"]) {
+            currentUser.login = demoUserLogin1;
+            currentUser.password = demoUserPassword1;
+        }else{
+            currentUser.login = demoUserLogin2;
+            currentUser.password = demoUserPassword2;
+        }
         //
         [[LocalStorageService shared] setCurrentUser:currentUser];
         
         // Login to QuickBlox Chat
         //
         [[ChatService instance] loginWithUser:currentUser completionBlock:^{
-            
+        
             // hide alert after delay
             double delayInSeconds = 1.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -53,6 +67,23 @@
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }); 
         }];
+    
+        
+        // Subscribe to push notifications
+        //
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+            
+            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        }
+        else{
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+        }
+#else
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+#endif
+        
         
     } errorBlock:^(QBResponse *response) {
         

@@ -11,7 +11,6 @@
 
 @interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *dialogs;
 @property (nonatomic, weak) IBOutlet UITableView *dialogsTableView;
 
 @end
@@ -32,7 +31,7 @@
         __weak __typeof(self)weakSelf = self;
         [QBRequest dialogsWithSuccessBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs) {
 
-            weakSelf.dialogs = dialogObjects.mutableCopy;
+            [LocalStorageService shared].dialogs = dialogObjects.mutableCopy;
             
             QBGeneralResponsePage *pagedRequest = [QBGeneralResponsePage responsePageWithCurrentPage:0 perPage:100];
 
@@ -86,7 +85,7 @@
             destinationViewController.dialog = self.createdDialog;
             self.createdDialog = nil;
         }else{
-            QBChatDialog *dialog = self.dialogs[((UITableViewCell *)sender).tag];
+            QBChatDialog *dialog = [LocalStorageService shared].dialogs[((UITableViewCell *)sender).tag];
             destinationViewController.dialog = dialog;
         }
     }
@@ -98,14 +97,14 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.dialogs count];
+	return [[LocalStorageService shared].dialogs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
-    QBChatDialog *chatDialog = self.dialogs[indexPath.row];
+    QBChatDialog *chatDialog = [LocalStorageService shared].dialogs[indexPath.row];
     cell.tag  = indexPath.row;
     
     switch (chatDialog.type) {
