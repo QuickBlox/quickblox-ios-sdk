@@ -132,6 +132,15 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    QBChatDialog *chatDialog = [LocalStorageService shared].dialogs[indexPath.row];
+    if(chatDialog.unreadMessagesCount > 0){
+        [cell setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:0.1]];
+    }else{
+        [cell setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

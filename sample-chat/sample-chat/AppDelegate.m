@@ -79,6 +79,9 @@
 {
     NSLog(@"New Push received\n: %@", userInfo);
     
+    NSString *userId = userInfo[@"user_id"];
+    NSString *dialogId = userInfo[@"dialog_id"];
+    
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
                                                    description:userInfo[@"aps"][@"alert"]
                                                           type:TWMessageBarMessageTypeInfo];
