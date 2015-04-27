@@ -15,7 +15,6 @@
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
-@property (nonatomic, strong) QBChatRoom *chatRoom;
 
 - (IBAction)sendMessage:(id)sender;
 
@@ -54,10 +53,7 @@
 
     // Join room
     if(self.dialog.type != QBChatDialogTypePrivate){
-        self.chatRoom = [self.dialog chatRoom];
-        [[ChatService instance] joinRoom:self.chatRoom completionBlock:^(QBChatRoom *joinedChatRoom) {
-            // joined
-        }];
+        [self joinDialog];
     }
     
     // get messages history
@@ -82,13 +78,26 @@
     
     [ChatService instance].delegate = nil;
     
-    [self.chatRoom leaveRoom];
-    self.chatRoom = nil;
+    [self leaveDialog];
 }
 
 -(BOOL)hidesBottomBarWhenPushed
 {
     return YES;
+}
+
+- (void)joinDialog{
+    if(![[self.dialog chatRoom] isJoined]){
+        [SVProgressHUD showWithStatus:@"Joining..."];
+        
+        [[ChatService instance] joinRoom:[self.dialog chatRoom] completionBlock:^(QBChatRoom *joinedChatRoom) {
+            [SVProgressHUD dismiss];
+        }];
+    }
+}
+
+- (void)leaveDialog{
+    [[self.dialog chatRoom] leaveRoom];
 }
 
 #pragma mark
@@ -119,7 +128,7 @@
 
     // Group Chat
     }else {
-        [[ChatService instance] sendMessage:message toRoom:self.chatRoom];
+        [[ChatService instance] sendMessage:message toRoom:[self.dialog chatRoom]];
     }
     
     // Reload table
@@ -163,6 +172,11 @@
     return cellHeight;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 #pragma mark
 #pragma mark UITextFieldDelegate
@@ -204,6 +218,10 @@
 #pragma mark
 #pragma mark ChatServiceDelegate
 
+- (void)chatDidLogin{
+    [self joinDialog];
+}
+
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message{
     
     if(message.senderID != self.dialog.recipientID){
@@ -224,7 +242,7 @@
 }
 
 - (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID{
-    if(![self.chatRoom.JID isEqualToString:roomJID]){
+    if(![[self.dialog chatRoom].JID isEqualToString:roomJID]){
         return NO;
     }
     
