@@ -115,17 +115,21 @@
         default:
             break;
     }
+    
+    // set unread badge
+    UILabel *badgeLabel = (UILabel *)[cell.contentView viewWithTag:201];
+    if(chatDialog.unreadMessagesCount > 0){
+        badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)chatDialog.unreadMessagesCount];
+        badgeLabel.hidden = NO;
+        
+        badgeLabel.layer.cornerRadius = 10;
+        badgeLabel.layer.borderColor = [[UIColor blueColor] CGColor];
+        badgeLabel.layer.borderWidth = 1;
+    }else{
+        badgeLabel.hidden = YES;
+    }
 
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    QBChatDialog *chatDialog = [ChatService shared].dialogs[indexPath.row];
-    if(chatDialog.unreadMessagesCount > 0){
-        [cell setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:255 alpha:0.1]];
-    }else{
-        [cell setBackgroundColor:[UIColor clearColor]];
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
