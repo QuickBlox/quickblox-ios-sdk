@@ -16,9 +16,17 @@
 
 @interface ChatService : NSObject
 
+@property (nonatomic, readonly) QBUUser *currentUser;
+
 @property (weak) id<ChatServiceDelegate> delegate;
 
-+ (instancetype)instance;
+@property (nonatomic, strong) NSMutableArray *users;
+@property (nonatomic, readonly) NSDictionary *usersAsDictionary;
+
+@property (nonatomic, strong) NSMutableArray *dialogs;
+@property (nonatomic, strong) NSMutableDictionary *messages;
+
++ (instancetype)shared;
 
 - (void)loginWithUser:(QBUUser *)user completionBlock:(void(^)())completionBlock;
 - (void)logout;
@@ -29,5 +37,12 @@
 
 - (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock;
 - (void)leaveRoom:(QBChatRoom *)room;
+
+- (NSMutableArray *)messagsForDialogId:(NSString *)dialogId;
+- (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId;
+- (void)addMessage:(QBChatAbstractMessage *)message forDialogId:(NSString *)dialogId;
+
+- (void)requestDialogsWithCompletionBlock:(void(^)())completionBlock;
+- (void)requestDialogUpdateWithId:(NSString *)dialogId completionBlock:(void(^)())completionBlock;
 
 @end

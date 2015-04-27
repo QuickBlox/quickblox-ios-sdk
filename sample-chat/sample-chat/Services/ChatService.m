@@ -14,18 +14,18 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 @interface ChatService () <QBChatDelegate>
 
-@property (copy) QBUUser *currentUser;
 @property (retain) NSTimer *presenceTimer;
 
 @property (copy) CompletionBlock loginCompletionBlock;
 @property (copy) JoinRoomCompletionBlock joinRoomCompletionBlock;
+@property (copy) CompletionBlock getDialogsCompletionBlock;
 
 @end
 
 
 @implementation ChatService
 
-+ (instancetype)instance{
++ (instancetype)shared{
     static id instance_ = nil;
 	
 	static dispatch_once_t onceToken;
@@ -44,14 +44,18 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         [QBChat instance].autoReconnectEnabled = YES;
         //
         [QBChat instance].streamManagementEnabled = YES;
+        
+        self.messages = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
+- (QBUUser *)currentUser{
+    return [[QBChat instance] currentUser];
+}
+
 - (void)loginWithUser:(QBUUser *)user completionBlock:(void(^)())completionBlock{
     self.loginCompletionBlock = completionBlock;
-    
-    self.currentUser = user;
     
     [[QBChat instance] loginWithUser:user];
 }
@@ -82,6 +86,109 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void)leaveRoom:(QBChatRoom *)room{
     [[QBChat instance] leaveRoom:room];
+}
+
+- (void)setUsers:(NSMutableArray *)users
+{
+    _users = users;
+    
+    NSMutableDictionary *__usersAsDictionary = [NSMutableDictionary dictionary];
+    for(QBUUser *user in users){
+        [__usersAsDictionary setObject:user forKey:@(user.ID)];
+    }
+    
+    _usersAsDictionary = [__usersAsDictionary copy];
+}
+
+- (NSMutableArray *)messagsForDialogId:(NSString *)dialogId{
+    NSMutableArray *messages = [self.messages objectForKey:dialogId];
+    if(messages == nil){
+        messages = [NSMutableArray array];
+        [self.messages setObject:messages forKey:dialogId];
+    }
+    
+    return messages;
+}
+
+- (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId{
+    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
+    if(messagesArray != nil){
+        [messagesArray addObjectsFromArray:messages];
+    }else{
+        [self.messages setObject:messages forKey:dialogId];
+    }
+}
+
+- (void)addMessage:(QBChatAbstractMessage *)message forDialogId:(NSString *)dialogId{
+    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
+    if(messagesArray != nil){
+        [messagesArray addObject:message];
+    }else{
+        NSMutableArray *messages = [NSMutableArray array];
+        [messages addObject:message];
+        [self.messages setObject:messages forKey:dialogId];
+    }
+}
+
+- (void)requestDialogsWithCompletionBlock:(void(^)())completionBlock{
+    
+    self.getDialogsCompletionBlock = completionBlock;
+    
+    [QBRequest dialogsWithSuccessBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs) {
+        
+        self.dialogs = dialogObjects.mutableCopy;
+        
+        [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:nil
+                   successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+                       
+                       self.users = users;
+                       
+                       if(self.getDialogsCompletionBlock != nil){
+                           self.getDialogsCompletionBlock();
+                           self.getDialogsCompletionBlock = nil;
+                       }
+                       
+                   } errorBlock:nil];
+        
+    } errorBlock:nil];
+}
+
+- (void)requestDialogUpdateWithId:(NSString *)dialogId completionBlock:(void(^)())completionBlock{
+    [QBRequest dialogsForPage:nil
+              extendedRequest:@{@"_id": dialogId}
+                 successBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, QBResponsePage *page) {
+                     
+                     BOOL found = NO;
+                     NSArray *dialogsCopy = [NSArray arrayWithArray:self.dialogs];
+                     for(QBChatDialog *dialog in dialogsCopy){
+                         if([dialog.ID isEqualToString:dialogId]){
+                             [self.dialogs removeObject:dialog];
+                             found = YES;
+                             break;
+                         }
+                     }
+                     [self.dialogs addObject:dialogObjects.firstObject];
+                     
+                     if(!found){
+                         [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:nil
+                                    successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+                                        
+                                        [self.users addObjectsFromArray:users];
+                                        
+                                        if(self.getDialogsCompletionBlock != nil){
+                                            self.getDialogsCompletionBlock();
+                                            self.getDialogsCompletionBlock = nil;
+                                        }
+                                        
+                                    } errorBlock:nil];
+                     }else{
+                         if(self.getDialogsCompletionBlock != nil){
+                             self.getDialogsCompletionBlock();
+                             self.getDialogsCompletionBlock = nil;
+                         }
+                     }
+                     
+                 } errorBlock:nil];
 }
 
 

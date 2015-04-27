@@ -53,12 +53,10 @@
             currentUser.login = demoUserLogin2;
             currentUser.password = demoUserPassword2;
         }
-        //
-        [[LocalStorageService shared] setCurrentUser:currentUser];
         
         // Login to QuickBlox Chat
         //
-        [[ChatService instance] loginWithUser:currentUser completionBlock:^{
+        [[ChatService shared] loginWithUser:currentUser completionBlock:^{
         
             // hide alert after delay
             double delayInSeconds = 1.0;
