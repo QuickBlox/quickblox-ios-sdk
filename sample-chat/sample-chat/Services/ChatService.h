@@ -11,6 +11,7 @@
 @protocol ChatServiceDelegate <NSObject>
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message;
 - (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID;
+- (void)chatDidLogin;
 @end
 
 @interface ChatService : NSObject

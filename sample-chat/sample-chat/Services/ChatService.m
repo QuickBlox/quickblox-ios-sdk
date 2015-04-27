@@ -99,6 +99,10 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         self.loginCompletionBlock();
         self.loginCompletionBlock = nil;
     }
+    
+    if([self.delegate respondsToSelector:@selector(chatDidLogin)]){
+        [self.delegate chatDidLogin];
+    }
 }
 
 - (void)chatDidFailWithError:(NSInteger)code{
