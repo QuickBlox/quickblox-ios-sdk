@@ -51,6 +51,7 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error.png"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error@2x.png"
@@ -60,6 +61,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "TWMessageBarManager/Classes/Icons/icon-success@2x.png"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error.png"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error@2x.png"

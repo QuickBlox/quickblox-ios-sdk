@@ -18,6 +18,7 @@
     #import <Quickblox/Quickblox.h>
     #import <SVProgressHUD.h>
     #import <TWMessageBarManager.h>
+    #import "NSDate+DateTools.h"
 
     #import "SoundService.h"
     #import "LocalStorageService.h"

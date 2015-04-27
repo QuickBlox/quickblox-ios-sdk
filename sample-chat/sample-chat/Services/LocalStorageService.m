@@ -22,6 +22,14 @@
 	return instance;
 }
 
+- (id)init{
+    self = [super init];
+    if(self){
+        self.messages = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
 - (void)setUsers:(NSArray *)users
 {
     _users = users;
@@ -32,6 +40,36 @@
     }
     
     _usersAsDictionary = [__usersAsDictionary copy];
+}
+
+- (NSMutableArray *)messagsForDialogId:(NSString *)dialogId{
+    NSMutableArray *messages = [self.messages objectForKey:dialogId];
+    if(messages == nil){
+        messages = [NSMutableArray array];
+        [self.messages setObject:messages forKey:dialogId];
+    }
+    
+    return messages;
+}
+
+- (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId{
+    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
+    if(messagesArray != nil){
+        [messagesArray addObjectsFromArray:messages];
+    }else{
+        [self.messages setObject:messages forKey:dialogId];
+    }
+}
+
+- (void)addMessage:(QBChatAbstractMessage *)message forDialogId:(NSString *)dialogId{
+    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
+    if(messagesArray != nil){
+        [messagesArray addObject:message];
+    }else{
+        NSMutableArray *messages = [NSMutableArray array];
+        [messages addObject:message];
+        [self.messages setObject:messages forKey:dialogId];
+    }
 }
 
 @end
