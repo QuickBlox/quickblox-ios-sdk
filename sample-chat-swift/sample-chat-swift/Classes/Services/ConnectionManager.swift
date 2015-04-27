@@ -36,14 +36,13 @@ class ConnectionManager: NSObject, QBChatDelegate {
         params.userPassword = user.password
         
         request = QBRequest.createSessionWithExtendedParameters(params, successBlock: { [weak self ] (response: QBResponse!, session: QBASession!) -> Void in
-            self?.request = nil
-            if let strongSelf = self{
-                var conm = ConnectionManager.instance
+            if let strongSelf = self {
+                strongSelf.request = nil
                 
-                conm.currentUser = QBUUser()
-                conm.currentUser!.ID = session.userID
-                conm.currentUser!.login = user.login
-                conm.currentUser!.password = user.password
+                strongSelf.currentUser = QBUUser()
+                strongSelf.currentUser!.ID = session.userID
+                strongSelf.currentUser!.login = user.login
+                strongSelf.currentUser!.password = user.password
                 
                 if QBChat.instance().isLoggedIn() {
                     QBChat.instance().logout()
@@ -56,7 +55,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
                 }
                 
                 QBChat.instance().loginWithUser(user)
-                conm.chatLoginCompletion = completion
+                strongSelf.chatLoginCompletion = completion
             }
             }) {[weak self] (response: QBResponse!) -> Void in
                 self?.request = nil
@@ -77,7 +76,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
     }
     
     func chatDidLogin() {
-        self.presenceTimer = NSTimer.scheduledTimerWithTimeInterval(kChatPresenceTimeInterval, target: self, selector: Selector("sendChatPresence"), userInfo: nil, repeats: true)
+        self.presenceTimer = NSTimer.scheduledTimerWithTimeInterval(kChatPresenceTimeInterval, target: QBChat.instance(), selector: Selector("sendPresence"), userInfo: nil, repeats: true)
         self.privacyManager.retrieveDefaultPrivacyList()
     }
     
@@ -92,13 +91,6 @@ class ConnectionManager: NSObject, QBChatDelegate {
         if self.chatLoginCompletion != nil {
             self.chatLoginCompletion(true, nil)
             self.chatLoginCompletion = nil
-        }
-    }
-    
-    func sendChatPresence() {
-        if QBChat.instance().isLoggedIn() {
-            QBChat.instance().sendPresence()
-            println( QBChat.instance().delegates() )
         }
     }
     
@@ -132,6 +124,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
     }
     
     deinit{
+        self.presenceTimer.invalidate()
         QBChat.instance().removeDelegate(self)
     }
     

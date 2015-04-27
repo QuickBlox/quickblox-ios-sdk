@@ -40,6 +40,7 @@ class ChatViewModel: NSObject {
         var page = QBResponsePage(limit: 10, skip: messages.count)
         
         var params = ["sort_desc": "date_sent"]
+        
         requestDownloadMessages = QBRequest.messagesWithDialogID(dialog.ID, extendedRequest: params, forPage: page, successBlock: { [weak self] (response: QBResponse!, downloadedMessages: [AnyObject]!, page: QBResponsePage!) in
             
             if let strongSelf = self, downloadedHistoryMessages =

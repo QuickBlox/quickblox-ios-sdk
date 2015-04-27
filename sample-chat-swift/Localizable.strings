@@ -33,7 +33,7 @@
 
 // TableViewCell identifiers
 "SA_STR_CELL_USER" = "UserTableViewCellIdentifier";
-"SA_STR_CELL_DIALOG" = " dialogcell";
+"SA_STR_CELL_DIALOG" = "dialogcell";
 
 
 // Segues
