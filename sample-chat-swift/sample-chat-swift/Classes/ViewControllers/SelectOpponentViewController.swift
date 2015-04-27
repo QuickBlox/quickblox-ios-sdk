@@ -83,7 +83,7 @@ class SelectOpponentViewController: LoginTableViewController {
         }
         
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
-            SVProgressHUD.showSuccessWithStatus("Dialog created")
+            SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
             completion()
             self?.createdDialog = createdDialog
             self?.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized, sender: nil)
