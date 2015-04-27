@@ -8,11 +8,6 @@
 
 import UIKit
 
-
-//let kQBApplicationID:UInt = 4
-//let kQBRegisterServiceKey = "TpJMfJkRSCZwcWR"
-//let kQBRegisterServiceSecret = "KuYYp7QWv3KDYGG"
-//let kQBAccountKey = "Cp1RttEg7NaayajyNgKR"
 let kQBApplicationID:UInt = 92
 let kQBRegisterServiceKey = "wJHdOcQSxXQGWx5"
 let kQBRegisterServiceSecret = "BTFsj7Rtt27DAmT"
