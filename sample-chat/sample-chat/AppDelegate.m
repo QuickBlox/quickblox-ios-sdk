@@ -61,4 +61,29 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // Subscribe to push notifications
+    //
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    //
+    [QBRequest registerSubscriptionForDeviceToken:deviceToken uniqueDeviceIdentifier:deviceIdentifier
+                                     successBlock:^(QBResponse *response, NSArray *subscriptions) {
+
+                                     } errorBlock:^(QBError *error) {
+
+                                     }];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"New Push received\n: %@", userInfo);
+    
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
+                                                   description:userInfo[@"aps"][@"alert"]
+                                                          type:TWMessageBarMessageTypeInfo];
+    
+    [[SoundService instance] playNotificationSound];
+}
+
 @end

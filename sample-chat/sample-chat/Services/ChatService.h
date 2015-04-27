@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-#define kNotificationDidReceiveNewMessage @"kNotificationDidReceiveNewMessage"
-#define kNotificationDidReceiveNewMessageFromRoom @"kNotificationDidReceiveNewMessageFromRoom"
-#define kMessage @"kMessage"
-#define kRoomJID @"kRoomJID"
+@protocol ChatServiceDelegate <NSObject>
+- (BOOL)chatDidReceiveMessage:(QBChatMessage *)message;
+- (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID;
+@end
 
 @interface ChatService : NSObject
+
+@property (weak) id<ChatServiceDelegate> delegate;
 
 + (instancetype)instance;
 

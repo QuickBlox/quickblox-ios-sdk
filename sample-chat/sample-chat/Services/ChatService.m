@@ -112,37 +112,38 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 }
 
 - (void)chatDidReceiveMessage:(QBChatMessage *)message{
-    // play sound notification
-    [self playNotificationSound];
     
     // notify observers
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidReceiveNewMessage
-                                                        object:nil userInfo:@{kMessage: message}];
+    BOOL processed = NO;
+    if([self.delegate respondsToSelector:@selector(chatDidReceiveMessage:)]){
+        processed = [self.delegate chatDidReceiveMessage:message];
+    }
+    
+    if(!processed){
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
+                                                       description:message.text
+                                                              type:TWMessageBarMessageTypeInfo];
+        
+        [[SoundService instance] playNotificationSound];
+    }
 }
 
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID{
-    // play sound notification
-    [self playNotificationSound];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDidReceiveNewMessageFromRoom
-                                                        object:nil userInfo:@{kMessage: message, kRoomJID: roomJID}];
-}
-
-
-#pragma mark
-#pragma mark Additional
-
-static SystemSoundID soundID;
-- (void)playNotificationSound
-{
-    if(soundID == 0){
-        NSString *path = [NSString stringWithFormat: @"%@/sound.mp3", [[NSBundle mainBundle] resourcePath]];
-        NSURL *filePath = [NSURL fileURLWithPath: path isDirectory: NO];
-
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
+    // notify observers
+    BOOL processed = NO;
+    if([self.delegate respondsToSelector:@selector(chatRoomDidReceiveMessage:fromRoomJID:)]){
+        processed = [self.delegate chatRoomDidReceiveMessage:message fromRoomJID:roomJID];
     }
     
-    AudioServicesPlaySystemSound(soundID);
+    if(!processed){
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
+                                                       description:message.text
+                                                              type:TWMessageBarMessageTypeInfo];
+        
+        [[SoundService instance] playNotificationSound];
+    }
 }
+
 
 @end
