@@ -8,6 +8,7 @@
 
 #import "DialogsViewController.h"
 #import "СhatViewController.h"
+#import "ChatMessageTableViewCell.h"
 
 @interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -109,19 +110,21 @@
     
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate:{
-            cell.detailTextLabel.text = @"private";
+            cell.detailTextLabel.text = chatDialog.lastMessageText;
             QBUUser *recipient = [LocalStorageService shared].usersAsDictionary[@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? recipient.email : recipient.login;
         }
             break;
         case QBChatDialogTypeGroup:{
-            cell.detailTextLabel.text = @"group";
+            cell.detailTextLabel.text = chatDialog.lastMessageText;
             cell.textLabel.text = chatDialog.name;
+            cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
             break;
         case QBChatDialogTypePublicGroup:{
-            cell.detailTextLabel.text = @"public group";
+            cell.detailTextLabel.text = chatDialog.lastMessageText;
             cell.textLabel.text = chatDialog.name;
+            cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
             break;
             

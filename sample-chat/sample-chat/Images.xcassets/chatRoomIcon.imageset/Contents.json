@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "chatRoomIcon.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "chatRoomIcon@2x.png"
+      "filename" : "chatPrivateIcon.png"
     },
     {
       "idiom" : "universal",
