@@ -11,7 +11,6 @@
 
 @interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, ChatServiceDelegate>
 
-@property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
@@ -25,9 +24,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    self.messages = [NSMutableArray array];
 
     self.messagesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
@@ -52,25 +48,14 @@
     }
 
     // Join room
+    //
     if(self.dialog.type != QBChatDialogTypePrivate){
         [self joinDialog];
     }
     
-    // get messages history
-    __weak __typeof(self)weakSelf = self;
-    [QBRequest messagesWithDialogID:self.dialog.ID successBlock:^(QBResponse *response, NSArray *messages) {
-        
-        if(messages.count > 0){
-            [weakSelf.messages addObjectsFromArray:messages];
-            //
-            [weakSelf.messagesTableView reloadData];
-            [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:weakSelf.messages.count-1 inSection:0]
-                                              atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        }
-        
-    } errorBlock:^(QBResponse *response) {
-        
-    }];
+    // sync messages history
+    //
+    [self syncMessages];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -100,6 +85,33 @@
     [[self.dialog chatRoom] leaveRoom];
 }
 
+- (void)syncMessages{
+    NSArray *messages = [[LocalStorageService shared] messagsForDialogId:self.dialog.ID];
+    NSDate *lastMessageDateSent = nil;
+    if(messages.count > 0){
+        QBChatAbstractMessage *lastMsg = [messages lastObject];
+        lastMessageDateSent = lastMsg.datetime;
+    }
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    [QBRequest messagesWithDialogID:self.dialog.ID
+                    extendedRequest:lastMessageDateSent == nil ? nil : @{@"date_sent[gt]": @([lastMessageDateSent timeIntervalSince1970])}
+                            forPage:nil
+                       successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
+       if(messages.count > 0){
+           [[LocalStorageService shared] addMessages:messages forDialogId:self.dialog.ID];
+       }
+                           
+       [weakSelf.messagesTableView reloadData];
+       [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[LocalStorageService shared] messagsForDialogId:self.dialog.ID].count-1 inSection:0]
+                                         atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                           
+    } errorBlock:^(QBResponse *response) {
+        
+    }];
+}
+
 #pragma mark
 #pragma mark Actions
 
@@ -124,7 +136,7 @@
         [[ChatService instance] sendMessage:message];
         
         // save message
-        [self.messages addObject:message];
+        [[LocalStorageService shared] addMessage:message forDialogId:self.dialog.ID];
 
     // Group Chat
     }else {
@@ -133,8 +145,8 @@
     
     // Reload table
     [self.messagesTableView reloadData];
-    if(self.messages.count > 0){
-        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messages count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    if([[LocalStorageService shared] messagsForDialogId:self.dialog.ID].count > 0){
+        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[LocalStorageService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     
     // Clean text field
@@ -147,7 +159,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.messages count];
+	return [[[LocalStorageService shared] messagsForDialogId:self.dialog.ID] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -159,7 +171,7 @@
         cell = [[ChatMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ChatMessageCellIdentifier];
     }
     
-    QBChatAbstractMessage *message = self.messages[indexPath.row];
+    QBChatAbstractMessage *message = [[LocalStorageService shared] messagsForDialogId:self.dialog.ID][indexPath.row];
     //
     [cell configureCellWithMessage:message];
     
@@ -167,13 +179,12 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    QBChatAbstractMessage *chatMessage = [self.messages objectAtIndex:indexPath.row];
+    QBChatAbstractMessage *chatMessage = [[[LocalStorageService shared] messagsForDialogId:self.dialog.ID] objectAtIndex:indexPath.row];
     CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage];
     return cellHeight;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -220,6 +231,10 @@
 
 - (void)chatDidLogin{
     [self joinDialog];
+    
+    // sync messages history
+    //
+    [self syncMessages];
 }
 
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message{
@@ -229,12 +244,12 @@
     }
     
     // save message
-    [self.messages addObject:message];
+    [[LocalStorageService shared] addMessage:message forDialogId:self.dialog.ID];
     
     // Reload table
     [self.messagesTableView reloadData];
-    if(self.messages.count > 0){
-        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messages count]-1 inSection:0]
+    if([[LocalStorageService shared] messagsForDialogId:self.dialog.ID].count > 0){
+        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[LocalStorageService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0]
                                       atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     
@@ -247,12 +262,12 @@
     }
     
     // save message
-    [self.messages addObject:message];
+    [[LocalStorageService shared] addMessage:message forDialogId:self.dialog.ID];
     
     // Reload table
     [self.messagesTableView reloadData];
-    if(self.messages.count > 0){
-        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[self.messages count]-1 inSection:0]
+    if([[LocalStorageService shared] messagsForDialogId:self.dialog.ID].count > 0){
+        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[LocalStorageService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0]
                                       atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     

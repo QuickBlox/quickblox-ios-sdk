@@ -12,17 +12,11 @@
 
 @implementation ChatMessageTableViewCell
 
-static NSDateFormatter *messageDateFormatter;
 static UIImage *orangeBubble;
 static UIImage *aquaBubble;
 
 + (void)initialize{
     [super initialize];
-    
-    // init message datetime formatter
-    messageDateFormatter = [[NSDateFormatter alloc] init];
-    [messageDateFormatter setDateFormat: @"yyyy-mm-dd HH:mm"];
-    [messageDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
     
     // init bubbles
     orangeBubble = [[UIImage imageNamed:@"orangeBubble"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
@@ -80,11 +74,9 @@ static UIImage *aquaBubble;
                                         constrainedToSize:textSize
                                             lineBreakMode:NSLineBreakByWordWrapping];
     
-//    NSLog(@"message: %@", message);
-    
 	size.width += 10;
     
-    NSString *time = [messageDateFormatter stringFromDate:message.datetime];
+    NSString *time = [message.datetime timeAgoSinceNow];
     
     // Left/Right bubble
     if ([LocalStorageService shared].currentUser.ID == message.senderID) {
