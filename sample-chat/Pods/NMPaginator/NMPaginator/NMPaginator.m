@@ -47,9 +47,8 @@
     [self setDefaultValues];
     
     // send message to delegate
-    if([self.delegate respondsToSelector:@selector(paginatorDidReset:)]){
+    if([self.delegate respondsToSelector:@selector(paginatorDidReset:)])
         [self.delegate paginatorDidReset:self];
-    }
 }
 
 - (BOOL)reachedLastPage

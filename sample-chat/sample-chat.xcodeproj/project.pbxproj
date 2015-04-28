@@ -35,7 +35,6 @@
 		BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */; };
 		BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */; };
 		BFE6FBD2180EA31600E64AC4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */; };
-		BFE6FBDC180EE50200E64AC4 /* NMPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBDB180EE50200E64AC4 /* NMPaginator.m */; };
 		BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */; };
 		BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */; };
 		BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */; };
@@ -82,8 +81,6 @@
 		BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
 		BFE6FBD0180EA31600E64AC4 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
-		BFE6FBDA180EE50200E64AC4 /* NMPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMPaginator.h; sourceTree = "<group>"; };
-		BFE6FBDB180EE50200E64AC4 /* NMPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMPaginator.m; sourceTree = "<group>"; };
 		BFE6FBDF180EE57700E64AC4 /* UsersPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersPaginator.h; sourceTree = "<group>"; };
 		BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersPaginator.m; sourceTree = "<group>"; };
 		BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "СhatViewController.h"; sourceTree = "<group>"; };
@@ -188,7 +185,6 @@
 				BFE6FB87180E8EF100E64AC4 /* Main.storyboard */,
 				BFE6FB90180E8EF100E64AC4 /* Images.xcassets */,
 				BFBD3C931832CF30009D090B /* sound.mp3 */,
-				BFE6FBD8180EE50200E64AC4 /* External */,
 				BFE6FB7C180E8EF100E64AC4 /* Supporting Files */,
 			);
 			path = "sample-chat";
@@ -218,23 +214,6 @@
 				BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		BFE6FBD8180EE50200E64AC4 /* External */ = {
-			isa = PBXGroup;
-			children = (
-				BFE6FBD9180EE50200E64AC4 /* NMPaginator */,
-			);
-			path = External;
-			sourceTree = "<group>";
-		};
-		BFE6FBD9180EE50200E64AC4 /* NMPaginator */ = {
-			isa = PBXGroup;
-			children = (
-				BFE6FBDA180EE50200E64AC4 /* NMPaginator.h */,
-				BFE6FBDB180EE50200E64AC4 /* NMPaginator.m */,
-			);
-			path = NMPaginator;
 			sourceTree = "<group>";
 		};
 		BFE6FBDE180EE56300E64AC4 /* Models */ = {
@@ -376,7 +355,6 @@
 				BFB4627C18150EB00010AE49 /* ChatService.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
-				BFE6FBDC180EE50200E64AC4 /* NMPaginator.m in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
 				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
