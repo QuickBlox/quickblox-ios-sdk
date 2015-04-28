@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define kDialogUpdatedNotification @"kDialogUpdatedNotification"
+
 @protocol ChatServiceDelegate <NSObject>
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message;
 - (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID;

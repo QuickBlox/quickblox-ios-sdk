@@ -25,6 +25,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+## NMPaginator
+
+Do whatever you want with this piece of code (commercially or free). Attribution would be nice though.
+
+
 ## QuickBlox
 
 The MIT License (MIT)

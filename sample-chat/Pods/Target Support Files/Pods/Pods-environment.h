@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_DateTools 5
 #define COCOAPODS_VERSION_PATCH_DateTools 0
 
+// NMPaginator
+#define COCOAPODS_POD_AVAILABLE_NMPaginator
+#define COCOAPODS_VERSION_MAJOR_NMPaginator 1
+#define COCOAPODS_VERSION_MINOR_NMPaginator 0
+#define COCOAPODS_VERSION_PATCH_NMPaginator 0
+
 // QuickBlox
 #define COCOAPODS_POD_AVAILABLE_QuickBlox
 #define COCOAPODS_VERSION_MAJOR_QuickBlox 2

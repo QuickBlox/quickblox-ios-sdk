@@ -42,6 +42,15 @@ SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>Do whatever you want with this piece of code (commercially or free). Attribution would be nice though.
+</string>
+			<key>Title</key>
+			<string>NMPaginator</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>The MIT License (MIT)
 
 Copyright (c) 2014 QuickBlox

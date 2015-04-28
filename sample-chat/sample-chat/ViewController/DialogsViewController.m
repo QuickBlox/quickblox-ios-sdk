@@ -21,6 +21,13 @@
 #pragma mark
 #pragma mark ViewController lyfe cycle
 
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
+                                                 name:kDialogUpdatedNotification object:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -135,6 +142,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+#pragma mark
+#pragma Notifications
+
+- (void)dialogUpdated:(NSNotification *)notification{
+    NSString *dialogId = notification.userInfo[@"dialog_id"];
+    
+    __weak __typeof(self)weakSelf = self;
+    [[ChatService shared] requestDialogUpdateWithId:dialogId completionBlock:^{
+        [weakSelf.dialogsTableView reloadData];
+    }];
 }
 
 @end

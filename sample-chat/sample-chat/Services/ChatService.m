@@ -154,6 +154,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 }
 
 - (void)requestDialogUpdateWithId:(NSString *)dialogId completionBlock:(void(^)())completionBlock{
+    self.getDialogsCompletionBlock = completionBlock;
+    
     [QBRequest dialogsForPage:nil
               extendedRequest:@{@"_id": dialogId}
                  successBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, QBResponsePage *page) {
@@ -167,7 +169,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
                              break;
                          }
                      }
-                     [self.dialogs addObject:dialogObjects.firstObject];
+                     
+                     [self.dialogs insertObject:dialogObjects.firstObject atIndex:0];
                      
                      if(!found){
                          [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:nil
@@ -236,6 +239,9 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
                                                               type:TWMessageBarMessageTypeInfo];
         
         [[SoundService instance] playNotificationSound];
+        
+        NSString *dialogId = message.customParameters[@"dialog_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
     }
 }
 
