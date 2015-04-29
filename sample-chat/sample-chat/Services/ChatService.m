@@ -56,24 +56,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] loginWithUser:user];
 }
 
-- (void)sendMessage:(QBChatMessage *)message{
-    [[QBChat instance] sendMessage:message];
-}
-
-- (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom{
-    [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
-}
-
-- (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock{
-    self.joinRoomCompletionBlock = completionBlock;
-    
-    [room joinRoomWithHistoryAttribute:@{@"maxstanzas": @"0"}];
-}
-
-- (void)leaveRoom:(QBChatRoom *)room{
-    [[QBChat instance] leaveRoom:room];
-}
-
 #pragma mark
 #pragma mark QBChatDelegate
 

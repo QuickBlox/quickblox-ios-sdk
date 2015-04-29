@@ -33,7 +33,8 @@
     self.messagesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     // Set keyboard notifications
@@ -58,10 +59,7 @@
 
     // Join room
     if(self.dialog.type != QBChatDialogTypePrivate){
-        self.chatRoom = [self.dialog chatRoom];
-        [[ChatService instance] joinRoom:self.chatRoom completionBlock:^(QBChatRoom *joinedChatRoom) {
-            // joined
-        }];
+        [self.dialog joinWithHistoryAttributes:@{@"maxstanzas": @"0"}];
     }
     
     // get messages history
@@ -107,8 +105,7 @@
         // send message
         message.recipientID = [self.dialog recipientID];
         message.senderID = [LocalStorageService shared].currentUser.ID;
-
-        [[QBChat instance] sendMessage:message sentBlock:^(NSError *error) {
+        [self.dialog sendPrivateChatMessage:message sentBlock:^(NSError *error) {
             if (error == nil) {
                 NSLog(@"Sent!");
             } else {
@@ -121,7 +118,7 @@
 
     // Group Chat
     }else {
-        [[ChatService instance] sendMessage:message toRoom:self.chatRoom];
+        [self.dialog sendGroupChatMessage:message];
     }
     
     // Reload table
@@ -179,7 +176,7 @@
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	return [self.messages count];
 }
@@ -189,7 +186,7 @@
     static NSString *ChatMessageCellIdentifier = @"ChatMessageCellIdentifier";
     
     ChatMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatMessageCellIdentifier];
-    if(cell == nil){
+    if (cell == nil) {
         cell = [[ChatMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ChatMessageCellIdentifier];
     }
     
@@ -200,7 +197,7 @@
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     QBChatAbstractMessage *chatMessage = [self.messages objectAtIndex:indexPath.row];
     CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage];
     return cellHeight;
