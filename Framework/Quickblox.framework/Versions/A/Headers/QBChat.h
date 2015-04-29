@@ -57,9 +57,6 @@ typedef enum QBChatServiceError {
   The default value is 5 seconds */
 @property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
 
-/** Contact list mechanism */
-@property (nonatomic, assign) BOOL useMutualSubscriptionForContactList;
-
 /**
  *  Background mode for stream. By default is NO. Should be set before login to chat. Do not works on simulator.
  */
@@ -139,23 +136,6 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)logout;
-
-/**
- Send message
- 
- @param message QBChatMessage instance
- @return YES if the message was sent. If not - see log.
- */
-- (BOOL)sendMessage:(QBChatMessage *)message;
-
-/**
- Send message with 'sent' block
- 
- @param message QBChatMessage instance
- @param sentBlock The block which informs whether a message was delivered to server or not. nil if no errors.
- @return YES if the message was sent. If not - see log.
- */
-- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock;
 
 /**
  Send "Read message" status back to sender
@@ -269,83 +249,6 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent. If not - see log.
  */
 - (BOOL)rejectAddContactRequest:(NSUInteger)userID sentBlock:(void (^)(NSError *error))sentBlock;
-
-
-#pragma mark -
-#pragma mark Rooms
-
-/**
- Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
- 
- @param room Room to join
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)joinRoom:(QBChatRoom *)room;
-
-/**
- Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
- 
- @param room Room to join
- @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)joinRoom:(QBChatRoom *)room historyAttribute:(NSDictionary *)historyAttribute;
-
-/**
- Leave joined room. QBChatDelegate's method 'chatRoomDidLeave:' will be called
- 
- @param room Room to leave
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)leaveRoom:(QBChatRoom *)room;
-
-/**
- Send chat message to room
- 
- @param message Message body
- @param room Room to send message
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendChatMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)room;
-
-/**
- Send chat message to room, without room join
- 
- @param message Message body
- @param room Room to send message
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendChatMessageWithoutJoin:(QBChatMessage *)message toRoom:(QBChatRoom *)room;
-
-/**
- Send presence with parameters to room
- 
- @param parameters Presence parameters
- @param room Room to send presence
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room;
-
-/**
- Send presence with status, show, priority, custom parameters to room
- 
- @param status Element contains character data specifying a natural-language description of availability status
- @param show Element contains non-human-readable character data that specifies the particular availability status of an entity or specific resource.
- @param priority Element contains non-human-readable character data that specifies the priority level of the resource. The value MUST be an integer between -128 and +127.
- @param customParameters Custom parameters
- @param room Room to send presence
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendPresenceWithStatus:(NSString *)status show:(enum QBPresenseShow)show priority:(short)priority customParameters:(NSDictionary *)customParameters toRoom:(QBChatRoom *)room;
-
-/**
- Request users who are joined a room. QBChatDelegate's method 'chatRoomDidReceiveListOfOnlineUsers:room:' will be called
- 
- @param room Room
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)requestRoomOnlineUsers:(QBChatRoom *)room;
-
 
 #pragma mark -
 #pragma mark Privacy
@@ -569,5 +472,98 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)deleteUsers:(NSArray *)usersIDs fromRoom:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
+
+/**
+ Send chat message to room
+ 
+ @param message Message body
+ @param room Room to send message
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendChatMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendGroupChatMessage: in QBChatDialog class.")));
+
+/**
+ Send message
+ 
+ @param message QBChatMessage instance
+ @return YES if the message was sent. If not - see log.
+ */
+- (BOOL)sendMessage:(QBChatMessage *)message __attribute__((deprecated("Use sendPrivateChatMessage: in QBChatDialog class.")));
+
+/**
+ Send message with 'sent' block
+ 
+ @param message QBChatMessage instance
+ @param sentBlock The block which informs whether a message was delivered to server or not. nil if no errors.
+ @return YES if the message was sent. If not - see log.
+ */
+- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock __attribute__((deprecated("Use sendPrivateChatMessage:sentBlock: in QBChatDialog class.")));
+
+/**
+ Send chat message to room, without room join
+ 
+ @param message Message body
+ @param room Room to send message
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendChatMessageWithoutJoin:(QBChatMessage *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendGroupChatMessage: in QBChatDialog class.")));
+
+/**
+ Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
+ 
+ @param room Room to join
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)joinRoom:(QBChatRoom *)room __attribute__((deprecated("Use join in QBChatDialog class.")));
+
+/**
+ Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
+ 
+ @param room Room to join
+ @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)joinRoom:(QBChatRoom *)room historyAttribute:(NSDictionary *)historyAttribute __attribute__((deprecated("Use joinWithHistoryAttributes: in QBChatDialog class.")));
+
+/**
+ Leave joined room. QBChatDelegate's method 'chatRoomDidLeave:' will be called
+ 
+ @param room Room to leave
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)leaveRoom:(QBChatRoom *)room __attribute__((deprecated("Use leave in QBChatDialog class.")));
+
+/**
+ Request users who are joined a room. QBChatDelegate's method 'chatRoomDidReceiveListOfOnlineUsers:room:' will be called
+ 
+ @param room Room
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)requestRoomOnlineUsers:(QBChatRoom *)room __attribute__((deprecated("Use requestOnlineUsers in QBChatDialog class.")));
+
+/**
+ Send presence with parameters to room
+ 
+ @param parameters Presence parameters
+ @param room Room to send presence
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendPresenceWithParameters: in QBChatDialog class.")));
+
+/**
+ Send presence with status, show, priority, custom parameters to room
+ 
+ @param status Element contains character data specifying a natural-language description of availability status
+ @param show Element contains non-human-readable character data that specifies the particular availability status of an entity or specific resource.
+ @param priority Element contains non-human-readable character data that specifies the priority level of the resource. The value MUST be an integer between -128 and +127.
+ @param customParameters Custom parameters
+ @param room Room to send presence
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendPresenceWithStatus:(NSString *)status
+                          show:(enum QBPresenseShow)show
+                      priority:(short)priority 
+              customParameters:(NSDictionary *)customParameters
+                        toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendPresenceWithStatus:show:priority:customParameters: in QBChatDialog class.")));
 
 @end
