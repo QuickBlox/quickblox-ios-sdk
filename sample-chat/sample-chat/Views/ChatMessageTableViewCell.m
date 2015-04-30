@@ -29,7 +29,7 @@ static UIImage *aquaBubble;
     aquaBubble = [[UIImage imageNamed:@"aquaBubble"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
 }
 
-+ (CGFloat)heightForCellWithMessage:(QBChatAbstractMessage *)message
++ (CGFloat)heightForCellWithMessage:(QBChatMessage *)message
 {
     NSString *text = message.text;
 
@@ -69,7 +69,7 @@ static UIImage *aquaBubble;
     return self;
 }
 
-- (void)configureCellWithMessage:(QBChatAbstractMessage *)message
+- (void)configureCellWithMessage:(QBChatMessage *)message
 {    
     self.messageTextView.text = message.text;
     

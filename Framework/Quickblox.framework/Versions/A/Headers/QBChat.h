@@ -234,7 +234,7 @@ typedef enum QBChatServiceError {
 - (BOOL)confirmAddContactRequest:(NSUInteger)userID sentBlock:(void (^)(NSError *error))sentBlock;
 
 /**
- Reject add to contact list request
+ Reject add to contact list request or cancel previously-granted subscription request 
  
  @param userID ID of user from which you would like to reject add to contact request
  @return YES if the request was sent successfully. If not - see log.
@@ -242,7 +242,7 @@ typedef enum QBChatServiceError {
 - (BOOL)rejectAddContactRequest:(NSUInteger)userID;
 
 /**
- Reject add to contact list request
+ Reject add to contact list request or cancel previously-granted subscription request
  
  @param userID ID of user from which you would like to reject add to contact request
  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.

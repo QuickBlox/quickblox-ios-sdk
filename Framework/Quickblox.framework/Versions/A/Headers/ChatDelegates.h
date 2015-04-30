@@ -34,8 +34,17 @@
 
 /**
  didNotLogin fired when login process did not finished successfully
+ 
+ @warning *Deprecated in QB iOS SDK 2.3:* Use chatDidNotLoginWithError: instead
  */
-- (void)chatDidNotLogin;
+- (void)chatDidNotLogin __attribute__((deprecated("use 'chatDidNotLoginWithError:' instead.")));
+
+/**
+ didNotLoginWithError fired when login process did not finished successfully
+
+ @param error Error
+ */
+- (void)chatDidNotLoginWithError:(NSError *)error;
 
 /**
  didNotSendMessage fired when message cannot be send to user
@@ -76,15 +85,6 @@
 - (void)chatDidFailWithStreamError:(NSError *)error;
 
 /**
- Called in case receiving presence
- 
- @param userID User ID from which received presence
- @param type Presence type
- */
-- (void)chatDidReceivePresenceOfUser:(NSUInteger)userID type:(NSString *)type;
-
-
-/**
  Fired when received service discovery information
  
  @param features Array of server features
@@ -115,6 +115,20 @@
  @param status Custom user status
  */
 - (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status;
+
+/**
+ + Called when user has accepted your contact request
+ +
+ + @param userID User ID from which accepted your request
+ + */
+- (void)chatDidReceiveAcceptContactRequestFromUser:(NSUInteger)userID;
+
+/**
+ + Called when user has rejected your contact request
+ +
+ + @param userID User ID from which rejected your request
+ + */
+- (void)chatDidReceiveRejectContactRequestFromUser:(NSUInteger)userID;
 
 
 #pragma mark -
@@ -239,6 +253,7 @@
  @param roomJID JID of room
  */
 - (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users roomJID:(NSString *)roomJID;
+
 
 #pragma mark -
 #pragma mark Privacy

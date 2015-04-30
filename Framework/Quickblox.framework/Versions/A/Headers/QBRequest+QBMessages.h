@@ -29,7 +29,7 @@
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 + (QBRequest *)createPushToken:(QBMPushToken *)pushToken successBlock:(void (^)(QBResponse *response, QBMPushToken *token))successBlock
-					errorBlock:(QBRequestErrorBlock)errorBlock;
+					errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.")));
 
 
 #pragma mark -
@@ -44,10 +44,23 @@
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 + (QBRequest *)deletePushTokenWithID:(NSUInteger)ID successBlock:(void (^)(QBResponse *response))successBlock
-						  errorBlock:(QBRequestErrorBlock)errorBlock;
+						  errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest deleteSubscriptionWithID:successBlock:errorBlock:' instead.")));
 
 #pragma mark -
 #pragma mark Create Subscription
+
+/**
+ Register subscription
+ 
+ @param subscriber An instance of QBMSubscription
+ @param successBlock Block with response and subscriber instances if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
+
++ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken
+                                     successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock
+                                       errorBlock:(void (^)(QBError *error))errorBlock __attribute__((deprecated("use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.")));
 
 /**
  Create subscription
@@ -57,8 +70,10 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)createSubscription:(QBMSubscription *)subscriber successBlock:(void (^)(QBResponse *response, NSArray *objects))successBlock
-					   errorBlock:(QBRequestErrorBlock)errorBlock;
+
++ (QBRequest *)createSubscription:(QBMSubscription *)subscriber
+                     successBlock:(void (^)(QBResponse *, NSArray *))successBlock
+                       errorBlock:(QBRequestErrorBlock)errorBlock;
 
 #pragma mark -
 #pragma mark Get Subscriptions
@@ -150,21 +165,6 @@
 					  errorBlock:(QBRequestErrorBlock)errorBlock;
 
 #pragma mark -
-#pragma mark Register Subscription Task
-
-/** Create subscription for current device.
- 
- This method registers push token on the server if they are not registered yet, then creates a Subscription and associates it with curent User.
- 
- @param deviceToken Token received from application:didRegisterForRemoteNotificationsWithDeviceToken: method
- @param successBlock Block with response and subscriptions instances if request succeded
- @param errorBlock Block with response error if request failed
- @return An instance of QBRequest. Use this instance to cancel the operation.
- */
-+ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock
-                                       errorBlock:(void (^)(QBError *error))errorBlock;
-
-#pragma mark -
 #pragma mark Register Subscription Task With Custom UDID
 
 /** Create subscription for current device.
@@ -177,7 +177,7 @@
  @param errorBlock Block with response error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken uniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
++ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken uniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock errorBlock:(void (^)(QBError *error))errorBlock __attribute__((deprecated("use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.")));
 
 #pragma mark -
 #pragma mark Unregister Subscription Task
