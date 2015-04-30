@@ -10,7 +10,7 @@
 #import "QBRequest.h"
 
 @class QBResponsePage;
-@class QBChatHistoryMessage;
+@class QBChatMessage;
 @class QBChatDialog;
 
 @interface QBRequest (QBChat)
@@ -95,7 +95,7 @@
  @param errorBlock Block with response instance if request failed
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QBRequest *)createMessage:(QBChatHistoryMessage *)message successBlock:(void(^)(QBResponse *response, QBChatHistoryMessage *createdMessage))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)createMessage:(QBChatMessage *)message successBlock:(void(^)(QBResponse *response, QBChatMessage *createdMessage))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
 /**
  Update existing chat message - mark it as read
@@ -105,7 +105,7 @@
  @param errorBlock Block with response instance if request failed
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QBRequest *)updateMessage:(QBChatHistoryMessage *)message successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)updateMessage:(QBChatMessage *)message successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
 /**
  Mark messages as read

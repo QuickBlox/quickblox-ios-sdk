@@ -190,7 +190,7 @@
         cell = [[ChatMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ChatMessageCellIdentifier];
     }
     
-    QBChatAbstractMessage *message = self.messages[indexPath.row];
+    QBChatMessage *message = self.messages[indexPath.row];
     //
     [cell configureCellWithMessage:message];
     
@@ -198,7 +198,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    QBChatAbstractMessage *chatMessage = [self.messages objectAtIndex:indexPath.row];
+    QBChatMessage *chatMessage = [self.messages objectAtIndex:indexPath.row];
     CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage];
     return cellHeight;
 }
