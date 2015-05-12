@@ -25,6 +25,11 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         if dialog?.chatRoom == nil {
             self.navigationItem.rightBarButtonItem = nil // remove "info" button
         }
+		else{
+			if dialog?.chatRoom!.isJoined == false {
+				dialog?.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
+			}
+		}
         QBChat.instance().addDelegate(self)
         
         // needed by block in method QBChat.instance().sendMessage(message, sentBlock
@@ -70,6 +75,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         var message = QBChatMessage()
         message.senderID = ConnectionManager.instance.currentUser!.ID
         message.customParameters = ["save_to_history": 1]
+		message.customParameters["date_sent"] =  NSDate().timeIntervalSince1970
         if( dialog?.type.value == QBChatDialogTypePrivate.value ) {
             SVProgressHUD.showWithStatus("SA_STR_SENDING".localized, maskType: SVProgressHUDMaskType.Clear)
             message.recipientID = self.chatViewModel.recipientID

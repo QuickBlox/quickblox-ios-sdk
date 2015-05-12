@@ -10,9 +10,10 @@ import UIKit
 
 class ConnectionManager: NSObject, QBChatDelegate {
     static let instance = ConnectionManager()
-    
+	
+	private var tmpUser: QBUUser? // if chat failed to connect, we try to connect again
+	
     var request: QBRequest?
-    
     private var presenceTimer:NSTimer!
     private var chatLoginCompletion:((Bool, String?) -> Void)!
     var dialogs:[QBChatDialog]?
@@ -31,10 +32,11 @@ class ConnectionManager: NSObject, QBChatDelegate {
     }
 	
 	func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
+		tmpUser = user
         var params = QBSessionParameters()
         params.userLogin = user.login
         params.userPassword = user.password
-        
+        self.chatLoginCompletion = completion
         request = QBRequest.createSessionWithExtendedParameters(params, successBlock: { [weak self ] (response: QBResponse!, session: QBASession!) -> Void in
             if let strongSelf = self {
                 strongSelf.request = nil
@@ -47,18 +49,18 @@ class ConnectionManager: NSObject, QBChatDelegate {
                 if QBChat.instance().isLoggedIn() {
                     QBChat.instance().logout()
                     if strongSelf.dialogs != nil {
-                        strongSelf.dialogs = []
-                        strongSelf.dialogsUsers = []
+                        strongSelf.dialogs = nil
+                        strongSelf.dialogsUsers = nil
                         strongSelf.messagesIDsToDelete.removeAll(false)
                     }
                     strongSelf.privacyManager.reset()
                 }
                 
                 QBChat.instance().loginWithUser(user)
-                strongSelf.chatLoginCompletion = completion
             }
             }) {[weak self] (response: QBResponse!) -> Void in
                 self?.request = nil
+				self?.chatLoginCompletion = nil
                 completion(success: false, errorMessage: response.error.error.localizedDescription)
                 println(response.error.error.localizedDescription)
         }
@@ -86,6 +88,12 @@ class ConnectionManager: NSObject, QBChatDelegate {
             self.chatLoginCompletion = nil
         }
     }
+	
+	func chatDidNotLogin() {
+		if tmpUser != nil {
+			self.logInWithUser(tmpUser!, completion: self.chatLoginCompletion)
+		}
+	}
     
     func chatDidNotReceivePrivacyListWithName(name: String!, error: AnyObject!) {
         if self.chatLoginCompletion != nil {

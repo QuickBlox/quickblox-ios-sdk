@@ -82,6 +82,7 @@ class NewDialogViewController: LoginTableViewController {
         
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
 			ConnectionManager.instance.dialogs?.append(createdDialog)
+			createdDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
             SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
             completion()
             self?.createdDialog = createdDialog
