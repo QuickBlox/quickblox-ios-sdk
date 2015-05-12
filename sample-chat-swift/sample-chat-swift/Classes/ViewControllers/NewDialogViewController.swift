@@ -1,5 +1,5 @@
 //
-//  SelectOpponentViewController.swift
+//  NewDialogViewController.swift
 //  sample-chat-swift
 //
 //  Created by Anton Sokolchenko on 4/1/15.
@@ -7,7 +7,7 @@
 //
 
 
-class SelectOpponentViewController: LoginTableViewController {
+class NewDialogViewController: LoginTableViewController {
     private var createdDialog: QBChatDialog?
     private var delegate : SwipeableTableViewCellWithBlockButtons!
     
@@ -16,7 +16,6 @@ class SelectOpponentViewController: LoginTableViewController {
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
         self.checkCreateChatButtonState()
-        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ConnectionManager.instance.currentUser!.login
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -58,7 +57,6 @@ class SelectOpponentViewController: LoginTableViewController {
         
         for indexPath in selectedIndexes {
             var cell = self.tableView.cellForRowAtIndexPath(indexPath)!
-            
             var user = ConnectionManager.instance.usersDataSource.users[cell.tag]
             usersToChat.append(user)
         }
@@ -72,7 +70,7 @@ class SelectOpponentViewController: LoginTableViewController {
         }
         else {
             chatDialog.type = QBChatDialogTypeGroup
-            if name != nil && !name!.isEmpty {
+            if name != nil && !name!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).isEmpty {
                 chatDialog.name = name!
             }
             else{
@@ -83,6 +81,7 @@ class SelectOpponentViewController: LoginTableViewController {
         }
         
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
+			ConnectionManager.instance.dialogs?.append(createdDialog)
             SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
             completion()
             self?.createdDialog = createdDialog

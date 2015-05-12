@@ -40,6 +40,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         if let user = ConnectionManager.instance.currentUser {
             QBChat.instance().loginWithUser(user)
+			
+			ConnectionManager.instance.logInWithUser(user, completion: { (success, errorMessage) -> Void in
+				
+				if let dialogs = ConnectionManager.instance.dialogs {
+					let groupDialogs = dialogs.filter({$0.type.value != QBChatDialogTypePrivate.value})
+					for roomDialog in groupDialogs {
+						roomDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
+					}
+				}
+				
+			})
         }
     }
 

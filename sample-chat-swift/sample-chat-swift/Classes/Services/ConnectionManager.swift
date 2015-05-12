@@ -29,8 +29,8 @@ class ConnectionManager: NSObject, QBChatDelegate {
         QBChat.instance().addDelegate(self)
         self.startObservingMessagesToDelete()
     }
-    
-    func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
+	
+	func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
         var params = QBSessionParameters()
         params.userLogin = user.login
         params.userPassword = user.password

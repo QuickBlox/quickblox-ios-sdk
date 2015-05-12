@@ -22,10 +22,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         self.chatViewModel = ChatViewModel(currentUserID: ConnectionManager.instance.currentUser!.ID, dialog: dialog!)
         
         self.startMessagesObserver()
-        if let chatRoom = dialog?.chatRoom {
-            chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0]) // sendChatMessageWithoutJoin temporary not working
-        }
-        else {
+        if dialog?.chatRoom == nil {
             self.navigationItem.rightBarButtonItem = nil // remove "info" button
         }
         QBChat.instance().addDelegate(self)
