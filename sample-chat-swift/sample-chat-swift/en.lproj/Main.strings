@@ -21,7 +21,7 @@
 "EFj-SE-fei.text" = "Select a dialog to chat";
 
 /* Class = "UINavigationItem"; title = "Logged in as"; ObjectID = "Iav-xC-5Zn"; */
-"Iav-xC-5Zn.title" = "Logged in as";
+"Iav-xC-5Zn.title" = "Select opponents";
 
 /* Class = "UIButton"; normalTitle = "join chat"; ObjectID = "NPR-SX-7ci"; */
 "NPR-SX-7ci.normalTitle" = "join chat";

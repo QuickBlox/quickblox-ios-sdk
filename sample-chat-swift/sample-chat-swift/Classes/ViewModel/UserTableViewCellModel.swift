@@ -18,6 +18,7 @@ class UserTableViewCellModel: NSObject {
         if dialog.type.value == QBChatDialogTypePrivate.value {
             self.detailTextLabelText = "SA_STR_PRIVATE".localized
             if dialog.recipientID != -1 {
+				assert(ConnectionManager.instance.dialogsUsers != nil)
                 if let users = ConnectionManager.instance.dialogsUsers {
                     var filteredUsers = users.filter(){ $0.ID == UInt(dialog.recipientID) }
                     if !filteredUsers.isEmpty {
@@ -37,6 +38,7 @@ class UserTableViewCellModel: NSObject {
         }
         
         if self.textLabelText.isEmpty {
+			// group chat
             self.textLabelText = dialog.name
             rightUtilityButtons = self.blockButtonsForDialogType(dialog.type, user: nil)
         }
