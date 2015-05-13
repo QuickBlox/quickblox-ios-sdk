@@ -25,9 +25,8 @@ typedef NS_ENUM(NSUInteger, QBRTCConnectionState) {
 };
 
 typedef NS_ENUM (NSUInteger, QBConferenceType){
-    
-    QBConferenceTypeAudio,
-    QBConferenceTypeVideo
+    QBConferenceTypeVideo = 1,
+    QBConferenceTypeAudio = 2
 };
 
 typedef NS_ENUM(NSUInteger, QBSoundRoute) {
