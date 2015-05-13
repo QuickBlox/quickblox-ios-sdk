@@ -34,7 +34,8 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
         SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         
         QBRequest.dialogsWithSuccessBlock({ [weak self] (response: QBResponse!, dialogs: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!) -> Void in
-			
+		
+			ConnectionManager.instance.dialogs = dialogs as? [QBChatDialog]
 			ConnectionManager.instance.joinAllRooms()
             var pagedRequest = QBGeneralResponsePage(currentPage: 1, perPage: 100)
             
