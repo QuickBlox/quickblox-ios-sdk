@@ -35,15 +35,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
         
         QBRequest.dialogsWithSuccessBlock({ [weak self] (response: QBResponse!, dialogs: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!) -> Void in
 			
-			if let strongDialogs = dialogs as? [QBChatDialog] {
-				ConnectionManager.instance.dialogs = strongDialogs
-				let groupChats = strongDialogs.filter({$0.type.value != QBChatDialogTypePrivate.value})
-				
-				for roomDialog in groupChats {
-					roomDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
-				}
-				
-			}
+			ConnectionManager.instance.joinAllRooms()
             var pagedRequest = QBGeneralResponsePage(currentPage: 1, perPage: 100)
             
             QBRequest.usersWithIDs(Array(dialogsUsersIDs), page: pagedRequest, successBlock: { (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
