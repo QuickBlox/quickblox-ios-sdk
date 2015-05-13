@@ -17,7 +17,14 @@
 
 - (BOOL)isActive;
 
+/**
+ *  Begin voice chat /
+ */
 - (BOOL)initialize;
+
+/**
+ *  End voice chat
+ */
 - (BOOL)deinitialize;
 
 @property (assign, nonatomic, readonly) BOOL isHeadsetPluggedIn;
