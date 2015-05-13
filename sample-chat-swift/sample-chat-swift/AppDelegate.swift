@@ -15,54 +15,53 @@ let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        QBApplication.sharedApplication().applicationId = kQBApplicationID
-        QBConnection.registerServiceKey(kQBRegisterServiceKey)
-        QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
-        QBSettings.setAccountKey(kQBAccountKey)
-        QBSettings.setLogLevel(QBLogLevel.Debug)
-        return true
-    }
-
-    func applicationWillResignActive(application: UIApplication) {
-    }
-    
-    func applicationDidEnterBackground(application: UIApplication) {
-        if QBChat.instance().isLoggedIn() {
-            QBChat.instance().logout()
-        }
-    }
-
-    func applicationWillEnterForeground(application: UIApplication) {
-        if let user = ConnectionManager.instance.currentUser {
-            QBChat.instance().loginWithUser(user)
+	
+	var window: UIWindow?
+	
+	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+		
+		QBApplication.sharedApplication().applicationId = kQBApplicationID
+		QBConnection.registerServiceKey(kQBRegisterServiceKey)
+		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
+		QBSettings.setAccountKey(kQBAccountKey)
+		QBSettings.setLogLevel(QBLogLevel.Debug)
+		
+		ConnectionManager.instance.startObservingInternetAvailability()
+		
+		return true
+	}
+	
+	func applicationWillResignActive(application: UIApplication) {
+	}
+	
+	func applicationDidEnterBackground(application: UIApplication) {
+		if QBChat.instance().isLoggedIn() {
+			QBChat.instance().logout()
+		}
+		ConnectionManager.instance.stopObservingInternetAvailability()
+	}
+	
+	func applicationWillEnterForeground(application: UIApplication) {
+		if let user = ConnectionManager.instance.currentUser {
+			QBChat.instance().loginWithUser(user)
 			
 			ConnectionManager.instance.logInWithUser(user, completion: { (success, errorMessage) -> Void in
-				
-				if let dialogs = ConnectionManager.instance.dialogs {
-					let groupDialogs = dialogs.filter({$0.type.value != QBChatDialogTypePrivate.value})
-					for roomDialog in groupDialogs {
-						roomDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
-					}
-				}
-				
+				ConnectionManager.instance.joinAllRooms()
+				ConnectionManager.instance.startObservingInternetAvailability()
 			})
-        }
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        if QBChat.instance().isLoggedIn() {
-            QBChat.instance().logout()
-        }
-    }
-
-
+		}
+	}
+	
+	func applicationDidBecomeActive(application: UIApplication) {
+		ConnectionManager.instance.startObservingInternetAvailability()
+	}
+	
+	func applicationWillTerminate(application: UIApplication) {
+		if QBChat.instance().isLoggedIn() {
+			QBChat.instance().logout()
+		}
+	}
+	
+	
 }
 
