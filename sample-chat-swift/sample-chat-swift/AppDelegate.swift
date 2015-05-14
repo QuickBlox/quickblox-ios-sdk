@@ -43,10 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillEnterForeground(application: UIApplication) {
 		if let user = ConnectionManager.instance.currentUser {
-			QBChat.instance().loginWithUser(user)
 			
 			ConnectionManager.instance.logInWithUser(user, completion: { (success, errorMessage) -> Void in
 				ConnectionManager.instance.joinAllRooms()
+				ConnectionManager.instance.currentChatViewModel?.loadRecentMessages()
 				ConnectionManager.instance.startObservingInternetAvailability()
 			})
 		}

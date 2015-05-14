@@ -47,7 +47,7 @@ class ChatViewModel: NSObject {
                 downloadedMessages as? [QBChatAbstractMessage]{
                     strongSelf.requestDownloadMessages = nil
                     strongSelf.showLoadingIndicator.value = false
-                    // insert in reversed order. Most recent messagess will be at the end
+                    // insert in reversed order. Most recent messages will be at the end
                     strongSelf.messages.splice(reverse(downloadedHistoryMessages), atIndex: 0)
             }
             
@@ -59,6 +59,34 @@ class ChatViewModel: NSObject {
                 println(response.error.error.localizedDescription)
         }
     }
+	
+	func loadRecentMessages() {
+		if messages.isEmpty {
+			return
+		}
+		var page = QBResponsePage(limit: 100)
+		showLoadingIndicator.value = true
+		var params = ["date_sent[gt]": self.messages.last!.datetime.timeIntervalSince1970]
+		
+		QBRequest.messagesWithDialogID(dialog.ID, extendedRequest: params, forPage: page, successBlock: {[weak self] (response: QBResponse!, downloadedMessages: [AnyObject]!, page: QBResponsePage!) -> Void in
+			
+			if let strongSelf = self, downloadedRecentMessages = downloadedMessages as? [QBChatAbstractMessage] {
+				strongSelf.showLoadingIndicator.value = false
+				
+				// check for duplicates
+				for message in downloadedRecentMessages {
+					if strongSelf.messages.filter({$0.ID == message.ID}).isEmpty {
+						strongSelf.messages.append(message)
+					}
+				}
+				
+				
+			}
+			
+			}) { (response: QBResponse!) -> Void in
+				println(response.error.error.localizedDescription)
+		}
+	}
     
     /**
     Observers

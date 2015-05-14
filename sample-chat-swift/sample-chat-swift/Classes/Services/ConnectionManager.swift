@@ -27,6 +27,9 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	let usersDataSource:UsersDataSource = UsersDataSource()
 	let privacyManager:PrivacyManager = PrivacyManager()
 	
+	// after suspending we use this model to check new messages in group chat
+	var currentChatViewModel: ChatViewModel?
+	
 	private override init() {
 		super.init()
 		QBChat.instance().addDelegate(self)
@@ -69,13 +72,17 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	}
 	
 	func joinAllRooms() {
-		if IJReachability.isConnectedToNetwork() {
-			if let dialogs = self.dialogs {
-				let groupDialogs = dialogs.filter({$0.type.value != QBChatDialogTypePrivate.value})
-				for roomDialog in groupDialogs {
-					if !roomDialog.chatRoom.isJoined {
-						roomDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
-					}
+		if !IJReachability.isConnectedToNetwork() {
+			return
+		}
+		if !QBChat.instance().isLoggedIn() {
+			return
+		}
+		if let dialogs = self.dialogs {
+			let groupDialogs = dialogs.filter({$0.type.value != QBChatDialogTypePrivate.value})
+			for roomDialog in groupDialogs {
+				if !roomDialog.chatRoom.isJoined {
+					roomDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
 				}
 			}
 		}

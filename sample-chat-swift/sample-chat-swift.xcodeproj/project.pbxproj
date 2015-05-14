@@ -21,6 +21,7 @@
 		144E3EB81ACA8E5D00E62645 /* devUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 144E3EB51ACA8E5D00E62645 /* devUsers.plist */; };
 		144E3EB91ACA8E5D00E62645 /* qaUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 144E3EB61ACA8E5D00E62645 /* qaUsers.plist */; };
 		144E3EBA1ACA8E5D00E62645 /* releaseUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 144E3EB71ACA8E5D00E62645 /* releaseUsers.plist */; };
+		144E8B5B1B04B65C0021B25C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 144E8B5A1B04B65C0021B25C /* Quickblox.framework */; };
 		146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 146DE9781ACAA42600F203A5 /* libz.dylib */; };
 		147DA9D91AEA730C0001F691 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 147DA9D81AEA730C0001F691 /* Localizable.strings */; };
 		147E76FA1AE117E10067340A /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 147E76F91AE117E10067340A /* UIAlertDialog.m */; };
@@ -74,6 +75,7 @@
 		144E3EB51ACA8E5D00E62645 /* devUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = devUsers.plist; sourceTree = "<group>"; };
 		144E3EB61ACA8E5D00E62645 /* qaUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = qaUsers.plist; sourceTree = "<group>"; };
 		144E3EB71ACA8E5D00E62645 /* releaseUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = releaseUsers.plist; sourceTree = "<group>"; };
+		144E8B5A1B04B65C0021B25C /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		146673CB1AE7A5DD00509C17 /* JSQMessagesViewController+PublicNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JSQMessagesViewController+PublicNotifications.h"; path = "Categories/JSQMessagesViewController+PublicNotifications.h"; sourceTree = "<group>"; };
 		146DE9781ACAA42600F203A5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		147DA9D81AEA730C0001F691 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				144E8B5B1B04B65C0021B25C /* Quickblox.framework in Frameworks */,
 				14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */,
 				14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */,
 				146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */,
@@ -239,6 +242,7 @@
 		5B6D920FF484FAD0667CB524 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				144E8B5A1B04B65C0021B25C /* Quickblox.framework */,
 				14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */,
 				14FAE0471ACAEF0B001D8525 /* libresolv.dylib */,
 				146DE9781ACAA42600F203A5 /* libz.dylib */,
@@ -621,7 +625,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/seven/Documents/work/quickblox-ios-sdk/Framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -650,7 +655,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"/Users/seven/Documents/work/quickblox-ios-sdk/Framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

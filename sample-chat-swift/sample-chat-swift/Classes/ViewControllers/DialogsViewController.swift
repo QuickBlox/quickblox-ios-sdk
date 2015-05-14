@@ -37,8 +37,9 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
 		
 			ConnectionManager.instance.dialogs = dialogs as? [QBChatDialog]
 			ConnectionManager.instance.joinAllRooms()
-            var pagedRequest = QBGeneralResponsePage(currentPage: 1, perPage: 100)
-            
+			
+			var pagedRequest = QBGeneralResponsePage(currentPage: 1, perPage: 100)
+			
             QBRequest.usersWithIDs(Array(dialogsUsersIDs), page: pagedRequest, successBlock: { (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
                 
                 SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
