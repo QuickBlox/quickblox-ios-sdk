@@ -12,10 +12,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
-		<key>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</key>
-		<string>github.com:QuickBlox/XMPPFramework.git</string>
-		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
-		<string>github.com:QuickBlox/SDK-ios.git</string>
+		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
+		<string>github.com:QuickBlox/q-municate-services-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>sample-chat/sample-chat.xcworkspace</string>
@@ -23,10 +21,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
-		<key>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</key>
-		<string>../../../SDK-iOS/Framework/Core/External/XMPP</string>
-		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
-		<string>../../../SDK-iOS</string>
+		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
+		<string>../../sample-chat/Services/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
@@ -48,17 +44,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E650A564D3C23A22EE433AE21D0EA044E7E7A475</string>
+			<string>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</string>
 			<key>IDESourceControlWCCName</key>
-			<string>SDK-iOS</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</string>
-			<key>IDESourceControlWCCName</key>
-			<string>XMPP</string>
+			<string>Services</string>
 		</dict>
 	</array>
 </dict>

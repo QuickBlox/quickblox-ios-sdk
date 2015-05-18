@@ -1,0 +1,3 @@
+[submodule "sample-chat/Services"]
+	path = sample-chat/Services
+	url = git@github.com:QuickBlox/q-municate-services-ios.git
