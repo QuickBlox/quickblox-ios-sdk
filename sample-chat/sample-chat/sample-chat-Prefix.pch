@@ -16,6 +16,7 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <Quickblox/Quickblox.h>
+    #import <QMServices.h>
 
     #import "LocalStorageService.h"
     #import "ChatService.h"
