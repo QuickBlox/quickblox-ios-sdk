@@ -20,6 +20,8 @@
 		86104A111B0A4A0200464D52 /* QMServicesTests in Resources */ = {isa = PBXBuildFile; fileRef = 86104A061B0A4A0200464D52 /* QMServicesTests */; };
 		86104A121B0A4A0200464D52 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 86104A071B0A4A0200464D52 /* README.md */; };
 		86104A181B0B419900464D52 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86104A171B0B419900464D52 /* Quickblox.framework */; };
+		86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServiceManager.m */; };
+		86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86104A161B0A4A0400464D52 /* libQMServices.a */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBD3C981833D654009D090B /* CharactersEscapeService.m */; };
@@ -62,6 +64,13 @@
 			remoteGlobalIDString = 55A365301A2744D300C792C0;
 			remoteInfo = QMServices;
 		};
+		86104A1F1B0B642300464D52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 861049FC1B0A4A0200464D52 /* QMServices.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 55013A301A1F63910030C134;
+			remoteInfo = QMServices;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +89,8 @@
 		86104A061B0A4A0200464D52 /* QMServicesTests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMServicesTests; path = Services/QMServicesTests; sourceTree = SOURCE_ROOT; };
 		86104A071B0A4A0200464D52 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Services/README.md; sourceTree = SOURCE_ROOT; };
 		86104A171B0B419900464D52 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../../../../Documents/Quickblox/Quickblox.framework; sourceTree = "<group>"; };
+		86104A1C1B0B5E1900464D52 /* QBServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBServiceManager.h; sourceTree = "<group>"; };
+		86104A1D1B0B5E1900464D52 /* QBServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBServiceManager.m; sourceTree = "<group>"; };
 		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
 		BFB4627B18150EB00010AE49 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatService.m; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
@@ -135,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */,
 				86104A181B0B419900464D52 /* Quickblox.framework in Frameworks */,
 				BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */,
 				BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */,
@@ -310,6 +322,8 @@
 				BFB4627B18150EB00010AE49 /* ChatService.m */,
 				BFBD3C971833D654009D090B /* CharactersEscapeService.h */,
 				BFBD3C981833D654009D090B /* CharactersEscapeService.m */,
+				86104A1C1B0B5E1900464D52 /* QBServiceManager.h */,
+				86104A1D1B0B5E1900464D52 /* QBServiceManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -349,6 +363,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				86104A201B0B642300464D52 /* PBXTargetDependency */,
 			);
 			name = "sample-chat";
 			productName = "sample-chat";
@@ -486,6 +501,7 @@
 				BFE6FBDC180EE50200E64AC4 /* NMPaginator.m in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
 				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
+				86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */,
 				BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
 				BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */,
@@ -495,6 +511,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		86104A201B0B642300464D52 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QMServices;
+			targetProxy = 86104A1F1B0B642300464D52 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BFE6FB7E180E8EF100E64AC4 /* InfoPlist.strings */ = {
@@ -597,12 +621,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"~/Documents/Quickblox",
 					/Users/andrey_moskvin/Documents/Quickblox,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Services/**",
+				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -622,12 +648,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"~/Documents/Quickblox",
 					/Users/andrey_moskvin/Documents/Quickblox,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Services/**",
+				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";

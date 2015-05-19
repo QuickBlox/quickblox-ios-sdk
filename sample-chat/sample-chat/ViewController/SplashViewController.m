@@ -12,6 +12,7 @@
 #define demoUserPassword @"igorquickblox"
 
 #import <Quickblox/QBASession.h>
+#import "QBServiceManager.h"
 
 @interface SplashViewController ()
 
@@ -22,50 +23,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
-    // Your app connects to QuickBlox server here.
-    //
-    // QuickBlox session creation
-    QBSessionParameters *extendedAuthRequest = [[QBSessionParameters alloc] init];
-    extendedAuthRequest.userLogin = demoUserLogin;
-    extendedAuthRequest.userPassword = demoUserPassword;
-    //
+    QBUUser* user = [QBUUser new];
+    user.login = demoUserLogin;
+    user.password = demoUserPassword;
+    
     __weak __typeof(self)weakSelf = self;
-    [QBRequest createSessionWithExtendedParameters:extendedAuthRequest successBlock:^(QBResponse *response, QBASession *session) {
-        // Save current user
-        //
-        
-        QBUUser *currentUser = [QBUUser user];
-        currentUser.ID = session.userID;
-        currentUser.login = demoUserLogin;
-        currentUser.password = demoUserPassword;
-        //
-        [[LocalStorageService shared] setCurrentUser:currentUser];
-        
-        // Login to QuickBlox Chat
-        //
-        [[ChatService instance] loginWithUser:currentUser completionBlock:^{
-            
-            // hide alert after delay
-            double delayInSeconds = 1.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
-            });
-        }];
-        
-    } errorBlock:^(QBResponse *response) {
-        
-        NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
-        errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-                                                        message:errorMessage
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles: nil];
-        [alert show];
+
+    [[QBServiceManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
+        __typeof(self) strongSelf = weakSelf;
+        if (userProfile != nil) {
+            [[LocalStorageService shared] setCurrentUser:userProfile];
+            [[QBServiceManager instance].chatService logIn:^(NSError *error) {
+                // hide alert after delay
+                double delayInSeconds = 1.0;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [strongSelf dismissViewControllerAnimated:YES completion:nil];
+                });
+            }];
+        }
     }];
 }
 
