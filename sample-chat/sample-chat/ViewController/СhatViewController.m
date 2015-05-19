@@ -15,7 +15,6 @@
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
-@property (nonatomic, strong) QBChatRoom *chatRoom;
 
 - (IBAction)sendMessage:(id)sender;
 
@@ -59,7 +58,7 @@
 
     // Join room
     if(self.dialog.type != QBChatDialogTypePrivate){
-        [self.dialog joinWithHistoryAttributes:@{@"maxstanzas": @"0"}];
+        [self.dialog join];
     }
     
     // get messages history
@@ -76,8 +75,7 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [self.chatRoom leaveRoom];
-    self.chatRoom = nil;
+    [self.dialog leave];
 }
 
 -(BOOL)hidesBottomBarWhenPushed
@@ -105,7 +103,7 @@
         // send message
         message.recipientID = [self.dialog recipientID];
         message.senderID = [LocalStorageService shared].currentUser.ID;
-        [self.dialog sendPrivateChatMessage:message sentBlock:^(NSError *error) {
+        [self.dialog sendMessage:message sentBlock:^(NSError *error) {
             if (error == nil) {
                 NSLog(@"Sent!");
             } else {
@@ -118,7 +116,7 @@
 
     // Group Chat
     }else {
-        [self.dialog sendGroupChatMessage:message];
+        [self.dialog sendMessage:message];
     }
     
     // Reload table
@@ -157,7 +155,7 @@
     QBChatMessage *message = notification.userInfo[kMessage];
     NSString *roomJID = notification.userInfo[kRoomJID];
     
-    if(![self.chatRoom.JID isEqualToString:roomJID]){
+    if(![self.dialog.chatRoom.JID isEqualToString:roomJID]){
         return;
     }
     
