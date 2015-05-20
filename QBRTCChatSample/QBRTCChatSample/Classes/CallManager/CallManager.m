@@ -114,7 +114,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     
     [QBSoundRouter.instance initialize];
     
-    //Test bg mode
+#warning Test bg mode for p2p
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         
         [self.session acceptCall:nil];
