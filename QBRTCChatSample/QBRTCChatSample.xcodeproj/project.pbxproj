@@ -54,7 +54,7 @@
 		55F6BDCE1A3F22010080C326 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCD1A3F22010080C326 /* libsqlite3.dylib */; };
 		55F6BDD01A3F221B0080C326 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCF1A3F221B0080C326 /* libc++.dylib */; };
 		55F6BDD21A3F22BE0080C326 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDD11A3F22BE0080C326 /* libicucore.dylib */; };
-		55FD2E581ADE743400EBC235 /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FD2E571ADE743400EBC235 /* QuickbloxWebRTC.framework */; };
+		FB58A0571B0CBD960022AF9C /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB58A0561B0CBD960022AF9C /* QuickbloxWebRTC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,7 +143,7 @@
 		55F6BDCD1A3F22010080C326 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		55F6BDCF1A3F221B0080C326 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		55F6BDD11A3F22BE0080C326 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		55FD2E571ADE743400EBC235 /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickbloxWebRTC.framework; path = ../Framework/QuickbloxWebRTC.framework; sourceTree = "<group>"; };
+		FB58A0561B0CBD960022AF9C /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickbloxWebRTC.framework; path = ../Framework/QuickbloxWebRTC.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +157,7 @@
 				55F6BDCE1A3F22010080C326 /* libsqlite3.dylib in Frameworks */,
 				55CF63B01A3B007700FE8D19 /* libresolv.dylib in Frameworks */,
 				55CF63AA1A3AFF2E00FE8D19 /* libz.dylib in Frameworks */,
-				55FD2E581ADE743400EBC235 /* QuickbloxWebRTC.framework in Frameworks */,
+				FB58A0571B0CBD960022AF9C /* QuickbloxWebRTC.framework in Frameworks */,
 				5501A8A21AD3F61700D0AE0D /* Quickblox.framework in Frameworks */,
 				55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */,
 				55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */,
@@ -500,9 +500,9 @@
 			isa = PBXGroup;
 			children = (
 				555D5AA01AD6CC0300E2DB6D /* libxml2.2.dylib */,
-				55FD2E571ADE743400EBC235 /* QuickbloxWebRTC.framework */,
 				55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */,
 				5501A8A11AD3F61700D0AE0D /* Quickblox.framework */,
+				FB58A0561B0CBD960022AF9C /* QuickbloxWebRTC.framework */,
 				55F6BDD11A3F22BE0080C326 /* libicucore.dylib */,
 				55F6BDCF1A3F221B0080C326 /* libc++.dylib */,
 				55F6BDCD1A3F22010080C326 /* libsqlite3.dylib */,
@@ -783,7 +783,7 @@
 				GCC_PREFIX_HEADER = "QBRTCChatSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
 				INFOPLIST_FILE = QBRTCChatSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
@@ -811,7 +811,7 @@
 				GCC_PREFIX_HEADER = "QBRTCChatSample-Prefix.pch";
 				HEADER_SEARCH_PATHS = "\"$(SDKROOT)/usr/include/libxml2\"";
 				INFOPLIST_FILE = QBRTCChatSample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
