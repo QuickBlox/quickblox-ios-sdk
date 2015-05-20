@@ -76,8 +76,7 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     NSArray *opponentsIDs = [ConnectionManager.instance idsWithUsers:users];
     
     QBRTCSession *session =
-    [QBRTCClient.instance createNewSessionWithOpponents:opponentsIDs
-                                     withConferenceType:conferenceType];
+    [QBRTCClient.instance createNewSessionWithOpponents:opponentsIDs  withConferenceType:conferenceType];
     
     if (session) {
         
@@ -91,9 +90,8 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
         self.containerVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kContainerViewControllerID];
         self.containerVC.viewControllers = @[callVC];
         self.containerVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self.rootViewController presentViewController:self.containerVC
-                                              animated:YES
-                                            completion:nil];
+       
+        [self.rootViewController presentViewController:self.containerVC animated:YES completion:nil];
     }
     else {
         
@@ -114,32 +112,37 @@ NSString *const kContainerViewControllerID = @"ContainerViewController";
     
     self.session = session;
     
-    NSParameterAssert(userInfo[@"newcall"]);
-    
     [QBSoundRouter.instance initialize];
     
-    [QMSoundManager playRingtoneSound];
-    
-    IncomingCallViewController *incomingVC =
-    [self.mainStoryboard instantiateViewControllerWithIdentifier:kIncomingCallViewControllerID];
-    
-    CallViewController *callVC =
-    [self.mainStoryboard instantiateViewControllerWithIdentifier:kCallViewControllerID];
-   
-    NSAssert(!self.containerVC, @"Muste be nil");
-    self.containerVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kContainerViewControllerID];
-    self.containerVC.viewControllers = @[incomingVC, callVC];
-    
-    incomingVC.session = session;
-    callVC.session = session;
-    
-    [self.rootViewController presentViewController:self.containerVC
-                                          animated:YES
-                                        completion:nil];
+    //Test bg mode
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        
+        [self.session acceptCall:nil];
+    }
+    else {
+        
+        [QMSoundManager playRingtoneSound];
+        
+        IncomingCallViewController *incomingVC =
+        [self.mainStoryboard instantiateViewControllerWithIdentifier:kIncomingCallViewControllerID];
+        
+        CallViewController *callVC =
+        [self.mainStoryboard instantiateViewControllerWithIdentifier:kCallViewControllerID];
+        
+        NSAssert(!self.containerVC, @"Muste be nil");
+        self.containerVC = [self.mainStoryboard instantiateViewControllerWithIdentifier:kContainerViewControllerID];
+        self.containerVC.viewControllers = @[incomingVC, callVC];
+        
+        incomingVC.session = session;
+        callVC.session = session;
+        
+        [self.rootViewController presentViewController:self.containerVC
+                                              animated:YES
+                                            completion:nil];
+    }
 }
 
 - (void)sessionWillClose:(QBRTCSession *)session {
-    if (self.session == session)
     
     NSLog(@"session will close");
 }

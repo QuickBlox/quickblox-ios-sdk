@@ -21,9 +21,10 @@
  *  Begin voice chat /
  */
 - (BOOL)initialize;
-
 /**
- *  End voice chat
+ *  <#Description#>
+ *
+ *  @return <#return value description#>
  */
 - (BOOL)deinitialize;
 

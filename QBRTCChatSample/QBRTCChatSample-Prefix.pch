@@ -44,6 +44,7 @@
     #import "QBRTCConfig.h"
     #import "QBICEServer.h"
     #import "QBSoundRouter.h"
+    #import "QBBackgroundTimer.h"
 
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;
