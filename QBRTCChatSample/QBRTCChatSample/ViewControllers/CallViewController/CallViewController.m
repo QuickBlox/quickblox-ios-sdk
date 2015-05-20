@@ -276,8 +276,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     [cell setColorMarkerText:[NSString stringWithFormat:@"%lu", (unsigned long)user.index + 1]
                     andColor:user.color];
     //Selected
-    if (self.selectedItemIndexPath != nil &&
-        [indexPath compare:self.selectedItemIndexPath] == NSOrderedSame) {
+    if (self.selectedItemIndexPath != nil && [indexPath compare:self.selectedItemIndexPath] == NSOrderedSame) {
         
         cell.selected = YES;
         [self.opponentVideoView setVideoTrack:videoTrack];
