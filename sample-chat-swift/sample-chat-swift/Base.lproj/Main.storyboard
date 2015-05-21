@@ -71,32 +71,11 @@
         <!--Select opponents-->
         <scene sceneID="d3A-1f-NgM">
             <objects>
-                <tableViewController title="Select opponents" id="3ff-8d-9pb" customClass="SelectOpponentViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Select opponents" id="3ff-8d-9pb" customClass="NewDialogViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Sln-qn-yLM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="eXk-Yp-tgG">
-                            <rect key="frame" x="0.0" y="64" width="600" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select opponents" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH2-NN-FuR">
-                                    <rect key="frame" x="0.0" y="5" width="600" height="21"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="21" id="dwX-xy-pai"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="SH2-NN-FuR" firstAttribute="top" secondItem="eXk-Yp-tgG" secondAttribute="top" constant="5" id="FsZ-cO-Q7j"/>
-                                <constraint firstItem="SH2-NN-FuR" firstAttribute="leading" secondItem="eXk-Yp-tgG" secondAttribute="leading" id="lJP-l6-oSt"/>
-                                <constraint firstAttribute="trailing" secondItem="SH2-NN-FuR" secondAttribute="trailing" id="lNJ-BG-hQY"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="C3G-5X-W4U" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -143,7 +122,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Logged in as" id="Iav-xC-5Zn">
+                    <navigationItem key="navigationItem" title="Select opponents" id="Iav-xC-5Zn">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="O7K-fz-vwY">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NPR-SX-7ci">
                                 <rect key="frame" x="534" y="7" width="60" height="30"/>
@@ -366,6 +345,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="R4t-SD-z75"/>
+        <segue reference="k6E-hp-7pJ"/>
     </inferredMetricsTieBreakers>
 </document>

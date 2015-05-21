@@ -18,16 +18,18 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         assert(dialog != nil)
-        
+		
+		
         self.chatViewModel = ChatViewModel(currentUserID: ConnectionManager.instance.currentUser!.ID, dialog: dialog!)
-        
+		
         self.startMessagesObserver()
-        if let chatRoom = dialog?.chatRoom {
-            chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0]) // sendChatMessageWithoutJoin temporary not working
-        }
-        else {
+        if dialog?.chatRoom == nil {
             self.navigationItem.rightBarButtonItem = nil // remove "info" button
         }
+		else {
+			ConnectionManager.instance.joinAllRooms()
+			ConnectionManager.instance.currentChatViewModel = self.chatViewModel
+		}
         QBChat.instance().addDelegate(self)
         
         // needed by block in method QBChat.instance().sendMessage(message, sentBlock
@@ -54,7 +56,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         self.collectionView.addSubview(refreshControl)
         self.collectionView.alwaysBounceVertical = true
     }
-    
+	
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         SVProgressHUD.dismiss()
@@ -73,6 +75,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         var message = QBChatMessage()
         message.senderID = ConnectionManager.instance.currentUser!.ID
         message.customParameters = ["save_to_history": 1]
+		message.customParameters["date_sent"] =  NSDate().timeIntervalSince1970
         if( dialog?.type.value == QBChatDialogTypePrivate.value ) {
             SVProgressHUD.showWithStatus("SA_STR_SENDING".localized, maskType: SVProgressHUDMaskType.Clear)
             message.recipientID = self.chatViewModel.recipientID
@@ -87,8 +90,8 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         else{
             message.text = text
             message.senderNick = ConnectionManager.instance.currentUser?.fullName
-            QBChat.instance().sendChatMessageWithoutJoin(message, toRoom: self.dialog?.chatRoom)
-            
+			QBChat.instance().sendChatMessage(message, toRoom: self.dialog?.chatRoom)
+			
             // will call self.finishSendingMessageAnimated for group chat message in chatRoomDidReceiveMessage
         }
         self.inputToolbar.contentView.textView.text = ""
@@ -256,9 +259,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     }
     
     deinit{
-        if let chatRoom = dialog?.chatRoom {
-            chatRoom.leaveRoom()
-        }
+		ConnectionManager.instance.currentChatViewModel = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
         QBChat.instance().removeDelegate(self)
     }

@@ -59,9 +59,6 @@ typedef enum QBChatServiceError {
   The default value is 5 seconds */
 @property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
 
-/** Contact list mechanism */
-@property (nonatomic, assign) BOOL useMutualSubscriptionForContactList;
-
 /** Array of registered video chat instances */
 @property (readonly) NSMutableArray *registeredVideoChatInstances;
 

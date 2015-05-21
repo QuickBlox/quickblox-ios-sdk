@@ -10,13 +10,13 @@
 class GroupChatUsersInfoTableViewController: LoginTableViewController {
     var occupantsIDs: [UInt] = []
     var chatDialog: QBChatDialog? {
-        didSet{
+        didSet {
             var occupants = chatDialog!.occupantIDs as! [UInt]
             var tmpOccupantsIDs = occupants.filter({$0 != ConnectionManager.instance.currentUser!.ID})
             occupantsIDs = tmpOccupantsIDs
         }
     }
-    
+	
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
         
@@ -24,8 +24,8 @@ class GroupChatUsersInfoTableViewController: LoginTableViewController {
         if let dialogsUsers = ConnectionManager.instance.dialogsUsers {
             let filteredUsers = dialogsUsers.filter({$0.ID == currentOccupantID })
             if !filteredUsers.isEmpty {
-                let currentUser = filteredUsers[0]
-                cell.userDescription = currentUser.email ?? currentUser.login
+				let currentUser = filteredUsers[0]
+				cell.userDescription = currentUser.email ?? currentUser.login
             }
         }
 

@@ -39,7 +39,7 @@
 // Segues
 "SA_STR_SEGUE_GO_TO_DIALOGS" = "goToDialogs";
 "SA_STR_SEGUE_GO_TO_CHAT" = "goToChat";
-
+"SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS" = "goToSelectOpponents";
 // User table view cell model
 "SA_STR_PRIVATE" = "private";
 "SA_STR_GROUP" = "group";
