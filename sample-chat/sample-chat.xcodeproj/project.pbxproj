@@ -21,8 +21,9 @@
 		86104A121B0A4A0200464D52 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 86104A071B0A4A0200464D52 /* README.md */; };
 		86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServiceManager.m */; };
 		86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86104A161B0A4A0400464D52 /* libQMServices.a */; };
+		8620BBA01B0E39EF005ED359 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8620BB9F1B0E39EF005ED359 /* Quickblox.framework */; };
 		86CCE8E61B0E10D800CA6A0D /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */; };
-		86CCE8E91B0E11EE00CA6A0D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */; };
+		86F145521B0E316600F790F9 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86F145511B0E316600F790F9 /* Launch Screen.xib */; };
 		BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */ = {isa = PBXBuildFile; fileRef = BF803DAC1AEE57E6007905B8 /* SoundService.m */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
@@ -49,7 +50,6 @@
 		BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */; };
 		BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */; };
 		BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */; };
-		BFE6FBD2180EA31600E64AC4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */; };
 		BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */; };
 		BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */; };
 		BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */; };
@@ -88,9 +88,11 @@
 		86104A071B0A4A0200464D52 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Services/README.md; sourceTree = SOURCE_ROOT; };
 		86104A1C1B0B5E1900464D52 /* QBServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBServiceManager.h; sourceTree = "<group>"; };
 		86104A1D1B0B5E1900464D52 /* QBServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBServiceManager.m; sourceTree = "<group>"; };
+		8620BB9F1B0E39EF005ED359 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		86CCE8E41B0E10D800CA6A0D /* LocalStorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageService.h; sourceTree = "<group>"; };
 		86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalStorageService.m; sourceTree = "<group>"; };
 		86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../../../../Documents/Quickblox/Quickblox.framework; sourceTree = "<group>"; };
+		86F145511B0E316600F790F9 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BF803DAB1AEE57E6007905B8 /* SoundService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundService.h; sourceTree = "<group>"; };
 		BF803DAC1AEE57E6007905B8 /* SoundService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundService.m; sourceTree = "<group>"; };
@@ -127,8 +129,6 @@
 		BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogsViewController.m; sourceTree = "<group>"; };
 		BFE6FBCC180EA2F300E64AC4 /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
 		BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
-		BFE6FBD0180EA31600E64AC4 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
-		BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
 		BFE6FBDF180EE57700E64AC4 /* UsersPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersPaginator.h; sourceTree = "<group>"; };
 		BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersPaginator.m; sourceTree = "<group>"; };
 		BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "СhatViewController.h"; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86CCE8E91B0E11EE00CA6A0D /* Quickblox.framework in Frameworks */,
+				8620BBA01B0E39EF005ED359 /* Quickblox.framework in Frameworks */,
 				86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */,
 				BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */,
 				BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */,
@@ -225,6 +225,7 @@
 		BFE6FB74180E8EF100E64AC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8620BB9F1B0E39EF005ED359 /* Quickblox.framework */,
 				86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */,
 				BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */,
 				BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */,
@@ -259,6 +260,7 @@
 				BFE6FBE2180F293C00E64AC4 /* Services */,
 				BFE6FBDE180EE56300E64AC4 /* Models */,
 				BFE6FB87180E8EF100E64AC4 /* Main.storyboard */,
+				86F145511B0E316600F790F9 /* Launch Screen.xib */,
 				BFE6FB90180E8EF100E64AC4 /* Images.xcassets */,
 				BFBD3C931832CF30009D090B /* sound.mp3 */,
 				BFE6FB7C180E8EF100E64AC4 /* Supporting Files */,
@@ -284,8 +286,6 @@
 				BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */,
 				BFE6FBCC180EA2F300E64AC4 /* UsersViewController.h */,
 				BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */,
-				BFE6FBD0180EA31600E64AC4 /* SplashViewController.h */,
-				BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */,
 				BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */,
 				BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */,
 			);
@@ -416,6 +416,7 @@
 				86104A101B0A4A0200464D52 /* QMServices in Resources */,
 				86104A081B0A4A0200464D52 /* LICENSE.txt in Resources */,
 				BFE6FB89180E8EF100E64AC4 /* Main.storyboard in Resources */,
+				86F145521B0E316600F790F9 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +474,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				86CCE8E61B0E10D800CA6A0D /* LocalStorageService.m in Sources */,
-				BFE6FBD2180EA31600E64AC4 /* SplashViewController.m in Sources */,
 				BFB4627C18150EB00010AE49 /* ChatService.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
@@ -599,7 +599,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/andrey_moskvin/Documents/Quickblox,
+					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -626,7 +626,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/andrey_moskvin/Documents/Quickblox,
+					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
