@@ -17,51 +17,6 @@
 
 @interface QBRequest (QBMessages)
 
-#pragma mark -
-#pragma mark Create Push Token
-
-/**
- Create push token
- 
- @param pushToken An instance of QBMPushToken
- @param successBlock Block with response and token instances if request succeded
- @param errorBlock Block with response instance if request failed
- @return An instance of QBRequest. Use this instance to cancel the operation.
- */
-+ (QBRequest *)createPushToken:(QBMPushToken *)pushToken successBlock:(void (^)(QBResponse *response, QBMPushToken *token))successBlock
-					errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.")));
-
-
-#pragma mark -
-#pragma mark Delete Push Token with ID
-
-/**
- Delete push token with ID
- 
- @param ID Identifier of push token to delete
- @param successBlock Block with response instance if request succeded
- @param errorBlock Block with response instance if request failed
- @return An instance of QBRequest. Use this instance to cancel the operation.
- */
-+ (QBRequest *)deletePushTokenWithID:(NSUInteger)ID successBlock:(void (^)(QBResponse *response))successBlock
-						  errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest deleteSubscriptionWithID:successBlock:errorBlock:' instead.")));
-
-#pragma mark -
-#pragma mark Create Subscription
-
-/**
- Register subscription
- 
- @param subscriber An instance of QBMSubscription
- @param successBlock Block with response and subscriber instances if request succeded
- @param errorBlock Block with response instance if request failed
- @return An instance of QBRequest. Use this instance to cancel the operation.
- */
-
-+ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken
-                                     successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock
-                                       errorBlock:(void (^)(QBError *error))errorBlock __attribute__((deprecated("use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.")));
-
 /**
  Create subscription
  
@@ -71,7 +26,7 @@
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 
-+ (QBRequest *)createSubscription:(QBMSubscription *)subscriber
++ (QBRequest *)createSubscription:(QBMSubscription *)subscription
                      successBlock:(void (^)(QBResponse *, NSArray *))successBlock
                        errorBlock:(QBRequestErrorBlock)errorBlock;
 
@@ -88,6 +43,7 @@
 + (QBRequest *)subscriptionsWithSuccessBlock:(void (^)(QBResponse *response, NSArray *objects))successBlock
 								  errorBlock:(QBRequestErrorBlock)errorBlock;
 
+
 #pragma mark -
 #pragma mark Delete Subscription with ID
 
@@ -99,8 +55,10 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)deleteSubscriptionWithID:(NSUInteger)ID successBlock:(void (^)(QBResponse *response))successBlock
++ (QBRequest *)deleteSubscriptionWithID:(NSUInteger)ID
+                           successBlock:(void (^)(QBResponse *response))successBlock
 							 errorBlock:(QBRequestErrorBlock)errorBlock;
+
 
 #pragma mark -
 #pragma mark Create Event
@@ -112,7 +70,8 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)createEvent:(QBMEvent *)event successBlock:(void (^)(QBResponse *response, NSArray *events))successBlock
++ (QBRequest *)createEvent:(QBMEvent *)event
+              successBlock:(void (^)(QBResponse *response, NSArray *events))successBlock
                 errorBlock:(QBRequestErrorBlock)errorBlock;
 
 /** Retrieve all events which were created by current user  (with extended set of pagination parameters)
@@ -122,8 +81,10 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)eventsForPage:(QBGeneralResponsePage *)page successBlock:(void (^)(QBResponse *response, QBGeneralResponsePage* page, NSArray *events))successBlock
++ (QBRequest *)eventsForPage:(QBGeneralResponsePage *)page
+                successBlock:(void (^)(QBResponse *response, QBGeneralResponsePage *page, NSArray *events))successBlock
                   errorBlock:(QBRequestErrorBlock)errorBlock;
+
 
 #pragma mark -
 #pragma mark Get Event with ID
@@ -135,8 +96,10 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)eventWithID:(NSUInteger)ID successBlock:(void (^)(QBResponse *response, QBMEvent *event))successBlock
++ (QBRequest *)eventWithID:(NSUInteger)ID
+              successBlock:(void (^)(QBResponse *response, QBMEvent *event))successBlock
 				errorBlock:(QBRequestErrorBlock)errorBlock;
+
 
 #pragma mark -
 #pragma mark Update Event
@@ -148,8 +111,10 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)updateEvent:(QBMEvent *)event successBlock:(void (^)(QBResponse *response, QBMEvent *event))successBlock
++ (QBRequest *)updateEvent:(QBMEvent *)event
+              successBlock:(void (^)(QBResponse *response, QBMEvent *event))successBlock
 				errorBlock:(QBRequestErrorBlock)errorBlock;
+
 
 #pragma mark -
 #pragma mark Delete Event with ID
@@ -161,39 +126,13 @@
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)deleteEventWithID:(NSUInteger)ID successBlock:(void (^)(QBResponse *response))successBlock
++ (QBRequest *)deleteEventWithID:(NSUInteger)ID
+                    successBlock:(void (^)(QBResponse *response))successBlock
 					  errorBlock:(QBRequestErrorBlock)errorBlock;
 
-#pragma mark -
-#pragma mark Register Subscription Task With Custom UDID
-
-/** Create subscription for current device.
- 
- This method registers push token on the server if they are not registered yet, then creates a Subscription and associates it with curent User.
- 
- @param deviceToken Token received from application:didRegisterForRemoteNotificationsWithDeviceToken: method
- @param uniqueDeviceIdentifier device unique identifier
- @param successBlock Block with response and subscriptions instances if request succeded
- @param errorBlock Block with response error if request failed
- @return An instance of QBRequest. Use this instance to cancel the operation.
- */
-+ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken uniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock errorBlock:(void (^)(QBError *error))errorBlock __attribute__((deprecated("use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.")));
 
 #pragma mark -
-#pragma mark Unregister Subscription Task
-
-/** Remove subscription for current device.
- 
- This method remove subscription for current device from server.
- 
- @param successBlock Block with response instance if request succeded
- @param errorBlock Block with error if request failed
- @return An instance of QBRequest. Use this instance to cancel the operation.
- */
-+ (QBRequest *)unregisterSubscriptionWithSuccessBlock:(void (^)(QBResponse *response))successBlock errorBlock:(void (^)(QBError *error))errorBlock;
-
-#pragma mark -
-#pragma mark Send Push Task, to users with ids
+#pragma mark Send push Tasks
 
 /** Send Apple based push notification to users
  
@@ -205,7 +144,9 @@
  @param errorBlock Block with error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage toUsers:(NSString *)usersIDs successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock
++ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage
+                toUsers:(NSString *)usersIDs
+           successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock
              errorBlock:(void (^)(QBError *error))errorBlock;
 
 /** Send simple push notification to users
@@ -218,11 +159,9 @@
  @param errorBlock Block with error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPushWithText:(NSString *)text toUsers:(NSString *)usersIDs successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock
++ (QBRequest *)sendPushWithText:(NSString *)text
+                        toUsers:(NSString *)usersIDs successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock
                      errorBlock:(void (^)(QBError *error))errorBlock;
-
-#pragma mark -
-#pragma mark Send Push Task, to users with tags
 
 /** Send Apple based push notification to users with tags
  
@@ -234,7 +173,9 @@
  @param errorBlock Block with error if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage toUsersWithAnyOfTheseTags:(NSString *)usersTags successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock
++ (QBRequest *)sendPush:(QBMPushMessage *)pushMessage
+toUsersWithAnyOfTheseTags:(NSString *)usersTags
+           successBlock:(void(^)(QBResponse *response, QBMEvent *event))successBlock
              errorBlock:(void (^)(QBError *error))errorBlock;
 
 /** Send simple push notification to users with tags
@@ -247,7 +188,104 @@
  @param errorBlock Block with response instance and QBMEvent instance if request failed
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QBRequest *)sendPushWithText:(NSString *)text toUsersWithAnyOfTheseTags:(NSString *)usersTags successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock
++ (QBRequest *)sendPushWithText:(NSString *)text
+      toUsersWithAnyOfTheseTags:(NSString *)usersTags
+                   successBlock:(void(^)(QBResponse *response, NSArray *events))successBlock
                      errorBlock:(void (^)(QBError *error))errorBlock;
+
+
+#pragma mark -
+#pragma mark Unregister and Register Subscription Tasks
+
+/** Create subscription for current device with custom UDID.
+ 
+ This method registers push token on the server if they are not registered yet, then creates a Subscription and associates it with curent User.
+ 
+ @param deviceToken Token received from application:didRegisterForRemoteNotificationsWithDeviceToken: method
+ @param uniqueDeviceIdentifier The device unique identifier
+ @param successBlock Block with response and subscriptions instances if request succeded
+ @param errorBlock Block with response error if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken
+                           uniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier
+                                     successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock
+                                       errorBlock:(void (^)(QBError *error))errorBlock;
+
+/** Remove subscription for a specific device.
+ 
+ This method remove subscription for a specific device.
+ 
+ @param uniqueDeviceIdentifier The device unique identifier
+ @param successBlock Block with response instance if request succeded
+ @param errorBlock Block with error if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)unregisterSubscriptionForUniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier
+                                                  successBlock:(void (^)(QBResponse *response))successBlock
+                                                    errorBlock:(void (^)(QBError *error))errorBlock;
+
+
+
+#pragma mark -
+#pragma mark Deprecated:
+
+/**
+ Create push token
+ 
+ @warning Deprecated in 2.3. Use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.
+ 
+ @param pushToken An instance of QBMPushToken
+ @param successBlock Block with response and token instances if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)createPushToken:(QBMPushToken *)pushToken
+                  successBlock:(void (^)(QBResponse *response, QBMPushToken *token))successBlock
+                    errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest createSubscription:successBlock:errorBlock:' instead.")));
+
+
+/**
+ Delete push token with ID
+ 
+ @warning Deprecated in 2.3. Use '+[QBRequest deleteSubscriptionWithID:successBlock:errorBlock:' instead
+ 
+ @param ID Identifier of push token to delete
+ @param successBlock Block with response instance if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)deletePushTokenWithID:(NSUInteger)ID
+                        successBlock:(void (^)(QBResponse *response))successBlock
+                          errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest deleteSubscriptionWithID:successBlock:errorBlock:' instead.")));
+
+/**
+ Register subscription
+ 
+ @warning Deprecated in 2.3. Use '+[QBRequest registerSubscriptionForDeviceToken:uniqueDeviceIdentifier:successBlock:errorBlock:' instead.
+ 
+ @param subscriber An instance of QBMSubscription
+ @param successBlock Block with response and subscriber instances if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
+
++ (QBRequest *)registerSubscriptionForDeviceToken:(NSData *)deviceToken
+                                     successBlock:(void(^)(QBResponse *response, NSArray *subscriptions))successBlock
+                                       errorBlock:(void (^)(QBError *error))errorBlock __attribute__((deprecated("use '+[QBRequest registerSubscriptionForDeviceToken:uniqueDeviceIdentifier:successBlock:errorBlock:' instead.")));
+
+
+/** Remove subscription for current device.
+ 
+ @warning Deprecated in 2.3. Use '+[QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:successBlock:errorBlock:' instead.
+ 
+ This method remove subscription for current device.
+ 
+ @param successBlock Block with response instance if request succeded
+ @param errorBlock Block with error if request failed
+ @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)unregisterSubscriptionWithSuccessBlock:(void (^)(QBResponse *response))successBlock
+                                           errorBlock:(void (^)(QBError *error))errorBlock __attribute__((deprecated("use '+[QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:successBlock:errorBlock:' instead.")));
 
 @end

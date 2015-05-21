@@ -45,6 +45,7 @@
     [self setupTableViewFooter];
     
     // Fetch 10 users
+    [SVProgressHUD showWithStatus:@"Loading"];
     [self.paginator fetchFirstPage];
 }
 
@@ -208,6 +209,8 @@
     // reload table with users
     [self.users addObjectsFromArray:results];
     [self.usersTableView reloadData];
+    
+    [SVProgressHUD dismiss];
 }
 
 @end

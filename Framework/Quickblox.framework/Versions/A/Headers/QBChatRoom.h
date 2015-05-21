@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @class QBChatMessage;
 
 /**
  QBChatRoom structure. Represents chat room entity
+ 
+ @warning *Deprecated in QB iOS SDK 2.3:* Use QBChatDialog instead
  */
-
+__attribute__ ((deprecated("Use QBChatDialog instead")))
 @interface QBChatRoom : NSObject <NSCoding, NSCopying>
 /**
  Room name

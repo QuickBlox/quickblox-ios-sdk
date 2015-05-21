@@ -115,32 +115,22 @@
 + (NSString *)chatServerMUCDomain;
 
 /**
- Set TURN server domain
- 
- @param turnDomain New TURN server domain
- */
-+ (void)setTURNServerDomain:(NSString *)turnDomain;
-
-/**
- Get TURN server domain
- 
- @return Current TURN server domain
- */
-+ (NSString *)TURNServerDomain;
-
-/**
  Set Content bucket
+
+ @warning Deprecated in 2.3. No need to use this method anymore.
  
  @param bucket New bucket name
  */
-+ (void)setContentBucket:(NSString *)bucket;
++ (void)setContentBucket:(NSString *)bucket __attribute__((deprecated("No need to use this method anymore.")));
 
 /**
  Get Content bucket
  
+ @warning Deprecated in 2.3. No need to use this method anymore.
+ 
  @return Current bucket
  */
-+ (NSString *)contentBucket;
++ (NSString *)contentBucket __attribute__((deprecated("No need to use this method anymore.")));
 
 
 #pragma mark -
@@ -149,20 +139,20 @@
 /**
  Enable/disable HTTPS for queries
  
- @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS set by default now
+ @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS is set by default now
  
  @param useHTTPS Enable HTTPS for queries. Default value: YES.
  */
-+ (void)useHTTPS:(BOOL)useHTTPS __attribute__((deprecated("No need to call this method, HTTPS set by default now")));
++ (void)useHTTPS:(BOOL)useHTTPS __attribute__((deprecated("No need to call this method, HTTPS is set by default now")));
 
 /**
  Current protocol to perform queries to QuickBlox
  
- @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS set by default now
+ @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS is set by default now
  
  @return YES if HTTPS is enabled;
  */
-+ (BOOL)isUseHTTPS __attribute__((deprecated("No need to call this method, HTTPS set by default now")));
++ (BOOL)isUseHTTPS __attribute__((deprecated("No need to call this method, HTTPS  is set by default now")));
 
 
 #pragma mark -
@@ -171,16 +161,20 @@
 /**
  Enable/disable TLS for chat
  
+ @warning *Deprecated in QB iOS SDK 2.3:* No need to call this method, TLS is set to YES by default now
+ 
  @param useTLSForChat Enable TLS for chat. Default value: NO.
  */
-+ (void)useTLSForChat:(BOOL)useTLSForChat;
++ (void)useTLSForChat:(BOOL)useTLSForChat __attribute__((deprecated("No need to call this method, TLS is set to YES by default now")));
 
 /**
  Current protocol to work with Chat
  
+ @warning *Deprecated in QB iOS SDK 2.3:* No need to call this method, TLS is set to YES by default now
+ 
  @return YES if TLS is enabled;
  */
-+ (BOOL)isUseTLSForChat;
++ (BOOL)isUseTLSForChat __attribute__((deprecated("No need to call this method, TLS is set to YES by default now")));
 
 
 #pragma mark -

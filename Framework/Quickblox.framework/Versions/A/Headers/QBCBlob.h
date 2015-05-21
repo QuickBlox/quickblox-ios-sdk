@@ -82,6 +82,16 @@
  */
 - (NSString *)publicUrl;
 
+/** Get file's public url by UID.
+ @return Public url to file
+ */
++ (NSString *)publicUrlForUID:(NSString *)UID;
+
+/** Get file's public url by ID.
+ @return Public url to file
+ */
++ (NSString *)publicUrlForID:(NSUInteger)ID;
+
 
 #pragma mark -
 #pragma mark Converters
