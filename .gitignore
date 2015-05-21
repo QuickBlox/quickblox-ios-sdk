@@ -15,3 +15,12 @@ profile
 *.moved-aside
 DerivedData
 .idea/
+sample-chat/Pods/Headers/Private/Quickblox
+sample-chat/Pods/Headers/Public/Quickblox
+sample-content/Pods/Headers/Private/Quickblox
+sample-content/Pods/Headers/Public/Quickblox
+sample-custom-objects/Pods/Headers/Private/Quickblox
+sample-custom-objects/Pods/Headers/Public/Quickblox
+sample-chat-swift/Pods/Headers/Public/Quickblox
+sample-chat-swift/Pods/Headers/Private/Quickblox
+sample-chat-swift/Pods/QuickBlox/Quickblox.framework
