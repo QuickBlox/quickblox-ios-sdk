@@ -1,0 +1,1 @@
+../../../JSQMessagesViewController/JSQMessagesViewController/Controllers/JSQMessagesViewController.h

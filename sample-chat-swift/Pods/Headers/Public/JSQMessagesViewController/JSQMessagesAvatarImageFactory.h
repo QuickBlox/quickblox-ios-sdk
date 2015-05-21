@@ -1,0 +1,1 @@
+../../../JSQMessagesViewController/JSQMessagesViewController/Factories/JSQMessagesAvatarImageFactory.h
