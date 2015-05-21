@@ -10,34 +10,36 @@ import UIKit
 
 class DialogsViewController: UIViewController, UITableViewDelegate {
     private var selectedDialog: QBChatDialog?
-    private let kChatSegueIdentifier = "goToChat"
-    private let kOpponentsSegueIdentifier = "goToSelectOpponents"
     @IBOutlet weak var tableView:UITableView!
     
     private var delegate : SwipeableTableViewCellWithBlockButtons!
     
     @IBAction private func goToOpponents(sender: AnyObject?){
-        self.performSegueWithIdentifier(kOpponentsSegueIdentifier, sender: nil)
+        self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS".localized, sender: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.tableView.reloadData()
+		if ConnectionManager.instance.dialogsUsers != nil {
+			self.tableView.reloadData()
+		}
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ConnectionManager.instance.currentUser!.login
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         
         QBRequest.dialogsWithSuccessBlock({ [weak self] (response: QBResponse!, dialogs: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!) -> Void in
-            
-            ConnectionManager.instance.dialogs = dialogs as? [QBChatDialog]
-            
-            var pagedRequest = QBGeneralResponsePage(currentPage: 1, perPage: 100)
-            
+		
+			ConnectionManager.instance.dialogs = dialogs as? [QBChatDialog]
+			ConnectionManager.instance.joinAllRooms()
+			
+			var pagedRequest = QBGeneralResponsePage(currentPage: 1, perPage: 100)
+			
             QBRequest.usersWithIDs(Array(dialogsUsersIDs), page: pagedRequest, successBlock: { (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
                 
                 SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
@@ -61,11 +63,11 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         selectedDialog = ConnectionManager.instance.dialogs![indexPath.row]
-        self.performSegueWithIdentifier(kChatSegueIdentifier , sender: nil)
+        self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized , sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == kChatSegueIdentifier {
+        if segue.identifier == "SA_STR_SEGUE_GO_TO_CHAT".localized {
             if let chatVC = segue.destinationViewController as? ChatViewController {
                 chatVC.dialog = self.selectedDialog
             }

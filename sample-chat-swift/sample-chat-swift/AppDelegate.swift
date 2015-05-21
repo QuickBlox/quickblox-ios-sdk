@@ -15,43 +15,53 @@ let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        QBApplication.sharedApplication().applicationId = kQBApplicationID
-        QBConnection.registerServiceKey(kQBRegisterServiceKey)
-        QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
-        QBSettings.setAccountKey(kQBAccountKey)
-        QBSettings.setLogLevel(QBLogLevel.Debug)
-        return true
-    }
-
-    func applicationWillResignActive(application: UIApplication) {
-    }
-    
-    func applicationDidEnterBackground(application: UIApplication) {
-        if QBChat.instance().isLoggedIn() {
-            QBChat.instance().logout()
-        }
-    }
-
-    func applicationWillEnterForeground(application: UIApplication) {
-        if let user = ConnectionManager.instance.currentUser {
-            QBChat.instance().loginWithUser(user)
-        }
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        if QBChat.instance().isLoggedIn() {
-            QBChat.instance().logout()
-        }
-    }
-
-
+	
+	var window: UIWindow?
+	
+	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+		
+		QBApplication.sharedApplication().applicationId = kQBApplicationID
+		QBConnection.registerServiceKey(kQBRegisterServiceKey)
+		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
+		QBSettings.setAccountKey(kQBAccountKey)
+		QBSettings.setLogLevel(QBLogLevel.Debug)
+		
+		ConnectionManager.instance.startObservingInternetAvailability()
+		
+		return true
+	}
+	
+	func applicationWillResignActive(application: UIApplication) {
+	}
+	
+	func applicationDidEnterBackground(application: UIApplication) {
+		if QBChat.instance().isLoggedIn() {
+			QBChat.instance().logout()
+		}
+		ConnectionManager.instance.stopObservingInternetAvailability()
+	}
+	
+	func applicationWillEnterForeground(application: UIApplication) {
+		if let user = ConnectionManager.instance.currentUser {
+			
+			ConnectionManager.instance.logInWithUser(user, completion: { (success, errorMessage) -> Void in
+				ConnectionManager.instance.joinAllRooms()
+				ConnectionManager.instance.currentChatViewModel?.loadRecentMessages()
+				ConnectionManager.instance.startObservingInternetAvailability()
+			})
+		}
+	}
+	
+	func applicationDidBecomeActive(application: UIApplication) {
+		ConnectionManager.instance.startObservingInternetAvailability()
+	}
+	
+	func applicationWillTerminate(application: UIApplication) {
+		if QBChat.instance().isLoggedIn() {
+			QBChat.instance().logout()
+		}
+	}
+	
+	
 }
 

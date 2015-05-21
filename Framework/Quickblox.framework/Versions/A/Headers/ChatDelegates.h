@@ -46,6 +46,15 @@
 - (void)chatDidNotSendMessage:(QBChatMessage *)message error:(NSError *)error;
 
 /**
+ didNotSendMessage fired when message cannot be send to the group chat
+ 
+ @param message message passed to sendMessage method into QBChat
+ @roomJid JID of the room
+ @param error Error
+ */
+- (void)chatDidNotSendMessage:(QBChatMessage *)message toRoomJid:(NSString *)roomJid error:(NSError *)error;
+
+/**
  didReceiveMessage fired when new message was received from QBChat
  
  @param message Message received from Chat
