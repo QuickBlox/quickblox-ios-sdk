@@ -91,6 +91,16 @@
  */
 - (void)chatDidReceiveServiceDiscoveryInformation:(NSArray *)features;
 
+/**
+ *  Fired when XMPP stream established connection
+ */
+- (void)chatDidConnect;
+
+/**
+ *  Fired when XMPP stream is accidentaly disconnected
+ */
+- (void)chatDidAccidentallyDisconnect;
+
 
 #pragma mark -
 #pragma mark Contact list
@@ -220,7 +230,7 @@
  @param onlineUsers Array of online users
  @param roomName Name of room in which have changed online users
  */
-- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName;
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName __attribute__((deprecated("Use chatRoomOccupantDidJoin/Leave/Update:toRoom: instead.")));
 
 /**
  Called in case changing online users
@@ -228,7 +238,55 @@
  @param onlineUsers Array of online users
  @param roomJID JID of room in which has changed online users list
  */
-- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers roomJID:(NSString *)roomJID;
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers roomJID:(NSString *)roomJID __attribute__((deprecated("Use chatRoomOccupantDidJoin/Leave/Update:toRoomJID: instead.")));
+
+/**
+ *  Called when user joind room.
+ *
+ *  @param occupantJID User's JID.
+ *  @param roomName    Name of room.
+ */
+- (void)chatRoomOccupantDidJoin:(NSString *)occupantJID toRoom:(NSString *)roomName;
+
+/**
+ *  Called when user joind room.
+ *
+ *  @param occupantJID User's JID.
+ *  @param roomJID     JID of room.
+ */
+- (void)chatRoomOccupantDidJoin:(NSString *)occupantJID toRoomJID:(NSString *)roomJID;
+
+/**
+ *  Called when user left room.
+ *
+ *  @param occupantJID User's JID.
+ *  @param roomName    Name of room.
+ */
+- (void)chatRoomOccupantDidLeave:(NSString *)occupantJID toRoom:(NSString *)roomName;
+
+/**
+ *  Called when user left room.
+ *
+ *  @param occupantJID User's JID.
+ *  @param roomJID     JID of room.
+ */
+- (void)chatRoomOccupantDidLeave:(NSString *)occupantJID toRoomJID:(NSString *)roomJID;
+
+/**
+ *  Called when user was updated in room.
+ *
+ *  @param occupantJID User's JID.
+ *  @param roomName    Name of room.
+ */
+- (void)chatRoomOccupantDidUpdate:(NSString *)occupantJID toRoom:(NSString *)roomName;
+
+/**
+ *  Cakked when user was update in room.
+ *
+ *  @param occupantJID User's JID.
+ *  @param roomJID     JID of room.
+ */
+- (void)chatRoomOccupantDidUpdate:(NSString *)occupantJID toRoomJID:(NSString *)roomJID;
 
 /**
  Called in case receiving list of users who can join room

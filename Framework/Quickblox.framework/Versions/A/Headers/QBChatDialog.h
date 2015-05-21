@@ -59,11 +59,8 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
 /** Dialog owner */
 @property (nonatomic, assign) NSUInteger userID;
 
-/** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise or if you aren't logged in to Chat.  */
+/** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise.  */
 @property (nonatomic, readonly) NSInteger recipientID;
-
-/** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
-@property (nonatomic, readonly) QBChatRoom *chatRoom;
 
 /**
  *  Fired when user joined to room.
@@ -97,43 +94,39 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
 #pragma mark - Send message
 
 /**
- *  Send group chat message to room.
+ *  Send chat message to dialog.
  *
- *  @param message Chat message to send
- *
- *  @return YES if the message was sent. If not - see log.
- */
-- (BOOL)sendGroupChatMessage:(QBChatMessage *)message;
-
-/**
- *  Send private chat message
- *
- *  @param message Chat message to send
+ *  @param message Chat message to send.
  *
  *  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendPrivateChatMessage:(QBChatMessage *)message;
+- (BOOL)sendMessage:(QBChatMessage *)message;
 
 /**
- *  Send private chat message with sent block
+ *  Send chat message with sent block
  *
  *  @param message   Chat message to send
  *  @param sentBlock The block which informs whether a message was delivered to server or not. nil if no errors.
  *
  *  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendPrivateChatMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock;
+- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock;
 
 /**
- Send group chat message to room, without room join
+ *Available only for 'Enterprise' clients.* Send group chat message to room, without room join
  
  @param message Chat message to send
- @param room Room to send message
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendGroupChatMessageWithoutJoin:(QBChatMessage *)message;
-
 #pragma mark - Join/leave
+
+/**
+ *  Join status of room
+ *
+ *  @return YES if user is joined to room, otherwise - no.
+ */
+- (BOOL)isJoined;
 
 /**
  *  Join to room. 'onJoin' block will be called.
@@ -141,15 +134,6 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
  *  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)join;
-
-/**
- *  Join to room. 'onJoin' block will be called.
- *
- *  @param historyAttributes Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
- *
- *  @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)joinWithHistoryAttributes:(NSDictionary *)historyAttributes;
 
 /**
  *  Leave joined room. 'onLeave' block will be called.
@@ -192,4 +176,11 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
                           show:(enum QBPresenseShow)show
                       priority:(short)priority
               customParameters:(NSDictionary *)customParameters;
+@end
+
+@interface QBChatDialog (Deprecated)
+
+/** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
+@property (nonatomic, readonly) QBChatRoom *chatRoom;
+
 @end

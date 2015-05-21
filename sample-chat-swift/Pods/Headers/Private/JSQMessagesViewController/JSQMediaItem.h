@@ -1,0 +1,1 @@
+../../../JSQMessagesViewController/JSQMessagesViewController/Model/JSQMediaItem.h

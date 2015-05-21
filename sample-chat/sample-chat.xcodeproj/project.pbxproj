@@ -19,12 +19,13 @@
 		86104A101B0A4A0200464D52 /* QMServices in Resources */ = {isa = PBXBuildFile; fileRef = 861049FB1B0A4A0200464D52 /* QMServices */; };
 		86104A111B0A4A0200464D52 /* QMServicesTests in Resources */ = {isa = PBXBuildFile; fileRef = 86104A061B0A4A0200464D52 /* QMServicesTests */; };
 		86104A121B0A4A0200464D52 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 86104A071B0A4A0200464D52 /* README.md */; };
-		86104A181B0B419900464D52 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86104A171B0B419900464D52 /* Quickblox.framework */; };
 		86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServiceManager.m */; };
 		86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86104A161B0A4A0400464D52 /* libQMServices.a */; };
+		86CCE8E61B0E10D800CA6A0D /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */; };
+		86CCE8E91B0E11EE00CA6A0D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */; };
+		BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */ = {isa = PBXBuildFile; fileRef = BF803DAC1AEE57E6007905B8 /* SoundService.m */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
-		BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFBD3C981833D654009D090B /* CharactersEscapeService.m */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
 		BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */; };
 		BFE6FB7A180E8EF100E64AC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB79180E8EF100E64AC4 /* UIKit.framework */; };
@@ -49,9 +50,7 @@
 		BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */; };
 		BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */; };
 		BFE6FBD2180EA31600E64AC4 /* SplashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */; };
-		BFE6FBDC180EE50200E64AC4 /* NMPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBDB180EE50200E64AC4 /* NMPaginator.m */; };
 		BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */; };
-		BFE6FBE5180F295100E64AC4 /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE4180F295100E64AC4 /* LocalStorageService.m */; };
 		BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */; };
 		BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */; };
 /* End PBXBuildFile section */
@@ -74,8 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		23D10173847AD149B78F9958 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		4C764B814CE4091E30E27BF1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		861049F31B0A4A0200464D52 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = Services/LICENSE.txt; sourceTree = SOURCE_ROOT; };
 		861049F41B0A4A0200464D52 /* QMAuthService */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMAuthService; path = Services/QMAuthService; sourceTree = SOURCE_ROOT; };
 		861049F51B0A4A0200464D52 /* QMBaseService */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMBaseService; path = Services/QMBaseService; sourceTree = SOURCE_ROOT; };
@@ -88,15 +86,18 @@
 		861049FC1B0A4A0200464D52 /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = Services/QMServices.xcodeproj; sourceTree = SOURCE_ROOT; };
 		86104A061B0A4A0200464D52 /* QMServicesTests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMServicesTests; path = Services/QMServicesTests; sourceTree = SOURCE_ROOT; };
 		86104A071B0A4A0200464D52 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Services/README.md; sourceTree = SOURCE_ROOT; };
-		86104A171B0B419900464D52 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../../../../Documents/Quickblox/Quickblox.framework; sourceTree = "<group>"; };
 		86104A1C1B0B5E1900464D52 /* QBServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBServiceManager.h; sourceTree = "<group>"; };
 		86104A1D1B0B5E1900464D52 /* QBServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBServiceManager.m; sourceTree = "<group>"; };
+		86CCE8E41B0E10D800CA6A0D /* LocalStorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageService.h; sourceTree = "<group>"; };
+		86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalStorageService.m; sourceTree = "<group>"; };
+		86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../../../../Documents/Quickblox/Quickblox.framework; sourceTree = "<group>"; };
+		B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		BF803DAB1AEE57E6007905B8 /* SoundService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundService.h; sourceTree = "<group>"; };
+		BF803DAC1AEE57E6007905B8 /* SoundService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundService.m; sourceTree = "<group>"; };
 		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
 		BFB4627B18150EB00010AE49 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatService.m; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
-		BFBD3C971833D654009D090B /* CharactersEscapeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharactersEscapeService.h; sourceTree = "<group>"; };
-		BFBD3C981833D654009D090B /* CharactersEscapeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CharactersEscapeService.m; sourceTree = "<group>"; };
-		BFE6FB72180E8EF100E64AC4 /* Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFE6FB72180E8EF100E64AC4 /* supersample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = supersample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB75180E8EF100E64AC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BFE6FB79180E8EF100E64AC4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -128,12 +129,8 @@
 		BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
 		BFE6FBD0180EA31600E64AC4 /* SplashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashViewController.h; sourceTree = "<group>"; };
 		BFE6FBD1180EA31600E64AC4 /* SplashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashViewController.m; sourceTree = "<group>"; };
-		BFE6FBDA180EE50200E64AC4 /* NMPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMPaginator.h; sourceTree = "<group>"; };
-		BFE6FBDB180EE50200E64AC4 /* NMPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMPaginator.m; sourceTree = "<group>"; };
 		BFE6FBDF180EE57700E64AC4 /* UsersPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersPaginator.h; sourceTree = "<group>"; };
 		BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersPaginator.m; sourceTree = "<group>"; };
-		BFE6FBE3180F295100E64AC4 /* LocalStorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageService.h; sourceTree = "<group>"; };
-		BFE6FBE4180F295100E64AC4 /* LocalStorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalStorageService.m; sourceTree = "<group>"; };
 		BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "СhatViewController.h"; sourceTree = "<group>"; };
 		BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "СhatViewController.m"; sourceTree = "<group>"; };
 		BFE6FBF31812E0F800E64AC4 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageTableViewCell.h; sourceTree = "<group>"; };
@@ -146,8 +143,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86CCE8E91B0E11EE00CA6A0D /* Quickblox.framework in Frameworks */,
 				86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */,
-				86104A181B0B419900464D52 /* Quickblox.framework in Frameworks */,
 				BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */,
 				BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */,
 				BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */,
@@ -198,20 +195,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9316A6FD33C239E58054E2CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */,
+				1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BFE6FB69180E8EF100E64AC4 = {
 			isa = PBXGroup;
 			children = (
 				BFE6FB7B180E8EF100E64AC4 /* sample-chat */,
 				BFE6FB74180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB73180E8EF100E64AC4 /* Products */,
-				D8BDA4B1A6C990FA2165D669 /* Pods */,
+				9316A6FD33C239E58054E2CC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
 		BFE6FB73180E8EF100E64AC4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BFE6FB72180E8EF100E64AC4 /* Chat.app */,
+				BFE6FB72180E8EF100E64AC4 /* supersample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,7 +225,7 @@
 		BFE6FB74180E8EF100E64AC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				86104A171B0B419900464D52 /* Quickblox.framework */,
+				86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */,
 				BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */,
 				BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */,
 				BFE6FBC3180E9E9B00E64AC4 /* libz.1.2.5.dylib */,
@@ -255,7 +261,6 @@
 				BFE6FB87180E8EF100E64AC4 /* Main.storyboard */,
 				BFE6FB90180E8EF100E64AC4 /* Images.xcassets */,
 				BFBD3C931832CF30009D090B /* sound.mp3 */,
-				BFE6FBD8180EE50200E64AC4 /* External */,
 				BFE6FB7C180E8EF100E64AC4 /* Supporting Files */,
 			);
 			path = "sample-chat";
@@ -287,23 +292,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		BFE6FBD8180EE50200E64AC4 /* External */ = {
-			isa = PBXGroup;
-			children = (
-				BFE6FBD9180EE50200E64AC4 /* NMPaginator */,
-			);
-			path = External;
-			sourceTree = "<group>";
-		};
-		BFE6FBD9180EE50200E64AC4 /* NMPaginator */ = {
-			isa = PBXGroup;
-			children = (
-				BFE6FBDA180EE50200E64AC4 /* NMPaginator.h */,
-				BFE6FBDB180EE50200E64AC4 /* NMPaginator.m */,
-			);
-			path = NMPaginator;
-			sourceTree = "<group>";
-		};
 		BFE6FBDE180EE56300E64AC4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,14 +304,14 @@
 		BFE6FBE2180F293C00E64AC4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BFE6FBE3180F295100E64AC4 /* LocalStorageService.h */,
-				BFE6FBE4180F295100E64AC4 /* LocalStorageService.m */,
+				86CCE8E41B0E10D800CA6A0D /* LocalStorageService.h */,
+				86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */,
 				BFB4627A18150EB00010AE49 /* ChatService.h */,
 				BFB4627B18150EB00010AE49 /* ChatService.m */,
-				BFBD3C971833D654009D090B /* CharactersEscapeService.h */,
-				BFBD3C981833D654009D090B /* CharactersEscapeService.m */,
 				86104A1C1B0B5E1900464D52 /* QBServiceManager.h */,
 				86104A1D1B0B5E1900464D52 /* QBServiceManager.m */,
+				BF803DAB1AEE57E6007905B8 /* SoundService.h */,
+				BF803DAC1AEE57E6007905B8 /* SoundService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -335,15 +323,6 @@
 				BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		D8BDA4B1A6C990FA2165D669 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4C764B814CE4091E30E27BF1 /* Pods.debug.xcconfig */,
-				23D10173847AD149B78F9958 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,7 +346,7 @@
 			);
 			name = "sample-chat";
 			productName = "sample-chat";
-			productReference = BFE6FB72180E8EF100E64AC4 /* Chat.app */;
+			productReference = BFE6FB72180E8EF100E64AC4 /* supersample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -493,20 +472,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86CCE8E61B0E10D800CA6A0D /* LocalStorageService.m in Sources */,
 				BFE6FBD2180EA31600E64AC4 /* SplashViewController.m in Sources */,
 				BFB4627C18150EB00010AE49 /* ChatService.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
 				86104A121B0A4A0200464D52 /* README.md in Sources */,
-				BFE6FBDC180EE50200E64AC4 /* NMPaginator.m in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
 				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
 				86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */,
-				BFBD3C991833D654009D090B /* CharactersEscapeService.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
 				BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */,
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
-				BFE6FBE5180F295100E64AC4 /* LocalStorageService.m in Sources */,
+				BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,11 +592,11 @@
 		};
 		BFE6FBA8180E8EF100E64AC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C764B814CE4091E30E27BF1 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/andrey_moskvin/Documents/Quickblox,
@@ -630,22 +608,22 @@
 					"$(SRCROOT)/Services/**",
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_NAME = Chat;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PRODUCT_NAME = supersample;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		BFE6FBA9180E8EF100E64AC4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23D10173847AD149B78F9958 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/andrey_moskvin/Documents/Quickblox,
@@ -657,11 +635,10 @@
 					"$(SRCROOT)/Services/**",
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_NAME = Chat;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PRODUCT_NAME = supersample;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

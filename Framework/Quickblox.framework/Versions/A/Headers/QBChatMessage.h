@@ -35,9 +35,9 @@
 @property (nonatomic, assign) NSUInteger senderID;
 
 /**
- Message datetime
+ Message date sent
  */
-@property (nonatomic, retain) NSDate *datetime;
+@property (nonatomic, retain) NSDate *dateSent;
 
 /**
  Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.

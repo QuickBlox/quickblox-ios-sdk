@@ -116,7 +116,7 @@
  @param errorBlock Block with response instance if request failed
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QBRequest *)markMessagesAsRead:(NSSet *)messageIDs dialogID:(NSString *)dialogID successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)markMessagesAsRead:(NSSet *)messagesIDs dialogID:(NSString *)dialogID successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
 /**
  Delete existing chat message
@@ -128,7 +128,41 @@
  */
 + (QBRequest *)deleteMessageWithID:(NSString *)messageID successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
+/**
+ Delete existing chat messages
+ 
+ @param messageIDs Set of message IDs to delete
+ @param successBlock Block with response instance if request succeded
+ @param errorBlock Block with response instance if request failed
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
 
-+ (QBRequest *)deleteMessagesWithIDs:(NSSet *)messageIDs successBlock:(void(^)(QBResponse *responce))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteMessagesWithIDs:(NSSet *)messageIDs successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
+
+/**
+ *  Returns count of dialogs.
+ *
+ *  @param parameters   Dialog filter parameters.
+ *  @param successBlock Block with response instance and count if request succeded.
+ *  @param errorBlock   Block with response instance if request failed.
+ *
+ *  @return QBRequest instance.
+ */
++ (QBRequest *)countOfDialogsWithExtendedRequest:(NSDictionary *)parameters successBlock:(void(^)(QBResponse * response, NSUInteger count)) successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
+
+/**
+ *  Returns count of messages for dialog.
+ *
+ *  @param dialogID     Dialog ID of the chat messages.
+ *  @param parameters   Messages filter parameters.
+ *  @param successBlock Block with response instance and count if request succeded.
+ *  @param errorBlock   Block with response instance if request failed.
+ *
+ *  @return QBRequest instance.
+ */
++ (QBRequest *)countOfMessagesForDialogID:(NSString *)dialogID
+                          extendedRequest:(NSDictionary *)parameters
+                             successBlock:(void(^)(QBResponse * response, NSUInteger count)) successBlock
+                               errorBlock:(QBRequestErrorBlock)errorBlock;
 
 @end

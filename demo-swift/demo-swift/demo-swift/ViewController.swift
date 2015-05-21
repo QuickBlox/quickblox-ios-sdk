@@ -60,6 +60,7 @@ class ViewController: UIViewController, QBActionStatusDelegate, UITextFieldDeleg
                 NSLog("session: %@", session);
                 self.submitButton.enabled = true
             
+            
             }, errorBlock: { (response: QBResponse!) -> Void in
                 NSLog("error: %@", response.error);
             });
@@ -69,11 +70,11 @@ class ViewController: UIViewController, QBActionStatusDelegate, UITextFieldDeleg
         
         // clear textfields by shake event
         if motion == UIEventSubtype.MotionShake{
-            var firstNameTextField = questionsTableView.viewWithTag(100201) as UITextField
-            let lastNameTextField = questionsTableView.viewWithTag(100202) as UITextField
-            let companyTextField = questionsTableView.viewWithTag(100203) as UITextField
-            let phoneTextField = questionsTableView.viewWithTag(100204) as UITextField
-            let emailTextField = questionsTableView.viewWithTag(100205) as UITextField
+            var firstNameTextField = questionsTableView.viewWithTag(100201) as! UITextField
+            let lastNameTextField = questionsTableView.viewWithTag(100202) as! UITextField
+            let companyTextField = questionsTableView.viewWithTag(100203) as! UITextField
+            let phoneTextField = questionsTableView.viewWithTag(100204) as! UITextField
+            let emailTextField = questionsTableView.viewWithTag(100205) as! UITextField
             //
             firstNameTextField.text = ""
             lastNameTextField.text = ""
@@ -93,11 +94,11 @@ class ViewController: UIViewController, QBActionStatusDelegate, UITextFieldDeleg
         let object = QBCOCustomObject()
         object.className = "BetaTesters"
         //
-        var firstNameTextField = questionsTableView.viewWithTag(100201) as UITextField
-        let lastNameTextField = questionsTableView.viewWithTag(100202) as UITextField
-        let companyTextField = questionsTableView.viewWithTag(100203) as UITextField
-        let phoneTextField = questionsTableView.viewWithTag(100204) as UITextField
-        let emailTextField = questionsTableView.viewWithTag(100205) as UITextField
+        var firstNameTextField = questionsTableView.viewWithTag(100201) as! UITextField
+        let lastNameTextField = questionsTableView.viewWithTag(100202) as! UITextField
+        let companyTextField = questionsTableView.viewWithTag(100203) as! UITextField
+        let phoneTextField = questionsTableView.viewWithTag(100204) as! UITextField
+        let emailTextField = questionsTableView.viewWithTag(100205) as! UITextField
         
         var params = ["first_name": firstNameTextField.text,
                       "last_name": lastNameTextField.text,
@@ -127,7 +128,7 @@ class ViewController: UIViewController, QBActionStatusDelegate, UITextFieldDeleg
     
     // UITextFieldDelegate
     //
-    func textFieldShouldReturn(textField: UITextField!) -> Bool{
+    func textFieldShouldReturn(textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         return true
     }
@@ -150,7 +151,7 @@ class ViewController: UIViewController, QBActionStatusDelegate, UITextFieldDeleg
     
     // UITableViewDelegate
     //
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!){
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
         
         if indexPath.section == 2{
@@ -177,22 +178,22 @@ class ViewController: UIViewController, QBActionStatusDelegate, UITextFieldDeleg
 
         if indexPath.section == 0{
             if indexPath.row == 0{
-                cell = tableView.dequeueReusableCellWithIdentifier("FirstNameCellIdentifier") as UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("FirstNameCellIdentifier") as! UITableViewCell
             }else{
-                cell = tableView.dequeueReusableCellWithIdentifier("LastNameCellIdentifier") as UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("LastNameCellIdentifier") as! UITableViewCell
             }
         }else if indexPath.section == 1{
             if indexPath.row == 0{
-                cell = tableView.dequeueReusableCellWithIdentifier("CompanyCellIdentifier") as UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("CompanyCellIdentifier") as! UITableViewCell
             }else if indexPath.row == 1{
-                cell = tableView.dequeueReusableCellWithIdentifier("PhoneCellIdentifier") as UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("PhoneCellIdentifier") as! UITableViewCell
             }else {
-                cell = tableView.dequeueReusableCellWithIdentifier("EmailCellIdentifier") as UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("EmailCellIdentifier") as! UITableViewCell
             }
         }else{
-            cell = tableView.dequeueReusableCellWithIdentifier("AnswerCellIdentifier") as UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("AnswerCellIdentifier") as! UITableViewCell
             
-            let cellLabel = cell.viewWithTag(100200) as UILabel
+            let cellLabel = cell.viewWithTag(100200) as! UILabel
             cellLabel.text = questionAnswers[indexPath.row]
             
             if selectedAnswer == indexPath.row{

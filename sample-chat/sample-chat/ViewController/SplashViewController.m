@@ -8,11 +8,14 @@
 
 #import "SplashViewController.h"
 
-#define demoUserLogin @"igorquickblox"
-#define demoUserPassword @"igorquickblox"
+#define demoUserLogin1 @"igorquickblox"
+#define demoUserPassword1 @"igorquickblox"
+#define demoUserLogin2 @"Dimple"
+#define demoUserPassword2 @"Dimple12"
 
 #import <Quickblox/QBASession.h>
 #import "QBServiceManager.h"
+#import "LocalStorageService.h"
 
 @interface SplashViewController ()
 
@@ -25,8 +28,8 @@
     [super viewDidLoad];
     
     QBUUser* user = [QBUUser new];
-    user.login = demoUserLogin;
-    user.password = demoUserPassword;
+    user.login = demoUserLogin1;
+    user.password = demoUserPassword1;
     
     __weak __typeof(self)weakSelf = self;
 

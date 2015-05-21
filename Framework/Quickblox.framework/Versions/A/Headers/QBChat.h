@@ -318,14 +318,11 @@ typedef enum QBChatServiceError {
 
 @interface QBChat (Deprecated)
 
-
-
 /** QBChat delegate for callbacks
  
  @warning *Deprecated in QB iOS SDK 2.1:* Use addDelegate: instead
  */
 @property (weak, nonatomic) id <QBChatDelegate> delegate __attribute__((deprecated("Use addDelegate: instead")));
-
 
 
 /**
@@ -476,82 +473,103 @@ typedef enum QBChatServiceError {
 /**
  Send chat message to room
  
+ @warning Deprecated in 2.3. Use 'sendMessage:' in QBChatDialog class.
+ 
  @param message Message body
  @param room Room to send message
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendChatMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendGroupChatMessage: in QBChatDialog class.")));
+- (BOOL)sendChatMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'sendMessage:' in QBChatDialog class.")));
 
 /**
  Send message
+
+ @warning Deprecated in 2.3. Use 'sendMessage:' in QBChatDialog class.
  
  @param message QBChatMessage instance
  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendMessage:(QBChatMessage *)message __attribute__((deprecated("Use sendPrivateChatMessage: in QBChatDialog class.")));
+- (BOOL)sendMessage:(QBChatMessage *)message __attribute__((deprecated("Use 'sendMessage:' in QBChatDialog class.")));
 
 /**
  Send message with 'sent' block
+ 
+ @warning Deprecated in 2.3. Use 'sendMessage:sentBlock:' in QBChatDialog class.
  
  @param message QBChatMessage instance
  @param sentBlock The block which informs whether a message was delivered to server or not. nil if no errors.
  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock __attribute__((deprecated("Use sendPrivateChatMessage:sentBlock: in QBChatDialog class.")));
+- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock __attribute__((deprecated("Use 'sendMessage:sentBlock:' in QBChatDialog class.")));
 
 /**
- Send chat message to room, without room join
+ *Available only for 'Enterprise' clients.* Send chat message to room, without room join
+ 
+ @warning Deprecated in 2.3. Use 'sendGroupChatMessageWithoutJoin:' in QBChatDialog class.
  
  @param message Message body
  @param room Room to send message
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendChatMessageWithoutJoin:(QBChatMessage *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendGroupChatMessage: in QBChatDialog class.")));
+- (BOOL)sendChatMessageWithoutJoin:(QBChatMessage *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'sendGroupChatMessageWithoutJoin:' in QBChatDialog class.")));
 
 /**
  Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
  
+ @warning Deprecated in 2.3. Use 'join' in QBChatDialog class.
+ 
  @param room Room to join
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)joinRoom:(QBChatRoom *)room __attribute__((deprecated("Use join in QBChatDialog class.")));
+- (BOOL)joinRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'join' in QBChatDialog class.")));
 
 /**
  Join room. QBChatDelegate's method 'chatRoomDidEnter:' will be called
+ 
+ @warning Deprecated in 2.3. Use 'join' in QBChatDialog class..
  
  @param room Room to join
  @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)joinRoom:(QBChatRoom *)room historyAttribute:(NSDictionary *)historyAttribute __attribute__((deprecated("Use joinWithHistoryAttributes: in QBChatDialog class.")));
+- (BOOL)joinRoom:(QBChatRoom *)room historyAttribute:(NSDictionary *)historyAttribute __attribute__((deprecated("Use 'join' in QBChatDialog class.")));
 
 /**
  Leave joined room. QBChatDelegate's method 'chatRoomDidLeave:' will be called
  
+ @warning Deprecated in 2.3. Use 'leave' in QBChatDialog class.
+ 
  @param room Room to leave
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)leaveRoom:(QBChatRoom *)room __attribute__((deprecated("Use leave in QBChatDialog class.")));
+- (BOOL)leaveRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'leave' in QBChatDialog class.")));
 
 /**
  Request users who are joined a room. QBChatDelegate's method 'chatRoomDidReceiveListOfOnlineUsers:room:' will be called
  
+ @warning Deprecated in 2.3. Use 'requestOnlineUsers' in QBChatDialog class.
+ 
  @param room Room
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)requestRoomOnlineUsers:(QBChatRoom *)room __attribute__((deprecated("Use requestOnlineUsers in QBChatDialog class.")));
+
+- (BOOL)requestRoomOnlineUsers:(QBChatRoom *)room __attribute__((deprecated("Use 'requestOnlineUsers' in QBChatDialog class.")));
 
 /**
  Send presence with parameters to room
+ 
+ @warning Deprecated in 2.3. Use 'sendPresenceWithParameters' in QBChatDialog class.
  
  @param parameters Presence parameters
  @param room Room to send presence
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendPresenceWithParameters: in QBChatDialog class.")));
+- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'sendPresenceWithParameters:' in QBChatDialog class.")));
 
 /**
  Send presence with status, show, priority, custom parameters to room
+ 
+ @warning Deprecated in 2.3. Use 'sendPresenceWithStatus:show:priority:customParameters:' in QBChatDialog class.
  
  @param status Element contains character data specifying a natural-language description of availability status
  @param show Element contains non-human-readable character data that specifies the particular availability status of an entity or specific resource.
@@ -564,6 +582,6 @@ typedef enum QBChatServiceError {
                           show:(enum QBPresenseShow)show
                       priority:(short)priority 
               customParameters:(NSDictionary *)customParameters
-                        toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendPresenceWithStatus:show:priority:customParameters: in QBChatDialog class.")));
+                        toRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'sendPresenceWithStatus:show:priority:customParameters:' in QBChatDialog class.")));
 
 @end
