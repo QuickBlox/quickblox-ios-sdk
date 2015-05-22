@@ -39,18 +39,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
 		self.chatLoginCompletion = completion
         self.tmpUser = user
         
-        if QBChat.instance().isLoggedIn() {
-            QBChat.instance().logout()
-            if self.dialogs != nil {
-                self.dialogs = nil
-                self.dialogsUsers = nil
-                self.messagesIDsToDelete.removeAll(false)
-            }
-            self.privacyManager.reset()
-        }
-        
-        QBChat.instance().loginWithUser(user)
-        
+        QMAuthService.logInWithUser()
         
 	}
 	
@@ -83,7 +72,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	}
 	
 	func chatDidLogin() {
-        self.currentUser = QBSession.currentSession().currentUser
+        self.currentUser = QBChat.instance().currentUser()
 		self.presenceTimer = NSTimer.scheduledTimerWithTimeInterval(kChatPresenceTimeInterval, target: QBChat.instance(), selector: Selector("sendPresence"), userInfo: nil, repeats: true)
 		self.privacyManager.retrieveDefaultPrivacyList()
 	}
