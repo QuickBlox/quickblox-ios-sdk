@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <QMAuthService.h>
-#import <QMChatService.h>
 
 @interface QBServiceManager : NSObject
 
