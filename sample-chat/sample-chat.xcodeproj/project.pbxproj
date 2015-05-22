@@ -7,23 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CC758A41B0F0E7500999187 /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC758A21B0F0D8700999187 /* LocalStorageService.m */; };
+		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
-		86104A081B0A4A0200464D52 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 861049F31B0A4A0200464D52 /* LICENSE.txt */; };
-		86104A091B0A4A0200464D52 /* QMAuthService in Resources */ = {isa = PBXBuildFile; fileRef = 861049F41B0A4A0200464D52 /* QMAuthService */; };
-		86104A0A1B0A4A0200464D52 /* QMBaseService in Resources */ = {isa = PBXBuildFile; fileRef = 861049F51B0A4A0200464D52 /* QMBaseService */; };
-		86104A0B1B0A4A0200464D52 /* QMChatCache in Resources */ = {isa = PBXBuildFile; fileRef = 861049F61B0A4A0200464D52 /* QMChatCache */; };
-		86104A0C1B0A4A0200464D52 /* QMChatService in Resources */ = {isa = PBXBuildFile; fileRef = 861049F71B0A4A0200464D52 /* QMChatService */; };
-		86104A0D1B0A4A0200464D52 /* QMContactListCache in Resources */ = {isa = PBXBuildFile; fileRef = 861049F81B0A4A0200464D52 /* QMContactListCache */; };
-		86104A0E1B0A4A0200464D52 /* QMContactListService in Resources */ = {isa = PBXBuildFile; fileRef = 861049F91B0A4A0200464D52 /* QMContactListService */; };
-		86104A0F1B0A4A0200464D52 /* QMDBStorage in Resources */ = {isa = PBXBuildFile; fileRef = 861049FA1B0A4A0200464D52 /* QMDBStorage */; };
-		86104A101B0A4A0200464D52 /* QMServices in Resources */ = {isa = PBXBuildFile; fileRef = 861049FB1B0A4A0200464D52 /* QMServices */; };
-		86104A111B0A4A0200464D52 /* QMServicesTests in Resources */ = {isa = PBXBuildFile; fileRef = 86104A061B0A4A0200464D52 /* QMServicesTests */; };
-		86104A121B0A4A0200464D52 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 86104A071B0A4A0200464D52 /* README.md */; };
 		86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServiceManager.m */; };
-		86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86104A161B0A4A0400464D52 /* libQMServices.a */; };
-		8620BBA01B0E39EF005ED359 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8620BB9F1B0E39EF005ED359 /* Quickblox.framework */; };
-		86CCE8E61B0E10D800CA6A0D /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */; };
-		86F145521B0E316600F790F9 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86F145511B0E316600F790F9 /* Launch Screen.xib */; };
+		8620BC0C1B0F36FB005ED359 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8620BC0B1B0F36FB005ED359 /* Quickblox.framework */; };
+		8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E80F71B0F17A500A6E86D /* libQMServices.a */; };
 		BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */ = {isa = PBXBuildFile; fileRef = BF803DAC1AEE57E6007905B8 /* SoundService.m */; };
 		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
@@ -56,16 +45,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		86104A151B0A4A0400464D52 /* PBXContainerItemProxy */ = {
+		2C6E80F61B0F17A500A6E86D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 861049FC1B0A4A0200464D52 /* QMServices.xcodeproj */;
+			containerPortal = 2C6E80DF1B0F17A400A6E86D /* QMServices.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 55A365301A2744D300C792C0;
 			remoteInfo = QMServices;
 		};
-		86104A1F1B0B642300464D52 /* PBXContainerItemProxy */ = {
+		2C6E80F81B0F17BA00A6E86D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 861049FC1B0A4A0200464D52 /* QMServices.xcodeproj */;
+			containerPortal = 2C6E80DF1B0F17A400A6E86D /* QMServices.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 55013A301A1F63910030C134;
 			remoteInfo = QMServices;
@@ -74,24 +63,12 @@
 
 /* Begin PBXFileReference section */
 		1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		861049F31B0A4A0200464D52 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = Services/LICENSE.txt; sourceTree = SOURCE_ROOT; };
-		861049F41B0A4A0200464D52 /* QMAuthService */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMAuthService; path = Services/QMAuthService; sourceTree = SOURCE_ROOT; };
-		861049F51B0A4A0200464D52 /* QMBaseService */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMBaseService; path = Services/QMBaseService; sourceTree = SOURCE_ROOT; };
-		861049F61B0A4A0200464D52 /* QMChatCache */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMChatCache; path = Services/QMChatCache; sourceTree = SOURCE_ROOT; };
-		861049F71B0A4A0200464D52 /* QMChatService */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMChatService; path = Services/QMChatService; sourceTree = SOURCE_ROOT; };
-		861049F81B0A4A0200464D52 /* QMContactListCache */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMContactListCache; path = Services/QMContactListCache; sourceTree = SOURCE_ROOT; };
-		861049F91B0A4A0200464D52 /* QMContactListService */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMContactListService; path = Services/QMContactListService; sourceTree = SOURCE_ROOT; };
-		861049FA1B0A4A0200464D52 /* QMDBStorage */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMDBStorage; path = Services/QMDBStorage; sourceTree = SOURCE_ROOT; };
-		861049FB1B0A4A0200464D52 /* QMServices */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMServices; path = Services/QMServices; sourceTree = SOURCE_ROOT; };
-		861049FC1B0A4A0200464D52 /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = Services/QMServices.xcodeproj; sourceTree = SOURCE_ROOT; };
-		86104A061B0A4A0200464D52 /* QMServicesTests */ = {isa = PBXFileReference; lastKnownFileType = folder; name = QMServicesTests; path = Services/QMServicesTests; sourceTree = SOURCE_ROOT; };
-		86104A071B0A4A0200464D52 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = Services/README.md; sourceTree = SOURCE_ROOT; };
+		2C6E80DF1B0F17A400A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
+		2CC758A11B0F0D8700999187 /* LocalStorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageService.h; sourceTree = "<group>"; };
+		2CC758A21B0F0D8700999187 /* LocalStorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalStorageService.m; sourceTree = "<group>"; };
 		86104A1C1B0B5E1900464D52 /* QBServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBServiceManager.h; sourceTree = "<group>"; };
 		86104A1D1B0B5E1900464D52 /* QBServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBServiceManager.m; sourceTree = "<group>"; };
-		8620BB9F1B0E39EF005ED359 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		86CCE8E41B0E10D800CA6A0D /* LocalStorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageService.h; sourceTree = "<group>"; };
-		86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalStorageService.m; sourceTree = "<group>"; };
-		86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../../../../Documents/Quickblox/Quickblox.framework; sourceTree = "<group>"; };
+		8620BC0B1B0F36FB005ED359 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		86F145511B0E316600F790F9 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BF803DAB1AEE57E6007905B8 /* SoundService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundService.h; sourceTree = "<group>"; };
@@ -143,8 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8620BBA01B0E39EF005ED359 /* Quickblox.framework in Frameworks */,
-				86104A211B0B64E900464D52 /* libQMServices.a in Frameworks */,
+				8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */,
+				8620BC0C1B0F36FB005ED359 /* Quickblox.framework in Frameworks */,
 				BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */,
 				BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */,
 				BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */,
@@ -168,31 +145,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C6E80D51B0F179300A6E86D /* QMServices */ = {
+			isa = PBXGroup;
+			children = (
+				2C6E80DF1B0F17A400A6E86D /* QMServices.xcodeproj */,
+			);
+			name = QMServices;
+			sourceTree = "<group>";
+		};
+		2C6E80E01B0F17A400A6E86D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C6E80F71B0F17A500A6E86D /* libQMServices.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		861049F21B0A47AC00464D52 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				861049F31B0A4A0200464D52 /* LICENSE.txt */,
-				861049F41B0A4A0200464D52 /* QMAuthService */,
-				861049F51B0A4A0200464D52 /* QMBaseService */,
-				861049F61B0A4A0200464D52 /* QMChatCache */,
-				861049F71B0A4A0200464D52 /* QMChatService */,
-				861049F81B0A4A0200464D52 /* QMContactListCache */,
-				861049F91B0A4A0200464D52 /* QMContactListService */,
-				861049FA1B0A4A0200464D52 /* QMDBStorage */,
-				861049FB1B0A4A0200464D52 /* QMServices */,
-				861049FC1B0A4A0200464D52 /* QMServices.xcodeproj */,
-				86104A061B0A4A0200464D52 /* QMServicesTests */,
-				86104A071B0A4A0200464D52 /* README.md */,
+				2C6E80D51B0F179300A6E86D /* QMServices */,
 			);
 			name = Services;
-			sourceTree = "<group>";
-		};
-		861049FD1B0A4A0200464D52 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				86104A161B0A4A0400464D52 /* libQMServices.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		9316A6FD33C239E58054E2CC /* Pods */ = {
@@ -225,8 +199,7 @@
 		BFE6FB74180E8EF100E64AC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8620BB9F1B0E39EF005ED359 /* Quickblox.framework */,
-				86CCE8E81B0E11EE00CA6A0D /* Quickblox.framework */,
+				8620BC0B1B0F36FB005ED359 /* Quickblox.framework */,
 				BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */,
 				BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */,
 				BFE6FBC3180E9E9B00E64AC4 /* libz.1.2.5.dylib */,
@@ -304,8 +277,8 @@
 		BFE6FBE2180F293C00E64AC4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				86CCE8E41B0E10D800CA6A0D /* LocalStorageService.h */,
-				86CCE8E51B0E10D800CA6A0D /* LocalStorageService.m */,
+				2CC758A11B0F0D8700999187 /* LocalStorageService.h */,
+				2CC758A21B0F0D8700999187 /* LocalStorageService.m */,
 				BFB4627A18150EB00010AE49 /* ChatService.h */,
 				BFB4627B18150EB00010AE49 /* ChatService.m */,
 				86104A1C1B0B5E1900464D52 /* QBServiceManager.h */,
@@ -342,7 +315,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				86104A201B0B642300464D52 /* PBXTargetDependency */,
+				2C6E80F91B0F17BA00A6E86D /* PBXTargetDependency */,
 			);
 			name = "sample-chat";
 			productName = "sample-chat";
@@ -376,8 +349,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 861049FD1B0A4A0200464D52 /* Products */;
-					ProjectRef = 861049FC1B0A4A0200464D52 /* QMServices.xcodeproj */;
+					ProductGroup = 2C6E80E01B0F17A400A6E86D /* Products */;
+					ProjectRef = 2C6E80DF1B0F17A400A6E86D /* QMServices.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -388,11 +361,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		86104A161B0A4A0400464D52 /* libQMServices.a */ = {
+		2C6E80F71B0F17A500A6E86D /* libQMServices.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libQMServices.a;
-			remoteRef = 86104A151B0A4A0400464D52 /* PBXContainerItemProxy */;
+			remoteRef = 2C6E80F61B0F17A500A6E86D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -402,21 +375,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86104A111B0A4A0200464D52 /* QMServicesTests in Resources */,
-				86104A0D1B0A4A0200464D52 /* QMContactListCache in Resources */,
 				BFBD3C941832CF30009D090B /* sound.mp3 in Resources */,
-				86104A0A1B0A4A0200464D52 /* QMBaseService in Resources */,
-				86104A0C1B0A4A0200464D52 /* QMChatService in Resources */,
-				86104A0F1B0A4A0200464D52 /* QMDBStorage in Resources */,
 				BFE6FB91180E8EF100E64AC4 /* Images.xcassets in Resources */,
-				86104A091B0A4A0200464D52 /* QMAuthService in Resources */,
-				86104A0E1B0A4A0200464D52 /* QMContactListService in Resources */,
 				BFE6FB80180E8EF100E64AC4 /* InfoPlist.strings in Resources */,
-				86104A0B1B0A4A0200464D52 /* QMChatCache in Resources */,
-				86104A101B0A4A0200464D52 /* QMServices in Resources */,
-				86104A081B0A4A0200464D52 /* LICENSE.txt in Resources */,
 				BFE6FB89180E8EF100E64AC4 /* Main.storyboard in Resources */,
-				86F145521B0E316600F790F9 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,28 +435,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86CCE8E61B0E10D800CA6A0D /* LocalStorageService.m in Sources */,
 				BFB4627C18150EB00010AE49 /* ChatService.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
-				86104A121B0A4A0200464D52 /* README.md in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
+				2CC758A41B0F0E7500999187 /* LocalStorageService.m in Sources */,
 				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
 				86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
 				BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */,
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */,
+				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		86104A201B0B642300464D52 /* PBXTargetDependency */ = {
+		2C6E80F91B0F17BA00A6E86D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = QMServices;
-			targetProxy = 86104A1F1B0B642300464D52 /* PBXContainerItemProxy */;
+			targetProxy = 2C6E80F81B0F17BA00A6E86D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -599,13 +561,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
+					"~/Documents/Quickblox",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/Services/**",
+					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -626,13 +588,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
+					"~/Documents/Quickblox",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/Services/**",
+					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
