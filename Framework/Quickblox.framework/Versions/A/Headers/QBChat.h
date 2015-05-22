@@ -15,7 +15,6 @@
 @class QBChatMessage;
 @class QBChatRoom;
 @class QBChatDialog;
-@class QBChatHistoryMessage;
 @class QBPrivacyList;
 
 /**
@@ -50,7 +49,7 @@ typedef enum QBChatServiceError {
 /** The timeout value for Stream Management send a message operation */
 @property (nonatomic, assign) int streamManagementSendMessageTimeout;
 
-/** Enable or disable auto кeconnect */
+/** Enable or disable auto reconnect */
 @property (nonatomic, assign, getter = isAutoReconnectEnabled) BOOL autoReconnectEnabled;
 
 /** A reconnect timer may optionally be used to attempt a reconnect periodically.
@@ -58,7 +57,7 @@ typedef enum QBChatServiceError {
 @property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
 
 /**
- *  Background mode for stream. By default is NO. Should be set before login to chat. Do not works on simulator.
+ *  Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator.
  */
 @property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
 
