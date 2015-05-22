@@ -56,6 +56,16 @@
 		E4846548A07890DC6B23D7FE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD2A86B40E54C31F0788A286 /* libPods.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2C6E81121B0F1B2A00A6E86D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 55A365301A2744D300C792C0;
+			remoteInfo = QMServices;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		140478CF1AE5399D00BC383F /* Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bond.swift; path = Bond/Bond.swift; sourceTree = "<group>"; };
 		140478D11AE539DC00BC383F /* Bond+Arrays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+Arrays.swift"; sourceTree = "<group>"; };
@@ -89,6 +99,7 @@
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
 		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogsViewController.swift; sourceTree = "<group>"; };
 		684400D69D86FD4E756C2429 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		6844013BAAEEEAE22EEAA322 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +187,7 @@
 		1437A78E1AC9948600A39692 /* sample-chat-swift */ = {
 			isa = PBXGroup;
 			children = (
+				2C6E80FB1B0F1AF100A6E86D /* Services */,
 				144E3EB41ACA8E5300E62645 /* Resources */,
 				68440F807651CA93C348EB22 /* Classes */,
 				1437A7911AC9948600A39692 /* AppDelegate.swift */,
@@ -237,6 +249,30 @@
 				147E76F91AE117E10067340A /* UIAlertDialog.m */,
 			);
 			name = UIAlertDialog;
+			sourceTree = "<group>";
+		};
+		2C6E80FB1B0F1AF100A6E86D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2C6E80FC1B0F1AF600A6E86D /* QMServices */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		2C6E80FC1B0F1AF600A6E86D /* QMServices */ = {
+			isa = PBXGroup;
+			children = (
+				2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */,
+			);
+			name = QMServices;
+			sourceTree = "<group>";
+		};
+		2C6E81061B0F1B2A00A6E86D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C6E81131B0F1B2A00A6E86D /* libQMServices.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		5B6D920FF484FAD0667CB524 /* Frameworks */ = {
@@ -423,12 +459,28 @@
 			mainGroup = 1437A7831AC9948600A39692;
 			productRefGroup = 1437A78D1AC9948600A39692 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2C6E81061B0F1B2A00A6E86D /* Products */;
+					ProjectRef = 2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1437A78B1AC9948600A39692 /* sample-chat-swift */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2C6E81131B0F1B2A00A6E86D /* libQMServices.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libQMServices.a;
+			remoteRef = 2C6E81121B0F1B2A00A6E86D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1437A78A1AC9948600A39692 /* Resources */ = {
@@ -651,8 +703,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
@@ -671,7 +723,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8167ef38-4b98-4550-be1c-167027a7ce74";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
