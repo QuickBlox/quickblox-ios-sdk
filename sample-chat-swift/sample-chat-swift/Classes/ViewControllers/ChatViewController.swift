@@ -76,7 +76,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         message.senderID = ConnectionManager.instance.currentUser!.ID
         message.customParameters = ["save_to_history": 1]
 		message.customParameters["date_sent"] =  NSDate().timeIntervalSince1970
-        if( dialog?.type.value == QBChatDialogTypePrivate.value ) {
+        if( dialog?.type == .Private ) {
             SVProgressHUD.showWithStatus("SA_STR_SENDING".localized, maskType: SVProgressHUDMaskType.Clear)
             message.recipientID = self.chatViewModel.recipientID
             message.text = text

@@ -30,7 +30,7 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
 @property (nonatomic, retain) NSString *roomJID;
 
 /** Chat type: Private/Group/PublicGroup */
-@property (nonatomic) enum QBChatDialogType type;
+@property (nonatomic) QBChatDialogType type;
 
 /** Group chat name. If chat type is private, name will be nil */
 @property (nonatomic, retain) NSString *name;
@@ -173,7 +173,7 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
  *  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendPresenceWithStatus:(NSString *)status
-                          show:(enum QBPresenseShow)show
+                          show:(QBPresenseShow)show
                       priority:(short)priority
               customParameters:(NSDictionary *)customParameters;
 @end

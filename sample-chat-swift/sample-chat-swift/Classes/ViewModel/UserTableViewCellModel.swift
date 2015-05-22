@@ -15,7 +15,7 @@ class UserTableViewCellModel: NSObject {
 	
 	init(dialog: QBChatDialog) {
 		super.init()
-		if dialog.type.value == QBChatDialogTypePrivate.value {
+		if dialog.type == .Private {
 			self.detailTextLabelText = "SA_STR_PRIVATE".localized
 			if dialog.recipientID == -1 {
 				return
@@ -32,7 +32,7 @@ class UserTableViewCellModel: NSObject {
 				
 			}
 		}
-		else if dialog.type.value == QBChatDialogTypeGroup.value {
+		else if dialog.type == .Group {
 			self.detailTextLabelText = "SA_STR_GROUP".localized
 		}
 		else {
@@ -59,7 +59,7 @@ class UserTableViewCellModel: NSObject {
 		deleteButton.backgroundColor = UIColor.redColor()
 		deleteButton.tag = 1
 		
-		if dialogType.value ==  QBChatDialogTypePrivate.value {
+		if dialogType ==  .Private {
 			if let users = ConnectionManager.instance.dialogsUsers,
 				strongUser = user {
 					var title: String
