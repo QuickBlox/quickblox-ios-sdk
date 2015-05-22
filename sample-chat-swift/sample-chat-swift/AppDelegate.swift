@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		QBApplication.sharedApplication().applicationId = kQBApplicationID
 		QBConnection.registerServiceKey(kQBRegisterServiceKey)
 		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
+        QBConnection.setAutoCreateSessionEnabled(true)
 		QBSettings.setAccountKey(kQBAccountKey)
 		QBSettings.setLogLevel(QBLogLevel.Debug)
 		
