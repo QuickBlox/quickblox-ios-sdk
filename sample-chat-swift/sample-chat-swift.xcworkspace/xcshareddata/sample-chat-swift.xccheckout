@@ -12,6 +12,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
+		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
+		<string>https://github.com/QuickBlox/q-municate-services-ios.git</string>
 		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
 		<string>https://github.com/QuickBlox/SDK-ios.git</string>
 	</dict>
@@ -21,6 +23,8 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
+		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
+		<string>../../../quickblox-ios-sdk/services/QMServices</string>
 		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
 		<string>../../../SDK-ios</string>
 	</dict>
@@ -32,6 +36,14 @@
 	<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>QMServices</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
