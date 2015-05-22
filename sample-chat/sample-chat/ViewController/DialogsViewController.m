@@ -10,6 +10,17 @@
 #import "СhatViewController.h"
 #import "ChatMessageTableViewCell.h"
 
+#import <Quickblox/QBASession.h>
+#import "QBServiceManager.h"
+#import "LocalStorageService.h"
+
+
+#define demoUserLogin1 @"igorquickblox"
+#define demoUserPassword1 @"igorquickblox"
+#define demoUserLogin2 @"Dimple"
+#define demoUserPassword2 @"Dimple12"
+
+
 @interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) IBOutlet UITableView *dialogsTableView;
@@ -28,16 +39,30 @@
 #pragma mark
 #pragma mark ViewController lyfe cycle
 
-- (void)viewDidLoad{
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    
+    QBUUser* user = [QBUUser new];
+    user.login = demoUserLogin1;
+    user.password = demoUserPassword1;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
                                                  name:kDialogUpdatedNotification object:nil];
+    
+    [[QBServiceManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
+        if (userProfile != nil) {
+            [[LocalStorageService shared] setCurrentUser:userProfile];
+            [[QBServiceManager instance].chatService logIn:^(NSError *error) {
+                // hide alert after delay
+                [self requestDialogs];
+            }];
+        }
+    }];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
+- (void)requestDialogs
+{
     if([ChatService shared].currentUser != nil){
         // get dialogs
         //
@@ -49,21 +74,6 @@
         }];
     }
 }
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // Show splash
-        [self.navigationController performSegueWithIdentifier:kShowSplashViewControllerSegue sender:nil];
-    });
-    
-    if(self.createdDialog != nil){
-        [self performSegueWithIdentifier:kShowNewChatViewControllerSegue sender:nil];
-    }
-}
-
 
 #pragma mark
 #pragma mark Actions
