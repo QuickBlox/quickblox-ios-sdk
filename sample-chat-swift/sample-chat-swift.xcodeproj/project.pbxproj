@@ -30,6 +30,7 @@
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
+		2C293C5D1B0F6BDE00A5E863 /* QMServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C293C5C1B0F6BDE00A5E863 /* QMServiceManager.swift */; };
 		6844003C05B374842DFCDD49 /* SwipeableTableViewCellWithBlockButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440207D7B86B9F06C38878 /* SwipeableTableViewCellWithBlockButtons.swift */; };
 		684400CE32CC2D4D22A5AFD5 /* SwiftAlertWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684403034A069565608E044A /* SwiftAlertWithTextField.swift */; };
 		684400F787FBE39BBA9B52C8 /* GroupChatUsersInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440DDFBC8DF8C88DEE2898 /* GroupChatUsersInfoTableViewController.swift */; };
@@ -57,6 +58,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2C293C571B0F58BE00A5E863 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 55013A301A1F63910030C134;
+			remoteInfo = QMServices;
+		};
 		2C6E81121B0F1B2A00A6E86D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */;
@@ -99,6 +107,7 @@
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		2C293C5C1B0F6BDE00A5E863 /* QMServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QMServiceManager.swift; sourceTree = "<group>"; };
 		2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
 		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogsViewController.swift; sourceTree = "<group>"; };
 		684400D69D86FD4E756C2429 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
@@ -325,6 +334,7 @@
 			children = (
 				68440D9458C6909D8347A9CA /* PrivacyManager */,
 				68440A97C23ACC21DA8A066D /* ConnectionManager.swift */,
+				2C293C5C1B0F6BDE00A5E863 /* QMServiceManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -429,6 +439,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				2C293C581B0F58BE00A5E863 /* PBXTargetDependency */,
 			);
 			name = "sample-chat-swift";
 			productName = "sample-chat-swift";
@@ -547,6 +558,7 @@
 				140478D01AE5399D00BC383F /* Bond.swift in Sources */,
 				1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */,
 				140478D71AE539DC00BC383F /* Bond+Foundation.swift in Sources */,
+				2C293C5D1B0F6BDE00A5E863 /* QMServiceManager.swift in Sources */,
 				684408CE77B18BB94EA1A05E /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				140478DA1AE539DC00BC383F /* Bond+UIView.swift in Sources */,
 				140478D81AE539DC00BC383F /* Bond+Functional.swift in Sources */,
@@ -574,6 +586,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2C293C581B0F58BE00A5E863 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QMServices;
+			targetProxy = 2C293C571B0F58BE00A5E863 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1437A7951AC9948600A39692 /* Main.storyboard */ = {
@@ -683,6 +703,7 @@
 					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SDKROOT)/usr/include/libxml2",
 					"\"$(PROJECT_DIR)\"/../Framework/**",
+					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -711,6 +732,7 @@
 					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SDKROOT)/usr/include/libxml2",
 					"\"$(PROJECT_DIR)\"/../Framework/**",
+					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
