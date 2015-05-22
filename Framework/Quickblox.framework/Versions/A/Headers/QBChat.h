@@ -578,7 +578,7 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendPresenceWithStatus:(NSString *)status
-                          show:(enum QBPresenseShow)show
+                          show:(QBPresenseShow)show
                       priority:(short)priority 
               customParameters:(NSDictionary *)customParameters
                         toRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'sendPresenceWithStatus:show:priority:customParameters:' in QBChatDialog class.")));

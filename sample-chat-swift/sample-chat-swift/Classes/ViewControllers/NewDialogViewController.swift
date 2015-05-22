@@ -64,12 +64,12 @@ class NewDialogViewController: LoginTableViewController {
         var chatDialog = QBChatDialog()
         chatDialog.occupantIDs = usersToChat.map{ $0.ID }
         
-        chatDialog.type = QBChatDialogTypeGroup
+        chatDialog.type = .Group
         if usersToChat.count == 1 {
-            chatDialog.type =  QBChatDialogTypePrivate
+            chatDialog.type = .Private
         }
         else {
-            chatDialog.type = QBChatDialogTypeGroup
+            chatDialog.type = .Group
             if name != nil && !name!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).isEmpty {
                 chatDialog.name = name!
             }

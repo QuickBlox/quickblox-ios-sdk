@@ -79,7 +79,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
 			return
 		}
 		if let dialogs = self.dialogs {
-			let groupDialogs = dialogs.filter({$0.type.value != QBChatDialogTypePrivate.value})
+			let groupDialogs = dialogs.filter({$0.type != .Private})
 			for roomDialog in groupDialogs {
 				if !roomDialog.chatRoom.isJoined {
 					roomDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
