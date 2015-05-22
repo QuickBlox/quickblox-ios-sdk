@@ -80,20 +80,6 @@
 #pragma mark Endpoints
 
 /**
- Set server's API domain
- 
- @param apiDomain New server's API domain
- */
-+ (void)setServerApiDomain:(NSString *)apiDomain __deprecated_msg("Use [QBConnection setApiDomain: forServiceZone:] instead");
-
-/**
- Get server's API domain
- 
- @return Current server's API domain
- */
-+ (NSString *)serverApiDomain  __deprecated_msg("Use [QBConnection setApiDomain: forServiceZone:] instead");
-
-/**
  Set server's Chat domain
  
  @param chatDomain New server's Chat domain
