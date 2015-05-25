@@ -50,7 +50,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
                                                  name:kDialogUpdatedNotification object:nil];
     
-    [[QBServiceManager instance].authService logInWithUser:user completion:^(QBRequest *request, QBUUser *userProfile) {
+    [[QBServiceManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
     
         if (userProfile != nil) {
             [[LocalStorageService shared] setCurrentUser:userProfile];

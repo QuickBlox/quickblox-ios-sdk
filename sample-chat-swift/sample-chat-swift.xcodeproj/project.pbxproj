@@ -30,7 +30,8 @@
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
-		2C293C5D1B0F6BDE00A5E863 /* QMServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C293C5C1B0F6BDE00A5E863 /* QMServiceManager.swift */; };
+		2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */; };
+		2C8BB1731B134925004540F8 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E81131B0F1B2A00A6E86D /* libQMServices.a */; };
 		6844003C05B374842DFCDD49 /* SwipeableTableViewCellWithBlockButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440207D7B86B9F06C38878 /* SwipeableTableViewCellWithBlockButtons.swift */; };
 		684400CE32CC2D4D22A5AFD5 /* SwiftAlertWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684403034A069565608E044A /* SwiftAlertWithTextField.swift */; };
 		684400F787FBE39BBA9B52C8 /* GroupChatUsersInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440DDFBC8DF8C88DEE2898 /* GroupChatUsersInfoTableViewController.swift */; };
@@ -107,7 +108,7 @@
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		2C293C5C1B0F6BDE00A5E863 /* QMServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QMServiceManager.swift; sourceTree = "<group>"; };
+		2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesManager.swift; sourceTree = "<group>"; };
 		2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
 		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogsViewController.swift; sourceTree = "<group>"; };
 		684400D69D86FD4E756C2429 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C8BB1731B134925004540F8 /* libQMServices.a in Frameworks */,
 				86CCE8EA1B0E13CC00CA6A0D /* Quickblox.framework in Frameworks */,
 				14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */,
 				14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */,
@@ -334,7 +336,7 @@
 			children = (
 				68440D9458C6909D8347A9CA /* PrivacyManager */,
 				68440A97C23ACC21DA8A066D /* ConnectionManager.swift */,
-				2C293C5C1B0F6BDE00A5E863 /* QMServiceManager.swift */,
+				2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -558,7 +560,6 @@
 				140478D01AE5399D00BC383F /* Bond.swift in Sources */,
 				1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */,
 				140478D71AE539DC00BC383F /* Bond+Foundation.swift in Sources */,
-				2C293C5D1B0F6BDE00A5E863 /* QMServiceManager.swift in Sources */,
 				684408CE77B18BB94EA1A05E /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				140478DA1AE539DC00BC383F /* Bond+UIView.swift in Sources */,
 				140478D81AE539DC00BC383F /* Bond+Functional.swift in Sources */,
@@ -579,6 +580,7 @@
 				6844023A6DABFA72BD0EF343 /* UserTableViewCell.swift in Sources */,
 				684404420BD9EFEF61B415FF /* PrivacyManager.swift in Sources */,
 				140478D91AE539DC00BC383F /* Bond+Operators.swift in Sources */,
+				2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */,
 				684407391A2A30262CCDFD32 /* ConnectionManager.swift in Sources */,
 				68440B4B643F5140EDD4FC5B /* ChatViewModel.swift in Sources */,
 				68440F70B8D97EC5EB2C25A9 /* UserTableViewCellModel.swift in Sources */,
