@@ -11,10 +11,6 @@ import UIKit
 class ConnectionManager: NSObject, QBChatDelegate {
 	static let instance = ConnectionManager()
 	
-	private var tmpUser: QBUUser? // if chat failed to connect, we try to connect again
-	
-	private var presenceTimer:NSTimer!
-	private var chatLoginCompletion:((Bool, String?) -> Void)!
 	var dialogs:[QBChatDialog]?
 	var dialogsUsers:[QBUUser]?
 	var messagesIDsToDelete: DynamicArray<String> = DynamicArray(Array())
@@ -31,25 +27,55 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	
 	private override init() {
 		super.init()
-		QBChat.instance().addDelegate(self)
 		self.startObservingMessagesToDelete()
 	}
 	
 	func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
-		self.chatLoginCompletion = completion
-        self.tmpUser = user
         
-        QMAuthService.logInWithUser()
+        ServicesManager.instance.authService.logInWithUser(user, completion: { (response:QBResponse!, user: QBUUser!) -> Void in
+            
+            if self.currentUser != nil {
+                
+                ServicesManager.instance.chatService.logoutChat()
+                
+                if self.dialogs != nil {
+                    
+                    self.dialogs = nil
+                    self.dialogsUsers = nil
+                    self.messagesIDsToDelete.removeAll(false)
+                    
+                }
+                
+                self.privacyManager.reset()
+                
+            }
+            
+            ServicesManager.instance.chatService.logIn({ (error : NSError!) -> Void in
+                
+                if error == nil {
+                    
+                    self.currentUser = user
+                    self.privacyManager.retrieveDefaultPrivacyList()
+                }
+                
+                completion(success: error == nil, errorMessage: error?.localizedDescription)
+                
+            })
+            
+        })
         
 	}
 	
 	func joinAllRooms() {
+        
 		if !IJReachability.isConnectedToNetwork() {
 			return
 		}
-		if !QBChat.instance().isLoggedIn() {
+        
+		if self.currentUser == nil {
 			return
 		}
+        
 		if let dialogs = self.dialogs {
 			let groupDialogs = dialogs.filter({$0.type != .Private})
 			for roomDialog in groupDialogs {
@@ -63,39 +89,6 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	/**
 	*   Chat delegates
 	*/
-	
-	func chatDidFailWithError(code: Int) {
-		if self.chatLoginCompletion != nil {
-			self.chatLoginCompletion(false, "chat did fail with code" + String(code))
-			self.chatLoginCompletion = nil
-		}
-	}
-	
-	func chatDidLogin() {
-        self.currentUser = QBChat.instance().currentUser()
-		self.presenceTimer = NSTimer.scheduledTimerWithTimeInterval(kChatPresenceTimeInterval, target: QBChat.instance(), selector: Selector("sendPresence"), userInfo: nil, repeats: true)
-		self.privacyManager.retrieveDefaultPrivacyList()
-	}
-	
-	func chatDidReceivePrivacyList(privacyList: QBPrivacyList!) {
-		if self.chatLoginCompletion != nil {
-			self.chatLoginCompletion(true, nil)
-			self.chatLoginCompletion = nil
-		}
-	}
-	
-	func chatDidNotLogin() {
-		if tmpUser != nil {
-			self.logInWithUser(tmpUser!, completion: self.chatLoginCompletion)
-		}
-	}
-	
-	func chatDidNotReceivePrivacyListWithName(name: String!, error: AnyObject!) {
-		if self.chatLoginCompletion != nil {
-			self.chatLoginCompletion(true, nil)
-			self.chatLoginCompletion = nil
-		}
-	}
 	
 	/**
 	Observers
@@ -134,11 +127,4 @@ class ConnectionManager: NSObject, QBChatDelegate {
 		timer?.invalidate()
 		timer = nil
 	}
-	
-	deinit{
-		self.presenceTimer.invalidate()
-		QBChat.instance().removeDelegate(self)
-	}
-	
-	
 }
