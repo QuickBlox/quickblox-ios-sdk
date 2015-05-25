@@ -305,12 +305,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "sample-chat" */;
 			buildPhases = (
+				86104A191B0B54FC00464D52 /* ShellScript */,
 				5948AA2C6DD54920BE8F0F50 /* Check Pods Manifest.lock */,
 				BFE6FB6E180E8EF100E64AC4 /* Sources */,
 				BFE6FB6F180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB70180E8EF100E64AC4 /* Resources */,
 				EA0FB2DEF001482B9E0AC531 /* Copy Pods Resources */,
-				86104A191B0B54FC00464D52 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -411,7 +411,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "echo \"Copying Quickblox.xcconfig...\"";
 		};
 		EA0FB2DEF001482B9E0AC531 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -561,7 +561,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"~/Documents/Quickblox",
+					../Framework,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -588,7 +588,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"~/Documents/Quickblox",
+					../Framework,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
