@@ -74,7 +74,7 @@ class NewDialogViewController: LoginTableViewController {
                 chatDialog.name = name!
             }
             else{
-                var chatName = ConnectionManager.instance.currentUser!.login + "_" + ", ".join(usersToChat.map({ $0.login ?? $0.email }))
+                var chatName = ServicesManager.instance.currentUser()!.login + "_" + ", ".join(usersToChat.map({ $0.login ?? $0.email }))
                 chatName = chatName.stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 chatDialog.name = chatName
             }
@@ -117,7 +117,7 @@ class NewDialogViewController: LoginTableViewController {
         cell.user = user
         cell.delegate = self.delegate
         
-        if user.ID == ConnectionManager.instance.currentUser!.ID {
+        if user.ID == ServicesManager.instance.currentUser()!.ID {
             cell.hidden = true // hide current user
         }
         return cell
@@ -125,7 +125,7 @@ class NewDialogViewController: LoginTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
-        if user.ID == ConnectionManager.instance.currentUser!.ID {
+        if user.ID == ServicesManager.instance.currentUser()!.ID {
             return 0 // hide current user
         }
         return super.tableView(tableView, heightForRowAtIndexPath: indexPath)

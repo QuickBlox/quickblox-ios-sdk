@@ -20,7 +20,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         assert(dialog != nil)
 		
 		
-        self.chatViewModel = ChatViewModel(currentUserID: ConnectionManager.instance.currentUser!.ID, dialog: dialog!)
+        self.chatViewModel = ChatViewModel(currentUserID: ServicesManager.instance.currentUser()!.ID, dialog: dialog!)
 		
         self.startMessagesObserver()
         if dialog?.chatRoom == nil {
@@ -44,8 +44,8 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         
         
         // set dialog owner ( currentUser )
-        self.senderId = ConnectionManager.instance.currentUser?.ID.description
-        self.senderDisplayName = ConnectionManager.instance.currentUser?.fullName ?? ConnectionManager.instance.currentUser?.login
+        self.senderId = ServicesManager.instance.currentUser()?.ID.description
+        self.senderDisplayName = ServicesManager.instance.currentUser()?.fullName ?? ServicesManager.instance.currentUser()?.login
         self.chatViewModel.loadMoreMessages()
         
         self.addRefreshControl()
@@ -73,7 +73,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         }
         
         var message = QBChatMessage()
-        message.senderID = ConnectionManager.instance.currentUser!.ID
+        message.senderID = ServicesManager.instance.currentUser()!.ID
         message.customParameters = ["save_to_history": 1]
 		message.customParameters["date_sent"] =  NSDate().timeIntervalSince1970
         if( dialog?.type == .Private ) {
@@ -89,7 +89,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         }
         else{
             message.text = text
-            message.senderNick = ConnectionManager.instance.currentUser?.fullName
+            message.senderNick = ServicesManager.instance.currentUser()?.fullName
             dialog?.sendMessage(message)
 			
             // will call self.finishSendingMessageAnimated for group chat message in chatRoomDidReceiveMessage
@@ -174,7 +174,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     func chatDidReceiveMessage(message: QBChatMessage!) {
         if self.dialog!.chatRoom == nil {
             self.chatViewModel.messages.append(message)
-            if message.senderID != ConnectionManager.instance.currentUser?.ID {
+            if message.senderID != ServicesManager.instance.currentUser()?.ID {
                 self.finishReceivingMessageAnimated(true)
             }
         }
@@ -188,7 +188,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
             }
             
             self.chatViewModel.messages.append(message)
-            if message.senderID == ConnectionManager.instance.currentUser?.ID {
+            if message.senderID == ServicesManager.instance.currentUser()?.ID {
                 self.finishSendingMessageAnimated(true)
             }
             else {

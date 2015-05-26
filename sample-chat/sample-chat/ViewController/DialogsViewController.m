@@ -51,6 +51,7 @@
                                                  name:kDialogUpdatedNotification object:nil];
     
     [[QBServiceManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
+    
         if (userProfile != nil) {
             [[LocalStorageService shared] setCurrentUser:userProfile];
             [[QBServiceManager instance].chatService logIn:^(NSError *error) {
