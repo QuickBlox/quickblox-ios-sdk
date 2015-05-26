@@ -12,7 +12,7 @@ class GroupChatUsersInfoTableViewController: LoginTableViewController {
     var chatDialog: QBChatDialog? {
         didSet {
             var occupants = chatDialog!.occupantIDs as! [UInt]
-            var tmpOccupantsIDs = occupants.filter({$0 != ConnectionManager.instance.currentUser!.ID})
+            var tmpOccupantsIDs = occupants.filter({$0 != ServicesManager.instance.currentUser()!.ID})
             occupantsIDs = tmpOccupantsIDs
         }
     }

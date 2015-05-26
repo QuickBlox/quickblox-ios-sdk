@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		QBApplication.sharedApplication().applicationId = kQBApplicationID
 		QBConnection.registerServiceKey(kQBRegisterServiceKey)
 		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
+        QBConnection.setAutoCreateSessionEnabled(true)
 		QBSettings.setAccountKey(kQBAccountKey)
 		QBSettings.setLogLevel(QBLogLevel.Debug)
 		
@@ -35,14 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationDidEnterBackground(application: UIApplication) {
-		if QBChat.instance().isLoggedIn() {
-			QBChat.instance().logout()
-		}
+        
+		ServicesManager.instance.chatService.logoutChat()
 		ConnectionManager.instance.stopObservingInternetAvailability()
+        
 	}
 	
 	func applicationWillEnterForeground(application: UIApplication) {
-		if let user = ConnectionManager.instance.currentUser {
+		if let user = ServicesManager.instance.currentUser() {
 			
 			ConnectionManager.instance.logInWithUser(user, completion: { (success, errorMessage) -> Void in
 				ConnectionManager.instance.joinAllRooms()
@@ -57,9 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {
-		if QBChat.instance().isLoggedIn() {
-			QBChat.instance().logout()
-		}
+        
+		ServicesManager.instance.chatService.logoutChat()
+        
 	}
 	
 	
