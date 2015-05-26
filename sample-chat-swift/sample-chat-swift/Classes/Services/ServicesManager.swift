@@ -18,6 +18,9 @@ class ServicesManager: NSObject, QMServiceManagerProtocol {
     private override init() {
         super.init()
         
+        QBChat.instance().autoReconnectEnabled = true
+        QBChat.instance().streamManagementEnabled = true
+        
         self.authService = QMAuthService(serviceManager : self)
         self.chatService = QMChatService(serviceManager : self, cacheDelegate : nil)
     }
