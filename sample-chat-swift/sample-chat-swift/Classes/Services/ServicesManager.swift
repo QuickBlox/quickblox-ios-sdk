@@ -16,7 +16,6 @@ class ServicesManager: NSObject, QMServiceManagerProtocol {
     var chatService : QMChatService!
     
     private override init() {
-        
         super.init()
         
         self.authService = QMAuthService(serviceManager : self)
@@ -24,25 +23,19 @@ class ServicesManager: NSObject, QMServiceManagerProtocol {
     }
     
     func currentUser() -> QBUUser! {
-        
         return QBSession.currentSession().currentUser
-        
     }
     
     func isAutorized() -> Bool {
-        
         return self.authService.isAuthorized
-        
     }
     
     func handleErrorResponse(response: QBResponse!) {
-        
         let alertView = UIAlertView()
         alertView.title = "Errors"
         alertView.message = response.error.description
         alertView.addButtonWithTitle("Ok")
         alertView.show()
-        
     }
     
 }
