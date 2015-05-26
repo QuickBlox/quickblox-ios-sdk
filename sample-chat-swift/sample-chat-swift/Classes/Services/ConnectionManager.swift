@@ -15,7 +15,6 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	var dialogsUsers:[QBUUser]?
 	var messagesIDsToDelete: DynamicArray<String> = DynamicArray(Array())
 	let messagesBond = ArrayBond<String>()
-	var currentUser:QBUUser?
 	
 	var timer: NSTimer? // join all rooms, handle internet connection availability
 	
@@ -34,7 +33,13 @@ class ConnectionManager: NSObject, QBChatDelegate {
         
         ServicesManager.instance.authService.logInWithUser(user, completion: { (response:QBResponse!, user: QBUUser!) -> Void in
             
-            if self.currentUser != nil {
+            if (response.error != nil) {
+                
+                completion(success: false, errorMessage: response.error.error.localizedDescription)
+                return
+            }
+            
+            if ServicesManager.instance.currentUser() != nil {
                 
                 ServicesManager.instance.chatService.logoutChat()
                 
@@ -54,7 +59,6 @@ class ConnectionManager: NSObject, QBChatDelegate {
                 
                 if error == nil {
                     
-                    self.currentUser = user
                     self.privacyManager.retrieveDefaultPrivacyList()
                 }
                 
@@ -72,7 +76,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
 			return
 		}
         
-		if self.currentUser == nil {
+		if !QBChat.instance().isLoggedIn() {
 			return
 		}
         

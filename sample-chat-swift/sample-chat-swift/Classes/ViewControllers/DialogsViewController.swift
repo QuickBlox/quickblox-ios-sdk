@@ -25,9 +25,17 @@ class DialogsViewController: UIViewController, UITableViewDelegate {
 		}
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParentViewController() {
+            ServicesManager.instance.chatService.logoutChat()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ConnectionManager.instance.currentUser!.login
+        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ServicesManager.instance.currentUser()!.login
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
         
