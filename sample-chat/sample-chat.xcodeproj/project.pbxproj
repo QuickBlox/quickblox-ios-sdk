@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1402B6961B14B9BC0069E3A4 /* UsersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6951B14B9BC0069E3A4 /* UsersDataSource.m */; };
+		1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6991B14BF350069E3A4 /* UserTableViewCell.m */; };
+		1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B69C1B14BFBA0069E3A4 /* CornerView.m */; };
+		1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */; };
+		14F4F8CC1B15F06A00A21A84 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4F8CB1B15F06A00A21A84 /* ConnectionManager.m */; };
 		2CC758A41B0F0E7500999187 /* LocalStorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC758A21B0F0D8700999187 /* LocalStorageService.m */; };
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
@@ -62,6 +67,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1402B6941B14B9BC0069E3A4 /* UsersDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersDataSource.h; sourceTree = "<group>"; };
+		1402B6951B14B9BC0069E3A4 /* UsersDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersDataSource.m; sourceTree = "<group>"; };
+		1402B6981B14BF350069E3A4 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
+		1402B6991B14BF350069E3A4 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
+		1402B69B1B14BFBA0069E3A4 /* CornerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CornerView.h; sourceTree = "<group>"; };
+		1402B69C1B14BFBA0069E3A4 /* CornerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CornerView.m; sourceTree = "<group>"; };
+		1402B6A61B14C7340069E3A4 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
+		1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
+		14F4F8CA1B15F06A00A21A84 /* ConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionManager.h; sourceTree = "<group>"; };
+		14F4F8CB1B15F06A00A21A84 /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
 		1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		2C6E80DF1B0F17A400A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
 		2CC758A11B0F0D8700999187 /* LocalStorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageService.h; sourceTree = "<group>"; };
@@ -261,6 +276,8 @@
 				BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */,
 				BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */,
 				BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */,
+				1402B6A61B14C7340069E3A4 /* LoginTableViewController.h */,
+				1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -277,6 +294,8 @@
 		BFE6FBE2180F293C00E64AC4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1402B6941B14B9BC0069E3A4 /* UsersDataSource.h */,
+				1402B6951B14B9BC0069E3A4 /* UsersDataSource.m */,
 				2CC758A11B0F0D8700999187 /* LocalStorageService.h */,
 				2CC758A21B0F0D8700999187 /* LocalStorageService.m */,
 				BFB4627A18150EB00010AE49 /* ChatService.h */,
@@ -285,6 +304,8 @@
 				86104A1D1B0B5E1900464D52 /* QBServiceManager.m */,
 				BF803DAB1AEE57E6007905B8 /* SoundService.h */,
 				BF803DAC1AEE57E6007905B8 /* SoundService.m */,
+				14F4F8CA1B15F06A00A21A84 /* ConnectionManager.h */,
+				14F4F8CB1B15F06A00A21A84 /* ConnectionManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -294,6 +315,10 @@
 			children = (
 				BFE6FBF31812E0F800E64AC4 /* ChatMessageTableViewCell.h */,
 				BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */,
+				1402B6981B14BF350069E3A4 /* UserTableViewCell.h */,
+				1402B6991B14BF350069E3A4 /* UserTableViewCell.m */,
+				1402B69B1B14BFBA0069E3A4 /* CornerView.h */,
+				1402B69C1B14BFBA0069E3A4 /* CornerView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -435,18 +460,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */,
 				BFB4627C18150EB00010AE49 /* ChatService.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
+				14F4F8CC1B15F06A00A21A84 /* ConnectionManager.m in Sources */,
+				1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */,
 				2CC758A41B0F0E7500999187 /* LocalStorageService.m in Sources */,
 				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
 				86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
 				BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */,
+				1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */,
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
+				1402B6961B14B9BC0069E3A4 /* UsersDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

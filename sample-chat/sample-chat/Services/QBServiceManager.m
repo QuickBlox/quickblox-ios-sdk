@@ -27,18 +27,16 @@
     return self;
 }
 
-+ (instancetype)instance
-{
++ (instancetype)instance {
     static QBServiceManager* manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [QBServiceManager new];
+        manager = [[QBServiceManager alloc] init];
     });
     return manager;
 }
 
-- (void)handleErrorResponse:(QBResponse *)response
-{
+- (void)handleErrorResponse:(QBResponse *)response {
     NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
     errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
     
@@ -50,13 +48,11 @@
     [alert show];
 }
 
-- (BOOL)isAutorized
-{
+- (BOOL)isAutorized {
     return self.authService.isAuthorized;
 }
 
-- (QBUUser *)currentUser
-{
+- (QBUUser *)currentUser {
     return [QBSession currentSession].currentUser;
 }
 

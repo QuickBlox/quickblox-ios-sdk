@@ -15,4 +15,6 @@
 @property (nonatomic, readonly) QMAuthService* authService;
 @property (nonatomic, readonly) QMChatService* chatService;
 
+- (QBUUser *)currentUser;
+
 @end

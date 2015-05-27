@@ -13,7 +13,8 @@
 #import <Quickblox/QBASession.h>
 #import "QBServiceManager.h"
 #import "LocalStorageService.h"
-
+#import "ConnectionManager.h"
+#import "UsersDataSource.h"
 
 #define demoUserLogin1 @"igorquickblox"
 #define demoUserPassword1 @"igorquickblox"
@@ -57,6 +58,12 @@
             [[QBServiceManager instance].chatService logIn:^(NSError *error) {
                 // hide alert after delay
                 [self requestDialogs];
+				[ConnectionManager.instance usersWithSuccessBlock:^(NSArray *users) {
+					
+				} errorBlock:^(QBResponse *response) {
+					
+				}];
+
             }];
         }
     }];
