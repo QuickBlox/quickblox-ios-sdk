@@ -55,30 +55,31 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     // MARK: - DataSource Action
     
     func getDialogs() {
-
-//        if !QBChat.instance().isLoggedIn() {
-//            return
-//        }
-//        
-//        SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
-//        
-        ServicesManager.instance.chatService.allDialogsWithPageLimit(100, interationBlock: { (responce: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-            
-        }) { (responce: QBResponse!) -> Void in
-            
+        
+        var shouldShowSuccessStatus = false
+        
+        if self.dialogs().count == 0 {
+            shouldShowSuccessStatus = true
+            SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         }
-//
-//            if response.error != nil {
-//                SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_DIALOGS".localized)
-//                println(response.error.error)
-//                
-//                return
-//            }
-//            
-//            StorageManager.instance.dialogs = dialogObjects as! [QBChatDialog]
-//            
-//            SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-//        })
+        
+        ServicesManager.instance.chatService.allDialogsWithPageLimit(kDialogsPageLimit, interationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+
+        }) { (response: QBResponse!) -> Void in
+            
+            if response.error != nil {
+                
+                SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_DIALOGS".localized)
+                println(response.error.error)
+                
+            }
+            else {
+        
+                if shouldShowSuccessStatus {
+                    SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                }
+            }
+        }
     }
     
     // MARK: - DataSource
