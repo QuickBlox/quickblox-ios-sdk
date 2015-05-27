@@ -161,9 +161,11 @@ typedef enum QBChatServiceError {
 /**
  Send direct presence message with status to user. User must be in your contact list.
  
+ @warning *Deprecated in QB iOS SDK 2.3:* Will be removed in future.
+ 
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendDirectPresenceWithStatus:(NSString *)status toUser:(NSUInteger)userID;
+- (BOOL)sendDirectPresenceWithStatus:(NSString *)status toUser:(NSUInteger)userID __attribute__((deprecated("Will be removed in future")));;
 
 /**
  Get current chat user
@@ -171,11 +173,6 @@ typedef enum QBChatServiceError {
  @return An instance of QBUUser
  */
 - (QBUUser *)currentUser;
-
-/**
-  Request service discovery information
- */
-- (BOOL)requestServiceDiscoveryInformation;
 
 
 #pragma mark -
@@ -325,151 +322,6 @@ typedef enum QBChatServiceError {
 
 
 /**
- Send message to room
- 
- @warning *Deprecated in QB iOS SDK 1.9:* Use sendChatMessage:toRoom: instead
- 
- @param message Message body
- @param room Room to send message
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendMessage:(NSString *)message toRoom:(QBChatRoom *)room __attribute__((deprecated("Use sendChatMessage:toRoom: instead")));
-
-/**
- Create room or join if room with this name already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
- If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
- If room name contains ("),(\),(&),('),(/),(:),(<),(>),(@),((),()),(:),(;)  characters - they will be removed.
- As user room nickname we will use user ID
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param name Room name
- @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
- @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)createOrJoinRoomWithName:(NSString *)name membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent
- __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Create room or join if room with this JID already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
- As user room nickname we will use user ID
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param roomJID Room JID
- @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
- @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
- @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)createOrJoinRoomWithJID:(NSString *)roomJID membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent historyAttribute:(NSDictionary *)historyAttribute
- __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Create room or join if room with this name already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
- If room name contains (" ") (space) character - it will be replaceed with "_" (underscore) character.
- If room name contains ("),(\),(&),('),(/),(:),(<),(>),(@),((),()),(:),(;)  characters - they will be removed.
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param name Room name
- @param nickname User nickname wich will be used in room
- @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
- @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)createOrJoinRoomWithName:(NSString *)name nickname:(NSString *)nickname membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent
- __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Create room or join if room with this JID already exist. QBChatDelegate's method 'chatRoomDidEnter:' will be called.
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param roomJID Room JID
- @param nickname User nickname wich will be used in room
- @param isMembersOnly YES if you want to create room that users cannot enter without being on the member list. If set NO - room will be opened for all users
- @param isPersistent YES if you want to create room that is not destroyed if the last user exits. If set NO - room will be destroyed if the last user exits.
- @param historyAttribute Attribite to manage the amount of discussion history provided on entering a room. More info here http://xmpp.org/extensions/xep-0045.html#enter-history
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)createOrJoinRoomWithJID:(NSString *)roomJID nickname:(NSString *)nickname membersOnly:(BOOL)isMembersOnly persistent:(BOOL)isPersistent historyAttribute:(NSDictionary *)historyAttribute
- __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Destroy room. You can destroy room only if you are room owner or added to only members room by its owner. QBChatDelegate's method 'chatRoomDidDestroy:' will be called
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param room Room to destroy
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)destroyRoom:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Send request for getting list of public groups. QBChatDelegate's method 'chatDidReceiveListOfRooms:' will be called
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)requestAllRooms __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Send request for getting room information. QBChatDelegate's method 'chatRoomDidReceiveInformation:room:' will be called
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param room Room, which information you need to retrieve
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)requestRoomInformation:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Request users who are able to join a room. QBChatDelegate's method 'chatRoomDidReceiveListOfUsers:room:' will be called
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param room Room
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)requestRoomUsers:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Request users with affiliation. QBChatDelegate's method 'chatRoomDidReceiveListOfUsers:room:' will be called
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param affiliation User's affiliation
- @param room Room
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)requestRoomUsersWithAffiliation:(NSString *)affiliation room:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Send request to adding users to room.
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param usersIDs Array of users' IDs
- @param room Room in which users will be added
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)addUsers:(NSArray *)usersIDs toRoom:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
- Send request to remove users from room
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use Chat Dialogs API instead.
- 
- @param usersIDs Array of users' IDs
- @param room Room from which users will be removed
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)deleteUsers:(NSArray *)usersIDs fromRoom:(QBChatRoom *)room __attribute__((deprecated("Use Chat Dialogs API instead.")));
-
-/**
  Send chat message to room
  
  @warning Deprecated in 2.3. Use 'sendMessage:' in QBChatDialog class.
@@ -557,18 +409,18 @@ typedef enum QBChatServiceError {
 /**
  Send presence with parameters to room
  
- @warning Deprecated in 2.3. Use 'sendPresenceWithParameters' in QBChatDialog class.
+ @warning Deprecated in 2.3. Will be removed in future.
  
  @param parameters Presence parameters
  @param room Room to send presence
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'sendPresenceWithParameters:' in QBChatDialog class.")));
+- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters toRoom:(QBChatRoom *)room __attribute__((deprecated("Will be removed in future")));
 
 /**
  Send presence with status, show, priority, custom parameters to room
  
- @warning Deprecated in 2.3. Use 'sendPresenceWithStatus:show:priority:customParameters:' in QBChatDialog class.
+ @warning Deprecated in 2.3. Will be removed in future.
  
  @param status Element contains character data specifying a natural-language description of availability status
  @param show Element contains non-human-readable character data that specifies the particular availability status of an entity or specific resource.
@@ -581,6 +433,6 @@ typedef enum QBChatServiceError {
                           show:(QBPresenseShow)show
                       priority:(short)priority 
               customParameters:(NSDictionary *)customParameters
-                        toRoom:(QBChatRoom *)room __attribute__((deprecated("Use 'sendPresenceWithStatus:show:priority:customParameters:' in QBChatDialog class.")));
+                        toRoom:(QBChatRoom *)room __attribute__((deprecated("Will be removed in future")));
 
 @end
