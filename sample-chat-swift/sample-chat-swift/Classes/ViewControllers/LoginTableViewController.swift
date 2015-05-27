@@ -10,34 +10,36 @@ import UIKit
 
 class LoginTableViewController: UITableViewController {
 
+    // MARK: ViewController overrides
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.reloadData()
     }
     
-    func logInChatWithUser(user: QBUUser){
-        SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
+    // MARK: Actions
+    
+    func logInChatWithUser(user: QBUUser) {
         
+        SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
+
         ConnectionManager.instance.logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
-            
-            if( success ){
-                SVProgressHUD.showSuccessWithStatus("SA_STR_LOGGED_IN".localized)
+
+            if (success) {
                 
-                let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-                dispatch_after(delay, dispatch_get_main_queue(), {[weak self] () ->  Void in
-                    
-                    self?.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
-                    })
-            }
-            else{
+                SVProgressHUD.showSuccessWithStatus("SA_STR_LOGGED_IN".localized)
+
+                self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
+                
+            } else {
+                
                 SVProgressHUD.showErrorWithStatus(errorMessage)
             }
+
         })
     }
     
-    /**
-    UITableView delegate methods
-    */
+    // MARK: UITableViewDataSource
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -59,11 +61,14 @@ class LoginTableViewController: UITableViewController {
         return cell
     }
     
+    // MARK: UITableViewDelegate
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated:true)
         
         var user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
-        self.logInChatWithUser(user);
+        
+        self.logInChatWithUser(user)
     }
     
 }

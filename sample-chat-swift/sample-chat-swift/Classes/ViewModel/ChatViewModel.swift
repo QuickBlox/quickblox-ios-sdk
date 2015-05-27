@@ -111,7 +111,7 @@ class ChatViewModel: NSObject {
                 }
             }
         }
-        ConnectionManager.instance.messagesIDsToDelete ->> deletedMessagesBond
+        StorageManager.instance.messagesIDsToDelete ->> deletedMessagesBond
     }
     
     /// return: current user lastMessage
