@@ -24,7 +24,6 @@
 
 @implementation UsersViewController
 
-
 #pragma mark
 #pragma mark ViewController lyfe cycle
 
@@ -59,7 +58,6 @@
         [alert show];
         return;
     }
-    
     
     QBChatDialog *chatDialog = [QBChatDialog new];
     

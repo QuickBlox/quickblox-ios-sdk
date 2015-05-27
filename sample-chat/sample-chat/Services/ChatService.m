@@ -223,8 +223,10 @@ typedef void(^RequestRoomsBlock)(NSArray *);
 }
 
 - (void)chatRoomDidEnter:(QBChatRoom *)room{
-    self.joinRoomCompletionBlock(room);
-    self.joinRoomCompletionBlock = nil;
+	if( self.joinRoomCompletionBlock != nil ){
+		self.joinRoomCompletionBlock(room);
+		self.joinRoomCompletionBlock = nil;
+	}
 }
 
 - (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error
