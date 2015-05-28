@@ -8,26 +8,27 @@
 
 #import "LoginTableViewController.h"
 #import "StorageManager.h"
-#import "UserTableViewCell.h"
-#import "QBServiceManager.h"
+#import "QBServicesManager.h"
 #import "ReachabilityManager.h"
 #import "Reachability.h"
+#import "StorageManager.h"
+#import "UsersDataSource.h"
 
 @interface LoginTableViewController ()
 
-@property (nonatomic, strong) NSArray *users;
 -(void)reachabilityChanged:(NSNotification*)note;
+@property (strong, nonatomic) UsersDataSource *dataSource;
 @property (nonatomic, assign, getter=isUsersAreDownloading) BOOL usersAreDownloading;
 @end
 
 @implementation LoginTableViewController
 
-NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+	self.dataSource = [[UsersDataSource alloc] init];
+	self.tableView.dataSource = self.dataSource;
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 	
 	[self downloadUsers];
@@ -42,15 +43,14 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 	__weak __typeof(self)weakSelf = self;
 	[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
-	[QBServiceManager.instance.usersService usersWithSuccessBlock:^(NSArray *users) {
-		weakSelf.users = users;
+	[QBServicesManager.instance.usersService usersWithSuccessBlock:^(NSArray *users) {
 		[weakSelf.tableView reloadData];
 		
 		[SVProgressHUD showSuccessWithStatus:@"Completed"];
-		self.usersAreDownloading = NO;
+		weakSelf.usersAreDownloading = NO;
 	} errorBlock:^(QBResponse *response) {
 		[SVProgressHUD showErrorWithStatus:@"Can not download users"];
-		self.usersAreDownloading = NO;
+		weakSelf.usersAreDownloading = NO;
 	}];
 }
 
@@ -63,7 +63,7 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 	
 	__weak __typeof(self)weakSelf = self;
 	
-	[QBServiceManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
+	[QBServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
 		if( success ) {
 			[SVProgressHUD showSuccessWithStatus:@"Logged in"];
 			[weakSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
@@ -76,33 +76,14 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.users.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
-	
-	QBUUser *user = (QBUUser *)self.users[indexPath.row];
-	
-	cell.userDescription = user.fullName;
-	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:user.color];
-	return cell;
-}
-
 #pragma mark - Reachability notifications
 
 - (void)reachabilityChanged:(NSNotification *)note {
 	ReachabilityManager *reach = [ReachabilityManager instance];
 	
-	if( reach.isReachable && self.users == nil){
+	if( reach.isReachable && StorageManager.instance.users == nil){
 		[self downloadUsers];
 	}
-	
 }
 
 

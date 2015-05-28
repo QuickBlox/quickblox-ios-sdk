@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UsersService.h"
 
-@interface QBServiceManager : NSObject
+@interface QBServicesManager : NSObject
 
 + (instancetype)instance;
 

@@ -12,10 +12,8 @@
 
 - (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock;
 
-- (NSUInteger)indexOfUser:(QBUUser *)user;
-- (NSArray *)idsWithUsers:(NSArray *)users;
-- (UIColor *)colorForUser:(QBUUser *)user;
 - (QBUUser *)userWithID:(NSNumber *)userID;
 - (NSArray *)usersWithoutCurrentUser;
+- (NSArray *)idsWithUsers:(NSArray *)users;
 
 @end
