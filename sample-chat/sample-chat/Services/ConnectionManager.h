@@ -14,8 +14,6 @@
 
 @property (strong, nonatomic, readonly) UsersDataSource *usersDataSource;
 
-@property (strong, nonatomic, readonly) NSArray *usersWithoutMe;
-
 + (instancetype)instance;
 
 - (void)logInWithUser:(QBUUser *)user completion:(void (^)(BOOL success, NSString *errorMessage))completion;

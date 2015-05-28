@@ -17,6 +17,7 @@
 
 @implementation LoginTableViewController
 NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
+NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +34,25 @@ NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 
 
 #pragma mark - Table view data source
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeClear];
+	
+	QBUUser *selectedUser = ConnectionManager.instance.usersDataSource.users[indexPath.row];
+	
+	__weak __typeof(self)weakSelf = self;
+	[ConnectionManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
+		if( success ) {
+			[SVProgressHUD showSuccessWithStatus:@"Logged in"];
+			[weakSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
+		}
+		else {
+			[SVProgressHUD showErrorWithStatus:@"Can not login"];
+		}
+	}];
+	
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
