@@ -22,7 +22,6 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	
 	__weak __typeof(self)weakSelf = self;
 	[ConnectionManager.instance usersWithSuccessBlock:^(NSArray *users) {
 		weakSelf.users = users;
