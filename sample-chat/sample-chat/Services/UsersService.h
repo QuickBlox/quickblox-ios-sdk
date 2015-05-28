@@ -8,15 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface UsersDataSource : NSObject
+@interface UsersService : NSObject
 
-@property (nonatomic, strong) NSArray *users;
-@property (nonatomic, strong, readonly) NSArray *colors;
+- (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock;
 
 - (NSUInteger)indexOfUser:(QBUUser *)user;
 - (NSArray *)idsWithUsers:(NSArray *)users;
 - (UIColor *)colorForUser:(QBUUser *)user;
 - (QBUUser *)userWithID:(NSNumber *)userID;
-- (NSArray *)usersWithoutMe;
+- (NSArray *)usersWithoutCurrentUser;
 
 @end

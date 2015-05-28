@@ -8,15 +8,11 @@
 
 #import "ConnectionManager.h"
 #import "QBServiceManager.h"
-#import "UsersDataSource.h"
-
-const NSTimeInterval kChatPresenceTimeInterval = 45;
+#import "StorageManager.h"
 
 @interface ConnectionManager()
 
 @property (copy, nonatomic) void(^chatLoginCompletionBlock)(BOOL success, NSString *errorMessage);
-@property (strong, nonatomic) NSArray *dialogs;
-@property (strong, nonatomic) UsersDataSource *usersDataSource;
 @end
 
 @implementation ConnectionManager
@@ -35,7 +31,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 - (instancetype)init {
 	self = [super init];
 	if( self ) {
-		self.usersDataSource = [[UsersDataSource alloc] init];
+		
 	}
 	return self;
 }
@@ -53,7 +49,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 		}
 		if( QBServiceManager.instance.currentUser != nil ){
 			[QBServiceManager.instance.chatService logoutChat];
-			weakSelf.dialogs = nil;
+			[StorageManager.instance reset];
 		}
 		
 		[QBServiceManager.instance.chatService logIn:^(NSError *error) {
@@ -90,61 +86,17 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 	}
 }
 
-#pragma mark - Public
-
-- (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
-	
-	NSString *const kTestUsersTableKey = @"test_users";
-	NSString *const kUserFullNameKey = @"fullname";
-	NSString *const kUserLoginKey = @"login";
-	NSString *const kUserPasswordKey = @"password";
-	
-	if( self.usersDataSource.users != nil ){
-		if( successBlock != nil ) {
-			successBlock(self.usersDataSource.users);
-		}
-		return; // do not download again
-	}
-	
-	[QBRequest objectsWithClassName:kTestUsersTableKey successBlock:^(QBResponse *response, NSArray *objects) {
-		
-		NSMutableArray *users = [NSMutableArray arrayWithCapacity:objects.count];
-		
-		for( QBCOCustomObject *cObject in objects ){
-			QBUUser *user = [[QBUUser alloc] init];
-			user.fullName = cObject.fields[kUserFullNameKey];
-			user.ID = cObject.userID;
-			user.login = cObject.fields[kUserLoginKey];
-			user.password = cObject.fields[kUserPasswordKey];
-			
-			[users addObject:user];
-		}
-		
-		ConnectionManager.instance.usersDataSource.users = [users copy];
-		
-		if( successBlock != nil ) {
-			successBlock(users);
-		}
-		
-	} errorBlock:^(QBResponse *response) {
-		if( errorBlock != nil ) {
-			errorBlock(response);
-		}
-		NSLog(@"error: %@", response.error.error);
-	}];
-}
-
 @end
 
 @implementation QBUUser (ConnectionManager)
 
 - (NSUInteger)index {
-	NSUInteger idx = [ConnectionManager.instance.usersDataSource indexOfUser:self];
+	NSUInteger idx = [QBServiceManager.instance.usersService indexOfUser:self];
 	return idx;
 }
 
 - (UIColor *)color {
-	UIColor *color = [ConnectionManager.instance.usersDataSource colorForUser:self];
+	UIColor *color = [QBServiceManager.instance.usersService colorForUser:self];
 	return color;
 }
 
