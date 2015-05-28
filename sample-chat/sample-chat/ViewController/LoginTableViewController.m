@@ -11,22 +11,35 @@
 #import "ConnectionManager.h"
 #import "UserTableViewCell.h"
 #import "QBServiceManager.h"
+#import "ReachabilityManager.h"
+#import "Reachability.h"
 
 @interface LoginTableViewController ()
+
 @property (nonatomic, strong) NSArray *users;
+-(void)reachabilityChanged:(NSNotification*)note;
+@property (nonatomic, assign, getter=isUsersAreDownloading) BOOL usersAreDownloading;
 @end
 
 @implementation LoginTableViewController
+
 NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 	
 	[self downloadUsers];
 }
 
 - (void)downloadUsers {
+	if( self.isUsersAreDownloading ){
+		return;
+	}
+	self.usersAreDownloading = YES;
+	
 	__weak __typeof(self)weakSelf = self;
 	[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
@@ -35,12 +48,10 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 		[weakSelf.tableView reloadData];
 		
 		[SVProgressHUD showSuccessWithStatus:@"Completed"];
+		self.usersAreDownloading = NO;
 	} errorBlock:^(QBResponse *response) {
-		[SVProgressHUD showErrorWithStatus:@"Can not download users, trying again in 5 seconds"];
-		
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-			[weakSelf downloadUsers];
-		});
+		[SVProgressHUD showErrorWithStatus:@"Can not download users"];
+		self.usersAreDownloading = NO;
 	}];
 }
 
@@ -66,7 +77,7 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -82,5 +93,17 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:user.color];
 	return cell;
 }
+
+#pragma mark - Reachability notifications
+
+- (void)reachabilityChanged:(NSNotification *)note {
+	ReachabilityManager *reach = [ReachabilityManager instance];
+	
+	if( reach.isReachable && self.users == nil){
+		[self downloadUsers];
+	}
+	
+}
+
 
 @end

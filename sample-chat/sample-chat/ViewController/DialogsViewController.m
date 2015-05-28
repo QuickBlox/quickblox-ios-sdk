@@ -25,8 +25,7 @@ const NSUInteger kDialogsPageLimit = 10;
 #pragma mark
 #pragma mark ViewController lyfe cycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	
 	[QBServiceManager.instance.chatService addDelegate:self];
@@ -71,8 +70,7 @@ const NSUInteger kDialogsPageLimit = 10;
 	return [[self dialogs] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = [self dialogs][indexPath.row];
@@ -119,8 +117,7 @@ const NSUInteger kDialogsPageLimit = 10;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	QBChatDialog *dialog = [self dialogs][indexPath.row];
