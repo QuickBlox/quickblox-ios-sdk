@@ -8,7 +8,6 @@
 
 #import "СhatViewController.h"
 #import "ChatMessageTableViewCell.h"
-#import "LocalStorageService.h"
 
 @interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, ChatServiceDelegate>
 
@@ -140,8 +139,8 @@
     // 1-1 Chat
     if(self.dialog.type == QBChatDialogTypePrivate){
         // send message
-        message.recipientID = [self.dialog recipientID];
-        message.senderID = [LocalStorageService shared].currentUser.ID;
+//        message.recipientID = [self.dialog recipientID];
+//        message.senderID = [LocalStorageService shared].currentUser.ID;
         [self.dialog sendMessage:message sentBlock:^(NSError *error) {
             if (error == nil) {
                 NSLog(@"Sent!");
