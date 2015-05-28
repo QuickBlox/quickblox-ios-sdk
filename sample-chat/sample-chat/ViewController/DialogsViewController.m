@@ -11,7 +11,7 @@
 #import "ChatMessageTableViewCell.h"
 
 #import <Quickblox/QBASession.h>
-#import "QBServiceManager.h"
+#import "QBServicesManager.h"
 
 @interface DialogsViewController () <QMChatServiceDelegate>
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
@@ -27,7 +27,7 @@ const NSUInteger kDialogsPageLimit = 10;
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	[QBServiceManager.instance.chatService addDelegate:self];
+	[QBServicesManager.instance.chatService addDelegate:self];
 	
 	[self loadDialogs];
 	
@@ -45,7 +45,7 @@ const NSUInteger kDialogsPageLimit = 10;
 		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
-	[QBServiceManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+	[QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
 		
 		if( response.error != nil ) {
 			[SVProgressHUD showErrorWithStatus:@"Can not download"];
@@ -59,7 +59,7 @@ const NSUInteger kDialogsPageLimit = 10;
 }
 
 - (NSArray *)dialogs{
-	return QBServiceManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
+	return QBServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
 }
 
 #pragma mark
@@ -78,7 +78,7 @@ const NSUInteger kDialogsPageLimit = 10;
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate:{
             cell.detailTextLabel.text = chatDialog.lastMessageText;
-			QBUUser *recipient = [QBServiceManager.instance.usersService userWithID:@(chatDialog.recipientID)];
+			QBUUser *recipient = [QBServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
         }
             break;
@@ -136,7 +136,7 @@ const NSUInteger kDialogsPageLimit = 10;
 }
 
 - (void)dealloc {
-	[QBServiceManager.instance.chatService removeDelegate:self];
+	[QBServicesManager.instance.chatService removeDelegate:self];
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
