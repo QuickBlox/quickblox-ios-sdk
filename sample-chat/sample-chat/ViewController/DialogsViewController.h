@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DialogsViewController : UIViewController
+@interface DialogsViewController : UITableViewController
 
 @property (strong, nonatomic) QBChatDialog *createdDialog;
 

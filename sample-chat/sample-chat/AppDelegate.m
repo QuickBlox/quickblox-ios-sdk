@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DialogsViewController.h"
+#import "ReachabilityManager.h"
 
 @implementation AppDelegate
 
@@ -20,7 +21,9 @@
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
-    
+	
+	[[ReachabilityManager instance] startNotifier];
+	
     return YES;
 }
 							

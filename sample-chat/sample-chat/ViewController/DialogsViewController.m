@@ -11,116 +11,74 @@
 #import "ChatMessageTableViewCell.h"
 
 #import <Quickblox/QBASession.h>
-#import "QBServiceManager.h"
-#import "LocalStorageService.h"
+#import "QBServicesManager.h"
 
-
-#define demoUserLogin1 @"igorquickblox"
-#define demoUserPassword1 @"igorquickblox"
-#define demoUserLogin2 @"Dimple"
-#define demoUserPassword2 @"Dimple12"
-
-
-@interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource>
-
-@property (nonatomic, weak) IBOutlet UITableView *dialogsTableView;
-
+@interface DialogsViewController () <QMChatServiceDelegate>
+@property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @end
 
 @implementation DialogsViewController
 
-- (void(^)(QBResponse *))handleError
-{
-    return ^(QBResponse *response) {
-        NSLog(@"error: %@", [response.error description]);
-    };
-}
+const NSUInteger kDialogsPageLimit = 10;
 
 #pragma mark
 #pragma mark ViewController lyfe cycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
-    QBUUser* user = [QBUUser new];
-    user.login = demoUserLogin1;
-    user.password = demoUserPassword1;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
-                                                 name:kDialogUpdatedNotification object:nil];
-    
-    [[QBServiceManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
-    
-        if (userProfile != nil) {
-            [[LocalStorageService shared] setCurrentUser:userProfile];
-            [[QBServiceManager instance].chatService logIn:^(NSError *error) {
-                // hide alert after delay
-                [self requestDialogs];
-            }];
-        }
-    }];
+	
+	[QBServicesManager.instance.chatService addDelegate:self];
+	
+	[self loadDialogs];
+	
+	__weak __typeof(self)weakSelf = self;
+	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
+		[weakSelf loadDialogs];
+	}];
 }
 
-- (void)requestDialogs
-{
-    if([ChatService shared].currentUser != nil){
-        // get dialogs
-        //
-        [SVProgressHUD showWithStatus:@"Loading"];
-        __weak __typeof(self)weakSelf = self;
-        [[ChatService shared] requestDialogsWithCompletionBlock:^{
-            [weakSelf.dialogsTableView reloadData];
-            [SVProgressHUD dismiss];
-        }];
-    }
+- (void)loadDialogs {
+	
+	BOOL shouldShowSuccessStatus = NO;
+	if( [[self dialogs] count] == 0 ) {
+		shouldShowSuccessStatus = YES;
+		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
+	}
+	
+	[QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+		
+		if( response.error != nil ) {
+			[SVProgressHUD showErrorWithStatus:@"Can not download"];
+		}
+		
+	} completion:^(QBResponse *response) {
+		if( shouldShowSuccessStatus ) {
+			[SVProgressHUD showSuccessWithStatus:@"Completed"];
+		}
+	}];
 }
 
-#pragma mark
-#pragma mark Actions
-
-- (IBAction)createDialog:(id)sender{
-    [self performSegueWithIdentifier:kShowUsersViewControllerSegue sender:nil];
+- (NSArray *)dialogs{
+	return QBServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
 }
-
-
-#pragma mark
-#pragma mark Storyboard
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.destinationViewController isKindOfClass:ChatViewController.class]){
-        ChatViewController *destinationViewController = (ChatViewController *)segue.destinationViewController;
-        
-        if(self.createdDialog != nil){
-            destinationViewController.dialog = self.createdDialog;
-            self.createdDialog = nil;
-        }else{
-            QBChatDialog *dialog = [ChatService shared].dialogs[((UITableViewCell *)sender).tag];
-            destinationViewController.dialog = dialog;
-        }
-    }
-}
-
 
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return [[ChatService shared].dialogs count];
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [[self dialogs] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
-    QBChatDialog *chatDialog = [ChatService shared].dialogs[indexPath.row];
+    QBChatDialog *chatDialog = [self dialogs][indexPath.row];
     cell.tag  = indexPath.row;
     
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate:{
             cell.detailTextLabel.text = chatDialog.lastMessageText;
-            QBUUser *recipient = [ChatService shared].usersAsDictionary[@(chatDialog.recipientID)];
+			QBUUser *recipient = [QBServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
         }
             break;
@@ -143,36 +101,43 @@
     
     // set unread badge
     UILabel *badgeLabel = (UILabel *)[cell.contentView viewWithTag:201];
-    if(chatDialog.unreadMessagesCount > 0){
+    if( chatDialog.unreadMessagesCount > 0 ) {
         badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)chatDialog.unreadMessagesCount];
         badgeLabel.hidden = NO;
         
         badgeLabel.layer.cornerRadius = 10;
         badgeLabel.layer.borderColor = [[UIColor blueColor] CGColor];
         badgeLabel.layer.borderWidth = 1;
-    }else{
+    }
+	else {
         badgeLabel.hidden = YES;
     }
 
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	QBChatDialog *dialog = [self dialogs][indexPath.row];
+	// perform segue to Chat VC
 }
 
 
 #pragma mark
 #pragma Notifications
 
-- (void)dialogUpdated:(NSNotification *)notification{
-    NSString *dialogId = notification.userInfo[@"dialog_id"];
-    
-    __weak __typeof(self)weakSelf = self;
-    [[ChatService shared] requestDialogUpdateWithId:dialogId completionBlock:^{
-        [weakSelf.dialogsTableView reloadData];
-    }];
+- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs {
+	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog {
+	[self.tableView reloadData];
+}
+
+- (void)dealloc {
+	[QBServicesManager.instance.chatService removeDelegate:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
 @end
