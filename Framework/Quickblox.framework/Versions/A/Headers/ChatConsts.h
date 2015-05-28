@@ -17,16 +17,9 @@ extern NSString *const kPresenseSubscriptionStateBoth;
 #define mucOwner @"http://jabber.org/protocol/muc#owner"
 #define mucAdmin @"http://jabber.org/protocol/muc#admin"
 
-
-#define requestAllRoomsQueryIDPrefix @"561002"
 // 561003
-#define requestRoomInformationQueryIDPrefix @"561004"
 #define requestRoomOnlineUsersQueryIDPrefix @"561005"
 // 561006
-#define requestDestroyRoomQueryIDPrefix @"561007"
-//
-#define requestServiceDiscoveryInformationQueryIDPrefix @"561008"
-
 
 #define qbChatMessageExtraParams @"extraParams"
 #define qbChatMessageQuickBloxExtension @"quickblox"
