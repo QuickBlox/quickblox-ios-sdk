@@ -14,6 +14,8 @@
 		14C273BB1B174DE60053D5AF /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */; };
 		14C273BC1B174DE60053D5AF /* QMChatCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */; };
 		14C273D61B176A160053D5AF /* StorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273D51B176A160053D5AF /* StorageManager.m */; };
+		14C273E11B1770430053D5AF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273E01B1770430053D5AF /* Reachability.m */; };
+		14C273E41B1773310053D5AF /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273E31B1773310053D5AF /* ReachabilityManager.m */; };
 		14F4F8CC1B15F06A00A21A84 /* ConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4F8CB1B15F06A00A21A84 /* ConnectionManager.m */; };
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
@@ -81,6 +83,10 @@
 		14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMChatCacheModel.bundle; path = ../services/QMServices/QMChatCache/QMChatCacheModel.bundle; sourceTree = "<group>"; };
 		14C273D41B176A160053D5AF /* StorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageManager.h; sourceTree = "<group>"; };
 		14C273D51B176A160053D5AF /* StorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageManager.m; sourceTree = "<group>"; };
+		14C273DF1B1770430053D5AF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ThirdParty/Reachability.h; sourceTree = "<group>"; };
+		14C273E01B1770430053D5AF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ThirdParty/Reachability.m; sourceTree = "<group>"; };
+		14C273E21B1773310053D5AF /* ReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReachabilityManager.h; sourceTree = "<group>"; };
+		14C273E31B1773310053D5AF /* ReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReachabilityManager.m; sourceTree = "<group>"; };
 		14F4F8CA1B15F06A00A21A84 /* ConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionManager.h; sourceTree = "<group>"; };
 		14F4F8CB1B15F06A00A21A84 /* ConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionManager.m; sourceTree = "<group>"; };
 		1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,6 +170,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14C273DE1B17702A0053D5AF /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				14C273DF1B1770430053D5AF /* Reachability.h */,
+				14C273E01B1770430053D5AF /* Reachability.m */,
+			);
+			name = ThirdParty;
+			sourceTree = "<group>";
+		};
 		2C6E80D51B0F179300A6E86D /* QMServices */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +261,7 @@
 		BFE6FB7B180E8EF100E64AC4 /* sample-chat */ = {
 			isa = PBXGroup;
 			children = (
+				14C273DE1B17702A0053D5AF /* ThirdParty */,
 				861049F21B0A47AC00464D52 /* Services */,
 				BFE6FB84180E8EF100E64AC4 /* AppDelegate.h */,
 				BFE6FB85180E8EF100E64AC4 /* AppDelegate.m */,
@@ -312,6 +328,8 @@
 				14F4F8CB1B15F06A00A21A84 /* ConnectionManager.m */,
 				14C273D41B176A160053D5AF /* StorageManager.h */,
 				14C273D51B176A160053D5AF /* StorageManager.m */,
+				14C273E21B1773310053D5AF /* ReachabilityManager.h */,
+				14C273E31B1773310053D5AF /* ReachabilityManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -474,6 +492,7 @@
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
 				14F4F8CC1B15F06A00A21A84 /* ConnectionManager.m in Sources */,
+				14C273E41B1773310053D5AF /* ReachabilityManager.m in Sources */,
 				1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */,
 				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
 				86104A1E1B0B5E1900464D52 /* QBServiceManager.m in Sources */,
@@ -484,6 +503,7 @@
 				BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */,
 				14C273D61B176A160053D5AF /* StorageManager.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
+				14C273E11B1770430053D5AF /* Reachability.m in Sources */,
 				1402B6961B14B9BC0069E3A4 /* UsersService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
