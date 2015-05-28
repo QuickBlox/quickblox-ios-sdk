@@ -11,6 +11,7 @@
 @class QBResponse;
 @class QBUUser;
 @class QBGeneralResponsePage;
+@class QBUpdateUserParameters;
 
 @interface QBRequest (QBUsers)
 
@@ -328,22 +329,33 @@
 /**
  Update User
 
- Type of Result - QBUUserResult
-
+ @warning Deprecated in QB iOS SDK 2.3. Use 'updateCurrentUser:successBlock:errorBlock:' instead.
+ 
  @param user An instance of QBUUser, describing the user to be edited.
  @param successBlock Block with response and user instances if request succeded
  @param errorBlock Block with response instance if request failed
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 + (QBRequest *)updateUser:(QBUUser *)user successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock
-			   errorBlock:(void (^)(QBResponse *response))errorBlock;
+			   errorBlock:(void (^)(QBResponse *response))errorBlock  __attribute__((deprecated("Use updateCurrentUser:successBlock:errorBlock: instead")));
+
+
+/**
+ *  Update current session user.
+ *
+ *  @param parameters   User parameters that could be updated.
+ *  @param successBlock Block with response and user instances if request succeded.
+ *  @param errorBlock   Block with response instance if request failed.
+ *
+ *  @return An instance of QBRequest. Use this instance to cancel the operation.
+ */
++ (QBRequest *)updateCurrentUser:(QBUpdateUserParameters *)parameters successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock
+                      errorBlock:(void (^)(QBResponse *response))errorBlock;
 
 #pragma mark - Delete User
 
 /**
  Delete User by identifier
-
- Type of Result - QBUUserResult
 
  @param userID ID of user to be removed.
  @param successBlock Block with response instance if request succeded
@@ -370,7 +382,7 @@
 
 /**
  Reset user's password. User with this email will retrieve email instruction for reset password.
-0
+
  @param email User's email
  @param successBlock Block with response instance if request succeded
  @param errorBlock Block with response instance if request failed

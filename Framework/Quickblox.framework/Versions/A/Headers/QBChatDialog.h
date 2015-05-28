@@ -12,9 +12,11 @@
 extern NSString* const QBChatDialogJoinPrefix;
 extern NSString* const QBChatDialogLeavePrefix;
 extern NSString* const QBChatDialogOnlineUsersPrefix;
+extern NSString* const QBChatDialogOnJoinFailedPrefix;
 
 typedef void(^QBChatDialogStatusBlock)() ;
 typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) ;
+typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
 
 @class QBChatRoom;
 @class QBChatMessage;
@@ -79,6 +81,12 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
  */
 @property (nonatomic, copy) QBChatDialogRequestOnlineUsersBlock onReceiveListOfOnlineUsers;
 - (void)setOnReceiveListOfOnlineUsers:(QBChatDialogRequestOnlineUsersBlock)anOnReceiveListOfOnlineUsers;
+
+/**
+ *  Fired when join to room failed (in most cases if user is not added to the room)
+ */
+@property (nonatomic, copy) QBChatDialogJoinFailedBlock onJoinFailed;
+- (void)setOnJoinFailed:(QBChatDialogJoinFailedBlock)anOnJoinFailed;
 
 /** Constructor */
 - (instancetype)initWithDialogID:(NSString *)dialogID;
@@ -151,31 +159,6 @@ typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) 
  */
 - (BOOL)requestOnlineUsers;
 
-#pragma mark - Presences
-
-/**
- *  Send presence with parameters to room.
- *
- *  @param parameters Presence parameters.
- *
- *  @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendPresenceWithParameters:(NSDictionary *)parameters;
-
-/**
- *   Send presence with status, show, priority, custom parameters to room
- *
- *  @param status           Element contains character data specifying a natural-language description of availability status
- *  @param show             Element contains non-human-readable character data that specifies the particular availability status of an entity or specific resource.
- *  @param priority         Element contains non-human-readable character data that specifies the priority level of the resource. The value MUST be an integer between -128 and +127.
- *  @param customParameters Custom parameters
- *
- *  @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendPresenceWithStatus:(NSString *)status
-                          show:(QBPresenseShow)show
-                      priority:(short)priority
-              customParameters:(NSDictionary *)customParameters;
 @end
 
 @interface QBChatDialog (Deprecated)
