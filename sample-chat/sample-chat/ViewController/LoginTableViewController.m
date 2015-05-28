@@ -7,9 +7,10 @@
 //
 
 #import "LoginTableViewController.h"
-#import "UsersDataSource.h"
+#import "StorageManager.h"
 #import "ConnectionManager.h"
 #import "UserTableViewCell.h"
+#import "QBServiceManager.h"
 
 @interface LoginTableViewController ()
 @property (nonatomic, strong) NSArray *users;
@@ -29,7 +30,7 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 	__weak __typeof(self)weakSelf = self;
 	[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
-	[ConnectionManager.instance usersWithSuccessBlock:^(NSArray *users) {
+	[QBServiceManager.instance.usersService usersWithSuccessBlock:^(NSArray *users) {
 		weakSelf.users = users;
 		[weakSelf.tableView reloadData];
 		
@@ -48,7 +49,7 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeClear];
 	
-	QBUUser *selectedUser = ConnectionManager.instance.usersDataSource.users[indexPath.row];
+	QBUUser *selectedUser = StorageManager.instance.users[indexPath.row];
 	
 	__weak __typeof(self)weakSelf = self;
 	[ConnectionManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {

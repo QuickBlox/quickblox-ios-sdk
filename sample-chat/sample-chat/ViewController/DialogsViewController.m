@@ -12,10 +12,7 @@
 
 #import <Quickblox/QBASession.h>
 #import "QBServiceManager.h"
-#import "LocalStorageService.h"
 #import "ConnectionManager.h"
-#import "UsersDataSource.h"
-
 
 
 @interface DialogsViewController () <QMChatServiceDelegate>
@@ -84,7 +81,7 @@ const NSUInteger kDialogsPageLimit = 10;
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate:{
             cell.detailTextLabel.text = chatDialog.lastMessageText;
-			QBUUser *recipient = [ConnectionManager.instance.usersDataSource userWithID:@(chatDialog.recipientID)];
+			QBUUser *recipient = [QBServiceManager.instance.usersService userWithID:@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
         }
             break;

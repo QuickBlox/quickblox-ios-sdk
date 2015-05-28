@@ -6,13 +6,14 @@
 //  Copyright (c) 2015 Igor Khomenko. All rights reserved.
 //
 
-#import "UsersDataSource.h"
+#import "UsersService.h"
+#import "StorageManager.h"
 
-@interface UsersDataSource()
+@interface UsersService()
 @property (nonatomic, strong) NSArray *colors;
 @end
 
-@implementation UsersDataSource
+@implementation UsersService
 
 NSString *const kTestUsersTableKey = @"test_users";
 NSString *const kUserFullNameKey = @"fullname";
@@ -37,9 +38,51 @@ NSString *const kUserPasswordKey = @"password";
 	return self;
 }
 
+- (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
+	
+	NSString *const kTestUsersTableKey = @"test_users";
+	NSString *const kUserFullNameKey = @"fullname";
+	NSString *const kUserLoginKey = @"login";
+	NSString *const kUserPasswordKey = @"password";
+	
+	if( StorageManager.instance.users.count != 0 ){
+		if( successBlock != nil ) {
+			successBlock(StorageManager.instance.users);
+		}
+		return; // do not download again
+	}
+	
+	[QBRequest objectsWithClassName:kTestUsersTableKey successBlock:^(QBResponse *response, NSArray *objects) {
+		
+		NSMutableArray *users = [NSMutableArray arrayWithCapacity:objects.count];
+		
+		for( QBCOCustomObject *cObject in objects ){
+			QBUUser *user = [[QBUUser alloc] init];
+			user.fullName = cObject.fields[kUserFullNameKey];
+			user.ID = cObject.userID;
+			user.login = cObject.fields[kUserLoginKey];
+			user.password = cObject.fields[kUserPasswordKey];
+			
+			[users addObject:user];
+		}
+		
+		StorageManager.instance.users = [users copy];
+		
+		if( successBlock != nil ) {
+			successBlock(users);
+		}
+		
+	} errorBlock:^(QBResponse *response) {
+		if( errorBlock != nil ) {
+			errorBlock(response);
+		}
+		NSLog(@"error: %@", response.error.error);
+	}];
+}
+
 - (NSUInteger)indexOfUser:(QBUUser *)user {
 	
-	return [self.users indexOfObject:user];
+	return [StorageManager.instance.users indexOfObject:user];
 }
 
 - (NSArray *)idsWithUsers:(NSArray *)users {
@@ -55,14 +98,14 @@ NSString *const kUserPasswordKey = @"password";
 }
 
 - (UIColor *)colorForUser:(QBUUser *)user {
-	NSUInteger idx = [self.users indexOfObject:user];
+	NSUInteger idx = [StorageManager.instance.users indexOfObject:user];
 	return self.colors[idx];
 }
 
 - (QBUUser *)userWithID:(NSNumber *)userID {
 	
 	__block QBUUser *resultUser = nil;
-	[self.users enumerateObjectsUsingBlock:^(QBUUser *user,
+	[StorageManager.instance.users enumerateObjectsUsingBlock:^(QBUUser *user,
 											 NSUInteger idx,
 											 BOOL *stop) {
 		
@@ -75,12 +118,12 @@ NSString *const kUserPasswordKey = @"password";
 	return resultUser;
 }
 
-- (NSArray *)usersWithoutMe {
-	NSMutableArray *usersWithoutMe = [self.users mutableCopy];
+- (NSArray *)usersWithoutCurrentUser {
+	NSMutableArray *usersWithoutCurrentUser = [StorageManager.instance.users mutableCopy];
 	if( [QBSession currentSession].currentUser ) {
-		[usersWithoutMe removeObject:[QBSession currentSession].currentUser];
+		[usersWithoutCurrentUser removeObject:[QBSession currentSession].currentUser];
 	}
 	
-	return usersWithoutMe;
+	return usersWithoutCurrentUser;
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UsersService.h"
 
 @interface QBServiceManager : NSObject
 
@@ -14,6 +15,7 @@
 
 @property (nonatomic, readonly) QMAuthService* authService;
 @property (nonatomic, readonly) QMChatService* chatService;
+@property (nonatomic, readonly) UsersService* usersService;
 
 - (QBUUser *)currentUser;
 

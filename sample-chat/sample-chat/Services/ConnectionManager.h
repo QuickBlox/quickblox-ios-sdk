@@ -8,18 +8,14 @@
 
 
 #import <Foundation/Foundation.h>
-#import "UsersDataSource.h"
 
 @interface ConnectionManager : NSObject
-
-@property (strong, nonatomic, readonly) UsersDataSource *usersDataSource;
 
 + (instancetype)instance;
 
 - (void)logInWithUser:(QBUUser *)user completion:(void (^)(BOOL success, NSString *errorMessage))completion;
 - (void)logOut;
 
-- (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock;
 
 @end
 
