@@ -16,14 +16,9 @@
 #import "ConnectionManager.h"
 #import "UsersDataSource.h"
 
-#define demoUserLogin1 @"igorquickblox"
-#define demoUserPassword1 @"igorquickblox"
-#define demoUserLogin2 @"Dimple"
-#define demoUserPassword2 @"Dimple12"
 
 
 @interface DialogsViewController () <QMChatServiceDelegate>
-
 @end
 
 @implementation DialogsViewController
@@ -66,31 +61,6 @@ const NSUInteger kDialogsPageLimit = 10;
 - (NSArray *)dialogs{
 	return QBServiceManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
 }
-#pragma mark
-#pragma mark Actions
-
-- (IBAction)createDialog:(id)sender{
-    [self performSegueWithIdentifier:kShowUsersViewControllerSegue sender:nil];
-}
-
-
-#pragma mark
-#pragma mark Storyboard
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.destinationViewController isKindOfClass:ChatViewController.class]){
-        ChatViewController *destinationViewController = (ChatViewController *)segue.destinationViewController;
-        
-        if(self.createdDialog != nil){
-            destinationViewController.dialog = self.createdDialog;
-            self.createdDialog = nil;
-        }else{
-            QBChatDialog *dialog = [ChatService shared].dialogs[((UITableViewCell *)sender).tag];
-            destinationViewController.dialog = dialog;
-        }
-    }
-}
-
 
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
@@ -103,13 +73,13 @@ const NSUInteger kDialogsPageLimit = 10;
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
-    QBChatDialog *chatDialog = [ChatService shared].dialogs[indexPath.row];
+    QBChatDialog *chatDialog = [self dialogs][indexPath.row];
     cell.tag  = indexPath.row;
     
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate:{
             cell.detailTextLabel.text = chatDialog.lastMessageText;
-            QBUUser *recipient = [ChatService shared].usersAsDictionary[@(chatDialog.recipientID)];
+			QBUUser *recipient = [ConnectionManager.instance.usersDataSource userWithID:@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
         }
             break;
@@ -170,4 +140,5 @@ const NSUInteger kDialogsPageLimit = 10;
 - (void)dealloc {
 	[QBServiceManager.instance.chatService removeDelegate:self];
 }
+
 @end
