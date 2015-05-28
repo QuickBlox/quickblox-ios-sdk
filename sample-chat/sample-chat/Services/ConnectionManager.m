@@ -15,7 +15,6 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 @interface ConnectionManager()
 
 @property (copy, nonatomic) void(^chatLoginCompletionBlock)(BOOL success, NSString *errorMessage);
-@property (strong, nonatomic) NSTimer *presenceTimer;
 @property (strong, nonatomic) NSArray *dialogs;
 @property (strong, nonatomic) UsersDataSource *usersDataSource;
 @end
@@ -65,13 +64,6 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 }
 
 - (void)logOut {
-	
-	[self.presenceTimer invalidate];
-	self.presenceTimer = nil;
-	if ([QBChat.instance isLoggedIn]) {
-		
-		[QBChat.instance logout];
-	}
 	
 }
 
