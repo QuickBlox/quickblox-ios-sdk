@@ -32,6 +32,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 	
 	return instance;
 }
+
 - (instancetype)init {
 	self = [super init];
 	if( self ) {
@@ -63,7 +64,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 	}];
 }
 
-- (void)logout {
+- (void)logOut {
 	
 	[self.presenceTimer invalidate];
 	self.presenceTimer = nil;
@@ -77,7 +78,6 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 #pragma mark - QBChatDelegate
 
 - (void)chatDidNotLogin {
-	
 	if (self.chatLoginCompletionBlock) {
 		self.chatLoginCompletionBlock(NO, @"");
 		self.chatLoginCompletionBlock = nil;
@@ -85,7 +85,6 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 }
 
 - (void)chatDidFailWithError:(NSInteger)code {
-	
 	if (self.chatLoginCompletionBlock) {
 		self.chatLoginCompletionBlock(NO, @"");
 		self.chatLoginCompletionBlock = nil;
@@ -93,8 +92,6 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 }
 
 - (void)chatDidLogin {
-	[QBServiceManager.instance.chatService startSendPresenceWithTimeInterval:45.0];
-
 	if (self.chatLoginCompletionBlock) {
 		self.chatLoginCompletionBlock(YES, @"");
 		self.chatLoginCompletionBlock = nil;
