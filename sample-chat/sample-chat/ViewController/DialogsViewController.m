@@ -35,6 +35,11 @@ const NSUInteger kDialogsPageLimit = 10;
 	[QBServiceManager.instance.chatService addDelegate:self];
 	
 	[self loadDialogs];
+	
+	__weak __typeof(self)weakSelf = self;
+	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
+		[weakSelf loadDialogs];
+	}];
 }
 
 - (void)loadDialogs {
@@ -139,6 +144,7 @@ const NSUInteger kDialogsPageLimit = 10;
 
 - (void)dealloc {
 	[QBServiceManager.instance.chatService removeDelegate:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
