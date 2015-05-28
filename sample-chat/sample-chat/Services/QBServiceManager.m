@@ -7,6 +7,7 @@
 //
 
 #import "QBServiceManager.h"
+#import "StorageManager.h"
 
 @interface QBServiceManager () <QMServiceManagerProtocol, QMChatServiceCacheDelegate>
 
@@ -36,6 +37,28 @@
     });
     return manager;
 }
+
+- (void)logInWithUser:(QBUUser *)user
+		   completion:(void (^)(BOOL success, NSString *errorMessage))completion {
+	
+	[[QBServiceManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
+		
+		if( response.error != nil ){
+			completion(NO, response.error.error.localizedDescription);
+			return;
+		}
+		if( QBServiceManager.instance.currentUser != nil ){
+			[QBServiceManager.instance.chatService logoutChat];
+			[StorageManager.instance reset];
+		}
+		
+		[QBServiceManager.instance.chatService logIn:^(NSError *error) {
+			completion(error == nil, error.localizedDescription);
+		}];
+		
+	}];
+}
+
 
 - (void)handleErrorResponse:(QBResponse *)response {
     NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
