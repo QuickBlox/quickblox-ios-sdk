@@ -28,12 +28,16 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
 
         ServicesManager.instance.chatService.addDelegate(self)
         ServicesManager.instance.chatService.addDelegate(ServicesManager.instance)
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
-        self.getDialogs()
+            self.getDialogs()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.getDialogs()
     }
     
     override func viewWillDisappear(animated: Bool) {
