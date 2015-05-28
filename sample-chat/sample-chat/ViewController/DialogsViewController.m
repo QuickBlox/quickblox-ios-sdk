@@ -12,10 +12,9 @@
 
 #import <Quickblox/QBASession.h>
 #import "QBServiceManager.h"
-#import "ConnectionManager.h"
-
 
 @interface DialogsViewController () <QMChatServiceDelegate>
+@property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @end
 
 @implementation DialogsViewController
@@ -33,7 +32,7 @@ const NSUInteger kDialogsPageLimit = 10;
 	[self loadDialogs];
 	
 	__weak __typeof(self)weakSelf = self;
-	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
+	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
 		[weakSelf loadDialogs];
 	}];
 }
@@ -138,7 +137,7 @@ const NSUInteger kDialogsPageLimit = 10;
 
 - (void)dealloc {
 	[QBServiceManager.instance.chatService removeDelegate:self];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
 @end

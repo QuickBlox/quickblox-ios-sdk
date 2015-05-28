@@ -8,7 +8,6 @@
 
 #import "LoginTableViewController.h"
 #import "StorageManager.h"
-#import "ConnectionManager.h"
 #import "UserTableViewCell.h"
 #import "QBServiceManager.h"
 #import "ReachabilityManager.h"
@@ -63,7 +62,8 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 	QBUUser *selectedUser = StorageManager.instance.users[indexPath.row];
 	
 	__weak __typeof(self)weakSelf = self;
-	[ConnectionManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
+	
+	[QBServiceManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
 		if( success ) {
 			[SVProgressHUD showSuccessWithStatus:@"Logged in"];
 			[weakSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
