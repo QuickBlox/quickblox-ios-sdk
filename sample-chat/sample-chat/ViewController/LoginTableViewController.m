@@ -22,15 +22,26 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	[self downloadUsers];
+}
+
+- (void)downloadUsers {
 	__weak __typeof(self)weakSelf = self;
+	[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
+	
 	[ConnectionManager.instance usersWithSuccessBlock:^(NSArray *users) {
 		weakSelf.users = users;
 		[weakSelf.tableView reloadData];
-	} errorBlock:^(QBResponse *response) {
 		
+		[SVProgressHUD showSuccessWithStatus:@"Completed"];
+	} errorBlock:^(QBResponse *response) {
+		[SVProgressHUD showErrorWithStatus:@"Can not download users, trying again in 5 seconds"];
+		
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[weakSelf downloadUsers];
+		});
 	}];
 }
-
 
 #pragma mark - Table view data source
 
