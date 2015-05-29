@@ -48,6 +48,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         if self.isMovingFromParentViewController() {
             ServicesManager.instance.chatService.logoutChat()
+            NSNotificationCenter.defaultCenter().removeObserver(self)
         }
     }
     
