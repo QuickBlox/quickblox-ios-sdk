@@ -301,9 +301,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BFE6FB71180E8EF100E64AC4 /* sample-chat */ = {
+		BFE6FB71180E8EF100E64AC4 /* samplechat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "sample-chat" */;
+			buildConfigurationList = BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "samplechat" */;
 			buildPhases = (
 				5948AA2C6DD54920BE8F0F50 /* Check Pods Manifest.lock */,
 				BFE6FB6E180E8EF100E64AC4 /* Sources */,
@@ -317,7 +317,7 @@
 			dependencies = (
 				2C6E80F91B0F17BA00A6E86D /* PBXTargetDependency */,
 			);
-			name = "sample-chat";
+			name = samplechat;
 			productName = "sample-chat";
 			productReference = BFE6FB72180E8EF100E64AC4 /* samplechat.app */;
 			productType = "com.apple.product-type.application";
@@ -355,7 +355,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				BFE6FB71180E8EF100E64AC4 /* sample-chat */,
+				BFE6FB71180E8EF100E64AC4 /* samplechat */,
 			);
 		};
 /* End PBXProject section */
@@ -628,7 +628,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "sample-chat" */ = {
+		BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "samplechat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BFE6FBA8180E8EF100E64AC4 /* Debug */,
