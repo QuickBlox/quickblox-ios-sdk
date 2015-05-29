@@ -67,12 +67,15 @@
 }
 
 - (NSArray *)usersWithoutCurrentUser {
-	NSMutableArray *usersWithoutCurrentUser = [StorageManager.instance.users mutableCopy];
+	NSArray *usersWithoutCurrentUser = StorageManager.instance.users;
 	if( [QBSession currentSession].currentUser ) {
-		[usersWithoutCurrentUser removeObject:[QBSession currentSession].currentUser];
+		usersWithoutCurrentUser = [usersWithoutCurrentUser filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+			QBUUser *user = (QBUUser *)evaluatedObject;
+			return user.ID != [QBSession currentSession].currentUser.ID;
+		}]];
 	}
 	
-	return [usersWithoutCurrentUser copy];
+	return usersWithoutCurrentUser;
 }
 
 - (NSArray *)idsWithUsers:(NSArray *)users {

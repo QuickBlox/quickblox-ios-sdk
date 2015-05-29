@@ -11,6 +11,7 @@
 		1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6991B14BF350069E3A4 /* UserTableViewCell.m */; };
 		1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B69C1B14BFBA0069E3A4 /* CornerView.m */; };
 		1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */; };
+		143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143181781B1882EC001A933D /* NewDialogTableViewController.m */; };
 		14C273BB1B174DE60053D5AF /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */; };
 		14C273BC1B174DE60053D5AF /* QMChatCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */; };
 		14C273D61B176A160053D5AF /* StorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273D51B176A160053D5AF /* StorageManager.m */; };
@@ -76,6 +77,8 @@
 		1402B6A61B14C7340069E3A4 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
 		143181731B18714B001A933D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		143181771B1882EC001A933D /* NewDialogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDialogTableViewController.h; sourceTree = "<group>"; };
+		143181781B1882EC001A933D /* NewDialogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDialogTableViewController.m; sourceTree = "<group>"; };
 		14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMContactListCacheModel.bundle; path = ../services/QMServices/QMContactListCache/QMContactListCacheModel.bundle; sourceTree = "<group>"; };
 		14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMChatCacheModel.bundle; path = ../services/QMServices/QMChatCache/QMChatCacheModel.bundle; sourceTree = "<group>"; };
 		14C273D41B176A160053D5AF /* StorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageManager.h; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */,
 				1402B6A61B14C7340069E3A4 /* LoginTableViewController.h */,
 				1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */,
+				143181771B1882EC001A933D /* NewDialogTableViewController.h */,
+				143181781B1882EC001A933D /* NewDialogTableViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -488,6 +493,7 @@
 				1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */,
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				14C273D61B176A160053D5AF /* StorageManager.m in Sources */,
+				143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 				14C273E11B1770430053D5AF /* Reachability.m in Sources */,
 				1402B6961B14B9BC0069E3A4 /* UsersService.m in Sources */,
