@@ -396,7 +396,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Copy $BUILT_PRODUCTS_DIR/$TARGET_NAME to $SRCROOT/Product\"\n\nrm -rf $SRCROOT/Product/\nmkdir Product\ncp -R $BUILT_PRODUCTS_DIR/*.* $SRCROOT/Product/";
+			shellScript = "echo \"Copy $BUILT_PRODUCTS_DIR/$TARGET_NAME to $SRCROOT/Product\"\n\nrm -rf $SRCROOT/Product/\nmkdir Product\ncp -R $BUILT_PRODUCTS_DIR/* $SRCROOT/Product/";
 		};
 		5948AA2C6DD54920BE8F0F50 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
