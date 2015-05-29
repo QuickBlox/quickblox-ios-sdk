@@ -32,7 +32,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
-            self.getRecentlyDialogs()
+            self.getLastUpdatedDialogs()
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
@@ -95,7 +95,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         }
     }
     
-    func getRecentlyDialogs() {
+    func getLastUpdatedDialogs() {
         
         if let didEnterBackgroundDate = self.didEnterBackgroundDate {
             
