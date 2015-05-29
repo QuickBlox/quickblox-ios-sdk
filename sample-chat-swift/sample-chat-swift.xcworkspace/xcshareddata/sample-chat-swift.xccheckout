@@ -22,7 +22,7 @@
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
 		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
-		<string>../..services/QMServices/</string>
+		<string>../..services/QMServices</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/QuickBlox/quickblox-ios-sdk.git</string>
