@@ -21,7 +21,7 @@
 - (instancetype)init {
 	self = [super init];
 	if (self) {
-		[QMChatCache setupDBWithStoreNamed:@"sample-cache"];
+		[QMChatCache setupDBWithStoreNamed:kChatCacheNameKey];
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDelegate:self];
 		_usersService = [[UsersService alloc] init];

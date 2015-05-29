@@ -23,8 +23,6 @@
 
 @implementation LoginTableViewController
 
-NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.dataSource = [[UsersDataSource alloc] init];
@@ -39,6 +37,7 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

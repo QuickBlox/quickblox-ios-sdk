@@ -13,18 +13,7 @@
 
 @implementation UsersService
 
-NSString *const kTestUsersTableKey = @"test_users";
-NSString *const kUserFullNameKey = @"fullname";
-NSString *const kUserLoginKey = @"login";
-NSString *const kUserPasswordKey = @"password";
-
-
 - (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
-	
-	NSString *const kTestUsersTableKey = @"test_users";
-	NSString *const kUserFullNameKey = @"fullname";
-	NSString *const kUserLoginKey = @"login";
-	NSString *const kUserPasswordKey = @"password";
 	
 	if( StorageManager.instance.users.count != 0 ){
 		if( successBlock != nil ) {
