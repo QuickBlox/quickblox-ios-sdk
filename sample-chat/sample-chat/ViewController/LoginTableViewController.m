@@ -42,7 +42,7 @@
 }
 
 - (void)downloadUsers {
-	if( self.isUsersAreDownloading ){
+	if( self.isUsersAreDownloading && StorageManager.instance.users.count == 0 ){
 		return;
 	}
 	self.usersAreDownloading = YES;
