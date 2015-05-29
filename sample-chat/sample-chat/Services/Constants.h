@@ -13,22 +13,26 @@
 /**
  *  UsersService
  */
-static const NSString *const kTestUsersTableKey = @"test_users";
-static const NSString *const kUserFullNameKey = @"fullname";
-static const NSString *const kUserLoginKey = @"login";
-static const NSString *const kUserPasswordKey = @"password";
+static NSString *const kTestUsersTableKey = @"test_users";
+static NSString *const kUserFullNameKey = @"fullname";
+static NSString *const kUserLoginKey = @"login";
+static NSString *const kUserPasswordKey = @"password";
 
+/**
+ *  UsersDataSource
+ */
+static NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 
 /**
  *  QBServicesManager
  */
-static const NSString *const kChatCacheNameKey = @"sample-cache";
+static NSString *const kChatCacheNameKey = @"sample-cache";
 
 
 /**
  *  LoginTableViewController
  */
-static const NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
+static NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 
 /**
  *  DialogsViewController

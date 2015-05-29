@@ -13,6 +13,8 @@
 @property (strong, nonatomic) NSArray *dialogs;
 @property (strong, nonatomic) NSArray *users;
 
+
+- (instancetype)init __attribute__ ((unavailable("-init is not supported initializer")));
 + (instancetype)instance;
 
 - (void)reset;

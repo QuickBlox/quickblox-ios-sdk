@@ -9,14 +9,13 @@
 #import "UsersDataSource.h"
 #import "StorageManager.h"
 #import "UserTableViewCell.h"
+#import "QBServicesManager.h"
 
 @interface UsersDataSource()
 @property (nonatomic, strong) NSArray *colors;
 @end
 
 @implementation UsersDataSource
-
-NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 
 - (instancetype)init {
 	self = [super init];
@@ -50,7 +49,13 @@ NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
 	
-	QBUUser *user = (QBUUser *)StorageManager.instance.users[indexPath.row];
+	QBUUser *user;
+	if( self.excludeCurrentUser && [QBSession currentSession].currentUser != nil ) {
+		user = (QBUUser *)[QBServicesManager.instance.usersService usersWithoutCurrentUser][indexPath.row];
+	}
+	else {
+		user = (QBUUser *)StorageManager.instance.users[indexPath.row];
+	}
 	
 	cell.userDescription = user.fullName;
 	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:[self colorForUser:user]];
@@ -58,6 +63,9 @@ NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if( self.excludeCurrentUser && [QBSession currentSession].currentUser != nil ) {
+		return StorageManager.instance.users.count - 1;
+	}
 	return StorageManager.instance.users.count;
 }
 
