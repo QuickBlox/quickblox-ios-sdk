@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BFE6FB71180E8EF100E64AC4"
                BuildableName = "samplechat.app"
-               BlueprintName = "sample-chat"
+               BlueprintName = "samplechat"
                ReferencedContainer = "container:sample-chat.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BFE6FB71180E8EF100E64AC4"
             BuildableName = "samplechat.app"
-            BlueprintName = "sample-chat"
+            BlueprintName = "samplechat"
             ReferencedContainer = "container:sample-chat.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -54,7 +54,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BFE6FB71180E8EF100E64AC4"
             BuildableName = "samplechat.app"
-            BlueprintName = "sample-chat"
+            BlueprintName = "samplechat"
             ReferencedContainer = "container:sample-chat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -73,7 +73,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BFE6FB71180E8EF100E64AC4"
             BuildableName = "samplechat.app"
-            BlueprintName = "sample-chat"
+            BlueprintName = "samplechat"
             ReferencedContainer = "container:sample-chat.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
