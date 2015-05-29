@@ -13,26 +13,26 @@
 /**
  *  UsersService
  */
-NSString *const kTestUsersTableKey = @"test_users";
-NSString *const kUserFullNameKey = @"fullname";
-NSString *const kUserLoginKey = @"login";
-NSString *const kUserPasswordKey = @"password";
+static const NSString *const kTestUsersTableKey = @"test_users";
+static const NSString *const kUserFullNameKey = @"fullname";
+static const NSString *const kUserLoginKey = @"login";
+static const NSString *const kUserPasswordKey = @"password";
 
 
 /**
  *  QBServicesManager
  */
-NSString *const kChatCacheNameKey = @"sample-cache";
+static const NSString *const kChatCacheNameKey = @"sample-cache";
 
 
 /**
  *  LoginTableViewController
  */
-NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
+static const NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 
 /**
  *  DialogsViewController
  */
-const NSUInteger kDialogsPageLimit = 10;
+static const NSUInteger kDialogsPageLimit = 10;
 
 #endif
