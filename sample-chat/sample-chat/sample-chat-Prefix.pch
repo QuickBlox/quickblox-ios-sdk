@@ -21,8 +21,6 @@
     #import <SVProgressHUD.h>
     #import <TWMessageBarManager.h>
     #import "NSDate+DateTools.h"
-    #import "SoundService.h"
-    #import "ChatService.h"
 	#import "Constants.h"
 #endif
 
