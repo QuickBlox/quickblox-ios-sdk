@@ -8,7 +8,6 @@
 
 #import "UsersViewController.h"
 #import "UsersPaginator.h"
-#import "СhatViewController.h"
 #import "DialogsViewController.h"
 
 @interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate>

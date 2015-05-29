@@ -22,8 +22,6 @@
 		86104A1E1B0B5E1900464D52 /* QBServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServicesManager.m */; };
 		8620BC0C1B0F36FB005ED359 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8620BC0B1B0F36FB005ED359 /* Quickblox.framework */; };
 		8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E80F71B0F17A500A6E86D /* libQMServices.a */; };
-		BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */ = {isa = PBXBuildFile; fileRef = BF803DAC1AEE57E6007905B8 /* SoundService.m */; };
-		BFB4627C18150EB00010AE49 /* ChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = BFB4627B18150EB00010AE49 /* ChatService.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
 		BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */; };
@@ -49,8 +47,6 @@
 		BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */; };
 		BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */; };
 		BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */; };
-		BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */; };
-		BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,10 +93,6 @@
 		8620BC0B1B0F36FB005ED359 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		86F145511B0E316600F790F9 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		BF803DAB1AEE57E6007905B8 /* SoundService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundService.h; sourceTree = "<group>"; };
-		BF803DAC1AEE57E6007905B8 /* SoundService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundService.m; sourceTree = "<group>"; };
-		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
-		BFB4627B18150EB00010AE49 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatService.m; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
 		BFE6FB72180E8EF100E64AC4 /* supersample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = supersample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB75180E8EF100E64AC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -134,10 +126,6 @@
 		BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
 		BFE6FBDF180EE57700E64AC4 /* UsersPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersPaginator.h; sourceTree = "<group>"; };
 		BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersPaginator.m; sourceTree = "<group>"; };
-		BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "СhatViewController.h"; sourceTree = "<group>"; };
-		BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "СhatViewController.m"; sourceTree = "<group>"; };
-		BFE6FBF31812E0F800E64AC4 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessageTableViewCell.h; sourceTree = "<group>"; };
-		BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessageTableViewCell.m; sourceTree = "<group>"; };
 		EC1956EB9D11485189AD3B71 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -307,8 +295,6 @@
 				BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */,
 				BFE6FBCC180EA2F300E64AC4 /* UsersViewController.h */,
 				BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */,
-				BFE6FBEF18118BDC00E64AC4 /* СhatViewController.h */,
-				BFE6FBF018118BDC00E64AC4 /* СhatViewController.m */,
 				1402B6A61B14C7340069E3A4 /* LoginTableViewController.h */,
 				1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */,
 			);
@@ -329,12 +315,8 @@
 			children = (
 				1402B6941B14B9BC0069E3A4 /* UsersService.h */,
 				1402B6951B14B9BC0069E3A4 /* UsersService.m */,
-				BFB4627A18150EB00010AE49 /* ChatService.h */,
-				BFB4627B18150EB00010AE49 /* ChatService.m */,
 				86104A1C1B0B5E1900464D52 /* QBServicesManager.h */,
 				86104A1D1B0B5E1900464D52 /* QBServicesManager.m */,
-				BF803DAB1AEE57E6007905B8 /* SoundService.h */,
-				BF803DAC1AEE57E6007905B8 /* SoundService.m */,
 				14C273D41B176A160053D5AF /* StorageManager.h */,
 				14C273D51B176A160053D5AF /* StorageManager.m */,
 				14C273E21B1773310053D5AF /* ReachabilityManager.h */,
@@ -347,8 +329,6 @@
 		BFE6FBF21812E0D300E64AC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BFE6FBF31812E0F800E64AC4 /* ChatMessageTableViewCell.h */,
-				BFE6FBF41812E0F800E64AC4 /* ChatMessageTableViewCell.m */,
 				1402B6981B14BF350069E3A4 /* UserTableViewCell.h */,
 				1402B6991B14BF350069E3A4 /* UserTableViewCell.m */,
 				1402B69B1B14BFBA0069E3A4 /* CornerView.h */,
@@ -497,20 +477,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */,
-				BFB4627C18150EB00010AE49 /* ChatService.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
 				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
 				14C273E41B1773310053D5AF /* ReachabilityManager.m in Sources */,
 				1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */,
-				BFE6FBF118118BDC00E64AC4 /* СhatViewController.m in Sources */,
 				14C273F41B1783E40053D5AF /* UsersDataSource.m in Sources */,
 				86104A1E1B0B5E1900464D52 /* QBServicesManager.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
-				BFE6FBF51812E0F800E64AC4 /* ChatMessageTableViewCell.m in Sources */,
 				1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */,
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
-				BF803DAD1AEE57E6007905B8 /* SoundService.m in Sources */,
 				14C273D61B176A160053D5AF /* StorageManager.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 				14C273E11B1770430053D5AF /* Reachability.m in Sources */,

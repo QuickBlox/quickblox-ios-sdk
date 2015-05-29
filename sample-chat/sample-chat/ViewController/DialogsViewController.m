@@ -7,8 +7,6 @@
 //
 
 #import "DialogsViewController.h"
-#import "СhatViewController.h"
-#import "ChatMessageTableViewCell.h"
 
 #import <Quickblox/QBASession.h>
 #import "QBServicesManager.h"
