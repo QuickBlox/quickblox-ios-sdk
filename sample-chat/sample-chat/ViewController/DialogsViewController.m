@@ -19,11 +19,6 @@
 
 @implementation DialogsViewController
 
-const NSUInteger kDialogsPageLimit = 10;
-
-#pragma mark
-#pragma mark ViewController lyfe cycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -41,6 +36,7 @@ const NSUInteger kDialogsPageLimit = 10;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	[QBServicesManager.instance.chatService removeDelegate:self];
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
