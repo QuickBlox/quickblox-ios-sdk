@@ -30,11 +30,19 @@ const NSUInteger kDialogsPageLimit = 10;
 	[QBServicesManager.instance.chatService addDelegate:self];
 	
 	[self loadDialogs];
-	
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	__weak __typeof(self)weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
 		[weakSelf loadDialogs];
 	}];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[QBServicesManager.instance.chatService removeDelegate:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
 - (void)loadDialogs {
@@ -133,11 +141,6 @@ const NSUInteger kDialogsPageLimit = 10;
 
 - (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog {
 	[self.tableView reloadData];
-}
-
-- (void)dealloc {
-	[QBServicesManager.instance.chatService removeDelegate:self];
-	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
 @end

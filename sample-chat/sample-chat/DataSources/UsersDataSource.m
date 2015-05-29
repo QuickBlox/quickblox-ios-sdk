@@ -55,7 +55,6 @@ NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 	cell.userDescription = user.fullName;
 	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:[self colorForUser:user]];
 	return cell;
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

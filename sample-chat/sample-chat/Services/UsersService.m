@@ -83,7 +83,7 @@ NSString *const kUserPasswordKey = @"password";
 		[usersWithoutCurrentUser removeObject:[QBSession currentSession].currentUser];
 	}
 	
-	return usersWithoutCurrentUser;
+	return [usersWithoutCurrentUser copy];
 }
 
 - (NSArray *)idsWithUsers:(NSArray *)users {
@@ -95,7 +95,7 @@ NSString *const kUserPasswordKey = @"password";
 		[ids addObject:@(obj.ID)];
 	}];
 	
-	return ids;
+	return [ids copy];
 }
 
 @end

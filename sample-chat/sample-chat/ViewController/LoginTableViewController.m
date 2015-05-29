@@ -29,9 +29,17 @@ NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 	[super viewDidLoad];
 	self.dataSource = [[UsersDataSource alloc] init];
 	self.tableView.dataSource = self.dataSource;
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 	
 	[self downloadUsers];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)downloadUsers {
