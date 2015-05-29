@@ -10,7 +10,7 @@
 import Foundation
 
 //0-release, 1-dev, 2-qa
-let QB_CHAT_SAMPLE_MODE:Int = 2
+let QB_CHAT_SAMPLE_MODE:Int = 1
 let kChatPresenceTimeInterval:NSTimeInterval = 45
 let kDialogsPageLimit:UInt = 100
 
