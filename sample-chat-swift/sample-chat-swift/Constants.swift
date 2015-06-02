@@ -23,6 +23,7 @@ class Constants {
 #elseif QA
         return "qa"
 #else
+    assert(false, "Not supported build configuration")
     return ""
 #endif
         
