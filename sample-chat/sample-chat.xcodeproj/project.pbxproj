@@ -310,7 +310,6 @@
 				BFE6FB6F180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB70180E8EF100E64AC4 /* Resources */,
 				EA0FB2DEF001482B9E0AC531 /* Copy Pods Resources */,
-				2C9CAAA01B1850140008C92B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -385,19 +384,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2C9CAAA01B1850140008C92B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"Copy $BUILT_PRODUCTS_DIR/$TARGET_NAME to $SRCROOT/Product\"\n\nrm -rf $SRCROOT/Product/\nmkdir Product\ncp -R $BUILT_PRODUCTS_DIR/* $SRCROOT/Product/";
-		};
 		5948AA2C6DD54920BE8F0F50 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
