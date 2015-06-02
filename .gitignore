@@ -24,4 +24,5 @@ sample-custom-objects/Pods/Headers/Public/Quickblox
 sample-chat-swift/Pods/Headers/Public/Quickblox
 sample-chat-swift/Pods/Headers/Private/Quickblox
 sample-chat-swift/Pods/QuickBlox/Quickblox.framework
-sample-chat/Product
+**/Build
+
