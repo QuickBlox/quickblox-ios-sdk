@@ -10,12 +10,7 @@ import UIKit
 
 class ConnectionManager: NSObject, QBChatDelegate {
 	static let instance = ConnectionManager()
-	
-	var dialogs:[QBChatDialog]?
-	var dialogsUsers:[QBUUser]?
-	var messagesIDsToDelete: DynamicArray<String> = DynamicArray(Array())
-	let messagesBond = ArrayBond<String>()
-	
+
 	var timer: NSTimer? // join all rooms, handle internet connection availability
 	
 	let usersDataSource:UsersDataSource = UsersDataSource()
@@ -31,6 +26,8 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	
 	func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
         
+        ServicesManager.instance.setupChatCacheService(user.login)
+        
         ServicesManager.instance.authService.logInWithUser(user, completion: { (response:QBResponse!, user: QBUUser!) -> Void in
             
             if (response.error != nil) {
@@ -42,15 +39,7 @@ class ConnectionManager: NSObject, QBChatDelegate {
             if ServicesManager.instance.currentUser() != nil {
                 
                 ServicesManager.instance.chatService.logoutChat()
-                
-                if self.dialogs != nil {
-                    
-                    self.dialogs = nil
-                    self.dialogsUsers = nil
-                    self.messagesIDsToDelete.removeAll(false)
-                    
-                }
-                
+                StorageManager.instance.reset()
                 self.privacyManager.reset()
                 
             }
@@ -80,8 +69,11 @@ class ConnectionManager: NSObject, QBChatDelegate {
 			return
 		}
         
-		if let dialogs = self.dialogs {
+        let dialogs = StorageManager.instance.dialogs
+        
+		if dialogs.count > 0 {
 			let groupDialogs = dialogs.filter({$0.type != .Private})
+            
 			for roomDialog in groupDialogs {
 				if !roomDialog.chatRoom.isJoined {
 					roomDialog.chatRoom.joinRoomWithHistoryAttribute(["maxstanzas":0])
@@ -99,28 +91,28 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	*/
 	func startObservingMessagesToDelete() {
 		
-		messagesBond.didInsertListener = { [unowned self] (array, indices) in
-			var messIDs = NSArray(array: self.messagesIDsToDelete.value)
+		StorageManager.instance.messagesBond.didInsertListener = { [unowned self] (array, indices) in
+			var messIDs = NSArray(array: StorageManager.instance.messagesIDsToDelete.value)
 			var messIDsSet: Set<NSObject> = NSSet(array: messIDs as [AnyObject]) as Set<NSObject>
 			
 			QBRequest.deleteMessagesWithIDs(messIDsSet, successBlock: { [weak self] (response: QBResponse!) -> Void in
 				println(response)
 				// remove deleted message from our messagesIDsToDelete
-				if let strongSelf = self {
-					for deletedMessage in messIDs {
-						for (index, message) in enumerate(strongSelf.messagesIDsToDelete){
-							if message == deletedMessage as! String {
-								strongSelf.messagesIDsToDelete.removeAtIndex(index)
-							}
-						}
-					}
-				}
-				}, errorBlock: { (response: QBResponse!) -> Void in
+                for deletedMessage in messIDs {
+                    
+                    for (index, message) in enumerate(StorageManager.instance.messagesIDsToDelete){
+                        
+                        if message == deletedMessage as! String {
+                            StorageManager.instance.messagesIDsToDelete.removeAtIndex(index)
+                        }
+                    }
+                }
+            }, errorBlock: { (response: QBResponse!) -> Void in
 					println(response.error)
 			})
 		}
 		
-		self.messagesIDsToDelete ->> messagesBond
+		StorageManager.instance.messagesIDsToDelete ->> StorageManager.instance.messagesBond
 	}
 	
 	func startObservingInternetAvailability() {

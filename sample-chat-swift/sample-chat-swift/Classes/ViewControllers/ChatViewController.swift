@@ -123,12 +123,16 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         }
         else if let qbChatHistoryMessage = qbMessage as? QBChatMessage {
             var sender: QBUUser?
-            if let users = ConnectionManager.instance.dialogsUsers {
+            let users = StorageManager.instance.dialogsUsers
+            
+            if users.count > 0 {
                 let filteredUsers = users.filter({$0.ID == qbChatHistoryMessage.senderID})
+                
                 if filteredUsers.count > 0 {
                     sender = filteredUsers[0]
                 }
             }
+            
             jsqMessage = JSQMessage(senderId: String(qbChatHistoryMessage.senderID), senderDisplayName: sender?.fullName ?? String(qbChatHistoryMessage.senderID), date: qbChatHistoryMessage.dateSent, text: qbChatHistoryMessage.text)
         }
         

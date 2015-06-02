@@ -75,7 +75,7 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             assert(cell.dialogID != "")
                             QBRequest.deleteDialogWithID(cell.dialogID, successBlock: {(response: QBResponse!) -> Void in
                                 SVProgressHUD.showSuccessWithStatus("SA_STR_DELETED".localized)
-                                ConnectionManager.instance.dialogs?.removeAtIndex(cellIndexPath!.row)
+                                StorageManager.instance.dialogs.removeAtIndex(cellIndexPath!.row)
                                 
                                 strongTableView.deleteRowsAtIndexPaths([cellIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
                                 

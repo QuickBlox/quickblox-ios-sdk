@@ -81,7 +81,7 @@ class NewDialogViewController: LoginTableViewController {
         }
         
         QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
-			ConnectionManager.instance.dialogs?.append(createdDialog)
+			StorageManager.instance.dialogs.append(createdDialog)
 			if createdDialog.chatRoom != nil {
 				ConnectionManager.instance.joinAllRooms()
 			}
