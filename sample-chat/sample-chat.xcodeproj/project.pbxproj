@@ -101,7 +101,7 @@
 		BFB4627A18150EB00010AE49 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
 		BFB4627B18150EB00010AE49 /* ChatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatService.m; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
-		BFE6FB72180E8EF100E64AC4 /* supersample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = supersample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFE6FB72180E8EF100E64AC4 /* samplechat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = samplechat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFE6FB75180E8EF100E64AC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BFE6FB79180E8EF100E64AC4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -236,7 +236,7 @@
 		BFE6FB73180E8EF100E64AC4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BFE6FB72180E8EF100E64AC4 /* supersample.app */,
+				BFE6FB72180E8EF100E64AC4 /* samplechat.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -358,11 +358,10 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BFE6FB71180E8EF100E64AC4 /* sample-chat */ = {
+		BFE6FB71180E8EF100E64AC4 /* samplechat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "sample-chat" */;
+			buildConfigurationList = BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "samplechat" */;
 			buildPhases = (
-				86104A191B0B54FC00464D52 /* ShellScript */,
 				5948AA2C6DD54920BE8F0F50 /* Check Pods Manifest.lock */,
 				BFE6FB6E180E8EF100E64AC4 /* Sources */,
 				BFE6FB6F180E8EF100E64AC4 /* Frameworks */,
@@ -374,9 +373,9 @@
 			dependencies = (
 				2C6E80F91B0F17BA00A6E86D /* PBXTargetDependency */,
 			);
-			name = "sample-chat";
+			name = samplechat;
 			productName = "sample-chat";
-			productReference = BFE6FB72180E8EF100E64AC4 /* supersample.app */;
+			productReference = BFE6FB72180E8EF100E64AC4 /* samplechat.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -412,7 +411,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				BFE6FB71180E8EF100E64AC4 /* sample-chat */,
+				BFE6FB71180E8EF100E64AC4 /* samplechat */,
 			);
 		};
 /* End PBXProject section */
@@ -458,19 +457,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
-		};
-		86104A191B0B54FC00464D52 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"Copying Quickblox.xcconfig...\"";
 		};
 		EA0FB2DEF001482B9E0AC531 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -562,6 +548,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -578,9 +565,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
+				OTHER_LDFLAGS = "$(inherited)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -601,7 +590,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -611,8 +601,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = "-ObjC";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
+				OTHER_LDFLAGS = "$(inherited)";
+				PROVISIONING_PROFILE = "086110e8-c354-47f8-9250-0403ac116fe8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -624,7 +616,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
@@ -637,8 +630,9 @@
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_NAME = supersample;
+				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -651,7 +645,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
@@ -664,8 +659,10 @@
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_NAME = supersample;
+				PRODUCT_NAME = samplechat;
+				PROVISIONING_PROFILE = "086110e8-c354-47f8-9250-0403ac116fe8";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -683,7 +680,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "sample-chat" */ = {
+		BFE6FBA7180E8EF100E64AC4 /* Build configuration list for PBXNativeTarget "samplechat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BFE6FBA8180E8EF100E64AC4 /* Debug */,
