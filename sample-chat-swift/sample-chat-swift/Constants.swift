@@ -20,8 +20,10 @@ class Constants {
         return "release"
 #elseif DEBUG
         return "dev"
-#else
+#elseif QA
         return "qa"
+#else
+    return ""
 #endif
         
     }
