@@ -102,7 +102,13 @@
     }
 
     // send a message
-    [[ChatService shared] sendMessage:messageText toDialog:self.dialog];
+    BOOL sent = [[ChatService shared] sendMessage:messageText toDialog:self.dialog];
+    if(!sent){
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error"
+                                                       description:@"Please check your internet connection"
+                                                              type:TWMessageBarMessageTypeInfo];
+        return;
+    }
     
     // reload table
     [self.messagesTableView reloadData];

@@ -31,7 +31,7 @@
 - (void)loginWithUser:(QBUUser *)user completionBlock:(void(^)())completionBlock;
 - (void)logout;
 
-- (void)sendMessage:(NSString *)messageText toDialog:(QBChatDialog *)dialog;
+- (BOOL)sendMessage:(NSString *)messageText toDialog:(QBChatDialog *)dialog;
 
 - (NSMutableArray *)messagsForDialogId:(NSString *)dialogId;
 - (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId;
