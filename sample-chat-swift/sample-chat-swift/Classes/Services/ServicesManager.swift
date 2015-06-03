@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate, QMChatServiceDelegate, QMChatServiceCacheDelegate {
+class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate, QMChatServiceDelegate, QMChatServiceCacheDataSource {
     
     static let instance = ServicesManager()
     
@@ -34,7 +34,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         QBChat.instance().autoReconnectEnabled = true
         QBChat.instance().streamManagementEnabled = true
         
-        self.chatService = QMChatService(serviceManager : self, cacheDelegate : self)
+        self.chatService = QMChatService(serviceManager : self, cacheDataSource : self)
         self.chatService.addDelegate(ServicesManager.instance)
     }
     
@@ -91,7 +91,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         QMChatCache.instance().insertOrUpdateDialog(dialog, completion: nil)
     }
     
-    // MARK: QMChatServiceCacheDelegate
+    // MARK: QMChatServiceCacheDataSource
     
     func cachedDialogs(block: QMCacheCollection!) {
         
