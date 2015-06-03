@@ -73,15 +73,18 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             
                             SVProgressHUD.showWithStatus("SA_STR_DELETING".localized, maskType: SVProgressHUDMaskType.Clear)
                             assert(cell.dialogID != "")
-                            QBRequest.deleteDialogWithID(cell.dialogID, successBlock: {(response: QBResponse!) -> Void in
-                                SVProgressHUD.showSuccessWithStatus("SA_STR_DELETED".localized)
-                                StorageManager.instance.dialogs.removeAtIndex(cellIndexPath!.row)
+                            
+                            ServicesManager.instance.chatService .deleteDialogWithID(cell.dialogID, completion: { (response: QBResponse!) -> Void in
                                 
-                                strongTableView.deleteRowsAtIndexPaths([cellIndexPath!], withRowAnimation: UITableViewRowAnimation.Automatic)
-                                
-                                }, errorBlock: { (response: QBResponse!) -> Void in
+                                if response.success {
+                                    
+                                    SVProgressHUD.showSuccessWithStatus("SA_STR_DELETED".localized)
+                                    
+                                } else {
+                                    
                                     SVProgressHUD.showErrorWithStatus("SA_STR_ERROR_DELETING".localized)
                                     println(response.error.error)
+                                }
                             })
                         }
                         })
