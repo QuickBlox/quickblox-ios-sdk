@@ -35,6 +35,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         QBChat.instance().streamManagementEnabled = true
         
         self.chatService = QMChatService(serviceManager : self, cacheDelegate : self)
+        self.chatService.addDelegate(ServicesManager.instance)
     }
     
     // MARK: QMServiceManagerProtocol
@@ -69,6 +70,10 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [AnyObject]!) {
         QMChatCache.instance().insertOrUpdateDialogs(chatDialogs, completion: nil)
+    }
+    
+    func chatService(chatService: QMChatService!, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String!) {
+        QMChatCache.instance().deleteDialogWithID(chatDialogID, completion: nil)
     }
     
     func chatService(chatService: QMChatService!, didAddMessagesToMemoryStorage messages: [AnyObject]!, forDialogID dialogID: String!) {
