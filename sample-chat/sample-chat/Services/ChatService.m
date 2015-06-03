@@ -19,7 +19,9 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 @end
 
 
-@implementation ChatService
+@implementation ChatService{
+    BOOL _chatAccidentallyDisconnected;
+}
 
 
 #pragma mark
@@ -69,6 +71,11 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [[QBChat instance] logout];
 }
 
+- (BOOL)isConnected
+{
+    return [QBChat instance].isLoggedIn;
+}
+
 
 #pragma mark
 #pragma mark Send message
@@ -111,18 +118,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         
         // join all group dialogs
         //
-        for(QBChatDialog *dialog in self.dialogs){
-            if(dialog.type != QBChatDialogTypePrivate){
-                [dialog setOnJoin:^() {
-                    NSLog(@"Dialog joined");
-                }];
-                [dialog setOnJoinFailed:^(NSError *error) {
-                    NSLog(@"Join Fail, error: %@", error);
-                }];
-                [dialog join];
-            }
-        }
-        
+        [self joinAllDialogs];
         
         // get dialogs' users
         //
@@ -191,6 +187,23 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
                      }
                      
                  } errorBlock:nil];
+}
+
+- (void)joinAllDialogs
+{
+    for(QBChatDialog *dialog in self.dialogs){
+        if(dialog.type != QBChatDialogTypePrivate){
+            [dialog setOnJoin:^() {
+                NSLog(@"Dialog joined");
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGroupDialogJoined object:nil];
+            }];
+            [dialog setOnJoinFailed:^(NSError *error) {
+                NSLog(@"Join Fail, error: %@", error);
+            }];
+            [dialog join];
+        }
+    }
 }
 
 
@@ -263,7 +276,23 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 #pragma mark QBChatDelegate
 
 - (void)chatDidLogin
-{
+{    
+    // reconnected to chat
+    if(_chatAccidentallyDisconnected){
+        _chatAccidentallyDisconnected = NO;
+        
+        // join all group dialogs
+        //
+        [self joinAllDialogs];
+        
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Alert"
+                                                       description:@"You are online again!"
+                                                              type:TWMessageBarMessageTypeInfo];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatDidReconnect object:nil];
+    }
+
+    
     if(self.loginCompletionBlock != nil){
         self.loginCompletionBlock();
         self.loginCompletionBlock = nil;
@@ -283,7 +312,15 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 - (void)chatDidAccidentallyDisconnect
 {
+    _chatAccidentallyDisconnected = YES;
+    
     NSLog(@"chatDidAccidentallyDisconnect");
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationChatDidAccidentallyDisconnect object:nil];
+    
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Alert"
+                                                   description:@"You have lost the Internet connection"
+                                                          type:TWMessageBarMessageTypeInfo];
 }
 
 - (void)chatDidReceiveMessage:(QBChatMessage *)message
