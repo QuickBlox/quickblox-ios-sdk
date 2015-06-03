@@ -14,7 +14,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[(UsersDataSource *)self.tableView.dataSource setExcludeCurrentUser:YES];
+	[(UsersDataSource *)self.tableView.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
 	[self.tableView reloadData];
 }
 

@@ -11,10 +11,10 @@
 @interface UsersDataSource : NSObject<UITableViewDataSource>
 
 /**
- *  Default: NO
- *  Excludes QBSession.currentSession.currentUser from data source
+ *  Default: empty []
+ *  Excludes users with given ids from data source
  */
-@property (nonatomic, assign) BOOL excludeCurrentUser;
+@property (nonatomic, strong) NSArray *excludeUsersIDs;
 - (NSUInteger)indexOfUser:(QBUUser *)user;
 - (UIColor *)colorForUser:(QBUUser *)user;
 
