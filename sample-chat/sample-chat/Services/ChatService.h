@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #define kNotificationDialogsUpdated @"kNotificationDialogsUpdated"
+#define kNotificationChatDidAccidentallyDisconnect @"kNotificationСhatDidAccidentallyDisconnect"
+#define kNotificationChatDidReconnect @"kNotificationChatDidReconnect"
+#define kNotificationGroupDialogJoined @"kNotificationGroupDialogJoined"
 
 @protocol ChatServiceDelegate <NSObject>
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message;
@@ -16,6 +19,8 @@
 @end
 
 @interface ChatService : NSObject
+
+@property (readonly) BOOL isConnected;
 
 @property (weak) id<ChatServiceDelegate> delegate;
 
