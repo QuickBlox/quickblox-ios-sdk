@@ -31,6 +31,7 @@
 		  [UIColor colorWithWhite:0.537 alpha:1.000],
 		  [UIColor colorWithRed:0.786 green:0.706 blue:0.000 alpha:1.000],
 		  [UIColor colorWithRed:0.740 green:0.624 blue:0.797 alpha:1.000]];
+		_excludeUsersIDs = @[];
 	}
 	return self;
 }
@@ -50,8 +51,8 @@
 	UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
 	
 	QBUUser *user;
-	if( self.excludeCurrentUser && [QBSession currentSession].currentUser != nil ) {
-		user = (QBUUser *)[QBServicesManager.instance.usersService usersWithoutCurrentUser][indexPath.row];
+	if( self.excludeUsersIDs.count ) {
+		user = (QBUUser *)[StorageManager.instance.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]][indexPath.row];
 	}
 	else {
 		user = (QBUUser *)StorageManager.instance.users[indexPath.row];
@@ -63,8 +64,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if( self.excludeCurrentUser && [QBSession currentSession].currentUser != nil ) {
-		return StorageManager.instance.users.count - 1;
+	if( self.excludeUsersIDs.count ) {
+		return StorageManager.instance.users.count - self.excludeUsersIDs.count;
 	}
 	return StorageManager.instance.users.count;
 }

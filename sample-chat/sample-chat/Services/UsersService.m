@@ -36,6 +36,10 @@
 			[users addObject:user];
 		}
 		
+		[users sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+			return [obj1.login compare:obj2.login options:NSNumericSearch];
+		}];
+		
 		StorageManager.instance.users = [users copy];
 		
 		if( successBlock != nil ) {
