@@ -11,10 +11,10 @@
 @interface ChatMessageTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UITextView  *messageTextView;
-@property (nonatomic, strong) UILabel     *dateLabel;
+@property (nonatomic, strong) UILabel     *nameAndDateLabel;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 
-+ (CGFloat)heightForCellWithMessage:(QBChatAbstractMessage *)message;
-- (void)configureCellWithMessage:(QBChatAbstractMessage *)message;
++ (CGFloat)heightForCellWithMessage:(QBChatMessage *)message;
+- (void)configureCellWithMessage:(QBChatMessage *)message;
 
 @end

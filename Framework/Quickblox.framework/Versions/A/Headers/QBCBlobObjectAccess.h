@@ -6,14 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Entity.h"
+#import "QBCEntity.h"
 #import "QBContentEnums.h"
 
 /** QBCBlobObjectAccess class declaration. */
 /** Overview */
 /** This class represents entity that uses for upload file to server. */
 
-@interface QBCBlobObjectAccess : Entity <NSCoding, NSCopying> {
+@interface QBCBlobObjectAccess : QBCEntity <NSCoding, NSCopying> {
 	NSUInteger blobID;
 	enum QBCBlobObjectAccessType type;
 	NSDate *expires;

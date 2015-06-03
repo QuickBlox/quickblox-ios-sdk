@@ -9,15 +9,11 @@
 #import "ChatService.h"
 
 typedef void(^CompletionBlock)();
-typedef void(^JoinRoomCompletionBlock)(QBChatRoom *);
 typedef void(^CompletionBlockWithResult)(NSArray *);
 
 @interface ChatService () <QBChatDelegate>
 
-@property (retain) NSTimer *presenceTimer;
-
 @property (copy) CompletionBlock loginCompletionBlock;
-@property (copy) JoinRoomCompletionBlock joinRoomCompletionBlock;
 @property (copy) CompletionBlock getDialogsCompletionBlock;
 
 @end
@@ -25,7 +21,12 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 @implementation ChatService
 
-+ (instancetype)shared{
+
+#pragma mark
+#pragma mark Init
+
++ (instancetype)shared
+{
     static id instance_ = nil;
 	
 	static dispatch_once_t onceToken;
@@ -36,7 +37,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 	return instance_;
 }
 
-- (id)init{
+- (id)init
+{
     self = [super init];
     if(self){
         [[QBChat instance] addDelegate:self];
@@ -44,104 +46,95 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         [QBChat instance].autoReconnectEnabled = YES;
         //
         [QBChat instance].streamManagementEnabled = YES;
+        [QBChat instance].streamResumptionEnabled = YES;
         
         self.messages = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-- (QBUUser *)currentUser{
-    return [[QBChat instance] currentUser];
-}
 
-- (void)loginWithUser:(QBUUser *)user completionBlock:(void(^)())completionBlock{
+#pragma mark
+#pragma mark Login/Logout
+
+- (void)loginWithUser:(QBUUser *)user completionBlock:(void(^)())completionBlock
+{
     self.loginCompletionBlock = completionBlock;
     
     [[QBChat instance] loginWithUser:user];
 }
 
-- (void)logout{
+- (void)logout
+{
     [[QBChat instance] logout];
 }
 
-- (void)sendMessage:(QBChatMessage *)message{
-    [[QBChat instance] sendMessage:message];
-}
 
-- (void)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock{
-    [[QBChat instance] sendMessage:message sentBlock:^(NSError *error) {
-        sentBlock(error);
-    }];
-}
+#pragma mark
+#pragma mark Send message
 
-- (void)sendMessage:(QBChatMessage *)message toRoom:(QBChatRoom *)chatRoom{
-    [[QBChat instance] sendChatMessage:message toRoom:chatRoom];
-}
-
-- (void)joinRoom:(QBChatRoom *)room completionBlock:(void(^)(QBChatRoom *))completionBlock{
-    self.joinRoomCompletionBlock = completionBlock;
-    
-    [room joinRoomWithHistoryAttribute:@{@"maxstanzas": @"0"}];
-}
-
-- (void)leaveRoom:(QBChatRoom *)room{
-    [[QBChat instance] leaveRoom:room];
-}
-
-- (void)setUsers:(NSMutableArray *)users
+- (void)sendMessage:(NSString *)messageText toDialog:(QBChatDialog *)dialog
 {
-    _users = users;
+    // create a message
+    QBChatMessage *message = [[QBChatMessage alloc] init];
+    message.text = messageText;
+    [message setCustomParameters:[@{@"save_to_history": @YES} mutableCopy]];
     
-    NSMutableDictionary *__usersAsDictionary = [NSMutableDictionary dictionary];
-    for(QBUUser *user in users){
-        [__usersAsDictionary setObject:user forKey:@(user.ID)];
+    // send a message
+    if(dialog.type == QBChatDialogTypePrivate){
+        // save message to inmemory db
+        message.senderID = [QBSession currentSession].currentUser.ID;
+        [self addMessage:message forDialogId:dialog.ID];
     }
+    [dialog sendMessage:message];
     
-    _usersAsDictionary = [__usersAsDictionary copy];
+    // update dialog
+    dialog.lastMessageUserID = [QBSession currentSession].currentUser.ID;
+    dialog.lastMessageText = messageText;
+    dialog.lastMessageDate = message.dateSent;
 }
 
-- (NSMutableArray *)messagsForDialogId:(NSString *)dialogId{
-    NSMutableArray *messages = [self.messages objectForKey:dialogId];
-    if(messages == nil){
-        messages = [NSMutableArray array];
-        [self.messages setObject:messages forKey:dialogId];
-    }
-    
-    return messages;
-}
 
-- (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId{
-    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
-    if(messagesArray != nil){
-        [messagesArray addObjectsFromArray:messages];
-    }else{
-        [self.messages setObject:messages forKey:dialogId];
-    }
-}
+#pragma mark
+#pragma mark Request dialogs
 
-- (void)addMessage:(QBChatAbstractMessage *)message forDialogId:(NSString *)dialogId{
-    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
-    if(messagesArray != nil){
-        [messagesArray addObject:message];
-    }else{
-        NSMutableArray *messages = [NSMutableArray array];
-        [messages addObject:message];
-        [self.messages setObject:messages forKey:dialogId];
-    }
-}
-
-- (void)requestDialogsWithCompletionBlock:(void(^)())completionBlock{
-    
+- (void)requestDialogsWithCompletionBlock:(void(^)())completionBlock
+{
     self.getDialogsCompletionBlock = completionBlock;
     
     [QBRequest dialogsWithSuccessBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs) {
         
+        // save dialogs in memory
+        //
         self.dialogs = dialogObjects.mutableCopy;
         
-        [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:nil
+        // join all group dialogs
+        //
+        for(QBChatDialog *dialog in self.dialogs){
+            if(dialog.type != QBChatDialogTypePrivate){
+                [dialog setOnJoin:^() {
+                    NSLog(@"Dialog joined");
+                }];
+                [dialog setOnJoinFailed:^(NSError *error) {
+                    NSLog(@"Join Fail, error: %@", error);
+                }];
+                [dialog join];
+            }
+        }
+        
+        
+        // get dialogs' users
+        //
+        QBGeneralResponsePage *page = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100];
+        [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:page
                    successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
                        
-                       self.users = users;
+                       if(page.totalEntries > page.perPage){
+                           // TODO: implement pagination
+                           
+                       }
+                       
+                       self.users = [users mutableCopy];
                        
                        if(self.getDialogsCompletionBlock != nil){
                            self.getDialogsCompletionBlock();
@@ -170,13 +163,18 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
                          }
                      }
                      
-                     [self.dialogs insertObject:dialogObjects.firstObject atIndex:0];
+                     QBChatDialog *updatedDialog = dialogObjects.firstObject;
+                     [self.dialogs insertObject:updatedDialog atIndex:0];
+                     [_dialogsAsDictionary setObject:updatedDialog forKey:updatedDialog.ID];
                      
                      if(!found){
                          [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:nil
                                     successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
                                         
                                         [self.users addObjectsFromArray:users];
+                                        for(QBUUser *user in users){
+                                            [_usersAsDictionary setObject:user forKey:@(user.ID)];
+                                        }
                                         
                                         if(self.getDialogsCompletionBlock != nil){
                                             self.getDialogsCompletionBlock();
@@ -196,15 +194,75 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 
 
 #pragma mark
+#pragma mark Local storage
+
+- (void)setUsers:(NSMutableArray *)users
+{
+    _users = users;
+    
+    if(users != nil && users.count > 0){
+        NSMutableDictionary *__usersAsDictionary = [NSMutableDictionary dictionary];
+        for(QBUUser *user in users){
+            [__usersAsDictionary setObject:user forKey:@(user.ID)];
+        }
+        
+        _usersAsDictionary = [__usersAsDictionary mutableCopy];
+    }
+}
+
+- (void)setDialogs:(NSMutableArray *)dialogs
+{
+    _dialogs = dialogs;
+    
+    if(dialogs != nil && dialogs.count > 0){
+        NSMutableDictionary *__dialogsAsDictionary = [NSMutableDictionary dictionary];
+        for(QBUUser *dialog in dialogs){
+            [__dialogsAsDictionary setObject:dialog forKey:@(dialog.ID)];
+        }
+        
+        _dialogsAsDictionary = [__dialogsAsDictionary mutableCopy];
+    }
+}
+
+- (NSMutableArray *)messagsForDialogId:(NSString *)dialogId
+{
+    NSMutableArray *messages = [self.messages objectForKey:dialogId];
+    if(messages == nil){
+        messages = [NSMutableArray array];
+        [self.messages setObject:messages forKey:dialogId];
+    }
+    
+    return messages;
+}
+
+- (void)addMessages:(NSArray *)messages forDialogId:(NSString *)dialogId
+{
+    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
+    if(messagesArray != nil){
+        [messagesArray addObjectsFromArray:messages];
+    }else{
+        [self.messages setObject:messages forKey:dialogId];
+    }
+}
+
+- (void)addMessage:(QBChatMessage *)message forDialogId:(NSString *)dialogId
+{
+    NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
+    if(messagesArray != nil){
+        [messagesArray addObject:message];
+    }else{
+        NSMutableArray *messages = [NSMutableArray array];
+        [messages addObject:message];
+        [self.messages setObject:messages forKey:dialogId];
+    }
+}
+
+
+#pragma mark
 #pragma mark QBChatDelegate
 
-- (void)chatDidLogin{
-    // Start sending presences
-    [self.presenceTimer invalidate];
-    self.presenceTimer = [NSTimer scheduledTimerWithTimeInterval:30
-                                     target:[QBChat instance] selector:@selector(sendPresence)
-                                   userInfo:nil repeats:YES];
-    
+- (void)chatDidLogin
+{
     if(self.loginCompletionBlock != nil){
         self.loginCompletionBlock();
         self.loginCompletionBlock = nil;
@@ -215,51 +273,63 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     }
 }
 
-- (void)chatDidFailWithError:(NSInteger)code{
-    // relogin here
-    [[QBChat instance] loginWithUser:self.currentUser];
+- (void)chatDidReceiveMessage:(QBChatMessage *)message
+{
+    [self processMessage:message];
 }
 
-- (void)chatRoomDidEnter:(QBChatRoom *)room{
-    self.joinRoomCompletionBlock(room);
-    self.joinRoomCompletionBlock = nil;
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID
+{
+    [self processMessage:message];
 }
 
-- (void)chatDidReceiveMessage:(QBChatMessage *)message{
+- (void)processMessage:(QBChatMessage *)message{
+    NSString *dialogId = message.customParameters[@"dialog_id"];
+    
+    // save message to local storage
+    //
+    [self addMessage:message forDialogId:dialogId];
+    
+    // update dialogs in a local storage
+    //
+    QBChatDialog *dialog = self.dialogsAsDictionary[dialogId];
+    if(dialog != nil){
+        dialog.lastMessageUserID = message.senderID;
+        dialog.lastMessageText = message.text;
+        dialog.lastMessageDate = message.dateSent;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDialogsUpdated object:nil];
+    }else{
+        [self requestDialogUpdateWithId:dialogId completionBlock:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDialogsUpdated object:nil];
+        }];
+    }
     
     // notify observers
     BOOL processed = NO;
     if([self.delegate respondsToSelector:@selector(chatDidReceiveMessage:)]){
         processed = [self.delegate chatDidReceiveMessage:message];
     }
-    
     if(!processed){
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
                                                        description:message.text
                                                               type:TWMessageBarMessageTypeInfo];
         
         [[SoundService instance] playNotificationSound];
-        
-        NSString *dialogId = message.customParameters[@"dialog_id"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
     }
 }
 
-- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID{
-    
-    // notify observers
-    BOOL processed = NO;
-    if([self.delegate respondsToSelector:@selector(chatRoomDidReceiveMessage:fromRoomJID:)]){
-        processed = [self.delegate chatRoomDidReceiveMessage:message fromRoomJID:roomJID];
-    }
-    
-    if(!processed){
-        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
-                                                       description:message.text
-                                                              type:TWMessageBarMessageTypeInfo];
-        
-        [[SoundService instance] playNotificationSound];
-    }
+
+#pragma mark
+#pragma mark Utils
+
+- (void)sortDialogs
+{
+    [self.dialogs sortUsingComparator:^NSComparisonResult(QBChatDialog *obj1, QBChatDialog *obj2) {
+        NSDate *first = obj1.lastMessageDate;
+        NSDate *second = obj2.lastMessageDate;
+        return [second compare:first];
+    }];
 }
 
 

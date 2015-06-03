@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Entity.h"
+#import "QBCEntity.h"
 #import "QBContentEnums.h"
 
 @class QBCBlobObjectAccess;
@@ -15,7 +15,7 @@
 /** Overview */
 /** This class represents File in Content module. Limitations: max size of file is 5368709120 bytes (5 GB). */
 
-@interface QBCBlob : Entity <NSCoding, NSCopying>
+@interface QBCBlob : QBCEntity <NSCoding, NSCopying>
 {
 	NSString *contentType;          
 	NSString *name;                 
@@ -81,6 +81,16 @@
  @return Public url to file
  */
 - (NSString *)publicUrl;
+
+/** Get file's public url by UID.
+ @return Public url to file
+ */
++ (NSString *)publicUrlForUID:(NSString *)UID;
+
+/** Get file's public url by ID.
+ @return Public url to file
+ */
++ (NSString *)publicUrlForID:(NSUInteger)ID;
 
 
 #pragma mark -

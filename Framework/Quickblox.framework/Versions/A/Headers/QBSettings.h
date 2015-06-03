@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "QBLogger.h"
-#import "QBCoreEnums.h"
 
 /** QBSettings class declaration */
 /** Overview */
@@ -81,20 +80,6 @@
 #pragma mark Endpoints
 
 /**
- Set server's API domain
- 
- @param apiDomain New server's API domain
- */
-+ (void)setServerApiDomain:(NSString *)apiDomain __deprecated_msg("Use [QBConnection setApiDomain: forServiceZone:] instead");
-
-/**
- Get server's API domain
- 
- @return Current server's API domain
- */
-+ (NSString *)serverApiDomain  __deprecated_msg("Use [QBConnection setApiDomain: forServiceZone:] instead");
-
-/**
  Set server's Chat domain
  
  @param chatDomain New server's Chat domain
@@ -109,32 +94,29 @@
 + (NSString *)serverChatDomain;
 
 /**
- Set TURN server domain
- 
- @param turnDomain New TURN server domain
+ *  MUC chat server domain
+ *
+ *  @return Current server's MUC chat domain
  */
-+ (void)setTURNServerDomain:(NSString *)turnDomain;
-
-/**
- Get TURN server domain
- 
- @return Current TURN server domain
- */
-+ (NSString *)TURNServerDomain;
++ (NSString *)chatServerMUCDomain;
 
 /**
  Set Content bucket
+
+ @warning Deprecated in 2.3. No need to use this method anymore.
  
  @param bucket New bucket name
  */
-+ (void)setContentBucket:(NSString *)bucket;
++ (void)setContentBucket:(NSString *)bucket __attribute__((deprecated("No need to use this method anymore.")));
 
 /**
  Get Content bucket
  
+ @warning Deprecated in 2.3. No need to use this method anymore.
+ 
  @return Current bucket
  */
-+ (NSString *)contentBucket;
++ (NSString *)contentBucket __attribute__((deprecated("No need to use this method anymore.")));
 
 
 #pragma mark -
@@ -143,20 +125,20 @@
 /**
  Enable/disable HTTPS for queries
  
- @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS set by default now
+ @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS is set by default now
  
  @param useHTTPS Enable HTTPS for queries. Default value: YES.
  */
-+ (void)useHTTPS:(BOOL)useHTTPS __attribute__((deprecated("No need to call this method, HTTPS set by default now")));
++ (void)useHTTPS:(BOOL)useHTTPS __attribute__((deprecated("No need to call this method, HTTPS is set by default now")));
 
 /**
  Current protocol to perform queries to QuickBlox
  
- @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS set by default now
+ @warning *Deprecated in QB iOS SDK 1.8.5:* No need to call this method, HTTPS is set by default now
  
  @return YES if HTTPS is enabled;
  */
-+ (BOOL)isUseHTTPS __attribute__((deprecated("No need to call this method, HTTPS set by default now")));
++ (BOOL)isUseHTTPS __attribute__((deprecated("No need to call this method, HTTPS  is set by default now")));
 
 
 #pragma mark -
@@ -165,16 +147,20 @@
 /**
  Enable/disable TLS for chat
  
+ @warning *Deprecated in QB iOS SDK 2.3:* No need to call this method, TLS is set to YES by default now
+ 
  @param useTLSForChat Enable TLS for chat. Default value: NO.
  */
-+ (void)useTLSForChat:(BOOL)useTLSForChat;
++ (void)useTLSForChat:(BOOL)useTLSForChat __attribute__((deprecated("No need to call this method, TLS is set to YES by default now")));
 
 /**
  Current protocol to work with Chat
  
+ @warning *Deprecated in QB iOS SDK 2.3:* No need to call this method, TLS is set to YES by default now
+ 
  @return YES if TLS is enabled;
  */
-+ (BOOL)isUseTLSForChat;
++ (BOOL)isUseTLSForChat __attribute__((deprecated("No need to call this method, TLS is set to YES by default now")));
 
 
 #pragma mark -
@@ -226,6 +212,15 @@
  */
 + (QBLogLevel)logLevel;
 
+/**
+ *  Enables XMPP Framework logging to console. By default is disabled.
+ */
++ (void)enableXMPPLogging;
+
+/**
+ *   Disables XMPP Framework logging to console.
+ */
++ (void)disableXMPPLogging;
 
 #pragma mark -
 #pragma mark Timeout
@@ -302,23 +297,5 @@
  @return YES if we use Production environment for Push Notifications
  */
 + (BOOL)isUseProductionEnvironmentForPushNotifications __attribute__((deprecated("Use [QBApplication sharedApplication].productionEnvironmentForPushesEnabled instead")));
-
-
-#pragma mark -
-#pragma mark Video Chat
-
-/**
- Set Video Chat configuration
- 
- @param configuration New configuration
- */
-+ (void)setVideoChatConfiguration:(NSDictionary *)configuration;
-
-/**
- Get Video Chat configuration
- 
- @return Video Chat current configuration
- */
-+ (NSDictionary *)videoChatConfiguration;
 
 @end
