@@ -73,25 +73,26 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 #pragma mark
 #pragma mark Send message
 
-- (void)sendMessage:(NSString *)messageText toDialog:(QBChatDialog *)dialog
+- (BOOL)sendMessage:(NSString *)messageText toDialog:(QBChatDialog *)dialog
 {
     // create a message
     QBChatMessage *message = [[QBChatMessage alloc] init];
     message.text = messageText;
     [message setCustomParameters:[@{@"save_to_history": @YES} mutableCopy]];
     
-    // send a message
     if(dialog.type == QBChatDialogTypePrivate){
         // save message to inmemory db
         message.senderID = [QBSession currentSession].currentUser.ID;
         [self addMessage:message forDialogId:dialog.ID];
     }
-    [dialog sendMessage:message];
     
     // update dialog
     dialog.lastMessageUserID = [QBSession currentSession].currentUser.ID;
     dialog.lastMessageText = messageText;
     dialog.lastMessageDate = message.dateSent;
+    
+    // send a message
+    return [dialog sendMessage:message];
 }
 
 
@@ -271,6 +272,18 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     if([self.delegate respondsToSelector:@selector(chatDidLogin)]){
         [self.delegate chatDidLogin];
     }
+    
+    NSLog(@"chatDidLogin");
+}
+
+- (void)chatDidConnect
+{
+    NSLog(@"chatDidConnect");
+}
+
+- (void)chatDidAccidentallyDisconnect
+{
+    NSLog(@"chatDidAccidentallyDisconnect");
 }
 
 - (void)chatDidReceiveMessage:(QBChatMessage *)message

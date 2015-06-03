@@ -155,6 +155,16 @@
         badgeLabel.hidden = YES;
     }
     
+    // set group chat joined status
+    UIView *groupChatJoinedStatus =  (UIView *)[cell.contentView viewWithTag:202];
+    if(chatDialog.isJoined){
+        groupChatJoinedStatus.layer.cornerRadius = 5;
+        
+        groupChatJoinedStatus.hidden = NO;
+    }else{
+        groupChatJoinedStatus.hidden = YES;
+    }
+    
     return cell;
 }
 

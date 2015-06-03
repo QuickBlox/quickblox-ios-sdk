@@ -102,7 +102,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="chatRoomIcon" id="BDK-Dx-t1d">
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="privateChatIcon" id="BDK-Dx-t1d">
                                                     <rect key="frame" x="15" y="0.0" width="54" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
@@ -114,7 +114,12 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n8o-7A-MIO">
+                                                <view tag="202" contentMode="scaleToFill" id="dRF-dT-j7d" userLabel="Joined">
+                                                    <rect key="frame" x="278" y="3" width="10" height="10"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.023595017749999999" green="1" blue="0.24405261089999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="201" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n8o-7A-MIO" userLabel="unread count">
                                                     <rect key="frame" x="270" y="24" width="25" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -283,7 +288,7 @@
     </scenes>
     <resources>
         <image name="Logo" width="320" height="229"/>
-        <image name="chatRoomIcon" width="115" height="100"/>
+        <image name="privateChatIcon" width="115" height="100"/>
         <image name="second" width="30" height="30"/>
         <image name="userIcon" width="128" height="128"/>
     </resources>
