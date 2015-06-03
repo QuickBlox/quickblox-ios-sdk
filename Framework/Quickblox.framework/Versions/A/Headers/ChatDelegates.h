@@ -23,7 +23,6 @@
 @protocol QBChatDelegate <NSObject>
 @optional
 
-
 #pragma mark -
 #pragma mark Base IM
 
@@ -34,8 +33,17 @@
 
 /**
  didNotLogin fired when login process did not finished successfully
+ 
+ @warning *Deprecated in QB iOS SDK 2.3:* Use chatDidNotLoginWithError: instead
  */
-- (void)chatDidNotLogin;
+- (void)chatDidNotLogin __attribute__((deprecated("use 'chatDidNotLoginWithError:' instead.")));
+
+/**
+ didNotLoginWithError fired when login process did not finished successfully
+
+ @param error Error
+ */
+- (void)chatDidNotLoginWithError:(NSError *)error;
 
 /**
  didNotSendMessage fired when message cannot be send to user
@@ -49,7 +57,7 @@
  didNotSendMessage fired when message cannot be send to the group chat
  
  @param message message passed to sendMessage method into QBChat
- @roomJid JID of the room
+ @param roomJid JID of the room
  @param error Error
  */
 - (void)chatDidNotSendMessage:(QBChatMessage *)message toRoomJid:(NSString *)roomJid error:(NSError *)error;
@@ -64,6 +72,8 @@
 /**
  didFailWithError fired when connection error occurs
  
+ @warning *Deprecated in QB iOS SDK 2.3:* Use chatDidFailWithStreamError: instead
+ 
  @param error Error code from QBChatServiceError enum
  */
 - (void)chatDidFailWithError:(NSInteger)code __attribute__((deprecated("Use chatDidFailWithStreamError:")));
@@ -76,20 +86,14 @@
 - (void)chatDidFailWithStreamError:(NSError *)error;
 
 /**
- Called in case receiving presence
- 
- @param userID User ID from which received presence
- @param type Presence type
+ *  Fired when XMPP stream established connection
  */
-- (void)chatDidReceivePresenceOfUser:(NSUInteger)userID type:(NSString *)type;
-
+- (void)chatDidConnect;
 
 /**
- Fired when received service discovery information
- 
- @param features Array of server features
+ *  Fired when XMPP stream is accidentaly disconnected
  */
-- (void)chatDidReceiveServiceDiscoveryInformation:(NSArray *)features;
+- (void)chatDidAccidentallyDisconnect;
 
 
 #pragma mark -
@@ -116,24 +120,33 @@
  */
 - (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status;
 
+/**
+ + Called when user has accepted your contact request
+ +
+ + @param userID User ID from which accepted your request
+ + */
+- (void)chatDidReceiveAcceptContactRequestFromUser:(NSUInteger)userID;
+
+/**
+ + Called when user has rejected your contact request
+ +
+ + @param userID User ID from which rejected your request
+ + */
+- (void)chatDidReceiveRejectContactRequestFromUser:(NSUInteger)userID;
+
 
 #pragma mark -
 #pragma mark Rooms
 
 /**
- Called in case received list of available to join rooms.
+ Called when room received message. It will be fired each time when room received message from any user.
  
- @rooms Array of rooms
- */
-- (void)chatDidReceiveListOfRooms:(NSArray *)rooms;
-
-/**
- Called when room received message. It will be fired each time when room received message from any user
+ @warning *Deprecated in QB iOS SDK 2.3:* Use chatRoomDidReceiveMessage:fromRoomJID: instead.
  
  @param message Received message
  @param roomName Name of room which reeived message
  */
-- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName;
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoom:(NSString *)roomName __attribute__((deprecated("Use chatRoomDidReceiveMessage:fromRoomJID: instead.")));
 
 /**
  Called when room receives a message.
@@ -144,19 +157,6 @@
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID;
 
 /**
- Called when received room information.
- 
- @param information Room information
- @param roomName Name of room
- */
-- (void)chatRoomDidReceiveInformation:(NSDictionary *)information room:(NSString *)roomName;
-
-/**
- Fired when room was successfully created
- */
-- (void)chatRoomDidCreate:(NSString *)roomName;
-
-/**
  Fired when you did enter to room
  
  @param room which you have joined
@@ -164,27 +164,31 @@
 - (void)chatRoomDidEnter:(QBChatRoom *)room;
 
 /**
- Called when you didn't enter to room
+ Called when you didn't enter to room.
  
+ @warning Deprecated. Use 'onJoinFailed:' block in 'QBChatDialog'.
  @param room Name of room which you haven't joined
  @param error Error
  */
-- (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error;
+- (void)chatRoomDidNotEnter:(NSString *)roomName error:(NSError *)error __attribute__((deprecated("Use 'onJoinFailed:' block in 'QBChatDialog'.")));
 
 /**
  Called when you didn't enter to room
  
+ @warning Deprecated. Use 'onJoinFailed:' block in 'QBChatDialog'.
  @param roomJID  JID of room which you haven't joined
  @param error Error
  */
-- (void)chatRoomDidNotEnterRoomWithJID:(NSString *)roomJID error:(NSError *)error;
+- (void)chatRoomDidNotEnterRoomWithJID:(NSString *)roomJID error:(NSError *)error __attribute__((deprecated("Use 'onJoinFailed:' block in 'QBChatDialog'.")));
 
 /**
  Fired when you did leave room
  
+ @warning *Deprecated in QB iOS SDK 2.3:* Use chatRoomDidLeaveRoomWithJID: instead.
+ 
  @param roomName Name of room which you have leaved
  */
-- (void)chatRoomDidLeave:(NSString *)roomName;
+- (void)chatRoomDidLeave:(NSString *)roomName __attribute__((deprecated("Use chatRoomDidLeaveRoomWithJID: instead.")));
 
 /**
  Fired when you did leave room
@@ -194,43 +198,58 @@
 - (void)chatRoomDidLeaveRoomWithJID:(NSString *)roomJID;
 
 /**
- Fired when you did destroy room
- 
- @param roomName of room which you have destroyed
- */
-- (void)chatRoomDidDestroy:(NSString *)roomName;
-
-/**
  Called in case changing online users
+ 
+ @warning *Deprecated in QB iOS SDK 2.3:* This delegate doesn't work anymore. Use chatRoomOccupantDidJoin/Leave/Update:toRoomJID: instead.
  
  @param onlineUsers Array of online users
  @param roomName Name of room in which have changed online users
  */
-- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName;
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers room:(NSString *)roomName __attribute__((deprecated("This delegate doesn't work anymore. Use chatRoomOccupantDidJoin/Leave/Update:toRoomJID: instead.")));
 
 /**
  Called in case changing online users
  
+ @warning *Deprecated in QB iOS SDK 2.3:* This delegate doesn't work anymore. Use chatRoomOccupantDidJoin/Leave/Update:toRoomJID: instead.
+ 
  @param onlineUsers Array of online users
  @param roomJID JID of room in which has changed online users list
  */
-- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers roomJID:(NSString *)roomJID;
+- (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers roomJID:(NSString *)roomJID __attribute__((deprecated("This delegate doesn't work anymore Use chatRoomOccupantDidJoin/Leave/Update:toRoomJID: instead.")));
 
 /**
- Called in case receiving list of users who can join room
- 
- @param users Array of users which are able to join room
- @param roomName Name of room which provides access to join
+ *  Called when user joined room.
+ *
+ *  @param userId User's ID.
+ *  @param roomJID     JID of room.
  */
-- (void)chatRoomDidReceiveListOfUsers:(NSArray *)users room:(NSString *)roomName;
+- (void)chatRoomOccupantDidJoin:(NSUInteger)userId roomJID:(NSString *)roomJID;
 
 /**
- Called in case receiving list of online users
+ *  Called when user left room.
+ *
+ *  @param userId User's ID.
+ *  @param roomJID     JID of room.
+ */
+- (void)chatRoomOccupantDidLeave:(NSUInteger)userId roomJID:(NSString *)roomJID;
+
+/**
+ *  Called when user was updated in room.
+ *
+ *  @param userId User's ID.
+ *  @param roomJID     JID of room.
+ */
+- (void)chatRoomOccupantDidUpdate:(NSUInteger)userId roomJID:(NSString *)roomJID;
+
+/**
+ Called in case receiving list of online users.
+ 
+ @warning *Deprecated in QB iOS SDK 2.3:* "Use chatRoomDidReceiveListOfOnlineUsers:roomJID: instead.
  
  @param users Array of joined users
  @param roomName Name of room
  */
-- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users room:(NSString *)roomName;
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users room:(NSString *)roomName __attribute__((deprecated("Use chatRoomDidReceiveListOfOnlineUsers:roomJID: instead.")));
 
 /**
  Called in case receiving list of online users
@@ -239,97 +258,6 @@
  @param roomJID JID of room
  */
 - (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users roomJID:(NSString *)roomJID;
-
-
-#pragma mark -
-#pragma mark Video Chat
-
-/**
- Called in case when opponent is calling to you
- 
- @param userID ID of uopponent
- @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
- */
--(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID withSessionID:(NSString*)sessionID conferenceType:(enum QBVideoChatConferenceType)conferenceType;
-
-/**
- Called in case when opponent is calling to you
- 
- @param userID ID of uopponent
- @param conferenceType Type of conference. 'QBVideoChatConferenceTypeAudioAndVideo' and 'QBVideoChatConferenceTypeAudio' values are available
- @param customParameters Custom caller parameters
- */
--(void) chatDidReceiveCallRequestFromUser:(NSUInteger)userID withSessionID:(NSString*)sessionID conferenceType:(enum QBVideoChatConferenceType)conferenceType customParameters:(NSDictionary *)customParameters;
-
-/**
- Called in case when you are calling to user, but hi hasn't answered
- 
- @param userID ID of opponent
- */
--(void) chatCallUserDidNotAnswer:(NSUInteger)userID;
-
-/**
- Called in case when opponent has accepted you call
- 
- @param userID ID of opponent
- */
--(void) chatCallDidAcceptByUser:(NSUInteger)userID;
-
-/**
- Called in case when opponent has accepted you call
- 
- @param userID ID of opponent
- @param customParameters Custom caller parameters
- */
--(void) chatCallDidAcceptByUser:(NSUInteger)userID customParameters:(NSDictionary *)customParameters;
-
-/**
- Called in case when opponent has rejected you call
- 
- @param userID ID of opponent
- */
--(void) chatCallDidRejectByUser:(NSUInteger)userID;
-
-/**
- Called in case when opponent has finished call
- 
- @param userID ID of opponent
- @param status Reason of finish call. There are 2 reasons: 1) Opponent did not answer - 'kStopVideoChatCallStatus_OpponentDidNotAnswer'. 2) Opponent finish call with method 'finishCall' - 'kStopVideoChatCallStatus_Manually'
- */
--(void) chatCallDidStopByUser:(NSUInteger)userID status:(NSString *)status;
-
-/**
- Called in case when opponent has finished call
- 
- @param userID ID of opponent
- @param status Reason of finish call. There are 2 reasons: 1) Opponent did not answer - 'kStopVideoChatCallStatus_OpponentDidNotAnswer'. 2) Opponent finish call with method 'finishCall' - 'kStopVideoChatCallStatus_Manually'
- @param customParameters Custom caller parameters
- */
--(void) chatCallDidStopByUser:(NSUInteger)userID status:(NSString *)status customParameters:(NSDictionary *)customParameters;
-
-/**
- Called in case when call has started
- 
- @param userID ID of opponent
- @param sessionID ID of session
- */
--(void) chatCallDidStartWithUser:(NSUInteger)userID sessionID:(NSString *)sessionID;
-
-/**
- Called in case when start using TURN relay for video chat (not p2p).
- */
-- (void)didStartUseTURNForVideoChat;
-
-
-#pragma mark -
-#pragma mark Custom audio session
-
-/**
- Called in case when user uses custom audio session for video chat
- 
- @param buffer Audio buffer
- */
-- (void)didReceiveAudioBuffer:(AudioBuffer)buffer;
 
 
 #pragma mark -
@@ -453,17 +381,6 @@
  @param messageID ID of an original message
  */
 - (void)chatDidReadMessageWithID:(NSString *)messageID;
-
-
-#pragma mark -
-#pragma mark Draft
-
-- (void)chatTURNServerDidDisconnect;
-- (void)chatTURNServerdidFailWithError:(NSError *)error;
-- (void)chatDidPassConnectionStep:(NSUInteger)step totalSteps:(NSUInteger)totalSteps;
-
-- (void)chatDidExceedWriteVideoQueueMaxOperationsThresholdWithCount:(NSUInteger)operationsInQueue;
-- (void)chatDidExceedWriteAudioQueueMaxOperationsThresholdWithCount:(NSUInteger)operationsInQueue;
 
 @end
 

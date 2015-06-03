@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Entity.h"
+#import "QBCEntity.h"
 
 /** QBLPlace class declaration  */
 /** Overview:*/
 /** This class represents place information. You can store places on server, and then retrieve them using search. See QBLocationService  */
 
-@interface QBLPlace : Entity <NSCoding, NSCopying> {
+@interface QBLPlace : QBCEntity <NSCoding, NSCopying> {
 @private
 	CLLocationDegrees latitude;
 	CLLocationDegrees longitude;

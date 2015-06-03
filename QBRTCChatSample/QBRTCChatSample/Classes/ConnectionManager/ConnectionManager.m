@@ -88,8 +88,6 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 
 - (void)chatDidLogin {
     
-    QBChat.instance.useMutualSubscriptionForContactList = YES;
-    
     self.presenceTimer =
     [NSTimer scheduledTimerWithTimeInterval:kChatPresenceTimeInterval
                                      target:self

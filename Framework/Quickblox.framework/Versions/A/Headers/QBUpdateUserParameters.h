@@ -1,35 +1,14 @@
 //
-//  QBUUser.h
-//  UsersService
+//  QBUpdateUserParameters.h
+//  Quickblox
 //
-
-//  Copyright 2011 QuickBlox team. All rights reserved.
+//  Created by Andrey Moskvin on 5/25/15.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "QBCEntity.h"
 
-/** QBUUser class declaration. */
-/** Overview */
-/** This class represents QuickBlox User. */
-
-@interface QBUUser : QBCEntity <NSCoding, NSCopying> {
-@private
-    NSUInteger externalUserID;
-    NSInteger blobID;
-    NSString *facebookID;
-    NSString *twitterID;
-    NSString *fullName;
-    NSString *email;
-    NSString *login;
-    NSString *phone;
-    NSString *website;
-    NSMutableArray *tags;
-    NSString *password;
-    NSString *oldPassword;
-    NSDate *lastRequestAt;
-    NSString *customData;
-}
+@interface QBUpdateUserParameters : NSObject
 
 /** ID of User in external system. */
 @property (nonatomic) NSUInteger externalUserID;
@@ -67,14 +46,7 @@
 /** User's old password. */
 @property (nonatomic, retain) NSString *oldPassword;
 
-/** User's last activity */
-@property (nonatomic, retain) NSDate *lastRequestAt;
-
 /** User's custom data field */
 @property (nonatomic, retain) NSString *customData;
 
-/** Create new user
- @return New instance of QBUUser
- */
-+ (QBUUser *)user;
 @end
