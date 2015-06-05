@@ -89,7 +89,6 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     
     if(dialog.type == QBChatDialogTypePrivate){
         // save message to inmemory db
-        message.senderID = [QBSession currentSession].currentUser.ID;
         [self addMessage:message forDialogId:dialog.ID];
     }
     
@@ -110,8 +109,9 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 {
     self.getDialogsCompletionBlock = completionBlock;
     
-    [QBRequest dialogsWithSuccessBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs) {
-        
+    QBResponsePage *pageDialogs = [QBResponsePage responsePageWithLimit:100 skip:0];
+    [QBRequest dialogsForPage:pageDialogs extendedRequest:nil successBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, QBResponsePage *pageResponseDialogs) {
+
         // save dialogs in memory
         //
         self.dialogs = dialogObjects.mutableCopy;
@@ -254,8 +254,14 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
     if(messagesArray != nil){
         [messagesArray addObjectsFromArray:messages];
+        
+        [self sortMessages:messagesArray];
     }else{
-        [self.messages setObject:messages forKey:dialogId];
+        messagesArray = [messages mutableCopy];
+        
+        [self sortMessages:messagesArray];
+        
+        [self.messages setObject:messagesArray forKey:dialogId];
     }
 }
 
@@ -264,10 +270,14 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     NSMutableArray *messagesArray = [self.messages objectForKey:dialogId];
     if(messagesArray != nil){
         [messagesArray addObject:message];
+        
+        [self sortMessages:messagesArray];
     }else{
-        NSMutableArray *messages = [NSMutableArray array];
-        [messages addObject:message];
-        [self.messages setObject:messages forKey:dialogId];
+        messagesArray = [NSMutableArray array];
+        [messagesArray addObject:message];
+        [self.messages setObject:messagesArray forKey:dialogId];
+        
+        [self sortMessages:messagesArray];
     }
 }
 
@@ -278,7 +288,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 - (void)chatDidLogin
 {    
     // reconnected to chat
-    if(_chatAccidentallyDisconnected){
+    if(_chatAccidentallyDisconnected || self.dialogs.count > 0){
         _chatAccidentallyDisconnected = NO;
         
         // join all group dialogs
@@ -334,7 +344,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
 }
 
 - (void)processMessage:(QBChatMessage *)message{
-    NSString *dialogId = message.customParameters[@"dialog_id"];
+    NSString *dialogId = message.dialogID;
     
     // save message to local storage
     //
@@ -361,6 +371,7 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         processed = [self.delegate chatDidReceiveMessage:message];
     }
     if(!processed){
+        [[TWMessageBarManager sharedInstance] hideAll];
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
                                                        description:message.text
                                                               type:TWMessageBarMessageTypeInfo];
@@ -378,6 +389,15 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     [self.dialogs sortUsingComparator:^NSComparisonResult(QBChatDialog *obj1, QBChatDialog *obj2) {
         NSDate *first = obj1.lastMessageDate;
         NSDate *second = obj2.lastMessageDate;
+        return [second compare:first];
+    }];
+}
+
+- (void)sortMessages:(NSMutableArray *)messages
+{
+    [messages sortUsingComparator:^NSComparisonResult(QBChatMessage *obj1, QBChatMessage *obj2) {
+        NSDate *first = obj2.dateSent;
+        NSDate *second = obj1.dateSent;
         return [second compare:first];
     }];
 }

@@ -22,6 +22,8 @@
     
 //    [QBSettings setLogLevel:QBLogLevelNothing];
     
+#warning TODO: 1) background/foreground mode
+    
     return YES;
 }
 							
@@ -48,7 +50,7 @@
     // Login to QuickBlox Chat
     //
     [SVProgressHUD showWithStatus:@"Restoring chat session"];
-    [[ChatService shared] loginWithUser:[QBSession currentSession].currentUser completionBlock:^{
+    [[ChatService shared] loginWithUser:[QBChat instance].currentUser completionBlock:^{
         [SVProgressHUD dismiss];
     }];
 }
