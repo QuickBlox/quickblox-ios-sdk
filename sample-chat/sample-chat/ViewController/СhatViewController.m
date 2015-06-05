@@ -15,6 +15,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 - (IBAction)sendMessage:(id)sender;
 
 @end
@@ -26,6 +28,15 @@
     [super viewDidLoad];
 
     self.messagesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // Initialize the refresh control.
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(getPreviousMessages)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.messagesTableView addSubview:self.refreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -49,7 +60,7 @@
     
     // sync messages history
     //
-    [self syncMessages];
+    [self syncMessages:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -63,30 +74,65 @@
     return YES;
 }
 
-- (void)syncMessages{
+- (void)getPreviousMessages{
+    
+    // load more messages here
+    //
+    [self syncMessages:YES];
+}
+
+- (void)syncMessages:(BOOL)loadPrevious{
     NSArray *messages = [[ChatService shared] messagsForDialogId:self.dialog.ID];
     NSDate *lastMessageDateSent = nil;
+    NSDate *firstMessageDateSent = nil;
     if(messages.count > 0){
-        QBChatMessage *lastMsg = [messages lastObject];
-        lastMessageDateSent = lastMsg.dateSent;
+        lastMessageDateSent = ((QBChatMessage *)[messages lastObject]).dateSent;
+        firstMessageDateSent = ((QBChatMessage *)[messages firstObject]).dateSent;
     }
     
     __weak __typeof(self)weakSelf = self;
     
+    NSMutableDictionary *extendedRequest = [[NSMutableDictionary alloc] init];
+    if(loadPrevious){
+        if(firstMessageDateSent != nil){
+            extendedRequest[@"date_sent[lte]"] = @([firstMessageDateSent timeIntervalSince1970]-1);
+        }
+    }else{
+        if(lastMessageDateSent != nil){
+            extendedRequest[@"date_sent[gte]"] = @([lastMessageDateSent timeIntervalSince1970]+1);
+        }
+    }
+    extendedRequest[@"sort_desc"] = @"date_sent";
+    
+    QBResponsePage *page = [QBResponsePage responsePageWithLimit:100 skip:0];
     [QBRequest messagesWithDialogID:self.dialog.ID
-                    extendedRequest:lastMessageDateSent == nil ? nil : @{@"date_sent[gte]": @([lastMessageDateSent timeIntervalSince1970]+1)}
-                            forPage:nil
+                    extendedRequest:extendedRequest
+                            forPage:page
                        successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
         if(messages.count > 0){
             [[ChatService shared] addMessages:messages forDialogId:self.dialog.ID];
         }
                            
-        [weakSelf.messagesTableView reloadData];
-        NSInteger count = [[ChatService shared] messagsForDialogId:self.dialog.ID].count;
-        if(count > 0){
-           [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
-                                         atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        }                      
+        if(loadPrevious){
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"MMM d, h:mm a"];
+            NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+            NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
+                                                                        forKey:NSForegroundColorAttributeName];
+            NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+            weakSelf.refreshControl.attributedTitle = attributedTitle;
+            
+            [weakSelf.refreshControl endRefreshing];
+            
+            [weakSelf.messagesTableView reloadData];
+        }else{
+            [weakSelf.messagesTableView reloadData];
+            NSInteger count = [[ChatService shared] messagsForDialogId:self.dialog.ID].count;
+            if(count > 0){
+                [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
+                                                  atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
+        }
     } errorBlock:^(QBResponse *response) {
         
     }];
@@ -198,15 +244,14 @@
 
 - (void)chatDidLogin
 {
-    
     // sync messages history
     //
-    [self syncMessages];
+    [self syncMessages:NO];
 }
 
 - (BOOL)chatDidReceiveMessage:(QBChatMessage *)message
 {
-    NSString *dialogId = message.customParameters[@"dialog_id"];
+    NSString *dialogId = message.dialogID;
     if(![self.dialog.ID isEqualToString:dialogId]){
         return NO;
     }
