@@ -28,7 +28,6 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         self.delegate.tableView = self.tableView
 
         ServicesManager.instance.chatService.addDelegate(self)
-        ServicesManager.instance.chatService.addDelegate(ServicesManager.instance)
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
@@ -165,6 +164,10 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+        self.tableView.reloadData()
+    }
+    
+    func chatService(chatService: QMChatService!, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String!) {
         self.tableView.reloadData()
     }
 }
