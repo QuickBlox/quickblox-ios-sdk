@@ -74,7 +74,7 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             SVProgressHUD.showWithStatus("SA_STR_DELETING".localized, maskType: SVProgressHUDMaskType.Clear)
                             assert(cell.dialogID != "")
                             
-                            ServicesManager.instance.chatService .deleteDialogWithID(cell.dialogID, completion: { (response: QBResponse!) -> Void in
+                            ServicesManager.instance.chatService.deleteDialogWithID(cell.dialogID, completion: { (response: QBResponse!) -> Void in
                                 
                                 if response.success {
                                     
