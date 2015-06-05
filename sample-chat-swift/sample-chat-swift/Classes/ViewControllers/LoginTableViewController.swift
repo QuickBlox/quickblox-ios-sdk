@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginTableViewController: UITableViewController {
+class LoginTableViewController: UsersListTableViewController {
 
     // MARK: ViewController overrides
     
@@ -37,28 +37,6 @@ class LoginTableViewController: UITableViewController {
             }
 
         })
-    }
-    
-    // MARK: UITableViewDataSource
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ConnectionManager.instance.usersDataSource.users.count
-    }
-
-    internal override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! UserTableViewCell
-
-        let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
-        
-        cell.setColorMarkerText(String(indexPath.row+1), color: user.color)
-        cell.userDescription = user.fullName
-        cell.tag = indexPath.row
-        
-        return cell
     }
     
     // MARK: UITableViewDelegate
