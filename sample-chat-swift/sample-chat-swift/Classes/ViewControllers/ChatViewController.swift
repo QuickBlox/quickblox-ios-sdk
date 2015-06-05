@@ -25,10 +25,15 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
 		
         self.startMessagesObserver()
         
-        if dialog?.chatRoom != nil {
-			dialog?.chatRoom.joinRoom()
-			ConnectionManager.instance.currentChatViewModel = self.chatViewModel
+        if let chatRoom = dialog?.chatRoom {
+            
+            if !chatRoom.isJoined {
+                
+                chatRoom.joinRoom()
+            }
 		}
+        
+        ConnectionManager.instance.currentChatViewModel = self.chatViewModel
         
         QBChat.instance().addDelegate(self)
         
