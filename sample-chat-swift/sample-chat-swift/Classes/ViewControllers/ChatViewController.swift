@@ -10,6 +10,7 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     let messagesBond: ArrayBond<QBChatMessage> = ArrayBond<QBChatMessage>()
     var showLoadingIndicator: Bond<Bool>!
     var dialog: QBChatDialog?
+    var shouldFixViewControllersStack = false
     
     var chatViewModel: ChatViewModel!
     
@@ -23,13 +24,12 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         self.chatViewModel = ChatViewModel(currentUserID: ServicesManager.instance.currentUser()!.ID, dialog: dialog!)
 		
         self.startMessagesObserver()
-        if dialog?.chatRoom == nil {
-            self.navigationItem.rightBarButtonItem = nil // remove "info" button
-        }
-		else {
-			ConnectionManager.instance.joinAllRooms()
+        
+        if dialog?.chatRoom != nil {
+			dialog?.chatRoom.joinRoom()
 			ConnectionManager.instance.currentChatViewModel = self.chatViewModel
 		}
+        
         QBChat.instance().addDelegate(self)
         
         // needed by block in method QBChat.instance().sendMessage(message, sentBlock
@@ -42,6 +42,24 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
         self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
         
+        if self.shouldFixViewControllersStack {
+            
+            var viewControllers: [UIViewController] = []
+            
+            if let loginViewControllers = self.navigationController?.viewControllers[0] as? LoginTableViewController {
+                viewControllers.append(loginViewControllers)
+            }
+            
+            if let dialogsViewControllers = self.navigationController?.viewControllers[1] as? DialogsViewController {
+                viewControllers.append(dialogsViewControllers)
+            }
+            
+            if let chatViewControllers = self.navigationController?.viewControllers.last as? ChatViewController {
+                viewControllers.append(chatViewControllers)
+            }
+            
+            self.navigationController?.viewControllers = viewControllers
+        }
         
         // set dialog owner ( currentUser )
         self.senderId = ServicesManager.instance.currentUser()?.ID.description
@@ -206,15 +224,17 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
     */
     
     override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool {
+        
         if action == Selector("delete:"){
             return true
         }
+        
         return super.collectionView(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let groupChatInfoVC = segue.destinationViewController as? GroupChatUsersInfoTableViewController {
-            groupChatInfoVC.chatDialog = self.dialog
+        if let groupChatInfoVC = segue.destinationViewController as? ChatUsersInfoTableViewController {
+            groupChatInfoVC.dialog = self.dialog
         }
     }
     
