@@ -105,7 +105,7 @@ class NewDialogViewController: UsersListTableViewController {
                     
                     var chatName = text
                     
-                    if chatName == nil {
+                    if chatName!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty {
                         chatName = self.nameForGroupChatWithUsers(users)
                     }
                     
@@ -124,6 +124,8 @@ class NewDialogViewController: UsersListTableViewController {
         self.dialog!.setPushOccupantsIDs(users.map{ $0.ID })
         
         QBRequest.updateDialog(self.dialog, successBlock: { [weak self] (response: QBResponse!, updatedDialog: QBChatDialog!) -> Void in
+            
+            ServicesManager.instance.chatService.notifyAboutUpdatedDialog(updatedDialog, excludedOccupantIDs: nil, occupantsCustomParameters: nil, completion: nil)
             
             SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
             self?.navigationItem.leftBarButtonItem!.enabled = true
@@ -148,26 +150,23 @@ class NewDialogViewController: UsersListTableViewController {
     
     func createChat(name: String?, users:[QBUUser], completion: (response: QBResponse!, createdDialog: QBChatDialog!) -> Void) {
         
-        var chatDialog = QBChatDialog()
-        chatDialog.occupantIDs = users.map({ $0.ID })
-        
-        if chatDialog.occupantIDs.count == 1 {
+        if users.count == 1 {
             
-            chatDialog.type = .Private
+            ServicesManager.instance.chatService.createPrivateChatDialogWithOpponent(users.first!, completion: { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
+                
+                ServicesManager.instance.chatService.notifyAboutCreatedDialog(chatDialog, excludedOccupantIDs: nil, occupantsCustomParameters: nil, completion: nil)
+                
+                completion(response: response, createdDialog: chatDialog)
+            })
             
         } else {
             
-            chatDialog.type = .Group
-            chatDialog.name = name!
-        }
-        
-        QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
-            
-                completion(response: response, createdDialog: createdDialog)
-            
-            }) { (response: QBResponse!) -> Void in
+            ServicesManager.instance.chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
+
+                ServicesManager.instance.chatService.notifyAboutCreatedDialog(chatDialog, excludedOccupantIDs: nil, occupantsCustomParameters: nil, completion: nil)
                 
-                completion(response: response, createdDialog: nil)
+                completion(response: response, createdDialog: chatDialog)
+            }
         }
     }
     
