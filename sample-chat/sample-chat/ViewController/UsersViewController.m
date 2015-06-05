@@ -81,9 +81,30 @@
     __weak __typeof(self)weakSelf = self;
     [QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
         
+            // save dialog to cache
+            //
+            if(createdDialog.type != QBChatDialogTypePrivate || [ChatService shared].dialogsAsDictionary[createdDialog.ID] == nil){
+                [[ChatService shared].dialogs insertObject:createdDialog atIndex:0];
+                [[ChatService shared].dialogsAsDictionary setObject:createdDialog forKey:createdDialog.ID];
+            }else{
+                createdDialog = [ChatService shared].dialogsAsDictionary[createdDialog.ID];
+            }
+        
+            // and join it
+            if(createdDialog.type != QBChatDialogTypePrivate){
+                [createdDialog setOnJoin:^() {
+                    NSLog(@"Dialog joined");
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationGroupDialogJoined object:nil];
+                }];
+                [createdDialog setOnJoinFailed:^(NSError *error) {
+                    NSLog(@"Join Fail, error: %@", error);
+                }];
+                [createdDialog join];
+            }
+        
             DialogsViewController *dialogsViewController = weakSelf.navigationController.viewControllers[0];
             dialogsViewController.createdDialog = createdDialog;
-            
             [weakSelf.navigationController popViewControllerAnimated:YES];
 
     } errorBlock:^(QBResponse *response) {

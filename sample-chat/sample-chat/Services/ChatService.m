@@ -230,8 +230,8 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     
     if(dialogs != nil && dialogs.count > 0){
         NSMutableDictionary *__dialogsAsDictionary = [NSMutableDictionary dictionary];
-        for(QBUUser *dialog in dialogs){
-            [__dialogsAsDictionary setObject:dialog forKey:@(dialog.ID)];
+        for(QBChatDialog *dialog in dialogs){
+            [__dialogsAsDictionary setObject:dialog forKey:dialog.ID];
         }
         
         _dialogsAsDictionary = [__dialogsAsDictionary mutableCopy];
