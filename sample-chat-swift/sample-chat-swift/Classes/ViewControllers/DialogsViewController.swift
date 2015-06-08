@@ -160,10 +160,16 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     // MARK: - QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [AnyObject]!) {
+        
+        for dialog : QBChatDialog in chatDialogs as! [QBChatDialog] {
+            dialog.join()
+        }
+        
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+        chatDialog.join()
         self.tableView.reloadData()
     }
     
