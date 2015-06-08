@@ -9,9 +9,19 @@
 #import "UsersService.h"
 #import "StorageManager.h"
 
-
+@interface UsersService()
+@property (strong, nonatomic) QMContactListService *contactListService;
+@end
 
 @implementation UsersService
+
+- (instancetype)initWithContactListService:(QMContactListService *)contactListService {
+	self = [super init];
+	if( self ) {
+		_contactListService = contactListService;
+	}
+	return self;
+}
 
 - (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
 	
@@ -93,5 +103,10 @@
 	
 	return [ids copy];
 }
+
+- (void)retrieveUsersWithIDs:(NSArray *)usersIDs completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray *users))completion {
+	[self.contactListService retrieveUsersWithIDs:usersIDs forceDownload:NO completion:completion];
+}
+
 
 @end

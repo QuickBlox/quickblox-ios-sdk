@@ -11,6 +11,8 @@
 		1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6991B14BF350069E3A4 /* UserTableViewCell.m */; };
 		1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B69C1B14BFBA0069E3A4 /* CornerView.m */; };
 		1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */; };
+		142E911A1B205FF7001285F9 /* libQuickblox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 142E91181B205FF7001285F9 /* libQuickblox.a */; };
+		142E911B1B205FF7001285F9 /* libQuickblox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 142E91191B205FF7001285F9 /* libQuickblox.a */; };
 		143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143181781B1882EC001A933D /* NewDialogTableViewController.m */; };
 		1431817D1B18A399001A933D /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1431817C1B18A399001A933D /* UIAlertDialog.m */; };
 		14C273BB1B174DE60053D5AF /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */; };
@@ -22,7 +24,6 @@
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
 		86104A1E1B0B5E1900464D52 /* QBServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServicesManager.m */; };
-		8620BC0C1B0F36FB005ED359 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8620BC0B1B0F36FB005ED359 /* Quickblox.framework */; };
 		8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E80F71B0F17A500A6E86D /* libQMServices.a */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
@@ -47,8 +48,6 @@
 		BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */; };
 		BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */; };
 		BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */; };
-		BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */; };
-		BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +76,8 @@
 		1402B69C1B14BFBA0069E3A4 /* CornerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CornerView.m; sourceTree = "<group>"; };
 		1402B6A61B14C7340069E3A4 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
+		142E91181B205FF7001285F9 /* libQuickblox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQuickblox.a; path = "../../SDK-ios/Framework/build/Debug-iphoneos/libQuickblox.a"; sourceTree = "<group>"; };
+		142E91191B205FF7001285F9 /* libQuickblox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libQuickblox.a; path = "../../SDK-ios/Framework/build/Debug-iphonesimulator/libQuickblox.a"; sourceTree = "<group>"; };
 		143181731B18714B001A933D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		143181771B1882EC001A933D /* NewDialogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDialogTableViewController.h; sourceTree = "<group>"; };
 		143181781B1882EC001A933D /* NewDialogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDialogTableViewController.m; sourceTree = "<group>"; };
@@ -128,10 +129,6 @@
 		BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		BFE6FBCA180EA2F300E64AC4 /* DialogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogsViewController.h; sourceTree = "<group>"; };
 		BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogsViewController.m; sourceTree = "<group>"; };
-		BFE6FBCC180EA2F300E64AC4 /* UsersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
-		BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
-		BFE6FBDF180EE57700E64AC4 /* UsersPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersPaginator.h; sourceTree = "<group>"; };
-		BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersPaginator.m; sourceTree = "<group>"; };
 		EC1956EB9D11485189AD3B71 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -140,8 +137,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				142E911A1B205FF7001285F9 /* libQuickblox.a in Frameworks */,
+				142E911B1B205FF7001285F9 /* libQuickblox.a in Frameworks */,
 				8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */,
-				8620BC0C1B0F36FB005ED359 /* Quickblox.framework in Frameworks */,
 				BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */,
 				BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */,
 				BFE6FBC4180E9E9B00E64AC4 /* libz.1.2.5.dylib in Frameworks */,
@@ -241,6 +239,8 @@
 		BFE6FB74180E8EF100E64AC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				142E91181B205FF7001285F9 /* libQuickblox.a */,
+				142E91191B205FF7001285F9 /* libQuickblox.a */,
 				8620BC0B1B0F36FB005ED359 /* Quickblox.framework */,
 				BFE6FBC7180E9EA600E64AC4 /* libxml2.2.dylib */,
 				BFE6FBC5180E9EA100E64AC4 /* libresolv.9.dylib */,
@@ -275,7 +275,6 @@
 				BFE6FBC9180EA2F300E64AC4 /* ViewController */,
 				BFE6FBF21812E0D300E64AC4 /* Views */,
 				BFE6FBE2180F293C00E64AC4 /* Services */,
-				BFE6FBDE180EE56300E64AC4 /* Models */,
 				BFE6FB87180E8EF100E64AC4 /* Main.storyboard */,
 				86F145511B0E316600F790F9 /* Launch Screen.xib */,
 				BFE6FB90180E8EF100E64AC4 /* Images.xcassets */,
@@ -301,23 +300,12 @@
 			children = (
 				BFE6FBCA180EA2F300E64AC4 /* DialogsViewController.h */,
 				BFE6FBCB180EA2F300E64AC4 /* DialogsViewController.m */,
-				BFE6FBCC180EA2F300E64AC4 /* UsersViewController.h */,
-				BFE6FBCD180EA2F300E64AC4 /* UsersViewController.m */,
 				1402B6A61B14C7340069E3A4 /* LoginTableViewController.h */,
 				1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */,
 				143181771B1882EC001A933D /* NewDialogTableViewController.h */,
 				143181781B1882EC001A933D /* NewDialogTableViewController.m */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		BFE6FBDE180EE56300E64AC4 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				BFE6FBDF180EE57700E64AC4 /* UsersPaginator.h */,
-				BFE6FBE0180EE57700E64AC4 /* UsersPaginator.m */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		BFE6FBE2180F293C00E64AC4 /* Services */ = {
@@ -488,8 +476,6 @@
 			files = (
 				1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
-				BFE6FBE1180EE57700E64AC4 /* UsersPaginator.m in Sources */,
-				BFE6FBCF180EA2F300E64AC4 /* UsersViewController.m in Sources */,
 				1431817D1B18A399001A933D /* UIAlertDialog.m in Sources */,
 				14C273E41B1773310053D5AF /* ReachabilityManager.m in Sources */,
 				1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */,
@@ -627,9 +613,14 @@
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphoneos",
+					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphonesimulator",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = supersample;
-				PROVISIONING_PROFILE = "3f3666e5-0de4-4af0-a260-af8921b354dd";
+				PROVISIONING_PROFILE = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -654,9 +645,14 @@
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphoneos",
+					"/Users/seven/Documents/work/SDK-ios/Framework/build/Debug-iphonesimulator",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = supersample;
-				PROVISIONING_PROFILE = "3f3666e5-0de4-4af0-a260-af8921b354dd";
+				PROVISIONING_PROFILE = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

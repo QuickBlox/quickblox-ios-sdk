@@ -7,521 +7,477 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		015F736BE34B9759C7BA2C5A /* Pods-SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6806C0207F076043F6B4B8 /* Pods-SVProgressHUD-dummy.m */; };
-		01A6B6B7285CA106BFBAE015 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC8B13EB7A884F6D183884D /* SVProgressHUD.h */; };
-		11646C1F723B20E5ED2C7B33 /* DTTimePeriodCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B68E5D66110EC0BD4D34CED /* DTTimePeriodCollection.h */; };
-		13CC046D331AF3F8386F499A /* DTTimePeriodChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 0969206143C4B6A5879411A7 /* DTTimePeriodChain.h */; };
-		16CAA53FD42D846E17737B4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA615AC09E6D90698D87F06 /* Foundation.framework */; };
-		1B2F4D675465619786E69D68 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA615AC09E6D90698D87F06 /* Foundation.framework */; };
-		1D747F017D58FFBA9C381223 /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A08373190B963E5FEBC19C2F /* TWMessageBarManager.h */; };
-		224470E3D636046D7CF15EE2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B7D3E25609E429E02AA185EB /* SVProgressHUD.m */; };
-		2500AAE82C1C8BC097AB3939 /* Pods-DateTools-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A13E36E0974B674E24CC4B /* Pods-DateTools-dummy.m */; };
-		3CB3C7AE98827CEFF6D33338 /* DTTimePeriodGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 36014D58AE102792BC1477BB /* DTTimePeriodGroup.h */; };
-		3D176D6521643F229E1E6057 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA615AC09E6D90698D87F06 /* Foundation.framework */; };
-		3DE6EDD8A3D69B9046E7A013 /* DTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 984DAB5CA9EA4D9F06164859 /* DTError.h */; };
-		3F03CBCB7D6E879B4232A973 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA615AC09E6D90698D87F06 /* Foundation.framework */; };
-		440112C121EE1E60127E23D1 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 20A9779473B70DAEA2D1DD92 /* NSDate+DateTools.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		45887DCC8251258526663D6D /* Pods-TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A31047F49B53FFCC372BEF2 /* Pods-TWMessageBarManager-dummy.m */; };
-		49BC3C52E1D93A9CC73C1D44 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 638E479F15A287A4F0A7334B /* UIKit.framework */; };
-		4AAEF2B5F3321E06D16D6975 /* DTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 706BDCDBF0E109B420110BC7 /* DTError.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		61F6C78721702BCE9FECB132 /* DTTimePeriodChain.m in Sources */ = {isa = PBXBuildFile; fileRef = E15687A4EC35E4A7A35F37AA /* DTTimePeriodChain.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		703FD0F30A9B1CA710FA7AC3 /* DateTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 43EEFB518E0DAEA36914E45A /* DateTools.h */; };
-		7664D2BF7D1B49209794EF43 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE1E0EEEF5C3581FB47F9B1C /* QuartzCore.framework */; };
-		7B8300EC1F345A370FD53854 /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA44ACFEF786079CA81374F /* DTTimePeriodCollection.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		88208636CCCD6AFEF86FC490 /* DTTimePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = E86645175172F54038C647D5 /* DTTimePeriod.h */; };
-		902E95933AB0D43B00684BCA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D26E957B09B6BE766D2F2FEF /* CoreGraphics.framework */; };
-		94C1D57118EBCB86FBBC294D /* DTTimePeriodGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = F1542846F13CDB916EA4B0FD /* DTTimePeriodGroup.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		964EA720917B2E06458ED826 /* NMPaginator.h in Headers */ = {isa = PBXBuildFile; fileRef = A88CACE17E890092935BD8C5 /* NMPaginator.h */; };
-		B98013E966E1B4D10A637B58 /* DTTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B99973E3CC154A1A27F9A /* DTTimePeriod.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		C2841038192643106FB2AD8B /* NMPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 322DBE9A97B9532B066D7984 /* NMPaginator.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		DFEC4001B81D10F2EE2DF0C6 /* DTConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ED6EC96715E21F2C165841BB /* DTConstants.h */; };
-		E18F8DAAB1E73AD44443F66C /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 833FAFC7ED5E3D2078617944 /* TWMessageBarManager.m */; };
-		E337077D681A67855D2E70E8 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 227062C06BCBA384AF052E78 /* SVIndefiniteAnimatedView.m */; };
-		E7E8877EC7888AA1581DCFF7 /* NSDate+DateTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 04C05A497FC6504B784C94C6 /* NSDate+DateTools.h */; };
-		E98FCAC43A2615C8FFBFAFEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FA615AC09E6D90698D87F06 /* Foundation.framework */; };
-		F46D7A74444BBB64FBA08964 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E30E760BCD34EEF9A2F3A41 /* SVIndefiniteAnimatedView.h */; };
-		F777B0E788B23819EBA34A04 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 498F0E8BBAFFBC25332B92D0 /* Pods-dummy.m */; };
-		FA44F8676B3D4E620298F374 /* Pods-NMPaginator-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FC223160012B16370ADE1E /* Pods-NMPaginator-dummy.m */; };
+		030FBC26D948C3924EF12278 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E688A54635255B95516C1955 /* Foundation.framework */; };
+		296C17816BFD369C1D1AC8D6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A9EAC682A2F3124393C844A /* QuartzCore.framework */; };
+		2C6621BFACEAA58A51F3C739 /* DTTimePeriodGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 272D3638A11AE23E10352961 /* DTTimePeriodGroup.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		34AEB81645F49D8C0A9F8BA0 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC95BBA9EBA974BE8B0256DD /* SWCellScrollView.m */; };
+		38430A30B047A730C4D3A5BA /* DTTimePeriodCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1747E69B05198A6AE04A93B3 /* DTTimePeriodCollection.h */; };
+		41ADEAB9F5EA2741C16FD4FA /* SWTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 007CB500F227C2F08BB9D945 /* SWTableViewCell.h */; };
+		44C56902BDED2A94B3E48607 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E688A54635255B95516C1955 /* Foundation.framework */; };
+		48A07EFB726144733CF0F68F /* DTTimePeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CFE62A9B482C6A31E970F3 /* DTTimePeriod.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		4A6880B16EDE0EB2FE6F10C4 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 370196A6CFE30DF405788912 /* NSDate+DateTools.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		4F1B56E8652B6F2E759E476F /* DTError.h in Headers */ = {isa = PBXBuildFile; fileRef = 6516ECFF341E42920F969175 /* DTError.h */; };
+		54929517734C3E94ED1148A8 /* SWLongPressGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A2DCCFAC381AC53535E89922 /* SWLongPressGestureRecognizer.h */; };
+		56F71F58E8B5B56606034B6A /* DTTimePeriodGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 3796B3F2A14460A6560347F5 /* DTTimePeriodGroup.h */; };
+		5F6A5A2030F0D48D2030E731 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E688A54635255B95516C1955 /* Foundation.framework */; };
+		62412AF061915D045C128C0E /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1749163F5094331E8DC86D8 /* SVIndefiniteAnimatedView.m */; };
+		690B1CB38D80E935BEC79093 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 668C7E58C5D5328D593E2C27 /* SWUtilityButtonTapGestureRecognizer.m */; };
+		694A169EBC94996A780ED51F /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 099570031959BF84668F1006 /* SWUtilityButtonView.m */; };
+		7067D3B251EAD729B9049376 /* DTTimePeriodChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 0675C10E209D43CE06D00EEE /* DTTimePeriodChain.h */; };
+		71BE677B38F02A9BA0CDACC1 /* DTTimePeriodChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 76886FD3A11EFB8454AFF2AD /* DTTimePeriodChain.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		742F4AB0AA248DF29B07068F /* Pods-SWTableViewCell-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFAF4584F1B9D2E8C3DEEBD /* Pods-SWTableViewCell-dummy.m */; };
+		7433BD18BD86D8817361887C /* DateTools.h in Headers */ = {isa = PBXBuildFile; fileRef = DEFD2490D806F2065F7BAC96 /* DateTools.h */; };
+		830F4E5C202316F94957BDAB /* NSDate+DateTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EE40552A217BEDF0D860DF0 /* NSDate+DateTools.h */; };
+		87F2E96E150F28185EAA2293 /* SWCellScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7585FF70AFE762F4892001E5 /* SWCellScrollView.h */; };
+		88816F3DBD366378D2A7FAFA /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E410744EC1837ADE0A12541 /* TWMessageBarManager.h */; };
+		8A47658073D905CA42E6B53E /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E5E07E64BD9DBF8E283A520 /* SVProgressHUD.h */; };
+		902C811B8F2406552CD3A19C /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 99818490FB918628E32F599F /* NSMutableArray+SWUtilityButtons.m */; };
+		91580489F61B1B4974A15D64 /* DTTimePeriod.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C58F5533979AAE2A061AF7B /* DTTimePeriod.h */; };
+		97E1FAFB732FF44576AC12C5 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 66DE5470C790DA7A21DD73DE /* Pods-dummy.m */; };
+		9C7BFF79D97095AA652F2D5E /* SWUtilityButtonTapGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BBE6D1C2BFC604748E15A82 /* SWUtilityButtonTapGestureRecognizer.h */; };
+		A0414480416B2312042036EE /* NSMutableArray+SWUtilityButtons.h in Headers */ = {isa = PBXBuildFile; fileRef = C63836674E14854AB599AF87 /* NSMutableArray+SWUtilityButtons.h */; };
+		A19B7DB1ED70490638957FBF /* Pods-DateTools-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 089546EBB037053B9F0697DB /* Pods-DateTools-dummy.m */; };
+		A505CDFA4E2CCA99F0766A0F /* SWUtilityButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 97809F067FCC9AF111BF1DB7 /* SWUtilityButtonView.h */; };
+		A544865B1BE30BAEE62D6B8B /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7E37B81EE675533DD09335E /* TWMessageBarManager.m */; };
+		A60CD950EFDFF04266CCF440 /* Pods-TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE915F775C8550D155877D13 /* Pods-TWMessageBarManager-dummy.m */; };
+		AA2838EF49036FC33F49126F /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 590462FE6D8291DE2CE17086 /* SVIndefiniteAnimatedView.h */; };
+		B01E4BC822348C1FA92AB85B /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 168F77736741E33523B9A968 /* SWLongPressGestureRecognizer.m */; };
+		B607812EA27B9AE85B8BFD1D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E688A54635255B95516C1955 /* Foundation.framework */; };
+		BCF0940969D1A7F896CF2A9D /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 44DFA9089A7792CD035D59A9 /* SVProgressHUD.m */; };
+		C5D8CE0535CF0007E2D935E5 /* DTTimePeriodCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 99210EBDE86B580364C5856D /* DTTimePeriodCollection.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		CD9E3C19BB634145FDDD9B91 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E688A54635255B95516C1955 /* Foundation.framework */; };
+		CEA2FDD01ECD8D5C741426BA /* Pods-SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA878C686F392FACC7F2A /* Pods-SVProgressHUD-dummy.m */; };
+		D70F27F3254B65D1BE570F34 /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ECC841E457F630B1CC484EB0 /* SWTableViewCell.m */; };
+		DC6B424A8FADDD26C163722E /* DTError.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7D375BA32930E23766C59A /* DTError.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F913684DEF6AF82A3C7256ED /* DTConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 589F0985BBA70A21D5F121D6 /* DTConstants.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		20A16EE1AA71BA80FA5D232F /* PBXContainerItemProxy */ = {
+		185F423862E2AA9CEF2E24A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2640F740070F6EEA35615762 /* Project object */;
+			containerPortal = F058A93EBF1A5EE34FB85905 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0785F53C953516C9E087062A;
-			remoteInfo = "Pods-TWMessageBarManager";
-		};
-		36F94FD9FC990180D2B85338 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2640F740070F6EEA35615762 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 802596D33AAC7C3074467AD6;
+			remoteGlobalIDString = 01C12FB57315164431C8756C;
 			remoteInfo = "Pods-SVProgressHUD";
 		};
-		6388D3A8402225F0940A1295 /* PBXContainerItemProxy */ = {
+		79C838B12D5B316203282D64 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2640F740070F6EEA35615762 /* Project object */;
+			containerPortal = F058A93EBF1A5EE34FB85905 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3A187A8885A1BBEE5082E4EB;
-			remoteInfo = "Pods-DateTools";
+			remoteGlobalIDString = 1F679900B6FF6BB25CBE4102;
+			remoteInfo = "Pods-SWTableViewCell";
 		};
-		E2E2FCD4358956D86D967578 /* PBXContainerItemProxy */ = {
+		D3A54DE62A985EBEC05A5150 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2640F740070F6EEA35615762 /* Project object */;
+			containerPortal = F058A93EBF1A5EE34FB85905 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6943E9E3F17785C55FC3F83A;
-			remoteInfo = "Pods-NMPaginator";
+			remoteGlobalIDString = 35463A0F1BBC8CB7CD673028;
+			remoteInfo = "Pods-TWMessageBarManager";
+		};
+		DB09DB7FACF580498D8CE29F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F058A93EBF1A5EE34FB85905 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75019E0FCCE383E13E84E308;
+			remoteInfo = "Pods-DateTools";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04C05A497FC6504B784C94C6 /* NSDate+DateTools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate+DateTools.h"; path = "DateTools/NSDate+DateTools.h"; sourceTree = "<group>"; };
-		06A4DCCE6A42DA408BAD4754 /* Pods-NMPaginator-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-NMPaginator-prefix.pch"; sourceTree = "<group>"; };
-		0969206143C4B6A5879411A7 /* DTTimePeriodChain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodChain.h; path = DateTools/DTTimePeriodChain.h; sourceTree = "<group>"; };
-		0B534ECE3A548C7C61C62620 /* Pods-TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager.xcconfig"; sourceTree = "<group>"; };
-		0D15ECAA61EADA1A85CC7AA6 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		18E99ACC511BB33EF05561E5 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
-		1E8EC38CE4B83A4F13B45699 /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
-		20A9779473B70DAEA2D1DD92 /* NSDate+DateTools.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDate+DateTools.m"; path = "DateTools/NSDate+DateTools.m"; sourceTree = "<group>"; };
-		221B6FDE13B593AC438EF331 /* Pods-NMPaginator.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NMPaginator.xcconfig"; sourceTree = "<group>"; };
-		227062C06BCBA384AF052E78 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		22CFD6CE9E0878B6E2688486 /* Pods-SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
-		26C5A0B5B50C61C939856F38 /* Pods-SVProgressHUD-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD-Private.xcconfig"; sourceTree = "<group>"; };
-		2B68E5D66110EC0BD4D34CED /* DTTimePeriodCollection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodCollection.h; path = DateTools/DTTimePeriodCollection.h; sourceTree = "<group>"; };
-		2E1235AF924F2ED7AD61E6E2 /* DateTools.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = DateTools.bundle; path = DateTools/DateTools.bundle; sourceTree = "<group>"; };
-		322DBE9A97B9532B066D7984 /* NMPaginator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NMPaginator.m; path = NMPaginator/NMPaginator.m; sourceTree = "<group>"; };
-		36014D58AE102792BC1477BB /* DTTimePeriodGroup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodGroup.h; path = DateTools/DTTimePeriodGroup.h; sourceTree = "<group>"; };
-		3604DC9CBEB505E498D1091A /* Pods-SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD.xcconfig"; sourceTree = "<group>"; };
-		3D4A55B4B049F18A769BAFF9 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		43EEFB518E0DAEA36914E45A /* DateTools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DateTools.h; path = DateTools/DateTools.h; sourceTree = "<group>"; };
-		498F0E8BBAFFBC25332B92D0 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		4A31047F49B53FFCC372BEF2 /* Pods-TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
-		4D23E0496876D709C979B662 /* icon-error.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error.png"; path = "Classes/Icons/icon-error.png"; sourceTree = "<group>"; };
-		55A13E36E0974B674E24CC4B /* Pods-DateTools-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DateTools-dummy.m"; sourceTree = "<group>"; };
-		5AC8B13EB7A884F6D183884D /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
-		638E479F15A287A4F0A7334B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		64D88D9D339D9325ECC088D5 /* libPods-TWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TWMessageBarManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FA615AC09E6D90698D87F06 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		706BDCDBF0E109B420110BC7 /* DTError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTError.m; path = DateTools/DTError.m; sourceTree = "<group>"; };
-		72C4B45B9F8E6805BE2F3965 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		7C00C98B9324D65D70FEEA9B /* Pods-TWMessageBarManager-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager-Private.xcconfig"; sourceTree = "<group>"; };
-		7D36365E2493882724693C37 /* libPods-DateTools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DateTools.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		833FAFC7ED5E3D2078617944 /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
-		876C4EE8AE4F142D0B6D7314 /* icon-error@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error@2x.png"; path = "Classes/Icons/icon-error@2x.png"; sourceTree = "<group>"; };
-		984DAB5CA9EA4D9F06164859 /* DTError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTError.h; path = DateTools/DTError.h; sourceTree = "<group>"; };
-		9C81C2CF1B507E7D6D3B4A1B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		9E30E760BCD34EEF9A2F3A41 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		9F6EAA6BCED47CBF6DC13CA9 /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
-		9F8EA199994E6A8796E2CA21 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		A08373190B963E5FEBC19C2F /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
-		A88CACE17E890092935BD8C5 /* NMPaginator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NMPaginator.h; path = NMPaginator/NMPaginator.h; sourceTree = "<group>"; };
-		AE02BC0FEE6C02E72B2AA964 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		AE1E0EEEF5C3581FB47F9B1C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		B7D3E25609E429E02AA185EB /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
-		BAA44ACFEF786079CA81374F /* DTTimePeriodCollection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodCollection.m; path = DateTools/DTTimePeriodCollection.m; sourceTree = "<group>"; };
-		BFF3DCE635C92D415A9EBE4D /* icon-info@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info@2x.png"; path = "Classes/Icons/icon-info@2x.png"; sourceTree = "<group>"; };
-		C6627C407777631072E9FDF3 /* Pods-DateTools-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DateTools-Private.xcconfig"; sourceTree = "<group>"; };
-		CE6B99973E3CC154A1A27F9A /* DTTimePeriod.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriod.m; path = DateTools/DTTimePeriod.m; sourceTree = "<group>"; };
-		D058149E9F450C02F4C13C8A /* libPods-NMPaginator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NMPaginator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D26E957B09B6BE766D2F2FEF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		D489317F7AADFB3EF6EE1BE7 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
-		D59873BCE5D001984D8C57CE /* libPods-SVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVProgressHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6A87BEF949BD1955C11DD0F /* Pods-DateTools.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DateTools.xcconfig"; sourceTree = "<group>"; };
-		D75F33FED6D56D0712F36F6A /* Pods-NMPaginator-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-NMPaginator-Private.xcconfig"; sourceTree = "<group>"; };
-		E15687A4EC35E4A7A35F37AA /* DTTimePeriodChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodChain.m; path = DateTools/DTTimePeriodChain.m; sourceTree = "<group>"; };
-		E21464E021D30C3FDE5E0661 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4D6B41786D87723EE458EB8 /* Pods-DateTools-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DateTools-prefix.pch"; sourceTree = "<group>"; };
-		E6FC223160012B16370ADE1E /* Pods-NMPaginator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-NMPaginator-dummy.m"; sourceTree = "<group>"; };
-		E86645175172F54038C647D5 /* DTTimePeriod.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriod.h; path = DateTools/DTTimePeriod.h; sourceTree = "<group>"; };
-		E95BAFF2BA4294A3D42910FD /* Pods-TWMessageBarManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TWMessageBarManager-prefix.pch"; sourceTree = "<group>"; };
-		ED6EC96715E21F2C165841BB /* DTConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTConstants.h; path = DateTools/DTConstants.h; sourceTree = "<group>"; };
-		F0BABB18F78C34A0748D4751 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
-		F1542846F13CDB916EA4B0FD /* DTTimePeriodGroup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodGroup.m; path = DateTools/DTTimePeriodGroup.m; sourceTree = "<group>"; };
-		FD6806C0207F076043F6B4B8 /* Pods-SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		007CB500F227C2F08BB9D945 /* SWTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWTableViewCell.h; path = SWTableViewCell/PodFiles/SWTableViewCell.h; sourceTree = "<group>"; };
+		0675C10E209D43CE06D00EEE /* DTTimePeriodChain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodChain.h; path = DateTools/DTTimePeriodChain.h; sourceTree = "<group>"; };
+		089546EBB037053B9F0697DB /* Pods-DateTools-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DateTools-dummy.m"; sourceTree = "<group>"; };
+		099570031959BF84668F1006 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonView.m; path = SWTableViewCell/PodFiles/SWUtilityButtonView.m; sourceTree = "<group>"; };
+		0EE40552A217BEDF0D860DF0 /* NSDate+DateTools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate+DateTools.h"; path = "DateTools/NSDate+DateTools.h"; sourceTree = "<group>"; };
+		10A36E8026C13404DAB1F968 /* icon-info@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info@2x.png"; path = "Classes/Icons/icon-info@2x.png"; sourceTree = "<group>"; };
+		151A4DA992DA5974FF4138BB /* Pods-TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager.xcconfig"; sourceTree = "<group>"; };
+		168F77736741E33523B9A968 /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWLongPressGestureRecognizer.m; path = SWTableViewCell/PodFiles/SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		1747E69B05198A6AE04A93B3 /* DTTimePeriodCollection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodCollection.h; path = DateTools/DTTimePeriodCollection.h; sourceTree = "<group>"; };
+		1A37392D432469CEBCD3E020 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		272D3638A11AE23E10352961 /* DTTimePeriodGroup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodGroup.m; path = DateTools/DTTimePeriodGroup.m; sourceTree = "<group>"; };
+		2D625FD5C6206DA04500259C /* Pods-TWMessageBarManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TWMessageBarManager-prefix.pch"; sourceTree = "<group>"; };
+		36293C32F464858EEBB87CBE /* Pods-SVProgressHUD-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD-Private.xcconfig"; sourceTree = "<group>"; };
+		370196A6CFE30DF405788912 /* NSDate+DateTools.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDate+DateTools.m"; path = "DateTools/NSDate+DateTools.m"; sourceTree = "<group>"; };
+		3796B3F2A14460A6560347F5 /* DTTimePeriodGroup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriodGroup.h; path = DateTools/DTTimePeriodGroup.h; sourceTree = "<group>"; };
+		39294F2B8F398110CC6C8332 /* Pods-SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
+		3A4ED955C190336AE715F2D1 /* Pods-SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD.xcconfig"; sourceTree = "<group>"; };
+		3E410744EC1837ADE0A12541 /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
+		44DFA9089A7792CD035D59A9 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
+		4E839F2ED9D982D2B7296D94 /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
+		50F087CE55F77AEC8FFC56EB /* icon-error.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error.png"; path = "Classes/Icons/icon-error.png"; sourceTree = "<group>"; };
+		531D20BBDBB1C6B3EF19E5E2 /* libPods-DateTools.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DateTools.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		55F00B4AC612DDC948A426CA /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		589F0985BBA70A21D5F121D6 /* DTConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTConstants.h; path = DateTools/DTConstants.h; sourceTree = "<group>"; };
+		590462FE6D8291DE2CE17086 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		5A9EAC682A2F3124393C844A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		6104C609FE910F045941D4AE /* libPods-TWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TWMessageBarManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6516ECFF341E42920F969175 /* DTError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTError.h; path = DateTools/DTError.h; sourceTree = "<group>"; };
+		668C7E58C5D5328D593E2C27 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonTapGestureRecognizer.m; path = SWTableViewCell/PodFiles/SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		668CB23D76F9C650CDE724ED /* Pods-TWMessageBarManager-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager-Private.xcconfig"; sourceTree = "<group>"; };
+		66DE5470C790DA7A21DD73DE /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		66E6ECD445028B58D3191A2A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
+		6788D04F0337A91284A64B44 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
+		6C257F2834FFADEB26E6A396 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D7D375BA32930E23766C59A /* DTError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTError.m; path = DateTools/DTError.m; sourceTree = "<group>"; };
+		7081199C60CC844D60E0679C /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
+		70CFE62A9B482C6A31E970F3 /* DTTimePeriod.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriod.m; path = DateTools/DTTimePeriod.m; sourceTree = "<group>"; };
+		7585FF70AFE762F4892001E5 /* SWCellScrollView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWCellScrollView.h; path = SWTableViewCell/PodFiles/SWCellScrollView.h; sourceTree = "<group>"; };
+		76886FD3A11EFB8454AFF2AD /* DTTimePeriodChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodChain.m; path = DateTools/DTTimePeriodChain.m; sourceTree = "<group>"; };
+		7E5E07E64BD9DBF8E283A520 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
+		8B9D47A02EE34E5B93C59F54 /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
+		8BBE6D1C2BFC604748E15A82 /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonTapGestureRecognizer.h; path = SWTableViewCell/PodFiles/SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		8C58F5533979AAE2A061AF7B /* DTTimePeriod.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DTTimePeriod.h; path = DateTools/DTTimePeriod.h; sourceTree = "<group>"; };
+		95AEDB4E7F54C6CF1E801912 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		97809F067FCC9AF111BF1DB7 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonView.h; path = SWTableViewCell/PodFiles/SWUtilityButtonView.h; sourceTree = "<group>"; };
+		98018366A913105163A32D0D /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		99210EBDE86B580364C5856D /* DTTimePeriodCollection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DTTimePeriodCollection.m; path = DateTools/DTTimePeriodCollection.m; sourceTree = "<group>"; };
+		99818490FB918628E32F599F /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+SWUtilityButtons.m"; path = "SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		9B5E745938A731539F8978D4 /* Pods-DateTools-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DateTools-Private.xcconfig"; sourceTree = "<group>"; };
+		9DC1E8DB56876C8564AB3123 /* Pods-DateTools-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-DateTools-prefix.pch"; sourceTree = "<group>"; };
+		A2DCCFAC381AC53535E89922 /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWLongPressGestureRecognizer.h; path = SWTableViewCell/PodFiles/SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		AE3208C5C1DCC65947DF1ED7 /* Pods-DateTools.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DateTools.xcconfig"; sourceTree = "<group>"; };
+		B7E37B81EE675533DD09335E /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
+		BAF7349CD06DD190648EA035 /* libPods-SWTableViewCell.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SWTableViewCell.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF5CA878C686F392FACC7F2A /* Pods-SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		C1749163F5094331E8DC86D8 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		C5EBFC46993C78F755B1D709 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		C63836674E14854AB599AF87 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+SWUtilityButtons.h"; path = "SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		CC95BBA9EBA974BE8B0256DD /* SWCellScrollView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWCellScrollView.m; path = SWTableViewCell/PodFiles/SWCellScrollView.m; sourceTree = "<group>"; };
+		D4FDEEB1B192787B32EA6B31 /* Pods-SWTableViewCell-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SWTableViewCell-prefix.pch"; sourceTree = "<group>"; };
+		D9F423A7DD5A4D3D60693461 /* DateTools.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = DateTools.bundle; path = DateTools/DateTools.bundle; sourceTree = "<group>"; };
+		DEFD2490D806F2065F7BAC96 /* DateTools.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DateTools.h; path = DateTools/DateTools.h; sourceTree = "<group>"; };
+		E688A54635255B95516C1955 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E92DA154B4C7CE351F39E977 /* icon-error@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error@2x.png"; path = "Classes/Icons/icon-error@2x.png"; sourceTree = "<group>"; };
+		E9D0C37B865F0863F47B9350 /* Pods-SWTableViewCell-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SWTableViewCell-Private.xcconfig"; sourceTree = "<group>"; };
+		ECC841E457F630B1CC484EB0 /* SWTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWTableViewCell.m; path = SWTableViewCell/PodFiles/SWTableViewCell.m; sourceTree = "<group>"; };
+		EE915F775C8550D155877D13 /* Pods-TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
+		F0A60E6002EC12EDE70A282F /* libPods-SVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVProgressHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F40D84248E03C21700226CCD /* Pods-SWTableViewCell.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SWTableViewCell.xcconfig"; sourceTree = "<group>"; };
+		FAFAF4584F1B9D2E8C3DEEBD /* Pods-SWTableViewCell-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SWTableViewCell-dummy.m"; sourceTree = "<group>"; };
+		FF8681E47CB8CB3689CCAC77 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1BDBA1E4F65DC0050F22C890 /* Frameworks */ = {
+		0CF06D03EF8D61813F091176 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E98FCAC43A2615C8FFBFAFEA /* Foundation.framework in Frameworks */,
+				CD9E3C19BB634145FDDD9B91 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2EC6363983920B5E316E38F8 /* Frameworks */ = {
+		1EFE902B596326B5FE79E01F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F03CBCB7D6E879B4232A973 /* Foundation.framework in Frameworks */,
-				7664D2BF7D1B49209794EF43 /* QuartzCore.framework in Frameworks */,
+				B607812EA27B9AE85B8BFD1D /* Foundation.framework in Frameworks */,
+				296C17816BFD369C1D1AC8D6 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7BFF0373B60EF162002C5B83 /* Frameworks */ = {
+		85C8546AF6A13EE584947776 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D176D6521643F229E1E6057 /* Foundation.framework in Frameworks */,
+				030FBC26D948C3924EF12278 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CCA1442AAC3A458E25C9BBD9 /* Frameworks */ = {
+		9A31305C6A8198034DB40119 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B2F4D675465619786E69D68 /* Foundation.framework in Frameworks */,
+				44C56902BDED2A94B3E48607 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC649389CDB0982C2D14255B /* Frameworks */ = {
+		D8076C01AE686F26AB36B642 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				902E95933AB0D43B00684BCA /* CoreGraphics.framework in Frameworks */,
-				16CAA53FD42D846E17737B4F /* Foundation.framework in Frameworks */,
-				49BC3C52E1D93A9CC73C1D44 /* UIKit.framework in Frameworks */,
+				5F6A5A2030F0D48D2030E731 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04349F5AD8539760CC1448EC /* Pods */ = {
+		01D05118F11051A2DCF7BC8E /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				5B0347F08D4FD774C23C1D02 /* DateTools */,
-				689E1386C561F16A17A2F0F0 /* NMPaginator */,
-				93743B8D168C131C34E9A7D9 /* SVProgressHUD */,
-				4D508ABA74B65FFD9B165F9F /* TWMessageBarManager */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		0D1C49936E442D57860CDA07 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2E1235AF924F2ED7AD61E6E2 /* DateTools.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		1BE2DECA88DB0AF4F544E055 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				D26E957B09B6BE766D2F2FEF /* CoreGraphics.framework */,
-				6FA615AC09E6D90698D87F06 /* Foundation.framework */,
-				AE1E0EEEF5C3581FB47F9B1C /* QuartzCore.framework */,
-				638E479F15A287A4F0A7334B /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		25A49E11664E5B3352180152 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0D15ECAA61EADA1A85CC7AA6 /* Pods-acknowledgements.markdown */,
-				9C81C2CF1B507E7D6D3B4A1B /* Pods-acknowledgements.plist */,
-				498F0E8BBAFFBC25332B92D0 /* Pods-dummy.m */,
-				18E99ACC511BB33EF05561E5 /* Pods-environment.h */,
-				3D4A55B4B049F18A769BAFF9 /* Pods-resources.sh */,
-				AE02BC0FEE6C02E72B2AA964 /* Pods.debug.xcconfig */,
-				9F8EA199994E6A8796E2CA21 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			path = "Target Support Files/Pods";
-			sourceTree = "<group>";
-		};
-		2B2B99DBF3972C585171E33A /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				25A49E11664E5B3352180152 /* Pods */,
+				8F3D40DF0138009CC9674B68 /* Pods */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		445AA5B5AEAD4122CF786B37 = {
+		33893338956F2D854FC3BC12 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				72C4B45B9F8E6805BE2F3965 /* Podfile */,
-				DFD6C93253BAB65E038058AA /* Frameworks */,
-				04349F5AD8539760CC1448EC /* Pods */,
-				77E4E3CE23D0DF1104DF165E /* Products */,
-				2B2B99DBF3972C585171E33A /* Targets Support Files */,
+				E688A54635255B95516C1955 /* Foundation.framework */,
+				5A9EAC682A2F3124393C844A /* QuartzCore.framework */,
 			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
-		4D508ABA74B65FFD9B165F9F /* TWMessageBarManager */ = {
+		3524DD0F91BE100887B565F4 /* TWMessageBarManager */ = {
 			isa = PBXGroup;
 			children = (
-				A08373190B963E5FEBC19C2F /* TWMessageBarManager.h */,
-				833FAFC7ED5E3D2078617944 /* TWMessageBarManager.m */,
-				C0D7D3A1F45265C52C9EFC91 /* Resources */,
-				F2F495545325B33BC86A0CA5 /* Support Files */,
+				3E410744EC1837ADE0A12541 /* TWMessageBarManager.h */,
+				B7E37B81EE675533DD09335E /* TWMessageBarManager.m */,
+				F3062A3FD5D5E15C79BD9EBB /* Resources */,
+				7125E5DC09CB54229E8799E1 /* Support Files */,
 			);
 			path = TWMessageBarManager;
 			sourceTree = "<group>";
 		};
-		5B0347F08D4FD774C23C1D02 /* DateTools */ = {
+		6E2A62510C0B1E6D5FA370DB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				ED6EC96715E21F2C165841BB /* DTConstants.h */,
-				984DAB5CA9EA4D9F06164859 /* DTError.h */,
-				706BDCDBF0E109B420110BC7 /* DTError.m */,
-				E86645175172F54038C647D5 /* DTTimePeriod.h */,
-				CE6B99973E3CC154A1A27F9A /* DTTimePeriod.m */,
-				0969206143C4B6A5879411A7 /* DTTimePeriodChain.h */,
-				E15687A4EC35E4A7A35F37AA /* DTTimePeriodChain.m */,
-				2B68E5D66110EC0BD4D34CED /* DTTimePeriodCollection.h */,
-				BAA44ACFEF786079CA81374F /* DTTimePeriodCollection.m */,
-				36014D58AE102792BC1477BB /* DTTimePeriodGroup.h */,
-				F1542846F13CDB916EA4B0FD /* DTTimePeriodGroup.m */,
-				43EEFB518E0DAEA36914E45A /* DateTools.h */,
-				04C05A497FC6504B784C94C6 /* NSDate+DateTools.h */,
-				20A9779473B70DAEA2D1DD92 /* NSDate+DateTools.m */,
-				0D1C49936E442D57860CDA07 /* Resources */,
-				DC75E8EE1E7A470C885DA2A8 /* Support Files */,
-			);
-			path = DateTools;
-			sourceTree = "<group>";
-		};
-		689E1386C561F16A17A2F0F0 /* NMPaginator */ = {
-			isa = PBXGroup;
-			children = (
-				A88CACE17E890092935BD8C5 /* NMPaginator.h */,
-				322DBE9A97B9532B066D7984 /* NMPaginator.m */,
-				78A28675A771AC1694BCA423 /* Support Files */,
-			);
-			path = NMPaginator;
-			sourceTree = "<group>";
-		};
-		6A49853A96A4CD65BF1405D1 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D489317F7AADFB3EF6EE1BE7 /* SVProgressHUD.bundle */,
+				D9F423A7DD5A4D3D60693461 /* DateTools.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		77E4E3CE23D0DF1104DF165E /* Products */ = {
+		6F05310A42B78B4992B5B9E2 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				E21464E021D30C3FDE5E0661 /* libPods.a */,
-				7D36365E2493882724693C37 /* libPods-DateTools.a */,
-				D058149E9F450C02F4C13C8A /* libPods-NMPaginator.a */,
-				D59873BCE5D001984D8C57CE /* libPods-SVProgressHUD.a */,
-				64D88D9D339D9325ECC088D5 /* libPods-TWMessageBarManager.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		78A28675A771AC1694BCA423 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				221B6FDE13B593AC438EF331 /* Pods-NMPaginator.xcconfig */,
-				D75F33FED6D56D0712F36F6A /* Pods-NMPaginator-Private.xcconfig */,
-				E6FC223160012B16370ADE1E /* Pods-NMPaginator-dummy.m */,
-				06A4DCCE6A42DA408BAD4754 /* Pods-NMPaginator-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-NMPaginator";
-			sourceTree = "<group>";
-		};
-		93743B8D168C131C34E9A7D9 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				9E30E760BCD34EEF9A2F3A41 /* SVIndefiniteAnimatedView.h */,
-				227062C06BCBA384AF052E78 /* SVIndefiniteAnimatedView.m */,
-				5AC8B13EB7A884F6D183884D /* SVProgressHUD.h */,
-				B7D3E25609E429E02AA185EB /* SVProgressHUD.m */,
-				6A49853A96A4CD65BF1405D1 /* Resources */,
-				DAAA0128B0DFA046BA5B7B76 /* Support Files */,
+				590462FE6D8291DE2CE17086 /* SVIndefiniteAnimatedView.h */,
+				C1749163F5094331E8DC86D8 /* SVIndefiniteAnimatedView.m */,
+				7E5E07E64BD9DBF8E283A520 /* SVProgressHUD.h */,
+				44DFA9089A7792CD035D59A9 /* SVProgressHUD.m */,
+				C93C419F612D196A3B11FA62 /* Resources */,
+				B6ADC84F0E5A702214C8C862 /* Support Files */,
 			);
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
-		C0D7D3A1F45265C52C9EFC91 /* Resources */ = {
+		7125E5DC09CB54229E8799E1 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D23E0496876D709C979B662 /* icon-error.png */,
-				876C4EE8AE4F142D0B6D7314 /* icon-error@2x.png */,
-				F0BABB18F78C34A0748D4751 /* icon-info.png */,
-				BFF3DCE635C92D415A9EBE4D /* icon-info@2x.png */,
-				9F6EAA6BCED47CBF6DC13CA9 /* icon-success.png */,
-				1E8EC38CE4B83A4F13B45699 /* icon-success@2x.png */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		DAAA0128B0DFA046BA5B7B76 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				3604DC9CBEB505E498D1091A /* Pods-SVProgressHUD.xcconfig */,
-				26C5A0B5B50C61C939856F38 /* Pods-SVProgressHUD-Private.xcconfig */,
-				FD6806C0207F076043F6B4B8 /* Pods-SVProgressHUD-dummy.m */,
-				22CFD6CE9E0878B6E2688486 /* Pods-SVProgressHUD-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-SVProgressHUD";
-			sourceTree = "<group>";
-		};
-		DC75E8EE1E7A470C885DA2A8 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				D6A87BEF949BD1955C11DD0F /* Pods-DateTools.xcconfig */,
-				C6627C407777631072E9FDF3 /* Pods-DateTools-Private.xcconfig */,
-				55A13E36E0974B674E24CC4B /* Pods-DateTools-dummy.m */,
-				E4D6B41786D87723EE458EB8 /* Pods-DateTools-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-DateTools";
-			sourceTree = "<group>";
-		};
-		DFD6C93253BAB65E038058AA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1BE2DECA88DB0AF4F544E055 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F2F495545325B33BC86A0CA5 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				0B534ECE3A548C7C61C62620 /* Pods-TWMessageBarManager.xcconfig */,
-				7C00C98B9324D65D70FEEA9B /* Pods-TWMessageBarManager-Private.xcconfig */,
-				4A31047F49B53FFCC372BEF2 /* Pods-TWMessageBarManager-dummy.m */,
-				E95BAFF2BA4294A3D42910FD /* Pods-TWMessageBarManager-prefix.pch */,
+				151A4DA992DA5974FF4138BB /* Pods-TWMessageBarManager.xcconfig */,
+				668CB23D76F9C650CDE724ED /* Pods-TWMessageBarManager-Private.xcconfig */,
+				EE915F775C8550D155877D13 /* Pods-TWMessageBarManager-dummy.m */,
+				2D625FD5C6206DA04500259C /* Pods-TWMessageBarManager-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-TWMessageBarManager";
 			sourceTree = "<group>";
 		};
+		730F8D6E3474A259209390E3 /* DateTools */ = {
+			isa = PBXGroup;
+			children = (
+				589F0985BBA70A21D5F121D6 /* DTConstants.h */,
+				6516ECFF341E42920F969175 /* DTError.h */,
+				6D7D375BA32930E23766C59A /* DTError.m */,
+				8C58F5533979AAE2A061AF7B /* DTTimePeriod.h */,
+				70CFE62A9B482C6A31E970F3 /* DTTimePeriod.m */,
+				0675C10E209D43CE06D00EEE /* DTTimePeriodChain.h */,
+				76886FD3A11EFB8454AFF2AD /* DTTimePeriodChain.m */,
+				1747E69B05198A6AE04A93B3 /* DTTimePeriodCollection.h */,
+				99210EBDE86B580364C5856D /* DTTimePeriodCollection.m */,
+				3796B3F2A14460A6560347F5 /* DTTimePeriodGroup.h */,
+				272D3638A11AE23E10352961 /* DTTimePeriodGroup.m */,
+				DEFD2490D806F2065F7BAC96 /* DateTools.h */,
+				0EE40552A217BEDF0D860DF0 /* NSDate+DateTools.h */,
+				370196A6CFE30DF405788912 /* NSDate+DateTools.m */,
+				6E2A62510C0B1E6D5FA370DB /* Resources */,
+				BB7570C208C8B9533FCDB9E6 /* Support Files */,
+			);
+			path = DateTools;
+			sourceTree = "<group>";
+		};
+		8F3D40DF0138009CC9674B68 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A37392D432469CEBCD3E020 /* Pods-acknowledgements.markdown */,
+				95AEDB4E7F54C6CF1E801912 /* Pods-acknowledgements.plist */,
+				66DE5470C790DA7A21DD73DE /* Pods-dummy.m */,
+				7081199C60CC844D60E0679C /* Pods-environment.h */,
+				98018366A913105163A32D0D /* Pods-resources.sh */,
+				FF8681E47CB8CB3689CCAC77 /* Pods.debug.xcconfig */,
+				66E6ECD445028B58D3191A2A /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			path = "Target Support Files/Pods";
+			sourceTree = "<group>";
+		};
+		B62E6606F7B5E974769920CE = {
+			isa = PBXGroup;
+			children = (
+				55F00B4AC612DDC948A426CA /* Podfile */,
+				D88D7471CA830B0E393DC1CE /* Frameworks */,
+				CBB596288395762B3FDBA734 /* Pods */,
+				BE504A0F3629DDA250CC5B77 /* Products */,
+				01D05118F11051A2DCF7BC8E /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		B6ADC84F0E5A702214C8C862 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3A4ED955C190336AE715F2D1 /* Pods-SVProgressHUD.xcconfig */,
+				36293C32F464858EEBB87CBE /* Pods-SVProgressHUD-Private.xcconfig */,
+				BF5CA878C686F392FACC7F2A /* Pods-SVProgressHUD-dummy.m */,
+				39294F2B8F398110CC6C8332 /* Pods-SVProgressHUD-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-SVProgressHUD";
+			sourceTree = "<group>";
+		};
+		B9F5087843DF3F9EB8FC466A /* SWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C63836674E14854AB599AF87 /* NSMutableArray+SWUtilityButtons.h */,
+				99818490FB918628E32F599F /* NSMutableArray+SWUtilityButtons.m */,
+				7585FF70AFE762F4892001E5 /* SWCellScrollView.h */,
+				CC95BBA9EBA974BE8B0256DD /* SWCellScrollView.m */,
+				A2DCCFAC381AC53535E89922 /* SWLongPressGestureRecognizer.h */,
+				168F77736741E33523B9A968 /* SWLongPressGestureRecognizer.m */,
+				007CB500F227C2F08BB9D945 /* SWTableViewCell.h */,
+				ECC841E457F630B1CC484EB0 /* SWTableViewCell.m */,
+				8BBE6D1C2BFC604748E15A82 /* SWUtilityButtonTapGestureRecognizer.h */,
+				668C7E58C5D5328D593E2C27 /* SWUtilityButtonTapGestureRecognizer.m */,
+				97809F067FCC9AF111BF1DB7 /* SWUtilityButtonView.h */,
+				099570031959BF84668F1006 /* SWUtilityButtonView.m */,
+				F6C5E4A0687CDB157ECDD008 /* Support Files */,
+			);
+			path = SWTableViewCell;
+			sourceTree = "<group>";
+		};
+		BB7570C208C8B9533FCDB9E6 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE3208C5C1DCC65947DF1ED7 /* Pods-DateTools.xcconfig */,
+				9B5E745938A731539F8978D4 /* Pods-DateTools-Private.xcconfig */,
+				089546EBB037053B9F0697DB /* Pods-DateTools-dummy.m */,
+				9DC1E8DB56876C8564AB3123 /* Pods-DateTools-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-DateTools";
+			sourceTree = "<group>";
+		};
+		BE504A0F3629DDA250CC5B77 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6C257F2834FFADEB26E6A396 /* libPods.a */,
+				531D20BBDBB1C6B3EF19E5E2 /* libPods-DateTools.a */,
+				F0A60E6002EC12EDE70A282F /* libPods-SVProgressHUD.a */,
+				BAF7349CD06DD190648EA035 /* libPods-SWTableViewCell.a */,
+				6104C609FE910F045941D4AE /* libPods-TWMessageBarManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C93C419F612D196A3B11FA62 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C5EBFC46993C78F755B1D709 /* SVProgressHUD.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CBB596288395762B3FDBA734 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				730F8D6E3474A259209390E3 /* DateTools */,
+				6F05310A42B78B4992B5B9E2 /* SVProgressHUD */,
+				B9F5087843DF3F9EB8FC466A /* SWTableViewCell */,
+				3524DD0F91BE100887B565F4 /* TWMessageBarManager */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D88D7471CA830B0E393DC1CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				33893338956F2D854FC3BC12 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F3062A3FD5D5E15C79BD9EBB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				50F087CE55F77AEC8FFC56EB /* icon-error.png */,
+				E92DA154B4C7CE351F39E977 /* icon-error@2x.png */,
+				6788D04F0337A91284A64B44 /* icon-info.png */,
+				10A36E8026C13404DAB1F968 /* icon-info@2x.png */,
+				4E839F2ED9D982D2B7296D94 /* icon-success.png */,
+				8B9D47A02EE34E5B93C59F54 /* icon-success@2x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		F6C5E4A0687CDB157ECDD008 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F40D84248E03C21700226CCD /* Pods-SWTableViewCell.xcconfig */,
+				E9D0C37B865F0863F47B9350 /* Pods-SWTableViewCell-Private.xcconfig */,
+				FAFAF4584F1B9D2E8C3DEEBD /* Pods-SWTableViewCell-dummy.m */,
+				D4FDEEB1B192787B32EA6B31 /* Pods-SWTableViewCell-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-SWTableViewCell";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		04D69112A39276FC2148A5A4 /* Headers */ = {
+		1E8BE87C006165B4B74C400D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D747F017D58FFBA9C381223 /* TWMessageBarManager.h in Headers */,
+				F913684DEF6AF82A3C7256ED /* DTConstants.h in Headers */,
+				4F1B56E8652B6F2E759E476F /* DTError.h in Headers */,
+				91580489F61B1B4974A15D64 /* DTTimePeriod.h in Headers */,
+				7067D3B251EAD729B9049376 /* DTTimePeriodChain.h in Headers */,
+				38430A30B047A730C4D3A5BA /* DTTimePeriodCollection.h in Headers */,
+				56F71F58E8B5B56606034B6A /* DTTimePeriodGroup.h in Headers */,
+				7433BD18BD86D8817361887C /* DateTools.h in Headers */,
+				830F4E5C202316F94957BDAB /* NSDate+DateTools.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9FEC718F9FC778625E310F5D /* Headers */ = {
+		6C5B670665D7B57A5468CE8E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				964EA720917B2E06458ED826 /* NMPaginator.h in Headers */,
+				A0414480416B2312042036EE /* NSMutableArray+SWUtilityButtons.h in Headers */,
+				87F2E96E150F28185EAA2293 /* SWCellScrollView.h in Headers */,
+				54929517734C3E94ED1148A8 /* SWLongPressGestureRecognizer.h in Headers */,
+				41ADEAB9F5EA2741C16FD4FA /* SWTableViewCell.h in Headers */,
+				9C7BFF79D97095AA652F2D5E /* SWUtilityButtonTapGestureRecognizer.h in Headers */,
+				A505CDFA4E2CCA99F0766A0F /* SWUtilityButtonView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B7AE05BA317CD924B44637BF /* Headers */ = {
+		749B7F341F827EDB39755E62 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFEC4001B81D10F2EE2DF0C6 /* DTConstants.h in Headers */,
-				3DE6EDD8A3D69B9046E7A013 /* DTError.h in Headers */,
-				88208636CCCD6AFEF86FC490 /* DTTimePeriod.h in Headers */,
-				13CC046D331AF3F8386F499A /* DTTimePeriodChain.h in Headers */,
-				11646C1F723B20E5ED2C7B33 /* DTTimePeriodCollection.h in Headers */,
-				3CB3C7AE98827CEFF6D33338 /* DTTimePeriodGroup.h in Headers */,
-				703FD0F30A9B1CA710FA7AC3 /* DateTools.h in Headers */,
-				E7E8877EC7888AA1581DCFF7 /* NSDate+DateTools.h in Headers */,
+				AA2838EF49036FC33F49126F /* SVIndefiniteAnimatedView.h in Headers */,
+				8A47658073D905CA42E6B53E /* SVProgressHUD.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CB2BF0BF061CA1FC33CCDE46 /* Headers */ = {
+		8C93695847F2E9EDE4D9258F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F46D7A74444BBB64FBA08964 /* SVIndefiniteAnimatedView.h in Headers */,
-				01A6B6B7285CA106BFBAE015 /* SVProgressHUD.h in Headers */,
+				88816F3DBD366378D2A7FAFA /* TWMessageBarManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0785F53C953516C9E087062A /* Pods-TWMessageBarManager */ = {
+		01C12FB57315164431C8756C /* Pods-SVProgressHUD */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9EA00A99BF0122DCEF83B125 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */;
+			buildConfigurationList = 9EBE746A4F03D2CE07021FF6 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */;
 			buildPhases = (
-				28C9FD4B5FC010BACAA89B9D /* Sources */,
-				7BFF0373B60EF162002C5B83 /* Frameworks */,
-				04D69112A39276FC2148A5A4 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-TWMessageBarManager";
-			productName = "Pods-TWMessageBarManager";
-			productReference = 64D88D9D339D9325ECC088D5 /* libPods-TWMessageBarManager.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		3A187A8885A1BBEE5082E4EB /* Pods-DateTools */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4207D223C288EC1EE1E65A11 /* Build configuration list for PBXNativeTarget "Pods-DateTools" */;
-			buildPhases = (
-				BE161D90982F3303D63AD8C9 /* Sources */,
-				1BDBA1E4F65DC0050F22C890 /* Frameworks */,
-				B7AE05BA317CD924B44637BF /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-DateTools";
-			productName = "Pods-DateTools";
-			productReference = 7D36365E2493882724693C37 /* libPods-DateTools.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		46700F96E77D2778AEEE113A /* Pods */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 27CA4626C4F7967BE57BE369 /* Build configuration list for PBXNativeTarget "Pods" */;
-			buildPhases = (
-				2428DE371EB21216425AD55F /* Sources */,
-				CCA1442AAC3A458E25C9BBD9 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				57D70EB4E3A8763D90C23CE4 /* PBXTargetDependency */,
-				C2BFDBA98DB5CDA3E65E4A0C /* PBXTargetDependency */,
-				4C93CD1EA2EA3C4C4DE5A03F /* PBXTargetDependency */,
-				DB0560CC984396C69E07A1D1 /* PBXTargetDependency */,
-			);
-			name = Pods;
-			productName = Pods;
-			productReference = E21464E021D30C3FDE5E0661 /* libPods.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		6943E9E3F17785C55FC3F83A /* Pods-NMPaginator */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 97EDC124288B912B22FB4D8C /* Build configuration list for PBXNativeTarget "Pods-NMPaginator" */;
-			buildPhases = (
-				AD67542C469286277F4DD2AC /* Sources */,
-				DC649389CDB0982C2D14255B /* Frameworks */,
-				9FEC718F9FC778625E310F5D /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-NMPaginator";
-			productName = "Pods-NMPaginator";
-			productReference = D058149E9F450C02F4C13C8A /* libPods-NMPaginator.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		802596D33AAC7C3074467AD6 /* Pods-SVProgressHUD */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C20F6E571FCC0243DF799F3F /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */;
-			buildPhases = (
-				689F1D115CDC580A39CD0658 /* Sources */,
-				2EC6363983920B5E316E38F8 /* Frameworks */,
-				CB2BF0BF061CA1FC33CCDE46 /* Headers */,
+				DBED69CE96622A17DD4E84AE /* Sources */,
+				1EFE902B596326B5FE79E01F /* Frameworks */,
+				749B7F341F827EDB39755E62 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -529,122 +485,214 @@
 			);
 			name = "Pods-SVProgressHUD";
 			productName = "Pods-SVProgressHUD";
-			productReference = D59873BCE5D001984D8C57CE /* libPods-SVProgressHUD.a */;
+			productReference = F0A60E6002EC12EDE70A282F /* libPods-SVProgressHUD.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		1F679900B6FF6BB25CBE4102 /* Pods-SWTableViewCell */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EED22F2C748F3291D6B6C2D4 /* Build configuration list for PBXNativeTarget "Pods-SWTableViewCell" */;
+			buildPhases = (
+				057623EE162048C8EC156FF0 /* Sources */,
+				0CF06D03EF8D61813F091176 /* Frameworks */,
+				6C5B670665D7B57A5468CE8E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-SWTableViewCell";
+			productName = "Pods-SWTableViewCell";
+			productReference = BAF7349CD06DD190648EA035 /* libPods-SWTableViewCell.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		35463A0F1BBC8CB7CD673028 /* Pods-TWMessageBarManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB69CE4222FE6E1E0BEDD5E6 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */;
+			buildPhases = (
+				4519826CAE496971384ECA77 /* Sources */,
+				D8076C01AE686F26AB36B642 /* Frameworks */,
+				8C93695847F2E9EDE4D9258F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-TWMessageBarManager";
+			productName = "Pods-TWMessageBarManager";
+			productReference = 6104C609FE910F045941D4AE /* libPods-TWMessageBarManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		6F6BA9A6A606BB66FF574C54 /* Pods */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59382F3DF666B8855752B3EA /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildPhases = (
+				3391C40A3677E16A01B26C47 /* Sources */,
+				85C8546AF6A13EE584947776 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C24C60CBCB461CE28DCF59BE /* PBXTargetDependency */,
+				7EFB26808FBDE8D94DC3321E /* PBXTargetDependency */,
+				6F8AB46BA6712078D111D921 /* PBXTargetDependency */,
+				76F9B94B351F6A50A8BA13B5 /* PBXTargetDependency */,
+			);
+			name = Pods;
+			productName = Pods;
+			productReference = 6C257F2834FFADEB26E6A396 /* libPods.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		75019E0FCCE383E13E84E308 /* Pods-DateTools */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCA899AC6BB71691945643B9 /* Build configuration list for PBXNativeTarget "Pods-DateTools" */;
+			buildPhases = (
+				7FF85297DC77B8E2999B95A6 /* Sources */,
+				9A31305C6A8198034DB40119 /* Frameworks */,
+				1E8BE87C006165B4B74C400D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-DateTools";
+			productName = "Pods-DateTools";
+			productReference = 531D20BBDBB1C6B3EF19E5E2 /* libPods-DateTools.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		2640F740070F6EEA35615762 /* Project object */ = {
+		F058A93EBF1A5EE34FB85905 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0640;
 			};
-			buildConfigurationList = 15FA96B2946A65ABE06F8F61 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = D6541F6919F95592F1E92F87 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 445AA5B5AEAD4122CF786B37;
-			productRefGroup = 77E4E3CE23D0DF1104DF165E /* Products */;
+			mainGroup = B62E6606F7B5E974769920CE;
+			productRefGroup = BE504A0F3629DDA250CC5B77 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				46700F96E77D2778AEEE113A /* Pods */,
-				3A187A8885A1BBEE5082E4EB /* Pods-DateTools */,
-				6943E9E3F17785C55FC3F83A /* Pods-NMPaginator */,
-				802596D33AAC7C3074467AD6 /* Pods-SVProgressHUD */,
-				0785F53C953516C9E087062A /* Pods-TWMessageBarManager */,
+				6F6BA9A6A606BB66FF574C54 /* Pods */,
+				75019E0FCCE383E13E84E308 /* Pods-DateTools */,
+				01C12FB57315164431C8756C /* Pods-SVProgressHUD */,
+				1F679900B6FF6BB25CBE4102 /* Pods-SWTableViewCell */,
+				35463A0F1BBC8CB7CD673028 /* Pods-TWMessageBarManager */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2428DE371EB21216425AD55F /* Sources */ = {
+		057623EE162048C8EC156FF0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F777B0E788B23819EBA34A04 /* Pods-dummy.m in Sources */,
+				902C811B8F2406552CD3A19C /* NSMutableArray+SWUtilityButtons.m in Sources */,
+				742F4AB0AA248DF29B07068F /* Pods-SWTableViewCell-dummy.m in Sources */,
+				34AEB81645F49D8C0A9F8BA0 /* SWCellScrollView.m in Sources */,
+				B01E4BC822348C1FA92AB85B /* SWLongPressGestureRecognizer.m in Sources */,
+				D70F27F3254B65D1BE570F34 /* SWTableViewCell.m in Sources */,
+				690B1CB38D80E935BEC79093 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
+				694A169EBC94996A780ED51F /* SWUtilityButtonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		28C9FD4B5FC010BACAA89B9D /* Sources */ = {
+		3391C40A3677E16A01B26C47 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45887DCC8251258526663D6D /* Pods-TWMessageBarManager-dummy.m in Sources */,
-				E18F8DAAB1E73AD44443F66C /* TWMessageBarManager.m in Sources */,
+				97E1FAFB732FF44576AC12C5 /* Pods-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		689F1D115CDC580A39CD0658 /* Sources */ = {
+		4519826CAE496971384ECA77 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				015F736BE34B9759C7BA2C5A /* Pods-SVProgressHUD-dummy.m in Sources */,
-				E337077D681A67855D2E70E8 /* SVIndefiniteAnimatedView.m in Sources */,
-				224470E3D636046D7CF15EE2 /* SVProgressHUD.m in Sources */,
+				A60CD950EFDFF04266CCF440 /* Pods-TWMessageBarManager-dummy.m in Sources */,
+				A544865B1BE30BAEE62D6B8B /* TWMessageBarManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AD67542C469286277F4DD2AC /* Sources */ = {
+		7FF85297DC77B8E2999B95A6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2841038192643106FB2AD8B /* NMPaginator.m in Sources */,
-				FA44F8676B3D4E620298F374 /* Pods-NMPaginator-dummy.m in Sources */,
+				DC6B424A8FADDD26C163722E /* DTError.m in Sources */,
+				48A07EFB726144733CF0F68F /* DTTimePeriod.m in Sources */,
+				71BE677B38F02A9BA0CDACC1 /* DTTimePeriodChain.m in Sources */,
+				C5D8CE0535CF0007E2D935E5 /* DTTimePeriodCollection.m in Sources */,
+				2C6621BFACEAA58A51F3C739 /* DTTimePeriodGroup.m in Sources */,
+				4A6880B16EDE0EB2FE6F10C4 /* NSDate+DateTools.m in Sources */,
+				A19B7DB1ED70490638957FBF /* Pods-DateTools-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BE161D90982F3303D63AD8C9 /* Sources */ = {
+		DBED69CE96622A17DD4E84AE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AAEF2B5F3321E06D16D6975 /* DTError.m in Sources */,
-				B98013E966E1B4D10A637B58 /* DTTimePeriod.m in Sources */,
-				61F6C78721702BCE9FECB132 /* DTTimePeriodChain.m in Sources */,
-				7B8300EC1F345A370FD53854 /* DTTimePeriodCollection.m in Sources */,
-				94C1D57118EBCB86FBBC294D /* DTTimePeriodGroup.m in Sources */,
-				440112C121EE1E60127E23D1 /* NSDate+DateTools.m in Sources */,
-				2500AAE82C1C8BC097AB3939 /* Pods-DateTools-dummy.m in Sources */,
+				CEA2FDD01ECD8D5C741426BA /* Pods-SVProgressHUD-dummy.m in Sources */,
+				62412AF061915D045C128C0E /* SVIndefiniteAnimatedView.m in Sources */,
+				BCF0940969D1A7F896CF2A9D /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4C93CD1EA2EA3C4C4DE5A03F /* PBXTargetDependency */ = {
+		6F8AB46BA6712078D111D921 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Pods-SVProgressHUD";
-			target = 802596D33AAC7C3074467AD6 /* Pods-SVProgressHUD */;
-			targetProxy = 36F94FD9FC990180D2B85338 /* PBXContainerItemProxy */;
+			name = "Pods-SWTableViewCell";
+			target = 1F679900B6FF6BB25CBE4102 /* Pods-SWTableViewCell */;
+			targetProxy = 79C838B12D5B316203282D64 /* PBXContainerItemProxy */;
 		};
-		57D70EB4E3A8763D90C23CE4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-DateTools";
-			target = 3A187A8885A1BBEE5082E4EB /* Pods-DateTools */;
-			targetProxy = 6388D3A8402225F0940A1295 /* PBXContainerItemProxy */;
-		};
-		C2BFDBA98DB5CDA3E65E4A0C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-NMPaginator";
-			target = 6943E9E3F17785C55FC3F83A /* Pods-NMPaginator */;
-			targetProxy = E2E2FCD4358956D86D967578 /* PBXContainerItemProxy */;
-		};
-		DB0560CC984396C69E07A1D1 /* PBXTargetDependency */ = {
+		76F9B94B351F6A50A8BA13B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-TWMessageBarManager";
-			target = 0785F53C953516C9E087062A /* Pods-TWMessageBarManager */;
-			targetProxy = 20A16EE1AA71BA80FA5D232F /* PBXContainerItemProxy */;
+			target = 35463A0F1BBC8CB7CD673028 /* Pods-TWMessageBarManager */;
+			targetProxy = D3A54DE62A985EBEC05A5150 /* PBXContainerItemProxy */;
+		};
+		7EFB26808FBDE8D94DC3321E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-SVProgressHUD";
+			target = 01C12FB57315164431C8756C /* Pods-SVProgressHUD */;
+			targetProxy = 185F423862E2AA9CEF2E24A6 /* PBXContainerItemProxy */;
+		};
+		C24C60CBCB461CE28DCF59BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-DateTools";
+			target = 75019E0FCCE383E13E84E308 /* Pods-DateTools */;
+			targetProxy = DB09DB7FACF580498D8CE29F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		099D472B11E2055F8D89D028 /* Debug */ = {
+		01F983226C4A35E8E59F7A93 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C00C98B9324D65D70FEEA9B /* Pods-TWMessageBarManager-Private.xcconfig */;
+			baseConfigurationReference = E9D0C37B865F0863F47B9350 /* Pods-SWTableViewCell-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SWTableViewCell/Pods-SWTableViewCell-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		0FF892D2F9E5A97E7EAC05B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 668CB23D76F9C650CDE724ED /* Pods-TWMessageBarManager-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
@@ -658,127 +706,13 @@
 			};
 			name = Debug;
 		};
-		1CB6256D58B20D22EBDDC59C /* Release */ = {
+		407F700D7288F3B64B298A11 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7C00C98B9324D65D70FEEA9B /* Pods-TWMessageBarManager-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		27CE9CE403D237A42E45CE3C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26C5A0B5B50C61C939856F38 /* Pods-SVProgressHUD-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		45E20A81752E46A1D0DC3FC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F8EA199994E6A8796E2CA21 /* Pods.release.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		4D7A21F1E3EC65DDE1C75219 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6627C407777631072E9FDF3 /* Pods-DateTools-Private.xcconfig */;
+			baseConfigurationReference = 9B5E745938A731539F8978D4 /* Pods-DateTools-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-DateTools/Pods-DateTools-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		58E8B2C17F60AE66B31F9DCF /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D75F33FED6D56D0712F36F6A /* Pods-NMPaginator-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-NMPaginator/Pods-NMPaginator-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		6CEA07EA50B1B76F8FA440F5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		8D5CA953EC837F622CA998D2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D75F33FED6D56D0712F36F6A /* Pods-NMPaginator-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-NMPaginator/Pods-NMPaginator-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -788,7 +722,7 @@
 			};
 			name = Debug;
 		};
-		94EF1E22D30D87CFDBD518B3 /* Debug */ = {
+		4710A6C983571AD3A2CCCCCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -827,12 +761,12 @@
 			};
 			name = Debug;
 		};
-		AF717A4B13C0FB472713B5D7 /* Debug */ = {
+		4ADE838F9128BC414ECE1078 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6627C407777631072E9FDF3 /* Pods-DateTools-Private.xcconfig */;
+			baseConfigurationReference = 36293C32F464858EEBB87CBE /* Pods-SVProgressHUD-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-DateTools/Pods-DateTools-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
@@ -843,12 +777,12 @@
 			};
 			name = Debug;
 		};
-		BCF6620F14B0F010FAB26412 /* Release */ = {
+		5C155301684BEB25D135889C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 26C5A0B5B50C61C939856F38 /* Pods-SVProgressHUD-Private.xcconfig */;
+			baseConfigurationReference = 9B5E745938A731539F8978D4 /* Pods-DateTools-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-DateTools/Pods-DateTools-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
@@ -859,9 +793,9 @@
 			};
 			name = Release;
 		};
-		C8C0198110E6937622DBD230 /* Debug */ = {
+		622508A65CC8FB95BD659B8B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE02BC0FEE6C02E72B2AA964 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = FF8681E47CB8CB3689CCAC77 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -875,64 +809,162 @@
 			};
 			name = Debug;
 		};
+		780E1D047122240E50EA6B8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		78D32551F9DF4F06D0EAB214 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36293C32F464858EEBB87CBE /* Pods-SVProgressHUD-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7B635A13A512E550E72773B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 668CB23D76F9C650CDE724ED /* Pods-TWMessageBarManager-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		E34C880AB0D473BB0A29986D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9D0C37B865F0863F47B9350 /* Pods-SWTableViewCell-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SWTableViewCell/Pods-SWTableViewCell-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		FE9EBEB24C15CB9CE15DBFBB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 66E6ECD445028B58D3191A2A /* Pods.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		15FA96B2946A65ABE06F8F61 /* Build configuration list for PBXProject "Pods" */ = {
+		59382F3DF666B8855752B3EA /* Build configuration list for PBXNativeTarget "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				94EF1E22D30D87CFDBD518B3 /* Debug */,
-				6CEA07EA50B1B76F8FA440F5 /* Release */,
+				622508A65CC8FB95BD659B8B /* Debug */,
+				FE9EBEB24C15CB9CE15DBFBB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		27CA4626C4F7967BE57BE369 /* Build configuration list for PBXNativeTarget "Pods" */ = {
+		9EBE746A4F03D2CE07021FF6 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C8C0198110E6937622DBD230 /* Debug */,
-				45E20A81752E46A1D0DC3FC3 /* Release */,
+				4ADE838F9128BC414ECE1078 /* Debug */,
+				78D32551F9DF4F06D0EAB214 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4207D223C288EC1EE1E65A11 /* Build configuration list for PBXNativeTarget "Pods-DateTools" */ = {
+		CCA899AC6BB71691945643B9 /* Build configuration list for PBXNativeTarget "Pods-DateTools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AF717A4B13C0FB472713B5D7 /* Debug */,
-				4D7A21F1E3EC65DDE1C75219 /* Release */,
+				407F700D7288F3B64B298A11 /* Debug */,
+				5C155301684BEB25D135889C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		97EDC124288B912B22FB4D8C /* Build configuration list for PBXNativeTarget "Pods-NMPaginator" */ = {
+		D6541F6919F95592F1E92F87 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8D5CA953EC837F622CA998D2 /* Debug */,
-				58E8B2C17F60AE66B31F9DCF /* Release */,
+				4710A6C983571AD3A2CCCCCA /* Debug */,
+				780E1D047122240E50EA6B8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9EA00A99BF0122DCEF83B125 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */ = {
+		DB69CE4222FE6E1E0BEDD5E6 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				099D472B11E2055F8D89D028 /* Debug */,
-				1CB6256D58B20D22EBDDC59C /* Release */,
+				0FF892D2F9E5A97E7EAC05B6 /* Debug */,
+				7B635A13A512E550E72773B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C20F6E571FCC0243DF799F3F /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */ = {
+		EED22F2C748F3291D6B6C2D4 /* Build configuration list for PBXNativeTarget "Pods-SWTableViewCell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				27CE9CE403D237A42E45CE3C /* Debug */,
-				BCF6620F14B0F010FAB26412 /* Release */,
+				E34C880AB0D473BB0A29986D /* Debug */,
+				01F983226C4A35E8E59F7A93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 2640F740070F6EEA35615762 /* Project object */;
+	rootObject = F058A93EBF1A5EE34FB85905 /* Project object */;
 }
