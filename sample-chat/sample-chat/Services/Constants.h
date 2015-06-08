@@ -27,7 +27,7 @@ static NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentif
  *  QBServicesManager
  */
 static NSString *const kChatCacheNameKey = @"sample-cache";
-
+static NSString *const kContactListCacheNameKey = @"sample-cache-contacts";
 
 /**
  *  LoginTableViewController

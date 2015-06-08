@@ -9,11 +9,12 @@
 #import "QBServicesManager.h"
 #import "StorageManager.h"
 
-@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDelegate>
+@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource>
 
 @property (nonatomic, strong) QMAuthService* authService;
 @property (nonatomic, strong) QMChatService* chatService;
 @property (nonatomic, strong) UsersService* usersService;
+@property (nonatomic, strong) QMContactListService* contactListService;
 @end
 
 @implementation QBServicesManager
@@ -22,9 +23,11 @@
 	self = [super init];
 	if (self) {
 		[QMChatCache setupDBWithStoreNamed:kChatCacheNameKey];
+		[QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
-		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDelegate:self];
-		_usersService = [[UsersService alloc] init];
+		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
+		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
+		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
 	}
 	return self;
 }
@@ -115,9 +118,21 @@
 }
 
 - (void)cachedMessagesWithDialogID:(NSString *)dialogID block:(QMCacheCollection)block {
-	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:@"ID" ascending:YES completion:^(NSArray *array) {
+	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:@"id" ascending:YES completion:^(NSArray *array) {
 		block(array);
 	}];
+}
+
+#pragma mark QMContactListServiceCacheDelegate delegate
+
+- (void)cachedUsers:(QMCacheCollection)block {
+	[QMContactListCache.instance usersSortedBy:@"id" ascending:YES completion:^(NSArray *users) {
+		block(users);
+	}];
+}
+
+- (void)cachedContactListItems:(QMCacheCollection)block {
+	[QMContactListCache.instance contactListItems:block];
 }
 
 @end

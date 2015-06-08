@@ -60,7 +60,7 @@
 	}];
 }
 
-- (NSArray *)dialogs{
+- (NSArray *)dialogs {
 	return QBServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
 }
 
@@ -68,7 +68,7 @@
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [[self dialogs] count];
+	return [self dialogs].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
