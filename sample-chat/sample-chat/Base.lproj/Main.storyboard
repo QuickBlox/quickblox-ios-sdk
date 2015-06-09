@@ -129,11 +129,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dYN-aI-JLA">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="Q1R-EJ-5ey" customClass="UserTableViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dYN-aI-JLA" id="jKY-VR-zzs">
+                                <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q1R-EJ-5ey" id="N5t-7T-CRa">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wVW-0U-Aeb" customClass="CornerView">
+                                            <rect key="frame" x="14" y="10" width="25" height="25"/>
+                                            <color key="backgroundColor" red="1" green="0.3514364123" blue="0.26619486869999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="4Uq-k7-1Iy"/>
+                                                <constraint firstAttribute="width" constant="25" id="pHM-1V-58V"/>
+                                            </constraints>
+                                        </view>
+                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyx-ge-5i8">
+                                            <rect key="frame" x="60" y="12" width="532" height="21"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="rvM-IL-rwn"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="wVW-0U-Aeb" firstAttribute="top" secondItem="N5t-7T-CRa" secondAttribute="topMargin" constant="2" id="Bjb-71-sfx"/>
+                                        <constraint firstItem="hyx-ge-5i8" firstAttribute="top" secondItem="N5t-7T-CRa" secondAttribute="topMargin" constant="4" id="Dvx-gU-Qi0"/>
+                                        <constraint firstItem="wVW-0U-Aeb" firstAttribute="leading" secondItem="N5t-7T-CRa" secondAttribute="leadingMargin" constant="6" id="G0p-1S-oND"/>
+                                        <constraint firstItem="hyx-ge-5i8" firstAttribute="trailing" secondItem="N5t-7T-CRa" secondAttribute="trailingMargin" constant="33" id="Ymv-ES-DuC"/>
+                                        <constraint firstItem="hyx-ge-5i8" firstAttribute="leading" secondItem="wVW-0U-Aeb" secondAttribute="trailing" constant="21" id="o3P-dy-ddd"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="colorMarker" destination="wVW-0U-Aeb" id="FHa-hy-gRE"/>
+                                    <outlet property="userDescriptionLabel" destination="hyx-ge-5i8" id="nsv-lT-I9f"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
