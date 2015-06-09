@@ -78,12 +78,12 @@
 {
     NSLog(@"New Push received\n: %@", userInfo);
     
-    NSString *dialogId = userInfo[@"dialog_id"];
+//    NSString *dialogId = userInfo[@"dialog_id"];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
-	
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
-                                                   description:userInfo[@"aps"][@"alert"]
-                                                          type:TWMessageBarMessageTypeInfo];
+//	
+//    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
+//                                                   description:userInfo[@"aps"][@"alert"]
+//                                                          type:TWMessageBarMessageTypeInfo];
 	
 }
 

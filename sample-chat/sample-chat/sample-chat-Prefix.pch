@@ -19,8 +19,6 @@
     #import <Quickblox/QBMulticastDelegate.h>
     #import <QMServices.h>
     #import <SVProgressHUD.h>
-    #import <TWMessageBarManager.h>
-    #import "NSDate+DateTools.h"
 	#import "Constants.h"
 	#import "UIAlertDialog.h"
 	#import <SWTableViewCell/SWTableViewCell.h>
