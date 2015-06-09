@@ -80,7 +80,6 @@
  */
 @property (nonatomic, getter = isRead) BOOL read;
 
-
 /** Create new message
  @return New instance of QBChatMessage
  */
