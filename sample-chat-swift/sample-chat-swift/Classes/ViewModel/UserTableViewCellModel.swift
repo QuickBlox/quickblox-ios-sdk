@@ -11,26 +11,30 @@ class UserTableViewCellModel: NSObject {
 	var rightUtilityButtons: [UIButton]!
 	var detailTextLabelText: String = ""
 	var textLabelText: String = ""
-	var user: QBUUser?
+//	var user: QBUUser?
 	
 	init(dialog: QBChatDialog) {
 		super.init()
 		if dialog.type == .Private {
 			self.detailTextLabelText = "SA_STR_PRIVATE".localized
+            
 			if dialog.recipientID == -1 {
 				return
 			}
-			assert(ConnectionManager.instance.dialogsUsers != nil)
-			if let users = ConnectionManager.instance.dialogsUsers {
-				var filteredUsers = users.filter(){ $0.ID == UInt(dialog.recipientID) }
-				if !filteredUsers.isEmpty {
-					var recipient = filteredUsers[0]
-					self.textLabelText = recipient.login ?? recipient.email
-					rightUtilityButtons = self.blockButtonsForDialogType(dialog.type, user: recipient)
-					self.user = recipient
-				}
+            
+//			assert(StorageManager.instance.dialogsUsers.count > 0)
+            
+            let users = StorageManager.instance.dialogsUsers
+            
+            var filteredUsers = users.filter(){ $0.ID == UInt(dialog.recipientID) }
+            
+            if !filteredUsers.isEmpty {
+                var recipient = filteredUsers[0]
+                self.textLabelText = recipient.login ?? recipient.email
+                rightUtilityButtons = self.blockButtonsForDialogType(dialog.type, user: recipient)
+//                self.user = recipient
+            }
 				
-			}
 		}
 		else if dialog.type == .Group {
 			self.detailTextLabelText = "SA_STR_GROUP".localized
@@ -41,7 +45,11 @@ class UserTableViewCellModel: NSObject {
 		
 		if self.textLabelText.isEmpty {
 			// group chat
-			self.textLabelText = dialog.name
+            
+            if let dialogName = dialog.name {
+                self.textLabelText = dialogName
+            }
+			
 			rightUtilityButtons = self.blockButtonsForDialogType(dialog.type, user: nil)
 		}
 		
@@ -60,8 +68,10 @@ class UserTableViewCellModel: NSObject {
 		deleteButton.tag = 1
 		
 		if dialogType ==  .Private {
-			if let users = ConnectionManager.instance.dialogsUsers,
-				strongUser = user {
+            let users = StorageManager.instance.dialogsUsers
+            
+			if users.count > 0,
+				let strongUser = user {
 					var title: String
 					var color: UIColor
 					if ConnectionManager.instance.privacyManager.isUserInBlockList(strongUser) {
