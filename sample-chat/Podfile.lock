@@ -1,22 +1,13 @@
 PODS:
-  - DateTools (1.5.0)
-  - NMPaginator (1.0.0)
   - SVProgressHUD (1.1.3)
   - SWTableViewCell (0.3.7)
-  - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
-  - DateTools (= 1.5.0)
-  - NMPaginator (= 1.0.0)
   - SVProgressHUD (= 1.1.3)
   - SWTableViewCell (= 0.3.7)
-  - TWMessageBarManager (= 1.7.2)
 
 SPEC CHECKSUMS:
-  DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
-  NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
-  TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
 COCOAPODS: 0.37.2
