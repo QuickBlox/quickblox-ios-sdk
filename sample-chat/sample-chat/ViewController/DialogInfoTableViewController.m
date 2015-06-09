@@ -9,6 +9,7 @@
 #import "DialogInfoTableViewController.h"
 #import "UsersDataSource.h"
 #import "StorageManager.h"
+#import "QBServicesManager.h"
 
 @interface DialogInfoTableViewController()
 
@@ -21,9 +22,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.usersDatasource = [[UsersDataSource alloc] initWithUsers:[StorageManager instance].users];
-    self.tableView.dataSource = self.usersDatasource;
+	
+	__weak __typeof(self) weakSelf = self;
+	[QBServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+		weakSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:users];
+		weakSelf.tableView.dataSource = weakSelf.usersDatasource;
+		[weakSelf.tableView reloadData];
+	}];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

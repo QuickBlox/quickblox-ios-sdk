@@ -25,7 +25,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self downloadUsers];
+	
+	[self retrieveUsers];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -38,8 +39,21 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)retrieveUsers {
+	__weak __typeof(self)weakSelf = self;
+
+	[QBServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
+		if( users != nil && users.count != 0 ) {
+			[weakSelf loadDataSourceWithUsers:users];
+		}
+		else {
+			[weakSelf downloadUsers];
+		}
+	}];
+}
+
 - (void)downloadUsers {
-	if( self.isUsersAreDownloading && StorageManager.instance.users.count == 0 ){
+	if( self.isUsersAreDownloading ) {
 		return;
 	}
 	self.usersAreDownloading = YES;
@@ -49,12 +63,9 @@
 	
 	[QBServicesManager.instance.usersService usersWithSuccessBlock:^(NSArray *users) {
 		
-		
 		[SVProgressHUD showSuccessWithStatus:@"Completed"];
 		
-		weakSelf.dataSource = [[UsersDataSource alloc] init];
-		weakSelf.tableView.dataSource = self.dataSource;
-		[weakSelf.tableView reloadData];
+		[weakSelf loadDataSourceWithUsers:users];
 		
 		weakSelf.usersAreDownloading = NO;
 	} errorBlock:^(QBResponse *response) {
@@ -63,6 +74,11 @@
 	}];
 }
 
+- (void)loadDataSourceWithUsers:(NSArray *)users {
+	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
+	self.tableView.dataSource = self.dataSource;
+	[self.tableView reloadData];
+}
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
