@@ -11,14 +11,19 @@
 #import <Quickblox/QBASession.h>
 #import "QBServicesManager.h"
 #import "EditDialogTableViewController.h"
+#import "ChatViewController.h"
 
 @interface DialogsViewController () <QMChatServiceDelegate, SWTableViewCellDelegate>
+
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
+@property (nonatomic, readonly) NSArray* dialogs;
+
 @end
 
 @implementation DialogsViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 	
 	[QBServicesManager.instance.chatService addDelegate:self];
@@ -26,7 +31,8 @@
 	[self loadDialogs];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
 	[super viewWillAppear:animated];
 	__weak __typeof(self)weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
@@ -34,49 +40,52 @@
 	}];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
 	[super viewWillDisappear:animated];
 	[QBServicesManager.instance.chatService removeDelegate:self];
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
-- (void)loadDialogs {
-	
+- (void)loadDialogs
+{
 	BOOL shouldShowSuccessStatus = NO;
-	if( [[self dialogs] count] == 0 ) {
+	if (self.dialogs.count == 0) {
 		shouldShowSuccessStatus = YES;
 		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
     [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
-		
-		if( response.error != nil ) {
+        
+		if (response.error != nil) {
 			[SVProgressHUD showErrorWithStatus:@"Can not download"];
 		}
-		
 	} completion:^(QBResponse *response) {
-		if( shouldShowSuccessStatus ) {
+		if (shouldShowSuccessStatus) {
 			[SVProgressHUD showSuccessWithStatus:@"Completed"];
 		}
 	}];
 }
 
-- (NSArray *)dialogs {
+- (NSArray *)dialogs
+{
 	return QBServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
 }
 
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [self dialogs].count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return self.dialogs.count;
 }
 
-- (SWTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (SWTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     SWTableViewCell *cell = (SWTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = [self dialogs][indexPath.row];
-    cell.tag  = indexPath.row;
+    cell.tag = indexPath.row;
     
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate: {
@@ -119,11 +128,7 @@
 	[deleteButton setTitle:@"delete" forState:UIControlStateNormal];
 	deleteButton.backgroundColor = [UIColor redColor];
 	
-	UIButton *editChatButton = [[UIButton alloc] init];
-	[editChatButton setTitle:@"edit" forState:UIControlStateNormal];
-	editChatButton.backgroundColor = [UIColor blueColor];
-	
-	cell.rightUtilityButtons = @[deleteButton, editChatButton];
+	cell.rightUtilityButtons = @[deleteButton];
 	cell.delegate = self;
 
     return cell;
@@ -131,32 +136,31 @@
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
-	QBChatDialog *chatDialog = [self dialogs][cell.tag];
+	QBChatDialog *chatDialog = self.dialogs[cell.tag];
 	
 	if (index == 0) {
-		// delete
+        NSAssert(NO, @"Not implemented!");
 		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {
 			
 		}];
-	} else if (index == 1) {
-		// edit
-		[self performSegueWithIdentifier:kGoToEditDialogSegueIdentifier sender:chatDialog];
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	QBChatDialog *dialog = [self dialogs][indexPath.row];
-	// perform segue to Chat VC
+	QBChatDialog *dialog = self.dialogs[indexPath.row];
+
+    [self performSegueWithIdentifier:@"kShowChatViewController" sender:dialog];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if ([segue.identifier isEqualToString:kGoToEditDialogSegueIdentifier]) {
-		EditDialogTableViewController *vc = (EditDialogTableViewController *) segue.destinationViewController;
-		vc.dialog = (QBChatDialog *)sender;
-	}
+    if ([segue.identifier isEqualToString:@"kShowChatViewController"]) {
+        ChatViewController* chatViewController = segue.destinationViewController;
+        chatViewController.dialog = sender;
+    }
 }
 
 #pragma mark

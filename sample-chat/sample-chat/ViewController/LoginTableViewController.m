@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) UsersDataSource *dataSource;
 @property (nonatomic, assign, getter=isUsersAreDownloading) BOOL usersAreDownloading;
+
 @end
 
 @implementation LoginTableViewController
