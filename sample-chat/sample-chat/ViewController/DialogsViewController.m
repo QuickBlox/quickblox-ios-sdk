@@ -79,19 +79,19 @@
     cell.tag  = indexPath.row;
     
     switch (chatDialog.type) {
-        case QBChatDialogTypePrivate:{
+        case QBChatDialogTypePrivate: {
             cell.detailTextLabel.text = chatDialog.lastMessageText;
 			QBUUser *recipient = [QBServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
         }
             break;
-        case QBChatDialogTypeGroup:{
+        case QBChatDialogTypeGroup: {
             cell.detailTextLabel.text = chatDialog.lastMessageText;
             cell.textLabel.text = chatDialog.name;
             cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
             break;
-        case QBChatDialogTypePublicGroup:{
+        case QBChatDialogTypePublicGroup: {
             cell.detailTextLabel.text = chatDialog.lastMessageText;
             cell.textLabel.text = chatDialog.name;
             cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
@@ -104,15 +104,14 @@
     
     // set unread badge
     UILabel *badgeLabel = (UILabel *)[cell.contentView viewWithTag:201];
-    if( chatDialog.unreadMessagesCount > 0 ) {
+    if (chatDialog.unreadMessagesCount > 0) {
         badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)chatDialog.unreadMessagesCount];
         badgeLabel.hidden = NO;
         
         badgeLabel.layer.cornerRadius = 10;
         badgeLabel.layer.borderColor = [[UIColor blueColor] CGColor];
         badgeLabel.layer.borderWidth = 1;
-    }
-	else {
+    } else {
         badgeLabel.hidden = YES;
     }
 
@@ -130,18 +129,16 @@
     return cell;
 }
 
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
-	// we have only "delete" button
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
 	QBChatDialog *chatDialog = [self dialogs][cell.tag];
 	
-
-	if( index == 0 ) {
+	if (index == 0) {
 		// delete
 		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {
 			
 		}];
-	}
-	else if( index == 1 ) {
+	} else if (index == 1) {
 		// edit
 		[self performSegueWithIdentifier:kGoToEditDialogSegueIdentifier sender:chatDialog];
 	}
@@ -154,8 +151,9 @@
 	// perform segue to Chat VC
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if( [segue.identifier isEqualToString:kGoToEditDialogSegueIdentifier] ) {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:kGoToEditDialogSegueIdentifier]) {
 		EditDialogTableViewController *vc = (EditDialogTableViewController *) segue.destinationViewController;
 		vc.dialog = (QBChatDialog *)sender;
 	}
@@ -164,11 +162,13 @@
 #pragma mark
 #pragma Notifications
 
-- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs {
+- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs
+{
 	[self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog {
+- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog
+{
 	[self.tableView reloadData];
 }
 
