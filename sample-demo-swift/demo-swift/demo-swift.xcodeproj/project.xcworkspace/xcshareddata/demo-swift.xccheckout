@@ -12,17 +12,13 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
-		<key>9A7A6A43ACDEABD7DE54F637AB15BB291A864B21</key>
-		<string>ssh://github.com/QuickBlox/demo-swift-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>demo-swift/demo-swift/demo-swift.xcodeproj</string>
+	<string>sample-demo-swift/demo-swift/demo-swift.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../../../..</string>
-		<key>9A7A6A43ACDEABD7DE54F637AB15BB291A864B21</key>
-		<string>../../../../../demo-swift-ios</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
@@ -32,14 +28,6 @@
 	<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>9A7A6A43ACDEABD7DE54F637AB15BB291A864B21</string>
-			<key>IDESourceControlWCCName</key>
-			<string>demo-swift-ios</string>
-		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
