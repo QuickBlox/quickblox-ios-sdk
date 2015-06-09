@@ -1,6 +1,7 @@
 platform :ios, '7.0'
 
-pod 'SVProgressHUD'
-pod 'TWMessageBarManager'
-pod 'DateTools'
-pod 'SWTableViewCell', '~> 0.3.7'
+pod 'SVProgressHUD', '1.1.3'
+pod 'TWMessageBarManager', '1.7.2'
+pod 'DateTools', '1.5.0'
+pod 'NMPaginator', '1.0.0'
+pod 'SWTableViewCell', '0.3.7'

@@ -29,7 +29,7 @@ extension JSQMessagesCollectionViewCell {
     }
     public override func delete(sender: AnyObject?) {
         if let messID = self.messageID {
-            ConnectionManager.instance.messagesIDsToDelete.append(messID)
+            StorageManager.instance.messagesIDsToDelete.append(messID)
         }
     }
 }
