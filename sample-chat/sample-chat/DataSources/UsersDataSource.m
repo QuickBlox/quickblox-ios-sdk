@@ -52,7 +52,7 @@
 }
 
 - (instancetype)init {
-	return [self initWithUsers:nil];
+	return [self initWithUsers:StorageManager.instance.users];
 }
 
 - (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {
@@ -69,6 +69,20 @@
 	else {
 		_users = self.customUsers;
 	}
+	// add excluded users to future remove
+	NSMutableArray *excludedUsers = [NSMutableArray array];
+	[_users enumerateObjectsUsingBlock:^(QBUUser *obj, NSUInteger idx, BOOL *stop) {
+		for( NSNumber *excID in excludeUsersIDs ) {
+			if( obj.ID == excID.integerValue ) {
+				[excludedUsers addObject:obj];
+			}
+		}
+	}];
+	
+	//remove excluded users
+	NSMutableArray *mUsers = [_users mutableCopy];
+	[mUsers removeObjectsInArray:excludedUsers];
+	_users = [mUsers copy];
 }
 
 - (NSUInteger)indexOfUser:(QBUUser *)user {

@@ -40,4 +40,9 @@ static NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
 static const NSUInteger kDialogsPageLimit = 10;
 
 static NSString *const kGoToEditDialogSegueIdentifier = @"goToEditDialog";
+
+/**
+ *  DialogInfoTableViewController
+ */
+static NSString *const kGoToAddOccupantsSegueIdentifier = @"goToAddOccupants";
 #endif
