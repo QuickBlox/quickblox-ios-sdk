@@ -46,26 +46,31 @@
 		if( users != nil && users.count != 0 ) {
 			[weakSelf loadDataSourceWithUsers:users];
 		}
-		else {
-			[weakSelf downloadUsers];
-		}
+		[weakSelf downloadLatestUsers];
 	}];
 }
 
-- (void)downloadUsers {
+- (void)downloadLatestUsers {
 	if( self.isUsersAreDownloading ) {
 		return;
 	}
 	self.usersAreDownloading = YES;
 	
 	__weak __typeof(self)weakSelf = self;
-	[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
+	if( self.dataSource == nil ) {
+		[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
+	}
 	
-	[QBServicesManager.instance.usersService usersWithSuccessBlock:^(NSArray *users) {
+	[QBServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
 		
-		[SVProgressHUD showSuccessWithStatus:@"Completed"];
-		
-		[weakSelf loadDataSourceWithUsers:users];
+		if( weakSelf.dataSource == nil ){
+			[SVProgressHUD showSuccessWithStatus:@"Completed"];
+			[weakSelf loadDataSourceWithUsers:latestUsers];
+		}
+		else {
+			[weakSelf.dataSource addUsers:latestUsers];
+			[weakSelf.tableView reloadData];
+		}
 		
 		weakSelf.usersAreDownloading = NO;
 	} errorBlock:^(QBResponse *response) {
@@ -85,6 +90,7 @@
 	[SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeClear];
 	
 	QBUUser *selectedUser = StorageManager.instance.users[indexPath.row];
+	selectedUser.password = @"x6Bt0VDy5"; // default password for test users
 	
 	__weak __typeof(self)weakSelf = self;
 	
@@ -107,7 +113,7 @@
 	ReachabilityManager *reach = [ReachabilityManager instance];
 	
 	if( reach.isReachable && StorageManager.instance.users == nil){
-		[self downloadUsers];
+		[self downloadLatestUsers];
 	}
 }
 

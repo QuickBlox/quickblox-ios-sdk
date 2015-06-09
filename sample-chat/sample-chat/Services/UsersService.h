@@ -18,10 +18,10 @@
 - (void)cachedUsersWithCompletion:(void(^)(NSArray *users))completion;
 
 /**
- *  Download users from 'test_users' CO table
+ *  Download latest users from 'test_users' CO table
  *  or return users if they were downloaded before
  */
-- (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock;
+- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock;
 
 /**
  *  Get cached users with given IDs

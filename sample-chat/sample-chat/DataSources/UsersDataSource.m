@@ -39,6 +39,17 @@
 	return self;
 	
 }
+- (void)addUsers:(NSArray *)users {
+	NSMutableArray *mUsers;
+	if( _users != nil ){
+		mUsers = [_users mutableCopy];
+	}
+	else {
+		mUsers = [NSMutableArray array];
+	}
+	[mUsers addObjectsFromArray:users];
+	_users = [mUsers copy];
+}
 
 - (instancetype)init {
 	return [self initWithUsers:nil];
