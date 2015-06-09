@@ -7,8 +7,24 @@
 //
 
 #import "DialogInfoTableViewController.h"
+#import "UsersDataSource.h"
+#import "StorageManager.h"
+
+@interface DialogInfoTableViewController()
+
+@property (nonatomic, strong) UsersDataSource* usersDatasource;
+
+@end
 
 @implementation DialogInfoTableViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.usersDatasource = [[UsersDataSource alloc] initWithUsers:[StorageManager instance].users];
+    self.tableView.dataSource = self.usersDatasource;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
