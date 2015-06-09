@@ -77,11 +77,11 @@
 
 		[QBServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			
-			[QBServicesManager.instance.chatService notifyAboutCreatedDialog:createdDialog excludedOccupantIDs:nil occupantsCustomParameters:nil completion:^(NSError *error) {
-				if( error == nil ) {
-					[SVProgressHUD showSuccessWithStatus:@"CreatedDialog notification successfully sent!"];
-				}
-			}];
+//			[QBServicesManager.instance.chatService notifyAboutCreatedDialog:createdDialog excludedOccupantIDs:nil occupantsCustomParameters:nil completion:^(NSError *error) {
+//				if( error == nil ) {
+//					[SVProgressHUD showSuccessWithStatus:@"CreatedDialog notification successfully sent!"];
+//				}
+//			}];
 
 			//TODO: perfom segue to chat
 			NSLog(@"%@", createdDialog);

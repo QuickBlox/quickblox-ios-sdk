@@ -18,21 +18,18 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	__weak __typeof(self) weakSelf = self;
-	[QBServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-		weakSelf.dataSource = [[UsersDataSource alloc] initWithUsers:users];
-		weakSelf.tableView.dataSource = weakSelf.dataSource;
-		[weakSelf.tableView reloadData];
-	}];
+	NSParameterAssert(self.dialog);
+	self.dataSource = [[UsersDataSource alloc] init];
+	[self.dataSource setExcludeUsersIDs:self.dialog.occupantIDs];
+	self.tableView.dataSource = self.dataSource;
+	[self.tableView reloadData];
 
 }
 
 - (SWTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	SWTableViewCell *cell = (SWTableViewCell *) [super.tableView cellForRowAtIndexPath:indexPath];
 	
-	QBUUser *user = ((UsersDataSource *)self.tableView.dataSource).users[indexPath.row];
-	
-	
+	QBUUser *user = self.dataSource.users[indexPath.row];
 	
 	return cell;
 }

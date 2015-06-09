@@ -178,7 +178,7 @@
                     <navigationItem key="navigationItem" title="Dialog Info" id="Z4e-ma-Z1K">
                         <barButtonItem key="rightBarButtonItem" title="Add occupants" id="E8M-ge-wTi">
                             <connections>
-                                <segue destination="HZa-iJ-RHf" kind="show" identifier="kShowAddOccupantsViewController" id="l0A-TR-aRM"/>
+                                <segue destination="HZa-iJ-RHf" kind="show" identifier="goToAddOccupants" id="l0A-TR-aRM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

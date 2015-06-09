@@ -10,6 +10,7 @@
 #import "UsersDataSource.h"
 #import "StorageManager.h"
 #import "QBServicesManager.h"
+#import "EditDialogTableViewController.h"
 
 @interface DialogInfoTableViewController()
 
@@ -33,8 +34,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"kShowDialogInfoViewController"]) {
-        DialogInfoTableViewController* viewController = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:kGoToAddOccupantsSegueIdentifier]) {
+        EditDialogTableViewController* viewController = segue.destinationViewController;
         viewController.dialog = self.dialog;
     }
 }
