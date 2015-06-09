@@ -12,6 +12,7 @@
 
 - (instancetype)initWithUsers:(NSArray *)users;
 
+- (void)addUsers:(NSArray *)users;
 /**
  *  Default: empty []
  *  Excludes users with given ids from data source
