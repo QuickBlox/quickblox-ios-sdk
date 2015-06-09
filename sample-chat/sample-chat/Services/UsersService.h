@@ -13,8 +13,13 @@
 - (instancetype)init __attribute__((unavailable("unavailable, use -initWithContactListService: instead")));
 - (instancetype)initWithContactListService:(QMContactListService *)contactListService;
 
+
+/// @return array of cached QBUUser instances
+- (void)cachedUsersWithCompletion:(void(^)(NSArray *users))completion;
+
 /**
  *  Download users from 'test_users' CO table
+ *  or return users if they were downloaded before
  */
 - (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock;
 

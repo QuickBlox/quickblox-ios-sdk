@@ -23,7 +23,25 @@
 	return self;
 }
 
+- (void)cachedUsersWithCompletion:(void(^)(NSArray *users))completion {
+	// check memory storage
+	if( self.contactListService.usersMemoryStorage.conatcts != nil &&
+	   self.contactListService.usersMemoryStorage.conatcts.count != 0){
+		completion(self.contactListService.usersMemoryStorage.conatcts);
+	}
+	
+	// check CoreData storage
+	[QMContactListCache.instance usersSortedBy:@"id" ascending:YES completion:^(NSArray *users) {
+		completion(users);
+	}];
+}
+
 - (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
+	
+	if( self.contactListService.usersMemoryStorage.conatcts != nil &&
+	   self.contactListService.usersMemoryStorage.conatcts.count != 0){
+		successBlock(self.contactListService.usersMemoryStorage.conatcts);
+	}
 	
 	if( StorageManager.instance.users.count != 0 ){
 		if( successBlock != nil ) {
@@ -51,6 +69,8 @@
 		}];
 		
 		StorageManager.instance.users = [users copy];
+		
+		[QMContactListCache.instance insertOrUpdateUsers:[users copy] completion:nil];
 		
 		if( successBlock != nil ) {
 			successBlock(users);
