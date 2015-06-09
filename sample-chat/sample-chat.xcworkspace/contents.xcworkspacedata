@@ -7,7 +7,4 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:../../SDK-ios/Framework/Quickblox.xcodeproj">
-   </FileRef>
 </Workspace>

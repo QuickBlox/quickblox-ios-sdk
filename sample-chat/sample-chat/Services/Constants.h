@@ -39,4 +39,5 @@ static NSString *const kGoToDialogsSegueIdentifier = @"goToDialogs";
  */
 static const NSUInteger kDialogsPageLimit = 10;
 
+static NSString *const kGoToEditDialogSegueIdentifier = @"goToEditDialog";
 #endif

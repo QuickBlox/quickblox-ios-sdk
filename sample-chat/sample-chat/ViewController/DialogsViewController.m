@@ -10,8 +10,9 @@
 
 #import <Quickblox/QBASession.h>
 #import "QBServicesManager.h"
+#import "EditDialogTableViewController.h"
 
-@interface DialogsViewController () <QMChatServiceDelegate>
+@interface DialogsViewController () <QMChatServiceDelegate, SWTableViewCellDelegate>
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @end
 
@@ -71,8 +72,8 @@
 	return [self dialogs].count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
+- (SWTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SWTableViewCell *cell = (SWTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = [self dialogs][indexPath.row];
     cell.tag  = indexPath.row;
@@ -115,7 +116,35 @@
         badgeLabel.hidden = YES;
     }
 
+	UIButton *deleteButton = [[UIButton alloc] init];
+	[deleteButton setTitle:@"delete" forState:UIControlStateNormal];
+	deleteButton.backgroundColor = [UIColor redColor];
+	
+	UIButton *editChatButton = [[UIButton alloc] init];
+	[editChatButton setTitle:@"edit" forState:UIControlStateNormal];
+	editChatButton.backgroundColor = [UIColor blueColor];
+	
+	cell.rightUtilityButtons = @[deleteButton, editChatButton];
+	cell.delegate = self;
+
     return cell;
+}
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+	// we have only "delete" button
+	QBChatDialog *chatDialog = [self dialogs][cell.tag];
+	
+
+	if( index == 0 ) {
+		// delete
+		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {
+			
+		}];
+	}
+	else if( index == 1 ) {
+		// edit
+		[self performSegueWithIdentifier:kGoToEditDialogSegueIdentifier sender:chatDialog];
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -125,6 +154,12 @@
 	// perform segue to Chat VC
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if( [segue.identifier isEqualToString:kGoToEditDialogSegueIdentifier] ) {
+		EditDialogTableViewController *vc = (EditDialogTableViewController *) segue.destinationViewController;
+		vc.dialog = (QBChatDialog *)sender;
+	}
+}
 
 #pragma mark
 #pragma Notifications

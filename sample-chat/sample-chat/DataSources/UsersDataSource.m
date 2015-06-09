@@ -13,11 +13,12 @@
 
 @interface UsersDataSource()
 @property (nonatomic, strong) NSArray *colors;
+@property (nonatomic, copy) NSArray *customUsers;
 @end
 
 @implementation UsersDataSource
 
-- (instancetype)init {
+- (instancetype)initWithUsers:(NSArray *)users {
 	self = [super init];
 	if( self) {
 		_colors =
@@ -32,16 +33,39 @@
 		  [UIColor colorWithRed:0.786 green:0.706 blue:0.000 alpha:1.000],
 		  [UIColor colorWithRed:0.740 green:0.624 blue:0.797 alpha:1.000]];
 		_excludeUsersIDs = @[];
+		_customUsers = [users copy];
+		_users = _customUsers == nil ? StorageManager.instance.users : _customUsers;
 	}
 	return self;
+	
+}
+
+- (instancetype)init {
+	return [self initWithUsers:nil];
+}
+
+- (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {
+	if( excludeUsersIDs == nil ){
+		_users = self.customUsers == nil ? self.customUsers : StorageManager.instance.users;
+		return;
+	}
+	if( [excludeUsersIDs isEqualToArray:self.users] ) {
+		return;
+	}
+	if( self.customUsers == nil ){
+		_users = [StorageManager.instance.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
+	}
+	else {
+		_users = self.customUsers;
+	}
 }
 
 - (NSUInteger)indexOfUser:(QBUUser *)user {
-	return [StorageManager.instance.users indexOfObject:user];
+	return [self.users indexOfObject:user];
 }
 
 - (UIColor *)colorForUser:(QBUUser *)user {
-	NSUInteger idx = [StorageManager.instance.users indexOfObject:user];
+	NSUInteger idx = [self.users indexOfObject:user];
 	return self.colors[idx];
 }
 
@@ -50,13 +74,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
 	
-	QBUUser *user;
-	if( self.excludeUsersIDs.count ) {
-		user = (QBUUser *)[StorageManager.instance.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]][indexPath.row];
-	}
-	else {
-		user = (QBUUser *)StorageManager.instance.users[indexPath.row];
-	}
+	QBUUser *user = (QBUUser *)self.users[indexPath.row];
 	
 	cell.userDescription = user.fullName;
 	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:[self colorForUser:user]];
@@ -64,10 +82,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if( self.excludeUsersIDs.count ) {
-		return StorageManager.instance.users.count - self.excludeUsersIDs.count;
-	}
-	return StorageManager.instance.users.count;
+	return self.users.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

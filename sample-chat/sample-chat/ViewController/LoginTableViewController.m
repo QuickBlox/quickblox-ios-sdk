@@ -24,9 +24,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.dataSource = [[UsersDataSource alloc] init];
-	self.tableView.dataSource = self.dataSource;
-	
 	[self downloadUsers];
 }
 
@@ -50,9 +47,14 @@
 	[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
 	[QBServicesManager.instance.usersService usersWithSuccessBlock:^(NSArray *users) {
-		[weakSelf.tableView reloadData];
+		
 		
 		[SVProgressHUD showSuccessWithStatus:@"Completed"];
+		
+		weakSelf.dataSource = [[UsersDataSource alloc] init];
+		weakSelf.tableView.dataSource = self.dataSource;
+		[weakSelf.tableView reloadData];
+		
 		weakSelf.usersAreDownloading = NO;
 	} errorBlock:^(QBResponse *response) {
 		[SVProgressHUD showErrorWithStatus:@"Can not download users"];

@@ -11,16 +11,17 @@
 		1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6991B14BF350069E3A4 /* UserTableViewCell.m */; };
 		1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B69C1B14BFBA0069E3A4 /* CornerView.m */; };
 		1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */; };
-		142E911A1B205FF7001285F9 /* libQuickblox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 142E91181B205FF7001285F9 /* libQuickblox.a */; };
-		142E911B1B205FF7001285F9 /* libQuickblox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 142E91191B205FF7001285F9 /* libQuickblox.a */; };
 		143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143181781B1882EC001A933D /* NewDialogTableViewController.m */; };
 		1431817D1B18A399001A933D /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1431817C1B18A399001A933D /* UIAlertDialog.m */; };
+		1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */; };
+		1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */; };
 		14C273BB1B174DE60053D5AF /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */; };
 		14C273BC1B174DE60053D5AF /* QMChatCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */; };
 		14C273D61B176A160053D5AF /* StorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273D51B176A160053D5AF /* StorageManager.m */; };
 		14C273E11B1770430053D5AF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273E01B1770430053D5AF /* Reachability.m */; };
 		14C273E41B1773310053D5AF /* ReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273E31B1773310053D5AF /* ReachabilityManager.m */; };
 		14C273F41B1783E40053D5AF /* UsersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273F31B1783E40053D5AF /* UsersDataSource.m */; };
+		14C3B7F51B26E03D00C7D8A0 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8620BC0B1B0F36FB005ED359 /* Quickblox.framework */; };
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
 		86104A1E1B0B5E1900464D52 /* QBServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServicesManager.m */; };
@@ -83,6 +84,10 @@
 		143181781B1882EC001A933D /* NewDialogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDialogTableViewController.m; sourceTree = "<group>"; };
 		1431817B1B18A399001A933D /* UIAlertDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIAlertDialog.h; path = ThirdParty/UIAlertDialog.h; sourceTree = "<group>"; };
 		1431817C1B18A399001A933D /* UIAlertDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIAlertDialog.m; path = ThirdParty/UIAlertDialog.m; sourceTree = "<group>"; };
+		1480E08D1B25DB6600DD6B7C /* DialogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogTableViewCell.h; sourceTree = "<group>"; };
+		1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogTableViewCell.m; sourceTree = "<group>"; };
+		1485D5FB1B25E60A00D26B2A /* EditDialogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDialogTableViewController.h; sourceTree = "<group>"; };
+		1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDialogTableViewController.m; sourceTree = "<group>"; };
 		14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMContactListCacheModel.bundle; path = ../services/QMServices/QMContactListCache/QMContactListCacheModel.bundle; sourceTree = "<group>"; };
 		14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMChatCacheModel.bundle; path = ../services/QMServices/QMChatCache/QMChatCacheModel.bundle; sourceTree = "<group>"; };
 		14C273D41B176A160053D5AF /* StorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageManager.h; sourceTree = "<group>"; };
@@ -137,8 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				142E911A1B205FF7001285F9 /* libQuickblox.a in Frameworks */,
-				142E911B1B205FF7001285F9 /* libQuickblox.a in Frameworks */,
+				14C3B7F51B26E03D00C7D8A0 /* Quickblox.framework in Frameworks */,
 				8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */,
 				BFE6FBC8180E9EA600E64AC4 /* libxml2.2.dylib in Frameworks */,
 				BFE6FBC6180E9EA100E64AC4 /* libresolv.9.dylib in Frameworks */,
@@ -304,6 +308,8 @@
 				1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */,
 				143181771B1882EC001A933D /* NewDialogTableViewController.h */,
 				143181781B1882EC001A933D /* NewDialogTableViewController.m */,
+				1485D5FB1B25E60A00D26B2A /* EditDialogTableViewController.h */,
+				1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -331,6 +337,8 @@
 				1402B6991B14BF350069E3A4 /* UserTableViewCell.m */,
 				1402B69B1B14BFBA0069E3A4 /* CornerView.h */,
 				1402B69C1B14BFBA0069E3A4 /* CornerView.m */,
+				1480E08D1B25DB6600DD6B7C /* DialogTableViewCell.h */,
+				1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -477,6 +485,7 @@
 				1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				1431817D1B18A399001A933D /* UIAlertDialog.m in Sources */,
+				1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */,
 				14C273E41B1773310053D5AF /* ReachabilityManager.m in Sources */,
 				1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */,
 				14C273F41B1783E40053D5AF /* UsersDataSource.m in Sources */,
@@ -486,6 +495,7 @@
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				14C273D61B176A160053D5AF /* StorageManager.m in Sources */,
 				143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */,
+				1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 				14C273E11B1770430053D5AF /* Reachability.m in Sources */,
 				1402B6961B14B9BC0069E3A4 /* UsersService.m in Sources */,
@@ -604,6 +614,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
+					"/Users/seven/Documents/work/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -636,6 +647,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
+					"/Users/seven/Documents/work/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";

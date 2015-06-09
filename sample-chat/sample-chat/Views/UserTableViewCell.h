@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserTableViewCell : UITableViewCell
+@interface UserTableViewCell : SWTableViewCell
 
 @property (strong, nonatomic) NSString *userDescription;
 
