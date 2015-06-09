@@ -77,20 +77,35 @@
  */
 + (QBCBlob *)blob;
 
-/** Get file's public url (if blob is public)
+
+/** Get file's public url (available within Internet), if blob is public.
  @return Public url to file
  */
 - (NSString *)publicUrl;
 
-/** Get file's public url by UID.
+/** Get file's public url (available within Internet) by UID.
+ 
+ @warning Deprecated in 2.3. Use '+[QBCBlob publicUrlForID:]' instead.
+ 
  @return Public url to file
  */
-+ (NSString *)publicUrlForUID:(NSString *)UID;
++ (NSString *)publicUrlForUID:(NSString *)UID __attribute__((deprecated("use '+[QBCBlob publicUrlForID:]' instead.")));
 
-/** Get file's public url by ID.
+/** Get file's public url (available within Internet) by ID.
  @return Public url to file
  */
 + (NSString *)publicUrlForID:(NSUInteger)ID;
+
+
+/** Get file's private url (available only with QuickBlox token), if blob is private.
+ @return Private url to file
+ */
+- (NSString *)privateUrl;
+
+/** Get file's private url (available only with QuickBlox token) by ID.
+ @return Private url to file
+ */
++ (NSString *)privateUrlForID:(NSUInteger)ID;
 
 
 #pragma mark -
