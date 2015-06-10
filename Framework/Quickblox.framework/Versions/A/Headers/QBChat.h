@@ -306,6 +306,18 @@ typedef enum QBChatServiceError {
  */
 - (void)sendUserStopTypingToUserWithID:(NSUInteger)userID;
 
+#pragma mark -
+#pragma mark System Messages
+
+/**
+ *  Send system message to dialog.
+ *
+ *  @param message Chat message to send.
+ *
+ *  @return YES if the message was sent. If not - see log.
+ */
+- (BOOL)sendSystemMessage:(QBChatMessage *)message;
+
 @end
 
 
