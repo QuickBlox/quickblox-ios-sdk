@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "QBRequest.h"
+#import "QBCustomObjectsConsts.h"
 
 @class QBResponse;
 @class QBResponsePage;
@@ -56,13 +57,36 @@
  Retrieve objects with extended Request
 
  @param className Name of class
- @param extendedRequest Extended set of request parameters
+ @param extendedRequest Extended set of request parameters. `count` parameter is ignored. To receive count use `countObjectsWithClassName:extendedRequest:successBlock:errorBlock:`
  @param successBlock Block with response instance, NSArray of found objects, NSArray of not found objects Ids and QBResponsePage if request succeded
  @param errorBlock Block with response instance if request failed
  
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)objectsWithClassName:(NSString *)className extendedRequest:(NSMutableDictionary *)extendedRequest successBlock:(void (^)(QBResponse *response, NSArray *objects, QBResponsePage *page))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
+
+#pragma mark - Objects aggregated by operator
+
+/**
+ *  Returns calculated data for specified objects
+ *
+ *  @param className           Required. Name of class.
+ *  @param aggregationOperator Required. Maximum, minimum, average or summary.
+ *  @param fieldName           Required. Field name which will be used for calculation.
+ *  @param groupFieldName      Required. Field name for group.
+ *  @param extendedRequest     Optional. Extended set of request parameters. `count` parameter is ignored. To receive count use `countObjectsWithClassName:extendedRequest:successBlock:errorBlock:`.
+ *  @param successBlock        Block with response instance, NSArray of grouped objects.
+ *  @param errorBlock          Block with response instance if request failed.
+ *
+ *  @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)objectsWithClassName:(NSString *)className
+                aggregationOperator:(QBCOAggregationOperator)aggregationOperator
+                       forFieldName:(NSString *)fieldName
+                   groupByFieldName:(NSString *)groupFieldName
+                    extendedRequest:(NSMutableDictionary *)extendedRequest
+                       successBlock:(void (^)(QBResponse *response, NSArray *objects, QBResponsePage* responsePage))successBlock
+                         errorBlock:(QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Count of objects
 

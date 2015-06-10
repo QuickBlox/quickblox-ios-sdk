@@ -35,6 +35,10 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        
+        for dialog : QBChatDialog in self.dialogs() {
+            dialog.join()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -127,7 +131,9 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dialogs().count
+        var numberOfRowsInSection = self.dialogs().count
+        
+        return numberOfRowsInSection
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

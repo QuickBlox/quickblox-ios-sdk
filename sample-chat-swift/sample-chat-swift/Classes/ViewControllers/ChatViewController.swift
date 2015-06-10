@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 quickblox. All rights reserved.
 //
 
-class ChatViewController: JSQMessagesViewController, QBChatDelegate {
+class ChatViewController: JSQMessagesViewController, QBChatDelegate, QMChatServiceDelegate {
     let messagesBond: ArrayBond<QBChatMessage> = ArrayBond<QBChatMessage>()
     var showLoadingIndicator: Bond<Bool>!
     var dialog: QBChatDialog?
@@ -32,6 +32,8 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
                 chatRoom.joinRoom()
             }
 		}
+        
+        ServicesManager.instance.chatService.addDelegate(self)
         
         ConnectionManager.instance.currentChatViewModel = self.chatViewModel
         
@@ -142,21 +144,14 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
         var qbMessage = chatViewModel.messages[indexPath.row]
         var jsqMessage: JSQMessage?
         if let qbChatMessage = qbMessage as? QBChatMessage {
-            jsqMessage = JSQMessage(senderId: String(qbChatMessage.senderID), senderDisplayName: qbChatMessage.senderNick ?? qbChatMessage.senderID.description, date: qbChatMessage.dateSent, text: qbChatMessage.text)
-        }
-        else if let qbChatHistoryMessage = qbMessage as? QBChatMessage {
-            var sender: QBUUser?
-            let users = StorageManager.instance.dialogsUsers
             
-            if users.count > 0 {
-                let filteredUsers = users.filter({$0.ID == qbChatHistoryMessage.senderID})
-                
-                if filteredUsers.count > 0 {
-                    sender = filteredUsers[0]
-                }
+            var messageText = qbChatMessage.text
+            
+            if messageText == nil {
+                messageText = ""
             }
             
-            jsqMessage = JSQMessage(senderId: String(qbChatHistoryMessage.senderID), senderDisplayName: sender?.fullName ?? String(qbChatHistoryMessage.senderID), date: qbChatHistoryMessage.dateSent, text: qbChatHistoryMessage.text)
+            jsqMessage = JSQMessage(senderId: String(qbChatMessage.senderID), senderDisplayName: qbChatMessage.senderNick ?? qbChatMessage.senderID.description, date: qbChatMessage.dateSent, text: messageText)
         }
         
         return jsqMessage
@@ -285,6 +280,14 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate {
             }
         }
         self.chatViewModel.showLoadingIndicator ->> self.showLoadingIndicator
+    }
+    
+    func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+        
+        if (chatDialog.ID == self.dialog!.ID) {
+            self.dialog = chatDialog
+        }
+        
     }
     
     deinit{
