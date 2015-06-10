@@ -28,6 +28,9 @@ typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
 /** Created date */
 @property (nonatomic, retain) NSDate *createdAt;
 
+/** Updated date */
+@property (nonatomic, retain) NSDate *updatedAt;
+
 /** Room JID. If private chat, room JID will be nil */
 @property (nonatomic, retain) NSString *roomJID;
 
