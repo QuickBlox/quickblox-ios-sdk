@@ -7,13 +7,29 @@
 //
 
 
-class ChatUsersInfoTableViewController: UsersListTableViewController {
+class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServiceDelegate {
     var occupantsIDs: [UInt] = []
     var dialog: QBChatDialog?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
+        self.updateUsers()
+        ServicesManager.instance.chatService.addDelegate(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        ServicesManager.instance.chatService.removeDelegate(self)
+    }
+    
+    func updateUsers() {
         if let chatDialog = self.dialog  {
             
             var users = self.users.filter({contains(chatDialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) && ($0 as QBUUser).ID != ServicesManager.instance.currentUser()!.ID})
@@ -31,6 +47,16 @@ class ChatUsersInfoTableViewController: UsersListTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+        
+        if (chatDialog.ID == self.dialog!.ID) {
+            self.dialog = chatDialog
+            self.updateUsers()
+            self.tableView.reloadData()
+        }
+        
     }
     
 }

@@ -80,12 +80,6 @@
  */
 @property (nonatomic, getter = isRead) BOOL read;
 
-/**
- The dialog ID to which this message belongs.
- */
-@property (nonatomic, readonly) NSString *dialogId;
-
-
 /** Create new message
  @return New instance of QBChatMessage
  */
