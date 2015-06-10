@@ -118,7 +118,7 @@
 }
 
 - (void)cachedMessagesWithDialogID:(NSString *)dialogID block:(QMCacheCollection)block {
-	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:@"id" ascending:YES completion:^(NSArray *array) {
+	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:@"messageID" ascending:YES completion:^(NSArray *array) {
 		block(array);
 	}];
 }
