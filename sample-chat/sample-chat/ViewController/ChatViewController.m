@@ -13,7 +13,13 @@
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QBServicesManager.h"
 
+@interface ChatViewController () <QMChatServiceDelegate>
+
+@end
+
 @implementation ChatViewController
+
+#pragma mark - Override
 
 - (NSUInteger)senderID
 {
@@ -24,6 +30,8 @@
 {
     return [QBSession currentSession].currentUser.fullName;
 }
+
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -43,6 +51,20 @@
         [strongSelf.collectionView reloadData];
         [strongSelf scrollToBottomAnimated:NO];
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[QBServicesManager instance].chatService addDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[QBServicesManager instance].chatService removeDelegate:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -235,4 +257,17 @@
     return timeStamp;
 }
 
+#pragma mark - QMChatServiceDelegate
+
+- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
+{
+    if ([self.dialog.ID isEqualToString:dialogID]) {
+        [self.items addObject:message];
+        
+        [self.collectionView reloadData];
+        [self scrollToBottomAnimated:NO];
+    }
+}
+
 @end
+
