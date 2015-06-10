@@ -112,7 +112,7 @@
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
-        
+    
     __weak typeof(self) weakSelf = self;
     [[QBServicesManager instance].chatService sendMessage:message toDialog:self.dialog save:YES completion:^(NSError *error) {
         typeof(self) strongSelf = weakSelf;
@@ -172,7 +172,8 @@
     
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0.184 green:0.467 blue:0.733 alpha:1.000], NSFontAttributeName:font};
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID] attributes:attributes];
+    NSString* topLabelText = (messageItem.senderNick != nil) ? messageItem.senderNick : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:topLabelText attributes:attributes];
     
     return attrStr;
 }

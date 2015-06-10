@@ -950,7 +950,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
-					"/Users/seven/Documents/work/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
@@ -980,7 +979,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
-					"/Users/seven/Documents/work/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sample-chat/sample-chat-Prefix.pch";
