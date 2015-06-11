@@ -5,27 +5,23 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>ECA5E17E-4C07-4FBE-A189-80D2AAAAABB8</string>
+	<string>E3573E96-B1F5-4FC6-80B3-0DFFD5977C04</string>
 	<key>IDESourceControlProjectName</key>
-	<string>SimpleSample-users-ios</string>
+	<string>sample-users</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
-		<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
-		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
-		<string>ssh://github.com/QuickBlox/SDK-ios.git</string>
+		<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>sample-users/SimpleSample-users-ios.xcworkspace</string>
+	<string>sample-users/sample-users.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
-		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
-		<string>../../../SDK-iOS</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
+	<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -39,14 +35,6 @@
 			<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
 			<key>IDESourceControlWCCName</key>
 			<string>quickblox-ios-sdk</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E650A564D3C23A22EE433AE21D0EA044E7E7A475</string>
-			<key>IDESourceControlWCCName</key>
-			<string>SDK-iOS</string>
 		</dict>
 	</array>
 </dict>

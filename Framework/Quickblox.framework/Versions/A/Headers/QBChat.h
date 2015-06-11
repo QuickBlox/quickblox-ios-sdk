@@ -56,9 +56,7 @@ typedef enum QBChatServiceError {
   The default value is 5 seconds */
 @property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
 
-/**
- *  Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator.
- */
+/** Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator. */
 @property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
 
 
@@ -305,6 +303,18 @@ typedef enum QBChatServiceError {
  @param userID user ID
  */
 - (void)sendUserStopTypingToUserWithID:(NSUInteger)userID;
+
+#pragma mark -
+#pragma mark System Messages
+
+/**
+ *  Send system message to dialog.
+ *
+ *  @param message Chat message to send.
+ *
+ *  @return YES if the message was sent. If not - see log.
+ */
+- (BOOL)sendSystemMessage:(QBChatMessage *)message;
 
 @end
 
