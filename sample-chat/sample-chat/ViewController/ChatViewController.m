@@ -151,8 +151,8 @@
 
 #pragma mark - Cell classes
 
-- (Class)viewClassForItem:(QBChatMessage *)item {
-    
+- (Class)viewClassForItem:(QBChatMessage *)item
+{    
     if (item.senderID == QMMessageTypeContactRequest) {
         if (item.senderID != self.senderID) {
             return [QMChatContactRequestCell class];
@@ -255,6 +255,13 @@
     NSString *timeStamp = [dateFormatter stringFromDate:date];
     
     return timeStamp;
+}
+
+- (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
+    QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
+    layoutModel.avatarSize = (CGSize){0.0, 0.0};
+    
+    return layoutModel;
 }
 
 #pragma mark - QMChatServiceDelegate
