@@ -23,16 +23,10 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
         ServicesManager.instance.chatService.addDelegate(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        ServicesManager.instance.chatService.removeDelegate(self)
-    }
-    
     func updateUsers() {
         if let chatDialog = self.dialog  {
             
-            var users = self.users.filter({contains(chatDialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) && ($0 as QBUUser).ID != ServicesManager.instance.currentUser()!.ID})
+            var users = ConnectionManager.instance.usersDataSource.users.filter({contains(chatDialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) && ($0 as QBUUser).ID != ServicesManager.instance.currentUser()!.ID})
             self.users = users
         }
     }

@@ -32,16 +32,10 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         self.checkCreateChatButtonState()
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        ServicesManager.instance.chatService.removeDelegate(self)
-    }
-    
     func updateUsers() {
         if let dialog = self.dialog  {
             
-            var users = self.users.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) })
+            var users = ConnectionManager.instance.usersDataSource.users.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) })
             self.users = users
         }
     }
