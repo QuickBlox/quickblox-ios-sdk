@@ -74,18 +74,28 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             SVProgressHUD.showWithStatus("SA_STR_DELETING".localized, maskType: SVProgressHUDMaskType.Clear)
                             assert(cell.dialogID != "")
                             
-                            ServicesManager.instance.chatService.deleteDialogWithID(cell.dialogID, completion: { (response: QBResponse!) -> Void in
+                            if let dialog = ServicesManager.instance.chatService.dialogsMemoryStorage.chatDialogWithID(cell.dialogID) {
                                 
-                                if response.success {
+                                var occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance.currentUser().ID} )
+                                
+                                dialog.occupantIDs = occupantIDs
+                                
+                                ServicesManager.instance.chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance.currentUser().login) has leave the dialog", completion: { (error: NSError!) -> Void in
                                     
-                                    SVProgressHUD.showSuccessWithStatus("SA_STR_DELETED".localized)
-                                    
-                                } else {
-                                    
-                                    SVProgressHUD.showErrorWithStatus("SA_STR_ERROR_DELETING".localized)
-                                    println(response.error.error)
-                                }
-                            })
+                                    ServicesManager.instance.chatService.deleteDialogWithID(dialog.ID, completion: { (response: QBResponse!) -> Void in
+                                        
+                                        if response.success {
+                                            
+                                            SVProgressHUD.showSuccessWithStatus("SA_STR_DELETED".localized)
+                                            
+                                        } else {
+                                            
+                                            SVProgressHUD.showErrorWithStatus("SA_STR_ERROR_DELETING".localized)
+                                            println(response.error.error)
+                                        }
+                                    })
+                                })
+                            }
                         }
                         })
                 }

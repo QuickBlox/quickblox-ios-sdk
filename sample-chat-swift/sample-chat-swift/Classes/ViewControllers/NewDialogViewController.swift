@@ -7,7 +7,7 @@
 //
 
 
-class NewDialogViewController: UsersListTableViewController {
+class NewDialogViewController: UsersListTableViewController, QMChatServiceDelegate {
     var dialog: QBChatDialog?
     
     private var delegate : SwipeableTableViewCellWithBlockButtons!
@@ -17,18 +17,27 @@ class NewDialogViewController: UsersListTableViewController {
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
         self.checkCreateChatButtonState()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        if let dialog = self.dialog  {
-            
-            var users = self.users.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) })
-            self.users = users
-        }
+        self.updateUsers()
+        ServicesManager.instance.chatService.addDelegate(self)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
         self.checkCreateChatButtonState()
+    }
+    
+    func updateUsers() {
+        if let dialog = self.dialog  {
+            
+            var users = ConnectionManager.instance.usersDataSource.users.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) })
+            self.users = users
+        }
     }
     
     func checkCreateChatButtonState() {
@@ -70,12 +79,7 @@ class NewDialogViewController: UsersListTableViewController {
             
             if dialog.type == .Group {
                 
-                dialog.setPushOccupantsIDs(users.map{ $0.ID })
-                
-                QBRequest.updateDialog(dialog, successBlock: completion, errorBlock: { (response: QBResponse!) -> Void in
-                    
-                    completion(response, nil)
-                })
+                self.updateGroupChatWithNewUsers(users)
                 
             } else {
                 
@@ -105,7 +109,7 @@ class NewDialogViewController: UsersListTableViewController {
                     
                     var chatName = text
                     
-                    if chatName == nil {
+                    if chatName!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty {
                         chatName = self.nameForGroupChatWithUsers(users)
                     }
                     
@@ -121,20 +125,34 @@ class NewDialogViewController: UsersListTableViewController {
     }
     
     func updateGroupChatWithNewUsers(users:[QBUUser]) {
-        self.dialog!.setPushOccupantsIDs(users.map{ $0.ID })
+        let usersIDs = users.map{ $0.ID }
         
-        QBRequest.updateDialog(self.dialog, successBlock: { [weak self] (response: QBResponse!, updatedDialog: QBChatDialog!) -> Void in
+        ServicesManager.instance.chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: self.dialog!) { (response: QBResponse!, dialog: QBChatDialog!) -> Void in
             
-            SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
-            self?.navigationItem.leftBarButtonItem!.enabled = true
-            println(updatedDialog)
-            
-            self?.processeNewDialog(updatedDialog)
-            
-            }) { (response: QBResponse!) -> Void in
+            if (response.error == nil) {
+                
+                ServicesManager.instance.chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog)
+                
+                ServicesManager.instance.chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
+                
+                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
+                
+                if let rightBarButtonItem = self.navigationItem.rightBarButtonItem {
+                    rightBarButtonItem.enabled = true
+                }
+                
+                println(dialog)
+                
+                self.processeNewDialog(dialog)
+                
+            } else {
+                
                 self.navigationItem.leftBarButtonItem!.enabled = true
                 println(response.error.error)
                 SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                
+            }
+            
         }
     }
     
@@ -148,26 +166,21 @@ class NewDialogViewController: UsersListTableViewController {
     
     func createChat(name: String?, users:[QBUUser], completion: (response: QBResponse!, createdDialog: QBChatDialog!) -> Void) {
         
-        var chatDialog = QBChatDialog()
-        chatDialog.occupantIDs = users.map({ $0.ID })
-        
-        if chatDialog.occupantIDs.count == 1 {
+        if users.count == 1 {
             
-            chatDialog.type = .Private
+            ServicesManager.instance.chatService.createPrivateChatDialogWithOpponent(users.first!, completion: { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
+                
+                completion(response: response, createdDialog: chatDialog)
+            })
             
         } else {
             
-            chatDialog.type = .Group
-            chatDialog.name = name!
-        }
-        
-        QBRequest.createDialog(chatDialog, successBlock: { [weak self] (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
-            
-                completion(response: response, createdDialog: createdDialog)
-            
-            }) { (response: QBResponse!) -> Void in
+            ServicesManager.instance.chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
+
+                ServicesManager.instance.chatService.notifyUsersWithIDs(chatDialog.occupantIDs, aboutAddingToDialog: chatDialog)
                 
-                completion(response: response, createdDialog: nil)
+                completion(response: response, createdDialog: chatDialog)
+            }
         }
     }
     
@@ -185,9 +198,8 @@ class NewDialogViewController: UsersListTableViewController {
         }
     }
     
-    /**
-    UITableView delegate methods
-    */
+    // MARK: - UITableViewDataSource
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
         let user = self.users[indexPath.row]
@@ -210,12 +222,26 @@ class NewDialogViewController: UsersListTableViewController {
         return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
     
+    // MARK: - UITableViewDelegate
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.checkCreateChatButtonState()
     }
 
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         self.checkCreateChatButtonState()
+    }
+    
+    // MARK: - QMChatServiceDelegate
+    
+    func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+        
+        if (chatDialog.ID == self.dialog!.ID) {
+            self.dialog = chatDialog
+            self.updateUsers()
+            self.tableView.reloadData()
+        }
+        
     }
     
 }
