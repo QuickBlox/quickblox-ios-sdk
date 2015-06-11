@@ -111,6 +111,7 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+    [SVProgressHUD dismiss];
 }
 
 @end
