@@ -70,6 +70,13 @@
 - (void)chatDidReceiveMessage:(QBChatMessage *)message;
 
 /**
+ didReceiveSystemMessage fired when new system message was received from QBChat
+ 
+ @param message Message received from Chat
+ */
+- (void)chatDidReceiveSystemMessage:(QBChatMessage *)message;
+
+/**
  didFailWithError fired when connection error occurs
  
  @warning *Deprecated in QB iOS SDK 2.3:* Use chatDidFailWithStreamError: instead

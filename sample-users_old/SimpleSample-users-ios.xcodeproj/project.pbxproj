@@ -537,7 +537,6 @@
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
 				PRODUCT_NAME = Users;
 				PROVISIONING_PROFILE = "3f3666e5-0de4-4af0-a260-af8921b354dd";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3f3666e5-0de4-4af0-a260-af8921b354dd";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
