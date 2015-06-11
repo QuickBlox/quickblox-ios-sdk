@@ -8,6 +8,7 @@
 
 #import "QBServicesManager.h"
 #import "StorageManager.h"
+#import "_CDMessage.h"
 
 @interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource>
 
@@ -118,7 +119,7 @@
 }
 
 - (void)cachedMessagesWithDialogID:(NSString *)dialogID block:(QMCacheCollection)block {
-	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:@"messageID" ascending:YES completion:^(NSArray *array) {
+	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:CDMessageAttributes.messageID ascending:YES completion:^(NSArray *array) {
 		block(array);
 	}];
 }
