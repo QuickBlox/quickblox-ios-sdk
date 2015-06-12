@@ -139,7 +139,7 @@
     message.text = text;
     message.senderID = senderId;
     
-    [[QBServicesManager instance].chatService sendMessage:message toDialog:self.dialog save:YES completion:nil];
+    [[QBServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
 }
 
