@@ -52,7 +52,7 @@
 /** Dialog owner */
 @property (nonatomic, assign) NSUInteger userID;
 
-/** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise or if you aren't logged in to Chat.  */
+/** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise.  */
 @property (nonatomic, readonly) NSInteger recipientID;
 
 /** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
