@@ -17,7 +17,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 
 @property (copy, nonatomic) void(^chatLoginCompletionBlock)(BOOL error);
 @property (strong, nonatomic) QBUUser *me;
-@property (strong, nonatomic) NSTimer *presenceTimer;
+@property (strong, nonatomic) QBBackgroundTimer *presenceTimer;
 
 @end
 
@@ -39,8 +39,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 
 #pragma mark - Login / Logout
 
-- (void)logInWithUser:(QBUUser *)user
-           completion:(void (^)(BOOL error))completion {
+- (void)logInWithUser:(QBUUser *)user completion:(void (^)(BOOL error))completion {
     
     [QBChat.instance loginWithUser:user];
     [QBChat.instance addDelegate:self];
@@ -88,14 +87,21 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 
 - (void)chatDidLogin {
     
-    QBChat.instance.useMutualSubscriptionForContactList = YES;
+    __weak __typeof(self)weakSelf = self;
     
     self.presenceTimer =
-    [NSTimer scheduledTimerWithTimeInterval:kChatPresenceTimeInterval
-                                     target:self
-                                   selector:@selector(sendChatPresence:)
-                                   userInfo:nil
-                                    repeats:YES];
+    [[QBBackgroundTimer alloc] initAndSheduleWithTimeInterval:kChatPresenceTimeInterval
+                                                     userInfo:nil
+                                                      repeats:YES timerDidFire:^{
+                                                          
+                                                          [[QBChat instance] sendPresence];
+                                                          
+                                                      } expirationHandler:^{
+                                                          
+                                                          [weakSelf.presenceTimer invalidate];
+                                                          weakSelf.presenceTimer = nil;
+                                                          
+                                                      }];
     
     if (self.chatLoginCompletionBlock) {
         self.chatLoginCompletionBlock(NO);
@@ -103,21 +109,12 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
     }
 }
 
-#pragma mark - Send chat presence
-
-- (void)sendChatPresence:(NSTimer *)timer {
-    
-    [[QBChat instance] sendPresence];
-}
-
 #pragma mark - Public
 
 - (NSArray *)usersWithIDS:(NSArray *)ids {
     
     NSMutableArray *users = [NSMutableArray arrayWithCapacity:ids.count];
-    [ids enumerateObjectsUsingBlock:^(NSNumber *userID,
-                                      NSUInteger idx,
-                                      BOOL *stop){
+    [ids enumerateObjectsUsingBlock:^(NSNumber *userID, NSUInteger idx, BOOL *stop){
         
         QBUUser *user = [self userWithID:userID];
         [users addObject:user];
@@ -129,9 +126,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 - (NSArray *)idsWithUsers:(NSArray *)users {
     
     NSMutableArray *ids = [NSMutableArray arrayWithCapacity:users.count];
-    [users enumerateObjectsUsingBlock:^(QBUUser  *obj,
-                                        NSUInteger idx,
-                                        BOOL *stop){
+    [users enumerateObjectsUsingBlock:^(QBUUser  *obj, NSUInteger idx,BOOL *stop){
         [ids addObject:@(obj.ID)];
     }];
     
@@ -166,9 +161,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 - (QBUUser *)userWithID:(NSNumber *)userID {
     
     __block QBUUser *resultUser = nil;
-    [self.users enumerateObjectsUsingBlock:^(QBUUser *user,
-                                             NSUInteger idx,
-                                             BOOL *stop) {
+    [self.users enumerateObjectsUsingBlock:^(QBUUser *user, NSUInteger idx, BOOL *stop) {
         
         if (user.ID == userID.integerValue) {
             

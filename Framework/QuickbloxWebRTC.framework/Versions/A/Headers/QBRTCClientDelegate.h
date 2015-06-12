@@ -13,14 +13,6 @@
 @optional
 
 /**
- * DEPRICATED
- *  Called in case when started new session with you
- *
- *  @param session QBWebRTCSession instance
- */
-- (void)didReceiveNewSession:(QBRTCSession *)session __attribute__((deprecated("use 'didReceiveNewSession:userInfo'.")));
-
-/**
  *  Called in case when started new session with you
  *
  *  @param session  QBWebRTCSession instance
@@ -49,14 +41,6 @@
  * @param userID ID of opponent
  */
 - (void)session:(QBRTCSession *)session acceptByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
-
-/**
- *  Called in case when opponent hung up
- *
- *  @param session QBRTCSession instance
- *  @param userID  ID of opponent
- */
-- (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID __attribute__((deprecated("use 'session:hungUpByUser:userInfo'.")));
 
 /**
  *  Called in case when opponent hung up
