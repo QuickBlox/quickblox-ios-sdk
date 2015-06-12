@@ -42,10 +42,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    if (!self.dialog.isJoined) {
-        [self.dialog join];
-    }
 
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];

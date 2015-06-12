@@ -66,6 +66,12 @@
 		if (response.error != nil) {
 			[SVProgressHUD showErrorWithStatus:@"Can not download"];
 		}
+        
+        for (QBChatDialog* dialog in dialogObjects) {
+            if (dialog.type != QBChatDialogTypePrivate) {
+                [dialog join];
+            }
+        }
 	} completion:^(QBResponse *response) {
 		if (shouldShowSuccessStatus) {
 			[SVProgressHUD showSuccessWithStatus:@"Completed"];
@@ -182,6 +188,16 @@
 - (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog
 {
 	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
+{
+    [self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
+{
+    [self.tableView reloadData];
 }
 
 @end
