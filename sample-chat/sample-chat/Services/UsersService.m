@@ -30,6 +30,7 @@
 	if (memoryUsers != nil && memoryUsers.count != 0) {
 		StorageManager.instance.users = memoryUsers;
 		completion(memoryUsers);
+        return;
 	}
 	
 	// check CoreData storage
@@ -74,7 +75,7 @@
 		[self.contactListService.usersMemoryStorage addUsers:users];
 		[QMContactListCache.instance insertOrUpdateUsers:users completion:nil];
 		
-		StorageManager.instance.users = [self.contactListService.usersMemoryStorage unsorterdUsers];
+		StorageManager.instance.users = users;
 		
 		if( successBlock != nil ) {
 			successBlock(users);

@@ -23,51 +23,54 @@
 
 @implementation LoginTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
 	[super viewDidLoad];
 	
 	[self retrieveUsers];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
 	[super viewWillAppear:animated];
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
 	[super viewWillDisappear:animated];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)retrieveUsers {
+- (void)retrieveUsers
+{
 	__weak __typeof(self)weakSelf = self;
 
 	[QBServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
-		if( users != nil && users.count != 0 ) {
+		if (users != nil && users.count != 0) {
 			[weakSelf loadDataSourceWithUsers:users];
 		}
 		[weakSelf downloadLatestUsers];
 	}];
 }
 
-- (void)downloadLatestUsers {
-	if( self.isUsersAreDownloading ) {
-		return;
-	}
+- (void)downloadLatestUsers
+{
+	if (self.isUsersAreDownloading) return;
+    
 	self.usersAreDownloading = YES;
 	
 	__weak __typeof(self)weakSelf = self;
-	if( self.dataSource == nil ) {
+	if (self.dataSource == nil) {
 		[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	}
 	
 	[QBServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
-		
-		if( weakSelf.dataSource == nil ){
+		if (weakSelf.dataSource == nil) {
 			[SVProgressHUD showSuccessWithStatus:@"Completed"];
 			[weakSelf loadDataSourceWithUsers:latestUsers];
-		}
-		else {
+		} else {
 			[weakSelf.dataSource addUsers:latestUsers];
 			[weakSelf.tableView reloadData];
 		}
@@ -79,7 +82,8 @@
 	}];
 }
 
-- (void)loadDataSourceWithUsers:(NSArray *)users {
+- (void)loadDataSourceWithUsers:(NSArray *)users
+{
 	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
