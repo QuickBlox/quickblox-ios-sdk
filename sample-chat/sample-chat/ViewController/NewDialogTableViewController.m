@@ -31,19 +31,19 @@
 	sender.enabled = NO;
 	__weak __typeof(self) weakSelf = self;
 	
-	if( self.tableView.indexPathsForSelectedRows.count == 1 ){
-		[self createChatWithName:nil completion:^{
+	if (self.tableView.indexPathsForSelectedRows.count == 1) {
+		[self createChatWithName:nil completion:^(QBChatDialog *dialog) {
 			sender.enabled = YES;
+            [self performSegueWithIdentifier:@"kQMChatViewController" sender:dialog];
 		}];
-	}
-	else {
+	} else {
 		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Join chat" andMessage:@""];
 		
 		__weak UIAlertDialog *weakDialog = dialog;
 		[dialog addButtonWithTitle:@"create" andHandler:^(NSInteger buttonIndex) {
 			if( buttonIndex == 0 ) { // first button
-				[weakSelf createChatWithName:[weakDialog textFieldText] completion:^{
-					NSLog(@"cmmm");
+				[weakSelf createChatWithName:[weakDialog textFieldText] completion:^(QBChatDialog *dialog){
+                    [self performSegueWithIdentifier:@"kQMChatViewController" sender:dialog];
 				}];
 			}
 		}];
@@ -53,17 +53,19 @@
 	}
 }
 
-- (void)createChatWithName:(NSString *)name completion:(void(^)())completion {
+- (void)createChatWithName:(NSString *)name completion:(void(^)(QBChatDialog* dialog))completion
+{
 	NSIndexSet *indexesForSelectedRows = [self.tableView.indexPathsForSelectedRows indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		return YES;
 	}];
 	
 	NSArray *selectedUsers = [QBServicesManager.instance.usersService.usersWithoutCurrentUser objectsAtIndexes:indexesForSelectedRows];
 	
-	if( selectedUsers.count == 1 ) {
+	if (selectedUsers.count == 1) {
 		[QBServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			NSLog(@"%@", createdDialog);
-			//TODO: perfom segue to chat
+            
+            completion(createdDialog);
 		}];
 	}
 	else if( selectedUsers.count > 1 ) {
@@ -76,12 +78,9 @@
 		}
 
 		[QBServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-			
-//			[QBServicesManager.instance.chatService notifyAboutCreatedDialog:createdDialog excludedOccupantIDs:nil occupantsCustomParameters:nil completion:^(NSError *error) {
-//				if( error == nil ) {
-//					[SVProgressHUD showSuccessWithStatus:@"CreatedDialog notification successfully sent!"];
-//				}
-//			}];
+            
+            [QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
+            completion(createdDialog);
 
 			//TODO: perfom segue to chat
 			NSLog(@"%@", createdDialog);
