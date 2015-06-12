@@ -29,21 +29,27 @@
 	[QBServicesManager.instance.chatService addDelegate:self];
 	
 	[self loadDialogs];
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
 	__weak __typeof(self)weakSelf = self;
-	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
-		[weakSelf loadDialogs];
+    
+	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                                                     object:nil queue:[NSOperationQueue mainQueue]
+                                                                                 usingBlock:^(NSNotification *note) {
+        __typeof(self) strongSelf = weakSelf;
+		[strongSelf loadDialogs];
 	}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-	[QBServicesManager.instance.chatService removeDelegate:self];
+    
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
@@ -84,7 +90,7 @@
 {
     SWTableViewCell *cell = (SWTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
-    QBChatDialog *chatDialog = [self dialogs][indexPath.row];
+    QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     cell.tag = indexPath.row;
     
     switch (chatDialog.type) {
@@ -140,9 +146,7 @@
 	
 	if (index == 0) {
         NSAssert(NO, @"Not implemented!");
-		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {
-			
-		}];
+		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {}];
 	}
 }
 
