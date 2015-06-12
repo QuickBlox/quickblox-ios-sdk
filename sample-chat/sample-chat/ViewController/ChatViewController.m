@@ -19,6 +19,12 @@
 
 @implementation ChatViewController
 
+- (void)refreshCollectionView
+{
+    [self.collectionView reloadData];
+    [self scrollToBottomAnimated:NO];
+}
+
 #pragma mark - Override
 
 - (NSUInteger)senderID
@@ -44,12 +50,14 @@
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
     
+    self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+    [self refreshCollectionView];
+    
     __weak typeof(self) weakSelf = self;
     [[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
         typeof(self) strongSelf = weakSelf;
         strongSelf.items = [messages mutableCopy];
-        [strongSelf.collectionView reloadData];
-        [strongSelf scrollToBottomAnimated:NO];
+        [strongSelf refreshCollectionView];
     }];
 }
 
@@ -115,7 +123,7 @@
     
     CGRect sendTitleRect = [sendTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, maxHeight)
                                                    options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                attributes:@{ NSFontAttributeName : sendButton.titleLabel.font }
+                                                attributes:@{NSFontAttributeName : sendButton.titleLabel.font}
                                                    context:nil];
     
     sendButton.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(CGRectIntegral(sendTitleRect)), maxHeight);
@@ -129,19 +137,14 @@
            withMessageText:(NSString *)text
                   senderId:(NSUInteger)senderId
          senderDisplayName:(NSString *)senderDisplayName
-                      date:(NSDate *)date {
-    
+                      date:(NSDate *)date
+{
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
     
-    __weak typeof(self) weakSelf = self;
-    [[QBServicesManager instance].chatService sendMessage:message toDialog:self.dialog save:YES completion:^(NSError *error) {
-        typeof(self) strongSelf = weakSelf;
-        [strongSelf.items addObject:message];
-        
-        [strongSelf finishSendingMessageAnimated:YES];
-    }];
+    [[QBServicesManager instance].chatService sendMessage:message toDialog:self.dialog save:YES completion:nil];
+    [self finishSendingMessageAnimated:YES];
 }
 
 - (void)didPressAccessoryButton:(UIButton *)sender
@@ -270,9 +273,7 @@
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {
         [self.items addObject:message];
-        
-        [self.collectionView reloadData];
-        [self scrollToBottomAnimated:NO];
+        [self refreshCollectionView];
     }
 }
 

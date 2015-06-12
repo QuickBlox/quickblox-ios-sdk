@@ -29,8 +29,6 @@
 	[QBServicesManager.instance.chatService addDelegate:self];
 	
 	[self loadDialogs];
-    
-    self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -44,6 +42,8 @@
         __typeof(self) strongSelf = weakSelf;
 		[strongSelf loadDialogs];
 	}];
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -98,6 +98,7 @@
             cell.detailTextLabel.text = chatDialog.lastMessageText;
 			QBUUser *recipient = [QBServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
+            cell.imageView.image = [UIImage imageNamed:@"chatRoomIcon"];
         }
             break;
         case QBChatDialogTypeGroup: {
@@ -145,8 +146,11 @@
 	QBChatDialog *chatDialog = self.dialogs[cell.tag];
 	
 	if (index == 0) {
-        NSAssert(NO, @"Not implemented!");
-		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {}];
+        __typeof(self) weakSelf = self;
+		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {
+            __typeof(self) strongSelf = weakSelf;
+            [strongSelf.tableView reloadData];
+        }];
 	}
 }
 
