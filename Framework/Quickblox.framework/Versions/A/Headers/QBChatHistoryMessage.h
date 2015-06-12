@@ -27,4 +27,7 @@
  */
 @property (nonatomic, getter = isRead) BOOL read;
 
+/** The array if users' ids who read this message. */
+@property (nonatomic, retain) NSArray *readIDs;
+
 @end

@@ -36,7 +36,6 @@
         
         // set Chat delegate
         [[QBChat instance] addDelegate:self];
-        [QBChat instance].useMutualSubscriptionForContactList = NO;
         //
         [QBChat instance].autoReconnectEnabled = YES;
         [QBChat instance].streamManagementEnabled = YES;
