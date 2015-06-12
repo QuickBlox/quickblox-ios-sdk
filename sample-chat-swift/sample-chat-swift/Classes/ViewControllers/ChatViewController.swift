@@ -29,7 +29,11 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate, QMChatServi
             
             if !chatRoom.isJoined {
                 
-                chatRoom.joinRoom()
+//                chatRoom.joinRoom()
+                
+                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
+                    
+                })
             }
 		}
         

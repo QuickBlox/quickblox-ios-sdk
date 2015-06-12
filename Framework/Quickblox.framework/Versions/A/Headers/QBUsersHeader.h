@@ -11,5 +11,6 @@
 
 #import <Quickblox/QBUUser.h>
 #import <Quickblox/QBRequest+QBUsers.h>
+#import <Quickblox/QBUpdateUserParameters.h>
 
 #endif

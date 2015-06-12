@@ -74,7 +74,11 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             SVProgressHUD.showWithStatus("SA_STR_DELETING".localized, maskType: SVProgressHUDMaskType.Clear)
                             assert(cell.dialogID != "")
                             
+                            
+                            
                             if let dialog = ServicesManager.instance.chatService.dialogsMemoryStorage.chatDialogWithID(cell.dialogID) {
+                                
+                                dialog.leave()
                                 
                                 var occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance.currentUser().ID} )
                                 

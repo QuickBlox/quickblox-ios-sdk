@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBConnection.setAutoCreateSessionEnabled(true)
 		QBSettings.setAccountKey(kQBAccountKey)
 		QBSettings.setLogLevel(QBLogLevel.Debug)
+        QBSettings.enableXMPPLogging()
 		
 		ConnectionManager.instance.startObservingInternetAvailability()
 		
