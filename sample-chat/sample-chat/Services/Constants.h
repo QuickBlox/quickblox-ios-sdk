@@ -45,4 +45,10 @@ static NSString *const kGoToEditDialogSegueIdentifier = @"goToEditDialog";
  *  DialogInfoTableViewController
  */
 static NSString *const kGoToAddOccupantsSegueIdentifier = @"goToAddOccupants";
+
+/**
+ *  Segues
+ */
+
+static NSString *const kQMChatViewController = @"kQMChatViewController";
 #endif
