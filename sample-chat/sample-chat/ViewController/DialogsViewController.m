@@ -81,7 +81,7 @@
 
 - (NSArray *)dialogs
 {
-	return QBServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
+	return [QBServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByLastMessageDateWithAscending:NO];
 }
 
 #pragma mark
