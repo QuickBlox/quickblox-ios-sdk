@@ -75,10 +75,11 @@
 /** Updated date */
 @property (nonatomic, retain) NSDate *updatedAt;
 
-/**
- Message flag. Mark this flag
- */
+/** 'Read' status of a message */
 @property (nonatomic, getter = isRead) BOOL read;
+
+/** The array if users' ids who read this message. */
+@property (nonatomic, retain) NSArray *readIDs;
 
 /** Create new message
  @return New instance of QBChatMessage

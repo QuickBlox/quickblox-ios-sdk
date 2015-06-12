@@ -61,17 +61,15 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             
             sender.enabled = true
             
-            if response.error != nil {
-                
-                println(response.error.error)
-                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
-                
-            } else {
-                
+            if createdDialog != nil {
                 println(createdDialog)
                 SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
                 self.processeNewDialog(createdDialog)
-                
+            }
+            
+            if response != nil && response.error != nil {
+                println(response.error.error)
+                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
             }
         }
         
@@ -236,7 +234,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
         
-        if (chatDialog.ID == self.dialog!.ID) {
+        if (chatDialog.ID == self.dialog?.ID) {
             self.dialog = chatDialog
             self.updateUsers()
             self.tableView.reloadData()
