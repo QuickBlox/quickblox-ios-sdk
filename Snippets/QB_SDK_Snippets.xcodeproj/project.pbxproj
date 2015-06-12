@@ -603,7 +603,7 @@
 				);
 				PRODUCT_NAME = Snippets;
 				PROVISIONING_PROFILE = "3f3666e5-0de4-4af0-a260-af8921b354dd";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3f3666e5-0de4-4af0-a260-af8921b354dd";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "fcc89649-7d0d-4008-8935-f3027c255a1d";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;

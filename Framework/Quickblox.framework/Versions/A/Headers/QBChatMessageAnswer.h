@@ -15,6 +15,7 @@
     
     NSMutableDictionary *customParams;
     NSMutableArray *attachments;
+    NSMutableArray *readIDs;
 }
 
 @property (nonatomic, readonly) QBChatHistoryMessage *message;
