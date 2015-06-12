@@ -11,6 +11,6 @@
 
 @interface ChatViewController : QMChatViewController
 
-@property (nonatomic, strong) QBChatDialog* dialog;
+@property (nonatomic, copy) QBChatDialog* dialog;
 
 @end
