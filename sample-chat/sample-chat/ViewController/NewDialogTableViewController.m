@@ -39,6 +39,12 @@
     }
 }
 
+- (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog
+{
+    [self performSegueWithIdentifier:kQMChatViewController sender:dialog];
+    [self removeFromParentViewController];
+}
+
 - (IBAction)joinChatButtonPressed:(UIButton *)sender {
 	sender.enabled = NO;
 	__weak __typeof(self) weakSelf = self;
@@ -47,20 +53,18 @@
 		[self createChatWithName:nil completion:^(QBChatDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
 			sender.enabled = YES;
-            [strongSelf performSegueWithIdentifier:@"kQMChatViewController" sender:dialog];
-            [strongSelf removeFromParentViewController];
+            [strongSelf navigateToChatViewControllerWithDialog:dialog];
 		}];
 	} else {
 		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Join chat" andMessage:@""];
 		
 		__weak UIAlertDialog *weakDialog = dialog;
-		[dialog addButtonWithTitle:@"create" andHandler:^(NSInteger buttonIndex) {
+		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex) {
             __typeof(self) strongSelf = weakSelf;
-			if( buttonIndex == 0 ) { // first button
+			if (buttonIndex == 0) { // first button
 				[strongSelf createChatWithName:[weakDialog textFieldText] completion:^(QBChatDialog *dialog){
-                    [strongSelf performSegueWithIdentifier:@"kQMChatViewController" sender:dialog];
-                    [strongSelf removeFromParentViewController];
-				}];
+                    [strongSelf navigateToChatViewControllerWithDialog:dialog];
+                }];
 			}
 		}];
 		dialog.showTextField = YES;
@@ -82,10 +86,10 @@
 		[QBServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
             completion(createdDialog);
 		}];
-	} else if( selectedUsers.count > 1 ) {
-		if( name == nil || [[name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+	} else if (selectedUsers.count > 1) {
+		if (name == nil || [[name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
 			name = [NSString stringWithFormat:@"%@_", [QBSession currentSession].currentUser.login];
-			for( QBUUser *user in selectedUsers ) {
+			for (QBUUser *user in selectedUsers) {
 				name = [NSString stringWithFormat:@"%@%@,", name, user.login];
 			}
 			name = [name substringToIndex:name.length - 1]; // remove last , (comma)
@@ -96,17 +100,16 @@
             [QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
             completion(createdDialog);
 		}];
-	}
-	else {
+	} else {
 		assert("no users given");
 	}
 }
 
 #pragma mark UITableView delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 	[self checkJoinChatButtonState];
 }
-
 
 @end
