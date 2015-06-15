@@ -26,9 +26,10 @@
 	
 	__weak __typeof(self) weakSelf = self;
 	[QBServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-		weakSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:users];
-		weakSelf.tableView.dataSource = weakSelf.usersDatasource;
-		[weakSelf.tableView reloadData];
+        __typeof(self) strongSelf = weakSelf;
+		strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:users];
+		strongSelf.tableView.dataSource = weakSelf.usersDatasource;
+		[strongSelf.tableView reloadData];
 	}];
     [[QBServicesManager instance].chatService addDelegate:self];
 }
