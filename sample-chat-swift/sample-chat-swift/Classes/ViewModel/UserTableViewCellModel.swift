@@ -24,7 +24,7 @@ class UserTableViewCellModel: NSObject {
             
 //			assert(StorageManager.instance.dialogsUsers.count > 0)
             
-            let users = StorageManager.instance.dialogsUsers
+            let users = ConnectionManager.instance.usersDataSource.users
             
             var filteredUsers = users.filter(){ $0.ID == UInt(dialog.recipientID) }
             
