@@ -45,7 +45,7 @@
 - (void)logInWithUser:(QBUUser *)user
 		   completion:(void (^)(BOOL success, NSString *errorMessage))completion {
 	
-	[[QBServicesManager instance].authService logInWithUser:[user copy] completion:^(QBResponse *response, QBUUser *userProfile) {
+	[[QBServicesManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
 		
 		if( response.error != nil ){
 			if( completion != nil ) {
