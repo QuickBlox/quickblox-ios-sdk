@@ -33,7 +33,9 @@
 		  [UIColor colorWithRed:0.786 green:0.706 blue:0.000 alpha:1.000],
 		  [UIColor colorWithRed:0.740 green:0.624 blue:0.797 alpha:1.000]];
 		_excludeUsersIDs = @[];
-		_customUsers = [users copy];
+		_customUsers =  [[users copy] sortedArrayUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+			return [obj1.login compare:obj2.login options:NSNumericSearch];
+		}];
 		_users = _customUsers == nil ? StorageManager.instance.users : _customUsers;
 	}
 	return self;
