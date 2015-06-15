@@ -78,8 +78,6 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             
                             if let dialog = ServicesManager.instance.chatService.dialogsMemoryStorage.chatDialogWithID(cell.dialogID) {
                                 
-                                dialog.leave()
-                                
                                 var occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance.currentUser().ID} )
                                 
                                 dialog.occupantIDs = occupantIDs
