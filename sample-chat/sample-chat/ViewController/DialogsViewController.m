@@ -69,7 +69,9 @@
         
         for (QBChatDialog* dialog in dialogObjects) {
             if (dialog.type != QBChatDialogTypePrivate) {
-                [dialog join];
+                [[QBServicesManager instance].chatService joinToGroupDialog:dialog completion:^(NSError *error) {
+                    NSLog(@"");
+                }];
             }
         }
 	} completion:^(QBResponse *response) {
