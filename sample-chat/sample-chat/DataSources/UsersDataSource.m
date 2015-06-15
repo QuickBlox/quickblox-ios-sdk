@@ -58,24 +58,23 @@
 }
 
 - (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {
-	if( excludeUsersIDs == nil ){
+	if  (excludeUsersIDs == nil) {
 		_users = self.customUsers == nil ? self.customUsers : StorageManager.instance.users;
 		return;
 	}
-	if( [excludeUsersIDs isEqualToArray:self.users] ) {
+	if ([excludeUsersIDs isEqualToArray:self.users]) {
 		return;
 	}
-	if( self.customUsers == nil ){
+	if (self.customUsers == nil) {
 		_users = [StorageManager.instance.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
-	}
-	else {
+	} else {
 		_users = self.customUsers;
 	}
 	// add excluded users to future remove
 	NSMutableArray *excludedUsers = [NSMutableArray array];
 	[_users enumerateObjectsUsingBlock:^(QBUUser *obj, NSUInteger idx, BOOL *stop) {
-		for( NSNumber *excID in excludeUsersIDs ) {
-			if( obj.ID == excID.integerValue ) {
+		for (NSNumber *excID in excludeUsersIDs) {
+			if (obj.ID == excID.integerValue) {
 				[excludedUsers addObject:obj];
 			}
 		}
@@ -92,7 +91,7 @@
 }
 
 - (UIColor *)colorForUser:(QBUUser *)user {
-	NSUInteger idx = [self.users indexOfObject:user];
+	NSUInteger idx = [self indexOfUser:user];
 	return self.colors[idx];
 }
 

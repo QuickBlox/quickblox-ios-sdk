@@ -35,15 +35,21 @@
 {
 	[super viewWillAppear:animated];
 	__weak __typeof(self)weakSelf = self;
-	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue]  usingBlock:^(NSNotification *note) {
-		[weakSelf loadDialogs];
+    
+	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                                                     object:nil queue:[NSOperationQueue mainQueue]
+                                                                                 usingBlock:^(NSNotification *note) {
+        __typeof(self) strongSelf = weakSelf;
+		[strongSelf loadDialogs];
 	}];
+    
+    self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-	[QBServicesManager.instance.chatService removeDelegate:self];
+    
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
@@ -60,6 +66,12 @@
 		if (response.error != nil) {
 			[SVProgressHUD showErrorWithStatus:@"Can not download"];
 		}
+        
+        for (QBChatDialog* dialog in dialogObjects) {
+            if (dialog.type != QBChatDialogTypePrivate) {
+                [dialog join];
+            }
+        }
 	} completion:^(QBResponse *response) {
 		if (shouldShowSuccessStatus) {
 			[SVProgressHUD showSuccessWithStatus:@"Completed"];
@@ -69,7 +81,7 @@
 
 - (NSArray *)dialogs
 {
-	return QBServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs;
+	return [QBServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByLastMessageDateWithAscending:NO];
 }
 
 #pragma mark
@@ -84,7 +96,7 @@
 {
     SWTableViewCell *cell = (SWTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
-    QBChatDialog *chatDialog = [self dialogs][indexPath.row];
+    QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     cell.tag = indexPath.row;
     
     switch (chatDialog.type) {
@@ -92,6 +104,7 @@
             cell.detailTextLabel.text = chatDialog.lastMessageText;
 			QBUUser *recipient = [QBServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
+            cell.imageView.image = [UIImage imageNamed:@"chatRoomIcon"];
         }
             break;
         case QBChatDialogTypeGroup: {
@@ -139,10 +152,11 @@
 	QBChatDialog *chatDialog = self.dialogs[cell.tag];
 	
 	if (index == 0) {
-        NSAssert(NO, @"Not implemented!");
+        __typeof(self) weakSelf = self;
 		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {
-			
-		}];
+            __typeof(self) strongSelf = weakSelf;
+            [strongSelf.tableView reloadData];
+        }];
 	}
 }
 
@@ -174,6 +188,16 @@
 - (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog
 {
 	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
+{
+    [self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
+{
+    [self.tableView reloadData];
 }
 
 @end

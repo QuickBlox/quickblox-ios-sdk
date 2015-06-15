@@ -8,6 +8,7 @@
 
 #import "QBServicesManager.h"
 #import "StorageManager.h"
+#import "_CDMessage.h"
 
 @interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource>
 
@@ -44,7 +45,7 @@
 - (void)logInWithUser:(QBUUser *)user
 		   completion:(void (^)(BOOL success, NSString *errorMessage))completion {
 	
-	[[QBServicesManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
+	[[QBServicesManager instance].authService logInWithUser:[user copy] completion:^(QBResponse *response, QBUUser *userProfile) {
 		
 		if( response.error != nil ){
 			if( completion != nil ) {
@@ -118,7 +119,7 @@
 }
 
 - (void)cachedMessagesWithDialogID:(NSString *)dialogID block:(QMCacheCollection)block {
-	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:@"id" ascending:YES completion:^(NSArray *array) {
+	[QMChatCache.instance messagesWithDialogId:dialogID sortedBy:CDMessageAttributes.messageID ascending:YES completion:^(NSArray *array) {
 		block(array);
 	}];
 }

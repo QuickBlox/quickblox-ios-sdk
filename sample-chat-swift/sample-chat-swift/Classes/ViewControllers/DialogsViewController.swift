@@ -35,6 +35,21 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        
+//        QBRequest.dialogsForPage(nil, extendedRequest: ["ID" : "557ae2796390d86b9b015b9e"], successBlock: { (response:QBResponse!, results: [AnyObject]!, set: Set<NSObject>!, page: QBResponsePage!) -> Void in
+//            
+//        }) { (response: QBResponse!) -> Void in
+//            
+//        }
+        
+        for dialog : QBChatDialog in self.dialogs() {
+            
+            if dialog.type != QBChatDialogType.Private {
+                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
+                    
+                })
+            }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -127,7 +142,9 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dialogs().count
+        var numberOfRowsInSection = self.dialogs().count
+        
+        return numberOfRowsInSection
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -160,14 +177,32 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     // MARK: - QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [AnyObject]!) {
+        
+//        for dialog : QBChatDialog in chatDialogs as! [QBChatDialog] {
+//            
+//            if dialog.type != QBChatDialogType.Private {
+//                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
+//                    
+//                })
+//            }
+//        }
+        
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+        
+//        if chatDialog.type != QBChatDialogType.Private {
+//            ServicesManager.instance.chatService.joinToGroupDialog(chatDialog, completion: { (error: NSError!) -> Void in
+//                
+//            })
+//        }
+        
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String!) {
+        
         self.tableView.reloadData()
     }
 }
