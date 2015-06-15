@@ -14,6 +14,7 @@
 + (instancetype)instance;
 
 - (void)logInWithUser:(QBUUser *)user completion:(void (^)(BOOL success, NSString *errorMessage))completion;
+- (void)logoutWithCompletion:(void(^)())completion;
 
 @property (nonatomic, readonly) QMAuthService* authService;
 @property (nonatomic, readonly) QMChatService* chatService;

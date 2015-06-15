@@ -88,6 +88,7 @@
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
 }
+
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -97,16 +98,18 @@
 	selectedUser.password = @"x6Bt0VDy5"; // default password for test users
 	
 	__weak __typeof(self)weakSelf = self;
-	
-	[QBServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
-		if( success ) {
-			[SVProgressHUD showSuccessWithStatus:@"Logged in"];
-			[weakSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
-		}
-		else {
-			[SVProgressHUD showErrorWithStatus:@"Can not login"];
-		}
-	}];
+    [[QBServicesManager instance] logoutWithCompletion:^{
+        [QBServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
+            if (success) {
+                [SVProgressHUD showSuccessWithStatus:@"Logged in"];
+                __typeof(self) strongSelf = weakSelf;
+                [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"Can not login"];
+            }
+        }];
+        
+    }];
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

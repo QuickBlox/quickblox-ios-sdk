@@ -13,7 +13,7 @@
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 
-@interface DialogsViewController () <QMChatServiceDelegate, SWTableViewCellDelegate>
+@interface DialogsViewController () <QMChatServiceDelegate, SWTableViewCellDelegate, QMAuthServiceDelegate>
 
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @property (nonatomic, readonly) NSArray* dialogs;
@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
 	
-	[QBServicesManager.instance.chatService addDelegate:self];    
+	[QBServicesManager.instance.chatService addDelegate:self];
 	
 	[self loadDialogs];
 }
@@ -53,6 +53,18 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
+- (IBAction)logoutButtonPressed:(id)sender
+{
+    [[QBServicesManager instance] logoutWithCompletion:^{
+        [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+    }];
+}
+
+- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue
+{
+    
+}
+
 - (void)loadDialogs
 {
 	BOOL shouldShowSuccessStatus = NO;
@@ -61,7 +73,7 @@
 		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
-    __typeof(self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
     [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
         __typeof(self) strongSelf = weakSelf;
 		if (response.error != nil) {
@@ -156,7 +168,7 @@
 	QBChatDialog *chatDialog = self.dialogs[cell.tag];
 	
 	if (index == 0) {
-        __typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         [[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
                                                 occupantsCustomParameters:nil
                                                          notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
@@ -189,8 +201,8 @@
     }
 }
 
-#pragma mark
-#pragma Notifications
+#pragma mark -
+#pragma mark Chat Service Delegate
 
 - (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs
 {

@@ -16,6 +16,9 @@
 @property (nonatomic, strong) QMChatService* chatService;
 @property (nonatomic, strong) UsersService* usersService;
 @property (nonatomic, strong) QMContactListService* contactListService;
+
+@property (nonatomic, strong) dispatch_group_t logoutGroup;
+
 @end
 
 @implementation QBServicesManager
@@ -30,6 +33,7 @@
         [_chatService addDelegate:self];
 		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
 		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
+        _logoutGroup = dispatch_group_create();
 	}
 	return self;
 }
@@ -43,30 +47,69 @@
 	return manager;
 }
 
+- (void)logoutWithCompletion:(void(^)())completion
+{
+    if ([QBSession currentSession].currentUser != nil) {
+        __weak typeof(self)weakSelf = self;
+        
+        [SVProgressHUD showWithStatus:@"Logging out..."];
+        
+        dispatch_group_enter(self.logoutGroup);
+        [self.authService logOut:^(QBResponse *response) {
+            __typeof(self) strongSelf = weakSelf;
+            [strongSelf.chatService logoutChat];
+            dispatch_group_leave(strongSelf.logoutGroup);
+        }];
+        
+        dispatch_group_enter(self.logoutGroup);
+        [[QMChatCache instance] deleteAllDialogs:^{
+            __typeof(self) strongSelf = weakSelf;
+            dispatch_group_leave(strongSelf.logoutGroup);
+        }];
+        
+        dispatch_group_enter(self.logoutGroup);
+        [[QMChatCache instance] deleteAllMessages:^{
+            __typeof(self) strongSelf = weakSelf;
+            dispatch_group_leave(strongSelf.logoutGroup);
+        }];
+        
+        dispatch_group_notify(self.logoutGroup, dispatch_get_main_queue(), ^{
+            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
+            if (completion) {
+                completion();
+            }
+        });
+    } else {
+        if (completion) {
+            completion();
+        }
+    }
+}
+
 - (void)logInWithUser:(QBUUser *)user
-		   completion:(void (^)(BOOL success, NSString *errorMessage))completion {
-	
-	[[QBServicesManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
-		
+		   completion:(void (^)(BOOL success, NSString *errorMessage))completion
+{
+	[self.authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
 		if (response.error != nil) {
 			if (completion != nil) {
 				completion(NO, response.error.error.localizedDescription);
 			}
 			return;
 		}
-		if (QBServicesManager.instance.currentUser != nil) {
-			[QBServicesManager.instance.chatService logoutChat];
-			[StorageManager.instance reset];
+		if (self.currentUser != nil) {
+
 		}
 		
-		[QBServicesManager.instance.chatService logIn:^(NSError *error) {
+        __weak typeof(self) weakSelf = self;
+		[self.chatService logIn:^(NSError *error) {
+            __typeof(self) strongSelf = weakSelf;
 			if (completion != nil) {
 				completion(error == nil, error.localizedDescription);
 			}
-            NSArray* dialogs = [self.chatService.dialogsMemoryStorage unsortedDialogs];
+            NSArray* dialogs = [strongSelf.chatService.dialogsMemoryStorage unsortedDialogs];
             for (QBChatDialog* dialog in dialogs) {
                 if (dialog.type != QBChatDialogTypePrivate) {
-                    [[QBServicesManager instance].chatService joinToGroupDialog:dialog completion:^(NSError *error) {                        
+                    [strongSelf.chatService joinToGroupDialog:dialog completion:^(NSError *error) {
                         NSLog(@"Join error: %@", error.localizedDescription);
                     }];
                 }
@@ -74,7 +117,6 @@
 		}];
 	}];
 }
-
 
 - (void)handleErrorResponse:(QBResponse *)response {
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
