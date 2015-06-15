@@ -25,4 +25,6 @@
 #import "NSMutableArray+SWUtilityButtons.h"
 #import "UIAlertDialog.h"
 #import "JSQMessagesViewController+PublicNotifications.h"
+
+#import "QMChatViewController.h"
 #endif

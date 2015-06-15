@@ -6,10 +6,9 @@
 //  Copyright (c) 2015 quickblox. All rights reserved.
 //
 
-class ChatViewController: JSQMessagesViewController, QBChatDelegate, QMChatServiceDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     let messagesBond: ArrayBond<QBChatMessage> = ArrayBond<QBChatMessage>()
     var showLoadingIndicator: Bond<Bool>!
-    var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     
     var chatViewModel: ChatViewModel!
