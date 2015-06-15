@@ -47,13 +47,13 @@
 	
 	[[QBServicesManager instance].authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
 		
-		if( response.error != nil ){
-			if( completion != nil ) {
+		if (response.error != nil) {
+			if (completion != nil) {
 				completion(NO, response.error.error.localizedDescription);
 			}
 			return;
 		}
-		if( QBServicesManager.instance.currentUser != nil ){
+		if (QBServicesManager.instance.currentUser != nil) {
 			[QBServicesManager.instance.chatService logoutChat];
 			[StorageManager.instance reset];
 		}
