@@ -30,6 +30,7 @@
 	SWTableViewCell *cell = (SWTableViewCell *) [super.tableView cellForRowAtIndexPath:indexPath];
 	
 	QBUUser *user = self.dataSource.users[indexPath.row];
+    
 	
 	return cell;
 }

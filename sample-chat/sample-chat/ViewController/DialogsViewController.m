@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
 	
-	[QBServicesManager.instance.chatService addDelegate:self];
+	[QBServicesManager.instance.chatService addDelegate:self];    
 	
 	[self loadDialogs];
 }
@@ -208,6 +208,11 @@
 }
 
 - (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
+{
+    [self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID
 {
     [self.tableView reloadData];
 }
