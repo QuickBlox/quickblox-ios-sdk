@@ -61,8 +61,9 @@
 		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
+    __typeof(self) weakSelf = self;
     [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
-        
+        __typeof(self) strongSelf = weakSelf;
 		if (response.error != nil) {
 			[SVProgressHUD showErrorWithStatus:@"Can not download"];
 		}
@@ -70,10 +71,11 @@
         for (QBChatDialog* dialog in dialogObjects) {
             if (dialog.type != QBChatDialogTypePrivate) {
                 [[QBServicesManager instance].chatService joinToGroupDialog:dialog completion:^(NSError *error) {
-                    NSLog(@"");
+                    NSAssert(error == nil, @"Failed to join room!");
                 }];
             }
         }
+        [strongSelf.tableView reloadData];
 	} completion:^(QBResponse *response) {
 		if (shouldShowSuccessStatus) {
 			[SVProgressHUD showSuccessWithStatus:@"Completed"];
@@ -155,10 +157,18 @@
 	
 	if (index == 0) {
         __typeof(self) weakSelf = self;
-		[QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID completion:^(QBResponse *response) {
-            __typeof(self) strongSelf = weakSelf;
-            [strongSelf.tableView reloadData];
-        }];
+        [[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
+                                                occupantsCustomParameters:nil
+                                                         notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
+                                                               completion:^(NSError *error) {
+                                                                   NSAssert(error == nil, @"Problems while deleting dialog!");
+                                                                   [QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID
+                                                                                                                   completion:^(QBResponse *response) {
+                                                                       __typeof(self) strongSelf = weakSelf;
+                                                                       [strongSelf.tableView reloadData];
+                                                                   }];
+                                                               }];
+
 	}
 }
 

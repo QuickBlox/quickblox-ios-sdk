@@ -10,7 +10,7 @@
 #import "StorageManager.h"
 #import "_CDMessage.h"
 
-@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource>
+@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource, QMChatServiceDelegate>
 
 @property (nonatomic, strong) QMAuthService* authService;
 @property (nonatomic, strong) QMChatService* chatService;
@@ -27,6 +27,7 @@
 		[QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
+        [_chatService addDelegate:self];
 		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
 		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
 	}
