@@ -92,7 +92,7 @@
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeClear];
+	[SVProgressHUD showWithStatus:@"Logging in..." maskType:SVProgressHUDMaskTypeClear];
 	
 	QBUUser *selectedUser = StorageManager.instance.users[indexPath.row];
 	selectedUser.password = @"x6Bt0VDy5"; // default password for test users
@@ -119,10 +119,14 @@
 - (void)reachabilityChanged:(NSNotification *)note {
 	ReachabilityManager *reach = [ReachabilityManager instance];
 	
-	if( reach.isReachable && StorageManager.instance.users == nil){
+	if (reach.isReachable && StorageManager.instance.users == nil) {
 		[self downloadLatestUsers];
 	}
 }
 
+- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue
+{
+    NSLog(@"Unwinded!");
+}
 
 @end
