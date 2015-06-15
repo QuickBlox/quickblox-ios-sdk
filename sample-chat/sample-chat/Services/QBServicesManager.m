@@ -60,9 +60,17 @@
 		}
 		
 		[QBServicesManager.instance.chatService logIn:^(NSError *error) {
-			if( completion != nil ) {
+			if (completion != nil) {
 				completion(error == nil, error.localizedDescription);
 			}
+            NSArray* dialogs = [self.chatService.dialogsMemoryStorage unsortedDialogs];
+            for (QBChatDialog* dialog in dialogs) {
+                if (dialog.type != QBChatDialogTypePrivate) {
+                    [[QBServicesManager instance].chatService joinToGroupDialog:dialog completion:^(NSError *error) {                        
+                        NSLog(@"Join error: %@", error.localizedDescription);
+                    }];
+                }
+            }
 		}];
 	}];
 }

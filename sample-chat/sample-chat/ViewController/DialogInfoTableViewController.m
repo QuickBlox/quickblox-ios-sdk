@@ -12,7 +12,7 @@
 #import "QBServicesManager.h"
 #import "EditDialogTableViewController.h"
 
-@interface DialogInfoTableViewController()
+@interface DialogInfoTableViewController() <QMChatServiceDelegate>
 
 @property (nonatomic, strong) UsersDataSource* usersDatasource;
 
@@ -30,6 +30,7 @@
 		weakSelf.tableView.dataSource = weakSelf.usersDatasource;
 		[weakSelf.tableView reloadData];
 	}];
+    [[QBServicesManager instance].chatService addDelegate:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -38,6 +39,18 @@
         EditDialogTableViewController* viewController = segue.destinationViewController;
         viewController.dialog = self.dialog;
     }
+}
+
+#pragma mark - QMChatServiceDelegate
+
+- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog
+{
+    NSLog(@"Hit!");
+}
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog
+{
+    NSLog(@"Hit!");
 }
 
 @end
