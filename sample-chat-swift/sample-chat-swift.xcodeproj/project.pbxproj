@@ -204,6 +204,7 @@
 		1437A78E1AC9948600A39692 /* sample-chat-swift */ = {
 			isa = PBXGroup;
 			children = (
+				2C171B7B1B2F06AE00F3A678 /* UI */,
 				2C6E80FB1B0F1AF100A6E86D /* Services */,
 				144E3EB41ACA8E5300E62645 /* Resources */,
 				68440F807651CA93C348EB22 /* Classes */,
@@ -267,6 +268,13 @@
 				147E76F91AE117E10067340A /* UIAlertDialog.m */,
 			);
 			name = UIAlertDialog;
+			sourceTree = "<group>";
+		};
+		2C171B7B1B2F06AE00F3A678 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 		2C6E80FB1B0F1AF100A6E86D /* Services */ = {
