@@ -58,7 +58,7 @@
                     <navigationItem key="navigationItem" title="Dialogs" id="xyb-kD-FKx">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="dhu-7F-tcV">
                             <connections>
-                                <segue destination="Hqn-vo-8LC" kind="unwind" unwindAction="backToLoginViewController:" id="etI-TW-QuP"/>
+                                <action selector="logoutButtonPressed:" destination="USy-AC-nck" id="uaW-2E-Qwv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="New Chat" id="eFn-LO-bqF">
@@ -70,7 +70,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="Hqn-vo-8LC" kind="unwind" identifier="kBackToLoginViewController" unwindAction="backToLoginViewController:" id="Mpo-i4-DSb"/>
+                        <segue destination="Hqn-vo-8LC" kind="unwind" identifier="kBackToLoginViewController" unwindAction="backToLoginViewController:" id="7qp-W3-EnP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H9v-f7-E6n" userLabel="First Responder" sceneMemberID="firstResponder"/>

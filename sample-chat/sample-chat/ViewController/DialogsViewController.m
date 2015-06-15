@@ -60,11 +60,6 @@
     }];
 }
 
-- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue
-{
-    
-}
-
 - (void)loadDialogs
 {
 	BOOL shouldShowSuccessStatus = NO;
