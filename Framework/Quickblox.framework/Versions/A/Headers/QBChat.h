@@ -59,6 +59,7 @@ typedef enum QBChatServiceError {
 /** Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator. */
 @property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
 
+- (id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
 
 #pragma mark -
 #pragma mark Multicaste Delegate
