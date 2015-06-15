@@ -212,6 +212,15 @@
  */
 + (QBLogLevel)logLevel;
 
+/**
+ *  Enables XMPP Framework logging to console. By default is disabled.
+ */
++ (void)enableXMPPLogging;
+
+/**
+ *   Disables XMPP Framework logging to console.
+ */
++ (void)disableXMPPLogging;
 
 #pragma mark -
 #pragma mark Timeout
