@@ -53,7 +53,7 @@
 
 - (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog
 {
-    [self performSegueWithIdentifier:kQMChatViewController sender:dialog];
+    [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
 }
 
 - (IBAction)joinChatButtonPressed:(UIButton *)sender {
@@ -105,11 +105,21 @@
 			}
 			name = [name substringToIndex:name.length - 1]; // remove last , (comma)
 		}
-
+		
+		[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
+		
 		[QBServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-            
-            [QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
-            completion(createdDialog);
+			
+			if( response.success ) {
+				[QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
+				completion(createdDialog);
+				[SVProgressHUD dismiss];
+			}
+			else {
+				[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+				NSLog(@"can not create dialog %@", response.error.error);
+			}
+			
 		}];
 	} else {
 		assert("no users given");
