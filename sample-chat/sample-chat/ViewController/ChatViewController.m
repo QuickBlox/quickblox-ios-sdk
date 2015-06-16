@@ -52,16 +52,6 @@
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
     
-    self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
-    [self refreshCollectionView];
-    
-    __weak typeof(self) weakSelf = self;
-    [[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
-        typeof(self) strongSelf = weakSelf;
-        strongSelf.items = [messages mutableCopy];
-        [strongSelf refreshCollectionView];
-    }];
-    
     if (self.dialog.type == QBChatDialogTypePrivate) {
         NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
         [mutableOccupants removeObject:@([self senderID])];
@@ -72,6 +62,16 @@
     } else {
         self.title = self.dialog.name;
     }
+    
+    self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+    [self refreshCollectionView];
+    
+    __weak typeof(self) weakSelf = self;
+    [[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
+        typeof(self) strongSelf = weakSelf;
+        strongSelf.items = [messages mutableCopy];
+        [strongSelf refreshCollectionView];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
