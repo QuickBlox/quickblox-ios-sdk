@@ -16,9 +16,6 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	let usersDataSource:UsersDataSource = UsersDataSource()
 	let privacyManager:PrivacyManager = PrivacyManager()
 	
-	// after suspending we use this model to check new messages in group chat
-	var currentChatViewModel: ChatViewModel?
-	
 	private override init() {
 		super.init()
 		self.startObservingMessagesToDelete()
