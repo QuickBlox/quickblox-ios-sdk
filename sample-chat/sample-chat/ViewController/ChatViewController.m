@@ -12,8 +12,11 @@
 #import "UIColor+QM.h"
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QBServicesManager.h"
+#import "StorageManager.h"
 
 @interface ChatViewController () <QMChatServiceDelegate>
+
+@property (nonatomic, weak) QBUUser* opponentUser;
 
 @end
 
@@ -55,6 +58,14 @@
         strongSelf.items = [messages mutableCopy];
         [strongSelf refreshCollectionView];
     }];
+    
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
+        [mutableOccupants removeObject:@([self senderID])];
+        NSNumber* opponentID = [mutableOccupants firstObject];
+        NSArray* opponentUser = [[StorageManager instance].users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.ID == %@", opponentID]];
+        self.opponentUser = [opponentUser firstObject];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -138,6 +149,7 @@
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
+    message.senderNick = [QBServicesManager instance].currentUser.login;
     
     [[QBServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
@@ -191,9 +203,15 @@
         return nil;
     }
     
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0.184 green:0.467 blue:0.733 alpha:1.000], NSFontAttributeName:font};
+    NSString* topLabelText = nil;
     
-    NSString* topLabelText = (messageItem.senderNick != nil) ? messageItem.senderNick : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        topLabelText = self.opponentUser.fullName;
+    } else {
+        topLabelText = (messageItem.senderNick != nil) ? messageItem.senderNick : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
+    }
+
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0.184 green:0.467 blue:0.733 alpha:1.000], NSFontAttributeName:font};
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:topLabelText attributes:attributes];
     
     return attrStr;
