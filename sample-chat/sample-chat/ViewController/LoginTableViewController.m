@@ -94,7 +94,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[SVProgressHUD showWithStatus:@"Logging in..." maskType:SVProgressHUDMaskTypeClear];
 	
-	QBUUser *selectedUser = StorageManager.instance.users[indexPath.row];
+	QBUUser *selectedUser = self.dataSource.users[indexPath.row];
 	selectedUser.password = @"x6Bt0VDy5"; // default password for test users
 	
 	__weak __typeof(self)weakSelf = self;
