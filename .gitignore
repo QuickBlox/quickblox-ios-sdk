@@ -1,6 +1,12 @@
 # Xcode
-.DS_Store
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
 build/
+DerivedData
+
+## Various settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -9,12 +15,17 @@ build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-!default.xcworkspace
 xcuserdata
-profile
+
+## Other
+*.xccheckout
 *.moved-aside
-DerivedData
-.idea/
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+
 sample-chat/Pods/Headers/Private/Quickblox
 sample-chat/Pods/Headers/Public/Quickblox
 sample-content/Pods/Headers/Private/Quickblox

@@ -20,8 +20,4 @@
 	return sharedInstance;
 }
 
-- (void)reset {
-	self.dialogs = @[];
-}
-
 @end

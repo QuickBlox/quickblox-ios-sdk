@@ -26,8 +26,7 @@
 
 - (void)setUserDescription:(NSString *)userDescription {
 	
-	if (![_userDescription isEqualToString:userDescription]) {
-		
+	if (![_userDescription isEqualToString:userDescription]) {		
 		_userDescription = userDescription;
 		self.userDescriptionLabel.text = userDescription;
 	}

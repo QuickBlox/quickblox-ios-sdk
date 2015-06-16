@@ -9,16 +9,16 @@
 #import "UsersDataSource.h"
 #import "StorageManager.h"
 #import "UserTableViewCell.h"
+#import "QBServicesManager.h"
 
 @interface UsersDataSource()
 @property (nonatomic, strong) NSArray *colors;
+@property (nonatomic, copy) NSArray *customUsers;
 @end
 
 @implementation UsersDataSource
 
-NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
-
-- (instancetype)init {
+- (instancetype)initWithUsers:(NSArray *)users {
 	self = [super init];
 	if( self) {
 		_colors =
@@ -32,34 +32,84 @@ NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 		  [UIColor colorWithWhite:0.537 alpha:1.000],
 		  [UIColor colorWithRed:0.786 green:0.706 blue:0.000 alpha:1.000],
 		  [UIColor colorWithRed:0.740 green:0.624 blue:0.797 alpha:1.000]];
+		_excludeUsersIDs = @[];
+		_customUsers =  [[users copy] sortedArrayUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+			return [obj1.login compare:obj2.login options:NSNumericSearch];
+		}];
+		_users = _customUsers == nil ? StorageManager.instance.users : _customUsers;
 	}
 	return self;
+	
+}
+- (void)addUsers:(NSArray *)users {
+	NSMutableArray *mUsers;
+	if( _users != nil ){
+		mUsers = [_users mutableCopy];
+	}
+	else {
+		mUsers = [NSMutableArray array];
+	}
+	[mUsers addObjectsFromArray:users];
+	_users = [mUsers copy];
+}
+
+- (instancetype)init {
+	return [self initWithUsers:StorageManager.instance.users];
+}
+
+- (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {
+	if  (excludeUsersIDs == nil) {
+		_users = self.customUsers == nil ? self.customUsers : StorageManager.instance.users;
+		return;
+	}
+	if ([excludeUsersIDs isEqualToArray:self.users]) {
+		return;
+	}
+	if (self.customUsers == nil) {
+		_users = [StorageManager.instance.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
+	} else {
+		_users = self.customUsers;
+	}
+	// add excluded users to future remove
+	NSMutableArray *excludedUsers = [NSMutableArray array];
+	[_users enumerateObjectsUsingBlock:^(QBUUser *obj, NSUInteger idx, BOOL *stop) {
+		for (NSNumber *excID in excludeUsersIDs) {
+			if (obj.ID == excID.integerValue) {
+				[excludedUsers addObject:obj];
+			}
+		}
+	}];
+	
+	//remove excluded users
+	NSMutableArray *mUsers = [_users mutableCopy];
+	[mUsers removeObjectsInArray:excludedUsers];
+	_users = [mUsers copy];
 }
 
 - (NSUInteger)indexOfUser:(QBUUser *)user {
-	return [StorageManager.instance.users indexOfObject:user];
+	return [self.users indexOfObject:user];
 }
 
 - (UIColor *)colorForUser:(QBUUser *)user {
-	NSUInteger idx = [StorageManager.instance.users indexOfObject:user];
+	NSUInteger idx = [self indexOfUser:user];
 	return self.colors[idx];
 }
 
 #pragma mark - UITableViewDataSource methods
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UserTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
 	
-	QBUUser *user = (QBUUser *)StorageManager.instance.users[indexPath.row];
+	QBUUser *user = (QBUUser *)self.users[indexPath.row];
 	
+	cell.user = user;
 	cell.userDescription = user.fullName;
 	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:[self colorForUser:user]];
 	return cell;
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return StorageManager.instance.users.count;
+	return self.users.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

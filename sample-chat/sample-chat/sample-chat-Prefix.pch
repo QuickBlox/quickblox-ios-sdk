@@ -19,10 +19,9 @@
     #import <Quickblox/QBMulticastDelegate.h>
     #import <QMServices.h>
     #import <SVProgressHUD.h>
-    #import <TWMessageBarManager.h>
-    #import "NSDate+DateTools.h"
-    #import "SoundService.h"
-    #import "ChatService.h"
+	#import "Constants.h"
+	#import "UIAlertDialog.h"
+	#import <SWTableViewCell/SWTableViewCell.h>
 #endif
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
