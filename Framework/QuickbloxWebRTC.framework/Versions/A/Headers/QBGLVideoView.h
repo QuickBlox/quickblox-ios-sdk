@@ -31,7 +31,7 @@
 @protocol QBGLVideoViewDelegate <NSObject>
 
 /**
- *  Called in case when change video size
+ *  Called in case when video size changed
  *
  *  @param videoView QBGLVideoView instance
  *  @param size      new size

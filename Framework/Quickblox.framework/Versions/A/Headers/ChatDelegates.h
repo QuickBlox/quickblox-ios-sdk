@@ -173,7 +173,7 @@
 /**
  Called when you didn't enter to room.
  
- @warning Deprecated. Use 'onJoinFailed:' block in 'QBChatDialog'.
+ @warning *Deprecated in QB iOS SDK 2.3:* Use 'onJoinFailed:' block in 'QBChatDialog'.
  @param room Name of room which you haven't joined
  @param error Error
  */
@@ -182,7 +182,7 @@
 /**
  Called when you didn't enter to room
  
- @warning Deprecated. Use 'onJoinFailed:' block in 'QBChatDialog'.
+ @warning *Deprecated in QB iOS SDK 2.3:* Use 'onJoinFailed:' block in 'QBChatDialog'.
  @param roomJID  JID of room which you haven't joined
  @param error Error
  */
@@ -363,15 +363,6 @@
 
 #pragma mark -
 #pragma mark Delivered status
-
-/**
- Called when you received a confirmation about message delivery
- 
- @warning *Deprecated in QB iOS SDK 2.0.7:* Use chatDidDeliverMessageWithID: instead
- 
- @param packetID ID of an original message
- */
-- (void)chatDidDeliverMessageWithPacketID:(NSString *)packetID __attribute__((deprecated("use 'chatDidDeliverMessageWithID:' instead.")));
 
 /**
  Called when you received a confirmation about message delivery
