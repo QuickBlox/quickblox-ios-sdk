@@ -45,7 +45,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="1Ve-9p-jH0" kind="show" identifier="kShowChatViewController" trigger="accessoryAction" id="htm-nF-U3k"/>
+                                    <segue destination="1Ve-9p-jH0" kind="show" identifier="goToChat" trigger="accessoryAction" id="htm-nF-U3k"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -87,7 +87,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8FT-n9-ws2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Baa-xl-Pgl">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -110,7 +110,7 @@
             <objects>
                 <tableViewController id="afJ-Up-tW1" customClass="DialogInfoTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yHl-ue-AbZ">
-                        <rect key="frame" x="0.0" y="64" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -323,7 +323,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="1Ve-9p-jH0" kind="show" identifier="kQMChatViewController" id="1zd-x0-9Io"/>
+                        <segue destination="1Ve-9p-jH0" kind="show" identifier="goToChat" id="1zd-x0-9Io"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEb-qR-oYU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -395,7 +395,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="btnSave" destination="vfP-AK-ueU" id="oAH-83-Cbp"/>
-                        <segue destination="1Ve-9p-jH0" kind="show" identifier="kShowChatViewController" id="Zbl-vY-jcZ"/>
+                        <segue destination="1Ve-9p-jH0" kind="show" identifier="goToChat" id="Zbl-vY-jcZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wf1-4U-yxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -407,6 +407,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Zbl-vY-jcZ"/>
+        <segue reference="1zd-x0-9Io"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -47,6 +47,11 @@ static NSString *const kGoToEditDialogSegueIdentifier = @"goToEditDialog";
 static NSString *const kGoToAddOccupantsSegueIdentifier = @"goToAddOccupants";
 
 /**
+ *  EditDialogTableViewController
+ */
+static NSString *const kGoToChatSegueIdentifier = @"goToChat";
+
+/**
  *  Segues
  */
 
