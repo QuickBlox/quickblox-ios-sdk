@@ -225,11 +225,9 @@
         return nil;
     }
     
-    NSString* topLabelText = nil;
+    NSString *topLabelText = self.opponentUser.fullName;
     
-    if (self.dialog.type == QBChatDialogTypePrivate) {
-        topLabelText = self.opponentUser.fullName;
-    } else {
+    if (self.dialog.type != QBChatDialogTypePrivate) {
         topLabelText = (messageItem.senderNick != nil) ? messageItem.senderNick : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 
