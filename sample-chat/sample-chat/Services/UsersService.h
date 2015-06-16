@@ -13,6 +13,7 @@
 - (instancetype)init __attribute__((unavailable("unavailable, use -initWithContactListService: instead")));
 - (instancetype)initWithContactListService:(QMContactListService *)contactListService;
 
+@property (strong, nonatomic) QMContactListService *contactListService;
 
 /// @return array of cached QBUUser instances
 - (void)cachedUsersWithCompletion:(void(^)(NSArray *users))completion;
