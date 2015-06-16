@@ -9,7 +9,7 @@
 #import "QBServicesManager.h"
 #import "StorageManager.h"
 
-@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDelegate>
+@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource>
 
 @property (nonatomic, strong) QMAuthService* authService;
 @property (nonatomic, strong) QMChatService* chatService;
@@ -23,7 +23,7 @@
 	if (self) {
 		[QMChatCache setupDBWithStoreNamed:@"sample-cache"];
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
-		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDelegate:self];
+		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
 		_usersService = [[UsersService alloc] init];
 	}
 	return self;
