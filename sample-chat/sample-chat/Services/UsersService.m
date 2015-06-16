@@ -10,10 +10,6 @@
 #import "StorageManager.h"
 #import "QBServicesManager.h"
 
-@interface UsersService()
-@property (strong, nonatomic) QMContactListService *contactListService;
-@end
-
 @implementation UsersService
 
 - (instancetype)initWithContactListService:(QMContactListService *)contactListService {
