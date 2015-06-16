@@ -27,4 +27,9 @@
 #import "JSQMessagesViewController+PublicNotifications.h"
 
 #import "QMChatViewController.h"
+#import "QMChatContactRequestCell.h"
+#import "QMChatNotificationCell.h"
+#import "QMChatIncomingCell.h"
+#import "QMChatOutgoingCell.h"
+
 #endif
