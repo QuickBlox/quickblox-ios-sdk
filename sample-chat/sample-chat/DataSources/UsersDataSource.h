@@ -10,6 +10,19 @@
 
 @interface UsersDataSource : NSObject<UITableViewDataSource>
 
+- (instancetype)initWithUsers:(NSArray *)users;
+
+- (void)addUsers:(NSArray *)users;
+/**
+ *  Default: empty []
+ *  Excludes users with given ids from data source
+ */
+
+/**
+ *  @return Array of QBUUser instances
+ */
+@property (nonatomic, strong, readonly) NSArray *users;
+@property (nonatomic, strong) NSArray *excludeUsersIDs;
 - (NSUInteger)indexOfUser:(QBUUser *)user;
 - (UIColor *)colorForUser:(QBUUser *)user;
 

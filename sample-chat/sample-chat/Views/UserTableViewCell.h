@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserTableViewCell : UITableViewCell
+@interface UserTableViewCell : SWTableViewCell
 
-@property (strong, nonatomic) NSString *userDescription;
+
+@property (nonatomic, strong) QBUUser *user;
+@property (nonatomic, strong) NSString *userDescription;
 
 - (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color;
 
