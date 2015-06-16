@@ -40,7 +40,6 @@
     
     // Logout from chat
     //
-    [[ChatService shared] logout];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -49,10 +48,6 @@
     
     // Login to QuickBlox Chat
     //
-    [SVProgressHUD showWithStatus:@"Restoring chat session"];
-    [[ChatService shared] loginWithUser:[ChatService shared].currentUser completionBlock:^{
-        [SVProgressHUD dismiss];
-    }];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -83,14 +78,13 @@
 {
     NSLog(@"New Push received\n: %@", userInfo);
     
-    NSString *dialogId = userInfo[@"dialog_id"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
-    
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
-                                                   description:userInfo[@"aps"][@"alert"]
-                                                          type:TWMessageBarMessageTypeInfo];
-    
-    [[SoundService instance] playNotificationSound];
+//    NSString *dialogId = userInfo[@"dialog_id"];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
+//	
+//    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
+//                                                   description:userInfo[@"aps"][@"alert"]
+//                                                          type:TWMessageBarMessageTypeInfo];
+	
 }
 
 @end
