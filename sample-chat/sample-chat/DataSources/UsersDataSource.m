@@ -91,7 +91,7 @@
 }
 
 - (UIColor *)colorForUser:(QBUUser *)user {
-	NSUInteger idx = [self.users indexOfObject:user];
+	NSUInteger idx = [self indexOfUser:user];
 	return self.colors[idx];
 }
 

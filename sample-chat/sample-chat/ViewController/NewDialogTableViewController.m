@@ -37,11 +37,6 @@
 	[self checkJoinChatButtonState];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    
-}
-
 - (void)checkJoinChatButtonState
 {
 	self.navigationItem.rightBarButtonItem.enabled = self.tableView.indexPathsForSelectedRows.count != 0;
