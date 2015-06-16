@@ -14,6 +14,8 @@
 
 @interface QBRTCClient : NSObject
 
+- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+
 + (instancetype)instance;
 
 /** Adds the given delegate implementation to the list of observers*/

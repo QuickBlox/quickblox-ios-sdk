@@ -13,7 +13,7 @@
 @optional
 
 /**
- *  Called in case when started new session with you
+ *  Called when started new session with you
  *
  *  @param session  QBWebRTCSession instance
  *  @param userInfo The user information dictionary for the new session. May be nil.
@@ -21,8 +21,9 @@
 - (void)didReceiveNewSession:(QBRTCSession *)session userInfo:(NSDictionary *)userInfo;
 
 /**
- * Called in case when you are calling to user, but he hasn't answered
- *
+ * Called when you called to user, but user does not respond
+ * use +[QBRTCConfig setAnswerTimeInterval:value] to set answer time interval
+ * default value: 45 seconds
  * @param userID ID of opponent
  */
 - (void)session:(QBRTCSession *)session userDoesNotRespond:(NSNumber *)userID;
@@ -43,7 +44,7 @@
 - (void)session:(QBRTCSession *)session acceptByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
 
 /**
- *  Called in case when opponent hung up
+ *  Called when opponent hung up
  *
  *  @param session QBRTCSession instance
  *  @param userID  ID of opponent
@@ -52,14 +53,14 @@
 - (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
 
 /**
- *  Called in case when receive local video track
+ *  Called when received local video track
  *
  *  @param videoTrack
  */
 - (void)session:(QBRTCSession *)session didReceiveLocalVideoTrack:(QBRTCVideoTrack *)videoTrack;
 
 /**
- *  Called in case when receive remote video track from opponent
+ *  Called when received remote video track from opponent
  *
  *  @param videoTrack QBRTCVideoTrack instance
  *  @param userID     ID of opponent
@@ -67,7 +68,7 @@
 - (void)session:(QBRTCSession *)session didReceiveRemoteVideoTrack:(QBRTCVideoTrack *)videoTrack fromUser:(NSNumber *)userID;
 
 /**
- *  Called in case when connection state changed
+ *  Called when connection state changed
  *
  *  @param session QBRTCSession instance
  *  @param userID  ID of opponent
@@ -75,7 +76,7 @@
 - (void)session:(QBRTCSession *)session connectionClosedForUser:(NSNumber *)userID;
 
 /**
- *  Called in case when connection initiated
+ *  Called when connection initiated
  *
  *  @param session QBRTCSession instance
  *  @param userID  ID of opponent
@@ -83,7 +84,7 @@
 - (void)session:(QBRTCSession *)session startConnectionToUser:(NSNumber *)userID;
 
 /**
- *  Called in case when connection is established with opponent
+ *  Called when connection is established with opponent
  *
  *  @param session QBRTCSession instance
  *  @param userID  ID of opponent
@@ -91,7 +92,7 @@
 - (void)session:(QBRTCSession *)session connectedToUser:(NSNumber *)userID;
 
 /**
- *  Called in case when disconnected from opponent
+ *  Called when disconnected from opponent
  *
  *  @param session QBRTCSession instance
  *  @param userID  ID of opponent
@@ -99,15 +100,17 @@
 - (void)session:(QBRTCSession *)session disconnectedFromUser:(NSNumber *)userID;
 
 /**
- *  Called in case when disconnected by timeout
- *
+ *  Called when disconnected by timeout
+ *  use [QBRTCConfig setDisconnectTimeInterval:value] to set disconnect time interval
+ *  default value: 35 seconds
+ *  after you disconnected from all users, session will close
  *  @param session QBRTCSession instance
  *  @param userID  QBRTCSession instance
  */
 - (void)session:(QBRTCSession *)session disconnectTimeoutForUser:(NSNumber *)userID;
 
 /**
- *  Called in case when connection failed with user
+ *  Called when connection failed with user
  *
  *  @param session QBRTCSession instance
  *  @param userID  ID of opponent
@@ -115,14 +118,14 @@
 - (void)session:(QBRTCSession *)session connectionFailedWithUser:(NSNumber *)userID;
 
 /**
- *  Called in case when session did close
+ *  Called when session is closed
  *
  *  @param session QBRTCSession instance
  */
 - (void)sessionDidClose:(QBRTCSession *)session;
 
 /**
- *  Called in case when session will close
+ *  Called when session will close
  *
  *  @param session QBRTCSession instance
  */

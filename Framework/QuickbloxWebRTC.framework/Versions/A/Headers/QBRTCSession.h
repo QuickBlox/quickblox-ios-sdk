@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import "QBRTCTypes.h"
 
-@class QBPeerChannel;
 @class QBRTCVideoTrack;
 
 @interface QBRTCSession : NSObject
@@ -91,7 +91,7 @@
 #pragma mark  AVCaptureSession
 
 /**
- * Enalbe/Disable video stream
+ * Enable/Disable video stream
  */
 @property (assign, nonatomic) BOOL videoEnabled;
 
