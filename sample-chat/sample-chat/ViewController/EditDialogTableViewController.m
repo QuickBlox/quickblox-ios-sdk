@@ -23,8 +23,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	NSParameterAssert(self.dialog);
-	
-	[self reloadDataSource];
 }
 
 - (void)reloadDataSource {
@@ -36,6 +34,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	[self reloadDataSource];
 	[QBServicesManager.instance.chatService addDelegate:self];
 }
 
@@ -43,7 +42,6 @@
 	[super viewWillDisappear:animated];
 	[QBServicesManager.instance.chatService removeDelegate:self];
 }
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self updateSaveButtonState];
@@ -152,7 +150,6 @@
 }
 
 #pragma mark QMChatServiceDelegate delegate
-
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
 	if( [chatDialog.ID isEqualToString:self.dialog.ID] ) {
