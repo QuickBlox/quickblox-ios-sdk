@@ -97,11 +97,12 @@
 
 #pragma mark - UITableViewDataSource methods
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UserTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
 	
 	QBUUser *user = (QBUUser *)self.users[indexPath.row];
 	
+	cell.user = user;
 	cell.userDescription = user.fullName;
 	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:[self colorForUser:user]];
 	return cell;
