@@ -58,3 +58,6 @@
 
 // Errors
 "SA_STR_ERROR_DELETING" = "Error deleting";
+
+// Chat
+"SA_STR_CHAT_SEND" = "Send";
