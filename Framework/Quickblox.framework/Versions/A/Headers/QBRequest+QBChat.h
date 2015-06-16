@@ -123,12 +123,11 @@
 /**
  Mark messages as read
  
- @param messageIDs Set of chat message IDs to mark as read
- @param dialogID The ID of a dialog which messages to mark
+ @param dialogID dialog ID
+ @param messageIDs set of chat message IDs to mark as read. If messageIDs is nil then all messages in dialog will be marked as read.
  @param successBlock Block with response instance if request succeded
  @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (QBRequest *)markMessagesAsRead:(NSSet *)messagesIDs dialogID:(NSString *)dialogID successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 

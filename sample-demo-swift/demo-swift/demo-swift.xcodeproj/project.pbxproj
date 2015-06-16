@@ -381,7 +381,7 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = "Test Qmunicate";
-				PROVISIONING_PROFILE = "7C10F44D-9DA6-469F-92B5-FEA785098661";
+				PROVISIONING_PROFILE = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "demo-swift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

@@ -22,8 +22,6 @@
     
 //    [QBSettings setLogLevel:QBLogLevelNothing];
     
-#warning TODO: 1) background/foreground mode
-    
     return YES;
 }
 							

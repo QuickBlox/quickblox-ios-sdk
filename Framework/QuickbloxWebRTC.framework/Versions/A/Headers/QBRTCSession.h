@@ -7,32 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 #import "QBRTCTypes.h"
 
-@class QBPeerChannel;
 @class QBRTCVideoTrack;
 
 @interface QBRTCSession : NSObject
-
-/**
- *  Enable/Disable audio stream
- */
-@property (assign, nonatomic) BOOL audioEnabled;
-
-/**
- * Enalbe/Disable video stream
- */
-@property (assign, nonatomic) BOOL videoEnabled;
-
-/**
- *  Indicating the physical position of an AVCaptureDevice's hardware on the system.
- */
-@property (assign, nonatomic, readonly) AVCaptureDevicePosition currentCaptureDevicePosition;
-
-/**
- * Set audio session category options
- */
-@property (assign, nonatomic) AVAudioSessionCategoryOptions audioCategoryOptions __attribute__((deprecated("use 'QBSoundRouter'.")));
 
 /**
  *  Unique session identifier
@@ -85,13 +65,6 @@
 - (void)hangUp:(NSDictionary *)userInfo;
 
 /**
- *  Switch Front / Back video input. (Default: Front camera)
- *
- *  @param block isFrontCamera YES/NO
- */
-- (void)switchCamera:(void (^)(BOOL isFrontCamera))block;
-
-/**
  *  Remote track with opponent ID
  *
  *  @param userID ID of opponent
@@ -108,5 +81,32 @@
  *  @return ID of opponent
  */
 - (QBRTCConnectionState)connectionStateForUser:(NSNumber *)userID;
+
+/**
+ *  Enable/Disable audio stream
+ */
+@property (assign, nonatomic) BOOL audioEnabled;
+
+#pragma mark - Video
+#pragma mark  AVCaptureSession
+
+/**
+ * Enable/Disable video stream
+ */
+@property (assign, nonatomic) BOOL videoEnabled;
+
+@property(nonatomic, readonly) AVCaptureSession* captureSession;
+
+/**
+ *  Indicating the physical position of an AVCaptureDevice's hardware on the system.
+ */
+@property (assign, nonatomic, readonly) AVCaptureDevicePosition currentCaptureDevicePosition;
+
+/**
+ *  Switch Front / Back video input. (Default: Front camera)
+ *
+ *  @param block isFrontCamera YES/NO
+ */
+- (void)switchCamera:(void (^)(BOOL isFrontCamera))block;
 
 @end
