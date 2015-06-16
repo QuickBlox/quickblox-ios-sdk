@@ -52,6 +52,17 @@
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
     
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
+        [mutableOccupants removeObject:@([self senderID])];
+        NSNumber* opponentID = [mutableOccupants firstObject];
+        NSArray* opponentUser = [[StorageManager instance].users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.ID == %@", opponentID]];
+        self.opponentUser = [opponentUser firstObject];
+        self.title = self.opponentUser.fullName;
+    } else {
+        self.title = self.dialog.name;
+    }
+    
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
     
@@ -61,14 +72,6 @@
         strongSelf.items = [messages mutableCopy];
         [strongSelf refreshCollectionView];
     }];
-    
-    if (self.dialog.type == QBChatDialogTypePrivate) {
-        NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
-        [mutableOccupants removeObject:@([self senderID])];
-        NSNumber* opponentID = [mutableOccupants firstObject];
-        NSArray* opponentUser = [[StorageManager instance].users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.ID == %@", opponentID]];
-        self.opponentUser = [opponentUser firstObject];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -225,11 +228,9 @@
         return nil;
     }
     
-    NSString* topLabelText = nil;
+    NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
-    if (self.dialog.type == QBChatDialogTypePrivate) {
-        topLabelText = self.opponentUser.fullName;
-    } else {
+    if (self.dialog.type != QBChatDialogTypePrivate) {
         topLabelText = (messageItem.senderNick != nil) ? messageItem.senderNick : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 

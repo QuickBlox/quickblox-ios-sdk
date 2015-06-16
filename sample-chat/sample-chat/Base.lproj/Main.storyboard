@@ -192,7 +192,7 @@
             </objects>
             <point key="canvasLocation" x="842" y="570"/>
         </scene>
-        <!--Select user to login to Chat-->
+        <!--Select user for login to Chat-->
         <scene sceneID="pD3-hS-Cy5">
             <objects>
                 <tableViewController id="Nqc-4R-soJ" customClass="LoginTableViewController" sceneMemberID="viewController">
@@ -245,7 +245,7 @@
                             <outlet property="delegate" destination="Nqc-4R-soJ" id="yeG-f1-sfM"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Select user to login to Chat" id="PRM-QZ-rXP"/>
+                    <navigationItem key="navigationItem" title="Select user for login to Chat" id="PRM-QZ-rXP"/>
                     <connections>
                         <segue destination="USy-AC-nck" kind="show" identifier="goToDialogs" id="MXH-uZ-40K"/>
                     </connections>
