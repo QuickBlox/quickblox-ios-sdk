@@ -8,36 +8,51 @@
 
 #import "UsersService.h"
 #import "StorageManager.h"
-
-
+#import "QBServicesManager.h"
 
 @implementation UsersService
 
-NSString *const kTestUsersTableKey = @"test_users";
-NSString *const kUserFullNameKey = @"fullname";
-NSString *const kUserLoginKey = @"login";
-NSString *const kUserPasswordKey = @"password";
+- (instancetype)initWithContactListService:(QMContactListService *)contactListService {
+	self = [super init];
+	if( self ) {
+		_contactListService = contactListService;
+	}
+	return self;
+}
 
-
-- (void)usersWithSuccessBlock:(void(^)(NSArray *users))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
-	
-	NSString *const kTestUsersTableKey = @"test_users";
-	NSString *const kUserFullNameKey = @"fullname";
-	NSString *const kUserLoginKey = @"login";
-	NSString *const kUserPasswordKey = @"password";
-	
-	if( StorageManager.instance.users.count != 0 ){
-		if( successBlock != nil ) {
-			successBlock(StorageManager.instance.users);
-		}
-		return; // do not download again
+- (void)cachedUsersWithCompletion:(void(^)(NSArray *users))completion {
+	// check memory storage
+	NSArray *memoryUsers = [self.contactListService.usersMemoryStorage usersSortedByKey:@"fullName" ascending:YES];
+	if (memoryUsers != nil && memoryUsers.count != 0) {
+		StorageManager.instance.users = memoryUsers;
+		completion(memoryUsers);
+        return;
 	}
 	
-	[QBRequest objectsWithClassName:kTestUsersTableKey successBlock:^(QBResponse *response, NSArray *objects) {
+	// check CoreData storage
+	[QMContactListCache.instance usersSortedBy:@"fullName" ascending:YES completion:^(NSArray *users) {
+		StorageManager.instance.users = users;
+		completion(users);
+	}];
+}
+
+- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
+	__weak __typeof(self)weakSelf = self;
+	
+	NSMutableDictionary *dict = @{@"updated_at[gt]": [@([self timestampFromLatestCustomObject]) stringValue] }.mutableCopy;
+	
+	[QBRequest objectsWithClassName:kTestUsersTableKey extendedRequest:dict successBlock:^(QBResponse *response, NSArray *objects, QBResponsePage *page) {
 		
+		if( objects.count == 0 ) {
+			[weakSelf saveUpdatedTimestamp];
+			if( successBlock != nil ) {
+				successBlock(@[]);
+			}
+			return;
+		}
 		NSMutableArray *users = [NSMutableArray arrayWithCapacity:objects.count];
 		
-		for( QBCOCustomObject *cObject in objects ){
+		for (QBCOCustomObject *cObject in objects) {
 			QBUUser *user = [[QBUUser alloc] init];
 			user.fullName = cObject.fields[kUserFullNameKey];
 			user.ID = cObject.userID;
@@ -47,7 +62,16 @@ NSString *const kUserPasswordKey = @"password";
 			[users addObject:user];
 		}
 		
-		StorageManager.instance.users = [users copy];
+		[weakSelf saveUpdatedTimestamp];
+		
+		[users sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+			return [obj1.login compare:obj2.login options:NSNumericSearch];
+		}];
+		
+		[self.contactListService.usersMemoryStorage addUsers:users];
+		[QMContactListCache.instance insertOrUpdateUsers:users completion:nil];
+		
+		StorageManager.instance.users = users;
 		
 		if( successBlock != nil ) {
 			successBlock(users);
@@ -78,9 +102,12 @@ NSString *const kUserPasswordKey = @"password";
 }
 
 - (NSArray *)usersWithoutCurrentUser {
-	NSMutableArray *usersWithoutCurrentUser = [StorageManager.instance.users mutableCopy];
+	NSArray *usersWithoutCurrentUser = StorageManager.instance.users;
 	if( [QBSession currentSession].currentUser ) {
-		[usersWithoutCurrentUser removeObject:[QBSession currentSession].currentUser];
+		usersWithoutCurrentUser = [usersWithoutCurrentUser filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+			QBUUser *user = (QBUUser *)evaluatedObject;
+			return user.ID != [QBSession currentSession].currentUser.ID;
+		}]];
 	}
 	
 	return usersWithoutCurrentUser;
@@ -95,7 +122,21 @@ NSString *const kUserPasswordKey = @"password";
 		[ids addObject:@(obj.ID)];
 	}];
 	
-	return ids;
+	return [ids copy];
 }
+
+- (void)retrieveUsersWithIDs:(NSArray *)usersIDs completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray *users))completion {
+	[self.contactListService retrieveUsersWithIDs:usersIDs forceDownload:NO completion:completion];
+}
+
+- (void)saveUpdatedTimestamp {
+	[[NSUserDefaults standardUserDefaults] setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"timestamp"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSTimeInterval)timestampFromLatestCustomObject {
+	return [[[NSUserDefaults standardUserDefaults] objectForKey:@"timestamp"] integerValue] ;
+}
+
 
 @end
