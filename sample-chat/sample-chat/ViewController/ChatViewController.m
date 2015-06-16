@@ -14,6 +14,9 @@
 #import "QBServicesManager.h"
 #import "StorageManager.h"
 
+#import "LoginTableViewController.h"
+#import "DialogsViewController.h"
+
 @interface ChatViewController () <QMChatServiceDelegate>
 
 @property (nonatomic, weak) QBUUser* opponentUser;
@@ -73,6 +76,25 @@
     [super viewWillAppear:animated];
     
     [[QBServicesManager instance].chatService addDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (self.shouldUpdateNavigationStack) {
+        NSMutableArray *newNavigationStack = [NSMutableArray array];
+        
+        [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(UIViewController* obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[LoginTableViewController class]] || [obj isKindOfClass:[DialogsViewController class]]) {
+                [newNavigationStack addObject:obj];
+            }
+        }];
+        [newNavigationStack addObject:self];
+        [self.navigationController setViewControllers:[newNavigationStack copy] animated:NO];
+        
+        self.shouldUpdateNavigationStack = NO;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
