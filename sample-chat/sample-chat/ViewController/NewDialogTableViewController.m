@@ -10,13 +10,24 @@
 #import "QBServicesManager.h"
 #import "UsersDataSource.h"
 #import "ChatViewController.h"
+#import "StorageManager.h"
+
+@interface NewDialogTableViewController ()
+
+@property (strong, nonatomic) UsersDataSource *dataSource;
+
+@end
 
 @implementation NewDialogTableViewController
 
 - (void)viewDidLoad
 {
+    self.dataSource = [[UsersDataSource alloc] initWithUsers:[StorageManager instance].users];
+    [self.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
+    self.tableView.dataSource = self.dataSource;
+
 	[super viewDidLoad];
-	[(UsersDataSource *)self.tableView.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
+
 	[self.tableView reloadData];
 }
 
@@ -24,6 +35,11 @@
 {
 	[super viewDidAppear:animated];
 	[self checkJoinChatButtonState];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    
 }
 
 - (void)checkJoinChatButtonState
@@ -35,6 +51,7 @@
 {
     if ([segue.identifier isEqualToString:@"kQMChatViewController"]) {
         ChatViewController* viewController = segue.destinationViewController;
+        viewController.shouldUpdateNavigationStack = YES;
         viewController.dialog = sender;
     }
 }
@@ -42,7 +59,6 @@
 - (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog
 {
     [self performSegueWithIdentifier:kQMChatViewController sender:dialog];
-    [self removeFromParentViewController];
 }
 
 - (IBAction)joinChatButtonPressed:(UIButton *)sender {

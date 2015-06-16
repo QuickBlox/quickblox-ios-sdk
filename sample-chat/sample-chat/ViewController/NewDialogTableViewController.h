@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "LoginTableViewController.h"
 
-@interface NewDialogTableViewController : LoginTableViewController
+@interface NewDialogTableViewController : UITableViewController
 
 @end
