@@ -50,6 +50,13 @@ class UsersDataSource {
             return UIColor.blackColor()
         }
     }
+    
+    func userByID(userID : UInt) -> QBUUser {
+        
+        var user = self.users.filter({$0.ID == userID})
+        
+        return user.first!
+    }
 
     private func loadUsers() {
         let plistPath = NSBundle.mainBundle().pathForResource(Constants.QB_VERSION_STR + "Users", ofType: "plist")
