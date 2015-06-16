@@ -77,6 +77,7 @@
 		
 		if( response.success ) {
 			[SVProgressHUD dismiss];
+			[QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
 			[weakSelf performSegueWithIdentifier:@"kShowChatViewController" sender:createdDialog];
 		}
 		else {
