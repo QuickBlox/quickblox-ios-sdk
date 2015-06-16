@@ -185,12 +185,12 @@
 	
 	QBChatDialog *dialog = self.dialogs[indexPath.row];
 
-    [self performSegueWithIdentifier:@"kShowChatViewController" sender:dialog];
+    [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"kShowChatViewController"]) {
+    if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
         ChatViewController* chatViewController = segue.destinationViewController;
         chatViewController.dialog = sender;
     }
