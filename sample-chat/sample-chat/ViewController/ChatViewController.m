@@ -171,7 +171,7 @@
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
-    message.senderNick = [QBServicesManager instance].currentUser.login;
+    message.senderNick = [QBServicesManager instance].currentUser.fullName;
     
     [[QBServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
