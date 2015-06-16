@@ -49,7 +49,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"kQMChatViewController"]) {
+    if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
         ChatViewController* viewController = segue.destinationViewController;
         viewController.shouldUpdateNavigationStack = YES;
         viewController.dialog = sender;
