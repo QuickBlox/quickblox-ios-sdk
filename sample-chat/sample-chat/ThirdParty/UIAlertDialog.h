@@ -9,7 +9,9 @@ typedef NS_ENUM(NSInteger, UIAlertDialogStyle) {
 	UIAlertDialogStyleActionSheet
 };
 
-typedef void(^UIAlertDialogHandler)(NSInteger buttonIndex);
+@class UIAlertDialog;
+
+typedef void(^UIAlertDialogHandler)(NSInteger buttonIndex, UIAlertDialog *dialog);
 
 
 @interface UIAlertDialog : NSObject <UIAlertViewDelegate, UIActionSheetDelegate>
