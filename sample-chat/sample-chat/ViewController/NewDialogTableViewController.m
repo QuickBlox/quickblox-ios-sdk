@@ -69,11 +69,10 @@
 	} else {
 		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Join chat" andMessage:@""];
 		
-		__weak UIAlertDialog *weakDialog = dialog;
-		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex) {
+		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex, UIAlertDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
 			if (buttonIndex == 0) { // first button
-				[strongSelf createChatWithName:[weakDialog textFieldText] completion:^(QBChatDialog *dialog){
+				[strongSelf createChatWithName:[dialog textFieldText] completion:^(QBChatDialog *dialog){
                     [strongSelf navigateToChatViewControllerWithDialog:dialog];
                 }];
 			}
