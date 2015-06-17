@@ -1,1 +1,0 @@
-../../../JSQMessagesViewController/JSQMessagesViewController/Categories/UIDevice+JSQMessages.h

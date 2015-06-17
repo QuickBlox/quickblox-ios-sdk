@@ -6,52 +6,24 @@
 //  Copyright (c) 2015 quickblox. All rights reserved.
 //
 
-class ChatViewController: JSQMessagesViewController, QBChatDelegate, QMChatServiceDelegate {
-    let messagesBond: ArrayBond<QBChatMessage> = ArrayBond<QBChatMessage>()
-    var showLoadingIndicator: Bond<Bool>!
+var messageTimeDateFormatter: NSDateFormatter {
+    struct Static {
+        static let instance : NSDateFormatter = {
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "HH:mm"
+            return formatter
+            }()
+    }
+    
+    return Static.instance
+}
+
+class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     
-    var chatViewModel: ChatViewModel!
-    
-    let refreshControl = UIRefreshControl()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        assert(dialog != nil)
-		
-		
-        self.chatViewModel = ChatViewModel(currentUserID: ServicesManager.instance.currentUser()!.ID, dialog: dialog!)
-		
-        self.startMessagesObserver()
-        
-        if let chatRoom = dialog?.chatRoom {
-            
-            if !chatRoom.isJoined {
-                
-//                chatRoom.joinRoom()
-                
-                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
-                    
-                })
-            }
-		}
-        
-        ServicesManager.instance.chatService.addDelegate(self)
-        
-        ConnectionManager.instance.currentChatViewModel = self.chatViewModel
-        
-        QBChat.instance().addDelegate(self)
-        
-        // needed by block in method QBChat.instance().sendMessage(message, sentBlock
-        QBChat.instance().streamManagementEnabled = true
-        
-        self.collectionView.collectionViewLayout.springinessEnabled = false
-        self.inputToolbar.contentView.leftBarButtonItem = nil
-        self.automaticallyScrollsToMostRecentMessage = true
-        // remove avatars
-        self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-        self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
         
         if self.shouldFixViewControllersStack {
             
@@ -72,231 +44,254 @@ class ChatViewController: JSQMessagesViewController, QBChatDelegate, QMChatServi
             self.navigationController?.viewControllers = viewControllers
         }
         
-        // set dialog owner ( currentUser )
-        self.senderId = ServicesManager.instance.currentUser()?.ID.description
-        self.senderDisplayName = ServicesManager.instance.currentUser()?.fullName ?? ServicesManager.instance.currentUser()?.login
-        self.chatViewModel.loadMoreMessages()
+        self.inputToolbar.contentView.leftBarButtonItem = self.accessoryButtonItem()
+        self.inputToolbar.contentView.rightBarButtonItem = self.sendButtonItem()
         
-        self.addRefreshControl()
+        self.senderID = QBSession.currentSession().currentUser.ID
+        self.senderDisplayName = QBSession.currentSession().currentUser.login
+        
+        self.items = NSMutableArray()
+        
+        SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
+        
+        if self.dialog?.type != QBChatDialogType.Private {
+            self.title = self.dialog?.name
+        } else {
+            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
+                self.title = recepeint.login
+            }
+        }
+        
+        ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
+            
+            if response.error == nil {
+                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                
+                self.items.removeAllObjects()
+                self.items.addObjectsFromArray(messages)
+                
+                self.refreshCollectionView()
+            } else {
+                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+            }
+            
+        })
     }
     
-    func addRefreshControl() {
-        refreshControl.addTarget(self.chatViewModel, action: "loadMoreMessages", forControlEvents: UIControlEvents.ValueChanged)
-        self.collectionView.addSubview(refreshControl)
-        self.collectionView.alwaysBounceVertical = true
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        ServicesManager.instance.chatService.addDelegate(self)
     }
 	
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        SVProgressHUD.dismiss()
-    }
-    
-    /**
-    JSQM delegate methods
-    */
-    
-    // send message
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-        if( text.isEmpty ) {
-            return;
-        }
-        
-        var message = QBChatMessage()
-        message.senderID = ServicesManager.instance.currentUser()!.ID
-        message.customParameters = ["save_to_history": 1]
-		message.customParameters["date_sent"] =  NSDate().timeIntervalSince1970
-        if( dialog?.type == .Private ) {
-            SVProgressHUD.showWithStatus("SA_STR_SENDING".localized, maskType: SVProgressHUDMaskType.Clear)
-            message.recipientID = self.chatViewModel.recipientID
-            message.text = text
-            dialog?.sendMessage(message)
-            
-            self.chatViewModel.messages.append(message)
-            
-            self.finishSendingMessageAnimated(true)
-            SVProgressHUD.dismiss()
-        }
-        else{
-            message.text = text
-            message.senderNick = ServicesManager.instance.currentUser()?.fullName
-            dialog?.sendMessage(message)
-			
-            // will call self.finishSendingMessageAnimated for group chat message in chatRoomDidReceiveMessage
-        }
-        self.inputToolbar.contentView.textView.text = ""
-    }
-    
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
-        return self.chatViewModel.bubbleImageViewForMessageAtIndex(indexPath.row)
-    }
-    
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.chatViewModel.messages.count
-    }
-    
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
-        
-        cell.textView.textColor = UIColor.blackColor()
-        cell.messageID = self.chatViewModel.messages[indexPath.row].ID
-        cell.textView.selectable = false
-        
-        return cell
-    }
-    
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        var qbMessage = chatViewModel.messages[indexPath.row]
-        var jsqMessage: JSQMessage?
-        if let qbChatMessage = qbMessage as? QBChatMessage {
-            
-            var messageText = qbChatMessage.text
-            
-            if messageText == nil {
-                messageText = ""
-            }
-            
-            jsqMessage = JSQMessage(senderId: String(qbChatMessage.senderID), senderDisplayName: qbChatMessage.senderNick ?? qbChatMessage.senderID.description, date: qbChatMessage.dateSent, text: messageText)
-        }
-        
-        return jsqMessage
-    }
 
-    // disable text selection
-    override func jsq_didReceiveMenuWillHideNotification(notification: NSNotification!) {
-        if let indexPath = self.selectedIndexPathForMenu {
-            var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as? JSQMessagesCollectionViewCell
-            
-            if cell != nil {
-                cell?.textView.selectable = false
-            }
-        }
-        super.jsq_didReceiveMenuWillHideNotification(notification)
-    }
-    
-    
-    /**
-    *  QBChat delegate methods
-    */
-    
-    func chatDidNotSendMessage(message: QBChatMessage!, error: NSError!) {
-        if error.code == 503 {
-            UIAlertView(title: "Can't send a message", message: "You are in the blacklist", delegate: nil, cancelButtonTitle: "Ok").show()
-        }
-        else if error.code == 403 {
-            UIAlertView(title: "Can't send a message", message: "forbidden", delegate: nil, cancelButtonTitle: "Ok").show()
-        }
-        
-        // remove my last message and restore text input
-        if let lastMessage = self.chatViewModel.myLastMessage {
-            self.inputToolbar.contentView.textView.text = lastMessage.text
-            self.chatViewModel.messages.removeLast()
-        }
-        self.collectionView.reloadData()
-        
-        SVProgressHUD.dismiss()
-    }
-    
-    
-    func chatDidReceiveMessage(message: QBChatMessage!) {
-        if self.dialog!.chatRoom == nil {
-            self.chatViewModel.messages.append(message)
-            if message.senderID != ServicesManager.instance.currentUser()?.ID {
-                self.finishReceivingMessageAnimated(true)
-            }
-        }
-    }
-    
-    func chatRoomDidReceiveMessage(message: QBChatMessage!, fromRoomJID roomJID: String!) {
-        if roomJID == self.dialog?.roomJID {
-            // filter duplicates
-            if !self.chatViewModel.messages.filter({$0.ID == message.ID}).isEmpty {
-                return
-            }
-            
-            self.chatViewModel.messages.append(message)
-            if message.senderID == ServicesManager.instance.currentUser()?.ID {
-                self.finishSendingMessageAnimated(true)
-            }
-            else {
-                self.finishReceivingMessageAnimated(true)
-            }
-        }
-    }
-    
-    /**
-    UIMenu delegate method
-    */
-    
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool {
-        
-        if action == Selector("delete:"){
-            return true
-        }
-        
-        return super.collectionView(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender)
+        ServicesManager.instance.chatService.removeDelegate(self);
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let groupChatInfoVC = segue.destinationViewController as? ChatUsersInfoTableViewController {
-            groupChatInfoVC.dialog = self.dialog
+        if let chatInfoViewController = segue.destinationViewController as? ChatUsersInfoTableViewController {
+            chatInfoViewController.dialog = self.dialog
         }
-    }
-    
-    /**
-    Observers
-    */
-    
-    func startMessagesObserver() {
-        // start observing messages array of chatViewModel
-        self.chatViewModel.messages ->> messagesBond
-        
-        messagesBond.didInsertListener = { [weak self] (array, indices) in
-            SVProgressHUD.dismiss()
-            if let strongSelf = self {
-                let firstRun = strongSelf.collectionView.numberOfItemsInSection(0) == 0
-                
-                if firstRun {
-                    strongSelf.finishReceivingMessage()
-                    strongSelf.scrollToBottomAnimated(true)
-                }
-                else {
-                    var indexPaths = indices.map({NSIndexPath(forItem: $0, inSection: 0)})
-                    strongSelf.collectionView.insertItemsAtIndexPaths(indexPaths)
-                }
-            }
-        }
-        messagesBond.didRemoveListener = { [weak self] (array, indices) in
-            SVProgressHUD.dismiss()
-            if let strongSelf = self {
-                var indexPaths = indices.map({NSIndexPath(forItem: $0, inSection: 0)})
-                strongSelf.collectionView.deleteItemsAtIndexPaths(indexPaths)
-            }
-        }
-        
-        self.showLoadingIndicator = Bond() { [unowned self] (showLoadingIndicator: Bool) in
-            if showLoadingIndicator {
-                self.refreshControl.beginRefreshing()
-                SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized)
-            }
-            else {
-                self.refreshControl.endRefreshing()
-                SVProgressHUD.dismiss()
-            }
-        }
-        self.chatViewModel.showLoadingIndicator ->> self.showLoadingIndicator
-    }
-    
-    func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
-        
-        if (chatDialog.ID == self.dialog!.ID) {
-            self.dialog = chatDialog
-        }
-        
     }
     
     deinit{
-		ConnectionManager.instance.currentChatViewModel = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        QBChat.instance().removeDelegate(self)
+    }
+    
+    // MARK: Update
+    
+    func refreshCollectionView() {
+        self.collectionView.reloadData()
+        self.scrollToBottomAnimated(false)
+    }
+    
+    // MARK: Action Buttons
+    
+    func accessoryButtonItem() -> UIButton {
+        var accessoryImage = UIImage(named: "attachment_ic")
+        var imageWidth = accessoryImage?.size.width
+        var normalImage = accessoryImage?.imageMaskedWithColor(UIColor.lightGrayColor())
+        var highlightedImage = accessoryImage?.imageMaskedWithColor(UIColor.darkGrayColor())
+        
+        var accessoryButton = UIButton(frame: CGRect(x: 0, y: 0, width: imageWidth!, height:  32))
+        accessoryButton.setImage(normalImage, forState: UIControlState.Normal)
+        accessoryButton.setImage(highlightedImage, forState: UIControlState.Highlighted)
+        
+        accessoryButton.contentMode = UIViewContentMode.ScaleAspectFill
+        accessoryButton.backgroundColor = UIColor.clearColor()
+        accessoryButton.tintColor = UIColor.lightGrayColor()
+        
+        return accessoryButton
+    }
+    
+    func sendButtonItem() -> UIButton {
+        
+        var sendTitle : NSString = "SA_STR_CHAT_SEND".localized
+        
+        var sendButton = UIButton(frame: CGRectZero)
+        sendButton.setTitle(sendTitle as String, forState: UIControlState.Normal)
+        sendButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        sendButton.setTitleColor(UIColor.blueColor().colorByDarkeningColorWithValue(0.1), forState: UIControlState.Highlighted)
+        sendButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
+        
+        sendButton.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
+        sendButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        sendButton.titleLabel?.minimumScaleFactor = 0.85
+        sendButton.contentMode = UIViewContentMode.Center
+        sendButton.backgroundColor = UIColor.clearColor()
+        sendButton.tintColor = UIColor.blueColor()
+        
+        var maxHeight : CGFloat = 32.0
+        var attributes = [String : AnyObject]()
+        
+        if let titleLabel = sendButton.titleLabel {
+            attributes = [NSFontAttributeName : titleLabel.font!] as [String : AnyObject]
+        }
+        
+        
+        var sendTitleRect = sendTitle.boundingRectWithSize(CGSize(width: CGFloat.max, height: maxHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin|NSStringDrawingOptions.UsesFontLeading, attributes:attributes, context: nil)
+        
+        sendButton.frame = CGRect(x: 0,y: 0, width: CGRectGetWidth(CGRectIntegral(sendTitleRect)), height: maxHeight)
+        
+        return sendButton
+    }
+    
+    // MARK: Actions
+    
+    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
+        
+        var message = QBChatMessage()
+        message.text = text;
+        message.senderID = self.senderID
+        message.senderNick = self.senderDisplayName
+        
+        button.enabled = false
+        
+        ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
+            button.enabled = true
+            self.finishSendingMessageAnimated(true)
+        }
+    }
+    
+    // MARK: Override
+    
+    override func viewClassForItem(item: QBChatMessage!) -> AnyClass! {
+        
+        if item.senderID == QMMessageType.ContactRequest.rawValue {
+            
+            if item.senderID != self.senderID {
+                return QMChatContactRequestCell.self
+            }
+        } else if item.senderID == QMMessageType.RejectContactRequest.rawValue {
+            
+            return QMChatNotificationCell.self
+            
+        } else if item.senderID == QMMessageType.AcceptContactRequest.rawValue {
+            
+            return QMChatNotificationCell.self
+            
+        } else {
+            
+            if (item.senderID != self.senderID) {
+                
+                return QMChatIncomingCell.self
+                
+            } else {
+                
+                return QMChatOutgoingCell.self
+            }
+        }
+        
+        return nil
+    }
+    
+    // MARK: Strings builder
+    
+    override func attributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString! {
+        
+        if messageItem.text == nil {
+            return nil
+        }
+        
+        var textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor(white: 0.29, alpha: 1)
+        
+        var attributes = Dictionary<String, AnyObject>()
+        attributes[NSForegroundColorAttributeName] = textColor
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 15)
+        
+        var attributedString = NSAttributedString(string: messageItem.text, attributes: attributes)
+        
+        return attributedString
+    }
+    
+    
+    override func topLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString? {
+
+        if messageItem.senderID == self.senderID {
+            return nil
+        }
+        
+        var attributes = Dictionary<String, AnyObject>()
+        attributes[NSForegroundColorAttributeName] = UIColor(red: 0.184, green: 0.467, blue: 0.733, alpha: 1)
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 14)
+        
+        var topLabelText = messageItem.senderNick ?? String(messageItem.senderID)
+        
+        var topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
+        
+        return topLabelAttributedString
+    }
+    
+    override func bottomLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString! {
+        
+        var textColor = messageItem.senderID == self.senderID ? UIColor(white: 1, alpha: 0.51) : UIColor(white: 0, alpha: 0.49)
+        
+        var attributes = Dictionary<String, AnyObject>()
+        attributes[NSForegroundColorAttributeName] = textColor
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 12)
+        
+        let timestamp = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
+        
+        var bottomLabelAttributedString = NSAttributedString(string: timestamp, attributes: attributes)
+        
+        return bottomLabelAttributedString
+    }
+    
+    // MARK: Collection View Datasource
+    
+    override func collectionView(collectionView: QMChatCollectionView!, dynamicSizeAtIndexPath indexPath: NSIndexPath!, maxWidth: CGFloat) -> CGSize {
+        
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let attributedString = self.attributedStringForItem(item)
+        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
+        
+        return size
+    }
+    
+     override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let attributedString = item.senderID == self.senderID ? self.bottomLabelAttributedStringForItem(item) : self.topLabelAttributedStringForItem(item)
+        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
+        
+        return size.width
+    }
+    
+    override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
+        var layoutModel : QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
+        layoutModel.avatarSize = CGSize(width: 0, height: 0)
+        
+        return layoutModel
+    }
+    
+    // MARK: QMChatServiceDelegate
+    
+    func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
+        
+        if self.dialog?.ID == dialogID {
+            self.items.addObject(message)
+            self.refreshCollectionView()
+        }
     }
 }
