@@ -106,7 +106,7 @@
 			NSInteger buttonIndex = i;
 			
 			if (item.handler) {
-				item.handler(buttonIndex);
+				item.handler(buttonIndex, self);
 			}
 		}];
 		
@@ -178,7 +178,7 @@
 	UIAlertDialogItem *item = self.items[buttonIndex];
 	
 	if (item.handler) {
-		item.handler(buttonIndex);
+		item.handler(buttonIndex, self);
 	}
 }
 
@@ -196,7 +196,7 @@
 	UIAlertDialogItem *item = self.items[buttonIndex];
 	
 	if (item.handler) {
-		item.handler(buttonIndex);
+		item.handler(buttonIndex, self);
 	}
 }
 
