@@ -110,7 +110,9 @@
             for (QBChatDialog* dialog in dialogs) {
                 if (dialog.type != QBChatDialogTypePrivate) {
                     [strongSelf.chatService joinToGroupDialog:dialog completion:^(NSError *error) {
-                        NSLog(@"Join error: %@", error.localizedDescription);
+						if (error != nil) {
+							NSLog(@"Join error: %@", error.localizedDescription);
+						}
                     }];
                 }
             }

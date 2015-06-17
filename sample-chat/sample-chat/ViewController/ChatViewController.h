@@ -11,6 +11,8 @@
 
 @interface ChatViewController : QMChatViewController
 
+- (void)refreshMessages;
+
 @property (nonatomic, strong) QBChatDialog* dialog;
 @property (nonatomic, assign) BOOL shouldUpdateNavigationStack;
 

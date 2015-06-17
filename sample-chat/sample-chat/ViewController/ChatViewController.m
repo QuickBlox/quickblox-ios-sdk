@@ -20,6 +20,7 @@
 @interface ChatViewController () <QMChatServiceDelegate>
 
 @property (nonatomic, weak) QBUUser* opponentUser;
+@property (nonatomic, strong ) id <NSObject> observerDidBecomeActive;
 
 @end
 
@@ -65,13 +66,30 @@
     
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
-    
-    __weak typeof(self) weakSelf = self;
-    [[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
-        typeof(self) strongSelf = weakSelf;
-        strongSelf.items = [messages mutableCopy];
-        [strongSelf refreshCollectionView];
-    }];
+	
+	[self refreshMessages];
+}
+
+- (void)refreshMessages {
+	
+	if( self.items.count != 0 ) {
+		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
+	}
+	
+	__weak typeof(self) weakSelf = self;
+	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
+		if( response.success ) {
+			__typeof(self) strongSelf = weakSelf;
+			strongSelf.items = [messages mutableCopy];
+			[strongSelf refreshCollectionView];
+			[SVProgressHUD dismiss];
+		}
+		else {
+			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
+			NSLog(@"can not refresh messages: %@", response.error.error);
+		}
+
+	}];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,12 +97,18 @@
     [super viewWillAppear:animated];
     
     [[QBServicesManager instance].chatService addDelegate:self];
+	
+	__weak __typeof(self) weakSelf = self;
+	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+		__typeof(self) strongSelf = weakSelf;
+		[strongSelf refreshMessages];
+	}];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+	
     if (self.shouldUpdateNavigationStack) {
         NSMutableArray *newNavigationStack = [NSMutableArray array];
         
@@ -105,6 +129,7 @@
     [super viewWillDisappear:animated];
     
     [[QBServicesManager instance].chatService removeDelegate:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
