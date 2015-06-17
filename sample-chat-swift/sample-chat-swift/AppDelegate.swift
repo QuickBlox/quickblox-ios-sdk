@@ -47,8 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if let user = ServicesManager.instance.currentUser() {
 			
 			ConnectionManager.instance.logInWithUser(user, completion: { (success, errorMessage) -> Void in
-				ConnectionManager.instance.joinAllRooms()
-				ConnectionManager.instance.currentChatViewModel?.loadRecentMessages()
 				ConnectionManager.instance.startObservingInternetAvailability()
 			})
 		}

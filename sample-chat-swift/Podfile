@@ -1,4 +1,4 @@
 platform :ios, "7.0"
 
 pod 'SVProgressHUD'
-pod 'JSQMessagesViewController' , '~> 7.0.1'
+pod 'TTTAttributedLabel', '~> 1.13.3'

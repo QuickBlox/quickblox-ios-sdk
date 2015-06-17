@@ -102,7 +102,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     func cachedMessagesWithDialogID(dialogID: String!, block: QMCacheCollection!) {
         
-        QMChatCache.instance().messagesWithDialogId(dialogID, sortedBy: "ID", ascending: true) { (messages: [AnyObject]!) -> Void in
+        QMChatCache.instance().messagesWithDialogId(dialogID, sortedBy: CDMessageAttributes.messageID as String, ascending: true) { (messages: [AnyObject]!) -> Void in
             block(messages)
         }
     }
