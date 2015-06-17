@@ -53,7 +53,7 @@
 
 - (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog
 {
-    [self performSegueWithIdentifier:kQMChatViewController sender:dialog];
+    [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
 }
 
 - (IBAction)joinChatButtonPressed:(UIButton *)sender {
@@ -90,7 +90,7 @@
         [indexSet addIndex:obj.row];
     }];
 	
-	NSArray *selectedUsers = [QBServicesManager.instance.usersService.usersWithoutCurrentUser objectsAtIndexes:indexSet];
+	NSArray *selectedUsers = [self.dataSource.users objectsAtIndexes:indexSet];
 	
 	if (selectedUsers.count == 1) {
 		[QBServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
