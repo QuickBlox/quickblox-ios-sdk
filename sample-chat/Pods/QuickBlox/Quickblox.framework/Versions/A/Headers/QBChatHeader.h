@@ -9,6 +9,8 @@
 #ifndef Quickblox_QBChatHeader_h
 #define Quickblox_QBChatHeader_h
 
+#import <Quickblox/QBChat.h>
+
 #import <Quickblox/QBRequest+QBChat.h>
 
 #endif

@@ -1,2 +1,11 @@
-platform :ios, '6.0'
-pod 'MTBlockAlertView', '~> 0.1.1'
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+target 'sample-messages' do
+    pod 'SVProgressHUD'
+end
+
+target 'sample-messagesTests' do
+
+end
+

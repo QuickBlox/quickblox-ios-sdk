@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Entity.h"
+#import "QBCEntity.h"
 
 @class QBLGeoDataSearchRequest;
 @class QBUUser;
@@ -16,7 +16,7 @@
 /** Overview:*/
 /** This class represents geo data - location point. You can store user locations on server, and then retrieve them using filters and search. See QBLocationService  */
 
-@interface QBLGeoData : Entity <NSCoding, NSCopying> {
+@interface QBLGeoData : QBCEntity <NSCoding, NSCopying> {
 @private
 	CLLocationDegrees latitude;
 	CLLocationDegrees longitude;

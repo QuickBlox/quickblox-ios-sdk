@@ -66,5 +66,11 @@ typedef enum QBConnectionZoneType{
 */
 + (void)setApiDomain:(NSString *)apiDomain forServiceZone:(enum QBConnectionZoneType)zone;
 
+/**
+ *  Returns Api Domain for current zone
+ *
+ *  @return NSString value of Api Domain
+ */
++ (NSString *)currentApiDomain;
 
 @end

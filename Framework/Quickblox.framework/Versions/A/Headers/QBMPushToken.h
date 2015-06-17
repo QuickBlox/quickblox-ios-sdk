@@ -6,13 +6,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Entity.h"
+#import "QBCEntity.h"
 
 /** QBMPushToken class declaration. */
 /** Overview */
 /** Class represents push token, that uniquely identifies the application.  (for APNS - it's token, for C2DM - it's registration Id, for MPNS - it's uri, for BBPS - it's token). */
 
-@interface QBMPushToken : Entity <NSCoding, NSCopying>{
+@interface QBMPushToken : QBCEntity <NSCoding, NSCopying>{
 	NSString *clientIdentificationSequence;
 	BOOL isEnvironmentDevelopment;
 }

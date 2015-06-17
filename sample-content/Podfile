@@ -1,1 +1,13 @@
-platform :ios, '6.0'
+# Uncomment this line to define a global platform for your project
+# platform :ios, '6.0'
+
+target 'sample-content' do
+    pod 'SVProgressHUD'
+    pod 'NMPaginator'
+    pod 'SDWebImage', '~>3.7'
+end
+
+target 'sample-contentTests' do
+
+end
+

@@ -1,18 +1,13 @@
 PODS:
-  - libextobjc/EXTScope (0.4.1):
-    - libextobjc/RuntimeExtensions
-  - libextobjc/RuntimeExtensions (0.4.1)
-  - MTBlockAlertView (0.1.1)
-  - QuickBlox (2.0.12)
+  - NMPaginator (1.0.0)
+  - SVProgressHUD (1.1.3)
 
 DEPENDENCIES:
-  - libextobjc/EXTScope (~> 0.4)
-  - MTBlockAlertView (~> 0.1.1)
-  - QuickBlox
+  - NMPaginator
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
-  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  MTBlockAlertView: 6a37bcf0fc677da69e0c3457be41bb1eb2415484
-  QuickBlox: 14d87c290587ebcde637a4fb68fbbf699b3bc0f3
+  NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.37.2

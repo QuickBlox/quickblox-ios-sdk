@@ -4,7 +4,7 @@
 //
 //  Copyright 2010 QuickBlox team. All rights reserved.
 //
-#import "Entity.h"
+#import "QBCEntity.h"
 #import "QBMSubscription.h"
 #import "QBMessagesEnums.h"
 
@@ -12,24 +12,19 @@
 /** Overview */
 /** Class represents user subscription to push chanell */
 
-@interface QBMSubscription : Entity <NSCoding, NSCopying>{
-	QBMNotificationChannel notificationChannel;
-	NSString *deviceUDID;
-    NSString *devicePlatform;
-    NSString *url;
-}
+@interface QBMSubscription : QBCEntity <NSCoding, NSCopying>
+
 /** Declare which notification channels could be used to notify user about events. */
 @property (nonatomic) QBMNotificationChannel notificationChannel;
 
 /** Device UDID */
-@property (nonatomic, retain) NSString *deviceUDID;
+@property (nonatomic, copy) NSString *deviceUDID;
 
 /** Device platform name */
-@property (nonatomic, retain) NSString *devicePlatform;
+@property (nonatomic, copy) NSString *devicePlatform;
 
-/** Url parameter have to be set in case of using http_request type notification_channel. This url will be posted with event data when event occurs. */
-@property (nonatomic, retain) NSString *url;
-
+/** Identifies client device in 3-rd party service like APNS, C2DM, MPNS, BBPS.*/
+@property(nonatomic, strong) NSData *deviceToken;
 
 /** Create new subscription
  @return New instance of QBMSubscription

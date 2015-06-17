@@ -18,29 +18,42 @@
 
 @implementation DialogsViewController
 
+
 #pragma mark
 #pragma mark ViewController lyfe cycle
-
-- (void)viewDidLoad{
-    [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogUpdated:)
-                                                 name:kDialogUpdatedNotification object:nil];
-}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    if([ChatService shared].currentUser != nil){
+    if([QBSession currentSession].currentUser == nil){
+        return;
+    }
+    
+    if([ChatService shared].dialogs == nil){
         // get dialogs
         //
         [SVProgressHUD showWithStatus:@"Loading"];
         __weak __typeof(self)weakSelf = self;
+        
         [[ChatService shared] requestDialogsWithCompletionBlock:^{
             [weakSelf.dialogsTableView reloadData];
             [SVProgressHUD dismiss];
         }];
+    }else{
+        [[ChatService shared] sortDialogs];
+        [self.dialogsTableView reloadData];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dialogsUpdatedNotification) name:kNotificationDialogsUpdated object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chatDidAccidentallyDisconnectNotification) name:kNotificationChatDidAccidentallyDisconnect object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(groupDialogJoinedNotification) name:kNotificationGroupDialogJoined object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForegroundNotification) name:UIApplicationWillEnterForegroundNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -55,6 +68,26 @@
     if(self.createdDialog != nil){
         [self performSegueWithIdentifier:kShowNewChatViewControllerSegue sender:nil];
     }
+}
+
+
+#pragma mark
+#pragma mark Notifications
+
+- (void)dialogsUpdatedNotification{
+    [self.dialogsTableView reloadData];
+}
+
+- (void)chatDidAccidentallyDisconnectNotification{
+    [self.dialogsTableView reloadData];
+}
+
+- (void)groupDialogJoinedNotification{
+    [self.dialogsTableView reloadData];
+}
+
+- (void)willEnterForegroundNotification{
+    [self.dialogsTableView reloadData];
 }
 
 
@@ -104,6 +137,7 @@
             cell.detailTextLabel.text = chatDialog.lastMessageText;
             QBUUser *recipient = [ChatService shared].usersAsDictionary[@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
+            cell.imageView.image = [UIImage imageNamed:@"privateChatIcon"];
         }
             break;
         case QBChatDialogTypeGroup:{
@@ -135,26 +169,23 @@
     }else{
         badgeLabel.hidden = YES;
     }
-
+    
+    // set group chat joined status
+    UIView *groupChatJoinedStatus =  (UIView *)[cell.contentView viewWithTag:202];
+    if(chatDialog.isJoined){
+        groupChatJoinedStatus.layer.cornerRadius = 5;
+        
+        groupChatJoinedStatus.hidden = NO;
+    }else{
+        groupChatJoinedStatus.hidden = YES;
+    }
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-
-#pragma mark
-#pragma Notifications
-
-- (void)dialogUpdated:(NSNotification *)notification{
-    NSString *dialogId = notification.userInfo[@"dialog_id"];
-    
-    __weak __typeof(self)weakSelf = self;
-    [[ChatService shared] requestDialogUpdateWithId:dialogId completionBlock:^{
-        [weakSelf.dialogsTableView reloadData];
-    }];
 }
 
 @end

@@ -1,7 +1,7 @@
 PODS:
   - DateTools (1.5.0)
   - NMPaginator (1.0.0)
-  - QuickBlox (2.2.5)
+  - QuickBlox (2.3)
   - SVProgressHUD (1.1.3)
   - TWMessageBarManager (1.7.2)
 
@@ -15,7 +15,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   DateTools: b93a2c2017747329c6077c7d7e8a75106e23d0d7
   NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
-  QuickBlox: f13fb448a32d3c09efc71a9fd19d7f44092d9dbd
+  QuickBlox: 8b4f5a66e56eeb83625792dd8fd7aeb82f187fec
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 

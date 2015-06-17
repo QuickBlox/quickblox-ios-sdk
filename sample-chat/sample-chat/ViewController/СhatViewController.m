@@ -15,6 +15,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
+
 - (IBAction)sendMessage:(id)sender;
 
 @end
@@ -26,6 +28,15 @@
     [super viewDidLoad];
 
     self.messagesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // Initialize the refresh control.
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.backgroundColor = [UIColor whiteColor];
+    [self.refreshControl addTarget:self
+                            action:@selector(getPreviousMessages)
+                  forControlEvents:UIControlEventValueChanged];
+    
+    [self.messagesTableView addSubview:self.refreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -46,24 +57,16 @@
     }else{
         self.title = self.dialog.name;
     }
-
-    // Join room
-    //
-    if(self.dialog.type != QBChatDialogTypePrivate){
-        [self joinDialog];
-    }
     
     // sync messages history
     //
-    [self syncMessages];
+    [self syncMessages:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
     [ChatService shared].delegate = nil;
-    
-    [self leaveDialog];
 }
 
 -(BOOL)hidesBottomBarWhenPushed
@@ -71,44 +74,65 @@
     return YES;
 }
 
-- (void)joinDialog{
-    if(![[self.dialog chatRoom] isJoined]){
-        [SVProgressHUD showWithStatus:@"Joining..."];
-        
-        [[ChatService shared] joinRoom:[self.dialog chatRoom] completionBlock:^(QBChatRoom *joinedChatRoom) {
-            [SVProgressHUD dismiss];
-        }];
-    }
+- (void)getPreviousMessages{
+    
+    // load more messages here
+    //
+    [self syncMessages:YES];
 }
 
-- (void)leaveDialog{
-    [[self.dialog chatRoom] leaveRoom];
-}
-
-- (void)syncMessages{
+- (void)syncMessages:(BOOL)loadPrevious{
     NSArray *messages = [[ChatService shared] messagsForDialogId:self.dialog.ID];
     NSDate *lastMessageDateSent = nil;
+    NSDate *firstMessageDateSent = nil;
     if(messages.count > 0){
-        QBChatAbstractMessage *lastMsg = [messages lastObject];
-        lastMessageDateSent = lastMsg.datetime;
+        lastMessageDateSent = ((QBChatMessage *)[messages lastObject]).dateSent;
+        firstMessageDateSent = ((QBChatMessage *)[messages firstObject]).dateSent;
     }
     
     __weak __typeof(self)weakSelf = self;
     
+    NSMutableDictionary *extendedRequest = [[NSMutableDictionary alloc] init];
+    if(loadPrevious){
+        if(firstMessageDateSent != nil){
+            extendedRequest[@"date_sent[lte]"] = @([firstMessageDateSent timeIntervalSince1970]-1);
+        }
+    }else{
+        if(lastMessageDateSent != nil){
+            extendedRequest[@"date_sent[gte]"] = @([lastMessageDateSent timeIntervalSince1970]+1);
+        }
+    }
+    extendedRequest[@"sort_desc"] = @"date_sent";
+    
+    QBResponsePage *page = [QBResponsePage responsePageWithLimit:100 skip:0];
     [QBRequest messagesWithDialogID:self.dialog.ID
-                    extendedRequest:lastMessageDateSent == nil ? nil : @{@"date_sent[gt]": @([lastMessageDateSent timeIntervalSince1970])}
-                            forPage:nil
+                    extendedRequest:extendedRequest
+                            forPage:page
                        successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
         if(messages.count > 0){
             [[ChatService shared] addMessages:messages forDialogId:self.dialog.ID];
         }
                            
-        [weakSelf.messagesTableView reloadData];
-        NSInteger count = [[ChatService shared] messagsForDialogId:self.dialog.ID].count;
-        if(count > 0){
-           [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
-                                         atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-        }                      
+        if(loadPrevious){
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"MMM d, h:mm a"];
+            NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+            NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
+                                                                        forKey:NSForegroundColorAttributeName];
+            NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+            weakSelf.refreshControl.attributedTitle = attributedTitle;
+            
+            [weakSelf.refreshControl endRefreshing];
+            
+            [weakSelf.messagesTableView reloadData];
+        }else{
+            [weakSelf.messagesTableView reloadData];
+            NSInteger count = [[ChatService shared] messagsForDialogId:self.dialog.ID].count;
+            if(count > 0){
+                [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
+                                                  atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
+        }
     } errorBlock:^(QBResponse *response) {
         
     }];
@@ -118,40 +142,27 @@
 #pragma mark Actions
 
 - (IBAction)sendMessage:(id)sender{
-    if(self.messageTextField.text.length == 0){
+    NSString *messageText = self.messageTextField.text;
+    if(messageText.length == 0){
+        return;
+    }
+
+    // send a message
+    BOOL sent = [[ChatService shared] sendMessage:messageText toDialog:self.dialog];
+    if(!sent){
+        [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error"
+                                                       description:@"Please check your internet connection"
+                                                              type:TWMessageBarMessageTypeInfo];
         return;
     }
     
-    // create a message
-    QBChatMessage *message = [[QBChatMessage alloc] init];
-    message.text = self.messageTextField.text;
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"save_to_history"] = @YES;
-    [message setCustomParameters:params];
-    
-    // 1-1 Chat
-    if(self.dialog.type == QBChatDialogTypePrivate){
-        // send message
-        message.recipientID = [self.dialog recipientID];
-        message.senderID = [ChatService shared].currentUser.ID;
-
-        [[ChatService shared] sendMessage:message];
-        
-        // save message
-        [[ChatService shared] addMessage:message forDialogId:self.dialog.ID];
-
-    // Group Chat
-    }else {
-        [[ChatService shared] sendMessage:message toRoom:[self.dialog chatRoom]];
-    }
-    
-    // Reload table
+    // reload table
     [self.messagesTableView reloadData];
     if([[ChatService shared] messagsForDialogId:self.dialog.ID].count > 0){
         [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[ChatService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     
-    // Clean text field
+    // clean text field
     [self.messageTextField setText:nil];
 }
 
@@ -173,7 +184,7 @@
         cell = [[ChatMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ChatMessageCellIdentifier];
     }
     
-    QBChatAbstractMessage *message = [[ChatService shared] messagsForDialogId:self.dialog.ID][indexPath.row];
+    QBChatMessage *message = [[ChatService shared] messagsForDialogId:self.dialog.ID][indexPath.row];
     //
     [cell configureCellWithMessage:message];
     
@@ -181,7 +192,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    QBChatAbstractMessage *chatMessage = [[[ChatService shared] messagsForDialogId:self.dialog.ID] objectAtIndex:indexPath.row];
+    QBChatMessage *chatMessage = [[[ChatService shared] messagsForDialogId:self.dialog.ID] objectAtIndex:indexPath.row];
     CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage];
     return cellHeight;
 }
@@ -231,40 +242,19 @@
 #pragma mark
 #pragma mark ChatServiceDelegate
 
-- (void)chatDidLogin{
-    [self joinDialog];
-    
+- (void)chatDidLogin
+{
     // sync messages history
     //
-    [self syncMessages];
+    [self syncMessages:NO];
 }
 
-- (BOOL)chatDidReceiveMessage:(QBChatMessage *)message{
-    
-    if(message.senderID != self.dialog.recipientID){
+- (BOOL)chatDidReceiveMessage:(QBChatMessage *)message
+{
+    NSString *dialogId = message.dialogID;
+    if(![self.dialog.ID isEqualToString:dialogId]){
         return NO;
     }
-    
-    // save message
-    [[ChatService shared] addMessage:message forDialogId:self.dialog.ID];
-    
-    // Reload table
-    [self.messagesTableView reloadData];
-    if([[ChatService shared] messagsForDialogId:self.dialog.ID].count > 0){
-        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[ChatService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0]
-                                      atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    }
-    
-    return YES;
-}
-
-- (BOOL)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID{
-    if(![[self.dialog chatRoom].JID isEqualToString:roomJID]){
-        return NO;
-    }
-    
-    // save message
-    [[ChatService shared] addMessage:message forDialogId:self.dialog.ID];
     
     // Reload table
     [self.messagesTableView reloadData];

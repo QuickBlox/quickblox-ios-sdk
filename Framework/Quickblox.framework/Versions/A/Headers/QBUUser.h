@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Entity.h"
+#import "QBCEntity.h"
 
 /** QBUUser class declaration. */
 /** Overview */
 /** This class represents QuickBlox User. */
 
-@interface QBUUser : Entity <NSCoding, NSCopying> {
+@interface QBUUser : QBCEntity <NSCoding, NSCopying> {
 @private
     NSUInteger externalUserID;
     NSInteger blobID;
