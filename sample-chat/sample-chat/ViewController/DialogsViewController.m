@@ -163,6 +163,15 @@
 	QBChatDialog *chatDialog = self.dialogs[cell.tag];
 	
 	if (index == 0) {
+		// remove current user from occupants
+		NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
+		for( NSNumber *identifier in chatDialog.occupantIDs ) {
+			if( ![identifier isEqualToNumber:@(QBServicesManager.instance.currentUser.ID)] ) {
+				[occupantsWithoutCurrentUser addObject:identifier];
+			}
+		}
+		chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
+		
         __weak __typeof(self) weakSelf = self;
         [[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
                                                 occupantsCustomParameters:nil

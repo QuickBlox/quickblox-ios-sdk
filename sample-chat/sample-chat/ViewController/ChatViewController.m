@@ -339,5 +339,12 @@
     }
 }
 
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog{
+	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
+		self.dialog = chatDialog;
+	}
+}
+
+
 @end
 
