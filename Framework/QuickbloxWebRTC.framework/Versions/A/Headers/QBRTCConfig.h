@@ -66,7 +66,7 @@
 + (void)setDialingTimeInterval:(NSTimeInterval)dialingTimeInterval;
 
 /**
- *  Set anser time interval
+ *  Set answer time interval
  *  Default value: 45 sec
  *
  *  @param answerTimeInterval time interval in sec
@@ -89,9 +89,9 @@
 + (NSTimeInterval)dialingTimeInterval;
 
 /**
- *  Anser time interval
+ *  Answer time interval
  *
- *  @return current anser time interval;
+ *  @return current answer time interval;
  */
 + (NSTimeInterval)answerTimeInterval;
 

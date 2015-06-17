@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @class QBChatMessage;
 
 /**
  QBChatRoom structure. Represents chat room entity
+ 
+ @warning *Deprecated in QB iOS SDK 2.3:* Use QBChatDialog instead
  */
-
+__attribute__ ((deprecated("Use QBChatDialog instead")))
 @interface QBChatRoom : NSObject <NSCoding, NSCopying>
 /**
  Room name
@@ -74,16 +75,6 @@
 - (id)initWithRoomJID:(NSString *)roomJID nickname:(NSString *)nickname;
 
 /**
- Add users to current room. Array users contains users' ids
- */
-- (void)addUsers:(NSArray *)users;
-
-/**
- Delete users from current room. Array users contains users' ids
- */
-- (void)deleteUsers:(NSArray *)users;
-
-/**
  Send message to current room
  */
 - (void)sendMessage:(QBChatMessage *)message;
@@ -111,23 +102,8 @@
 - (void)leaveRoom;
 
 /**
- Request all room's users, users who can join room
- */
-- (void)requestUsers;
-
-/**
- Request room's users with affiliation
- */
-- (void)requestUsersWithAffiliation:(NSString *)affiliation;
-
-/**
  Request room's online users
  */
 - (void)requestOnlineUsers;
-
-/**
- Request room information
- */
-- (void)requestInformation;
 
 @end

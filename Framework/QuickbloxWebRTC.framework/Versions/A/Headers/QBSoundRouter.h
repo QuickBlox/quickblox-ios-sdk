@@ -18,13 +18,16 @@
 - (BOOL)isActive;
 
 /**
- *  Begin voice chat /
+ *  Call this method when you want to start a call and you want to save current audio router settings
+ * 
+ * @return YES if success, NO if failed to save current audio settings
  */
 - (BOOL)initialize;
+
 /**
- *  <#Description#>
+ *  call this method when you want to restore previously saved audio router settings saved with "initialize" method
  *
- *  @return <#return value description#>
+ *  @return YES if audio router settings is successfully restored, NO if can not restore
  */
 - (BOOL)deinitialize;
 

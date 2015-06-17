@@ -9,8 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "ChatEnums.h"
 
-@class QBChatRoom;
+extern NSString* const QBChatDialogJoinPrefix;
+extern NSString* const QBChatDialogLeavePrefix;
+extern NSString* const QBChatDialogOnlineUsersPrefix;
+extern NSString* const QBChatDialogOnJoinFailedPrefix;
 
+typedef void(^QBChatDialogStatusBlock)() ;
+typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) ;
+typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
+
+@class QBChatRoom;
+@class QBChatMessage;
 @interface QBChatDialog : NSObject <NSCoding, NSCopying>
 
 /** Object ID */
@@ -23,7 +32,7 @@
 @property (nonatomic, retain) NSString *roomJID;
 
 /** Chat type: Private/Group/PublicGroup */
-@property (nonatomic) enum QBChatDialogType type;
+@property (nonatomic) QBChatDialogType type;
 
 /** Group chat name. If chat type is private, name will be nil */
 @property (nonatomic, retain) NSString *name;
@@ -46,7 +55,7 @@
 /** Array of user ids in chat. For private chat count = 2 */
 @property (nonatomic, retain) NSArray *occupantIDs;
 
-/** The dictionaty with data */
+/** The dictionary with data */
 @property (nonatomic, retain) NSDictionary *data;
 
 /** Dialog owner */
@@ -55,9 +64,29 @@
 /** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise.  */
 @property (nonatomic, readonly) NSInteger recipientID;
 
-/** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
-@property (nonatomic, readonly) QBChatRoom *chatRoom;
+/**
+ *  Fired when user joined to room.
+ */
+@property (nonatomic, copy) QBChatDialogStatusBlock onJoin;
+- (void)setOnJoin:(QBChatDialogStatusBlock)anOnJoin;
 
+/**
+ *  Fired when user left room.
+ */
+@property (nonatomic, copy) QBChatDialogStatusBlock onLeave;
+- (void)setOnLeave:(QBChatDialogStatusBlock)anOnLeave;
+
+/**
+ *  Fired when list of online users received.
+ */
+@property (nonatomic, copy) QBChatDialogRequestOnlineUsersBlock onReceiveListOfOnlineUsers;
+- (void)setOnReceiveListOfOnlineUsers:(QBChatDialogRequestOnlineUsersBlock)anOnReceiveListOfOnlineUsers;
+
+/**
+ *  Fired when join to room failed (in most cases if user is not added to the room)
+ */
+@property (nonatomic, copy) QBChatDialogJoinFailedBlock onJoinFailed;
+- (void)setOnJoinFailed:(QBChatDialogJoinFailedBlock)anOnJoinFailed;
 
 /** Constructor */
 - (instancetype)initWithDialogID:(NSString *)dialogID;
@@ -70,5 +99,71 @@
 - (void)setPullOccupantsIDs:(NSArray *)occupantsIDs;
 - (NSArray *)pullOccupantsIDs;
 
+#pragma mark - Send message
+
+/**
+ *  Send chat message to dialog.
+ *
+ *  @param message Chat message to send.
+ *
+ *  @return YES if the message was sent. If not - see log.
+ */
+- (BOOL)sendMessage:(QBChatMessage *)message;
+
+/**
+ *  Send chat message with sent block
+ *
+ *  @param message   Chat message to send
+ *  @param sentBlock The block which informs whether a message was delivered to server or not. nil if no errors.
+ *
+ *  @return YES if the message was sent. If not - see log.
+ */
+- (BOOL)sendMessage:(QBChatMessage *)message sentBlock:(void (^)(NSError *error))sentBlock;
+
+/**
+ *Available only for 'Enterprise' clients.* Send group chat message to room, without room join
+ 
+ @param message Chat message to send
+ @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendGroupChatMessageWithoutJoin:(QBChatMessage *)message;
+#pragma mark - Join/leave
+
+/**
+ *  Join status of room
+ *
+ *  @return YES if user is joined to room, otherwise - no.
+ */
+- (BOOL)isJoined;
+
+/**
+ *  Join to room. 'onJoin' block will be called.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)join;
+
+/**
+ *  Leave joined room. 'onLeave' block will be called.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)leave;
+
+#pragma mark - Users status
+
+/**
+ *  Requests users who are joined to room. 'onReceiveListOfOnlineUsers' block will be called.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)requestOnlineUsers;
+
+@end
+
+@interface QBChatDialog (Deprecated)
+
+/** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
+@property (nonatomic, readonly) QBChatRoom *chatRoom;
 
 @end

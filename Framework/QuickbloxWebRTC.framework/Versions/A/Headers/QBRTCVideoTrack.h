@@ -12,6 +12,6 @@
 
 @property (assign, nonatomic, readonly) BOOL isRemote;
 
-- (id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
 
 @end

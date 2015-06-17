@@ -8,7 +8,7 @@
 
 typedef NS_ENUM(NSUInteger, QBRTCConnectionState) {
     
-    QBRTCConnectionUnknow,
+    QBRTCConnectionUnknown,
     QBRTCConnectionNew,
     QBRTCConnectionPending,
     QBRTCConnectionConnecting,
