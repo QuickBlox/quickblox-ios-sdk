@@ -54,6 +54,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
         
+        if self.dialog?.type != QBChatDialogType.Private {
+            self.title = self.dialog?.name
+        } else {
+            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
+                self.title = recepeint.login
+            }
+        }
+        
         ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
             if response.error == nil {
@@ -88,14 +96,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         }
     }
     
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    // MARK: Update
+    
     func refreshCollectionView() {
         self.collectionView.reloadData()
         self.scrollToBottomAnimated(false)
     }
     
-    deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
+    // MARK: Action Buttons
     
     func accessoryButtonItem() -> UIButton {
         var accessoryImage = UIImage(named: "attachment_ic")
@@ -146,6 +158,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         return sendButton
     }
     
+    // MARK: Actions
+    
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
         
         var message = QBChatMessage()
@@ -160,6 +174,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
             self.finishSendingMessageAnimated(true)
         }
     }
+    
+    // MARK: Override
     
     override func viewClassForItem(item: QBChatMessage!) -> AnyClass! {
         
@@ -243,7 +259,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         return bottomLabelAttributedString
     }
     
-    // MARK : Collection View Datasource
+    // MARK: Collection View Datasource
     
     override func collectionView(collectionView: QMChatCollectionView!, dynamicSizeAtIndexPath indexPath: NSIndexPath!, maxWidth: CGFloat) -> CGSize {
         
@@ -268,6 +284,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         
         return layoutModel
     }
+    
+    // MARK: QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
         
