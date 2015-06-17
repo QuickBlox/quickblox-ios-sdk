@@ -82,7 +82,7 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                                 
                                 dialog.occupantIDs = occupantIDs
                                 
-                                ServicesManager.instance.chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance.currentUser().login) has leave the dialog", completion: { (error: NSError!) -> Void in
+                                ServicesManager.instance.chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance.currentUser().login) has left the dialog", completion: { (error: NSError!) -> Void in
                                     
                                     ServicesManager.instance.chatService.deleteDialogWithID(dialog.ID, completion: { (response: QBResponse!) -> Void in
                                         
