@@ -51,11 +51,11 @@ class UsersDataSource {
         }
     }
     
-    func userByID(userID : UInt) -> QBUUser {
+    func userByID(userID : UInt) -> QBUUser? {
         
         var user = self.users.filter({$0.ID == userID})
         
-        return user.first!
+        return user.first
     }
 
     private func loadUsers() {
