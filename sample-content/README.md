@@ -12,5 +12,5 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-content-ios](http://quickblox.com/developers/SimpleSample-content-ios)
 
-<img src="http://quickblox.com/developers//images/4/46/Ios_users_content1.png" border="1" alt="List of images" width="200"> 
-<img src="http://quickblox.com/developers//images/a/a9/Ios_users_content2.png" border="1" alt="Image full screen" width="200"> 
+<img src="http://quickblox.com/developers//images/4/46/Ios_users_content1.png" border="2" alt="List of images" width="300"> 
+<img src="http://quickblox.com/developers//images/a/a9/Ios_users_content2.png" border="2" alt="Image full screen" width="300"> 
