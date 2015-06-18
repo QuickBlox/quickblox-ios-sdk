@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D127a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bMu-hz-b0y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bMu-hz-b0y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -268,13 +268,14 @@ qb0.1.3r3213</string>
                             <constraint firstItem="zgc-bt-6G4" firstAttribute="top" secondItem="wMv-Qs-QPj" secondAttribute="topMargin" id="zWy-xQ-aFU"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Zrz-qa-RdW"/>
                     <connections>
                         <outlet property="tableView" destination="zgc-bt-6G4" id="tKG-du-ahW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hed-is-t2l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1110" y="301"/>
+            <point key="canvasLocation" x="1110" y="284"/>
         </scene>
         <!--Stun servers-->
         <scene sceneID="w2q-2Q-1oc">
@@ -844,7 +845,8 @@ qb0.1.3r3213</string>
         <!--Navigation Controller-->
         <scene sceneID="FjM-or-kC7">
             <objects>
-                <navigationController id="bMu-hz-b0y" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3pc-09-BN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController modalTransitionStyle="crossDissolve" id="bMu-hz-b0y" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fxr-6n-4WD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -853,7 +855,6 @@ qb0.1.3r3213</string>
                         <segue destination="nhg-X9-rPe" kind="relationship" relationship="rootViewController" id="Y06-jA-6b2"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3pc-09-BN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-473" y="301"/>
         </scene>
