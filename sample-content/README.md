@@ -12,4 +12,4 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-content-ios](http://quickblox.com/developers/SimpleSample-content-ios)
 
-![Users's gallery](http://files.quickblox.com/SimpleSample-content-ios1.png) &nbsp;&nbsp;&nbsp;&nbsp; ![full screen](http://files.quickblox.com/SimpleSample-content-ios2.png)
+![Users's gallery](http://quickblox.com/developers//images/4/46/Ios_users_content1.png) &nbsp;&nbsp;&nbsp;&nbsp; ![full screen](http://quickblox.com/developers//images/a/a9/Ios_users_content2.png)
