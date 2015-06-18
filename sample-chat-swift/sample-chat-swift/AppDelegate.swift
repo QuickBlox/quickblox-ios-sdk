@@ -28,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		QBSettings.setLogLevel(QBLogLevel.Debug)
         QBSettings.enableXMPPLogging()
 		
-		ConnectionManager.instance.startObservingInternetAvailability()
-		
 		return true
 	}
 	
@@ -37,31 +35,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationDidEnterBackground(application: UIApplication) {
-        
 		ServicesManager.instance.chatService.logoutChat()
-		ConnectionManager.instance.stopObservingInternetAvailability()
-        
 	}
 	
 	func applicationWillEnterForeground(application: UIApplication) {
-		if let user = ServicesManager.instance.currentUser() {
-			
-			ConnectionManager.instance.logInWithUser(user, completion: { (success, errorMessage) -> Void in
-				ConnectionManager.instance.joinAllRooms()
-				ConnectionManager.instance.currentChatViewModel?.loadRecentMessages()
-				ConnectionManager.instance.startObservingInternetAvailability()
-			})
-		}
+		ServicesManager.instance.chatService.logIn(nil)
 	}
 	
 	func applicationDidBecomeActive(application: UIApplication) {
-		ConnectionManager.instance.startObservingInternetAvailability()
+
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {
-        
 		ServicesManager.instance.chatService.logoutChat()
-        
 	}
 	
 	

@@ -1,1 +1,0 @@
-../../../JSQMessagesViewController/JSQMessagesViewController/Views/JSQMessagesTypingIndicatorFooterView.h

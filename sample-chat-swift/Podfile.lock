@@ -1,16 +1,13 @@
 PODS:
-  - JSQMessagesViewController (7.0.2):
-    - JSQSystemSoundPlayer (~> 2.0.1)
-  - JSQSystemSoundPlayer (2.0.1)
   - SVProgressHUD (1.1.3)
+  - TTTAttributedLabel (1.13.4)
 
 DEPENDENCIES:
-  - JSQMessagesViewController (~> 7.0.1)
   - SVProgressHUD
+  - TTTAttributedLabel (~> 1.13.3)
 
 SPEC CHECKSUMS:
-  JSQMessagesViewController: bb6649691182b1899dc52b42266ad69efc473510
-  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
 
 COCOAPODS: 0.37.1
