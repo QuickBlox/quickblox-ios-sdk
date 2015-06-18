@@ -99,6 +99,10 @@
 - (void)showAlertControllerInViewController:(UIViewController *)viewController {
 	self.alertController = [UIAlertController alertControllerWithTitle:self.title message:self.message preferredStyle:self.style == UIAlertDialogStyleActionSheet ? UIAlertControllerStyleActionSheet : UIAlertControllerStyleAlert];
 	
+	UIAlertAction *closeAction = [UIAlertAction actionWithTitle:CLOSE_TEXT style:UIAlertActionStyleCancel handler:nil];
+	
+	[self.alertController addAction:closeAction];
+	
 	NSInteger i = 0;
 	
 	for (UIAlertDialogItem *item in self.items) {
@@ -121,16 +125,12 @@
 		}];
 	}
 	
-	UIAlertAction *closeAction = [UIAlertAction actionWithTitle:CLOSE_TEXT style:UIAlertActionStyleCancel handler:nil];
-	
-	[self.alertController addAction:closeAction];
-	
 	[viewController presentViewController:self.alertController animated:YES completion:nil];
 }
 
 - (void)showAlert {
 	self.alertView = [[UIAlertViewDialog alloc] initWithTitle:self.title message:self.message delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
-	
+	[self.alertView addButtonWithTitle:CLOSE_TEXT];
 	self.alertView.alertDialog = self;
 	
 	for (UIAlertDialogItem *item in self.items) {
@@ -144,9 +144,7 @@
 		}
 	}
 	
-	[self.alertView addButtonWithTitle:CLOSE_TEXT];
-	
-	self.alertView.cancelButtonIndex = self.alertView.numberOfButtons - 1;
+	self.alertView.cancelButtonIndex = 0;
 	
 	[self.alertView show];
 }
@@ -170,7 +168,7 @@
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertViewDialog *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == alertView.numberOfButtons - 1) {
+	if (buttonIndex == 1) {
 		return;
 	}
 	
