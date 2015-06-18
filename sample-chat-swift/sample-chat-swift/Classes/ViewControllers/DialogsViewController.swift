@@ -196,7 +196,14 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func chatService(chatService: QMChatService!, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String!) {
-        
+        self.tableView.reloadData()
+    }
+    
+    func chatService(chatService: QMChatService!, didAddMessagesToMemoryStorage messages: [AnyObject]!, forDialogID dialogID: String!) {
+        self.tableView.reloadData()
+    }
+    
+    func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
         self.tableView.reloadData()
     }
 }
