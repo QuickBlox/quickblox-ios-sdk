@@ -21,6 +21,7 @@ var messageTimeDateFormatter: NSDateFormatter {
 class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
+    var didBecomeActiveHandler : AnyObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +53,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         
         self.items = NSMutableArray()
         
-        SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
-        
         if self.dialog?.type != QBChatDialogType.Private {
             self.title = self.dialog?.name
         } else {
@@ -62,31 +61,30 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
             }
         }
         
-        ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
-            
-            if response.error == nil {
-                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-                
-                self.items.removeAllObjects()
-                self.items.addObjectsFromArray(messages)
-                
-                self.refreshCollectionView()
-            } else {
-                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
-            }
-            
-        })
+        self.updateMessages()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         ServicesManager.instance.chatService.addDelegate(self)
+        
+        weak var weakSelf = self
+        
+        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+            
+            weakSelf?.updateMessages()
+            
+        }
     }
 	
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
 
+        if let didBecomeActiveHandler: AnyObject = self.didBecomeActiveHandler {
+            NSNotificationCenter.defaultCenter().removeObserver(didBecomeActiveHandler)
+        }
+        
         ServicesManager.instance.chatService.removeDelegate(self);
     }
     
@@ -101,6 +99,36 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     }
     
     // MARK: Update
+    
+    func updateMessages() {
+        
+        var isProgressHUDShowed = false
+        
+        if self.items.count == 0 {
+            isProgressHUDShowed = true
+            SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
+        }
+        
+        weak var weakSelf = self
+        
+        ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
+            
+            if response.error == nil {
+                
+                if isProgressHUDShowed {
+                    SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                }
+                
+                weakSelf?.items.removeAllObjects()
+                weakSelf?.items.addObjectsFromArray(messages)
+                
+                weakSelf?.refreshCollectionView()
+            } else {
+                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+            }
+            
+        })
+    }
     
     func refreshCollectionView() {
         self.collectionView.reloadData()
@@ -169,9 +197,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         
         button.enabled = false
         
+        weak var weakSelf = self
+        
         ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
             button.enabled = true
-            self.finishSendingMessageAnimated(true)
+            weakSelf?.finishSendingMessageAnimated(true)
         }
     }
     
