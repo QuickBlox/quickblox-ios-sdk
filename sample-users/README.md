@@ -14,6 +14,6 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-users-ios](http://quickblox.com/developers/SimpleSample-users-ios)
 
-<img src="http://quickblox.com/developers//images/5/53/Ios_users_sample1.png" border="5" alt="Push notifications" width="300"> 
-<img src="http://quickblox.com/developers//images/5/50/Ios_users_sample2.png" border="5" alt="Push notifications" width="300"> 
-<img src="http://quickblox.com/developers//images/9/9a/Ios_users_sample3.png" border="5" alt="Push notifications" width="300"> 
+<img src="http://quickblox.com/developers//images/5/53/Ios_users_sample1.png" border="5" alt="Push notifications" width="200"> 
+<img src="http://quickblox.com/developers//images/5/50/Ios_users_sample2.png" border="5" alt="Push notifications" width="200"> 
+<img src="http://quickblox.com/developers//images/9/9a/Ios_users_sample3.png" border="5" alt="Push notifications" width="200"> 
