@@ -12,4 +12,5 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-customObjects-ios](http://quickblox.com/developers/SimpleSample-customObjects-ios)
 
-![All notes](http://files.quickblox.com/SimpleSample-customObjects_ios_21.png) &nbsp;&nbsp;&nbsp;&nbsp; ![View note](http://files.quickblox.com/SimpleSample-customObjects_ios22.png)
+<img src="http://quickblox.com/developers//images/a/a6/Ios_customobjects_sample1.png" border="5" alt="List of movies" width="300"> 
+<img src="http://quickblox.com/developers//images/d/d2/Ios_customobjects_sample2.png" border="5" alt="Movie" width="300"> 
