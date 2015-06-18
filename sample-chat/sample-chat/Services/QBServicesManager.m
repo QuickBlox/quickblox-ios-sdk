@@ -30,7 +30,6 @@
 		[QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
-        [_chatService addDelegate:self];
 		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
 		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
         _logoutGroup = dispatch_group_create();
