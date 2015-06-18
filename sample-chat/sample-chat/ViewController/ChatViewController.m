@@ -67,12 +67,12 @@
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
 	
-	[self refreshMessages];
+	[self refreshMessagesShowingProgress:NO];
 }
 
-- (void)refreshMessages {
+- (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
-	if( self.items.count != 0 ) {
+	if( showingProgress ) {
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
@@ -101,7 +101,7 @@
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
-		[strongSelf refreshMessages];
+		[strongSelf refreshMessagesShowingProgress:YES];
 	}];
 }
 
