@@ -61,18 +61,28 @@
 	if (self.tableView.indexPathsForSelectedRows.count == 1) {
 		[self createChatWithName:nil completion:^(QBChatDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
-            [strongSelf navigateToChatViewControllerWithDialog:dialog];
+			if( dialog != nil ) {
+				[strongSelf navigateToChatViewControllerWithDialog:dialog];
+			}
+			else {
+				[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+			}
 		}];
 	} else {
 		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Join chat" andMessage:@""];
 		
 		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex, UIAlertDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
-			if (buttonIndex == 0) { // first button
-				[strongSelf createChatWithName:[dialog textFieldText] completion:^(QBChatDialog *dialog){
-                    [strongSelf navigateToChatViewControllerWithDialog:dialog];
-                }];
-			}
+			sender.enabled = NO;
+			[strongSelf createChatWithName:[dialog textFieldText] completion:^(QBChatDialog *dialog){
+				sender.enabled = YES;
+				if( dialog != nil ) {
+					[strongSelf navigateToChatViewControllerWithDialog:dialog];
+				}
+				else {
+					[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+				}
+			}];
 		}];
 		dialog.showTextField = YES;
 		dialog.textFieldPlaceholderText = @"Enter chat name";
@@ -91,7 +101,12 @@
 	
 	if (selectedUsers.count == 1) {
 		[QBServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-            completion(createdDialog);
+			if( response.success ) {
+				completion(createdDialog);
+			}
+			else {
+				completion(nil);
+			}
 		}];
 	} else if (selectedUsers.count > 1) {
 		if (name == nil || [[name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
@@ -103,9 +118,13 @@
 		}
 
 		[QBServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-            
-            [QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
-            completion(createdDialog);
+			if( response.success ) {
+				[QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
+				completion(createdDialog);
+			}
+			else {
+				completion(nil);
+			}
 		}];
 	} else {
 		assert("no users given");
