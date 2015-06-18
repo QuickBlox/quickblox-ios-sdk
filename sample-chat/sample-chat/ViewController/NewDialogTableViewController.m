@@ -31,9 +31,8 @@
 	[self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	[self checkJoinChatButtonState];
 }
 
@@ -57,13 +56,11 @@
 }
 
 - (IBAction)joinChatButtonPressed:(UIButton *)sender {
-	sender.enabled = NO;
 	__weak __typeof(self) weakSelf = self;
 	
 	if (self.tableView.indexPathsForSelectedRows.count == 1) {
 		[self createChatWithName:nil completion:^(QBChatDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
-			sender.enabled = YES;
             [strongSelf navigateToChatViewControllerWithDialog:dialog];
 		}];
 	} else {
@@ -118,6 +115,11 @@
 #pragma mark UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	[self checkJoinChatButtonState];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[self checkJoinChatButtonState];
 }
