@@ -121,7 +121,6 @@
 		}];
 	}
 	
-	
 	UIAlertAction *closeAction = [UIAlertAction actionWithTitle:CLOSE_TEXT style:UIAlertActionStyleCancel handler:nil];
 	
 	[self.alertController addAction:closeAction];
