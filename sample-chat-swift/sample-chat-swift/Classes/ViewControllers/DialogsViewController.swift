@@ -141,7 +141,10 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     // MARK: - DataSource
     
     func dialogs() -> Array<QBChatDialog> {
-        return ServicesManager.instance.chatService.dialogsMemoryStorage.dialogsSortByLastMessageDateWithAscending(false) as! Array<QBChatDialog>
+        
+        let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false), NSSortDescriptor(key: "createdAt", ascending: false)]
+        
+        return ServicesManager.instance.chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
     }
     
     // MARK: - UITableViewDataSource
