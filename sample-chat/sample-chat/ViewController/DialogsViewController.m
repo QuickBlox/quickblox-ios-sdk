@@ -55,8 +55,10 @@
 
 - (IBAction)logoutButtonPressed:(id)sender
 {
+    [SVProgressHUD showWithStatus:@"Logging out..."];
     [[QBServicesManager instance] logoutWithCompletion:^{
         [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+        [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
     }];
 }
 
