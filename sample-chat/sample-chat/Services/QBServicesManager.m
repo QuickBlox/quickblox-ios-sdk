@@ -129,6 +129,9 @@
 	else if( response.status == 0 ) { // bad gateway, server error
 		errorMessage = @"Connection network error, please try again";
 	}
+	else {
+		
+	}
 	
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
 													message:errorMessage

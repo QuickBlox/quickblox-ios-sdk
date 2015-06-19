@@ -168,9 +168,10 @@
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertViewDialog *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 1) {
+	if (buttonIndex == 0) {
 		return;
 	}
+	buttonIndex = buttonIndex -1; // minus "cancel"
 	
 	UIAlertDialogItem *item = self.items[buttonIndex];
 	

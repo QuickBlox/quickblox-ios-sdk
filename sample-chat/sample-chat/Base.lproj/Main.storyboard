@@ -25,7 +25,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatRoomCellIdentifier" textLabel="oUi-Ec-CVq" detailTextLabel="Cwz-gn-UW3" style="IBUITableViewCellStyleSubtitle" id="bu5-Bv-Kb4" customClass="DialogTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChatRoomCellIdentifier" textLabel="oUi-Ec-CVq" detailTextLabel="Cwz-gn-UW3" style="IBUITableViewCellStyleSubtitle" id="bu5-Bv-Kb4" customClass="DialogTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bu5-Bv-Kb4" id="tpd-0X-bjd">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -407,6 +407,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1zd-x0-9Io"/>
+        <segue reference="htm-nF-U3k"/>
     </inferredMetricsTieBreakers>
 </document>
