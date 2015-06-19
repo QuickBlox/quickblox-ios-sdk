@@ -51,7 +51,15 @@
 	
     // Login to QuickBlox Chat
     //
-	[QBServicesManager.instance.chatService logIn:nil];
+	[QBServicesManager.instance.chatService logIn:^(NSError *error) {
+		if( !error ) {
+			for( QBChatDialog *dialog in [QBServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs] ) {
+				if( dialog.type == QBChatDialogTypeGroup && !dialog.isJoined ) {
+					[dialog join];
+				}
+			}
+		}
+	}];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
