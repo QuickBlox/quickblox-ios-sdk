@@ -95,6 +95,8 @@
 		
 		[QBServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
 			if( response.success ) {
+				[QBServicesManager.instance.chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:weakSelf.dialog];
+				
 				[QBServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:[weakSelf updatedMessageWithUsers:users] completion:nil];
 				[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
 				[SVProgressHUD dismiss];
