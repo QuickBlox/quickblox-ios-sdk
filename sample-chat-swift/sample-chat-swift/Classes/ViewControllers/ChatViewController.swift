@@ -259,7 +259,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     
     override func topLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString? {
 
-        if messageItem.senderID == self.senderID {
+        if messageItem.senderID == self.senderID || self.dialog?.type == QBChatDialogType.Private {
             return nil
         }
         
@@ -310,6 +310,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     
     override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
         var layoutModel : QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
+        
+        if self.dialog?.type == QBChatDialogType.Private {
+            layoutModel.topLabelHeight = 0.0
+        }
+        
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
         
         return layoutModel
