@@ -58,6 +58,7 @@
         [mutableOccupants removeObject:@([self senderID])];
         NSNumber* opponentID = [mutableOccupants firstObject];
         NSArray* opponentUser = [[StorageManager instance].users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.ID == %@", opponentID]];
+		NSAssert(opponentUser, @"opponent must exists");
         self.opponentUser = [opponentUser firstObject];
         self.title = self.opponentUser.fullName;
     } else {

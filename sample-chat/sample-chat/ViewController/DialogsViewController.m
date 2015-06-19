@@ -55,8 +55,10 @@
 
 - (IBAction)logoutButtonPressed:(id)sender
 {
+    [SVProgressHUD showWithStatus:@"Logging out..."];
     [[QBServicesManager instance] logoutWithCompletion:^{
         [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+        [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
     }];
 }
 
@@ -171,35 +173,42 @@
 			}
 		}
 		chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
-		
-		UIButton *selectedButton = cell.rightUtilityButtons[index];
-		selectedButton.enabled = NO;
+
 		[cell hideUtilityButtonsAnimated:YES];
 		
 		[SVProgressHUD showWithStatus:@"Deleting dialog..." maskType:SVProgressHUDMaskTypeClear];
 		
-        __weak __typeof(self) weakSelf = self;
-		[[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
-												occupantsCustomParameters:nil
-														 notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
-															   completion:^(NSError *error) {
-																   NSAssert(error == nil, @"Problems while deleting dialog!");
-																   [QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID
-																												   completion:^(QBResponse *response) {
-																													   if( response.success ){
-																														   __typeof(self) strongSelf = weakSelf;
-																														   [strongSelf.tableView reloadData];
-																														   [SVProgressHUD dismiss];
-																													   }
-																													   else{
-																														   [SVProgressHUD showErrorWithStatus:@"Can not delete dialog"];
-																														   NSLog(@"can not delete dialog: %@", response.error);
-																														   selectedButton.enabled = YES;
-																													   }
-																												   }];
-															   }];
+		if( chatDialog.type == QBChatDialogTypeGroup ) {
+			__weak __typeof(self) weakSelf = self;
+			[[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
+													occupantsCustomParameters:nil
+															 notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
+																   completion:^(NSError *error) {
+																	   NSAssert(error == nil, @"Problems while deleting dialog!");
+																	   [weakSelf deleteDialogWithID:chatDialog.ID];
+																   }];
+		}
+		else {
+			[self deleteDialogWithID:chatDialog.ID];
+		}
 
 	}
+}
+
+- (void)deleteDialogWithID:(NSString *)dialogID {
+	__weak __typeof(self) weakSelf = self;
+	[QBServicesManager.instance.chatService deleteDialogWithID:dialogID
+													completion:^(QBResponse *response) {
+														if( response.success ){
+															__typeof(self) strongSelf = weakSelf;
+															[strongSelf.tableView reloadData];
+															[SVProgressHUD dismiss];
+														}
+														else{
+															[SVProgressHUD showErrorWithStatus:@"Can not delete dialog"];
+															NSLog(@"can not delete dialog: %@", response.error);
+														}
+													}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

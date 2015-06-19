@@ -49,9 +49,7 @@
 - (void)logoutWithCompletion:(void(^)())completion
 {
     if ([QBSession currentSession].currentUser != nil) {
-        __weak typeof(self)weakSelf = self;
-        
-        [SVProgressHUD showWithStatus:@"Logging out..."];
+        __weak typeof(self)weakSelf = self;    
         
         dispatch_group_enter(self.logoutGroup);
         [self.authService logOut:^(QBResponse *response) {
@@ -73,7 +71,6 @@
         }];
         
         dispatch_group_notify(self.logoutGroup, dispatch_get_main_queue(), ^{
-            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
             if (completion) {
                 completion();
             }
@@ -129,6 +126,9 @@
 	else if( response.status == 0 ) { // bad gateway, server error
 		errorMessage = @"Connection network error, please try again";
 	}
+	else {
+		
+	}
 	
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
 													message:errorMessage
@@ -175,6 +175,8 @@
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialog.ID completion:nil];
 	[QMChatCache.instance insertOrUpdateDialog:dialog completion:nil];
 }
+
+#pragma mark QMChatServiceCacheDataSource
 
 - (void)cachedDialogs:(QMCacheCollection)block {
 	[QMChatCache.instance dialogsSortedBy:@"lastMessageDate" ascending:YES completion:^(NSArray *dialogs) {
