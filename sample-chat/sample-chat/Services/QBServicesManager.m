@@ -173,6 +173,8 @@
 	[QMChatCache.instance insertOrUpdateDialog:dialog completion:nil];
 }
 
+#pragma mark QMChatServiceCacheDataSource
+
 - (void)cachedDialogs:(QMCacheCollection)block {
 	[QMChatCache.instance dialogsSortedBy:@"lastMessageDate" ascending:YES completion:^(NSArray *dialogs) {
 		block(dialogs);
