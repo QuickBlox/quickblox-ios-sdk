@@ -101,11 +101,11 @@
 	
 	if (selectedUsers.count == 1) {
 		[QBServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-			if( response.success ) {
-				completion(createdDialog);
+			if( !response.success  && createdDialog == nil ) {
+				completion(nil);
 			}
 			else {
-				completion(nil);
+				completion(createdDialog);
 			}
 		}];
 	} else if (selectedUsers.count > 1) {
