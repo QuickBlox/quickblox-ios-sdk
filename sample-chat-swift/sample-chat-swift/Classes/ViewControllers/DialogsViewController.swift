@@ -26,6 +26,8 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
+        
+        self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
         ServicesManager.instance.chatService.addDelegate(self)
         
@@ -51,16 +53,6 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         self.getDialogs(nil)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if self.isMovingFromParentViewController() {
-            ServicesManager.instance.chatService.logoutChat()
-            NSNotificationCenter.defaultCenter().removeObserver(self)
-            ServicesManager.instance.chatService.removeDelegate(self)
-        }
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SA_STR_SEGUE_GO_TO_CHAT".localized {
             if let chatVC = segue.destinationViewController as? ChatViewController {
@@ -73,6 +65,29 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     func didEnterBackgroundNotification() {
         self.didEnterBackgroundDate = NSDate()
+    }
+    
+    // MARK: - Actions
+    
+    func createLogoutButton() -> UIBarButtonItem {
+        
+        var logoutButton = UIBarButtonItem(title: "SA_STR_LOGOUT".localized, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("logoutAction"))
+        
+        return logoutButton
+    }
+    
+    func logoutAction() {
+        
+        SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
+        
+        ServicesManager.instance.logout { () -> Void in
+            
+            SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+            
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            ServicesManager.instance.chatService.removeDelegate(self)
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     // MARK: - DataSource Action
