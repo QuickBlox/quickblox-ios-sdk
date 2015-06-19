@@ -51,7 +51,6 @@
 	
     // Login to QuickBlox Chat
     //
-	__weak __typeof(self)weakSelf = self;
 	[QBServicesManager.instance.chatService logIn:nil];
 }
 
