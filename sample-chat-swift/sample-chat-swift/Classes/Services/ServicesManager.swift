@@ -15,6 +15,8 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     var authService : QMAuthService!
     var chatService : QMChatService!
     
+    var logoutGroup = dispatch_group_create()
+    
     private override init() {
         super.init()
         
@@ -36,6 +38,39 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         
         self.chatService = QMChatService(serviceManager : self, cacheDataSource : self)
         self.chatService.addDelegate(ServicesManager.instance)
+    }
+    
+    func logout(completion: (() -> Void)!) {
+        
+        if self.currentUser() == nil {
+            completion()
+            
+            return
+        }
+        
+        dispatch_group_enter(self.logoutGroup)
+        
+        self.authService .logOut { (response: QBResponse!) -> Void in
+            self.chatService.logoutChat()
+            
+            dispatch_group_leave(self.logoutGroup)
+        }
+        
+        dispatch_group_enter(self.logoutGroup)
+        
+        QMChatCache.instance().deleteAllMessages { () -> Void in
+            dispatch_group_leave(self.logoutGroup)
+        }
+        
+        dispatch_group_enter(self.logoutGroup)
+        
+        QMChatCache.instance().deleteAllDialogs { () -> Void in
+            dispatch_group_leave(self.logoutGroup)
+        }
+        
+        dispatch_group_notify(self.logoutGroup, dispatch_get_main_queue()) { () -> Void in
+            completion()
+        }
     }
     
     // MARK: QMServiceManagerProtocol

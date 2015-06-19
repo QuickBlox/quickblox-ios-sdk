@@ -20,6 +20,8 @@
 "SA_STR_BLOCK" = "Block";
 "SA_STR_UNBLOCK" = "Unblock";
 "SA_STR_WELCOME" = "Welcome";
+"SA_STR_LOGOUT" = "Logout";
+"SA_STR_LOGOUTING" = "Logout...";
 
 "SA_STR_CANT_SEND_A_MESSAGE" = "Can't send a message";
 "SA_STR_CANT_DOWNLOAD_USERS" = "Can't download users";
