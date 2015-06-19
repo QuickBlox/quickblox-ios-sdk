@@ -172,18 +172,32 @@
 		}
 		chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
 		
+		UIButton *selectedButton = cell.rightUtilityButtons[index];
+		selectedButton.enabled = NO;
+		[cell hideUtilityButtonsAnimated:YES];
+		
+		[SVProgressHUD showWithStatus:@"Deleting dialog..." maskType:SVProgressHUDMaskTypeClear];
+		
         __weak __typeof(self) weakSelf = self;
-        [[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
-                                                occupantsCustomParameters:nil
-                                                         notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
-                                                               completion:^(NSError *error) {
-                                                                   NSAssert(error == nil, @"Problems while deleting dialog!");
-                                                                   [QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID
-                                                                                                                   completion:^(QBResponse *response) {
-                                                                       __typeof(self) strongSelf = weakSelf;
-                                                                       [strongSelf.tableView reloadData];
-                                                                   }];
-                                                               }];
+		[[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
+												occupantsCustomParameters:nil
+														 notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
+															   completion:^(NSError *error) {
+																   NSAssert(error == nil, @"Problems while deleting dialog!");
+																   [QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID
+																												   completion:^(QBResponse *response) {
+																													   if( response.success ){
+																														   __typeof(self) strongSelf = weakSelf;
+																														   [strongSelf.tableView reloadData];
+																														   [SVProgressHUD dismiss];
+																													   }
+																													   else{
+																														   [SVProgressHUD showErrorWithStatus:@"Can not delete dialog"];
+																														   NSLog(@"can not delete dialog: %@", response.error);
+																														   selectedButton.enabled = YES;
+																													   }
+																												   }];
+															   }];
 
 	}
 }
@@ -208,28 +222,31 @@
 #pragma mark -
 #pragma mark Chat Service Delegate
 
-- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs
-{
+- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs {
 	[self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog
-{
+- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog {
 	[self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
-{
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog {
+	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     [self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
-{
+- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID {
     [self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID
-{
+- (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
     [self.tableView reloadData];
 }
 
