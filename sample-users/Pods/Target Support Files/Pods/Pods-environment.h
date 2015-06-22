@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_MTBlockAlertView 1
 #define COCOAPODS_VERSION_PATCH_MTBlockAlertView 1
 
+// QuickBlox
+#define COCOAPODS_POD_AVAILABLE_QuickBlox
+#define COCOAPODS_VERSION_MAJOR_QuickBlox 2
+#define COCOAPODS_VERSION_MINOR_QuickBlox 0
+#define COCOAPODS_VERSION_PATCH_QuickBlox 12
+
 // libextobjc/EXTScope
 #define COCOAPODS_POD_AVAILABLE_libextobjc_EXTScope
 #define COCOAPODS_VERSION_MAJOR_libextobjc_EXTScope 0

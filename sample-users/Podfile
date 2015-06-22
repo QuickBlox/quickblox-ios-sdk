@@ -1,3 +1,4 @@
 platform :ios, '6.0'
 pod 'MTBlockAlertView', '~> 0.1.1'
 pod 'libextobjc/EXTScope', '~> 0.4'
+pod 'QuickBlox'

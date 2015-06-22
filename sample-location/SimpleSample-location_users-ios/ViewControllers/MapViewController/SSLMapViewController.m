@@ -37,10 +37,6 @@
     [super viewDidLoad];
     
     self.locationManager = [CLLocationManager new];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    [self.locationManager requestWhenInUseAuthorization];
-    [self.locationManager requestAlwaysAuthorization];
-#endif
     [self.locationManager startUpdatingLocation];
 }
 
