@@ -18,7 +18,7 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate, QBChatDelegate {
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     var didBecomeActiveHandler : AnyObject?
@@ -45,8 +45,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
             self.navigationController?.viewControllers = viewControllers
         }
         
+        self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
+        
         self.inputToolbar.contentView.leftBarButtonItem = self.accessoryButtonItem()
         self.inputToolbar.contentView.rightBarButtonItem = self.sendButtonItem()
+        
+        var typingNib = TypingIndicatorFooterView.nib()
+        var typingIdentifier = TypingIndicatorFooterView.footerReuseIdentifier()
+        
+        self.collectionView.registerNib(typingNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: typingIdentifier)
         
         self.senderID = QBSession.currentSession().currentUser.ID
         self.senderDisplayName = QBSession.currentSession().currentUser.login
@@ -60,6 +67,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        QBChat.instance().addDelegate(self)
         ServicesManager.instance.chatService.addDelegate(self)
         
         weak var weakSelf = self
@@ -323,6 +331,27 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         return layoutModel
     }
     
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        var reusableView : UICollectionReusableView
+        
+        if self.showTypingIndicator && kind == UICollectionElementKindSectionFooter {
+            
+            var typingView = self.collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: TypingIndicatorFooterView.footerReuseIdentifier(), forIndexPath: indexPath) as! TypingIndicatorFooterView
+            
+            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
+                typingView.typingTextLabel.text = String(format: "%@ typing a text...", recepeint.login)
+            }
+            
+            reusableView = typingView
+            
+        } else {
+            reusableView = super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+        }
+        
+        return reusableView
+    }
+    
     // MARK: QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
@@ -339,6 +368,36 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
             self.dialog = chatDialog
             self.updateTitle()
         }
+    }
+    
+    // MARK: UITextViewDelegate
+    
+    override func textViewDidBeginEditing(textView: UITextView) {
+        super.textViewDidBeginEditing(textView)
         
+        if let dialog = self.dialog {
+            QBChat.instance().sendUserIsTypingToUserWithID(UInt(dialog.recipientID))
+        }
+        
+    }
+    
+    override func textViewDidEndEditing(textView: UITextView) {
+        super.textViewDidEndEditing(textView)
+        
+        if let dialog = self.dialog {
+            QBChat.instance().sendUserStopTypingToUserWithID(UInt(dialog.recipientID))
+        }
+    }
+    
+    // MARK: QBChatDelegate
+    
+    func chatDidReceiveUserIsTypingFromUserWithID(userID: UInt) {
+//        self.showTypingIndicator = true
+        self.title = "typing..."
+    }
+    
+    func chatDidReceiveUserStopTypingFromUserWithID(userID: UInt) {
+//        self.showTypingIndicator = false
+        self.updateTitle()
     }
 }
