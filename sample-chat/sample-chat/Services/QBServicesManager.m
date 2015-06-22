@@ -105,7 +105,7 @@
             NSArray* dialogs = [strongSelf.chatService.dialogsMemoryStorage unsortedDialogs];
             for (QBChatDialog* dialog in dialogs) {
                 if (dialog.type != QBChatDialogTypePrivate) {
-                    [strongSelf.chatService joinToGroupDialog:dialog completion:^(NSError *error) {
+                    [strongSelf.chatService joinToGroupDialog:dialog failed:^(NSError *error) {
 						if (error != nil) {
 							NSLog(@"Join error: %@", error.localizedDescription);
 						}
