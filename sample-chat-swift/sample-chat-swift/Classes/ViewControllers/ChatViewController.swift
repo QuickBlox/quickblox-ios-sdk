@@ -34,7 +34,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 return
             }
             
-//            self.showTypingIndicator = true
             weakSelf?.title = "typing..."
         }
         
@@ -44,7 +43,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 return
             }
             
-//            self.showTypingIndicator = false
             weakSelf?.updateTitle()
         }
         
