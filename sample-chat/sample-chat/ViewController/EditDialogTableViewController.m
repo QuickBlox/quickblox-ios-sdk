@@ -97,7 +97,10 @@
 			if( response.success ) {
 				[QBServicesManager.instance.chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:weakSelf.dialog];
 				
-				[QBServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:[weakSelf updatedMessageWithUsers:users] completion:nil];
+				NSString *notificationText = [weakSelf updatedMessageWithUsers:users];
+				[QBServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:notificationText completion:nil];
+				
+				updatedDialog.lastMessageText = notificationText;
 				[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
 				[SVProgressHUD dismiss];
 			}
