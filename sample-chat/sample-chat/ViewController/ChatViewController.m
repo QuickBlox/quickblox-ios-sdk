@@ -67,8 +67,12 @@
     
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
-	
-	[self refreshMessagesShowingProgress:NO];
+	if( [self.items count] ){
+		[self refreshMessagesShowingProgress:NO];
+	}
+	else {
+		[self refreshMessagesShowingProgress:YES];
+	}
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
