@@ -29,6 +29,8 @@
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
+		2C0E11B41B382D1E00FDCCB5 /* TypingIndicatorFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E11B31B382D1E00FDCCB5 /* TypingIndicatorFooterView.swift */; };
+		2C0E11B71B382D9500FDCCB5 /* TypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C0E11B61B382D9500FDCCB5 /* TypingIndicatorFooterView.xib */; };
 		2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */; };
 		2C8BB1731B134925004540F8 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E81131B0F1B2A00A6E86D /* libQMServices.a */; };
 		2CBAD95D1B3011700047941E /* NSString+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAD9151B3011700047941E /* NSString+QM.m */; };
@@ -137,6 +139,8 @@
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		2C0E11B31B382D1E00FDCCB5 /* TypingIndicatorFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypingIndicatorFooterView.swift; sourceTree = "<group>"; };
+		2C0E11B61B382D9500FDCCB5 /* TypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesManager.swift; sourceTree = "<group>"; };
 		2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
 		2CBAD9141B3011700047941E /* NSString+QM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+QM.h"; sourceTree = "<group>"; };
@@ -609,6 +613,8 @@
 				68440EF02AB27CCF47A87701 /* SwiftAlert.swift */,
 				684403034A069565608E044A /* SwiftAlertWithTextField.swift */,
 				68440AC65A0DF248480F2934 /* UserTableViewCell.swift */,
+				2C0E11B31B382D1E00FDCCB5 /* TypingIndicatorFooterView.swift */,
+				2C0E11B61B382D9500FDCCB5 /* TypingIndicatorFooterView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -812,6 +818,7 @@
 				2CC206921B14A44600ACE4EA /* QMChatCacheModel.bundle in Resources */,
 				144E3EB81ACA8E5D00E62645 /* devUsers.plist in Resources */,
 				2CBAD9621B3011700047941E /* QMChatViewController.xib in Resources */,
+				2C0E11B71B382D9500FDCCB5 /* TypingIndicatorFooterView.xib in Resources */,
 				2CBAD9781B3011700047941E /* QMLoadEarlierHeaderView.xib in Resources */,
 				147DA9D91AEA730C0001F691 /* Localizable.strings in Resources */,
 				2CBAD96B1B3011700047941E /* QMChatNotificationCell.xib in Resources */,
@@ -885,6 +892,7 @@
 				140478DA1AE539DC00BC383F /* Bond+UIView.swift in Sources */,
 				2CBAD9731B3011700047941E /* QMToolbarContentView.m in Sources */,
 				140478D81AE539DC00BC383F /* Bond+Functional.swift in Sources */,
+				2C0E11B41B382D1E00FDCCB5 /* TypingIndicatorFooterView.swift in Sources */,
 				2CBAD95D1B3011700047941E /* NSString+QM.m in Sources */,
 				68440ED75A4B1A0C3894605D /* SWLongPressGestureRecognizer.m in Sources */,
 				149636FE1B033F740079A6A2 /* IJReachability.swift in Sources */,

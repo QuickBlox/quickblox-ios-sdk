@@ -18,7 +18,7 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate {
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     var didBecomeActiveHandler : AnyObject?
@@ -26,27 +26,35 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if self.shouldFixViewControllersStack {
+        weak var weakSelf = self
+        
+        self.dialog?.onUserIsTyping = { (UInt userID)-> Void in
             
-            var viewControllers: [UIViewController] = []
-            
-            if let loginViewControllers = self.navigationController?.viewControllers[0] as? LoginTableViewController {
-                viewControllers.append(loginViewControllers)
+            if ServicesManager.instance.currentUser().ID == userID {
+                return
             }
             
-            if let dialogsViewControllers = self.navigationController?.viewControllers[1] as? DialogsViewController {
-                viewControllers.append(dialogsViewControllers)
-            }
-            
-            if let chatViewControllers = self.navigationController?.viewControllers.last as? ChatViewController {
-                viewControllers.append(chatViewControllers)
-            }
-            
-            self.navigationController?.viewControllers = viewControllers
+            weakSelf?.title = "typing..."
         }
+        
+        self.dialog?.onUserStoppedTyping = { (UInt userID)-> Void in
+            
+            if ServicesManager.instance.currentUser().ID == userID {
+                return
+            }
+            
+            weakSelf?.updateTitle()
+        }
+        
+        self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
         
         self.inputToolbar.contentView.leftBarButtonItem = self.accessoryButtonItem()
         self.inputToolbar.contentView.rightBarButtonItem = self.sendButtonItem()
+        
+        var typingNib = TypingIndicatorFooterView.nib()
+        var typingIdentifier = TypingIndicatorFooterView.footerReuseIdentifier()
+        
+        self.collectionView.registerNib(typingNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: typingIdentifier)
         
         self.senderID = QBSession.currentSession().currentUser.ID
         self.senderDisplayName = QBSession.currentSession().currentUser.login
@@ -68,6 +76,31 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
             
             weakSelf?.updateMessages()
             
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.shouldFixViewControllersStack {
+            
+            var viewControllers: [UIViewController] = []
+            
+            if let loginViewControllers = self.navigationController?.viewControllers[0] as? LoginTableViewController {
+                viewControllers.append(loginViewControllers)
+            }
+            
+            if let dialogsViewControllers = self.navigationController?.viewControllers[1] as? DialogsViewController {
+                viewControllers.append(dialogsViewControllers)
+            }
+            
+            if let chatViewControllers = self.navigationController?.viewControllers.last as? ChatViewController {
+                viewControllers.append(chatViewControllers)
+            }
+            
+            self.navigationController?.viewControllers = viewControllers
+            
+            self.shouldFixViewControllersStack = false
         }
     }
 	
@@ -323,6 +356,27 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         return layoutModel
     }
     
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        var reusableView : UICollectionReusableView
+        
+        if self.showTypingIndicator && kind == UICollectionElementKindSectionFooter {
+            
+            var typingView = self.collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: TypingIndicatorFooterView.footerReuseIdentifier(), forIndexPath: indexPath) as! TypingIndicatorFooterView
+            
+            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
+                typingView.typingTextLabel.text = String(format: "%@ typing a text...", recepeint.login)
+            }
+            
+            reusableView = typingView
+            
+        } else {
+            reusableView = super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+        }
+        
+        return reusableView
+    }
+    
     // MARK: QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
@@ -339,6 +393,24 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
             self.dialog = chatDialog
             self.updateTitle()
         }
+    }
+    
+    // MARK: UITextViewDelegate
+    
+    override func textViewDidBeginEditing(textView: UITextView) {
+        super.textViewDidBeginEditing(textView)
         
+        if let dialog = self.dialog {
+            dialog.sendUserIsTyping()
+        }
+        
+    }
+    
+    override func textViewDidEndEditing(textView: UITextView) {
+        super.textViewDidEndEditing(textView)
+        
+        if let dialog = self.dialog {
+            dialog.sendUserStoppedTyping()
+        }
     }
 }

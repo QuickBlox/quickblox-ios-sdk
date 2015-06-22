@@ -13,10 +13,14 @@ extern NSString* const QBChatDialogJoinPrefix;
 extern NSString* const QBChatDialogLeavePrefix;
 extern NSString* const QBChatDialogOnlineUsersPrefix;
 extern NSString* const QBChatDialogOnJoinFailedPrefix;
+extern NSString* const QBChatDialogIsTypingPrefix;
+extern NSString* const QBChatDialogStopTypingPrefix;
 
 typedef void(^QBChatDialogStatusBlock)() ;
 typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) ;
 typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
+typedef void(^QBChatDialogIsTypingBlock)(NSUInteger userID);
+typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
 
 @class QBChatRoom;
 @class QBChatMessage;
@@ -88,6 +92,18 @@ typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
 @property (nonatomic, copy) QBChatDialogJoinFailedBlock onJoinFailed;
 - (void)setOnJoinFailed:(QBChatDialogJoinFailedBlock)anOnJoinFailed;
 
+/**
+ *  Fired when user is typing in dialog.
+ */
+@property (nonatomic, copy) QBChatDialogIsTypingBlock onUserIsTyping;
+- (void)setOnUserIsTyping:(QBChatDialogIsTypingBlock)anOnUserIsTyping;
+
+/**
+ *  Fired when user stopped typing in dialog.
+ */
+@property (nonatomic, copy) QBChatDialogStoppedTypingBlock onUserStoppedTyping;
+- (void)setOnUserStoppedTyping:(QBChatDialogStoppedTypingBlock)anOnUserStoppedTyping;
+
 /** Constructor */
 - (instancetype)initWithDialogID:(NSString *)dialogID;
 
@@ -158,6 +174,18 @@ typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
  *  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)requestOnlineUsers;
+
+#pragma mark - Now typing
+
+/**
+ *  Send is typing message to occupants.
+ */
+- (void)sendUserIsTyping;
+
+/**
+ *  Send stopped typing message to occupants.
+ */
+- (void)sendUserStoppedTyping;
 
 @end
 

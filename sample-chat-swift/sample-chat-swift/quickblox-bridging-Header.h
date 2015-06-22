@@ -27,6 +27,7 @@
 #import "QMChatNotificationCell.h"
 #import "QMChatIncomingCell.h"
 #import "QMChatOutgoingCell.h"
+#import "QMTypingIndicatorFooterView.h"
 
 #import "TTTAttributedLabel.h"
 #import "_CDMessage.h"
