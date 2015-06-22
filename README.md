@@ -30,7 +30,7 @@ Latest framework file you can download from [GitHub](https://github.com/QuickBlo
 * [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
 * [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/documentation/)
 
-## Oh, please, please show me the code
+## First step
 
 iOS SDK is really simple to use. Just in few minutes you can power your mobile app with huge amount of awesome communication features & data services.
 
