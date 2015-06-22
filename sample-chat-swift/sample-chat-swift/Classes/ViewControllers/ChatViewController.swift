@@ -53,14 +53,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
         
         self.items = NSMutableArray()
         
-        if self.dialog?.type != QBChatDialogType.Private {
-            self.title = self.dialog?.name
-        } else {
-            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
-                self.title = recepeint.login
-            }
-        }
-        
+        self.updateTitle()
         self.updateMessages()
     }
     
@@ -99,6 +92,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
     }
     
     // MARK: Update
+    
+    func updateTitle() {
+        if self.dialog?.type != QBChatDialogType.Private {
+            self.title = self.dialog?.name
+        } else {
+            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
+                self.title = recepeint.login
+            }
+        }
+    }
     
     func updateMessages() {
         
@@ -328,5 +331,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate {
             self.items.addObject(message)
             self.refreshCollectionView()
         }
+    }
+    
+    func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
+        
+        if self.dialog?.ID == chatDialog.ID {
+            self.dialog = chatDialog
+            self.updateTitle()
+        }
+        
     }
 }

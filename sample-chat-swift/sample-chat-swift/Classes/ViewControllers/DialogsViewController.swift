@@ -41,7 +41,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         for dialog : QBChatDialog in self.dialogs() {
             
             if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
+                ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
                 })
             }
@@ -142,7 +142,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     func dialogs() -> Array<QBChatDialog> {
         
-        let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false), NSSortDescriptor(key: "createdAt", ascending: false)]
+        let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false)]
         
         return ServicesManager.instance.chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
     }
@@ -193,7 +193,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         for dialog : QBChatDialog in chatDialogs as! [QBChatDialog] {
             
             if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
+                ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
                 })
             }
@@ -205,7 +205,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
         
         if chatDialog.type != QBChatDialogType.Private {
-            ServicesManager.instance.chatService.joinToGroupDialog(chatDialog, completion: { (error: NSError!) -> Void in
+            ServicesManager.instance.chatService.joinToGroupDialog(chatDialog, failed: { (error: NSError!) -> Void in
                 
             })
         }
