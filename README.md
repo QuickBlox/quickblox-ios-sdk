@@ -28,7 +28,7 @@ Latest framework file you can download from [GitHub](https://github.com/QuickBlo
 ## Documentation
 
 * [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
-* [Framework reference in AppleDoc format](sdk.quickblox.com/ios/documentation/)
+* [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/documentation/)
 
 ## Oh, please, please show me the code
 
