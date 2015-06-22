@@ -287,24 +287,6 @@ typedef enum QBChatServiceError {
  */
 - (void)removePrivacyListWithName:(NSString *)privacyListName;
 
-
-#pragma mark -
-#pragma mark Typing Status
-
-/**
- Send a chat status "user is typing" to user with given ID
- 
- @param userID user ID
- */
-- (void)sendUserIsTypingToUserWithID:(NSUInteger)userID;
-
-/**
- Send a chat status "user stop typing" to user with given ID
- 
- @param userID user ID
- */
-- (void)sendUserStopTypingToUserWithID:(NSUInteger)userID;
-
 #pragma mark -
 #pragma mark System Messages
 
@@ -445,5 +427,22 @@ typedef enum QBChatServiceError {
                       priority:(short)priority 
               customParameters:(NSDictionary *)customParameters
                         toRoom:(QBChatRoom *)room __attribute__((deprecated("Will be removed in future")));
+
+#pragma mark -
+#pragma mark Typing Status
+
+/**
+ Send a chat status "user is typing" to user with given ID
+ 
+ @param userID user ID
+ */
+- (void)sendUserIsTypingToUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'sendIsTyping' in QBChatDialog class.")));
+
+/**
+ Send a chat status "user stop typing" to user with given ID
+ 
+ @param userID user ID
+ */
+- (void)sendUserStopTypingToUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'sendStoppedTyping' in QBChatDialog class.")));
 
 @end
