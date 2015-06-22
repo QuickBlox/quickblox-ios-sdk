@@ -10,47 +10,19 @@
 	<string>SimpleSample-users-ios</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>02184E68B235AB5A28EE74C3C5F144D3ADA9DCF2</key>
-		<string>git://github.com/jonreid/XcodeCoverage.git</string>
-		<key>38C2A0D4F62B675E8C16C8BC1437C7753846C8AC</key>
-		<string>git://github.com/AliSoftware/OHHTTPStubs.git</string>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
-		<key>A20D666FF4B08EFE53F147818C2D4D17E2242912</key>
-		<string>git://github.com/facebook/facebook-ios-sdk.git</string>
-		<key>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</key>
-		<string>github.com:robbiehanson/XMPPFramework.git</string>
-		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
-		<string>http://github.com/AFNetworking/AFNetworking.git</string>
-		<key>E4BCE3AE6B24E41B9BCE312FF3B0B6CD0B8B8025</key>
-		<string>git://github.com/erikdoe/ocmock</string>
 		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
 		<string>ssh://github.com/QuickBlox/SDK-ios.git</string>
-		<key>F03E09D7108B6B558326B4A7FA105E304FD0FE55</key>
-		<string>git://github.com/hamcrest/OCHamcrest</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>sample-users/SimpleSample-users-ios.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>02184E68B235AB5A28EE74C3C5F144D3ADA9DCF2</key>
-		<string>../../../XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCHamcrest/Source/XcodeCoverage</string>
-		<key>38C2A0D4F62B675E8C16C8BC1437C7753846C8AC</key>
-		<string>../../../XMPPFramework/Vendor/facebook-ios-sdk/vendor/OHHTTPStubs</string>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
-		<key>A20D666FF4B08EFE53F147818C2D4D17E2242912</key>
-		<string>../../../XMPPFramework/Vendor/facebook-ios-sdk</string>
-		<key>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</key>
-		<string>../../../XMPPFramework</string>
-		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
-		<string>../../../XMPPFramework/Vendor/facebook-ios-sdk/vendor/OHHTTPStubs/OHHTTPStubs/UnitTests/AFNetworking</string>
-		<key>E4BCE3AE6B24E41B9BCE312FF3B0B6CD0B8B8025</key>
-		<string>../../../XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCMock</string>
 		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
 		<string>../../../SDK-iOS</string>
-		<key>F03E09D7108B6B558326B4A7FA105E304FD0FE55</key>
-		<string>../../../XMPPFramework/Vendor/facebook-ios-sdk/vendor/OCHamcrest</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
@@ -60,46 +32,6 @@
 	<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</string>
-			<key>IDESourceControlWCCName</key>
-			<string>AFNetworking</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A20D666FF4B08EFE53F147818C2D4D17E2242912</string>
-			<key>IDESourceControlWCCName</key>
-			<string>facebook-ios-sdk</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F03E09D7108B6B558326B4A7FA105E304FD0FE55</string>
-			<key>IDESourceControlWCCName</key>
-			<string>OCHamcrest</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E4BCE3AE6B24E41B9BCE312FF3B0B6CD0B8B8025</string>
-			<key>IDESourceControlWCCName</key>
-			<string>OCMock</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>38C2A0D4F62B675E8C16C8BC1437C7753846C8AC</string>
-			<key>IDESourceControlWCCName</key>
-			<string>OHHTTPStubs</string>
-		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
@@ -115,22 +47,6 @@
 			<string>E650A564D3C23A22EE433AE21D0EA044E7E7A475</string>
 			<key>IDESourceControlWCCName</key>
 			<string>SDK-iOS</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>02184E68B235AB5A28EE74C3C5F144D3ADA9DCF2</string>
-			<key>IDESourceControlWCCName</key>
-			<string>XcodeCoverage</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>B775552D1BBEEADC6A0BBB2FD048B6AA26CB309D</string>
-			<key>IDESourceControlWCCName</key>
-			<string>XMPPFramework</string>
 		</dict>
 	</array>
 </dict>

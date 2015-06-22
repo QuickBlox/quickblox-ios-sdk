@@ -21,7 +21,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-    __weak __typeof(self) weakSelf = self;
+    
     [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {        
         QBLGeoDataFilter* filter = [QBLGeoDataFilter new];
         filter.lastOnly = YES;
@@ -31,7 +31,7 @@
                         successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                 SSLAppDelegate* myDelegate = (((SSLAppDelegate *)[UIApplication sharedApplication].delegate));
-                                [weakSelf presentViewController:myDelegate.tabBarController animated:YES completion:nil];
+                                [self presentViewController:myDelegate.tabBarController animated:YES completion:nil];
                             });
                             [[SSLDataManager instance] saveCheckins:objects];
         } errorBlock:^(QBResponse *response) {
