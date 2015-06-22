@@ -99,6 +99,10 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     // MARK: QMChatServiceDelegate
     
+    func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
+        QMChatCache.instance().insertOrUpdateDialog(chatDialog, completion: nil)
+    }
+    
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
         QMChatCache.instance().insertOrUpdateDialog(chatDialog, completion: nil)
     }
