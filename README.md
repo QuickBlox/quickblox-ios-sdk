@@ -118,25 +118,6 @@ currentUser.password = @"garrySant88"; // your current user's password
 
 #### 4.4. Perform actions
 
-Send Chat message
-
-```objectivec
-// send message
-QBChatMessage *message = [QBChatMessage message];
-message.recipientID = 546; // opponent's id
-message.text = @"Hi mate!";
- 
-[[QBChat instance] sendMessage:message];
- 
- 
-#pragma mark -
-#pragma mark QBChatDelegate
- 
-- (void)chatDidReceiveMessage:(QBChatMessage *)message{
-    NSLog(@"New message: %@", message);
-}
-```
-
 Create new location for Indiana Jones
 
 ```objectivec
@@ -171,11 +152,9 @@ iOS Framework provides following classes to interact with QuickBlox API (each cl
 * QBAuth
 * QBUsers
 * QBChat
-* QBVideoChat
 * QBCustomObjects
 * QBLocation
 * QBContent
-* QBRatings
 * QBMessages
 
 ## See also
