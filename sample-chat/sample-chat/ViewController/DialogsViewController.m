@@ -65,7 +65,7 @@
 - (void)loadDialogs
 {
 	BOOL shouldShowSuccessStatus = NO;
-	if (self.dialogs.count == 0) {
+	if ([self dialogs].count == 0) {
 		shouldShowSuccessStatus = YES;
 		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
 	}

@@ -27,13 +27,12 @@
     self.tableView.dataSource = self.dataSource;
 
 	[super viewDidLoad];
-
-	[self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self checkJoinChatButtonState];
+	[self.tableView reloadData];
 }
 
 - (void)checkJoinChatButtonState
