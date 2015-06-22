@@ -18,7 +18,7 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate, QBChatDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate {
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     var didBecomeActiveHandler : AnyObject?
@@ -26,23 +26,26 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if self.shouldFixViewControllersStack {
+        weak var weakSelf = self
+        
+        self.dialog?.onUserIsTyping = { (UInt userID)-> Void in
             
-            var viewControllers: [UIViewController] = []
-            
-            if let loginViewControllers = self.navigationController?.viewControllers[0] as? LoginTableViewController {
-                viewControllers.append(loginViewControllers)
+            if ServicesManager.instance.currentUser().ID == userID {
+                return
             }
             
-            if let dialogsViewControllers = self.navigationController?.viewControllers[1] as? DialogsViewController {
-                viewControllers.append(dialogsViewControllers)
+//            self.showTypingIndicator = true
+            weakSelf?.title = "typing..."
+        }
+        
+        self.dialog?.onUserStoppedTyping = { (UInt userID)-> Void in
+            
+            if ServicesManager.instance.currentUser().ID == userID {
+                return
             }
             
-            if let chatViewControllers = self.navigationController?.viewControllers.last as? ChatViewController {
-                viewControllers.append(chatViewControllers)
-            }
-            
-            self.navigationController?.viewControllers = viewControllers
+//            self.showTypingIndicator = false
+            weakSelf?.updateTitle()
         }
         
         self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
@@ -67,7 +70,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        QBChat.instance().addDelegate(self)
         ServicesManager.instance.chatService.addDelegate(self)
         
         weak var weakSelf = self
@@ -76,6 +78,31 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             weakSelf?.updateMessages()
             
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.shouldFixViewControllersStack {
+            
+            var viewControllers: [UIViewController] = []
+            
+            if let loginViewControllers = self.navigationController?.viewControllers[0] as? LoginTableViewController {
+                viewControllers.append(loginViewControllers)
+            }
+            
+            if let dialogsViewControllers = self.navigationController?.viewControllers[1] as? DialogsViewController {
+                viewControllers.append(dialogsViewControllers)
+            }
+            
+            if let chatViewControllers = self.navigationController?.viewControllers.last as? ChatViewController {
+                viewControllers.append(chatViewControllers)
+            }
+            
+            self.navigationController?.viewControllers = viewControllers
+            
+            self.shouldFixViewControllersStack = false
         }
     }
 	
@@ -376,7 +403,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         super.textViewDidBeginEditing(textView)
         
         if let dialog = self.dialog {
-            QBChat.instance().sendUserIsTypingToUserWithID(UInt(dialog.recipientID))
+            dialog.sendUserIsTyping()
         }
         
     }
@@ -385,19 +412,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         super.textViewDidEndEditing(textView)
         
         if let dialog = self.dialog {
-            QBChat.instance().sendUserStopTypingToUserWithID(UInt(dialog.recipientID))
+            dialog.sendUserStoppedTyping()
         }
-    }
-    
-    // MARK: QBChatDelegate
-    
-    func chatDidReceiveUserIsTypingFromUserWithID(userID: UInt) {
-//        self.showTypingIndicator = true
-        self.title = "typing..."
-    }
-    
-    func chatDidReceiveUserStopTypingFromUserWithID(userID: UInt) {
-//        self.showTypingIndicator = false
-        self.updateTitle()
     }
 }
