@@ -16,7 +16,7 @@ This project contains QuickBlox iOS SDK, that includes
   * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
   * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
   * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
-  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom-objects)
+  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom_objects)
   * [Content Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-content)
 
 ## How to start
