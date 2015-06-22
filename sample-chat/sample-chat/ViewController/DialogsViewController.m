@@ -79,7 +79,7 @@
         
         for (QBChatDialog* dialog in dialogObjects) {
             if (dialog.type != QBChatDialogTypePrivate) {
-                [[QBServicesManager instance].chatService joinToGroupDialog:dialog completion:^(NSError *error) {
+                [[QBServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
                     NSLog(@"Failed to join room with error: %@", error.localizedDescription);
                 }];
             }
