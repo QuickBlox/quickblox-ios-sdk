@@ -350,15 +350,19 @@
 
 /**
  Called when you received a chat status "user is typing"
+ 
+ @warning Deprecated in 2.3.1. Use 'onUserIsTyping:' block in 'QBChatDialog'.
  @param userID privacy list name
  */
-- (void)chatDidReceiveUserIsTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'isTyping:' block in 'QBChatDialog'.")));
+- (void)chatDidReceiveUserIsTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'onUserIsTyping:' block in 'QBChatDialog'.")));
 
 /**
  Called when you received a chat status "user stop typing"
+
+ @warning Deprecated in 2.3.1. Use 'onUserStoppedTyping:' block in 'QBChatDialog'.
  @param userID privacy list name
  */
-- (void)chatDidReceiveUserStopTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'stoppedTyping:' block in 'QBChatDialog'.")));;
+- (void)chatDidReceiveUserStopTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'onUserStoppedTyping:' block in 'QBChatDialog'.")));;
 
 
 #pragma mark -

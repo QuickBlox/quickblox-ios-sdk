@@ -187,6 +187,11 @@ typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
  */
 - (void)sendUserStoppedTyping;
 
+/**
+ *  Clears typing status blocks. Call this method if you don't want to recieve typing statuses for this dialog.
+ */
+- (void)clearTypingStatusBlocks;
+
 @end
 
 @interface QBChatDialog (Deprecated)
