@@ -433,6 +433,7 @@ typedef enum QBChatServiceError {
 
 /**
  Send a chat status "user is typing" to user with given ID
+ @warning Deprecated in 2.3.1. Use 'sendIsTyping' in QBChatDialog class.
  
  @param userID user ID
  */
@@ -440,6 +441,7 @@ typedef enum QBChatServiceError {
 
 /**
  Send a chat status "user stop typing" to user with given ID
+ @warning Deprecated in 2.3.1. Use 'sendStoppedTyping' in QBChatDialog class.
  
  @param userID user ID
  */

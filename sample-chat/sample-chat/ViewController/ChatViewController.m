@@ -17,7 +17,7 @@
 #import "LoginTableViewController.h"
 #import "DialogsViewController.h"
 
-@interface ChatViewController () <QMChatServiceDelegate>
+@interface ChatViewController () <QMChatServiceDelegate, UITextViewDelegate>
 
 @property (nonatomic, weak) QBUUser* opponentUser;
 @property (nonatomic, strong ) id <NSObject> observerDidBecomeActive;
@@ -53,26 +53,30 @@
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
     
-    if (self.dialog.type == QBChatDialogTypePrivate) {
-        NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
-        [mutableOccupants removeObject:@([self senderID])];
-        NSNumber* opponentID = [mutableOccupants firstObject];
-        NSArray* opponentUser = [[StorageManager instance].users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self.ID == %@", opponentID]];
-		NSAssert(opponentUser, @"opponent must exists");
-        self.opponentUser = [opponentUser firstObject];
-        self.title = self.opponentUser.fullName;
-    } else {
-        self.title = self.dialog.name;
-    }
+     [self updateTitle];
     
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
-	if( [self.items count] ){
+    
+	if ([self.items count]) {
 		[self refreshMessagesShowingProgress:NO];
-	}
-	else {
+	} else {
 		[self refreshMessagesShowingProgress:YES];
 	}
+    
+    __weak typeof(self)weakSelf = self;
+    [self.dialog setOnUserIsTyping:^(NSUInteger userID) {
+        __typeof(self) strongSelf = weakSelf;
+        if ([QBSession currentSession].currentUser.ID == userID) {
+            return;
+        }
+        strongSelf.title = @"typing...";
+    }];
+
+    [self.dialog setOnUserStoppedTyping:^(NSUInteger userID) {
+        __typeof(self) strongSelf = weakSelf;
+        [strongSelf updateTitle];
+    }];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
@@ -93,7 +97,6 @@
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
 		}
-
 	}];
 }
 
@@ -135,6 +138,8 @@
     
     [[QBServicesManager instance].chatService removeDelegate:self];
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
+    
+    [self.dialog clearTypingStatusBlocks];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -142,6 +147,21 @@
     if ([segue.identifier isEqualToString:@"kShowDialogInfoViewController"]) {
         DialogInfoTableViewController* viewController = segue.destinationViewController;
         viewController.dialog = self.dialog;
+    }
+}
+
+- (void)updateTitle
+{
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
+        [mutableOccupants removeObject:@([self senderID])];
+        NSNumber* opponentID = [mutableOccupants firstObject];
+        QBUUser* opponentUser = [[StorageManager instance] userByID:[opponentID unsignedIntegerValue]];
+        NSAssert(opponentUser, @"opponent must exists");
+        self.opponentUser = opponentUser;
+        self.title = self.opponentUser.fullName;
+    } else {
+        self.title = self.dialog.name;
     }
 }
 
@@ -348,6 +368,22 @@
 	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
 		self.dialog = chatDialog;
 	}
+}
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [super textViewDidBeginEditing:textView];
+    
+    [self.dialog sendUserIsTyping];
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    [super textViewDidEndEditing:textView];
+    
+    [self.dialog sendUserStoppedTyping];
 }
 
 
