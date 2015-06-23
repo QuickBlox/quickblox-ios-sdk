@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "DialogsViewController.h"
 #import "ReachabilityManager.h"
+#import "QBServicesManager.h"
+#import "ChatViewController.h"
 
 @implementation AppDelegate
 
@@ -40,14 +42,24 @@
     
     // Logout from chat
     //
+	[QBServicesManager.instance.chatService logoutChat];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    
+	
     // Login to QuickBlox Chat
     //
+	[QBServicesManager.instance.chatService logIn:^(NSError *error) {
+		if( !error ) {
+			for( QBChatDialog *dialog in [QBServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs] ) {
+				if( dialog.type == QBChatDialogTypeGroup && !dialog.isJoined ) {
+					[dialog join];
+				}
+			}
+		}
+	}];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

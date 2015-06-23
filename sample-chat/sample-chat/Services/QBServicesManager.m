@@ -50,9 +50,7 @@
 - (void)logoutWithCompletion:(void(^)())completion
 {
     if ([QBSession currentSession].currentUser != nil) {
-        __weak typeof(self)weakSelf = self;
-        
-        [SVProgressHUD showWithStatus:@"Logging out..."];
+        __weak typeof(self)weakSelf = self;    
         
         dispatch_group_enter(self.logoutGroup);
         [self.authService logOut:^(QBResponse *response) {
@@ -74,7 +72,6 @@
         }];
         
         dispatch_group_notify(self.logoutGroup, dispatch_get_main_queue(), ^{
-            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
             if (completion) {
                 completion();
             }
@@ -96,9 +93,6 @@
 			}
 			return;
 		}
-		if (self.currentUser != nil) {
-
-		}
 		
         __weak typeof(self) weakSelf = self;
 		[self.chatService logIn:^(NSError *error) {
@@ -109,8 +103,10 @@
             NSArray* dialogs = [strongSelf.chatService.dialogsMemoryStorage unsortedDialogs];
             for (QBChatDialog* dialog in dialogs) {
                 if (dialog.type != QBChatDialogTypePrivate) {
-                    [strongSelf.chatService joinToGroupDialog:dialog completion:^(NSError *error) {
-                        NSLog(@"Join error: %@", error.localizedDescription);
+                    [strongSelf.chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+						if (error != nil) {
+							NSLog(@"Join error: %@", error.localizedDescription);
+						}
                     }];
                 }
             }
@@ -122,11 +118,22 @@
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
+	if( response.status == 502 ) { // bad gateway, server error
+		errorMessage = @"Bad Gateway, please try again";
+	}
+	else if( response.status == 0 ) { // bad gateway, server error
+		errorMessage = @"Connection network error, please try again";
+	}
+	else {
+		
+	}
+	
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
 													message:errorMessage
 												   delegate:nil
 										  cancelButtonTitle:@"Ok"
 										  otherButtonTitles: nil];
+
 	[alert show];
 }
 
@@ -170,6 +177,13 @@
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialog.ID completion:nil];
 	[QMChatCache.instance insertOrUpdateDialog:dialog completion:nil];
 }
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+    [[QMChatCache instance] insertOrUpdateDialog:chatDialog completion:nil];
+}
+
+
+#pragma mark QMChatServiceCacheDataSource
 
 - (void)cachedDialogs:(QMCacheCollection)block {
 	[QMChatCache.instance dialogsSortedBy:@"lastMessageDate" ascending:YES completion:^(NSArray *dialogs) {

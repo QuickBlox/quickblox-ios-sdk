@@ -18,11 +18,22 @@
 #import <Quickblox/Quickblox.h>
 #import <QMServices.h>
 #import <SVProgressHUD.h>
-#import <JSQMessages.h>
-#import <JSQMessagesBubbleImageFactory.h>
-#import <JSQMessagesBubbleImage.h>
 #import "SWTableViewCell.h"
 #import "NSMutableArray+SWUtilityButtons.h"
 #import "UIAlertDialog.h"
-#import "JSQMessagesViewController+PublicNotifications.h"
+
+#import "QMChatViewController.h"
+#import "QMChatContactRequestCell.h"
+#import "QMChatNotificationCell.h"
+#import "QMChatIncomingCell.h"
+#import "QMChatOutgoingCell.h"
+
+#import "TTTAttributedLabel.h"
+
+#import "TWMessageBarManager.h"
+
+#import "_CDMessage.h"
+#import "UIImage+QM.h"
+#import "UIColor+QM.h"
+
 #endif

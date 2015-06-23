@@ -20,4 +20,16 @@
 	return sharedInstance;
 }
 
+- (QBUUser *)userByID:(NSUInteger)identifier
+{
+    __block QBUUser* userToFind = nil;
+    [self.users enumerateObjectsUsingBlock:^(QBUUser* obj, NSUInteger idx, BOOL *stop) {
+        if (obj.ID == identifier) {
+            userToFind = obj;
+            *stop = YES;
+        }
+    }];
+    
+    return userToFind;
+}
 @end

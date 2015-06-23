@@ -7,259 +7,277 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FE3357C83FC769195D8D089 /* MTBlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = C693749F62BC649406EB9AD2 /* MTBlockAlertView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		1C5219D5075092B9C6E9E536 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5C0CF30956ADAD4E6FCBBE /* Foundation.framework */; };
-		39268675E5C595A8D8C607A9 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = BC6F7BF0A61E6C27BD857AFE /* EXTRuntimeExtensions.h */; };
-		5B5CE0DBF24F561D6CC32CCD /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFBBF37EB5804AB5889AE908 /* EXTRuntimeExtensions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6B67CA2FCB1142328D8C4169 /* Pods-libextobjc-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0760C1A42E90BC49C1D9D3 /* Pods-libextobjc-dummy.m */; };
-		8B5C1A0B4F58C7CE3C0C5BB5 /* Pods-MTBlockAlertView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B191CC0EEE531BD74ED140EA /* Pods-MTBlockAlertView-dummy.m */; };
-		9EECBE5D24027CEA432C3E5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5C0CF30956ADAD4E6FCBBE /* Foundation.framework */; };
-		AA8ECFBAE7A8FF595BBAB52A /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = A06181C1E4CDA60E10FBE5EF /* EXTScope.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		BA557D1A2A9287F5979A5BB9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5C0CF30956ADAD4E6FCBBE /* Foundation.framework */; };
-		C36630324C1540B47D858035 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E87BC429DBCBDEBE4B94CF /* Pods-dummy.m */; };
-		CDD3CC919D21582C2A404E15 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 112DCD6B977E36603EBDFB2C /* EXTScope.h */; };
-		EE3D0CFCCA6BBA64C91B96C6 /* MTBlockAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7512DDE09D951DF4702F5ABE /* MTBlockAlertView.h */; };
-		EEA6193822A4CDB101727F0A /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D7DC32EE7F758DC198994E3 /* metamacros.h */; };
+		23C5BB3FB7C42C990FA4956B /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ECEB4FA970E45822AACA788A /* Pods-dummy.m */; };
+		26E161418EFDCBB50C08787D /* Pods-MTBlockAlertView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D8CB39A482E19CA07ADD4E /* Pods-MTBlockAlertView-dummy.m */; };
+		2E8DAF5065F1F91ACC5657CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD1C933B3952CE0D4B0DC7D /* Foundation.framework */; };
+		4112EB42596D12B808C6815E /* MTBlockAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EEFDC6303D0CE94ED27612 /* MTBlockAlertView.h */; };
+		58C49626F45BA7C64F085D48 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B3393DB529D82E42285410 /* EXTRuntimeExtensions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		89E446F11E75FB8475DA9252 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A14A50102B65957B895C3026 /* metamacros.h */; };
+		936271E2532AC89CE461514D /* Pods-libextobjc-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A359B9AFD2A0782C312990 /* Pods-libextobjc-dummy.m */; };
+		A60AFAA9DBFA17AB9C62D84C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD1C933B3952CE0D4B0DC7D /* Foundation.framework */; };
+		B819DF07750C78604E44260E /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = E144141671EF996AB64321AD /* EXTRuntimeExtensions.h */; };
+		EA991E20BB13F57255ED7220 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 750FE9066C66B7A9D19D8DAA /* EXTScope.h */; };
+		F7309D35FD424DB750D37F85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD1C933B3952CE0D4B0DC7D /* Foundation.framework */; };
+		FD443C40350F526786579A72 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 235A4B774F9CF6ECDA0DAE28 /* EXTScope.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		FF8339857F2E917EBAAC8313 /* MTBlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = F66B6304A9AD36F63350018E /* MTBlockAlertView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		13678B2371AE8722F04FA50E /* PBXContainerItemProxy */ = {
+		21405A99EB0275FB4BB9BE12 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CC331ABACF61BA30A120919 /* Project object */;
+			containerPortal = 726853A00D12F0ADA178BA4A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5F25D5C9FBE76F0D322A4EEA;
+			remoteGlobalIDString = 7A9B45ED65A9C653BB540CE1;
 			remoteInfo = "Pods-MTBlockAlertView";
 		};
-		BF3C827FA7A7A9B20E7569FA /* PBXContainerItemProxy */ = {
+		5EC2CE0F492362A9BBE99CC5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5CC331ABACF61BA30A120919 /* Project object */;
+			containerPortal = 726853A00D12F0ADA178BA4A /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E7C1B55F2A6CAC708AD88235;
+			remoteGlobalIDString = B70EEEB5F4E05B635448A18A;
 			remoteInfo = "Pods-libextobjc";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		06C4F178181A7FE1CD12EC7C /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		0C0760C1A42E90BC49C1D9D3 /* Pods-libextobjc-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-libextobjc-dummy.m"; sourceTree = "<group>"; };
-		0FE566405D6C79D50E074F52 /* Pods-MTBlockAlertView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MTBlockAlertView-prefix.pch"; sourceTree = "<group>"; };
-		112DCD6B977E36603EBDFB2C /* EXTScope.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = extobjc/EXTScope.h; sourceTree = "<group>"; };
-		36291D9B59088B29F2232B41 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		663555DF69A751CF0FDB755E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B37D7223D53ED5280249E0F /* libPods-libextobjc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libextobjc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F5C0CF30956ADAD4E6FCBBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		7512DDE09D951DF4702F5ABE /* MTBlockAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTBlockAlertView.h; path = MTBlockAlertView/MTBlockAlertView/MTBlockAlertView.h; sourceTree = "<group>"; };
-		7975EFB5F64B94586DD58D65 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
-		7B0A8CD860D768A40451E38C /* Pods-libextobjc-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-libextobjc-Private.xcconfig"; sourceTree = "<group>"; };
-		9CD95E924B79DA201E79C747 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		9D7DC32EE7F758DC198994E3 /* metamacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = metamacros.h; path = extobjc/metamacros.h; sourceTree = "<group>"; };
-		A06181C1E4CDA60E10FBE5EF /* EXTScope.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = extobjc/EXTScope.m; sourceTree = "<group>"; };
-		B191CC0EEE531BD74ED140EA /* Pods-MTBlockAlertView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MTBlockAlertView-dummy.m"; sourceTree = "<group>"; };
-		B1BF4489320823F1A25CDF76 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		BC6F7BF0A61E6C27BD857AFE /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTRuntimeExtensions.h; path = extobjc/EXTRuntimeExtensions.h; sourceTree = "<group>"; };
-		BE921DABF2F18DD31283179A /* libPods-MTBlockAlertView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MTBlockAlertView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C693749F62BC649406EB9AD2 /* MTBlockAlertView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTBlockAlertView.m; path = MTBlockAlertView/MTBlockAlertView/MTBlockAlertView.m; sourceTree = "<group>"; };
-		CFABAAEA3BD465C79627A737 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		D4E87BC429DBCBDEBE4B94CF /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		D9958A0BFE504D239F218D63 /* Pods-MTBlockAlertView-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTBlockAlertView-Private.xcconfig"; sourceTree = "<group>"; };
-		E063199890FB4C4AAEB91F3E /* Pods-MTBlockAlertView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTBlockAlertView.xcconfig"; sourceTree = "<group>"; };
-		E4C381CE665E4641F9B9309D /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		EFBBF37EB5804AB5889AE908 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTRuntimeExtensions.m; path = extobjc/EXTRuntimeExtensions.m; sourceTree = "<group>"; };
-		F011F600DA4C5628BDEBDFCD /* Pods-libextobjc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-libextobjc.xcconfig"; sourceTree = "<group>"; };
-		FB8CBBEF5E268D472880BE62 /* Pods-libextobjc-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-libextobjc-prefix.pch"; sourceTree = "<group>"; };
+		199868EB9B893A34E548F531 /* libPods-libextobjc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-libextobjc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		235A4B774F9CF6ECDA0DAE28 /* EXTScope.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = extobjc/EXTScope.m; sourceTree = "<group>"; };
+		27D78C2C1E18ADF5CA574740 /* Pods-MTBlockAlertView-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTBlockAlertView-Private.xcconfig"; sourceTree = "<group>"; };
+		28A359B9AFD2A0782C312990 /* Pods-libextobjc-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-libextobjc-dummy.m"; sourceTree = "<group>"; };
+		2A90BDDD9AEDD77CCB1FED59 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DD1C933B3952CE0D4B0DC7D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		502AC2554C9F6FA0A3C85709 /* libPods-MTBlockAlertView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MTBlockAlertView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53D3C0AC5ADAB998A4AF21B9 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		57EEFDC6303D0CE94ED27612 /* MTBlockAlertView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MTBlockAlertView.h; path = MTBlockAlertView/MTBlockAlertView/MTBlockAlertView.h; sourceTree = "<group>"; };
+		750FE9066C66B7A9D19D8DAA /* EXTScope.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = extobjc/EXTScope.h; sourceTree = "<group>"; };
+		76ED83288740DF9B135735E2 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
+		98497B83C7100AD2275C8F10 /* Pods-libextobjc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-libextobjc.xcconfig"; sourceTree = "<group>"; };
+		A14A50102B65957B895C3026 /* metamacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = metamacros.h; path = extobjc/metamacros.h; sourceTree = "<group>"; };
+		A86466ED83B75E8195583B59 /* Pods-MTBlockAlertView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MTBlockAlertView.xcconfig"; sourceTree = "<group>"; };
+		ADAE8D347F4DBA05850E4122 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
+		B3D8CB39A482E19CA07ADD4E /* Pods-MTBlockAlertView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MTBlockAlertView-dummy.m"; sourceTree = "<group>"; };
+		B695A823120831A1CCE40EC4 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
+		B96DD6B156DEB8278429D953 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		BF482871DBD6E97B49A90419 /* Pods-libextobjc-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-libextobjc-Private.xcconfig"; sourceTree = "<group>"; };
+		D0B3393DB529D82E42285410 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTRuntimeExtensions.m; path = extobjc/EXTRuntimeExtensions.m; sourceTree = "<group>"; };
+		D5013239C7009AA09896F97C /* Pods-libextobjc-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-libextobjc-prefix.pch"; sourceTree = "<group>"; };
+		E144141671EF996AB64321AD /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTRuntimeExtensions.h; path = extobjc/EXTRuntimeExtensions.h; sourceTree = "<group>"; };
+		ECEB4FA970E45822AACA788A /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		EEE2A6D3F6ADFC305D0D6D0F /* Pods-MTBlockAlertView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MTBlockAlertView-prefix.pch"; sourceTree = "<group>"; };
+		F19033492F6A13B1A25C30BB /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F19E642781D46768E1E6FB3D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
+		F66B6304A9AD36F63350018E /* MTBlockAlertView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MTBlockAlertView.m; path = MTBlockAlertView/MTBlockAlertView/MTBlockAlertView.m; sourceTree = "<group>"; };
+		F9D2892B165CD8F02D57800E /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		579ED6BB56064C03EDA62DF0 /* Frameworks */ = {
+		2391840BF8397E6BE2169BC7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA557D1A2A9287F5979A5BB9 /* Foundation.framework in Frameworks */,
+				2E8DAF5065F1F91ACC5657CD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		68472573356A5CC294B846D9 /* Frameworks */ = {
+		96E5D71010FA288D03549A55 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EECBE5D24027CEA432C3E5A /* Foundation.framework in Frameworks */,
+				F7309D35FD424DB750D37F85 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D69196D0107E1732564CE291 /* Frameworks */ = {
+		EE15E1F33C8D3A7DFEAFD27D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C5219D5075092B9C6E9E536 /* Foundation.framework in Frameworks */,
+				A60AFAA9DBFA17AB9C62D84C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E24054B66888DFC44EBE95B /* EXTScope */ = {
+		141BE3BEE8B6D08558453630 = {
 			isa = PBXGroup;
 			children = (
-				112DCD6B977E36603EBDFB2C /* EXTScope.h */,
-				A06181C1E4CDA60E10FBE5EF /* EXTScope.m */,
-			);
-			name = EXTScope;
-			sourceTree = "<group>";
-		};
-		1BB41DD32196428DF99B5819 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AED9DCFD1AFD7DB6EE711BA0 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1E99613279013ABC89A43D9E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6CE794AC5922D7B06C947208 /* MTBlockAlertView */,
-				671F83C9E3AD548F0EA73068 /* libextobjc */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		3610CB558EC824E33A6EBD40 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				E063199890FB4C4AAEB91F3E /* Pods-MTBlockAlertView.xcconfig */,
-				D9958A0BFE504D239F218D63 /* Pods-MTBlockAlertView-Private.xcconfig */,
-				B191CC0EEE531BD74ED140EA /* Pods-MTBlockAlertView-dummy.m */,
-				0FE566405D6C79D50E074F52 /* Pods-MTBlockAlertView-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-MTBlockAlertView";
-			sourceTree = "<group>";
-		};
-		671F83C9E3AD548F0EA73068 /* libextobjc */ = {
-			isa = PBXGroup;
-			children = (
-				0E24054B66888DFC44EBE95B /* EXTScope */,
-				B70E482EBB531598CBDD480A /* RuntimeExtensions */,
-				AB5B8B8B6748FF0E3291016D /* Support Files */,
-			);
-			path = libextobjc;
-			sourceTree = "<group>";
-		};
-		6CE794AC5922D7B06C947208 /* MTBlockAlertView */ = {
-			isa = PBXGroup;
-			children = (
-				7512DDE09D951DF4702F5ABE /* MTBlockAlertView.h */,
-				C693749F62BC649406EB9AD2 /* MTBlockAlertView.m */,
-				3610CB558EC824E33A6EBD40 /* Support Files */,
-			);
-			path = MTBlockAlertView;
-			sourceTree = "<group>";
-		};
-		8021DE8F5223D0590911B827 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B1BF4489320823F1A25CDF76 /* Pods-acknowledgements.markdown */,
-				9CD95E924B79DA201E79C747 /* Pods-acknowledgements.plist */,
-				D4E87BC429DBCBDEBE4B94CF /* Pods-dummy.m */,
-				7975EFB5F64B94586DD58D65 /* Pods-environment.h */,
-				E4C381CE665E4641F9B9309D /* Pods-resources.sh */,
-				CFABAAEA3BD465C79627A737 /* Pods.debug.xcconfig */,
-				36291D9B59088B29F2232B41 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			path = "Target Support Files/Pods";
-			sourceTree = "<group>";
-		};
-		883DC47333D587738F64F24B = {
-			isa = PBXGroup;
-			children = (
-				06C4F178181A7FE1CD12EC7C /* Podfile */,
-				1BB41DD32196428DF99B5819 /* Frameworks */,
-				1E99613279013ABC89A43D9E /* Pods */,
-				98E631D904532B4EC419F335 /* Products */,
-				D75B5A3189D876CBE11C255D /* Targets Support Files */,
+				F19033492F6A13B1A25C30BB /* Podfile */,
+				B81F5F4596319EA2F036424E /* Frameworks */,
+				5B1C585A686FF7D5D6711C6D /* Pods */,
+				1C304DE9F0369D7CC05EDA41 /* Products */,
+				97F61D69CED31F7D8A422704 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		98E631D904532B4EC419F335 /* Products */ = {
+		1C304DE9F0369D7CC05EDA41 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				663555DF69A751CF0FDB755E /* libPods.a */,
-				BE921DABF2F18DD31283179A /* libPods-MTBlockAlertView.a */,
-				6B37D7223D53ED5280249E0F /* libPods-libextobjc.a */,
+				2A90BDDD9AEDD77CCB1FED59 /* libPods.a */,
+				502AC2554C9F6FA0A3C85709 /* libPods-MTBlockAlertView.a */,
+				199868EB9B893A34E548F531 /* libPods-libextobjc.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AB5B8B8B6748FF0E3291016D /* Support Files */ = {
+		2701662A4A08FC278D8ABB15 /* EXTScope */ = {
 			isa = PBXGroup;
 			children = (
-				F011F600DA4C5628BDEBDFCD /* Pods-libextobjc.xcconfig */,
-				7B0A8CD860D768A40451E38C /* Pods-libextobjc-Private.xcconfig */,
-				0C0760C1A42E90BC49C1D9D3 /* Pods-libextobjc-dummy.m */,
-				FB8CBBEF5E268D472880BE62 /* Pods-libextobjc-prefix.pch */,
+				750FE9066C66B7A9D19D8DAA /* EXTScope.h */,
+				235A4B774F9CF6ECDA0DAE28 /* EXTScope.m */,
+			);
+			name = EXTScope;
+			sourceTree = "<group>";
+		};
+		589A0173DA002394B4F2FDA8 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3DD1C933B3952CE0D4B0DC7D /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		5B1C585A686FF7D5D6711C6D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F0E1EEEB8A54830D0FEB7822 /* MTBlockAlertView */,
+				8518BA13C6AEBD68DB7314CD /* QuickBlox */,
+				F3CB2B7D26BDB1DB7D17E757 /* libextobjc */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		63E9E50BA7C2AE5D443AF763 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				98497B83C7100AD2275C8F10 /* Pods-libextobjc.xcconfig */,
+				BF482871DBD6E97B49A90419 /* Pods-libextobjc-Private.xcconfig */,
+				28A359B9AFD2A0782C312990 /* Pods-libextobjc-dummy.m */,
+				D5013239C7009AA09896F97C /* Pods-libextobjc-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-libextobjc";
 			sourceTree = "<group>";
 		};
-		AED9DCFD1AFD7DB6EE711BA0 /* iOS */ = {
+		6D0A3EF49D3A0080DF17232F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6F5C0CF30956ADAD4E6FCBBE /* Foundation.framework */,
+				B96DD6B156DEB8278429D953 /* Pods-acknowledgements.markdown */,
+				53D3C0AC5ADAB998A4AF21B9 /* Pods-acknowledgements.plist */,
+				ECEB4FA970E45822AACA788A /* Pods-dummy.m */,
+				76ED83288740DF9B135735E2 /* Pods-environment.h */,
+				F9D2892B165CD8F02D57800E /* Pods-resources.sh */,
+				ADAE8D347F4DBA05850E4122 /* Pods.debug.xcconfig */,
+				B695A823120831A1CCE40EC4 /* Pods.release.xcconfig */,
 			);
-			name = iOS;
+			name = Pods;
+			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
-		B70E482EBB531598CBDD480A /* RuntimeExtensions */ = {
+		8518BA13C6AEBD68DB7314CD /* QuickBlox */ = {
 			isa = PBXGroup;
 			children = (
-				BC6F7BF0A61E6C27BD857AFE /* EXTRuntimeExtensions.h */,
-				EFBBF37EB5804AB5889AE908 /* EXTRuntimeExtensions.m */,
-				9D7DC32EE7F758DC198994E3 /* metamacros.h */,
+				AFB1651BF4D8ADA82516BCE3 /* Frameworks */,
+			);
+			path = QuickBlox;
+			sourceTree = "<group>";
+		};
+		8BE3DF4996C8C914BE5ACD83 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A86466ED83B75E8195583B59 /* Pods-MTBlockAlertView.xcconfig */,
+				27D78C2C1E18ADF5CA574740 /* Pods-MTBlockAlertView-Private.xcconfig */,
+				B3D8CB39A482E19CA07ADD4E /* Pods-MTBlockAlertView-dummy.m */,
+				EEE2A6D3F6ADFC305D0D6D0F /* Pods-MTBlockAlertView-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-MTBlockAlertView";
+			sourceTree = "<group>";
+		};
+		97F61D69CED31F7D8A422704 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6D0A3EF49D3A0080DF17232F /* Pods */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		A31B3CA8920B58AB3719E3ED /* RuntimeExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				E144141671EF996AB64321AD /* EXTRuntimeExtensions.h */,
+				D0B3393DB529D82E42285410 /* EXTRuntimeExtensions.m */,
+				A14A50102B65957B895C3026 /* metamacros.h */,
 			);
 			name = RuntimeExtensions;
 			sourceTree = "<group>";
 		};
-		D75B5A3189D876CBE11C255D /* Targets Support Files */ = {
+		AFB1651BF4D8ADA82516BCE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8021DE8F5223D0590911B827 /* Pods */,
+				F19E642781D46768E1E6FB3D /* Quickblox.framework */,
 			);
-			name = "Targets Support Files";
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B81F5F4596319EA2F036424E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				589A0173DA002394B4F2FDA8 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F0E1EEEB8A54830D0FEB7822 /* MTBlockAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				57EEFDC6303D0CE94ED27612 /* MTBlockAlertView.h */,
+				F66B6304A9AD36F63350018E /* MTBlockAlertView.m */,
+				8BE3DF4996C8C914BE5ACD83 /* Support Files */,
+			);
+			path = MTBlockAlertView;
+			sourceTree = "<group>";
+		};
+		F3CB2B7D26BDB1DB7D17E757 /* libextobjc */ = {
+			isa = PBXGroup;
+			children = (
+				2701662A4A08FC278D8ABB15 /* EXTScope */,
+				A31B3CA8920B58AB3719E3ED /* RuntimeExtensions */,
+				63E9E50BA7C2AE5D443AF763 /* Support Files */,
+			);
+			path = libextobjc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		B6BA1FCC4C50608A636972F7 /* Headers */ = {
+		3D672AECEF3073EA730AC18F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE3D0CFCCA6BBA64C91B96C6 /* MTBlockAlertView.h in Headers */,
+				4112EB42596D12B808C6815E /* MTBlockAlertView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EE1812B7D80515FDABFA2515 /* Headers */ = {
+		E833DA0BFC04E7EBBEE02FE9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39268675E5C595A8D8C607A9 /* EXTRuntimeExtensions.h in Headers */,
-				CDD3CC919D21582C2A404E15 /* EXTScope.h in Headers */,
-				EEA6193822A4CDB101727F0A /* metamacros.h in Headers */,
+				B819DF07750C78604E44260E /* EXTRuntimeExtensions.h in Headers */,
+				EA991E20BB13F57255ED7220 /* EXTScope.h in Headers */,
+				89E446F11E75FB8475DA9252 /* metamacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		5F25D5C9FBE76F0D322A4EEA /* Pods-MTBlockAlertView */ = {
+		7A9B45ED65A9C653BB540CE1 /* Pods-MTBlockAlertView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4A8D191973C79C2484731BF7 /* Build configuration list for PBXNativeTarget "Pods-MTBlockAlertView" */;
+			buildConfigurationList = B2ECA76B6B7154E7EC9157FC /* Build configuration list for PBXNativeTarget "Pods-MTBlockAlertView" */;
 			buildPhases = (
-				7ED2F3F513B23713700146C4 /* Sources */,
-				68472573356A5CC294B846D9 /* Frameworks */,
-				B6BA1FCC4C50608A636972F7 /* Headers */,
+				834E4A580BC7AFB522B449AD /* Sources */,
+				EE15E1F33C8D3A7DFEAFD27D /* Frameworks */,
+				3D672AECEF3073EA730AC18F /* Headers */,
 			);
 			buildRules = (
 			);
@@ -267,34 +285,16 @@
 			);
 			name = "Pods-MTBlockAlertView";
 			productName = "Pods-MTBlockAlertView";
-			productReference = BE921DABF2F18DD31283179A /* libPods-MTBlockAlertView.a */;
+			productReference = 502AC2554C9F6FA0A3C85709 /* libPods-MTBlockAlertView.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		71411001E5BDCBB0F9CB57A5 /* Pods */ = {
+		B70EEEB5F4E05B635448A18A /* Pods-libextobjc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B112AD92143A2045B6833744 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildConfigurationList = 1A487F1DCA415B4FA703CA09 /* Build configuration list for PBXNativeTarget "Pods-libextobjc" */;
 			buildPhases = (
-				9592E5B905E12B1AE4055E4B /* Sources */,
-				D69196D0107E1732564CE291 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				78DD423131083C649E27E897 /* PBXTargetDependency */,
-				7616C05A5148D6E001223E2F /* PBXTargetDependency */,
-			);
-			name = Pods;
-			productName = Pods;
-			productReference = 663555DF69A751CF0FDB755E /* libPods.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		E7C1B55F2A6CAC708AD88235 /* Pods-libextobjc */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 45B42A8FA97719476A44D0F2 /* Build configuration list for PBXNativeTarget "Pods-libextobjc" */;
-			buildPhases = (
-				DE56C80A5C40426D4747E2BA /* Sources */,
-				579ED6BB56064C03EDA62DF0 /* Frameworks */,
-				EE1812B7D80515FDABFA2515 /* Headers */,
+				ED64D7A4BE7B3E806FB94281 /* Sources */,
+				96E5D71010FA288D03549A55 /* Frameworks */,
+				E833DA0BFC04E7EBBEE02FE9 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -302,85 +302,151 @@
 			);
 			name = "Pods-libextobjc";
 			productName = "Pods-libextobjc";
-			productReference = 6B37D7223D53ED5280249E0F /* libPods-libextobjc.a */;
+			productReference = 199868EB9B893A34E548F531 /* libPods-libextobjc.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F02E61C450BAB3611521AF62 /* Pods */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAE02DE32FA117EA13E3F4C0 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildPhases = (
+				F7ACAAC62E1F7422789C5392 /* Sources */,
+				2391840BF8397E6BE2169BC7 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E164C2E6FF082EB41B7B5361 /* PBXTargetDependency */,
+				F403CDE0B06364F4459B8476 /* PBXTargetDependency */,
+			);
+			name = Pods;
+			productName = Pods;
+			productReference = 2A90BDDD9AEDD77CCB1FED59 /* libPods.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		5CC331ABACF61BA30A120919 /* Project object */ = {
+		726853A00D12F0ADA178BA4A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = E580036DDA259D505D7644F1 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = E0FF1239A1CB11EFD7283C02 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 883DC47333D587738F64F24B;
-			productRefGroup = 98E631D904532B4EC419F335 /* Products */;
+			mainGroup = 141BE3BEE8B6D08558453630;
+			productRefGroup = 1C304DE9F0369D7CC05EDA41 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				71411001E5BDCBB0F9CB57A5 /* Pods */,
-				5F25D5C9FBE76F0D322A4EEA /* Pods-MTBlockAlertView */,
-				E7C1B55F2A6CAC708AD88235 /* Pods-libextobjc */,
+				F02E61C450BAB3611521AF62 /* Pods */,
+				7A9B45ED65A9C653BB540CE1 /* Pods-MTBlockAlertView */,
+				B70EEEB5F4E05B635448A18A /* Pods-libextobjc */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7ED2F3F513B23713700146C4 /* Sources */ = {
+		834E4A580BC7AFB522B449AD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FE3357C83FC769195D8D089 /* MTBlockAlertView.m in Sources */,
-				8B5C1A0B4F58C7CE3C0C5BB5 /* Pods-MTBlockAlertView-dummy.m in Sources */,
+				FF8339857F2E917EBAAC8313 /* MTBlockAlertView.m in Sources */,
+				26E161418EFDCBB50C08787D /* Pods-MTBlockAlertView-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9592E5B905E12B1AE4055E4B /* Sources */ = {
+		ED64D7A4BE7B3E806FB94281 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C36630324C1540B47D858035 /* Pods-dummy.m in Sources */,
+				58C49626F45BA7C64F085D48 /* EXTRuntimeExtensions.m in Sources */,
+				FD443C40350F526786579A72 /* EXTScope.m in Sources */,
+				936271E2532AC89CE461514D /* Pods-libextobjc-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE56C80A5C40426D4747E2BA /* Sources */ = {
+		F7ACAAC62E1F7422789C5392 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B5CE0DBF24F561D6CC32CCD /* EXTRuntimeExtensions.m in Sources */,
-				AA8ECFBAE7A8FF595BBAB52A /* EXTScope.m in Sources */,
-				6B67CA2FCB1142328D8C4169 /* Pods-libextobjc-dummy.m in Sources */,
+				23C5BB3FB7C42C990FA4956B /* Pods-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7616C05A5148D6E001223E2F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-libextobjc";
-			target = E7C1B55F2A6CAC708AD88235 /* Pods-libextobjc */;
-			targetProxy = BF3C827FA7A7A9B20E7569FA /* PBXContainerItemProxy */;
-		};
-		78DD423131083C649E27E897 /* PBXTargetDependency */ = {
+		E164C2E6FF082EB41B7B5361 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-MTBlockAlertView";
-			target = 5F25D5C9FBE76F0D322A4EEA /* Pods-MTBlockAlertView */;
-			targetProxy = 13678B2371AE8722F04FA50E /* PBXContainerItemProxy */;
+			target = 7A9B45ED65A9C653BB540CE1 /* Pods-MTBlockAlertView */;
+			targetProxy = 21405A99EB0275FB4BB9BE12 /* PBXContainerItemProxy */;
+		};
+		F403CDE0B06364F4459B8476 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-libextobjc";
+			target = B70EEEB5F4E05B635448A18A /* Pods-libextobjc */;
+			targetProxy = 5EC2CE0F492362A9BBE99CC5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0D96D54BFE395BC6547B8BCB /* Debug */ = {
+		20D6D5D9CE3BCF779666C632 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0A8CD860D768A40451E38C /* Pods-libextobjc-Private.xcconfig */;
+			baseConfigurationReference = 27D78C2C1E18ADF5CA574740 /* Pods-MTBlockAlertView-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-MTBlockAlertView/Pods-MTBlockAlertView-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2CB4CCF652CE948F310D9420 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADAE8D347F4DBA05850E4122 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3983E97831A290AD506EFC46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF482871DBD6E97B49A90419 /* Pods-libextobjc-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-libextobjc/Pods-libextobjc-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		5C1A8714A6990C4CE8A46F71 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF482871DBD6E97B49A90419 /* Pods-libextobjc-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-libextobjc/Pods-libextobjc-prefix.pch";
@@ -394,25 +460,9 @@
 			};
 			name = Debug;
 		};
-		5D53458B0EA8C05574397D3A /* Release */ = {
+		7B6DE7AA4C24AFACE987D310 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0A8CD860D768A40451E38C /* Pods-libextobjc-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-libextobjc/Pods-libextobjc-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		9481C32F9434E11FF2974958 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9958A0BFE504D239F218D63 /* Pods-MTBlockAlertView-Private.xcconfig */;
+			baseConfigurationReference = 27D78C2C1E18ADF5CA574740 /* Pods-MTBlockAlertView-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-MTBlockAlertView/Pods-MTBlockAlertView-prefix.pch";
@@ -426,7 +476,7 @@
 			};
 			name = Release;
 		};
-		C05E3390DFB7FF192CC90A97 /* Debug */ = {
+		971CDA250EFF095C808025C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -465,7 +515,7 @@
 			};
 			name = Debug;
 		};
-		DA74CE978F7C0AA26230CF01 /* Release */ = {
+		D352F02F04A7652E87C0CBC9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -499,41 +549,9 @@
 			};
 			name = Release;
 		};
-		F7164781F96963D94D1B35F5 /* Debug */ = {
+		D40CA7164B7962E1DAFD66A0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CFABAAEA3BD465C79627A737 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		F72EFAACB6FD18E86936646F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9958A0BFE504D239F218D63 /* Pods-MTBlockAlertView-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-MTBlockAlertView/Pods-MTBlockAlertView-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		FADCE3040C74B4AB8099E5E2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 36291D9B59088B29F2232B41 /* Pods.release.xcconfig */;
+			baseConfigurationReference = B695A823120831A1CCE40EC4 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -550,43 +568,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		45B42A8FA97719476A44D0F2 /* Build configuration list for PBXNativeTarget "Pods-libextobjc" */ = {
+		1A487F1DCA415B4FA703CA09 /* Build configuration list for PBXNativeTarget "Pods-libextobjc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0D96D54BFE395BC6547B8BCB /* Debug */,
-				5D53458B0EA8C05574397D3A /* Release */,
+				5C1A8714A6990C4CE8A46F71 /* Debug */,
+				3983E97831A290AD506EFC46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4A8D191973C79C2484731BF7 /* Build configuration list for PBXNativeTarget "Pods-MTBlockAlertView" */ = {
+		AAE02DE32FA117EA13E3F4C0 /* Build configuration list for PBXNativeTarget "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F72EFAACB6FD18E86936646F /* Debug */,
-				9481C32F9434E11FF2974958 /* Release */,
+				2CB4CCF652CE948F310D9420 /* Debug */,
+				D40CA7164B7962E1DAFD66A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B112AD92143A2045B6833744 /* Build configuration list for PBXNativeTarget "Pods" */ = {
+		B2ECA76B6B7154E7EC9157FC /* Build configuration list for PBXNativeTarget "Pods-MTBlockAlertView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F7164781F96963D94D1B35F5 /* Debug */,
-				FADCE3040C74B4AB8099E5E2 /* Release */,
+				20D6D5D9CE3BCF779666C632 /* Debug */,
+				7B6DE7AA4C24AFACE987D310 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E580036DDA259D505D7644F1 /* Build configuration list for PBXProject "Pods" */ = {
+		E0FF1239A1CB11EFD7283C02 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C05E3390DFB7FF192CC90A97 /* Debug */,
-				DA74CE978F7C0AA26230CF01 /* Release */,
+				971CDA250EFF095C808025C9 /* Debug */,
+				D352F02F04A7652E87C0CBC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 5CC331ABACF61BA30A120919 /* Project object */;
+	rootObject = 726853A00D12F0ADA178BA4A /* Project object */;
 }

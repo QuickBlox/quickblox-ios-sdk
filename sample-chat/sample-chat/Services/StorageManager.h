@@ -15,4 +15,6 @@
 - (instancetype)init __attribute__ ((unavailable("-init is not supported initializer")));
 + (instancetype)instance;
 
+- (QBUUser *)userByID:(NSUInteger)identifier;
+
 @end

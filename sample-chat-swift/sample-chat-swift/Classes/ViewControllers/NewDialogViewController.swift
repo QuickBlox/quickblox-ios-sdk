@@ -240,7 +240,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
     // MARK: - QMChatServiceDelegate
     
-    func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+    func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
         
         if (chatDialog.ID == self.dialog?.ID) {
             self.dialog = chatDialog

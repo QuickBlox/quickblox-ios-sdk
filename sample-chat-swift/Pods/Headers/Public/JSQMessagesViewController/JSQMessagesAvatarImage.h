@@ -1,1 +1,0 @@
-../../../JSQMessagesViewController/JSQMessagesViewController/Model/JSQMessagesAvatarImage.h

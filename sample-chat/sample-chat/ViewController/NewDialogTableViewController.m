@@ -27,14 +27,12 @@
     self.tableView.dataSource = self.dataSource;
 
 	[super viewDidLoad];
-
-	[self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-	[super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	[self checkJoinChatButtonState];
+	[self.tableView reloadData];
 }
 
 - (void)checkJoinChatButtonState
@@ -57,26 +55,33 @@
 }
 
 - (IBAction)joinChatButtonPressed:(UIButton *)sender {
-	sender.enabled = NO;
 	__weak __typeof(self) weakSelf = self;
 	
 	if (self.tableView.indexPathsForSelectedRows.count == 1) {
 		[self createChatWithName:nil completion:^(QBChatDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
-			sender.enabled = YES;
-            [strongSelf navigateToChatViewControllerWithDialog:dialog];
+			if( dialog != nil ) {
+				[strongSelf navigateToChatViewControllerWithDialog:dialog];
+			}
+			else {
+				[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+			}
 		}];
 	} else {
 		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Join chat" andMessage:@""];
 		
-		__weak UIAlertDialog *weakDialog = dialog;
-		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex) {
+		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex, UIAlertDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
-			if (buttonIndex == 0) { // first button
-				[strongSelf createChatWithName:[weakDialog textFieldText] completion:^(QBChatDialog *dialog){
-                    [strongSelf navigateToChatViewControllerWithDialog:dialog];
-                }];
-			}
+			sender.enabled = NO;
+			[strongSelf createChatWithName:[dialog textFieldText] completion:^(QBChatDialog *dialog){
+				sender.enabled = YES;
+				if( dialog != nil ) {
+					[strongSelf navigateToChatViewControllerWithDialog:dialog];
+				}
+				else {
+					[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+				}
+			}];
 		}];
 		dialog.showTextField = YES;
 		dialog.textFieldPlaceholderText = @"Enter chat name";
@@ -91,11 +96,16 @@
         [indexSet addIndex:obj.row];
     }];
 	
-	NSArray *selectedUsers = [QBServicesManager.instance.usersService.usersWithoutCurrentUser objectsAtIndexes:indexSet];
+	NSArray *selectedUsers = [self.dataSource.users objectsAtIndexes:indexSet];
 	
 	if (selectedUsers.count == 1) {
 		[QBServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-            completion(createdDialog);
+			if( !response.success  && createdDialog == nil ) {
+				completion(nil);
+			}
+			else {
+				completion(createdDialog);
+			}
 		}];
 	} else if (selectedUsers.count > 1) {
 		if (name == nil || [[name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
@@ -109,17 +119,13 @@
 		[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
 		
 		[QBServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-			
 			if( response.success ) {
 				[QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
 				completion(createdDialog);
-				[SVProgressHUD dismiss];
 			}
 			else {
-				[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
-				NSLog(@"can not create dialog %@", response.error.error);
+				completion(nil);
 			}
-			
 		}];
 	} else {
 		assert("no users given");
@@ -129,6 +135,11 @@
 #pragma mark UITableView delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	[self checkJoinChatButtonState];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[self checkJoinChatButtonState];
 }

@@ -6,21 +6,21 @@
 // project.
 
 
-// JSQMessagesViewController
-#define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
-#define COCOAPODS_VERSION_MAJOR_JSQMessagesViewController 7
-#define COCOAPODS_VERSION_MINOR_JSQMessagesViewController 0
-#define COCOAPODS_VERSION_PATCH_JSQMessagesViewController 2
-
-// JSQSystemSoundPlayer
-#define COCOAPODS_POD_AVAILABLE_JSQSystemSoundPlayer
-#define COCOAPODS_VERSION_MAJOR_JSQSystemSoundPlayer 2
-#define COCOAPODS_VERSION_MINOR_JSQSystemSoundPlayer 0
-#define COCOAPODS_VERSION_PATCH_JSQSystemSoundPlayer 1
-
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
 #define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
 #define COCOAPODS_VERSION_MINOR_SVProgressHUD 1
 #define COCOAPODS_VERSION_PATCH_SVProgressHUD 3
+
+// TTTAttributedLabel
+#define COCOAPODS_POD_AVAILABLE_TTTAttributedLabel
+#define COCOAPODS_VERSION_MAJOR_TTTAttributedLabel 1
+#define COCOAPODS_VERSION_MINOR_TTTAttributedLabel 13
+#define COCOAPODS_VERSION_PATCH_TTTAttributedLabel 4
+
+// TWMessageBarManager
+#define COCOAPODS_POD_AVAILABLE_TWMessageBarManager
+#define COCOAPODS_VERSION_MAJOR_TWMessageBarManager 1
+#define COCOAPODS_VERSION_MINOR_TWMessageBarManager 7
+#define COCOAPODS_VERSION_PATCH_TWMessageBarManager 2
 

@@ -15,6 +15,8 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     var authService : QMAuthService!
     var chatService : QMChatService!
     
+    var logoutGroup = dispatch_group_create()
+    
     private override init() {
         super.init()
         
@@ -31,11 +33,42 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     }
     
     private func setupChatService() {
-        QBChat.instance().autoReconnectEnabled = true
-        QBChat.instance().streamManagementEnabled = true
         
         self.chatService = QMChatService(serviceManager : self, cacheDataSource : self)
         self.chatService.addDelegate(ServicesManager.instance)
+    }
+    
+    func logout(completion: (() -> Void)!) {
+        
+        if self.currentUser() == nil {
+            completion()
+            
+            return
+        }
+        
+        dispatch_group_enter(self.logoutGroup)
+        
+        self.authService .logOut { (response: QBResponse!) -> Void in
+            self.chatService.logoutChat()
+            
+            dispatch_group_leave(self.logoutGroup)
+        }
+        
+        dispatch_group_enter(self.logoutGroup)
+        
+        QMChatCache.instance().deleteAllMessages { () -> Void in
+            dispatch_group_leave(self.logoutGroup)
+        }
+        
+        dispatch_group_enter(self.logoutGroup)
+        
+        QMChatCache.instance().deleteAllDialogs { () -> Void in
+            dispatch_group_leave(self.logoutGroup)
+        }
+        
+        dispatch_group_notify(self.logoutGroup, dispatch_get_main_queue()) { () -> Void in
+            completion()
+        }
     }
     
     // MARK: QMServiceManagerProtocol
@@ -63,6 +96,10 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     }
     
     // MARK: QMChatServiceDelegate
+    
+    func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
+        QMChatCache.instance().insertOrUpdateDialog(chatDialog, completion: nil)
+    }
     
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
         QMChatCache.instance().insertOrUpdateDialog(chatDialog, completion: nil)
@@ -102,7 +139,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     func cachedMessagesWithDialogID(dialogID: String!, block: QMCacheCollection!) {
         
-        QMChatCache.instance().messagesWithDialogId(dialogID, sortedBy: "ID", ascending: true) { (messages: [AnyObject]!) -> Void in
+        QMChatCache.instance().messagesWithDialogId(dialogID, sortedBy: CDMessageAttributes.messageID as String, ascending: true) { (messages: [AnyObject]!) -> Void in
             block(messages)
         }
     }
