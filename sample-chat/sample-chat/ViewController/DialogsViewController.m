@@ -74,9 +74,9 @@
     __weak __typeof(self) weakSelf = self;
     [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
         __typeof(self) strongSelf = weakSelf;
-		if (response.error != nil) {
-			[SVProgressHUD showErrorWithStatus:@"Can not download"];
-		}
+        if (response.error != nil) {
+            [SVProgressHUD showErrorWithStatus:@"Can not download"];
+        }
         
         for (QBChatDialog* dialog in dialogObjects) {
             if (dialog.type != QBChatDialogTypePrivate) {
@@ -86,11 +86,11 @@
             }
         }
         [strongSelf.tableView reloadData];
-	} completion:^(QBResponse *response) {
-		if (shouldShowSuccessStatus) {
-			[SVProgressHUD showSuccessWithStatus:@"Completed"];
-		}
-	}];
+    } completion:^(QBResponse *response) {
+        if (shouldShowSuccessStatus) {
+            [SVProgressHUD showSuccessWithStatus:@"Completed"];
+        }
+    }];
 }
 
 - (NSArray *)dialogs
