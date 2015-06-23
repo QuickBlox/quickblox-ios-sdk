@@ -112,6 +112,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
         ServicesManager.instance.chatService.removeDelegate(self);
+        self.dialog?.clearTypingStatusBlocks()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
