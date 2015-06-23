@@ -10,6 +10,8 @@ import Foundation
 
 class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate, QMChatServiceDelegate, QMChatServiceCacheDataSource {
     
+    var currentDialogID : String = ""
+    
     static let instance = ServicesManager()
     
     var authService : QMAuthService!
@@ -71,6 +73,30 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         }
     }
     
+    func handleNewMessage(message: QBChatMessage, dialogID: String) {
+        
+        if self.currentDialogID == dialogID {
+            return
+        }
+        
+        var dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
+        var dialogName = "New message"
+        
+        if dialog.type != QBChatDialogType.Private {
+            
+            dialogName = dialog.name
+    
+        } else {
+            
+            if let user = ConnectionManager.instance.usersDataSource.userByID(UInt(dialog.recipientID)) {
+                dialogName = user.login
+            }
+        }
+        
+        TWMessageBarManager.sharedInstance().hideAll()
+        TWMessageBarManager.sharedInstance().showMessageWithTitle(dialogName, description: message.text, type: TWMessageBarMessageType.Info)
+    }
+    
     // MARK: QMServiceManagerProtocol
     
     func currentUser() -> QBUUser! {
@@ -118,6 +144,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     }
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
+        self.handleNewMessage(message, dialogID: dialogID)
         QMChatCache.instance().insertOrUpdateMessage(message, withDialogId: dialogID, completion: nil)
     }
     

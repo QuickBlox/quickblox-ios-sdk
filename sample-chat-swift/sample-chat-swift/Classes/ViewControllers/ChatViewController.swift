@@ -97,6 +97,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             self.shouldFixViewControllersStack = false
         }
+        
+        if let dialog = self.dialog {
+            ServicesManager.instance.currentDialogID = dialog.ID
+        }
     }
 	
     override func viewDidDisappear(animated: Bool) {
@@ -105,6 +109,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if let didBecomeActiveHandler: AnyObject = self.didBecomeActiveHandler {
             NSNotificationCenter.defaultCenter().removeObserver(didBecomeActiveHandler)
         }
+        
+        ServicesManager.instance.currentDialogID = ""
         
         ServicesManager.instance.chatService.removeDelegate(self);
         self.dialog?.clearTypingStatusBlocks()
