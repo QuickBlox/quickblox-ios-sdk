@@ -236,9 +236,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
-        ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
+        var didSent = ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
             button.enabled = true
             weakSelf?.finishSendingMessageAnimated(true)
+        }
+        
+        if !didSent {
+            button.enabled = true
+            
+            TWMessageBarManager.sharedInstance().showMessageWithTitle("Error", description: "Please check internet connection", type: TWMessageBarMessageType.Info)
         }
     }
     
