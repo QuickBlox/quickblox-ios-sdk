@@ -2,3 +2,4 @@ platform :ios, "7.0"
 
 pod 'SVProgressHUD'
 pod 'TTTAttributedLabel', '~> 1.13.3'
+pod 'TWMessageBarManager', '~> 1.7.2'

@@ -34,7 +34,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 return
             }
             
-            weakSelf?.title = "typing..."
+            weakSelf?.title = "SA_STR_TYPING".localized
         }
         
         self.dialog?.onUserStoppedTyping = { (UInt userID)-> Void in
@@ -50,11 +50,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.inputToolbar.contentView.leftBarButtonItem = self.accessoryButtonItem()
         self.inputToolbar.contentView.rightBarButtonItem = self.sendButtonItem()
-        
-        var typingNib = TypingIndicatorFooterView.nib()
-        var typingIdentifier = TypingIndicatorFooterView.footerReuseIdentifier()
-        
-        self.collectionView.registerNib(typingNib, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: typingIdentifier)
         
         self.senderID = QBSession.currentSession().currentUser.ID
         self.senderDisplayName = QBSession.currentSession().currentUser.login
@@ -236,9 +231,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
-        ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
+        var didSent = ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
             button.enabled = true
             weakSelf?.finishSendingMessageAnimated(true)
+        }
+        
+        if !didSent {
+            button.enabled = true
+            
+            TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: "SA_STR_CANT_SEND_A_MESSAGE".localized, type: TWMessageBarMessageType.Info)
         }
     }
     
@@ -355,27 +356,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
         
         return layoutModel
-    }
-    
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
-        var reusableView : UICollectionReusableView
-        
-        if self.showTypingIndicator && kind == UICollectionElementKindSectionFooter {
-            
-            var typingView = self.collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: TypingIndicatorFooterView.footerReuseIdentifier(), forIndexPath: indexPath) as! TypingIndicatorFooterView
-            
-            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
-                typingView.typingTextLabel.text = String(format: "%@ typing a text...", recepeint.login)
-            }
-            
-            reusableView = typingView
-            
-        } else {
-            reusableView = super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
-        }
-        
-        return reusableView
     }
     
     // MARK: QMChatServiceDelegate
