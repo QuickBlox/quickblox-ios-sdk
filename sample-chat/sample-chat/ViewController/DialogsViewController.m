@@ -72,7 +72,7 @@
 	}
 	
     __weak __typeof(self) weakSelf = self;
-    [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+    [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
         __typeof(self) strongSelf = weakSelf;
         if (response.error != nil) {
             [SVProgressHUD showErrorWithStatus:@"Can not download"];
