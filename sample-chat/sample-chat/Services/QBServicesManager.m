@@ -92,9 +92,6 @@
 			}
 			return;
 		}
-		if (self.currentUser != nil) {
-
-		}
 		
         __weak typeof(self) weakSelf = self;
 		[self.chatService logIn:^(NSError *error) {
@@ -175,6 +172,11 @@
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialog.ID completion:nil];
 	[QMChatCache.instance insertOrUpdateDialog:dialog completion:nil];
 }
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+    [[QMChatCache instance] insertOrUpdateDialog:chatDialog completion:nil];
+}
+
 
 #pragma mark QMChatServiceCacheDataSource
 
