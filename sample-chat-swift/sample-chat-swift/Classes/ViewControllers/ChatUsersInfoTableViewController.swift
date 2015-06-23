@@ -43,7 +43,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
+    func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
         
         if (chatDialog.ID == self.dialog!.ID) {
             self.dialog = chatDialog

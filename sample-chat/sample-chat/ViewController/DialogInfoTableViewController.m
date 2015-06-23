@@ -20,7 +20,13 @@
 
 @implementation DialogInfoTableViewController
 
-- (void)reloadDataSource {
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	[self refreshDataSource];
+}
+
+- (void)refreshDataSource {
 	__weak __typeof(self) weakSelf = self;
 	[QBServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
 		__typeof(self) strongSelf = weakSelf;
@@ -32,16 +38,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self reloadDataSource];
-	[QBServicesManager.instance.chatService addDelegate:self];
+	[[QBServicesManager instance].chatService addDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[QBServicesManager.instance.chatService removeDelegate:self];
+	[[QBServicesManager instance].chatService removeDelegate:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     if ([segue.identifier isEqualToString:kGoToAddOccupantsSegueIdentifier]) {
         EditDialogTableViewController* viewController = segue.destinationViewController;
         viewController.dialog = self.dialog;
@@ -50,15 +56,10 @@
 
 #pragma mark - QMChatServiceDelegate
 
-- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog
-{
-    NSLog(@"Hit!");
-}
-
-- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
-	if( [self.dialog.ID isEqualToString:chatDialog.ID] ){
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog{
+	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
 		self.dialog = chatDialog;
-		[self reloadDataSource];
+		[self refreshDataSource];
 	}
 }
 

@@ -13,7 +13,6 @@
 		868183B2197D1B7E00305305 /* SSUOperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 868183B1197D1B7E00305305 /* SSUOperationsViewController.m */; };
 		868183B6197D387A00305305 /* SSUUserCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 868183B5197D387A00305305 /* SSUUserCache.m */; };
 		868183BA197D422B00305305 /* SSULoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 868183B9197D422B00305305 /* SSULoginState.m */; };
-		86D9BAE41AE923FE00D4E705 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86D9BAE31AE923FE00D4E705 /* Quickblox.framework */; };
 		BFA79EDA1843E8BA0044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED91843E8BA0044D9E0 /* Security.framework */; };
 		BFAAF5241785B343009379B9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAAF5231785B343009379B9 /* QuartzCore.framework */; };
 		D54CCE43859147E79F3FE140 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D585C6BCA4CABAD7BBF5D /* libPods.a */; };
@@ -56,7 +55,6 @@
 		868183B8197D422B00305305 /* SSULoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSULoginState.h; path = SSULoginState/SSULoginState.h; sourceTree = "<group>"; };
 		868183B9197D422B00305305 /* SSULoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSULoginState.m; path = SSULoginState/SSULoginState.m; sourceTree = "<group>"; };
 		868183BC197D43C100305305 /* SSUChangesLoginState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SSUChangesLoginState.h; path = Protocols/SSUChangesLoginState.h; sourceTree = "<group>"; };
-		86D9BAE31AE923FE00D4E705 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		94B58B15891EDA0E059073F6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BFA79ED91843E8BA0044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFAAF5231785B343009379B9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -120,7 +118,6 @@
 				FA43AD0D152B8ABD000A2EF7 /* Foundation.framework in Frameworks */,
 				FA43AD0F152B8ABD000A2EF7 /* CoreGraphics.framework in Frameworks */,
 				D54CCE43859147E79F3FE140 /* libPods.a in Frameworks */,
-				86D9BAE41AE923FE00D4E705 /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +190,6 @@
 		FA43AD09152B8ABD000A2EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				86D9BAE31AE923FE00D4E705 /* Quickblox.framework */,
 				BFA79ED91843E8BA0044D9E0 /* Security.framework */,
 				BFAAF5231785B343009379B9 /* QuartzCore.framework */,
 				FAC8B9F216D2D5AA00F03311 /* AudioToolbox.framework */,
@@ -526,7 +522,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";
@@ -558,7 +553,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/andrey_moskvin/Development/QuickBlox/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";

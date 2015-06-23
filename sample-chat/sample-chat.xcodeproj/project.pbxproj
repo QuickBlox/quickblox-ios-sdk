@@ -963,7 +963,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -991,8 +991,8 @@
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "086110e8-c354-47f8-9250-0403ac116fe8";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -34,6 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	[self.tableView reloadData];
 	__weak __typeof(self)weakSelf = self;
     
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
@@ -55,39 +56,41 @@
 
 - (IBAction)logoutButtonPressed:(id)sender
 {
+    [SVProgressHUD showWithStatus:@"Logging out..."];
     [[QBServicesManager instance] logoutWithCompletion:^{
         [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+        [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
     }];
 }
 
 - (void)loadDialogs
 {
 	BOOL shouldShowSuccessStatus = NO;
-	if (self.dialogs.count == 0) {
+	if ([self dialogs].count == 0) {
 		shouldShowSuccessStatus = YES;
 		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
     __weak __typeof(self) weakSelf = self;
-    [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil interationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+    [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
         __typeof(self) strongSelf = weakSelf;
-		if (response.error != nil) {
-			[SVProgressHUD showErrorWithStatus:@"Can not download"];
-		}
+        if (response.error != nil) {
+            [SVProgressHUD showErrorWithStatus:@"Can not download"];
+        }
         
         for (QBChatDialog* dialog in dialogObjects) {
             if (dialog.type != QBChatDialogTypePrivate) {
-                [[QBServicesManager instance].chatService joinToGroupDialog:dialog completion:^(NSError *error) {
+                [[QBServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
                     NSLog(@"Failed to join room with error: %@", error.localizedDescription);
                 }];
             }
         }
         [strongSelf.tableView reloadData];
-	} completion:^(QBResponse *response) {
-		if (shouldShowSuccessStatus) {
-			[SVProgressHUD showSuccessWithStatus:@"Completed"];
-		}
-	}];
+    } completion:^(QBResponse *response) {
+        if (shouldShowSuccessStatus) {
+            [SVProgressHUD showSuccessWithStatus:@"Completed"];
+        }
+    }];
 }
 
 - (NSArray *)dialogs
@@ -163,20 +166,50 @@
 	QBChatDialog *chatDialog = self.dialogs[cell.tag];
 	
 	if (index == 0) {
-        __weak __typeof(self) weakSelf = self;
-        [[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
-                                                occupantsCustomParameters:nil
-                                                         notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
-                                                               completion:^(NSError *error) {
-                                                                   NSAssert(error == nil, @"Problems while deleting dialog!");
-                                                                   [QBServicesManager.instance.chatService deleteDialogWithID:chatDialog.ID
-                                                                                                                   completion:^(QBResponse *response) {
-                                                                       __typeof(self) strongSelf = weakSelf;
-                                                                       [strongSelf.tableView reloadData];
-                                                                   }];
-                                                               }];
+		// remove current user from occupants
+		NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
+		for( NSNumber *identifier in chatDialog.occupantIDs ) {
+			if( ![identifier isEqualToNumber:@(QBServicesManager.instance.currentUser.ID)] ) {
+				[occupantsWithoutCurrentUser addObject:identifier];
+			}
+		}
+		chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
+
+		[cell hideUtilityButtonsAnimated:YES];
+		
+		[SVProgressHUD showWithStatus:@"Deleting dialog..." maskType:SVProgressHUDMaskTypeClear];
+		
+		if( chatDialog.type == QBChatDialogTypeGroup ) {
+			__weak __typeof(self) weakSelf = self;
+			[[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
+													occupantsCustomParameters:nil
+															 notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
+																   completion:^(NSError *error) {
+																	   NSAssert(error == nil, @"Problems while deleting dialog!");
+																	   [weakSelf deleteDialogWithID:chatDialog.ID];
+																   }];
+		}
+		else {
+			[self deleteDialogWithID:chatDialog.ID];
+		}
 
 	}
+}
+
+- (void)deleteDialogWithID:(NSString *)dialogID {
+	__weak __typeof(self) weakSelf = self;
+	[QBServicesManager.instance.chatService deleteDialogWithID:dialogID
+													completion:^(QBResponse *response) {
+														if( response.success ){
+															__typeof(self) strongSelf = weakSelf;
+															[strongSelf.tableView reloadData];
+															[SVProgressHUD dismiss];
+														}
+														else{
+															[SVProgressHUD showErrorWithStatus:@"Can not delete dialog"];
+															NSLog(@"can not delete dialog: %@", response.error);
+														}
+													}];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -199,28 +232,31 @@
 #pragma mark -
 #pragma mark Chat Service Delegate
 
-- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs
-{
+- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs {
 	[self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog
-{
+- (void)chatService:(QMChatService *)chatService didAddChatDialogToMemoryStorage:(QBChatDialog *)chatDialog {
 	[self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
-{
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog {
+	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     [self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
-{
+- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID {
     [self.tableView reloadData];
 }
 
-- (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID
-{
+- (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
     [self.tableView reloadData];
 }
 

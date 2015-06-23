@@ -26,6 +26,8 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
+        
+        self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
         ServicesManager.instance.chatService.addDelegate(self)
         
@@ -39,7 +41,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         for dialog : QBChatDialog in self.dialogs() {
             
             if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
+                ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
                 })
             }
@@ -49,16 +51,6 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.getDialogs(nil)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if self.isMovingFromParentViewController() {
-            ServicesManager.instance.chatService.logoutChat()
-            NSNotificationCenter.defaultCenter().removeObserver(self)
-            ServicesManager.instance.chatService.removeDelegate(self)
-        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -75,6 +67,29 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         self.didEnterBackgroundDate = NSDate()
     }
     
+    // MARK: - Actions
+    
+    func createLogoutButton() -> UIBarButtonItem {
+        
+        var logoutButton = UIBarButtonItem(title: "SA_STR_LOGOUT".localized, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("logoutAction"))
+        
+        return logoutButton
+    }
+    
+    func logoutAction() {
+        
+        SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
+        
+        ServicesManager.instance.logout { () -> Void in
+            
+            SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+            
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            ServicesManager.instance.chatService.removeDelegate(self)
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
     // MARK: - DataSource Action
     
     func getDialogs(extendedRequest: Dictionary<String, AnyObject>?) {
@@ -86,7 +101,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
             SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         }
         
-        ServicesManager.instance.chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest:extendedRequest, interationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+        ServicesManager.instance.chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest:extendedRequest, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 
         }) { (response: QBResponse!) -> Void in
             
@@ -126,7 +141,10 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     // MARK: - DataSource
     
     func dialogs() -> Array<QBChatDialog> {
-        return ServicesManager.instance.chatService.dialogsMemoryStorage.dialogsSortByLastMessageDateWithAscending(false) as! Array<QBChatDialog>
+        
+        let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false)]
+        
+        return ServicesManager.instance.chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
     }
     
     // MARK: - UITableViewDataSource
@@ -170,12 +188,16 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     // MARK: - QMChatServiceDelegate
     
+    func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
+        self.tableView.reloadData()
+    }
+    
     func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [AnyObject]!) {
         
         for dialog : QBChatDialog in chatDialogs as! [QBChatDialog] {
             
             if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance.chatService.joinToGroupDialog(dialog, completion: { (error: NSError!) -> Void in
+                ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
                 })
             }
@@ -187,7 +209,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
         
         if chatDialog.type != QBChatDialogType.Private {
-            ServicesManager.instance.chatService.joinToGroupDialog(chatDialog, completion: { (error: NSError!) -> Void in
+            ServicesManager.instance.chatService.joinToGroupDialog(chatDialog, failed: { (error: NSError!) -> Void in
                 
             })
         }
@@ -196,7 +218,14 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func chatService(chatService: QMChatService!, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String!) {
-        
+        self.tableView.reloadData()
+    }
+    
+    func chatService(chatService: QMChatService!, didAddMessagesToMemoryStorage messages: [AnyObject]!, forDialogID dialogID: String!) {
+        self.tableView.reloadData()
+    }
+    
+    func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
         self.tableView.reloadData()
     }
 }
