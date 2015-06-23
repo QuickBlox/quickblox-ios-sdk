@@ -33,8 +33,6 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     }
     
     private func setupChatService() {
-        QBChat.instance().autoReconnectEnabled = true
-        QBChat.instance().streamManagementEnabled = true
         
         self.chatService = QMChatService(serviceManager : self, cacheDataSource : self)
         self.chatService.addDelegate(ServicesManager.instance)

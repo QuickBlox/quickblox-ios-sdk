@@ -22,6 +22,8 @@
 "SA_STR_WELCOME" = "Welcome";
 "SA_STR_LOGOUT" = "Logout";
 "SA_STR_LOGOUTING" = "Logout...";
+"SA_STR_ERROR" = "Error";
+"SA_STR_TYPING" = "Typing...";
 
 "SA_STR_CANT_SEND_A_MESSAGE" = "Can't send a message";
 "SA_STR_CANT_DOWNLOAD_USERS" = "Can't download users";
