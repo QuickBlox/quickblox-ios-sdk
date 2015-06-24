@@ -31,6 +31,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     func setupChatCacheService(userName: String) {
         QMChatCache.setupDBWithStoreNamed(userName + "-storage")
+        QMChatCache.instance().messagesLimitPerDialog = 5
         self.setupChatService()
     }
     
@@ -136,6 +137,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     }
     
     func chatService(chatService: QMChatService!, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String!) {
+        QMChatCache.instance().deleteMessageWithDialogID(chatDialogID, completion: nil)
         QMChatCache.instance().deleteDialogWithID(chatDialogID, completion: nil)
     }
     
