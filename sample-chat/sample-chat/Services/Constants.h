@@ -51,9 +51,4 @@ static NSString *const kGoToAddOccupantsSegueIdentifier = @"goToAddOccupants";
  */
 static NSString *const kGoToChatSegueIdentifier = @"goToChat";
 
-/**
- *  Segues
- */
-
-static NSString *const kQMChatViewController = @"kQMChatViewController";
 #endif

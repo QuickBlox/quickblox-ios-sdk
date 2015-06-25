@@ -155,6 +155,10 @@
 	[QMChatCache.instance insertOrUpdateDialogs:chatDialogs completion:nil];
 }
 
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+	[QMChatCache.instance insertOrUpdateDialog:chatDialog completion:nil];
+}
+
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialogID completion:nil];
 }
@@ -173,11 +177,6 @@
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialog.ID completion:nil];
 	[QMChatCache.instance insertOrUpdateDialog:dialog completion:nil];
 }
-
-- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
-    [[QMChatCache instance] insertOrUpdateDialog:chatDialog completion:nil];
-}
-
 
 #pragma mark QMChatServiceCacheDataSource
 
