@@ -383,7 +383,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         if self.dialog?.ID == dialogID {
             self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
-            self.collectionView.reloadData()
+            self.refreshCollectionView()
         }
     }
     
