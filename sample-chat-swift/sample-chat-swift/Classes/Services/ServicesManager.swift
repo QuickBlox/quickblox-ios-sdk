@@ -31,7 +31,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     func setupChatCacheService(userName: String) {
         QMChatCache.setupDBWithStoreNamed(userName + "-storage")
-        QMChatCache.instance().messagesLimitPerDialog = 5
+        QMChatCache.instance().messagesLimitPerDialog = 10
         self.setupChatService()
     }
     
