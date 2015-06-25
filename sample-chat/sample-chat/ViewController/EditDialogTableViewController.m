@@ -13,7 +13,7 @@
 #import "ChatViewController.h"
 #import "DialogsViewController.h"
 
-@interface EditDialogTableViewController()
+@interface EditDialogTableViewController() <QMChatServiceDelegate>
 @property (nonatomic, strong) UsersDataSource *dataSource;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *btnSave;
 @end
@@ -23,11 +23,24 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	NSParameterAssert(self.dialog);
+}
 
+- (void)reloadDataSource {
 	self.dataSource = [[UsersDataSource alloc] init];
 	[self.dataSource setExcludeUsersIDs:self.dialog.occupantIDs];
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self reloadDataSource];
+	[QBServicesManager.instance.chatService addDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[QBServicesManager.instance.chatService removeDelegate:self];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -138,6 +151,15 @@
 		ChatViewController *vc = (ChatViewController *) segue.destinationViewController;
 		vc.dialog = sender;
 		vc.shouldUpdateNavigationStack = YES;
+	}
+}
+
+#pragma mark QMChatServiceDelegate delegate
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+	if( [chatDialog.ID isEqualToString:self.dialog.ID] ) {
+		self.dialog = chatDialog;
+		[self reloadDataSource];
 	}
 }
 

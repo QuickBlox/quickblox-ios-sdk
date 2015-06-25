@@ -115,7 +115,9 @@
 			}
 			name = [name substringToIndex:name.length - 1]; // remove last , (comma)
 		}
-
+		
+		[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
+		
 		[QBServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if( response.success ) {
 				[QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];

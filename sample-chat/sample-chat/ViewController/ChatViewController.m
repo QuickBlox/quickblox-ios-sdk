@@ -356,8 +356,7 @@
 
 #pragma mark - QMChatServiceDelegate
 
-- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
-{
+- (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
         [self.items addObject:message];
         [self refreshCollectionView];
