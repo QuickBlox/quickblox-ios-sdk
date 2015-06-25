@@ -27,6 +27,7 @@
 	self = [super init];
 	if (self) {
 		[QMChatCache setupDBWithStoreNamed:kChatCacheNameKey];
+        [QMChatCache instance].messagesLimitPerDialog = 10;
 		[QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
