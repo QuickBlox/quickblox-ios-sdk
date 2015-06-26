@@ -46,6 +46,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             weakSelf?.updateTitle()
         }
         
+        self.items = NSMutableArray()
+        
         self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
         
         self.inputToolbar.contentView.leftBarButtonItem = self.accessoryButtonItem()
@@ -54,7 +56,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.senderID = QBSession.currentSession().currentUser.ID
         self.senderDisplayName = QBSession.currentSession().currentUser.login
         
-        self.items = NSMutableArray()
+        self.showLoadEarlierMessagesHeader = true
         
         self.updateTitle()
         self.updateMessages()
@@ -157,10 +159,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
                 }
                 
-                weakSelf?.items.removeAllObjects()
-                weakSelf?.items.addObjectsFromArray(messages)
-                
-                weakSelf?.refreshCollectionView()
             } else {
                 SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
             }
@@ -346,10 +344,17 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
      override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
-        let attributedString = item.senderID == self.senderID ? self.bottomLabelAttributedStringForItem(item) : self.topLabelAttributedStringForItem(item)
+        let attributedString = self.bottomLabelAttributedStringForItem(item)
         let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
         
         return size.width
+    }
+    
+    override func collectionView(collectionView: QMChatCollectionView!, header headerView: QMLoadEarlierHeaderView!, didTapLoadEarlierMessagesButton sender: UIButton) {
+    
+        ServicesManager.instance.chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
+            
+        })
     }
     
     override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
@@ -369,7 +374,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
         
         if self.dialog?.ID == dialogID {
-            self.items.addObject(message)
+            self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
+            self.refreshCollectionView()
+        }
+    }
+    
+    func chatService(chatService: QMChatService!, didAddMessagesToMemoryStorage messages: [AnyObject]!, forDialogID dialogID: String!) {
+        
+        if self.dialog?.ID == dialogID {
+            self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
             self.refreshCollectionView()
         }
     }
