@@ -16,11 +16,13 @@
 
 #import "LoginTableViewController.h"
 #import "DialogsViewController.h"
+#import "MessageStatusStringBuilder.h"
 
 @interface ChatViewController () <QMChatServiceDelegate, UITextViewDelegate>
 
 @property (nonatomic, weak) QBUUser* opponentUser;
-@property (nonatomic, strong ) id <NSObject> observerDidBecomeActive;
+@property (nonatomic, strong) id<NSObject> observerDidBecomeActive;
+@property (nonatomic, strong) MessageStatusStringBuilder* stringBuilder;
 
 @end
 
@@ -56,6 +58,8 @@
     self.showLoadEarlierMessagesHeader = YES;
     
     [self updateTitle];
+    
+    self.stringBuilder = [MessageStatusStringBuilder new];
     
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
@@ -299,7 +303,11 @@
     UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
     
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[self timeStampWithDate:messageItem.dateSent]
+    NSString* text = [self timeStampWithDate:messageItem.dateSent];
+    if ([messageItem senderID] == self.senderID) {
+        text = [NSString stringWithFormat:@"%@ %@", [self.stringBuilder statusFromMessage:messageItem], text];
+    }
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text
                                                                                 attributes:attributes];
     
     return attrStr;
