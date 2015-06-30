@@ -26,6 +26,7 @@
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
 		86104A1E1B0B5E1900464D52 /* QBServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServicesManager.m */; };
 		8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E80F71B0F17A500A6E86D /* libQMServices.a */; };
+		86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */; };
 		86EE31B31B26EB6700B8A383 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EE31B21B26EB6700B8A383 /* ChatViewController.m */; };
 		86EE31B71B270B7F00B8A383 /* DialogInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EE31B61B270B7F00B8A383 /* DialogInfoTableViewController.m */; };
 		86EE322D1B2886EF00B8A383 /* NSString+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EE31E51B2886EF00B8A383 /* NSString+QM.m */; };
@@ -135,6 +136,8 @@
 		86104A1C1B0B5E1900464D52 /* QBServicesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBServicesManager.h; sourceTree = "<group>"; };
 		86104A1D1B0B5E1900464D52 /* QBServicesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBServicesManager.m; sourceTree = "<group>"; };
 		8620BC0B1B0F36FB005ED359 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		86401C0B1B428CEA00D45A05 /* MessageStatusStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageStatusStringBuilder.h; path = Utils/MessageStatusStringBuilder.h; sourceTree = "<group>"; };
+		86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageStatusStringBuilder.m; path = Utils/MessageStatusStringBuilder.m; sourceTree = "<group>"; };
 		86EE31B11B26EB6700B8A383 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		86EE31B21B26EB6700B8A383 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		86EE31B51B270B7F00B8A383 /* DialogInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogInfoTableViewController.h; sourceTree = "<group>"; };
@@ -300,6 +303,15 @@
 				2C6E80D51B0F179300A6E86D /* QMServices */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		86401C091B428CAD00D45A05 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				86401C0B1B428CEA00D45A05 /* MessageStatusStringBuilder.h */,
+				86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		86EE31E21B2886EF00B8A383 /* QMChatViewController */ = {
@@ -577,6 +589,7 @@
 				BFE6FB85180E8EF100E64AC4 /* AppDelegate.m */,
 				BFE6FBC9180EA2F300E64AC4 /* ViewController */,
 				BFE6FBF21812E0D300E64AC4 /* Views */,
+				86401C091B428CAD00D45A05 /* Utils */,
 				BFE6FBE2180F293C00E64AC4 /* Services */,
 				BFE6FB87180E8EF100E64AC4 /* Main.storyboard */,
 				86F145511B0E316600F790F9 /* Launch Screen.xib */,
@@ -816,6 +829,7 @@
 				86EE32361B2886EF00B8A383 /* QMChatContactRequestCell.m in Sources */,
 				86EE32421B2886EF00B8A383 /* QMInputToolbar.m in Sources */,
 				86EE32381B2886EF00B8A383 /* QMChatIncomingCell.m in Sources */,
+				86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */,
 				14C273E11B1770430053D5AF /* Reachability.m in Sources */,
 				86EE32401B2886EF00B8A383 /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */,
 				1402B6961B14B9BC0069E3A4 /* UsersService.m in Sources */,
