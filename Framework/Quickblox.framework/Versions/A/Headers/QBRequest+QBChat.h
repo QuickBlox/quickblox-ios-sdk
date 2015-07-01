@@ -76,7 +76,7 @@
  Retrieve first 100 chat messages within particular dialog
  
  @param dialogID ID of a dialog
- @param successBlock Block with response instance and array of chat messages if request succeded
+ @param successBlock Block  with response instance and array of chat messages if request succeded
  @param errorBlock Block with response instance if request failed
  
  @return An instance of QBRequest for cancel operation mainly.

@@ -53,7 +53,9 @@
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
     
-     [self updateTitle];
+    self.showLoadEarlierMessagesHeader = YES;
+    
+    [self updateTitle];
     
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
@@ -265,7 +267,7 @@
     UIFont *font = [UIFont fontWithName:@"Helvetica" size:15];
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text attributes:attributes];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.text : @"" attributes:attributes];
     
     return attrStr;
 }
@@ -330,6 +332,11 @@
     return size.width;
 }
 
+- (void)collectionView:(QMChatCollectionView *)collectionView header:(QMLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
+{
+    [[QBServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:nil];
+}
+
 #pragma mark - Utility
 
 - (NSString *)timeStampWithDate:(NSDate *)date {
@@ -358,10 +365,19 @@
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
-        [self.items addObject:message];
+        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         [self refreshCollectionView];
     }
 }
+
+- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
+{
+    if ([self.dialog.ID isEqualToString:dialogID]) {
+        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
+        [self refreshCollectionView];
+    }
+}
+
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog{
 	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
