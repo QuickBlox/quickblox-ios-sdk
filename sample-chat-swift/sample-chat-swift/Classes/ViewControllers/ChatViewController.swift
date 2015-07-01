@@ -18,10 +18,20 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate {
+    
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     var didBecomeActiveHandler : AnyObject?
+    
+    var imagePickerViewController : UIImagePickerController {
+        get {
+            var imagePickerViewController = UIImagePickerController()
+            imagePickerViewController.delegate = self
+            
+            return imagePickerViewController
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +76,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         super.viewWillAppear(animated)
         
         ServicesManager.instance.chatService.addDelegate(self)
+        ServicesManager.instance.chatService.chatAttachmentService.delegate = self
         
         weak var weakSelf = self
         
@@ -230,21 +241,33 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         message.text = text;
         message.senderID = self.senderID
         message.senderNick = self.senderDisplayName
-        
-        button.enabled = false
+
+        self.sendMessage(message)
+    }
+    
+    func sendMessage(message: QBChatMessage) {
         
         weak var weakSelf = self
+        self.inputToolbar.contentView.rightBarButtonItem.enabled = false
         
         var didSent = ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
-            button.enabled = true
+            
             weakSelf?.finishSendingMessageAnimated(true)
+            self.inputToolbar.contentView.rightBarButtonItem.enabled = true
         }
         
         if !didSent {
-            button.enabled = true
-            
             TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: "SA_STR_CANT_SEND_A_MESSAGE".localized, type: TWMessageBarMessageType.Info)
+            
+            self.inputToolbar.contentView.rightBarButtonItem.enabled = true
         }
+        
+    }
+    
+    override func didPressAccessoryButton(sender: UIButton!) {
+        
+        UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll").showInView(self.view)
+        
     }
     
     // MARK: Override
@@ -254,8 +277,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if item.senderID == QMMessageType.ContactRequest.rawValue {
             
             if item.senderID != self.senderID {
+                
                 return QMChatContactRequestCell.self
             }
+            
         } else if item.senderID == QMMessageType.RejectContactRequest.rawValue {
             
             return QMChatNotificationCell.self
@@ -268,11 +293,26 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             if (item.senderID != self.senderID) {
                 
-                return QMChatIncomingCell.self
+                if (item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                    
+                    return QMChatAttachmentIncomingCell.self
+                    
+                } else {
+                    
+                    return QMChatIncomingCell.self
+                }
                 
             } else {
                 
-                return QMChatOutgoingCell.self
+                if (item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                    
+                    return QMChatAttachmentOutgoingCell.self
+                    
+                } else {
+                    
+                    return QMChatOutgoingCell.self
+                }
+                
             }
         }
         
@@ -336,8 +376,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     override func collectionView(collectionView: QMChatCollectionView!, dynamicSizeAtIndexPath indexPath: NSIndexPath!, maxWidth: CGFloat) -> CGSize {
         
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
-        let attributedString = self.attributedStringForItem(item)
-        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
+        var size = CGSizeZero
+        
+        if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self || self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
+            
+            size = CGSize(width: min(200, maxWidth), height: 200)
+            
+        } else {
+            
+            let attributedString = self.attributedStringForItem(item)
+            size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
+        }
+        
+        
         
         return size
     }
@@ -367,6 +418,37 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
         
         return layoutModel
+    }
+    
+    override func collectionView(collectionView: QMChatCollectionView!, configureCell cell: UICollectionViewCell!, forIndexPath indexPath: NSIndexPath!) {
+        
+        super.collectionView(collectionView, configureCell: cell, forIndexPath: indexPath)
+        
+        if cell.isKindOfClass(QMChatAttachmentOutgoingCell) || cell.isKindOfClass(QMChatAttachmentIncomingCell) {
+            
+            var message: QBChatMessage = self.items[indexPath.row] as! QBChatMessage;
+            
+            if let attachments = message.attachments {
+                
+                var attachment: QBChatAttachment = attachments.first as! QBChatAttachment
+                
+                ServicesManager.instance.chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
+                    
+                    if image != nil {
+                        
+                        if cell.isKindOfClass(QMChatAttachmentOutgoingCell) {
+                            (cell as! QMChatAttachmentOutgoingCell).attachmentImageView.image = image
+                        } else {
+                            (cell as! QMChatAttachmentIncomingCell).attachmentImageView.image = image
+                        }
+                        
+                        cell.updateConstraints()
+                    }
+                    
+                })
+            }
+        }
+        
     }
     
     // MARK: QMChatServiceDelegate
@@ -413,4 +495,58 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             dialog.sendUserStoppedTyping()
         }
     }
+    
+    // MARK: UIActionSheetDelegate
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        
+        if buttonIndex == 0 {
+            return
+        }
+        
+        if buttonIndex == 1 {
+            self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.Camera
+        } else if buttonIndex == 2 {
+            self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        }
+        
+        self.presentViewController(self.imagePickerViewController, animated: true, completion: nil)
+    }
+    
+    // MARK: UIImagePickerControllerDelegate
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        
+        var image : UIImage = info[UIImagePickerControllerOriginalImage as NSObject] as! UIImage
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        SVProgressHUD.showWithStatus("SA_STR_UPLOADING_ATTACHMENT".localized, maskType: SVProgressHUDMaskType.Clear)
+        
+        var message = QBChatMessage()
+        message.senderID = self.senderID
+        message.senderNick = self.senderDisplayName
+        message.dialogID = self.dialog?.ID
+        
+        ServicesManager.instance.chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance.chatService, withAttachedImage: image, completion: { (error: NSError!) -> Void in
+                
+            if error != nil {
+                SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
+            } else {
+                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+            }
+        })
+    }
+    
+    // MARK: QMChatAttachmentServiceDelegate
+    
+    func chatAttachmentService(chatAttachmentService: QMChatAttachmentService!, didChangeAttachmentStatus status: QMMessageAttachmentStatus, forMessage message: QBChatMessage!) {
+        
+        if message.dialogID == self.dialog?.ID {
+            self.items = NSMutableArray(array: ServicesManager.instance.chatService.messagesMemoryStorage.messagesWithDialogID(self.dialog?.ID))
+            self.refreshCollectionView()
+        }
+        
+    }
+    
 }
