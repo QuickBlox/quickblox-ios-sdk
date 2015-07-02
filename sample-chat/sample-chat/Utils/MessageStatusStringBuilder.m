@@ -13,10 +13,13 @@
 - (NSString *)statusFromMessage:(QBChatMessage *)message
 {
     if (message.readIDs.count > 0) {
-        return [NSString stringWithFormat:@"Read: %@", [message.readIDs componentsJoinedByString:@", "]];
-    } else {
-        return @"Sent";
+        NSMutableArray* readIDs = [message.readIDs mutableCopy];
+        [readIDs removeObject:@([QBSession currentSession].currentUser.ID)];
+        if (readIDs.count > 0) {
+            return [NSString stringWithFormat:@"Read: %@", [readIDs componentsJoinedByString:@", "]];
+        }
     }
+    return @"Sent";
 }
 
 @end
