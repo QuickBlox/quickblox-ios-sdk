@@ -424,7 +424,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         super.collectionView(collectionView, configureCell: cell, forIndexPath: indexPath)
         
-        if cell.isKindOfClass(QMChatAttachmentOutgoingCell) || cell.isKindOfClass(QMChatAttachmentIncomingCell) {
+        if let attachmentCell = cell as? QMChatAttachmentCell {
             
             var message: QBChatMessage = self.items[indexPath.row] as! QBChatMessage;
             
@@ -436,11 +436,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     
                     if image != nil {
                         
-                        if cell.isKindOfClass(QMChatAttachmentOutgoingCell) {
-                            (cell as! QMChatAttachmentOutgoingCell).attachmentImageView.image = image
-                        } else {
-                            (cell as! QMChatAttachmentIncomingCell).attachmentImageView.image = image
-                        }
+                        attachmentCell.attachmentImageView.image = image
                         
                         cell.updateConstraints()
                     }
