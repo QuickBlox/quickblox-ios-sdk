@@ -24,14 +24,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var shouldFixViewControllersStack = false
     var didBecomeActiveHandler : AnyObject?
     
-    var imagePickerViewController : UIImagePickerController {
-        get {
+    lazy var imagePickerViewController : UIImagePickerController = {
             var imagePickerViewController = UIImagePickerController()
             imagePickerViewController.delegate = self
             
             return imagePickerViewController
-        }
-    }
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -434,13 +432,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 
                 ServicesManager.instance.chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
                     
-                    if image != nil {
+                    if error != nil {
+                        SVProgressHUD.showErrorWithStatus(error.localizedDescription)
+                    } else {
                         
-                        attachmentCell.attachmentImageView.image = image
+                        if image != nil {
+                            
+                            attachmentCell.attachmentImageView.image = image
+                            
+                            cell.updateConstraints()
+                        }
                         
-                        cell.updateConstraints()
                     }
-                    
                 })
             }
         }
@@ -514,6 +517,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         
         var image : UIImage = info[UIImagePickerControllerOriginalImage as NSObject] as! UIImage
+        
+        if picker.sourceType == UIImagePickerControllerSourceType.Camera {
+            image = image.fixOrientation()
+        }
         
         picker.dismissViewControllerAnimated(true, completion: nil)
         
