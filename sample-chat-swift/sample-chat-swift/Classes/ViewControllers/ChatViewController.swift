@@ -23,6 +23,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     var didBecomeActiveHandler : AnyObject?
+    var attachmentCellsMap : [String : QMChatAttachmentCell] = [String : QMChatAttachmentCell]()
     
     lazy var imagePickerViewController : UIImagePickerController = {
             var imagePickerViewController = UIImagePickerController()
@@ -429,8 +430,21 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             if let attachments = message.attachments {
                 
                 var attachment: QBChatAttachment = attachments.first as! QBChatAttachment
+                var shouldLoadFile = true
+                
+                if self.attachmentCellsMap[attachment.ID] != nil {
+                    shouldLoadFile = false
+                }
+                
+                self.attachmentCellsMap[attachment.ID] = attachmentCell
+                
+                if !shouldLoadFile {
+                    return
+                }
                 
                 ServicesManager.instance.chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
+                    
+                    self.attachmentCellsMap.removeValueForKey(attachment.ID)
                     
                     if error != nil {
                         SVProgressHUD.showErrorWithStatus(error.localizedDescription)
@@ -438,8 +452,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                         
                         if image != nil {
                             
-                            attachmentCell.attachmentImageView.image = image
-                            
+                            attachmentCell.setAttachmentImage(image)
                             cell.updateConstraints()
                         }
                         
@@ -516,28 +529,46 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         
-        var image : UIImage = info[UIImagePickerControllerOriginalImage as NSObject] as! UIImage
-        
-        if picker.sourceType == UIImagePickerControllerSourceType.Camera {
-            image = image.fixOrientation()
-        }
-        
         picker.dismissViewControllerAnimated(true, completion: nil)
-        
         SVProgressHUD.showWithStatus("SA_STR_UPLOADING_ATTACHMENT".localized, maskType: SVProgressHUDMaskType.Clear)
         
-        var message = QBChatMessage()
-        message.senderID = self.senderID
-        message.senderNick = self.senderDisplayName
-        message.dialogID = self.dialog?.ID
-        
-        ServicesManager.instance.chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance.chatService, withAttachedImage: image, completion: { (error: NSError!) -> Void in
-                
-            if error != nil {
-                SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
-            } else {
-                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            
+            var image : UIImage = info[UIImagePickerControllerOriginalImage as NSObject] as! UIImage
+            
+            if picker.sourceType == UIImagePickerControllerSourceType.Camera {
+                image = image.fixOrientation()
             }
+            
+            var largestSide = image.size.width > image.size.height ? image.size.width : image.size.height
+            var scaleCoeficient = largestSide/560.0
+            var newSize = CGSize(width: image.size.width/scaleCoeficient, height: image.size.height/scaleCoeficient)
+            
+            // create smaller image
+            
+            UIGraphicsBeginImageContext(newSize)
+            
+            image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+            var resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            var message = QBChatMessage()
+            message.senderID = self.senderID
+            message.senderNick = self.senderDisplayName
+            message.dialogID = self.dialog?.ID
+            
+            ServicesManager.instance.chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance.chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if error != nil {
+                        SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
+                    } else {
+                        SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                    }
+                })
+            })
+            
         })
     }
     
@@ -549,7 +580,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.items = NSMutableArray(array: ServicesManager.instance.chatService.messagesMemoryStorage.messagesWithDialogID(self.dialog?.ID))
             self.refreshCollectionView()
         }
+    }
+    
+    func chatAttachmentService(chatAttachmentService: QMChatAttachmentService!, didChangeLoadingProgress progress: CGFloat, forChatAttachment attachment: QBChatAttachment!) {
         
+        if let attachmentCell = self.attachmentCellsMap[attachment.ID] {
+            attachmentCell.updateLoadingProgress(progress)
+        }
     }
     
 }
