@@ -163,7 +163,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
-            weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
+            if messages != nil {
+                weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
+            }
             
             if response.error == nil {
                 
@@ -412,7 +414,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         ServicesManager.instance.chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
             
-            weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
+            if messages != nil {
+                weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
+            }
             
         })
     }
