@@ -163,7 +163,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
+            weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
+            
             if response.error == nil {
+                
+                self.scrollToBottomAnimated(false)
                 
                 if isProgressHUDShowed {
                     SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
@@ -396,7 +400,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
      override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
-        let attributedString = self.topLabelAttributedStringForItem(item)
+        let attributedString = self.topLabelAttributedStringForItem(item) ?? self.bottomLabelAttributedStringForItem(item)
         let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
         
         return size.width
@@ -404,7 +408,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     override func collectionView(collectionView: QMChatCollectionView!, header headerView: QMLoadEarlierHeaderView!, didTapLoadEarlierMessagesButton sender: UIButton) {
     
+        weak var weakSelf = self
+        
         ServicesManager.instance.chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
+            
+            weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
             
         })
     }
@@ -479,7 +487,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         if self.dialog?.ID == dialogID {
             self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
-            self.refreshCollectionView()
+            self.collectionView.reloadData()
         }
     }
     
