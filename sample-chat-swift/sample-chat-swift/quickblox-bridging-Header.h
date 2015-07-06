@@ -36,5 +36,6 @@
 #import "_CDMessage.h"
 #import "UIImage+QM.h"
 #import "UIColor+QM.h"
+#import "UIImage+fixOrientation.h"
 
 #endif
