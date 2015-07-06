@@ -31,6 +31,7 @@
 "SA_STR_YOU_ARE_IN_THE_BLACKLIST" = "You are in the blacklist";
 "SA_STR_FORBIDDEN" = "forbidden";
 "SA_STR_LOADING_MESSAGES" = "Loading messages...";
+"SA_STR_UPLOADING_ATTACHMENT" = "Uploading attachment...";
 "SA_STR_ENTER_CHAT_NAME" = "Enter chat name";
 "STR_DIALOG_CREATED" = "Dialog created";
 
