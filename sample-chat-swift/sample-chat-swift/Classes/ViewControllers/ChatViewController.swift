@@ -348,9 +348,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         attributes[NSForegroundColorAttributeName] = UIColor(red: 0.184, green: 0.467, blue: 0.733, alpha: 1)
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 14)
         
-        var topLabelText = messageItem.senderNick ?? String(messageItem.senderID)
+        var topLabelAttributedString : NSAttributedString?
         
-        var topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
+        if let topLabelText = ConnectionManager.instance.usersDataSource.userByID(messageItem.senderID)?.login {
+            topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
+        }
         
         return topLabelAttributedString
     }
@@ -394,7 +396,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
      override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
-        let attributedString = self.bottomLabelAttributedStringForItem(item)
+        let attributedString = self.topLabelAttributedStringForItem(item)
         let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
         
         return size.width
