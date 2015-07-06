@@ -25,6 +25,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var didBecomeActiveHandler : AnyObject?
     var attachmentCellsMap : [String : QMChatAttachmentCell] = [String : QMChatAttachmentCell]()
     
+    var shouldHoldScrolOnCollectionView = false
+    
     lazy var imagePickerViewController : UIImagePickerController = {
             var imagePickerViewController = UIImagePickerController()
             imagePickerViewController.delegate = self
@@ -411,8 +413,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     override func collectionView(collectionView: QMChatCollectionView!, header headerView: QMLoadEarlierHeaderView!, didTapLoadEarlierMessagesButton sender: UIButton) {
     
         weak var weakSelf = self
+        self.shouldHoldScrolOnCollectionView = true
         
         ServicesManager.instance.chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
+            
+            self.shouldHoldScrolOnCollectionView = false
             
             if messages != nil {
                 weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
@@ -491,7 +496,26 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         if self.dialog?.ID == dialogID {
             self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
-            self.collectionView.reloadData()
+            
+            if (self.shouldHoldScrolOnCollectionView) {
+                
+                var bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+                CATransaction.begin()
+                CATransaction.setDisableActions(true)
+                
+                /* Way for call reloadData sync */
+                self.collectionView.reloadData()
+                self.collectionView.performBatchUpdates(nil, completion: nil)
+
+                self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
+                
+                CATransaction.commit()
+
+            } else {
+                
+                self.collectionView.reloadData()
+            }
+            
         }
     }
     
