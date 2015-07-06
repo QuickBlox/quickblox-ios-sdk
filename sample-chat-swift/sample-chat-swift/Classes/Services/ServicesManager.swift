@@ -83,6 +83,10 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
             return
         }
         
+        if message.senderID == self.currentUser().ID {
+            return
+        }
+        
         var dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
         var dialogName = "New message"
         
