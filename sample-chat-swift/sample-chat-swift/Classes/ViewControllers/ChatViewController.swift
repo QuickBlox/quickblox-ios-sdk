@@ -454,16 +454,36 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 if self.attachmentCellsMap[attachment.ID] != nil {
                     shouldLoadFile = false
                 }
+
+                for (existingAttachmentID, existingAttachmentCell) in self.attachmentCellsMap {
+                    
+                    if existingAttachmentCell === attachmentCell  {
+                        
+                        if existingAttachmentID == attachment.ID {
+                            continue
+                        } else {
+                            self.attachmentCellsMap.removeValueForKey(existingAttachmentID)
+                        }
+                    }
+                    
+                }
                 
                 self.attachmentCellsMap[attachment.ID] = attachmentCell
+                attachmentCell.attachmentID = attachment.ID
                 
                 if !shouldLoadFile {
                     return
                 }
                 
+                weak var weakSelf = self
+                
                 ServicesManager.instance.chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
                     
-                    self.attachmentCellsMap.removeValueForKey(attachment.ID)
+                    if attachmentCell.attachmentID != attachment.ID {
+                        return
+                    }
+                    
+                    weakSelf?.attachmentCellsMap.removeValueForKey(attachment.ID)
                     
                     if error != nil {
                         SVProgressHUD.showErrorWithStatus(error.localizedDescription)
