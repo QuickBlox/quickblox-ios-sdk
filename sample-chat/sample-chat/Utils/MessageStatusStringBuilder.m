@@ -7,6 +7,7 @@
 //
 
 #import "MessageStatusStringBuilder.h"
+#import "StorageManager.h"
 
 @implementation MessageStatusStringBuilder
 
@@ -15,8 +16,16 @@
     if (message.readIDs.count > 0) {
         NSMutableArray* readIDs = [message.readIDs mutableCopy];
         [readIDs removeObject:@([QBSession currentSession].currentUser.ID)];
-        if (readIDs.count > 0) {
-            return [NSString stringWithFormat:@"Read: %@", [readIDs componentsJoinedByString:@", "]];
+        
+        NSMutableArray* readLogins = [NSMutableArray array];
+        for (NSNumber* readID in readIDs) {
+            QBUUser* user = [[StorageManager instance] userByID:[readID unsignedIntegerValue]];
+            NSAssert(user != nil, @"User must not be nil!");
+            [readLogins addObject:user.login];
+        }
+        
+        if (readLogins.count > 0) {
+            return [NSString stringWithFormat:@"Read: %@", [readLogins componentsJoinedByString:@", "]];
         }
     }
     return @"Sent";
