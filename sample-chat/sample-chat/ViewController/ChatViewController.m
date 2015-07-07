@@ -232,6 +232,8 @@
     message.senderID = senderId;
     message.senderNick = [QBServicesManager instance].currentUser.fullName;
     message.markable = YES;
+    message.readIDs = @[@(self.senderID)];
+    message.dialogID = self.dialog.ID;
     
     [[QBServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
@@ -346,6 +348,12 @@
     [[QBServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:nil];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{    
+    QBChatMessage* message = self.items[indexPath.row];
+    [[QBServicesManager instance].chatService markMessageAsRead:message];
+}
+
 #pragma mark - Utility
 
 - (NSString *)timeStampWithDate:(NSDate *)date {
@@ -392,6 +400,17 @@
 	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
 		self.dialog = chatDialog;
 	}
+}
+
+- (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
+{
+    if ([self.dialog.ID isEqualToString:dialogID]) {        
+        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
+        NSUInteger index = [self.items indexOfObject:message];
+        if (index != NSNotFound) {
+            [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+        }
+    }
 }
 
 #pragma mark - UITextViewDelegate
