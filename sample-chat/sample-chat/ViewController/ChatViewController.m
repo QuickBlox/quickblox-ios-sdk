@@ -17,14 +17,40 @@
 #import "LoginTableViewController.h"
 #import "DialogsViewController.h"
 
-@interface ChatViewController () <QMChatServiceDelegate, UITextViewDelegate>
+#import "QMChatAttachmentIncomingCell.h"
+#import "QMChatAttachmentOutgoingCell.h"
+#import "QMChatAttachmentCell.h"
+
+#import "UIImage+fixOrientation.h"
+
+@interface ChatViewController ()
+<
+QMChatServiceDelegate,
+UITextViewDelegate,
+QMChatAttachmentServiceDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate,
+UIActionSheetDelegate
+>
 
 @property (nonatomic, weak) QBUUser* opponentUser;
-@property (nonatomic, strong ) id <NSObject> observerDidBecomeActive;
+@property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
+@property (nonatomic, strong) NSMapTable* attachmentCells;
+@property (nonatomic, readonly) UIImagePickerController* pickerController;
 
 @end
 
 @implementation ChatViewController
+@synthesize pickerController = _pickerController;
+
+- (UIImagePickerController *)pickerController
+{
+    if (_pickerController == nil) {
+        _pickerController = [UIImagePickerController new];
+        _pickerController.delegate = self;
+    }
+    return _pickerController;
+}
 
 - (void)refreshCollectionView
 {
@@ -50,6 +76,8 @@
 {
     [super viewDidLoad];
 
+    self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
+    
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
     
@@ -107,6 +135,7 @@
     [super viewWillAppear:animated];
     
     [[QBServicesManager instance].chatService addDelegate:self];
+    [QBServicesManager instance].chatService.chatAttachmentService.delegate = self;
 	
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -234,7 +263,11 @@
 
 - (void)didPressAccessoryButton:(UIButton *)sender
 {
-    
+    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Photo Library", nil];
+    [actionSheet showInView:self.view];
 }
 
 #pragma mark - Cell classes
@@ -251,9 +284,17 @@
         return [QMChatNotificationCell class];
     } else {
         if (item.senderID != self.senderID) {
-            return [QMChatIncomingCell class];
+            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+                return [QMChatAttachmentIncomingCell class];
+            } else {
+                return [QMChatIncomingCell class];
+            }
         } else {
-            return [QMChatOutgoingCell class];
+            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+                return [QMChatAttachmentOutgoingCell class];
+            } else {
+                return [QMChatOutgoingCell class];
+            }
         }
     }
     return nil;
@@ -309,12 +350,18 @@
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth {
     
     QBChatMessage *item = self.items[indexPath.item];
+    Class viewClass = [self viewClassForItem:item];
+    CGSize size = CGSizeZero;
     
-    NSAttributedString *attributedString = [self attributedStringForItem:item];
-    
-    CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                   withConstraints:CGSizeMake(maxWidth, MAXFLOAT)
-                                            limitedToNumberOfLines:0];
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) {
+        size = CGSizeMake(MIN(200, maxWidth), 200);
+    } else {
+        NSAttributedString *attributedString = [self attributedStringForItem:item];
+        
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                       withConstraints:CGSizeMake(maxWidth, MAXFLOAT)
+                                                limitedToNumberOfLines:0];        
+    }
     return size;
 }
 
@@ -356,9 +403,50 @@
 
 - (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
     QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
+    
+    if (self.dialog.type == QBChatDialogTypePrivate) {
+        layoutModel.topLabelHeight = 0.0;
+    }
     layoutModel.avatarSize = (CGSize){0.0, 0.0};
     
     return layoutModel;
+}
+
+- (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
+{
+    [super collectionView:collectionView configureCell:cell forIndexPath:indexPath];
+    
+    if ([cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {
+        QBChatMessage* message = self.items[indexPath.row];
+        if (message.attachments != nil) {
+            QBChatAttachment* attachment = message.attachments.firstObject;
+            
+            BOOL shouldLoadFile = YES;
+            if ([self.attachmentCells objectForKey:attachment.ID] != nil) {
+                shouldLoadFile = NO;
+            }
+            
+            [self.attachmentCells setObject:cell forKey:attachment.ID];
+            
+            if (!shouldLoadFile) return;
+            
+            __weak typeof(self)weakSelf = self;
+            [[QBServicesManager instance].chatService.chatAttachmentService getImageForChatAttachment:attachment completion:^(NSError *error, UIImage *image) {
+                __typeof(self) strongSelf = weakSelf;
+                
+                [strongSelf.attachmentCells removeObjectForKey:attachment.ID];
+                
+                if (error != nil) {
+                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                } else {
+                    if (image != nil) {
+                        [(UICollectionViewCell<QMChatAttachmentCell> *)cell setAttachmentImage:image];
+                        [cell updateConstraints];
+                    }
+                }
+            }];
+        }
+    }
 }
 
 #pragma mark - QMChatServiceDelegate
@@ -385,6 +473,24 @@
 	}
 }
 
+#pragma mark - QMChatAttachmentServiceDelegate
+
+- (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
+{
+    if (message.dialogID == self.dialog.ID) {
+        self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+        [self refreshCollectionView];
+    }
+}
+
+- (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeLoadingProgress:(CGFloat)progress forChatAttachment:(QBChatAttachment *)attachment
+{
+    UICollectionViewCell<QMChatAttachmentCell>* cell = [self.attachmentCells objectForKey:attachment.ID];
+    if (cell != nil) {
+        [cell updateLoadingProgress:progress];
+    }
+}
+
 #pragma mark - UITextViewDelegate
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -401,6 +507,70 @@
     [self.dialog sendUserStoppedTyping];
 }
 
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) return;
+    
+    if (buttonIndex  == 1) {
+        self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else if (buttonIndex == 2) {
+        self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    
+    [self presentViewController:self.pickerController animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    [SVProgressHUD showWithStatus:@"Uploading attachment" maskType:SVProgressHUDMaskTypeClear];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        UIImage* image = info[UIImagePickerControllerOriginalImage];
+        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            image = [image fixOrientation];
+        }
+        
+        UIImage* resizedImage = [self resizedImageFromImage:image];
+        
+        QBChatMessage* message = [QBChatMessage new];
+        message.senderID = self.senderID;
+        message.senderNick = self.senderDisplayName;
+        message.dialogID = self.dialog.ID;
+        
+        [[QBServicesManager instance].chatService.chatAttachmentService sendMessage:message
+                                                                           toDialog:self.dialog
+                                                                    withChatService:[QBServicesManager instance].chatService
+                                                                  withAttachedImage:resizedImage completion:^(NSError *error) {
+                                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                                          if (error != nil) {
+                                                                              [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                                                                          } else {
+                                                                              [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                                                                          }
+                                                                      });
+                                                                  }];
+    });
+}
+- (UIImage *)resizedImageFromImage:(UIImage *)image
+{
+    CGFloat largestSide = image.size.width > image.size.height ? image.size.width : image.size.height;
+    CGFloat scaleCoefficient = largestSide / 560.0f;
+    CGSize newSize = CGSizeMake(image.size.width / scaleCoefficient, image.size.height / scaleCoefficient);
+    
+    UIGraphicsBeginImageContext(newSize);
+    
+    [image drawInRect:(CGRect){0, 0, newSize.width, newSize.height}];
+    UIImage* resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return resizedImage;
+}
 
 @end
 
