@@ -91,6 +91,7 @@
 		68440EFB2AAFECA0082EE311 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 684404DA6223F752665E2B06 /* SWUtilityButtonTapGestureRecognizer.m */; };
 		68440F70B8D97EC5EB2C25A9 /* UserTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440A5F08B14D5F4A4C7B8B /* UserTableViewCellModel.swift */; };
 		86CCE8EA1B0E13CC00CA6A0D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 144E8B5A1B04B65C0021B25C /* Quickblox.framework */; };
+		92B02D141B4C374400752D18 /* DialogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B02D131B4C374400752D18 /* DialogTableViewCell.swift */; };
 		E4846548A07890DC6B23D7FE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD2A86B40E54C31F0788A286 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -239,6 +240,7 @@
 		68440EF02AB27CCF47A87701 /* SwiftAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAlert.swift; sourceTree = "<group>"; };
 		68440F958A8E07D1A6ECBE19 /* QBUUser+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QBUUser+Color.swift"; sourceTree = "<group>"; };
 		7FBD5AF00180CA0A016ADA39 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		92B02D131B4C374400752D18 /* DialogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogTableViewCell.swift; sourceTree = "<group>"; };
 		A470176456F8A25856D524CB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FD2A86B40E54C31F0788A286 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -646,6 +648,7 @@
 				68440EF02AB27CCF47A87701 /* SwiftAlert.swift */,
 				684403034A069565608E044A /* SwiftAlertWithTextField.swift */,
 				68440AC65A0DF248480F2934 /* UserTableViewCell.swift */,
+				92B02D131B4C374400752D18 /* DialogTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -931,6 +934,7 @@
 				2CBAD95D1B3011700047941E /* NSString+QM.m in Sources */,
 				68440ED75A4B1A0C3894605D /* SWLongPressGestureRecognizer.m in Sources */,
 				149636FE1B033F740079A6A2 /* IJReachability.swift in Sources */,
+				92B02D141B4C374400752D18 /* DialogTableViewCell.swift in Sources */,
 				684401C9A58F0D7F16766275 /* QBUUser+Color.swift in Sources */,
 				684403AB8D5D258A114BD3AB /* LoginTableViewController.swift in Sources */,
 				2CBAD96A1B3011700047941E /* QMChatNotificationCell.m in Sources */,
