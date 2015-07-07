@@ -23,7 +23,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
     var didBecomeActiveHandler : AnyObject?
+    var didEnterBackgroundHandler : AnyObject?
     var attachmentCellsMap : [String : QMChatAttachmentCell] = [String : QMChatAttachmentCell]()
+    
+    var typingTimer : NSTimer?
     
     var shouldHoldScrolOnCollectionView = false
     
@@ -86,6 +89,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             weakSelf?.updateMessages()
             
         }
+        
+        self.didEnterBackgroundHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidEnterBackgroundNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification: NSNotification!) -> Void in
+            
+            weakSelf?.fireSendStopTypingIfNecessary()
+        })
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -122,6 +130,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
 
         if let didBecomeActiveHandler: AnyObject = self.didBecomeActiveHandler {
             NSNotificationCenter.defaultCenter().removeObserver(didBecomeActiveHandler)
+        }
+        
+        if let didEnterBackgroundHandler: AnyObject = self.didEnterBackgroundHandler {
+            NSNotificationCenter.defaultCenter().removeObserver(didEnterBackgroundHandler)
         }
         
         ServicesManager.instance.currentDialogID = ""
@@ -243,6 +255,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     // MARK: Actions
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
+        
+        self.fireSendStopTypingIfNecessary()
         
         var message = QBChatMessage()
         message.text = text;
@@ -549,8 +563,40 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     // MARK: UITextViewDelegate
     
-    override func textViewDidBeginEditing(textView: UITextView) {
-        super.textViewDidBeginEditing(textView)
+    override func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        
+        if let timer = self.typingTimer {
+            timer.invalidate()
+            self.typingTimer = nil
+            
+        } else {
+            
+            self.sendBeginTyping()
+        }
+        
+        self.typingTimer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: Selector("fireSendStopTypingIfNecessary"), userInfo: nil, repeats: false)
+        
+        return true
+    }
+    
+    override func textViewDidEndEditing(textView: UITextView) {
+        
+        super.textViewDidEndEditing(textView)
+        
+        self.fireSendStopTypingIfNecessary()
+    }
+    
+    func fireSendStopTypingIfNecessary() -> Void {
+        
+        if let timer = self.typingTimer {
+            timer.invalidate()
+            self.typingTimer = nil
+            self.sendStopTyping()
+        }
+        
+    }
+    
+    func sendBeginTyping() -> Void {
         
         if let dialog = self.dialog {
             dialog.sendUserIsTyping()
@@ -558,12 +604,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
     }
     
-    override func textViewDidEndEditing(textView: UITextView) {
-        super.textViewDidEndEditing(textView)
+    func sendStopTyping() -> Void {
         
         if let dialog = self.dialog {
             dialog.sendUserStoppedTyping()
         }
+        
     }
     
     // MARK: UIActionSheetDelegate
