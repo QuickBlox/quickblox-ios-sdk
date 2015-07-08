@@ -426,13 +426,31 @@ UIActionSheetDelegate
                 shouldLoadFile = NO;
             }
             
+            NSMutableArray* keysToRemove = [NSMutableArray array];
+            
+            NSEnumerator* enumerator = [self.attachmentCells keyEnumerator];
+            NSString* existingAttachmentID = nil;
+            while (existingAttachmentID = [enumerator nextObject]) {
+                UICollectionViewCell* cachedCell = [self.attachmentCells objectForKey:existingAttachmentID];
+                if ([cachedCell isEqual:cell]) {
+                    [keysToRemove addObject:existingAttachmentID];
+                }
+            }
+            
+            for (NSString* key in keysToRemove) {
+                [self.attachmentCells removeObjectForKey:key];
+            }
+            
             [self.attachmentCells setObject:cell forKey:attachment.ID];
+            [(UICollectionViewCell<QMChatAttachmentCell> *)cell setAttachmentID:attachment.ID];
             
             if (!shouldLoadFile) return;
             
             __weak typeof(self)weakSelf = self;
             [[QBServicesManager instance].chatService.chatAttachmentService getImageForChatAttachment:attachment completion:^(NSError *error, UIImage *image) {
                 __typeof(self) strongSelf = weakSelf;
+                
+                if ([(UICollectionViewCell<QMChatAttachmentCell> *)cell attachmentID] != attachment.ID) return;
                 
                 [strongSelf.attachmentCells removeObjectForKey:attachment.ID];
                 
