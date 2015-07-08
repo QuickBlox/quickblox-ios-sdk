@@ -160,7 +160,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_DIALOG".localized, forIndexPath: indexPath) as! UserTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_DIALOG".localized, forIndexPath: indexPath) as! DialogTableViewCell
         
         var chatDialog = self.dialogs()[indexPath.row]
         
@@ -168,10 +168,18 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         cell.delegate = delegate
         cell.dialogID = chatDialog.ID
         
+        
         var cellModel = UserTableViewCellModel(dialog: chatDialog)
         
-        cell.detailTextLabel?.text = cellModel.detailTextLabelText
-        cell.textLabel?.text = cellModel.textLabelText
+        cell.dialogLastMessage?.text = chatDialog.lastMessageText
+        cell.dialogName?.text = cellModel.textLabelText
+        
+        if chatDialog.type == .Private {
+            cell.dialogTypeImage.image = UIImage(named: "chatRoomIcon")
+        } else {
+            cell.dialogTypeImage.image = UIImage(named: "GroupChatIcon")
+        }
+        
         cell.rightUtilityButtons = cellModel.rightUtilityButtons
         
         return cell
