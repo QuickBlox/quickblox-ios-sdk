@@ -32,7 +32,10 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     func setupChatCacheService(userName: String) {
         QMChatCache.setupDBWithStoreNamed(userName + "-storage")
         QMChatCache.instance().messagesLimitPerDialog = 10
-        self.setupChatService()
+        
+        if (self.chatService == nil) {
+            self.setupChatService()
+        }
     }
     
     private func setupChatService() {
@@ -77,6 +80,10 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     func handleNewMessage(message: QBChatMessage, dialogID: String) {
         
         if self.currentDialogID == dialogID {
+            return
+        }
+        
+        if message.senderID == self.currentUser().ID {
             return
         }
         
@@ -168,7 +175,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     func cachedMessagesWithDialogID(dialogID: String!, block: QMCacheCollection!) {
         
-        QMChatCache.instance().messagesWithDialogId(dialogID, sortedBy: CDMessageAttributes.messageID as String, ascending: true) { (messages: [AnyObject]!) -> Void in
+        QMChatCache.instance().messagesWithDialogId(dialogID, sortedBy: CDMessageAttributes.dateSend as String, ascending: true) { (messages: [AnyObject]!) -> Void in
             block(messages)
         }
     }
