@@ -24,6 +24,8 @@
 
 #import "UIImage+fixOrientation.h"
 
+#import "QMCollectionViewFlowLayoutInvalidationContext.h"
+
 @interface ChatViewController ()
 <
 QMChatServiceDelegate,
@@ -124,6 +126,11 @@ UIActionSheetDelegate
 		if( response.success ) {
 			__typeof(self) strongSelf = weakSelf;
 			strongSelf.items = [messages mutableCopy];
+            
+            for (QBChatMessage* message in strongSelf.items) {
+                [self sendReadStatusForMessage:message];
+            }
+            
 			[strongSelf refreshCollectionView];
 			[SVProgressHUD dismiss];
 		}
@@ -197,6 +204,18 @@ UIActionSheetDelegate
         self.title = self.opponentUser.fullName;
     } else {
         self.title = self.dialog.name;
+    }
+}
+
+#pragma mark - Utilities
+
+- (void)sendReadStatusForMessage:(QBChatMessage *)message
+{
+    if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
+        message.markable = YES;
+        if (![[QBChat instance] readMessage:message]) {
+            NSLog(@"Problems while marking message as read!");
+        }
     }
 }
 
@@ -395,12 +414,6 @@ UIActionSheetDelegate
     [[QBServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:nil];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{    
-    QBChatMessage* message = self.items[indexPath.row];
-    [[QBServicesManager instance].chatService markMessageAsRead:message];
-}
-
 #pragma mark - Utility
 
 - (NSString *)timeStampWithDate:(NSDate *)date {
@@ -490,6 +503,8 @@ UIActionSheetDelegate
     if ([self.dialog.ID isEqualToString:dialogID]) {
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         [self refreshCollectionView];
+        
+        [self sendReadStatusForMessage:message];
     }
 }
 
@@ -514,6 +529,9 @@ UIActionSheetDelegate
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         NSUInteger index = [self.items indexOfObject:message];
         if (index != NSNotFound) {
+            QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
+            context.invalidateFlowLayoutMessagesCache = YES;
+            [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
             [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
         }
     }

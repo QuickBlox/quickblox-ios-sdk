@@ -450,11 +450,11 @@
 #pragma mark Read status
 
 /**
- Called when you received a confirmation about message read
- @warning Deprecated in 2.3.1.
+ Called when you received a confirmation about message read.
+ @warning Deprecated in 2.3.1. Use 'chatDidReadMessageWithID:dialogID:readerID:' instead.
  @param messageID ID of an original message
  */
-- (void)chatDidReadMessageWithID:(NSString *)messageID __attribute__((deprecated("Use '' instead.")));
+- (void)chatDidReadMessageWithID:(NSString *)messageID __attribute__((deprecated("Use 'chatDidReadMessageWithID:dialogID:readerID:' instead.")));
 
 /**
  *  Called when message is read by opponent.
