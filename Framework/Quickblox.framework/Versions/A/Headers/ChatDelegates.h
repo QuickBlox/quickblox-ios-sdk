@@ -53,14 +53,25 @@
  */
 - (void)chatDidNotSendMessage:(QBChatMessage *)message error:(NSError *)error;
 
+
 /**
  didNotSendMessage fired when message cannot be send to the group chat
  
+ @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatDidNotSendMessage:toDialogID:error:' instead.
  @param message message passed to sendMessage method into QBChat
  @param roomJid JID of the room
  @param error Error
  */
-- (void)chatDidNotSendMessage:(QBChatMessage *)message toRoomJid:(NSString *)roomJid error:(NSError *)error;
+- (void)chatDidNotSendMessage:(QBChatMessage *)message toRoomJid:(NSString *)roomJid error:(NSError *)error __attribute__((deprecated("Use 'chatDidNotSendMessage:toDialogID:error:' instead.")));
+
+/**
+ *  Fired when message cannot be send to the group chat.
+ *
+ *  @param message  QBChatMessage message.
+ *  @param dialogID QBChatDialog identifier.
+ *  @param error    Error.
+ */
+- (void)chatDidNotSendMessage:(QBChatMessage *)message toDialogID:(NSString *)dialogID error:(NSError *)error;
 
 /**
  didReceiveMessage fired when new message was received from QBChat
@@ -101,6 +112,11 @@
  *  Fired when XMPP stream is accidentaly disconnected
  */
 - (void)chatDidAccidentallyDisconnect;
+
+/**
+ *  Fired after successful connection to stream after disconnect.
+ */
+- (void)chatDidReconnect;
 
 
 #pragma mark -
@@ -158,22 +174,36 @@
 /**
  Called when room receives a message.
  
+ @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomDidReceiveMessage:fromDialogID:' instead.
+ 
  @param message Received message
  @param roomJID Room JID
  */
-- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID;
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromRoomJID:(NSString *)roomJID __attribute__((deprecated("Use 'chatRoomDidReceiveMessage:fromDialogID:' instead.")));
+
+/**
+ *  Called when dialog receives message.
+ *
+ *  @param message  Received message.
+ *  @param dialogID QBChatDialog identifier.
+ */
+- (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromDialogID:(NSString *)dialogID;
+
 
 /**
  Fired when you did enter to room
  
+ @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'onJoin' from QBChatDialog instead.
+ 
  @param room which you have joined
  */
-- (void)chatRoomDidEnter:(QBChatRoom *)room;
+- (void)chatRoomDidEnter:(QBChatRoom *)room __attribute__((deprecated("Use 'onJoin' from QBChatDialog instead.")));
 
 /**
  Called when you didn't enter to room.
  
  @warning *Deprecated in QB iOS SDK 2.3:* Use 'onJoinFailed:' block in 'QBChatDialog'.
+ 
  @param room Name of room which you haven't joined
  @param error Error
  */
@@ -183,6 +213,7 @@
  Called when you didn't enter to room
  
  @warning *Deprecated in QB iOS SDK 2.3:* Use 'onJoinFailed:' block in 'QBChatDialog'.
+ 
  @param roomJID  JID of room which you haven't joined
  @param error Error
  */
@@ -197,12 +228,15 @@
  */
 - (void)chatRoomDidLeave:(NSString *)roomName __attribute__((deprecated("Use chatRoomDidLeaveRoomWithJID: instead.")));
 
+
 /**
  Fired when you did leave room
  
+ @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'onLeave' in QBChatDialog instead.
+ 
  @param roomJID JID of room which you have leaved
  */
-- (void)chatRoomDidLeaveRoomWithJID:(NSString *)roomJID;
+- (void)chatRoomDidLeaveRoomWithJID:(NSString *)roomJID __attribute__((deprecated("Use 'onLeave' in QBChatDialog instead.")));
 
 /**
  Called in case changing online users
@@ -224,29 +258,58 @@
  */
 - (void)chatRoomDidChangeOnlineUsers:(NSArray *)onlineUsers roomJID:(NSString *)roomJID __attribute__((deprecated("This delegate doesn't work anymore Use chatRoomOccupantDidJoin/Leave/Update:toRoomJID: instead.")));
 
+
 /**
  *  Called when user joined room.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomOccupantDidJoin:dialogID:' instead.
  *  @param userId User's ID.
  *  @param roomJID     JID of room.
  */
-- (void)chatRoomOccupantDidJoin:(NSUInteger)userId roomJID:(NSString *)roomJID;
+- (void)chatRoomOccupantDidJoin:(NSUInteger)userId roomJID:(NSString *)roomJID __attribute__((deprecated("Use 'chatRoomOccupantDidJoin:dialogID:' instead.")));
+
+/**
+ *  Called when user joined dialog.
+ *
+ *  @param userId   User's ID.
+ *  @param dialogID QBChatDialog identifier.
+ */
+- (void)chatRoomOccupantDidJoin:(NSUInteger)userId dialogID:(NSString *)dialogID;
 
 /**
  *  Called when user left room.
- *
+ *  
+ *  @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomOccupantDidLeave:dialogID:' instead.
  *  @param userId User's ID.
  *  @param roomJID     JID of room.
  */
-- (void)chatRoomOccupantDidLeave:(NSUInteger)userId roomJID:(NSString *)roomJID;
+- (void)chatRoomOccupantDidLeave:(NSUInteger)userId roomJID:(NSString *)roomJID __attribute__((deprecated("Use 'chatRoomOccupantDidLeave:dialogID:' instead.")));
+
+
+/**
+ *  Called when user left dialog.
+ *
+ *  @param userId   User's ID.
+ *  @param dialogID QBChatDialog identifier.
+ */
+- (void)chatRoomOccupantDidLeave:(NSUInteger)userId dialogID:(NSString *)dialogID;
 
 /**
  *  Called when user was updated in room.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomOccupantDidUpdate:dialogID:' instead.
  *  @param userId User's ID.
  *  @param roomJID     JID of room.
  */
-- (void)chatRoomOccupantDidUpdate:(NSUInteger)userId roomJID:(NSString *)roomJID;
+- (void)chatRoomOccupantDidUpdate:(NSUInteger)userId roomJID:(NSString *)roomJID __attribute__((deprecated("Use 'chatRoomOccupantDidUpdate:dialogID:' instead.")));
+
+/**
+ *  Called when user was updated in dialog.
+ *
+ *  @param userId   User's ID.
+ *  @param dialogID QBChatDialog identifier.
+ */
+- (void)chatRoomOccupantDidUpdate:(NSUInteger)userId dialogID:(NSString *)dialogID;
 
 /**
  Called in case receiving list of online users.
@@ -261,11 +324,19 @@
 /**
  Called in case receiving list of online users
  
+ @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomDidReceiveListOfOnlineUsers:dialogID:' instead.
  @param users Array of joined users
  @param roomJID JID of room
  */
-- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users roomJID:(NSString *)roomJID;
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users roomJID:(NSString *)roomJID __attribute__((deprecated("Use 'chatRoomDidReceiveListOfOnlineUsers:dialogID:' instead.")));
 
+/**
+ *  Called in case of receiving list of online users in dialog.
+ *
+ *  @param users    Array of joined users.
+ *  @param dialogID QBChatDialog identifier.
+ */
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users dialogID:(NSString *)dialogID;
 
 #pragma mark -
 #pragma mark Privacy
@@ -380,9 +451,19 @@
 
 /**
  Called when you received a confirmation about message read
+ @warning Deprecated in 2.3.1.
  @param messageID ID of an original message
  */
-- (void)chatDidReadMessageWithID:(NSString *)messageID;
+- (void)chatDidReadMessageWithID:(NSString *)messageID __attribute__((deprecated("Use '' instead.")));
+
+/**
+ *  Called when message is read by opponent.
+ *
+ *  @param messageID Message identifier.
+ *  @param dialogID  Dialog identifier.
+ *  @param readerID  Reader identifier.
+ */
+- (void)chatDidReadMessageWithID:(NSString *)messageID dialogID:(NSString *)dialogID readerID:(NSUInteger)readerID;
 
 @end
 
