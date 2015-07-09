@@ -16,12 +16,15 @@
 
 #import "LoginTableViewController.h"
 #import "DialogsViewController.h"
+#import "MessageStatusStringBuilder.h"
 
 #import "QMChatAttachmentIncomingCell.h"
 #import "QMChatAttachmentOutgoingCell.h"
 #import "QMChatAttachmentCell.h"
 
 #import "UIImage+fixOrientation.h"
+
+#import "QMCollectionViewFlowLayoutInvalidationContext.h"
 
 @interface ChatViewController ()
 <
@@ -34,7 +37,8 @@ UIActionSheetDelegate
 >
 
 @property (nonatomic, weak) QBUUser* opponentUser;
-@property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
+@property (nonatomic, strong) id<NSObject> observerDidBecomeActive;
+@property (nonatomic, strong) MessageStatusStringBuilder* stringBuilder;
 @property (nonatomic, strong) NSMapTable* attachmentCells;
 @property (nonatomic, readonly) UIImagePickerController* pickerController;
 
@@ -85,6 +89,8 @@ UIActionSheetDelegate
     
     [self updateTitle];
     
+    self.stringBuilder = [MessageStatusStringBuilder new];
+    
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     [self refreshCollectionView];
     
@@ -115,12 +121,8 @@ UIActionSheetDelegate
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
-	__weak typeof(self) weakSelf = self;
 	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
 		if( response.success ) {
-			__typeof(self) strongSelf = weakSelf;
-			strongSelf.items = [messages mutableCopy];
-			[strongSelf refreshCollectionView];
 			[SVProgressHUD dismiss];
 		}
 		else {
@@ -196,6 +198,18 @@ UIActionSheetDelegate
     }
 }
 
+#pragma mark - Utilities
+
+- (void)sendReadStatusForMessage:(QBChatMessage *)message
+{
+    if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
+        message.markable = YES;
+        if (![[QBChat instance] readMessage:message]) {
+            NSLog(@"Problems while marking message as read!");
+        }
+    }
+}
+
 #pragma mark - Tool bar
 
 - (UIButton *)accessoryButtonItem {
@@ -256,6 +270,9 @@ UIActionSheetDelegate
     message.text = text;
     message.senderID = senderId;
     message.senderNick = [QBServicesManager instance].currentUser.fullName;
+    message.markable = YES;
+    message.readIDs = @[@(self.senderID)];
+    message.dialogID = self.dialog.ID;
     
     [[QBServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
@@ -339,7 +356,11 @@ UIActionSheetDelegate
     UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
     
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[self timeStampWithDate:messageItem.dateSent]
+    NSString* text = [self timeStampWithDate:messageItem.dateSent];
+    if ([messageItem senderID] == self.senderID) {
+        text = [NSString stringWithFormat:@"%@ %@", [self.stringBuilder statusFromMessage:messageItem], text];
+    }
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text
                                                                                 attributes:attributes];
     
     return attrStr;
@@ -473,6 +494,8 @@ UIActionSheetDelegate
     if ([self.dialog.ID isEqualToString:dialogID]) {
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         [self refreshCollectionView];
+        
+        [self sendReadStatusForMessage:message];
     }
 }
 
@@ -489,6 +512,20 @@ UIActionSheetDelegate
 	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
 		self.dialog = chatDialog;
 	}
+}
+
+- (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
+{
+    if ([self.dialog.ID isEqualToString:dialogID]) {        
+        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
+        NSUInteger index = [self.items indexOfObject:message];
+        if (index != NSNotFound) {
+            QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
+            context.invalidateFlowLayoutMessagesCache = YES;
+            [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+            [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+        }
+    }
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate
