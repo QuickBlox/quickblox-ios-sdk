@@ -121,17 +121,8 @@ UIActionSheetDelegate
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
-	__weak typeof(self) weakSelf = self;
 	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
 		if( response.success ) {
-			__typeof(self) strongSelf = weakSelf;
-			strongSelf.items = [messages mutableCopy];
-            
-            for (QBChatMessage* message in strongSelf.items) {
-                [self sendReadStatusForMessage:message];
-            }
-            
-			[strongSelf refreshCollectionView];
 			[SVProgressHUD dismiss];
 		}
 		else {
