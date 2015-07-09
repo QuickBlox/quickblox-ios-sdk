@@ -566,15 +566,13 @@ UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) return;
-    
-    if (buttonIndex  == 1) {
+    if (buttonIndex  == 0) {
         self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    } else if (buttonIndex == 2) {
+        [self presentViewController:self.pickerController animated:YES completion:nil];
+    } else if (buttonIndex == 1) {
         self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.pickerController animated:YES completion:nil];
     }
-    
-    [self presentViewController:self.pickerController animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
