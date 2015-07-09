@@ -116,6 +116,7 @@
 }
 
 - (void)handleErrorResponse:(QBResponse *)response {
+    if (![self isAutorized]) return;
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
