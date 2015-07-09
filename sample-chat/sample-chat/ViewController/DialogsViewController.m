@@ -54,9 +54,9 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
 }
 
-- (IBAction)logoutButtonPressed:(id)sender
+- (IBAction)logoutButtonPressed:(UIButton *)sender
 {
-    [SVProgressHUD showWithStatus:@"Logging out..."];
+    [SVProgressHUD showWithStatus:@"Logging out..." maskType:SVProgressHUDMaskTypeClear];
     [[QBServicesManager instance] logoutWithCompletion:^{
         [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
         [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
