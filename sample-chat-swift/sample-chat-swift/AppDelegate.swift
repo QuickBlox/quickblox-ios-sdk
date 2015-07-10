@@ -35,11 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationDidEnterBackground(application: UIApplication) {
-		ServicesManager.instance.chatService.logoutChat()
+		ServicesManager.instance.chatService?.logoutChat()
 	}
 	
 	func applicationWillEnterForeground(application: UIApplication) {
-		ServicesManager.instance.chatService.logIn(nil)
+		ServicesManager.instance.chatService?.logIn(nil)
 	}
 	
 	func applicationDidBecomeActive(application: UIApplication) {
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {
-		ServicesManager.instance.chatService.logoutChat()
+		ServicesManager.instance.chatService?.logoutChat()
 	}
 	
 	
