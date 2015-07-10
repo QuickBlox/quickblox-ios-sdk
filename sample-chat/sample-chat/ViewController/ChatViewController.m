@@ -125,9 +125,7 @@ UIActionSheetDelegate
 	}
 	
     __weak typeof(self)weakSelf = self;
-	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
-        __typeof(self) strongSelf = weakSelf;
-        
+	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
 			[SVProgressHUD dismiss];
 		} else {
@@ -181,6 +179,7 @@ UIActionSheetDelegate
     
     [[QBServicesManager instance].chatService removeDelegate:self];
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidEnterBackground];
     
     [self.dialog clearTypingStatusBlocks];
 }
