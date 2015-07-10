@@ -41,6 +41,7 @@ UIActionSheetDelegate
 @property (nonatomic, strong) MessageStatusStringBuilder* stringBuilder;
 @property (nonatomic, strong) NSMapTable* attachmentCells;
 @property (nonatomic, readonly) UIImagePickerController* pickerController;
+@property (nonatomic, assign) BOOL shouldHoldScrollOnCollectionView;
 
 @end
 
@@ -121,11 +122,13 @@ UIActionSheetDelegate
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
+    __weak typeof(self)weakSelf = self;
 	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
-		if( response.success ) {
+        __typeof(self) strongSelf = weakSelf;
+        
+		if (response.success) {
 			[SVProgressHUD dismiss];
-		}
-		else {
+		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
 		}
@@ -269,7 +272,7 @@ UIActionSheetDelegate
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
-    message.senderNick = [QBServicesManager instance].currentUser.fullName;
+    message.senderNick = [self senderDisplayName];
     message.markable = YES;
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
@@ -402,7 +405,13 @@ UIActionSheetDelegate
 
 - (void)collectionView:(QMChatCollectionView *)collectionView header:(QMLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
 {
-    [[QBServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:nil];
+    self.shouldHoldScrollOnCollectionView = YES;
+    __weak typeof(self)weakSelf = self;
+    [[QBServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
+        __typeof(self) strongSelf = weakSelf;
+        
+        strongSelf.shouldHoldScrollOnCollectionView = NO;
+    }];
 }
 
 #pragma mark - Utility
@@ -503,7 +512,21 @@ UIActionSheetDelegate
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
-        [self refreshCollectionView];
+        
+        if (self.shouldHoldScrollOnCollectionView) {
+            CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
+            [CATransaction begin];
+            [CATransaction setDisableActions:YES];
+            
+            [self.collectionView reloadData];
+            [self.collectionView performBatchUpdates:nil completion:nil];
+            
+            self.collectionView.contentOffset = (CGPoint){0, self.collectionView.contentSize.height - bottomOffset};
+            
+            [CATransaction commit];
+        } else {
+            [self refreshCollectionView];
+        }
     }
 }
 
