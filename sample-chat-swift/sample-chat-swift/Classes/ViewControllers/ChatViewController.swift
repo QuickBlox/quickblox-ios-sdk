@@ -429,12 +429,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         weak var weakSelf = self
         self.shouldHoldScrolOnCollectionView = true
         
+        SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
+        
         ServicesManager.instance.chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
             
             self.shouldHoldScrolOnCollectionView = false
             
             if messages != nil {
                 weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
+            }
+            
+            if response?.error != nil {
+                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+            } else {
+                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
             }
             
         })
