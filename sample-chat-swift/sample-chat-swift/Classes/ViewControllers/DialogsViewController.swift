@@ -105,11 +105,13 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
 
         }) { (response: QBResponse!) -> Void in
             
-            if response.error != nil {
+            if response == nil || response?.error != nil {
                 
                 SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_DIALOGS".localized)
-                println(response.error.error)
                 
+                if response != nil {
+                    println(response.error.error)
+                }
             }
             else {
         

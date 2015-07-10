@@ -261,7 +261,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         var message = QBChatMessage()
         message.text = text;
         message.senderID = self.senderID
-        message.senderNick = self.senderDisplayName
 
         self.sendMessage(message)
     }
@@ -667,7 +666,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             var message = QBChatMessage()
             message.senderID = self.senderID
-            message.senderNick = self.senderDisplayName
             message.dialogID = self.dialog?.ID
             
             ServicesManager.instance.chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance.chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
