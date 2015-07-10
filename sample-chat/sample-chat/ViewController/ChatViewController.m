@@ -42,6 +42,8 @@ UIActionSheetDelegate
 @property (nonatomic, strong) NSMapTable* attachmentCells;
 @property (nonatomic, readonly) UIImagePickerController* pickerController;
 @property (nonatomic, assign) BOOL shouldHoldScrollOnCollectionView;
+@property (nonatomic, strong) NSTimer* typingTimer;
+@property (nonatomic, strong) id observerDidEnterBackground;
 
 @end
 
@@ -147,6 +149,11 @@ UIActionSheetDelegate
 		__typeof(self) strongSelf = weakSelf;
 		[strongSelf refreshMessagesShowingProgress:YES];
 	}];
+    
+    self.observerDidEnterBackground = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        __typeof(self) strongSelf = weakSelf;
+        [strongSelf fireStopTypingIfNecessary];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -213,6 +220,13 @@ UIActionSheetDelegate
     }
 }
 
+- (void)fireStopTypingIfNecessary
+{
+    [self.typingTimer invalidate];
+    self.typingTimer = nil;
+    [self.dialog sendUserStoppedTyping];
+}
+
 #pragma mark - Tool bar
 
 - (UIButton *)accessoryButtonItem {
@@ -269,10 +283,11 @@ UIActionSheetDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
+    [self fireStopTypingIfNecessary];
+    
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
-    message.senderNick = [self senderDisplayName];
     message.markable = YES;
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
@@ -344,7 +359,8 @@ UIActionSheetDelegate
     NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
-        topLabelText = (messageItem.senderNick != nil) ? messageItem.senderNick : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
+        QBUUser* user = [[StorageManager instance]userByID:self.senderID];
+        topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0.184 green:0.467 blue:0.733 alpha:1.000], NSFontAttributeName:font};
@@ -571,18 +587,25 @@ UIActionSheetDelegate
 
 #pragma mark - UITextViewDelegate
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    [super textViewDidBeginEditing:textView];
+    if (self.typingTimer) {
+        [self.typingTimer invalidate];
+        self.typingTimer = nil;
+    } else {
+        [self.dialog sendUserIsTyping];
+    }
     
-    [self.dialog sendUserIsTyping];
+    self.typingTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(fireStopTypingIfNecessary) userInfo:nil repeats:NO];
+    
+    return YES;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     [super textViewDidEndEditing:textView];
     
-    [self.dialog sendUserStoppedTyping];
+    [self fireStopTypingIfNecessary];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -615,7 +638,6 @@ UIActionSheetDelegate
         
         QBChatMessage* message = [QBChatMessage new];
         message.senderID = self.senderID;
-        message.senderNick = self.senderDisplayName;
         message.dialogID = self.dialog.ID;
         
         [[QBServicesManager instance].chatService.chatAttachmentService sendMessage:message
