@@ -121,7 +121,7 @@ UIActionSheetDelegate
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
-	if( showingProgress ) {
+	if (showingProgress) {
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
@@ -145,7 +145,7 @@ UIActionSheetDelegate
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
-		[strongSelf refreshMessagesShowingProgress:YES];
+		[strongSelf refreshMessagesShowingProgress:NO];
 	}];
     
     self.observerDidEnterBackground = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -570,6 +570,23 @@ UIActionSheetDelegate
     }
 }
 
+#pragma mark - QMChatConnectionDelegate
+
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
+}
+
 #pragma mark - QMChatAttachmentServiceDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
@@ -672,23 +689,6 @@ UIActionSheetDelegate
     UIGraphicsEndImageContext();
     
     return resizedImage;
-}
-
-#pragma mark - QMChatConnectionDelegate
-
-- (void)chatServiceChatDidConnect:(QMChatService *)chatService
-{
-    
-}
-
-- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
-{
-    
-}
-
-- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
-{
-    
 }
 
 @end
