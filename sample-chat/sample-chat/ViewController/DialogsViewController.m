@@ -13,7 +13,13 @@
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 
-@interface DialogsViewController () <QMChatServiceDelegate, SWTableViewCellDelegate, QMAuthServiceDelegate>
+@interface DialogsViewController ()
+<
+QMChatServiceDelegate,
+SWTableViewCellDelegate,
+QMAuthServiceDelegate,
+QMChatConnectionDelegate
+>
 
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @property (nonatomic, readonly) NSArray* dialogs;
@@ -25,8 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-	[QBServicesManager.instance.chatService addDelegate:self];
 	
 	[self loadDialogs];
 }
@@ -45,6 +49,8 @@
 	}];
     
     self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
+    
+    [QBServicesManager.instance.chatService addDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -52,6 +58,7 @@
 	[super viewWillDisappear:animated];
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
+    [[QBServicesManager instance].chatService removeDelegate:self];
 }
 
 - (IBAction)logoutButtonPressed:(UIButton *)sender
@@ -258,6 +265,40 @@
 
 - (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
     [self.tableView reloadData];
+}
+
+#pragma mark - QMChatConnectionDelegate
+
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
+}
+
+- (void)chatServiceChatDidLogin
+{
+    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
+}
+
+- (void)chatServiceChatDidNotLoginWithError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not login with error: %@", [error description]]];
+}
+
+- (void)chatServiceChatDidFailWithStreamError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Chat failed with error: %@", [error description]]];
 }
 
 @end

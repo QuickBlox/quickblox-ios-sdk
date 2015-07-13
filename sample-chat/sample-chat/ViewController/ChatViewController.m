@@ -29,6 +29,7 @@
 @interface ChatViewController ()
 <
 QMChatServiceDelegate,
+QMChatConnectionDelegate,
 UITextViewDelegate,
 QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
@@ -120,14 +121,15 @@ UIActionSheetDelegate
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
-	if( showingProgress ) {
+	if (showingProgress) {
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
-    __weak typeof(self)weakSelf = self;
 	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
-			[SVProgressHUD dismiss];
+            if (showingProgress) {
+                [SVProgressHUD dismiss];
+            }
 		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
@@ -145,13 +147,15 @@ UIActionSheetDelegate
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
-		[strongSelf refreshMessagesShowingProgress:YES];
+		[strongSelf refreshMessagesShowingProgress:NO];
 	}];
     
     self.observerDidEnterBackground = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         __typeof(self) strongSelf = weakSelf;
         [strongSelf fireStopTypingIfNecessary];
     }];
+    
+    [QBServicesManager instance].currentDialogID = self.dialog.ID;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -182,6 +186,8 @@ UIActionSheetDelegate
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidEnterBackground];
     
     [self.dialog clearTypingStatusBlocks];
+    
+    [QBServicesManager instance].currentDialogID = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -566,6 +572,40 @@ UIActionSheetDelegate
     }
 }
 
+#pragma mark - QMChatConnectionDelegate
+
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
+}
+
+- (void)chatServiceChatDidLogin
+{
+    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
+}
+
+- (void)chatServiceChatDidNotLoginWithError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not login with error: %@", [error description]]];
+}
+
+- (void)chatServiceChatDidFailWithStreamError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Chat failed with error: %@", [error description]]];
+}
+
 #pragma mark - QMChatAttachmentServiceDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
@@ -653,6 +693,7 @@ UIActionSheetDelegate
                                                                   }];
     });
 }
+
 - (UIImage *)resizedImageFromImage:(UIImage *)image
 {
     CGFloat largestSide = image.size.width > image.size.height ? image.size.width : image.size.height;
