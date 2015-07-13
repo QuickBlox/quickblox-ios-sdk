@@ -20,6 +20,8 @@
 @property (nonatomic, readonly) QMChatService* chatService;
 @property (nonatomic, readonly) UsersService* usersService;
 
+@property (nonatomic, strong) NSString* currentDialogID;
+
 - (QBUUser *)currentUser;
 
 @end
