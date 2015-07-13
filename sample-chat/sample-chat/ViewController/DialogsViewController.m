@@ -13,7 +13,13 @@
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 
-@interface DialogsViewController () <QMChatServiceDelegate, SWTableViewCellDelegate, QMAuthServiceDelegate>
+@interface DialogsViewController ()
+<
+QMChatServiceDelegate,
+SWTableViewCellDelegate,
+QMAuthServiceDelegate,
+QMChatConnectionDelegate
+>
 
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @property (nonatomic, readonly) NSArray* dialogs;
@@ -258,6 +264,23 @@
 
 - (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
     [self.tableView reloadData];
+}
+
+#pragma mark - QMChatConnectionDelegate
+
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
+{
+    [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
 }
 
 @end

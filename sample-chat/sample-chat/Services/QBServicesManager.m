@@ -55,7 +55,7 @@
     
     if (message.senderID == self.currentUser.ID) return;
     
-    NSString* dialogName = @"New message";  
+    NSString* dialogName = @"New message";
     
     QBChatDialog* dialog = [self.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
     
@@ -150,17 +150,8 @@
 	else if( response.status == 0 ) { // bad gateway, server error
 		errorMessage = @"Connection network error, please try again";
 	}
-	else {
-		
-	}
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-													message:errorMessage
-												   delegate:nil
-										  cancelButtonTitle:@"Ok"
-										  otherButtonTitles: nil];
-
-	[alert show];
+    
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Errors" description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
 - (BOOL)isAutorized {
