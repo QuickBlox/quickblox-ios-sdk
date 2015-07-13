@@ -24,3 +24,9 @@
 #define COCOAPODS_VERSION_MINOR_TTTAttributedLabel 13
 #define COCOAPODS_VERSION_PATCH_TTTAttributedLabel 3
 
+// TWMessageBarManager
+#define COCOAPODS_POD_AVAILABLE_TWMessageBarManager
+#define COCOAPODS_VERSION_MAJOR_TWMessageBarManager 1
+#define COCOAPODS_VERSION_MINOR_TWMessageBarManager 7
+#define COCOAPODS_VERSION_PATCH_TWMessageBarManager 2
+

@@ -9,8 +9,9 @@
 #import "QBServicesManager.h"
 #import "StorageManager.h"
 #import "_CDMessage.h"
+#import <TWMessageBarManager/TWMessageBarManager.h>
 
-@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource, QMChatServiceDelegate>
+@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource, QMChatServiceDelegate, QMChatConnectionDelegate>
 
 @property (nonatomic, strong) QMAuthService* authService;
 @property (nonatomic, strong) QMChatService* chatService;
@@ -46,6 +47,29 @@
 		manager = [[QBServicesManager alloc] init];
 	});
 	return manager;
+}
+
+- (void)showNotificationForMessage:(QBChatMessage *)message inDialogID:(NSString *)dialogID
+{
+    if ([self.currentDialogID isEqualToString:dialogID]) return;
+    
+    if (message.senderID == self.currentUser.ID) return;
+    
+    NSString* dialogName = @"New message";
+    
+    QBChatDialog* dialog = [self.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
+    
+    if (dialog.type != QBChatDialogTypePrivate) {
+        dialogName = dialog.name;
+    } else {
+        QBUUser* user = [[StorageManager instance] userByID:dialog.recipientID];
+        if (user != nil) {
+            dialogName = user.login;
+        }
+    }
+    
+    [[TWMessageBarManager sharedInstance] hideAll];
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:dialogName description:message.text type:TWMessageBarMessageTypeInfo];
 }
 
 - (void)logoutWithCompletion:(void(^)())completion
@@ -126,17 +150,8 @@
 	else if( response.status == 0 ) { // bad gateway, server error
 		errorMessage = @"Connection network error, please try again";
 	}
-	else {
-		
-	}
-	
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errors"
-													message:errorMessage
-												   delegate:nil
-										  cancelButtonTitle:@"Ok"
-										  otherButtonTitles: nil];
-
-	[alert show];
+    
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Errors" description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
 - (BOOL)isAutorized {
@@ -163,6 +178,8 @@
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialogID completion:nil];
+    
+    [self showNotificationForMessage:message inDialogID:dialogID];
 }
 
 - (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID {

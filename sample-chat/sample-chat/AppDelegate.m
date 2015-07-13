@@ -23,6 +23,9 @@
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
+    
+//    [QBSettings setLogLevel:QBLogLevelNothing];
+//    [QBSettings disableXMPPLogging];
 	
 	[[ReachabilityManager instance] startNotifier];
 	
@@ -52,10 +55,12 @@
     // Login to QuickBlox Chat
     //
 	[QBServicesManager.instance.chatService logIn:^(NSError *error) {
-		if( !error ) {
-			for( QBChatDialog *dialog in [QBServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs] ) {
-				if( dialog.type == QBChatDialogTypeGroup && !dialog.isJoined ) {
-					[dialog join];
+		if (!error) {
+			for (QBChatDialog *dialog in [QBServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs]) {
+				if (dialog.type == QBChatDialogTypeGroup && !dialog.isJoined) {
+                    [[QBServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+                        NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+                    }];
 				}
 			}
 		}
