@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate, QMChatServiceDelegate, QMChatServiceCacheDataSource {
+class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate, QMChatServiceDelegate, QMChatServiceCacheDataSource, QMChatConnectionDelegate {
     
     var currentDialogID : String = ""
     

@@ -7,7 +7,7 @@
 //
 
 
-class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServiceDelegate {
+class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
     var occupantsIDs: [UInt] = []
     var dialog: QBChatDialog?
     

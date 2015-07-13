@@ -7,7 +7,7 @@
 //
 
 
-class NewDialogViewController: UsersListTableViewController, QMChatServiceDelegate {
+class NewDialogViewController: UsersListTableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
     var dialog: QBChatDialog?
     
     private var delegate : SwipeableTableViewCellWithBlockButtons!

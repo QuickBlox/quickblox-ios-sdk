@@ -18,7 +18,7 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate {
     
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
@@ -84,8 +84,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
-        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
-            
+        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+    
             weakSelf?.updateMessages()
             
         }
@@ -698,5 +698,4 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             attachmentCell.updateLoadingProgress(progress)
         }
     }
-    
 }

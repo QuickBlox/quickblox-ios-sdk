@@ -39,7 +39,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillEnterForeground(application: UIApplication) {
-		ServicesManager.instance.chatService?.logIn(nil)
+        ServicesManager.instance.chatService?.logIn({ (error: NSError!) -> Void in
+            
+            for dialog : QBChatDialog in ServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs() as! Array<QBChatDialog> {
+                
+                if dialog.type != QBChatDialogType.Private {
+                    ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
+                        
+                    })
+                }
+            }
+            
+        })
 	}
 	
 	func applicationDidBecomeActive(application: UIApplication) {
