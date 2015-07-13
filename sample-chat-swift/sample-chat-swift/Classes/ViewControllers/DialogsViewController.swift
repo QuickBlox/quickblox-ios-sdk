@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServiceDelegate {
+class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServiceDelegate, QMChatConnectionDelegate {
     @IBOutlet weak var tableView:UITableView!
     
     private var delegate : SwipeableTableViewCellWithBlockButtons!
@@ -31,8 +31,9 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
 
         ServicesManager.instance.chatService.addDelegate(self)
         
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
+            SVProgressHUD.showWithStatus("Connecting to chat...", maskType: SVProgressHUDMaskType.Clear)
             self.getLastUpdatedDialogs()
         }
         
@@ -237,5 +238,28 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
         self.tableView.reloadData()
+    }
+    
+    // MARK: QMChatConnectionDelegate
+    
+    func chatServiceChatDidAccidentallyDisconnect(chatService: QMChatService!) {
+        
+    }
+    
+    func chatServiceChatDidConnect(chatService: QMChatService!) {
+        SVProgressHUD.showSuccessWithStatus("Connected!".localized)
+        SVProgressHUD.showWithStatus("Log In...".localized, maskType: SVProgressHUDMaskType.Clear)
+    }
+    
+    func chatServiceChatDidLogin() {
+        SVProgressHUD.showSuccessWithStatus("Did login!".localized)
+    }
+    
+    func chatServiceChatDidNotLoginWithError(error: NSError!) {
+        SVProgressHUD.showErrorWithStatus(error.localizedDescription)
+    }
+    
+    func chatServiceChatDidReconnect(chatService: QMChatService!) {
+        SVProgressHUD.showSuccessWithStatus("Reconected".localized)
     }
 }
