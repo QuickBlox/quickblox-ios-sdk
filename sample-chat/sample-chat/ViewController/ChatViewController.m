@@ -127,7 +127,9 @@ UIActionSheetDelegate
 	
 	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
-			[SVProgressHUD dismiss];
+            if (showingProgress) {
+                [SVProgressHUD dismiss];
+            }
 		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
@@ -575,16 +577,33 @@ UIActionSheetDelegate
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
 {
     [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
+}
+
+- (void)chatServiceChatDidLogin
+{
+    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
+}
+
+- (void)chatServiceChatDidNotLoginWithError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not login with error: %@", [error description]]];
+}
+
+- (void)chatServiceChatDidFailWithStreamError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Chat failed with error: %@", [error description]]];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate

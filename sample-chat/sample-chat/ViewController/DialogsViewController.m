@@ -32,8 +32,6 @@ QMChatConnectionDelegate
 {
     [super viewDidLoad];
 	
-	[QBServicesManager.instance.chatService addDelegate:self];
-	
 	[self loadDialogs];
 }
 
@@ -51,6 +49,8 @@ QMChatConnectionDelegate
 	}];
     
     self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
+    
+    [QBServicesManager.instance.chatService addDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -58,6 +58,7 @@ QMChatConnectionDelegate
 	[super viewWillDisappear:animated];
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
+    [[QBServicesManager instance].chatService removeDelegate:self];
 }
 
 - (IBAction)logoutButtonPressed:(UIButton *)sender
@@ -271,16 +272,33 @@ QMChatConnectionDelegate
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
 {
     [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
+}
+
+- (void)chatServiceChatDidLogin
+{
+    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
+}
+
+- (void)chatServiceChatDidNotLoginWithError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not login with error: %@", [error description]]];
+}
+
+- (void)chatServiceChatDidFailWithStreamError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Chat failed with error: %@", [error description]]];
 }
 
 @end
