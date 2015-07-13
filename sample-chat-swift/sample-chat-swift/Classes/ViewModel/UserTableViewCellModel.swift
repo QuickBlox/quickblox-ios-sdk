@@ -52,7 +52,10 @@ class UserTableViewCellModel: NSObject {
 			
 			rightUtilityButtons = self.blockButtonsForDialogType(dialog.type, user: nil)
 		}
-		
+        
+        if (dialog.unreadMessagesCount > 0) {
+            self.textLabelText = self.textLabelText.stringByAppendingString(String(format: " (%d)", dialog.unreadMessagesCount))
+        }
 	}
 	
 	init(user: QBUUser!) {
