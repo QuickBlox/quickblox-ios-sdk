@@ -29,6 +29,7 @@
 @interface ChatViewController ()
 <
 QMChatServiceDelegate,
+QMChatConnectionDelegate,
 UITextViewDelegate,
 QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
@@ -124,7 +125,6 @@ UIActionSheetDelegate
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
-    __weak typeof(self)weakSelf = self;
 	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
 			[SVProgressHUD dismiss];
@@ -152,6 +152,8 @@ UIActionSheetDelegate
         __typeof(self) strongSelf = weakSelf;
         [strongSelf fireStopTypingIfNecessary];
     }];
+    
+    [QBServicesManager instance].currentDialogID = self.dialog.ID;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -182,6 +184,8 @@ UIActionSheetDelegate
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidEnterBackground];
     
     [self.dialog clearTypingStatusBlocks];
+    
+    [QBServicesManager instance].currentDialogID = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -653,6 +657,7 @@ UIActionSheetDelegate
                                                                   }];
     });
 }
+
 - (UIImage *)resizedImageFromImage:(UIImage *)image
 {
     CGFloat largestSide = image.size.width > image.size.height ? image.size.width : image.size.height;
@@ -667,6 +672,23 @@ UIActionSheetDelegate
     UIGraphicsEndImageContext();
     
     return resizedImage;
+}
+
+#pragma mark - QMChatConnectionDelegate
+
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService
+{
+    
+}
+
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
+{
+    
+}
+
+- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
+{
+    
 }
 
 @end
