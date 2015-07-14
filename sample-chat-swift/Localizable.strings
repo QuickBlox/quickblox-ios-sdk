@@ -24,6 +24,12 @@
 "SA_STR_LOGOUTING" = "Logout...";
 "SA_STR_ERROR" = "Error";
 "SA_STR_TYPING" = "Typing...";
+"SA_STR_CONNECTING_TO_CHAT" = "Connecting to chat...";
+"SA_STR_CONNECTED" = "Connected";
+"SA_STR_LOG_INING" = "Log In...";
+"SA_STR_LOG_IN" = "Did logIn";
+"SA_STR_RECONNECTED" = "Reconnected";
+
 
 "SA_STR_CANT_SEND_A_MESSAGE" = "Can't send a message";
 "SA_STR_CANT_DOWNLOAD_USERS" = "Can't download users";
