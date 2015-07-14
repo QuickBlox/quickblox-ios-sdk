@@ -286,8 +286,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     override func didPressAccessoryButton(sender: UIButton!) {
         
-        UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll").showInView(self.view)
-        
+        var actionSheet = UIActionSheet(title: "Image source type", delegate: self, cancelButtonTitle:"Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll")
+    
+        actionSheet.showFromToolbar(self.inputToolbar)
     }
     
     // MARK: Override
@@ -633,7 +634,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
         
-        self.presentViewController(self.imagePickerViewController, animated: true, completion: nil)
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.presentViewController(self.imagePickerViewController, animated: true, completion: nil)
+        })
     }
     
     // MARK: UIImagePickerControllerDelegate
