@@ -162,6 +162,10 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         return numberOfRowsInSection
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44.0
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_DIALOG".localized, forIndexPath: indexPath) as! DialogTableViewCell
         
