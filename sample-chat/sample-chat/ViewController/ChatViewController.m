@@ -96,6 +96,11 @@ UIActionSheetDelegate
     self.stringBuilder = [MessageStatusStringBuilder new];
     
     self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+    
+    QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
+    context.invalidateFlowLayoutMessagesCache = YES;
+    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+
     [self refreshCollectionView];
     
 	if ([self.items count]) {
@@ -526,12 +531,19 @@ UIActionSheetDelegate
         [self refreshCollectionView];
         
         [self sendReadStatusForMessage:message];
+        [QBRequest markMessagesAsRead:[NSSet setWithObject:message] dialogID:message.dialogID successBlock:nil errorBlock:nil];
     }
 }
 
 - (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {
+        for (QBChatMessage* message in messages) {
+            [self sendReadStatusForMessage:message];
+        }
+        
+        [QBRequest markMessagesAsRead:[NSSet setWithArray:messages] dialogID:dialogID successBlock:nil errorBlock:nil];
+        
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         
         if (self.shouldHoldScrollOnCollectionView) {
