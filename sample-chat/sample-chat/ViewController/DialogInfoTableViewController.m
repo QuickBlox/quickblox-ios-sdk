@@ -12,7 +12,7 @@
 #import "QBServicesManager.h"
 #import "EditDialogTableViewController.h"
 
-@interface DialogInfoTableViewController() <QMChatServiceDelegate>
+@interface DialogInfoTableViewController() <QMChatServiceDelegate, QMChatConnectionDelegate>
 
 @property (nonatomic, strong) UsersDataSource* usersDatasource;
 
