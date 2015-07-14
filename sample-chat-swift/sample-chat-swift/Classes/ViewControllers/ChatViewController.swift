@@ -37,6 +37,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             return imagePickerViewController
     }()
     
+    var unreadMessages: [QBChatMessage]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -201,6 +203,35 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.scrollToBottomAnimated(false)
     }
     
+    func sendReadStatusForMessage(message: QBChatMessage) {
+        if message.senderID != QBSession.currentSession().currentUser.ID && !contains(message.readIDs as! [Int], Int(QBSession.currentSession().currentUser.ID)) {
+            
+            message.markable = true
+            
+            if !QBChat.instance().readMessage(message) {
+                NSLog("Problems while marking message as read!")
+            }
+        }
+    }
+    
+    func readMessages(messages: [QBChatMessage], dialogID: String) {
+        
+        if QBChat.instance().isLoggedIn() {
+            for message in messages {
+                self.sendReadStatusForMessage(message)
+            }
+        } else {
+            self.unreadMessages = messages
+        }
+        
+        QBRequest.markMessagesAsRead(Set(messages), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
+            
+            }) { (response: QBResponse!) -> Void in
+            
+        }
+        
+    }
+    
     // MARK: Action Buttons
     
     func accessoryButtonItem() -> UIButton {
@@ -289,6 +320,40 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         var actionSheet = UIActionSheet(title: "Image source type", delegate: self, cancelButtonTitle:"Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll")
     
         actionSheet.showFromToolbar(self.inputToolbar)
+    }
+    
+    // MARK: Helper
+    
+    func statusStringFromMessage(message: QBChatMessage) -> String {
+        
+        var statusString : String
+        
+        if message.readIDs != nil && message.readIDs.count > 0 {
+            
+            var readersLogin = [String]()
+            
+            for readID : Int in message.readIDs as! [Int] {
+                
+                if readID == Int(ServicesManager.instance.currentUser().ID) {
+                    continue
+                }
+                
+                var user = ConnectionManager.instance.usersDataSource.userByID(UInt(readID))
+                
+                if user != nil {
+                    readersLogin.append(user!.login)
+                } else {
+                    readersLogin.append("Unknown")
+                }
+            }
+            
+            statusString = "Read:" + ", ".join(readersLogin)
+            
+        } else {
+            statusString = "Sent"
+        }
+        
+        return statusString
     }
     
     // MARK: Override
@@ -387,9 +452,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 12)
         
-        let timestamp = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
+        var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
         
-        var bottomLabelAttributedString = NSAttributedString(string: timestamp, attributes: attributes)
+        if messageItem.senderID != 0 {
+            text = text + " " + self.statusStringFromMessage(messageItem)
+        }
+        
+        var bottomLabelAttributedString = NSAttributedString(string: text, attributes: attributes)
         
         return bottomLabelAttributedString
     }
@@ -418,7 +487,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
      override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
-        let attributedString = self.topLabelAttributedStringForItem(item) ?? self.bottomLabelAttributedStringForItem(item)
+        let attributedString = self.bottomLabelAttributedStringForItem(item)
+            //?? self.topLabelAttributedStringForItem(item)
         let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
         
         return size.width
@@ -700,5 +770,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if let attachmentCell = self.attachmentCellsMap[attachment.ID] {
             attachmentCell.updateLoadingProgress(progress)
         }
+    }
+    
+    // MARK : QMChatConnectionDelegate
+    
+    func chatServiceChatDidLogin() {
+        
+        if let unreadMessages = self.unreadMessages {
+            
+            for message in unreadMessages {
+                self.sendReadStatusForMessage(message)
+            }
+            
+            self.unreadMessages = nil
+        }
+        
     }
 }
