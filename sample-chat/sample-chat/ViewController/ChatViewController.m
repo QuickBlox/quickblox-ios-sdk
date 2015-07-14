@@ -46,6 +46,8 @@ UIActionSheetDelegate
 @property (nonatomic, strong) NSTimer* typingTimer;
 @property (nonatomic, strong) id observerDidEnterBackground;
 
+@property (nonatomic, strong) NSArray* unreadMessages;
+
 @end
 
 @implementation ChatViewController
@@ -228,6 +230,19 @@ UIActionSheetDelegate
             NSLog(@"Problems while marking message as read!");
         }
     }
+}
+
+- (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID
+{
+    if ([QBChat instance].isLoggedIn) {
+        for (QBChatMessage* message in messages) {
+            [self sendReadStatusForMessage:message];
+        }
+    } else {
+        self.unreadMessages = messages;
+    }
+    
+    [QBRequest markMessagesAsRead:[NSSet setWithArray:messages] dialogID:dialogID successBlock:nil errorBlock:nil];
 }
 
 - (void)fireStopTypingIfNecessary
@@ -538,12 +553,7 @@ UIActionSheetDelegate
 - (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {
-        for (QBChatMessage* message in messages) {
-            [self sendReadStatusForMessage:message];
-        }
-        
-        [QBRequest markMessagesAsRead:[NSSet setWithArray:messages] dialogID:dialogID successBlock:nil errorBlock:nil];
-        
+        [self readMessages:messages forDialogID:dialogID];
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         
         if (self.shouldHoldScrollOnCollectionView) {
@@ -606,6 +616,12 @@ UIActionSheetDelegate
 - (void)chatServiceChatDidLogin
 {
     [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
+    
+    for (QBChatMessage* message in self.unreadMessages) {
+        [self sendReadStatusForMessage:message];
+    }
+    
+    self.unreadMessages = nil;
 }
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error
