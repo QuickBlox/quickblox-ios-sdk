@@ -186,6 +186,10 @@
 	[QMChatCache.instance insertOrUpdateMessages:messages withDialogId:dialogID completion:nil];
 }
 
+- (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
+    [QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialogID completion:nil];
+}
+
 - (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
     [QMChatCache.instance deleteDialogWithID:chatDialogID completion:nil];
 }
