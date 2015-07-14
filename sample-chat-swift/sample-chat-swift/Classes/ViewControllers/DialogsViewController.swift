@@ -33,7 +33,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
-            SVProgressHUD.showWithStatus("Connecting to chat...", maskType: SVProgressHUDMaskType.Clear)
+            SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
             self.getLastUpdatedDialogs()
         }
         
@@ -185,6 +185,24 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         cell.rightUtilityButtons = cellModel.rightUtilityButtons
         
+        if (chatDialog.unreadMessagesCount > 0) {
+            
+            var trimmedUnreadMessageCount : String
+            
+            if chatDialog.unreadMessagesCount > 99 {
+                trimmedUnreadMessageCount = "99+"
+            } else {
+                trimmedUnreadMessageCount = String(format: "%d", chatDialog.unreadMessagesCount)
+            }
+            
+            cell.unreadMessageCounterLabel.text = trimmedUnreadMessageCount
+            cell.unreadMessageCounterHolder.hidden = false
+            
+        } else {
+            cell.unreadMessageCounterLabel.text = nil
+            cell.unreadMessageCounterHolder.hidden = true
+        }
+        
         return cell
     }
     
@@ -247,12 +265,12 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func chatServiceChatDidConnect(chatService: QMChatService!) {
-        SVProgressHUD.showSuccessWithStatus("Connected!".localized)
-        SVProgressHUD.showWithStatus("Log In...".localized, maskType: SVProgressHUDMaskType.Clear)
+        SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized)
+        SVProgressHUD.showWithStatus("SA_STR_LOG_INING".localized, maskType: SVProgressHUDMaskType.Clear)
     }
     
     func chatServiceChatDidLogin() {
-        SVProgressHUD.showSuccessWithStatus("Did login!".localized)
+        SVProgressHUD.showSuccessWithStatus("SA_STR_LOG_IN".localized)
     }
     
     func chatServiceChatDidNotLoginWithError(error: NSError!) {
@@ -260,6 +278,6 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func chatServiceChatDidReconnect(chatService: QMChatService!) {
-        SVProgressHUD.showSuccessWithStatus("Reconected".localized)
+        SVProgressHUD.showSuccessWithStatus("SA_STR_RECONNECTED".localized)
     }
 }
