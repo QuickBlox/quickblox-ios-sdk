@@ -15,6 +15,15 @@ class DialogTableViewCell: SWTableViewCell {
     @IBOutlet weak var dialogLastMessage: UILabel!
     @IBOutlet weak var dialogName: UILabel!
     @IBOutlet weak var dialogTypeImage: UIImageView!
+    @IBOutlet weak var unreadMessageCounterLabel: UILabel!
+    
+    @IBOutlet weak var unreadMessageCounterHolder: UIView!
     
     var dialogID = ""
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.unreadMessageCounterHolder.layer.cornerRadius = 10.0
+    }
 }

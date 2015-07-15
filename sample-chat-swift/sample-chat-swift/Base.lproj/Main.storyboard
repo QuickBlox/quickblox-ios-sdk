@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -178,11 +178,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zsP-ca-5nI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="43"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="2Ac-HO-X5D"/>
                                                         <constraint firstAttribute="height" constant="44" id="9ST-US-0k0"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="9ST-US-0k0"/>
+                                                        </mask>
+                                                    </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYk-o7-laq">
                                                     <rect key="frame" x="52" y="1" width="42" height="21"/>
@@ -193,8 +198,27 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0js-ID-IeD">
+                                                    <rect key="frame" x="24" y="0.0" width="20" height="20"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qa3-IM-nMD">
+                                                            <rect key="frame" x="3" y="0.0" width="14" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Qa3-IM-nMD" firstAttribute="top" secondItem="0js-ID-IeD" secondAttribute="top" id="0Xz-NF-JWp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Qa3-IM-nMD" secondAttribute="bottom" id="YRY-zl-jUc"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="f0K-YX-RR5"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Qa3-IM-nMD" secondAttribute="trailing" constant="3" id="gaM-1B-VOg"/>
+                                                        <constraint firstAttribute="height" constant="20" id="tEN-zo-Q4B"/>
+                                                        <constraint firstItem="Qa3-IM-nMD" firstAttribute="leading" secondItem="0js-ID-IeD" secondAttribute="leading" constant="3" id="yxg-pg-GtJ"/>
+                                                    </constraints>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znF-S5-DEh">
-                                                    <rect key="frame" x="52" y="21.5" width="30.5" height="21"/>
+                                                    <rect key="frame" x="52" y="21" width="31" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="hbh-NF-ZKK"/>
                                                     </constraints>
@@ -204,12 +228,14 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="0js-ID-IeD" firstAttribute="top" secondItem="Ry1-Xv-NL2" secondAttribute="top" id="9ZO-ou-fJt"/>
                                                 <constraint firstAttribute="bottom" secondItem="zsP-ca-5nI" secondAttribute="bottom" id="BJk-gU-6lp"/>
                                                 <constraint firstItem="zsP-ca-5nI" firstAttribute="top" secondItem="Ry1-Xv-NL2" secondAttribute="top" id="BYn-QK-O0G"/>
                                                 <constraint firstItem="znF-S5-DEh" firstAttribute="leading" secondItem="zsP-ca-5nI" secondAttribute="trailing" constant="8" id="ZEu-Ig-X65"/>
                                                 <constraint firstItem="IYk-o7-laq" firstAttribute="top" secondItem="Ry1-Xv-NL2" secondAttribute="top" constant="1" id="hVq-Yj-hVi"/>
                                                 <constraint firstAttribute="bottom" secondItem="znF-S5-DEh" secondAttribute="bottom" constant="1" id="iNa-yb-xV8"/>
                                                 <constraint firstItem="IYk-o7-laq" firstAttribute="leading" secondItem="zsP-ca-5nI" secondAttribute="trailing" constant="8" id="nVk-l4-61b"/>
+                                                <constraint firstItem="0js-ID-IeD" firstAttribute="trailing" secondItem="zsP-ca-5nI" secondAttribute="trailing" id="oYK-cs-yYC"/>
                                                 <constraint firstItem="zsP-ca-5nI" firstAttribute="leading" secondItem="Ry1-Xv-NL2" secondAttribute="leading" id="tpG-oA-09d"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -217,6 +243,8 @@
                                             <outlet property="dialogLastMessage" destination="znF-S5-DEh" id="Pg0-My-6YY"/>
                                             <outlet property="dialogName" destination="IYk-o7-laq" id="ZUu-ym-yXf"/>
                                             <outlet property="dialogTypeImage" destination="zsP-ca-5nI" id="yi1-eD-bvU"/>
+                                            <outlet property="unreadMessageCounterHolder" destination="0js-ID-IeD" id="OCX-r3-0tl"/>
+                                            <outlet property="unreadMessageCounterLabel" destination="Qa3-IM-nMD" id="XQV-7P-vGw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
