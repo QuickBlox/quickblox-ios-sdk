@@ -157,8 +157,8 @@ UIActionSheetDelegate
     }];
     
     [QBServicesManager instance].currentDialogID = self.dialog.ID;
-        
-    if ([self.items count]) {
+    
+    if ([self.items count] > 0) {
         [self refreshMessagesShowingProgress:NO];
     } else {
         [self refreshMessagesShowingProgress:YES];
