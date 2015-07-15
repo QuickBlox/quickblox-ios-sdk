@@ -13,7 +13,7 @@
 #import "ChatViewController.h"
 #import "DialogsViewController.h"
 
-@interface EditDialogTableViewController() <QMChatServiceDelegate>
+@interface EditDialogTableViewController() <QMChatServiceDelegate, QMChatConnectionDelegate>
 @property (nonatomic, strong) UsersDataSource *dataSource;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *btnSave;
 @end
