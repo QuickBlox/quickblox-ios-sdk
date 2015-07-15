@@ -81,6 +81,7 @@
         [self.authService logOut:^(QBResponse *response) {
             __typeof(self) strongSelf = weakSelf;
             [strongSelf.chatService logoutChat];
+            [strongSelf.chatService free];
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
         
