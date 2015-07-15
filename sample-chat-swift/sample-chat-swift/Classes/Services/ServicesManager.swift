@@ -56,6 +56,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         
         self.authService .logOut { (response: QBResponse!) -> Void in
             self.chatService.logoutChat()
+            self.chatService.free()
             
             dispatch_group_leave(self.logoutGroup)
         }
@@ -154,6 +155,10 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
         self.handleNewMessage(message, dialogID: dialogID)
+        QMChatCache.instance().insertOrUpdateMessage(message, withDialogId: dialogID, completion: nil)
+    }
+    
+    func chatService(chatService: QMChatService!, didUpdateMessage message: QBChatMessage!, forDialogID dialogID: String!) {
         QMChatCache.instance().insertOrUpdateMessage(message, withDialogId: dialogID, completion: nil)
     }
     

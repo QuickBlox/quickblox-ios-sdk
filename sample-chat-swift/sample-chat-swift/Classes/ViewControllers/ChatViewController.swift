@@ -75,7 +75,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.showLoadEarlierMessagesHeader = true
         
         self.updateTitle()
-        self.updateMessages()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -83,6 +82,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         ServicesManager.instance.chatService.addDelegate(self)
         ServicesManager.instance.chatService.chatAttachmentService.delegate = self
+        
+        self.updateMessages()
         
         weak var weakSelf = self
         
@@ -204,7 +205,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     }
     
     func sendReadStatusForMessage(message: QBChatMessage) {
-        if message.senderID != QBSession.currentSession().currentUser.ID && !contains(message.readIDs as! [Int], Int(QBSession.currentSession().currentUser.ID)) {
+        if message.senderID != QBSession.currentSession().currentUser.ID && (message.readIDs == nil || !contains(message.readIDs as! [Int], Int(QBSession.currentSession().currentUser.ID))) {
             
             message.markable = true
             
@@ -224,7 +225,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.unreadMessages = messages
         }
         
-        QBRequest.markMessagesAsRead(Set(messages), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
+        var messageIDs = [String]()
+        
+        for message in messages {
+            messageIDs.append(message.ID)
+        }
+        
+        QBRequest.markMessagesAsRead(Set(messageIDs), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
             
             }) { (response: QBResponse!) -> Void in
             
@@ -454,7 +461,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
         
-        if messageItem.senderID != 0 {
+        if messageItem.senderID == self.senderID {
             text = text + " " + self.statusStringFromMessage(messageItem)
         }
         
@@ -487,8 +494,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
      override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
-        let attributedString = self.bottomLabelAttributedStringForItem(item)
-            //?? self.topLabelAttributedStringForItem(item)
+        
+        var attributedString : NSAttributedString
+        
+        if item.senderID == self.senderID {
+            attributedString = self.bottomLabelAttributedStringForItem(item) ?? self.topLabelAttributedStringForItem(item)
+        } else {
+            attributedString = self.topLabelAttributedStringForItem(item) ?? self.bottomLabelAttributedStringForItem(item)
+        }
+        
         let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
         
         return size.width
@@ -601,12 +615,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if self.dialog?.ID == dialogID {
             self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
             self.refreshCollectionView()
+            
+            self.sendReadStatusForMessage(message)
+            QBRequest.markMessagesAsRead(Set([message.ID]), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
+                
+                }, errorBlock: { (response: QBResponse!) -> Void in
+                
+            })
         }
     }
     
     func chatService(chatService: QMChatService!, didAddMessagesToMemoryStorage messages: [AnyObject]!, forDialogID dialogID: String!) {
         
         if self.dialog?.ID == dialogID {
+            self.readMessages(messages as! [QBChatMessage], dialogID: dialogID)
             self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
             
             if (self.shouldHoldScrolOnCollectionView) {
@@ -637,6 +659,25 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.dialog = chatDialog
             self.updateTitle()
         }
+    }
+    
+    func chatService(chatService: QMChatService!, didUpdateMessage message: QBChatMessage!, forDialogID dialogID: String!) {
+        
+        if self.dialog?.ID == dialogID {
+            
+            self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
+            
+            let updatedMessageIndex = self.items.indexOfObject(message)
+            
+            if updatedMessageIndex != NSNotFound {
+                let context = QMCollectionViewFlowLayoutInvalidationContext()
+                context.invalidateFlowLayoutMessagesCache = true
+                self.collectionView.collectionViewLayout.invalidateLayoutWithContext(context)
+                self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
+            }
+            
+        }
+        
     }
     
     // MARK: UITextViewDelegate
