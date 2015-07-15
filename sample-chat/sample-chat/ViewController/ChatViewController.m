@@ -104,13 +104,7 @@ UIActionSheetDelegate
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
 
     [self refreshCollectionView];
-    
-	if ([self.items count]) {
-		[self refreshMessagesShowingProgress:NO];
-	} else {
-		[self refreshMessagesShowingProgress:YES];
-	}
-    
+
     __weak typeof(self)weakSelf = self;
     [self.dialog setOnUserIsTyping:^(NSUInteger userID) {
         __typeof(self) strongSelf = weakSelf;
@@ -163,6 +157,12 @@ UIActionSheetDelegate
     }];
     
     [QBServicesManager instance].currentDialogID = self.dialog.ID;
+        
+    if ([self.items count]) {
+        [self refreshMessagesShowingProgress:NO];
+    } else {
+        [self refreshMessagesShowingProgress:YES];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
