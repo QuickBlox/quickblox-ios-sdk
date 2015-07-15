@@ -10,4 +10,11 @@
 
 @implementation DialogTableViewCell
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.unreadContainerView.layer.cornerRadius = 10.0f;
+}
+
 @end

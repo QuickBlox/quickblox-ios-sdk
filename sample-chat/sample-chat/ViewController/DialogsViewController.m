@@ -12,6 +12,7 @@
 #import "QBServicesManager.h"
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
+#import "DialogTableViewCell.h"
 
 @interface DialogsViewController ()
 <
@@ -27,13 +28,6 @@ QMChatConnectionDelegate
 @end
 
 @implementation DialogsViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	
-	[self loadDialogs];
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -51,10 +45,13 @@ QMChatConnectionDelegate
     self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
     
     [QBServicesManager.instance.chatService addDelegate:self];
+    
+    [self loadDialogs];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    
 	[super viewWillDisappear:animated];
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
@@ -115,29 +112,29 @@ QMChatConnectionDelegate
 
 - (SWTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SWTableViewCell *cell = (SWTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
+    DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     cell.tag = indexPath.row;
     
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate: {
-            cell.detailTextLabel.text = chatDialog.lastMessageText;
+            cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
 			QBUUser *recipient = [QBServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
-            cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
-            cell.imageView.image = [UIImage imageNamed:@"chatRoomIcon"];
+            cell.dialogNameLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
+            cell.dialogImageView.image = [UIImage imageNamed:@"chatRoomIcon"];
         }
             break;
         case QBChatDialogTypeGroup: {
-            cell.detailTextLabel.text = chatDialog.lastMessageText;
-            cell.textLabel.text = chatDialog.name;
-            cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
+            cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
+            cell.dialogNameLabel.text = chatDialog.name;
+            cell.dialogImageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
             break;
         case QBChatDialogTypePublicGroup: {
-            cell.detailTextLabel.text = chatDialog.lastMessageText;
-            cell.textLabel.text = chatDialog.name;
-            cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
+            cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
+            cell.dialogNameLabel.text = chatDialog.name;
+            cell.dialogImageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
             break;
             
@@ -145,19 +142,18 @@ QMChatConnectionDelegate
             break;
     }
     
-    // set unread badge
-    UILabel *badgeLabel = (UILabel *)[cell.contentView viewWithTag:201];
-    if (chatDialog.unreadMessagesCount > 0) {
-        badgeLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)chatDialog.unreadMessagesCount];
-        badgeLabel.hidden = NO;
-        
-        badgeLabel.layer.cornerRadius = 10;
-        badgeLabel.layer.borderColor = [[UIColor blueColor] CGColor];
-        badgeLabel.layer.borderWidth = 1;
-    } else {
-        badgeLabel.hidden = YES;
+    BOOL hasUnreadMessages = chatDialog.unreadMessagesCount > 0;
+    cell.unreadContainerView.hidden = !hasUnreadMessages;
+    if (hasUnreadMessages) {
+        NSString* unreadText = nil;
+        if (chatDialog.unreadMessagesCount > 99) {
+            unreadText = @"99+";
+        } else {
+            unreadText = [NSString stringWithFormat:@"%lu", (unsigned long)chatDialog.unreadMessagesCount];
+        }
+        cell.unreadCountLabel.text = unreadText;
     }
-
+    
 	UIButton *deleteButton = [[UIButton alloc] init];
 	[deleteButton setTitle:@"delete" forState:UIControlStateNormal];
 	deleteButton.backgroundColor = [UIColor redColor];
@@ -226,6 +222,11 @@ QMChatConnectionDelegate
 	QBChatDialog *dialog = self.dialogs[indexPath.row];
 
     [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44.0f;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
