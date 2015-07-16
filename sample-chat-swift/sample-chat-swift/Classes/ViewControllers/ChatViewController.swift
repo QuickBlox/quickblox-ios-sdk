@@ -180,10 +180,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
-            if messages != nil {
-                weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
-            }
-            
             if response.error == nil {
                 
                 self.scrollToBottomAnimated(false)
@@ -304,20 +300,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     func sendMessage(message: QBChatMessage) {
         
-        weak var weakSelf = self
-        self.inputToolbar.contentView.rightBarButtonItem.enabled = false
-        
         let didSent = ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
-            
-            weakSelf?.finishSendingMessageAnimated(true)
-            self.inputToolbar.contentView.rightBarButtonItem.enabled = true
         }
         
         if !didSent {
             TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: "SA_STR_CANT_SEND_A_MESSAGE".localized, type: TWMessageBarMessageType.Info)
-            
-            self.inputToolbar.contentView.rightBarButtonItem.enabled = true
         }
+        
+        self.finishSendingMessageAnimated(true)
         
     }
     
