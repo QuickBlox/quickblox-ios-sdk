@@ -14,13 +14,10 @@ class StorageManager: NSObject {
     
     var dialogs:[QBChatDialog] = []
     var dialogsUsers:[QBUUser] = []
-    var messagesIDsToDelete: DynamicArray<String> = DynamicArray(Array())
-    let messagesBond = ArrayBond<String>()
     
     func reset() {
         self.dialogs.removeAll(keepCapacity: false)
         self.dialogsUsers.removeAll(keepCapacity: false)
-        self.messagesIDsToDelete.removeAll(false)
     }
     
 }

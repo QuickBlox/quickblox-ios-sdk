@@ -35,8 +35,8 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     func updateUsers() {
         if let dialog = self.dialog  {
             
-            var users = ConnectionManager.instance.usersDataSource.users.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) })
-            self.users = users
+            let filtredUsers = ConnectionManager.instance.usersDataSource.users.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) })
+            self.users = filtredUsers
         }
     }
     
@@ -156,8 +156,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
     func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
         
-        var chatName = ServicesManager.instance.currentUser()!.login + "_" + ", ".join(users.map({ $0.login ?? $0.email }))
-        chatName = chatName.stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let chatName = ServicesManager.instance.currentUser()!.login + "_" + ", ".join(users.map({ $0.login ?? $0.email })).stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         return chatName
     }
@@ -210,8 +209,6 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
         let user = self.users[indexPath.row]
         
-        var cellModel = UserTableViewCellModel(user: user)
-        cell.rightUtilityButtons = cellModel.rightUtilityButtons
         cell.user = user
         cell.delegate = self.delegate
         

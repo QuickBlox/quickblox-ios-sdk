@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		140478D01AE5399D00BC383F /* Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140478CF1AE5399D00BC383F /* Bond.swift */; };
-		140478D61AE539DC00BC383F /* Bond+Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140478D11AE539DC00BC383F /* Bond+Arrays.swift */; };
-		140478D71AE539DC00BC383F /* Bond+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140478D21AE539DC00BC383F /* Bond+Foundation.swift */; };
-		140478D81AE539DC00BC383F /* Bond+Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140478D31AE539DC00BC383F /* Bond+Functional.swift */; };
-		140478D91AE539DC00BC383F /* Bond+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140478D41AE539DC00BC383F /* Bond+Operators.swift */; };
-		140478DA1AE539DC00BC383F /* Bond+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 140478D51AE539DC00BC383F /* Bond+UIView.swift */; };
 		1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A7911AC9948600A39692 /* AppDelegate.swift */; };
 		1437A7971AC9948600A39692 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7951AC9948600A39692 /* Main.storyboard */; };
 		1437A7991AC9948600A39692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7981AC9948600A39692 /* Images.xcassets */; };
@@ -89,7 +83,6 @@
 		68440ED75A4B1A0C3894605D /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844058775AF1E5CF0E0D10A /* SWLongPressGestureRecognizer.m */; };
 		68440EE02D9A7184D21DF0F7 /* SwiftAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440EF02AB27CCF47A87701 /* SwiftAlert.swift */; };
 		68440EFB2AAFECA0082EE311 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 684404DA6223F752665E2B06 /* SWUtilityButtonTapGestureRecognizer.m */; };
-		68440F70B8D97EC5EB2C25A9 /* UserTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440A5F08B14D5F4A4C7B8B /* UserTableViewCellModel.swift */; };
 		86CCE8EA1B0E13CC00CA6A0D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 144E8B5A1B04B65C0021B25C /* Quickblox.framework */; };
 		92B02D141B4C374400752D18 /* DialogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B02D131B4C374400752D18 /* DialogTableViewCell.swift */; };
 		E4846548A07890DC6B23D7FE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD2A86B40E54C31F0788A286 /* libPods.a */; };
@@ -113,12 +106,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		140478CF1AE5399D00BC383F /* Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Bond.swift; path = Bond/Bond.swift; sourceTree = "<group>"; };
-		140478D11AE539DC00BC383F /* Bond+Arrays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+Arrays.swift"; sourceTree = "<group>"; };
-		140478D21AE539DC00BC383F /* Bond+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+Foundation.swift"; sourceTree = "<group>"; };
-		140478D31AE539DC00BC383F /* Bond+Functional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+Functional.swift"; sourceTree = "<group>"; };
-		140478D41AE539DC00BC383F /* Bond+Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+Operators.swift"; sourceTree = "<group>"; };
-		140478D51AE539DC00BC383F /* Bond+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bond+UIView.swift"; sourceTree = "<group>"; };
 		1429A59F1AEA7EDC00AE3923 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -226,7 +213,6 @@
 		68440972CDF0423CCE31BC15 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		68440985FA6DC9A3F12D1449 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
 		68440A2C1E78F6FC561A7A09 /* CornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
-		68440A5F08B14D5F4A4C7B8B /* UserTableViewCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCellModel.swift; sourceTree = "<group>"; };
 		68440A97C23ACC21DA8A066D /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		68440AC5E7B04D8555A9110C /* NewDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDialogViewController.swift; sourceTree = "<group>"; };
 		68440AC65A0DF248480F2934 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
@@ -264,19 +250,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		140478CE1AE5397400BC383F /* Bond */ = {
-			isa = PBXGroup;
-			children = (
-				140478D11AE539DC00BC383F /* Bond+Arrays.swift */,
-				140478D21AE539DC00BC383F /* Bond+Foundation.swift */,
-				140478D31AE539DC00BC383F /* Bond+Functional.swift */,
-				140478D41AE539DC00BC383F /* Bond+Operators.swift */,
-				140478D51AE539DC00BC383F /* Bond+UIView.swift */,
-				140478CF1AE5399D00BC383F /* Bond.swift */,
-			);
-			name = Bond;
-			sourceTree = "<group>";
-		};
 		1437A7831AC9948600A39692 = {
 			isa = PBXGroup;
 			children = (
@@ -663,14 +636,6 @@
 			path = objCClasses;
 			sourceTree = "<group>";
 		};
-		6844057570AED8108F3B549F /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				68440A5F08B14D5F4A4C7B8B /* UserTableViewCellModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		684406F7477B1DC33312AC5E /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,7 +669,6 @@
 		684409C0C00FA779DF442551 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				140478CE1AE5397400BC383F /* Bond */,
 				68440F958A8E07D1A6ECBE19 /* QBUUser+Color.swift */,
 				1493F7991AEA525F00FA51A4 /* String+Localized.swift */,
 				149636FD1B033F740079A6A2 /* IJReachability.swift */,
@@ -731,7 +695,6 @@
 				68440F80943F897FCE549345 /* ViewControllers */,
 				6844005FE5EDBE47EFDB2426 /* Views */,
 				684406F7477B1DC33312AC5E /* Services */,
-				6844057570AED8108F3B549F /* ViewModel */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -924,13 +887,9 @@
 				2CEF78981B4581E20094E6BA /* UIImage+fixOrientation.m in Sources */,
 				2CBAD9791B3011700047941E /* QMTypingIndicatorFooterView.m in Sources */,
 				2C271EE11B441A5100A48BC0 /* QMChatAttachmentIncomingCell.m in Sources */,
-				140478D01AE5399D00BC383F /* Bond.swift in Sources */,
 				1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */,
-				140478D71AE539DC00BC383F /* Bond+Foundation.swift in Sources */,
 				684408CE77B18BB94EA1A05E /* NSMutableArray+SWUtilityButtons.m in Sources */,
-				140478DA1AE539DC00BC383F /* Bond+UIView.swift in Sources */,
 				2CBAD9731B3011700047941E /* QMToolbarContentView.m in Sources */,
-				140478D81AE539DC00BC383F /* Bond+Functional.swift in Sources */,
 				2CBAD95D1B3011700047941E /* NSString+QM.m in Sources */,
 				68440ED75A4B1A0C3894605D /* SWLongPressGestureRecognizer.m in Sources */,
 				149636FE1B033F740079A6A2 /* IJReachability.swift in Sources */,
@@ -947,7 +906,6 @@
 				68440D4EE3FECE357167667C /* CornerView.swift in Sources */,
 				68440EE02D9A7184D21DF0F7 /* SwiftAlert.swift in Sources */,
 				684400CE32CC2D4D22A5AFD5 /* SwiftAlertWithTextField.swift in Sources */,
-				140478D61AE539DC00BC383F /* Bond+Arrays.swift in Sources */,
 				6844023A6DABFA72BD0EF343 /* UserTableViewCell.swift in Sources */,
 				2CBAD9651B3011700047941E /* QMChatCell.m in Sources */,
 				684404420BD9EFEF61B415FF /* PrivacyManager.swift in Sources */,
@@ -957,7 +915,6 @@
 				2CBAD95F1B3011700047941E /* UIImage+QM.m in Sources */,
 				2CBAD96C1B3011700047941E /* QMChatOutgoingCell.m in Sources */,
 				2CCAD5CE1B1F3328005F57B3 /* UsersListTableViewController.swift in Sources */,
-				140478D91AE539DC00BC383F /* Bond+Operators.swift in Sources */,
 				2CBAD9701B3011700047941E /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */,
 				2CBAD9751B3011700047941E /* QMPlaceHolderTextView.m in Sources */,
 				2C271EDC1B4419D300A48BC0 /* QMChatAttachmentOutgoingCell.m in Sources */,
@@ -966,7 +923,6 @@
 				684407391A2A30262CCDFD32 /* ConnectionManager.swift in Sources */,
 				2CBAD96E1B3011700047941E /* QMChatCellLayoutAttributes.m in Sources */,
 				2CBAD9711B3011700047941E /* QMChatCollectionView.m in Sources */,
-				68440F70B8D97EC5EB2C25A9 /* UserTableViewCellModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

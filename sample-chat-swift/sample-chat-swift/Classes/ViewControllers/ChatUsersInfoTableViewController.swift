@@ -26,8 +26,8 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     func updateUsers() {
         if let chatDialog = self.dialog  {
             
-            var users = ConnectionManager.instance.usersDataSource.users.filter({contains(chatDialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) && ($0 as QBUUser).ID != ServicesManager.instance.currentUser()!.ID})
-            self.users = users
+            let filteredUsers = ConnectionManager.instance.usersDataSource.users.filter({contains(chatDialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) && ($0 as QBUUser).ID != ServicesManager.instance.currentUser()!.ID})
+            self.users = filteredUsers
         }
     }
     
