@@ -8,6 +8,93 @@
 
 import UIKit
 
+class DialogTableViewCellModel: NSObject {
+    
+    var rightUtilityButtons: [UIButton]!
+    var detailTextLabelText: String = ""
+    var textLabelText: String = ""
+    var unreadMessagesCounterLabelText : String?
+    var unreadMessagesCounterHiden = true
+    var dialogIcon : UIImage?
+    
+    init(dialog: QBChatDialog) {
+        super.init()
+        
+        if dialog.type == .Private {
+            
+            self.detailTextLabelText = "SA_STR_PRIVATE".localized
+            
+            if dialog.recipientID == -1 {
+                return
+            }
+            
+            let users = ConnectionManager.instance.usersDataSource.users
+            
+            var filteredUsers = users.filter(){ $0.ID == UInt(dialog.recipientID) }
+            
+            if !filteredUsers.isEmpty {
+                var recipient = filteredUsers[0]
+                self.textLabelText = recipient.login ?? recipient.email
+            }
+            
+        } else if dialog.type == .Group {
+            self.detailTextLabelText = "SA_STR_GROUP".localized
+        } else {
+            self.detailTextLabelText = "SA_STR_PUBLIC_GROUP".localized
+        }
+        
+        if self.textLabelText.isEmpty {
+            // group chat
+            
+            if let dialogName = dialog.name {
+                self.textLabelText = dialogName
+            }
+        }
+        
+        rightUtilityButtons = DialogTableViewCellModel.deleteButtons()
+        
+        // Unread messages counter label
+        
+        if (dialog.unreadMessagesCount > 0) {
+            
+            var trimmedUnreadMessageCount : String
+            
+            if dialog.unreadMessagesCount > 99 {
+                trimmedUnreadMessageCount = "99+"
+            } else {
+                trimmedUnreadMessageCount = String(format: "%d", dialog.unreadMessagesCount)
+            }
+            
+            self.unreadMessagesCounterLabelText = trimmedUnreadMessageCount
+            self.unreadMessagesCounterHiden = false
+            
+        } else {
+            
+            self.unreadMessagesCounterLabelText = nil
+            self.unreadMessagesCounterHiden = true
+        }
+        
+        // Dialog icon
+        
+        if dialog.type == .Private {
+            self.dialogIcon = UIImage(named: "chatRoomIcon")
+        } else {
+            self.dialogIcon = UIImage(named: "GroupChatIcon")
+        }
+    }
+    
+    static func deleteButtons() -> [UIButton]{
+        var deleteButton = UIButton()
+        
+        deleteButton.setTitle("SA_STR_DELETE".localized, forState: UIControlState.Normal)
+        deleteButton.backgroundColor = UIColor.redColor()
+        deleteButton.tag = 1
+        
+        return [deleteButton]
+    }
+    
+}
+
 class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServiceDelegate, QMChatConnectionDelegate {
     @IBOutlet weak var tableView:UITableView!
     
@@ -39,7 +126,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
-        for dialog : QBChatDialog in self.dialogs() {
+        for dialog : QBChatDialog in DialogsViewController.dialogs() {
             
             if dialog.type != QBChatDialogType.Private {
                 ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
@@ -72,7 +159,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     func createLogoutButton() -> UIBarButtonItem {
         
-        var logoutButton = UIBarButtonItem(title: "SA_STR_LOGOUT".localized, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("logoutAction"))
+        let logoutButton = UIBarButtonItem(title: "SA_STR_LOGOUT".localized, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("logoutAction"))
         
         return logoutButton
     }
@@ -97,7 +184,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         var shouldShowSuccessStatus = false
         
-        if self.dialogs().count == 0 {
+        if DialogsViewController.dialogs().count == 0 {
             shouldShowSuccessStatus = true
             SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         }
@@ -139,11 +226,9 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
     }
     
-    
-    
     // MARK: - DataSource
     
-    func dialogs() -> Array<QBChatDialog> {
+    static func dialogs() -> Array<QBChatDialog> {
         
         let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false)]
         
@@ -157,7 +242,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRowsInSection = self.dialogs().count
+        let numberOfRowsInSection = DialogsViewController.dialogs().count
         
         return numberOfRowsInSection
     }
@@ -169,43 +254,20 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_DIALOG".localized, forIndexPath: indexPath) as! DialogTableViewCell
         
-        var chatDialog = self.dialogs()[indexPath.row]
+        let chatDialog = DialogsViewController.dialogs()[indexPath.row]
         
         cell.tag = indexPath.row
         cell.delegate = delegate
         cell.dialogID = chatDialog.ID
         
-        
-        var cellModel = UserTableViewCellModel(dialog: chatDialog)
+        let cellModel = DialogTableViewCellModel(dialog: chatDialog)
         
         cell.dialogLastMessage?.text = chatDialog.lastMessageText
         cell.dialogName?.text = cellModel.textLabelText
-        
-        if chatDialog.type == .Private {
-            cell.dialogTypeImage.image = UIImage(named: "chatRoomIcon")
-        } else {
-            cell.dialogTypeImage.image = UIImage(named: "GroupChatIcon")
-        }
-        
+        cell.dialogTypeImage.image = cellModel.dialogIcon
         cell.rightUtilityButtons = cellModel.rightUtilityButtons
-        
-        if (chatDialog.unreadMessagesCount > 0) {
-            
-            var trimmedUnreadMessageCount : String
-            
-            if chatDialog.unreadMessagesCount > 99 {
-                trimmedUnreadMessageCount = "99+"
-            } else {
-                trimmedUnreadMessageCount = String(format: "%d", chatDialog.unreadMessagesCount)
-            }
-            
-            cell.unreadMessageCounterLabel.text = trimmedUnreadMessageCount
-            cell.unreadMessageCounterHolder.hidden = false
-            
-        } else {
-            cell.unreadMessageCounterLabel.text = nil
-            cell.unreadMessageCounterHolder.hidden = true
-        }
+        cell.unreadMessageCounterLabel.text = cellModel.unreadMessagesCounterLabelText
+        cell.unreadMessageCounterHolder.hidden = cellModel.unreadMessagesCounterHiden
         
         return cell
     }
@@ -215,7 +277,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        var dialog = self.dialogs()[indexPath.row]
+        let dialog = DialogsViewController.dialogs()[indexPath.row]
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized , sender: dialog)
     }
     
