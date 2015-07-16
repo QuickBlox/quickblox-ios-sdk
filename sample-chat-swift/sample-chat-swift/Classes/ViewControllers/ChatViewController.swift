@@ -31,7 +31,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var shouldHoldScrolOnCollectionView = false
     
     lazy var imagePickerViewController : UIImagePickerController = {
-            var imagePickerViewController = UIImagePickerController()
+            let imagePickerViewController = UIImagePickerController()
             imagePickerViewController.delegate = self
             
             return imagePickerViewController
@@ -66,8 +66,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
         
-        self.inputToolbar.contentView.leftBarButtonItem = self.accessoryButtonItem()
-        self.inputToolbar.contentView.rightBarButtonItem = self.sendButtonItem()
+        self.inputToolbar.contentView.leftBarButtonItem = ChatViewController.createAccessoryButtonItem()
+        self.inputToolbar.contentView.rightBarButtonItem = ChatViewController.createSendButtonItem()
         
         self.senderID = QBSession.currentSession().currentUser.ID
         self.senderDisplayName = QBSession.currentSession().currentUser.login
@@ -204,7 +204,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.scrollToBottomAnimated(false)
     }
     
-    func sendReadStatusForMessage(message: QBChatMessage) {
+    static func sendReadStatusForMessage(message: QBChatMessage) {
         if message.senderID != QBSession.currentSession().currentUser.ID && (message.readIDs == nil || !contains(message.readIDs as! [Int], Int(QBSession.currentSession().currentUser.ID))) {
             
             message.markable = true
@@ -219,7 +219,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         if QBChat.instance().isLoggedIn() {
             for message in messages {
-                self.sendReadStatusForMessage(message)
+                ChatViewController.sendReadStatusForMessage(message)
             }
         } else {
             self.unreadMessages = messages
@@ -241,13 +241,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     // MARK: Action Buttons
     
-    func accessoryButtonItem() -> UIButton {
-        var accessoryImage = UIImage(named: "attachment_ic")
-        var imageWidth = accessoryImage?.size.width
-        var normalImage = accessoryImage?.imageMaskedWithColor(UIColor.lightGrayColor())
-        var highlightedImage = accessoryImage?.imageMaskedWithColor(UIColor.darkGrayColor())
+    static func createAccessoryButtonItem() -> UIButton {
+        let accessoryImage = UIImage(named: "attachment_ic")
+        let imageWidth = accessoryImage?.size.width
+        let normalImage = accessoryImage?.imageMaskedWithColor(UIColor.lightGrayColor())
+        let highlightedImage = accessoryImage?.imageMaskedWithColor(UIColor.darkGrayColor())
         
-        var accessoryButton = UIButton(frame: CGRect(x: 0, y: 0, width: imageWidth!, height:  32))
+        let accessoryButton = UIButton(frame: CGRect(x: 0, y: 0, width: imageWidth!, height:  32))
         accessoryButton.setImage(normalImage, forState: UIControlState.Normal)
         accessoryButton.setImage(highlightedImage, forState: UIControlState.Highlighted)
         
@@ -258,11 +258,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         return accessoryButton
     }
     
-    func sendButtonItem() -> UIButton {
+    static func createSendButtonItem() -> UIButton {
         
-        var sendTitle : NSString = "SA_STR_CHAT_SEND".localized
+        let sendTitle : NSString = "SA_STR_CHAT_SEND".localized
         
-        var sendButton = UIButton(frame: CGRectZero)
+        let sendButton = UIButton(frame: CGRectZero)
         sendButton.setTitle(sendTitle as String, forState: UIControlState.Normal)
         sendButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         sendButton.setTitleColor(UIColor.blueColor().colorByDarkeningColorWithValue(0.1), forState: UIControlState.Highlighted)
@@ -275,15 +275,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         sendButton.backgroundColor = UIColor.clearColor()
         sendButton.tintColor = UIColor.blueColor()
         
-        var maxHeight : CGFloat = 32.0
+        let maxHeight : CGFloat = 32.0
         var attributes = [String : AnyObject]()
         
         if let titleLabel = sendButton.titleLabel {
             attributes = [NSFontAttributeName : titleLabel.font!] as [String : AnyObject]
         }
         
-        
-        var sendTitleRect = sendTitle.boundingRectWithSize(CGSize(width: CGFloat.max, height: maxHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin|NSStringDrawingOptions.UsesFontLeading, attributes:attributes, context: nil)
+        let sendTitleRect = sendTitle.boundingRectWithSize(CGSize(width: CGFloat.max, height: maxHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin|NSStringDrawingOptions.UsesFontLeading, attributes:attributes, context: nil)
         
         sendButton.frame = CGRect(x: 0,y: 0, width: CGRectGetWidth(CGRectIntegral(sendTitleRect)), height: maxHeight)
         
@@ -296,7 +295,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.fireSendStopTypingIfNecessary()
         
-        var message = QBChatMessage()
+        let message = QBChatMessage()
         message.text = text;
         message.senderID = self.senderID
 
@@ -308,7 +307,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         weak var weakSelf = self
         self.inputToolbar.contentView.rightBarButtonItem.enabled = false
         
-        var didSent = ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
+        let didSent = ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
             
             weakSelf?.finishSendingMessageAnimated(true)
             self.inputToolbar.contentView.rightBarButtonItem.enabled = true
@@ -324,14 +323,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     override func didPressAccessoryButton(sender: UIButton!) {
         
-        var actionSheet = UIActionSheet(title: "Image source type", delegate: self, cancelButtonTitle:"Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll")
+        let actionSheet = UIActionSheet(title: "Image source type", delegate: self, cancelButtonTitle:"Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll")
     
         actionSheet.showFromToolbar(self.inputToolbar)
     }
     
     // MARK: Helper
     
-    func statusStringFromMessage(message: QBChatMessage) -> String {
+    static func statusStringFromMessage(message: QBChatMessage) -> String {
         
         var statusString : String
         
@@ -345,7 +344,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     continue
                 }
                 
-                var user = ConnectionManager.instance.usersDataSource.userByID(UInt(readID))
+                let user = ConnectionManager.instance.usersDataSource.userByID(UInt(readID))
                 
                 if user != nil {
                     readersLogin.append(user!.login)
@@ -420,13 +419,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             return nil
         }
         
-        var textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor(white: 0.29, alpha: 1)
+        let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor(white: 0.29, alpha: 1)
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 15)
         
-        var attributedString = NSAttributedString(string: messageItem.text, attributes: attributes)
+        let attributedString = NSAttributedString(string: messageItem.text, attributes: attributes)
         
         return attributedString
     }
@@ -453,7 +452,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     override func bottomLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString! {
         
-        var textColor = messageItem.senderID == self.senderID ? UIColor(white: 1, alpha: 0.51) : UIColor(white: 0, alpha: 0.49)
+        let textColor = messageItem.senderID == self.senderID ? UIColor(white: 1, alpha: 0.51) : UIColor(white: 0, alpha: 0.49)
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
@@ -462,10 +461,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
         
         if messageItem.senderID == self.senderID {
-            text = text + " " + self.statusStringFromMessage(messageItem)
+            text = text + " " + ChatViewController.statusStringFromMessage(messageItem)
         }
         
-        var bottomLabelAttributedString = NSAttributedString(string: text, attributes: attributes)
+        let bottomLabelAttributedString = NSAttributedString(string: text, attributes: attributes)
         
         return bottomLabelAttributedString
     }
@@ -550,11 +549,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         if let attachmentCell = cell as? QMChatAttachmentCell {
             
-            var message: QBChatMessage = self.items[indexPath.row] as! QBChatMessage;
+            let message: QBChatMessage = self.items[indexPath.row] as! QBChatMessage;
             
             if let attachments = message.attachments {
                 
-                var attachment: QBChatAttachment = attachments.first as! QBChatAttachment
+                let attachment: QBChatAttachment = attachments.first as! QBChatAttachment
                 var shouldLoadFile = true
                 
                 if self.attachmentCellsMap[attachment.ID] != nil {
@@ -616,7 +615,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
             self.refreshCollectionView()
             
-            self.sendReadStatusForMessage(message)
+            ChatViewController.sendReadStatusForMessage(message)
             QBRequest.markMessagesAsRead(Set([message.ID]), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
                 
                 }, errorBlock: { (response: QBResponse!) -> Void in
@@ -633,7 +632,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             if (self.shouldHoldScrolOnCollectionView) {
                 
-                var bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+                let bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
                 CATransaction.begin()
                 CATransaction.setDisableActions(true)
                 
@@ -765,20 +764,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 image = image.fixOrientation()
             }
             
-            var largestSide = image.size.width > image.size.height ? image.size.width : image.size.height
-            var scaleCoeficient = largestSide/560.0
-            var newSize = CGSize(width: image.size.width/scaleCoeficient, height: image.size.height/scaleCoeficient)
+            let largestSide = image.size.width > image.size.height ? image.size.width : image.size.height
+            let scaleCoeficient = largestSide/560.0
+            let newSize = CGSize(width: image.size.width/scaleCoeficient, height: image.size.height/scaleCoeficient)
             
             // create smaller image
             
             UIGraphicsBeginImageContext(newSize)
             
             image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-            var resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
             
             UIGraphicsEndImageContext()
             
-            var message = QBChatMessage()
+            let message = QBChatMessage()
             message.senderID = self.senderID
             message.dialogID = self.dialog?.ID
             
@@ -820,7 +819,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if let unreadMessages = self.unreadMessages {
             
             for message in unreadMessages {
-                self.sendReadStatusForMessage(message)
+                ChatViewController.sendReadStatusForMessage(message)
             }
             
             self.unreadMessages = nil

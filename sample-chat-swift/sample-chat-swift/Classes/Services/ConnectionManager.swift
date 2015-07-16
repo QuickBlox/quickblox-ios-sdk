@@ -18,7 +18,6 @@ class ConnectionManager: NSObject, QBChatDelegate {
 	
 	private override init() {
 		super.init()
-		self.startObservingMessagesToDelete()
 	}
 	
 	func logInWithUser(user: QBUUser, completion: (success: Bool, errorMessage: String?) -> Void){
@@ -78,46 +77,5 @@ class ConnectionManager: NSObject, QBChatDelegate {
 			}
 		}
 		
-	}
-	/**
-	*   Chat delegates
-	*/
-	
-	/**
-	Observers
-	*/
-	func startObservingMessagesToDelete() {
-		
-		StorageManager.instance.messagesBond.didInsertListener = { [unowned self] (array, indices) in
-			var messIDs = NSArray(array: StorageManager.instance.messagesIDsToDelete.value)
-			var messIDsSet: Set<NSObject> = NSSet(array: messIDs as [AnyObject]) as Set<NSObject>
-			
-			QBRequest.deleteMessagesWithIDs(messIDsSet, successBlock: { [weak self] (response: QBResponse!) -> Void in
-				println(response)
-				// remove deleted message from our messagesIDsToDelete
-                for deletedMessage in messIDs {
-                    
-                    for (index, message) in enumerate(StorageManager.instance.messagesIDsToDelete){
-                        
-                        if message == deletedMessage as! String {
-                            StorageManager.instance.messagesIDsToDelete.removeAtIndex(index)
-                        }
-                    }
-                }
-            }, errorBlock: { (response: QBResponse!) -> Void in
-					println(response.error)
-			})
-		}
-		
-		StorageManager.instance.messagesIDsToDelete ->> StorageManager.instance.messagesBond
-	}
-	
-	func startObservingInternetAvailability() {
-		timer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: "joinAllRooms", userInfo: nil, repeats: true)
-	}
-	
-	func stopObservingInternetAvailability() {
-		timer?.invalidate()
-		timer = nil
 	}
 }
