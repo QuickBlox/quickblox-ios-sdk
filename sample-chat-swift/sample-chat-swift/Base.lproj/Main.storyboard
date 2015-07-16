@@ -16,9 +16,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="dGR-A0-T7A" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGR-A0-T7A" id="H5W-gB-D6d">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egd-1G-oIf" customClass="CornerView" customModule="sample_chat_swift" customModuleProvider="target">
@@ -78,9 +79,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="C3G-5X-W4U" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C3G-5X-W4U" id="VXp-aq-zlY">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Py-bW-AVN" customClass="CornerView" customModule="sample_chat_swift" customModuleProvider="target">
@@ -154,7 +156,7 @@
                         <viewControllerLayoutGuide type="bottom" id="7tB-hr-5zd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="u18-Lg-UBa">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a dialog to chat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EFj-SE-fei">
@@ -171,10 +173,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationLevel="-1" indentationWidth="0.0" reuseIdentifier="dialogcell" id="WQc-ZM-8Qc" customClass="DialogTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
-                                        <rect key="frame" x="140" y="278" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WQc-ZM-8Qc" id="Ry1-Xv-NL2">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zsP-ca-5nI">
@@ -269,7 +271,7 @@
                     <navigationItem key="navigationItem" title="Dialogs" id="bmx-cq-v74">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Zcm-ZY-ygz">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="u6a-tr-QvZ">
-                                <rect key="frame" x="534" y="7" width="70" height="30"/>
+                                <rect key="frame" x="510" y="7" width="70" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="New Chat">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -316,7 +318,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2kO-hk-7BI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oVR-4q-jmr">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -338,14 +340,15 @@
             <objects>
                 <tableViewController id="0FA-X7-tAD" customClass="ChatUsersInfoTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hH2-0M-Sec">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="VNS-sq-PF9" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNS-sq-PF9" id="6eo-19-gDa">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dbs-P6-M2G" customClass="CornerView" customModule="sample_chat_swift" customModuleProvider="target">

@@ -30,28 +30,16 @@
 	[self retrieveUsers];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-    
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)retrieveUsers
 {
 	__weak __typeof(self)weakSelf = self;
-
+    
 	[QBServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
 		if (users != nil && users.count != 0) {
 			[weakSelf loadDataSourceWithUsers:users];
-		}
-		[weakSelf downloadLatestUsers];
+        } else {
+            [weakSelf downloadLatestUsers];
+        }
 	}];
 }
 
@@ -62,20 +50,12 @@
 	self.usersAreDownloading = YES;
 	
 	__weak __typeof(self)weakSelf = self;
-	if (self.dataSource == nil) {
-		[SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
-	}
+    [SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
 	[QBServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
-		if (weakSelf.dataSource == nil) {
-			[SVProgressHUD showSuccessWithStatus:@"Completed"];
-			[weakSelf loadDataSourceWithUsers:latestUsers];
-		} else {
-			[weakSelf.dataSource addUsers:latestUsers];
-			[weakSelf.tableView reloadData];
-		}
-		
-		weakSelf.usersAreDownloading = NO;
+        [SVProgressHUD showSuccessWithStatus:@"Completed"];
+        [weakSelf loadDataSourceWithUsers:latestUsers];
+        weakSelf.usersAreDownloading = NO;
 	} errorBlock:^(QBResponse *response) {
 		[SVProgressHUD showErrorWithStatus:@"Can not download users"];
 		weakSelf.usersAreDownloading = NO;
@@ -111,19 +91,9 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - Reachability notifications
-
-- (void)reachabilityChanged:(NSNotification *)note {
-	ReachabilityManager *reach = [ReachabilityManager instance];
-	
-	if (reach.isReachable && StorageManager.instance.users == nil) {
-		[self downloadLatestUsers];
-	}
-}
-
 - (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue
 {
-    NSLog(@"Unwinded!");
+
 }
 
 @end
