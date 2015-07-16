@@ -39,14 +39,13 @@
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
 	__weak __typeof(self)weakSelf = self;
 	
-//	NSMutableDictionary *dict = @{@"updated_at[gt]": [@([self timestampFromLatestCustomObject]) stringValue] }.mutableCopy;
     NSString* environment = nil;
 #if DEV
     environment = @"dev";
 #endif
     
 #if QA
-    environment = @"qa";
+    environment = @"qbqa";
 #endif
     
 #if RELEASE
