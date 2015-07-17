@@ -13,11 +13,9 @@ class StorageManager: NSObject {
     static let instance = StorageManager()
     
     var dialogs:[QBChatDialog] = []
-    var dialogsUsers:[QBUUser] = []
     
     func reset() {
         self.dialogs.removeAll(keepCapacity: false)
-        self.dialogsUsers.removeAll(keepCapacity: false)
     }
     
 }

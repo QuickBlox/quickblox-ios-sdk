@@ -35,8 +35,8 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     func updateUsers() {
         if let dialog = self.dialog  {
             
-            let filtredUsers = ConnectionManager.instance.usersDataSource.users.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID) })
-            self.users = filtredUsers
+            let filteredUsers = ServicesManager.instance.usersService.users(withoutUser: ServicesManager.instance.currentUser())?.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+            self.users = filteredUsers
         }
     }
     
@@ -53,7 +53,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         var users: [QBUUser] = []
         
         for indexPath in selectedIndexes {
-            let user = self.users[indexPath.row]
+            let user = self.users![indexPath.row]
             users.append(user)
         }
         
@@ -80,14 +80,11 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 
             } else {
                 
-                let defaultUsers = ConnectionManager.instance.usersDataSource.users
-                let occupantIDs: [UInt] = dialog.occupantIDs as! [UInt]
-                let primaryUsers: [QBUUser] = defaultUsers.filter { (user : QBUUser) -> Bool in
-                    
-                    return contains(occupantIDs, user.ID) && user.ID != ServicesManager.instance.currentUser()!.ID
-                }
+                let primaryUsers = ServicesManager.instance.usersService.users(withoutUser: ServicesManager.instance.currentUser())?.filter({contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
                 
-                users.extend(primaryUsers)
+                if primaryUsers != nil && primaryUsers!.count > 0 {
+                    users.extend(primaryUsers! as [QBUUser])
+                }
                 
                 let chatName = self.nameForGroupChatWithUsers(users)
 
@@ -207,7 +204,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
-        let user = self.users[indexPath.row]
+        let user = self.users![indexPath.row]
         
         cell.user = user
         cell.delegate = self.delegate
@@ -216,7 +213,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let user = self.users[indexPath.row]
+        let user = self.users![indexPath.row]
         
         if user.ID == ServicesManager.instance.currentUser()!.ID {
             return 0.0 // hide current user
