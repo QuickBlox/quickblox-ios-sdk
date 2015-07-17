@@ -14,14 +14,14 @@ let kDialogsPageLimit:UInt = 100
 
 class Constants {
     
-    class var QB_VERSION_STR: String {
+    class var QB_USERS_ENVIROMENT: String {
         
 #if RELEASE
         return "release"
 #elseif DEBUG
         return "dev"
 #elseif QA
-        return "qa"
+        return "qbqa"
 #else
     assert(false, "Not supported build configuration")
     return ""

@@ -23,6 +23,8 @@
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
+		2C163E4E1B58F38D003AC718 /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C163E4D1B58F38D003AC718 /* UsersService.swift */; };
+		2C163E511B591FBA003AC718 /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C163E501B591FBA003AC718 /* QMContactListCacheModel.bundle */; };
 		2C271EDC1B4419D300A48BC0 /* QMChatAttachmentOutgoingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C271EDB1B4419D300A48BC0 /* QMChatAttachmentOutgoingCell.m */; };
 		2C271EE11B441A5100A48BC0 /* QMChatAttachmentIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C271EE01B441A5100A48BC0 /* QMChatAttachmentIncomingCell.m */; };
 		2C271EE31B441AA900A48BC0 /* QMChatAttachmentOutgoingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C271EE21B441AA900A48BC0 /* QMChatAttachmentOutgoingCell.xib */; };
@@ -66,7 +68,6 @@
 		6844003C05B374842DFCDD49 /* SwipeableTableViewCellWithBlockButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440207D7B86B9F06C38878 /* SwipeableTableViewCellWithBlockButtons.swift */; };
 		684400CE32CC2D4D22A5AFD5 /* SwiftAlertWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684403034A069565608E044A /* SwiftAlertWithTextField.swift */; };
 		684400F787FBE39BBA9B52C8 /* ChatUsersInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440DDFBC8DF8C88DEE2898 /* ChatUsersInfoTableViewController.swift */; };
-		684401C9A58F0D7F16766275 /* QBUUser+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440F958A8E07D1A6ECBE19 /* QBUUser+Color.swift */; };
 		6844023A6DABFA72BD0EF343 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440AC65A0DF248480F2934 /* UserTableViewCell.swift */; };
 		68440348A117B28D4310C109 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844016C8F2191AB6F8EF2C1 /* SWCellScrollView.m */; };
 		684403AB8D5D258A114BD3AB /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6844013BAAEEEAE22EEAA322 /* LoginTableViewController.swift */; };
@@ -79,7 +80,6 @@
 		6844092644F749AC14ADA55A /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440393684436D4EF1FCA0F /* SWUtilityButtonView.m */; };
 		68440B196D063839CDD277A4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440972CDF0423CCE31BC15 /* ChatViewController.swift */; };
 		68440D4EE3FECE357167667C /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440A2C1E78F6FC561A7A09 /* CornerView.swift */; };
-		68440E1A11797B0339FE642C /* UsersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6844032D32F069FADE16948E /* UsersDataSource.swift */; };
 		68440ED75A4B1A0C3894605D /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844058775AF1E5CF0E0D10A /* SWLongPressGestureRecognizer.m */; };
 		68440EE02D9A7184D21DF0F7 /* SwiftAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440EF02AB27CCF47A87701 /* SwiftAlert.swift */; };
 		68440EFB2AAFECA0082EE311 /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 684404DA6223F752665E2B06 /* SWUtilityButtonTapGestureRecognizer.m */; };
@@ -130,6 +130,8 @@
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		2C163E4D1B58F38D003AC718 /* UsersService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
+		2C163E501B591FBA003AC718 /* QMContactListCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMContactListCacheModel.bundle; path = ../../services/QMServices/QMContactListCache/QMContactListCacheModel.bundle; sourceTree = "<group>"; };
 		2C271EDA1B4419D300A48BC0 /* QMChatAttachmentOutgoingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QMChatAttachmentOutgoingCell.h; path = QMChatAttachmentOutgoingCell/QMChatAttachmentOutgoingCell.h; sourceTree = "<group>"; };
 		2C271EDB1B4419D300A48BC0 /* QMChatAttachmentOutgoingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QMChatAttachmentOutgoingCell.m; path = QMChatAttachmentOutgoingCell/QMChatAttachmentOutgoingCell.m; sourceTree = "<group>"; };
 		2C271EDF1B441A5100A48BC0 /* QMChatAttachmentIncomingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QMChatAttachmentIncomingCell.h; path = QMChatAttachmentIncomingCell/QMChatAttachmentIncomingCell.h; sourceTree = "<group>"; };
@@ -205,7 +207,6 @@
 		6844016C8F2191AB6F8EF2C1 /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
 		68440207D7B86B9F06C38878 /* SwipeableTableViewCellWithBlockButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeableTableViewCellWithBlockButtons.swift; sourceTree = "<group>"; };
 		684403034A069565608E044A /* SwiftAlertWithTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAlertWithTextField.swift; sourceTree = "<group>"; };
-		6844032D32F069FADE16948E /* UsersDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersDataSource.swift; sourceTree = "<group>"; };
 		68440393684436D4EF1FCA0F /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
 		684404DA6223F752665E2B06 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
 		6844058775AF1E5CF0E0D10A /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
@@ -224,7 +225,6 @@
 		68440EA4335F8B6BD1035B62 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		68440ED5DB360D54BE9EE5B4 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
 		68440EF02AB27CCF47A87701 /* SwiftAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAlert.swift; sourceTree = "<group>"; };
-		68440F958A8E07D1A6ECBE19 /* QBUUser+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QBUUser+Color.swift"; sourceTree = "<group>"; };
 		7FBD5AF00180CA0A016ADA39 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		92B02D131B4C374400752D18 /* DialogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogTableViewCell.swift; sourceTree = "<group>"; };
 		A470176456F8A25856D524CB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -314,6 +314,7 @@
 		144E3EB41ACA8E5300E62645 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C163E501B591FBA003AC718 /* QMContactListCacheModel.bundle */,
 				2CC206911B14A44600ACE4EA /* QMChatCacheModel.bundle */,
 				144E3EB51ACA8E5D00E62645 /* devUsers.plist */,
 				144E3EB61ACA8E5D00E62645 /* qaUsers.plist */,
@@ -643,6 +644,7 @@
 				68440A97C23ACC21DA8A066D /* ConnectionManager.swift */,
 				2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */,
 				2CC2068E1B14720C00ACE4EA /* StorageManager.swift */,
+				2C163E4D1B58F38D003AC718 /* UsersService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -669,7 +671,6 @@
 		684409C0C00FA779DF442551 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				68440F958A8E07D1A6ECBE19 /* QBUUser+Color.swift */,
 				1493F7991AEA525F00FA51A4 /* String+Localized.swift */,
 				149636FD1B033F740079A6A2 /* IJReachability.swift */,
 				2CEF78961B4581E20094E6BA /* UIImage+fixOrientation.h */,
@@ -717,7 +718,6 @@
 			isa = PBXGroup;
 			children = (
 				1437A7B41AC9987400A39692 /* Constants.swift */,
-				6844032D32F069FADE16948E /* UsersDataSource.swift */,
 			);
 			name = Model;
 			path = UsersDataSource;
@@ -809,6 +809,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C163E511B591FBA003AC718 /* QMContactListCacheModel.bundle in Resources */,
 				2CBAD97A1B3011700047941E /* QMTypingIndicatorFooterView.xib in Resources */,
 				2CBAD9671B3011700047941E /* QMChatContactRequestCell.xib in Resources */,
 				1437A7971AC9948600A39692 /* Main.storyboard in Resources */,
@@ -876,7 +877,6 @@
 				1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */,
 				2CC2068F1B14720C00ACE4EA /* StorageManager.swift in Sources */,
 				2CBAD9681B3011700047941E /* QMChatIncomingCell.m in Sources */,
-				68440E1A11797B0339FE642C /* UsersDataSource.swift in Sources */,
 				2CBAD9661B3011700047941E /* QMChatContactRequestCell.m in Sources */,
 				68440348A117B28D4310C109 /* SWCellScrollView.m in Sources */,
 				68440EFB2AAFECA0082EE311 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
@@ -894,7 +894,6 @@
 				68440ED75A4B1A0C3894605D /* SWLongPressGestureRecognizer.m in Sources */,
 				149636FE1B033F740079A6A2 /* IJReachability.swift in Sources */,
 				92B02D141B4C374400752D18 /* DialogTableViewCell.swift in Sources */,
-				684401C9A58F0D7F16766275 /* QBUUser+Color.swift in Sources */,
 				684403AB8D5D258A114BD3AB /* LoginTableViewController.swift in Sources */,
 				2CBAD96A1B3011700047941E /* QMChatNotificationCell.m in Sources */,
 				68440B196D063839CDD277A4 /* ChatViewController.swift in Sources */,
@@ -918,6 +917,7 @@
 				2CBAD9701B3011700047941E /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */,
 				2CBAD9751B3011700047941E /* QMPlaceHolderTextView.m in Sources */,
 				2C271EDC1B4419D300A48BC0 /* QMChatAttachmentOutgoingCell.m in Sources */,
+				2C163E4E1B58F38D003AC718 /* UsersService.swift in Sources */,
 				2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */,
 				2CBAD9771B3011700047941E /* QMLoadEarlierHeaderView.m in Sources */,
 				684407391A2A30262CCDFD32 /* ConnectionManager.swift in Sources */,

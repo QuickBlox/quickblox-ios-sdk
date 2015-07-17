@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate, QMChatServiceDelegate, QMChatServiceCacheDataSource, QMChatConnectionDelegate {
+class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate, QMChatServiceDelegate, QMChatServiceCacheDataSource, QMChatConnectionDelegate, QMContactListServiceCacheDataSource {
     
     var currentDialogID : String = ""
     
@@ -16,6 +16,9 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
     var authService : QMAuthService!
     var chatService : QMChatService!
+    var usersService : UsersService!
+    
+    private var contactListService : QMContactListService!
     
     var logoutGroup = dispatch_group_create()
     
@@ -23,10 +26,17 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         super.init()
         
         self.setupAuthService()
+        self.setupContactServices()
     }
     
     private func setupAuthService() {
         self.authService = QMAuthService(serviceManager : self)
+    }
+    
+    private func setupContactServices() {
+        QMContactListCache.setupDBWithStoreNamed("sample-cache-contacts")
+        self.contactListService = QMContactListService(serviceManager: self, cacheDataSource: self)
+        self.usersService = UsersService(contactListService: self.contactListService)
     }
     
     func setupChatCacheService(userName: String) {
@@ -97,7 +107,7 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
     
         } else {
             
-            if let user = ConnectionManager.instance.usersDataSource.userByID(UInt(dialog.recipientID)) {
+            if let user = ServicesManager.instance.usersService.user(UInt(dialog.recipientID)) {
                 dialogName = user.login
             }
         }
@@ -182,6 +192,20 @@ class ServicesManager: NSObject, QMServiceManagerProtocol, QMAuthServiceDelegate
         
         QMChatCache.instance().messagesWithDialogId(dialogID, sortedBy: CDMessageAttributes.dateSend as String, ascending: true) { (messages: [AnyObject]!) -> Void in
             block(messages)
+        }
+    }
+    
+    // MARK: QMContactListServiceCacheDataSource
+    
+    func cachedUsers(block: QMCacheCollection!) {
+        QMContactListCache.instance().usersSortedBy("fullName", ascending: true) { (users: [AnyObject]!) -> Void in
+            block(users)
+        }
+    }
+    
+    func cachedContactListItems(block: QMCacheCollection!) {
+        QMContactListCache.instance().contactListItems { (items: [AnyObject]!) -> Void in
+            block(items)
         }
     }
 }
