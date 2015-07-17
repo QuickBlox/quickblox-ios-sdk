@@ -44,7 +44,8 @@ class LoginTableViewController: UsersListTableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated:true)
         
-        let user = ConnectionManager.instance.usersDataSource.users[indexPath.row]
+        let user = self.users![indexPath.row]
+        user.password = "x6Bt0VDy5"
         
         self.logInChatWithUser(user)
     }

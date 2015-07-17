@@ -13,7 +13,6 @@ class ConnectionManager: NSObject, QBChatDelegate {
 
 	var timer: NSTimer? // join all rooms, handle internet connection availability
 	
-	let usersDataSource:UsersDataSource = UsersDataSource()
 	let privacyManager:PrivacyManager = PrivacyManager()
 	
 	private override init() {

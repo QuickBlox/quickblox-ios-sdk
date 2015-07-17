@@ -161,7 +161,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if self.dialog?.type != QBChatDialogType.Private {
             self.title = self.dialog?.name
         } else {
-            if let recepeint = ConnectionManager.instance.usersDataSource.userByID(UInt(self.dialog!.recipientID)) {
+            if let recepeint = ServicesManager.instance.usersService.user(UInt(self.dialog!.recipientID)) {
                 self.title = recepeint.login
             }
         }
@@ -334,7 +334,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     continue
                 }
                 
-                let user = ConnectionManager.instance.usersDataSource.userByID(UInt(readID))
+                let user = ServicesManager.instance.usersService.user(UInt(readID))
                 
                 if user != nil {
                     readersLogin.append(user!.login)
@@ -343,8 +343,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 }
             }
             
-            statusString = "Read:" + ", ".join(readersLogin)
-            
+            if !readersLogin.isEmpty {
+                statusString = "Read:" + ", ".join(readersLogin)
+            } else {
+                statusString = "Sent"
+            }
+
         } else {
             statusString = "Sent"
         }
@@ -433,7 +437,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         var topLabelAttributedString : NSAttributedString?
         
-        if let topLabelText = ConnectionManager.instance.usersDataSource.userByID(messageItem.senderID)?.login {
+        if let topLabelText = ServicesManager.instance.usersService.user(messageItem.senderID)?.login {
             topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
         }
         
