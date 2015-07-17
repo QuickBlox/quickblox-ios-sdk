@@ -313,7 +313,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     override func didPressAccessoryButton(sender: UIButton!) {
         
-        let actionSheet = UIActionSheet(title: "Image source type", delegate: self, cancelButtonTitle:"Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll")
+        let actionSheet = UIActionSheet(title: "Image source type", delegate: self, cancelButtonTitle:nil, destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll", "Cancel")
     
         actionSheet.showFromToolbar(self.inputToolbar)
     }
@@ -724,13 +724,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         
-        if buttonIndex == 0 {
+        if buttonIndex == 2 {
             return
         }
         
-        if buttonIndex == 1 {
+        if buttonIndex == 0 {
             self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.Camera
-        } else if buttonIndex == 2 {
+        } else if buttonIndex == 1 {
             self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
         
