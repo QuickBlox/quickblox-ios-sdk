@@ -25,14 +25,21 @@
 	NSArray *memoryUsers = [self.contactListService.usersMemoryStorage usersSortedByKey:@"fullName" ascending:YES];
 	if (memoryUsers != nil && memoryUsers.count != 0) {
 		StorageManager.instance.users = memoryUsers;
-		completion(memoryUsers);
+        
+        if (completion) {
+            completion(memoryUsers);
+        }
+        
         return;
 	}
 	
 	// check CoreData storage
 	[QMContactListCache.instance usersSortedBy:@"fullName" ascending:YES completion:^(NSArray *users) {
 		StorageManager.instance.users = users;
-		completion(users);
+        
+        if (completion) {
+            completion(users);
+        }
 	}];
 }
 
@@ -105,15 +112,8 @@
 }
 
 - (NSArray *)idsWithUsers:(NSArray *)users {
-	
-	NSMutableArray *ids = [NSMutableArray arrayWithCapacity:users.count];
-	[users enumerateObjectsUsingBlock:^(QBUUser  *obj,
-										NSUInteger idx,
-										BOOL *stop){
-		[ids addObject:@(obj.ID)];
-	}];
-	
-	return [ids copy];
+
+	return [users valueForKeyPath:@"@distinctUnionOfObjects.ID"];
 }
 
 - (void)retrieveUsersWithIDs:(NSArray *)usersIDs completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray *users))completion {

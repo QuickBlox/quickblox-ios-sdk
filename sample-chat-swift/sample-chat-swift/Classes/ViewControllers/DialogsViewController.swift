@@ -28,12 +28,7 @@ class DialogTableViewCellModel: NSObject {
                 return
             }
             
-            let users = ConnectionManager.instance.usersDataSource.users
-            
-            var filteredUsers = users.filter(){ $0.ID == UInt(dialog.recipientID) }
-            
-            if !filteredUsers.isEmpty {
-                var recipient = filteredUsers[0]
+            if let recipient = ServicesManager.instance.usersService.user(UInt(dialog.recipientID)) {
                 self.textLabelText = recipient.login ?? recipient.email
             }
             
