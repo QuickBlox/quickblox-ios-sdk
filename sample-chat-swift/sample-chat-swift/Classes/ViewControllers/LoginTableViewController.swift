@@ -23,7 +23,7 @@ class LoginTableViewController: UsersListTableViewController {
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
 
-        ConnectionManager.instance.logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
+        ServicesManager.instance().logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
 
             if (success) {
                 

@@ -6,47 +6,26 @@
 //  Copyright (c) 2015 Igor Khomenko. All rights reserved.
 //
 
-#import "QBServicesManager.h"
+#import "QMServicesManager.h"
 #import "StorageManager.h"
 #import "_CDMessage.h"
 #import <TWMessageBarManager/TWMessageBarManager.h>
 
-@interface QBServicesManager () <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMContactListServiceCacheDataSource, QMChatServiceDelegate, QMChatConnectionDelegate>
+@interface QMServicesManager ()
 
-@property (nonatomic, strong) QMAuthService* authService;
-@property (nonatomic, strong) QMChatService* chatService;
-@property (nonatomic, strong) UsersService* usersService;
 @property (nonatomic, strong) QMContactListService* contactListService;
-
-@property (nonatomic, strong) dispatch_group_t logoutGroup;
 
 @end
 
-@implementation QBServicesManager
+@implementation QMServicesManager
 
 - (instancetype)init {
 	self = [super init];
 	if (self) {
-		[QMChatCache setupDBWithStoreNamed:kChatCacheNameKey];
-        [QMChatCache instance].messagesLimitPerDialog = 10;
-		[QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
-		_authService = [[QMAuthService alloc] initWithServiceManager:self];
-		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
-        [_chatService addDelegate:self];
 		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
 		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
-        _logoutGroup = dispatch_group_create();
 	}
 	return self;
-}
-
-+ (instancetype)instance {
-	static QBServicesManager* manager = nil;
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		manager = [[QBServicesManager alloc] init];
-	});
-	return manager;
 }
 
 - (void)showNotificationForMessage:(QBChatMessage *)message inDialogID:(NSString *)dialogID

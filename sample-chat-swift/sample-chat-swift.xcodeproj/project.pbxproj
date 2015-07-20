@@ -72,9 +72,7 @@
 		68440348A117B28D4310C109 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844016C8F2191AB6F8EF2C1 /* SWCellScrollView.m */; };
 		684403AB8D5D258A114BD3AB /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6844013BAAEEEAE22EEAA322 /* LoginTableViewController.swift */; };
 		684403FFA3130E8D9A8E5322 /* NewDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440AC5E7B04D8555A9110C /* NewDialogViewController.swift */; };
-		684404420BD9EFEF61B415FF /* PrivacyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440DD31D40E2D45C2DD6D8 /* PrivacyManager.swift */; };
 		684405DFCD6BDCDE9C6C01DA /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440B64A6DCB47F42586E73 /* SWTableViewCell.m */; };
-		684407391A2A30262CCDFD32 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440A97C23ACC21DA8A066D /* ConnectionManager.swift */; };
 		68440820F7DF260CB13FCEE0 /* DialogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440035DAA846751DEDBE4D /* DialogsViewController.swift */; };
 		684408CE77B18BB94EA1A05E /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 684400D69D86FD4E756C2429 /* NSMutableArray+SWUtilityButtons.m */; };
 		6844092644F749AC14ADA55A /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440393684436D4EF1FCA0F /* SWUtilityButtonView.m */; };
@@ -109,7 +107,7 @@
 		1429A59F1AEA7EDC00AE3923 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1437A7981AC9948600A39692 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1437A7A61AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7A71AC9948600A39692 /* sample_chat_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sample_chat_swiftTests.swift; sourceTree = "<group>"; };
@@ -201,7 +199,7 @@
 		2CEF78841B4530210094E6BA /* QMChatAttachmentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QMChatAttachmentCell.h; sourceTree = "<group>"; };
 		2CEF78961B4581E20094E6BA /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
 		2CEF78971B4581E20094E6BA /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
-		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogsViewController.swift; sourceTree = "<group>"; };
+		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DialogsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		684400D69D86FD4E756C2429 /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
 		6844013BAAEEEAE22EEAA322 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		6844016C8F2191AB6F8EF2C1 /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
@@ -211,17 +209,15 @@
 		684404DA6223F752665E2B06 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
 		6844058775AF1E5CF0E0D10A /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
 		684406CA4C2137F09180BC08 /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
-		68440972CDF0423CCE31BC15 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		68440972CDF0423CCE31BC15 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChatViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		68440985FA6DC9A3F12D1449 /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
 		68440A2C1E78F6FC561A7A09 /* CornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
-		68440A97C23ACC21DA8A066D /* ConnectionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		68440AC5E7B04D8555A9110C /* NewDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDialogViewController.swift; sourceTree = "<group>"; };
 		68440AC65A0DF248480F2934 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		68440B64A6DCB47F42586E73 /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
 		68440B8FF75F6E6154954DC3 /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
 		68440CC6685C8102780D05D4 /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
-		68440DD31D40E2D45C2DD6D8 /* PrivacyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyManager.swift; sourceTree = "<group>"; };
-		68440DDFBC8DF8C88DEE2898 /* ChatUsersInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatUsersInfoTableViewController.swift; sourceTree = "<group>"; };
+		68440DDFBC8DF8C88DEE2898 /* ChatUsersInfoTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChatUsersInfoTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		68440EA4335F8B6BD1035B62 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
 		68440ED5DB360D54BE9EE5B4 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
 		68440EF02AB27CCF47A87701 /* SwiftAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAlert.swift; sourceTree = "<group>"; };
@@ -640,8 +636,6 @@
 		684406F7477B1DC33312AC5E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				68440D9458C6909D8347A9CA /* PrivacyManager */,
-				68440A97C23ACC21DA8A066D /* ConnectionManager.swift */,
 				2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */,
 				2CC2068E1B14720C00ACE4EA /* StorageManager.swift */,
 				2C163E4D1B58F38D003AC718 /* UsersService.swift */,
@@ -677,14 +671,6 @@
 				2CEF78971B4581E20094E6BA /* UIImage+fixOrientation.m */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		68440D9458C6909D8347A9CA /* PrivacyManager */ = {
-			isa = PBXGroup;
-			children = (
-				68440DD31D40E2D45C2DD6D8 /* PrivacyManager.swift */,
-			);
-			path = PrivacyManager;
 			sourceTree = "<group>";
 		};
 		68440F807651CA93C348EB22 /* Classes */ = {
@@ -907,7 +893,6 @@
 				684400CE32CC2D4D22A5AFD5 /* SwiftAlertWithTextField.swift in Sources */,
 				6844023A6DABFA72BD0EF343 /* UserTableViewCell.swift in Sources */,
 				2CBAD9651B3011700047941E /* QMChatCell.m in Sources */,
-				684404420BD9EFEF61B415FF /* PrivacyManager.swift in Sources */,
 				2CBAD9641B3011700047941E /* QMChatViewController.m in Sources */,
 				2CBAD9601B3011700047941E /* UIView+QM.m in Sources */,
 				2CBAD96F1B3011700047941E /* QMChatCollectionViewFlowLayout.m in Sources */,
@@ -920,7 +905,6 @@
 				2C163E4E1B58F38D003AC718 /* UsersService.swift in Sources */,
 				2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */,
 				2CBAD9771B3011700047941E /* QMLoadEarlierHeaderView.m in Sources */,
-				684407391A2A30262CCDFD32 /* ConnectionManager.swift in Sources */,
 				2CBAD96E1B3011700047941E /* QMChatCellLayoutAttributes.m in Sources */,
 				2CBAD9711B3011700047941E /* QMChatCollectionView.m in Sources */,
 			);

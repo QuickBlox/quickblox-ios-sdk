@@ -35,16 +35,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationDidEnterBackground(application: UIApplication) {
-		ServicesManager.instance.chatService?.logoutChat()
+		ServicesManager.instance().chatService?.logoutChat()
 	}
 	
 	func applicationWillEnterForeground(application: UIApplication) {
-        ServicesManager.instance.chatService?.logIn({ (error: NSError!) -> Void in
+        ServicesManager.instance().chatService?.logIn({ (error: NSError!) -> Void in
             
-            for dialog : QBChatDialog in ServicesManager.instance.chatService.dialogsMemoryStorage.unsortedDialogs() as! Array<QBChatDialog> {
+            for dialog : QBChatDialog in ServicesManager.instance().chatService.dialogsMemoryStorage.unsortedDialogs() as! Array<QBChatDialog> {
                 
                 if dialog.type != QBChatDialogType.Private {
-                    ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
+                    ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                         
                     })
                 }
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {
-		ServicesManager.instance.chatService?.logoutChat()
+		ServicesManager.instance().chatService?.logoutChat()
 	}
 	
 	

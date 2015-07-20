@@ -46,7 +46,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.dialog?.onUserIsTyping = { (UInt userID)-> Void in
             
-            if ServicesManager.instance.currentUser().ID == userID {
+            if ServicesManager.instance().currentUser().ID == userID {
                 return
             }
             
@@ -55,7 +55,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.dialog?.onUserStoppedTyping = { (UInt userID)-> Void in
             
-            if ServicesManager.instance.currentUser().ID == userID {
+            if ServicesManager.instance().currentUser().ID == userID {
                 return
             }
             
@@ -80,8 +80,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        ServicesManager.instance.chatService.addDelegate(self)
-        ServicesManager.instance.chatService.chatAttachmentService.delegate = self
+        ServicesManager.instance().chatService.addDelegate(self)
+        ServicesManager.instance().chatService.chatAttachmentService.delegate = self
         
         self.updateMessages()
         
@@ -124,7 +124,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
         if let dialog = self.dialog {
-            ServicesManager.instance.currentDialogID = dialog.ID
+            ServicesManager.instance().currentDialogID = dialog.ID
         }
     }
 	
@@ -139,9 +139,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             NSNotificationCenter.defaultCenter().removeObserver(didEnterBackgroundHandler)
         }
         
-        ServicesManager.instance.currentDialogID = ""
+        ServicesManager.instance().currentDialogID = ""
         
-        ServicesManager.instance.chatService.removeDelegate(self);
+        ServicesManager.instance().chatService.removeDelegate(self);
         self.dialog?.clearTypingStatusBlocks()
     }
     
@@ -161,7 +161,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if self.dialog?.type != QBChatDialogType.Private {
             self.title = self.dialog?.name
         } else {
-            if let recepeint = ServicesManager.instance.usersService.user(UInt(self.dialog!.recipientID)) {
+            if let recepeint = ServicesManager.instance().usersService.user(UInt(self.dialog!.recipientID)) {
                 self.title = recepeint.login
             }
         }
@@ -178,7 +178,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
-        ServicesManager.instance.chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
+        ServicesManager.instance().chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
             if response.error == nil {
                 
@@ -300,7 +300,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     func sendMessage(message: QBChatMessage) {
         
-        let didSent = ServicesManager.instance.chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
+        let didSent = ServicesManager.instance().chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
         }
         
         if !didSent {
@@ -330,11 +330,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             for readID : Int in message.readIDs as! [Int] {
                 
-                if readID == Int(ServicesManager.instance.currentUser().ID) {
+                if readID == Int(ServicesManager.instance().currentUser().ID) {
                     continue
                 }
                 
-                let user = ServicesManager.instance.usersService.user(UInt(readID))
+                let user = ServicesManager.instance().usersService.user(UInt(readID))
                 
                 if user != nil {
                     readersLogin.append(user!.login)
@@ -437,7 +437,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         var topLabelAttributedString : NSAttributedString?
         
-        if let topLabelText = ServicesManager.instance.usersService.user(messageItem.senderID)?.login {
+        if let topLabelText = ServicesManager.instance().usersService.user(messageItem.senderID)?.login {
             topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
         }
         
@@ -508,7 +508,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
         
-        ServicesManager.instance.chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
+        ServicesManager.instance().chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
             
             self.shouldHoldScrolOnCollectionView = false
             
@@ -576,7 +576,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 
                 weak var weakSelf = self
                 
-                ServicesManager.instance.chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
+                ServicesManager.instance().chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
                     
                     if attachmentCell.attachmentID != attachment.ID {
                         return
@@ -775,7 +775,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             message.senderID = self.senderID
             message.dialogID = self.dialog?.ID
             
-            ServicesManager.instance.chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance.chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
+            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     if error != nil {
@@ -794,7 +794,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService!, didChangeAttachmentStatus status: QMMessageAttachmentStatus, forMessage message: QBChatMessage!) {
         
         if message.dialogID == self.dialog?.ID {
-            self.items = NSMutableArray(array: ServicesManager.instance.chatService.messagesMemoryStorage.messagesWithDialogID(self.dialog?.ID))
+            self.items = NSMutableArray(array: ServicesManager.instance().chatService.messagesMemoryStorage.messagesWithDialogID(self.dialog?.ID))
             self.refreshCollectionView()
         }
     }
