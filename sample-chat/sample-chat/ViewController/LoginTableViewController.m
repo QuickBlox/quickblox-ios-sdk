@@ -8,7 +8,7 @@
 
 #import "LoginTableViewController.h"
 #import "StorageManager.h"
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "ReachabilityManager.h"
 #import "Reachability.h"
 #import "StorageManager.h"
@@ -34,7 +34,7 @@
 {
 	__weak __typeof(self)weakSelf = self;
     
-	[QBServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
+	[ServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
 		if (users != nil && users.count != 0) {
 			[weakSelf loadDataSourceWithUsers:users];
         } else {
@@ -52,7 +52,7 @@
 	__weak __typeof(self)weakSelf = self;
     [SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
-	[QBServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
+	[ServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
         [SVProgressHUD showSuccessWithStatus:@"Completed"];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
@@ -78,7 +78,7 @@
 	selectedUser.password = @"x6Bt0VDy5"; // default password for test users
 	
 	__weak __typeof(self)weakSelf = self;
-    [QBServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
+    [ServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
             [SVProgressHUD showSuccessWithStatus:@"Logged in"];
             __typeof(self) strongSelf = weakSelf;
