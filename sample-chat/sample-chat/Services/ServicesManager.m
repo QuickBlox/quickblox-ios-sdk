@@ -6,18 +6,18 @@
 //  Copyright (c) 2015 Igor Khomenko. All rights reserved.
 //
 
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "StorageManager.h"
 #import "_CDMessage.h"
 #import <TWMessageBarManager/TWMessageBarManager.h>
 
-@interface QBServicesManager ()
+@interface ServicesManager ()
 
 @property (nonatomic, strong) QMContactListService* contactListService;
 
 @end
 
-@implementation QBServicesManager
+@implementation ServicesManager
 
 - (instancetype)init {
 	self = [super init];

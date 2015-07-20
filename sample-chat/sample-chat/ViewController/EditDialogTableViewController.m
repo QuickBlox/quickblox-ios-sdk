@@ -8,7 +8,7 @@
 
 #import "EditDialogTableViewController.h"
 #import "UsersDataSource.h"
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "UserTableViewCell.h"
 #import "ChatViewController.h"
 #import "DialogsViewController.h"
@@ -35,12 +35,12 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self reloadDataSource];
-	[QBServicesManager.instance.chatService addDelegate:self];
+	[ServicesManager.instance.chatService addDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[QBServicesManager.instance.chatService removeDelegate:self];
+	[ServicesManager.instance.chatService removeDelegate:self];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,7 +69,7 @@
 	
 	if( self.dialog.type == QBChatDialogTypePrivate ) {
 		
-		[QBServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *occupants) {
+		[ServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *occupants) {
 			[users addObjectsFromArray:occupants];
 			
 			[weakSelf createGroupDialogWithUsers:users];
@@ -85,11 +85,11 @@
 	
 	[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
 	
-	[QBServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
+	[ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 		
 		if( response.success ) {
 			[SVProgressHUD dismiss];
-			[QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
+			[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
 			[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:createdDialog];
 		}
 		else {
@@ -104,14 +104,14 @@
 	
 	[SVProgressHUD showWithStatus:@"Updating dialog..." maskType:SVProgressHUDMaskTypeClear];
 	
-	[QBServicesManager.instance.usersService.contactListService retrieveUsersWithIDs:usersIDs forceDownload:NO completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+	[ServicesManager.instance.usersService.contactListService retrieveUsersWithIDs:usersIDs forceDownload:NO completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
 		
-		[QBServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
+		[ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
 			if( response.success ) {
-				[QBServicesManager.instance.chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:weakSelf.dialog];
+				[ServicesManager.instance.chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:weakSelf.dialog];
 				
 				NSString *notificationText = [weakSelf updatedMessageWithUsers:users];
-				[QBServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:notificationText completion:nil];
+				[ServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:notificationText completion:nil];
 				
 				updatedDialog.lastMessageText = notificationText;
 				[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];

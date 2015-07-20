@@ -24,7 +24,7 @@ static NSString *const kUserPasswordKey = @"password";
 static NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
 
 /**
- *  QBServicesManager
+ *  ServicesManager
  */
 static NSString *const kChatCacheNameKey = @"sample-cache";
 static NSString *const kContactListCacheNameKey = @"sample-cache-contacts";

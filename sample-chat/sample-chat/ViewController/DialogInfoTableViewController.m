@@ -9,7 +9,7 @@
 #import "DialogInfoTableViewController.h"
 #import "UsersDataSource.h"
 #import "StorageManager.h"
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "EditDialogTableViewController.h"
 
 @interface DialogInfoTableViewController() <QMChatServiceDelegate, QMChatConnectionDelegate>
@@ -28,7 +28,7 @@
 
 - (void)refreshDataSource {
 	__weak __typeof(self) weakSelf = self;
-	[QBServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+	[ServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
 		__typeof(self) strongSelf = weakSelf;
 		strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:users];
 		strongSelf.tableView.dataSource = weakSelf.usersDatasource;
@@ -38,12 +38,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[[QBServicesManager instance].chatService addDelegate:self];
+	[[ServicesManager instance].chatService addDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[[QBServicesManager instance].chatService removeDelegate:self];
+	[[ServicesManager instance].chatService removeDelegate:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
