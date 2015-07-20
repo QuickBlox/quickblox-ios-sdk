@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserTableViewCell: SWTableViewCell {
+class UserTableViewCell: UITableViewCell {
     @IBOutlet private weak var colorMarker: CornerView!
     @IBOutlet private weak var userDescriptionLabel: UILabel!
     

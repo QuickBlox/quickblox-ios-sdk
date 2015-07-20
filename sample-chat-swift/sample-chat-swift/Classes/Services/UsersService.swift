@@ -40,7 +40,12 @@ class UsersService: NSObject {
         let memoryUsers = self.contactListService!.usersMemoryStorage.usersSortedByKey("fullName", ascending: true)
         
         if (memoryUsers != nil && memoryUsers.count > 0) {
-            completion?(memoryUsers as! [QBUUser])
+            
+            var sortedUsers = memoryUsers.sorted({ (user1, user2) -> Bool in
+                return (user1.login as NSString).compare(user2.login, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
+            }) as! [QBUUser]
+            
+            completion?(sortedUsers)
             
             return
         }
@@ -87,6 +92,10 @@ class UsersService: NSObject {
     func user(userID: UInt) -> QBUUser? {
     
         return self.contactListService.usersMemoryStorage.userWithID(userID)
+    }
+    
+    func users() -> [QBUUser]? {
+        return self.contactListService.usersMemoryStorage.unsorterdUsers() as? [QBUUser]
     }
     
     func users(withoutUser user: QBUUser) -> [QBUUser]? {
