@@ -58,7 +58,7 @@
 	NSMutableArray *users = [NSMutableArray arrayWithCapacity:indexPathArray.count];
 	NSMutableArray *usersIDs = [NSMutableArray arrayWithCapacity:indexPathArray.count];
 	
-	for( NSIndexPath *indexPath in indexPathArray ) {
+	for (NSIndexPath *indexPath in indexPathArray) {
 		UserTableViewCell *selectedCell = (UserTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
 		[users addObject:selectedCell.user];
 		[usersIDs addObject:@(selectedCell.user.ID)];
@@ -67,15 +67,14 @@
 	
 	__weak __typeof(self)weakSelf = self;
 	
-	if( self.dialog.type == QBChatDialogTypePrivate ) {
-		
+	if (self.dialog.type == QBChatDialogTypePrivate) {
 		[ServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *occupants) {
+            __typeof(self) strongSelf = weakSelf;
 			[users addObjectsFromArray:occupants];
 			
-			[weakSelf createGroupDialogWithUsers:users];
+			[strongSelf createGroupDialogWithUsers:users];
 		}];
-	}
-	else {
+	} else {
 		[self updateGroupDialogWithUsersIDs:usersIDs];
 	}
 }

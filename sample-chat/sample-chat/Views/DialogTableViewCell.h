@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DialogTableViewCell : SWTableViewCell
+@interface DialogTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *unreadContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *unreadCountLabel;

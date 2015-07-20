@@ -7,440 +7,366 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D0F347D7A535BCE0FBF1C3C /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD94917237FD41D3FD2E39D /* NSMutableArray+SWUtilityButtons.m */; };
-		335CBECECF9241639EC54A3B /* SWUtilityButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45436296554FBA12EEEA9245 /* SWUtilityButtonView.h */; };
-		34A5218DF26DC1A7433D2248 /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B6293C0E6F2165C990F79BA /* TWMessageBarManager.m */; };
-		3D7EBFB6D953D83630C0C58F /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 773587E93BBAD0E886AEECA8 /* SWTableViewCell.m */; };
-		416F13ED1FDE103D7F859F96 /* NSMutableArray+SWUtilityButtons.h in Headers */ = {isa = PBXBuildFile; fileRef = B6F37661AD455DA2A02E6697 /* NSMutableArray+SWUtilityButtons.h */; };
-		454843A905985DAFF93DCB77 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913BAC733727ED54DFF34A68 /* Foundation.framework */; };
-		4773985B763D457F8CAF691C /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = FF3315F1BD0984473685689C /* TWMessageBarManager.h */; };
-		482DD30D9111778C004B706A /* SWTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 294BD3D19B4D09CF9AD6A2E6 /* SWTableViewCell.h */; };
-		4AD65608D33F834ABD8D3F43 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1283AB5C1C3CA50BC9450F0A /* QuartzCore.framework */; };
-		558E021AE61309AE9760F20D /* Pods-SWTableViewCell-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA9C7560E60F13B7D1BA426 /* Pods-SWTableViewCell-dummy.m */; };
-		573FA5F95D1C48F1E677382E /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5263BBD31A1E6B97A71035E7 /* SVIndefiniteAnimatedView.m */; };
-		5D0647E7B935D3115C2BF115 /* SWLongPressGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 750BFB5FEAFCBA6DD83716D6 /* SWLongPressGestureRecognizer.h */; };
-		5F6C1902619C71160B226005 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FB14C9452831FB8190854B /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		696B8A1EB55A5DF9FB14A4EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8829E6261AE7EDDA94225DFF /* UIKit.framework */; };
-		6DE6F294A5E7B78DD91B8392 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C15BBF68B889D131F242B86 /* Pods-dummy.m */; };
-		7A9FB01059FF13D9F7181B9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913BAC733727ED54DFF34A68 /* Foundation.framework */; };
-		7B19A8FC255DBD85FA75F964 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C44BACC762B12D54EDD66 /* CoreGraphics.framework */; };
-		7C18C6AF0E1AF0AB39EA6D18 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3D41031140328177295E3EF /* CoreText.framework */; };
-		8CD49DFD096631026CE0F209 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC1F99523967C1AB2267D7B /* SVProgressHUD.m */; };
-		A04E902518FD076534D242C5 /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2707681E24A3857F18CB66D2 /* SWUtilityButtonView.m */; };
-		AE1A2AF0A1C5454FC3F808CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913BAC733727ED54DFF34A68 /* Foundation.framework */; };
-		AE2A8727C9BDD128D9B22632 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913BAC733727ED54DFF34A68 /* Foundation.framework */; };
-		AE582B8497DA2067B26E1434 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1283AB5C1C3CA50BC9450F0A /* QuartzCore.framework */; };
-		B3E6BC8F079CA0B168806023 /* Pods-TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 97602E7E1AF3329C2F5150B1 /* Pods-TWMessageBarManager-dummy.m */; };
-		BB434453E7307471EEA72782 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 69242E9F2AC0122A46852FCF /* SWCellScrollView.m */; };
-		BC36F3123E79F02577512F3F /* Pods-TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F6114D8EDF2BE779420115F8 /* Pods-TTTAttributedLabel-dummy.m */; };
-		C906E4EC270D978E4E2A6BD6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913BAC733727ED54DFF34A68 /* Foundation.framework */; };
-		CD6D89BA4B2E1FE606DDF974 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C1EFE03E4A764C355A941B /* TTTAttributedLabel.h */; };
-		D2B82C43411E21DA0B2AB8A3 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = A981F4F6EFE07FEE33F4AA66 /* SVProgressHUD.h */; };
-		D6174C69EAAF3FA4B44343FF /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = EFB22C627177156DD4ECA717 /* SWUtilityButtonTapGestureRecognizer.m */; };
-		DEF3E29A4529F1459C670AFE /* SWUtilityButtonTapGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = ED70E8828BA9FC7E1066BE84 /* SWUtilityButtonTapGestureRecognizer.h */; };
-		DFD10E2B30A8B878B0CBB666 /* Pods-SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6026990EAC3006291E82599B /* Pods-SVProgressHUD-dummy.m */; };
-		E40A52163CF5371FD116144B /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = A78BBF06BB6745C4E21BC74B /* SVIndefiniteAnimatedView.h */; };
-		EAE27CC8573A8B08B1A64FCD /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C9ED2DA537F7BB159F1591 /* SWLongPressGestureRecognizer.m */; };
-		ED02AB7E6164F5A742314AA9 /* SWCellScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D165F6849E6FA63D45394EF /* SWCellScrollView.h */; };
+		03E1BEC60D4075E4A89A995C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 593E8EC6547B49D7AC3E95D6 /* CoreGraphics.framework */; };
+		0B90E896569F703416730D4A /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0293225B74FF913755439631 /* TWMessageBarManager.h */; };
+		1BC2CF4F3665006B0D59E5AB /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E850BEC652438CBDAF8D88 /* SVProgressHUD.h */; };
+		234A66E81C49372E226BB6CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACD8E79F229657DA006F97C /* Foundation.framework */; };
+		585B9F55CBEE349B35F1F75D /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 735F0DA7148710EF201CFAF5 /* SVIndefiniteAnimatedView.h */; };
+		63E96AF025EC2676D4AA7948 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACD8E79F229657DA006F97C /* Foundation.framework */; };
+		68588DA9FE81CFB5D9DBD50C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2FA6FFFF349BFFE7B361448 /* UIKit.framework */; };
+		6F367060A80F52C29A98DAC4 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B21A5908A5E7BDBDEEB107AA /* SVProgressHUD.m */; };
+		8297E0BE8C74480F1B235DA3 /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A47E586C46DEC8CEFDD7EA82 /* TWMessageBarManager.m */; };
+		883890FAE2E8BB727C26845F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACD8E79F229657DA006F97C /* Foundation.framework */; };
+		89841A03D8DBA30FDBE869B0 /* Pods-SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AC58569D2D19A8BEFEB828BD /* Pods-SVProgressHUD-dummy.m */; };
+		903EEF7ED44CCABAE4008693 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07053ABC16C70D014BB70218 /* Pods-dummy.m */; };
+		B4B188CD73E6149D9680B9B2 /* Pods-TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 00AA1CE1F7C05026E98978E5 /* Pods-TTTAttributedLabel-dummy.m */; };
+		B702F8FFE504703690073B50 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E8BE0E66C006990C697915 /* QuartzCore.framework */; };
+		C7D2D95389EC4FC8AAAAA2CF /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 422CD4C2A6E43649CC27214F /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		D6D3A68C63336247623E4BF4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E581FF6E014E8E0B33E2F1D9 /* CoreText.framework */; };
+		DAF3D373002DC5D708D5283F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACD8E79F229657DA006F97C /* Foundation.framework */; };
+		E3CF093DD857D98548C14E52 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E8BE0E66C006990C697915 /* QuartzCore.framework */; };
+		EF8C7E48344A05A5319C9BE3 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BE5B0D62CC3872E69735009 /* TTTAttributedLabel.h */; };
+		F9E6EF1E033B18DE724E20AA /* Pods-TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBB260BF8C2091461BE339B /* Pods-TWMessageBarManager-dummy.m */; };
+		FE785FCB584CBB8DA0A39EB5 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD91C25B8863E3F17801A43 /* SVIndefiniteAnimatedView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6382AD1A9EC48087086FC13B /* PBXContainerItemProxy */ = {
+		4C72757E5F02BA15AE9FA87B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 666CEC08A1BA2BBD9FD77790 /* Project object */;
+			containerPortal = 265A57EC9F31C1BA3EED9867 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C203E02A82EB4480ABF332EE;
-			remoteInfo = "Pods-SWTableViewCell";
-		};
-		651CFA817F092A2A250CDD3F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 666CEC08A1BA2BBD9FD77790 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 25DEBB7F582AE0C02C39AACA;
-			remoteInfo = "Pods-TTTAttributedLabel";
-		};
-		80A2012AE07E6B3934510CD6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 666CEC08A1BA2BBD9FD77790 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D14DDDE6D6704A91BB8E3096;
+			remoteGlobalIDString = C7B7694D096140139578830B;
 			remoteInfo = "Pods-TWMessageBarManager";
 		};
-		E78019D4B11D88C3C6900F12 /* PBXContainerItemProxy */ = {
+		72D5E4B5E076EA465097BA67 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 666CEC08A1BA2BBD9FD77790 /* Project object */;
+			containerPortal = 265A57EC9F31C1BA3EED9867 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0FD78B461B77612E708CF69F;
+			remoteGlobalIDString = 2BCA102C4942F87BCD397912;
 			remoteInfo = "Pods-SVProgressHUD";
+		};
+		C0DB5A7B77191CE0794C2E70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 265A57EC9F31C1BA3EED9867 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 470164BFCEDBAC3035A96DA5;
+			remoteInfo = "Pods-TTTAttributedLabel";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		09E4B5E33E373B35C37D8DBA /* Pods-SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD.xcconfig"; sourceTree = "<group>"; };
-		0DEE715FC840443574A53895 /* libPods-TTTAttributedLabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTTAttributedLabel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0EF2A51023E01325511095D0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		1283AB5C1C3CA50BC9450F0A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		139BEC9A0B495D9522C494F3 /* Pods-TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager.xcconfig"; sourceTree = "<group>"; };
-		153ADA4B0255666893C4225D /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		1951D87A8BD21B9131DE0434 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
-		1F019234400267580469DEA4 /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
-		2707681E24A3857F18CB66D2 /* SWUtilityButtonView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonView.m; path = SWTableViewCell/PodFiles/SWUtilityButtonView.m; sourceTree = "<group>"; };
-		294BD3D19B4D09CF9AD6A2E6 /* SWTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWTableViewCell.h; path = SWTableViewCell/PodFiles/SWTableViewCell.h; sourceTree = "<group>"; };
-		31FB14C9452831FB8190854B /* TTTAttributedLabel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
-		32C1EFE03E4A764C355A941B /* TTTAttributedLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
-		34C1917E6B3E23141F9701BC /* icon-error.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error.png"; path = "Classes/Icons/icon-error.png"; sourceTree = "<group>"; };
-		3DD94917237FD41D3FD2E39D /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+SWUtilityButtons.m"; path = "SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
-		45436296554FBA12EEEA9245 /* SWUtilityButtonView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonView.h; path = SWTableViewCell/PodFiles/SWUtilityButtonView.h; sourceTree = "<group>"; };
-		473354A2D5D6CD98962AF191 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
-		4961DAB6662C3AD5E9611D1A /* icon-info@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info@2x.png"; path = "Classes/Icons/icon-info@2x.png"; sourceTree = "<group>"; };
-		4D165F6849E6FA63D45394EF /* SWCellScrollView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWCellScrollView.h; path = SWTableViewCell/PodFiles/SWCellScrollView.h; sourceTree = "<group>"; };
-		4DC1F99523967C1AB2267D7B /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
-		514DBCF3F152FA478B205FB2 /* Pods-SVProgressHUD-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD-Private.xcconfig"; sourceTree = "<group>"; };
-		5263BBD31A1E6B97A71035E7 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		53FF095D459FBC9BA0EF00F2 /* Pods-TTTAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TTTAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
-		59507AAEA193F44686FCFAB7 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		6026990EAC3006291E82599B /* Pods-SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
-		654F49E97A51C9A700095A11 /* libPods-SWTableViewCell.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SWTableViewCell.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		66075B432E2E8D6165FAB1BC /* Pods-SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
-		69242E9F2AC0122A46852FCF /* SWCellScrollView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWCellScrollView.m; path = SWTableViewCell/PodFiles/SWCellScrollView.m; sourceTree = "<group>"; };
-		6E95B016F26ACF55EC63BE99 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		750BFB5FEAFCBA6DD83716D6 /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWLongPressGestureRecognizer.h; path = SWTableViewCell/PodFiles/SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
-		773587E93BBAD0E886AEECA8 /* SWTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWTableViewCell.m; path = SWTableViewCell/PodFiles/SWTableViewCell.m; sourceTree = "<group>"; };
-		77F03EB62172DD12FEECE7A6 /* icon-error@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error@2x.png"; path = "Classes/Icons/icon-error@2x.png"; sourceTree = "<group>"; };
-		7B6293C0E6F2165C990F79BA /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
-		856262F09EA1FB5A18438948 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		8829E6261AE7EDDA94225DFF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		8AF74FCD65A15905FD4A9611 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		8C15BBF68B889D131F242B86 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		913BAC733727ED54DFF34A68 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		9721C028C76751312D12C23B /* Pods-TWMessageBarManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TWMessageBarManager-prefix.pch"; sourceTree = "<group>"; };
-		97602E7E1AF3329C2F5150B1 /* Pods-TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
-		9C22CBB1FF10E309031297BD /* Pods-SWTableViewCell-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SWTableViewCell-Private.xcconfig"; sourceTree = "<group>"; };
-		9C5377C48F6ADC285B9E87E8 /* Pods-SWTableViewCell-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SWTableViewCell-prefix.pch"; sourceTree = "<group>"; };
-		A5CD1D1B2D7D3840408600F6 /* libPods-TWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TWMessageBarManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A78BBF06BB6745C4E21BC74B /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		A84EC3A488341C53A0B07EF3 /* Pods-TTTAttributedLabel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel.xcconfig"; sourceTree = "<group>"; };
-		A981F4F6EFE07FEE33F4AA66 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
-		AC16ACB1C1BC387E85FD3CF9 /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
-		AC3913B9E320F06E72A226B9 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
-		B026D375ABABF723E8EDB1BD /* Pods-SWTableViewCell.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SWTableViewCell.xcconfig"; sourceTree = "<group>"; };
-		B6F37661AD455DA2A02E6697 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+SWUtilityButtons.h"; path = "SWTableViewCell/PodFiles/NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
-		B92E85706D1228D4756EE564 /* Pods-TWMessageBarManager-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager-Private.xcconfig"; sourceTree = "<group>"; };
-		D5C9ED2DA537F7BB159F1591 /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWLongPressGestureRecognizer.m; path = SWTableViewCell/PodFiles/SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
-		D84C44BACC762B12D54EDD66 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		D85DFFC2D0040BE51DF6A0C0 /* Pods-TTTAttributedLabel-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel-Private.xcconfig"; sourceTree = "<group>"; };
-		DE89F49D388280189F60C2E1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		DEA9C7560E60F13B7D1BA426 /* Pods-SWTableViewCell-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SWTableViewCell-dummy.m"; sourceTree = "<group>"; };
-		E3D41031140328177295E3EF /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
-		ED70E8828BA9FC7E1066BE84 /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SWUtilityButtonTapGestureRecognizer.h; path = SWTableViewCell/PodFiles/SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
-		EFB22C627177156DD4ECA717 /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SWUtilityButtonTapGestureRecognizer.m; path = SWTableViewCell/PodFiles/SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
-		F2A7AFDB3A6C72E314DF4231 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.qa.xcconfig; sourceTree = "<group>"; };
-		F43B8BADE2F4B4A5B0260400 /* libPods-SVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVProgressHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F6114D8EDF2BE779420115F8 /* Pods-TTTAttributedLabel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TTTAttributedLabel-dummy.m"; sourceTree = "<group>"; };
-		FF3315F1BD0984473685689C /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
+		00AA1CE1F7C05026E98978E5 /* Pods-TTTAttributedLabel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TTTAttributedLabel-dummy.m"; sourceTree = "<group>"; };
+		0293225B74FF913755439631 /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
+		040053DE4486353BE1AF2EEA /* Pods-TWMessageBarManager-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager-Private.xcconfig"; sourceTree = "<group>"; };
+		07053ABC16C70D014BB70218 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		09C42389985004B8D74F5FCB /* Pods-TTTAttributedLabel-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel-Private.xcconfig"; sourceTree = "<group>"; };
+		145AA3B38268E9133E7A2268 /* icon-error@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error@2x.png"; path = "Classes/Icons/icon-error@2x.png"; sourceTree = "<group>"; };
+		14665F4C202E03E63456D0DD /* Pods-SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD.xcconfig"; sourceTree = "<group>"; };
+		19311B760A7E9C99462041BC /* Pods-TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager.xcconfig"; sourceTree = "<group>"; };
+		1AF5498C4DA73C6C5A336F10 /* libPods-SVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVProgressHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BE5B0D62CC3872E69735009 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
+		1C00FE384D3A1A44A9B4B25A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
+		1DFC84E629D70A500E6EDCF8 /* Pods-TTTAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TTTAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
+		22D0ADAF318B517AF25262D4 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		2A2843CBECF26C550AF30D0F /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2B0D997C1C0118F8C0EA986E /* libPods-TWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TWMessageBarManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		422CD4C2A6E43649CC27214F /* TTTAttributedLabel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
+		4CD91C25B8863E3F17801A43 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		593E8EC6547B49D7AC3E95D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		662C073BBD357A003FF45933 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
+		6B2C033310F7724DA981F516 /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
+		735F0DA7148710EF201CFAF5 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		801A0780C5E598107BDD028B /* Pods-SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
+		83A5371C5DDB274D57FB6B0E /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8FED45B123323E686A421C5B /* Pods-TTTAttributedLabel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel.xcconfig"; sourceTree = "<group>"; };
+		9328E76B055358C559B9AA05 /* icon-info@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info@2x.png"; path = "Classes/Icons/icon-info@2x.png"; sourceTree = "<group>"; };
+		989406A340A9CF2F5D268E27 /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
+		A47E586C46DEC8CEFDD7EA82 /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
+		AC58569D2D19A8BEFEB828BD /* Pods-SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		ADF6B56AB17807C1F1B1D0B5 /* Pods-SVProgressHUD-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD-Private.xcconfig"; sourceTree = "<group>"; };
+		B21A5908A5E7BDBDEEB107AA /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
+		B2FA6FFFF349BFFE7B361448 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		B8E850BEC652438CBDAF8D88 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
+		C247EDDED4EA5430BF5FE79A /* libPods-TTTAttributedLabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTTAttributedLabel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C39EEF961A20C423690C435C /* icon-error.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error.png"; path = "Classes/Icons/icon-error.png"; sourceTree = "<group>"; };
+		C41B4FEC19ACFB6BDFDC4546 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
+		C5E8BE0E66C006990C697915 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		CACD6CB937E344FD65BC980D /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.qa.xcconfig; sourceTree = "<group>"; };
+		DDED98FB093B4F9BC4CA9C32 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
+		DFBB260BF8C2091461BE339B /* Pods-TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
+		E581FF6E014E8E0B33E2F1D9 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		ED9F13774110D3BB8CDC669A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		F380FE3C84DFCB522B4177A7 /* Pods-TWMessageBarManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TWMessageBarManager-prefix.pch"; sourceTree = "<group>"; };
+		F70FC341456B9565C7E839F1 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		FAB4CD142DE0F100CDAA7639 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACD8E79F229657DA006F97C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1A329889CD94EC99D8BB7815 /* Frameworks */ = {
+		12AC90656EA7096BA3CBB963 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C906E4EC270D978E4E2A6BD6 /* Foundation.framework in Frameworks */,
+				DAF3D373002DC5D708D5283F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		20DA85E93D977A79F522BA0F /* Frameworks */ = {
+		6422DBEC69EB76A087F1E989 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE2A8727C9BDD128D9B22632 /* Foundation.framework in Frameworks */,
-				4AD65608D33F834ABD8D3F43 /* QuartzCore.framework in Frameworks */,
+				63E96AF025EC2676D4AA7948 /* Foundation.framework in Frameworks */,
+				E3CF093DD857D98548C14E52 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		97278C4DC666F4031B640B8F /* Frameworks */ = {
+		E31DBAABBEF10A1D3950686C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B19A8FC255DBD85FA75F964 /* CoreGraphics.framework in Frameworks */,
-				7C18C6AF0E1AF0AB39EA6D18 /* CoreText.framework in Frameworks */,
-				454843A905985DAFF93DCB77 /* Foundation.framework in Frameworks */,
-				AE582B8497DA2067B26E1434 /* QuartzCore.framework in Frameworks */,
-				696B8A1EB55A5DF9FB14A4EE /* UIKit.framework in Frameworks */,
+				234A66E81C49372E226BB6CE /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D488577E98F4344E1E3B8F05 /* Frameworks */ = {
+		F62732391F96F03A2FAFB015 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE1A2AF0A1C5454FC3F808CE /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E598FBAC79FDEE83F1A066B9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A9FB01059FF13D9F7181B9E /* Foundation.framework in Frameworks */,
+				03E1BEC60D4075E4A89A995C /* CoreGraphics.framework in Frameworks */,
+				D6D3A68C63336247623E4BF4 /* CoreText.framework in Frameworks */,
+				883890FAE2E8BB727C26845F /* Foundation.framework in Frameworks */,
+				B702F8FFE504703690073B50 /* QuartzCore.framework in Frameworks */,
+				68588DA9FE81CFB5D9DBD50C /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		19C94B43FB91CEC4B4DA1CC3 /* TWMessageBarManager */ = {
+		0441B696F28182617BB109E3 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				FF3315F1BD0984473685689C /* TWMessageBarManager.h */,
-				7B6293C0E6F2165C990F79BA /* TWMessageBarManager.m */,
-				58FEEEE2D1F04FC63B786CD7 /* Resources */,
-				4CD80F80CCADCBA04D9C1918 /* Support Files */,
+				C759FA0439723FC36F1C3052 /* Pods */,
 			);
-			path = TWMessageBarManager;
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		2053AD160AC4434E50316B03 /* Support Files */ = {
+		21C2BF87E127EB751659F145 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				09E4B5E33E373B35C37D8DBA /* Pods-SVProgressHUD.xcconfig */,
-				514DBCF3F152FA478B205FB2 /* Pods-SVProgressHUD-Private.xcconfig */,
-				6026990EAC3006291E82599B /* Pods-SVProgressHUD-dummy.m */,
-				66075B432E2E8D6165FAB1BC /* Pods-SVProgressHUD-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-SVProgressHUD";
-			sourceTree = "<group>";
-		};
-		3218C56B235BD01015282213 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				D84C44BACC762B12D54EDD66 /* CoreGraphics.framework */,
-				E3D41031140328177295E3EF /* CoreText.framework */,
-				913BAC733727ED54DFF34A68 /* Foundation.framework */,
-				1283AB5C1C3CA50BC9450F0A /* QuartzCore.framework */,
-				8829E6261AE7EDDA94225DFF /* UIKit.framework */,
+				593E8EC6547B49D7AC3E95D6 /* CoreGraphics.framework */,
+				E581FF6E014E8E0B33E2F1D9 /* CoreText.framework */,
+				FACD8E79F229657DA006F97C /* Foundation.framework */,
+				C5E8BE0E66C006990C697915 /* QuartzCore.framework */,
+				B2FA6FFFF349BFFE7B361448 /* UIKit.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		343C7C4C31A9459FA9BD4CF1 /* Frameworks */ = {
+		231E79C00AAA6FBDFA791D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3218C56B235BD01015282213 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		34E5CBA0441E650681185D75 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				B026D375ABABF723E8EDB1BD /* Pods-SWTableViewCell.xcconfig */,
-				9C22CBB1FF10E309031297BD /* Pods-SWTableViewCell-Private.xcconfig */,
-				DEA9C7560E60F13B7D1BA426 /* Pods-SWTableViewCell-dummy.m */,
-				9C5377C48F6ADC285B9E87E8 /* Pods-SWTableViewCell-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-SWTableViewCell";
-			sourceTree = "<group>";
-		};
-		4CD80F80CCADCBA04D9C1918 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				139BEC9A0B495D9522C494F3 /* Pods-TWMessageBarManager.xcconfig */,
-				B92E85706D1228D4756EE564 /* Pods-TWMessageBarManager-Private.xcconfig */,
-				97602E7E1AF3329C2F5150B1 /* Pods-TWMessageBarManager-dummy.m */,
-				9721C028C76751312D12C23B /* Pods-TWMessageBarManager-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-TWMessageBarManager";
-			sourceTree = "<group>";
-		};
-		58FEEEE2D1F04FC63B786CD7 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				34C1917E6B3E23141F9701BC /* icon-error.png */,
-				77F03EB62172DD12FEECE7A6 /* icon-error@2x.png */,
-				473354A2D5D6CD98962AF191 /* icon-info.png */,
-				4961DAB6662C3AD5E9611D1A /* icon-info@2x.png */,
-				1F019234400267580469DEA4 /* icon-success.png */,
-				AC16ACB1C1BC387E85FD3CF9 /* icon-success@2x.png */,
+				ED9F13774110D3BB8CDC669A /* SVProgressHUD.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		5F481D55F0BAAEC6F37BB42E /* Pods */ = {
+		6DC1E23A53C9F3ED5793CCDA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F73507612DAD321B8C808EE3 /* SVProgressHUD */,
-				608F0C331936946443DB5EEB /* SWTableViewCell */,
-				EE004AA38671F5E6C972CF25 /* TTTAttributedLabel */,
-				19C94B43FB91CEC4B4DA1CC3 /* TWMessageBarManager */,
+				FAB4CD142DE0F100CDAA7639 /* libPods.a */,
+				1AF5498C4DA73C6C5A336F10 /* libPods-SVProgressHUD.a */,
+				C247EDDED4EA5430BF5FE79A /* libPods-TTTAttributedLabel.a */,
+				2B0D997C1C0118F8C0EA986E /* libPods-TWMessageBarManager.a */,
 			);
-			name = Pods;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		608F0C331936946443DB5EEB /* SWTableViewCell */ = {
+		72D7205FAA21D050C34ABACF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B6F37661AD455DA2A02E6697 /* NSMutableArray+SWUtilityButtons.h */,
-				3DD94917237FD41D3FD2E39D /* NSMutableArray+SWUtilityButtons.m */,
-				4D165F6849E6FA63D45394EF /* SWCellScrollView.h */,
-				69242E9F2AC0122A46852FCF /* SWCellScrollView.m */,
-				750BFB5FEAFCBA6DD83716D6 /* SWLongPressGestureRecognizer.h */,
-				D5C9ED2DA537F7BB159F1591 /* SWLongPressGestureRecognizer.m */,
-				294BD3D19B4D09CF9AD6A2E6 /* SWTableViewCell.h */,
-				773587E93BBAD0E886AEECA8 /* SWTableViewCell.m */,
-				ED70E8828BA9FC7E1066BE84 /* SWUtilityButtonTapGestureRecognizer.h */,
-				EFB22C627177156DD4ECA717 /* SWUtilityButtonTapGestureRecognizer.m */,
-				45436296554FBA12EEEA9245 /* SWUtilityButtonView.h */,
-				2707681E24A3857F18CB66D2 /* SWUtilityButtonView.m */,
-				34E5CBA0441E650681185D75 /* Support Files */,
+				21C2BF87E127EB751659F145 /* iOS */,
 			);
-			path = SWTableViewCell;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		661806C2D87E1061644452CB /* Support Files */ = {
+		88EFD6FA8D724602FB07D146 = {
 			isa = PBXGroup;
 			children = (
-				A84EC3A488341C53A0B07EF3 /* Pods-TTTAttributedLabel.xcconfig */,
-				D85DFFC2D0040BE51DF6A0C0 /* Pods-TTTAttributedLabel-Private.xcconfig */,
-				F6114D8EDF2BE779420115F8 /* Pods-TTTAttributedLabel-dummy.m */,
-				53FF095D459FBC9BA0EF00F2 /* Pods-TTTAttributedLabel-prefix.pch */,
+				83A5371C5DDB274D57FB6B0E /* Podfile */,
+				72D7205FAA21D050C34ABACF /* Frameworks */,
+				E86E9195491000B32372A888 /* Pods */,
+				6DC1E23A53C9F3ED5793CCDA /* Products */,
+				0441B696F28182617BB109E3 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8BD940378DD6440DE0BBE368 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				1BE5B0D62CC3872E69735009 /* TTTAttributedLabel.h */,
+				422CD4C2A6E43649CC27214F /* TTTAttributedLabel.m */,
+				9B08ED6C869A2F12FAFA2B82 /* Support Files */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		9B08ED6C869A2F12FAFA2B82 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8FED45B123323E686A421C5B /* Pods-TTTAttributedLabel.xcconfig */,
+				09C42389985004B8D74F5FCB /* Pods-TTTAttributedLabel-Private.xcconfig */,
+				00AA1CE1F7C05026E98978E5 /* Pods-TTTAttributedLabel-dummy.m */,
+				1DFC84E629D70A500E6EDCF8 /* Pods-TTTAttributedLabel-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-TTTAttributedLabel";
 			sourceTree = "<group>";
 		};
-		6EAEAE56F128FA39450B3AA9 /* Targets Support Files */ = {
+		9C8EC76FAEDCD746ECC5F323 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				90BBD759844FBB3C50E041F7 /* Pods */,
+				14665F4C202E03E63456D0DD /* Pods-SVProgressHUD.xcconfig */,
+				ADF6B56AB17807C1F1B1D0B5 /* Pods-SVProgressHUD-Private.xcconfig */,
+				AC58569D2D19A8BEFEB828BD /* Pods-SVProgressHUD-dummy.m */,
+				801A0780C5E598107BDD028B /* Pods-SVProgressHUD-prefix.pch */,
 			);
-			name = "Targets Support Files";
+			name = "Support Files";
+			path = "../Target Support Files/Pods-SVProgressHUD";
 			sourceTree = "<group>";
 		};
-		7E1C9CED1CB00B055625676E /* Products */ = {
+		A4F75DF007AFA9C166BB9AF6 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				6E95B016F26ACF55EC63BE99 /* libPods.a */,
-				F43B8BADE2F4B4A5B0260400 /* libPods-SVProgressHUD.a */,
-				654F49E97A51C9A700095A11 /* libPods-SWTableViewCell.a */,
-				0DEE715FC840443574A53895 /* libPods-TTTAttributedLabel.a */,
-				A5CD1D1B2D7D3840408600F6 /* libPods-TWMessageBarManager.a */,
+				19311B760A7E9C99462041BC /* Pods-TWMessageBarManager.xcconfig */,
+				040053DE4486353BE1AF2EEA /* Pods-TWMessageBarManager-Private.xcconfig */,
+				DFBB260BF8C2091461BE339B /* Pods-TWMessageBarManager-dummy.m */,
+				F380FE3C84DFCB522B4177A7 /* Pods-TWMessageBarManager-prefix.pch */,
 			);
-			name = Products;
+			name = "Support Files";
+			path = "../Target Support Files/Pods-TWMessageBarManager";
 			sourceTree = "<group>";
 		};
-		8980D9371C84F5B07FB3BFEF /* Resources */ = {
+		B6E646EAAE85B8520C963D40 /* TWMessageBarManager */ = {
 			isa = PBXGroup;
 			children = (
-				AC3913B9E320F06E72A226B9 /* SVProgressHUD.bundle */,
+				0293225B74FF913755439631 /* TWMessageBarManager.h */,
+				A47E586C46DEC8CEFDD7EA82 /* TWMessageBarManager.m */,
+				F5416363F898C771941A11E2 /* Resources */,
+				A4F75DF007AFA9C166BB9AF6 /* Support Files */,
 			);
-			name = Resources;
+			path = TWMessageBarManager;
 			sourceTree = "<group>";
 		};
-		90BBD759844FBB3C50E041F7 /* Pods */ = {
+		C759FA0439723FC36F1C3052 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8AF74FCD65A15905FD4A9611 /* Pods-acknowledgements.markdown */,
-				856262F09EA1FB5A18438948 /* Pods-acknowledgements.plist */,
-				8C15BBF68B889D131F242B86 /* Pods-dummy.m */,
-				1951D87A8BD21B9131DE0434 /* Pods-environment.h */,
-				59507AAEA193F44686FCFAB7 /* Pods-resources.sh */,
-				0EF2A51023E01325511095D0 /* Pods.debug.xcconfig */,
-				F2A7AFDB3A6C72E314DF4231 /* Pods.qa.xcconfig */,
-				DE89F49D388280189F60C2E1 /* Pods.release.xcconfig */,
+				2A2843CBECF26C550AF30D0F /* Pods-acknowledgements.markdown */,
+				F70FC341456B9565C7E839F1 /* Pods-acknowledgements.plist */,
+				07053ABC16C70D014BB70218 /* Pods-dummy.m */,
+				DDED98FB093B4F9BC4CA9C32 /* Pods-environment.h */,
+				22D0ADAF318B517AF25262D4 /* Pods-resources.sh */,
+				662C073BBD357A003FF45933 /* Pods.debug.xcconfig */,
+				CACD6CB937E344FD65BC980D /* Pods.qa.xcconfig */,
+				1C00FE384D3A1A44A9B4B25A /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
-		CFD26727B9CB55E66CE82D8E = {
+		DF3FB428E1A39393AE027844 /* SVProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				153ADA4B0255666893C4225D /* Podfile */,
-				343C7C4C31A9459FA9BD4CF1 /* Frameworks */,
-				5F481D55F0BAAEC6F37BB42E /* Pods */,
-				7E1C9CED1CB00B055625676E /* Products */,
-				6EAEAE56F128FA39450B3AA9 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		EE004AA38671F5E6C972CF25 /* TTTAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				32C1EFE03E4A764C355A941B /* TTTAttributedLabel.h */,
-				31FB14C9452831FB8190854B /* TTTAttributedLabel.m */,
-				661806C2D87E1061644452CB /* Support Files */,
-			);
-			path = TTTAttributedLabel;
-			sourceTree = "<group>";
-		};
-		F73507612DAD321B8C808EE3 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				A78BBF06BB6745C4E21BC74B /* SVIndefiniteAnimatedView.h */,
-				5263BBD31A1E6B97A71035E7 /* SVIndefiniteAnimatedView.m */,
-				A981F4F6EFE07FEE33F4AA66 /* SVProgressHUD.h */,
-				4DC1F99523967C1AB2267D7B /* SVProgressHUD.m */,
-				8980D9371C84F5B07FB3BFEF /* Resources */,
-				2053AD160AC4434E50316B03 /* Support Files */,
+				735F0DA7148710EF201CFAF5 /* SVIndefiniteAnimatedView.h */,
+				4CD91C25B8863E3F17801A43 /* SVIndefiniteAnimatedView.m */,
+				B8E850BEC652438CBDAF8D88 /* SVProgressHUD.h */,
+				B21A5908A5E7BDBDEEB107AA /* SVProgressHUD.m */,
+				231E79C00AAA6FBDFA791D8E /* Resources */,
+				9C8EC76FAEDCD746ECC5F323 /* Support Files */,
 			);
 			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		E86E9195491000B32372A888 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DF3FB428E1A39393AE027844 /* SVProgressHUD */,
+				8BD940378DD6440DE0BBE368 /* TTTAttributedLabel */,
+				B6E646EAAE85B8520C963D40 /* TWMessageBarManager */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F5416363F898C771941A11E2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C39EEF961A20C423690C435C /* icon-error.png */,
+				145AA3B38268E9133E7A2268 /* icon-error@2x.png */,
+				C41B4FEC19ACFB6BDFDC4546 /* icon-info.png */,
+				9328E76B055358C559B9AA05 /* icon-info@2x.png */,
+				6B2C033310F7724DA981F516 /* icon-success.png */,
+				989406A340A9CF2F5D268E27 /* icon-success@2x.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		20BFF97109EA5A18FBF15A95 /* Headers */ = {
+		32395C5B284AD4ADD995FB7E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E40A52163CF5371FD116144B /* SVIndefiniteAnimatedView.h in Headers */,
-				D2B82C43411E21DA0B2AB8A3 /* SVProgressHUD.h in Headers */,
+				585B9F55CBEE349B35F1F75D /* SVIndefiniteAnimatedView.h in Headers */,
+				1BC2CF4F3665006B0D59E5AB /* SVProgressHUD.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		29F405F61DEB53A15298FE14 /* Headers */ = {
+		B0A2EB7A7804B440C3FD4D75 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD6D89BA4B2E1FE606DDF974 /* TTTAttributedLabel.h in Headers */,
+				0B90E896569F703416730D4A /* TWMessageBarManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		31415B80F19E5B3F209EE827 /* Headers */ = {
+		E15AEDCC27D483E44FD7B7AA /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4773985B763D457F8CAF691C /* TWMessageBarManager.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7F5AB4A904CA384DC5BDBDC5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				416F13ED1FDE103D7F859F96 /* NSMutableArray+SWUtilityButtons.h in Headers */,
-				ED02AB7E6164F5A742314AA9 /* SWCellScrollView.h in Headers */,
-				5D0647E7B935D3115C2BF115 /* SWLongPressGestureRecognizer.h in Headers */,
-				482DD30D9111778C004B706A /* SWTableViewCell.h in Headers */,
-				DEF3E29A4529F1459C670AFE /* SWUtilityButtonTapGestureRecognizer.h in Headers */,
-				335CBECECF9241639EC54A3B /* SWUtilityButtonView.h in Headers */,
+				EF8C7E48344A05A5319C9BE3 /* TTTAttributedLabel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0FD78B461B77612E708CF69F /* Pods-SVProgressHUD */ = {
+		15C5C0E4BEB0146E4DC88E7B /* Pods */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95E0CA1C86526D2D87F2CB14 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */;
+			buildConfigurationList = D62C06615E50CE785C32AD90 /* Build configuration list for PBXNativeTarget "Pods" */;
 			buildPhases = (
-				D4A129ED3E7B1FD627FEDB35 /* Sources */,
-				20DA85E93D977A79F522BA0F /* Frameworks */,
-				20BFF97109EA5A18FBF15A95 /* Headers */,
+				CEE6E2650B09AA07E07B3790 /* Sources */,
+				E31DBAABBEF10A1D3950686C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				77F06525C52922D52D98718D /* PBXTargetDependency */,
+				B6032875377D922939533A17 /* PBXTargetDependency */,
+				9F8BD47E43D524BCDED3CF1A /* PBXTargetDependency */,
+			);
+			name = Pods;
+			productName = Pods;
+			productReference = FAB4CD142DE0F100CDAA7639 /* libPods.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2BCA102C4942F87BCD397912 /* Pods-SVProgressHUD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58A7CFACC85F5CC560571062 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */;
+			buildPhases = (
+				CE8A6231D0B8CF5CCF4DA85F /* Sources */,
+				6422DBEC69EB76A087F1E989 /* Frameworks */,
+				32395C5B284AD4ADD995FB7E /* Headers */,
 			);
 			buildRules = (
 			);
@@ -448,16 +374,16 @@
 			);
 			name = "Pods-SVProgressHUD";
 			productName = "Pods-SVProgressHUD";
-			productReference = F43B8BADE2F4B4A5B0260400 /* libPods-SVProgressHUD.a */;
+			productReference = 1AF5498C4DA73C6C5A336F10 /* libPods-SVProgressHUD.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		25DEBB7F582AE0C02C39AACA /* Pods-TTTAttributedLabel */ = {
+		470164BFCEDBAC3035A96DA5 /* Pods-TTTAttributedLabel */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F5E9D99454BBB6DF18FBA2AA /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */;
+			buildConfigurationList = C8FBCEE23A1403098FA36454 /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */;
 			buildPhases = (
-				9F981442387221B8D550B755 /* Sources */,
-				97278C4DC666F4031B640B8F /* Frameworks */,
-				29F405F61DEB53A15298FE14 /* Headers */,
+				8762BE399203D94C7409CADC /* Sources */,
+				F62732391F96F03A2FAFB015 /* Frameworks */,
+				E15AEDCC27D483E44FD7B7AA /* Headers */,
 			);
 			buildRules = (
 			);
@@ -465,53 +391,16 @@
 			);
 			name = "Pods-TTTAttributedLabel";
 			productName = "Pods-TTTAttributedLabel";
-			productReference = 0DEE715FC840443574A53895 /* libPods-TTTAttributedLabel.a */;
+			productReference = C247EDDED4EA5430BF5FE79A /* libPods-TTTAttributedLabel.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		BDBC8ED8EBA0116E118D2C46 /* Pods */ = {
+		C7B7694D096140139578830B /* Pods-TWMessageBarManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 918F02BF174D0FA0CE442551 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildConfigurationList = 142744755FA2225D3A993677 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */;
 			buildPhases = (
-				F24BCFE0C412997AC374B838 /* Sources */,
-				D488577E98F4344E1E3B8F05 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				593446CD9B8CA3FFFDFD7342 /* PBXTargetDependency */,
-				FB1E100EAC052F2FEEB46362 /* PBXTargetDependency */,
-				4C5F2703EA307586B37E0A39 /* PBXTargetDependency */,
-				889C608ECA8CE7EE05CE16AD /* PBXTargetDependency */,
-			);
-			name = Pods;
-			productName = Pods;
-			productReference = 6E95B016F26ACF55EC63BE99 /* libPods.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		C203E02A82EB4480ABF332EE /* Pods-SWTableViewCell */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B01D25DA6569D0BB2E8F9BCD /* Build configuration list for PBXNativeTarget "Pods-SWTableViewCell" */;
-			buildPhases = (
-				C586B4CC107E4C237AF8841A /* Sources */,
-				E598FBAC79FDEE83F1A066B9 /* Frameworks */,
-				7F5AB4A904CA384DC5BDBDC5 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-SWTableViewCell";
-			productName = "Pods-SWTableViewCell";
-			productReference = 654F49E97A51C9A700095A11 /* libPods-SWTableViewCell.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		D14DDDE6D6704A91BB8E3096 /* Pods-TWMessageBarManager */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 65D58B37F1F142DD8293F650 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */;
-			buildPhases = (
-				7C4A1CB9B75B3DB1537D4030 /* Sources */,
-				1A329889CD94EC99D8BB7815 /* Frameworks */,
-				31415B80F19E5B3F209EE827 /* Headers */,
+				AC174756D2AB5764176082C0 /* Sources */,
+				12AC90656EA7096BA3CBB963 /* Frameworks */,
+				B0A2EB7A7804B440C3FD4D75 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -519,254 +408,105 @@
 			);
 			name = "Pods-TWMessageBarManager";
 			productName = "Pods-TWMessageBarManager";
-			productReference = A5CD1D1B2D7D3840408600F6 /* libPods-TWMessageBarManager.a */;
+			productReference = 2B0D997C1C0118F8C0EA986E /* libPods-TWMessageBarManager.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		666CEC08A1BA2BBD9FD77790 /* Project object */ = {
+		265A57EC9F31C1BA3EED9867 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0640;
 			};
-			buildConfigurationList = B92273F1681516EB283C5A0C /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 33772DC587CEEB53E13A18C8 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = CFD26727B9CB55E66CE82D8E;
-			productRefGroup = 7E1C9CED1CB00B055625676E /* Products */;
+			mainGroup = 88EFD6FA8D724602FB07D146;
+			productRefGroup = 6DC1E23A53C9F3ED5793CCDA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BDBC8ED8EBA0116E118D2C46 /* Pods */,
-				0FD78B461B77612E708CF69F /* Pods-SVProgressHUD */,
-				C203E02A82EB4480ABF332EE /* Pods-SWTableViewCell */,
-				25DEBB7F582AE0C02C39AACA /* Pods-TTTAttributedLabel */,
-				D14DDDE6D6704A91BB8E3096 /* Pods-TWMessageBarManager */,
+				15C5C0E4BEB0146E4DC88E7B /* Pods */,
+				2BCA102C4942F87BCD397912 /* Pods-SVProgressHUD */,
+				470164BFCEDBAC3035A96DA5 /* Pods-TTTAttributedLabel */,
+				C7B7694D096140139578830B /* Pods-TWMessageBarManager */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7C4A1CB9B75B3DB1537D4030 /* Sources */ = {
+		8762BE399203D94C7409CADC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E6BC8F079CA0B168806023 /* Pods-TWMessageBarManager-dummy.m in Sources */,
-				34A5218DF26DC1A7433D2248 /* TWMessageBarManager.m in Sources */,
+				B4B188CD73E6149D9680B9B2 /* Pods-TTTAttributedLabel-dummy.m in Sources */,
+				C7D2D95389EC4FC8AAAAA2CF /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9F981442387221B8D550B755 /* Sources */ = {
+		AC174756D2AB5764176082C0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC36F3123E79F02577512F3F /* Pods-TTTAttributedLabel-dummy.m in Sources */,
-				5F6C1902619C71160B226005 /* TTTAttributedLabel.m in Sources */,
+				F9E6EF1E033B18DE724E20AA /* Pods-TWMessageBarManager-dummy.m in Sources */,
+				8297E0BE8C74480F1B235DA3 /* TWMessageBarManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C586B4CC107E4C237AF8841A /* Sources */ = {
+		CE8A6231D0B8CF5CCF4DA85F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D0F347D7A535BCE0FBF1C3C /* NSMutableArray+SWUtilityButtons.m in Sources */,
-				558E021AE61309AE9760F20D /* Pods-SWTableViewCell-dummy.m in Sources */,
-				BB434453E7307471EEA72782 /* SWCellScrollView.m in Sources */,
-				EAE27CC8573A8B08B1A64FCD /* SWLongPressGestureRecognizer.m in Sources */,
-				3D7EBFB6D953D83630C0C58F /* SWTableViewCell.m in Sources */,
-				D6174C69EAAF3FA4B44343FF /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
-				A04E902518FD076534D242C5 /* SWUtilityButtonView.m in Sources */,
+				89841A03D8DBA30FDBE869B0 /* Pods-SVProgressHUD-dummy.m in Sources */,
+				FE785FCB584CBB8DA0A39EB5 /* SVIndefiniteAnimatedView.m in Sources */,
+				6F367060A80F52C29A98DAC4 /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D4A129ED3E7B1FD627FEDB35 /* Sources */ = {
+		CEE6E2650B09AA07E07B3790 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFD10E2B30A8B878B0CBB666 /* Pods-SVProgressHUD-dummy.m in Sources */,
-				573FA5F95D1C48F1E677382E /* SVIndefiniteAnimatedView.m in Sources */,
-				8CD49DFD096631026CE0F209 /* SVProgressHUD.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F24BCFE0C412997AC374B838 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6DE6F294A5E7B78DD91B8392 /* Pods-dummy.m in Sources */,
+				903EEF7ED44CCABAE4008693 /* Pods-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4C5F2703EA307586B37E0A39 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-TTTAttributedLabel";
-			target = 25DEBB7F582AE0C02C39AACA /* Pods-TTTAttributedLabel */;
-			targetProxy = 651CFA817F092A2A250CDD3F /* PBXContainerItemProxy */;
-		};
-		593446CD9B8CA3FFFDFD7342 /* PBXTargetDependency */ = {
+		77F06525C52922D52D98718D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-SVProgressHUD";
-			target = 0FD78B461B77612E708CF69F /* Pods-SVProgressHUD */;
-			targetProxy = E78019D4B11D88C3C6900F12 /* PBXContainerItemProxy */;
+			target = 2BCA102C4942F87BCD397912 /* Pods-SVProgressHUD */;
+			targetProxy = 72D5E4B5E076EA465097BA67 /* PBXContainerItemProxy */;
 		};
-		889C608ECA8CE7EE05CE16AD /* PBXTargetDependency */ = {
+		9F8BD47E43D524BCDED3CF1A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-TWMessageBarManager";
-			target = D14DDDE6D6704A91BB8E3096 /* Pods-TWMessageBarManager */;
-			targetProxy = 80A2012AE07E6B3934510CD6 /* PBXContainerItemProxy */;
+			target = C7B7694D096140139578830B /* Pods-TWMessageBarManager */;
+			targetProxy = 4C72757E5F02BA15AE9FA87B /* PBXContainerItemProxy */;
 		};
-		FB1E100EAC052F2FEEB46362 /* PBXTargetDependency */ = {
+		B6032875377D922939533A17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Pods-SWTableViewCell";
-			target = C203E02A82EB4480ABF332EE /* Pods-SWTableViewCell */;
-			targetProxy = 6382AD1A9EC48087086FC13B /* PBXContainerItemProxy */;
+			name = "Pods-TTTAttributedLabel";
+			target = 470164BFCEDBAC3035A96DA5 /* Pods-TTTAttributedLabel */;
+			targetProxy = C0DB5A7B77191CE0794C2E70 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		01D0E3E6D260F1D6D1B24101 /* Release */ = {
+		02E746D15576BAB32509F941 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 514DBCF3F152FA478B205FB2 /* Pods-SVProgressHUD-Private.xcconfig */;
+			baseConfigurationReference = CACD6CB937E344FD65BC980D /* Pods.qa.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		0BCBB726965E1BF1153BC920 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 514DBCF3F152FA478B205FB2 /* Pods-SVProgressHUD-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		1628531D10C9BC6812FD4690 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C22CBB1FF10E309031297BD /* Pods-SWTableViewCell-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SWTableViewCell/Pods-SWTableViewCell-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		16D5B8A2BF4337D6F29278B4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D85DFFC2D0040BE51DF6A0C0 /* Pods-TTTAttributedLabel-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		180ED7AF86C4ED481D7D6694 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C22CBB1FF10E309031297BD /* Pods-SWTableViewCell-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SWTableViewCell/Pods-SWTableViewCell-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		209F7C751E31BA4C979F93F4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C22CBB1FF10E309031297BD /* Pods-SWTableViewCell-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SWTableViewCell/Pods-SWTableViewCell-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		4CA76544A188CD352E797A42 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D85DFFC2D0040BE51DF6A0C0 /* Pods-TTTAttributedLabel-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		55A9C85A675736BAD8DD1890 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B92E85706D1228D4756EE564 /* Pods-TWMessageBarManager-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		64331358CB2CA118D1A12C50 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EF2A51023E01325511095D0 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -774,9 +514,9 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = QA;
 		};
-		68B14DD28ECE076D9610FB15 /* QA */ = {
+		15C48A8866F3000C329CE3EB /* QA */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -809,9 +549,9 @@
 			};
 			name = QA;
 		};
-		72280841C572D598ED4DE069 /* QA */ = {
+		1706D26BFBB91B4672C0CE90 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2A7AFDB3A6C72E314DF4231 /* Pods.qa.xcconfig */;
+			baseConfigurationReference = 1C00FE384D3A1A44A9B4B25A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -823,11 +563,59 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
+			name = Release;
+		};
+		323390781686A86E602B5412 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C42389985004B8D74F5FCB /* Pods-TTTAttributedLabel-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		44ED18AC087980757DACD1BE /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADF6B56AB17807C1F1B1D0B5 /* Pods-SVProgressHUD-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
 			name = QA;
 		};
-		899B7B48B0E28341C62F3E62 /* QA */ = {
+		5F3A5E68EF393C1E95112AB5 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D85DFFC2D0040BE51DF6A0C0 /* Pods-TTTAttributedLabel-Private.xcconfig */;
+			baseConfigurationReference = 040053DE4486353BE1AF2EEA /* Pods-TWMessageBarManager-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
+		};
+		644E3128AEAE73C6C32EBE4C /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09C42389985004B8D74F5FCB /* Pods-TTTAttributedLabel-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
@@ -841,29 +629,29 @@
 			};
 			name = QA;
 		};
-		8B6BFBA6C66E5A7C340CB3A9 /* QA */ = {
+		716C02FE53A83BDD70DF7B90 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B92E85706D1228D4756EE564 /* Pods-TWMessageBarManager-Private.xcconfig */;
+			baseConfigurationReference = 09C42389985004B8D74F5FCB /* Pods-TTTAttributedLabel-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = QA;
+			name = Debug;
 		};
-		8C2588CE8A0792FF19D2F528 /* Release */ = {
+		80E2ECE036FAA882255CE4DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE89F49D388280189F60C2E1 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 662C073BBD357A003FF45933 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -871,11 +659,11 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
-		9BF28F5348BE20B5E5A2416D /* Debug */ = {
+		A118E9A3B0F4A95284FB1851 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 514DBCF3F152FA478B205FB2 /* Pods-SVProgressHUD-Private.xcconfig */;
+			baseConfigurationReference = ADF6B56AB17807C1F1B1D0B5 /* Pods-SVProgressHUD-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
@@ -889,12 +677,12 @@
 			};
 			name = Debug;
 		};
-		E288376D3E32D2D70A9298FC /* Release */ = {
+		AB19708D5C45D23E48C818FD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B92E85706D1228D4756EE564 /* Pods-TWMessageBarManager-Private.xcconfig */;
+			baseConfigurationReference = ADF6B56AB17807C1F1B1D0B5 /* Pods-SVProgressHUD-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
@@ -905,7 +693,7 @@
 			};
 			name = Release;
 		};
-		E9DAD51227DAAFA9904895F9 /* Release */ = {
+		C4B2B7B4726262D54E23AC27 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -939,7 +727,7 @@
 			};
 			name = Release;
 		};
-		EAFDAA27CF429BE017347DC3 /* Debug */ = {
+		DA7DB30F578C49B1B032A44D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -978,70 +766,92 @@
 			};
 			name = Debug;
 		};
+		E61378310B05D564F3465500 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 040053DE4486353BE1AF2EEA /* Pods-TWMessageBarManager-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ED65773C0A02DB179257A67E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 040053DE4486353BE1AF2EEA /* Pods-TWMessageBarManager-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		65D58B37F1F142DD8293F650 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */ = {
+		142744755FA2225D3A993677 /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				55A9C85A675736BAD8DD1890 /* Debug */,
-				8B6BFBA6C66E5A7C340CB3A9 /* QA */,
-				E288376D3E32D2D70A9298FC /* Release */,
+				E61378310B05D564F3465500 /* Debug */,
+				5F3A5E68EF393C1E95112AB5 /* QA */,
+				ED65773C0A02DB179257A67E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		918F02BF174D0FA0CE442551 /* Build configuration list for PBXNativeTarget "Pods" */ = {
+		33772DC587CEEB53E13A18C8 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				64331358CB2CA118D1A12C50 /* Debug */,
-				72280841C572D598ED4DE069 /* QA */,
-				8C2588CE8A0792FF19D2F528 /* Release */,
+				DA7DB30F578C49B1B032A44D /* Debug */,
+				15C48A8866F3000C329CE3EB /* QA */,
+				C4B2B7B4726262D54E23AC27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		95E0CA1C86526D2D87F2CB14 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */ = {
+		58A7CFACC85F5CC560571062 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9BF28F5348BE20B5E5A2416D /* Debug */,
-				0BCBB726965E1BF1153BC920 /* QA */,
-				01D0E3E6D260F1D6D1B24101 /* Release */,
+				A118E9A3B0F4A95284FB1851 /* Debug */,
+				44ED18AC087980757DACD1BE /* QA */,
+				AB19708D5C45D23E48C818FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B01D25DA6569D0BB2E8F9BCD /* Build configuration list for PBXNativeTarget "Pods-SWTableViewCell" */ = {
+		C8FBCEE23A1403098FA36454 /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				209F7C751E31BA4C979F93F4 /* Debug */,
-				180ED7AF86C4ED481D7D6694 /* QA */,
-				1628531D10C9BC6812FD4690 /* Release */,
+				716C02FE53A83BDD70DF7B90 /* Debug */,
+				644E3128AEAE73C6C32EBE4C /* QA */,
+				323390781686A86E602B5412 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B92273F1681516EB283C5A0C /* Build configuration list for PBXProject "Pods" */ = {
+		D62C06615E50CE785C32AD90 /* Build configuration list for PBXNativeTarget "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EAFDAA27CF429BE017347DC3 /* Debug */,
-				68B14DD28ECE076D9610FB15 /* QA */,
-				E9DAD51227DAAFA9904895F9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F5E9D99454BBB6DF18FBA2AA /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				16D5B8A2BF4337D6F29278B4 /* Debug */,
-				899B7B48B0E28341C62F3E62 /* QA */,
-				4CA76544A188CD352E797A42 /* Release */,
+				80E2ECE036FAA882255CE4DC /* Debug */,
+				02E746D15576BAB32509F941 /* QA */,
+				1706D26BFBB91B4672C0CE90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 666CEC08A1BA2BBD9FD77790 /* Project object */;
+	rootObject = 265A57EC9F31C1BA3EED9867 /* Project object */;
 }
