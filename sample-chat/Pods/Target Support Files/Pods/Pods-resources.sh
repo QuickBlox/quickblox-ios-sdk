@@ -60,6 +60,8 @@ install_resource()
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+  install_resource "StickerPipe/StickerPipe/SDK/Media.xcassets"
+  install_resource "StickerPipe/StickerPipe/SDK/StickerModel.xcdatamodeld"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error.png"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error@2x.png"
   install_resource "TWMessageBarManager/Classes/Icons/icon-info.png"
@@ -70,6 +72,8 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "DateTools/DateTools/DateTools.bundle"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+  install_resource "StickerPipe/StickerPipe/SDK/Media.xcassets"
+  install_resource "StickerPipe/StickerPipe/SDK/StickerModel.xcdatamodeld"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error.png"
   install_resource "TWMessageBarManager/Classes/Icons/icon-error@2x.png"
   install_resource "TWMessageBarManager/Classes/Icons/icon-info.png"

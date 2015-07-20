@@ -1,0 +1,1 @@
+../../../StickerPipe/StickerPipe/SDK/NSManagedObjectContext+STKAdditions.h
