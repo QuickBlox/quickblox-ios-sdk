@@ -17,7 +17,6 @@
 @interface DialogsViewController ()
 <
 QMChatServiceDelegate,
-SWTableViewCellDelegate,
 QMAuthServiceDelegate,
 QMChatConnectionDelegate
 >
@@ -109,12 +108,11 @@ QMChatConnectionDelegate
 	return self.dialogs.count;
 }
 
-- (SWTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
-    cell.tag = indexPath.row;
     
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate: {
@@ -157,61 +155,22 @@ QMChatConnectionDelegate
 	[deleteButton setTitle:@"delete" forState:UIControlStateNormal];
 	deleteButton.backgroundColor = [UIColor redColor];
 	
-	cell.rightUtilityButtons = @[deleteButton];
-	cell.delegate = self;
-
     return cell;
-}
-
-- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
-{
-	QBChatDialog *chatDialog = self.dialogs[cell.tag];
-	
-	if (index == 0) {
-		// remove current user from occupants
-		NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
-		for( NSNumber *identifier in chatDialog.occupantIDs ) {
-			if( ![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)] ) {
-				[occupantsWithoutCurrentUser addObject:identifier];
-			}
-		}
-		chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
-
-		[cell hideUtilityButtonsAnimated:YES];
-		
-		[SVProgressHUD showWithStatus:@"Deleting dialog..." maskType:SVProgressHUDMaskTypeClear];
-		
-		if( chatDialog.type == QBChatDialogTypeGroup ) {
-			__weak __typeof(self) weakSelf = self;
-			[[ServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
-													occupantsCustomParameters:nil
-															 notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [ServicesManager instance].currentUser.login]
-																   completion:^(NSError *error) {
-																	   NSAssert(error == nil, @"Problems while deleting dialog!");
-																	   [weakSelf deleteDialogWithID:chatDialog.ID];
-																   }];
-		}
-		else {
-			[self deleteDialogWithID:chatDialog.ID];
-		}
-
-	}
 }
 
 - (void)deleteDialogWithID:(NSString *)dialogID {
 	__weak __typeof(self) weakSelf = self;
 	[ServicesManager.instance.chatService deleteDialogWithID:dialogID
 													completion:^(QBResponse *response) {
-														if( response.success ){
+														if (response.success) {
 															__typeof(self) strongSelf = weakSelf;
 															[strongSelf.tableView reloadData];
 															[SVProgressHUD dismiss];
-														}
-														else{
+														} else {
 															[SVProgressHUD showErrorWithStatus:@"Can not delete dialog"];
 															NSLog(@"can not delete dialog: %@", response.error);
 														}
-													}];
+                                                    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -233,6 +192,43 @@ QMChatConnectionDelegate
     if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
         ChatViewController* chatViewController = segue.destinationViewController;
         chatViewController.dialog = sender;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        QBChatDialog *chatDialog = self.dialogs[indexPath.row];
+
+        // remove current user from occupants
+        NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
+        for (NSNumber *identifier in chatDialog.occupantIDs) {
+            if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
+                [occupantsWithoutCurrentUser addObject:identifier];
+            }
+        }
+        chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
+        
+        
+        [SVProgressHUD showWithStatus:@"Deleting dialog..." maskType:SVProgressHUDMaskTypeClear];
+        
+        if (chatDialog.type == QBChatDialogTypeGroup) {
+            __weak __typeof(self) weakSelf = self;
+            [[ServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
+                                                  occupantsCustomParameters:nil
+                                                           notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [ServicesManager instance].currentUser.login]
+                                                                 completion:^(NSError *error) {
+                                                                     NSAssert(error == nil, @"Problems while deleting dialog!");
+                                                                     [weakSelf deleteDialogWithID:chatDialog.ID];
+                                                                 }];
+        } else {
+            [self deleteDialogWithID:chatDialog.ID];
+        }
     }
 }
 

@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserTableViewCell : SWTableViewCell
-
+@interface UserTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) QBUUser *user;
 @property (nonatomic, strong) NSString *userDescription;
