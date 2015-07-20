@@ -10,16 +10,14 @@ Please read full iOS SDK documentation on the [QuickBlox website, iOS section](h
 This project contains QuickBlox iOS SDK, that includes
 
 * [framework](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/Framework)
-* [snippets](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/snippets) (shows main use cases of using this one)
 * samples (separated samples for each QuickBlox module)
   * [Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat)
-  * [VideoChat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat)
+  * [VideoChat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat-webrtc)
   * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
   * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
   * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
-  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom-objects)
+  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom_objects)
   * [Content Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-content)
-  * [Ratings Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-ratings)
 
 ## How to start
 
@@ -30,9 +28,9 @@ Latest framework file you can download from [GitHub](https://github.com/QuickBlo
 ## Documentation
 
 * [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
-* [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/)
+* [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/documentation/)
 
-## Oh, please, please show me the code
+## First step
 
 iOS SDK is really simple to use. Just in few minutes you can power your mobile app with huge amount of awesome communication features & data services.
 
@@ -120,25 +118,6 @@ currentUser.password = @"garrySant88"; // your current user's password
 
 #### 4.4. Perform actions
 
-Send Chat message
-
-```objectivec
-// send message
-QBChatMessage *message = [QBChatMessage message];
-message.recipientID = 546; // opponent's id
-message.text = @"Hi mate!";
- 
-[[QBChat instance] sendMessage:message];
- 
- 
-#pragma mark -
-#pragma mark QBChatDelegate
- 
-- (void)chatDidReceiveMessage:(QBChatMessage *)message{
-    NSLog(@"New message: %@", message);
-}
-```
-
 Create new location for Indiana Jones
 
 ```objectivec
@@ -173,11 +152,9 @@ iOS Framework provides following classes to interact with QuickBlox API (each cl
 * QBAuth
 * QBUsers
 * QBChat
-* QBVideoChat
 * QBCustomObjects
 * QBLocation
 * QBContent
-* QBRatings
 * QBMessages
 
 ## See also
