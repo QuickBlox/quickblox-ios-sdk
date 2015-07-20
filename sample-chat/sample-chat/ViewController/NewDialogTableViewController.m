@@ -7,7 +7,7 @@
 //
 
 #import "NewDialogTableViewController.h"
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "UsersDataSource.h"
 #import "ChatViewController.h"
 #import "StorageManager.h"
@@ -99,7 +99,7 @@
 	NSArray *selectedUsers = [self.dataSource.users objectsAtIndexes:indexSet];
 	
 	if (selectedUsers.count == 1) {
-		[QBServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
+		[ServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if( !response.success  && createdDialog == nil ) {
 				completion(nil);
 			}
@@ -118,9 +118,9 @@
 		
 		[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
 		
-		[QBServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
+		[ServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if( response.success ) {
-				[QBServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
+				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
 				completion(createdDialog);
 			}
 			else {

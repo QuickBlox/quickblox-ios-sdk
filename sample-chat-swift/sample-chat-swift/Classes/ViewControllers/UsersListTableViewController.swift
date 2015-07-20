@@ -18,7 +18,7 @@ class UsersListTableViewController: UITableViewController {
         weak var weakSelf = self
         
 
-        ServicesManager.instance.usersService.cachedUser { (users: [QBUUser]) -> Void in
+        ServicesManager.instance().usersService.cachedUser { (users: [QBUUser]) -> Void in
             
             if users.count > 0 {
                 
@@ -28,7 +28,7 @@ class UsersListTableViewController: UITableViewController {
                 
                 SVProgressHUD.showWithStatus("Loading users", maskType: SVProgressHUDMaskType.Clear)
                 
-                ServicesManager.instance.usersService.downloadLatestUsers({ (users: [QBUUser]) -> Void in
+                ServicesManager.instance().usersService.downloadLatestUsers({ (users: [QBUUser]) -> Void in
                     
                     SVProgressHUD.showSuccessWithStatus("Completed")
                     weakSelf?.setupUsers(users)
@@ -64,7 +64,7 @@ class UsersListTableViewController: UITableViewController {
         
         let user = self.users![indexPath.row]
         
-        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance.usersService.color(forUser: user))
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().usersService.color(forUser: user))
         cell.userDescription = user.fullName
         cell.tag = indexPath.row
         

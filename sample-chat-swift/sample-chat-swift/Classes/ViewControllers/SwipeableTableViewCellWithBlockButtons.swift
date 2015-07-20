@@ -34,7 +34,7 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                             
                             let deleteDialogBlock = { (dialog: QBChatDialog!) -> Void in
                                 
-                                ServicesManager.instance.chatService.deleteDialogWithID(dialog.ID, completion: { (response: QBResponse!) -> Void in
+                                ServicesManager.instance().chatService.deleteDialogWithID(dialog.ID, completion: { (response: QBResponse!) -> Void in
                                     
                                     if response.success {
                                         
@@ -48,7 +48,7 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                                 })
                             }
                             
-                            if let dialog = ServicesManager.instance.chatService.dialogsMemoryStorage.chatDialogWithID(cell.dialogID) {
+                            if let dialog = ServicesManager.instance().chatService.dialogsMemoryStorage.chatDialogWithID(cell.dialogID) {
                                 
                                 if dialog.type == QBChatDialogType.Private {
                                     
@@ -56,11 +56,11 @@ class SwipeableTableViewCellWithBlockButtons : NSObject, SWTableViewCellDelegate
                                     
                                 } else {
                                 
-                                    var occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance.currentUser().ID} )
+                                    var occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance().currentUser().ID} )
                                     
                                     dialog.occupantIDs = occupantIDs
                                     
-                                    ServicesManager.instance.chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance.currentUser().login) has left the dialog", completion: { (error: NSError!) -> Void in
+                                    ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance().currentUser().login) has left the dialog", completion: { (error: NSError!) -> Void in
                                         
                                         deleteDialogBlock(dialog)
                                     })

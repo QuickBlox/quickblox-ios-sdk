@@ -28,7 +28,7 @@ class DialogTableViewCellModel: NSObject {
                 return
             }
             
-            if let recipient = ServicesManager.instance.usersService.user(UInt(dialog.recipientID)) {
+            if let recipient = ServicesManager.instance().usersService.user(UInt(dialog.recipientID)) {
                 self.textLabelText = recipient.login ?? recipient.email
             }
             
@@ -104,14 +104,14 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     override func viewDidLoad() {
 
-        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ServicesManager.instance.currentUser()!.login
+        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ServicesManager.instance().currentUser()!.login
         
         self.delegate = SwipeableTableViewCellWithBlockButtons()
         self.delegate.tableView = self.tableView
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
-        ServicesManager.instance.chatService.addDelegate(self)
+        ServicesManager.instance().chatService.addDelegate(self)
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
@@ -124,7 +124,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         for dialog : QBChatDialog in DialogsViewController.dialogs() {
             
             if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
+                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
                 })
             }
@@ -163,12 +163,12 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
         
-        ServicesManager.instance.logout { () -> Void in
+        ServicesManager.instance().logoutWithCompletion { () -> Void in
             
             SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
             
             NSNotificationCenter.defaultCenter().removeObserver(self)
-            ServicesManager.instance.chatService.removeDelegate(self)
+            ServicesManager.instance().chatService.removeDelegate(self)
             self.navigationController?.popViewControllerAnimated(true)
         }
     }
@@ -184,7 +184,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
             SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         }
         
-        ServicesManager.instance.chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest:extendedRequest, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+        ServicesManager.instance().chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest:extendedRequest, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 
         }) { (response: QBResponse!) -> Void in
             
@@ -227,7 +227,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false)]
         
-        return ServicesManager.instance.chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
+        return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
     }
     
     // MARK: - UITableViewDataSource
@@ -287,7 +287,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         for dialog : QBChatDialog in chatDialogs as! [QBChatDialog] {
             
             if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance.chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
+                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
                 })
             }
@@ -299,7 +299,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
         
         if chatDialog.type != QBChatDialogType.Private {
-            ServicesManager.instance.chatService.joinToGroupDialog(chatDialog, failed: { (error: NSError!) -> Void in
+            ServicesManager.instance().chatService.joinToGroupDialog(chatDialog, failed: { (error: NSError!) -> Void in
                 
             })
         }

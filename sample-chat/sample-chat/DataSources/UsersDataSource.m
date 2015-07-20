@@ -9,7 +9,7 @@
 #import "UsersDataSource.h"
 #import "StorageManager.h"
 #import "UserTableViewCell.h"
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 
 @interface UsersDataSource()
 @property (nonatomic, strong) NSArray *colors;
