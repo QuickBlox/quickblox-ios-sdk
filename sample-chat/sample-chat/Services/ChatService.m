@@ -120,25 +120,33 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
         //
         [self joinAllDialogs];
         
+        
         // get dialogs' users
         //
-        QBGeneralResponsePage *page = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100];
-        [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:page
-                   successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-                       
-                       if(page.totalEntries > page.perPage){
-                           // TODO: implement pagination
+        if([dialogsUsersIDs allObjects].count == 0){
+            if(self.getDialogsCompletionBlock != nil){
+                self.getDialogsCompletionBlock();
+                self.getDialogsCompletionBlock = nil;
+            }
+        }else{
+            QBGeneralResponsePage *page = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100];
+            [QBRequest usersWithIDs:[dialogsUsersIDs allObjects] page:page
+                       successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
                            
-                       }
-                       
-                       self.users = [users mutableCopy];
-                       
-                       if(self.getDialogsCompletionBlock != nil){
-                           self.getDialogsCompletionBlock();
-                           self.getDialogsCompletionBlock = nil;
-                       }
-                       
-                   } errorBlock:nil];
+                           if(page.totalEntries > page.perPage){
+                               // TODO: implement pagination
+                               
+                           }
+                           
+                           self.users = [users mutableCopy];
+                           
+                           if(self.getDialogsCompletionBlock != nil){
+                               self.getDialogsCompletionBlock();
+                               self.getDialogsCompletionBlock = nil;
+                           }
+                           
+                       } errorBlock:nil];
+        }
         
     } errorBlock:nil];
 }
