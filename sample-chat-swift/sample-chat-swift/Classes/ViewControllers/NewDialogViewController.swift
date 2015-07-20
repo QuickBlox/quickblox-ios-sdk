@@ -23,7 +23,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         super.viewWillAppear(animated)
         
         self.updateUsers()
-        ServicesManager.instance.chatService.addDelegate(self)
+        ServicesManager.instance().chatService.addDelegate(self)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -35,7 +35,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     func updateUsers() {
         if let dialog = self.dialog  {
             
-            let filteredUsers = ServicesManager.instance.usersService.users(withoutUser: ServicesManager.instance.currentUser())?.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+            let filteredUsers = ServicesManager.instance().usersService.users(withoutUser: ServicesManager.instance().currentUser())?.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
             self.users = filteredUsers
         }
     }
@@ -80,7 +80,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 
             } else {
                 
-                let primaryUsers = ServicesManager.instance.usersService.users(withoutUser: ServicesManager.instance.currentUser())?.filter({contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+                let primaryUsers = ServicesManager.instance().usersService.users(withoutUser: ServicesManager.instance().currentUser())?.filter({contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
                 
                 if primaryUsers != nil && primaryUsers!.count > 0 {
                     users.extend(primaryUsers! as [QBUUser])
@@ -123,7 +123,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         
-        ServicesManager.instance.chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: self.dialog!) { (response: QBResponse!, dialog: QBChatDialog!) -> Void in
+        ServicesManager.instance().chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: self.dialog!) { (response: QBResponse!, dialog: QBChatDialog!) -> Void in
             
             if let rightBarButtonItem = self.navigationItem.rightBarButtonItem {
                 rightBarButtonItem.enabled = true
@@ -131,9 +131,9 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             
             if (response.error == nil) {
                 
-                ServicesManager.instance.chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog)
+                ServicesManager.instance().chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog)
                 
-                ServicesManager.instance.chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
+                ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
                 
                 SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
                 
@@ -153,7 +153,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
     func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
         
-        let chatName = ServicesManager.instance.currentUser()!.login + "_" + ", ".join(users.map({ $0.login ?? $0.email })).stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let chatName = ServicesManager.instance().currentUser()!.login + "_" + ", ".join(users.map({ $0.login ?? $0.email })).stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         return chatName
     }
@@ -164,7 +164,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         if users.count == 1 {
             
-            ServicesManager.instance.chatService.createPrivateChatDialogWithOpponent(users.first!, completion: { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
+            ServicesManager.instance().chatService.createPrivateChatDialogWithOpponent(users.first!, completion: { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
                 
                 SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
                 
@@ -173,10 +173,10 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             
         } else {
             
-            ServicesManager.instance.chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
+            ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
                 
                 if (chatDialog != nil) {
-                    ServicesManager.instance.chatService.notifyUsersWithIDs(chatDialog.occupantIDs, aboutAddingToDialog: chatDialog)
+                    ServicesManager.instance().chatService.notifyUsersWithIDs(chatDialog.occupantIDs, aboutAddingToDialog: chatDialog)
                 }
                 
                 SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
@@ -215,7 +215,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let user = self.users![indexPath.row]
         
-        if user.ID == ServicesManager.instance.currentUser()!.ID {
+        if user.ID == ServicesManager.instance().currentUser()!.ID {
             return 0.0 // hide current user
         }
         

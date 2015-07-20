@@ -58,7 +58,7 @@
 		2C154C4B1B46C694002C9A10 /* QMTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C154C291B46C694002C9A10 /* QMTypingIndicatorFooterView.xib */; };
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		77574711118E44F680DD7EC4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC1956EB9D11485189AD3B71 /* libPods.a */; };
-		86104A1E1B0B5E1900464D52 /* QBServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QBServicesManager.m */; };
+		86104A1E1B0B5E1900464D52 /* QMServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* QMServicesManager.m */; };
 		8620BC0E1B0F372A005ED359 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E80F71B0F17A500A6E86D /* libQMServices.a */; };
 		86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */; };
 		865DE6961B4BC66A00628374 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 865DE6951B4BC66A00628374 /* UIImage+fixOrientation.m */; };
@@ -200,7 +200,7 @@
 		2C154C291B46C694002C9A10 /* QMTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QMTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		2C6E80DF1B0F17A400A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
 		86104A1C1B0B5E1900464D52 /* QBServicesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBServicesManager.h; sourceTree = "<group>"; };
-		86104A1D1B0B5E1900464D52 /* QBServicesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBServicesManager.m; sourceTree = "<group>"; };
+		86104A1D1B0B5E1900464D52 /* QMServicesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMServicesManager.m; sourceTree = "<group>"; };
 		8620BC0B1B0F36FB005ED359 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		86401C0B1B428CEA00D45A05 /* MessageStatusStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageStatusStringBuilder.h; path = Utils/MessageStatusStringBuilder.h; sourceTree = "<group>"; };
 		86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageStatusStringBuilder.m; path = Utils/MessageStatusStringBuilder.m; sourceTree = "<group>"; };
@@ -677,7 +677,7 @@
 				1402B6941B14B9BC0069E3A4 /* UsersService.h */,
 				1402B6951B14B9BC0069E3A4 /* UsersService.m */,
 				86104A1C1B0B5E1900464D52 /* QBServicesManager.h */,
-				86104A1D1B0B5E1900464D52 /* QBServicesManager.m */,
+				86104A1D1B0B5E1900464D52 /* QMServicesManager.m */,
 				14C273D41B176A160053D5AF /* StorageManager.h */,
 				14C273D51B176A160053D5AF /* StorageManager.m */,
 				14C273E21B1773310053D5AF /* ReachabilityManager.h */,
@@ -848,7 +848,7 @@
 				2C154C341B46C694002C9A10 /* QMChatAttachmentOutgoingCell.m in Sources */,
 				2C154C461B46C694002C9A10 /* QMPlaceHolderTextView.m in Sources */,
 				14C273F41B1783E40053D5AF /* UsersDataSource.m in Sources */,
-				86104A1E1B0B5E1900464D52 /* QBServicesManager.m in Sources */,
+				86104A1E1B0B5E1900464D52 /* QMServicesManager.m in Sources */,
 				2C154C2D1B46C694002C9A10 /* UIView+QM.m in Sources */,
 				2C154C371B46C694002C9A10 /* QMChatContactRequestCell.m in Sources */,
 				2C154C411B46C694002C9A10 /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */,
