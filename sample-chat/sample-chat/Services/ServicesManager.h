@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UsersService.h"
 
-@interface QBServicesManager : QMServicesManager <QMContactListServiceCacheDataSource>
+@interface ServicesManager : QMServicesManager <QMContactListServiceCacheDataSource>
 
 @property (nonatomic, readonly) UsersService* usersService;
 

@@ -8,7 +8,7 @@
 
 #import "UsersService.h"
 #import "StorageManager.h"
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 
 @implementation UsersService
 

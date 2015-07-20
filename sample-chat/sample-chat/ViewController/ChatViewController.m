@@ -11,7 +11,7 @@
 #import "UIImage+QM.h"
 #import "UIColor+QM.h"
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "StorageManager.h"
 
 #import "LoginTableViewController.h"
@@ -97,7 +97,7 @@ UIActionSheetDelegate
     
     self.stringBuilder = [MessageStatusStringBuilder new];
     
-    self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+    self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     
     QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
     context.invalidateFlowLayoutMessagesCache = YES;
@@ -126,7 +126,7 @@ UIActionSheetDelegate
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
-	[[QBServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
+	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
             if (showingProgress) {
                 [SVProgressHUD dismiss];
@@ -142,8 +142,8 @@ UIActionSheetDelegate
 {
     [super viewWillAppear:animated];
     
-    [[QBServicesManager instance].chatService addDelegate:self];
-    [QBServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    [[ServicesManager instance].chatService addDelegate:self];
+    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
 	
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -156,7 +156,7 @@ UIActionSheetDelegate
         [strongSelf fireStopTypingIfNecessary];
     }];
     
-    [QBServicesManager instance].currentDialogID = self.dialog.ID;
+    [ServicesManager instance].currentDialogID = self.dialog.ID;
     
     if ([self.items count] > 0) {
         [self refreshMessagesShowingProgress:NO];
@@ -188,13 +188,13 @@ UIActionSheetDelegate
 {
     [super viewWillDisappear:animated];
     
-    [[QBServicesManager instance].chatService removeDelegate:self];
+    [[ServicesManager instance].chatService removeDelegate:self];
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidEnterBackground];
     
     [self.dialog clearTypingStatusBlocks];
     
-    [QBServicesManager instance].currentDialogID = nil;
+    [ServicesManager instance].currentDialogID = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -317,7 +317,7 @@ UIActionSheetDelegate
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
     
-    [[QBServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
+    [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
 }
 
@@ -448,7 +448,7 @@ UIActionSheetDelegate
 {
     self.shouldHoldScrollOnCollectionView = YES;
     __weak typeof(self)weakSelf = self;
-    [[QBServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
+    [[ServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
         __typeof(self) strongSelf = weakSelf;
         
         strongSelf.shouldHoldScrollOnCollectionView = NO;
@@ -518,7 +518,7 @@ UIActionSheetDelegate
             if (!shouldLoadFile) return;
             
             __weak typeof(self)weakSelf = self;
-            [[QBServicesManager instance].chatService.chatAttachmentService getImageForChatAttachment:attachment completion:^(NSError *error, UIImage *image) {
+            [[ServicesManager instance].chatService.chatAttachmentService getImageForChatAttachment:attachment completion:^(NSError *error, UIImage *image) {
                 __typeof(self) strongSelf = weakSelf;
                 
                 if ([(UICollectionViewCell<QMChatAttachmentCell> *)cell attachmentID] != attachment.ID) return;
@@ -639,7 +639,7 @@ UIActionSheetDelegate
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
 {
     if (message.dialogID == self.dialog.ID) {
-        self.items = [[[QBServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+        self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
         [self refreshCollectionView];
     }
 }
@@ -707,9 +707,9 @@ UIActionSheetDelegate
         message.senderID = self.senderID;
         message.dialogID = self.dialog.ID;
         
-        [[QBServicesManager instance].chatService.chatAttachmentService sendMessage:message
+        [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message
                                                                            toDialog:self.dialog
-                                                                    withChatService:[QBServicesManager instance].chatService
+                                                                    withChatService:[ServicesManager instance].chatService
                                                                   withAttachedImage:resizedImage completion:^(NSError *error) {
                                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                                           if (error != nil) {

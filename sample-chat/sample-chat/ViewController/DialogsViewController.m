@@ -9,7 +9,7 @@
 #import "DialogsViewController.h"
 
 #import <Quickblox/QBASession.h>
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 #import "DialogTableViewCell.h"
@@ -44,7 +44,7 @@ QMChatConnectionDelegate
     
     self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
     
-    [QBServicesManager.instance.chatService addDelegate:self];
+    [ServicesManager.instance.chatService addDelegate:self];
     
     [self loadDialogs];
 }
@@ -54,7 +54,7 @@ QMChatConnectionDelegate
 	[super viewWillDisappear:animated];
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
-    [[QBServicesManager instance].chatService removeDelegate:self];
+    [[ServicesManager instance].chatService removeDelegate:self];
 }
 
 - (IBAction)logoutButtonPressed:(UIButton *)sender
@@ -75,7 +75,7 @@ QMChatConnectionDelegate
 	}
 	
     __weak __typeof(self) weakSelf = self;
-    [QBServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+    [ServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
         __typeof(self) strongSelf = weakSelf;
         if (response.error != nil) {
             [SVProgressHUD showErrorWithStatus:@"Can not download"];
@@ -83,7 +83,7 @@ QMChatConnectionDelegate
         
         for (QBChatDialog* dialog in dialogObjects) {
             if (dialog.type != QBChatDialogTypePrivate) {
-                [[QBServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+                [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
                     NSLog(@"Failed to join room with error: %@", error.localizedDescription);
                 }];
             }
@@ -98,7 +98,7 @@ QMChatConnectionDelegate
 
 - (NSArray *)dialogs
 {
-	return [QBServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByLastMessageDateWithAscending:NO];
+	return [ServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByLastMessageDateWithAscending:NO];
 }
 
 #pragma mark
@@ -119,7 +119,7 @@ QMChatConnectionDelegate
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate: {
             cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
-			QBUUser *recipient = [QBServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
+			QBUUser *recipient = [ServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
             cell.dialogNameLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
             cell.dialogImageView.image = [UIImage imageNamed:@"chatRoomIcon"];
         }
@@ -171,7 +171,7 @@ QMChatConnectionDelegate
 		// remove current user from occupants
 		NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
 		for( NSNumber *identifier in chatDialog.occupantIDs ) {
-			if( ![identifier isEqualToNumber:@(QBServicesManager.instance.currentUser.ID)] ) {
+			if( ![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)] ) {
 				[occupantsWithoutCurrentUser addObject:identifier];
 			}
 		}
@@ -183,9 +183,9 @@ QMChatConnectionDelegate
 		
 		if( chatDialog.type == QBChatDialogTypeGroup ) {
 			__weak __typeof(self) weakSelf = self;
-			[[QBServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
+			[[ServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
 													occupantsCustomParameters:nil
-															 notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [QBServicesManager instance].currentUser.login]
+															 notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [ServicesManager instance].currentUser.login]
 																   completion:^(NSError *error) {
 																	   NSAssert(error == nil, @"Problems while deleting dialog!");
 																	   [weakSelf deleteDialogWithID:chatDialog.ID];
@@ -200,7 +200,7 @@ QMChatConnectionDelegate
 
 - (void)deleteDialogWithID:(NSString *)dialogID {
 	__weak __typeof(self) weakSelf = self;
-	[QBServicesManager.instance.chatService deleteDialogWithID:dialogID
+	[ServicesManager.instance.chatService deleteDialogWithID:dialogID
 													completion:^(QBResponse *response) {
 														if( response.success ){
 															__typeof(self) strongSelf = weakSelf;

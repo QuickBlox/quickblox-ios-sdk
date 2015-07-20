@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "DialogsViewController.h"
 #import "ReachabilityManager.h"
-#import "QBServicesManager.h"
+#import "ServicesManager.h"
 #import "ChatViewController.h"
 
 @implementation AppDelegate
@@ -45,7 +45,7 @@
     
     // Logout from chat
     //
-	[QBServicesManager.instance.chatService logoutChat];
+	[ServicesManager.instance.chatService logoutChat];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -54,11 +54,11 @@
 	
     // Login to QuickBlox Chat
     //
-	[QBServicesManager.instance.chatService logIn:^(NSError *error) {
+	[ServicesManager.instance.chatService logIn:^(NSError *error) {
 		if (!error) {
-			for (QBChatDialog *dialog in [QBServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs]) {
+			for (QBChatDialog *dialog in [ServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs]) {
 				if (dialog.type == QBChatDialogTypeGroup && !dialog.isJoined) {
-                    [[QBServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+                    [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
                         NSLog(@"Failed to join room with error: %@", error.localizedDescription);
                     }];
 				}
