@@ -480,8 +480,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
         }
         
-        
-        
         return size
     }
     
