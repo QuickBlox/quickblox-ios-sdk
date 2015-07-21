@@ -1,5 +1,5 @@
 //
-//  SwiftAlert.swift
+//  AlertView.swift
 //  sample-chat-swift
 //
 //  Created by Anton Sokolchenko on 4/7/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SwiftAlert: NSObject, UIAlertViewDelegate {
+class AlertView: NSObject, UIAlertViewDelegate {
     
     private var callBack : ((Int) -> (Void))?
     private var unmanaged : Unmanaged<NSObject>?

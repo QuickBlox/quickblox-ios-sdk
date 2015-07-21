@@ -93,7 +93,6 @@ class DialogTableViewCellModel: NSObject {
 class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServiceDelegate, QMChatConnectionDelegate {
     @IBOutlet weak var tableView:UITableView!
     
-    private var delegate : SwipeableTableViewCellWithBlockButtons!
     private var didEnterBackgroundDate: NSDate?
     
     @IBAction private func goToOpponents(sender: AnyObject?){
@@ -105,9 +104,6 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     override func viewDidLoad() {
 
         self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ServicesManager.instance().currentUser()!.login
-        
-        self.delegate = SwipeableTableViewCellWithBlockButtons()
-        self.delegate.tableView = self.tableView
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
@@ -247,12 +243,11 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_DIALOG".localized, forIndexPath: indexPath) as! DialogTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("dialogcell", forIndexPath: indexPath) as! DialogTableViewCell
         
         let chatDialog = DialogsViewController.dialogs()[indexPath.row]
         
         cell.tag = indexPath.row
-        cell.delegate = delegate
         cell.dialogID = chatDialog.ID
         
         let cellModel = DialogTableViewCellModel(dialog: chatDialog)
@@ -260,7 +255,6 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         cell.dialogLastMessage?.text = chatDialog.lastMessageText
         cell.dialogName?.text = cellModel.textLabelText
         cell.dialogTypeImage.image = cellModel.dialogIcon
-        cell.rightUtilityButtons = cellModel.rightUtilityButtons
         cell.unreadMessageCounterLabel.text = cellModel.unreadMessagesCounterLabelText
         cell.unreadMessageCounterHolder.hidden = cellModel.unreadMessagesCounterHiden
         
@@ -274,6 +268,63 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         let dialog = DialogsViewController.dialogs()[indexPath.row]
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized , sender: dialog)
+    }
+    
+    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+        
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            
+            let dialog = DialogsViewController.dialogs()[indexPath.row]
+            
+            let alert = AlertView(title:"SA_STR_WARNING".localized , message:"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG".localized , cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitle: ["SA_STR_DELETE".localized], didClick: { [weak self] (buttonIndex) -> Void in
+                
+                if buttonIndex != 1 {
+                    return
+                }
+                
+                SVProgressHUD.showWithStatus("SA_STR_DELETING".localized, maskType: SVProgressHUDMaskType.Clear)
+                
+                let deleteDialogBlock = { (dialog: QBChatDialog!) -> Void in
+                    
+                    ServicesManager.instance().chatService.deleteDialogWithID(dialog.ID, completion: { (response: QBResponse!) -> Void in
+                        
+                        if response.success {
+                            
+                            SVProgressHUD.showSuccessWithStatus("SA_STR_DELETED".localized)
+                            
+                        } else {
+                            
+                            SVProgressHUD.showErrorWithStatus("SA_STR_ERROR_DELETING".localized)
+                            println(response.error.error)
+                        }
+                    })
+                }
+                
+                if dialog.type == QBChatDialogType.Private {
+                    
+                    deleteDialogBlock(dialog)
+                    
+                } else {
+                    
+                    var occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance().currentUser().ID} )
+                    
+                    dialog.occupantIDs = occupantIDs
+                    
+                    ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance().currentUser().login) has left the dialog", completion: { (error: NSError!) -> Void in
+                        
+                        deleteDialogBlock(dialog)
+                    })
+                }
+            })
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
+        return "SA_STR_DELETE".localized
     }
     
     // MARK: - QMChatServiceDelegate
