@@ -69,8 +69,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.inputToolbar.contentView.leftBarButtonItem = ChatViewController.createAccessoryButtonItem()
         self.inputToolbar.contentView.rightBarButtonItem = ChatViewController.createSendButtonItem()
         
-        self.senderID = QBSession.currentSession().currentUser.ID
-        self.senderDisplayName = QBSession.currentSession().currentUser.login
+        self.senderID = ServicesManager.instance().currentUser().ID
+        self.senderDisplayName = ServicesManager.instance().currentUser().login
         
         self.showLoadEarlierMessagesHeader = true
         
@@ -182,7 +182,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             if response.error == nil {
                 
-                self.scrollToBottomAnimated(false)
+                weakSelf?.scrollToBottomAnimated(false)
                 
                 if isProgressHUDShowed {
                     SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
@@ -508,7 +508,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         ServicesManager.instance().chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
             
-            self.shouldHoldScrolOnCollectionView = false
+            weakSelf?.shouldHoldScrolOnCollectionView = false
             
             if messages != nil {
                 weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
@@ -736,8 +736,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
         
+        weak var weakSelf = self
+        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.presentViewController(self.imagePickerViewController, animated: true, completion: nil)
+            weakSelf?.presentViewController(self.imagePickerViewController, animated: true, completion: nil)
         })
     }
     
@@ -747,6 +749,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         picker.dismissViewControllerAnimated(true, completion: nil)
         SVProgressHUD.showWithStatus("SA_STR_UPLOADING_ATTACHMENT".localized, maskType: SVProgressHUDMaskType.Clear)
+        
+        weak var weakSelf = self
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
@@ -770,10 +774,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             UIGraphicsEndImageContext()
             
             let message = QBChatMessage()
-            message.senderID = self.senderID
-            message.dialogID = self.dialog?.ID
+            message.senderID = ServicesManager.instance().currentUser().ID
+            message.dialogID = weakSelf?.dialog?.ID
             
-            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
+            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: weakSelf?.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     if error != nil {
