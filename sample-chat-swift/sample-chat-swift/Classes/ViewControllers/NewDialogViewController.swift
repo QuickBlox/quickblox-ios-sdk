@@ -57,13 +57,15 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             users.append(user)
         }
         
+        weak var weakSelf = self
+        
         let completion = { (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
             
             sender.enabled = true
             
             if createdDialog != nil {
                 println(createdDialog)
-                self.processeNewDialog(createdDialog)
+                weakSelf?.processeNewDialog(createdDialog)
             }
             
             if response != nil && response.error != nil {
@@ -76,7 +78,26 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             
             if dialog.type == .Group {
                 
-                self.updateGroupChatWithNewUsers(users)
+                SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
+                
+                NewDialogViewController.updateDialog(self.dialog!, newUsers:users, completion: { (response, dialog) -> Void in
+                    
+                    if let rightBarButtonItem = weakSelf?.navigationItem.rightBarButtonItem {
+                        rightBarButtonItem.enabled = true
+                    }
+                    
+                    if (response.error == nil) {
+                        
+                        SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
+        
+        
+                        weakSelf?.processeNewDialog(dialog)
+                        
+                    } else {
+                        SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                    }
+                    
+                })
                 
             } else {
                 
@@ -86,16 +107,16 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                     users.extend(primaryUsers! as [QBUUser])
                 }
                 
-                let chatName = self.nameForGroupChatWithUsers(users)
+                let chatName = NewDialogViewController.nameForGroupChatWithUsers(users)
 
-                self.createChat(chatName, users: users, completion: completion)
+                NewDialogViewController.createChat(chatName, users: users, completion: completion)
             }
             
         } else {
             
             if users.count == 1 {
                 
-                self.createChat(nil, users: users, completion: completion)
+                NewDialogViewController.createChat(nil, users: users, completion: completion)
 
             } else {
                 
@@ -104,10 +125,10 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                     var chatName = text
                     
                     if chatName!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty {
-                        chatName = self.nameForGroupChatWithUsers(users)
+                        chatName = NewDialogViewController.nameForGroupChatWithUsers(users)
                     }
                     
-                    self.createChat(chatName, users: users, completion: completion)
+                    NewDialogViewController.createChat(chatName, users: users, completion: completion)
                     
                     }) { () -> Void in
                         
@@ -118,47 +139,41 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         }
     }
     
-    func updateGroupChatWithNewUsers(users:[QBUUser]) {
+    static func updateDialog(dialog:QBChatDialog!, newUsers users:[QBUUser], completion: ((response: QBResponse!, dialog: QBChatDialog!) -> Void)?) {
+        
         let usersIDs = users.map{ $0.ID }
         
-        SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
-        
-        ServicesManager.instance().chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: self.dialog!) { (response: QBResponse!, dialog: QBChatDialog!) -> Void in
-            
-            if let rightBarButtonItem = self.navigationItem.rightBarButtonItem {
-                rightBarButtonItem.enabled = true
-            }
-            
+        ServicesManager.instance().chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: dialog) { (response: QBResponse!, dialog: QBChatDialog!) -> Void in
+    
             if (response.error == nil) {
                 
                 ServicesManager.instance().chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog)
                 
                 ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
                 
-                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
-                
                 println(dialog)
                 
-                self.processeNewDialog(dialog)
+                completion?(response: response, dialog: dialog)
                 
             } else {
                 
                 println(response.error.error)
-                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
                 
+                completion?(response: response, dialog: nil)
+    
             }
             
         }
     }
     
-    func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
+    static func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
         
         let chatName = ServicesManager.instance().currentUser()!.login + "_" + ", ".join(users.map({ $0.login ?? $0.email })).stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         return chatName
     }
     
-    func createChat(name: String?, users:[QBUUser], completion: (response: QBResponse!, createdDialog: QBChatDialog!) -> Void) {
+    static func createChat(name: String?, users:[QBUUser], completion: ((response: QBResponse!, createdDialog: QBChatDialog!) -> Void)?) {
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         
@@ -166,9 +181,9 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             
             ServicesManager.instance().chatService.createPrivateChatDialogWithOpponent(users.first!, completion: { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
                 
-                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
+//                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
                 
-                completion(response: response, createdDialog: chatDialog)
+                completion?(response: response, createdDialog: chatDialog)
             })
             
         } else {
@@ -179,9 +194,9 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                     ServicesManager.instance().chatService.notifyUsersWithIDs(chatDialog.occupantIDs, aboutAddingToDialog: chatDialog)
                 }
                 
-                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
+//                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
                 
-                completion(response: response, createdDialog: chatDialog)
+                completion?(response: response, createdDialog: chatDialog)
             }
         }
     }

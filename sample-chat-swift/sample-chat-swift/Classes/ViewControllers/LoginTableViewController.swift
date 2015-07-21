@@ -22,6 +22,8 @@ class LoginTableViewController: UsersListTableViewController {
     func logInChatWithUser(user: QBUUser) {
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
+        
+        weak var weakSelf = self
 
         ServicesManager.instance().logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
 
@@ -29,7 +31,7 @@ class LoginTableViewController: UsersListTableViewController {
                 
                 SVProgressHUD.showSuccessWithStatus("SA_STR_LOGGED_IN".localized)
 
-                self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
+                weakSelf?.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
                 
             } else {
                 
