@@ -1,5 +1,5 @@
 //
-//  SwiftAlert.swift
+//  AlertViewWithTextField.swift
 //  sample-chat-swift
 //
 //  Created by Anton Sokolchenko on 4/7/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SwiftAlertWithTextField: NSObject, UIAlertViewDelegate {
+class AlertViewWithTextField: NSObject, UIAlertViewDelegate {
     
     // ios 7 support
     private var alertView: UIAlertView?

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DialogTableViewCell: SWTableViewCell {
+class DialogTableViewCell: UITableViewCell {
     
 //    @IBOutlet private weak var colorMarker: CornerView!
     

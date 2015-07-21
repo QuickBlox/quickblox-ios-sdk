@@ -71,7 +71,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
         } else if response.status.rawValue == 0 {
             errorMessage = "Connection network error, please try again"
         } else {
-            errorMessage = response.error.description.stringByReplacingOccurrencesOfString("(", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).stringByReplacingOccurrencesOfString(")", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+            errorMessage = response.error.error.localizedDescription.stringByReplacingOccurrencesOfString("(", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).stringByReplacingOccurrencesOfString(")", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         }
         
         TWMessageBarManager.sharedInstance().hideAll()
