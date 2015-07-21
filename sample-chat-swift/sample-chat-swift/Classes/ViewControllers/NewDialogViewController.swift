@@ -10,34 +10,40 @@
 class NewDialogViewController: UsersListTableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
     var dialog: QBChatDialog?
     
-    private var delegate : SwipeableTableViewCellWithBlockButtons!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = SwipeableTableViewCellWithBlockButtons()
-        self.delegate.tableView = self.tableView
         self.checkCreateChatButtonState()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.updateUsers()
         ServicesManager.instance().chatService.addDelegate(self)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.tableView.reloadData()
         self.checkCreateChatButtonState()
     }
     
     func updateUsers() {
         if let dialog = self.dialog  {
             
-            let filteredUsers = ServicesManager.instance().usersService.users(withoutUser: ServicesManager.instance().currentUser())?.filter({!contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
-            self.users = filteredUsers
+            self.setupUsers(ServicesManager.instance().usersService.users()!)
         }
+    }
+    
+    override func setupUsers(users: [QBUUser]) {
+    
+        var filteredUsers = users.filter({($0 as QBUUser).ID != ServicesManager.instance().currentUser().ID})
+        
+        if let dialog = self.dialog  {
+            
+            filteredUsers = filteredUsers.filter({!contains(self.dialog!.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+        }
+        
+        super.setupUsers(filteredUsers)
+    
     }
     
     func checkCreateChatButtonState() {
@@ -120,7 +126,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
 
             } else {
                 
-                SwiftAlertWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { [unowned self] (text) -> Void in
+                AlertViewWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { [unowned self] (text) -> Void in
                     
                     var chatName = text
                     
@@ -213,28 +219,6 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 chatVC.shouldFixViewControllersStack = true
             }
         }
-    }
-    
-    // MARK: - UITableViewDataSource
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath) as! UserTableViewCell
-        let user = self.users![indexPath.row]
-        
-        cell.user = user
-        cell.delegate = self.delegate
-        
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let user = self.users![indexPath.row]
-        
-        if user.ID == ServicesManager.instance().currentUser()!.ID {
-            return 0.0 // hide current user
-        }
-        
-        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
     
     // MARK: - UITableViewDelegate

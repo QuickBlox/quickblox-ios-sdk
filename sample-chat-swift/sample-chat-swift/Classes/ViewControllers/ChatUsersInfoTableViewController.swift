@@ -19,17 +19,27 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.updateUsers()
         ServicesManager.instance().chatService.addDelegate(self)
     }
     
     func updateUsers() {
         if let chatDialog = self.dialog  {
             
-            let filteredUsers = ServicesManager.instance().usersService.users(withoutUser: ServicesManager.instance().currentUser())?.filter({contains(chatDialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
-            
-            self.users = filteredUsers
+            self.setupUsers(ServicesManager.instance().usersService.users()!)
         }
+    }
+    
+    override func setupUsers(users: [QBUUser]) {
+        
+        var filteredUsers = users.filter({($0 as QBUUser).ID != ServicesManager.instance().currentUser().ID})
+        
+        if let dialog = self.dialog  {
+            
+            filteredUsers = filteredUsers.filter({contains(self.dialog!.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+        }
+        
+        super.setupUsers(filteredUsers)
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
