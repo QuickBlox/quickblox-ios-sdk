@@ -71,7 +71,7 @@ class UsersListTableViewController: UITableViewController {
         return cell
     }
     
-    private func setupUsers(users: [QBUUser]) {
+    func setupUsers(users: [QBUUser]) {
         self.users = users
         self.tableView.reloadData()
     }

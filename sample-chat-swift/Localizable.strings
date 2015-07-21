@@ -13,9 +13,9 @@
 "SA_STR_LOGGED_IN" = "Logged in";
 "SA_STR_SENDING" = "Sending";
 "SA_STR_COMPLETED" = "Completed";
-"SA_STR_DELETE" = "Delete";
-"SA_STR_DELETED" = "Deleted";
-"SA_STR_DELETING" = "Deleting...";
+"SA_STR_DELETE" = "Leave";
+"SA_STR_DELETED" = "Leaved";
+"SA_STR_DELETING" = "Leaving...";
 "SA_STR_WARNING" = "Warning";
 "SA_STR_BLOCK" = "Block";
 "SA_STR_UNBLOCK" = "Unblock";
@@ -60,7 +60,7 @@
 "SA_STR_ADDITIONAL_ACTIONS" = "Additional actions";
 "SA_STR_NOTE_YOU_WILL_NOT_RECEIVE_AMY_P2P_MESSAGES" = "Note that you will not receive any private message from this user";
 "SA_STR_NOTE_YOU_WILL_NOT_RECEIVE_AMY_GROUP_MESSAGES" = "Note that you will not receive any group chat message from this user";
-"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG" = "Do you really want to delete selected dialog?";
+"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG" = "Do you really want to leave selected dialog?";
 "SA_STR_UNBLOCK_USER_P2P_CHAT" = "Unblock user in 1-1 chat";
 "SA_STR_BLOCK_USER_P2P_CHAT" = "Block user in 1-1 chat";
 
@@ -68,7 +68,7 @@
 "SA_STR_BLOCK_USER_GROUP_CHATS" = "Block user in all group chats";
 
 // Errors
-"SA_STR_ERROR_DELETING" = "Error deleting";
+"SA_STR_ERROR_DELETING" = "Error leaving";
 
 // Chat
 "SA_STR_CHAT_SEND" = "Send";
