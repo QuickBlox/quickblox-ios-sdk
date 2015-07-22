@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+*  Service responsible for working with users. 
+*/
 class UsersService: NSObject {
     
     var contactListService : QMContactListService!
