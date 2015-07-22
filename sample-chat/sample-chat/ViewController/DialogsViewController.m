@@ -9,6 +9,7 @@
 #import "DialogsViewController.h"
 #import "СhatViewController.h"
 #import "ChatMessageTableViewCell.h"
+#import <STKStickerPipe.h>
 
 @interface DialogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -134,20 +135,17 @@
     
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate:{
-            cell.detailTextLabel.text = chatDialog.lastMessageText;
             QBUUser *recipient = [ChatService shared].usersAsDictionary[@(chatDialog.recipientID)];
             cell.textLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
             cell.imageView.image = [UIImage imageNamed:@"privateChatIcon"];
         }
             break;
         case QBChatDialogTypeGroup:{
-            cell.detailTextLabel.text = chatDialog.lastMessageText;
             cell.textLabel.text = chatDialog.name;
             cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
             break;
         case QBChatDialogTypePublicGroup:{
-            cell.detailTextLabel.text = chatDialog.lastMessageText;
             cell.textLabel.text = chatDialog.name;
             cell.imageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
@@ -156,6 +154,13 @@
         default:
             break;
     }
+    
+    if ([STKStickersManager isStickerMessage:chatDialog.lastMessageText]) {
+        cell.detailTextLabel.text = @"Sticker";
+    } else {
+        cell.detailTextLabel.text = chatDialog.lastMessageText;
+    }
+    
     
     // set unread badge
     UILabel *badgeLabel = (UILabel *)[cell.contentView viewWithTag:201];
