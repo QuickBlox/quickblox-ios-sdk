@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Responsible for building string for message status.
+ */
 @interface MessageStatusStringBuilder : NSObject
 
 - (NSString *)statusFromMessage:(QBChatMessage *)message;

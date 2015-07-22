@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "DialogsViewController.h"
-#import "ReachabilityManager.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
 
@@ -26,9 +25,7 @@
     
 //    [QBSettings setLogLevel:QBLogLevelNothing];
 //    [QBSettings disableXMPPLogging];
-	
-	[[ReachabilityManager instance] startNotifier];
-	
+		
     return YES;
 }
 							

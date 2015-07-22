@@ -9,10 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "UsersService.h"
 
+/**
+ *  Implements logic connected with user's memory/disc storage, error handling, top bar notifications.
+ */
 @interface ServicesManager : QMServicesManager <QMContactListServiceCacheDataSource>
 
+/**
+ *  User's service.
+ */
 @property (nonatomic, readonly) UsersService* usersService;
 
+/**
+ *  Current opened dialog ID.
+ */
 @property (nonatomic, strong) NSString* currentDialogID;
 
 @end
