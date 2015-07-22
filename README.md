@@ -1,4 +1,7 @@
 # QuickBlox 
+
+[![Join the chat at https://gitter.im/QuickBlox/quickblox-ios-sdk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/QuickBlox/quickblox-ios-sdk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 QuickBlox - Communication & cloud backend (BaaS) platform which brings superpowers to mobile apps. 
 
 QuickBlox is a suite of communication features & data services (APIs, SDKs, code samples, admin panel, tutorials) which help digital agencies, mobile developers and publishers to add great functionality to smartphone applications. 
