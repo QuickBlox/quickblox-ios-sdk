@@ -309,8 +309,6 @@ static NSString *ChatStickerCellIdentifier = @"ChatStickerCellIdentifier";
 #pragma mark - STKStickerPanelDelegate
 
 - (void) stickerPanel:(STKStickerPanel*)stickerPanel didSelectStickerWithMessage:(NSString*) stickerMessage {
-    
-    
     [self sendMessageWithText:stickerMessage];
 }
 
