@@ -46,6 +46,9 @@
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
 	__weak __typeof(self)weakSelf = self;
 	
+    /**
+     *  Different users are taken depending on environment.
+     */
     NSString* environment = nil;
 #if DEV
     environment = @"dev";
@@ -81,22 +84,6 @@
 		}
 		NSLog(@"error: %@", response.error.error);
     }];
-}
-
-- (QBUUser *)userWithID:(NSNumber *)userID {
-	
-	__block QBUUser *resultUser = nil;
-	[StorageManager.instance.users enumerateObjectsUsingBlock:^(QBUUser *user,
-																NSUInteger idx,
-																BOOL *stop) {
-		
-		if (user.ID == userID.integerValue) {
-			resultUser =  user;
-			*stop = YES;
-		}
-	}];
-	
-	return resultUser;
 }
 
 - (NSArray *)usersWithoutCurrentUser {

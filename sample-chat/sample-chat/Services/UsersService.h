@@ -32,8 +32,29 @@
  */
 - (void)retrieveUsersWithIDs:(NSArray *)usersIDs completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray *users))completion;
 
+/**
+ *  Returns user with given ID from in-memory storage.
+ *
+ *  @param userID User identifier.
+ *
+ *  @return QBUUser instance.
+ */
 - (QBUUser *)userWithID:(NSNumber *)userID;
+
+/**
+ *  Returns array of users without current user.
+ *
+ *  @return NSArray of users.
+ */
 - (NSArray *)usersWithoutCurrentUser;
+
+/**
+ *  Extracts IDs from array of users.
+ *
+ *  @param users NSArray of users.
+ *
+ *  @return NSArray of NSNumber IDs.
+ */
 - (NSArray *)idsWithUsers:(NSArray *)users;
 
 @end
