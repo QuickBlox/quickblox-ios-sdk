@@ -8,12 +8,21 @@
 
 #import "СhatViewController.h"
 #import "ChatMessageTableViewCell.h"
+#import <STKStickerPipe.h>
+#import "ChatStickerTableViewCell.h"
 
-@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, ChatServiceDelegate>
+static NSString *ChatMessageCellIdentifier = @"ChatMessageCellIdentifier";
+static NSString *ChatStickerCellIdentifier = @"ChatStickerCellIdentifier";
+
+@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, ChatServiceDelegate, STKStickerPanelDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
+@property (nonatomic, weak) IBOutlet UIView *inputBackgroundView;
+@property (nonatomic, strong) STKStickerPanel *stickerView;
+@property (nonatomic, strong) UIButton *showStickersButton;
+@property (nonatomic, assign) BOOL isKeyboradShow;
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
@@ -26,7 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.messagesTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // Initialize the refresh control.
@@ -37,6 +46,28 @@
                   forControlEvents:UIControlEventValueChanged];
     
     [self.messagesTableView addSubview:self.refreshControl];
+    
+    
+    //Initialize sticker button
+    self.showStickersButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIImage *stickerImage = [[UIImage imageNamed:@"ShowStickersIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    [self.showStickersButton addTarget:self action:@selector(toggleStickerView) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.showStickersButton setImage:stickerImage forState:UIControlStateNormal];
+    [self.showStickersButton setImage:stickerImage forState:UIControlStateHighlighted];
+    
+    self.showStickersButton.frame = CGRectMake(0, 0, 25.0, 25.0);
+    self.messageTextField.rightView = self.showStickersButton;
+    self.messageTextField.rightViewMode = UITextFieldViewModeUnlessEditing;
+    
+    //Gesture
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(messageTextFieldDidTap:)];
+    [self.messageTextField addGestureRecognizer:tapGesture];
+    
+    //Table view cells
+    [self.messagesTableView registerClass:[ChatMessageTableViewCell class] forCellReuseIdentifier:ChatMessageCellIdentifier];
+    [self.messagesTableView registerClass:[ChatStickerTableViewCell class] forCellReuseIdentifier:ChatStickerCellIdentifier];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -109,33 +140,33 @@
                     extendedRequest:extendedRequest
                             forPage:page
                        successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
-        if(messages.count > 0){
-            [[ChatService shared] addMessages:messages forDialogId:self.dialog.ID];
-        }
+                           if(messages.count > 0){
+                               [[ChatService shared] addMessages:messages forDialogId:self.dialog.ID];
+                           }
                            
-        if(loadPrevious){
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"MMM d, h:mm a"];
-            NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
-            NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
-                                                                        forKey:NSForegroundColorAttributeName];
-            NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
-            weakSelf.refreshControl.attributedTitle = attributedTitle;
-            
-            [weakSelf.refreshControl endRefreshing];
-            
-            [weakSelf.messagesTableView reloadData];
-        }else{
-            [weakSelf.messagesTableView reloadData];
-            NSInteger count = [[ChatService shared] messagsForDialogId:self.dialog.ID].count;
-            if(count > 0){
-                [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
-                                                  atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-            }
-        }
-    } errorBlock:^(QBResponse *response) {
-        
-    }];
+                           if(loadPrevious){
+                               NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                               [formatter setDateFormat:@"MMM d, h:mm a"];
+                               NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
+                               NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor blackColor]
+                                                                                           forKey:NSForegroundColorAttributeName];
+                               NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
+                               weakSelf.refreshControl.attributedTitle = attributedTitle;
+                               
+                               [weakSelf.refreshControl endRefreshing];
+                               
+                               [weakSelf.messagesTableView reloadData];
+                           }else{
+                               [weakSelf.messagesTableView reloadData];
+                               NSInteger count = [[ChatService shared] messagsForDialogId:self.dialog.ID].count;
+                               if(count > 0){
+                                   [weakSelf.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:count-1 inSection:0]
+                                                                     atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+                               }
+                           }
+                       } errorBlock:^(QBResponse *response) {
+                           
+                       }];
 }
 
 #pragma mark
@@ -146,9 +177,19 @@
     if(messageText.length == 0){
         return;
     }
+    
+    [self sendMessageWithText:messageText];
+    
+    // clean text field
+    [self.messageTextField setText:nil];
+}
 
+#pragma mark - Sending
+
+- (void) sendMessageWithText:(NSString*)text {
+    
     // send a message
-    BOOL sent = [[ChatService shared] sendMessage:messageText toDialog:self.dialog];
+    BOOL sent = [[ChatService shared] sendMessage:text toDialog:self.dialog];
     if(!sent){
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error"
                                                        description:@"Please check your internet connection"
@@ -161,9 +202,6 @@
     if([[ChatService shared] messagsForDialogId:self.dialog.ID].count > 0){
         [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[ChatService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-    
-    // clean text field
-    [self.messageTextField setText:nil];
 }
 
 
@@ -172,27 +210,32 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [[[ChatService shared] messagsForDialogId:self.dialog.ID] count];
+    return [[[ChatService shared] messagsForDialogId:self.dialog.ID] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ChatMessageCellIdentifier = @"ChatMessageCellIdentifier";
-    
-    ChatMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatMessageCellIdentifier];
-    if(cell == nil){
-        cell = [[ChatMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ChatMessageCellIdentifier];
-    }
     
     QBChatMessage *message = [[ChatService shared] messagsForDialogId:self.dialog.ID][indexPath.row];
-    //
-    [cell configureCellWithMessage:message];
+    if ([STKStickersManager isStickerMessage:message.text]) {
+        ChatStickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatStickerCellIdentifier];
+        [cell fillWithStickerMessage:message];
+        return cell;
+    } else {
+        ChatMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ChatMessageCellIdentifier];
+        [cell configureCellWithMessage:message];
+        return cell;
+    }
     
-    return cell;
+    return nil;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     QBChatMessage *chatMessage = [[[ChatService shared] messagsForDialogId:self.dialog.ID] objectAtIndex:indexPath.row];
+    if ([STKStickersManager isStickerMessage:chatMessage.text]) {
+        return 105.0;
+    }
     CGFloat cellHeight = [ChatMessageTableViewCell heightForCellWithMessage:chatMessage];
     return cellHeight;
 }
@@ -210,32 +253,106 @@
     return YES;
 }
 
+#pragma mark - UIGestureRecognizer
+
+- (void) messageTextFieldDidTap:(UITapGestureRecognizer*) gesture {
+    [self.messageTextField becomeFirstResponder];
+    if (self.stickerView.isShowed) {
+        [self hideStickersView];
+    }
+}
 
 #pragma mark
 #pragma mark Keyboard notifications
 
 - (void)keyboardWillShow:(NSNotification *)note
 {
+    
+    CGRect keyboardBounds = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardBounds.size.height, 0.0);
+    
+    [self.messagesTableView setContentInset:contentInsets];
+    
+    [self.messagesTableView setScrollIndicatorInsets:contentInsets];
+    
+    if([[ChatService shared] messagsForDialogId:self.dialog.ID].count > 0){
+        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[ChatService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    
     [UIView animateWithDuration:0.3 animations:^{
-		self.messageTextField.transform = CGAffineTransformMakeTranslation(0, -250);
-        self.sendMessageButton.transform = CGAffineTransformMakeTranslation(0, -250);
-        self.messagesTableView.frame = CGRectMake(self.messagesTableView.frame.origin.x,
-                                                  self.messagesTableView.frame.origin.y,
-                                                  self.messagesTableView.frame.size.width,
-                                                  self.messagesTableView.frame.size.height-252);
+        self.inputBackgroundView.transform = CGAffineTransformMakeTranslation(0, -keyboardBounds.size.height);
+        
     }];
+    
+    self.isKeyboradShow = YES;
 }
 
 - (void)keyboardWillHide:(NSNotification *)note
 {
+    self.isKeyboradShow = NO;
+    
+    [self.messagesTableView setContentInset:UIEdgeInsetsZero];
+    
+    [self.messagesTableView setScrollIndicatorInsets:UIEdgeInsetsZero];
+    
+    if([[ChatService shared] messagsForDialogId:self.dialog.ID].count > 0){
+        [self.messagesTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[[[ChatService shared] messagsForDialogId:self.dialog.ID] count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    
     [UIView animateWithDuration:0.3 animations:^{
-		self.messageTextField.transform = CGAffineTransformIdentity;
-        self.sendMessageButton.transform = CGAffineTransformIdentity;
-        self.messagesTableView.frame = CGRectMake(self.messagesTableView.frame.origin.x,
-                                                  self.messagesTableView.frame.origin.y,
-                                                  self.messagesTableView.frame.size.width,
-                                                  self.messagesTableView.frame.size.height+252);
+        self.inputBackgroundView.transform = CGAffineTransformIdentity;
+        
     }];
+}
+
+#pragma mark - STKStickerPanelDelegate
+
+- (void) stickerPanel:(STKStickerPanel*)stickerPanel didSelectStickerWithMessage:(NSString*) stickerMessage {
+    
+    
+    [self sendMessageWithText:stickerMessage];
+}
+
+#pragma mark - Show/hide stickers
+
+- (void) toggleStickerView {
+    if (self.stickerView.isShowed) {
+        [self hideStickersView];
+        
+    } else {
+        [self showStickersView];
+    }
+}
+
+- (void) showStickersView {
+    UIImage *buttonImage = [[UIImage imageNamed:@"ShowKeyboadIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    [self.showStickersButton setImage:buttonImage forState:UIControlStateNormal];
+    [self.showStickersButton setImage:buttonImage forState:UIControlStateHighlighted];
+    
+    self.messageTextField.inputView = self.stickerView;
+    [self reloadStickersInputViews];
+}
+
+- (void) hideStickersView {
+    
+    UIImage *buttonImage = [[UIImage imageNamed:@"ShowStickersIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    [self.showStickersButton setImage:buttonImage forState:UIControlStateNormal];
+    [self.showStickersButton setImage:buttonImage forState:UIControlStateHighlighted];
+    
+    self.messageTextField.inputView = nil;
+    
+    [self reloadStickersInputViews];
+}
+
+
+- (void) reloadStickersInputViews {
+    [self.messageTextField reloadInputViews];
+    if (!self.isKeyboradShow) {
+        [self.messageTextField becomeFirstResponder];
+    }
 }
 
 
@@ -265,5 +382,17 @@
     
     return YES;
 }
+
+#pragma mark - Property
+
+- (STKStickerPanel *)stickerView {
+    if (!_stickerView) {
+        _stickerView = [[STKStickerPanel alloc] init];
+        _stickerView.delegate = self;
+    }
+    return _stickerView;
+}
+
+
 
 @end
