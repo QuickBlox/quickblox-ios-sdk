@@ -23,7 +23,7 @@ PODS:
   - DateTools (1.6.1)
   - GoogleAnalytics (3.12.0)
   - NMPaginator (1.0.0)
-  - QuickBlox (2.3.0.1)
+  - QuickBlox (2.3.0.3)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -47,7 +47,7 @@ SPEC CHECKSUMS:
   DateTools: 9bcc89e4f2f9004d8a7a2bd1b49269cf78968e65
   GoogleAnalytics: ef2e0b800ef3c1e62688cdfc959e0d3132bc246c
   NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
-  QuickBlox: 0c62fa9b6d9d5092b0f0f31b90eabeb7f854ceb5
+  QuickBlox: 6e10bbefa89a00c26286557d248b16448ad334ef
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   StickerPipe: 0b2f40a00b1f0ac9d35b875c914e61322f3ea2e2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1

@@ -20,7 +20,9 @@
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
-    //Stickers
+    
+    // Stickers
+    //
     [STKStickersManager initWitApiKey:@"847b82c49db21ecec88c510e377b452c"];
     
 //    [QBSettings setLogLevel:QBLogLevelNothing];
