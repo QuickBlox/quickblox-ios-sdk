@@ -1,0 +1,1 @@
+../../../../QuickBlox/Quickblox.framework/Versions/A/Headers/QBRequest+QBAuth.h
