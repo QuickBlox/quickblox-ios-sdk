@@ -27,6 +27,7 @@ typedef void(^STKDownloadingProgressBlock)(NSInteger receivedSize, NSInteger exp
 
 - (void) stk_setStickerWithMessage:(NSString *)stickerMessage
                     placeholder:(UIImage *)placeholder
+                  placeholderColor:(UIColor*)placeholderColor
                        progress:(STKDownloadingProgressBlock)progressBlock
                      completion:(STKCompletionBlock)completion;
 

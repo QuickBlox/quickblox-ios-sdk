@@ -27,7 +27,7 @@ PODS:
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
-  - StickerPipe (0.1.6):
+  - StickerPipe (0.1.10):
     - AFNetworking (~> 2.0)
     - GoogleAnalytics (~> 3.0)
     - SDWebImage (~> 3.0)
@@ -49,7 +49,7 @@ SPEC CHECKSUMS:
   NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
   QuickBlox: 6e10bbefa89a00c26286557d248b16448ad334ef
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  StickerPipe: 0b2f40a00b1f0ac9d35b875c914e61322f3ea2e2
+  StickerPipe: 444ddf48b705c8a1869ae8ff2fa8cb6de312c8e1
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 

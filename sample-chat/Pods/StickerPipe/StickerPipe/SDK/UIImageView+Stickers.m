@@ -19,14 +19,14 @@
 
 - (void) stk_setStickerWithMessage:(NSString *)stickerMessage completion:(STKCompletionBlock)completion {
     
-    [self stk_setStickerWithMessage:stickerMessage placeholder:nil progress:nil completion:completion];
+    [self stk_setStickerWithMessage:stickerMessage placeholder:nil placeholderColor:nil progress:nil completion:completion];
     
 }
 
 
 - (void) stk_setStickerWithMessage:(NSString *)stickerMessage placeholder:(UIImage *)placeholder {
     
-    [self stk_setStickerWithMessage:stickerMessage placeholder:placeholder progress:nil completion:nil];
+    [self stk_setStickerWithMessage:stickerMessage placeholder:placeholder placeholderColor:nil progress:nil completion:nil];
 }
 
 - (void) stk_setStickerWithMessage:(NSString *)stickerMessage
@@ -34,13 +34,14 @@
                     completion:(STKCompletionBlock)completion
 {
     
-    [self stk_setStickerWithMessage:stickerMessage placeholder:placeholder progress:nil completion:completion];
+    [self stk_setStickerWithMessage:stickerMessage placeholder:placeholder placeholderColor:nil progress:nil completion:completion];
 }
 
 #pragma mark - Sticker Download
 
 - (void) stk_setStickerWithMessage:(NSString *)stickerMessage
                        placeholder:(UIImage *)placeholder
+                  placeholderColor:(UIColor*)placeholderColor
                           progress:(STKDownloadingProgressBlock)progressBlock
                         completion:(STKCompletionBlock)completion {
     
@@ -49,7 +50,6 @@
     UIImage *placeholderImage = nil;
     if (!placeholder) {
         UIImage *defaultPlaceholder = [UIImage imageNamed:@"StickerPlaceholder"];
-        UIColor *placeholderColor = [STKStickersManager displayedStickerPlaceholderColor];
         if (placeholderColor) {
             defaultPlaceholder = [defaultPlaceholder imageWithImageTintColor:placeholderColor];
         } else {

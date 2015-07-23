@@ -12,6 +12,7 @@
 
 static NSManagedObjectContext *mainContext;
 static NSManagedObjectContext *backgroundContext;
+static NSManagedObjectContext *analyticsContext;
 
 @implementation NSManagedObjectContext (Additions)
 
@@ -22,6 +23,8 @@ static NSManagedObjectContext *backgroundContext;
     
     NSManagedObjectContext *mainQueueContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     
+    NSManagedObjectContext *analyticsBackgroundContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(contexDidSave:)
                                                  name:NSManagedObjectContextDidSaveNotification
@@ -30,11 +33,13 @@ static NSManagedObjectContext *backgroundContext;
     if (coordinator) {
         backgroundQueueContext.persistentStoreCoordinator = coordinator;
         mainQueueContext.persistentStoreCoordinator = coordinator;
+        analyticsBackgroundContext.persistentStoreCoordinator = coordinator;
 
     }
     
     mainContext = mainQueueContext;
     backgroundContext = backgroundQueueContext;
+    analyticsContext = analyticsBackgroundContext;
     
 }
 
@@ -67,6 +72,14 @@ static NSManagedObjectContext *backgroundContext;
         [self stk_setupContextStackWithPersistanceStore:[NSPersistentStoreCoordinator stk_defaultPersistentsStoreCoordinator]];
     }
     return backgroundContext;
+}
+
++ (NSManagedObjectContext*) stk_analyticsContext {
+    if (!analyticsContext) {
+        [self stk_setupContextStackWithPersistanceStore:[NSPersistentStoreCoordinator stk_defaultPersistentsStoreCoordinator]];
+    }
+    return analyticsContext;
+    
 }
 
 @end

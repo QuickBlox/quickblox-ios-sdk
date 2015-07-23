@@ -14,6 +14,8 @@
 
 + (NSManagedObjectContext*) stk_backgroundContext;
 
++ (NSManagedObjectContext*) stk_analyticsContext;
+
 + (void)stk_setupContextStackWithPersistanceStore:(NSPersistentStoreCoordinator*) coordinator;
 
 @end

@@ -31,6 +31,11 @@ NSString *const STKAnalyticActionInstall = @"install";
 NSString *const STKStickersCountLabel = @"Stickers count";
 NSString *const STKEventsCountLabel = @"Events count";
 
+//Custom Dimension indexes
+static const NSInteger kAPIKeyIndex = 1;
+static const NSInteger kUUIDKeyIndex = 2;
+static const NSInteger kBundleIdentifierIndex = 3;
+
 
 //Used with weak
 #pragma clang diagnostic push
@@ -76,17 +81,20 @@ static const NSInteger kMemoryCacheObjectsCount = 20;
         
         [GAI sharedInstance].dispatchInterval = 60;
         
-        [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
-        
 #if DEBUG
         [GAI sharedInstance].dryRun = YES;
+        [[GAI sharedInstance].logger setLogLevel:kGAILogLevelVerbose];
+
 #endif
         self.tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-1113296-76"];
         
         //Custom dimensions
-        [self.tracker set:[GAIFields customDimensionForIndex:1] value:[STKApiKeyManager apiKey]];
-        [self.tracker set:[GAIFields customDimensionForIndex:2] value:[STKUUIDManager generatedDeviceToken]];
-        [self.tracker set:[GAIFields customDimensionForIndex:3] value:[[NSBundle mainBundle] bundleIdentifier]];
+        [self.tracker set:[GAIFields customDimensionForIndex:kAPIKeyIndex]
+                    value:[STKApiKeyManager apiKey]];
+        [self.tracker set:[GAIFields customDimensionForIndex:kUUIDKeyIndex]
+                    value:[STKUUIDManager generatedDeviceToken]];
+        [self.tracker set:[GAIFields customDimensionForIndex:kBundleIdentifierIndex]
+                    value:[[NSBundle mainBundle] bundleIdentifier]];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(applicationWillResignActive:)
@@ -246,7 +254,7 @@ static const NSInteger kMemoryCacheObjectsCount = 20;
 
 - (NSManagedObjectContext *)backgroundContext {
     if (!_backgroundContext) {
-        _backgroundContext = [NSManagedObjectContext stk_backgroundContext];
+        _backgroundContext = [NSManagedObjectContext stk_analyticsContext];
     }
     return _backgroundContext;
 }

@@ -22,9 +22,11 @@
 @property (strong, nonatomic) NSManagedObjectContext *backgroundContext;
 @property (strong, nonatomic) NSOperationQueue *queue;
 
+
 @end
 
 @implementation STKStickersDataModel
+
 
 - (void) getStickerPacks:(void(^)(NSArray *stickerPacks))response {
     

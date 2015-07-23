@@ -7,6 +7,7 @@
 //
 
 #import "ChatService.h"
+#import <STKStickersManager.h>
 
 typedef void(^CompletionBlock)();
 typedef void(^CompletionBlockWithResult)(NSArray *);
@@ -380,8 +381,9 @@ typedef void(^CompletionBlockWithResult)(NSArray *);
     }
     if(!processed){
         [[TWMessageBarManager sharedInstance] hideAll];
+        NSString *newMessage = [STKStickersManager isStickerMessage:message.text] ? @"User sent you a sticker" : message.text;
         [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
-                                                       description:message.text
+                                                       description:newMessage
                                                               type:TWMessageBarMessageTypeInfo];
         
         [[SoundService instance] playNotificationSound];
