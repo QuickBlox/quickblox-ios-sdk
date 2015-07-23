@@ -14,13 +14,13 @@
 static NSString *ChatMessageCellIdentifier = @"ChatMessageCellIdentifier";
 static NSString *ChatStickerCellIdentifier = @"ChatStickerCellIdentifier";
 
-@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, ChatServiceDelegate, STKStickerPanelDelegate>
+@interface ChatViewController () <UITableViewDelegate, UITableViewDataSource, ChatServiceDelegate, STKStickerControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *messageTextField;
 @property (nonatomic, weak) IBOutlet UIButton *sendMessageButton;
 @property (nonatomic, weak) IBOutlet UITableView *messagesTableView;
 @property (nonatomic, weak) IBOutlet UIView *inputBackgroundView;
-@property (nonatomic, strong) STKStickerPanel *stickerView;
+@property (nonatomic, strong) STKStickerController *stickerViewController;
 @property (nonatomic, strong) UIButton *showStickersButton;
 @property (nonatomic, assign) BOOL isKeyboradShow;
 
@@ -257,7 +257,7 @@ static NSString *ChatStickerCellIdentifier = @"ChatStickerCellIdentifier";
 
 - (void) messageTextFieldDidTap:(UITapGestureRecognizer*) gesture {
     [self.messageTextField becomeFirstResponder];
-    if (self.stickerView.isShowed) {
+    if (self.stickerViewController.isStickerViewShowed) {
         [self hideStickersView];
     }
 }
@@ -306,16 +306,16 @@ static NSString *ChatStickerCellIdentifier = @"ChatStickerCellIdentifier";
     }];
 }
 
-#pragma mark - STKStickerPanelDelegate
+#pragma mark - STKStickerControllerDelegate
 
-- (void) stickerPanel:(STKStickerPanel*)stickerPanel didSelectStickerWithMessage:(NSString*) stickerMessage {
-    [self sendMessageWithText:stickerMessage];
+- (void) stickerController:(STKStickerController*)stickerController didSelectStickerWithMessage:(NSString*)message {
+    [self sendMessageWithText:message];
 }
 
 #pragma mark - Show/hide stickers
 
 - (void) toggleStickerView {
-    if (self.stickerView.isShowed) {
+    if (self.stickerViewController.isStickerViewShowed) {
         [self hideStickersView];
         
     } else {
@@ -329,7 +329,7 @@ static NSString *ChatStickerCellIdentifier = @"ChatStickerCellIdentifier";
     [self.showStickersButton setImage:buttonImage forState:UIControlStateNormal];
     [self.showStickersButton setImage:buttonImage forState:UIControlStateHighlighted];
     
-    self.messageTextField.inputView = self.stickerView;
+    self.messageTextField.inputView = self.stickerViewController.stickersView;
     [self reloadStickersInputViews];
 }
 
@@ -383,12 +383,12 @@ static NSString *ChatStickerCellIdentifier = @"ChatStickerCellIdentifier";
 
 #pragma mark - Property
 
-- (STKStickerPanel *)stickerView {
-    if (!_stickerView) {
-        _stickerView = [[STKStickerPanel alloc] init];
-        _stickerView.delegate = self;
+-(STKStickerController *)stickerViewController {
+    if (!_stickerViewController) {
+        _stickerViewController = [STKStickerController new];
+        _stickerViewController.delegate = self;
     }
-    return _stickerView;
+    return _stickerViewController;
 }
 
 
