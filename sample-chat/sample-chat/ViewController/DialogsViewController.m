@@ -13,6 +13,7 @@
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 #import "DialogTableViewCell.h"
+#import "StorageManager.h"
 
 @interface DialogsViewController ()
 <
@@ -117,7 +118,7 @@ QMChatConnectionDelegate
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate: {
             cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
-			QBUUser *recipient = [ServicesManager.instance.usersService userWithID:@(chatDialog.recipientID)];
+			QBUUser *recipient = [[StorageManager instance] userByID:chatDialog.recipientID];
             cell.dialogNameLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
             cell.dialogImageView.image = [UIImage imageNamed:@"chatRoomIcon"];
         }
