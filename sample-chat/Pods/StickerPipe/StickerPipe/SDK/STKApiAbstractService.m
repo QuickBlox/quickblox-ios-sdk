@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 908 Inc. All rights reserved.
 //
 
-#import "STKApiClient.h"
+#import "STKApiAbstractService.h"
 #import <AFNetworking.h>
 #import "STKApiKeyManager.h"
 #import "STKUUIDManager.h"
@@ -14,7 +14,7 @@
 NSString *const STKApiVersion = @"v1";
 NSString *const STKBaseApiUrl = @"http://api.stickerpipe.com/api";
 
-@implementation STKApiClient
+@implementation STKApiAbstractService
 
 - (instancetype)init
 {

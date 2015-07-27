@@ -25,4 +25,19 @@
     return self;
 }
 
+#pragma mark - Description
+
+- (NSString*) stringForDescription {
+    
+    return [NSString stringWithFormat:@"self: %@/n stickerName: %@/n, stickerID: %@/n stickerMessage: %@/n usedCount: %@/n", [super description], self.stickerName, self.stickerID, self.stickerMessage, self.usedCount];
+}
+
+- (NSString *)description {
+    return [self stringForDescription];
+}
+
+- (NSString*) debugDescription {
+    return [self stringForDescription];
+}
+
 @end
