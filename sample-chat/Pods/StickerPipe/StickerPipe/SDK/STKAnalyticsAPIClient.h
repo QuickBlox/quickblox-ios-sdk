@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 908 Inc. All rights reserved.
 //
 
-#import "STKApiClient.h"
-@interface STKAnalyticsAPIClient : STKApiClient
+#import "STKApiAbstractService.h"
+@interface STKAnalyticsAPIClient : STKApiAbstractService
 
 - (void) sendStatistics:(NSArray*)statisticsArray
              success:(void(^)(id response))success

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 908 Inc. All rights reserved.
 //
 
-#import "STKApiClient.h"
+#import "STKApiAbstractService.h"
 
-@interface STKStickersApiClient : STKApiClient
+@interface STKStickersApiService : STKApiAbstractService
 
 - (void)getStickersPackWithType:(NSString*)type success:(void (^)(id response))success
                         failure:(void (^)(NSError *error))failure;

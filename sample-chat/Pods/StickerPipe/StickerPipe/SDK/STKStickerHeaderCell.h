@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface STKStickerPanelHeaderCell : UICollectionViewCell
+@interface STKStickerHeaderCell : UICollectionViewCell
 
 @property (strong, nonatomic) UIColor *selectionColor;
 

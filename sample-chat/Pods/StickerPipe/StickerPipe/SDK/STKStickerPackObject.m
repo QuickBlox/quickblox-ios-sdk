@@ -33,4 +33,20 @@
     return self;
 }
 
+
+#pragma mark - Description
+
+- (NSString*) stringForDescription {
+    return [NSString stringWithFormat:@"%@/n Artist: %@/n packName: %@/n Pack title: %@/n packID: %@/n price: %@", [super description], self.artist, self.packName, self.packTitle, self.packID, self.price];
+}
+
+- (NSString *)description {
+    
+    return [self stringForDescription];
+}
+
+- (NSString *)debugDescription {
+    return [self stringForDescription];
+}
+
 @end

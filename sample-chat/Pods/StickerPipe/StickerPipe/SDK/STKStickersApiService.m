@@ -6,21 +6,21 @@
 //  Copyright (c) 2015 908 Inc. All rights reserved.
 //
 
-#import "STKStickersApiClient.h"
+#import "STKStickersApiService.h"
 #import <AFNetworking.h>
 #import "STKStickersMapper.h"
 #import "STKUUIDManager.h"
 #import "STKApiKeyManager.h"
 #import "STKUtility.h"
 
-@interface STKStickersApiClient()
+@interface STKStickersApiService()
 
 @property (strong, nonatomic) STKStickersMapper *mapper;
 @property (strong, nonatomic) dispatch_queue_t completionQueue;
 
 @end
 
-@implementation STKStickersApiClient
+@implementation STKStickersApiService
 
 - (instancetype)init
 {

@@ -10,7 +10,7 @@
 
 
 
-@interface STKStickerPanelCell : UICollectionViewCell
+@interface STKStickerCell : UICollectionViewCell
 
 - (void) configureWithStickerMessage:(NSString*)stickerMessage
                          placeholder:(UIImage*)placeholder

@@ -6,18 +6,18 @@
 //  Copyright (c) 2015 908 Inc. All rights reserved.
 //
 
-#import "STKStickerPanelCell.h"
+#import "STKStickerCell.h"
 #import "UIImageView+Stickers.h"
 #import "UIImage+Tint.h"
 #import "STKUtility.h"
 
-@interface STKStickerPanelCell()
+@interface STKStickerCell()
 
 @property (strong, nonatomic) UIImageView *stickerImageView;
 
 @end
 
-@implementation STKStickerPanelCell
+@implementation STKStickerCell
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -44,7 +44,7 @@
                     placeholderColor:(UIColor*)placeholderColor {
     UIImage *resultPlaceholder = placeholder ? placeholder : [UIImage imageNamed:@"StickerPanelPlaceholder"];
     
-    UIColor *colorForPlaceholder = placeholderColor ? placeholderColor : [STKUtility defaultGrayColor];
+    UIColor *colorForPlaceholder = placeholderColor && !placeholder ? placeholderColor : [STKUtility defaultGrayColor];
     
     UIImage *coloredPlaceholder = [resultPlaceholder imageWithImageTintColor:colorForPlaceholder];
     
