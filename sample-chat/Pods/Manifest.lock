@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TTTAttributedLabel:
-    :commit: 31c35312901bd847e122ffb374b3b019f4d69ec3
+    :commit: 13d2d877707032dc4d4b888bb3832bac822bf9b0
     :git: https://github.com/TTTAttributedLabel/TTTAttributedLabel.git
 
 SPEC CHECKSUMS:
@@ -22,4 +22,4 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 92aaa37822677380b7ec0baff50bd8010eef08f8
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.0
