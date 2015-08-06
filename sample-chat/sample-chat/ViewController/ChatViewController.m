@@ -126,6 +126,7 @@ UIActionSheetDelegate
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
+    // Retrieving message from Quickblox REST history and cache.
 	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
             if (showingProgress) {
@@ -156,6 +157,7 @@ UIActionSheetDelegate
         [strongSelf fireStopTypingIfNecessary];
     }];
     
+    // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
     if ([self.items count] > 0) {
@@ -194,6 +196,7 @@ UIActionSheetDelegate
     
     [self.dialog clearTypingStatusBlocks];
     
+    // Resetting currently opened dialog.
     [ServicesManager instance].currentDialogID = nil;
 }
 
@@ -226,6 +229,7 @@ UIActionSheetDelegate
 {
     if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
         message.markable = YES;
+        // Sending read message status.
         if (![[QBChat instance] readMessage:message]) {
             NSLog(@"Problems while marking message as read!");
         }
@@ -242,6 +246,7 @@ UIActionSheetDelegate
         self.unreadMessages = messages;
     }
     
+    // Marking message as read in REST history.
     [QBRequest markMessagesAsRead:[NSSet setWithArray:messages] dialogID:dialogID successBlock:nil errorBlock:nil];
 }
 
@@ -317,6 +322,7 @@ UIActionSheetDelegate
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
     
+    // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
 }
@@ -448,6 +454,7 @@ UIActionSheetDelegate
 {
     self.shouldHoldScrollOnCollectionView = YES;
     __weak typeof(self)weakSelf = self;
+    // Getting earlier messages for chat dialog identifier.
     [[ServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
         __typeof(self) strongSelf = weakSelf;
         
@@ -518,6 +525,7 @@ UIActionSheetDelegate
             if (!shouldLoadFile) return;
             
             __weak typeof(self)weakSelf = self;
+            // Getting image from chat attachment service.
             [[ServicesManager instance].chatService.chatAttachmentService getImageForChatAttachment:attachment completion:^(NSError *error, UIImage *image) {
                 __typeof(self) strongSelf = weakSelf;
                 
@@ -542,6 +550,7 @@ UIActionSheetDelegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
+        // Retrieving messages from memory strorage.
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         [self refreshCollectionView];
         
@@ -639,6 +648,7 @@ UIActionSheetDelegate
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
 {
     if (message.dialogID == self.dialog.ID) {
+        // Retrieving messages for dialog from memory storage.
         self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
         [self refreshCollectionView];
     }
@@ -707,6 +717,7 @@ UIActionSheetDelegate
         message.senderID = self.senderID;
         message.dialogID = self.dialog.ID;
         
+        // Sending attachment to dialog.
         [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message
                                                                            toDialog:self.dialog
                                                                     withChatService:[ServicesManager instance].chatService

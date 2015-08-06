@@ -28,6 +28,8 @@
 
 - (void)refreshDataSource {
 	__weak __typeof(self) weakSelf = self;
+    
+    // Retrieving users from cache.
 	[ServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
 		__typeof(self) strongSelf = weakSelf;
 		strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:users];
