@@ -59,6 +59,7 @@
 		if (!error) {
 			for (QBChatDialog *dialog in [ServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs]) {
 				if (dialog.type == QBChatDialogTypeGroup && !dialog.isJoined) {
+                    // Joining to group chat dialogs.
                     [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
                         NSLog(@"Failed to join room with error: %@", error.localizedDescription);
                     }];
@@ -76,33 +77,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    // Subscribe to push notifications
-    //
-    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    //
-    [QBRequest registerSubscriptionForDeviceToken:deviceToken uniqueDeviceIdentifier:deviceIdentifier
-                                     successBlock:^(QBResponse *response, NSArray *subscriptions) {
-
-                                     } errorBlock:^(QBError *error) {
-
-                                     }];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    NSLog(@"New Push received\n: %@", userInfo);
-    
-//    NSString *dialogId = userInfo[@"dialog_id"];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kDialogUpdatedNotification object:nil userInfo:@{@"dialog_id": dialogId}];
-//	
-//    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"New message"
-//                                                   description:userInfo[@"aps"][@"alert"]
-//                                                          type:TWMessageBarMessageTypeInfo];
-	
 }
 
 @end

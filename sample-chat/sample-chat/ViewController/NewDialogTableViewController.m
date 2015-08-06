@@ -99,6 +99,7 @@
 	NSArray *selectedUsers = [self.dataSource.users objectsAtIndexes:indexSet];
 	
 	if (selectedUsers.count == 1) {
+        // Creating private chat dialog.
 		[ServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if( !response.success  && createdDialog == nil ) {
 				completion(nil);
@@ -118,12 +119,13 @@
 		
 		[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
 		
+        // Creating group chat dialog.
 		[ServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-			if( response.success ) {
+			if (response.success) {
+                // Notifying users about created dialog.
 				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
 				completion(createdDialog);
-			}
-			else {
+			} else {
 				completion(nil);
 			}
 		}];
