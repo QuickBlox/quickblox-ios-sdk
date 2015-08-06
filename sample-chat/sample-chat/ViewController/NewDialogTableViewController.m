@@ -10,7 +10,6 @@
 #import "ServicesManager.h"
 #import "UsersDataSource.h"
 #import "ChatViewController.h"
-#import "StorageManager.h"
 
 @interface NewDialogTableViewController ()
 
@@ -22,7 +21,7 @@
 
 - (void)viewDidLoad
 {
-    self.dataSource = [[UsersDataSource alloc] initWithUsers:[StorageManager instance].users];
+    self.dataSource = [[UsersDataSource alloc] initWithUsers:qbUsersMemoryStorage.unsortedUsers];
     [self.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
     self.tableView.dataSource = self.dataSource;
 

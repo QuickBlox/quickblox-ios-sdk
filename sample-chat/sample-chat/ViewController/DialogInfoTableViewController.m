@@ -8,7 +8,6 @@
 
 #import "DialogInfoTableViewController.h"
 #import "UsersDataSource.h"
-#import "StorageManager.h"
 #import "ServicesManager.h"
 #import "EditDialogTableViewController.h"
 
