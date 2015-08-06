@@ -65,10 +65,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.items = NSMutableArray()
         
         self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
-        
-        self.inputToolbar.contentView.leftBarButtonItem = ChatViewController.createAccessoryButtonItem()
-        self.inputToolbar.contentView.rightBarButtonItem = ChatViewController.createSendButtonItem()
-        
+                
         self.senderID = ServicesManager.instance().currentUser().ID
         self.senderDisplayName = ServicesManager.instance().currentUser().login
         
@@ -238,57 +235,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
     }
-    
-    // MARK: Action Buttons
-    
-    static func createAccessoryButtonItem() -> UIButton {
-        let accessoryImage = UIImage(named: "attachment_ic")
-        let imageWidth = accessoryImage?.size.width
-        let normalImage = accessoryImage?.imageMaskedWithColor(UIColor.lightGrayColor())
-        let highlightedImage = accessoryImage?.imageMaskedWithColor(UIColor.darkGrayColor())
-        
-        let accessoryButton = UIButton(frame: CGRect(x: 0, y: 0, width: imageWidth!, height:  32))
-        accessoryButton.setImage(normalImage, forState: UIControlState.Normal)
-        accessoryButton.setImage(highlightedImage, forState: UIControlState.Highlighted)
-        
-        accessoryButton.contentMode = UIViewContentMode.ScaleAspectFill
-        accessoryButton.backgroundColor = UIColor.clearColor()
-        accessoryButton.tintColor = UIColor.lightGrayColor()
-        
-        return accessoryButton
-    }
-    
-    static func createSendButtonItem() -> UIButton {
-        
-        let sendTitle : NSString = "SA_STR_CHAT_SEND".localized
-        
-        let sendButton = UIButton(frame: CGRectZero)
-        sendButton.setTitle(sendTitle as String, forState: UIControlState.Normal)
-        sendButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-        sendButton.setTitleColor(UIColor.blueColor().colorByDarkeningColorWithValue(0.1), forState: UIControlState.Highlighted)
-        sendButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
-        
-        sendButton.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
-        sendButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        sendButton.titleLabel?.minimumScaleFactor = 0.85
-        sendButton.contentMode = UIViewContentMode.Center
-        sendButton.backgroundColor = UIColor.clearColor()
-        sendButton.tintColor = UIColor.blueColor()
-        
-        let maxHeight : CGFloat = 32.0
-        var attributes = [String : AnyObject]()
-        
-        if let titleLabel = sendButton.titleLabel {
-            attributes = [NSFontAttributeName : titleLabel.font!] as [String : AnyObject]
-        }
-        
-        let sendTitleRect = sendTitle.boundingRectWithSize(CGSize(width: CGFloat.max, height: maxHeight), options: NSStringDrawingOptions.UsesLineFragmentOrigin|NSStringDrawingOptions.UsesFontLeading, attributes:attributes, context: nil)
-        
-        sendButton.frame = CGRect(x: 0,y: 0, width: CGRectGetWidth(CGRectIntegral(sendTitleRect)), height: maxHeight)
-        
-        return sendButton
-    }
-    
+
     // MARK: Actions
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
