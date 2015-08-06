@@ -19,13 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		
+
+        // Set QuickBlox credentials (You must create application in admin.quickblox.com).
 		QBApplication.sharedApplication().applicationId = kQBApplicationID
 		QBConnection.registerServiceKey(kQBRegisterServiceKey)
 		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
+        QBSettings.setAccountKey(kQBAccountKey)
+        
+        // Quickblox REST API Session is created and maintained automatically.
         QBConnection.setAutoCreateSessionEnabled(true)
-		QBSettings.setAccountKey(kQBAccountKey)
+        
+        // Enables Quickblox REST API calls debug console output.
 		QBSettings.setLogLevel(QBLogLevel.Debug)
+        
+        // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
 		
 		return true

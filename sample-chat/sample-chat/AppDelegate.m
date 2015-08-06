@@ -16,15 +16,19 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    //
     [QBApplication sharedApplication].applicationId = 92;
-    [QBConnection setAutoCreateSessionEnabled:YES];
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-//    [QBSettings setLogLevel:QBLogLevelNothing];
-//    [QBSettings disableXMPPLogging];
+    // Quickblox REST API Session is created and maintained automatically.
+    [QBConnection setAutoCreateSessionEnabled:YES];
+    
+    // Enables Quickblox REST API calls debug console output
+    [QBSettings setLogLevel:QBLogLevelDebug];
+    
+    // Enables detailed XMPP logging in console output
+    [QBSettings enableXMPPLogging];
 		
     return YES;
 }
