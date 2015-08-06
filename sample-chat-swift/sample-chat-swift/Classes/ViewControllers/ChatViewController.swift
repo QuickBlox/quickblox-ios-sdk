@@ -580,6 +580,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 
                 weak var weakSelf = self
                 
+                // Getting image from chat attachment cache.
                 ServicesManager.instance().chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
                     
                     if attachmentCell.attachmentID != attachment.ID {
@@ -784,6 +785,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             message.senderID = ServicesManager.instance().currentUser().ID
             message.dialogID = weakSelf?.dialog?.ID
             
+            // Sending attachment.
             ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: weakSelf?.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
