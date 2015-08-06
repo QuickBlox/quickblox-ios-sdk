@@ -25,6 +25,7 @@ class LoginTableViewController: UsersListTableViewController {
         
         weak var weakSelf = self
 
+        // Logging to Quickblox REST API and chat.
         ServicesManager.instance().logInWithUser(user, completion:{ (success:Bool,  errorMessage: String?) -> Void in
 
             if (success) {
