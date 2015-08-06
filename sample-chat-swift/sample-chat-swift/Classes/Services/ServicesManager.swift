@@ -63,7 +63,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
     override func handleErrorResponse(response: QBResponse!) {
         super.handleErrorResponse(response)
         
-        if !self.isAutorized() {
+        if !self.isAuthorized() {
             return;
         }
         
