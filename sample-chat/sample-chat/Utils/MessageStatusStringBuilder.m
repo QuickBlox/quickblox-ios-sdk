@@ -7,7 +7,7 @@
 //
 
 #import "MessageStatusStringBuilder.h"
-#import "StorageManager.h"
+#import "ServicesManager.h"
 
 @implementation MessageStatusStringBuilder
 
@@ -19,7 +19,7 @@
         
         NSMutableArray* readLogins = [NSMutableArray array];
         for (NSNumber* readID in readIDs) {
-            QBUUser* user = [[StorageManager instance] userByID:[readID unsignedIntegerValue]];
+            QBUUser* user = [ServicesManager.instance.usersService.contactListService.usersMemoryStorage userWithID:[readID unsignedIntegerValue]];
             NSAssert(user != nil, @"User must not be nil!");
             [readLogins addObject:user.login];
         }

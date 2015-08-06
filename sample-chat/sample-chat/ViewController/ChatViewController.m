@@ -12,7 +12,6 @@
 #import "UIColor+QM.h"
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "ServicesManager.h"
-#import "StorageManager.h"
 
 #import "LoginTableViewController.h"
 #import "DialogsViewController.h"
@@ -218,7 +217,7 @@ UIActionSheetDelegate
         NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
         [mutableOccupants removeObject:@([self senderID])];
         NSNumber* opponentID = [mutableOccupants firstObject];
-        QBUUser* opponentUser = [[StorageManager instance] userByID:[opponentID unsignedIntegerValue]];
+        QBUUser* opponentUser = [qbUsersMemoryStorage userWithID:[opponentID unsignedIntegerValue]];
         NSAssert(opponentUser, @"opponent must exists");
         self.opponentUser = opponentUser;
         self.title = self.opponentUser.fullName;
@@ -394,7 +393,7 @@ UIActionSheetDelegate
     NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
-        QBUUser* user = [[StorageManager instance]userByID:self.senderID];
+        QBUUser* user = [qbUsersMemoryStorage userWithID:self.senderID];
         topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 

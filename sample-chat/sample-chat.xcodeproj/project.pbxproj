@@ -17,8 +17,6 @@
 		1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */; };
 		14C273BB1B174DE60053D5AF /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */; };
 		14C273BC1B174DE60053D5AF /* QMChatCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */; };
-		14C273D61B176A160053D5AF /* StorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273D51B176A160053D5AF /* StorageManager.m */; };
-		14C273E11B1770430053D5AF /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273E01B1770430053D5AF /* Reachability.m */; };
 		14C273F41B1783E40053D5AF /* UsersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C273F31B1783E40053D5AF /* UsersDataSource.m */; };
 		14C3B7F51B26E03D00C7D8A0 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8620BC0B1B0F36FB005ED359 /* Quickblox.framework */; };
 		2C154C2A1B46C694002C9A10 /* NSString+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C154BD91B46C694002C9A10 /* NSString+QM.m */; };
@@ -128,10 +126,6 @@
 		1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDialogTableViewController.m; sourceTree = "<group>"; };
 		14C273B91B174DE60053D5AF /* QMContactListCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMContactListCacheModel.bundle; path = ../services/QMServices/QMContactListCache/QMContactListCacheModel.bundle; sourceTree = "<group>"; };
 		14C273BA1B174DE60053D5AF /* QMChatCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMChatCacheModel.bundle; path = ../services/QMServices/QMChatCache/QMChatCacheModel.bundle; sourceTree = "<group>"; };
-		14C273D41B176A160053D5AF /* StorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageManager.h; sourceTree = "<group>"; };
-		14C273D51B176A160053D5AF /* StorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageManager.m; sourceTree = "<group>"; };
-		14C273DF1B1770430053D5AF /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = ThirdParty/Reachability.h; sourceTree = "<group>"; };
-		14C273E01B1770430053D5AF /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ThirdParty/Reachability.m; sourceTree = "<group>"; };
 		14C273F21B1783E40053D5AF /* UsersDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersDataSource.h; path = DataSources/UsersDataSource.h; sourceTree = "<group>"; };
 		14C273F31B1783E40053D5AF /* UsersDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersDataSource.m; path = DataSources/UsersDataSource.m; sourceTree = "<group>"; };
 		1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -276,8 +270,6 @@
 		14C273DE1B17702A0053D5AF /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				14C273DF1B1770430053D5AF /* Reachability.h */,
-				14C273E01B1770430053D5AF /* Reachability.m */,
 				1431817B1B18A399001A933D /* UIAlertDialog.h */,
 				1431817C1B18A399001A933D /* UIAlertDialog.m */,
 				865DE6941B4BC66A00628374 /* UIImage+fixOrientation.h */,
@@ -683,8 +675,6 @@
 				1402B6951B14B9BC0069E3A4 /* UsersService.m */,
 				86104A1C1B0B5E1900464D52 /* ServicesManager.h */,
 				86104A1D1B0B5E1900464D52 /* ServicesManager.m */,
-				14C273D41B176A160053D5AF /* StorageManager.h */,
-				14C273D51B176A160053D5AF /* StorageManager.m */,
 				143181731B18714B001A933D /* Constants.h */,
 			);
 			path = Services;
@@ -868,7 +858,6 @@
 				2C154C481B46C694002C9A10 /* QMLoadEarlierHeaderView.m in Sources */,
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				2C154C2A1B46C694002C9A10 /* NSString+QM.m in Sources */,
-				14C273D61B176A160053D5AF /* StorageManager.m in Sources */,
 				2C154C3F1B46C694002C9A10 /* QMChatCellLayoutAttributes.m in Sources */,
 				2C154C391B46C694002C9A10 /* QMChatIncomingCell.m in Sources */,
 				2CC28D981B68D6F700737B80 /* QMChatAttachmentOutgoingCell.m in Sources */,
@@ -879,7 +868,6 @@
 				2CC28D961B68D6F700737B80 /* QMChatAttachmentIncomingCell.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 				86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */,
-				14C273E11B1770430053D5AF /* Reachability.m in Sources */,
 				2C154C3B1B46C694002C9A10 /* QMChatNotificationCell.m in Sources */,
 				1402B6961B14B9BC0069E3A4 /* UsersService.m in Sources */,
 			);
