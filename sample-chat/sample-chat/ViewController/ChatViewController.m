@@ -86,10 +86,7 @@ UIActionSheetDelegate
     [super viewDidLoad];
 
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
-    
-    self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
-    self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
-    
+        
     self.showLoadEarlierMessagesHeader = YES;
     
     [self updateTitle];
@@ -258,54 +255,6 @@ UIActionSheetDelegate
     [self.typingTimer invalidate];
     self.typingTimer = nil;
     [self.dialog sendUserStoppedTyping];
-}
-
-#pragma mark - Tool bar
-
-- (UIButton *)accessoryButtonItem {
-    
-    UIImage *accessoryImage = [UIImage imageNamed:@"attachment_ic"];
-    UIImage *normalImage = [accessoryImage imageMaskedWithColor:[UIColor lightGrayColor]];
-    UIImage *highlightedImage = [accessoryImage imageMaskedWithColor:[UIColor darkGrayColor]];
-    
-    UIButton *accessoryButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, accessoryImage.size.width, 32.0f)];
-    [accessoryButton setImage:normalImage forState:UIControlStateNormal];
-    [accessoryButton setImage:highlightedImage forState:UIControlStateHighlighted];
-    
-    accessoryButton.contentMode = UIViewContentModeScaleAspectFit;
-    accessoryButton.backgroundColor = [UIColor clearColor];
-    accessoryButton.tintColor = [UIColor lightGrayColor];
-    
-    return accessoryButton;
-}
-
-- (UIButton *)sendButtonItem {
-    
-    NSString *sendTitle = NSLocalizedString(@"Send", nil);
-    
-    UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [sendButton setTitle:sendTitle forState:UIControlStateNormal];
-    [sendButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [sendButton setTitleColor:[[UIColor blueColor] colorByDarkeningColorWithValue:0.1f] forState:UIControlStateHighlighted];
-    [sendButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    
-    sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-    sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    sendButton.titleLabel.minimumScaleFactor = 0.85f;
-    sendButton.contentMode = UIViewContentModeCenter;
-    sendButton.backgroundColor = [UIColor clearColor];
-    sendButton.tintColor = [UIColor blueColor];
-    
-    CGFloat maxHeight = 32.0f;
-    
-    CGRect sendTitleRect = [sendTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, maxHeight)
-                                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                attributes:@{NSFontAttributeName : sendButton.titleLabel.font}
-                                                   context:nil];
-    
-    sendButton.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(CGRectIntegral(sendTitleRect)), maxHeight);
-    
-    return sendButton;
 }
 
 #pragma mark Tool bar Actions
