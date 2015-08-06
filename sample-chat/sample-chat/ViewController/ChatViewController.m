@@ -97,6 +97,7 @@ UIActionSheetDelegate
     
     self.stringBuilder = [MessageStatusStringBuilder new];
     
+    // Retrieving messages from memory storage.
     self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     
     QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
@@ -105,6 +106,7 @@ UIActionSheetDelegate
 
     [self refreshCollectionView];
 
+    // Handling 'typing' status.
     __weak typeof(self)weakSelf = self;
     [self.dialog setOnUserIsTyping:^(NSUInteger userID) {
         __typeof(self) strongSelf = weakSelf;
@@ -114,6 +116,7 @@ UIActionSheetDelegate
         strongSelf.title = @"typing...";
     }];
 
+    // Handling user stopped typing.
     [self.dialog setOnUserStoppedTyping:^(NSUInteger userID) {
         __typeof(self) strongSelf = weakSelf;
         [strongSelf updateTitle];
@@ -194,6 +197,7 @@ UIActionSheetDelegate
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidEnterBackground];
     
+    // Deletes typing blocks.
     [self.dialog clearTypingStatusBlocks];
     
     // Resetting currently opened dialog.

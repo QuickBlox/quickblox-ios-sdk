@@ -33,6 +33,7 @@
 {
 	__weak __typeof(self)weakSelf = self;
     
+    // Retrieving users from cache.
 	[ServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
 		if (users != nil && users.count != 0) {
 			[weakSelf loadDataSourceWithUsers:users];
@@ -51,6 +52,7 @@
 	__weak __typeof(self)weakSelf = self;
     [SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
+    // Downloading latest users.
 	[ServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
         [SVProgressHUD showSuccessWithStatus:@"Completed"];
         [weakSelf loadDataSourceWithUsers:latestUsers];
@@ -77,6 +79,7 @@
 	selectedUser.password = @"x6Bt0VDy5"; // default password for test users
 	
 	__weak __typeof(self)weakSelf = self;
+    // Logging in to Quickblox REST API and chat.
     [ServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
             [SVProgressHUD showSuccessWithStatus:@"Logged in"];

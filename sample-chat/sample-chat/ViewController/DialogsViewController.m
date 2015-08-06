@@ -83,6 +83,7 @@ QMChatConnectionDelegate
         
         for (QBChatDialog* dialog in dialogObjects) {
             if (dialog.type != QBChatDialogTypePrivate) {
+                // Joining to group chat dialogs.
                 [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
                     NSLog(@"Failed to join room with error: %@", error.localizedDescription);
                 }];
@@ -98,6 +99,7 @@ QMChatConnectionDelegate
 
 - (NSArray *)dialogs
 {
+    // Retrieving dialogs sorted by last message date from memory storage.
 	return [ServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByLastMessageDateWithAscending:NO];
 }
 
@@ -161,8 +163,9 @@ QMChatConnectionDelegate
 
 - (void)deleteDialogWithID:(NSString *)dialogID {
 	__weak __typeof(self) weakSelf = self;
+    // Deleting dialog from Quickblox and cache.
 	[ServicesManager.instance.chatService deleteDialogWithID:dialogID
-													completion:^(QBResponse *response) {
+                                                  completion:^(QBResponse *response) {
 														if (response.success) {
 															__typeof(self) strongSelf = weakSelf;
 															[strongSelf.tableView reloadData];
@@ -220,6 +223,7 @@ QMChatConnectionDelegate
         
         if (chatDialog.type == QBChatDialogTypeGroup) {
             __weak __typeof(self) weakSelf = self;
+            // Notifying user about updated dialog - user left it.
             [[ServicesManager instance].chatService notifyAboutUpdateDialog:chatDialog
                                                   occupantsCustomParameters:nil
                                                            notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [ServicesManager instance].currentUser.login]
