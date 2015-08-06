@@ -62,7 +62,7 @@
     
     [super handleErrorResponse:response];
     
-    if (![self isAutorized]) return;
+    if (![self isAuthorized]) return;
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
