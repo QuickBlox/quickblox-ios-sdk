@@ -28,6 +28,7 @@ class DialogTableViewCellModel: NSObject {
                 return
             }
             
+            // Getting recipient from users service.
             if let recipient = ServicesManager.instance().usersService.user(UInt(dialog.recipientID)) {
                 self.textLabelText = recipient.login ?? recipient.email
             }
@@ -119,6 +120,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         for dialog : QBChatDialog in DialogsViewController.dialogs() {
             
+            // Notifies occupants that user left the dialog.
             if dialog.type != QBChatDialogType.Private {
                 ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
@@ -159,6 +161,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
         
+        // Logouts from Quickblox, clears cache.
         ServicesManager.instance().logoutWithCompletion { () -> Void in
             
             SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
@@ -180,6 +183,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
             SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
         }
         
+        // Retrieves all dialogs from Quickblox.
         ServicesManager.instance().chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest:extendedRequest, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
 
         }) { (response: QBResponse!) -> Void in
@@ -222,7 +226,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     static func dialogs() -> Array<QBChatDialog> {
         
         let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false)]
-        
+        // Returns dialogs sorted by last message date.
         return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
     }
     
@@ -290,6 +294,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
                 
                 let deleteDialogBlock = { (dialog: QBChatDialog!) -> Void in
                     
+                    // Deletes dialog from server and cache.
                     ServicesManager.instance().chatService.deleteDialogWithID(dialog.ID, completion: { (response: QBResponse!) -> Void in
                         
                         if response.success {
@@ -314,6 +319,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
                     
                     dialog.occupantIDs = occupantIDs
                     
+                    // Notifies occupants that user left the dialog.
                     ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance().currentUser().login) has left the dialog", completion: { (error: NSError!) -> Void in
                         
                         deleteDialogBlock(dialog)
@@ -337,6 +343,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         for dialog : QBChatDialog in chatDialogs as! [QBChatDialog] {
             
+            // Performing join to the group dialogs.
             if dialog.type != QBChatDialogType.Private {
                 ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                     
@@ -348,7 +355,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
-        
+        // Performing join to the group dialogs.
         if chatDialog.type != QBChatDialogType.Private {
             ServicesManager.instance().chatService.joinToGroupDialog(chatDialog, failed: { (error: NSError!) -> Void in
                 

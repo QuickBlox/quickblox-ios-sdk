@@ -124,6 +124,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
         if let dialog = self.dialog {
+            // Saving current dialog ID.
             ServicesManager.instance().currentDialogID = dialog.ID
         }
     }
@@ -139,6 +140,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             NSNotificationCenter.defaultCenter().removeObserver(didEnterBackgroundHandler)
         }
         
+        // Resetting current dialog ID.
         ServicesManager.instance().currentDialogID = ""
         
         ServicesManager.instance().chatService.removeDelegate(self);
@@ -178,6 +180,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
+        // Retrieving messages for chat dialog ID.
         ServicesManager.instance().chatService.messagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
             if response.error == nil {
@@ -204,7 +207,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if message.senderID != QBSession.currentSession().currentUser.ID && (message.readIDs == nil || !contains(message.readIDs as! [Int], Int(QBSession.currentSession().currentUser.ID))) {
             
             message.markable = true
-            
+            // Sending read status for message.
             if !QBChat.instance().readMessage(message) {
                 NSLog("Problems while marking message as read!")
             }
@@ -227,6 +230,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             messageIDs.append(message.ID)
         }
         
+        // Marking message as read for REST API history.
         QBRequest.markMessagesAsRead(Set(messageIDs), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
             
             }) { (response: QBResponse!) -> Void in
@@ -300,6 +304,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     func sendMessage(message: QBChatMessage) {
         
+        // Sending message.
         let didSent = ServicesManager.instance().chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
         }
         
@@ -506,6 +511,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
         
+        // Retrieving earlier messages from Quickblox.
         ServicesManager.instance().chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
             
             weakSelf?.shouldHoldScrolOnCollectionView = false
@@ -608,6 +614,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.refreshCollectionView()
             
             ChatViewController.sendReadStatusForMessage(message)
+            // Marking message as read in REST history
             QBRequest.markMessagesAsRead(Set([message.ID]), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
                 
                 }, errorBlock: { (response: QBResponse!) -> Void in
@@ -796,6 +803,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService!, didChangeAttachmentStatus status: QMMessageAttachmentStatus, forMessage message: QBChatMessage!) {
         
         if message.dialogID == self.dialog?.ID {
+            // Messages from memory storage.
             self.items = NSMutableArray(array: ServicesManager.instance().chatService.messagesMemoryStorage.messagesWithDialogID(self.dialog?.ID))
             self.refreshCollectionView()
         }

@@ -92,12 +92,14 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
     // MARK: QMContactListServiceCacheDataSource
     
     func cachedUsers(block: QMCacheCollection!) {
+        // Retrieving users from cache sorted by full name.
         QMContactListCache.instance().usersSortedBy("fullName", ascending: true) { (users: [AnyObject]!) -> Void in
             block(users)
         }
     }
     
     func cachedContactListItems(block: QMCacheCollection!) {
+        // Retrieving all contact list items.
         QMContactListCache.instance().contactListItems { (items: [AnyObject]!) -> Void in
             block(items)
         }
