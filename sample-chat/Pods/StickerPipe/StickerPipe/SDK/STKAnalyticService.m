@@ -236,10 +236,12 @@ static const NSInteger kMemoryCacheObjectsCount = 20;
     
     [self.analyticsApiClient sendStatistics:events success:^(id response) {
         
-        for (id object in events) {
-            [weakSelf.backgroundContext deleteObject:object];
-        }
-        [weakSelf.backgroundContext save:nil];
+        [weakSelf.backgroundContext performBlock:^{
+            for (id object in events) {
+                [weakSelf.backgroundContext deleteObject:object];
+            }
+            [weakSelf.backgroundContext save:nil];
+        }];
         
     } failure:^(NSError *error) {
         
@@ -254,7 +256,7 @@ static const NSInteger kMemoryCacheObjectsCount = 20;
 
 - (NSManagedObjectContext *)backgroundContext {
     if (!_backgroundContext) {
-        _backgroundContext = [NSManagedObjectContext stk_analyticsContext];
+        _backgroundContext = [NSManagedObjectContext stk_backgroundContext];
     }
     return _backgroundContext;
 }

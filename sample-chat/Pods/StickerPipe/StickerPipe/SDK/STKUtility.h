@@ -18,6 +18,7 @@ extern NSString* const  STKUtilityAPIUrl;
 + (NSURL*) imageUrlForStikerMessage:(NSString *)stickerMessage;
 + (NSURL*) tabImageUrlForPackName:(NSString*) name;
 + (NSArray*) trimmedPackNameAndStickerNameWithMessage:(NSString*)message;
++ (NSURL *)imageUrlForStickerPanelWithMessage:(NSString *)stickerMessage;
 
 //Colors
 + (UIColor*) defaultGrayColor;

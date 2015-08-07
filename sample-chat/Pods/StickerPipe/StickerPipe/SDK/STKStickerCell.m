@@ -10,6 +10,7 @@
 #import "UIImageView+Stickers.h"
 #import "UIImage+Tint.h"
 #import "STKUtility.h"
+#import <UIImageView+WebCache.h>
 
 @interface STKStickerCell()
 
@@ -48,7 +49,9 @@
     
     UIImage *coloredPlaceholder = [resultPlaceholder imageWithImageTintColor:colorForPlaceholder];
     
-    [self.stickerImageView stk_setStickerWithMessage:stickerMessage placeholder:coloredPlaceholder];
+    NSURL *stickerUrl = [STKUtility imageUrlForStickerPanelWithMessage:stickerMessage];
+    
+    [self.stickerImageView sd_setImageWithURL:stickerUrl placeholderImage:coloredPlaceholder];
     
 }
 

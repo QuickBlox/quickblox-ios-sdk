@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong) NSArray *stickers;
 
+- (instancetype)initWithServerResponse:(NSDictionary*)serverResponse;
+
 - (instancetype)initWithStickerPack:(STKStickerPack*) stickerPack;
 
 @end

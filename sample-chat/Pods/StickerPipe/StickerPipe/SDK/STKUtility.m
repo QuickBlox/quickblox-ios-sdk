@@ -54,6 +54,16 @@ NSString *const STKUtilityAPIUrl = @"http://api.stickerpipe.com/stk/";
     return url;
 }
 
++ (NSURL *)imageUrlForStickerPanelWithMessage:(NSString *)stickerMessage {
+    NSArray *separaredStickerNames = [self trimmedPackNameAndStickerNameWithMessage:stickerMessage];
+    NSString *packName = [[separaredStickerNames firstObject] lowercaseString];
+    NSString *stickerName = [[separaredStickerNames lastObject] lowercaseString];
+    NSString *urlString = [NSString stringWithFormat:@"%@/%@_mdpi.png", packName, stickerName];
+    
+    NSURL *url = [NSURL URLWithString:urlString relativeToURL:[NSURL URLWithString:STKUtilityAPIUrl]];
+    return url;
+}
+
 + (NSString*) scaleString {
     
     NSInteger scale =  (NSInteger)[[UIScreen mainScreen]scale];

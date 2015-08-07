@@ -138,30 +138,30 @@
 + (instancetype) stk_objectWithUniqueAttribute:(NSString *) attribute
                                      value:(id)value
                                context:(NSManagedObjectContext*) context {
-    
-    if (context == nil) {
-        return nil;
-    }
-    
-    id object = nil;
-    
-    if (value) {
-        NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:[self stk_entityName]];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", attribute, value];
-        [request setPredicate:predicate];
-        NSError *error = nil;
-        object = [[context executeFetchRequest:request error:&error] firstObject];
-        if (error) {
-            STKLog(@"Coredata unique fetching error: %@", error.localizedDescription);
+    __block id object = nil;
+    [context performBlockAndWait:^{
+        if (value) {
+            NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:[self stk_entityName]];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", attribute, value];
+            [request setPredicate:predicate];
+            NSError *error = nil;
+            object = [[context executeFetchRequest:request error:&error] firstObject];
+            if (error) {
+                STKLog(@"Coredata unique fetching error: %@", error.localizedDescription);
+            }
+        } else {
+            object = nil;
         }
-    } else {
-        return nil;
-    }
-    
-    if (!object) {
-        object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
-                                               inManagedObjectContext:context];
-    }
+        
+        if (!object) {
+            object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([self class])
+                                                   inManagedObjectContext:context];
+        }
+    }];
+    [context performBlockAndWait:^{
+
+    }];
+
     return object;
 }
 

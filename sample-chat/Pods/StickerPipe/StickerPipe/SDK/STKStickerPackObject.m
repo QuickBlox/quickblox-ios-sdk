@@ -13,6 +13,34 @@
 
 @implementation STKStickerPackObject
 
+- (instancetype)initWithServerResponse:(NSDictionary *)serverResponse
+{
+    self = [super init];
+    if (self) {
+        self.artist = serverResponse[@"artist"];
+        NSString *packName = serverResponse[@"pack_name"];
+        self.packName = packName;
+        self.packTitle = serverResponse[@"title"];
+        self.packID = serverResponse[@"pack_id"];
+        self.price = serverResponse[@"price"];
+        NSMutableArray *stickersArray = [NSMutableArray array];
+        NSArray *stickers = serverResponse[@"stickers"];
+//        @autoreleasepool {
+            for (NSDictionary *sticker in stickers) {
+                STKStickerObject *stickerObject = [[STKStickerObject alloc] init];
+                stickerObject.stickerID = sticker[@"id"];
+                NSString *stickerName = sticker[@"name"];
+                stickerObject.stickerName = stickerName;
+                stickerObject.stickerMessage = [NSString stringWithFormat:@"[[%@_%@]]", packName, stickerName];
+                [stickersArray addObject:stickerObject];
+            }
+//        }
+
+        self.stickers = [NSArray arrayWithArray:stickersArray];
+    }
+    return self;
+}
+
 - (instancetype)initWithStickerPack:(STKStickerPack*) stickerPack
 {
     self = [super init];
