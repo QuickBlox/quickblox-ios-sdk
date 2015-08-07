@@ -98,17 +98,17 @@ class UsersService: NSObject {
     }
     
     func users() -> [QBUUser]? {
-        return self.contactListService.usersMemoryStorage.unsorterdUsers() as? [QBUUser]
+        return self.contactListService.usersMemoryStorage.unsortedUsers() as? [QBUUser]
     }
     
     func users(withoutUser user: QBUUser) -> [QBUUser]? {
         
-        return (self.contactListService.usersMemoryStorage.unsorterdUsers() as! [QBUUser]).filter({$0.ID != user.ID})
+        return (self.contactListService.usersMemoryStorage.unsortedUsers() as! [QBUUser]).filter({$0.ID != user.ID})
     }
     
     func color(forUser user:QBUUser) -> UIColor {
         
-        let userIndex = find(self.contactListService.usersMemoryStorage.unsorterdUsers() as! [QBUUser], user)
+        let userIndex = find(self.contactListService.usersMemoryStorage.unsortedUsers() as! [QBUUser], user)
         
         if userIndex < self.colors.count {
             return self.colors[userIndex!]

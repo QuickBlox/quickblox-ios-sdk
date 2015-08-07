@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UsersService.h"
 
+#define qbUsersMemoryStorage ServicesManager.instance.usersService.contactListService.usersMemoryStorage
 /**
  *  Implements logic connected with user's memory/disc storage, error handling, top bar notifications.
  */
