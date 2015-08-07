@@ -8,17 +8,9 @@
 
 #import "STKStickersApiService.h"
 #import <AFNetworking.h>
-#import "STKStickersMapper.h"
 #import "STKUUIDManager.h"
 #import "STKApiKeyManager.h"
 #import "STKUtility.h"
-
-@interface STKStickersApiService()
-
-@property (strong, nonatomic) STKStickersMapper *mapper;
-@property (strong, nonatomic) dispatch_queue_t completionQueue;
-
-@end
 
 @implementation STKStickersApiService
 
@@ -26,20 +18,16 @@
 {
     self = [super init];
     if (self) {
-        self.mapper = [[STKStickersMapper alloc] init];
+        dispatch_queue_t completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
-        self.completionQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        
-        self.sessionManager.completionQueue = self.completionQueue;
-
-        
-//        self.sessionManager.requestSerializer = serializer;
+        self.sessionManager.completionQueue = completionQueue;
     }
     return self;
 }
 
+
 - (void)getStickersPackWithType:(NSString*)type
-                        success:(void (^)(id response))success
+                        success:(void (^)(id response, NSTimeInterval lastModifiedDate))success
                         failure:(void (^)(NSError *error))failure {
     
     NSDictionary *parameters = nil;
@@ -47,22 +35,22 @@
         parameters = @{@"type" : type};
     }
 
-    
-    __weak typeof(self) weakSelf = self;
-    
     [self.sessionManager GET:@"client-packs" parameters:parameters
                      success:^(NSURLSessionDataTask *task, id responseObject) {
                          
-                         [weakSelf.mapper mappingStickerPacks:responseObject[@"data"] async:NO];
-                         
+                         NSHTTPURLResponse *response = ((NSHTTPURLResponse *)[task response]);
+                         NSTimeInterval timeInterval = 0;
+                         if ([response respondsToSelector:@selector(allHeaderFields)]) {
+                             NSDictionary *headers = [response allHeaderFields];
+                            timeInterval = [headers[@"Last-Modified"] doubleValue];
+                         }
+
                          if ([responseObject[@"data"] count] == 0) {
                              STKLog(@"get empty stickers pack JSON");
                          }
                          
                          if (success) {
-                             dispatch_async(dispatch_get_main_queue(), ^{
-                                 success(responseObject);
-                             });
+                            success(responseObject, timeInterval);
                          }
                      }
                      failure:^(NSURLSessionDataTask *task, NSError *error) {

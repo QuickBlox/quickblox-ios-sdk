@@ -21,13 +21,12 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - DateTools (1.6.1)
-  - GoogleAnalytics (3.12.0)
+  - GoogleAnalytics (3.13.0)
   - NMPaginator (1.0.0)
-  - QuickBlox (2.3.0.3)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
-  - StickerPipe (0.1.10):
+  - StickerPipe (0.1.12):
     - AFNetworking (~> 2.0)
     - GoogleAnalytics (~> 3.0)
     - SDWebImage (~> 3.0)
@@ -37,7 +36,6 @@ PODS:
 DEPENDENCIES:
   - DateTools
   - NMPaginator
-  - QuickBlox
   - StickerPipe
   - SVProgressHUD
   - TWMessageBarManager
@@ -45,12 +43,11 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   DateTools: 9bcc89e4f2f9004d8a7a2bd1b49269cf78968e65
-  GoogleAnalytics: ef2e0b800ef3c1e62688cdfc959e0d3132bc246c
+  GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
   NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
-  QuickBlox: 6e10bbefa89a00c26286557d248b16448ad334ef
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  StickerPipe: 444ddf48b705c8a1869ae8ff2fa8cb6de312c8e1
+  StickerPipe: d0dc41694ffa34ed171b74729c76e6692f1ada03
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
-COCOAPODS: 0.38.0
+COCOAPODS: 0.38.2

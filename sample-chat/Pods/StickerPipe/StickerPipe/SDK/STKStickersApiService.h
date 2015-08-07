@@ -10,7 +10,7 @@
 
 @interface STKStickersApiService : STKApiAbstractService
 
-- (void)getStickersPackWithType:(NSString*)type success:(void (^)(id response))success
+- (void)getStickersPackWithType:(NSString*)type success:(void (^)(id response, NSTimeInterval lastModifiedDate))success
                         failure:(void (^)(NSError *error))failure;
 
 @end

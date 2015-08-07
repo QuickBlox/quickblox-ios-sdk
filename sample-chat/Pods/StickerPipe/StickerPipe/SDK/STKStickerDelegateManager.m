@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "STKStickerCell.h"
 #import "STKStickersSeparator.h"
-#import "STKStickersDataModel.h"
+#import "STKStickersCache.h"
 #import "STKStickersApiService.h"
 #import "STKStickerPackObject.h"
 #import "STKStickerObject.h"
@@ -32,8 +32,6 @@ typedef enum {
 
 //Common
 @property (strong, nonatomic) NSArray *stickerPacks;
-//CoreData
-@property (strong, nonatomic) NSManagedObjectContext *context;
 
 
 @property (strong, nonatomic) UIImage *stickerPlaceholderImage;
