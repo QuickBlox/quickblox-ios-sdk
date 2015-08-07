@@ -7,7 +7,6 @@
 //
 
 #import "UsersDataSource.h"
-#import "StorageManager.h"
 #import "UserTableViewCell.h"
 #import "ServicesManager.h"
 
@@ -36,7 +35,7 @@
 		_customUsers =  [[users copy] sortedArrayUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
 			return [obj1.login compare:obj2.login options:NSNumericSearch];
 		}];
-		_users = _customUsers == nil ? StorageManager.instance.users : _customUsers;
+		_users = _customUsers == nil ? qbUsersMemoryStorage.unsortedUsers : _customUsers;
 	}
 	return self;
 	
@@ -54,19 +53,19 @@
 }
 
 - (instancetype)init {
-	return [self initWithUsers:StorageManager.instance.users];
+	return [self initWithUsers:qbUsersMemoryStorage.unsortedUsers];
 }
 
 - (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {
 	if  (excludeUsersIDs == nil) {
-		_users = self.customUsers == nil ? self.customUsers : StorageManager.instance.users;
+		_users = self.customUsers == nil ? self.customUsers : qbUsersMemoryStorage.unsortedUsers;
 		return;
 	}
 	if ([excludeUsersIDs isEqualToArray:self.users]) {
 		return;
 	}
 	if (self.customUsers == nil) {
-		_users = [StorageManager.instance.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
+		_users = [qbUsersMemoryStorage.unsortedUsers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
 	} else {
 		_users = self.customUsers;
 	}

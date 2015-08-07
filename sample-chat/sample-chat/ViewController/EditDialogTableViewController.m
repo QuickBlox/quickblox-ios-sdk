@@ -68,6 +68,7 @@
 	__weak __typeof(self)weakSelf = self;
 	
 	if (self.dialog.type == QBChatDialogTypePrivate) {
+        // Retrieving users with identifiers.
 		[ServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *occupants) {
             __typeof(self) strongSelf = weakSelf;
 			[users addObjectsFromArray:occupants];
@@ -84,6 +85,7 @@
 	
 	[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
 	
+    // Creating group chat dialog.
 	[ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 		
 		if( response.success ) {
@@ -103,13 +105,17 @@
 	
 	[SVProgressHUD showWithStatus:@"Updating dialog..." maskType:SVProgressHUDMaskTypeClear];
 	
+    // Retrieving users from cache.
 	[ServicesManager.instance.usersService.contactListService retrieveUsersWithIDs:usersIDs forceDownload:NO completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
 		
+        // Updating dialog with occupants.
 		[ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
 			if( response.success ) {
+                // Notifying users about newly created dialog.
 				[ServicesManager.instance.chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:weakSelf.dialog];
 				
 				NSString *notificationText = [weakSelf updatedMessageWithUsers:users];
+                // Notify occupants that dialog was updated.
 				[ServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:notificationText completion:nil];
 				
 				updatedDialog.lastMessageText = notificationText;
