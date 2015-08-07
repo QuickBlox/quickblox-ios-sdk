@@ -180,7 +180,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zsP-ca-5nI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="43"/>
+                                                    <rect key="frame" x="18" y="0.0" width="44" height="43"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="2Ac-HO-X5D"/>
                                                         <constraint firstAttribute="height" constant="44" id="9ST-US-0k0"/>
@@ -192,7 +192,7 @@
                                                     </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYk-o7-laq">
-                                                    <rect key="frame" x="52" y="1" width="42" height="21"/>
+                                                    <rect key="frame" x="70" y="1" width="42" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="rf1-rR-Y1j"/>
                                                     </constraints>
@@ -201,7 +201,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0js-ID-IeD">
-                                                    <rect key="frame" x="24" y="0.0" width="20" height="20"/>
+                                                    <rect key="frame" x="42" y="0.0" width="20" height="20"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qa3-IM-nMD">
                                                             <rect key="frame" x="3" y="0.0" width="14" height="20"/>
@@ -220,7 +220,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="znF-S5-DEh">
-                                                    <rect key="frame" x="52" y="21" width="31" height="21"/>
+                                                    <rect key="frame" x="70" y="21" width="31" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="hbh-NF-ZKK"/>
                                                     </constraints>
@@ -231,14 +231,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="0js-ID-IeD" firstAttribute="top" secondItem="Ry1-Xv-NL2" secondAttribute="top" id="9ZO-ou-fJt"/>
-                                                <constraint firstAttribute="bottom" secondItem="zsP-ca-5nI" secondAttribute="bottom" id="BJk-gU-6lp"/>
+                                                <constraint firstAttribute="bottom" secondItem="zsP-ca-5nI" secondAttribute="bottom" constant="1" id="BJk-gU-6lp"/>
                                                 <constraint firstItem="zsP-ca-5nI" firstAttribute="top" secondItem="Ry1-Xv-NL2" secondAttribute="top" id="BYn-QK-O0G"/>
                                                 <constraint firstItem="znF-S5-DEh" firstAttribute="leading" secondItem="zsP-ca-5nI" secondAttribute="trailing" constant="8" id="ZEu-Ig-X65"/>
                                                 <constraint firstItem="IYk-o7-laq" firstAttribute="top" secondItem="Ry1-Xv-NL2" secondAttribute="top" constant="1" id="hVq-Yj-hVi"/>
-                                                <constraint firstAttribute="bottom" secondItem="znF-S5-DEh" secondAttribute="bottom" constant="1" id="iNa-yb-xV8"/>
+                                                <constraint firstAttribute="bottom" secondItem="znF-S5-DEh" secondAttribute="bottom" constant="2" id="iNa-yb-xV8"/>
                                                 <constraint firstItem="IYk-o7-laq" firstAttribute="leading" secondItem="zsP-ca-5nI" secondAttribute="trailing" constant="8" id="nVk-l4-61b"/>
                                                 <constraint firstItem="0js-ID-IeD" firstAttribute="trailing" secondItem="zsP-ca-5nI" secondAttribute="trailing" id="oYK-cs-yYC"/>
-                                                <constraint firstItem="zsP-ca-5nI" firstAttribute="leading" secondItem="Ry1-Xv-NL2" secondAttribute="leading" id="tpG-oA-09d"/>
+                                                <constraint firstItem="zsP-ca-5nI" firstAttribute="leading" secondItem="Ry1-Xv-NL2" secondAttribute="leading" constant="18" id="tpG-oA-09d"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
