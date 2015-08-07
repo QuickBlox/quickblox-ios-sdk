@@ -149,12 +149,15 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         let usersIDs = users.map{ $0.ID }
         
+        // Updates dialog with new occupants.
         ServicesManager.instance().chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: dialog) { (response: QBResponse!, dialog: QBChatDialog!) -> Void in
     
             if (response.error == nil) {
                 
+                // Notifies users about new dialog with them.
                 ServicesManager.instance().chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog)
                 
+                // Notifies existing dialog occupants about new users.
                 ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
                 
                 println(dialog)
@@ -185,6 +188,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         if users.count == 1 {
             
+            // Creating private chat.
             ServicesManager.instance().chatService.createPrivateChatDialogWithOpponent(users.first!, completion: { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
                 
 //                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
@@ -194,6 +198,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             
         } else {
             
+            // Creating group chat.
             ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
                 
                 if (chatDialog != nil) {

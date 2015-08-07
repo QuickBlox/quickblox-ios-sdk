@@ -7,7 +7,6 @@
 //
 
 #import "UsersService.h"
-#import "StorageManager.h"
 #import "ServicesManager.h"
 
 @implementation UsersService
@@ -24,8 +23,6 @@
 	// check memory storage
 	NSArray *memoryUsers = [self.contactListService.usersMemoryStorage usersSortedByKey:@"fullName" ascending:YES];
 	if (memoryUsers != nil && memoryUsers.count != 0) {
-		StorageManager.instance.users = memoryUsers;
-        
         if (completion) {
             completion(memoryUsers);
         }
@@ -35,8 +32,6 @@
 	
 	// check CoreData storage
 	[QMContactListCache.instance usersSortedBy:@"fullName" ascending:YES completion:^(NSArray *users) {
-		StorageManager.instance.users = users;
-        
         if (completion) {
             completion(users);
         }
@@ -73,8 +68,6 @@
 		[strongSelf.contactListService.usersMemoryStorage addUsers:users];
 		[QMContactListCache.instance insertOrUpdateUsers:[mutableUsers copy] completion:nil];
 
-		StorageManager.instance.users = [mutableUsers copy];
-
 		if (successBlock != nil) {
 			successBlock([mutableUsers copy]);
 		}
@@ -87,8 +80,8 @@
 }
 
 - (NSArray *)usersWithoutCurrentUser {
-	NSArray *usersWithoutCurrentUser = StorageManager.instance.users;
-	if( [QBSession currentSession].currentUser ) {
+	NSArray *usersWithoutCurrentUser = [self.contactListService.usersMemoryStorage unsortedUsers];
+	if ([QBSession currentSession].currentUser) {
 		usersWithoutCurrentUser = [usersWithoutCurrentUser filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
 			QBUUser *user = (QBUUser *)evaluatedObject;
 			return user.ID != [QBSession currentSession].currentUser.ID;
@@ -99,7 +92,6 @@
 }
 
 - (NSArray *)idsWithUsers:(NSArray *)users {
-
 	return [users valueForKeyPath:@"@distinctUnionOfObjects.ID"];
 }
 

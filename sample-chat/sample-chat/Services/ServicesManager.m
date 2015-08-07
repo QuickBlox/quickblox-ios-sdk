@@ -7,7 +7,6 @@
 //
 
 #import "ServicesManager.h"
-#import "StorageManager.h"
 #import "_CDMessage.h"
 #import <TWMessageBarManager/TWMessageBarManager.h>
 
@@ -18,6 +17,11 @@
 @end
 
 @implementation ServicesManager
+
+- (NSArray *)unsortedUsers
+{
+    return [self.contactListService.usersMemoryStorage unsortedUsers];
+}
 
 - (instancetype)init {
 	self = [super init];
@@ -44,7 +48,7 @@
     if (dialog.type != QBChatDialogTypePrivate) {
         dialogName = dialog.name;
     } else {
-        QBUUser* user = [[StorageManager instance] userByID:dialog.recipientID];
+        QBUUser* user = [self.contactListService.usersMemoryStorage userWithID:dialog.recipientID];
         if (user != nil) {
             dialogName = user.login;
         }
@@ -58,7 +62,7 @@
     
     [super handleErrorResponse:response];
     
-    if (![self isAutorized]) return;
+    if (![self isAuthorized]) return;
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
