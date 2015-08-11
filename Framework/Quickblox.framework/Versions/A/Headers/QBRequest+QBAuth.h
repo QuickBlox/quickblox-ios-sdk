@@ -17,6 +17,8 @@
 
 /**
  Session Creation
+
+ @warning *Deprecated in QB iOS SDK 2.4.* Session is created and updated automatically by Quickblox SDK.
  
  @param successBlock Block with response and session instances if request succeded
  @param errorBlock Block with response instance if request failed
@@ -24,10 +26,12 @@
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)createSessionWithSuccessBlock:(void (^)(QBResponse *response, QBASession *session))successBlock
-                                  errorBlock:(QBRequestErrorBlock)errorBlock;
+                                  errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("Session is created and updated automatically by Quickblox SDK.")));
 
 /**
  Session Creation with extended parameters
+ 
+ @warning *Deprecated in QB iOS SDK 2.4.* Session is created and updated automatically by Quickblox SDK.
  
  @param extendedParameters Additional parameters to create a session
  @param successBlock Block with response and session instances if request succeded
@@ -37,7 +41,7 @@
  */
 + (QBRequest *)createSessionWithExtendedParameters:(QBSessionParameters *)extendedParameters
                                       successBlock:(void (^)(QBResponse *response, QBASession *session))successBlock
-                                        errorBlock:(QBRequestErrorBlock)errorBlock;
+                                        errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("Session is created and updated automatically by Quickblox SDK.")));
 
 /**
  Session Destroy
