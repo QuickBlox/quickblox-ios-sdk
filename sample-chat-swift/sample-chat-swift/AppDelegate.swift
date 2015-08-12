@@ -25,10 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		QBConnection.registerServiceKey(kQBRegisterServiceKey)
 		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
         QBSettings.setAccountKey(kQBAccountKey)
-        
-        // Quickblox REST API Session is created and maintained automatically.
-        QBConnection.setAutoCreateSessionEnabled(true)
-        
+                
         // Enables Quickblox REST API calls debug console output.
 		QBSettings.setLogLevel(QBLogLevel.Debug)
         
