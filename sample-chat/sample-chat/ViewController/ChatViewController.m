@@ -438,6 +438,11 @@ UIActionSheetDelegate
         layoutModel.topLabelHeight = 0.0;
     }
     layoutModel.avatarSize = (CGSize){0.0, 0.0};
+    Class class = [self viewClassForItem:self.items[indexPath.row]];
+    
+    if (class == [QMChatOutgoingCell class]) {
+        layoutModel.bottomLabelHeight = 28;
+    }
     
     return layoutModel;
 }
