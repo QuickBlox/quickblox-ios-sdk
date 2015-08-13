@@ -437,11 +437,19 @@ UIActionSheetDelegate
     if (self.dialog.type == QBChatDialogTypePrivate) {
         layoutModel.topLabelHeight = 0.0;
     }
+    
     layoutModel.avatarSize = (CGSize){0.0, 0.0};
-    Class class = [self viewClassForItem:self.items[indexPath.row]];
+    
+    QBChatMessage* item = self.items[indexPath.row];
+    Class class = [self viewClassForItem:item];
     
     if (class == [QMChatOutgoingCell class]) {
-        layoutModel.bottomLabelHeight = 28;
+        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
+        CGRect rect = [bottomAttributedString boundingRectWithSize:CGSizeMake(CGRectGetWidth(collectionView.frame), CGFLOAT_MAX)
+                                                           options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                           context:nil];
+        
+        layoutModel.bottomLabelHeight = ceilf(CGRectGetHeight(rect));
     }
     
     return layoutModel;
