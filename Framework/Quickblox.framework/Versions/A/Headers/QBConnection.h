@@ -19,14 +19,6 @@ typedef enum QBConnectionZoneType{
 
 @interface QBConnection : NSObject
 
-/**
- *Use auto create session, default - NO
- 
- @warning *Deprecated in QB iOS SDK 2.4.* Session is created and updated automatically by Quickblox SDK.
- 
- */
-+ (void)setAutoCreateSessionEnabled:(BOOL)enabled __attribute__((deprecated("Session is created and updated automatically by Quickblox SDK.")));
-
 #pragma mark - Settings methods
 /**
 * Setting API Key for Quickblox API
