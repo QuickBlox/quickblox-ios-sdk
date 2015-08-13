@@ -245,6 +245,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         let message = QBChatMessage()
         message.text = text;
         message.senderID = self.senderID
+        message.markable = true
 
         self.sendMessage(message)
     }
