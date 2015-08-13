@@ -441,6 +441,7 @@
 
 /**
  Called when you received a confirmation about message delivery
+ @warning Deprecated in 2.4. Use 'chatDidDeliverMessageWithID:dialogID:toUserID:' instead.
  @param messageID ID of an original message
  */
 - (void)chatDidDeliverMessageWithID:(NSString *)messageID;

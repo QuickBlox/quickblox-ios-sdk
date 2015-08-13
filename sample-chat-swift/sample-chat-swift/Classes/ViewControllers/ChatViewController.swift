@@ -273,35 +273,64 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     // MARK: Helper
     
     static func statusStringFromMessage(message: QBChatMessage) -> String {
+        var statusString : String = ""
         
-        var statusString : String
+        let currentUserID = Int(ServicesManager.instance().currentUser().ID)
         
-        if message.readIDs != nil && message.readIDs.count > 0 {
-            
-            var readersLogin = [String]()
-            
-            for readID : Int in message.readIDs as! [Int] {
-                
-                if readID == Int(ServicesManager.instance().currentUser().ID) {
-                    continue
-                }
-                
-                let user = ServicesManager.instance().usersService.user(UInt(readID))
-                
-                if user != nil {
-                    readersLogin.append(user!.login)
-                } else {
-                    readersLogin.append("Unknown")
-                }
+        var readersLogin = [String]()
+        
+        if message.readIDs != nil {
+            let messageReadIDs = (message.readIDs as! [Int]).filter { (element : Int) -> Bool in
+                return element != currentUserID
             }
             
-            if !readersLogin.isEmpty {
-                statusString = "Read:" + ", ".join(readersLogin)
-            } else {
-                statusString = "Sent"
+            if !messageReadIDs.isEmpty {
+                for readID : Int in messageReadIDs {
+                    let user = ServicesManager.instance().usersService.user(UInt(readID))
+                    
+                    if user != nil {
+                        readersLogin.append(user!.login)
+                    } else {
+                        readersLogin.append("Unknown")
+                    }
+                }
+                statusString += "Read:" + ", ".join(readersLogin)
             }
+        }
+        
+        if message.deliveredIDs != nil {
+            var deliveredLogin = [String]()
 
-        } else {
+            let messageDeliveredIDs = (message.deliveredIDs as! [Int]).filter { (element : Int) -> Bool in
+                return element != currentUserID
+            }
+            
+            if !messageDeliveredIDs.isEmpty {
+                for deliveredID : Int in messageDeliveredIDs {
+                    let user = ServicesManager.instance().usersService.user(UInt(deliveredID))
+                    
+                    if contains(readersLogin, user!.login) {
+                        continue
+                    }
+                    
+                    if user != nil {
+                        deliveredLogin.append(user!.login)
+                    } else {
+                        deliveredLogin.append("Unknown");
+                    }
+                }
+                
+                if readersLogin.count > 0 && deliveredLogin.count > 0 {
+                    statusString += "\n"
+                }
+                
+                if deliveredLogin.count > 0 {
+                    statusString += "Delivered:" + " ,".join(deliveredLogin)
+                }
+            }
+        }
+        
+        if statusString.isEmpty {
             statusString = "Sent"
         }
         
@@ -484,6 +513,17 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
+        
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
+        
+        if QMChatOutgoingCell.isKindOfClass(viewClass) {
+            let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
+            let rect = bottomAttributedString.boundingRectWithSize(CGSize(width: CGRectGetWidth(collectionView.frame), height: CGFloat.max),
+                options: NSStringDrawingOptions.UsesLineFragmentOrigin | NSStringDrawingOptions.UsesFontLeading,
+                context: nil)
+            layoutModel.bottomLabelHeight = ceil(CGRectGetHeight(rect))
+        }
         
         return layoutModel
     }
