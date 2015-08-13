@@ -445,6 +445,14 @@
  */
 - (void)chatDidDeliverMessageWithID:(NSString *)messageID;
 
+/**
+ *  Called when message is delivered to user.
+ *
+ *  @param messageID Message identifier.
+ *  @param dialogID  Dialog identifier.
+ *  @param readerID  User identifier.
+ */
+- (void)chatDidDeliverMessageWithID:(NSString *)messageID dialogID:(NSString *)dialogID toUserID:(NSUInteger)userID;
 
 #pragma mark -
 #pragma mark Read status

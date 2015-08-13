@@ -20,7 +20,7 @@
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
-        
+    
     // Enables Quickblox REST API calls debug console output
     [QBSettings setLogLevel:QBLogLevelDebug];
     
