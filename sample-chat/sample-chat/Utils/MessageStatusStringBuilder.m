@@ -13,14 +13,22 @@
 
 - (NSString *)statusFromMessage:(QBChatMessage *)message
 {
-    if (message.readIDs.count > 0) {
+    NSNumber* currentUserID = @([QBSession currentSession].currentUser.ID);
+    
+    NSMutableArray* readIDs = [message.readIDs mutableCopy];
+    [readIDs removeObject:currentUserID];
+    
+    NSMutableArray* deliveredIDs = [message.deliveredIDs mutableCopy];
+    [deliveredIDs removeObject:currentUserID];
+    
+    [deliveredIDs removeObjectsInArray:readIDs];
+
+    if (readIDs.count > 0 || deliveredIDs.count > 0) {
         NSMutableString* statusString = [NSMutableString string];
-        NSMutableArray* readIDs = [message.readIDs mutableCopy];
-        [readIDs removeObject:@([QBSession currentSession].currentUser.ID)];
         
         NSMutableArray* readLogins = [NSMutableArray array];
         for (NSNumber* readID in readIDs) {
-            QBUUser* user = [ServicesManager.instance.usersService.contactListService.usersMemoryStorage userWithID:[readID unsignedIntegerValue]];
+            QBUUser* user = [qbUsersMemoryStorage userWithID:[readID unsignedIntegerValue]];
             NSAssert(user != nil, @"User must not be nil!");
             [readLogins addObject:user.login];
         }
@@ -29,18 +37,16 @@
             [statusString appendFormat:@"Read: %@", [readLogins componentsJoinedByString:@", "]];
         }
         
-        NSMutableArray* deliveredIDs = [message.deliveredIDs mutableCopy];
-        [deliveredIDs removeObject:@([QBSession currentSession].currentUser.ID)];
-        
         NSMutableArray* deliveredLogins = [NSMutableArray array];
         for (NSNumber* deliveredID in deliveredIDs) {
-            QBUUser* user = [ServicesManager.instance.usersService.contactListService.usersMemoryStorage userWithID:[deliveredID unsignedIntegerValue]];
+            QBUUser* user = [qbUsersMemoryStorage userWithID:[deliveredID unsignedIntegerValue]];
             NSAssert(user != nil, @"User must not be nil!");
             [deliveredLogins addObject:user.login];
         }
         
         if (deliveredLogins.count > 0) {
-            [statusString appendFormat:@"\nDelivered: %@", [deliveredLogins componentsJoinedByString:@", "]];
+            if (readLogins.count > 0) [statusString appendString:@"\n"];
+            [statusString appendFormat:@"Delivered: %@", [deliveredLogins componentsJoinedByString:@", "]];
         }
         
         return [statusString copy];
