@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TTTAttributedLabel:
-    :commit: 31c35312901bd847e122ffb374b3b019f4d69ec3
+    :commit: 13d2d877707032dc4d4b888bb3832bac822bf9b0
     :git: https://github.com/TTTAttributedLabel/TTTAttributedLabel.git
 
 SPEC CHECKSUMS:
