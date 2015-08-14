@@ -437,7 +437,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
         
         if messageItem.senderID == self.senderID {
-            text = text + " " + ChatViewController.statusStringFromMessage(messageItem)
+            text = text + "\n" + ChatViewController.statusStringFromMessage(messageItem)
         }
         
         let bottomLabelAttributedString = NSAttributedString(string: text, attributes: attributes)
@@ -476,7 +476,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             attributedString = self.topLabelAttributedStringForItem(item) ?? self.bottomLabelAttributedStringForItem(item)
         }
         
-        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
+        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
         
         return size.width
     }
@@ -518,12 +518,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
         let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
         
-        if QMChatOutgoingCell.isKindOfClass(viewClass) {
+        if viewClass === QMChatOutgoingCell.self {
             let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
-            let rect = bottomAttributedString.boundingRectWithSize(CGSize(width: CGRectGetWidth(collectionView.frame), height: CGFloat.max),
-                options: NSStringDrawingOptions.UsesLineFragmentOrigin | NSStringDrawingOptions.UsesFontLeading,
-                context: nil)
-            layoutModel.bottomLabelHeight = ceil(CGRectGetHeight(rect))
+            let size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+            layoutModel.bottomLabelHeight = ceil(size.height)
         }
         
         return layoutModel
