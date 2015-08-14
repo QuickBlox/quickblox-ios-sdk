@@ -417,6 +417,24 @@ UIActionSheetDelegate
     }];
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return NO;
+    
+    return [super collectionView:collectionView canPerformAction:action forItemAtIndexPath:indexPath withSender:sender];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    QBChatMessage* message = self.items[indexPath.row];
+    
+    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return;
+    [UIPasteboard generalPasteboard].string = message.text;    
+}
+
 #pragma mark - Utility
 
 - (NSString *)timeStampWithDate:(NSDate *)date {
