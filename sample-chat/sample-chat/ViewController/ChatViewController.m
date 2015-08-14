@@ -25,6 +25,8 @@
 
 #import "QMCollectionViewFlowLayoutInvalidationContext.h"
 
+static const NSUInteger widthPadding = 40.0f;
+
 @interface ChatViewController ()
 <
 QMChatServiceDelegate,
@@ -360,7 +362,7 @@ UIActionSheetDelegate
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     NSString* text = [self timeStampWithDate:messageItem.dateSent];
     if ([messageItem senderID] == self.senderID) {
-        text = [NSString stringWithFormat:@"%@ %@", [self.stringBuilder statusFromMessage:messageItem], text];
+        text = [NSString stringWithFormat:@"%@\n%@", text, [self.stringBuilder statusFromMessage:messageItem]];
     }
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text
                                                                                 attributes:attributes];
@@ -385,6 +387,7 @@ UIActionSheetDelegate
                                                        withConstraints:CGSizeMake(maxWidth, MAXFLOAT)
                                                 limitedToNumberOfLines:0];        
     }
+    
     return size;
 }
 
@@ -396,8 +399,8 @@ UIActionSheetDelegate
     [item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
     
     CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                   withConstraints:CGSizeMake(1000, 10000)
-                                            limitedToNumberOfLines:1];
+                                                   withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                            limitedToNumberOfLines:0];
     
     return size.width;
 }
@@ -412,6 +415,24 @@ UIActionSheetDelegate
         
         strongSelf.shouldHoldScrollOnCollectionView = NO;
     }];
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return NO;
+    
+    return [super collectionView:collectionView canPerformAction:action forItemAtIndexPath:indexPath withSender:sender];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    QBChatMessage* message = self.items[indexPath.row];
+    
+    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return;
+    [UIPasteboard generalPasteboard].string = message.text;    
 }
 
 #pragma mark - Utility
@@ -445,11 +466,11 @@ UIActionSheetDelegate
     
     if (class == [QMChatOutgoingCell class]) {
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
-        CGRect rect = [bottomAttributedString boundingRectWithSize:CGSizeMake(CGRectGetWidth(collectionView.frame), CGFLOAT_MAX)
-                                                           options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                           context:nil];
+        CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
+                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                                limitedToNumberOfLines:0];
         
-        layoutModel.bottomLabelHeight = ceilf(CGRectGetHeight(rect));
+        layoutModel.bottomLabelHeight = ceilf(size.height);
     }
     
     return layoutModel;
