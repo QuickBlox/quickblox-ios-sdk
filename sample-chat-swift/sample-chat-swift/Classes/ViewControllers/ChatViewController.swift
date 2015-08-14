@@ -245,6 +245,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         let message = QBChatMessage()
         message.text = text;
         message.senderID = self.senderID
+        message.markable = true
 
         self.sendMessage(message)
     }
@@ -273,35 +274,64 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     // MARK: Helper
     
     static func statusStringFromMessage(message: QBChatMessage) -> String {
+        var statusString : String = ""
         
-        var statusString : String
+        let currentUserID = Int(ServicesManager.instance().currentUser().ID)
         
-        if message.readIDs != nil && message.readIDs.count > 0 {
-            
-            var readersLogin = [String]()
-            
-            for readID : Int in message.readIDs as! [Int] {
-                
-                if readID == Int(ServicesManager.instance().currentUser().ID) {
-                    continue
-                }
-                
-                let user = ServicesManager.instance().usersService.user(UInt(readID))
-                
-                if user != nil {
-                    readersLogin.append(user!.login)
-                } else {
-                    readersLogin.append("Unknown")
-                }
+        var readersLogin = [String]()
+        
+        if message.readIDs != nil {
+            let messageReadIDs = (message.readIDs as! [Int]).filter { (element : Int) -> Bool in
+                return element != currentUserID
             }
             
-            if !readersLogin.isEmpty {
-                statusString = "Read:" + ", ".join(readersLogin)
-            } else {
-                statusString = "Sent"
+            if !messageReadIDs.isEmpty {
+                for readID : Int in messageReadIDs {
+                    let user = ServicesManager.instance().usersService.user(UInt(readID))
+                    
+                    if user != nil {
+                        readersLogin.append(user!.login)
+                    } else {
+                        readersLogin.append("Unknown")
+                    }
+                }
+                statusString += "Read:" + ", ".join(readersLogin)
             }
+        }
+        
+        if message.deliveredIDs != nil {
+            var deliveredLogin = [String]()
 
-        } else {
+            let messageDeliveredIDs = (message.deliveredIDs as! [Int]).filter { (element : Int) -> Bool in
+                return element != currentUserID
+            }
+            
+            if !messageDeliveredIDs.isEmpty {
+                for deliveredID : Int in messageDeliveredIDs {
+                    let user = ServicesManager.instance().usersService.user(UInt(deliveredID))
+                    
+                    if contains(readersLogin, user!.login) {
+                        continue
+                    }
+                    
+                    if user != nil {
+                        deliveredLogin.append(user!.login)
+                    } else {
+                        deliveredLogin.append("Unknown");
+                    }
+                }
+                
+                if readersLogin.count > 0 && deliveredLogin.count > 0 {
+                    statusString += "\n"
+                }
+                
+                if deliveredLogin.count > 0 {
+                    statusString += "Delivered:" + " ,".join(deliveredLogin)
+                }
+            }
+        }
+        
+        if statusString.isEmpty {
             statusString = "Sent"
         }
         
@@ -407,7 +437,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
         
         if messageItem.senderID == self.senderID {
-            text = text + " " + ChatViewController.statusStringFromMessage(messageItem)
+            text = text + "\n" + ChatViewController.statusStringFromMessage(messageItem)
         }
         
         let bottomLabelAttributedString = NSAttributedString(string: text, attributes: attributes)
@@ -446,7 +476,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             attributedString = self.topLabelAttributedStringForItem(item) ?? self.bottomLabelAttributedStringForItem(item)
         }
         
-        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: 1000, height: 1000), limitedToNumberOfLines:1)
+        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
         
         return size.width
     }
@@ -484,6 +514,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
+        
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
+        
+        if viewClass === QMChatOutgoingCell.self {
+            let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
+            let size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+            layoutModel.bottomLabelHeight = ceil(size.height)
+        }
         
         return layoutModel
     }
