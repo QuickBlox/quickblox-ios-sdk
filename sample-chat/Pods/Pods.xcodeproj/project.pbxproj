@@ -7,998 +7,347 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01E436DD9D9A98B3FA9C2A22 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3C98C77B22C10F8633C02B /* Foundation.framework */; };
-		0464DA7FAF92A36EFA24554E /* QMChatOutgoingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 660E3E558E2AE4A2759D7363 /* QMChatOutgoingCell.h */; };
-		06B8FA8D11AD90E0C187C84B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B4E7D18FDFB4932CE186B5 /* QuartzCore.framework */; };
-		072F0D09447096E0D37DE3DC /* QMToolbarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE213BB6E9F920D41EAD3FD8 /* QMToolbarContentView.m */; };
-		07A2C3474BA31DA2F39B36FB /* QMPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFA3F219FB3176831439617 /* QMPlaceHolderTextView.m */; };
-		1292E5627188EB19E71B417E /* QMChatContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = DB94795FE6CD148D75F51026 /* QMChatContainerView.m */; };
-		1C1A96945CAA02B133BB4B8D /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADC548603FE7F012CD94D3A /* Pods-dummy.m */; };
-		1E832922840555D4B918D3E0 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ECA77F2EF9A7C4106A3C6A /* SVProgressHUD.h */; };
-		20928DA00B38B5DF70BAFCF0 /* QMTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CECF3AC76A1C9C3789F5C4 /* QMTypingIndicatorFooterView.m */; };
-		22498ADE762C3B13A52F622E /* QMChatAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 374D3FBD353CBF0086682FA7 /* QMChatAttachmentCell.h */; };
-		29FA63802687BCACDFEBAEEE /* Pods-SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FFEF1238C170096E62BD47F5 /* Pods-SVProgressHUD-dummy.m */; };
-		2F5F84D094CD867F28B5C0C5 /* QMChatContactRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7954E82D267A2E5BBF583CBB /* QMChatContactRequestCell.m */; };
-		3128E668727CEC9DF378D0EF /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 065D6922D5D4610B5ADA733E /* CoreText.framework */; };
-		3ECDCE8F19722468D8344D70 /* QMLoadEarlierHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B10FEE81A2E24EB28B6BC /* QMLoadEarlierHeaderView.m */; };
-		3FE5701C2CD2363C8DAA4F8C /* QMChatActionsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CB5B3709D18312E6ED96E9D /* QMChatActionsHandler.h */; };
-		44B6A4A086F59F90C1504562 /* QMInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 85902DFE1619200E6972EEE7 /* QMInputToolbar.m */; };
-		44F3DAACEBACFA2890E8F7A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3C98C77B22C10F8633C02B /* Foundation.framework */; };
-		4A2675C12685355BE11CD1AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26D434281DA1840657DD6D78 /* UIKit.framework */; };
-		4E6E6F959B03404C2E4A64B1 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B800C23E757E2DD22A006D /* SVProgressHUD.m */; };
-		4E961395FCC51536785097DF /* QMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC13CC63E56914511AEBCCBA /* QMChatViewController.m */; };
-		4F13FCAEAC8FD437DF966863 /* UIColor+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = B610D915B5B9B8823264073D /* UIColor+QM.h */; };
-		535C6454EE1639CD7673D9F7 /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A13EA23EA6056D9909587C /* QMCollectionViewFlowLayoutInvalidationContext.m */; };
-		55A548D2339183BBA7F9BC4F /* QMInputToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D2206FEA336CAA09076A75 /* QMInputToolbar.h */; };
-		5CC223F0E46B462F92186C63 /* QMChatAttachmentIncomingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E03366E94DCE4A044547E122 /* QMChatAttachmentIncomingCell.h */; };
-		660D1B79E9E995FC812AA192 /* QMChatCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B74C50565D78077B6E84E435 /* QMChatCollectionView.m */; };
-		66D30E4793057FB1CB7815CD /* QMChatIncomingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9212062C358B513C3082786A /* QMChatIncomingCell.h */; };
-		687086717FE82FF07190455D /* NSString+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = D37C2DD4EC2B9978BBB05664 /* NSString+QM.h */; };
-		69A55B44AD0CD9DD4FD25D80 /* QMChatCellLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = B70F873F0085CC8FE3548412 /* QMChatCellLayoutAttributes.m */; };
-		6DFFB91906BB835C829F620F /* QMChatCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DEB39222B5F5B326A71080E /* QMChatCollectionViewFlowLayout.h */; };
-		70BF8969BB9154981B4DC24D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3C98C77B22C10F8633C02B /* Foundation.framework */; };
-		722C9B86CFBD804AA874E7F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 470F486218569045856E8AF7 /* CoreGraphics.framework */; };
-		75BF8B8CDA0CA81633D016AE /* QMToolbarContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = AF4F2AA6DC1F5BDD1EFBCEEA /* QMToolbarContentView.h */; };
-		771F17B4C5B371F68E64A018 /* UIView+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = E5D3FA647B12BDE492076916 /* UIView+QM.h */; };
-		864B049F833CC0C0F7060C82 /* QMLoadEarlierHeaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A69D75293F24136590AF709 /* QMLoadEarlierHeaderView.h */; };
-		89F6C7903AC81B88B40DB35E /* QMChatCellLayoutAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 631C48EACA717E15C81C1229 /* QMChatCellLayoutAttributes.h */; };
-		96FA2222701B18E3CBC3452A /* UIColor+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E290AE0FE78F378BA1DE9DE /* UIColor+QM.m */; };
-		9AA983C753724301B418834B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6B4E7D18FDFB4932CE186B5 /* QuartzCore.framework */; };
-		9BD4D4D8FAE0D10148AFE613 /* UIImage+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ABE7F4563A38F6AC4A52BFD /* UIImage+QM.h */; };
-		9C4764FDA99BF727D65AFAB2 /* UIImage+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F53DAEE382C4887B15EF112 /* UIImage+QM.m */; };
-		9F90EFE053263E99DF3A36A3 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 838CDFB1E3F50D2E08B1F488 /* SVIndefiniteAnimatedView.h */; };
-		A126998B0271D98260649EA7 /* Pods-TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ED32E93713560B22C2A2498D /* Pods-TTTAttributedLabel-dummy.m */; };
-		A465F6A2B0A71D78C4E100AB /* QMChatIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 614CC3DB14B2DBD2F7231CF6 /* QMChatIncomingCell.m */; };
-		A478DC5DB6B51FC105C7E07B /* QMTypingIndicatorFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 55388990D1B50E6900409D66 /* QMTypingIndicatorFooterView.h */; };
-		A51AFA91EF555BEA74CC9252 /* QMChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4C84BB40DA8909FA1E3E941 /* QMChatCell.m */; };
-		A54FEFB036D52AD5FADA2C8C /* QMChatCollectionViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B8F48DE4F74D2B692714FAB /* QMChatCollectionViewDataSource.h */; };
-		A6020FBEF6757E7FF67C9D5A /* QMPlaceHolderTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = C99CEB8101C1FDCA9C4742D5 /* QMPlaceHolderTextView.h */; };
-		A6E62A7A76501E6B39F9642D /* NSString+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E0117EE34DFD74BF0A2E5D /* NSString+QM.m */; };
-		A72FB833B1B52B5CD58CB599 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3C98C77B22C10F8633C02B /* Foundation.framework */; };
-		A9F679955E32433B605FF1FE /* QMKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C82609CEF3EBB998C620A4 /* QMKeyboardController.m */; };
-		AD477D3D2B29810B9C5B7833 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C27DEC1F9BC21F62928B43 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		AD4C7593191CA2AEB479C0E0 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 051E69B513530FFB83404B47 /* TTTAttributedLabel.h */; };
-		AF3D514F2B5D9CC80C83F533 /* QMChatOutgoingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F32E4CF110202D19981368C7 /* QMChatOutgoingCell.m */; };
-		B0B2FA2475477CE91FA6F9AE /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1002F9E1BC9AB8AF2D8FBCFD /* TWMessageBarManager.m */; };
-		B918EABE0500C7647A15E930 /* QMChatNotificationCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 701EF37DC3EB998953324D00 /* QMChatNotificationCell.h */; };
-		BE1C087FB1A47065B7B60D00 /* UIView+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 995A49AA733C8CB58F4626AA /* UIView+QM.m */; };
-		BE920C426837B0E9A4C2C6EB /* QMChatCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D93EE8318A7764A8F08FD0E /* QMChatCollectionViewFlowLayout.m */; };
-		BFAF6E782E6E1BCE36C7E251 /* QMKeyboardController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4159406129E237CF8F3D574F /* QMKeyboardController.h */; };
-		C3BEEFD1F05AFE1E121EC65C /* QMChatCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0157B5F84C0B39C1664C67CF /* QMChatCell.h */; };
-		C42DD0B1A8EC45376CA8F8C6 /* Pods-TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CC2B2D0DA16F85C86F1AA7D5 /* Pods-TWMessageBarManager-dummy.m */; };
-		C770041D77C07454D10FC559 /* QMChatAttachmentIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E926FA55CEA4AE4097B2D054 /* QMChatAttachmentIncomingCell.m */; };
-		C9CF9A3694AFCBC149B3E492 /* QMChatContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AB9F1DA286347608CAF6881 /* QMChatContainerView.h */; };
-		CCA41098352A774844A208AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3C98C77B22C10F8633C02B /* Foundation.framework */; };
-		D20E8CC7E02AB212DFA9E01B /* QMChatAttachmentOutgoingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = BEB20D3D25A96C16DBCFBEE5 /* QMChatAttachmentOutgoingCell.h */; };
-		D6372B1DF6844A8A42CBA3AF /* QMCollectionViewFlowLayoutInvalidationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 605C7B5BC01039A71C096CD9 /* QMCollectionViewFlowLayoutInvalidationContext.h */; };
-		DD30CFDBF213E592B0BD6FC4 /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = CBCF29CDB3DED7F18010F2B1 /* TWMessageBarManager.h */; };
-		DE88F8B36BC5902F80A4A0C4 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51022EB3993556ECD8E3C9E5 /* SVIndefiniteAnimatedView.m */; };
-		E2A1B74F34B742EBBAF9EC88 /* QMChatContactRequestCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C163AD26391764604E624FB /* QMChatContactRequestCell.h */; };
-		E83E3385DD566C81DA463573 /* QMChatCollectionViewDelegateFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 42115EB5C09927B6244C7441 /* QMChatCollectionViewDelegateFlowLayout.h */; };
-		EE03212B126B3D976C1DA465 /* QMChatNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F14F2EDA00AC3B5B96C204 /* QMChatNotificationCell.m */; };
-		F282A021F6F0D911EE1563CF /* QMChatAttachmentOutgoingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E628435F1C240DF6C6D34C91 /* QMChatAttachmentOutgoingCell.m */; };
-		F5212FDC84E6FED5D612CC9C /* Pods-QMChatViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D00D1BFA007B4AAE097E911 /* Pods-QMChatViewController-dummy.m */; };
-		FC9EDB8F2C6CAA28758C2CF8 /* QMChatCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 448099504185EBC62BDD9E42 /* QMChatCollectionView.h */; };
-		FFA5D223060B4576EE5A987D /* QMChatViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BC0CF86384313AFDE9BBD03 /* QMChatViewController.h */; };
+		1AB625E2A591F080C41AF573 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195119DA925A476651452698 /* QuartzCore.framework */; };
+		33E4F99A4C8505CFEC88327A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F25AD020B8E20BC8FF4E312 /* Foundation.framework */; };
+		3991831778F57FA37BBB5EFE /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C30DEC56B7EC599B61322B /* SVIndefiniteAnimatedView.m */; };
+		3C292E6122D424E699CBDF8B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195119DA925A476651452698 /* QuartzCore.framework */; };
+		3E1851C2954DD34649305E26 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E07629044103E2D8C2615FE /* SVProgressHUD.h */; };
+		460CDC121BF2804741826554 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F25AD020B8E20BC8FF4E312 /* Foundation.framework */; };
+		4DECD02D33DB66590B248C47 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 52151F4CFADE633F005FD9D0 /* TTTAttributedLabel.h */; };
+		587BDEA631305F1B102B2940 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F08AFDC216E3470CC03DD3BA /* UIKit.framework */; };
+		6BD53C174DDF6C980FF6CE6C /* Pods-TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3866652D694CBF3BA411D645 /* Pods-TTTAttributedLabel-dummy.m */; };
+		71544337BFE3096E6929C03F /* Pods-SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 560B0726AED322D88619F2F9 /* Pods-SVProgressHUD-dummy.m */; };
+		9079631422D702963AB554D1 /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1190CE573865F90EE3FF74E0 /* TWMessageBarManager.h */; };
+		9642247E5DC309E7B3F0CF47 /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07BB3BCB5938D32EAC9E8C6C /* TWMessageBarManager.m */; };
+		996A5365847AA324288E3EC1 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6C188104FCCB1349D556D1 /* Pods-dummy.m */; };
+		A3ABAFE75FD576122C139FB3 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = D930B0A9A6DC5DD8134D449A /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A7C41C1E3F5BFF240BC2AC6B /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2BBC548BF556A68BD5D6F5 /* SVProgressHUD.m */; };
+		A809A537B0AC996B3EF905D1 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 19D50413001A194A18F10F96 /* SVIndefiniteAnimatedView.h */; };
+		BC22A1A19270E4781B7E1225 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EBAC2502CCDC67F1781D62 /* CoreText.framework */; };
+		BD6F967E4819D97F8645FD64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F25AD020B8E20BC8FF4E312 /* Foundation.framework */; };
+		C04DE5BFD087DBC049881572 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F25AD020B8E20BC8FF4E312 /* Foundation.framework */; };
+		D4188F5B2299D03EFFF66C29 /* Pods-TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A294395B382AFD182177687C /* Pods-TWMessageBarManager-dummy.m */; };
+		FC8A2606F0F9D5E5D571C139 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30ADB39B5601737EAABEFF95 /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		411F21167ECF8A70AB36FA83 /* PBXContainerItemProxy */ = {
+		7CB166B452EAA2E196DAC24A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 00A85D6F64FED0149244E141 /* Project object */;
+			containerPortal = 31B9663338AB9CDA0B87D8C2 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 208DA489DE6D51185819936F;
-			remoteInfo = "Pods-TTTAttributedLabel";
-		};
-		5AD9807B81D7AE37B5D2A0EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00A85D6F64FED0149244E141 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13AFCDA014197C3D661CA7D3;
-			remoteInfo = "Pods-SVProgressHUD";
-		};
-		A488475B0A1522CC273F6C68 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 00A85D6F64FED0149244E141 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DC4196AB19AFDAA146F4D3C6;
+			remoteGlobalIDString = B045953E5DE56A6FCD99190D;
 			remoteInfo = "Pods-TWMessageBarManager";
 		};
-		C7D63F9E785331E7C42DFBC1 /* PBXContainerItemProxy */ = {
+		989DF5356222D657AC5FCF8F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 00A85D6F64FED0149244E141 /* Project object */;
+			containerPortal = 31B9663338AB9CDA0B87D8C2 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 208DA489DE6D51185819936F;
-			remoteInfo = "Pods-TTTAttributedLabel";
+			remoteGlobalIDString = 6E7DCE38D6A5583583318DAA;
+			remoteInfo = "Pods-SVProgressHUD";
 		};
-		DCA2A6AFEA8987CFEF602BEA /* PBXContainerItemProxy */ = {
+		AF14D47A4EBB300E75F99B52 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 00A85D6F64FED0149244E141 /* Project object */;
+			containerPortal = 31B9663338AB9CDA0B87D8C2 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4819A24EDF4ADB360C048151;
-			remoteInfo = "Pods-QMChatViewController";
+			remoteGlobalIDString = 0B1F79E85E0544EC72FCD3F8;
+			remoteInfo = "Pods-TTTAttributedLabel";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0157B5F84C0B39C1664C67CF /* QMChatCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatCell.h; sourceTree = "<group>"; };
-		027378DB1C24E9D9F28000AE /* ChatAssets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = ChatAssets.xcassets; sourceTree = "<group>"; };
-		04448D3526B917132A299AC7 /* Pods-TWMessageBarManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TWMessageBarManager-prefix.pch"; sourceTree = "<group>"; };
-		051E69B513530FFB83404B47 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
-		065D6922D5D4610B5ADA733E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
-		06C27DEC1F9BC21F62928B43 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
-		08CECF3AC76A1C9C3789F5C4 /* QMTypingIndicatorFooterView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMTypingIndicatorFooterView.m; sourceTree = "<group>"; };
-		093EF20B14FFCC7BCFBEA2E5 /* QMChatContactRequestCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMChatContactRequestCell.xib; sourceTree = "<group>"; };
-		0D00D1BFA007B4AAE097E911 /* Pods-QMChatViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-QMChatViewController-dummy.m"; sourceTree = "<group>"; };
-		0E2DFF0DB6E26C7C1FE811B7 /* Pods-QMChatViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-QMChatViewController-prefix.pch"; sourceTree = "<group>"; };
-		1002F9E1BC9AB8AF2D8FBCFD /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
-		12B575E49D8982C32A06C5A8 /* QMChatIncomingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMChatIncomingCell.xib; sourceTree = "<group>"; };
-		25D3DC72C84180E8E5D88501 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.qa.xcconfig; sourceTree = "<group>"; };
-		26D434281DA1840657DD6D78 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		28F14F2EDA00AC3B5B96C204 /* QMChatNotificationCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatNotificationCell.m; sourceTree = "<group>"; };
-		2E937FD66CAF025E4901DAE0 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		32ECA8F0385E58A028CB3A66 /* Pods-TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager.xcconfig"; sourceTree = "<group>"; };
-		374D3FBD353CBF0086682FA7 /* QMChatAttachmentCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatAttachmentCell.h; sourceTree = "<group>"; };
-		3937BB46016618451340C85F /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
-		3AB8A1AAE22203B4F03B73EC /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		3C58F5A38508E87844BED590 /* Pods-SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD.xcconfig"; sourceTree = "<group>"; };
-		3DEB39222B5F5B326A71080E /* QMChatCollectionViewFlowLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		3F53DAEE382C4887B15EF112 /* UIImage+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QM.m"; sourceTree = "<group>"; };
-		3F61034777B72223E7E1DD0F /* QMTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
-		4159406129E237CF8F3D574F /* QMKeyboardController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMKeyboardController.h; sourceTree = "<group>"; };
-		42115EB5C09927B6244C7441 /* QMChatCollectionViewDelegateFlowLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatCollectionViewDelegateFlowLayout.h; sourceTree = "<group>"; };
-		448099504185EBC62BDD9E42 /* QMChatCollectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatCollectionView.h; sourceTree = "<group>"; };
-		470F486218569045856E8AF7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		480DDE5BED1E9A94E0D3296C /* QMChatNotificationCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMChatNotificationCell.xib; sourceTree = "<group>"; };
-		485B10FEE81A2E24EB28B6BC /* QMLoadEarlierHeaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMLoadEarlierHeaderView.m; sourceTree = "<group>"; };
-		4A01E4BEADDD8F6CD905C10B /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		4AFA3F219FB3176831439617 /* QMPlaceHolderTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMPlaceHolderTextView.m; sourceTree = "<group>"; };
-		4B8F48DE4F74D2B692714FAB /* QMChatCollectionViewDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatCollectionViewDataSource.h; sourceTree = "<group>"; };
-		50ECA77F2EF9A7C4106A3C6A /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
-		51022EB3993556ECD8E3C9E5 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
-		54C82609CEF3EBB998C620A4 /* QMKeyboardController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMKeyboardController.m; sourceTree = "<group>"; };
-		55388990D1B50E6900409D66 /* QMTypingIndicatorFooterView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMTypingIndicatorFooterView.h; sourceTree = "<group>"; };
-		57CD3A64486F8AC4062A32FE /* QMChatOutgoingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMChatOutgoingCell.xib; sourceTree = "<group>"; };
-		5A2A05887D3FCB6D501434F9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		5E290AE0FE78F378BA1DE9DE /* UIColor+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIColor+QM.m"; sourceTree = "<group>"; };
-		605C7B5BC01039A71C096CD9 /* QMCollectionViewFlowLayoutInvalidationContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMCollectionViewFlowLayoutInvalidationContext.h; sourceTree = "<group>"; };
-		614CC3DB14B2DBD2F7231CF6 /* QMChatIncomingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatIncomingCell.m; sourceTree = "<group>"; };
-		631C48EACA717E15C81C1229 /* QMChatCellLayoutAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatCellLayoutAttributes.h; sourceTree = "<group>"; };
-		64A0353C882C5E8BB6481B25 /* QMChatAttachmentOutgoingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMChatAttachmentOutgoingCell.xib; sourceTree = "<group>"; };
-		660E3E558E2AE4A2759D7363 /* QMChatOutgoingCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatOutgoingCell.h; sourceTree = "<group>"; };
-		694EBF5A24ACF6BD8607212D /* libPods-TWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TWMessageBarManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6BC0CF86384313AFDE9BBD03 /* QMChatViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatViewController.h; sourceTree = "<group>"; };
-		6E8610ED9F93CBD8CFB40A23 /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
-		701EF37DC3EB998953324D00 /* QMChatNotificationCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatNotificationCell.h; sourceTree = "<group>"; };
-		72E13494E9A24AEBE5B67EC8 /* libPods-QMChatViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QMChatViewController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7954E82D267A2E5BBF583CBB /* QMChatContactRequestCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatContactRequestCell.m; sourceTree = "<group>"; };
-		7FD950B7333F60E0FC744B04 /* Pods-QMChatViewController-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-QMChatViewController-Private.xcconfig"; sourceTree = "<group>"; };
-		838CDFB1E3F50D2E08B1F488 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		83D8CEB5DA06CA0D669C2812 /* libPods-TTTAttributedLabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTTAttributedLabel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		85902DFE1619200E6972EEE7 /* QMInputToolbar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMInputToolbar.m; sourceTree = "<group>"; };
-		890C758B8C56FFAFF45D8E14 /* Pods-SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
-		8A69D75293F24136590AF709 /* QMLoadEarlierHeaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMLoadEarlierHeaderView.h; sourceTree = "<group>"; };
-		8A7C1F4281285F2861F6234E /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
-		8AB9F1DA286347608CAF6881 /* QMChatContainerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatContainerView.h; sourceTree = "<group>"; };
-		8CB5B3709D18312E6ED96E9D /* QMChatActionsHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatActionsHandler.h; sourceTree = "<group>"; };
-		9212062C358B513C3082786A /* QMChatIncomingCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatIncomingCell.h; sourceTree = "<group>"; };
-		924EBDD3FC29217668039126 /* libPods-SVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVProgressHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		995A49AA733C8CB58F4626AA /* UIView+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIView+QM.m"; sourceTree = "<group>"; };
-		9ABE7F4563A38F6AC4A52BFD /* UIImage+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImage+QM.h"; sourceTree = "<group>"; };
-		9ADC548603FE7F012CD94D3A /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		9C163AD26391764604E624FB /* QMChatContactRequestCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatContactRequestCell.h; sourceTree = "<group>"; };
-		9D93EE8318A7764A8F08FD0E /* QMChatCollectionViewFlowLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		A42905DA118D0870E59D0DF4 /* Pods-TWMessageBarManager-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager-Private.xcconfig"; sourceTree = "<group>"; };
-		A4E0117EE34DFD74BF0A2E5D /* NSString+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSString+QM.m"; sourceTree = "<group>"; };
-		A646FA12A6A64358325BC9CD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		A78DFB3F556A3AB288456FA7 /* Pods-TTTAttributedLabel-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel-Private.xcconfig"; sourceTree = "<group>"; };
-		AE213BB6E9F920D41EAD3FD8 /* QMToolbarContentView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMToolbarContentView.m; sourceTree = "<group>"; };
-		AF4F2AA6DC1F5BDD1EFBCEEA /* QMToolbarContentView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMToolbarContentView.h; sourceTree = "<group>"; };
-		B2B800C23E757E2DD22A006D /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
-		B3A13EA23EA6056D9909587C /* QMCollectionViewFlowLayoutInvalidationContext.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMCollectionViewFlowLayoutInvalidationContext.m; sourceTree = "<group>"; };
-		B4C84BB40DA8909FA1E3E941 /* QMChatCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatCell.m; sourceTree = "<group>"; };
-		B610D915B5B9B8823264073D /* UIColor+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIColor+QM.h"; sourceTree = "<group>"; };
-		B70F873F0085CC8FE3548412 /* QMChatCellLayoutAttributes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatCellLayoutAttributes.m; sourceTree = "<group>"; };
-		B74C50565D78077B6E84E435 /* QMChatCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatCollectionView.m; sourceTree = "<group>"; };
-		B81FED53F3BF55E888D268D7 /* QMLoadEarlierHeaderView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMLoadEarlierHeaderView.xib; sourceTree = "<group>"; };
-		BC5D0D68AA08CFEF378042A3 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
-		BEB20D3D25A96C16DBCFBEE5 /* QMChatAttachmentOutgoingCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatAttachmentOutgoingCell.h; sourceTree = "<group>"; };
-		BEB4C6F83CAE3356E094EFB9 /* QMToolbarContentView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMToolbarContentView.xib; sourceTree = "<group>"; };
-		BEE2F5BC34FF6891CDE1014B /* Pods-QMChatViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-QMChatViewController.xcconfig"; sourceTree = "<group>"; };
-		C0EE4A1C1437213B9592F76E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		C85FF1B91BD0F52FD589E8E6 /* Pods-TTTAttributedLabel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel.xcconfig"; sourceTree = "<group>"; };
-		C99CEB8101C1FDCA9C4742D5 /* QMPlaceHolderTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMPlaceHolderTextView.h; sourceTree = "<group>"; };
-		CBCF29CDB3DED7F18010F2B1 /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
-		CC13CC63E56914511AEBCCBA /* QMChatViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatViewController.m; sourceTree = "<group>"; };
-		CC2B2D0DA16F85C86F1AA7D5 /* Pods-TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
-		CF3C98C77B22C10F8633C02B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		CF713041489A652BB6E1559C /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
-		D0DCE74F7A6CD72BDBF646F7 /* QMChatAttachmentIncomingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMChatAttachmentIncomingCell.xib; sourceTree = "<group>"; };
-		D37C2DD4EC2B9978BBB05664 /* NSString+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSString+QM.h"; sourceTree = "<group>"; };
-		D42D9D4B0B9C1111E0E1CB7F /* Pods-SVProgressHUD-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD-Private.xcconfig"; sourceTree = "<group>"; };
-		D8D2206FEA336CAA09076A75 /* QMInputToolbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMInputToolbar.h; sourceTree = "<group>"; };
-		DB94795FE6CD148D75F51026 /* QMChatContainerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatContainerView.m; sourceTree = "<group>"; };
-		DF138096063B9D8F4E80F1CE /* icon-info@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info@2x.png"; path = "Classes/Icons/icon-info@2x.png"; sourceTree = "<group>"; };
-		E03366E94DCE4A044547E122 /* QMChatAttachmentIncomingCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = QMChatAttachmentIncomingCell.h; sourceTree = "<group>"; };
-		E5D3FA647B12BDE492076916 /* UIView+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIView+QM.h"; sourceTree = "<group>"; };
-		E628435F1C240DF6C6D34C91 /* QMChatAttachmentOutgoingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatAttachmentOutgoingCell.m; sourceTree = "<group>"; };
-		E66DF40B6A52049890259AAD /* Pods-TTTAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TTTAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
-		E926FA55CEA4AE4097B2D054 /* QMChatAttachmentIncomingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatAttachmentIncomingCell.m; sourceTree = "<group>"; };
-		EADB203C075F31CC4707F290 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		EBDBA5CF3908542BC5866E8A /* icon-error@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error@2x.png"; path = "Classes/Icons/icon-error@2x.png"; sourceTree = "<group>"; };
-		ED32E93713560B22C2A2498D /* Pods-TTTAttributedLabel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TTTAttributedLabel-dummy.m"; sourceTree = "<group>"; };
-		F194847EBB0AF5C93E4EF274 /* icon-error.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error.png"; path = "Classes/Icons/icon-error.png"; sourceTree = "<group>"; };
-		F32E4CF110202D19981368C7 /* QMChatOutgoingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = QMChatOutgoingCell.m; sourceTree = "<group>"; };
-		F6B4E7D18FDFB4932CE186B5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		F6D74017509ADA814F6ED309 /* QMChatViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = QMChatViewController.xib; sourceTree = "<group>"; };
-		FFEF1238C170096E62BD47F5 /* Pods-SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		010C37C00FA72E5839D46A62 /* Pods-TTTAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TTTAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
+		07BB3BCB5938D32EAC9E8C6C /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
+		0CD0231F8CFF2D6AC8351963 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
+		10747A999D8EE30DE34EB7E4 /* Pods-SVProgressHUD-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD-Private.xcconfig"; sourceTree = "<group>"; };
+		1190CE573865F90EE3FF74E0 /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
+		195119DA925A476651452698 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		19D50413001A194A18F10F96 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		30ADB39B5601737EAABEFF95 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		320212639E94C3BBF1ABBD4E /* libPods-TTTAttributedLabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTTAttributedLabel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3700C9E944D0FCDBBB8FBFC6 /* Pods-TTTAttributedLabel-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel-Private.xcconfig"; sourceTree = "<group>"; };
+		3866652D694CBF3BA411D645 /* Pods-TTTAttributedLabel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TTTAttributedLabel-dummy.m"; sourceTree = "<group>"; };
+		4C68FDF0A2F95F6B3B0C6F21 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
+		52151F4CFADE633F005FD9D0 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
+		560B0726AED322D88619F2F9 /* Pods-SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		56426E46C28F79D7416ED6D4 /* Pods-TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager.xcconfig"; sourceTree = "<group>"; };
+		5C1F1D9845E4B31B63ACDC21 /* icon-info@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info@2x.png"; path = "Classes/Icons/icon-info@2x.png"; sourceTree = "<group>"; };
+		5E07629044103E2D8C2615FE /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
+		61E1535FEAA86B58D207760E /* libPods-TWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TWMessageBarManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		62D9EAB99F81BB07FB38CD28 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.qa.xcconfig; sourceTree = "<group>"; };
+		62EBAC2502CCDC67F1781D62 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		6F25AD020B8E20BC8FF4E312 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		71AD9C71330F5E7753F87223 /* Pods-TTTAttributedLabel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TTTAttributedLabel.xcconfig"; sourceTree = "<group>"; };
+		7514B9B04DDCA68AD75BBC55 /* Pods-TWMessageBarManager-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TWMessageBarManager-Private.xcconfig"; sourceTree = "<group>"; };
+		79C30DEC56B7EC599B61322B /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		7E6C188104FCCB1349D556D1 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		9AE59A6B6A26D7FA3E1F7E3E /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A00DC6EE98DC1D041675F1EF /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		A0281CBE2F928FF1474EBBE7 /* icon-error@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error@2x.png"; path = "Classes/Icons/icon-error@2x.png"; sourceTree = "<group>"; };
+		A294395B382AFD182177687C /* Pods-TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
+		A4DE8DBFD5E48E2A559496BC /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
+		AC8F22DE926473D6F19EFAA9 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B581E330FF3E2ED1B348E5A6 /* libPods-SVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVProgressHUD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B5FF63D01B07F90C4D16C9 /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
+		CF2BBC548BF556A68BD5D6F5 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
+		CF696413B3426F6EB50FD8A2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
+		D5573685C9056F3CF0A00EB1 /* Pods-SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
+		D930B0A9A6DC5DD8134D449A /* TTTAttributedLabel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
+		E1EE99695D436810251CFDCD /* icon-error.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-error.png"; path = "Classes/Icons/icon-error.png"; sourceTree = "<group>"; };
+		E3221F5A8D993D28CA2A35CA /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
+		E63A7DA2F2ED71157517C073 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		EBA4F47B13C81C093D1189DE /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		F08AFDC216E3470CC03DD3BA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		F0EE93EFA1B538B463549163 /* Pods-TWMessageBarManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TWMessageBarManager-prefix.pch"; sourceTree = "<group>"; };
+		F29B0AA0ED411E48557B5CFA /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		F6FBA3311C34BD3DD3C29CDD /* Pods-SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SVProgressHUD.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		09DD57D9C5511B467ACF0532 /* Frameworks */ = {
+		0CBEAA02C2A6E7E76E8AE575 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44F3DAACEBACFA2890E8F7A4 /* Foundation.framework in Frameworks */,
+				33E4F99A4C8505CFEC88327A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		28D014CEDE970117000FFE86 /* Frameworks */ = {
+		77EFFF007FD39857DAF9B88C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				722C9B86CFBD804AA874E7F0 /* CoreGraphics.framework in Frameworks */,
-				3128E668727CEC9DF378D0EF /* CoreText.framework in Frameworks */,
-				01E436DD9D9A98B3FA9C2A22 /* Foundation.framework in Frameworks */,
-				06B8FA8D11AD90E0C187C84B /* QuartzCore.framework in Frameworks */,
-				4A2675C12685355BE11CD1AB /* UIKit.framework in Frameworks */,
+				FC8A2606F0F9D5E5D571C139 /* CoreGraphics.framework in Frameworks */,
+				BC22A1A19270E4781B7E1225 /* CoreText.framework in Frameworks */,
+				BD6F967E4819D97F8645FD64 /* Foundation.framework in Frameworks */,
+				3C292E6122D424E699CBDF8B /* QuartzCore.framework in Frameworks */,
+				587BDEA631305F1B102B2940 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		70B49F3AE33BEEC78EB5D64B /* Frameworks */ = {
+		AE17C998521098645035B6A7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70BF8969BB9154981B4DC24D /* Foundation.framework in Frameworks */,
+				460CDC121BF2804741826554 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9441B0C3607D3F153F52D79D /* Frameworks */ = {
+		AFFD480D85D230B0D93341D4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A72FB833B1B52B5CD58CB599 /* Foundation.framework in Frameworks */,
-				9AA983C753724301B418834B /* QuartzCore.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EE745C13ED7089C929373F0B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CCA41098352A774844A208AF /* Foundation.framework in Frameworks */,
+				C04DE5BFD087DBC049881572 /* Foundation.framework in Frameworks */,
+				1AB625E2A591F080C41AF573 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		036EA324FDEA0078032C8B81 /* QMChatContactRequestCell */ = {
+		1550F2C4EC6BB46BB5A4BADC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9C163AD26391764604E624FB /* QMChatContactRequestCell.h */,
-				7954E82D267A2E5BBF583CBB /* QMChatContactRequestCell.m */,
-			);
-			path = QMChatContactRequestCell;
-			sourceTree = "<group>";
-		};
-		05BA2E83CF817F61B698A9CB /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				A33FF8DEE392DEB99BEEF95F /* Cells */,
-				D17F0851649BECCD2D535525 /* CustomUI */,
-				C8308455CAEBDCCAB9BF7A87 /* ReusableViews */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		1191BC3293A80C584C9FEFE6 /* QMChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				6BC0CF86384313AFDE9BBD03 /* QMChatViewController.h */,
-				CC13CC63E56914511AEBCCBA /* QMChatViewController.m */,
-			);
-			path = QMChatViewController;
-			sourceTree = "<group>";
-		};
-		16A2DDD5F2ACF9E706102F15 /* QMChatIncomingCell */ = {
-			isa = PBXGroup;
-			children = (
-				12B575E49D8982C32A06C5A8 /* QMChatIncomingCell.xib */,
-			);
-			path = QMChatIncomingCell;
-			sourceTree = "<group>";
-		};
-		18A68A7FF836C7B6136DAF62 /* SVProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				838CDFB1E3F50D2E08B1F488 /* SVIndefiniteAnimatedView.h */,
-				51022EB3993556ECD8E3C9E5 /* SVIndefiniteAnimatedView.m */,
-				50ECA77F2EF9A7C4106A3C6A /* SVProgressHUD.h */,
-				B2B800C23E757E2DD22A006D /* SVProgressHUD.m */,
-				29BA41BFC19FF8E465E52B22 /* Resources */,
-				23155F16D7CB16770647E8C4 /* Support Files */,
-			);
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
-		19326CA2CDF5EEA2583552D8 /* QMChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				312DC93CF2861A14A36F6959 /* Views */,
-			);
-			path = QMChatViewController;
-			sourceTree = "<group>";
-		};
-		196157C7B58012733EBACEB3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C0EE4A1C1437213B9592F76E /* libPods.a */,
-				72E13494E9A24AEBE5B67EC8 /* libPods-QMChatViewController.a */,
-				924EBDD3FC29217668039126 /* libPods-SVProgressHUD.a */,
-				83D8CEB5DA06CA0D669C2812 /* libPods-TTTAttributedLabel.a */,
-				694EBF5A24ACF6BD8607212D /* libPods-TWMessageBarManager.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		1CB32CBE05DC1A34472F54E3 /* QMChatCell */ = {
-			isa = PBXGroup;
-			children = (
-				0157B5F84C0B39C1664C67CF /* QMChatCell.h */,
-				B4C84BB40DA8909FA1E3E941 /* QMChatCell.m */,
-			);
-			path = QMChatCell;
-			sourceTree = "<group>";
-		};
-		23155F16D7CB16770647E8C4 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				3C58F5A38508E87844BED590 /* Pods-SVProgressHUD.xcconfig */,
-				D42D9D4B0B9C1111E0E1CB7F /* Pods-SVProgressHUD-Private.xcconfig */,
-				FFEF1238C170096E62BD47F5 /* Pods-SVProgressHUD-dummy.m */,
-				890C758B8C56FFAFF45D8E14 /* Pods-SVProgressHUD-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-SVProgressHUD";
-			sourceTree = "<group>";
-		};
-		29BA41BFC19FF8E465E52B22 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				3937BB46016618451340C85F /* SVProgressHUD.bundle */,
+				E1EE99695D436810251CFDCD /* icon-error.png */,
+				A0281CBE2F928FF1474EBBE7 /* icon-error@2x.png */,
+				0CD0231F8CFF2D6AC8351963 /* icon-info.png */,
+				5C1F1D9845E4B31B63ACDC21 /* icon-info@2x.png */,
+				C2B5FF63D01B07F90C4D16C9 /* icon-success.png */,
+				E3221F5A8D993D28CA2A35CA /* icon-success@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		2CE6B873B86AFF90B683BAEF /* Support Files */ = {
+		1FA3CE74F745D168220B252D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BEE2F5BC34FF6891CDE1014B /* Pods-QMChatViewController.xcconfig */,
-				7FD950B7333F60E0FC744B04 /* Pods-QMChatViewController-Private.xcconfig */,
-				0D00D1BFA007B4AAE097E911 /* Pods-QMChatViewController-dummy.m */,
-				0E2DFF0DB6E26C7C1FE811B7 /* Pods-QMChatViewController-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../sample-chat/Pods/Target Support Files/Pods-QMChatViewController";
-			sourceTree = "<group>";
-		};
-		312DC93CF2861A14A36F6959 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				8CB5B3709D18312E6ED96E9D /* QMChatActionsHandler.h */,
-				8AB9F1DA286347608CAF6881 /* QMChatContainerView.h */,
-				DB94795FE6CD148D75F51026 /* QMChatContainerView.m */,
-				A0D04148882F326868FECD6E /* Cells */,
-				C94CA5BB03FE65994B96739D /* CollectionView */,
-				7715AE3F2685ED4C6A76C848 /* CustomUI */,
-				4A6234730ADE632485F2EE72 /* ReusableViews */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		32AE41F5EB0F7C7A6E216547 /* QMChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				D7AB6B68B243CA5F722CD8A2 /* Protocols */,
-			);
-			path = QMChatViewController;
-			sourceTree = "<group>";
-		};
-		343D08287894CADB78C75796 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2E937FD66CAF025E4901DAE0 /* Pods-acknowledgements.markdown */,
-				4A01E4BEADDD8F6CD905C10B /* Pods-acknowledgements.plist */,
-				9ADC548603FE7F012CD94D3A /* Pods-dummy.m */,
-				8A7C1F4281285F2861F6234E /* Pods-environment.h */,
-				3AB8A1AAE22203B4F03B73EC /* Pods-resources.sh */,
-				5A2A05887D3FCB6D501434F9 /* Pods.debug.xcconfig */,
-				25D3DC72C84180E8E5D88501 /* Pods.qa.xcconfig */,
-				A646FA12A6A64358325BC9CD /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			path = "Target Support Files/Pods";
-			sourceTree = "<group>";
-		};
-		4A6234730ADE632485F2EE72 /* ReusableViews */ = {
-			isa = PBXGroup;
-			children = (
-				F87919B35447FC8B1287487A /* LoadEarlierHeaderView */,
-				6D00F2CBCAB1BA800B5E9E73 /* TypingIndicatorFooterView */,
-			);
-			path = ReusableViews;
-			sourceTree = "<group>";
-		};
-		4A872412F1E3DC6F065CC125 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9DE488842E771E66A56C9F38 /* iOS */,
+				C82F1718895E98D4541A7810 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		513BBF63A144A407C023CB7D /* Support Files */ = {
+		25C863D5B666492EB810A925 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				32ECA8F0385E58A028CB3A66 /* Pods-TWMessageBarManager.xcconfig */,
-				A42905DA118D0870E59D0DF4 /* Pods-TWMessageBarManager-Private.xcconfig */,
-				CC2B2D0DA16F85C86F1AA7D5 /* Pods-TWMessageBarManager-dummy.m */,
-				04448D3526B917132A299AC7 /* Pods-TWMessageBarManager-prefix.pch */,
+				CA822E49D67FCF8D441FA5E8 /* Pods */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		26DA8298BBCB1274F690A2D8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC8F22DE926473D6F19EFAA9 /* libPods.a */,
+				B581E330FF3E2ED1B348E5A6 /* libPods-SVProgressHUD.a */,
+				320212639E94C3BBF1ABBD4E /* libPods-TTTAttributedLabel.a */,
+				61E1535FEAA86B58D207760E /* libPods-TWMessageBarManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D6DFD638EF63886994EE1BF /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				19D50413001A194A18F10F96 /* SVIndefiniteAnimatedView.h */,
+				79C30DEC56B7EC599B61322B /* SVIndefiniteAnimatedView.m */,
+				5E07629044103E2D8C2615FE /* SVProgressHUD.h */,
+				CF2BBC548BF556A68BD5D6F5 /* SVProgressHUD.m */,
+				E2D8CA883F6B79A4598982C9 /* Resources */,
+				B187F69A86C3A2D364E98423 /* Support Files */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		5888E93663C9E202C0DEEBF5 /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				52151F4CFADE633F005FD9D0 /* TTTAttributedLabel.h */,
+				D930B0A9A6DC5DD8134D449A /* TTTAttributedLabel.m */,
+				D5A11ECFD944C646544A2086 /* Support Files */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		5D1E55ADE27B60D1F17B5926 /* TWMessageBarManager */ = {
+			isa = PBXGroup;
+			children = (
+				1190CE573865F90EE3FF74E0 /* TWMessageBarManager.h */,
+				07BB3BCB5938D32EAC9E8C6C /* TWMessageBarManager.m */,
+				1550F2C4EC6BB46BB5A4BADC /* Resources */,
+				9D1376D34CA4A1BA653B1E5F /* Support Files */,
+			);
+			path = TWMessageBarManager;
+			sourceTree = "<group>";
+		};
+		8435449B42B532C296DB6F73 = {
+			isa = PBXGroup;
+			children = (
+				9AE59A6B6A26D7FA3E1F7E3E /* Podfile */,
+				1FA3CE74F745D168220B252D /* Frameworks */,
+				CA4073FF4280FDB2B8B27885 /* Pods */,
+				26DA8298BBCB1274F690A2D8 /* Products */,
+				25C863D5B666492EB810A925 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9D1376D34CA4A1BA653B1E5F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				56426E46C28F79D7416ED6D4 /* Pods-TWMessageBarManager.xcconfig */,
+				7514B9B04DDCA68AD75BBC55 /* Pods-TWMessageBarManager-Private.xcconfig */,
+				A294395B382AFD182177687C /* Pods-TWMessageBarManager-dummy.m */,
+				F0EE93EFA1B538B463549163 /* Pods-TWMessageBarManager-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-TWMessageBarManager";
 			sourceTree = "<group>";
 		};
-		5681A3770CF804A4F921C997 /* KeyboardViewController */ = {
+		B187F69A86C3A2D364E98423 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				4159406129E237CF8F3D574F /* QMKeyboardController.h */,
-				54C82609CEF3EBB998C620A4 /* QMKeyboardController.m */,
+				F6FBA3311C34BD3DD3C29CDD /* Pods-SVProgressHUD.xcconfig */,
+				10747A999D8EE30DE34EB7E4 /* Pods-SVProgressHUD-Private.xcconfig */,
+				560B0726AED322D88619F2F9 /* Pods-SVProgressHUD-dummy.m */,
+				D5573685C9056F3CF0A00EB1 /* Pods-SVProgressHUD-prefix.pch */,
 			);
-			path = KeyboardViewController;
+			name = "Support Files";
+			path = "../Target Support Files/Pods-SVProgressHUD";
 			sourceTree = "<group>";
 		};
-		594AB9AEF6EBF1A8DBF8730F /* InputToolBar */ = {
+		C82F1718895E98D4541A7810 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				BEB4C6F83CAE3356E094EFB9 /* QMToolbarContentView.xib */,
+				30ADB39B5601737EAABEFF95 /* CoreGraphics.framework */,
+				62EBAC2502CCDC67F1781D62 /* CoreText.framework */,
+				6F25AD020B8E20BC8FF4E312 /* Foundation.framework */,
+				195119DA925A476651452698 /* QuartzCore.framework */,
+				F08AFDC216E3470CC03DD3BA /* UIKit.framework */,
 			);
-			path = InputToolBar;
+			name = iOS;
 			sourceTree = "<group>";
 		};
-		5B1278A891B862A1E3442E7D /* QMChatOutgoingCell */ = {
+		CA4073FF4280FDB2B8B27885 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				57CD3A64486F8AC4062A32FE /* QMChatOutgoingCell.xib */,
+				4D6DFD638EF63886994EE1BF /* SVProgressHUD */,
+				5888E93663C9E202C0DEEBF5 /* TTTAttributedLabel */,
+				5D1E55ADE27B60D1F17B5926 /* TWMessageBarManager */,
 			);
-			path = QMChatOutgoingCell;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		5B55C573B9588BE8F8AC02A3 /* Layout */ = {
+		CA822E49D67FCF8D441FA5E8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				631C48EACA717E15C81C1229 /* QMChatCellLayoutAttributes.h */,
-				B70F873F0085CC8FE3548412 /* QMChatCellLayoutAttributes.m */,
-				3DEB39222B5F5B326A71080E /* QMChatCollectionViewFlowLayout.h */,
-				9D93EE8318A7764A8F08FD0E /* QMChatCollectionViewFlowLayout.m */,
-				605C7B5BC01039A71C096CD9 /* QMCollectionViewFlowLayoutInvalidationContext.h */,
-				B3A13EA23EA6056D9909587C /* QMCollectionViewFlowLayoutInvalidationContext.m */,
+				E63A7DA2F2ED71157517C073 /* Pods-acknowledgements.markdown */,
+				A00DC6EE98DC1D041675F1EF /* Pods-acknowledgements.plist */,
+				7E6C188104FCCB1349D556D1 /* Pods-dummy.m */,
+				4C68FDF0A2F95F6B3B0C6F21 /* Pods-environment.h */,
+				EBA4F47B13C81C093D1189DE /* Pods-resources.sh */,
+				A4DE8DBFD5E48E2A559496BC /* Pods.debug.xcconfig */,
+				62D9EAB99F81BB07FB38CD28 /* Pods.qa.xcconfig */,
+				CF696413B3426F6EB50FD8A2 /* Pods.release.xcconfig */,
 			);
-			path = Layout;
+			name = Pods;
+			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
-		5EE378B4BA0F287F1020B704 /* Protocols */ = {
+		D5A11ECFD944C646544A2086 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				32AE41F5EB0F7C7A6E216547 /* QMChatViewController */,
-			);
-			name = Protocols;
-			sourceTree = "<group>";
-		};
-		6D00F2CBCAB1BA800B5E9E73 /* TypingIndicatorFooterView */ = {
-			isa = PBXGroup;
-			children = (
-				55388990D1B50E6900409D66 /* QMTypingIndicatorFooterView.h */,
-				08CECF3AC76A1C9C3789F5C4 /* QMTypingIndicatorFooterView.m */,
-			);
-			path = TypingIndicatorFooterView;
-			sourceTree = "<group>";
-		};
-		6F7D07421715E78941A222A0 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				C85FF1B91BD0F52FD589E8E6 /* Pods-TTTAttributedLabel.xcconfig */,
-				A78DFB3F556A3AB288456FA7 /* Pods-TTTAttributedLabel-Private.xcconfig */,
-				ED32E93713560B22C2A2498D /* Pods-TTTAttributedLabel-dummy.m */,
-				E66DF40B6A52049890259AAD /* Pods-TTTAttributedLabel-prefix.pch */,
+				71AD9C71330F5E7753F87223 /* Pods-TTTAttributedLabel.xcconfig */,
+				3700C9E944D0FCDBBB8FBFC6 /* Pods-TTTAttributedLabel-Private.xcconfig */,
+				3866652D694CBF3BA411D645 /* Pods-TTTAttributedLabel-dummy.m */,
+				010C37C00FA72E5839D46A62 /* Pods-TTTAttributedLabel-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-TTTAttributedLabel";
 			sourceTree = "<group>";
 		};
-		7242210CA9C2B051B581CD40 /* QMChatAttachmentIncomingCell */ = {
+		E2D8CA883F6B79A4598982C9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D0DCE74F7A6CD72BDBF646F7 /* QMChatAttachmentIncomingCell.xib */,
-			);
-			path = QMChatAttachmentIncomingCell;
-			sourceTree = "<group>";
-		};
-		7715AE3F2685ED4C6A76C848 /* CustomUI */ = {
-			isa = PBXGroup;
-			children = (
-				DE46A96C1D70C5D3BA59AC71 /* InputToolBar */,
-				91D7FEC241582939D26264EB /* PlaceHolderTextView */,
-			);
-			path = CustomUI;
-			sourceTree = "<group>";
-		};
-		79C85051C4F61CBF38A83F6E = {
-			isa = PBXGroup;
-			children = (
-				EADB203C075F31CC4707F290 /* Podfile */,
-				FDB9E90B38EF37AA37E142B9 /* Development Pods */,
-				4A872412F1E3DC6F065CC125 /* Frameworks */,
-				BDC1C41D7A46518F513BAD52 /* Pods */,
-				196157C7B58012733EBACEB3 /* Products */,
-				C811ED7ECA02280770E52E20 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		7F97CCED847E40ACF6B5E798 /* QMChatIncomingCell */ = {
-			isa = PBXGroup;
-			children = (
-				9212062C358B513C3082786A /* QMChatIncomingCell.h */,
-				614CC3DB14B2DBD2F7231CF6 /* QMChatIncomingCell.m */,
-			);
-			path = QMChatIncomingCell;
-			sourceTree = "<group>";
-		};
-		81B6D60D2671F59A3CCC9D8E /* QMChatNotificationCell */ = {
-			isa = PBXGroup;
-			children = (
-				701EF37DC3EB998953324D00 /* QMChatNotificationCell.h */,
-				28F14F2EDA00AC3B5B96C204 /* QMChatNotificationCell.m */,
-			);
-			path = QMChatNotificationCell;
-			sourceTree = "<group>";
-		};
-		8282A570616A76924998241D /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F194847EBB0AF5C93E4EF274 /* icon-error.png */,
-				EBDBA5CF3908542BC5866E8A /* icon-error@2x.png */,
-				BC5D0D68AA08CFEF378042A3 /* icon-info.png */,
-				DF138096063B9D8F4E80F1CE /* icon-info@2x.png */,
-				CF713041489A652BB6E1559C /* icon-success.png */,
-				6E8610ED9F93CBD8CFB40A23 /* icon-success@2x.png */,
+				F29B0AA0ED411E48557B5CFA /* SVProgressHUD.bundle */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		844EA2F95AF090BA7DAE6122 /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				F6D74017509ADA814F6ED309 /* QMChatViewController.xib */,
-			);
-			path = en.lproj;
-			sourceTree = "<group>";
-		};
-		84A690D32DFAA7B408182BD4 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A09040ED97EE1641DB4010C8 /* QMChatViewController */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		88ECDB69BC31A171F8B5BF0D /* QMChatAttachmentOutgoingCell */ = {
-			isa = PBXGroup;
-			children = (
-				64A0353C882C5E8BB6481B25 /* QMChatAttachmentOutgoingCell.xib */,
-			);
-			path = QMChatAttachmentOutgoingCell;
-			sourceTree = "<group>";
-		};
-		8A32518AE611F915CA4715F0 /* QMChatOutgoingCell */ = {
-			isa = PBXGroup;
-			children = (
-				660E3E558E2AE4A2759D7363 /* QMChatOutgoingCell.h */,
-				F32E4CF110202D19981368C7 /* QMChatOutgoingCell.m */,
-			);
-			path = QMChatOutgoingCell;
-			sourceTree = "<group>";
-		};
-		91D7FEC241582939D26264EB /* PlaceHolderTextView */ = {
-			isa = PBXGroup;
-			children = (
-				C99CEB8101C1FDCA9C4742D5 /* QMPlaceHolderTextView.h */,
-				4AFA3F219FB3176831439617 /* QMPlaceHolderTextView.m */,
-			);
-			path = PlaceHolderTextView;
-			sourceTree = "<group>";
-		};
-		97597350CABB72D97DC8720A /* QMChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				FBEAC70F043271F4EF8EF1ED /* Categories */,
-			);
-			path = QMChatViewController;
-			sourceTree = "<group>";
-		};
-		9DC277C6EA74604A463D960E /* QMChatNotificationCell */ = {
-			isa = PBXGroup;
-			children = (
-				480DDE5BED1E9A94E0D3296C /* QMChatNotificationCell.xib */,
-			);
-			path = QMChatNotificationCell;
-			sourceTree = "<group>";
-		};
-		9DE488842E771E66A56C9F38 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				470F486218569045856E8AF7 /* CoreGraphics.framework */,
-				065D6922D5D4610B5ADA733E /* CoreText.framework */,
-				CF3C98C77B22C10F8633C02B /* Foundation.framework */,
-				F6B4E7D18FDFB4932CE186B5 /* QuartzCore.framework */,
-				26D434281DA1840657DD6D78 /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		A09040ED97EE1641DB4010C8 /* QMChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				027378DB1C24E9D9F28000AE /* ChatAssets.xcassets */,
-				05BA2E83CF817F61B698A9CB /* Views */,
-				844EA2F95AF090BA7DAE6122 /* en.lproj */,
-			);
-			path = QMChatViewController;
-			sourceTree = "<group>";
-		};
-		A0D04148882F326868FECD6E /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				C8CD20FD588F6CE9D4193779 /* QMChatAttachmentCell */,
-				C3C5620BFFD7E6754D2C7437 /* QMChatAttachmentIncomingCell */,
-				B785AF84D639000149781E59 /* QMChatAttachmentOutgoingCell */,
-				1CB32CBE05DC1A34472F54E3 /* QMChatCell */,
-				036EA324FDEA0078032C8B81 /* QMChatContactRequestCell */,
-				7F97CCED847E40ACF6B5E798 /* QMChatIncomingCell */,
-				81B6D60D2671F59A3CCC9D8E /* QMChatNotificationCell */,
-				8A32518AE611F915CA4715F0 /* QMChatOutgoingCell */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		A11FEF7177A0059575F778AC /* TTTAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				051E69B513530FFB83404B47 /* TTTAttributedLabel.h */,
-				06C27DEC1F9BC21F62928B43 /* TTTAttributedLabel.m */,
-				6F7D07421715E78941A222A0 /* Support Files */,
-			);
-			path = TTTAttributedLabel;
-			sourceTree = "<group>";
-		};
-		A33FF8DEE392DEB99BEEF95F /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				7242210CA9C2B051B581CD40 /* QMChatAttachmentIncomingCell */,
-				88ECDB69BC31A171F8B5BF0D /* QMChatAttachmentOutgoingCell */,
-				DC7683BA0E99407599283EC2 /* QMChatContactRequestCell */,
-				16A2DDD5F2ACF9E706102F15 /* QMChatIncomingCell */,
-				9DC277C6EA74604A463D960E /* QMChatNotificationCell */,
-				5B1278A891B862A1E3442E7D /* QMChatOutgoingCell */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		A94F23E13F78595BCBBE7121 /* QMChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				D14206B82E19243EA4747A9F /* Categories */,
-				F93C0A15830D89ABADBA6D63 /* KeyboardViewController */,
-				5EE378B4BA0F287F1020B704 /* Protocols */,
-				1191BC3293A80C584C9FEFE6 /* QMChatViewController */,
-				84A690D32DFAA7B408182BD4 /* Resources */,
-				2CE6B873B86AFF90B683BAEF /* Support Files */,
-				BB42223352C3043874754469 /* Views */,
-			);
-			name = QMChatViewController;
-			path = ../../QMChatViewController;
-			sourceTree = "<group>";
-		};
-		B785AF84D639000149781E59 /* QMChatAttachmentOutgoingCell */ = {
-			isa = PBXGroup;
-			children = (
-				BEB20D3D25A96C16DBCFBEE5 /* QMChatAttachmentOutgoingCell.h */,
-				E628435F1C240DF6C6D34C91 /* QMChatAttachmentOutgoingCell.m */,
-			);
-			path = QMChatAttachmentOutgoingCell;
-			sourceTree = "<group>";
-		};
-		BB42223352C3043874754469 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				19326CA2CDF5EEA2583552D8 /* QMChatViewController */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		BDC1C41D7A46518F513BAD52 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				18A68A7FF836C7B6136DAF62 /* SVProgressHUD */,
-				A11FEF7177A0059575F778AC /* TTTAttributedLabel */,
-				D2E80F48CD1009898CC8996E /* TWMessageBarManager */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		C3C5620BFFD7E6754D2C7437 /* QMChatAttachmentIncomingCell */ = {
-			isa = PBXGroup;
-			children = (
-				E03366E94DCE4A044547E122 /* QMChatAttachmentIncomingCell.h */,
-				E926FA55CEA4AE4097B2D054 /* QMChatAttachmentIncomingCell.m */,
-			);
-			path = QMChatAttachmentIncomingCell;
-			sourceTree = "<group>";
-		};
-		C811ED7ECA02280770E52E20 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				343D08287894CADB78C75796 /* Pods */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		C8308455CAEBDCCAB9BF7A87 /* ReusableViews */ = {
-			isa = PBXGroup;
-			children = (
-				EF9834012D9EAC32E4EA652E /* LoadEarlierHeaderView */,
-				DEC33169C69C3A6DAB19BDF0 /* TypingIndicatorFooterView */,
-			);
-			path = ReusableViews;
-			sourceTree = "<group>";
-		};
-		C8CD20FD588F6CE9D4193779 /* QMChatAttachmentCell */ = {
-			isa = PBXGroup;
-			children = (
-				374D3FBD353CBF0086682FA7 /* QMChatAttachmentCell.h */,
-			);
-			path = QMChatAttachmentCell;
-			sourceTree = "<group>";
-		};
-		C94CA5BB03FE65994B96739D /* CollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				448099504185EBC62BDD9E42 /* QMChatCollectionView.h */,
-				B74C50565D78077B6E84E435 /* QMChatCollectionView.m */,
-				5B55C573B9588BE8F8AC02A3 /* Layout */,
-			);
-			path = CollectionView;
-			sourceTree = "<group>";
-		};
-		D14206B82E19243EA4747A9F /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				97597350CABB72D97DC8720A /* QMChatViewController */,
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
-		D17F0851649BECCD2D535525 /* CustomUI */ = {
-			isa = PBXGroup;
-			children = (
-				594AB9AEF6EBF1A8DBF8730F /* InputToolBar */,
-			);
-			path = CustomUI;
-			sourceTree = "<group>";
-		};
-		D2E80F48CD1009898CC8996E /* TWMessageBarManager */ = {
-			isa = PBXGroup;
-			children = (
-				CBCF29CDB3DED7F18010F2B1 /* TWMessageBarManager.h */,
-				1002F9E1BC9AB8AF2D8FBCFD /* TWMessageBarManager.m */,
-				8282A570616A76924998241D /* Resources */,
-				513BBF63A144A407C023CB7D /* Support Files */,
-			);
-			path = TWMessageBarManager;
-			sourceTree = "<group>";
-		};
-		D7AB6B68B243CA5F722CD8A2 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				4B8F48DE4F74D2B692714FAB /* QMChatCollectionViewDataSource.h */,
-				42115EB5C09927B6244C7441 /* QMChatCollectionViewDelegateFlowLayout.h */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
-		DC7683BA0E99407599283EC2 /* QMChatContactRequestCell */ = {
-			isa = PBXGroup;
-			children = (
-				093EF20B14FFCC7BCFBEA2E5 /* QMChatContactRequestCell.xib */,
-			);
-			path = QMChatContactRequestCell;
-			sourceTree = "<group>";
-		};
-		DE46A96C1D70C5D3BA59AC71 /* InputToolBar */ = {
-			isa = PBXGroup;
-			children = (
-				D8D2206FEA336CAA09076A75 /* QMInputToolbar.h */,
-				85902DFE1619200E6972EEE7 /* QMInputToolbar.m */,
-				AF4F2AA6DC1F5BDD1EFBCEEA /* QMToolbarContentView.h */,
-				AE213BB6E9F920D41EAD3FD8 /* QMToolbarContentView.m */,
-			);
-			path = InputToolBar;
-			sourceTree = "<group>";
-		};
-		DEC33169C69C3A6DAB19BDF0 /* TypingIndicatorFooterView */ = {
-			isa = PBXGroup;
-			children = (
-				3F61034777B72223E7E1DD0F /* QMTypingIndicatorFooterView.xib */,
-			);
-			path = TypingIndicatorFooterView;
-			sourceTree = "<group>";
-		};
-		E1F371EFD4513D5BD374E6A2 /* QMChatViewController */ = {
-			isa = PBXGroup;
-			children = (
-				5681A3770CF804A4F921C997 /* KeyboardViewController */,
-			);
-			path = QMChatViewController;
-			sourceTree = "<group>";
-		};
-		EF9834012D9EAC32E4EA652E /* LoadEarlierHeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				B81FED53F3BF55E888D268D7 /* QMLoadEarlierHeaderView.xib */,
-			);
-			path = LoadEarlierHeaderView;
-			sourceTree = "<group>";
-		};
-		F87919B35447FC8B1287487A /* LoadEarlierHeaderView */ = {
-			isa = PBXGroup;
-			children = (
-				8A69D75293F24136590AF709 /* QMLoadEarlierHeaderView.h */,
-				485B10FEE81A2E24EB28B6BC /* QMLoadEarlierHeaderView.m */,
-			);
-			path = LoadEarlierHeaderView;
-			sourceTree = "<group>";
-		};
-		F93C0A15830D89ABADBA6D63 /* KeyboardViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E1F371EFD4513D5BD374E6A2 /* QMChatViewController */,
-			);
-			name = KeyboardViewController;
-			sourceTree = "<group>";
-		};
-		FBEAC70F043271F4EF8EF1ED /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				D37C2DD4EC2B9978BBB05664 /* NSString+QM.h */,
-				A4E0117EE34DFD74BF0A2E5D /* NSString+QM.m */,
-				B610D915B5B9B8823264073D /* UIColor+QM.h */,
-				5E290AE0FE78F378BA1DE9DE /* UIColor+QM.m */,
-				9ABE7F4563A38F6AC4A52BFD /* UIImage+QM.h */,
-				3F53DAEE382C4887B15EF112 /* UIImage+QM.m */,
-				E5D3FA647B12BDE492076916 /* UIView+QM.h */,
-				995A49AA733C8CB58F4626AA /* UIView+QM.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		FDB9E90B38EF37AA37E142B9 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A94F23E13F78595BCBBE7121 /* QMChatViewController */,
-			);
-			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		416B7F6028D2F5EAFE4D36C1 /* Headers */ = {
+		23F1159EECA2A7C4A649DE4E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F90EFE053263E99DF3A36A3 /* SVIndefiniteAnimatedView.h in Headers */,
-				1E832922840555D4B918D3E0 /* SVProgressHUD.h in Headers */,
+				9079631422D702963AB554D1 /* TWMessageBarManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57323A055C9955EDB6D8AE39 /* Headers */ = {
+		8C410693BE10CE7D426FFAC0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				687086717FE82FF07190455D /* NSString+QM.h in Headers */,
-				3FE5701C2CD2363C8DAA4F8C /* QMChatActionsHandler.h in Headers */,
-				22498ADE762C3B13A52F622E /* QMChatAttachmentCell.h in Headers */,
-				5CC223F0E46B462F92186C63 /* QMChatAttachmentIncomingCell.h in Headers */,
-				D20E8CC7E02AB212DFA9E01B /* QMChatAttachmentOutgoingCell.h in Headers */,
-				C3BEEFD1F05AFE1E121EC65C /* QMChatCell.h in Headers */,
-				89F6C7903AC81B88B40DB35E /* QMChatCellLayoutAttributes.h in Headers */,
-				FC9EDB8F2C6CAA28758C2CF8 /* QMChatCollectionView.h in Headers */,
-				A54FEFB036D52AD5FADA2C8C /* QMChatCollectionViewDataSource.h in Headers */,
-				E83E3385DD566C81DA463573 /* QMChatCollectionViewDelegateFlowLayout.h in Headers */,
-				6DFFB91906BB835C829F620F /* QMChatCollectionViewFlowLayout.h in Headers */,
-				E2A1B74F34B742EBBAF9EC88 /* QMChatContactRequestCell.h in Headers */,
-				C9CF9A3694AFCBC149B3E492 /* QMChatContainerView.h in Headers */,
-				66D30E4793057FB1CB7815CD /* QMChatIncomingCell.h in Headers */,
-				B918EABE0500C7647A15E930 /* QMChatNotificationCell.h in Headers */,
-				0464DA7FAF92A36EFA24554E /* QMChatOutgoingCell.h in Headers */,
-				FFA5D223060B4576EE5A987D /* QMChatViewController.h in Headers */,
-				D6372B1DF6844A8A42CBA3AF /* QMCollectionViewFlowLayoutInvalidationContext.h in Headers */,
-				55A548D2339183BBA7F9BC4F /* QMInputToolbar.h in Headers */,
-				BFAF6E782E6E1BCE36C7E251 /* QMKeyboardController.h in Headers */,
-				864B049F833CC0C0F7060C82 /* QMLoadEarlierHeaderView.h in Headers */,
-				A6020FBEF6757E7FF67C9D5A /* QMPlaceHolderTextView.h in Headers */,
-				75BF8B8CDA0CA81633D016AE /* QMToolbarContentView.h in Headers */,
-				A478DC5DB6B51FC105C7E07B /* QMTypingIndicatorFooterView.h in Headers */,
-				4F13FCAEAC8FD437DF966863 /* UIColor+QM.h in Headers */,
-				9BD4D4D8FAE0D10148AFE613 /* UIImage+QM.h in Headers */,
-				771F17B4C5B371F68E64A018 /* UIView+QM.h in Headers */,
+				A809A537B0AC996B3EF905D1 /* SVIndefiniteAnimatedView.h in Headers */,
+				3E1851C2954DD34649305E26 /* SVProgressHUD.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CD66E8ADAD9EC9AA0E6ECE50 /* Headers */ = {
+		F007D56507DD83392CE6138F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD4C7593191CA2AEB479C0E0 /* TTTAttributedLabel.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F4D56B6A280A039E690777E4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DD30CFDBF213E592B0BD6FC4 /* TWMessageBarManager.h in Headers */,
+				4DECD02D33DB66590B248C47 /* TTTAttributedLabel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		13AFCDA014197C3D661CA7D3 /* Pods-SVProgressHUD */ = {
+		0B1F79E85E0544EC72FCD3F8 /* Pods-TTTAttributedLabel */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6968FB334395BF39B6050F67 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */;
+			buildConfigurationList = 7B2CF2F26BDBFC67D3EA39C8 /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */;
 			buildPhases = (
-				8B3F8699E188FEFB1CE3E771 /* Sources */,
-				9441B0C3607D3F153F52D79D /* Frameworks */,
-				416B7F6028D2F5EAFE4D36C1 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-SVProgressHUD";
-			productName = "Pods-SVProgressHUD";
-			productReference = 924EBDD3FC29217668039126 /* libPods-SVProgressHUD.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		208DA489DE6D51185819936F /* Pods-TTTAttributedLabel */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 087212EE70FD383E00F59380 /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */;
-			buildPhases = (
-				88F654186F85080137DDCC7A /* Sources */,
-				28D014CEDE970117000FFE86 /* Frameworks */,
-				CD66E8ADAD9EC9AA0E6ECE50 /* Headers */,
+				41B4CF124D5F295E30CE9C40 /* Sources */,
+				77EFFF007FD39857DAF9B88C /* Frameworks */,
+				F007D56507DD83392CE6138F /* Headers */,
 			);
 			buildRules = (
 			);
@@ -1006,54 +355,33 @@
 			);
 			name = "Pods-TTTAttributedLabel";
 			productName = "Pods-TTTAttributedLabel";
-			productReference = 83D8CEB5DA06CA0D669C2812 /* libPods-TTTAttributedLabel.a */;
+			productReference = 320212639E94C3BBF1ABBD4E /* libPods-TTTAttributedLabel.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		4819A24EDF4ADB360C048151 /* Pods-QMChatViewController */ = {
+		6E7DCE38D6A5583583318DAA /* Pods-SVProgressHUD */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 10B88B8511EB1910CA824439 /* Build configuration list for PBXNativeTarget "Pods-QMChatViewController" */;
+			buildConfigurationList = 46E965BAF7CA288B87C49852 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */;
 			buildPhases = (
-				96E8E5A83792E3F62B15F860 /* Sources */,
-				09DD57D9C5511B467ACF0532 /* Frameworks */,
-				57323A055C9955EDB6D8AE39 /* Headers */,
+				CC11A966881BF26861397F8C /* Sources */,
+				AFFD480D85D230B0D93341D4 /* Frameworks */,
+				8C410693BE10CE7D426FFAC0 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4386166562B7CD82AB53D48D /* PBXTargetDependency */,
 			);
-			name = "Pods-QMChatViewController";
-			productName = "Pods-QMChatViewController";
-			productReference = 72E13494E9A24AEBE5B67EC8 /* libPods-QMChatViewController.a */;
+			name = "Pods-SVProgressHUD";
+			productName = "Pods-SVProgressHUD";
+			productReference = B581E330FF3E2ED1B348E5A6 /* libPods-SVProgressHUD.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		6E8C633B97D3B54EBD1DC664 /* Pods */ = {
+		B045953E5DE56A6FCD99190D /* Pods-TWMessageBarManager */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B0CE3DF8E451AB97ABE29130 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildConfigurationList = 70D37492181658606CF6DCDE /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */;
 			buildPhases = (
-				01E7E1D2774E0F0FF73BD319 /* Sources */,
-				EE745C13ED7089C929373F0B /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				25D75C902F11B8628EEE8F5A /* PBXTargetDependency */,
-				B9E36DA917936AB6FC76300C /* PBXTargetDependency */,
-				F59657C0AF87DA27EC11DDDA /* PBXTargetDependency */,
-				2C5CF79FE8F556E70CB18D2B /* PBXTargetDependency */,
-			);
-			name = Pods;
-			productName = Pods;
-			productReference = C0EE4A1C1437213B9592F76E /* libPods.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		DC4196AB19AFDAA146F4D3C6 /* Pods-TWMessageBarManager */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A3C41910DDCA38F869A557FA /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */;
-			buildPhases = (
-				022C6DDB3CCE4BC1DCA37917 /* Sources */,
-				70B49F3AE33BEEC78EB5D64B /* Frameworks */,
-				F4D56B6A280A039E690777E4 /* Headers */,
+				828BEE66079B5915375E5190 /* Sources */,
+				AE17C998521098645035B6A7 /* Frameworks */,
+				23F1159EECA2A7C4A649DE4E /* Headers */,
 			);
 			buildRules = (
 			);
@@ -1061,181 +389,124 @@
 			);
 			name = "Pods-TWMessageBarManager";
 			productName = "Pods-TWMessageBarManager";
-			productReference = 694EBF5A24ACF6BD8607212D /* libPods-TWMessageBarManager.a */;
+			productReference = 61E1535FEAA86B58D207760E /* libPods-TWMessageBarManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F6EB10F506BF17F70EF6CE8B /* Pods */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 87BBF0E2331E18565A83B9A5 /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildPhases = (
+				D36CE859959EAF82E8DD3265 /* Sources */,
+				0CBEAA02C2A6E7E76E8AE575 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				56EFDACCD48834A947B16F1C /* PBXTargetDependency */,
+				2D87F3483A74E24DBB0BFE00 /* PBXTargetDependency */,
+				E1AE5EE7DEF894C14B7C4ED6 /* PBXTargetDependency */,
+			);
+			name = Pods;
+			productName = Pods;
+			productReference = AC8F22DE926473D6F19EFAA9 /* libPods.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		00A85D6F64FED0149244E141 /* Project object */ = {
+		31B9663338AB9CDA0B87D8C2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0640;
 			};
-			buildConfigurationList = 2682B9EAC0C2E2351A93E86E /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = DC7A2364223B10E04284A033 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 79C85051C4F61CBF38A83F6E;
-			productRefGroup = 196157C7B58012733EBACEB3 /* Products */;
+			mainGroup = 8435449B42B532C296DB6F73;
+			productRefGroup = 26DA8298BBCB1274F690A2D8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6E8C633B97D3B54EBD1DC664 /* Pods */,
-				4819A24EDF4ADB360C048151 /* Pods-QMChatViewController */,
-				13AFCDA014197C3D661CA7D3 /* Pods-SVProgressHUD */,
-				208DA489DE6D51185819936F /* Pods-TTTAttributedLabel */,
-				DC4196AB19AFDAA146F4D3C6 /* Pods-TWMessageBarManager */,
+				F6EB10F506BF17F70EF6CE8B /* Pods */,
+				6E7DCE38D6A5583583318DAA /* Pods-SVProgressHUD */,
+				0B1F79E85E0544EC72FCD3F8 /* Pods-TTTAttributedLabel */,
+				B045953E5DE56A6FCD99190D /* Pods-TWMessageBarManager */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		01E7E1D2774E0F0FF73BD319 /* Sources */ = {
+		41B4CF124D5F295E30CE9C40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C1A96945CAA02B133BB4B8D /* Pods-dummy.m in Sources */,
+				6BD53C174DDF6C980FF6CE6C /* Pods-TTTAttributedLabel-dummy.m in Sources */,
+				A3ABAFE75FD576122C139FB3 /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		022C6DDB3CCE4BC1DCA37917 /* Sources */ = {
+		828BEE66079B5915375E5190 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42DD0B1A8EC45376CA8F8C6 /* Pods-TWMessageBarManager-dummy.m in Sources */,
-				B0B2FA2475477CE91FA6F9AE /* TWMessageBarManager.m in Sources */,
+				D4188F5B2299D03EFFF66C29 /* Pods-TWMessageBarManager-dummy.m in Sources */,
+				9642247E5DC309E7B3F0CF47 /* TWMessageBarManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		88F654186F85080137DDCC7A /* Sources */ = {
+		CC11A966881BF26861397F8C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A126998B0271D98260649EA7 /* Pods-TTTAttributedLabel-dummy.m in Sources */,
-				AD477D3D2B29810B9C5B7833 /* TTTAttributedLabel.m in Sources */,
+				71544337BFE3096E6929C03F /* Pods-SVProgressHUD-dummy.m in Sources */,
+				3991831778F57FA37BBB5EFE /* SVIndefiniteAnimatedView.m in Sources */,
+				A7C41C1E3F5BFF240BC2AC6B /* SVProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8B3F8699E188FEFB1CE3E771 /* Sources */ = {
+		D36CE859959EAF82E8DD3265 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29FA63802687BCACDFEBAEEE /* Pods-SVProgressHUD-dummy.m in Sources */,
-				DE88F8B36BC5902F80A4A0C4 /* SVIndefiniteAnimatedView.m in Sources */,
-				4E6E6F959B03404C2E4A64B1 /* SVProgressHUD.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		96E8E5A83792E3F62B15F860 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A6E62A7A76501E6B39F9642D /* NSString+QM.m in Sources */,
-				F5212FDC84E6FED5D612CC9C /* Pods-QMChatViewController-dummy.m in Sources */,
-				C770041D77C07454D10FC559 /* QMChatAttachmentIncomingCell.m in Sources */,
-				F282A021F6F0D911EE1563CF /* QMChatAttachmentOutgoingCell.m in Sources */,
-				A51AFA91EF555BEA74CC9252 /* QMChatCell.m in Sources */,
-				69A55B44AD0CD9DD4FD25D80 /* QMChatCellLayoutAttributes.m in Sources */,
-				660D1B79E9E995FC812AA192 /* QMChatCollectionView.m in Sources */,
-				BE920C426837B0E9A4C2C6EB /* QMChatCollectionViewFlowLayout.m in Sources */,
-				2F5F84D094CD867F28B5C0C5 /* QMChatContactRequestCell.m in Sources */,
-				1292E5627188EB19E71B417E /* QMChatContainerView.m in Sources */,
-				A465F6A2B0A71D78C4E100AB /* QMChatIncomingCell.m in Sources */,
-				EE03212B126B3D976C1DA465 /* QMChatNotificationCell.m in Sources */,
-				AF3D514F2B5D9CC80C83F533 /* QMChatOutgoingCell.m in Sources */,
-				4E961395FCC51536785097DF /* QMChatViewController.m in Sources */,
-				535C6454EE1639CD7673D9F7 /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */,
-				44B6A4A086F59F90C1504562 /* QMInputToolbar.m in Sources */,
-				A9F679955E32433B605FF1FE /* QMKeyboardController.m in Sources */,
-				3ECDCE8F19722468D8344D70 /* QMLoadEarlierHeaderView.m in Sources */,
-				07A2C3474BA31DA2F39B36FB /* QMPlaceHolderTextView.m in Sources */,
-				072F0D09447096E0D37DE3DC /* QMToolbarContentView.m in Sources */,
-				20928DA00B38B5DF70BAFCF0 /* QMTypingIndicatorFooterView.m in Sources */,
-				96FA2222701B18E3CBC3452A /* UIColor+QM.m in Sources */,
-				9C4764FDA99BF727D65AFAB2 /* UIImage+QM.m in Sources */,
-				BE1C087FB1A47065B7B60D00 /* UIView+QM.m in Sources */,
+				996A5365847AA324288E3EC1 /* Pods-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		25D75C902F11B8628EEE8F5A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-QMChatViewController";
-			target = 4819A24EDF4ADB360C048151 /* Pods-QMChatViewController */;
-			targetProxy = DCA2A6AFEA8987CFEF602BEA /* PBXContainerItemProxy */;
-		};
-		2C5CF79FE8F556E70CB18D2B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-TWMessageBarManager";
-			target = DC4196AB19AFDAA146F4D3C6 /* Pods-TWMessageBarManager */;
-			targetProxy = A488475B0A1522CC273F6C68 /* PBXContainerItemProxy */;
-		};
-		4386166562B7CD82AB53D48D /* PBXTargetDependency */ = {
+		2D87F3483A74E24DBB0BFE00 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-TTTAttributedLabel";
-			target = 208DA489DE6D51185819936F /* Pods-TTTAttributedLabel */;
-			targetProxy = 411F21167ECF8A70AB36FA83 /* PBXContainerItemProxy */;
+			target = 0B1F79E85E0544EC72FCD3F8 /* Pods-TTTAttributedLabel */;
+			targetProxy = AF14D47A4EBB300E75F99B52 /* PBXContainerItemProxy */;
 		};
-		B9E36DA917936AB6FC76300C /* PBXTargetDependency */ = {
+		56EFDACCD48834A947B16F1C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-SVProgressHUD";
-			target = 13AFCDA014197C3D661CA7D3 /* Pods-SVProgressHUD */;
-			targetProxy = 5AD9807B81D7AE37B5D2A0EE /* PBXContainerItemProxy */;
+			target = 6E7DCE38D6A5583583318DAA /* Pods-SVProgressHUD */;
+			targetProxy = 989DF5356222D657AC5FCF8F /* PBXContainerItemProxy */;
 		};
-		F59657C0AF87DA27EC11DDDA /* PBXTargetDependency */ = {
+		E1AE5EE7DEF894C14B7C4ED6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Pods-TTTAttributedLabel";
-			target = 208DA489DE6D51185819936F /* Pods-TTTAttributedLabel */;
-			targetProxy = C7D63F9E785331E7C42DFBC1 /* PBXContainerItemProxy */;
+			name = "Pods-TWMessageBarManager";
+			target = B045953E5DE56A6FCD99190D /* Pods-TWMessageBarManager */;
+			targetProxy = 7CB166B452EAA2E196DAC24A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		10B2AF6307AA1AE1531ED469 /* QA */ = {
+		0522B148E1DB85B0EC7800E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A78DFB3F556A3AB288456FA7 /* Pods-TTTAttributedLabel-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		163CC9183D96469AAFBD54B2 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A42905DA118D0870E59D0DF4 /* Pods-TWMessageBarManager-Private.xcconfig */;
+			baseConfigurationReference = 7514B9B04DDCA68AD75BBC55 /* Pods-TWMessageBarManager-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		213C0752BF1A6FA66D52B8AD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A78DFB3F556A3AB288456FA7 /* Pods-TTTAttributedLabel-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -1245,57 +516,9 @@
 			};
 			name = Debug;
 		};
-		36AB475218CF8978A3DDAC15 /* Release */ = {
+		36E410EF287116697EDE55E7 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A78DFB3F556A3AB288456FA7 /* Pods-TTTAttributedLabel-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		3D4804664CCE9BD4DC3CDF2F /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25D3DC72C84180E8E5D88501 /* Pods.qa.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		4E3D020AE012E42679B4415E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D42D9D4B0B9C1111E0E1CB7F /* Pods-SVProgressHUD-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		51A3EE7B3325E718569020EB /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D42D9D4B0B9C1111E0E1CB7F /* Pods-SVProgressHUD-Private.xcconfig */;
+			baseConfigurationReference = 10747A999D8EE30DE34EB7E4 /* Pods-SVProgressHUD-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
@@ -1309,41 +532,74 @@
 			};
 			name = QA;
 		};
-		620D228140A15BEE1CE5D248 /* Release */ = {
+		4AAF47691306CDE02DB4B317 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FD950B7333F60E0FC744B04 /* Pods-QMChatViewController-Private.xcconfig */;
+			baseConfigurationReference = 3700C9E944D0FCDBBB8FBFC6 /* Pods-TTTAttributedLabel-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-QMChatViewController/Pods-QMChatViewController-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
-		669DFB79733E5501581C2D3A /* QA */ = {
+		557B299CDEBC142F92A56CF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FD950B7333F60E0FC744B04 /* Pods-QMChatViewController-Private.xcconfig */;
+			baseConfigurationReference = 10747A999D8EE30DE34EB7E4 /* Pods-SVProgressHUD-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-QMChatViewController/Pods-QMChatViewController-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6E2392B3492F815E411070D5 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "QA=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = QA;
 		};
-		67995D6D0ABC44AF4B3A4971 /* Release */ = {
+		737E0A94E8E38B55138BA6A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A42905DA118D0870E59D0DF4 /* Pods-TWMessageBarManager-Private.xcconfig */;
+			baseConfigurationReference = 7514B9B04DDCA68AD75BBC55 /* Pods-TWMessageBarManager-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
@@ -1357,25 +613,9 @@
 			};
 			name = Release;
 		};
-		6EF6FFD83A909610E1AA22AB /* Debug */ = {
+		9626BE2A3572C6A24557AC75 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FD950B7333F60E0FC744B04 /* Pods-QMChatViewController-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-QMChatViewController/Pods-QMChatViewController-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		813286CB61F72219FC92A46C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A646FA12A6A64358325BC9CD /* Pods.release.xcconfig */;
+			baseConfigurationReference = CF696413B3426F6EB50FD8A2 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1389,7 +629,39 @@
 			};
 			name = Release;
 		};
-		9C68AFDE8A87F5FE78BDD79F /* Release */ = {
+		AB7232B86E61074E95073CC8 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7514B9B04DDCA68AD75BBC55 /* Pods-TWMessageBarManager-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
+		};
+		ADCE7F3907DF86F141899ACD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4DE8DBFD5E48E2A559496BC /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C73E9825C79C579D5F4FCAA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1423,39 +695,23 @@
 			};
 			name = Release;
 		};
-		A0F7393DB9507C3BE1EC7BC9 /* Debug */ = {
+		C7EEB1DF691662D3C64B5916 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A42905DA118D0870E59D0DF4 /* Pods-TWMessageBarManager-Private.xcconfig */;
+			baseConfigurationReference = 62D9EAB99F81BB07FB38CD28 /* Pods.qa.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-TWMessageBarManager/Pods-TWMessageBarManager-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		A5003B0AF9B8EF3843539FFD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D42D9D4B0B9C1111E0E1CB7F /* Pods-SVProgressHUD-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = QA;
 		};
-		D5FD27AE9D67B2C010D44028 /* Debug */ = {
+		CC70BFED4E18E4D46E8691BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1494,119 +750,108 @@
 			};
 			name = Debug;
 		};
-		E3019A5F8E1A0586668141EA /* QA */ = {
+		E064200E7771A3F23C0A29B3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = "QA=1";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = QA;
-		};
-		F9F84DB2B1772EE5ABE52659 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A2A05887D3FCB6D501434F9 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 10747A999D8EE30DE34EB7E4 /* Pods-SVProgressHUD-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-SVProgressHUD/Pods-SVProgressHUD-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
+		};
+		EA505F52CE6D81144FDD516A /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3700C9E944D0FCDBBB8FBFC6 /* Pods-TTTAttributedLabel-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
+		};
+		FA8908430C1FCCEBECE15B38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3700C9E944D0FCDBBB8FBFC6 /* Pods-TTTAttributedLabel-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-TTTAttributedLabel/Pods-TTTAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		087212EE70FD383E00F59380 /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */ = {
+		46E965BAF7CA288B87C49852 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				213C0752BF1A6FA66D52B8AD /* Debug */,
-				10B2AF6307AA1AE1531ED469 /* QA */,
-				36AB475218CF8978A3DDAC15 /* Release */,
+				557B299CDEBC142F92A56CF1 /* Debug */,
+				36E410EF287116697EDE55E7 /* QA */,
+				E064200E7771A3F23C0A29B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		10B88B8511EB1910CA824439 /* Build configuration list for PBXNativeTarget "Pods-QMChatViewController" */ = {
+		70D37492181658606CF6DCDE /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6EF6FFD83A909610E1AA22AB /* Debug */,
-				669DFB79733E5501581C2D3A /* QA */,
-				620D228140A15BEE1CE5D248 /* Release */,
+				0522B148E1DB85B0EC7800E5 /* Debug */,
+				AB7232B86E61074E95073CC8 /* QA */,
+				737E0A94E8E38B55138BA6A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2682B9EAC0C2E2351A93E86E /* Build configuration list for PBXProject "Pods" */ = {
+		7B2CF2F26BDBFC67D3EA39C8 /* Build configuration list for PBXNativeTarget "Pods-TTTAttributedLabel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D5FD27AE9D67B2C010D44028 /* Debug */,
-				E3019A5F8E1A0586668141EA /* QA */,
-				9C68AFDE8A87F5FE78BDD79F /* Release */,
+				4AAF47691306CDE02DB4B317 /* Debug */,
+				EA505F52CE6D81144FDD516A /* QA */,
+				FA8908430C1FCCEBECE15B38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6968FB334395BF39B6050F67 /* Build configuration list for PBXNativeTarget "Pods-SVProgressHUD" */ = {
+		87BBF0E2331E18565A83B9A5 /* Build configuration list for PBXNativeTarget "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4E3D020AE012E42679B4415E /* Debug */,
-				51A3EE7B3325E718569020EB /* QA */,
-				A5003B0AF9B8EF3843539FFD /* Release */,
+				ADCE7F3907DF86F141899ACD /* Debug */,
+				C7EEB1DF691662D3C64B5916 /* QA */,
+				9626BE2A3572C6A24557AC75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A3C41910DDCA38F869A557FA /* Build configuration list for PBXNativeTarget "Pods-TWMessageBarManager" */ = {
+		DC7A2364223B10E04284A033 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A0F7393DB9507C3BE1EC7BC9 /* Debug */,
-				163CC9183D96469AAFBD54B2 /* QA */,
-				67995D6D0ABC44AF4B3A4971 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B0CE3DF8E451AB97ABE29130 /* Build configuration list for PBXNativeTarget "Pods" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F9F84DB2B1772EE5ABE52659 /* Debug */,
-				3D4804664CCE9BD4DC3CDF2F /* QA */,
-				813286CB61F72219FC92A46C /* Release */,
+				CC70BFED4E18E4D46E8691BB /* Debug */,
+				6E2392B3492F815E411070D5 /* QA */,
+				C73E9825C79C579D5F4FCAA0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 00A85D6F64FED0149244E141 /* Project object */;
+	rootObject = 31B9663338AB9CDA0B87D8C2 /* Project object */;
 }
