@@ -34,7 +34,11 @@
         }
         
         if (readLogins.count > 0) {
-            [statusString appendFormat:@"Read: %@", [readLogins componentsJoinedByString:@", "]];
+            if (message.attachments.count > 0) {
+                [statusString appendFormat:@"Seen: %@", [readLogins componentsJoinedByString:@", "]];
+            } else {
+                [statusString appendFormat:@"Read: %@", [readLogins componentsJoinedByString:@", "]];
+            }
         }
         
         NSMutableArray* deliveredLogins = [NSMutableArray array];
