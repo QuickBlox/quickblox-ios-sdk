@@ -10,6 +10,7 @@
 #import "ServicesManager.h"
 #import "UsersDataSource.h"
 #import "ChatViewController.h"
+#import "UIAlertDialog.h"
 
 @interface NewDialogTableViewController ()
 
