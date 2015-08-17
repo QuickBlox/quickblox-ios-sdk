@@ -5,13 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>3E91A1FA-E51C-4A2E-94E4-ED121A588FF9</string>
+	<string>191E1E16-8566-4BAD-B01A-05F6E4E249ED</string>
 	<key>IDESourceControlProjectName</key>
 	<string>sample-chat</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
-		<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
+		<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
 		<key>7685896580551A65BF391139D591B99B273195F4</key>
 		<string>github.com:QuickBlox/QMChatViewController-ios.git</string>
 		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
@@ -26,14 +26,14 @@
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
 		<key>7685896580551A65BF391139D591B99B273195F4</key>
-		<string>../../QMChatViewController</string>
+		<string>../..QMChatViewController</string>
 		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
-		<string>../../sample-chat/Services</string>
+		<string>../..services/QMServices</string>
 		<key>E650A564D3C23A22EE433AE21D0EA044E7E7A475</key>
 		<string>../../../SDK-ios</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/QuickBlox/quickblox-ios-sdk.git</string>
+	<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -44,9 +44,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>7685896580551A65BF391139D591B99B273195F4</string>
+			<string>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</string>
 			<key>IDESourceControlWCCName</key>
-			<string>QMChatViewController</string>
+			<string>QMServices</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
@@ -60,17 +60,17 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E650A564D3C23A22EE433AE21D0EA044E7E7A475</string>
+			<string>7685896580551A65BF391139D591B99B273195F4</string>
 			<key>IDESourceControlWCCName</key>
-			<string>SDK-ios</string>
+			<string>quickblox-ios-sdkQMChatViewController</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</string>
+			<string>E650A564D3C23A22EE433AE21D0EA044E7E7A475</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Services</string>
+			<string>SDK-ios</string>
 		</dict>
 	</array>
 </dict>
