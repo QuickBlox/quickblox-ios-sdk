@@ -295,7 +295,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                         readersLogin.append("Unknown")
                     }
                 }
-                statusString += "Read:" + ", ".join(readersLogin)
+                if message.attachments.count > 0 {
+                    statusString += "Seen:" + ", ".join(readersLogin)
+                } else {
+                    statusString += "Read:" + ", ".join(readersLogin)
+                }
+
             }
         }
         
