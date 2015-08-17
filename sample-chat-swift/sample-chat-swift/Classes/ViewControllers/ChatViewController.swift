@@ -597,7 +597,28 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 })
             }
         }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool {
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
         
+        if viewClass === QMChatAttachmentIncomingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
+            return false
+        }
+        
+        return super.collectionView(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
+
+        if viewClass === QMChatAttachmentIncomingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
+            return
+        }
+        
+        UIPasteboard.generalPasteboard().string = item.text
     }
     
     // MARK: QMChatServiceDelegate
