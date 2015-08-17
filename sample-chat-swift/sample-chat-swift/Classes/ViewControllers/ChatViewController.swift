@@ -452,13 +452,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
         var size = CGSizeZero
         
-        if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self || self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
-            
+        if self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
             size = CGSize(width: min(200, maxWidth), height: 200)
+        } else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
+            let attributedString = self.bottomLabelAttributedStringForItem(item)
             
+            let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.max), limitedToNumberOfLines: 0)
+            size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
         } else {
-            
             let attributedString = self.attributedStringForItem(item)
+            
             size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
         }
         
@@ -518,7 +521,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
         let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
         
-        if viewClass === QMChatOutgoingCell.self {
+        if viewClass === QMChatOutgoingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
             let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
             let size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
             layoutModel.bottomLabelHeight = ceil(size.height)

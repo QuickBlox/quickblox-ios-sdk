@@ -384,15 +384,15 @@ UIActionSheetDelegate
         NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
     
         CGSize bottomLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                              withConstraints:CGSizeMake(MIN(200, maxWidth), MAXFLOAT)
-                                                       limitedToNumberOfLines:0];
+                                                                  withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
+                                                           limitedToNumberOfLines:0];
         size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
     } else {
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                       withConstraints:CGSizeMake(maxWidth, MAXFLOAT)
-                                                limitedToNumberOfLines:0];        
+                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
     }
     
     return size;
