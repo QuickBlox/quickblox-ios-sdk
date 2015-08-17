@@ -298,30 +298,13 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
         }
 
         CFRelease(frame);
-        CGPathRelease(path);
+        CFRelease(path);
     }
 
     CGSize suggestedSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, rangeToSize, NULL, constraints, NULL);
 
     return CGSizeMake(CGFloat_ceil(suggestedSize.width), CGFloat_ceil(suggestedSize.height));
 }
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-
-@interface TTTAccessibilityElement : UIAccessibilityElement
-@property (nonatomic, weak) UIView *superview;
-@property (nonatomic, assign) CGRect boundingRect;
-@end
-
-@implementation TTTAccessibilityElement
-
-- (CGRect)accessibilityFrame {
-    return UIAccessibilityConvertFrameToScreenCoordinates(self.boundingRect, self.superview);
-}
-
-@end
-
-#endif
 
 @interface TTTAttributedLabel ()
 @property (readwrite, nonatomic, copy) NSAttributedString *inactiveAttributedText;
@@ -420,7 +403,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     self.linkAttributes = [NSDictionary dictionaryWithDictionary:mutableLinkAttributes];
     self.activeLinkAttributes = [NSDictionary dictionaryWithDictionary:mutableActiveLinkAttributes];
     self.inactiveLinkAttributes = [NSDictionary dictionaryWithDictionary:mutableInactiveLinkAttributes];
-    _extendsLinkTouchArea = NO;
+    _extendsLinkTouchArea = YES;
     _longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
                                                                                 action:@selector(longPressGestureDidFire:)];
     self.longPressGestureRecognizer.delegate = self;
@@ -758,7 +741,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     CGPathAddRect(path, NULL, textRect);
     CTFrameRef frame = CTFramesetterCreateFrame([self framesetter], CFRangeMake(0, (CFIndex)[self.attributedText length]), path, NULL);
     if (frame == NULL) {
-        CGPathRelease(path);
+        CFRelease(path);
         return NSNotFound;
     }
 
@@ -766,7 +749,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     NSInteger numberOfLines = self.numberOfLines > 0 ? MIN(self.numberOfLines, CFArrayGetCount(lines)) : CFArrayGetCount(lines);
     if (numberOfLines == 0) {
         CFRelease(frame);
-        CGPathRelease(path);
+        CFRelease(path);
         return NSNotFound;
     }
 
@@ -807,7 +790,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     }
 
     CFRelease(frame);
-    CGPathRelease(path);
+    CFRelease(path);
 
     return idx;
 }
@@ -966,7 +949,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     [self drawStrike:frame inRect:rect context:c];
 
     CFRelease(frame);
-    CGPathRelease(path);
+    CFRelease(path);
 }
 
 - (void)drawBackground:(CTFrameRef)frame
@@ -1138,7 +1121,7 @@ static inline CGSize CTFramesetterSuggestFrameSizeForAttributedStringWithConstra
     self.activeLink = nil;
 
     self.linkModels = [NSArray array];
-    if (text && self.attributedText && self.enabledTextCheckingTypes) {
+    if (self.attributedText && self.enabledTextCheckingTypes) {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 50000
         __unsafe_unretained __typeof(self)weakSelf = self;
 #else
@@ -1401,10 +1384,9 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
                 NSString *accessibilityValue = link.accessibilityValue;
 
                 if (accessibilityLabel) {
-                    TTTAccessibilityElement *linkElement = [[TTTAccessibilityElement alloc] initWithAccessibilityContainer:self];
+                    UIAccessibilityElement *linkElement = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
                     linkElement.accessibilityTraits = UIAccessibilityTraitLink;
-                    linkElement.boundingRect = [self boundingRectForCharacterRange:link.result.range];
-                    linkElement.superview = self;
+                    linkElement.accessibilityFrame = [self convertRect:[self boundingRectForCharacterRange:link.result.range] toView:self.window];
                     linkElement.accessibilityLabel = accessibilityLabel;
 
                     if (![accessibilityLabel isEqualToString:accessibilityValue]) {
@@ -1415,12 +1397,11 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
                 }
             }
 
-            TTTAccessibilityElement *baseElement = [[TTTAccessibilityElement alloc] initWithAccessibilityContainer:self];
+            UIAccessibilityElement *baseElement = [[UIAccessibilityElement alloc] initWithAccessibilityContainer:self];
             baseElement.accessibilityLabel = [super accessibilityLabel];
             baseElement.accessibilityHint = [super accessibilityHint];
             baseElement.accessibilityValue = [super accessibilityValue];
-            baseElement.boundingRect = self.bounds;
-            baseElement.superview = self;
+            baseElement.accessibilityFrame = [self convertRect:self.bounds toView:self.window];
             baseElement.accessibilityTraits = [super accessibilityTraits];
 
             [mutableAccessibilityItems addObject:baseElement];
