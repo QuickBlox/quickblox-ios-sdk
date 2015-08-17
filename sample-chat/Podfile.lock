@@ -1,25 +1,37 @@
 PODS:
+  - QMChatViewController (0.1):
+    - QMChatViewController/Categories (= 0.1)
+    - QMChatViewController/KeyboardViewController (= 0.1)
+    - QMChatViewController/Protocols (= 0.1)
+    - QMChatViewController/Views (= 0.1)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Categories (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/KeyboardViewController (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Protocols (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Views (0.1):
+    - QMChatViewController/Categories
+    - QMChatViewController/Protocols
+    - TTTAttributedLabel (~> 1.13)
   - SVProgressHUD (1.1.3)
-  - TTTAttributedLabel (2.0.0)
+  - TTTAttributedLabel (1.13.4)
   - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
+  - QMChatViewController (from `../QMChatViewController/QMChatViewControllerDevelopment.podspec`)
   - SVProgressHUD (= 1.1.3)
-  - TTTAttributedLabel (from `https://github.com/TTTAttributedLabel/TTTAttributedLabel.git`)
   - TWMessageBarManager (= 1.7.2)
 
 EXTERNAL SOURCES:
-  TTTAttributedLabel:
-    :git: https://github.com/TTTAttributedLabel/TTTAttributedLabel.git
-
-CHECKOUT OPTIONS:
-  TTTAttributedLabel:
-    :commit: 13d2d877707032dc4d4b888bb3832bac822bf9b0
-    :git: https://github.com/TTTAttributedLabel/TTTAttributedLabel.git
+  QMChatViewController:
+    :path: ../QMChatViewController/QMChatViewControllerDevelopment.podspec
 
 SPEC CHECKSUMS:
+  QMChatViewController: 62454959a8431ca92ec39ef0ff11740979e1c6f5
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
-  TTTAttributedLabel: 92aaa37822677380b7ec0baff50bd8010eef08f8
+  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
 COCOAPODS: 0.37.2

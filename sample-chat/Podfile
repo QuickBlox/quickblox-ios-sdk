@@ -1,5 +1,5 @@
 platform :ios, '7.0'
 
 pod 'SVProgressHUD', '1.1.3'
-pod 'TTTAttributedLabel', :git => 'https://github.com/TTTAttributedLabel/TTTAttributedLabel.git'
 pod 'TWMessageBarManager', '1.7.2'
+pod 'QMChatViewController', :path => '../QMChatViewController/QMChatViewControllerDevelopment.podspec'

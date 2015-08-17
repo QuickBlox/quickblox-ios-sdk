@@ -6,6 +6,36 @@
 // project.
 
 
+// QMChatViewController
+#define COCOAPODS_POD_AVAILABLE_QMChatViewController
+#define COCOAPODS_VERSION_MAJOR_QMChatViewController 0
+#define COCOAPODS_VERSION_MINOR_QMChatViewController 1
+#define COCOAPODS_VERSION_PATCH_QMChatViewController 0
+
+// QMChatViewController/Categories
+#define COCOAPODS_POD_AVAILABLE_QMChatViewController_Categories
+#define COCOAPODS_VERSION_MAJOR_QMChatViewController_Categories 0
+#define COCOAPODS_VERSION_MINOR_QMChatViewController_Categories 1
+#define COCOAPODS_VERSION_PATCH_QMChatViewController_Categories 0
+
+// QMChatViewController/KeyboardViewController
+#define COCOAPODS_POD_AVAILABLE_QMChatViewController_KeyboardViewController
+#define COCOAPODS_VERSION_MAJOR_QMChatViewController_KeyboardViewController 0
+#define COCOAPODS_VERSION_MINOR_QMChatViewController_KeyboardViewController 1
+#define COCOAPODS_VERSION_PATCH_QMChatViewController_KeyboardViewController 0
+
+// QMChatViewController/Protocols
+#define COCOAPODS_POD_AVAILABLE_QMChatViewController_Protocols
+#define COCOAPODS_VERSION_MAJOR_QMChatViewController_Protocols 0
+#define COCOAPODS_VERSION_MINOR_QMChatViewController_Protocols 1
+#define COCOAPODS_VERSION_PATCH_QMChatViewController_Protocols 0
+
+// QMChatViewController/Views
+#define COCOAPODS_POD_AVAILABLE_QMChatViewController_Views
+#define COCOAPODS_VERSION_MAJOR_QMChatViewController_Views 0
+#define COCOAPODS_VERSION_MINOR_QMChatViewController_Views 1
+#define COCOAPODS_VERSION_PATCH_QMChatViewController_Views 0
+
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
 #define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
@@ -14,9 +44,9 @@
 
 // TTTAttributedLabel
 #define COCOAPODS_POD_AVAILABLE_TTTAttributedLabel
-#define COCOAPODS_VERSION_MAJOR_TTTAttributedLabel 2
-#define COCOAPODS_VERSION_MINOR_TTTAttributedLabel 0
-#define COCOAPODS_VERSION_PATCH_TTTAttributedLabel 0
+#define COCOAPODS_VERSION_MAJOR_TTTAttributedLabel 1
+#define COCOAPODS_VERSION_MINOR_TTTAttributedLabel 13
+#define COCOAPODS_VERSION_PATCH_TTTAttributedLabel 4
 
 // TWMessageBarManager
 #define COCOAPODS_POD_AVAILABLE_TWMessageBarManager
