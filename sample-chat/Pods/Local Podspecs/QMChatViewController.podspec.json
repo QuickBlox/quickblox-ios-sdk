@@ -1,0 +1,61 @@
+{
+  "name": "QMChatViewController",
+  "version": "0.1",
+  "summary": "An elegant ready-to-go chat view controller for iOS chat applications that use Quickblox communication backend.",
+  "description": "\t\t\t\t\t* Ready-to-go chat view controller with a set of cells.\n\t\t\t\t\t* Automatic cell size calculation.\n\t\t\t\t\t* UI customisation for chat cells.\n\t\t\t\t\t* Flexibility in improving and extending functionality.\n\t\t\t\t\t* Easy to connect with Quickblox.\n\t\t\t\t\t* Optimised and performant.\n\t\t\t\t\t* Supports portrait and landscape orientations.\n\t\t\t\t\t* Auto Layout inside.\n",
+  "homepage": "https://github.com/QuickBlox/QMChatViewController-ios",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Andrey Ivanov": "andrey.ivanov@quickblox.com"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "source": {
+    "git": "https://github.com/QuickBlox/QMChatViewController-ios.git",
+    "tag": "0.1"
+  },
+  "source_files": "QMChatViewController/QMChatViewController.{h,m}",
+  "resources": [
+    "QMChatViewController/**/*.xib",
+    "QMChatViewController/**/*.xcassets"
+  ],
+  "requires_arc": true,
+  "xcconfig": {
+    "FRAMEWORK_SEARCH_PATHS": "$(PODS_ROOT)/../../Framework"
+  },
+  "dependencies": {
+    "TTTAttributedLabel": [
+      "~> 1.13"
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "Categories",
+      "source_files": "QMChatViewController/Categories/*.{h,m}"
+    },
+    {
+      "name": "KeyboardViewController",
+      "source_files": "QMChatViewController/KeyboardViewController/*.{h,m}"
+    },
+    {
+      "name": "Protocols",
+      "source_files": "QMChatViewController/Protocols/*.{h}"
+    },
+    {
+      "name": "Views",
+      "dependencies": {
+        "QMChatViewController/Protocols": [
+
+        ],
+        "QMChatViewController/Categories": [
+
+        ]
+      },
+      "source_files": "QMChatViewController/Views/**/*.{h,m}"
+    }
+  ]
+}

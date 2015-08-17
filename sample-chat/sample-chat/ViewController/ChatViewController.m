@@ -378,14 +378,21 @@ UIActionSheetDelegate
     Class viewClass = [self viewClassForItem:item];
     CGSize size = CGSizeZero;
     
-    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) {
+    if (viewClass == [QMChatAttachmentIncomingCell class]) {
         size = CGSizeMake(MIN(200, maxWidth), 200);
+    } else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
+        NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
+    
+        CGSize bottomLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                                  withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
+                                                           limitedToNumberOfLines:0];
+        size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
     } else {
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                       withConstraints:CGSizeMake(maxWidth, MAXFLOAT)
-                                                limitedToNumberOfLines:0];        
+                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
     }
     
     return size;
@@ -464,7 +471,7 @@ UIActionSheetDelegate
     QBChatMessage* item = self.items[indexPath.row];
     Class class = [self viewClassForItem:item];
     
-    if (class == [QMChatOutgoingCell class]) {
+    if (class == [QMChatOutgoingCell class] || class == [QMChatAttachmentOutgoingCell class]) {
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
                                                        withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)

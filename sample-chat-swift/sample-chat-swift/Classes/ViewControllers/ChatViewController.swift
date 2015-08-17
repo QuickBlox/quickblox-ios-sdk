@@ -295,7 +295,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                         readersLogin.append("Unknown")
                     }
                 }
-                statusString += "Read:" + ", ".join(readersLogin)
+                if message.attachments.count > 0 {
+                    statusString += "Seen:" + ", ".join(readersLogin)
+                } else {
+                    statusString += "Read:" + ", ".join(readersLogin)
+                }
+
             }
         }
         
@@ -452,13 +457,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
         var size = CGSizeZero
         
-        if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self || self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
-            
+        if self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
             size = CGSize(width: min(200, maxWidth), height: 200)
+        } else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
+            let attributedString = self.bottomLabelAttributedStringForItem(item)
             
+            let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.max), limitedToNumberOfLines: 0)
+            size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
         } else {
-            
             let attributedString = self.attributedStringForItem(item)
+            
             size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
         }
         
@@ -518,7 +526,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
         let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
         
-        if viewClass === QMChatOutgoingCell.self {
+        if viewClass === QMChatOutgoingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
             let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
             let size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
             layoutModel.bottomLabelHeight = ceil(size.height)
@@ -589,7 +597,28 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 })
             }
         }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool {
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
         
+        if viewClass === QMChatAttachmentIncomingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
+            return false
+        }
+        
+        return super.collectionView(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
+        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
+
+        if viewClass === QMChatAttachmentIncomingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
+            return
+        }
+        
+        UIPasteboard.generalPasteboard().string = item.text
     }
     
     // MARK: QMChatServiceDelegate
