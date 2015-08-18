@@ -29,6 +29,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var typingTimer : NSTimer?
     
     var shouldHoldScrolOnCollectionView = false
+    var popoverController : UIPopoverController?
     
     lazy var imagePickerViewController : UIImagePickerController = {
             let imagePickerViewController = UIImagePickerController()
@@ -238,6 +239,49 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
 
     // MARK: Actions
     
+    override func didPickAttachmentImage(image: UIImage!) {
+        SVProgressHUD.showWithStatus("SA_STR_UPLOADING_ATTACHMENT".localized, maskType: SVProgressHUDMaskType.Clear)
+        
+        weak var weakSelf = self
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            var newImage : UIImage! = image
+            if weakSelf!.imagePickerViewController.sourceType == UIImagePickerControllerSourceType.Camera {
+                newImage = newImage.fixOrientation()
+            }
+            
+            let largestSide = newImage.size.width > newImage.size.height ? newImage.size.width : newImage.size.height
+            let scaleCoeficient = largestSide/560.0
+            let newSize = CGSize(width: newImage.size.width/scaleCoeficient, height: newImage.size.height/scaleCoeficient)
+            
+            // create smaller image
+            
+            UIGraphicsBeginImageContext(newSize)
+            
+            newImage.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            let message = QBChatMessage()
+            message.senderID = ServicesManager.instance().currentUser().ID
+            message.dialogID = weakSelf?.dialog?.ID
+            
+            // Sending attachment.
+            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: weakSelf?.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if error != nil {
+                        SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
+                    } else {
+                        SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                    }
+                })
+            })
+        })
+
+    }
+    
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
         
         self.fireSendStopTypingIfNecessary()
@@ -262,13 +306,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.finishSendingMessageAnimated(true)
         
-    }
-    
-    override func didPressAccessoryButton(sender: UIButton!) {
-        
-        let actionSheet = UIActionSheet(title: "Image source type", delegate: self, cancelButtonTitle:nil, destructiveButtonTitle: nil, otherButtonTitles: "Camera", "Camera Roll", "Cancel")
-    
-        actionSheet.showFromToolbar(self.inputToolbar)
     }
     
     // MARK: Helper
@@ -611,14 +648,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     }
     
     override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
-        let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
-        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
+        if action == Selector("copy:") {
+            let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
+            let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
 
-        if viewClass === QMChatAttachmentIncomingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
-            return
+            if viewClass === QMChatAttachmentIncomingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
+                return
+            }
+            
+            UIPasteboard.generalPasteboard().string = item.text
         }
-        
-        UIPasteboard.generalPasteboard().string = item.text
     }
     
     // MARK: QMChatServiceDelegate
@@ -743,76 +782,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             dialog.sendUserStoppedTyping()
         }
         
-    }
-    
-    // MARK: UIActionSheetDelegate
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        
-        if buttonIndex == 2 {
-            return
-        }
-        
-        if buttonIndex == 0 {
-            self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.Camera
-        } else if buttonIndex == 1 {
-            self.imagePickerViewController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        }
-        
-        weak var weakSelf = self
-        
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            weakSelf?.presentViewController(self.imagePickerViewController, animated: true, completion: nil)
-        })
-    }
-    
-    // MARK: UIImagePickerControllerDelegate
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        
-        picker.dismissViewControllerAnimated(true, completion: nil)
-        SVProgressHUD.showWithStatus("SA_STR_UPLOADING_ATTACHMENT".localized, maskType: SVProgressHUDMaskType.Clear)
-        
-        weak var weakSelf = self
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            
-            var image : UIImage = info[UIImagePickerControllerOriginalImage as NSObject] as! UIImage
-            
-            if picker.sourceType == UIImagePickerControllerSourceType.Camera {
-                image = image.fixOrientation()
-            }
-            
-            let largestSide = image.size.width > image.size.height ? image.size.width : image.size.height
-            let scaleCoeficient = largestSide/560.0
-            let newSize = CGSize(width: image.size.width/scaleCoeficient, height: image.size.height/scaleCoeficient)
-            
-            // create smaller image
-            
-            UIGraphicsBeginImageContext(newSize)
-            
-            image.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-            
-            UIGraphicsEndImageContext()
-            
-            let message = QBChatMessage()
-            message.senderID = ServicesManager.instance().currentUser().ID
-            message.dialogID = weakSelf?.dialog?.ID
-            
-            // Sending attachment.
-            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: weakSelf?.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    if error != nil {
-                        SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
-                    } else {
-                        SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-                    }
-                })
-            })
-            
-        })
     }
     
     // MARK: QMChatAttachmentServiceDelegate

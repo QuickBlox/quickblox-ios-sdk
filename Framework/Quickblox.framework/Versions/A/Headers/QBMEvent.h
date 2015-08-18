@@ -63,8 +63,13 @@
 /** The name of the event. Service information. Only for the user..*/
 @property (nonatomic,retain) NSString *name;
 
-/** Environment of the notification */
-@property (nonatomic) BOOL isDevelopmentEnvironment;
+/** Environment of the notification, default: YES
+ *   @see isProductionEnvironment
+ */
+@property (nonatomic) BOOL isDevelopmentEnvironment DEPRECATED_MSG_ATTRIBUTE("use isProductionEnvironment instead");
+
+/** Environment of the notification, default: NO */
+@property (nonatomic) BOOL isProductionEnvironment;
 
 /** Event message */
 @property (nonatomic,retain) id message;
