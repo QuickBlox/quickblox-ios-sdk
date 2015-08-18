@@ -281,15 +281,6 @@ UIActionSheetDelegate
     [self finishSendingMessageAnimated:YES];
 }
 
-- (void)didPressAccessoryButton:(UIButton *)sender
-{
-    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Photo Library", nil];
-    [actionSheet showInView:self.view];
-}
-
 #pragma mark - Cell classes
 
 - (Class)viewClassForItem:(QBChatMessage *)item
@@ -678,43 +669,31 @@ UIActionSheetDelegate
     [self fireStopTypingIfNecessary];
 }
 
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex  == 0) {
-        self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:self.pickerController animated:YES completion:nil];
-    } else if (buttonIndex == 1) {
-        self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.pickerController animated:YES completion:nil];
-    }
-}
-
 #pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)didPickAttachmentImage:(UIImage *)image
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
     [SVProgressHUD showWithStatus:@"Uploading attachment" maskType:SVProgressHUDMaskTypeClear];
     
+    __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage* image = info[UIImagePickerControllerOriginalImage];
-        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            image = [image fixOrientation];
+        __typeof(self) strongSelf = weakSelf;
+        UIImage* newImage = image;
+        if (strongSelf.pickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            newImage = [newImage fixOrientation];
         }
         
-        UIImage* resizedImage = [self resizedImageFromImage:image];
+        UIImage* resizedImage = [strongSelf resizedImageFromImage:newImage];
         
         QBChatMessage* message = [QBChatMessage new];
-        message.senderID = self.senderID;
-        message.dialogID = self.dialog.ID;
+        message.senderID = strongSelf.senderID;
+        message.dialogID = strongSelf.dialog.ID;
         
         // Sending attachment to dialog.
         [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message
-                                                                           toDialog:self.dialog
-                                                                    withChatService:[ServicesManager instance].chatService
-                                                                  withAttachedImage:resizedImage completion:^(NSError *error) {
+                                                                         toDialog:strongSelf.dialog
+                                                                  withChatService:[ServicesManager instance].chatService
+                                                                withAttachedImage:resizedImage completion:^(NSError *error) {
                                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                                           if (error != nil) {
                                                                               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
