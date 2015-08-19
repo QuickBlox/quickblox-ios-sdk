@@ -209,7 +209,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         if let didEnterBackgroundDate = self.didEnterBackgroundDate {
             
-            let extendedRequest = ["last_message_date_sent[gte]" : didEnterBackgroundDate.timeIntervalSince1970]
+            let extendedRequest = ["last_message_date_sent[gte]" : Int(didEnterBackgroundDate.timeIntervalSince1970)]
     
             self.getDialogs(extendedRequest)
             
