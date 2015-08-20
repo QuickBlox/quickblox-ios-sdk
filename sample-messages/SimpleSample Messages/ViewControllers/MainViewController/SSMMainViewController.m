@@ -71,14 +71,23 @@
         [alert show];
     } else {
         [QBRequest sendPushWithText:self.messageBodyTextField.text toUsers:@"2288232" successBlock:^(QBResponse *response, NSArray *events) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message sent successfully" message:nil
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message sent successfully"
+                                                            message:nil
                                                            delegate:self
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil];
             [alert show];
+            
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } errorBlock:^(QBError *error) {
             NSLog(@"Errors=%@", [error.reasons description]);
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
+                                                            message:[error.reasons description]
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", "")
+                                                  otherButtonTitles:nil];
+            [alert show];
+            
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
         
