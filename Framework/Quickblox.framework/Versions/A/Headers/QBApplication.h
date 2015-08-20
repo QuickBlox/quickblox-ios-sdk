@@ -33,4 +33,10 @@
 */
 @property (nonatomic, assign) BOOL productionEnvironmentForPushesEnabled;
 
+/**
+ *  Automatically detects environment for push notifications. By default is - YES.
+ */
+@property (nonatomic, assign) BOOL autoDetectEnvironment;
+
+
 @end
