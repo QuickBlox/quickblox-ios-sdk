@@ -227,14 +227,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         for message in messages {
             messageIDs.append(message.ID)
         }
-        
-        // Marking message as read for REST API history.
-        QBRequest.markMessagesAsRead(Set(messageIDs), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
-            
-            }) { (response: QBResponse!) -> Void in
-            
-        }
-        
     }
 
     // MARK: Actions
@@ -669,12 +661,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             self.refreshCollectionView()
             
             ChatViewController.sendReadStatusForMessage(message)
-            // Marking message as read in REST history
-            QBRequest.markMessagesAsRead(Set([message.ID]), dialogID: dialogID, successBlock: { (response: QBResponse!) -> Void in
-                
-                }, errorBlock: { (response: QBResponse!) -> Void in
-                
-            })
         }
     }
     

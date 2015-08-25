@@ -247,9 +247,6 @@ UIActionSheetDelegate
     } else {
         self.unreadMessages = messages;
     }
-    
-    // Marking message as read in REST history.
-    [QBRequest markMessagesAsRead:[NSSet setWithArray:messages] dialogID:dialogID successBlock:nil errorBlock:nil];
 }
 
 - (void)fireStopTypingIfNecessary
@@ -267,7 +264,7 @@ UIActionSheetDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
-    [self fireStopTypingIfNecessary];
+    [self fireStopTypingIfNecessary]; 
     
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
@@ -539,7 +536,6 @@ UIActionSheetDelegate
         [self refreshCollectionView];
         
         [self sendReadStatusForMessage:message];
-        [QBRequest markMessagesAsRead:[NSSet setWithObject:message] dialogID:message.dialogID successBlock:nil errorBlock:nil];
     }
 }
 
