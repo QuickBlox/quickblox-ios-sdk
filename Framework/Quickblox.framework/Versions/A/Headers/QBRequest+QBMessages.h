@@ -184,7 +184,7 @@
  @param successBlock Block with response and event instances if request succeded
  @param errorBlock Block with error if request failed
  
- @return An instancof QBRequest for cancel operation mainly.
+ @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)sendPush:(QBMPushMessage *)pushMessage
 toUsersWithAnyOfTheseTags:(NSString *)usersTags
