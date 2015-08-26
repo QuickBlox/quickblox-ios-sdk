@@ -469,6 +469,7 @@
 			baseConfigurationReference = B0869C5F414FAB3D263CEF97 /* Pods-sample-users.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",
@@ -492,6 +493,7 @@
 			baseConfigurationReference = 93D7E7EB23DE5C401BF6AF38 /* Pods-sample-users.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",
