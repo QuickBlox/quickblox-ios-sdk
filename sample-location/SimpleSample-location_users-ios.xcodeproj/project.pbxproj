@@ -49,7 +49,6 @@
 
 /* Begin PBXFileReference section */
 		4BF2FD4F7B444F3A804050A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7CDB12B461EB436193377094 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		86C9EFEF194C45270064A91E /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		86C9EFF1194C46A50064A91E /* SSLCheckInTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSLCheckInTableViewCell.xib; sourceTree = "<group>"; };
 		86C9EFF3194C4A940064A91E /* SSLCheckInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSLCheckInTableViewCell.h; path = "SimpleSample-location_users-ios/ViewControllers/LatestCheckinsViewController/SSLCheckInTableViewCell.h"; sourceTree = "<group>"; };
@@ -71,11 +70,13 @@
 		8AC09DC614FF710400658181 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "SimpleSample-location_users-ios/Supporting Files/main.m"; sourceTree = SOURCE_ROOT; };
 		8AC09DC714FF710400658181 /* SimpleSample-location_users-ios-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SimpleSample-location_users-ios-Info.plist"; path = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8AC09DC814FF710400658181 /* SimpleSample-location_users-ios-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SimpleSample-location_users-ios-Prefix.pch"; path = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		8C7EABBDF20CF617E0CC2E19 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BB12344B1608827100491A31 /* SSLLatestCheckinsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSLLatestCheckinsViewController.xib; sourceTree = "<group>"; };
 		BB12344E1608829200491A31 /* SSLLatestCheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLLatestCheckinsViewController.h; sourceTree = "<group>"; };
 		BB12344F1608829200491A31 /* SSLLatestCheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLLatestCheckinsViewController.m; sourceTree = "<group>"; };
 		BFA79ED31843E2120044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFFCF7AE19AE2F2F0065AE21 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		E7B0CD634A1112D55FBE70FE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FA38CC5A1614758600BDD29A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		FA38CC691614767600BDD29A /* SSLDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLDataManager.h; sourceTree = "<group>"; };
 		FA38CC6A1614767600BDD29A /* SSLDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLDataManager.m; sourceTree = "<group>"; };
@@ -172,7 +173,7 @@
 				8A2F266214F7F0D300292876 /* Supporting Files */,
 				8A2F265A14F7F0D300292876 /* Frameworks */,
 				8A2F265814F7F0D300292876 /* Products */,
-				7CDB12B461EB436193377094 /* Pods.xcconfig */,
+				A35A7E35F88DE088045DC4CE /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -221,6 +222,15 @@
 			);
 			name = "Supporting Files";
 			path = wqeqwe;
+			sourceTree = "<group>";
+		};
+		A35A7E35F88DE088045DC4CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E7B0CD634A1112D55FBE70FE /* Pods.debug.xcconfig */,
+				8C7EABBDF20CF617E0CC2E19 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		BB12344D1608829200491A31 /* LatestCheckinsViewController */ = {
@@ -416,7 +426,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -512,7 +522,7 @@
 		};
 		8A2F267914F7F0D300292876 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CDB12B461EB436193377094 /* Pods.xcconfig */;
+			baseConfigurationReference = E7B0CD634A1112D55FBE70FE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -530,22 +540,20 @@
 					"\"${PODS_ROOT}/Headers\"",
 					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
 					/usr/include/libxml2,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = (
-					"-lxml2",
-					"-ObjC",
-					"-lstdc++",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-lxml2",
 					"-ObjC",
 					"-lstdc++",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = Location;
-				PROVISIONING_PROFILE = "2EB28AA5-7DEF-4EF9-B0F2-649E05833E89";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2EB28AA5-7DEF-4EF9-B0F2-649E05833E89";
+				PROVISIONING_PROFILE = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -553,7 +561,7 @@
 		};
 		8A2F267A14F7F0D300292876 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7CDB12B461EB436193377094 /* Pods.xcconfig */;
+			baseConfigurationReference = 8C7EABBDF20CF617E0CC2E19 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -570,6 +578,7 @@
 					"\"${PODS_ROOT}/Headers\"",
 					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
 					/usr/include/libxml2,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SimpleSample-location_users-ios/Supporting Files/SimpleSample-location_users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -577,6 +586,7 @@
 					"-lxml2",
 					"-ObjC",
 					"-lstdc++",
+					"$(inherited)",
 				);
 				PRODUCT_NAME = Location;
 				PROVISIONING_PROFILE = "2EB28AA5-7DEF-4EF9-B0F2-649E05833E89";

@@ -17,9 +17,9 @@
 
 @implementation SSCOSplashViewController
 
-- (void(^)(QBResponse *, QBASession *))sessionSuccessBlock
+- (void(^)(QBResponse *response, QBUUser *user))logInSuccessBlock
 {
-    return ^(QBResponse *response, QBASession *session) {
+    return ^(QBResponse *response, QBUUser *user) {
         [QBRequest objectsWithClassName:customClassName
                            successBlock:^(QBResponse *response, NSArray *objects) {
                                [[SSCONotesStorage shared] addNotes:objects];
@@ -46,9 +46,7 @@
     parameters.userLogin = @"injoitUser1";
     parameters.userPassword = @"injoitUser1";
     
-    [QBRequest createSessionWithExtendedParameters:parameters
-                                      successBlock:[self sessionSuccessBlock]
-                                        errorBlock:[self handleErrorBlock]];
+    [QBRequest logInWithUserLogin:@"injoitUser1" password:@"injoitUser1" successBlock:[self logInSuccessBlock] errorBlock:[self handleErrorBlock]];
 }
 
 - (void)hideSplashScreen
