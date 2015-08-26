@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <QuickBlox/QuickBlox.h>
 
 @interface Storage : NSObject
 
