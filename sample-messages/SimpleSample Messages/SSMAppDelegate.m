@@ -25,17 +25,12 @@
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    //
-    // If you use Push Notifications - you have to use lines bellow when you upload your application to Apple Store or create AdHoc.
-    //
-#ifndef DEBUG
-//    [QBSettings useProductionEnvironmentForPushNotifications:YES];
-#endif
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.splashViewController = [[SSMSplashViewController alloc] initWithNibName:nil bundle:nil];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:self.splashViewController];
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:self.splashViewController];
+    navigationController.navigationBarHidden = YES;
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
     return YES;
