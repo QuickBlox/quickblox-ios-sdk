@@ -43,14 +43,12 @@
         
         // Your app connects to QuickBlox server here.
         //
-        QBSessionParameters *parameters = [QBSessionParameters new];
-        parameters.userLogin = @"qbpushios";
-        parameters.userPassword = @"qbpushios";
-        
-        [QBRequest createSessionWithExtendedParameters:parameters successBlock:^(QBResponse *response, QBASession *session) {
-            [self registerForRemoteNotifications];
 
-        }errorBlock:^(QBResponse *response) {
+        [QBRequest logInWithUserLogin:@"qbpushios" password:@"qbpushios" successBlock:^(QBResponse *response, QBUUser *user) {
+            [self registerForRemoteNotifications];
+            
+        } errorBlock:^(QBResponse *response) {
+            
             NSLog(@"Response error %@:", response.error);
             [SVProgressHUD dismiss];
             
