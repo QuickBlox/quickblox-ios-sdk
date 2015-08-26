@@ -47,17 +47,13 @@
         
         // Your app connects to QuickBlox server here.
         //
-        QBSessionParameters *parameters = [QBSessionParameters new];
-        parameters.userLogin = @"igorquickblox2";
-        parameters.userPassword = @"igorquickblox2";
         
-        [QBRequest createSessionWithExtendedParameters:parameters successBlock:^(QBResponse *response, QBASession *session) {
-            
+        [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
             // Load objects
             //
             [self.paginator fetchFirstPage];
             
-        }errorBlock:^(QBResponse *response) {
+        } errorBlock:^(QBResponse *response) {
             NSLog(@"Response error %@:", response.error);
         }];
     });
