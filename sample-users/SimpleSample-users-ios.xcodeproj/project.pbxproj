@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CBC6E771B8DD9BA00182B5A /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC6E761B8DD9BA00182B5A /* Quickblox.framework */; };
 		43900C4016246C090041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C3F16246C090041381B /* libxml2.dylib */; };
 		867440F3197958B2006D1686 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 867440F2197958B2006D1686 /* Images.xcassets */; };
 		868183AE197D03D000305305 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 868183AD197D03D000305305 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		294D585C6BCA4CABAD7BBF5D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CBC6E761B8DD9BA00182B5A /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		43900C3F16246C090041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		817DFB554453AE642BBD0BD7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		867440F2197958B2006D1686 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBC6E771B8DD9BA00182B5A /* Quickblox.framework in Frameworks */,
 				BFA79EDA1843E8BA0044D9E0 /* Security.framework in Frameworks */,
 				BFAAF5241785B343009379B9 /* QuartzCore.framework in Frameworks */,
 				FAC8B9F316D2D5AA00F03311 /* AudioToolbox.framework in Frameworks */,
@@ -190,6 +193,7 @@
 		FA43AD09152B8ABD000A2EF7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CBC6E761B8DD9BA00182B5A /* Quickblox.framework */,
 				BFA79ED91843E8BA0044D9E0 /* Security.framework */,
 				BFAAF5231785B343009379B9 /* QuartzCore.framework */,
 				FAC8B9F216D2D5AA00F03311 /* AudioToolbox.framework */,
@@ -522,6 +526,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"\"$(SRCROOT)/../Framework\"",
+					"/Users/injoit/Development/iOS/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";
@@ -530,14 +536,15 @@
 					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
 					"\"${PODS_ROOT}/Headers/libextobjc\"",
 					/usr/include/libxml2,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "$(inherited)";
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
 				PRODUCT_NAME = Users;
-				PROVISIONING_PROFILE = "3f3666e5-0de4-4af0-a260-af8921b354dd";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3f3666e5-0de4-4af0-a260-af8921b354dd";
+				PROVISIONING_PROFILE = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -553,6 +560,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"\"$(SRCROOT)/../Framework\"",
+					"/Users/injoit/Development/iOS/quickblox-ios-sdk/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Prefix.pch";
@@ -561,6 +570,7 @@
 					"\"${PODS_ROOT}/Headers/MTBlockAlertView\"",
 					"\"${PODS_ROOT}/Headers/libextobjc\"",
 					/usr/include/libxml2,
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SimpleSample-users-ios/Supporting Files/SimpleSample-users-ios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
