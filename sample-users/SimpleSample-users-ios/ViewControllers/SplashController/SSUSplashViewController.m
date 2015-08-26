@@ -32,16 +32,7 @@
     //
     // QuickBlox session creation
     
-    [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
-        [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
-    } errorBlock:^(QBResponse *response) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
-                                                        message:[response.error description]
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", "")
-                                              otherButtonTitles:nil];
-        [alert show];
-    }];
+    [self performSelector:@selector(hideSplash) withObject:nil afterDelay:2];
 }
 
 - (void)hideSplash
