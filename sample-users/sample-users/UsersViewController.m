@@ -46,17 +46,9 @@
         
         [SVProgressHUD showWithStatus:@"Get users"];
         
-        // Your app connects to QuickBlox server here.
-        //        
-        [QBRequest createSessionWithSuccessBlock:^(QBResponse *response, QBASession *session) {
-            
-            // Load files
-            //
-            [self.paginator fetchFirstPage];
-            
-        }errorBlock:^(QBResponse *response) {
-            NSLog(@"Response error %@:", response.error);
-        }];
+        // Load files
+        //
+        [self.paginator fetchFirstPage];
     });
 }
 
