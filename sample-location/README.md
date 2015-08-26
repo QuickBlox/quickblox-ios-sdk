@@ -12,4 +12,5 @@ It shows how to:
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-location_users-ios](http://quickblox.com/developers/SimpleSample-location_users-ios/)
 
-![Other users' locations on Map](http://files.quickblox.com/SimpleSample_location_31.png) &nbsp;&nbsp;&nbsp;&nbsp; ![Other users' locations on Table](http://files.quickblox.com/SimpleSample_location_32.png)
+<img src="http://files.quickblox.com/SimpleSample_location_31.png" border="5" alt="Map" width="300"> 
+<img src="http://files.quickblox.com/SimpleSample_location_32.png" border="5" alt="List" width="300"> 
