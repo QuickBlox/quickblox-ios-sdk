@@ -20,9 +20,9 @@
 
 @implementation SignInSignUpViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     if(self.isTypeSignIn){
         self.title = @"Sign In";
@@ -35,22 +35,21 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-- (IBAction)action:(id)sender{
+- (IBAction)action:(id)sender
+{
     NSString *login = self.loginTextField.text;
     NSString *password = self.passwordTextField.text;
     
-    if(self.isTypeSignIn){
+    if (self.isTypeSignIn)
+    {
         [SVProgressHUD showWithStatus:@"Signing in"];
         
+        __weak typeof(self)weakSelf = self;
         [QBRequest logInWithUserLogin:login password:password successBlock:^(QBResponse *response, QBUUser *user) {
             [SVProgressHUD dismiss];
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             
         } errorBlock:^(QBResponse *response) {
             [SVProgressHUD dismiss];
@@ -64,19 +63,19 @@
                                                   otherButtonTitles:nil];
             [alert show];
         }];
-    }else{
+    } else {
         [SVProgressHUD showWithStatus:@"Signing up"];
         
         QBUUser *user = [QBUUser new];
         user.login = login;
         user.password = password;
         
+        __weak typeof(self)weakSelf = self;
         [QBRequest signUp:user successBlock:^(QBResponse *response, QBUUser *user) {
             [QBRequest logInWithUserLogin:login password:password successBlock:^(QBResponse *response, QBUUser *user) {
                 [SVProgressHUD dismiss];
                 
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];                
             } errorBlock:^(QBResponse *response) {
                 [SVProgressHUD dismiss];
                 
