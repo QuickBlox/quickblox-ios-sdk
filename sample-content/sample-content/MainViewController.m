@@ -14,55 +14,50 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVProgressHUD.h>
 
-@interface MainViewController ()  <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface MainViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) FilesPaginator *paginator;
-@property (nonatomic, strong) UILabel *footerLabel;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) UIImagePickerController *imagePicker;
+@property (nonatomic, weak) UILabel *footerLabel;
+@property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 
 @end
 
-// OpenImageSegueIdentifier
-
 @implementation MainViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.paginator = [[FilesPaginator alloc] initWithPageSize:10 delegate:self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    __weak typeof(self)weakSelf = self;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        [self setupTableViewFooter];
+        [weakSelf setupTableViewFooter];
         
         [SVProgressHUD showWithStatus:@"Downloading images"];
         
         // Your app connects to QuickBlox server here.
         //
-        
         [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
+            __typeof(self) strongSelf = weakSelf;
             // Load files
             //
-            [self.paginator fetchFirstPage];
-            
+            [strongSelf.paginator fetchFirstPage];
         } errorBlock:^(QBResponse *response) {
             NSLog(@"Response error %@:", response.error);
         }];
     });
 }
 
-- (IBAction)addNewPicture:(id)sender{
+- (IBAction)addNewPicture:(id)sender
+{
     self.imagePicker = [[UIImagePickerController alloc] init];
     self.imagePicker.allowsEditing = NO;
     self.imagePicker.delegate = self;
@@ -106,10 +101,10 @@
 
 - (void)updateTableViewFooter
 {
-    if ([self.paginator.results count] != 0){
+    if ([self.paginator.results count] != 0) {
         self.footerLabel.text = [NSString stringWithFormat:@"%lu results out of %ld",
                                  (unsigned long)[self.paginator.results count], (long)self.paginator.total];
-    }else{
+    } else {
         self.footerLabel.text = @"";
     }
     
@@ -119,9 +114,9 @@
 #pragma mark
 #pragma mark Storyboard
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender{
-    if([segue.destinationViewController isKindOfClass:ContentViewController.class]){
-        
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender
+{
+    if([segue.destinationViewController isKindOfClass:ContentViewController.class]) {
         NSUInteger row = sender.tag;
         QBCBlob *file = [Storage instance].filesList[row];
         
@@ -149,11 +144,13 @@
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [[Storage instance].filesList count];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
@@ -169,13 +166,14 @@
     //
     QBCBlob *file = [Storage instance].filesList[indexPath.row];
     NSString *privateUrl = [file privateUrl];
-    if(privateUrl){
+    if (privateUrl) {
         [progressView startAnimating];
         [imageView sd_setImageWithURL:[NSURL URLWithString:privateUrl]
-                      placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                     placeholderImage:nil
+                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                           [progressView stopAnimating];
                       }];
-    }else{
+    } else {
         NSLog(@"Private URL is NULL");
     }
     
@@ -236,9 +234,9 @@
                   [weakSelf.tableView reloadData];
                   [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[Storage instance].filesList.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
                   
-              }statusBlock:^(QBRequest *request, QBRequestStatus *status) {
+              } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
                   [SVProgressHUD showProgress:status.percentOfCompletion status:@"Uploading image"];
-              }errorBlock:^(QBResponse *response) {
+              } errorBlock:^(QBResponse *response) {
                   [SVProgressHUD dismiss];
                   //
                   UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error while uploading new file"
