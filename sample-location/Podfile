@@ -1,2 +1,0 @@
-platform :ios, '6.0'
-pod 'MTBlockAlertView', '~> 0.1.1'
