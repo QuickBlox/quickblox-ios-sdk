@@ -2,8 +2,8 @@
 //  UserDetailsViewController.m
 //  sample-users
 //
-//  Created by Igor Khomenko on 6/11/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/11/15.
+//  Copyright (c) 2015 Quickblox. All rights reserved.
 //
 
 #import "UserDetailsViewController.h"
@@ -17,7 +17,7 @@
 @property (nonatomic, weak) IBOutlet UITextField *emailTextField;
 @property (nonatomic, weak) IBOutlet UITextField *phonenumberTextField;
 @property (nonatomic, weak) IBOutlet UITextField *tagsTextField;
-@property (nonatomic, weak) IBOutlet UIButton *saveButton;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *saveButton;
 
 @end
 
@@ -30,7 +30,7 @@
     self.title = self.user.fullName != nil ? self.user.fullName : self.user.login;
     
     if (self.user.ID != [QBSession currentSession].currentUser.ID) {
-        self.saveButton.hidden = YES;
+        self.saveButton.enabled = NO;
         
         self.loginTextField.enabled = NO;
         self.fullnameTextField.enabled = NO;
