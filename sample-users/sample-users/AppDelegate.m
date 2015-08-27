@@ -21,7 +21,7 @@
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
     //
-    [QBApplication sharedApplication].applicationId = 92.0;
+    [QBApplication sharedApplication].applicationId = 92;
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];

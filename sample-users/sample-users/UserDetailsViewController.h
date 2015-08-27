@@ -11,6 +11,6 @@
 
 @interface UserDetailsViewController : UIViewController
 
-@property (nonatomic) QBUUser *user;
+@property (nonatomic, weak) QBUUser *user;
 
 @end
