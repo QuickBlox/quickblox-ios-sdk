@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLAppDelegate.h"
+#import "AppDelegate.h"
 
-#import "SSLGeoDataManager.h"
+#import "GeoDataManager.h"
 
-@interface SSLAppDelegate()
+@interface AppDelegate()
 
 @end
 
-@implementation SSLAppDelegate
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -24,7 +24,7 @@
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    [[SSLGeoDataManager instance] fetchLatestCheckIns];
+    [[GeoDataManager instance] fetchLatestCheckIns];
     
     return YES;
 }

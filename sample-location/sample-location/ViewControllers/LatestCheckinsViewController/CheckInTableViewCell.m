@@ -6,16 +6,16 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLCheckInTableViewCell.h"
+#import "CheckInTableViewCell.h"
 
-@interface SSLCheckInTableViewCell ()
+@interface CheckInTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *checkinsLabel;
 
 @end
 
-@implementation SSLCheckInTableViewCell
+@implementation CheckInTableViewCell
 
 - (void)configureWithGeoData:(QBLGeoData *)geoData
 {

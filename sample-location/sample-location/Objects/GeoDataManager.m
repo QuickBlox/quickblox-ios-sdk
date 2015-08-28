@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLGeoDataManager.h"
-#import "SSLDataManager.h"
-#import "SSLMapPin.h"
+#import "GeoDataManager.h"
+#import "DataManager.h"
+#import "MapPin.h"
 
-@implementation SSLGeoDataManager
+@implementation GeoDataManager
 
 + (instancetype)instance
 {
-    static SSLGeoDataManager *instance = nil;
+    static GeoDataManager *instance = nil;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
@@ -36,7 +36,7 @@
                             page:page
                     successBlock:^(QBResponse *response, NSArray *objects, QBGeneralResponsePage *page) {
                         
-                        [[SSLDataManager instance] saveCheckins:objects];
+                        [[DataManager instance] saveCheckins:objects];
                         
                     } errorBlock:^(QBResponse *response) {
                         

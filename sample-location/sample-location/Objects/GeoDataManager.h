@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SSLGeoDataManager : NSObject
+@interface GeoDataManager : NSObject
 
 + (instancetype)instance;
 

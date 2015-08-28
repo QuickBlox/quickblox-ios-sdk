@@ -7,7 +7,7 @@
 //
 //
 
-@interface SSLAppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow* window;
 
