@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "Storage.h"
 #import <QuickBlox/QuickBlox.h>
 
 @interface AppDelegate ()

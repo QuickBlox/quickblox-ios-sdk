@@ -1,0 +1,25 @@
+PODS:
+  - HCSStarRatingView (1.0)
+  - NMPaginator (1.0.0)
+  - SVProgressHUD (1.1.3)
+
+DEPENDENCIES:
+  - HCSStarRatingView (from `https://github.com/hugocampossousa/HCSStarRatingView.git`)
+  - NMPaginator
+  - SVProgressHUD
+
+EXTERNAL SOURCES:
+  HCSStarRatingView:
+    :git: https://github.com/hugocampossousa/HCSStarRatingView.git
+
+CHECKOUT OPTIONS:
+  HCSStarRatingView:
+    :commit: 52fcff0ec04ba7d1f8c8219c2f24c8ec71258b93
+    :git: https://github.com/hugocampossousa/HCSStarRatingView.git
+
+SPEC CHECKSUMS:
+  HCSStarRatingView: 6fb5c03b4ae2b8a1cca712da20fca99898c69af1
+  NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+
+COCOAPODS: 0.37.2
