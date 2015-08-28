@@ -213,7 +213,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="AeW-3e-MZZ">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="AeW-3e-MZZ">
                                             <rect key="frame" x="20" y="4" width="42" height="39"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="42" id="AgU-sV-g8G"/>
