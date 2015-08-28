@@ -10,7 +10,7 @@
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
 
-@interface SignInTableViewController ()
+@interface SignInTableViewController () <UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField *loginTextField;
 @property (nonatomic, weak) IBOutlet UITextField *passwordTextField;
@@ -18,6 +18,20 @@
 @end
 
 @implementation SignInTableViewController
+
+- (BOOL)isLoginEmpty
+{
+    BOOL emptyLogin = self.loginTextField.text.length == 0;
+    self.loginTextField.backgroundColor = emptyLogin ? [UIColor redColor] : [UIColor whiteColor];
+    return emptyLogin;
+}
+
+- (BOOL)isPasswordEmpty
+{
+    BOOL emptyPassword = self.passwordTextField.text.length == 0;
+    self.passwordTextField.backgroundColor = emptyPassword ? [UIColor redColor] : [UIColor whiteColor];
+    return emptyPassword;
+}
 
 - (void)viewDidLoad
 {
@@ -29,28 +43,42 @@
 
 - (IBAction)signInButtonTouched:(id)sender
 {
-    NSString *login = self.loginTextField.text;
-    NSString *password = self.passwordTextField.text;
+    [self.view endEditing:YES];
     
-    [SVProgressHUD showWithStatus:@"Signing in"];
+    BOOL notEmptyLogin = ![self isLoginEmpty];
+    BOOL notEmptyPassword = ![self isPasswordEmpty];
     
-    __weak typeof(self)weakSelf = self;
-    [QBRequest logInWithUserLogin:login password:password successBlock:^(QBResponse *response, QBUUser *user) {
-        [SVProgressHUD dismiss];
+    if (notEmptyLogin && notEmptyPassword) {
+        NSString *login = self.loginTextField.text;
+        NSString *password = self.passwordTextField.text;
         
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-    } errorBlock:^(QBResponse *response) {
-        [SVProgressHUD dismiss];
-        
-        NSLog(@"Errors=%@", [response.error description]);
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                        message:[response.error  description]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }];
+        [SVProgressHUD showWithStatus:@"Signing in"];
+
+        __weak typeof(self)weakSelf = self;
+        [QBRequest logInWithUserLogin:login password:password successBlock:^(QBResponse *response, QBUUser *user) {
+            [SVProgressHUD dismiss];
+            
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        } errorBlock:^(QBResponse *response) {
+            [SVProgressHUD dismiss];
+            
+            NSLog(@"Errors=%@", [response.error description]);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:[response.error  description]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }];
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    textField.backgroundColor = [UIColor whiteColor];
 }
 
 @end
