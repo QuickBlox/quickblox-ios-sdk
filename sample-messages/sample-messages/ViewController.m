@@ -78,6 +78,8 @@
         
         [SVProgressHUD  dismiss];
         
+        [ViewController showNotificationAlertViewWithTitle:@"Success" message:@"Your message successfully sended"];
+        
     } errorBlock:^(QBError *error) {
         
         [SVProgressHUD  dismiss];
@@ -119,7 +121,7 @@
     // empty text
     if([message length] == 0) {
         
-        [ViewController showAlertViewWithErrorMessage:@"Please enter some text"];
+        [ViewController showNotificationAlertViewWithTitle:@"Validation" message:@"Please enter some text"];
         
     } else {
         
@@ -186,8 +188,13 @@
 {
     NSLog(@"Errors = %@", errorMessage);
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                    message:errorMessage
+    [self showNotificationAlertViewWithTitle:@"Error" message:errorMessage];
+}
+
++ (void)showNotificationAlertViewWithTitle:(NSString *)title message:(NSString *)message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
