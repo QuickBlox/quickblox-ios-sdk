@@ -113,7 +113,7 @@
         
     } else {
         
-        [QBRequest logInWithUserLogin:@"InjoitUser1" password:@"InjoitUser1" successBlock:^(QBResponse *response, QBUUser *user) {
+        [QBRequest logInWithUserLogin:@"injoitUser1" password:@"injoitUser1" successBlock:^(QBResponse *response, QBUUser *user) {
             
             if (completion) completion(nil);
             
@@ -155,7 +155,21 @@
             NSString *comment = [alertView textFieldAtIndex:0].text;
             
             [self checkCurrentUserWithCompletion:^(NSError *authError) {
-                [self saveCheckInWithComment:comment];
+                
+                if (authError) {
+                    
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                        message:[authError localizedDescription]
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"Ok"
+                                                              otherButtonTitles:nil];
+                    
+                    [alertView show];
+                    
+                } else {
+                    
+                    [self saveCheckInWithComment:comment];
+                }
             }];
             
         }
