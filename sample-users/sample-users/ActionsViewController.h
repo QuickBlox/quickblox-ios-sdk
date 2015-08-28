@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  OperationsViewController.h
 //  sample-users
 //
 //  Created by Quickblox Team on 6/11/15.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface ActionsViewController : UIViewController
 
 @end
-

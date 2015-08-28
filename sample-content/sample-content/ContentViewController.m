@@ -11,40 +11,34 @@
 
 @interface ContentViewController ()
 
-@property (nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 
 @end
 
 @implementation ContentViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     // Load the image
     //
     NSString *privateUrl = [self.file privateUrl];
-    if(privateUrl){
+    if (privateUrl) {
+        __weak typeof(self)weakSelf = self;
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:privateUrl]
-                     placeholderImage:nil];
-    }else{
+                          placeholderImage:nil options:0
+                                  progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                      NSString* progressText = [NSString stringWithFormat:@"%ld%%", (long)((float)(receivedSize * 100) / (float)expectedSize)];
+                                      weakSelf.progressLabel.text = progressText;
+                                  }
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                     weakSelf.progressLabel.hidden = YES;
+                                 }];
+    } else {
         NSLog(@"Private URL is NULL");
     }
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

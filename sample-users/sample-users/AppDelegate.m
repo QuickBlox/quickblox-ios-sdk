@@ -2,8 +2,8 @@
 //  AppDelegate.m
 //  sample-users
 //
-//  Created by Igor Khomenko on 6/11/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/11/15.
+//  Copyright (c) 2015 Quickblox. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -21,7 +21,7 @@
     
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
     //
-    [QBApplication sharedApplication].applicationId = 92.0;
+    [QBApplication sharedApplication].applicationId = 92;
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
