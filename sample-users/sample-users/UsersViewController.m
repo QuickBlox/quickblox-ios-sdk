@@ -2,8 +2,8 @@
 //  ViewController.m
 //  sample-users
 //
-//  Created by Igor Khomenko on 6/11/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/11/15.
+//  Copyright (c) 2015 Quickblox. All rights reserved.
 //
 
 #import "UsersViewController.h"
@@ -16,9 +16,9 @@
 @interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate>
 
 @property (nonatomic, strong) UsersPaginator *paginator;
-@property (nonatomic, strong) UILabel *footerLabel;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) UIImagePickerController *imagePicker;
+@property (nonatomic, weak) UILabel *footerLabel;
+@property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 
 @end
 
@@ -26,29 +26,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
     self.paginator = [[UsersPaginator alloc] initWithPageSize:10 delegate:self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void) viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     
+    __weak typeof(self)weakSelf = self;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        [self setupTableViewFooter];
+        [weakSelf setupTableViewFooter];
         
         [SVProgressHUD showWithStatus:@"Get users"];
         
         // Load files
         //
-        [self.paginator fetchFirstPage];
+        [weakSelf.paginator fetchFirstPage];
     });
 }
 
@@ -88,10 +84,10 @@
 
 - (void)updateTableViewFooter
 {
-    if ([self.paginator.results count] != 0){
+    if ([self.paginator.results count] != 0) {
         self.footerLabel.text = [NSString stringWithFormat:@"%lu results out of %ld",
                                  (unsigned long)[self.paginator.results count], (long)self.paginator.total];
-    }else{
+    } else {
         self.footerLabel.text = @"";
     }
     
@@ -102,9 +98,9 @@
 #pragma mark
 #pragma mark Storyboard
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender{
-    if([segue.destinationViewController isKindOfClass:UserDetailsViewController.class]){
-        
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender
+{
+    if ([segue.destinationViewController isKindOfClass:UserDetailsViewController.class]) {
         NSUInteger row = sender.tag;
         QBUUser *user = [Storage instance].users[row];
         
@@ -112,7 +108,6 @@
         destinationViewController.user = user;
     }
 }
-
 
 #pragma mark
 #pragma mark UIScrollViewDelegate
@@ -133,11 +128,13 @@
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [[Storage instance].users count];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
@@ -182,6 +179,5 @@
     [self.tableView reloadData];
     [SVProgressHUD dismiss];
 }
-
 
 @end
