@@ -284,7 +284,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="M2m-vF-1V3">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="dIW-YX-vTX"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="dIW-YX-vTX">
+                            <connections>
+                                <action selector="save:" destination="jsC-4R-n4o" id="ihP-ql-H5u"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="8p2-w5-GKm" id="lNx-yY-T6G"/>
@@ -319,6 +323,9 @@
                                                     <rect key="frame" x="56" y="32" width="488" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="TsT-Mn-D6E" id="rAS-rV-Eva"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -343,6 +350,9 @@
                                                     <rect key="frame" x="56" y="20" width="488" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="TsT-Mn-D6E" id="cS1-j7-15A"/>
+                                                    </connections>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BMU-7c-r9E">
                                                     <rect key="frame" x="195" y="77" width="211" height="38"/>
