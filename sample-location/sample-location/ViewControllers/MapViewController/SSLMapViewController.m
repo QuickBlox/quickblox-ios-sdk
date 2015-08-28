@@ -12,7 +12,7 @@
 #import "SSLGeoDataManager.h"
 #import "SSLAuthViewController.h"
 
-@interface SSLMapViewController () <UIAlertViewDelegate>
+@interface SSLMapViewController () <UIAlertViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
@@ -40,11 +40,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UINavigationController *navigationController = [segue destinationViewController];
@@ -56,12 +51,6 @@
     } else if ([segue.identifier isEqualToString:@"logInAction"]) {
         authViewController.mode = SSLAuthViewControllerModeLogIn;
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
 }
 
 #pragma mark - User Actions
