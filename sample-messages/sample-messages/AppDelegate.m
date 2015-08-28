@@ -2,13 +2,14 @@
 //  AppDelegate.m
 //  sample-messages
 //
-//  Created by Igor Khomenko on 6/11/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/11/15.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "AppDelegate.h"
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -79,16 +80,14 @@
     subscription.deviceToken = deviceToken;
 
     [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
+        
         NSLog(@"Successfull response!");
         [SVProgressHUD dismiss];
+        
     } errorBlock:^(QBResponse *response) {
-        NSLog(@"Response error:%@", response.error);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                        message:[response.error description]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
+        
+        [ViewController showAlertViewWithErrorMessage:[response.error description]];
+        
         [SVProgressHUD dismiss];
     }];
 
@@ -104,13 +103,10 @@
 //                                     }];
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                    message:[error localizedDescription]
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [ViewController showAlertViewWithErrorMessage:[error localizedDescription]];
+    
     [SVProgressHUD dismiss];
 }
 
