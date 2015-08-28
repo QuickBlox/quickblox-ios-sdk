@@ -17,7 +17,6 @@
 		147DA9D91AEA730C0001F691 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 147DA9D81AEA730C0001F691 /* Localizable.strings */; };
 		147E76FA1AE117E10067340A /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 147E76F91AE117E10067340A /* UIAlertDialog.m */; };
 		1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493F7991AEA525F00FA51A4 /* String+Localized.swift */; };
-		149636FE1B033F740079A6A2 /* IJReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149636FD1B033F740079A6A2 /* IJReachability.swift */; };
 		14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */; };
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
@@ -113,7 +112,6 @@
 		147E76F81AE117D90067340A /* UIAlertDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAlertDialog.h; sourceTree = "<group>"; };
 		147E76F91AE117E10067340A /* UIAlertDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertDialog.m; sourceTree = "<group>"; };
 		1493F7991AEA525F00FA51A4 /* String+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
-		149636FD1B033F740079A6A2 /* IJReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IJReachability.swift; sourceTree = "<group>"; };
 		14A4DCC41AC9A5210046D45C /* quickblox-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quickblox-bridging-Header.h"; sourceTree = "<group>"; };
 		14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -202,6 +200,7 @@
 		864DDA2B1B5FEF3900D4A22F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "sample-chat-swift/Constants.swift"; sourceTree = SOURCE_ROOT; };
 		92B02D131B4C374400752D18 /* DialogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogTableViewCell.swift; sourceTree = "<group>"; };
 		A470176456F8A25856D524CB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A8CA52A1D39DE43BC0AB507F /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
 		FD2A86B40E54C31F0788A286 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -623,7 +622,6 @@
 			isa = PBXGroup;
 			children = (
 				1493F7991AEA525F00FA51A4 /* String+Localized.swift */,
-				149636FD1B033F740079A6A2 /* IJReachability.swift */,
 				2CEF78961B4581E20094E6BA /* UIImage+fixOrientation.h */,
 				2CEF78971B4581E20094E6BA /* UIImage+fixOrientation.m */,
 			);
@@ -661,6 +659,7 @@
 			children = (
 				A470176456F8A25856D524CB /* Pods.debug.xcconfig */,
 				7FBD5AF00180CA0A016ADA39 /* Pods.release.xcconfig */,
+				A8CA52A1D39DE43BC0AB507F /* Pods.qa.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -817,7 +816,6 @@
 				864DDA2C1B5FEF3900D4A22F /* Constants.swift in Sources */,
 				2CBAD9731B3011700047941E /* QMToolbarContentView.m in Sources */,
 				2CBAD95D1B3011700047941E /* NSString+QM.m in Sources */,
-				149636FE1B033F740079A6A2 /* IJReachability.swift in Sources */,
 				92B02D141B4C374400752D18 /* DialogTableViewCell.swift in Sources */,
 				684403AB8D5D258A114BD3AB /* LoginTableViewController.swift in Sources */,
 				2CBAD96A1B3011700047941E /* QMChatNotificationCell.m in Sources */,
@@ -1066,7 +1064,7 @@
 		};
 		2CEFA3311B1DE13400038A4D /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FBD5AF00180CA0A016ADA39 /* Pods.release.xcconfig */;
+			baseConfigurationReference = A8CA52A1D39DE43BC0AB507F /* Pods.qa.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -9,7 +9,7 @@
 @class QBASession;
 
 
-@interface QBSession : NSObject
+@interface QBSession : NSObject <NSCoding>
 
 + (QBSession *)currentSession;
 
@@ -24,6 +24,7 @@
 
 - (void)startSessionWithDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
 - (void)updateSessionUser:(QBUUser *)user;
+- (void)updateExpirationDate:(NSDate *)newExpirationDate;
 - (void)saveSocialProviderDetailsFromHeaders:(NSDictionary *)headers;
 - (void)endSession;
 

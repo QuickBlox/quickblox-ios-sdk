@@ -78,8 +78,13 @@
 /** 'Read' status of a message */
 @property (nonatomic, getter = isRead) BOOL read;
 
-/** The array if users' ids who read this message. */
+/** The array of user's ids who read this message. */
 @property (nonatomic, retain) NSArray *readIDs;
+
+/**
+ *  The array of user's ids who received this message.
+ */
+@property (nonatomic, retain) NSArray *deliveredIDs;
 
 /** Create new message
  @return New instance of QBChatMessage

@@ -18,6 +18,7 @@ class UsersListTableViewController: UITableViewController {
         weak var weakSelf = self
         
 
+        // Fetching users from cache.
         ServicesManager.instance().usersService.cachedUser { (users: [QBUUser]) -> Void in
             
             if users.count > 0 {
@@ -28,6 +29,7 @@ class UsersListTableViewController: UITableViewController {
                 
                 SVProgressHUD.showWithStatus("Loading users", maskType: SVProgressHUDMaskType.Clear)
                 
+                // Downloading users from Quickblox.
                 ServicesManager.instance().usersService.downloadLatestUsers({ (users: [QBUUser]) -> Void in
                     
                     SVProgressHUD.showSuccessWithStatus("Completed")

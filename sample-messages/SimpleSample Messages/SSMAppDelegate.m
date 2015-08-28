@@ -25,17 +25,12 @@
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    //
-    // If you use Push Notifications - you have to use lines bellow when you upload your application to Apple Store or create AdHoc.
-    //
-#ifndef DEBUG
-    [QBSettings useProductionEnvironmentForPushNotifications:YES];
-#endif
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.splashViewController = [[SSMSplashViewController alloc] initWithNibName:nil bundle:nil];
-    self.window.rootViewController = (UIViewController *)self.splashViewController;
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:self.splashViewController];
+    navigationController.navigationBarHidden = YES;
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -61,8 +56,8 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [QBRequest registerSubscriptionForDeviceToken:deviceToken successBlock:^(QBResponse *response, NSArray *subscriptions) {
-        [self.splashViewController hideSplash];
+    [QBRequest registerSubscriptionForDeviceToken:deviceToken uniqueDeviceIdentifier:[[[UIDevice currentDevice] identifierForVendor] UUIDString]
+                                     successBlock:^(QBResponse *response, NSArray *subscriptions) {
     } errorBlock:^(QBError *error) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", "")
                                                         message:[error.reasons description]

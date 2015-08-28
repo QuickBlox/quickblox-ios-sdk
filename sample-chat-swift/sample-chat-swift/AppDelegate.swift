@@ -19,13 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		
+
+        // Set QuickBlox credentials (You must create application in admin.quickblox.com).
 		QBApplication.sharedApplication().applicationId = kQBApplicationID
 		QBConnection.registerServiceKey(kQBRegisterServiceKey)
 		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
-        QBConnection.setAutoCreateSessionEnabled(true)
-		QBSettings.setAccountKey(kQBAccountKey)
+        QBSettings.setAccountKey(kQBAccountKey)
+                
+        // Enables Quickblox REST API calls debug console output.
 		QBSettings.setLogLevel(QBLogLevel.Debug)
+        
+        // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
 		
 		return true
@@ -35,14 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationDidEnterBackground(application: UIApplication) {
+        // Logging out from chat.
 		ServicesManager.instance().chatService?.logoutChat()
 	}
 	
 	func applicationWillEnterForeground(application: UIApplication) {
+        // Logging in to chat.
         ServicesManager.instance().chatService?.logIn({ (error: NSError!) -> Void in
-            
+            // Retrieving messages from memory storage.
             for dialog : QBChatDialog in ServicesManager.instance().chatService.dialogsMemoryStorage.unsortedDialogs() as! Array<QBChatDialog> {
                 
+                // Performing join to the group dialogs.
                 if dialog.type != QBChatDialogType.Private {
                     ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
                         
@@ -58,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	func applicationWillTerminate(application: UIApplication) {
+        // Logging out from chat.
 		ServicesManager.instance().chatService?.logoutChat()
 	}
 	

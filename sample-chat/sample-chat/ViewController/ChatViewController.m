@@ -12,7 +12,6 @@
 #import "UIColor+QM.h"
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "ServicesManager.h"
-#import "StorageManager.h"
 
 #import "LoginTableViewController.h"
 #import "DialogsViewController.h"
@@ -25,6 +24,8 @@
 #import "UIImage+fixOrientation.h"
 
 #import "QMCollectionViewFlowLayoutInvalidationContext.h"
+
+static const NSUInteger widthPadding = 40.0f;
 
 @interface ChatViewController ()
 <
@@ -87,16 +88,14 @@ UIActionSheetDelegate
     [super viewDidLoad];
 
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
-    
-    self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
-    self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
-    
+        
     self.showLoadEarlierMessagesHeader = YES;
     
     [self updateTitle];
     
     self.stringBuilder = [MessageStatusStringBuilder new];
     
+    // Retrieving messages from memory storage.
     self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
     
     QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
@@ -105,6 +104,7 @@ UIActionSheetDelegate
 
     [self refreshCollectionView];
 
+    // Handling 'typing' status.
     __weak typeof(self)weakSelf = self;
     [self.dialog setOnUserIsTyping:^(NSUInteger userID) {
         __typeof(self) strongSelf = weakSelf;
@@ -114,6 +114,7 @@ UIActionSheetDelegate
         strongSelf.title = @"typing...";
     }];
 
+    // Handling user stopped typing.
     [self.dialog setOnUserStoppedTyping:^(NSUInteger userID) {
         __typeof(self) strongSelf = weakSelf;
         [strongSelf updateTitle];
@@ -126,6 +127,7 @@ UIActionSheetDelegate
 		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
+    // Retrieving message from Quickblox REST history and cache.
 	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
             if (showingProgress) {
@@ -156,6 +158,7 @@ UIActionSheetDelegate
         [strongSelf fireStopTypingIfNecessary];
     }];
     
+    // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
     if ([self.items count] > 0) {
@@ -192,8 +195,10 @@ UIActionSheetDelegate
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidEnterBackground];
     
+    // Deletes typing blocks.
     [self.dialog clearTypingStatusBlocks];
     
+    // Resetting currently opened dialog.
     [ServicesManager instance].currentDialogID = nil;
 }
 
@@ -211,7 +216,7 @@ UIActionSheetDelegate
         NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
         [mutableOccupants removeObject:@([self senderID])];
         NSNumber* opponentID = [mutableOccupants firstObject];
-        QBUUser* opponentUser = [[StorageManager instance] userByID:[opponentID unsignedIntegerValue]];
+        QBUUser* opponentUser = [qbUsersMemoryStorage userWithID:[opponentID unsignedIntegerValue]];
         NSAssert(opponentUser, @"opponent must exists");
         self.opponentUser = opponentUser;
         self.title = self.opponentUser.fullName;
@@ -226,6 +231,7 @@ UIActionSheetDelegate
 {
     if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
         message.markable = YES;
+        // Sending read message status.
         if (![[QBChat instance] readMessage:message]) {
             NSLog(@"Problems while marking message as read!");
         }
@@ -241,8 +247,6 @@ UIActionSheetDelegate
     } else {
         self.unreadMessages = messages;
     }
-    
-    [QBRequest markMessagesAsRead:[NSSet setWithArray:messages] dialogID:dialogID successBlock:nil errorBlock:nil];
 }
 
 - (void)fireStopTypingIfNecessary
@@ -250,54 +254,6 @@ UIActionSheetDelegate
     [self.typingTimer invalidate];
     self.typingTimer = nil;
     [self.dialog sendUserStoppedTyping];
-}
-
-#pragma mark - Tool bar
-
-- (UIButton *)accessoryButtonItem {
-    
-    UIImage *accessoryImage = [UIImage imageNamed:@"attachment_ic"];
-    UIImage *normalImage = [accessoryImage imageMaskedWithColor:[UIColor lightGrayColor]];
-    UIImage *highlightedImage = [accessoryImage imageMaskedWithColor:[UIColor darkGrayColor]];
-    
-    UIButton *accessoryButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, accessoryImage.size.width, 32.0f)];
-    [accessoryButton setImage:normalImage forState:UIControlStateNormal];
-    [accessoryButton setImage:highlightedImage forState:UIControlStateHighlighted];
-    
-    accessoryButton.contentMode = UIViewContentModeScaleAspectFit;
-    accessoryButton.backgroundColor = [UIColor clearColor];
-    accessoryButton.tintColor = [UIColor lightGrayColor];
-    
-    return accessoryButton;
-}
-
-- (UIButton *)sendButtonItem {
-    
-    NSString *sendTitle = NSLocalizedString(@"Send", nil);
-    
-    UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [sendButton setTitle:sendTitle forState:UIControlStateNormal];
-    [sendButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [sendButton setTitleColor:[[UIColor blueColor] colorByDarkeningColorWithValue:0.1f] forState:UIControlStateHighlighted];
-    [sendButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-    
-    sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
-    sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-    sendButton.titleLabel.minimumScaleFactor = 0.85f;
-    sendButton.contentMode = UIViewContentModeCenter;
-    sendButton.backgroundColor = [UIColor clearColor];
-    sendButton.tintColor = [UIColor blueColor];
-    
-    CGFloat maxHeight = 32.0f;
-    
-    CGRect sendTitleRect = [sendTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, maxHeight)
-                                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                attributes:@{NSFontAttributeName : sendButton.titleLabel.font}
-                                                   context:nil];
-    
-    sendButton.frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(CGRectIntegral(sendTitleRect)), maxHeight);
-    
-    return sendButton;
 }
 
 #pragma mark Tool bar Actions
@@ -308,7 +264,7 @@ UIActionSheetDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
-    [self fireStopTypingIfNecessary];
+    [self fireStopTypingIfNecessary]; 
     
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
@@ -317,17 +273,9 @@ UIActionSheetDelegate
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
     
+    // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     [self finishSendingMessageAnimated:YES];
-}
-
-- (void)didPressAccessoryButton:(UIButton *)sender
-{
-    UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil otherButtonTitles:@"Camera", @"Photo Library", nil];
-    [actionSheet showInView:self.view];
 }
 
 #pragma mark - Cell classes
@@ -384,7 +332,7 @@ UIActionSheetDelegate
     NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
-        QBUUser* user = [[StorageManager instance]userByID:self.senderID];
+        QBUUser* user = [qbUsersMemoryStorage userWithID:self.senderID];
         topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 
@@ -402,7 +350,7 @@ UIActionSheetDelegate
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     NSString* text = [self timeStampWithDate:messageItem.dateSent];
     if ([messageItem senderID] == self.senderID) {
-        text = [NSString stringWithFormat:@"%@ %@", [self.stringBuilder statusFromMessage:messageItem], text];
+        text = [NSString stringWithFormat:@"%@\n%@", text, [self.stringBuilder statusFromMessage:messageItem]];
     }
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text
                                                                                 attributes:attributes];
@@ -418,15 +366,23 @@ UIActionSheetDelegate
     Class viewClass = [self viewClassForItem:item];
     CGSize size = CGSizeZero;
     
-    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) {
+    if (viewClass == [QMChatAttachmentIncomingCell class]) {
         size = CGSizeMake(MIN(200, maxWidth), 200);
+    } else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
+        NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
+    
+        CGSize bottomLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                                  withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
+                                                           limitedToNumberOfLines:0];
+        size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
     } else {
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                       withConstraints:CGSizeMake(maxWidth, MAXFLOAT)
-                                                limitedToNumberOfLines:0];        
+                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
     }
+    
     return size;
 }
 
@@ -438,8 +394,8 @@ UIActionSheetDelegate
     [item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
     
     CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                   withConstraints:CGSizeMake(1000, 10000)
-                                            limitedToNumberOfLines:1];
+                                                   withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                            limitedToNumberOfLines:0];
     
     return size.width;
 }
@@ -448,11 +404,30 @@ UIActionSheetDelegate
 {
     self.shouldHoldScrollOnCollectionView = YES;
     __weak typeof(self)weakSelf = self;
+    // Getting earlier messages for chat dialog identifier.
     [[ServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
         __typeof(self) strongSelf = weakSelf;
         
         strongSelf.shouldHoldScrollOnCollectionView = NO;
     }];
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return NO;
+    
+    return [super collectionView:collectionView canPerformAction:action forItemAtIndexPath:indexPath withSender:sender];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+{
+    QBChatMessage* message = self.items[indexPath.row];
+    
+    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    
+    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return;
+    [UIPasteboard generalPasteboard].string = message.text;    
 }
 
 #pragma mark - Utility
@@ -478,7 +453,20 @@ UIActionSheetDelegate
     if (self.dialog.type == QBChatDialogTypePrivate) {
         layoutModel.topLabelHeight = 0.0;
     }
+    
     layoutModel.avatarSize = (CGSize){0.0, 0.0};
+    
+    QBChatMessage* item = self.items[indexPath.row];
+    Class class = [self viewClassForItem:item];
+    
+    if (class == [QMChatOutgoingCell class] || class == [QMChatAttachmentOutgoingCell class]) {
+        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
+        CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
+                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                                limitedToNumberOfLines:0];
+        
+        layoutModel.bottomLabelHeight = ceilf(size.height);
+    }
     
     return layoutModel;
 }
@@ -518,6 +506,7 @@ UIActionSheetDelegate
             if (!shouldLoadFile) return;
             
             __weak typeof(self)weakSelf = self;
+            // Getting image from chat attachment service.
             [[ServicesManager instance].chatService.chatAttachmentService getImageForChatAttachment:attachment completion:^(NSError *error, UIImage *image) {
                 __typeof(self) strongSelf = weakSelf;
                 
@@ -542,11 +531,11 @@ UIActionSheetDelegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
+        // Retrieving messages from memory strorage.
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         [self refreshCollectionView];
         
         [self sendReadStatusForMessage:message];
-        [QBRequest markMessagesAsRead:[NSSet setWithObject:message] dialogID:message.dialogID successBlock:nil errorBlock:nil];
     }
 }
 
@@ -639,6 +628,7 @@ UIActionSheetDelegate
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
 {
     if (message.dialogID == self.dialog.ID) {
+        // Retrieving messages for dialog from memory storage.
         self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
         [self refreshCollectionView];
     }
@@ -675,42 +665,31 @@ UIActionSheetDelegate
     [self fireStopTypingIfNecessary];
 }
 
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex  == 0) {
-        self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:self.pickerController animated:YES completion:nil];
-    } else if (buttonIndex == 1) {
-        self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.pickerController animated:YES completion:nil];
-    }
-}
-
 #pragma mark - UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)didPickAttachmentImage:(UIImage *)image
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
     [SVProgressHUD showWithStatus:@"Uploading attachment" maskType:SVProgressHUDMaskTypeClear];
     
+    __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        UIImage* image = info[UIImagePickerControllerOriginalImage];
-        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-            image = [image fixOrientation];
+        __typeof(self) strongSelf = weakSelf;
+        UIImage* newImage = image;
+        if (strongSelf.pickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            newImage = [newImage fixOrientation];
         }
         
-        UIImage* resizedImage = [self resizedImageFromImage:image];
+        UIImage* resizedImage = [strongSelf resizedImageFromImage:newImage];
         
         QBChatMessage* message = [QBChatMessage new];
-        message.senderID = self.senderID;
-        message.dialogID = self.dialog.ID;
+        message.senderID = strongSelf.senderID;
+        message.dialogID = strongSelf.dialog.ID;
         
+        // Sending attachment to dialog.
         [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message
-                                                                           toDialog:self.dialog
-                                                                    withChatService:[ServicesManager instance].chatService
-                                                                  withAttachedImage:resizedImage completion:^(NSError *error) {
+                                                                         toDialog:strongSelf.dialog
+                                                                  withChatService:[ServicesManager instance].chatService
+                                                                withAttachedImage:resizedImage completion:^(NSError *error) {
                                                                       dispatch_async(dispatch_get_main_queue(), ^{
                                                                           if (error != nil) {
                                                                               [SVProgressHUD showErrorWithStatus:error.localizedDescription];

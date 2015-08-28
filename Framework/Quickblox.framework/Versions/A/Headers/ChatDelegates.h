@@ -441,10 +441,19 @@
 
 /**
  Called when you received a confirmation about message delivery
+ @warning Deprecated in 2.4. Use 'chatDidDeliverMessageWithID:dialogID:toUserID:' instead.
  @param messageID ID of an original message
  */
 - (void)chatDidDeliverMessageWithID:(NSString *)messageID;
 
+/**
+ *  Called when message is delivered to user.
+ *
+ *  @param messageID Message identifier.
+ *  @param dialogID  Dialog identifier.
+ *  @param readerID  User identifier.
+ */
+- (void)chatDidDeliverMessageWithID:(NSString *)messageID dialogID:(NSString *)dialogID toUserID:(NSUInteger)userID;
 
 #pragma mark -
 #pragma mark Read status

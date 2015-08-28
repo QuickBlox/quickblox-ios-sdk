@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		43900C39162469680041381B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43900C38162469680041381B /* libxml2.dylib */; };
-		B2765F8A7A3B410C87A1E86E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E741BC0CB0A04E9FBA421665 /* libPods.a */; };
 		BFA79ED61843E4280044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED51843E4280044D9E0 /* Security.framework */; };
 		BFCEAD2E1976AB4D006279FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFCEAD2D1976AB4D006279FC /* Images.xcassets */; };
 		ED6EE60316773C46004BCAC7 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED6EE60216773C46004BCAC7 /* Quickblox.framework */; };
@@ -42,7 +41,6 @@
 /* Begin PBXFileReference section */
 		43900C38162469680041381B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		43EB468A16241A9C00A88FF1 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		BFA79ED51843E4280044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFCEAD2D1976AB4D006279FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E741BC0CB0A04E9FBA421665 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +103,6 @@
 				FAFA575414ED43420057B9B5 /* CFNetwork.framework in Frameworks */,
 				FAFA572C14ED23410057B9B5 /* UIKit.framework in Frameworks */,
 				FAFA572E14ED23410057B9B5 /* Foundation.framework in Frameworks */,
-				B2765F8A7A3B410C87A1E86E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +192,6 @@
 				FA43ADBF152B94A9000A2EF7 /* Resources */,
 				FAFA572A14ED23410057B9B5 /* Frameworks */,
 				FAFA572814ED23410057B9B5 /* Products */,
-				6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -262,11 +258,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAFA574814ED23420057B9B5 /* Build configuration list for PBXNativeTarget "SimpleSample Messages" */;
 			buildPhases = (
-				135EB994D6D54156899A8AC6 /* Check Pods Manifest.lock */,
 				FAFA572314ED23410057B9B5 /* Sources */,
 				FAFA572414ED23410057B9B5 /* Frameworks */,
 				FAFA572514ED23410057B9B5 /* Resources */,
-				24D2C622C3FD479F8D8A2411 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,7 +278,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SSM;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = QuickBlox;
 			};
 			buildConfigurationList = FAFA572114ED23410057B9B5 /* Build configuration list for PBXProject "SimpleSample Messages" */;
@@ -318,39 +312,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		135EB994D6D54156899A8AC6 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		24D2C622C3FD479F8D8A2411 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FAFA572314ED23410057B9B5 /* Sources */ = {
@@ -391,12 +352,13 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -413,7 +375,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "0080ab4e-957c-4ffb-a3c7-47a02da83066";
+				PROVISIONING_PROFILE = "63eca73e-1bfe-4828-aed3-7cb83fb0c5cb";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -435,6 +397,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -445,7 +408,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "7f0aa704-e347-4c45-ad5d-c12406742570";
+				PROVISIONING_PROFILE = "2d34242a-69a3-41b6-92e4-15bc3e72ed1b";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -454,13 +417,12 @@
 		};
 		FAFA574914ED23420057B9B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -486,8 +448,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Messages;
-				PROVISIONING_PROFILE = "F98989A1-3765-4F2D-8C30-5ECBE1C81B5F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0080ab4e-957c-4ffb-a3c7-47a02da83066";
+				PROVISIONING_PROFILE = "63eca73e-1bfe-4828-aed3-7cb83fb0c5cb";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "63eca73e-1bfe-4828-aed3-7cb83fb0c5cb";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -495,13 +457,12 @@
 		};
 		FAFA574A14ED23420057B9B5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6EA615E3A9FA4CC397D2AFA2 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Taras Filatov (6AVH4TA956)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -522,8 +483,8 @@
 					"-lstdc++",
 				);
 				PRODUCT_NAME = Messages;
-				PROVISIONING_PROFILE = "290D0E4E-4255-499C-A01C-8E6DCBCB760C";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4A7273D7-268E-4266-B796-A8956D96DE97";
+				PROVISIONING_PROFILE = "2d34242a-69a3-41b6-92e4-15bc3e72ed1b";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2d34242a-69a3-41b6-92e4-15bc3e72ed1b";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

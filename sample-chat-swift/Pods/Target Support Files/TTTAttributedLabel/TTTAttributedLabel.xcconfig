@@ -1,1 +1,0 @@
-TTTATTRIBUTEDLABEL_OTHER_LDFLAGS = -framework "CoreGraphics" -framework "CoreText" -framework "QuartzCore" -framework "UIKit"

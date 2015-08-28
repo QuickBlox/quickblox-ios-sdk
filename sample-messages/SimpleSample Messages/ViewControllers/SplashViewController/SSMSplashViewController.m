@@ -32,18 +32,14 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-
-    // Create extended session request (for push notifications)
-    QBSessionParameters *parameters = [QBSessionParameters new];
-    parameters.userLogin = @"qbuser321";
-    parameters.userPassword = @"qbuser321";
     
     // QuickBlox session creation
-    [QBRequest createSessionWithExtendedParameters:parameters successBlock:^(QBResponse *response, QBASession *session) {
-        [self registerForRemoteNotifications];
-        [self.wheel stopAnimating];
-        
-        [self hideSplash];
+    __weak typeof(self)weakSelf = self;
+    [QBRequest logInWithUserLogin:@"qbuser321" password:@"qbuser321" successBlock:^(QBResponse *response, QBUUser *user) {
+        __typeof(self) strongSelf = weakSelf;
+        [strongSelf registerForRemoteNotifications];
+        [strongSelf.wheel stopAnimating];
+        [strongSelf hideSplash];
     } errorBlock:[self handleError]];
 }
 
@@ -66,7 +62,7 @@
 
 - (void)hideSplash
 {
-    [self presentViewController:[SSMMainViewController new] animated:YES completion:nil];
+    [self.navigationController pushViewController:[SSMMainViewController new] animated:YES];
 }
 
 @end
