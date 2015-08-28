@@ -6,26 +6,25 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLLatestCheckinsViewController.h"
-#import "SSLAppDelegate.h"
-#import "SSLDataManager.h"
-#import "SSLAuthViewController.h"
-#import "SSLCheckInTableViewCell.h"
+#import "LatestCheckinsViewController.h"
+#import "AppDelegate.h"
+#import "DataManager.h"
+#import "CheckInTableViewCell.h"
 
 static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
 
-@interface SSLLatestCheckinsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface LatestCheckinsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
-@implementation SSLLatestCheckinsViewController
+@implementation LatestCheckinsViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.tableView.contentInset = (UIEdgeInsets){20, 0, 0, 0};
     
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:SSLGeoDataManagerDidUpdateData object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:GeoDataManagerDidUpdateData object:nil];
 }
 
 #pragma mark -
@@ -33,14 +32,14 @@ static NSString* const CheckInCellIdentifier = @"CheckinCellIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[SSLDataManager instance].checkins count];
+    return [[DataManager instance].checkins count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    QBLGeoData *geodata = ([SSLDataManager instance].checkins)[indexPath.row];
+    QBLGeoData *geodata = ([DataManager instance].checkins)[indexPath.row];
     
-    SSLCheckInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckInCellIdentifier];
+    CheckInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CheckInCellIdentifier];
     
     [cell configureWithGeoData:geodata];
    

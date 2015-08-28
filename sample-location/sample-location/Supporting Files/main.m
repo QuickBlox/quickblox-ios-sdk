@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLAppDelegate.h"
+#import "AppDelegate.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([SSLAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="waX-p7-h6u">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Map-->
         <scene sceneID="lM4-RX-mCx">
             <objects>
-                <viewController title="Map" id="qQs-K1-RHd" customClass="SSLMapViewController" sceneMemberID="viewController">
+                <viewController title="Map" id="qQs-K1-RHd" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="juG-AF-EcS"/>
                         <viewControllerLayoutGuide type="bottom" id="WMw-EA-W3f"/>
@@ -200,13 +199,13 @@
         <!--Latest checkins-->
         <scene sceneID="vWa-Lr-5Ov">
             <objects>
-                <tableViewController title="Latest checkins" id="6bI-Tt-3oF" customClass="SSLLatestCheckinsViewController" sceneMemberID="viewController">
+                <tableViewController title="Latest checkins" id="6bI-Tt-3oF" customClass="LatestCheckinsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4ZE-4p-KXJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckinCellIdentifier" id="HU2-Vd-R6N" customClass="SSLCheckInTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckinCellIdentifier" id="HU2-Vd-R6N" customClass="CheckInTableViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HU2-Vd-R6N" id="f8q-zE-IoS">

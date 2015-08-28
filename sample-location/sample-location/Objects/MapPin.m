@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLMapPin.h"
+#import "MapPin.h"
 
-@implementation SSLMapPin
+@implementation MapPin
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D) coordinate
 {

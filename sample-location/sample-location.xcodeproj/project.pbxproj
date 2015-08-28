@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C2B5E461B8EFA5800F0D31D /* SSLDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E451B8EFA5800F0D31D /* SSLDataManager.m */; };
-		2C2B5E491B8EFA8700F0D31D /* SSLCheckInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E481B8EFA8700F0D31D /* SSLCheckInTableViewCell.m */; };
-		2C2B5E4C1B8EFDCF00F0D31D /* SSLAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E4B1B8EFDCF00F0D31D /* SSLAuthViewController.m */; };
+		2C2B5E461B8EFA5800F0D31D /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E451B8EFA5800F0D31D /* DataManager.m */; };
+		2C2B5E491B8EFA8700F0D31D /* CheckInTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E481B8EFA8700F0D31D /* CheckInTableViewCell.m */; };
 		2C2B5E4E1B8F098C00F0D31D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B5E4D1B8F098C00F0D31D /* Storyboard.storyboard */; };
-		2C2B5E511B8F50B500F0D31D /* SSLGeoDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E501B8F50B500F0D31D /* SSLGeoDataManager.m */; };
+		2C2B5E511B8F50B500F0D31D /* GeoDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E501B8F50B500F0D31D /* GeoDataManager.m */; };
 		2C2B5E531B8F5A1B00F0D31D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B5E521B8F5A1B00F0D31D /* LaunchScreen.xib */; };
 		86C9EFF0194C45270064A91E /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86C9EFEF194C45270064A91E /* images.xcassets */; };
 		8A2F265C14F7F0D300292876 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265B14F7F0D300292876 /* UIKit.framework */; };
@@ -24,15 +23,15 @@
 		8A2F268714F7F1FF00292876 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F268614F7F1FF00292876 /* libz.dylib */; };
 		8A2F268914F7F25B00292876 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F268814F7F25B00292876 /* MapKit.framework */; };
 		8A78244E15061F6600036DEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A78244D15061F6600036DEC /* QuartzCore.framework */; };
-		8AC09DA514FF6E8C00658181 /* SSLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC09DA414FF6E8C00658181 /* SSLAppDelegate.m */; };
+		8AC09DA514FF6E8C00658181 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC09DA414FF6E8C00658181 /* AppDelegate.m */; };
 		8AC09DC914FF710400658181 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8AC09DC514FF710400658181 /* InfoPlist.strings */; };
 		8AC09DCA14FF710400658181 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC09DC614FF710400658181 /* main.m */; };
-		BB1234501608829200491A31 /* SSLLatestCheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB12344F1608829200491A31 /* SSLLatestCheckinsViewController.m */; };
+		BB1234501608829200491A31 /* LatestCheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB12344F1608829200491A31 /* LatestCheckinsViewController.m */; };
 		BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED31843E2120044D9E0 /* Security.framework */; };
 		BFFCF7AF19AE2F2F0065AE21 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7AE19AE2F2F0065AE21 /* Quickblox.framework */; };
 		FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA38CC5A1614758600BDD29A /* libxml2.2.dylib */; };
-		FA39FB8F15EF7110002F9D26 /* SSLMapPin.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB8E15EF7110002F9D26 /* SSLMapPin.m */; };
-		FA39FBA315EF715A002F9D26 /* SSLMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB9B15EF715A002F9D26 /* SSLMapViewController.m */; };
+		FA39FB8F15EF7110002F9D26 /* MapPin.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB8E15EF7110002F9D26 /* MapPin.m */; };
+		FA39FBA315EF715A002F9D26 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB9B15EF715A002F9D26 /* MapViewController.m */; };
 		FAC8B9D716D2D33300F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9D616D2D33300F03311 /* AVFoundation.framework */; };
 		FAC8B9D916D2D33700F03311 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9D816D2D33700F03311 /* Accelerate.framework */; };
 		FAC8B9DB16D2D33D00F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */; };
@@ -42,15 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2C2B5E441B8EFA5800F0D31D /* SSLDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SSLDataManager.h; path = "sample-location/Objects/SSLDataManager.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2C2B5E451B8EFA5800F0D31D /* SSLDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SSLDataManager.m; path = "sample-location/Objects/SSLDataManager.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2C2B5E471B8EFA8700F0D31D /* SSLCheckInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SSLCheckInTableViewCell.h; path = "sample-location/ViewControllers/LatestCheckinsViewController/SSLCheckInTableViewCell.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2C2B5E481B8EFA8700F0D31D /* SSLCheckInTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SSLCheckInTableViewCell.m; path = "sample-location/ViewControllers/LatestCheckinsViewController/SSLCheckInTableViewCell.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2C2B5E4A1B8EFDCF00F0D31D /* SSLAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SSLAuthViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2C2B5E4B1B8EFDCF00F0D31D /* SSLAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SSLAuthViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2C2B5E441B8EFA5800F0D31D /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DataManager.h; path = "sample-location/Objects/DataManager.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2C2B5E451B8EFA5800F0D31D /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DataManager.m; path = "sample-location/Objects/DataManager.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2C2B5E471B8EFA8700F0D31D /* CheckInTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CheckInTableViewCell.h; path = "sample-location/ViewControllers/LatestCheckinsViewController/CheckInTableViewCell.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2C2B5E481B8EFA8700F0D31D /* CheckInTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CheckInTableViewCell.m; path = "sample-location/ViewControllers/LatestCheckinsViewController/CheckInTableViewCell.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2C2B5E4D1B8F098C00F0D31D /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		2C2B5E4F1B8F50B500F0D31D /* SSLGeoDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SSLGeoDataManager.h; path = "sample-location/Objects/SSLGeoDataManager.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2C2B5E501B8F50B500F0D31D /* SSLGeoDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SSLGeoDataManager.m; path = "sample-location/Objects/SSLGeoDataManager.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		2C2B5E4F1B8F50B500F0D31D /* GeoDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = GeoDataManager.h; path = "sample-location/Objects/GeoDataManager.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2C2B5E501B8F50B500F0D31D /* GeoDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GeoDataManager.m; path = "sample-location/Objects/GeoDataManager.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2C2B5E521B8F5A1B00F0D31D /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		4BF2FD4F7B444F3A804050A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57A2B782031C55F9D1B3FE65 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -66,22 +63,22 @@
 		8A2F268614F7F1FF00292876 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8A2F268814F7F25B00292876 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8A78244D15061F6600036DEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		8AC09DA314FF6E8C00658181 /* SSLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SSLAppDelegate.h; path = "sample-location/SSLAppDelegate.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		8AC09DA414FF6E8C00658181 /* SSLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SSLAppDelegate.m; path = "sample-location/SSLAppDelegate.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		8AC09DA314FF6E8C00658181 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppDelegate.h; path = "sample-location/AppDelegate.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		8AC09DA414FF6E8C00658181 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = AppDelegate.m; path = "sample-location/AppDelegate.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8AC09DC514FF710400658181 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = "sample-location/Supporting Files/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
 		8AC09DC614FF710400658181 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = main.m; path = "sample-location/Supporting Files/main.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8AC09DC714FF710400658181 /* sample-location-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "sample-location-Info.plist"; path = "sample-location/Supporting Files/sample-location-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8AC09DC814FF710400658181 /* sample-location-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "sample-location-Prefix.pch"; path = "sample-location/Supporting Files/sample-location-Prefix.pch"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		BB12344E1608829200491A31 /* SSLLatestCheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SSLLatestCheckinsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		BB12344F1608829200491A31 /* SSLLatestCheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SSLLatestCheckinsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BB12344E1608829200491A31 /* LatestCheckinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LatestCheckinsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BB12344F1608829200491A31 /* LatestCheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LatestCheckinsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BFA79ED31843E2120044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFFCF7AE19AE2F2F0065AE21 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		C33BDCD0D89F42A7674238D0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FA38CC5A1614758600BDD29A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		FA39FB8D15EF7110002F9D26 /* SSLMapPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SSLMapPin.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FA39FB8E15EF7110002F9D26 /* SSLMapPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SSLMapPin.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		FA39FB9A15EF715A002F9D26 /* SSLMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SSLMapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FA39FB9B15EF715A002F9D26 /* SSLMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SSLMapViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		FA39FB8D15EF7110002F9D26 /* MapPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapPin.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		FA39FB8E15EF7110002F9D26 /* MapPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MapPin.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		FA39FB9A15EF715A002F9D26 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		FA39FB9B15EF715A002F9D26 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MapViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		FAC8B9D616D2D33300F03311 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FAC8B9D816D2D33700F03311 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -131,8 +128,8 @@
 		869BD08A194F323B0055A33D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				2C2B5E471B8EFA8700F0D31D /* SSLCheckInTableViewCell.h */,
-				2C2B5E481B8EFA8700F0D31D /* SSLCheckInTableViewCell.m */,
+				2C2B5E471B8EFA8700F0D31D /* CheckInTableViewCell.h */,
+				2C2B5E481B8EFA8700F0D31D /* CheckInTableViewCell.m */,
 			);
 			name = Cells;
 			path = "sample-location/ViewControllers/LatestCheckinsViewController";
@@ -141,8 +138,8 @@
 		869BD08B194F32760055A33D /* Data Transfer Object */ = {
 			isa = PBXGroup;
 			children = (
-				FA39FB8D15EF7110002F9D26 /* SSLMapPin.h */,
-				FA39FB8E15EF7110002F9D26 /* SSLMapPin.m */,
+				FA39FB8D15EF7110002F9D26 /* MapPin.h */,
+				FA39FB8E15EF7110002F9D26 /* MapPin.m */,
 			);
 			name = "Data Transfer Object";
 			path = "sample-location/Objects";
@@ -151,8 +148,8 @@
 		8A2F264C14F7F0D300292876 = {
 			isa = PBXGroup;
 			children = (
-				8AC09DA314FF6E8C00658181 /* SSLAppDelegate.h */,
-				8AC09DA414FF6E8C00658181 /* SSLAppDelegate.m */,
+				8AC09DA314FF6E8C00658181 /* AppDelegate.h */,
+				8AC09DA414FF6E8C00658181 /* AppDelegate.m */,
 				869BD08B194F32760055A33D /* Data Transfer Object */,
 				2CE8477E1B905F4F006B9EDA /* Views */,
 				FA39FB9515EF715A002F9D26 /* ViewControllers */,
@@ -215,8 +212,8 @@
 		BB12344D1608829200491A31 /* LatestCheckinsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				BB12344E1608829200491A31 /* SSLLatestCheckinsViewController.h */,
-				BB12344F1608829200491A31 /* SSLLatestCheckinsViewController.m */,
+				BB12344E1608829200491A31 /* LatestCheckinsViewController.h */,
+				BB12344F1608829200491A31 /* LatestCheckinsViewController.m */,
 			);
 			path = LatestCheckinsViewController;
 			sourceTree = "<group>";
@@ -233,10 +230,10 @@
 		FA39FB7615EF6FFC002F9D26 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				2C2B5E441B8EFA5800F0D31D /* SSLDataManager.h */,
-				2C2B5E451B8EFA5800F0D31D /* SSLDataManager.m */,
-				2C2B5E4F1B8F50B500F0D31D /* SSLGeoDataManager.h */,
-				2C2B5E501B8F50B500F0D31D /* SSLGeoDataManager.m */,
+				2C2B5E441B8EFA5800F0D31D /* DataManager.h */,
+				2C2B5E451B8EFA5800F0D31D /* DataManager.m */,
+				2C2B5E4F1B8F50B500F0D31D /* GeoDataManager.h */,
+				2C2B5E501B8F50B500F0D31D /* GeoDataManager.m */,
 			);
 			name = Manager;
 			path = "sample-location/Manager";
@@ -246,27 +243,17 @@
 			isa = PBXGroup;
 			children = (
 				BB12344D1608829200491A31 /* LatestCheckinsViewController */,
-				FA39FB9615EF715A002F9D26 /* AuthViewController */,
 				FA39FB9915EF715A002F9D26 /* MapViewController */,
 			);
 			name = ViewControllers;
 			path = "sample-location/ViewControllers";
 			sourceTree = "<group>";
 		};
-		FA39FB9615EF715A002F9D26 /* AuthViewController */ = {
-			isa = PBXGroup;
-			children = (
-				2C2B5E4A1B8EFDCF00F0D31D /* SSLAuthViewController.h */,
-				2C2B5E4B1B8EFDCF00F0D31D /* SSLAuthViewController.m */,
-			);
-			path = AuthViewController;
-			sourceTree = "<group>";
-		};
 		FA39FB9915EF715A002F9D26 /* MapViewController */ = {
 			isa = PBXGroup;
 			children = (
-				FA39FB9A15EF715A002F9D26 /* SSLMapViewController.h */,
-				FA39FB9B15EF715A002F9D26 /* SSLMapViewController.m */,
+				FA39FB9A15EF715A002F9D26 /* MapViewController.h */,
+				FA39FB9B15EF715A002F9D26 /* MapViewController.m */,
 			);
 			path = MapViewController;
 			sourceTree = "<group>";
@@ -355,15 +342,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AC09DA514FF6E8C00658181 /* SSLAppDelegate.m in Sources */,
+				8AC09DA514FF6E8C00658181 /* AppDelegate.m in Sources */,
 				8AC09DCA14FF710400658181 /* main.m in Sources */,
-				FA39FB8F15EF7110002F9D26 /* SSLMapPin.m in Sources */,
-				FA39FBA315EF715A002F9D26 /* SSLMapViewController.m in Sources */,
-				2C2B5E461B8EFA5800F0D31D /* SSLDataManager.m in Sources */,
-				2C2B5E491B8EFA8700F0D31D /* SSLCheckInTableViewCell.m in Sources */,
-				2C2B5E511B8F50B500F0D31D /* SSLGeoDataManager.m in Sources */,
-				BB1234501608829200491A31 /* SSLLatestCheckinsViewController.m in Sources */,
-				2C2B5E4C1B8EFDCF00F0D31D /* SSLAuthViewController.m in Sources */,
+				FA39FB8F15EF7110002F9D26 /* MapPin.m in Sources */,
+				FA39FBA315EF715A002F9D26 /* MapViewController.m in Sources */,
+				2C2B5E461B8EFA5800F0D31D /* DataManager.m in Sources */,
+				2C2B5E491B8EFA8700F0D31D /* CheckInTableViewCell.m in Sources */,
+				2C2B5E511B8F50B500F0D31D /* GeoDataManager.m in Sources */,
+				BB1234501608829200491A31 /* LatestCheckinsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

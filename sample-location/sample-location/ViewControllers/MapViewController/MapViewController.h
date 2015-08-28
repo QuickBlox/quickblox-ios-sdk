@@ -11,6 +11,6 @@
 // It allows to share own position.
 //
 
-@interface SSLMapViewController : UIViewController
+@interface MapViewController : UIViewController
 
 @end

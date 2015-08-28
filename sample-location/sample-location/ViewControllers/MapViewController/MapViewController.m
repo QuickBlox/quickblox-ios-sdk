@@ -6,20 +6,19 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLMapViewController.h"
-#import "SSLMapPin.h"
-#import "SSLDataManager.h"
-#import "SSLGeoDataManager.h"
-#import "SSLAuthViewController.h"
+#import "MapViewController.h"
+#import "MapPin.h"
+#import "DataManager.h"
+#import "GeoDataManager.h"
 
-@interface SSLMapViewController () <UIAlertViewDelegate, CLLocationManagerDelegate>
+@interface MapViewController () <UIAlertViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 
 @end
 
-@implementation SSLMapViewController
+@implementation MapViewController
 
 #pragma mark - View Controller
 
@@ -27,7 +26,7 @@
 {
     [super viewDidLoad];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMapAnnotations) name:SSLGeoDataManagerDidUpdateData object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMapAnnotations) name:GeoDataManagerDidUpdateData object:nil];
     
     [self updateMapAnnotations];
     
@@ -40,31 +39,11 @@
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    UINavigationController *navigationController = [segue destinationViewController];
-    SSLAuthViewController *authViewController = (SSLAuthViewController *)[navigationController topViewController];
-    
-    if ([segue.identifier isEqualToString:@"signUpAction"]) {
-        authViewController.mode = SSLAuthViewControllerModeSignUp;
-        
-    } else if ([segue.identifier isEqualToString:@"logInAction"]) {
-        authViewController.mode = SSLAuthViewControllerModeLogIn;
-    }
-}
-
 #pragma mark - User Actions
 
 - (IBAction)checkIn:(id)sender
 {
-    // Show alert if user did not logged in
-    if([SSLDataManager instance].currentUser == nil) {
-        [self showNeedAuthorizeAlertView];
-        
-    // Show alert for check in
-    } else {
-        [self showCheckInCommentAlertView];
-    }
+    [self showCheckInCommentAlertView];
 }
 
 #pragma mark - Actions
@@ -73,27 +52,16 @@
     
     [self.mapView removeAnnotations:self.mapView.annotations];
     
-    for(QBLGeoData *geodata in [SSLDataManager instance].checkins) {
+    for(QBLGeoData *geodata in [DataManager instance].checkins) {
         
         CLLocationCoordinate2D coord = {.latitude = geodata.latitude, .longitude = geodata.longitude};
         
-        SSLMapPin *pin = [[SSLMapPin alloc] initWithCoordinate:coord];
+        MapPin *pin = [[MapPin alloc] initWithCoordinate:coord];
         pin.subtitle = geodata.status;
         pin.title = geodata.user.login ? geodata.user.login : geodata.user.email;
         
         [self.mapView addAnnotation:pin];
     }
-}
-
-- (void)showNeedAuthorizeAlertView {
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You must first be authorized."
-                                                        message:nil
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Sign Up", @"Sign In", nil];
-    
-    [alertView show];
 }
 
 - (void)showCheckInCommentAlertView {
@@ -124,7 +92,7 @@
                                               otherButtonTitles:nil];
         [alert show];
         
-        [[SSLGeoDataManager instance] fetchLatestCheckIns];
+        [[GeoDataManager instance] fetchLatestCheckIns];
         
     } errorBlock:^(QBResponse *response) {
         
@@ -135,6 +103,25 @@
                                               otherButtonTitles:nil];
         [alert show];
     }];
+}
+
+- (void)checkCurrentUserWithCompletion:(void(^)(NSError *authError))completion {
+    
+    if ([[QBSession currentSession] currentUser] != nil) {
+        
+        if (completion) completion(nil);
+        
+    } else {
+        
+        [QBRequest logInWithUserLogin:@"InjoitUser1" password:@"InjoitUser1" successBlock:^(QBResponse *response, QBUUser *user) {
+            
+            if (completion) completion(nil);
+            
+        } errorBlock:^(QBResponse *response) {
+            
+            if (completion) completion(response.error.error);
+        }];
+    }
 }
 
 #pragma mark - Helper
@@ -153,34 +140,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.alertViewStyle == UIAlertViewStylePlainTextInput) {
-        
-        [self checkInCommentAlertView:alertView clickedButtonAtIndex:buttonIndex];
-        
-    } else {
-        
-        [self authorizationAlertViewClickedButtonAtIndex:buttonIndex];
-    }
-}
-
-- (void)authorizationAlertViewClickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-            return;
-            break;
-            
-        case 1:
-            [self performSegueWithIdentifier:@"signUpAction" sender:nil];
-            break;
-            
-        case 2:
-            [self performSegueWithIdentifier:@"logInAction" sender:nil];
-            break;
-            
-        default:
-            break;
-    }
+    [self checkInCommentAlertView:alertView clickedButtonAtIndex:buttonIndex];
 }
 
 - (void)checkInCommentAlertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -190,8 +150,15 @@
             return;
             break;
             
-        case 1:
-            [self saveCheckInWithComment:[alertView textFieldAtIndex:0].text];
+        case 1: {
+            
+            NSString *comment = [alertView textFieldAtIndex:0].text;
+            
+            [self checkCurrentUserWithCompletion:^(NSError *authError) {
+                [self saveCheckInWithComment:comment];
+            }];
+            
+        }
             break;
             
         default:

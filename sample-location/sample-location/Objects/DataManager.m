@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "SSLDataManager.h"
+#import "DataManager.h"
 
-NSString * const SSLGeoDataManagerDidUpdateData = @"SSLGeoDataManagerDidUpdateData";
+NSString * const GeoDataManagerDidUpdateData = @"GeoDataManagerDidUpdateData";
 
-@implementation SSLDataManager
+@implementation DataManager
 
 + (instancetype)instance
 {
-    static SSLDataManager *instance = nil;
+    static DataManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [self new];
@@ -26,7 +26,7 @@ NSString * const SSLGeoDataManagerDidUpdateData = @"SSLGeoDataManagerDidUpdateDa
 {
     _checkins = checkins;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:SSLGeoDataManagerDidUpdateData object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:GeoDataManagerDidUpdateData object:nil];
 }
 
 - (void)saveCurrentUser:(QBUUser *)user

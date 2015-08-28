@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-@interface SSLCheckInTableViewCell : UITableViewCell
+@interface CheckInTableViewCell : UITableViewCell
 
 - (void)configureWithGeoData:(QBLGeoData *)geoData;
 

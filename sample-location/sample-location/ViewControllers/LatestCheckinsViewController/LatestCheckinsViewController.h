@@ -6,6 +6,6 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-@interface SSLLatestCheckinsViewController : UITableViewController
+@interface LatestCheckinsViewController : UITableViewController
 
 @end

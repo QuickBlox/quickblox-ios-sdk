@@ -9,7 +9,7 @@
 // This class presents marker on the map view
 //
 
-@interface SSLMapPin : NSObject <MKAnnotation>
+@interface MapPin : NSObject <MKAnnotation>
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *subtitle;

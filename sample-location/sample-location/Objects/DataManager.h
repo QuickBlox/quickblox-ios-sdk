@@ -9,9 +9,9 @@
 // This class presents storage for user's checkins
 //
 
-extern NSString * const SSLGeoDataManagerDidUpdateData;
+extern NSString * const GeoDataManagerDidUpdateData;
 
-@interface SSLDataManager : NSObject
+@interface DataManager : NSObject
 
 @property (nonatomic, readonly) NSArray *checkins;
 @property (nonatomic, readonly) QBUUser *currentUser;
