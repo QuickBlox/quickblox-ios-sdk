@@ -2,8 +2,8 @@
 //  ViewController.m
 //  sample-messages
 //
-//  Created by Igor Khomenko on 6/11/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/11/15.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -21,7 +21,8 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
@@ -31,43 +32,18 @@
                                              selector:@selector(pushDidReceive:)
                                                  name:@"kPushDidReceive"
                                                object:nil];
-}
-
-- (void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        [SVProgressHUD showWithStatus:@"Initialising"];
-        
-        // Your app connects to QuickBlox server here.
-        //
-
-        [QBRequest logInWithUserLogin:@"qbpushios" password:@"qbpushios" successBlock:^(QBResponse *response, QBUUser *user) {
-            [self registerForRemoteNotifications];
-            
-        } errorBlock:^(QBResponse *response) {
-            
-            NSLog(@"Response error %@:", response.error);
-            [SVProgressHUD dismiss];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:[response.error description]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-        }];
-    });
+    [self registerForRemoteNotifications];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)pushDidReceive:(NSNotification *)notification{
+- (void)pushDidReceive:(NSNotification *)notification
+{
     NSString *message = [notification userInfo][@"message"];
     
     [self.pushMessages addObject:message];
@@ -75,7 +51,8 @@
     [self.tableView reloadData];
 }
 
-- (void)registerForRemoteNotifications{
+- (void)registerForRemoteNotifications
+{
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -91,35 +68,76 @@
 #endif
 }
 
-- (IBAction)sendPush:(id)sender{
-    // empty text
-    if([self.pushMessageTextField.text length] == 0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter some text"
-                                                        message:nil
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else {
-        [SVProgressHUD showWithStatus:@"Sending a push"];
+- (void)sendPushWithMessage:(NSString *)message
+{
+    NSString *currentUserId = [NSString stringWithFormat:@"%lu", (unsigned long)[QBSession currentSession].currentUser.ID];
+    
+    [SVProgressHUD showWithStatus:@"Sending a push"];
+    
+    [QBRequest sendPushWithText:message toUsers:currentUserId successBlock:^(QBResponse *response, NSArray *events) {
         
-        NSString *currentUserId = [NSString stringWithFormat:@"%lu",
-                                   (unsigned long)[QBSession currentSession].currentUser.ID];
-        [QBRequest sendPushWithText:self.pushMessageTextField.text toUsers:currentUserId successBlock:^(QBResponse *response, NSArray *events) {
-            [SVProgressHUD  dismiss];
-        } errorBlock:^(QBError *error) {
-            NSLog(@"Errors=%@", [error.reasons description]);
+        [SVProgressHUD  dismiss];
+        
+    } errorBlock:^(QBError *error) {
+        
+        [SVProgressHUD  dismiss];
+        
+        [ViewController showAlertViewWithErrorMessage:[error description]];
+    }];
+    
+}
+
+- (void)checkCurrentUserWithCompletion:(void(^)(NSError *authError))completion
+{
+    if ([[QBSession currentSession] currentUser] != nil) {
+        
+        if (completion) completion(nil);
+        
+    } else {
+        
+        [SVProgressHUD showWithStatus:@"Initialising"];
+        
+        [QBRequest logInWithUserLogin:@"qbpushios" password:@"qbpushios" successBlock:^(QBResponse *response, QBUUser *user) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:[error description]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
-            [SVProgressHUD  dismiss];
+            [SVProgressHUD dismiss];
+            
+            if (completion) completion(nil);
+            
+        } errorBlock:^(QBResponse *response) {
+            
+            [SVProgressHUD dismiss];
+            
+            if (completion) completion(response.error.error);
+        }];
+    }
+}
+
+- (IBAction)sendPush:(id)sender
+{
+    NSString *message = self.pushMessageTextField.text;
+    
+    // empty text
+    if([message length] == 0) {
+        
+        [ViewController showAlertViewWithErrorMessage:@"Please enter some text"];
+        
+    } else {
+        
+        [self checkCurrentUserWithCompletion:^(NSError *authError) {
+           
+            if (authError) {
+                
+                [ViewController showAlertViewWithErrorMessage:[authError localizedDescription]];
+                
+            } else {
+                
+                [self sendPushWithMessage:message];
+            }
+            
         }];
         
         [self.pushMessageTextField resignFirstResponder];
+        self.pushMessageTextField.text = nil;
     }
 }
 
@@ -157,7 +175,23 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.pushMessageTextField resignFirstResponder];
+    
     return YES;
+}
+
+#pragma mark -
+#pragma mark Helpers
+
++ (void)showAlertViewWithErrorMessage:(NSString *)errorMessage
+{
+    NSLog(@"Errors = %@", errorMessage);
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:errorMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 @end
