@@ -22,6 +22,9 @@ xcuserdata
 *.moved-aside
 *.xcuserstate
 
+## OS X
+.DS_Store
+
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
