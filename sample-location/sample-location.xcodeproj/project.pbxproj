@@ -443,7 +443,6 @@
 		};
 		8A2F267914F7F0D300292876 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57A2B782031C55F9D1B3FE65 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -476,7 +475,6 @@
 		};
 		8A2F267A14F7F0D300292876 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C33BDCD0D89F42A7674238D0 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
