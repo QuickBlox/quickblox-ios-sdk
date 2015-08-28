@@ -1,9 +1,9 @@
 //
 //  DataManager.h
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Tatyana Akulova on 9/19/12.
-//  Copyright (c) 2012 QuickBlox. All rights reserved.
+//  Created by Quickblox Team on 9/19/12.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 //
 // This class presents storage for user's checkins

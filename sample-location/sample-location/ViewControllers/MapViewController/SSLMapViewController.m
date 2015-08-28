@@ -1,9 +1,9 @@
 //
 //  MapViewController.m
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Alexey Voitenko on 24.02.12.
-//  Copyright (c) 2012 QuickBlox. All rights reserved.
+//  Created by Quickblox Team on 24.02.12.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "SSLMapViewController.h"
@@ -12,10 +12,10 @@
 #import "SSLGeoDataManager.h"
 #import "SSLAuthViewController.h"
 
-@interface SSLMapViewController () <UIAlertViewDelegate>
+@interface SSLMapViewController () <UIAlertViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
-@property (nonatomic, strong) IBOutlet MKMapView *mapView;
+@property (nonatomic, weak) IBOutlet MKMapView *mapView;
 
 @end
 
@@ -40,11 +40,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     UINavigationController *navigationController = [segue destinationViewController];
@@ -56,12 +51,6 @@
     } else if ([segue.identifier isEqualToString:@"logInAction"]) {
         authViewController.mode = SSLAuthViewControllerModeLogIn;
     }
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    
 }
 
 #pragma mark - User Actions

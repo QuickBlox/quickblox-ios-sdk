@@ -1,9 +1,9 @@
 //
 //  main.m
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Alexey Voitenko on 24.02.12.
-//  Copyright (c) 2012 Injoit Ltd. All rights reserved.
+//  Created by Quickblox Team on 24.02.12.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "SSLAppDelegate.h"

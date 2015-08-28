@@ -1,12 +1,9 @@
 //
 //  LatestCheckinsViewController.h
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Tatyana Akulova on 9/18/12.
-//
-// 
-// This class shows how to work with QuickBlox Location module.
-// It shows last users' checkins.
+//  Created by Quickblox Team on 9/18/12.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 @interface SSLLatestCheckinsViewController : UITableViewController

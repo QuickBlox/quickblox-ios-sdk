@@ -1,9 +1,9 @@
 //
 //  LatestCheckinsViewController.m
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Tatyana Akulova on 9/18/12.
-//
+//  Created by Quickblox Team on 9/18/12.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "SSLLatestCheckinsViewController.h"

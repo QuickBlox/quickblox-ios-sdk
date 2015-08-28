@@ -1,9 +1,9 @@
 //
 //  LoginViewController.m
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Igor Khomenko on 04.10.11.
-//  Copyright 2011 QuickBlox. All rights reserved.
+//  Created by Quickblox Team on 04.10.11.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "SSLAuthViewController.h"
@@ -11,9 +11,9 @@
 
 @interface SSLAuthViewController () <UITextFieldDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, strong) IBOutlet UITextField *loginTextField;
-@property (nonatomic, strong) IBOutlet UITextField *passwordTextField;
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UITextField *loginTextField;
+@property (nonatomic, weak) IBOutlet UITextField *passwordTextField;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *actionBarButtonItem;
 
 @end

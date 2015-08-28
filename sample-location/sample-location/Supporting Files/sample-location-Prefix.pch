@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'SimpleSample-location_users-ios' target in the 'SimpleSample-location_users-ios' project
+// Prefix header for all source files of the 'sample-location' target in the 'sample-location' project
 //
 
 #import <Availability.h>

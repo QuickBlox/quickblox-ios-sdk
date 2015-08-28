@@ -46,6 +46,7 @@
                             <constraint firstItem="LKW-pi-Yda" firstAttribute="leading" secondItem="wik-ch-t4w" secondAttribute="leading" id="i8J-Rs-Jsh"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="" image="globe" id="5A2-Zq-tn5"/>
                     <connections>
                         <outlet property="mapView" destination="LKW-pi-Yda" id="Xbp-ue-u0Y"/>
@@ -201,7 +202,7 @@
             <objects>
                 <tableViewController title="Latest checkins" id="6bI-Tt-3oF" customClass="SSLLatestCheckinsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4ZE-4p-KXJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
