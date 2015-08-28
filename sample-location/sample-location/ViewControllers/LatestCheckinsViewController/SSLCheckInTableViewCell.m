@@ -1,9 +1,9 @@
 //
 //  CheckInTableViewCell.m
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Andrey Moskvin on 6/14/14.
-//
+//  Created by Quickblox Team on 6/14/14.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "SSLCheckInTableViewCell.h"

@@ -1,9 +1,9 @@
 //
 //  MapPin.m
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Alexey Voitenko on 27.02.12.
-//  Copyright (c) 2012 QuickBlox. All rights reserved.
+//  Created by Quickblox Team on 27.02.12.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "SSLMapPin.h"

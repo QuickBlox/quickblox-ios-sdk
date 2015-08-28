@@ -1,9 +1,9 @@
 //
 //  LoginViewController.h
-//  SimpleSample-location_users-ios
+//  sample-location
 //
-//  Created by Igor Khomenko on 04.10.11.
-//  Copyright 2011 QuickBlox. All rights reserved.
+//  Created by Quickblox Team on 04.10.11.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 //
 // This class enables log in for QB users.
