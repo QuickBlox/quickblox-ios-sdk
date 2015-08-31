@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="waX-p7-h6u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="waX-p7-h6u">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -47,7 +47,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="" image="globe" id="5A2-Zq-tn5"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="globe" id="5A2-Zq-tn5"/>
                     <connections>
                         <outlet property="mapView" destination="LKW-pi-Yda" id="Xbp-ue-u0Y"/>
                         <segue destination="361-o0-I9f" kind="presentation" identifier="logInAction" id="enA-2V-RsL"/>
@@ -255,7 +255,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="" image="speech_bubble" id="wlH-Im-BQ0"/>
+                    <tabBarItem key="tabBarItem" title="Latest checkins" image="speech_bubble" id="wlH-Im-BQ0"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dl0-mD-CuE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
