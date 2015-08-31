@@ -14,6 +14,7 @@
 
 @property (nonatomic) IBOutlet UITextField *pushMessageTextField;
 @property (nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *sendPushButton;
 
 @property (nonatomic, strong) NSMutableArray *pushMessages;
 
@@ -32,8 +33,21 @@
                                              selector:@selector(pushDidReceive:)
                                                  name:@"kPushDidReceive"
                                                object:nil];
+
+    self.sendPushButton.enabled = NO;
     
-    [self registerForRemoteNotifications];
+    __weak typeof(self) weakSelf = self;
+    
+    [self checkCurrentUserWithCompletion:^(NSError *authError) {
+        
+        if (!authError) {
+            weakSelf.sendPushButton.enabled = YES;
+            [weakSelf registerForRemoteNotifications];
+        } else {
+            [ViewController showAlertViewWithErrorMessage:[authError localizedDescription]];
+        }
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,18 +139,7 @@
         
     } else {
         
-        [self checkCurrentUserWithCompletion:^(NSError *authError) {
-           
-            if (authError) {
-                
-                [ViewController showAlertViewWithErrorMessage:[authError localizedDescription]];
-                
-            } else {
-                
-                [self sendPushWithMessage:message];
-            }
-            
-        }];
+        [self sendPushWithMessage:message];
         
         [self.pushMessageTextField resignFirstResponder];
         self.pushMessageTextField.text = nil;

@@ -79,6 +79,7 @@
                     </view>
                     <connections>
                         <outlet property="pushMessageTextField" destination="V4b-3X-biQ" id="S8u-Dp-2gR"/>
+                        <outlet property="sendPushButton" destination="2Gd-g7-hgx" id="kAN-Cf-lFB"/>
                         <outlet property="tableView" destination="Kh2-dY-Tk9" id="tc0-Da-ros"/>
                     </connections>
                 </viewController>
