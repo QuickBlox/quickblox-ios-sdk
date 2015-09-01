@@ -10,16 +10,14 @@ Please read full iOS SDK documentation on the [QuickBlox website, iOS section](h
 This project contains QuickBlox iOS SDK, that includes
 
 * [framework](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/Framework)
-* [snippets](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/snippets) (shows main use cases of using this one)
 * samples (separated samples for each QuickBlox module)
   * [Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat)
-  * [VideoChat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat)
+  * [VideoChat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat-webrtc)
   * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
   * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
   * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
   * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom-objects)
   * [Content Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-content)
-  * [Ratings Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-ratings)
 
 ## How to start
 
