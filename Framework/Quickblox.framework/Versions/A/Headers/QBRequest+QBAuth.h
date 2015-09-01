@@ -89,6 +89,8 @@
 
 /**
  User LogIn with social provider
+ 
+ @warning Deprecated in 2.4. Use '+[QBRequest logInWithSocialProvider:accessToken:accessTokenSecret:successBlock:errorBlock:' instead.' instead.
 
  @param provider Social provider. Posible values: facebook, twitter.
  @param scope Permission. Permissions for choosen provider. Should not be nil.
@@ -99,7 +101,7 @@
  */
 + (QBRequest *)logInWithSocialProvider:(NSString *)provider
                                  scope:(NSArray *)scope successBlock:(void (^)(QBResponse *response, QBUUser* user))successBlock
-                            errorBlock:(QBRequestErrorBlock)errorBlock;
+                            errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest logInWithSocialProvider:accessToken:accessTokenSecret:successBlock:errorBlock:' instead.")));
 
 /**
  User LogIn with social provider's token
