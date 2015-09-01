@@ -23,8 +23,10 @@
 /** Set custom UDID or use auto-generated UDID if customUDID is nil */
 @property(nonatomic, retain) NSString *customUDID;
 
-/** Determine application mode. It allows conveniently separate development and production modes, default: NO 
- *   @see isProductionEnvironment
+/** 
+ Determine application mode. It allows conveniently separate development and production modes, default: NO
+ 
+ @warning Deprecated in 2.4. Use 'isProductionEnvironment'
  */
 @property(nonatomic) BOOL isEnvironmentDevelopment DEPRECATED_MSG_ATTRIBUTE("use isProductionEnvironment instead");
 

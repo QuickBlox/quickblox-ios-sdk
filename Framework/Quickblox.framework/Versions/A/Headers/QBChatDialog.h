@@ -27,7 +27,7 @@ typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
 @interface QBChatDialog : NSObject <NSCoding, NSCopying>
 
 /** Object ID */
-@property (nonatomic, retain) NSString *ID;
+@property (nonatomic, retain, readonly) NSString *ID;
 
 /** Created date */
 @property (nonatomic, retain) NSDate *createdAt;
@@ -36,7 +36,7 @@ typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
 @property (nonatomic, retain) NSString *roomJID;
 
 /** Chat type: Private/Group/PublicGroup */
-@property (nonatomic) QBChatDialogType type;
+@property (nonatomic, readonly) QBChatDialogType type;
 
 /** Group chat name. If chat type is private, name will be nil */
 @property (nonatomic, retain) NSString *name;
@@ -105,8 +105,10 @@ typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
 - (void)setOnUserStoppedTyping:(QBChatDialogStoppedTypingBlock)anOnUserStoppedTyping;
 
 /** Constructor */
-- (instancetype)initWithDialogID:(NSString *)dialogID;
+- (instancetype)initWithDialogID:(NSString *)dialogID type:(enum QBChatDialogType)type;
 
+- (id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
++ (id)new __attribute__((unavailable("'new' is not a supported initializer for this class.")));
 /** Occupants ids to push. Use for update dialog */
 - (void)setPushOccupantsIDs:(NSArray *)occupantsIDs;
 - (NSArray *)pushOccupantsIDs;

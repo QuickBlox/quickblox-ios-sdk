@@ -57,7 +57,8 @@
 /**
  didNotSendMessage fired when message cannot be send to the group chat
  
- @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatDidNotSendMessage:toDialogID:error:' instead.
+ @warning *Deprecated in QB iOS SDK 2.4:* Use 'chatDidNotSendMessage:toDialogID:error:' instead.
+ 
  @param message message passed to sendMessage method into QBChat
  @param roomJid JID of the room
  @param error Error
@@ -174,7 +175,7 @@
 /**
  Called when room receives a message.
  
- @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomDidReceiveMessage:fromDialogID:' instead.
+ @warning *Deprecated in QB iOS SDK 2.4:* Use 'chatRoomDidReceiveMessage:fromDialogID:' instead.
  
  @param message Received message
  @param roomJID Room JID
@@ -193,7 +194,7 @@
 /**
  Fired when you did enter to room
  
- @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'onJoin' from QBChatDialog instead.
+ @warning *Deprecated in QB iOS SDK 2.4:* Use 'onJoin' from QBChatDialog instead.
  
  @param room which you have joined
  */
@@ -232,7 +233,7 @@
 /**
  Fired when you did leave room
  
- @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'onLeave' in QBChatDialog instead.
+ @warning *Deprecated in QB iOS SDK 2.4:* Use 'onLeave' in QBChatDialog instead.
  
  @param roomJID JID of room which you have leaved
  */
@@ -262,7 +263,8 @@
 /**
  *  Called when user joined room.
  *
- *  @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomOccupantDidJoin:dialogID:' instead.
+ *  @warning *Deprecated in QB iOS SDK 2.4:* Use 'chatRoomOccupantDidJoin:dialogID:' instead.
+ *
  *  @param userId User's ID.
  *  @param roomJID     JID of room.
  */
@@ -279,7 +281,8 @@
 /**
  *  Called when user left room.
  *  
- *  @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomOccupantDidLeave:dialogID:' instead.
+ *  @warning *Deprecated in QB iOS SDK 2.4:* Use 'chatRoomOccupantDidLeave:dialogID:' instead.
+ *
  *  @param userId User's ID.
  *  @param roomJID     JID of room.
  */
@@ -297,7 +300,8 @@
 /**
  *  Called when user was updated in room.
  *
- *  @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomOccupantDidUpdate:dialogID:' instead.
+ *  @warning *Deprecated in QB iOS SDK 2.4:* Use 'chatRoomOccupantDidUpdate:dialogID:' instead.
+ *
  *  @param userId User's ID.
  *  @param roomJID     JID of room.
  */
@@ -324,7 +328,8 @@
 /**
  Called in case receiving list of online users
  
- @warning *Deprecated in QB iOS SDK 2.3.1:* Use 'chatRoomDidReceiveListOfOnlineUsers:dialogID:' instead.
+ @warning *Deprecated in QB iOS SDK 2.4:* Use 'chatRoomDidReceiveListOfOnlineUsers:dialogID:' instead.
+ 
  @param users Array of joined users
  @param roomJID JID of room
  */
@@ -422,7 +427,8 @@
 /**
  Called when you received a chat status "user is typing"
  
- @warning Deprecated in 2.3.1. Use 'onUserIsTyping:' block in 'QBChatDialog'.
+ @warning Deprecated in 2.4. Use 'onUserIsTyping:' block in 'QBChatDialog'.
+ 
  @param userID privacy list name
  */
 - (void)chatDidReceiveUserIsTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'onUserIsTyping:' block in 'QBChatDialog'.")));
@@ -430,7 +436,8 @@
 /**
  Called when you received a chat status "user stop typing"
 
- @warning Deprecated in 2.3.1. Use 'onUserStoppedTyping:' block in 'QBChatDialog'.
+ @warning Deprecated in 2.4. Use 'onUserStoppedTyping:' block in 'QBChatDialog'.
+ 
  @param userID privacy list name
  */
 - (void)chatDidReceiveUserStopTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'onUserStoppedTyping:' block in 'QBChatDialog'.")));;
@@ -441,7 +448,9 @@
 
 /**
  Called when you received a confirmation about message delivery
+ 
  @warning Deprecated in 2.4. Use 'chatDidDeliverMessageWithID:dialogID:toUserID:' instead.
+ 
  @param messageID ID of an original message
  */
 - (void)chatDidDeliverMessageWithID:(NSString *)messageID;
@@ -460,7 +469,9 @@
 
 /**
  Called when you received a confirmation about message read.
- @warning Deprecated in 2.3.1. Use 'chatDidReadMessageWithID:dialogID:readerID:' instead.
+ 
+ @warning Deprecated in 2.4. Use 'chatDidReadMessageWithID:dialogID:readerID:' instead.
+ 
  @param messageID ID of an original message
  */
 - (void)chatDidReadMessageWithID:(NSString *)messageID __attribute__((deprecated("Use 'chatDidReadMessageWithID:dialogID:readerID:' instead.")));
