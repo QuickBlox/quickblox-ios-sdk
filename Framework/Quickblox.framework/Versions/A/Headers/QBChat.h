@@ -56,6 +56,25 @@ typedef enum QBChatServiceError {
   The default value is 5 seconds */
 @property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
 
+/**
+ * Many routers will teardown a socket mapping if there is no activity on the socket.
+ * For this reason, the stream supports sending keep-alive data.
+ * This is simply whitespace, which is ignored by the protocol.
+ *
+ * Keep-alive data is only sent in the absence of any other data being sent/received.
+ *
+ * The default value is 20s.
+ * The minimum value for TARGET_OS_IPHONE is 10s, else 20s.
+ *
+ * To disable keep-alive, set the interval to zero (or any non-positive number).
+ *
+ * The keep-alive timer (if enabled) fires every (keepAliveInterval / 4) seconds.
+ * Upon firing it checks when data was last sent/received,
+ * and sends keep-alive data if the elapsed time has exceeded the keepAliveInterval.
+ * Thus the effective resolution of the keepalive timer is based on the interval.
+ */
+@property (nonatomic, assign) NSTimeInterval keepAliveInterval;
+
 /** Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator. */
 @property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
 
