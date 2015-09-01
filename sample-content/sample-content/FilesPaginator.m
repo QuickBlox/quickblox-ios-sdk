@@ -2,8 +2,8 @@
 //  FilesPaginator.m
 //  sample-content
 //
-//  Created by Igor Khomenko on 6/9/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/9/15.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "FilesPaginator.h"
