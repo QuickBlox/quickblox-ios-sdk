@@ -264,7 +264,9 @@ UIActionSheetDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
-    [self fireStopTypingIfNecessary]; 
+    if (self.typingTimer != nil) {
+        [self fireStopTypingIfNecessary];
+    }
     
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
