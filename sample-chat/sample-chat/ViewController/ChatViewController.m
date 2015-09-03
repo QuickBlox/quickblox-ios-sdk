@@ -615,12 +615,12 @@ UIActionSheetDelegate
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not login with error: %@", [error description]]];
+    [SVProgressHUD showErrorWithStatus:@"Unable to login to chat!"];
 }
 
 - (void)chatServiceChatDidFailWithStreamError:(NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Chat failed with error: %@", [error description]]];
+    [SVProgressHUD showErrorWithStatus:@"Chat error occured!"];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate
