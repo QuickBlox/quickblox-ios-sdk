@@ -16,7 +16,7 @@ class DialogTableViewCellModel: NSObject {
     var unreadMessagesCounterLabelText : String?
     var unreadMessagesCounterHiden = true
     var dialogIcon : UIImage?
-    
+
     init(dialog: QBChatDialog) {
         super.init()
         
@@ -118,15 +118,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
-        for dialog : QBChatDialog in DialogsViewController.dialogs() {
-            
-            // Notifies occupants that user left the dialog.
-            if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
-                    
-                })
-            }
-        }
+        self.joinToAllDialogs()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -228,6 +220,22 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false)]
         // Returns dialogs sorted by last message date.
         return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
+    }
+    
+    // MARK: - Helper
+    
+    func joinToAllDialogs() {
+        
+        for dialog : QBChatDialog in DialogsViewController.dialogs() {
+            
+            // Notifies occupants that user left the dialog.
+            if dialog.type != QBChatDialogType.Private {
+                
+                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
+
+                })
+            }
+        }
     }
     
     // MARK: - UITableViewDataSource
@@ -389,6 +397,9 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     }
     
     func chatServiceChatDidLogin() {
+        
+        self.joinToAllDialogs()
+        
         SVProgressHUD.showSuccessWithStatus("SA_STR_LOG_IN".localized)
     }
     
