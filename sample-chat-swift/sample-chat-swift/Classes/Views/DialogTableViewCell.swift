@@ -26,4 +26,22 @@ class DialogTableViewCell: UITableViewCell {
         
         self.unreadMessageCounterHolder.layer.cornerRadius = 10.0
     }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        
+        var markerColor = self.unreadMessageCounterHolder.backgroundColor
+        
+        super.setSelected(selected, animated: animated)
+        
+        self.self.unreadMessageCounterHolder.backgroundColor = markerColor
+    }
+    
+    override func setHighlighted(highlighted: Bool, animated: Bool) {
+        
+        var markerColor = self.unreadMessageCounterHolder.backgroundColor
+        
+        super.setHighlighted(highlighted, animated: animated)
+        
+        self.self.unreadMessageCounterHolder.backgroundColor = markerColor
+    }
 }

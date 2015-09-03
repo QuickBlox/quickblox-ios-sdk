@@ -19,6 +19,12 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         super.viewWillAppear(animated)
         
         ServicesManager.instance().chatService.addDelegate(self)
+        
+        if let dialog = self.dialog {
+            self.navigationItem.rightBarButtonItem?.title = "Add"
+        } else {
+            self.navigationItem.rightBarButtonItem?.title = "Join chat"
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -50,9 +56,9 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         self.navigationItem.rightBarButtonItem?.enabled = tableView.indexPathsForSelectedRows()?.count != nil
     }
     
-    // called when create chat button is pressed
-    @IBAction func createChatButtonPressed(sender: UIButton) {
-        sender.enabled = false
+    @IBAction func createChatButtonPressed(sender: AnyObject) {
+
+        (sender as! UIBarButtonItem).enabled = false
         
         let selectedIndexes = self.tableView.indexPathsForSelectedRows() as! [NSIndexPath]
         
@@ -67,7 +73,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         let completion = { (response: QBResponse!, createdDialog: QBChatDialog!) -> Void in
             
-            sender.enabled = true
+            (sender as! UIBarButtonItem).enabled = true
             
             if createdDialog != nil {
                 println(createdDialog)
@@ -139,7 +145,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                     }) { () -> Void in
                         
                         // cancel
-                        sender.enabled = true
+                        (sender as! UIBarButtonItem).enabled = true
                 }
             }
         }

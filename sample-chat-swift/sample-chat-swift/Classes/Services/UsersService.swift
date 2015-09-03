@@ -108,7 +108,7 @@ class UsersService: NSObject {
     
     func color(forUser user:QBUUser) -> UIColor {
         
-        let userIndex = find(self.contactListService.usersMemoryStorage.unsortedUsers() as! [QBUUser], user)
+        let userIndex = find(self.users()!, self.user(user.ID)!)
         
         if userIndex < self.colors.count {
             return self.colors[userIndex!]
