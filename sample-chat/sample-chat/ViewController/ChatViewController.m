@@ -49,6 +49,8 @@ UIActionSheetDelegate
 
 @property (nonatomic, strong) NSArray* unreadMessages;
 
+@property (nonatomic, assign) BOOL shouldUpdateMessagesAfterLogIn;
+
 @end
 
 @implementation ChatViewController
@@ -150,7 +152,12 @@ UIActionSheetDelegate
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
-		[strongSelf refreshMessagesShowingProgress:NO];
+        
+        if ([[QBChat instance] isLoggedIn]) {
+            [strongSelf refreshMessagesShowingProgress:NO];
+        } else {
+            strongSelf.shouldUpdateMessagesAfterLogIn = YES;
+        }
 	}];
     
     self.observerDidEnterBackground = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -264,7 +271,9 @@ UIActionSheetDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
-    [self fireStopTypingIfNecessary]; 
+    if (self.typingTimer != nil) {
+        [self fireStopTypingIfNecessary];
+    }
     
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
@@ -611,16 +620,22 @@ UIActionSheetDelegate
     }
     
     self.unreadMessages = nil;
+    
+    if (self.shouldUpdateMessagesAfterLogIn) {
+        
+        self.shouldUpdateMessagesAfterLogIn = NO;
+        [self refreshMessagesShowingProgress:NO];
+    }
 }
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not login with error: %@", [error description]]];
+    [SVProgressHUD showErrorWithStatus:@"Unable to login to chat!"];
 }
 
 - (void)chatServiceChatDidFailWithStreamError:(NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Chat failed with error: %@", [error description]]];
+    [SVProgressHUD showErrorWithStatus:@"Chat error occured!"];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate
