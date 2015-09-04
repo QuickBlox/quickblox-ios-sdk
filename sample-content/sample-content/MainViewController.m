@@ -9,206 +9,129 @@
 #import "MainViewController.h"
 #import "ContentViewController.h"
 #import "Storage.h"
-#import "FilesPaginator.h"
+#import "ImageCollectionViewCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVProgressHUD.h>
 
-@interface MainViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifier";
 
-@property (nonatomic, strong) FilesPaginator *paginator;
+@interface MainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, weak) UILabel *footerLabel;
 @property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+@property (nonatomic, strong) NSMutableArray* items;
+@property (nonatomic, strong) QBGeneralResponsePage* page;
 
 @end
 
 @implementation MainViewController
 
+- (QBGeneralResponsePage *)page
+{
+    if (_page == nil) {
+        _page = [QBGeneralResponsePage responsePageWithCurrentPage:0 perPage:10];
+    }
+    return _page;
+}
+
+- (UIImagePickerController *)imagePicker
+{
+    if (_imagePicker == nil) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+        _imagePicker.allowsEditing = NO;
+        _imagePicker.delegate = self;
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    return _imagePicker;
+}
+
+- (NSMutableArray *)items
+{
+    if (_items == nil) {
+        _items = [NSMutableArray array];
+    }
+    return _items;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.paginator = [[FilesPaginator alloc] initWithPageSize:10 delegate:self];
-}
 
-- (void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
     __weak typeof(self)weakSelf = self;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
+        __typeof(self) strongSelf = weakSelf;
         
-        [weakSelf setupTableViewFooter];
-        
-        [SVProgressHUD showWithStatus:@"Downloading images"];
-        
-        // Your app connects to QuickBlox server here.
-        //
-        [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
-            __typeof(self) strongSelf = weakSelf;
-            // Load files
-            //
-            [strongSelf.paginator fetchFirstPage];
-        } errorBlock:^(QBResponse *response) {
-            NSLog(@"Response error %@:", response.error);
-        }];
-    });
+        [strongSelf fetchNextPage];
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"Response error %@:", response.error);
+    }];
 }
 
 - (IBAction)addNewPicture:(id)sender
 {
-    self.imagePicker = [[UIImagePickerController alloc] init];
-    self.imagePicker.allowsEditing = NO;
-    self.imagePicker.delegate = self;
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
     [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
-#pragma mark
-#pragma mark Paginator
+#pragma mark - 
+#pragma mark Helpers
 
 - (void)fetchNextPage
 {
-    [self.paginator fetchNextPage];
-    [self.activityIndicator startAnimating];
-}
-
-- (void)setupTableViewFooter
-{
-    // set up label
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    footerView.backgroundColor = [UIColor clearColor];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    label.font = [UIFont boldSystemFontOfSize:16];
-    label.textColor = [UIColor lightGrayColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    
-    self.footerLabel = label;
-    [footerView addSubview:label];
-    
-    // set up activity indicator
-    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicatorView.center = CGPointMake(40, 22);
-    activityIndicatorView.hidesWhenStopped = YES;
-    
-    self.activityIndicator = activityIndicatorView;
-    [footerView addSubview:activityIndicatorView];
-    
-    self.tableView.tableFooterView = footerView;
-}
-
-- (void)updateTableViewFooter
-{
-    if ([self.paginator.results count] != 0) {
-        self.footerLabel.text = [NSString stringWithFormat:@"%lu results out of %ld",
-                                 (unsigned long)[self.paginator.results count], (long)self.paginator.total];
-    } else {
-        self.footerLabel.text = @"";
-    }
-    
-    [self.footerLabel setNeedsDisplay];
-}
-
-#pragma mark
-#pragma mark Storyboard
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender
-{
-    if([segue.destinationViewController isKindOfClass:ContentViewController.class]) {
-        NSUInteger row = sender.tag;
-        QBCBlob *file = [Storage instance].filesList[row];
+    self.page.currentPage += 1;
+    __weak typeof(self)weakSelf = self;
+    [QBRequest blobsForPage:self.page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *blobs) {
+        __typeof(self) strongSelf = weakSelf;
         
-        ContentViewController *destinationViewController = (ContentViewController *)segue.destinationViewController;
-        destinationViewController.file = file;
-    }
-}
-
-#pragma mark
-#pragma mark UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    // when reaching bottom, load a new page
-    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height){
-        // ask next page only if we haven't reached last page
-        if(![self.paginator reachedLastPage]){
-            // fetch next page of results
-            [self fetchNextPage];
-        }
-    }
+        [strongSelf.items addObjectsFromArray:blobs];
+        [strongSelf.collectionView reloadData];
+        
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"error: %@", response.error);
+    }];
 }
 
 
-#pragma mark
-#pragma mark UITableViewDelegate & UITableViewDataSource
+#pragma mark -
+#pragma mark UICollectionViewDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[Storage instance].filesList count];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FileCellIdentifier"];
-    cell.tag = indexPath.row;
+    ImageCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCellIdentifier forIndexPath:indexPath];
     
-    UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:201];
-    UIActivityIndicatorView *progressView = (UIActivityIndicatorView *)[cell.contentView viewWithTag:202];
-    
-    // Load the image
-    //
-    QBCBlob *file = [Storage instance].filesList[indexPath.row];
-    NSString *privateUrl = [file privateUrl];
-    if (privateUrl) {
-        [progressView startAnimating];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:privateUrl]
-                     placeholderImage:nil
-                            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                          [progressView stopAnimating];
-                      }];
-    } else {
-        NSLog(@"Private URL is NULL");
-    }
+    QBCBlob* blob = self.items[indexPath.row];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:blob.privateUrl]];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    return CGSizeMake(160.0f, 160.0f);
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 100;
+    return self.items.count;
 }
 
+#pragma mark -
+#pragma mark UICollectionViewDataSource
 
-#pragma mark
-#pragma mark NMPaginatorDelegate
-
-- (void)paginator:(id)paginator didReceiveResults:(NSArray *)results
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    // save files
-    //
-    [[Storage instance].filesList addObjectsFromArray:results];
+    float scrollViewHeight = scrollView.frame.size.height;
+    float scrollContentSizeHeight = scrollView.contentSize.height;
+    float scrollOffset = scrollView.contentOffset.y;
     
-    // update tableview footer
-    [self updateTableViewFooter];
-    [self.activityIndicator stopAnimating];
-    
-    // reload table
-    [self.tableView reloadData];
-    [SVProgressHUD dismiss];
+    if (scrollOffset + scrollViewHeight == scrollContentSizeHeight) {
+        [self fetchNextPage];
+    }
 }
-
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
 
@@ -228,12 +151,13 @@
               successBlock:^(QBResponse *response, QBCBlob *blob) {
                   [SVProgressHUD dismiss];
                   
+                  __typeof(self) strongSelf = weakSelf;
+                  
+                  [strongSelf.items addObject:blob];
+                  [strongSelf.collectionView reloadData];
+                  
                   // save it
                   [[Storage instance].filesList addObject:blob];
-                  
-                  [weakSelf.tableView reloadData];
-                  [weakSelf.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[Storage instance].filesList.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-                  
               } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
                   [SVProgressHUD showProgress:status.percentOfCompletion status:@"Uploading image"];
               } errorBlock:^(QBResponse *response) {
