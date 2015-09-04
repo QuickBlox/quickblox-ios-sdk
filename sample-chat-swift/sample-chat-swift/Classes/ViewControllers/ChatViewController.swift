@@ -31,6 +31,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var shouldHoldScrolOnCollectionView = false
     var popoverController : UIPopoverController?
     
+    var shouldUpdateMessagesAfterLogIn = false
+    
     lazy var imagePickerViewController : UIImagePickerController = {
             let imagePickerViewController = UIImagePickerController()
             imagePickerViewController.delegate = self
@@ -85,9 +87,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
-        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
     
-            weakSelf?.updateMessages()
+            if QBChat.instance().isLoggedIn() {
+                weakSelf?.updateMessages()
+            } else {
+                weakSelf?.shouldUpdateMessagesAfterLogIn = true
+            }
             
         }
         
@@ -799,6 +805,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             }
             
             self.unreadMessages = nil
+        }
+        
+        if self.shouldUpdateMessagesAfterLogIn {
+            self.shouldUpdateMessagesAfterLogIn = false
+            self.updateMessages()
         }
         
     }
