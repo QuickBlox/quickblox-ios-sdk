@@ -49,6 +49,8 @@ UIActionSheetDelegate
 
 @property (nonatomic, strong) NSArray* unreadMessages;
 
+@property (nonatomic, assign) BOOL shouldUpdateMessagesAfterLogIn;
+
 @end
 
 @implementation ChatViewController
@@ -150,7 +152,12 @@ UIActionSheetDelegate
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
-		[strongSelf refreshMessagesShowingProgress:NO];
+        
+        if ([[QBChat instance] isLoggedIn]) {
+            [strongSelf refreshMessagesShowingProgress:NO];
+        } else {
+            strongSelf.shouldUpdateMessagesAfterLogIn = YES;
+        }
 	}];
     
     self.observerDidEnterBackground = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
@@ -613,6 +620,13 @@ UIActionSheetDelegate
     }
     
     self.unreadMessages = nil;
+    
+    if (self.shouldUpdateMessagesAfterLogIn) {
+        
+        self.shouldUpdateMessagesAfterLogIn = NO;
+        
+        [self refreshMessagesShowingProgress:NO];
+    }
 }
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error

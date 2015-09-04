@@ -24,6 +24,8 @@ QMChatConnectionDelegate
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @property (nonatomic, readonly) NSArray* dialogs;
 
+@property (nonatomic, assign) BOOL shouldUpdateDialogsAfterLogIn;
+
 @end
 
 @implementation DialogsViewController
@@ -38,7 +40,12 @@ QMChatConnectionDelegate
                                                                                      object:nil queue:[NSOperationQueue mainQueue]
                                                                                  usingBlock:^(NSNotification *note) {
         __typeof(self) strongSelf = weakSelf;
-		[strongSelf loadDialogs];
+                                                                                     
+        if ([[QBChat instance] isLoggedIn]) {
+            [strongSelf loadDialogs];
+        } else {
+            strongSelf.shouldUpdateDialogsAfterLogIn = YES;
+        }
 	}];
     
     self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
@@ -289,6 +296,12 @@ QMChatConnectionDelegate
 - (void)chatServiceChatDidLogin
 {
     [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
+    
+    if (self.shouldUpdateDialogsAfterLogIn) {
+        
+        [self loadDialogs];
+        self.shouldUpdateDialogsAfterLogIn = NO;
+    }
 }
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error
