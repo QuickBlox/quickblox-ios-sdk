@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIButton *checkInButton;
 
 @end
 
@@ -37,6 +38,24 @@
     if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         [self.locationManager requestWhenInUseAuthorization];
     }
+    
+    [self customizeCheckInButton];
+}
+
+#pragma mark - UI Customization
+
+- (void)customizeCheckInButton {
+    
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.checkInButton.bounds];
+    self.checkInButton.layer.masksToBounds = NO;
+    self.checkInButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.checkInButton.layer.shadowOffset = CGSizeMake(0.0f, 5.0f);
+    self.checkInButton.layer.shadowOpacity = 0.3f;
+    self.checkInButton.layer.shadowPath = shadowPath.CGPath;
+    
+    self.checkInButton.layer.cornerRadius = 5.0f;
+    
+    self.checkInButton.alpha = 0.8f;
 }
 
 #pragma mark - User Actions
