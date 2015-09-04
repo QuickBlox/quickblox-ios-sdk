@@ -100,6 +100,8 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS".localized, sender: nil)
     }
     
+    var shouldUpdateDialogsAfterLogIn = false
+    
     // MARK: - ViewController overrides
     
     override func viewDidLoad() {
@@ -110,10 +112,17 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
 
         ServicesManager.instance().chatService.addDelegate(self)
         
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+        weak var weakSelf = self
+        
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
             SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
-            self.getLastUpdatedDialogs()
+            
+            if QBChat.instance().isLoggedIn() {
+                weakSelf?.getLastUpdatedDialogs()
+            } else {
+                weakSelf?.shouldUpdateDialogsAfterLogIn = true
+            }
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
@@ -401,6 +410,11 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         self.joinToAllDialogs()
         
         SVProgressHUD.showSuccessWithStatus("SA_STR_LOG_IN".localized)
+        
+        if self.shouldUpdateDialogsAfterLogIn {
+            self.shouldUpdateDialogsAfterLogIn = false
+            self.getLastUpdatedDialogs()
+        }
     }
     
     func chatServiceChatDidNotLoginWithError(error: NSError!) {
