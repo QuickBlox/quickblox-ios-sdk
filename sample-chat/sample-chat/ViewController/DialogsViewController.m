@@ -299,8 +299,8 @@ QMChatConnectionDelegate
     
     if (self.shouldUpdateDialogsAfterLogIn) {
         
-        [self loadDialogs];
         self.shouldUpdateDialogsAfterLogIn = NO;
+        [self loadDialogs];
     }
 }
 

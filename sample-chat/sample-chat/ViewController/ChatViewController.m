@@ -624,7 +624,6 @@ UIActionSheetDelegate
     if (self.shouldUpdateMessagesAfterLogIn) {
         
         self.shouldUpdateMessagesAfterLogIn = NO;
-        
         [self refreshMessagesShowingProgress:NO];
     }
 }
