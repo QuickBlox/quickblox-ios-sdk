@@ -7,30 +7,40 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="8IA-9G-4Au">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="rSA-ah-qlE">
-                    <rect key="frame" x="168" y="411" width="145" height="39"/>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Sample" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FaE-0K-oWd">
-                    <rect key="frame" x="133" y="223" width="214" height="35"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 QuickBlox. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="pbj-5f-2Ua">
+                    <rect key="frame" x="20" y="439" width="441" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sample-content" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="zkm-Op-2OL">
+                    <rect key="frame" x="20" y="156" width="440" height="43"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="s7W-lw-hEo">
+                    <rect key="frame" x="167.5" y="100" width="145" height="39"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="rSA-ah-qlE" secondAttribute="bottom" constant="30" id="Ord-cx-R0Y"/>
-                <constraint firstAttribute="centerX" secondItem="rSA-ah-qlE" secondAttribute="centerX" id="WOY-ru-dIj"/>
-                <constraint firstAttribute="centerX" secondItem="FaE-0K-oWd" secondAttribute="centerX" id="lzH-Yl-xUz"/>
-                <constraint firstAttribute="centerY" secondItem="FaE-0K-oWd" secondAttribute="centerY" id="tSR-gW-GKS"/>
+                <constraint firstItem="s7W-lw-hEo" firstAttribute="top" secondItem="8IA-9G-4Au" secondAttribute="top" constant="100" id="9QI-sT-fBl"/>
+                <constraint firstItem="s7W-lw-hEo" firstAttribute="bottom" secondItem="zkm-Op-2OL" secondAttribute="bottom" constant="-60" id="CPs-bH-H10"/>
+                <constraint firstItem="pbj-5f-2Ua" firstAttribute="leading" secondItem="8IA-9G-4Au" secondAttribute="leading" constant="20" symbolic="YES" id="EB7-c3-oSs"/>
+                <constraint firstAttribute="centerX" secondItem="pbj-5f-2Ua" secondAttribute="centerX" id="VvY-c8-ufo"/>
+                <constraint firstItem="zkm-Op-2OL" firstAttribute="leading" secondItem="8IA-9G-4Au" secondAttribute="leading" constant="20" symbolic="YES" id="bd6-CV-dNA"/>
+                <constraint firstAttribute="bottom" secondItem="pbj-5f-2Ua" secondAttribute="bottom" constant="20" id="gDJ-QQ-QLL"/>
+                <constraint firstAttribute="centerX" secondItem="s7W-lw-hEo" secondAttribute="centerX" id="roX-yM-mLP"/>
+                <constraint firstAttribute="centerX" secondItem="zkm-Op-2OL" secondAttribute="centerX" id="xXU-a1-CkB"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="548" y="455"/>
+            <point key="canvasLocation" x="501" y="381"/>
         </view>
     </objects>
     <resources>
