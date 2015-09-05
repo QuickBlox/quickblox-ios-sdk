@@ -8,7 +8,6 @@
 
 #import "MainViewController.h"
 #import "ImageViewController.h"
-#import "Storage.h"
 #import "ImageCollectionViewCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
@@ -178,13 +177,15 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
               successBlock:^(QBResponse *response, QBCBlob *blob) {
                   [SVProgressHUD dismiss];
                   
+                  // Saving image directly SDWebImageCache
+                  [[SDImageCache sharedImageCache] storeImage:selectedImage
+                                                       forKey:[[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:blob.privateUrl]]];
                   __typeof(self) strongSelf = weakSelf;
                   
-                  [strongSelf.blobs addObject:blob];
-                  [strongSelf.collectionView reloadData];
-                  
-                  // save it
-                  [[Storage instance].filesList addObject:blob];
+                  [strongSelf.blobs insertObject:blob atIndex:0];
+                  NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                  [strongSelf.collectionView insertItemsAtIndexPaths:@[indexPath]];
+                  [strongSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
               } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
                   [SVProgressHUD showProgress:status.percentOfCompletion status:@"Uploading image"];
               } errorBlock:^(QBResponse *response) {
