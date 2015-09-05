@@ -60,14 +60,18 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
 {
     [super viewDidLoad];
 
-    __weak typeof(self)weakSelf = self;
-    [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
-        __typeof(self) strongSelf = weakSelf;
-        
-        [strongSelf fetchNextPage];
-    } errorBlock:^(QBResponse *response) {
-        NSLog(@"Response error %@:", response.error);
-    }];
+    if ([QBSession currentSession].currentUser == nil) {
+        __weak typeof(self)weakSelf = self;
+        [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
+            __typeof(self) strongSelf = weakSelf;
+            
+            [strongSelf fetchNextPage];
+        } errorBlock:^(QBResponse *response) {
+            NSLog(@"Response error %@:", response.error);
+        }];
+    } else {
+        [self fetchNextPage];
+    }
 }
 
 - (IBAction)addNewPicture:(id)sender
