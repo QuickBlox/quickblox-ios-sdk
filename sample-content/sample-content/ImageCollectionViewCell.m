@@ -7,7 +7,15 @@
 //
 
 #import "ImageCollectionViewCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation ImageCollectionViewCell
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    
+    [self.imageView sd_cancelCurrentImageLoad];
+}
 
 @end

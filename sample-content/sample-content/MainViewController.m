@@ -106,7 +106,13 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     ImageCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCellIdentifier forIndexPath:indexPath];
     
     QBCBlob* blob = self.items[indexPath.row];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:blob.privateUrl]];
+    NSURL* url = [NSURL URLWithString:blob.privateUrl];
+    [cell.spinnerView startAnimating];
+    [cell.imageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [cell.spinnerView stopAnimating];
+    }];
+
+
     
     return cell;
 }
