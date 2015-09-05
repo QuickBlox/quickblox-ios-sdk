@@ -6,25 +6,23 @@
 //  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
-#import "ContentViewController.h"
+#import "ImageViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface ContentViewController ()
+@interface ImageViewController ()
 
-@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (weak, nonnull) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 
 @end
 
-@implementation ContentViewController
+@implementation ImageViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Load the image
-    //
-    NSString *privateUrl = [self.file privateUrl];
+    NSString *privateUrl = [self.imageBlob privateUrl];
     if (privateUrl) {
         __weak typeof(self)weakSelf = self;
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:privateUrl]

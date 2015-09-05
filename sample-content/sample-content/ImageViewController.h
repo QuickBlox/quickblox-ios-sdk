@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuickBlox/QuickBlox.h>
 
-@interface ContentViewController : UIViewController
+@interface ImageViewController : UIViewController
 
-@property (nonatomic) QBCBlob *file;
+@property (nonatomic, weak) QBCBlob *imageBlob;
 
 @end

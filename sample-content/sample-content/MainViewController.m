@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import "ContentViewController.h"
+#import "ImageViewController.h"
 #import "Storage.h"
 #import "ImageCollectionViewCell.h"
 
@@ -22,7 +22,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
 @property (nonatomic, weak) UILabel *footerLabel;
 @property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-@property (nonatomic, strong) NSMutableArray* items;
+@property (nonatomic, strong) NSMutableArray* blobs;
 @property (nonatomic, strong) QBGeneralResponsePage* page;
 
 @end
@@ -48,12 +48,12 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     return _imagePicker;
 }
 
-- (NSMutableArray *)items
+- (NSMutableArray *)blobs
 {
-    if (_items == nil) {
-        _items = [NSMutableArray array];
+    if (_blobs == nil) {
+        _blobs = [NSMutableArray array];
     }
-    return _items;
+    return _blobs;
 }
 
 - (void)viewDidLoad
@@ -62,11 +62,14 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
 
     if ([QBSession currentSession].currentUser == nil) {
         __weak typeof(self)weakSelf = self;
+        [SVProgressHUD showWithStatus:@"Logging in..."];
         [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
+            [SVProgressHUD dismiss];
             __typeof(self) strongSelf = weakSelf;
             
             [strongSelf fetchNextPage];
         } errorBlock:^(QBResponse *response) {
+            [SVProgressHUD showErrorWithStatus:@"Failed to login!"];
             NSLog(@"Response error %@:", response.error);
         }];
     } else {
@@ -79,6 +82,16 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.destinationViewController isKindOfClass:[ImageViewController class]]) {
+        NSIndexPath* indexPath = [self.collectionView indexPathForCell:sender];
+        QBCBlob* image = self.blobs[indexPath.row];
+        ImageViewController* viewController = segue.destinationViewController;
+        viewController.imageBlob = image;
+    }
+}
+
 #pragma mark - 
 #pragma mark Helpers
 
@@ -89,23 +102,24 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     [QBRequest blobsForPage:self.page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *blobs) {
         __typeof(self) strongSelf = weakSelf;
         
-        [strongSelf.items addObjectsFromArray:blobs];
+        [strongSelf.blobs addObjectsFromArray:blobs];
         [strongSelf.collectionView reloadData];
         
     } errorBlock:^(QBResponse *response) {
+        [SVProgressHUD showErrorWithStatus:@"Failod to load page!"];
         NSLog(@"error: %@", response.error);
     }];
 }
 
 
 #pragma mark -
-#pragma mark UICollectionViewDelegate
+#pragma mark UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ImageCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCellIdentifier forIndexPath:indexPath];
     
-    QBCBlob* blob = self.items[indexPath.row];
+    QBCBlob* blob = self.blobs[indexPath.row];
     NSURL* url = [NSURL URLWithString:blob.privateUrl];
     [cell.spinnerView startAnimating];
     [cell.imageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -121,16 +135,18 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(160.0f, 160.0f);
+    CGFloat value = self.collectionView.frame.size.width / 2.0f - 3.0f;
+    
+    return CGSizeMake(value, value);
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.items.count;
+    return self.blobs.count;
 }
 
-#pragma mark -
-#pragma mark UICollectionViewDataSource
+#pragma mark - 
+#pragma mark - UIScrollViewDidScroll
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -142,6 +158,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
         [self fetchNextPage];
     }
 }
+
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
 
@@ -163,7 +180,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
                   
                   __typeof(self) strongSelf = weakSelf;
                   
-                  [strongSelf.items addObject:blob];
+                  [strongSelf.blobs addObject:blob];
                   [strongSelf.collectionView reloadData];
                   
                   // save it
