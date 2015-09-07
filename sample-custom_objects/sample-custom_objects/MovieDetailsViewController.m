@@ -11,8 +11,9 @@
 
 @interface MovieDetailsViewController ()
 
-@property (nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (nonatomic) IBOutlet HCSStarRatingView *ratingView;
+@property (weak, nonatomic) IBOutlet UILabel *movieTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet HCSStarRatingView *ratingView;
 
 @end
 
@@ -22,14 +23,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = self.movie.fields[@"name"];
+    self.movieTitleLabel.text = self.movie.fields[@"name"];
     self.descriptionLabel.text = self.movie.fields[@"description"];
-    [self.descriptionLabel sizeToFit];
     
-    self.ratingView.maximumValue = 10;
+    self.ratingView.maximumValue = 5;
     self.ratingView.minimumValue = 0;
-    self.ratingView.allowsHalfStars = YES;
-    self.ratingView.value = [self.movie.fields[@"rating"] floatValue];
+    self.ratingView.allowsHalfStars = NO;
+    
+    NSInteger value = [self.movie.fields[@"rating"] integerValue];
+    value = MIN(MAX(self.ratingView.minimumValue, value), self.ratingView.maximumValue);
+    
+    self.ratingView.value = value;
     self.ratingView.userInteractionEnabled = NO;
 }
 
