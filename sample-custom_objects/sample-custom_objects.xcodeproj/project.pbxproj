@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C61CD8B1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */; };
+		2C61CD8E1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */; };
 		2CED4A771B9D769600B6862C /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A761B9D769600B6862C /* SAMTextView.m */; };
 		465124C8A22230ACE87D50AB /* libPods-sample-custom_objects.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99702EE102EBDAE13984C0AC /* libPods-sample-custom_objects.a */; };
 		BF0CF3AE1B28599E00078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3AD1B28599E00078084 /* main.m */; };
@@ -42,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewMovieHeaderFooterView.xib; sourceTree = "<group>"; };
+		2C61CD8C1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewMovieHeaderFooterView.h; sourceTree = "<group>"; };
+		2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewMovieHeaderFooterView.m; sourceTree = "<group>"; };
 		2CED4A751B9D769600B6862C /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
 		2CED4A761B9D769600B6862C /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
 		57C5E88D99D7805AD3377371 /* Pods-sample-custom_objects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-custom_objects.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-custom_objects/Pods-sample-custom_objects.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +141,8 @@
 				BF0CF3B31B28599E00078084 /* MainViewController.m */,
 				BF0CF3D11B285E1700078084 /* AddNewMovieViewController.h */,
 				BF0CF3D21B285E1700078084 /* AddNewMovieViewController.m */,
+				2C61CD8C1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.h */,
+				2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */,
 				BF0CF3D41B285EA800078084 /* MovieDetailsViewController.h */,
 				BF0CF3D51B285EA800078084 /* MovieDetailsViewController.m */,
 				BF0CF3D91B28612D00078084 /* ObjectsPaginator.h */,
@@ -144,6 +151,7 @@
 				BF0CF3DD1B28619300078084 /* Storage.m */,
 				2CED4A751B9D769600B6862C /* SAMTextView.h */,
 				2CED4A761B9D769600B6862C /* SAMTextView.m */,
+				2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */,
 				BF0CF3B51B28599E00078084 /* Main.storyboard */,
 				BF0CF3B81B28599F00078084 /* Images.xcassets */,
 				BF0CF3BA1B28599F00078084 /* LaunchScreen.xib */,
@@ -288,6 +296,7 @@
 			files = (
 				BF0CF3B71B28599E00078084 /* Main.storyboard in Resources */,
 				BF0CF3BC1B28599F00078084 /* LaunchScreen.xib in Resources */,
+				2C61CD8B1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib in Resources */,
 				BF0CF3B91B28599F00078084 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +356,7 @@
 				BF0CF3B11B28599E00078084 /* AppDelegate.m in Sources */,
 				BF0CF3AE1B28599E00078084 /* main.m in Sources */,
 				BF0CF3DE1B28619300078084 /* Storage.m in Sources */,
+				2C61CD8E1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
