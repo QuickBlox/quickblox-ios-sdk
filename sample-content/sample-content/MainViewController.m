@@ -105,7 +105,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
         [strongSelf.collectionView reloadData];
         
     } errorBlock:^(QBResponse *response) {
-        [SVProgressHUD showErrorWithStatus:@"Failod to load page!"];
+        [SVProgressHUD showErrorWithStatus:@"Failed to load page!"];
         NSLog(@"error: %@", response.error);
     }];
 }
@@ -125,8 +125,6 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
         [cell.spinnerView stopAnimating];
     }];
 
-
-    
     return cell;
 }
 
@@ -182,8 +180,9 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
                                                        forKey:[[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:blob.privateUrl]]];
                   __typeof(self) strongSelf = weakSelf;
                   
-                  [strongSelf.blobs insertObject:blob atIndex:0];
-                  NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                  [strongSelf.blobs addObject:blob];
+                  NSUInteger insertRow = strongSelf.blobs.count - 1;
+                  NSIndexPath* indexPath = [NSIndexPath indexPathForRow:insertRow inSection:0];
                   [strongSelf.collectionView insertItemsAtIndexPaths:@[indexPath]];
                   [strongSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
               } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
