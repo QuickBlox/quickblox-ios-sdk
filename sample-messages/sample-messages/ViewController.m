@@ -40,7 +40,7 @@
                                                    alpha:1.0f].CGColor;
     [self.pushMessageTextView.layer addSublayer:bottomBorder];
     
-    self.pushMessages = [@[@"1", @"2", @"3"] mutableCopy];
+    self.pushMessages = [NSMutableArray array];
    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(pushDidReceive:)
