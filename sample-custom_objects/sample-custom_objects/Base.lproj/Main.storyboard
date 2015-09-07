@@ -177,7 +177,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Label" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ngx-Me-ZjH">
-                                                    <rect key="frame" x="9" y="8" width="583" height="27"/>
+                                                    <rect key="frame" x="15" y="8" width="577" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -186,7 +186,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="ngx-Me-ZjH" secondAttribute="bottom" id="VEI-FH-RFa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ngx-Me-ZjH" secondAttribute="trailing" id="Ycv-fw-D0R"/>
                                                 <constraint firstItem="ngx-Me-ZjH" firstAttribute="top" secondItem="7Rq-2g-Uof" secondAttribute="topMargin" id="h1X-q9-9CI"/>
-                                                <constraint firstItem="ngx-Me-ZjH" firstAttribute="leading" secondItem="7Rq-2g-Uof" secondAttribute="leadingMargin" constant="1" id="jC0-2b-fgp"/>
+                                                <constraint firstItem="ngx-Me-ZjH" firstAttribute="leading" secondItem="7Rq-2g-Uof" secondAttribute="leading" constant="15" id="jC0-2b-fgp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -216,13 +216,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Year" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zTY-8h-vZ9">
-                                                    <rect key="frame" x="9" y="8" width="583" height="27"/>
+                                                    <rect key="frame" x="15" y="8" width="577" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="zTY-8h-vZ9" firstAttribute="leading" secondItem="7rK-Km-tqh" secondAttribute="leadingMargin" constant="1" id="7Up-bX-McV"/>
+                                                <constraint firstItem="zTY-8h-vZ9" firstAttribute="leading" secondItem="7rK-Km-tqh" secondAttribute="leading" constant="15" id="7Up-bX-McV"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="zTY-8h-vZ9" secondAttribute="bottom" id="DZx-r3-rTP"/>
                                                 <constraint firstItem="zTY-8h-vZ9" firstAttribute="top" secondItem="7rK-Km-tqh" secondAttribute="topMargin" id="Y3g-Ep-qCo"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="zTY-8h-vZ9" secondAttribute="trailing" id="eNZ-jw-XnF"/>
