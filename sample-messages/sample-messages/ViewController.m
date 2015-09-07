@@ -34,13 +34,13 @@
     
     CALayer *bottomBorder = [CALayer layer];
     bottomBorder.frame = CGRectMake(0.0f, self.pushMessageTextView.frame.size.height - 1.0f, self.pushMessageTextView.frame.size.width, 1.0f);
-    bottomBorder.backgroundColor = [UIColor colorWithRed:206.0f/255.0f
-                                                   green:206.0f/255.0f
-                                                    blue:206.0f/255.0f
+    bottomBorder.backgroundColor = [UIColor colorWithRed:200.0f/255.0f
+                                                   green:199.0f/255.0f
+                                                    blue:204.0f/255.0f
                                                    alpha:1.0f].CGColor;
     [self.pushMessageTextView.layer addSublayer:bottomBorder];
     
-    self.pushMessages = [NSMutableArray array];
+    self.pushMessages = [@[@"1", @"2", @"3"] mutableCopy];
    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(pushDidReceive:)
