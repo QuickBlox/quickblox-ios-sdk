@@ -9,12 +9,13 @@
 #import "ViewController.h"
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
+#import "SAMTextView.h"
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic) IBOutlet UITextField *pushMessageTextField;
-@property (nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *sendPushButton;
+@property (weak, nonatomic) IBOutlet SAMTextView *pushMessageTextView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sendPushButton;
 
 @property (nonatomic, strong) NSMutableArray *pushMessages;
 
@@ -25,10 +26,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
-     self.pushMessages = [NSMutableArray array];
+    NSDictionary* attributes = @{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
+                                 NSForegroundColorAttributeName : [UIColor colorWithWhite:0.0f alpha:0.3f]};
+    self.pushMessageTextView.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter push message here" attributes:attributes];
+    self.pushMessageTextView.textContainerInset = (UIEdgeInsets){10.0f, 10.0f, 0.0f, 0.0f};
     
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.frame = CGRectMake(0.0f, self.pushMessageTextView.frame.size.height - 1.0f, self.pushMessageTextView.frame.size.width, 1.0f);
+    bottomBorder.backgroundColor = [UIColor colorWithRed:200.0f/255.0f
+                                                   green:199.0f/255.0f
+                                                    blue:204.0f/255.0f
+                                                   alpha:1.0f].CGColor;
+    [self.pushMessageTextView.layer addSublayer:bottomBorder];
+    
+    self.pushMessages = [NSMutableArray array];
+   
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(pushDidReceive:)
                                                  name:@"kPushDidReceive"
@@ -48,12 +61,6 @@
         }
         
     }];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)pushDidReceive:(NSNotification *)notification
@@ -130,7 +137,8 @@
 
 - (IBAction)sendPush:(id)sender
 {
-    NSString *message = self.pushMessageTextField.text;
+    [self.view endEditing:YES];
+    NSString *message = self.pushMessageTextView.text;
     
     // empty text
     if([message length] == 0) {
@@ -141,8 +149,8 @@
         
         [self sendPushWithMessage:message];
         
-        [self.pushMessageTextField resignFirstResponder];
-        self.pushMessageTextField.text = nil;
+        [self.pushMessageTextView resignFirstResponder];
+        self.pushMessageTextView.text = nil;
     }
 }
 
@@ -166,22 +174,6 @@
     cell.textLabel.text = self.pushMessages[indexPath.row];
     
     return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 60;
-}
-
-
-#pragma mark -
-#pragma mark UITextFieldDelegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self.pushMessageTextField resignFirstResponder];
-    
-    return YES;
 }
 
 #pragma mark -

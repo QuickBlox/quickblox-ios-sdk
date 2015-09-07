@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86A716581B9DAA790019C42A /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A716571B9DAA790019C42A /* SAMTextView.m */; };
 		BF0CF3FE1B2976F200078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3FD1B2976F200078084 /* main.m */; };
 		BF0CF4011B2976F200078084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4001B2976F200078084 /* AppDelegate.m */; };
 		BF0CF4041B2976F200078084 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4031B2976F200078084 /* ViewController.m */; };
@@ -39,6 +40,8 @@
 /* Begin PBXFileReference section */
 		1689DB23AB23125CF688B055 /* libPods-sample-messages.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-messages.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		30FBE478E0BAB5F9FBC49E87 /* Pods-sample-messages.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-messages.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-messages/Pods-sample-messages.release.xcconfig"; sourceTree = "<group>"; };
+		86A716561B9DAA790019C42A /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
+		86A716571B9DAA790019C42A /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
 		BF0CF3F81B2976F200078084 /* sample-messages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-messages.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF0CF3FC1B2976F200078084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF0CF3FD1B2976F200078084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -101,6 +104,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		86A716551B9DAA590019C42A /* SAMTextView */ = {
+			isa = PBXGroup;
+			children = (
+				86A716561B9DAA790019C42A /* SAMTextView.h */,
+				86A716571B9DAA790019C42A /* SAMTextView.m */,
+			);
+			name = SAMTextView;
+			sourceTree = "<group>";
+		};
 		BC5919B1A8371939544B0A1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +153,7 @@
 		BF0CF3FA1B2976F200078084 /* sample-messages */ = {
 			isa = PBXGroup;
 			children = (
+				86A716551B9DAA590019C42A /* SAMTextView */,
 				BF0CF3FF1B2976F200078084 /* AppDelegate.h */,
 				BF0CF4001B2976F200078084 /* AppDelegate.m */,
 				BF0CF4021B2976F200078084 /* ViewController.h */,
@@ -315,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0CF4041B2976F200078084 /* ViewController.m in Sources */,
+				86A716581B9DAA790019C42A /* SAMTextView.m in Sources */,
 				BF0CF4011B2976F200078084 /* AppDelegate.m in Sources */,
 				BF0CF3FE1B2976F200078084 /* main.m in Sources */,
 			);

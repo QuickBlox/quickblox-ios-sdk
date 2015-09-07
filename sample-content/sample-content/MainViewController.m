@@ -112,7 +112,6 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     }];
 }
 
-
 #pragma mark -
 #pragma mark UICollectionViewDataSource
 
