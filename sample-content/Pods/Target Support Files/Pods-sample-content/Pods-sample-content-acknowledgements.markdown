@@ -1,11 +1,6 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## NMPaginator
-
-Do whatever you want with this piece of code (commercially or free). Attribution would be nice though.
-
-
 ## SDWebImage
 
 Copyright (c) 2009 Olivier Poitrey <rs@dailymotion.com>

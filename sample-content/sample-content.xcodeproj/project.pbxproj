@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860B9F461B9A0B0100BDB01E /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 860B9F451B9A0B0100BDB01E /* ImageCollectionViewCell.m */; };
 		98FDFB40252F006913C009AB /* libPods-sample-content.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF6A11FDEEA897B051BF7F /* libPods-sample-content.a */; };
 		BF7ECD0D1B26D8770005B39D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD0C1B26D8770005B39D /* main.m */; };
 		BF7ECD101B26D8770005B39D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD0F1B26D8770005B39D /* AppDelegate.m */; };
@@ -15,9 +16,8 @@
 		BF7ECD181B26D8770005B39D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF7ECD171B26D8770005B39D /* Images.xcassets */; };
 		BF7ECD1B1B26D8770005B39D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF7ECD191B26D8770005B39D /* LaunchScreen.xib */; };
 		BF7ECD271B26D8770005B39D /* sample_contentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD261B26D8770005B39D /* sample_contentTests.m */; };
-		BF7ECD321B26DE890005B39D /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD311B26DE890005B39D /* ContentViewController.m */; };
+		BF7ECD321B26DE890005B39D /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD311B26DE890005B39D /* ImageViewController.m */; };
 		BF7ECD361B26E2860005B39D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD351B26E2860005B39D /* Quickblox.framework */; };
-		BF7ECD3C1B26E4180005B39D /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD3B1B26E4180005B39D /* Storage.m */; };
 		BF7ECD3E1B26E6C80005B39D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD3D1B26E6C80005B39D /* CFNetwork.framework */; };
 		BF7ECD401B26E6D00005B39D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD3F1B26E6D00005B39D /* SystemConfiguration.framework */; };
 		BF7ECD421B26E6D60005B39D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD411B26E6D60005B39D /* MobileCoreServices.framework */; };
@@ -33,7 +33,6 @@
 		BF7ECD561B26E7100005B39D /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD551B26E7100005B39D /* libz.1.2.5.dylib */; };
 		BF7ECD581B26E7150005B39D /* libresolv.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD571B26E7150005B39D /* libresolv.9.dylib */; };
 		BF7ECD5A1B26E71B0005B39D /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD591B26E71B0005B39D /* libxml2.2.dylib */; };
-		BF7ECD5E1B27322F0005B39D /* FilesPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD5D1B27322F0005B39D /* FilesPaginator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +48,8 @@
 /* Begin PBXFileReference section */
 		4438634C1918A3626A1E2954 /* Pods-sample-content.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-content.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-content/Pods-sample-content.debug.xcconfig"; sourceTree = "<group>"; };
 		63EF6A11FDEEA897B051BF7F /* libPods-sample-content.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-content.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		860B9F441B9A0B0100BDB01E /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		860B9F451B9A0B0100BDB01E /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 		964222AE87B395FDE8521E49 /* Pods-sample-content.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-content.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-content/Pods-sample-content.release.xcconfig"; sourceTree = "<group>"; };
 		BF7ECD071B26D8770005B39D /* sample-content.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-content.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF7ECD0B1B26D8770005B39D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,11 +64,9 @@
 		BF7ECD201B26D8770005B39D /* sample-contentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sample-contentTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF7ECD251B26D8770005B39D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF7ECD261B26D8770005B39D /* sample_contentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = sample_contentTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		BF7ECD301B26DE890005B39D /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ContentViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		BF7ECD311B26DE890005B39D /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ContentViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF7ECD301B26DE890005B39D /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ImageViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF7ECD311B26DE890005B39D /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ImageViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF7ECD351B26E2860005B39D /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		BF7ECD3A1B26E4180005B39D /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Storage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		BF7ECD3B1B26E4180005B39D /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Storage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF7ECD3D1B26E6C80005B39D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BF7ECD3F1B26E6D00005B39D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BF7ECD411B26E6D60005B39D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -83,8 +82,6 @@
 		BF7ECD551B26E7100005B39D /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		BF7ECD571B26E7150005B39D /* libresolv.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.9.dylib; path = usr/lib/libresolv.9.dylib; sourceTree = SDKROOT; };
 		BF7ECD591B26E71B0005B39D /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		BF7ECD5C1B27322F0005B39D /* FilesPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FilesPaginator.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		BF7ECD5D1B27322F0005B39D /* FilesPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FilesPaginator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,12 +155,10 @@
 				BF7ECD0F1B26D8770005B39D /* AppDelegate.m */,
 				BF7ECD111B26D8770005B39D /* MainViewController.h */,
 				BF7ECD121B26D8770005B39D /* MainViewController.m */,
-				BF7ECD301B26DE890005B39D /* ContentViewController.h */,
-				BF7ECD311B26DE890005B39D /* ContentViewController.m */,
-				BF7ECD3A1B26E4180005B39D /* Storage.h */,
-				BF7ECD3B1B26E4180005B39D /* Storage.m */,
-				BF7ECD5C1B27322F0005B39D /* FilesPaginator.h */,
-				BF7ECD5D1B27322F0005B39D /* FilesPaginator.m */,
+				BF7ECD301B26DE890005B39D /* ImageViewController.h */,
+				BF7ECD311B26DE890005B39D /* ImageViewController.m */,
+				860B9F441B9A0B0100BDB01E /* ImageCollectionViewCell.h */,
+				860B9F451B9A0B0100BDB01E /* ImageCollectionViewCell.m */,
 				BF7ECD141B26D8770005B39D /* Main.storyboard */,
 				BF7ECD171B26D8770005B39D /* Images.xcassets */,
 				BF7ECD191B26D8770005B39D /* LaunchScreen.xib */,
@@ -357,12 +352,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF7ECD321B26DE890005B39D /* ContentViewController.m in Sources */,
+				BF7ECD321B26DE890005B39D /* ImageViewController.m in Sources */,
 				BF7ECD131B26D8770005B39D /* MainViewController.m in Sources */,
-				BF7ECD3C1B26E4180005B39D /* Storage.m in Sources */,
 				BF7ECD101B26D8770005B39D /* AppDelegate.m in Sources */,
+				860B9F461B9A0B0100BDB01E /* ImageCollectionViewCell.m in Sources */,
 				BF7ECD0D1B26D8770005B39D /* main.m in Sources */,
-				BF7ECD5E1B27322F0005B39D /* FilesPaginator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

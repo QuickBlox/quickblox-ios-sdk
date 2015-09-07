@@ -1,18 +1,15 @@
 PODS:
-  - NMPaginator (1.0.0)
-  - SDWebImage (3.7.2):
-    - SDWebImage/Core (= 3.7.2)
-  - SDWebImage/Core (3.7.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SVProgressHUD (1.1.3)
 
 DEPENDENCIES:
-  - NMPaginator
   - SDWebImage (~> 3.7)
   - SVProgressHUD
 
 SPEC CHECKSUMS:
-  NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
-  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2

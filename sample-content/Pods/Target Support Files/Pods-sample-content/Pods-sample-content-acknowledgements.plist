@@ -14,15 +14,6 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Do whatever you want with this piece of code (commercially or free). Attribution would be nice though.
-</string>
-			<key>Title</key>
-			<string>NMPaginator</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>Copyright (c) 2009 Olivier Poitrey &lt;rs@dailymotion.com&gt;
  
 Permission is hereby granted, free of charge, to any person obtaining a copy
