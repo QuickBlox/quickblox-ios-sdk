@@ -11,7 +11,7 @@
 #import <SVProgressHUD.h>
 #import "SAMTextView.h"
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet SAMTextView *pushMessageTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -137,6 +137,7 @@
 
 - (IBAction)sendPush:(id)sender
 {
+    [self.view endEditing:YES];
     NSString *message = self.pushMessageTextView.text;
     
     // empty text
@@ -173,16 +174,6 @@
     cell.textLabel.text = self.pushMessages[indexPath.row];
     
     return cell;
-}
-
-#pragma mark -
-#pragma mark UITextFieldDelegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self.pushMessageTextView resignFirstResponder];
-    
-    return YES;
 }
 
 #pragma mark -
