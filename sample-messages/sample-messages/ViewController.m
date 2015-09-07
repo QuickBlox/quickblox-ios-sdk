@@ -41,6 +41,7 @@
     [self.pushMessageTextView.layer addSublayer:bottomBorder];
     
     self.pushMessages = [NSMutableArray array];
+    self.tableView.hidden = YES;
    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(pushDidReceive:)
@@ -68,6 +69,7 @@
     NSString *message = [notification userInfo][@"message"];
     
     [self.pushMessages addObject:message];
+    self.tableView.hidden = NO;
     
     [self.tableView reloadData];
 }
