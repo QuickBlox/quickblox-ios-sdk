@@ -98,7 +98,9 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
 {
     self.page.currentPage += 1;
     __weak typeof(self)weakSelf = self;
+    [SVProgressHUD showWithStatus:@"Loading next page..." maskType:SVProgressHUDMaskTypeNone];
     [QBRequest blobsForPage:self.page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *blobs) {
+        [SVProgressHUD dismiss];
         __typeof(self) strongSelf = weakSelf;
         
         [strongSelf.blobs addObjectsFromArray:blobs];
