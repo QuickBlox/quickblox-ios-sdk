@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CED4A7A1B9DAB2A00B6862C /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */; };
+		2CED4A7D1B9DB21400B6862C /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */; };
 		67792BFAFC8B2AAA21256FC5 /* libPods-sample-users.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD8943CF5FF77D23DBD01335 /* libPods-sample-users.a */; };
 		86B8BFD21B8F6DF200AA99C4 /* SignInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */; };
 		86B8BFD51B8F6E0100AA99C4 /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD41B8F6E0100AA99C4 /* SignUpTableViewController.m */; };
@@ -28,7 +30,6 @@
 		BF0CF4781B29BC9200078084 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4771B29BC9200078084 /* Storage.m */; };
 		BF0CF47B1B29BCD500078084 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF47A1B29BCD500078084 /* UsersPaginator.m */; };
 		BF0CF47E1B29BE4F00078084 /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */; };
-		BF0CF4811B29CFCB00078084 /* ActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4801B29CFCB00078084 /* ActionsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2CED4A781B9DAB2900B6862C /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
+		2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
+		2CED4A7B1B9DB21400B6862C /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
+		2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewCell.m; sourceTree = "<group>"; };
 		86B8BFD01B8F6DF200AA99C4 /* SignInTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInTableViewController.h; sourceTree = "<group>"; };
 		86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInTableViewController.m; sourceTree = "<group>"; };
 		86B8BFD31B8F6E0100AA99C4 /* SignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpTableViewController.h; sourceTree = "<group>"; };
@@ -75,8 +80,6 @@
 		BF0CF47A1B29BCD500078084 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UsersPaginator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF0CF47C1B29BE4F00078084 /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UserDetailsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		BF0CF47F1B29CFCB00078084 /* ActionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ActionsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		BF0CF4801B29CFCB00078084 /* ActionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ActionsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CD8943CF5FF77D23DBD01335 /* libPods-sample-users.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-users.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,12 +152,14 @@
 				BF0CF47A1B29BCD500078084 /* UsersPaginator.m */,
 				BF0CF47C1B29BE4F00078084 /* UserDetailsViewController.h */,
 				BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */,
-				BF0CF47F1B29CFCB00078084 /* ActionsViewController.h */,
-				BF0CF4801B29CFCB00078084 /* ActionsViewController.m */,
 				86B8BFD01B8F6DF200AA99C4 /* SignInTableViewController.h */,
 				86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */,
 				86B8BFD31B8F6E0100AA99C4 /* SignUpTableViewController.h */,
 				86B8BFD41B8F6E0100AA99C4 /* SignUpTableViewController.m */,
+				2CED4A781B9DAB2900B6862C /* UserTableViewCell.h */,
+				2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */,
+				2CED4A7B1B9DB21400B6862C /* MenuTableViewCell.h */,
+				2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */,
 				BF0CF4491B2993FD00078084 /* Main.storyboard */,
 				BF0CF44C1B2993FD00078084 /* Images.xcassets */,
 				BF0CF44E1B2993FD00078084 /* LaunchScreen.xib */,
@@ -343,11 +348,12 @@
 			files = (
 				BF0CF4481B2993FD00078084 /* UsersViewController.m in Sources */,
 				BF0CF4781B29BC9200078084 /* Storage.m in Sources */,
+				2CED4A7A1B9DAB2A00B6862C /* UserTableViewCell.m in Sources */,
 				BF0CF47B1B29BCD500078084 /* UsersPaginator.m in Sources */,
 				86B8BFD51B8F6E0100AA99C4 /* SignUpTableViewController.m in Sources */,
 				BF0CF4451B2993FD00078084 /* AppDelegate.m in Sources */,
 				86B8BFD21B8F6DF200AA99C4 /* SignInTableViewController.m in Sources */,
-				BF0CF4811B29CFCB00078084 /* ActionsViewController.m in Sources */,
+				2CED4A7D1B9DB21400B6862C /* MenuTableViewCell.m in Sources */,
 				BF0CF47E1B29BE4F00078084 /* UserDetailsViewController.m in Sources */,
 				BF0CF4421B2993FD00078084 /* main.m in Sources */,
 			);

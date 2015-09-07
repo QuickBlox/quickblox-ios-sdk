@@ -10,15 +10,27 @@
 #import "UserDetailsViewController.h"
 #import "Storage.h"
 #import "UsersPaginator.h"
+
+#import "UserTableViewCell.h"
+#import "MenuTableViewCell.h"
+
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
+
+NS_ENUM(NSInteger, UsersViewControllerMenuMap) {
+    UsersViewControllerMenuSignIn = 0,
+    UsersViewControllerMenuSignUp,
+    UsersViewControllerMenuEditUser,
+    UsersViewControllerMenuSignOut
+};
 
 @interface UsersViewController () <UITableViewDelegate, UITableViewDataSource, NMPaginatorDelegate>
 
 @property (nonatomic, strong) UsersPaginator *paginator;
 @property (nonatomic, weak) UILabel *footerLabel;
 @property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) UIImagePickerController *imagePicker;
+
+@property (nonatomic, assign) BOOL isActionsOpened;
 
 @end
 
@@ -28,6 +40,14 @@
     [super viewDidLoad];
     
     self.paginator = [[UsersPaginator alloc] initWithPageSize:10 delegate:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self updateMenuSection:NO];
+    [self updateTitle];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,6 +66,48 @@
         //
         [weakSelf.paginator fetchFirstPage];
     });
+}
+
+- (BOOL)isSignedIn {
+    return [[QBSession currentSession] currentUser] != nil;
+}
+
+- (IBAction)actionsButtonClicked:(id)sender {
+    
+    self.isActionsOpened = !self.isActionsOpened;
+    [self updateMenuSection:YES];
+    [self updateTitle];
+}
+
+- (void)updateMenuSection:(BOOL)animated
+{
+    UITableViewRowAnimation animation = self.isActionsOpened ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop;
+    
+    animation = animated ? animation : UITableViewRowAnimationNone;
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:animation];
+}
+
+- (void)updateTitle
+{
+    self.title = [self isSignedIn] ? [[QBSession currentSession] currentUser].login : @"Not Signed In";
+}
+
+- (void)signOutAction {
+    
+    [SVProgressHUD showWithStatus:@"Logout user"];
+    
+    __weak typeof(self)weakSelf = self;
+    
+    [QBRequest logOutWithSuccessBlock:^(QBResponse *response) {
+        [SVProgressHUD  dismiss];
+        [weakSelf updateMenuSection:YES];
+        [weakSelf updateTitle];
+        
+    } errorBlock:^(QBResponse *response) {
+        [SVProgressHUD dismiss];
+        NSLog(@"Response error %@:", response.error);
+    }];
 }
 
 
@@ -100,12 +162,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender
 {
-    if ([segue.destinationViewController isKindOfClass:UserDetailsViewController.class]) {
+    if ([segue.identifier isEqualToString:@"editUserSegue"]) {
+        
+        QBUUser *user = [[QBSession currentSession] currentUser];
+        
+        UserDetailsViewController *destinationViewController = (UserDetailsViewController *)[(UINavigationController *)segue.destinationViewController topViewController];
+        destinationViewController.user = user;
+        
+    } else if ([segue.identifier isEqualToString:@"showUserSegue"]){
+        
         NSUInteger row = sender.tag;
         QBUUser *user = [Storage instance].users[row];
         
         UserDetailsViewController *destinationViewController = (UserDetailsViewController *)segue.destinationViewController;
         destinationViewController.user = user;
+        [destinationViewController setupUIForShowUser];
+        
     }
 }
 
@@ -130,35 +202,179 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[Storage instance].users count];
+    NSInteger numberOfRowsInSection = 0;
+    
+    if (section == 0) {
+        numberOfRowsInSection = self.isActionsOpened ? 4 : 0;
+    } else {
+        numberOfRowsInSection = [[Storage instance].users count];
+    }
+    
+    return numberOfRowsInSection;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserCellIdentifier"];
-    cell.tag = indexPath.row;
+    UITableViewCell *cell = nil;
     
-    QBUUser *user = [Storage instance].users[indexPath.row];
-    cell.textLabel.text = user.fullName != nil ? user.fullName : user.login;
-    cell.detailTextLabel.text = user.email;
-    cell.imageView.image = [UIImage imageNamed:@"userIcon"];
+    if (indexPath.section == 0) {
+        
+        MenuTableViewCell *menuCell = [tableView dequeueReusableCellWithIdentifier:@"MenuCellIdentifier"];
+        
+        switch (indexPath.row) {
+            case UsersViewControllerMenuSignIn:
+            {
+                menuCell.menuTitleLabel.text = @"Sign In";
+                menuCell.itemInactive = [self isSignedIn];
+            }
+                break;
+                
+            case UsersViewControllerMenuSignUp:
+            {
+                menuCell.menuTitleLabel.text = @"Sign Up";
+                menuCell.itemInactive = [self isSignedIn];
+            }
+                break;
+                
+            case UsersViewControllerMenuEditUser:
+            {
+                menuCell.menuTitleLabel.text = @"Edit User";
+                menuCell.itemInactive = ![self isSignedIn];
+            }
+                break;
+                
+            case UsersViewControllerMenuSignOut:
+            {
+                menuCell.menuTitleLabel.text = @"Logout";
+                menuCell.itemInactive = ![self isSignedIn];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        cell = menuCell;
+        
+    } else {
+        
+        UserTableViewCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCellIdentifier"];
+        userCell.tag = indexPath.row;
+        
+        QBUUser *user = [Storage instance].users[indexPath.row];
+        userCell.nameLabel.text = user.fullName != nil ? user.fullName : user.login;
+        userCell.emailLabel.text = user.email;
+        
+        cell = userCell;
+    }
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat heightForRowAtIndexPath = 0;
+    
+    if (indexPath.section == 0) {
+        heightForRowAtIndexPath = 44;
+    } else {
+        heightForRowAtIndexPath = 64;
+    }
+    
+    return heightForRowAtIndexPath;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *headerView = nil;
+    
+    if (section == 0) {
+        
+    } else {
+        headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header.view"];
+        
+        if (!headerView) {
+            headerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"header.view"];
+
+            UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+            sectionLabel.text = @"Select User";
+            sectionLabel.font = [UIFont systemFontOfSize:14.0f];
+            sectionLabel.textColor = [UIColor darkGrayColor];
+            [sectionLabel sizeToFit];
+
+            CGRect sectionLabelFrame = sectionLabel.frame;
+            sectionLabelFrame.origin = CGPointMake(17, 10);
+            sectionLabel.frame = sectionLabelFrame;
+        
+            [headerView addSubview:sectionLabel];
+        }
+    }
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat heightForHeader = 0;
+    
+    if (section == 0) {
+        
+    } else {
+        heightForHeader = 38.0f;
+    }
+    
+    return heightForHeader;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 60;
+    
+    if (indexPath.section == 0) {
+        
+        switch (indexPath.row) {
+            case UsersViewControllerMenuSignIn:
+            {
+                if (![self isSignedIn]) {
+                    [self performSegueWithIdentifier:@"signInSegue" sender:nil];
+                }
+            }
+                break;
+                
+            case UsersViewControllerMenuSignUp:
+            {
+                if (![self isSignedIn]) {
+                    [self performSegueWithIdentifier:@"signUpSegue" sender:nil];
+                }
+            }
+                break;
+                
+            case UsersViewControllerMenuEditUser:
+            {
+                if ([self isSignedIn]) {
+                    [self performSegueWithIdentifier:@"editUserSegue" sender:nil];
+                }
+            }
+                break;
+                
+            case UsersViewControllerMenuSignOut:
+            {
+                if ([self isSignedIn]) {
+                    [self signOutAction];
+                }
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
 }
 
 
