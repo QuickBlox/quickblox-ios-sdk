@@ -29,7 +29,6 @@
 		8622B8E71B821469001241E6 /* UIImage+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B8981B821469001241E6 /* UIImage+QM.m */; };
 		8622B8E81B821469001241E6 /* UIView+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B89A1B821469001241E6 /* UIView+QM.m */; };
 		8622B8E91B821469001241E6 /* ChatAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8622B89B1B821469001241E6 /* ChatAssets.xcassets */; };
-		8622B8EA1B821469001241E6 /* QMChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8622B89C1B821469001241E6 /* QMChatViewController.xib */; };
 		8622B8EB1B821469001241E6 /* QMKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B8A01B821469001241E6 /* QMKeyboardController.m */; };
 		8622B8EC1B821469001241E6 /* QMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B8A51B821469001241E6 /* QMChatViewController.m */; };
 		8622B8ED1B821469001241E6 /* QMChatAttachmentIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B8AC1B821469001241E6 /* QMChatAttachmentIncomingCell.m */; };
@@ -59,13 +58,15 @@
 		8622B9051B821469001241E6 /* QMTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B8E31B821469001241E6 /* QMTypingIndicatorFooterView.m */; };
 		8622B9061B821469001241E6 /* QMTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8622B8E41B821469001241E6 /* QMTypingIndicatorFooterView.xib */; };
 		86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */; };
+		86A716641B9EF0440019C42A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86A716621B9EF0440019C42A /* LaunchScreen.xib */; };
+		86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86A716651B9EF0820019C42A /* InfoPlist.strings */; };
+		86A7166A1B9EF3D50019C42A /* QMChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86A716681B9EF3D50019C42A /* QMChatViewController.xib */; };
 		86EE31B31B26EB6700B8A383 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EE31B21B26EB6700B8A383 /* ChatViewController.m */; };
 		86EE31B71B270B7F00B8A383 /* DialogInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EE31B61B270B7F00B8A383 /* DialogInfoTableViewController.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
 		BFE6FB78180E8EF100E64AC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */; };
 		BFE6FB7A180E8EF100E64AC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB79180E8EF100E64AC4 /* UIKit.framework */; };
-		BFE6FB80180E8EF100E64AC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFE6FB7E180E8EF100E64AC4 /* InfoPlist.strings */; };
 		BFE6FB82180E8EF100E64AC4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FB81180E8EF100E64AC4 /* main.m */; };
 		BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE6FB85180E8EF100E64AC4 /* AppDelegate.m */; };
 		BFE6FB89180E8EF100E64AC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFE6FB87180E8EF100E64AC4 /* Main.storyboard */; };
@@ -144,7 +145,6 @@
 		8622B8991B821469001241E6 /* UIView+QM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+QM.h"; sourceTree = "<group>"; };
 		8622B89A1B821469001241E6 /* UIView+QM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+QM.m"; sourceTree = "<group>"; };
 		8622B89B1B821469001241E6 /* ChatAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ChatAssets.xcassets; sourceTree = "<group>"; };
-		8622B89D1B821469001241E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QMChatViewController.xib; sourceTree = "<group>"; };
 		8622B89F1B821469001241E6 /* QMKeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMKeyboardController.h; sourceTree = "<group>"; };
 		8622B8A01B821469001241E6 /* QMKeyboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMKeyboardController.m; sourceTree = "<group>"; };
 		8622B8A21B821469001241E6 /* QMChatCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMChatCollectionViewDataSource.h; sourceTree = "<group>"; };
@@ -198,11 +198,13 @@
 		8622B8E41B821469001241E6 /* QMTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QMTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		86401C0B1B428CEA00D45A05 /* MessageStatusStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageStatusStringBuilder.h; path = Utils/MessageStatusStringBuilder.h; sourceTree = "<group>"; };
 		86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageStatusStringBuilder.m; path = Utils/MessageStatusStringBuilder.m; sourceTree = "<group>"; };
+		86A716631B9EF0440019C42A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		86A716661B9EF0820019C42A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		86A716691B9EF3D50019C42A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QMChatViewController.xib; sourceTree = "<group>"; };
 		86EE31B11B26EB6700B8A383 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		86EE31B21B26EB6700B8A383 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		86EE31B51B270B7F00B8A383 /* DialogInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogInfoTableViewController.h; sourceTree = "<group>"; };
 		86EE31B61B270B7F00B8A383 /* DialogInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogInfoTableViewController.m; sourceTree = "<group>"; };
-		86F145511B0E316600F790F9 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BFBD3C931832CF30009D090B /* sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sound.mp3; sourceTree = "<group>"; };
 		BFE6FB72180E8EF100E64AC4 /* samplechat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = samplechat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,7 +212,6 @@
 		BFE6FB77180E8EF100E64AC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BFE6FB79180E8EF100E64AC4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BFE6FB7D180E8EF100E64AC4 /* sample-chat-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sample-chat-Info.plist"; sourceTree = "<group>"; };
-		BFE6FB7F180E8EF100E64AC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BFE6FB81180E8EF100E64AC4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BFE6FB83180E8EF100E64AC4 /* sample-chat-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sample-chat-Prefix.pch"; sourceTree = "<group>"; };
 		BFE6FB84180E8EF100E64AC4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -315,11 +316,11 @@
 			children = (
 				8622B8921B821469001241E6 /* Categories */,
 				8622B89B1B821469001241E6 /* ChatAssets.xcassets */,
-				8622B89C1B821469001241E6 /* QMChatViewController.xib */,
 				8622B89E1B821469001241E6 /* KeyboardViewController */,
 				8622B8A11B821469001241E6 /* Protocols */,
 				8622B8A41B821469001241E6 /* QMChatViewController.h */,
 				8622B8A51B821469001241E6 /* QMChatViewController.m */,
+				86A716681B9EF3D50019C42A /* QMChatViewController.xib */,
 				8622B8A61B821469001241E6 /* Views */,
 			);
 			name = QMChatViewController;
@@ -628,8 +629,8 @@
 				86401C091B428CAD00D45A05 /* Utils */,
 				BFE6FBE2180F293C00E64AC4 /* Services */,
 				BFE6FB87180E8EF100E64AC4 /* Main.storyboard */,
-				86F145511B0E316600F790F9 /* Launch Screen.xib */,
 				BFE6FB90180E8EF100E64AC4 /* Images.xcassets */,
+				86A716621B9EF0440019C42A /* LaunchScreen.xib */,
 				BFBD3C931832CF30009D090B /* sound.mp3 */,
 				BFE6FB7C180E8EF100E64AC4 /* Supporting Files */,
 			);
@@ -640,7 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				BFE6FB7D180E8EF100E64AC4 /* sample-chat-Info.plist */,
-				BFE6FB7E180E8EF100E64AC4 /* InfoPlist.strings */,
+				86A716651B9EF0820019C42A /* InfoPlist.strings */,
 				BFE6FB81180E8EF100E64AC4 /* main.m */,
 				BFE6FB83180E8EF100E64AC4 /* sample-chat-Prefix.pch */,
 			);
@@ -733,8 +734,8 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
 			mainGroup = BFE6FB69180E8EF100E64AC4;
 			productRefGroup = BFE6FB73180E8EF100E64AC4 /* Products */;
@@ -774,15 +775,16 @@
 				8622B8E91B821469001241E6 /* ChatAssets.xcassets in Resources */,
 				8622B8F01B821469001241E6 /* QMChatAttachmentOutgoingCell.xib in Resources */,
 				14C273BB1B174DE60053D5AF /* QMContactListCacheModel.bundle in Resources */,
+				86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */,
 				8622B8EE1B821469001241E6 /* QMChatAttachmentIncomingCell.xib in Resources */,
 				8622B9061B821469001241E6 /* QMTypingIndicatorFooterView.xib in Resources */,
 				14C273BC1B174DE60053D5AF /* QMChatCacheModel.bundle in Resources */,
 				BFE6FB91180E8EF100E64AC4 /* Images.xcassets in Resources */,
 				8622B8F31B821469001241E6 /* QMChatContactRequestCell.xib in Resources */,
-				BFE6FB80180E8EF100E64AC4 /* InfoPlist.strings in Resources */,
 				8622B8F51B821469001241E6 /* QMChatIncomingCell.xib in Resources */,
-				8622B8EA1B821469001241E6 /* QMChatViewController.xib in Resources */,
+				86A7166A1B9EF3D50019C42A /* QMChatViewController.xib in Resources */,
 				BFE6FB89180E8EF100E64AC4 /* Main.storyboard in Resources */,
+				86A716641B9EF0440019C42A /* LaunchScreen.xib in Resources */,
 				8622B8F91B821469001241E6 /* QMChatOutgoingCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -882,20 +884,28 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8622B89C1B821469001241E6 /* QMChatViewController.xib */ = {
+		86A716621B9EF0440019C42A /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8622B89D1B821469001241E6 /* en */,
+				86A716631B9EF0440019C42A /* Base */,
 			);
-			name = QMChatViewController.xib;
+			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
-		BFE6FB7E180E8EF100E64AC4 /* InfoPlist.strings */ = {
+		86A716651B9EF0820019C42A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				BFE6FB7F180E8EF100E64AC4 /* en */,
+				86A716661B9EF0820019C42A /* Base */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		86A716681B9EF3D50019C42A /* QMChatViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				86A716691B9EF3D50019C42A /* en */,
+			);
+			name = QMChatViewController.xib;
 			sourceTree = "<group>";
 		};
 		BFE6FB87180E8EF100E64AC4 /* Main.storyboard */ = {
@@ -970,7 +980,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = QA;
@@ -1079,7 +1089,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1108,7 +1118,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
