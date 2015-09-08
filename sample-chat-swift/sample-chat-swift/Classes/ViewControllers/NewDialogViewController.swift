@@ -232,6 +232,20 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         }
     }
     
+    // MARK: - UITableViewDataSource
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! SelectableUserTableViewCell
+        
+        let user = self.users![indexPath.row]
+        
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().usersService.color(forUser: user))
+        cell.userDescription = user.fullName
+        cell.tag = indexPath.row
+        
+        return cell
+    }
+    
     // MARK: - UITableViewDelegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

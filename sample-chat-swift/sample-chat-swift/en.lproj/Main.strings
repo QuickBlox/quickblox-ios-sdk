@@ -14,9 +14,6 @@
 /* Class = "UINavigationItem"; title = "List of chat participants"; ObjectID = "A4A-Dp-q1R"; */
 "A4A-Dp-q1R.title" = "List of chat participants";
 
-/* Class = "UINavigationItem"; title = "Select user to login to Chat"; ObjectID = "Ach-ib-q8S"; */
-"Ach-ib-q8S.title" = "Select user to login to Chat";
-
 /* Class = "UILabel"; text = "Select a dialog to chat"; ObjectID = "EFj-SE-fei"; */
 "EFj-SE-fei.text" = "Select a dialog to chat";
 
