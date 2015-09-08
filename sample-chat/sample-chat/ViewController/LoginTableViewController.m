@@ -22,8 +22,34 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	
+    self.tableView.tableFooterView = [UIView new];
+    [self addBackgroundView];
+
 	[self retrieveUsers];
+}
+
+- (void)addBackgroundView
+{
+    UIView* backgroundView = [[UIView alloc] initWithFrame:self.tableView.bounds];
+    backgroundView.backgroundColor = [UIColor clearColor];
+    UIImageView* imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [backgroundView addSubview:imageView];
+    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:imageView
+                                                               attribute:NSLayoutAttributeBottom
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:backgroundView
+                                                               attribute:NSLayoutAttributeBottom
+                                                              multiplier:1.0f
+                                                                constant:-25.0f]];
+    
+    [backgroundView addConstraint:[NSLayoutConstraint constraintWithItem:imageView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                               relatedBy:NSLayoutRelationEqual
+                                                                  toItem:backgroundView
+                                                               attribute:NSLayoutAttributeCenterX
+                                                              multiplier:1.0f constant:0.0f]];
+    self.tableView.backgroundView = backgroundView;
 }
 
 - (void)retrieveUsers
