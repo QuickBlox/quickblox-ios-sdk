@@ -55,16 +55,16 @@
                                             </constraints>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Om-l9-orQ">
-                                            <rect key="frame" x="81" y="9" width="68" height="45"/>
+                                            <rect key="frame" x="81" y="9.5" width="67.5" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxy-Ot-eSH" userLabel="User name">
-                                                    <rect key="frame" x="0.0" y="0.0" width="68" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="67.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkins" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ij8-jX-yV5" userLabel="Email">
-                                                    <rect key="frame" x="0.0" y="25" width="68" height="20"/>
+                                                    <rect key="frame" x="0.0" y="24" width="67.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -103,7 +103,25 @@
                             <outlet property="delegate" destination="gpe-sB-NRg" id="kGL-j8-7hf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Users" id="2fG-bV-47d">
+                    <navigationItem key="navigationItem" id="2fG-bV-47d">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="956-j3-wwc">
+                            <rect key="frame" x="180" y="5.5" width="240" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Users" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUO-Jd-ifE">
+                                    <rect key="frame" x="97" y="6" width="45.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="centerX" secondItem="jUO-Jd-ifE" secondAttribute="centerX" id="9Sd-1h-HHg"/>
+                                <constraint firstAttribute="centerY" secondItem="jUO-Jd-ifE" secondAttribute="centerY" id="hIg-EX-5hJ"/>
+                            </constraints>
+                        </view>
                         <barButtonItem key="rightBarButtonItem" title="Actions" id="ObD-8s-GUb">
                             <connections>
                                 <action selector="actionsButtonClicked:" destination="gpe-sB-NRg" id="P7Z-Lp-dJI"/>
@@ -111,6 +129,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="titleLabel" destination="jUO-Jd-ifE" id="gDT-k1-A2n"/>
                         <segue destination="OfL-Kq-ImX" kind="presentation" identifier="editUserSegue" id="IYb-U0-b9B"/>
                         <segue destination="qWx-Eg-EHh" kind="presentation" identifier="signInSegue" id="rqU-do-sUL"/>
                         <segue destination="0D4-i7-DDb" kind="presentation" identifier="signUpSegue" id="p3I-Cs-zO1"/>
@@ -547,6 +566,6 @@
         <image name="icon" width="49" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="axT-Yq-M2Y"/>
+        <segue reference="hGp-ga-B51"/>
     </inferredMetricsTieBreakers>
 </document>

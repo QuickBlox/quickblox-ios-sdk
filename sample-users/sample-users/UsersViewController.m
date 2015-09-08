@@ -29,6 +29,7 @@ NS_ENUM(NSInteger, UsersViewControllerMenuMap) {
 @property (nonatomic, strong) UsersPaginator *paginator;
 @property (nonatomic, weak) UILabel *footerLabel;
 @property (nonatomic, weak) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 
 @property (nonatomic, assign) BOOL isActionsOpened;
 
@@ -38,6 +39,7 @@ NS_ENUM(NSInteger, UsersViewControllerMenuMap) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Users";
     
     self.paginator = [[UsersPaginator alloc] initWithPageSize:10 delegate:self];
 }
@@ -90,7 +92,7 @@ NS_ENUM(NSInteger, UsersViewControllerMenuMap) {
 
 - (void)updateTitle
 {
-    self.title = [self isSignedIn] ? [[QBSession currentSession] currentUser].login : @"Not Signed In";
+    self.titleLabel.text = [self isSignedIn] ? [[QBSession currentSession] currentUser].login : @"Not Signed In";
 }
 
 - (void)signOutAction {
