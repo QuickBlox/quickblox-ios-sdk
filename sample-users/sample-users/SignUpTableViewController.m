@@ -44,7 +44,7 @@
     return loginValid;
 }
 
-- (IBAction)signUpButtonTouched:(id)sender
+- (IBAction)nextButtonClicked:(id)sender
 {
     [self.view endEditing:YES];
     
@@ -65,7 +65,7 @@
             [QBRequest logInWithUserLogin:user.login password:password successBlock:^(QBResponse *response, QBUUser *user) {
                 [SVProgressHUD dismiss];
                 
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
             } errorBlock:^(QBResponse *response) {
                 [SVProgressHUD dismiss];
                 
@@ -92,6 +92,10 @@
             [alert show];
         }];
     }
+}
+
+- (IBAction)cancelButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITextFieldDelegate

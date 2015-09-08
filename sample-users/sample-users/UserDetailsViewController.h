@@ -13,4 +13,6 @@
 
 @property (nonatomic, weak) QBUUser *user;
 
+- (void)setupUIForShowUser;
+
 @end

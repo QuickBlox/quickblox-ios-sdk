@@ -29,21 +29,25 @@
     
     self.title = self.user.fullName != nil ? self.user.fullName : self.user.login;
     
-    if (self.user.ID != [QBSession currentSession].currentUser.ID) {
-        self.saveButton.enabled = NO;
-        
-        self.loginTextField.enabled = NO;
-        self.fullnameTextField.enabled = NO;
-        self.emailTextField.enabled = NO;
-        self.phonenumberTextField.enabled = NO;
-        self.tagsTextField.enabled = NO;
-    }
-    
     self.loginTextField.text = self.user.login;
     self.fullnameTextField.text = self.user.fullName;
     self.emailTextField.text = self.user.email;
     self.phonenumberTextField.text = self.user.phone;
     self.tagsTextField.text = [self.user.tags componentsJoinedByString:@","];
+}
+
+- (void)setupUIForShowUser {
+    
+    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.leftBarButtonItem = nil;
+    
+    self.saveButton.enabled = NO;
+    
+    self.loginTextField.enabled = NO;
+    self.fullnameTextField.enabled = NO;
+    self.emailTextField.enabled = NO;
+    self.phonenumberTextField.enabled = NO;
+    self.tagsTextField.enabled = NO;
 }
 
 - (IBAction)save:(id)sender
@@ -62,8 +66,12 @@
     
     if (self.tagsTextField.text.length > 0) updateParameters.tags = [[self.tagsTextField.text componentsSeparatedByString:@","] mutableCopy];
     
+    __weak typeof(self) weakSelf = self;
+    
     [QBRequest updateCurrentUser:updateParameters successBlock:^(QBResponse *response, QBUUser *user) {
         [SVProgressHUD dismiss];
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        
     } errorBlock:^(QBResponse *response) {
         [SVProgressHUD dismiss];
         
@@ -76,6 +84,10 @@
                                               otherButtonTitles:nil];
         [alert show];
     }];
+}
+
+- (IBAction)cancelButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
