@@ -10,6 +10,7 @@
 #import "HCSStarRatingView.h"
 #import "Storage.h"
 #import <Quickblox/Quickblox.h>
+#import "SAMTextView.h"
 
 @interface AddNewMovieViewController () <UIAlertViewDelegate>
 
@@ -17,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *yearLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
-@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet SAMTextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UITextField *yearTextField;
 @property (weak, nonatomic) IBOutlet HCSStarRatingView *ratingView;
 
@@ -30,13 +31,10 @@
 {
     [super viewDidLoad];
     
-    self.descriptionTextView.layer.borderWidth = 1.0f;
-    self.descriptionTextView.layer.borderColor = [[UIColor colorWithRed:0 green:0 blue:0 alpha:0.1] CGColor];
-    self.descriptionTextView.layer.cornerRadius = 5;
-    
-    self.ratingView.maximumValue = 10;
+    self.ratingView.maximumValue = 5;
     self.ratingView.minimumValue = 0;
-    self.ratingView.allowsHalfStars = YES;
+    self.ratingView.allowsHalfStars = NO;
+    self.descriptionTextView.placeholder = @"Description";
 }
 
 - (void)addNewMovie
@@ -129,6 +127,89 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self cancel:nil];
+}
+
+#pragma mark
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    CGFloat heightForHeader = [super tableView:tableView heightForHeaderInSection:section];
+    
+    if (section == 1) {
+        heightForHeader = 44.0f;
+    }
+    
+    return heightForHeader;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    CGFloat heightForFooterInSection = [super tableView:tableView heightForFooterInSection:section];
+    
+    if (section == 0) {
+        heightForFooterInSection = 1.0f;
+    }
+    
+    return heightForFooterInSection;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == 1) {
+        cell.separatorInset = UIEdgeInsetsMake(0.0f, tableView.bounds.size.width, 0.0f, 0.0f);
+    }
+    
+    return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [super tableView:tableView viewForHeaderInSection:section];
+    
+    if (section == 1) {
+        headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"header.rating.view"];
+        
+        if (!headerView) {
+            headerView = [[[NSBundle mainBundle] loadNibNamed:@"AddNewMovieHeaderFooterView" owner:self options:nil] objectAtIndex:0]; //[[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"header.rating.view"];
+//            
+//            UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+//            sectionLabel.text = @"Rating";
+//            sectionLabel.font = [UIFont systemFontOfSize:14.0f];
+//            sectionLabel.textColor = [UIColor darkGrayColor];
+//            [sectionLabel sizeToFit];
+//            
+//            CGRect sectionLabelFrame = sectionLabel.frame;
+//            sectionLabelFrame.origin = CGPointMake(17, 10);
+//            sectionLabel.frame = sectionLabelFrame;
+//            
+//            [headerView addSubview:sectionLabel];
+//            
+//            UIView *separatorView = [[UIView alloc] initWithFrame:headerView.frame];
+        }
+    }
+    
+    return headerView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = [super tableView:tableView viewForFooterInSection:section];
+    
+    if (section == 0) {
+        
+        footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"footer.info.view"];
+        
+        if (!footerView) {
+            footerView = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"footer.info.view"];
+            ((UITableViewHeaderFooterView *)footerView).contentView.backgroundColor = [UIColor colorWithRed:204.0f/255.0f green:204.0f/255.0f blue:204.0f/255.0f alpha:1.0f];
+        }
+    }
+    
+    return footerView;
 }
 
 @end
