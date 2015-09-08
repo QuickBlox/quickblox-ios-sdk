@@ -23,6 +23,11 @@ This project contains QuickBlox iOS Samples and latest version of SDK, that incl
   * [QMChatViewController](https://github.com/QuickBlox/QMChatViewController-ios)
   * [QMServices](https://github.com/QuickBlox/q-municate-services-ios)
 
+## Requirements
+
+* Xcode 6+
+* iOS SDK 7+
+
 ## How to start
 
 Clone repository.
