@@ -2,16 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "placeholder_regular.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "chatPrivateIcon.png"
+      "filename" : "placeholder_regular@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "placeholder_regular@3x.png"
     }
   ],
   "info" : {

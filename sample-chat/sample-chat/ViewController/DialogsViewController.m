@@ -48,7 +48,7 @@ QMChatConnectionDelegate
         }
 	}];
     
-    self.navigationItem.title = [NSString stringWithFormat:@"Welcome, %@", [QBSession currentSession].currentUser.login];
+    self.navigationItem.title = [NSString stringWithFormat:@"Logged in as %@", [QBSession currentSession].currentUser.login];
     
     [ServicesManager.instance.chatService addDelegate:self];
     
@@ -158,6 +158,8 @@ QMChatConnectionDelegate
             unreadText = [NSString stringWithFormat:@"%lu", (unsigned long)chatDialog.unreadMessagesCount];
         }
         cell.unreadCountLabel.text = unreadText;
+    } else {
+        cell.unreadCountLabel.text = nil;
     }
     
 	UIButton *deleteButton = [[UIButton alloc] init];
@@ -194,7 +196,7 @@ QMChatConnectionDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44.0f;
+    return 64.0f;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
