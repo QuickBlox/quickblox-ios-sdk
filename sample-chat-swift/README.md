@@ -15,6 +15,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 This Sample demonstrates how to work with [Chat](http://quickblox.com/developers/Chat) QuickBlox module. 
 
 It allows:
+
 1. Authenticate with Quickblox Chat and REST.
 2. Receive and display list of dialogs.
 3. Modify dialog by adding occupants.
@@ -36,11 +37,10 @@ Views:
   * [QMServices](https://github.com/QuickBlox/q-municate-services-ios)
 
 Additional libraries used via [CocoaPods](https://cocoapods.org):
-<ul>
-<li>[SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git)</li>
-<li>[TWMessageBarManager](https://github.com/rs/SDWebImage.git)</li>
-<li>[TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel.git)</li>
-</ul>
+
+* [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git/)
+* [TWMessageBarManager](https://github.com/rs/SDWebImage.git)
+* [TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel.git)
 
 <h2> Documentation </h2>
 
