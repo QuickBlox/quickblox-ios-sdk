@@ -77,6 +77,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.updateTitle()
         
         self.collectionView.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar.contentView.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar.contentView.textView.placeHolder = "Message"
     }
     
     override func viewWillAppear(animated: Bool) {
