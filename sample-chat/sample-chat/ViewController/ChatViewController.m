@@ -91,6 +91,7 @@ UIActionSheetDelegate
 
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
+    self.inputToolbar.contentView.textView.placeHolder = @"Message";
     
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
         
