@@ -553,7 +553,7 @@
         <image name="user" width="49" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Mia-Tg-jSJ"/>
         <segue reference="k6E-hp-7pJ"/>
-        <segue reference="P2j-TU-AWx"/>
     </inferredMetricsTieBreakers>
 </document>

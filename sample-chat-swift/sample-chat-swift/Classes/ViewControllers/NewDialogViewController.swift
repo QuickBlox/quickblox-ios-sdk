@@ -21,9 +21,11 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         ServicesManager.instance().chatService.addDelegate(self)
         
         if let dialog = self.dialog {
-            self.navigationItem.rightBarButtonItem?.title = "Add"
+            self.navigationItem.rightBarButtonItem?.title = "Done"
+            self.title = "Add Occupants"
         } else {
-            self.navigationItem.rightBarButtonItem?.title = "Join chat"
+            self.navigationItem.rightBarButtonItem?.title = "Create"
+            self.title = "New Chat"
         }
     }
     
