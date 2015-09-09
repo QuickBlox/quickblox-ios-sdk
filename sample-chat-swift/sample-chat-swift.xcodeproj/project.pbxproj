@@ -23,7 +23,6 @@
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
 		2C163E4E1B58F38D003AC718 /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C163E4D1B58F38D003AC718 /* UsersService.swift */; };
 		2C163E511B591FBA003AC718 /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C163E501B591FBA003AC718 /* QMContactListCacheModel.bundle */; };
-		2C2C67C31B9F1AA90038B76D /* SelectableUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2C67C21B9F1AA90038B76D /* SelectableUserTableViewCell.swift */; };
 		2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */; };
 		2C8BB1731B134925004540F8 /* libQMServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6E81131B0F1B2A00A6E86D /* libQMServices.a */; };
 		2CBAD95D1B3011700047941E /* NSString+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAD9151B3011700047941E /* NSString+QM.m */; };
@@ -97,7 +96,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1429A59F1AEA7EDC00AE3923 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -122,7 +120,6 @@
 		2C163E4D1B58F38D003AC718 /* UsersService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
 		2C163E501B591FBA003AC718 /* QMContactListCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMContactListCacheModel.bundle; path = ../../services/QMServices/QMContactListCache/QMContactListCacheModel.bundle; sourceTree = "<group>"; };
 		2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesManager.swift; sourceTree = "<group>"; };
-		2C2C67C21B9F1AA90038B76D /* SelectableUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectableUserTableViewCell.swift; sourceTree = "<group>"; };
 		2C6E81051B0F1B2A00A6E86D /* QMServices.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QMServices.xcodeproj; path = ../../services/QMServices/QMServices.xcodeproj; sourceTree = "<group>"; };
 		2CBAD9141B3011700047941E /* NSString+QM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+QM.h"; sourceTree = "<group>"; };
 		2CBAD9151B3011700047941E /* NSString+QM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+QM.m"; sourceTree = "<group>"; };
@@ -601,7 +598,6 @@
 				68440EF02AB27CCF47A87701 /* AlertView.swift */,
 				684403034A069565608E044A /* AlertViewWithTextField.swift */,
 				68440AC65A0DF248480F2934 /* UserTableViewCell.swift */,
-				2C2C67C21B9F1AA90038B76D /* SelectableUserTableViewCell.swift */,
 				92B02D131B4C374400752D18 /* DialogTableViewCell.swift */,
 			);
 			path = Views;
@@ -818,7 +814,6 @@
 				2CBAD9721B3011700047941E /* QMInputToolbar.m in Sources */,
 				2CBAD9761B3011700047941E /* QMChatContainerView.m in Sources */,
 				2CEF78981B4581E20094E6BA /* UIImage+fixOrientation.m in Sources */,
-				2C2C67C31B9F1AA90038B76D /* SelectableUserTableViewCell.swift in Sources */,
 				2CBAD9791B3011700047941E /* QMTypingIndicatorFooterView.m in Sources */,
 				1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */,
 				864DDA2C1B5FEF3900D4A22F /* Constants.swift in Sources */,
@@ -870,7 +865,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				147DA9DA1AEA73160001F691 /* Base */,
-				1429A59F1AEA7EDC00AE3923 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

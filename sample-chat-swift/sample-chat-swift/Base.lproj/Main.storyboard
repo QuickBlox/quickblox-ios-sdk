@@ -143,22 +143,37 @@
                                     <color key="textColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fzt-nv-TWj">
+                                    <rect key="frame" x="0.0" y="43" width="600" height="1"/>
+                                    <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="tRF-aH-LCi"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="Fzt-nv-TWj" firstAttribute="leading" secondItem="xDY-Jn-VPt" secondAttribute="leading" id="9F2-uZ-WQb"/>
+                                <constraint firstAttribute="trailing" secondItem="Fzt-nv-TWj" secondAttribute="trailing" id="DM5-Pi-9aH"/>
                                 <constraint firstAttribute="centerY" secondItem="V3q-JU-fNp" secondAttribute="centerY" id="M5n-Rd-mNI"/>
                                 <constraint firstItem="V3q-JU-fNp" firstAttribute="leading" secondItem="xDY-Jn-VPt" secondAttribute="leading" constant="8" id="hGL-Mi-Quc"/>
+                                <constraint firstAttribute="bottom" secondItem="Fzt-nv-TWj" secondAttribute="bottom" id="sC1-9h-ddq"/>
                             </constraints>
                         </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="cVE-Kh-tSy">
+                            <rect key="frame" x="0.0" y="110" width="600" height="1"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="BYb-5H-JmT" customClass="SelectableUserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="BYb-5H-JmT" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BYb-5H-JmT" id="VtI-2y-0es">
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox" translatesAutoresizingMaskIntoConstraints="NO" id="U3M-iV-wmX">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox" highlightedImage="checkbox_a" translatesAutoresizingMaskIntoConstraints="NO" id="U3M-iV-wmX">
                                             <rect key="frame" x="12" y="11" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="Sjp-E4-kk9"/>
@@ -200,7 +215,6 @@
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="51" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
-                                    <outlet property="checkboxImageView" destination="U3M-iV-wmX" id="be6-xf-Udp"/>
                                     <outlet property="colorMarker" destination="RpR-05-rBD" id="uBK-C3-P5A"/>
                                     <outlet property="userDescriptionLabel" destination="FC3-j0-7FY" id="HZW-Gi-VSV"/>
                                 </connections>
@@ -534,11 +548,12 @@
     </scenes>
     <resources>
         <image name="checkbox" width="22" height="22"/>
+        <image name="checkbox_a" width="22" height="22"/>
         <image name="logo" width="145" height="39"/>
         <image name="user" width="49" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zt6-Oe-FDk"/>
-        <segue reference="Mia-Tg-jSJ"/>
+        <segue reference="k6E-hp-7pJ"/>
+        <segue reference="P2j-TU-AWx"/>
     </inferredMetricsTieBreakers>
 </document>

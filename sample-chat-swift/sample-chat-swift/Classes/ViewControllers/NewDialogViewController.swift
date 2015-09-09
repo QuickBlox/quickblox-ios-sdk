@@ -1,4 +1,4 @@
-//
+ //
 //  NewDialogViewController.swift
 //  sample-chat-swift
 //
@@ -235,7 +235,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     // MARK: - UITableViewDataSource
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! SelectableUserTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! UserTableViewCell
         
         let user = self.users![indexPath.row]
         
