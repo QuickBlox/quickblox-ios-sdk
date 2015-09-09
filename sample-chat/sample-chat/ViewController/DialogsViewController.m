@@ -161,10 +161,6 @@ QMChatConnectionDelegate
     } else {
         cell.unreadCountLabel.text = nil;
     }
-    
-	UIButton *deleteButton = [[UIButton alloc] init];
-	[deleteButton setTitle:@"delete" forState:UIControlStateNormal];
-	deleteButton.backgroundColor = [UIColor redColor];
 	
     return cell;
 }
@@ -227,7 +223,7 @@ QMChatConnectionDelegate
         chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
         
         
-        [SVProgressHUD showWithStatus:@"Deleting dialog..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Leaving dialog..." maskType:SVProgressHUDMaskTypeClear];
         
         if (chatDialog.type == QBChatDialogTypeGroup) {
             __weak __typeof(self) weakSelf = self;
@@ -236,13 +232,17 @@ QMChatConnectionDelegate
                                                   occupantsCustomParameters:nil
                                                            notificationText:[NSString stringWithFormat:@"%@ has left dialog!", [ServicesManager instance].currentUser.login]
                                                                  completion:^(NSError *error) {
-                                                                     NSAssert(error == nil, @"Problems while deleting dialog!");
+                                                                     NSAssert(error == nil, @"Problems while leaving dialog!");
                                                                      [weakSelf deleteDialogWithID:chatDialog.ID];
                                                                  }];
         } else {
             [self deleteDialogWithID:chatDialog.ID];
         }
     }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"Leave";
 }
 
 #pragma mark -
