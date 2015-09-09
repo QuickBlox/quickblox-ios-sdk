@@ -441,7 +441,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 15)
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
         let attributedString = NSAttributedString(string: messageItem.text, attributes: attributes)
         
@@ -457,7 +457,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = UIColor(red: 11.0/255.0, green: 96.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 14)
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
         var topLabelAttributedString : NSAttributedString?
         
@@ -474,7 +474,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 12)
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 13)
         
         var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
         
