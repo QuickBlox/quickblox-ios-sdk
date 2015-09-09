@@ -89,6 +89,7 @@
 - (void)loadDataSourceWithUsers:(NSArray *)users
 {
 	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
+    self.dataSource.isLoginDataSource = YES;
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
 }

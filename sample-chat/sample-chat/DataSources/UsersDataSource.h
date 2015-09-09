@@ -32,6 +32,8 @@
  */
 @property (nonatomic, strong, readonly) NSArray *users;
 @property (nonatomic, strong) NSArray *excludeUsersIDs;
+@property (nonatomic, assign) BOOL isLoginDataSource;
+
 - (NSUInteger)indexOfUser:(QBUUser *)user;
 - (UIColor *)colorForUser:(QBUUser *)user;
 
