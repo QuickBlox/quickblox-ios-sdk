@@ -1,4 +1,4 @@
-<h1> QuickBlox iOS Sample Chat(Objective-C)</h1>
+<h1> QuickBlox iOS Sample Chat(Swift) </h1>
 
 <h2> Introduction </h2>
 
