@@ -55,6 +55,7 @@
 		2CBAD9781B3011700047941E /* QMLoadEarlierHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAD9581B3011700047941E /* QMLoadEarlierHeaderView.xib */; };
 		2CBAD9791B3011700047941E /* QMTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBAD95B1B3011700047941E /* QMTypingIndicatorFooterView.m */; };
 		2CBAD97A1B3011700047941E /* QMTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CBAD95C1B3011700047941E /* QMTypingIndicatorFooterView.xib */; };
+		2CBFAA1C1BA0342900F7065D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CBFAA1B1BA0342900F7065D /* Launch Screen.xib */; };
 		2CC206921B14A44600ACE4EA /* QMChatCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CC206911B14A44600ACE4EA /* QMChatCacheModel.bundle */; };
 		2CC28D7F1B68D69E00737B80 /* QMChatAttachmentIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC28D791B68D69E00737B80 /* QMChatAttachmentIncomingCell.m */; };
 		2CC28D801B68D69E00737B80 /* QMChatAttachmentIncomingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CC28D7A1B68D69E00737B80 /* QMChatAttachmentIncomingCell.xib */; };
@@ -95,7 +96,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1429A59F1AEA7EDC00AE3923 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1437A7901AC9948600A39692 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1437A7911AC9948600A39692 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -176,6 +176,7 @@
 		2CBAD95A1B3011700047941E /* QMTypingIndicatorFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMTypingIndicatorFooterView.h; sourceTree = "<group>"; };
 		2CBAD95B1B3011700047941E /* QMTypingIndicatorFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMTypingIndicatorFooterView.m; sourceTree = "<group>"; };
 		2CBAD95C1B3011700047941E /* QMTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QMTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
+		2CBFAA1B1BA0342900F7065D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		2CC206911B14A44600ACE4EA /* QMChatCacheModel.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = QMChatCacheModel.bundle; path = ../../services/QMServices/QMChatCache/QMChatCacheModel.bundle; sourceTree = "<group>"; };
 		2CC28D761B68D69E00737B80 /* QMChatAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMChatAttachmentCell.h; sourceTree = "<group>"; };
 		2CC28D781B68D69E00737B80 /* QMChatAttachmentIncomingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMChatAttachmentIncomingCell.h; sourceTree = "<group>"; };
@@ -251,6 +252,7 @@
 				144E3EB41ACA8E5300E62645 /* Resources */,
 				68440F807651CA93C348EB22 /* Classes */,
 				1437A7911AC9948600A39692 /* AppDelegate.swift */,
+				2CBFAA1B1BA0342900F7065D /* Launch Screen.xib */,
 				1437A7951AC9948600A39692 /* Main.storyboard */,
 				1437A7981AC9948600A39692 /* Images.xcassets */,
 				1437A78F1AC9948600A39692 /* Supporting Files */,
@@ -750,6 +752,7 @@
 				2CBAD9611B3011700047941E /* ChatAssets.xcassets in Resources */,
 				2CC206921B14A44600ACE4EA /* QMChatCacheModel.bundle in Resources */,
 				144E3EB81ACA8E5D00E62645 /* devUsers.plist in Resources */,
+				2CBFAA1C1BA0342900F7065D /* Launch Screen.xib in Resources */,
 				2CBAD9621B3011700047941E /* QMChatViewController.xib in Resources */,
 				2CBAD9781B3011700047941E /* QMLoadEarlierHeaderView.xib in Resources */,
 				147DA9D91AEA730C0001F691 /* Localizable.strings in Resources */,
@@ -862,7 +865,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				147DA9DA1AEA73160001F691 /* Base */,
-				1429A59F1AEA7EDC00AE3923 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

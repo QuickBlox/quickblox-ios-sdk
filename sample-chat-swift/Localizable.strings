@@ -19,7 +19,7 @@
 "SA_STR_WARNING" = "Warning";
 "SA_STR_BLOCK" = "Block";
 "SA_STR_UNBLOCK" = "Unblock";
-"SA_STR_WELCOME" = "Welcome";
+"SA_STR_WELCOME" = "Logged in as";
 "SA_STR_LOGOUT" = "Logout";
 "SA_STR_LOGOUTING" = "Logout...";
 "SA_STR_ERROR" = "Error";

@@ -10,17 +10,12 @@ import UIKit
 
 @IBDesignable
 class CornerView: UIView {
-    @IBInspectable override var backgroundColor: UIColor? { didSet { self.setNeedsDisplay() } }
     @IBInspectable var title: String = "" { didSet { self.setNeedsDisplay() } }
     @IBInspectable var fontSize: Float = 16 { didSet { self.setNeedsDisplay() } }
-    @IBInspectable var cornerRadius:Float = 6 {
+    @IBInspectable var cornerRadius:CGFloat = 6 {
         didSet(oldRadius) {
-            if oldRadius < 0 {
-                cornerRadius = 0
-            }
-            else {
-                self.setNeedsDisplay()
-            }
+            self.layer.cornerRadius = cornerRadius
+            self.layer.masksToBounds = cornerRadius > 0
         }
     }
     
@@ -29,15 +24,10 @@ class CornerView: UIView {
         self.contentMode = UIViewContentMode.Redraw
     }
     
-    func drawWithCornerRadius(cornerRadius: CGFloat, rect: CGRect, text:String, fontSize:Float){
-        var rectanglePath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
-        
-        self.backgroundColor!.setFill()
-        rectanglePath.fill()
-        
+    func drawWithRect(rect: CGRect, text:String, fontSize:Float){
+
         let style = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         style.alignment = NSTextAlignment.Center
-        
         
         if let fontAttributeName = UIFont(name: "Helvetica", size: CGFloat(fontSize)){
             
@@ -52,7 +42,7 @@ class CornerView: UIView {
     }
     
     override func drawRect(rect: CGRect) {
-        self.drawWithCornerRadius(CGFloat(self.cornerRadius), rect: self.bounds, text: self.title, fontSize: self.fontSize)
+        self.drawWithRect(self.bounds, text: self.title, fontSize: self.fontSize)
     }
     
     

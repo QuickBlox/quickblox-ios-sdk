@@ -10,7 +10,6 @@ import UIKit
 
 class DialogTableViewCellModel: NSObject {
     
-    var rightUtilityButtons: [UIButton]!
     var detailTextLabelText: String = ""
     var textLabelText: String = ""
     var unreadMessagesCounterLabelText : String?
@@ -47,8 +46,6 @@ class DialogTableViewCellModel: NSObject {
             }
         }
         
-        rightUtilityButtons = DialogTableViewCellModel.deleteButtons()
-        
         // Unread messages counter label
         
         if (dialog.unreadMessagesCount > 0) {
@@ -73,32 +70,16 @@ class DialogTableViewCellModel: NSObject {
         // Dialog icon
         
         if dialog.type == .Private {
-            self.dialogIcon = UIImage(named: "chatRoomIcon")
+            self.dialogIcon = UIImage(named: "user")
         } else {
-            self.dialogIcon = UIImage(named: "GroupChatIcon")
+            self.dialogIcon = UIImage(named: "group")
         }
     }
-    
-    static func deleteButtons() -> [UIButton]{
-        var deleteButton = UIButton()
-        
-        deleteButton.setTitle("SA_STR_DELETE".localized, forState: UIControlState.Normal)
-        deleteButton.backgroundColor = UIColor.redColor()
-        deleteButton.tag = 1
-        
-        return [deleteButton]
-    }
-    
 }
 
-class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServiceDelegate, QMChatConnectionDelegate {
-    @IBOutlet weak var tableView:UITableView!
+class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
     
     private var didEnterBackgroundDate: NSDate?
-    
-    @IBAction private func goToOpponents(sender: AnyObject?){
-        self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS".localized, sender: nil)
-    }
     
     var shouldUpdateDialogsAfterLogIn = false
     
@@ -106,7 +87,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     override func viewDidLoad() {
 
-        self.navigationItem.title = "SA_STR_WELCOME".localized + ", " + ServicesManager.instance().currentUser()!.login
+        self.navigationItem.title = "SA_STR_WELCOME".localized + " " + ServicesManager.instance().currentUser()!.fullName
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
@@ -158,7 +139,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         return logoutButton
     }
     
-    func logoutAction() {
+    @IBAction func logoutAction() {
         
         SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
         
@@ -249,21 +230,21 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     // MARK: - UITableViewDataSource
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfRowsInSection = DialogsViewController.dialogs().count
         
         return numberOfRowsInSection
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44.0
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 64.0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("dialogcell", forIndexPath: indexPath) as! DialogTableViewCell
         
         let chatDialog = DialogsViewController.dialogs()[indexPath.row]
@@ -284,18 +265,18 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
     
     // MARK: - UITableViewDelegate
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let dialog = DialogsViewController.dialogs()[indexPath.row]
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized , sender: dialog)
     }
     
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             
@@ -346,7 +327,7 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         }
     }
     
-    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
+    override func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
         return "SA_STR_DELETE".localized
     }
     

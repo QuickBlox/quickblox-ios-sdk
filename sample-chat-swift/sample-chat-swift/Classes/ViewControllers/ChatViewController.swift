@@ -75,6 +75,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.showLoadEarlierMessagesHeader = true
         
         self.updateTitle()
+        
+        self.collectionView.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar.contentView.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar.contentView.textView.placeHolder = "Message"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -435,11 +439,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             return nil
         }
         
-        let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor(white: 0.29, alpha: 1)
+        let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 15)
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
         let attributedString = NSAttributedString(string: messageItem.text, attributes: attributes)
         
@@ -454,8 +458,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
         var attributes = Dictionary<String, AnyObject>()
-        attributes[NSForegroundColorAttributeName] = UIColor(red: 0.184, green: 0.467, blue: 0.733, alpha: 1)
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 14)
+        attributes[NSForegroundColorAttributeName] = UIColor(red: 11.0/255.0, green: 96.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
         var topLabelAttributedString : NSAttributedString?
         
@@ -468,11 +472,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     override func bottomLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString! {
         
-        let textColor = messageItem.senderID == self.senderID ? UIColor(white: 1, alpha: 0.51) : UIColor(white: 0, alpha: 0.49)
+        let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 12)
+        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 13)
         
         var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
         
@@ -557,6 +561,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         }
         
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
+        layoutModel.spaceBetweenTextViewAndBottomLabel = 5;
         
         let item : QBChatMessage = self.items[indexPath.row] as! QBChatMessage
         let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
@@ -565,8 +570,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
             let size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
             layoutModel.bottomLabelHeight = ceil(size.height)
+        } else {
+            
+            layoutModel.spaceBetweenTopLabelAndTextView = 5;
         }
-        
+
         return layoutModel
     }
     
@@ -575,6 +583,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         super.collectionView(collectionView, configureCell: cell, forIndexPath: indexPath)
         
         if let attachmentCell = cell as? QMChatAttachmentCell {
+            
+            if attachmentCell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
+                (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+            } else if attachmentCell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
+                (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            }
             
             let message: QBChatMessage = self.items[indexPath.row] as! QBChatMessage;
             
@@ -631,6 +645,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     }
                 })
             }
+        } else if cell.isKindOfClass(QMChatIncomingCell.self) || cell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
+            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+        } else if cell.isKindOfClass(QMChatOutgoingCell.self) || cell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
+            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
     }
     

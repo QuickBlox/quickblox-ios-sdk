@@ -1,4 +1,4 @@
-//
+ //
 //  NewDialogViewController.swift
 //  sample-chat-swift
 //
@@ -21,9 +21,11 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         ServicesManager.instance().chatService.addDelegate(self)
         
         if let dialog = self.dialog {
-            self.navigationItem.rightBarButtonItem?.title = "Add"
+            self.navigationItem.rightBarButtonItem?.title = "Done"
+            self.title = "Add Occupants"
         } else {
-            self.navigationItem.rightBarButtonItem?.title = "Join chat"
+            self.navigationItem.rightBarButtonItem?.title = "Create"
+            self.title = "New Chat"
         }
     }
     
@@ -230,6 +232,20 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 chatVC.shouldFixViewControllersStack = true
             }
         }
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! UserTableViewCell
+        
+        let user = self.users![indexPath.row]
+        
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().usersService.color(forUser: user))
+        cell.userDescription = user.fullName
+        cell.tag = indexPath.row
+        
+        return cell
     }
     
     // MARK: - UITableViewDelegate
