@@ -7,7 +7,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 <h2> Sample description </h2>
 
 <img src="http://files.quickblox.com/sample-chat1.png" border="1" alt="Login" width="200"> 
-<img src="http://files.quickblox.com/sample-chat2.png" border="1" alt="Dialogs" width="200"> 
+<img src="http://files.quickblox.com/sample-chat2-1.png" border="1" alt="Dialogs" width="200"> 
 <img src="http://files.quickblox.com/sample-chat3.png" border="1" alt="New dialog" width="200"> 
 <img src="http://files.quickblox.com/sample-chat4.png" border="1" alt="Dialog info" width="200"> 
 <img src="http://files.quickblox.com/sample-chat5.png" border="1" alt="Chat" width="200"> 
