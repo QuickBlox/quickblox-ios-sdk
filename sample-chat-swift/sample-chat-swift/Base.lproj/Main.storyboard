@@ -277,7 +277,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="5PE-o2-OPe">
-                                            <rect key="frame" x="13" y="8" width="49" height="48"/>
+                                            <rect key="frame" x="8" y="8" width="49" height="48"/>
                                             <color key="tintColor" red="0.039215686274509803" green="0.37254901960784315" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="48" id="kfm-bG-yqz"/>
@@ -291,7 +291,7 @@
                                             </variation>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YC9-JS-Cgz">
-                                            <rect key="frame" x="67" y="8" width="107" height="47"/>
+                                            <rect key="frame" x="62" y="8" width="107" height="47"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryx-d5-hZm">
                                                     <rect key="frame" x="0.0" y="0.0" width="107" height="21"/>
@@ -318,7 +318,7 @@
                                             </constraints>
                                         </view>
                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zzr-Ut-9VU">
-                                            <rect key="frame" x="535" y="20" width="24" height="24"/>
+                                            <rect key="frame" x="541" y="20" width="24" height="24"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ii-ZO-9jj">
                                                     <rect key="frame" x="2" y="2" width="20" height="20"/>
@@ -342,15 +342,16 @@
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="Zzr-Ut-9VU" secondAttribute="trailing" constant="8" id="0Hk-pr-VrH"/>
+                                        <constraint firstAttribute="trailing" secondItem="Zzr-Ut-9VU" secondAttribute="trailing" constant="2" id="0Hk-pr-VrH"/>
                                         <constraint firstAttribute="centerY" secondItem="5PE-o2-OPe" secondAttribute="centerY" id="6eW-Xh-8LZ"/>
-                                        <constraint firstItem="5PE-o2-OPe" firstAttribute="leading" secondItem="CKE-Rg-xJI" secondAttribute="leadingMargin" constant="5" id="FEC-6f-zUn"/>
+                                        <constraint firstItem="5PE-o2-OPe" firstAttribute="leading" secondItem="CKE-Rg-xJI" secondAttribute="leading" constant="8" id="FEC-6f-zUn"/>
                                         <constraint firstItem="2Ii-ZO-9jj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YC9-JS-Cgz" secondAttribute="trailing" id="FZn-zR-wSP"/>
                                         <constraint firstItem="YC9-JS-Cgz" firstAttribute="leading" secondItem="5PE-o2-OPe" secondAttribute="trailing" constant="5" id="VbF-Cn-4c7"/>
                                         <constraint firstAttribute="centerY" secondItem="YC9-JS-Cgz" secondAttribute="centerY" id="XcP-SO-B3V"/>
                                         <constraint firstAttribute="centerY" secondItem="Zzr-Ut-9VU" secondAttribute="centerY" id="c3F-9Y-tbW"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <inset key="separatorInset" minX="62" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dialogLastMessage" destination="4gV-eP-Opi" id="ggh-ea-MdV"/>
                                     <outlet property="dialogName" destination="Ryx-d5-hZm" id="jsZ-mh-rlt"/>

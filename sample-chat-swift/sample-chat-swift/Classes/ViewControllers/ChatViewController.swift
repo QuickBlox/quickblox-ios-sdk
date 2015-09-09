@@ -639,10 +639,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     }
                 })
             }
-        } else if let incomingCell = cell as? QMChatIncomingCell {
-            incomingCell.containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
-        } else if let outgoingCell = cell as? QMChatOutgoingCell {
-            outgoingCell.containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        } else if cell.self === QMChatIncomingCell.self || cell.self === QMChatAttachmentIncomingCell.self {
+            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+        } else if cell.self === QMChatOutgoingCell.self || cell.self === QMChatAttachmentOutgoingCell.self {
+            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
     }
     
