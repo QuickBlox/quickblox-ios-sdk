@@ -11,6 +11,7 @@
 
 @interface UserTableViewCell()
 
+@property (weak, nonatomic) IBOutlet UIImageView *checkboxImageView;
 @property (weak, nonatomic) IBOutlet CornerView *colorMarker;
 @property (weak, nonatomic) IBOutlet UILabel *userDescriptionLabel;
 
@@ -26,7 +27,7 @@
 
 - (void)setUserDescription:(NSString *)userDescription {
 	
-	if (![_userDescription isEqualToString:userDescription]) {		
+	if (![_userDescription isEqualToString:userDescription]) {
 		_userDescription = userDescription;
 		self.userDescriptionLabel.text = userDescription;
 	}

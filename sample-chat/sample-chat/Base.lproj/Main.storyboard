@@ -329,24 +329,41 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VSl-o6-Y8m">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="2Yw-Hn-YE6">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Select Users You Want to Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHG-Jd-psW">
+                                    <rect key="frame" x="8" y="20.5" width="193" height="17"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                    <color key="textColor" red="0.42745098040000001" green="0.42745098040000001" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XMZ-78-v7P">
+                                    <rect key="frame" x="0.0" y="43" width="600" height="1"/>
+                                    <color key="backgroundColor" red="0.7843137255" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="oS3-Qx-Kd7" customClass="UserTableViewCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="oS3-Qx-Kd7" customClass="UserTableViewCell">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oS3-Qx-Kd7" id="3Zk-dY-F7q">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WbE-7a-Qmy" customClass="CornerView">
-                                            <rect key="frame" x="14" y="10" width="25" height="25"/>
+                                            <rect key="frame" x="58" y="10" width="25" height="25"/>
                                             <color key="backgroundColor" red="1" green="0.3514364123" blue="0.26619486869999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="25" id="IkK-yy-HEB"/>
                                                 <constraint firstAttribute="height" constant="25" id="cBA-h9-XDz"/>
                                             </constraints>
                                         </view>
-                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lT-1G-Mc0">
-                                            <rect key="frame" x="60" y="12" width="565" height="21"/>
+                                        <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lT-1G-Mc0">
+                                            <rect key="frame" x="104" y="12" width="488" height="21"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="hY6-aC-BGd"/>
@@ -354,17 +371,24 @@
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox_nonactive" highlightedImage="checkbox_active" translatesAutoresizingMaskIntoConstraints="NO" id="e8D-bv-iCW">
+                                            <rect key="frame" x="16" y="12" width="22" height="21"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="WbE-7a-Qmy" firstAttribute="leading" secondItem="3Zk-dY-F7q" secondAttribute="leadingMargin" constant="6" id="XLV-qN-9SU"/>
+                                        <constraint firstItem="e8D-bv-iCW" firstAttribute="leading" secondItem="3Zk-dY-F7q" secondAttribute="leading" constant="16" id="AGa-gg-IW2"/>
+                                        <constraint firstAttribute="bottom" secondItem="e8D-bv-iCW" secondAttribute="bottom" constant="10.5" id="DPx-jx-dAZ"/>
+                                        <constraint firstItem="e8D-bv-iCW" firstAttribute="top" secondItem="3Zk-dY-F7q" secondAttribute="top" constant="12" id="NaO-SW-lLZ"/>
                                         <constraint firstItem="2lT-1G-Mc0" firstAttribute="top" secondItem="3Zk-dY-F7q" secondAttribute="topMargin" constant="4" id="bnM-vb-wqg"/>
+                                        <constraint firstItem="WbE-7a-Qmy" firstAttribute="leading" secondItem="e8D-bv-iCW" secondAttribute="trailing" constant="20" id="dng-2R-vt7"/>
                                         <constraint firstItem="2lT-1G-Mc0" firstAttribute="leading" secondItem="WbE-7a-Qmy" secondAttribute="trailing" constant="21" id="lgB-3j-BMS"/>
                                         <constraint firstItem="WbE-7a-Qmy" firstAttribute="top" secondItem="3Zk-dY-F7q" secondAttribute="topMargin" constant="2" id="rgV-7r-vX9"/>
-                                        <constraint firstItem="2lT-1G-Mc0" firstAttribute="trailing" secondItem="3Zk-dY-F7q" secondAttribute="trailingMargin" constant="33" id="tWs-Ge-v90"/>
+                                        <constraint firstItem="2lT-1G-Mc0" firstAttribute="trailing" secondItem="3Zk-dY-F7q" secondAttribute="trailingMargin" id="tWs-Ge-v90"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="60" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
+                                    <outlet property="checkboxImageView" destination="e8D-bv-iCW" id="GP7-MD-neQ"/>
                                     <outlet property="colorMarker" destination="WbE-7a-Qmy" id="Kia-sM-G51"/>
                                     <outlet property="userDescriptionLabel" destination="2lT-1G-Mc0" id="417-ue-RSR"/>
                                 </connections>
@@ -375,7 +399,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Select opponents" id="huI-kB-t92">
+                    <navigationItem key="navigationItem" title="New Chat" id="huI-kB-t92">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="HTr-2f-oTE">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wbM-ss-DtU">
                                 <rect key="frame" x="534" y="7" width="60" height="30"/>
@@ -472,9 +496,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkbox_active" width="22" height="22"/>
+        <image name="checkbox_nonactive" width="22" height="22"/>
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="htm-nF-U3k"/>
+        <segue reference="1zd-x0-9Io"/>
     </inferredMetricsTieBreakers>
 </document>

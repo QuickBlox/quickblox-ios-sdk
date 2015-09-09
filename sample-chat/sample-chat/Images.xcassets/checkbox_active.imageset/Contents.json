@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "userIcon.png"
+      "filename" : "checkbox_a.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "userIcon@2x.png"
+      "filename" : "checkbox_a@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "checkbox_a@3x.png"
     }
   ],
   "info" : {
