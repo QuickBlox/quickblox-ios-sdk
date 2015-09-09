@@ -102,8 +102,13 @@
 	QBUUser *user = (QBUUser *)self.users[indexPath.row];
 	
 	cell.user = user;
-	cell.userDescription = user.fullName;
-	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row+1] andColor:[self colorForUser:user]];
+    if (self.isLoginDataSource) {
+        cell.userDescription = [NSString stringWithFormat:@"Login as %@", user.fullName];
+    } else {
+        cell.userDescription = user.fullName;
+    }
+    
+	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row + 1] andColor:[self colorForUser:user]];
 	return cell;
 }
 

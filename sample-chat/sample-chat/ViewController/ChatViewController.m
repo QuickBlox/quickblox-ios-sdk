@@ -89,6 +89,10 @@ UIActionSheetDelegate
 {
     [super viewDidLoad];
 
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
+    self.inputToolbar.contentView.textView.placeHolder = @"Message";
+    
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
         
     self.showLoadEarlierMessagesHeader = YES;
@@ -321,8 +325,8 @@ UIActionSheetDelegate
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
     
-    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor colorWithWhite:0.290 alpha:1.000];
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:15];
+    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.text : @"" attributes:attributes];
@@ -332,7 +336,7 @@ UIActionSheetDelegate
 
 - (NSAttributedString *)topLabelAttributedStringForItem:(QBChatMessage *)messageItem {
     
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17.0f];
     
     if ([messageItem senderID] == self.senderID) {
         return nil;
@@ -345,7 +349,7 @@ UIActionSheetDelegate
         topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0.184 green:0.467 blue:0.733 alpha:1.000], NSFontAttributeName:font};
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0 green:122.0f / 255.0f blue:1.0f alpha:1.000], NSFontAttributeName:font};
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:topLabelText attributes:attributes];
     
     return attrStr;
@@ -353,8 +357,8 @@ UIActionSheetDelegate
 
 - (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
     
-    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1.000 alpha:0.510] : [UIColor colorWithWhite:0.000 alpha:0.490];
-    UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
+    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1 alpha:0.7f] : [UIColor colorWithWhite:0.000 alpha:0.7f];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
     
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     NSString* text = [self timeStampWithDate:messageItem.dateSent];
@@ -468,14 +472,21 @@ UIActionSheetDelegate
     QBChatMessage* item = self.items[indexPath.row];
     Class class = [self viewClassForItem:item];
     
-    if (class == [QMChatOutgoingCell class] || class == [QMChatAttachmentOutgoingCell class]) {
+    if (class == [QMChatOutgoingCell class] ||
+        class == [QMChatAttachmentOutgoingCell class]) {
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
                                                        withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
                                                 limitedToNumberOfLines:0];
         
         layoutModel.bottomLabelHeight = ceilf(size.height);
+    } else if (class == [QMChatAttachmentIncomingCell class] ||
+               class == [QMChatIncomingCell class]) {
+        layoutModel.topLabelHeight = 20.0f;        
+        layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
+    
+    layoutModel.spaceBetweenTextViewAndBottomLabel = 5.0f;
     
     return layoutModel;
 }
@@ -483,6 +494,14 @@ UIActionSheetDelegate
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     [super collectionView:collectionView configureCell:cell forIndexPath:indexPath];
+
+    [(QMChatCell *)cell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    
+    if ([cell isKindOfClass:[QMChatOutgoingCell class]] || [cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
+        [(QMChatIncomingCell *)cell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
+    } else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
+        [(QMChatOutgoingCell *)cell containerView].bgColor = [UIColor colorWithRed:231.0f / 255.0f green:231.0f / 255.0f blue:231.0f / 255.0f alpha:1.0f];
+    }
     
     if ([cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {
         QBChatMessage* message = self.items[indexPath.row];

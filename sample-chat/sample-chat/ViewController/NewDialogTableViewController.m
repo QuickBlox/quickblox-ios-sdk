@@ -27,6 +27,8 @@
     self.tableView.dataSource = self.dataSource;
 
 	[super viewDidLoad];
+    
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
