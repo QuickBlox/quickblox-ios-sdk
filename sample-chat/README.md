@@ -1,18 +1,49 @@
-<h2> QuickBlox SimpleSample Chat iOS</h2>
-This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to integrate 1 on 1 chat, chat in room into your application.
+<h1> QuickBlox iOS Sample Chat</h1>
 
-This is an iOS build, it demonstrates how to work with [Chat](http://quickblox.com/developers/Chat) QuickBlox module.
-It allows to organize group & chat 1 on 1.
+<h2> Introduction </h2>
 
-It shows how to:
+This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to integrate private and group chat, add text and image attachments sending into your application.
+
+<h2> Sample description </h2>
+
+<img src="http://files.quickblox.com/sample-chat1.png" border="1" alt="Login" width="200"> 
+<img src="http://files.quickblox.com/sample-chat2.png" border="1" alt="Dialogs" width="200"> 
+<img src="http://files.quickblox.com/sample-chat3.png" border="1" alt="New dialog" width="200"> 
+<img src="http://files.quickblox.com/sample-chat4.png" border="1" alt="Dialog info" width="200"> 
+<img src="http://files.quickblox.com/sample-chat5.png" border="1" alt="Chat" width="200"> 
+
+This Sample demonstrates how to work with [Chat](http://quickblox.com/developers/Chat) QuickBlox module. 
+
+It allows:
+1. Authenticate with Quickblox Chat and REST.
+2. Receive and display list of dialogs.
+3. Modify dialog by adding occupants.
+4. Real-time chat messaging and attachment's handling.
+5. Offline storage for messages, dialogs and users.
+
+Views:
 <ul>
-<li> Organize chat between 2 users</li>
-<li> Organize group chat </li>
+<li> List of predefined user's to login. </li>
+<li> List of user's dialog. </li>
+<li> Dialog chat view. </li>
+<li> Dialog chat info. </li>
+<li> New dialog view. </li>
+<li> Edit dialog view. </li>
 </ul>
+
+  Additional submodules used:
+  * [QMChatViewController](https://github.com/QuickBlox/QMChatViewController-ios)
+  * [QMServices](https://github.com/QuickBlox/q-municate-services-ios)
+
+Additional libraries used via [CocoaPods](https://cocoapods.org):
+<ul>
+<li>[SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git)</li>
+<li>[TWMessageBarManager](https://github.com/rs/SDWebImage.git)</li>
+<li>[TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel.git)</li>
+</ul>
+
+<h2> Documentation </h2>
 
 Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-chat_users-ios](http://quickblox.com/developers/SimpleSample-chat_users-ios)
 
-<img src="http://files.quickblox.com/iOS_chat2_0_sample1.png" border="1" alt="List chat dialogs" width="200"> 
-<img src="http://files.quickblox.com/iOS_chat2_0_sample3.png" border="1" alt="Chat screen" width="200"> 
-<img src="http://files.quickblox.com/iOS_chat2_0_sample2.png" border="1" alt="Users" width="200"> 
 

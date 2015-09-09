@@ -8,7 +8,6 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 <img src="http://files.quickblox.com/content-sample1.png" border="5" alt="List of images" width="300"> 
 <img src="http://files.quickblox.com/content-sample2.png" border="5" alt="Image full screen" width="300"> 
 
-
 This Sample demonstrates basic features of [Content](http://quickblox.com/developers/Content) QuickBlox module.
 
 It allows to organise user's photo gallery. 
