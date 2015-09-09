@@ -1,4 +1,4 @@
-<h1> QuickBlox iOS Sample Chat(Swift) </h1>
+<h1> QuickBlox iOS Sample Chat (Swift) </h1>
 
 <h2> Introduction </h2>
 
@@ -7,7 +7,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 <h2> Sample description </h2>
 
 <img src="http://files.quickblox.com/sample-chat1.png" border="1" alt="Login" width="200"> 
-<img src="http://files.quickblox.com/sample-chat2.png" border="1" alt="Dialogs" width="200"> 
+<img src="http://files.quickblox.com/sample-chat2-1.png" border="1" alt="Dialogs" width="200"> 
 <img src="http://files.quickblox.com/sample-chat3.png" border="1" alt="New dialog" width="200"> 
 <img src="http://files.quickblox.com/sample-chat4.png" border="1" alt="Dialog info" width="200"> 
 <img src="http://files.quickblox.com/sample-chat5.png" border="1" alt="Chat" width="200"> 
@@ -44,6 +44,5 @@ Additional libraries used via [CocoaPods](https://cocoapods.org):
 
 <h2> Documentation </h2>
 
-Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-chat_users-ios](http://quickblox.com/developers/SimpleSample-chat_users-ios)
-
+Original sample description & setup guide - [iOS Chat Sample](http://quickblox.com/developers/SimpleSample-chat_users-ios)
 
