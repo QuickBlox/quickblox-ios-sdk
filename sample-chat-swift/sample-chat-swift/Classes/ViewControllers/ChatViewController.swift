@@ -587,7 +587,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             if attachmentCell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
                 (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
             } else if attachmentCell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
-                NSLog("class == %@", cell)
                 (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             }
             
