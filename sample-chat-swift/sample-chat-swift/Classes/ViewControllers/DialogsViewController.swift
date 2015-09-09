@@ -116,11 +116,11 @@ class DialogsViewController: UIViewController, UITableViewDelegate, QMChatServic
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
             
-            SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
-            
             if QBChat.instance().isLoggedIn() {
                 weakSelf?.getLastUpdatedDialogs()
             } else {
+                SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
+                
                 weakSelf?.shouldUpdateDialogsAfterLogIn = true
             }
         }
