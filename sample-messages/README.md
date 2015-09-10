@@ -8,7 +8,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 
 <img src="http://files.quickblox.com/messages_sample1.png" border="5" alt="Push notifications" width="300"> 
 
-This is an iOS sample project that demonstrates how to work with [Messages](http://quickblox.com/developers/Messages) QuickBlox module.
+This is an iOS sample project that demonstrates how to work with [Messages](http://quickblox.com/developers/SimpleSample-messages_users-ios) QuickBlox module.
 
 It allows to send and receive push notifications.
 
@@ -21,6 +21,6 @@ Features:
 
 <h2> Documentation </h2>
 
-Original sample description & setup guide - [QuickBlox iOS Messages Sample](http://quickblox.com/samples/simplesample-messages_users-ios/)
+Original sample description & setup guide - [QuickBlox iOS Messages Sample](http://quickblox.com/developers/SimpleSample-messages_users-ios)
 
 

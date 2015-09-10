@@ -8,7 +8,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 <img src="http://files.quickblox.com/content-sample1.png" border="5" alt="List of images" width="300"> 
 <img src="http://files.quickblox.com/content-sample2.png" border="5" alt="Image full screen" width="300"> 
 
-This Sample demonstrates basic features of [Content](http://quickblox.com/developers/Content) QuickBlox module.
+This Sample demonstrates basic features of [Content](http://quickblox.com/developers/SimpleSample-content-ios) QuickBlox module.
 
 It allows to organise user's photo gallery. 
 
@@ -21,10 +21,9 @@ Features:
 </ul>
 
 Additional libraries used via [CocoaPods](https://cocoapods.org):
-<ul>
-<li>[SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git)</li>
-<li>[SDWebImage](https://github.com/rs/SDWebImage.git)</li>
-</ul>
+
+* [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git)
+* [SDWebImage](https://github.com/rs/SDWebImage.git)
 
 <h2> Documentation </h2>
 

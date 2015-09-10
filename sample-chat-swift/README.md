@@ -12,7 +12,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 <img src="http://files.quickblox.com/sample-chat4.png" border="1" alt="Dialog info" width="200"> 
 <img src="http://files.quickblox.com/sample-chat5.png" border="1" alt="Chat" width="200"> 
 
-This Sample demonstrates how to work with [Chat](http://quickblox.com/developers/Chat) QuickBlox module. 
+This Sample demonstrates how to work with [Chat](http://quickblox.com/developers/SimpleSample-chat_users-ios) QuickBlox module. 
 
 It allows:
 
