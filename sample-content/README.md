@@ -21,10 +21,9 @@ Features:
 </ul>
 
 Additional libraries used via [CocoaPods](https://cocoapods.org):
-<ul>
-<li> [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git) </li>
-<li> [SDWebImage](https://github.com/rs/SDWebImage.git) </li>
-</ul>
+
+* [SVProgressHUD](https://github.com/TransitApp/SVProgressHUD.git) </li>
+* [SDWebImage](https://github.com/rs/SDWebImage.git) </li>
 
 <h2> Documentation </h2>
 
