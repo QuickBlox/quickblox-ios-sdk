@@ -155,12 +155,21 @@ typedef enum QBChatServiceError {
 - (BOOL)logout;
 
 /**
- Send "Read message" status back to sender
+ Send "read" status for message.
  
- @param message original message received from user
+ @param message QBChatMessage message to mark as read.
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)readMessage:(QBChatMessage *)message;
+
+/**
+ *  Send "delivered" status for message.
+ *
+ *  @param message QBChatMessage message to mark as delivered.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)markAsDelivered:(QBChatMessage *)message;
 
 /**
  Send presence message. Session will be closed in 90 seconds since last activity.
