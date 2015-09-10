@@ -52,18 +52,7 @@
 	
     // Login to QuickBlox Chat
     //
-	[ServicesManager.instance.chatService logIn:^(NSError *error) {
-		if (!error) {
-			for (QBChatDialog *dialog in [ServicesManager.instance.chatService.dialogsMemoryStorage unsortedDialogs]) {
-				if (dialog.type == QBChatDialogTypeGroup && !dialog.isJoined) {
-                    // Joining to group chat dialogs.
-                    [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
-                        NSLog(@"Failed to join room with error: %@", error.localizedDescription);
-                    }];
-				}
-			}
-		}
-	}];
+	[ServicesManager.instance.chatService logIn:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
