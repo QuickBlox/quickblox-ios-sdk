@@ -655,7 +655,7 @@ UIActionSheetDelegate
 
 - (void)chatServiceChatDidFailWithStreamError:(NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:@"Chat error occured!"];
+    [SVProgressHUD showErrorWithStatus:@"Error: No Internet Connection! "];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate

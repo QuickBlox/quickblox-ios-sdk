@@ -35,6 +35,18 @@
 	return self;
 }
 
+- (void)chatServiceChatDidLogin
+{
+    for (QBChatDialog *dialog in [self.chatService.dialogsMemoryStorage unsortedDialogs]) {
+        if (dialog.type == QBChatDialogTypeGroup && !dialog.isJoined) {
+            // Joining to group chat dialogs.
+            [self.chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+                NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+            }];
+        }
+    }
+}
+
 - (void)showNotificationForMessage:(QBChatMessage *)message inDialogID:(NSString *)dialogID
 {
     if ([self.currentDialogID isEqualToString:dialogID]) return;
