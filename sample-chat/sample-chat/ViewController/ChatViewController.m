@@ -346,7 +346,7 @@ UIActionSheetDelegate
     NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
-        QBUUser* user = [qbUsersMemoryStorage userWithID:self.senderID];
+        QBUUser* user = [qbUsersMemoryStorage userWithID:messageItem.senderID];
         topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 
