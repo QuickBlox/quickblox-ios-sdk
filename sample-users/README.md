@@ -10,7 +10,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 <img src="http://files.quickblox.com/sample-users3.png" border="5" alt="User info" width="300"> 
 <img src="http://files.quickblox.com/sample-users4.png" border="5" alt="Edit current user" width="300"> 
 
-This sample demonstrates how to work with [Users](http://quickblox.com/developers/Users) QuickBlox module.
+This sample demonstrates how to work with [Users](http://quickblox.com/developers/SimpleSample-users-ios) QuickBlox module.
 
 Features:
 <ul>
