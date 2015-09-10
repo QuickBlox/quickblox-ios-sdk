@@ -21,5 +21,5 @@ Features:
 
 <h2> Documentation </h2>
 
-Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-location_users-ios](http://quickblox.com/developers/SimpleSample-location_users-ios/)
+his Sample demonstrates basic features of  [Location](http://quickblox.com/developers/SimpleSample-location_users-ios/) Quickblox Module.
 
