@@ -21,6 +21,6 @@ Features:
 
 <h2> Documentation </h2>
 
-Original sample description & setup guide - [QuickBlox iOS Messages Sample](http://quickblox.com/samples/simplesample-messages_users-ios/)
+Original sample description & setup guide - [QuickBlox iOS Messages Sample](http://quickblox.com/developers/SimpleSample-messages_users-ios)
 
 
