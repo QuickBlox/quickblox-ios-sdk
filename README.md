@@ -40,12 +40,8 @@ If you use Terminal:
 
 ```
 git submodule init
-```
-
-Than:
-
-```
 git submodule update
+git submodule foreach git pull origin master
 ```
 
 ### Open project
