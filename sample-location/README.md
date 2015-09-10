@@ -9,7 +9,7 @@ This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a g
 <img src="http://files.quickblox.com/sample-location1.png" border="5" alt="Map" width="300"> 
 <img src="http://files.quickblox.com/sample-location2.png" border="5" alt="List" width="300"> 
 
-This Sample demonstrates how to work with [Location](http://quickblox.com/developers/SimpleSample-location_users-ios/) QuickBlox module.
+This Sample demonstrates how to work with [Location](http://quickblox.com/developers/SimpleSample-location_users-ios) QuickBlox module.
 It allows to see other users check-in's on map and share your own position.
 
 Features:
