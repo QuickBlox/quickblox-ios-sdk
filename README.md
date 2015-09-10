@@ -16,7 +16,7 @@ This project contains QuickBlox iOS Samples and latest version of SDK, that incl
   * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
   * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
   * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
-  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom-objects)
+  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom_objects)
   * [Content Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-content)
 
   Additional submodules:
@@ -51,7 +51,7 @@ Choose sample you want to try, open it, launch. That's all.
 ## Documentation
 
 * [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
-* [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/)
+* [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/documentation)
 
 Detailed information for each sample is also available in *README.md* of each sample folder.
 
