@@ -8,16 +8,16 @@ Please read full iOS SDK documentation on the [QuickBlox website, iOS section](h
 
 This project contains QuickBlox iOS Samples and latest version of SDK, that includes:
 
-* [Framework](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/Framework)
+* [Framework](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/Framework)
 * Samples (separated samples for each QuickBlox module):
-  * [Obj-C Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat)
-  * [Swift Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat-swift)
-  * [VideoChat WebRTC Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat-webrtc)
-  * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-messages)
-  * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-location)
-  * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
-  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom_objects)
-  * [Content Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-content)
+  * [Obj-C Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-chat)
+  * [Swift Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-chat-swift)
+  * [VideoChat WebRTC Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-videochat-webrtc)
+  * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-messages)
+  * [Location Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-location)
+  * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-users)
+  * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-custom_objects)
+  * [Content Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/develop/sample-content)
 
   Additional submodules:
   * [QMChatViewController](https://github.com/QuickBlox/QMChatViewController-ios)
