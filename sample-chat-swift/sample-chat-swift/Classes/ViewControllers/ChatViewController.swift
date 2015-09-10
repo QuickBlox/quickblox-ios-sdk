@@ -93,9 +93,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
     
-            if QBChat.instance().isLoggedIn() {
-                weakSelf?.updateMessages()
-            } else {
+            if !QBChat.instance().isLoggedIn() {
                 weakSelf?.shouldUpdateMessagesAfterLogIn = true
             }
             
