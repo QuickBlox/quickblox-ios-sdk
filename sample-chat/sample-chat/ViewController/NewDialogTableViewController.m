@@ -70,7 +70,7 @@
 			}
 		}];
 	} else {
-		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Join chat" andMessage:@""];
+		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Enter chat name:" andMessage:@""];
 		
 		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex, UIAlertDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;

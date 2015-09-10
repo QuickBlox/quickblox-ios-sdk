@@ -50,6 +50,7 @@ UIActionSheetDelegate
 @property (nonatomic, strong) NSArray* unreadMessages;
 
 @property (nonatomic, assign) BOOL shouldUpdateMessagesAfterLogIn;
+@property (nonatomic, assign) BOOL isSendingAttachment;
 
 @end
 
@@ -129,14 +130,14 @@ UIActionSheetDelegate
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
-	if (showingProgress) {
-		[SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
+	if (showingProgress && !self.isSendingAttachment) {
+        [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
     // Retrieving message from Quickblox REST history and cache.
 	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
-            if (showingProgress) {
+            if (showingProgress && !self.isSendingAttachment) {
                 [SVProgressHUD dismiss];
             }
 		} else {
@@ -703,6 +704,7 @@ UIActionSheetDelegate
 
 - (void)didPickAttachmentImage:(UIImage *)image
 {
+    self.isSendingAttachment = YES;
     [SVProgressHUD showWithStatus:@"Uploading attachment" maskType:SVProgressHUDMaskTypeClear];
     
     __weak typeof(self)weakSelf = self;
@@ -730,6 +732,7 @@ UIActionSheetDelegate
                                                                           } else {
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
                                                                           }
+                                                                          weakSelf.isSendingAttachment = NO;
                                                                       });
                                                                   }];
     });
