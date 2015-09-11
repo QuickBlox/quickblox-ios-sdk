@@ -476,7 +476,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 13)
         
-        var text = messageTimeDateFormatter.stringFromDate(messageItem.dateSent)
+        var text = messageItem.dateSent != nil ? messageTimeDateFormatter.stringFromDate(messageItem.dateSent) : ""
         
         if messageItem.senderID == self.senderID {
             text = text + "\n" + ChatViewController.statusStringFromMessage(messageItem)
@@ -708,7 +708,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
 
             } else {
                 
-                self.collectionView.reloadData()
+                self.refreshCollectionView()
             }
             
         }

@@ -45,7 +45,9 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
         
         if dialog.type != QBChatDialogType.Private {
             
-            dialogName = dialog.name
+            if dialog.name != nil {
+                dialogName = dialog.name
+            }
     
         } else {
             
