@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CED4A7A1B9DAB2A00B6862C /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */; };
+		2CED4A7D1B9DB21400B6862C /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */; };
 		67792BFAFC8B2AAA21256FC5 /* libPods-sample-users.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD8943CF5FF77D23DBD01335 /* libPods-sample-users.a */; };
+		86B8BFD21B8F6DF200AA99C4 /* SignInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */; };
+		86B8BFD51B8F6E0100AA99C4 /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD41B8F6E0100AA99C4 /* SignUpTableViewController.m */; };
 		BF0CF4421B2993FD00078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4411B2993FD00078084 /* main.m */; };
 		BF0CF4451B2993FD00078084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4441B2993FD00078084 /* AppDelegate.m */; };
 		BF0CF4481B2993FD00078084 /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4471B2993FD00078084 /* UsersViewController.m */; };
@@ -26,8 +30,6 @@
 		BF0CF4781B29BC9200078084 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4771B29BC9200078084 /* Storage.m */; };
 		BF0CF47B1B29BCD500078084 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF47A1B29BCD500078084 /* UsersPaginator.m */; };
 		BF0CF47E1B29BE4F00078084 /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */; };
-		BF0CF4811B29CFCB00078084 /* OperationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4801B29CFCB00078084 /* OperationsViewController.m */; };
-		BF0CF4841B29D90300078084 /* SignInSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4831B29D90300078084 /* SignInSignUpViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,21 +43,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2CED4A781B9DAB2900B6862C /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
+		2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
+		2CED4A7B1B9DB21400B6862C /* MenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewCell.h; sourceTree = "<group>"; };
+		2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewCell.m; sourceTree = "<group>"; };
+		86B8BFD01B8F6DF200AA99C4 /* SignInTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInTableViewController.h; sourceTree = "<group>"; };
+		86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInTableViewController.m; sourceTree = "<group>"; };
+		86B8BFD31B8F6E0100AA99C4 /* SignUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpTableViewController.h; sourceTree = "<group>"; };
+		86B8BFD41B8F6E0100AA99C4 /* SignUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpTableViewController.m; sourceTree = "<group>"; };
 		93D7E7EB23DE5C401BF6AF38 /* Pods-sample-users.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-users.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-users/Pods-sample-users.release.xcconfig"; sourceTree = "<group>"; };
 		B0869C5F414FAB3D263CEF97 /* Pods-sample-users.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-users.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-users/Pods-sample-users.debug.xcconfig"; sourceTree = "<group>"; };
 		BF0CF43C1B2993FD00078084 /* sample-users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF0CF4401B2993FD00078084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF0CF4411B2993FD00078084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BF0CF4411B2993FD00078084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF0CF4431B2993FD00078084 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		BF0CF4441B2993FD00078084 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BF0CF4461B2993FD00078084 /* UsersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UsersViewController.h; sourceTree = "<group>"; };
-		BF0CF4471B2993FD00078084 /* UsersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UsersViewController.m; sourceTree = "<group>"; };
+		BF0CF4441B2993FD00078084 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF4461B2993FD00078084 /* UsersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UsersViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF4471B2993FD00078084 /* UsersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UsersViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF0CF44A1B2993FD00078084 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF0CF44C1B2993FD00078084 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BF0CF44F1B2993FD00078084 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BF0CF4551B2993FD00078084 /* sample-usersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sample-usersTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF0CF45A1B2993FD00078084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF0CF45B1B2993FD00078084 /* sample_usersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sample_usersTests.m; sourceTree = "<group>"; };
+		BF0CF45B1B2993FD00078084 /* sample_usersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = sample_usersTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF0CF4651B29946D00078084 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BF0CF4671B29947200078084 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BF0CF4691B29947800078084 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -64,16 +74,12 @@
 		BF0CF46F1B29948C00078084 /* libresolv.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.9.dylib; path = usr/lib/libresolv.9.dylib; sourceTree = SDKROOT; };
 		BF0CF4711B29949300078084 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		BF0CF4731B2994D600078084 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		BF0CF4761B29BC9200078084 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
-		BF0CF4771B29BC9200078084 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
-		BF0CF4791B29BCD500078084 /* UsersPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersPaginator.h; sourceTree = "<group>"; };
-		BF0CF47A1B29BCD500078084 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersPaginator.m; sourceTree = "<group>"; };
-		BF0CF47C1B29BE4F00078084 /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDetailsViewController.h; sourceTree = "<group>"; };
-		BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDetailsViewController.m; sourceTree = "<group>"; };
-		BF0CF47F1B29CFCB00078084 /* OperationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsViewController.h; sourceTree = "<group>"; };
-		BF0CF4801B29CFCB00078084 /* OperationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsViewController.m; sourceTree = "<group>"; };
-		BF0CF4821B29D90300078084 /* SignInSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInSignUpViewController.h; sourceTree = "<group>"; };
-		BF0CF4831B29D90300078084 /* SignInSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInSignUpViewController.m; sourceTree = "<group>"; };
+		BF0CF4761B29BC9200078084 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Storage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF4771B29BC9200078084 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Storage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF4791B29BCD500078084 /* UsersPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UsersPaginator.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF47A1B29BCD500078084 /* UsersPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UsersPaginator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF47C1B29BE4F00078084 /* UserDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = UserDetailsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CD8943CF5FF77D23DBD01335 /* libPods-sample-users.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-users.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -146,10 +152,14 @@
 				BF0CF47A1B29BCD500078084 /* UsersPaginator.m */,
 				BF0CF47C1B29BE4F00078084 /* UserDetailsViewController.h */,
 				BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */,
-				BF0CF47F1B29CFCB00078084 /* OperationsViewController.h */,
-				BF0CF4801B29CFCB00078084 /* OperationsViewController.m */,
-				BF0CF4821B29D90300078084 /* SignInSignUpViewController.h */,
-				BF0CF4831B29D90300078084 /* SignInSignUpViewController.m */,
+				86B8BFD01B8F6DF200AA99C4 /* SignInTableViewController.h */,
+				86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */,
+				86B8BFD31B8F6E0100AA99C4 /* SignUpTableViewController.h */,
+				86B8BFD41B8F6E0100AA99C4 /* SignUpTableViewController.m */,
+				2CED4A781B9DAB2900B6862C /* UserTableViewCell.h */,
+				2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */,
+				2CED4A7B1B9DB21400B6862C /* MenuTableViewCell.h */,
+				2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */,
 				BF0CF4491B2993FD00078084 /* Main.storyboard */,
 				BF0CF44C1B2993FD00078084 /* Images.xcassets */,
 				BF0CF44E1B2993FD00078084 /* LaunchScreen.xib */,
@@ -246,8 +256,9 @@
 		BF0CF4341B2993FD00078084 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = "";
 				LastUpgradeCheck = 0630;
-				ORGANIZATIONNAME = "Igor Khomenko";
+				ORGANIZATIONNAME = Quickblox;
 				TargetAttributes = {
 					BF0CF43B1B2993FD00078084 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -337,10 +348,12 @@
 			files = (
 				BF0CF4481B2993FD00078084 /* UsersViewController.m in Sources */,
 				BF0CF4781B29BC9200078084 /* Storage.m in Sources */,
+				2CED4A7A1B9DAB2A00B6862C /* UserTableViewCell.m in Sources */,
 				BF0CF47B1B29BCD500078084 /* UsersPaginator.m in Sources */,
+				86B8BFD51B8F6E0100AA99C4 /* SignUpTableViewController.m in Sources */,
 				BF0CF4451B2993FD00078084 /* AppDelegate.m in Sources */,
-				BF0CF4841B29D90300078084 /* SignInSignUpViewController.m in Sources */,
-				BF0CF4811B29CFCB00078084 /* OperationsViewController.m in Sources */,
+				86B8BFD21B8F6DF200AA99C4 /* SignInTableViewController.m in Sources */,
+				2CED4A7D1B9DB21400B6862C /* MenuTableViewCell.m in Sources */,
 				BF0CF47E1B29BE4F00078084 /* UserDetailsViewController.m in Sources */,
 				BF0CF4421B2993FD00078084 /* main.m in Sources */,
 			);
@@ -469,6 +482,7 @@
 			baseConfigurationReference = B0869C5F414FAB3D263CEF97 /* Pods-sample-users.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",
@@ -492,6 +506,7 @@
 			baseConfigurationReference = 93D7E7EB23DE5C401BF6AF38 /* Pods-sample-users.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",

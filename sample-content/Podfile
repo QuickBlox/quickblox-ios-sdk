@@ -3,11 +3,5 @@
 
 target 'sample-content' do
     pod 'SVProgressHUD'
-    pod 'NMPaginator'
     pod 'SDWebImage', '~>3.7'
 end
-
-target 'sample-contentTests' do
-
-end
-

@@ -8,25 +8,25 @@
 
 #import "AppDelegate.h"
 #import "DialogsViewController.h"
-#import <STKStickerPipe.h>
+#import "ServicesManager.h"
+#import "ChatViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    //
     [QBApplication sharedApplication].applicationId = 92;
     [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
     [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
-    // Stickers
-    //
-    [STKStickersManager initWitApiKey:@"847b82c49db21ecec88c510e377b452c"];
+    // Enables Quickblox REST API calls debug console output
+    [QBSettings setLogLevel:QBLogLevelDebug];
     
-//    [QBSettings setLogLevel:QBLogLevelNothing];
-    
+    // Enables detailed XMPP logging in console output
+    [QBSettings enableXMPPLogging];
+		
     return YES;
 }
 							
@@ -43,19 +43,16 @@
     
     // Logout from chat
     //
-    [[ChatService shared] logout];
+	[ServicesManager.instance.chatService logoutChat];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    
+	
     // Login to QuickBlox Chat
     //
-    [SVProgressHUD showWithStatus:@"Restoring chat session"];
-    [[ChatService shared] loginWithUser:[QBChat instance].currentUser completionBlock:^{
-        [SVProgressHUD dismiss];
-    }];
+	[ServicesManager.instance.chatService logIn:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -66,25 +63,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    // Subscribe to push notifications
-    //
-    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    //
-    [QBRequest registerSubscriptionForDeviceToken:deviceToken uniqueDeviceIdentifier:deviceIdentifier
-                                     successBlock:^(QBResponse *response, NSArray *subscriptions) {
-
-                                     } errorBlock:^(QBError *error) {
-
-                                     }];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    NSLog(@"New Push received\n: %@", userInfo);
 }
 
 @end

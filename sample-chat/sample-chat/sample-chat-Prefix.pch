@@ -16,12 +16,10 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <Quickblox/Quickblox.h>
+    #import <Quickblox/QBMulticastDelegate.h>
+    #import <QMServices.h>
     #import <SVProgressHUD.h>
-    #import <TWMessageBarManager.h>
-    #import "NSDate+DateTools.h"
-
-    #import "SoundService.h"
-    #import "ChatService.h"
+	#import "Constants.h"
 #endif
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -30,3 +28,6 @@
 #define kShowUsersViewControllerSegue @"ShowUsersViewControllerSegue"
 #define kShowChatViewControllerSegue @"ShowChatViewControllerSegue"
 #define kShowNewChatViewControllerSegue @"ShowNewChatViewControllerSegue"
+
+#define kMessage @"message"
+#define kRoomJID @"roomJID"

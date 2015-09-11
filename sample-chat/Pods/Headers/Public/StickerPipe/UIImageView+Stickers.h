@@ -1,1 +1,0 @@
-../../../StickerPipe/StickerPipe/SDK/UIImageView+Stickers.h

@@ -1,1 +1,0 @@
-../../../StickerPipe/StickerPipe/SDK/STKApiKeyManager.h

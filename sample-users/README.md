@@ -1,19 +1,24 @@
-<h2> QuickBlox SimpleSample Users iOS</h2>
-This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to add user accounts to your app without any effort.
+<h1> QuickBlox iOS Users Sample </h1>
 
-This is an iOS build, it demonstrates how to work with [Users](http://quickblox.com/developers/Users) QuickBlox module.
+<h2> Introduction </h2>
+This is a code sample for [QuickBlox](http://quickblox.com/) platform. It is a great way for developers using QuickBlox platform to learn how to manage Users in their apps.
 
-It shows how to:
+<h2> Sample description </h2>
+
+<img src="http://files.quickblox.com/sample-users1.png" border="5" alt="List of users" width="300"> 
+<img src="http://files.quickblox.com/sample-users2.png" border="5" alt="Acions" width="300"> 
+<img src="http://files.quickblox.com/sample-users3.png" border="5" alt="User info" width="300"> 
+<img src="http://files.quickblox.com/sample-users4.png" border="5" alt="Edit current user" width="300"> 
+
+This sample demonstrates how to work with [Users](http://quickblox.com/developers/SimpleSample-users-ios) QuickBlox module.
+
+Features:
 <ul>
-<li> Retrieve all users</li>
-<li> Sign Up, Sign In/Sign out</li>
-<li> How to use QuickBlox through social networks (Facebook, Twitter)</li>
-<li> Edit user's parameters</li>
-<li> Search users</li>
+<li> Display list of users. </li>
+<li> Sign in, sign up, edit current user and logout. </li>
+<li> Display detailed information about user. </li>
 </ul>
 
-Original sample description & setup guide - [http://quickblox.com/developers/SimpleSample-users-ios](http://quickblox.com/developers/SimpleSample-users-ios)
+<h2> Documentation </h2>
 
-<img src="http://quickblox.com/developers//images/5/53/Ios_users_sample1.png" border="5" alt="Push notifications" width="200"> 
-<img src="http://quickblox.com/developers//images/5/50/Ios_users_sample2.png" border="5" alt="Push notifications" width="200"> 
-<img src="http://quickblox.com/developers//images/9/9a/Ios_users_sample3.png" border="5" alt="Push notifications" width="200"> 
+Original sample description & setup guide - [iOS Users Sample](http://quickblox.com/developers/SimpleSample-users-ios)

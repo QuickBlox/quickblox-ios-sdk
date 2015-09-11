@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C61CD8B1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */; };
+		2C61CD8E1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */; };
+		2CED4A771B9D769600B6862C /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A761B9D769600B6862C /* SAMTextView.m */; };
 		465124C8A22230ACE87D50AB /* libPods-sample-custom_objects.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99702EE102EBDAE13984C0AC /* libPods-sample-custom_objects.a */; };
 		BF0CF3AE1B28599E00078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3AD1B28599E00078084 /* main.m */; };
 		BF0CF3B11B28599E00078084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3B01B28599E00078084 /* AppDelegate.m */; };
@@ -41,31 +44,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewMovieHeaderFooterView.xib; sourceTree = "<group>"; };
+		2C61CD8C1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewMovieHeaderFooterView.h; sourceTree = "<group>"; };
+		2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewMovieHeaderFooterView.m; sourceTree = "<group>"; };
+		2CED4A751B9D769600B6862C /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
+		2CED4A761B9D769600B6862C /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
 		57C5E88D99D7805AD3377371 /* Pods-sample-custom_objects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-custom_objects.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-custom_objects/Pods-sample-custom_objects.release.xcconfig"; sourceTree = "<group>"; };
 		99702EE102EBDAE13984C0AC /* libPods-sample-custom_objects.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-custom_objects.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49219471C13D3656E4C173A /* Pods-sample-custom_objects.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-custom_objects.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-custom_objects/Pods-sample-custom_objects.debug.xcconfig"; sourceTree = "<group>"; };
 		BF0CF3A81B28599E00078084 /* sample-custom_objects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-custom_objects.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF0CF3AC1B28599E00078084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF0CF3AD1B28599E00078084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		BF0CF3AF1B28599E00078084 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		BF0CF3B01B28599E00078084 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		BF0CF3B21B28599E00078084 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		BF0CF3B31B28599E00078084 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		BF0CF3AD1B28599E00078084 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF3AF1B28599E00078084 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF3B01B28599E00078084 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF3B21B28599E00078084 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MainViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF3B31B28599E00078084 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MainViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF0CF3B61B28599E00078084 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF0CF3B81B28599F00078084 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BF0CF3BB1B28599F00078084 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BF0CF3C11B28599F00078084 /* sample-custom_objectsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sample-custom_objectsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF0CF3C61B28599F00078084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BF0CF3C71B28599F00078084 /* sample_custom_objectsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sample_custom_objectsTests.m; sourceTree = "<group>"; };
-		BF0CF3D11B285E1700078084 /* AddNewMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewMovieViewController.h; sourceTree = "<group>"; };
-		BF0CF3D21B285E1700078084 /* AddNewMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNewMovieViewController.m; sourceTree = "<group>"; };
-		BF0CF3D41B285EA800078084 /* MovieDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailsViewController.h; sourceTree = "<group>"; };
-		BF0CF3D51B285EA800078084 /* MovieDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieDetailsViewController.m; sourceTree = "<group>"; };
+		BF0CF3C71B28599F00078084 /* sample_custom_objectsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = sample_custom_objectsTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF3D11B285E1700078084 /* AddNewMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AddNewMovieViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF3D21B285E1700078084 /* AddNewMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AddNewMovieViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF3D41B285EA800078084 /* MovieDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MovieDetailsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF3D51B285EA800078084 /* MovieDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MovieDetailsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF0CF3D71B285ED000078084 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		BF0CF3D91B28612D00078084 /* ObjectsPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectsPaginator.h; sourceTree = "<group>"; };
-		BF0CF3DA1B28612D00078084 /* ObjectsPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectsPaginator.m; sourceTree = "<group>"; };
-		BF0CF3DC1B28619300078084 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
-		BF0CF3DD1B28619300078084 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Storage.m; sourceTree = "<group>"; };
+		BF0CF3D91B28612D00078084 /* ObjectsPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ObjectsPaginator.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF3DA1B28612D00078084 /* ObjectsPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ObjectsPaginator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BF0CF3DC1B28619300078084 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Storage.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		BF0CF3DD1B28619300078084 /* Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Storage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF0CF3DF1B28643A00078084 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BF0CF3E11B28644000078084 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		BF0CF3E31B28644500078084 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -133,12 +141,17 @@
 				BF0CF3B31B28599E00078084 /* MainViewController.m */,
 				BF0CF3D11B285E1700078084 /* AddNewMovieViewController.h */,
 				BF0CF3D21B285E1700078084 /* AddNewMovieViewController.m */,
+				2C61CD8C1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.h */,
+				2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */,
 				BF0CF3D41B285EA800078084 /* MovieDetailsViewController.h */,
 				BF0CF3D51B285EA800078084 /* MovieDetailsViewController.m */,
 				BF0CF3D91B28612D00078084 /* ObjectsPaginator.h */,
 				BF0CF3DA1B28612D00078084 /* ObjectsPaginator.m */,
 				BF0CF3DC1B28619300078084 /* Storage.h */,
 				BF0CF3DD1B28619300078084 /* Storage.m */,
+				2CED4A751B9D769600B6862C /* SAMTextView.h */,
+				2CED4A761B9D769600B6862C /* SAMTextView.m */,
+				2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */,
 				BF0CF3B51B28599E00078084 /* Main.storyboard */,
 				BF0CF3B81B28599F00078084 /* Images.xcassets */,
 				BF0CF3BA1B28599F00078084 /* LaunchScreen.xib */,
@@ -283,6 +296,7 @@
 			files = (
 				BF0CF3B71B28599E00078084 /* Main.storyboard in Resources */,
 				BF0CF3BC1B28599F00078084 /* LaunchScreen.xib in Resources */,
+				2C61CD8B1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib in Resources */,
 				BF0CF3B91B28599F00078084 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,12 +349,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0CF3DB1B28612D00078084 /* ObjectsPaginator.m in Sources */,
+				2CED4A771B9D769600B6862C /* SAMTextView.m in Sources */,
 				BF0CF3D61B285EA800078084 /* MovieDetailsViewController.m in Sources */,
 				BF0CF3D31B285E1700078084 /* AddNewMovieViewController.m in Sources */,
 				BF0CF3B41B28599E00078084 /* MainViewController.m in Sources */,
 				BF0CF3B11B28599E00078084 /* AppDelegate.m in Sources */,
 				BF0CF3AE1B28599E00078084 /* main.m in Sources */,
 				BF0CF3DE1B28619300078084 /* Storage.m in Sources */,
+				2C61CD8E1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +483,7 @@
 			baseConfigurationReference = B49219471C13D3656E4C173A /* Pods-sample-custom_objects.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -501,6 +518,7 @@
 			baseConfigurationReference = 57C5E88D99D7805AD3377371 /* Pods-sample-custom_objects.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",

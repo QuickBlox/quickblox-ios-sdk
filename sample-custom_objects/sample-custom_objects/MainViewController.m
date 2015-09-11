@@ -2,8 +2,8 @@
 //  ViewController.m
 //  sample-custom_objects
 //
-//  Created by Igor Khomenko on 6/10/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/10/15.
+//  Copyright (c) 2015 QuickBlox. All rights reserved.
 //
 
 #import "MainViewController.h"
@@ -23,41 +23,34 @@
 
 @implementation MainViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
     self.paginator = [[ObjectsPaginator alloc] initWithPageSize:10 delegate:self];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void) viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
-    
+
+    __weak typeof(self)weakSelf = self;
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        [self setupTableViewFooter];
+        [weakSelf setupTableViewFooter];
         
         [SVProgressHUD showWithStatus:@"Downloading movies"];
         
         // Your app connects to QuickBlox server here.
         //
-        QBSessionParameters *parameters = [QBSessionParameters new];
-        parameters.userLogin = @"igorquickblox2";
-        parameters.userPassword = @"igorquickblox2";
-        
-        [QBRequest createSessionWithExtendedParameters:parameters successBlock:^(QBResponse *response, QBASession *session) {
-            
+        [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
             // Load objects
             //
-            [self.paginator fetchFirstPage];
+            [weakSelf.paginator fetchFirstPage];
             
-        }errorBlock:^(QBResponse *response) {
+        } errorBlock:^(QBResponse *response) {
             NSLog(@"Response error %@:", response.error);
         }];
     });
@@ -65,6 +58,7 @@
     [self.tableView reloadData];
 }
 
+- (IBAction)backToMainList:(UIStoryboardSegue *)segue {}
 
 #pragma mark
 #pragma mark Paginator
@@ -101,23 +95,42 @@
 
 - (void)updateTableViewFooter
 {
-    if ([self.paginator.results count] != 0){
+    if ([self.paginator.results count] != 0) {
         self.footerLabel.text = [NSString stringWithFormat:@"%lu results out of %ld",
                                  (unsigned long)[self.paginator.results count], (long)self.paginator.total];
-    }else{
+    } else {
         self.footerLabel.text = @"";
     }
     
     [self.footerLabel setNeedsDisplay];
 }
 
+- (NSString *)topLabelTextForMovie:(QBCOCustomObject *)movie
+{
+    NSMutableString* result = [NSMutableString string];
+    
+    NSString* name = movie.fields[@"name"];
+    NSUInteger year = [movie.fields[@"year"] unsignedIntegerValue];
+    NSUInteger rating = [movie.fields[@"rating"] unsignedIntegerValue];
+    
+    if (name != nil && name.length > 0) [result appendString:name];
+    else [result appendString:@"No name"];
+    
+    if (year > 1800) [result appendFormat:@" (%lu).", (unsigned long)year];
+    else [result appendFormat:@" (No date)"];
+    
+    if (rating > 0) [result appendFormat:@" Rating: %lu",(unsigned long)rating];
+    else [result appendString:@" No rating"];
+    
+    return [result copy];
+}
 
 #pragma mark
 #pragma mark Storyboard
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender{
-    if([segue.destinationViewController isKindOfClass:MovieDetailsViewController.class]){
-        
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender
+{
+    if ([segue.destinationViewController isKindOfClass:MovieDetailsViewController.class]) {
         NSUInteger row = sender.tag;
         QBCOCustomObject *movie = [Storage instance].moviesList[row];
         
@@ -133,9 +146,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     // when reaching bottom, load a new page
-    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height){
+    if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.bounds.size.height) {
         // ask next page only if we haven't reached last page
-        if(![self.paginator reachedLastPage]){
+        if (![self.paginator reachedLastPage]) {
             // fetch next page of results
             [self fetchNextPage];
         }
@@ -146,7 +159,8 @@
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return [[Storage instance].moviesList count];
 }
 
@@ -161,8 +175,7 @@
     
     QBCOCustomObject *movie = [Storage instance].moviesList[indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@). Rating: %@",
-                           movie.fields[@"name"], movie.fields[@"year"], movie.fields[@"rating"]];
+    cell.textLabel.text = [self topLabelTextForMovie:movie];
     cell.detailTextLabel.text = movie.fields[@"description"];
 
     return cell;

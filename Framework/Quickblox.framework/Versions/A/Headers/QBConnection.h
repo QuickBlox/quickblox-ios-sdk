@@ -19,11 +19,6 @@ typedef enum QBConnectionZoneType{
 
 @interface QBConnection : NSObject
 
-/**
- *Use auto create session, default - NO
- */
-+ (void)setAutoCreateSessionEnabled:(BOOL)enabled;
-
 #pragma mark - Settings methods
 /**
 * Setting API Key for Quickblox API

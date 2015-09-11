@@ -13,17 +13,21 @@ extern NSString* const QBChatDialogJoinPrefix;
 extern NSString* const QBChatDialogLeavePrefix;
 extern NSString* const QBChatDialogOnlineUsersPrefix;
 extern NSString* const QBChatDialogOnJoinFailedPrefix;
+extern NSString* const QBChatDialogIsTypingPrefix;
+extern NSString* const QBChatDialogStopTypingPrefix;
 
 typedef void(^QBChatDialogStatusBlock)() ;
 typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) ;
 typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
+typedef void(^QBChatDialogIsTypingBlock)(NSUInteger userID);
+typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
 
 @class QBChatRoom;
 @class QBChatMessage;
 @interface QBChatDialog : NSObject <NSCoding, NSCopying>
 
 /** Object ID */
-@property (nonatomic, retain) NSString *ID;
+@property (nonatomic, retain, readonly) NSString *ID;
 
 /** Created date */
 @property (nonatomic, retain) NSDate *createdAt;
@@ -32,7 +36,7 @@ typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
 @property (nonatomic, retain) NSString *roomJID;
 
 /** Chat type: Private/Group/PublicGroup */
-@property (nonatomic) QBChatDialogType type;
+@property (nonatomic, readonly) QBChatDialogType type;
 
 /** Group chat name. If chat type is private, name will be nil */
 @property (nonatomic, retain) NSString *name;
@@ -88,9 +92,23 @@ typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
 @property (nonatomic, copy) QBChatDialogJoinFailedBlock onJoinFailed;
 - (void)setOnJoinFailed:(QBChatDialogJoinFailedBlock)anOnJoinFailed;
 
-/** Constructor */
-- (instancetype)initWithDialogID:(NSString *)dialogID;
+/**
+ *  Fired when user is typing in dialog.
+ */
+@property (nonatomic, copy) QBChatDialogIsTypingBlock onUserIsTyping;
+- (void)setOnUserIsTyping:(QBChatDialogIsTypingBlock)anOnUserIsTyping;
 
+/**
+ *  Fired when user stopped typing in dialog.
+ */
+@property (nonatomic, copy) QBChatDialogStoppedTypingBlock onUserStoppedTyping;
+- (void)setOnUserStoppedTyping:(QBChatDialogStoppedTypingBlock)anOnUserStoppedTyping;
+
+/** Constructor */
+- (instancetype)initWithDialogID:(NSString *)dialogID type:(enum QBChatDialogType)type;
+
+- (id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
++ (id)new __attribute__((unavailable("'new' is not a supported initializer for this class.")));
 /** Occupants ids to push. Use for update dialog */
 - (void)setPushOccupantsIDs:(NSArray *)occupantsIDs;
 - (NSArray *)pushOccupantsIDs;
@@ -158,6 +176,23 @@ typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
  *  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)requestOnlineUsers;
+
+#pragma mark - Now typing
+
+/**
+ *  Send is typing message to occupants.
+ */
+- (void)sendUserIsTyping;
+
+/**
+ *  Send stopped typing message to occupants.
+ */
+- (void)sendUserStoppedTyping;
+
+/**
+ *  Clears typing status blocks. Call this method if you don't want to recieve typing statuses for this dialog.
+ */
+- (void)clearTypingStatusBlocks;
 
 @end
 

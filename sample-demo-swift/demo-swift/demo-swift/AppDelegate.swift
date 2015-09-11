@@ -10,18 +10,16 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-                            
     var window: UIWindow?
 
-
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         // Set QuickBlox credentials (You must create application in admin.quickblox.com)
         //
-        QBApplication.sharedApplication().applicationId = 11185;
-        QBConnection.registerServiceKey("dnxvnVPskKuSwxK");
-        QBConnection.registerServiceSecret("gVbmyNmQLsyJF58");
+        QBApplication.sharedApplication().applicationId = 92;
+        QBConnection.registerServiceKey("wJHdOcQSxXQGWx5");
+        QBConnection.registerServiceSecret("BTFsj7Rtt27DAmT");
         QBSettings.setAccountKey("7yvNe17TnjNUqDoPwfqp");
 
         return true

@@ -54,14 +54,20 @@
 /** Last read file time */
 @property (nonatomic, retain) NSDate *lastReadAccessTs;
 
-/** Time that file will live after delete, in seconds */
-@property (nonatomic) NSUInteger lifetime;
+/** Time that file will live after delete, in seconds 
+ 
+  @warning Deprecated in 2.4. Will be removed in next releases.
+ */
+@property (nonatomic) NSUInteger lifetime DEPRECATED_MSG_ATTRIBUTE("will be removed in next releases");
 
 /** An instance of  BlobObjectAccess */
 @property (nonatomic, retain) QBCBlobObjectAccess *blobObjectAccess;
 
-/** File's links count */
-@property (nonatomic) NSUInteger refCount;
+/** File's links count 
+ 
+ @warning Deprecated in 2.4. Will be removed in next releases.
+ */
+@property (nonatomic) NSUInteger refCount DEPRECATED_MSG_ATTRIBUTE("will be removed in next releases");
 
 /** Coma separated string with file's tags */
 @property (nonatomic, retain) NSString *tags;

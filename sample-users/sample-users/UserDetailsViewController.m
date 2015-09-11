@@ -2,8 +2,8 @@
 //  UserDetailsViewController.m
 //  sample-users
 //
-//  Created by Igor Khomenko on 6/11/15.
-//  Copyright (c) 2015 Igor Khomenko. All rights reserved.
+//  Created by Quickblox Team on 6/11/15.
+//  Copyright (c) 2015 Quickblox. All rights reserved.
 //
 
 #import "UserDetailsViewController.h"
@@ -12,32 +12,22 @@
 
 @interface UserDetailsViewController ()
 
-@property (nonatomic) IBOutlet UITextField *loginTextField;
-@property (nonatomic) IBOutlet UITextField *fullnameTextField;
-@property (nonatomic) IBOutlet UITextField *emailTextField;
-@property (nonatomic) IBOutlet UITextField *phonenumberTextField;
-@property (nonatomic) IBOutlet UITextField *tagsTextField;
-@property (nonatomic) IBOutlet UIButton *saveButton;
+@property (nonatomic, weak) IBOutlet UITextField *loginTextField;
+@property (nonatomic, weak) IBOutlet UITextField *fullnameTextField;
+@property (nonatomic, weak) IBOutlet UITextField *emailTextField;
+@property (nonatomic, weak) IBOutlet UITextField *phonenumberTextField;
+@property (nonatomic, weak) IBOutlet UITextField *tagsTextField;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *saveButton;
 
 @end
 
 @implementation UserDetailsViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.title = self.user.fullName != nil ? self.user.fullName : self.user.login;
-    
-    if(!self.user.ID == [QBSession currentSession].currentUser.ID){
-        self.saveButton.hidden = YES;
-        
-        self.loginTextField.enabled = NO;
-        self.fullnameTextField.enabled = NO;
-        self.emailTextField.enabled = NO;
-        self.phonenumberTextField.enabled = NO;
-        self.tagsTextField.enabled = NO;
-    }
     
     self.loginTextField.text = self.user.login;
     self.fullnameTextField.text = self.user.fullName;
@@ -46,33 +36,41 @@
     self.tagsTextField.text = [self.user.tags componentsJoinedByString:@","];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setupUIForShowUser {
+    
+    self.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.leftBarButtonItem = nil;
+    
+    self.saveButton.enabled = NO;
+    
+    self.loginTextField.enabled = NO;
+    self.fullnameTextField.enabled = NO;
+    self.emailTextField.enabled = NO;
+    self.phonenumberTextField.enabled = NO;
+    self.tagsTextField.enabled = NO;
 }
 
-- (IBAction)save:(id)sender{
+- (IBAction)save:(id)sender
+{
     [SVProgressHUD showWithStatus:@"Updating user"];
     
     QBUpdateUserParameters *updateParameters = [QBUpdateUserParameters new];
-    if(self.loginTextField.text.length > 0){
-        updateParameters.login = self.loginTextField.text;
-    }
-    if(self.fullnameTextField.text.length > 0){
-        updateParameters.fullName = self.fullnameTextField.text;
-    }
-    if(self.emailTextField.text.length > 0){
-        updateParameters.email = self.emailTextField.text;
-    }
-    if(self.phonenumberTextField.text.length > 0){
-        updateParameters.phone = self.phonenumberTextField.text;
-    }
-    if(self.tagsTextField.text.length > 0){
-        updateParameters.tags = [[self.tagsTextField.text componentsSeparatedByString:@","] mutableCopy];
-    }
+    
+    if (self.loginTextField.text.length > 0) updateParameters.login = self.loginTextField.text;
+    
+    if (self.fullnameTextField.text.length > 0) updateParameters.fullName = self.fullnameTextField.text;
+    
+    if (self.emailTextField.text.length > 0) updateParameters.email = self.emailTextField.text;
+    
+    if (self.phonenumberTextField.text.length > 0) updateParameters.phone = self.phonenumberTextField.text;
+    
+    if (self.tagsTextField.text.length > 0) updateParameters.tags = [[self.tagsTextField.text componentsSeparatedByString:@","] mutableCopy];
+    
+    __weak typeof(self) weakSelf = self;
     
     [QBRequest updateCurrentUser:updateParameters successBlock:^(QBResponse *response, QBUUser *user) {
         [SVProgressHUD dismiss];
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
         
     } errorBlock:^(QBResponse *response) {
         [SVProgressHUD dismiss];
@@ -86,6 +84,10 @@
                                               otherButtonTitles:nil];
         [alert show];
     }];
+}
+
+- (IBAction)cancelButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -63,8 +63,18 @@
 /** The name of the event. Service information. Only for the user..*/
 @property (nonatomic,retain) NSString *name;
 
-/** Environment of the notification */
-@property (nonatomic) BOOL isDevelopmentEnvironment;
+/** 
+ Environment of the notification, default: YES
+ 
+ @warning Deprecated in 2.4. See '[QBApplication sharedApplication].autoDetectEnvironment'.
+ */
+@property (nonatomic) BOOL isDevelopmentEnvironment DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4. There is no need to set this property manually if you are using automatic environment detection.");
+
+/** Environment of the notification, default: NO 
+ 
+ @warning Deprecated in 2.4. See '[QBApplication sharedApplication].autoDetectEnvironment'.
+ */
+@property (nonatomic) BOOL isProductionEnvironment DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4. There is no need to set this property manually if you are using automatic environment detection.");
 
 /** Event message */
 @property (nonatomic,retain) id message;

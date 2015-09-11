@@ -49,20 +49,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide", name: UIKeyboardWillHideNotification, object: nil)
         }
         
-        // Create QuickBlox session
+        // Login QuickBlox user
         //
-        let sessionParameters = QBSessionParameters();
-        sessionParameters.userLogin = "JohnDoe";
-        sessionParameters.userPassword = "Hello123";
         
-        QBRequest.createSessionWithExtendedParameters(sessionParameters, successBlock: {
-            (response: QBResponse!, session: QBASession!) -> Void in
-                NSLog("session: %@", session);
+        QBRequest.logInWithUserLogin("JohnDoe", password: "Hello123", successBlock: { (response: QBResponse!, user: QBUUser!) -> Void in
                 self.submitButton.enabled = true
-            
-            }, errorBlock: { (response: QBResponse!) -> Void in
+            }) { (response: QBResponse!) -> Void in
                 NSLog("error: %@", response.error);
-            });
+        }
     }
     
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
@@ -150,7 +144,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     
     // UITableViewDelegate
     //
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true);
         
         if indexPath.section == 2{

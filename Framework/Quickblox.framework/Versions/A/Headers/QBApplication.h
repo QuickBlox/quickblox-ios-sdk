@@ -29,8 +29,16 @@
 @property (nonatomic, copy) NSString *restAPIVersion;
 
 /**
-* Production or development environment for push notifications
+* Production or development environment for push notifications, works only if autoDetectEnvironment = NO.
+
+ @warning Deprecated in 2.4. See 'autoDetectEnvironment'.
 */
-@property (nonatomic, assign) BOOL productionEnvironmentForPushesEnabled;
+@property (nonatomic, assign) BOOL productionEnvironmentForPushesEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4. Please use automatic environment detection which is enabled by default.");
+
+/**
+ *  Automatically detects environment for push notifications. By default is - YES.
+ */
+@property (nonatomic, assign) BOOL autoDetectEnvironment;
+
 
 @end

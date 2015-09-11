@@ -56,6 +56,25 @@ typedef enum QBChatServiceError {
   The default value is 5 seconds */
 @property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
 
+/**
+ * Many routers will teardown a socket mapping if there is no activity on the socket.
+ * For this reason, the stream supports sending keep-alive data.
+ * This is simply whitespace, which is ignored by the protocol.
+ *
+ * Keep-alive data is only sent in the absence of any other data being sent/received.
+ *
+ * The default value is 20s.
+ * The minimum value for TARGET_OS_IPHONE is 10s, else 20s.
+ *
+ * To disable keep-alive, set the interval to zero (or any non-positive number).
+ *
+ * The keep-alive timer (if enabled) fires every (keepAliveInterval / 4) seconds.
+ * Upon firing it checks when data was last sent/received,
+ * and sends keep-alive data if the elapsed time has exceeded the keepAliveInterval.
+ * Thus the effective resolution of the keepalive timer is based on the interval.
+ */
+@property (nonatomic, assign) NSTimeInterval keepAliveInterval;
+
 /** Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator. */
 @property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
 
@@ -136,12 +155,21 @@ typedef enum QBChatServiceError {
 - (BOOL)logout;
 
 /**
- Send "Read message" status back to sender
+ Send "read" status for message.
  
- @param message original message received from user
+ @param message QBChatMessage message to mark as read.
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)readMessage:(QBChatMessage *)message;
+
+/**
+ *  Send "delivered" status for message.
+ *
+ *  @param message QBChatMessage message to mark as delivered.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)markAsDelivered:(QBChatMessage *)message;
 
 /**
  Send presence message. Session will be closed in 90 seconds since last activity.
@@ -287,24 +315,6 @@ typedef enum QBChatServiceError {
  */
 - (void)removePrivacyListWithName:(NSString *)privacyListName;
 
-
-#pragma mark -
-#pragma mark Typing Status
-
-/**
- Send a chat status "user is typing" to user with given ID
- 
- @param userID user ID
- */
-- (void)sendUserIsTypingToUserWithID:(NSUInteger)userID;
-
-/**
- Send a chat status "user stop typing" to user with given ID
- 
- @param userID user ID
- */
-- (void)sendUserStopTypingToUserWithID:(NSUInteger)userID;
-
 #pragma mark -
 #pragma mark System Messages
 
@@ -445,5 +455,26 @@ typedef enum QBChatServiceError {
                       priority:(short)priority 
               customParameters:(NSDictionary *)customParameters
                         toRoom:(QBChatRoom *)room __attribute__((deprecated("Will be removed in future")));
+
+#pragma mark -
+#pragma mark Typing Status
+
+/**
+ Send a chat status "user is typing" to user with given ID
+ 
+ @warning Deprecated in 2.4. Use 'sendIsTyping' in QBChatDialog class.
+ 
+ @param userID user ID
+ */
+- (void)sendUserIsTypingToUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'sendIsTyping' in QBChatDialog class.")));
+
+/**
+ Send a chat status "user stop typing" to user with given ID
+ 
+ @warning Deprecated in 2.4. Use 'sendStoppedTyping' in QBChatDialog class.
+ 
+ @param userID user ID
+ */
+- (void)sendUserStopTypingToUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'sendStoppedTyping' in QBChatDialog class.")));
 
 @end
