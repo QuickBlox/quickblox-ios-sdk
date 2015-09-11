@@ -362,7 +362,7 @@ UIActionSheetDelegate
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
     
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
-    NSString* text = [self timeStampWithDate:messageItem.dateSent];
+    NSString* text = messageItem.dateSent ? [self timeStampWithDate:messageItem.dateSent] : @"";
     if ([messageItem senderID] == self.senderID) {
         text = [NSString stringWithFormat:@"%@\n%@", text, [self.stringBuilder statusFromMessage:messageItem]];
     }
