@@ -34,6 +34,23 @@
 {
     NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUInteger defaultsUserID = [defaults integerForKey:@"userID"];
+    
+    // if user logged in with different userID
+    if (defaultsUserID && [QBSession currentSession].currentUser.ID != defaultsUserID) {
+        [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:nil errorBlock:nil];
+        // force update defaultsUserID
+        defaultsUserID = 0;
+    }
+    
+    // if userID is not stored
+    if (!defaultsUserID) {
+        [defaults setInteger:[QBSession currentSession].currentUser.ID forKey:@"userID"];
+        [defaults synchronize];
+    }
+    
+    // subscribing for push notifications
     QBMSubscription *subscription = [QBMSubscription subscription];
     subscription.notificationChannel = QBMNotificationChannelAPNS;
     subscription.deviceUDID = deviceIdentifier;
@@ -41,7 +58,6 @@
     
     [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
         NSLog(@"Subscription creation: SUCCESS");
-        
     } errorBlock:^(QBResponse *response) {
         NSLog(@"Subscription creation: ERROR");
     }];
