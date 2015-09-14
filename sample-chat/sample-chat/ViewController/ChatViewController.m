@@ -289,6 +289,10 @@ UIActionSheetDelegate
     
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
+    
+    // Sending push
+    [QBRequest sendPushWithText:text toUsers:[self.dialog.occupantIDs componentsJoinedByString:@","] successBlock:nil errorBlock:nil];
+    
     [self finishSendingMessageAnimated:YES];
 }
 
