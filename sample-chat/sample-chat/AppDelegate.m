@@ -10,6 +10,7 @@
 #import "DialogsViewController.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
+#import "DialogsViewController.h"
 
 @implementation AppDelegate
 
@@ -38,7 +39,7 @@
     NSUInteger defaultsUserID = [defaults integerForKey:@"userID"];
     
     // if user logged in with different userID
-    if (defaultsUserID && [QBSession currentSession].currentUser.ID != defaultsUserID) {
+    if (defaultsUserID && ServicesManager.instance.currentUser.ID != defaultsUserID) {
         [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:nil errorBlock:nil];
         // force update defaultsUserID
         defaultsUserID = 0;
@@ -46,7 +47,7 @@
     
     // if userID is not stored
     if (!defaultsUserID) {
-        [defaults setInteger:[QBSession currentSession].currentUser.ID forKey:@"userID"];
+        [defaults setInteger:ServicesManager.instance.currentUser.ID forKey:@"userID"];
         [defaults synchronize];
     }
     
@@ -62,7 +63,21 @@
         NSLog(@"Subscription creation: ERROR");
     }];
 }
-							
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"New push: %@", userInfo);
+    
+    NSString *dialogID = userInfo[@"dialog_id"];
+    QBChatDialog *dialog = [[QBChatDialog alloc] initWithDialogID:dialogID type:[userInfo[@"dialog_type"] intValue]];
+    dialog.occupantIDs = userInfo[@"dialog_occupants"];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    chatController.dialog = dialog;
+    [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

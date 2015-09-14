@@ -290,8 +290,32 @@ UIActionSheetDelegate
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     
-    // Sending push
-    [QBRequest sendPushWithText:text toUsers:[self.dialog.occupantIDs componentsJoinedByString:@","] successBlock:nil errorBlock:nil];
+    // Sending push with event
+    QBMEvent *event = [QBMEvent event];
+    event.notificationType = QBMNotificationTypePush;
+    event.usersIDs = [self.dialog.occupantIDs componentsJoinedByString:@","];
+    event.type = QBMEventTypeOneShot;
+    //
+    // custom params
+    NSDictionary  *dictPush = @{@"message" : text,
+                                @"dialog_id" : self.dialog.ID,
+                                @"dialog_type" : [NSNumber numberWithInt:self.dialog.type],
+                                @"dialog_occupants" : self.dialog.occupantIDs
+                                };
+    //
+    NSError *error = nil;
+    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
+    //
+    event.message = jsonString;
+    
+    [QBRequest createEvent:event successBlock:^(QBResponse *response, NSArray *events) {
+        //
+        NSLog(@"Event Push sent: SUCCEED");
+    } errorBlock:^(QBResponse *response) {
+        //
+        NSLog(@"Event Push sent: ERROR - %@", response.error);
+    }];
     
     [self finishSendingMessageAnimated:YES];
 }
