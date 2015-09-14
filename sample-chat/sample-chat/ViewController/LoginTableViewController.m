@@ -68,6 +68,24 @@
 	[self.tableView reloadData];
 }
 
+#pragma mark - Push Notifications
+
+- (void)registerForRemoteNotifications{
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else{
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+    }
+#else
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
+#endif
+}
+
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,6 +99,7 @@
     [ServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
             [SVProgressHUD showSuccessWithStatus:@"Logged in"];
+            [weakSelf registerForRemoteNotifications];
             __typeof(self) strongSelf = weakSelf;
             [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
         } else {

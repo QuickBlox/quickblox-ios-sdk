@@ -29,6 +29,23 @@
 		
     return YES;
 }
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    QBMSubscription *subscription = [QBMSubscription subscription];
+    subscription.notificationChannel = QBMNotificationChannelAPNS;
+    subscription.deviceUDID = deviceIdentifier;
+    subscription.deviceToken = deviceToken;
+    
+    [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
+        NSLog(@"Subscription creation: SUCCESS");
+        
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"Subscription creation: ERROR");
+    }];
+}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
