@@ -295,16 +295,24 @@ UIActionSheetDelegate
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     
-    // Sending push
-    [self sendPushWithText:text andAttachment:NO];
+    // Manual push sending (uncomment this and sendPushWithText: function)
+    //[self sendPushWithText:text andAttachment:NO];
     
     [self finishSendingMessageAnimated:YES];
 }
 
-#pragma mark - Push message
+/**
+ * If you want to send push messages manually
+ * uncomment function bellow.
+ * By default push messages sending automatically
+ * (you can change settings in admin panel -> Chat -> Alert)
+*/
+
+
+/*#pragma mark - Manual push messages sending
 
 - (void)sendPushWithText: (NSString*)text andAttachment:(BOOL)attachment {
-    // remove current user from occupants
+    // removing current user from occupants
     NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
     for (NSNumber *identifier in self.dialog.occupantIDs) {
         if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
@@ -330,8 +338,8 @@ UIActionSheetDelegate
     }
     NSDictionary  *dictPush = @{@"message" : pushMessage,
                                 @"dialog_id" : self.dialog.ID,
-                                @"dialog_type" : [NSNumber numberWithInt:self.dialog.type],
-                                @"dialog_occupants" : self.dialog.occupantIDs
+                                //@"dialog_type" : [NSNumber numberWithInt:self.dialog.type],
+                                //@"dialog_occupants" : self.dialog.occupantIDs
                                 };
     //
     NSError *error = nil;
@@ -347,7 +355,8 @@ UIActionSheetDelegate
         //
         NSLog(@"Event Push sent: ERROR - %@", response.error);
     }];
-}
+}*/
+
 
 #pragma mark - Cell classes
 
@@ -784,7 +793,8 @@ UIActionSheetDelegate
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
                                                                           }
                                                                           weakSelf.isSendingAttachment = NO;
-                                                                          [weakSelf sendPushWithText:nil andAttachment:YES];
+                                                                          // Manual push sending (uncomment this and sendPushWithText: function)
+                                                                          //[weakSelf sendPushWithText:nil andAttachment:YES];
                                                                       });
                                                                   }];
     });

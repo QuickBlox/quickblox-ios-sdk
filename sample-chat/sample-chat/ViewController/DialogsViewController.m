@@ -33,6 +33,7 @@ QMChatConnectionDelegate
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    
 	[self.tableView reloadData];
 	__weak __typeof(self)weakSelf = self;
     
@@ -109,6 +110,14 @@ QMChatConnectionDelegate
     } completion:^(QBResponse *response) {
         if (shouldShowSuccessStatus) {
             [SVProgressHUD showSuccessWithStatus:@"Completed"];
+        }
+        
+        // if app was launched from push and need to navigate to chat
+        if (ServicesManager.instance.dialogFromPush.ID) {
+            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:ServicesManager.instance.dialogFromPush.ID];
+            [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
+            ServicesManager.instance.dialogFromPush = nil;
+            //return;
         }
     }];
 }

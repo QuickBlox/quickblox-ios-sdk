@@ -25,4 +25,9 @@
  */
 @property (nonatomic, strong) NSString* currentDialogID;
 
+/**
+ *  Dialog that was recieved from push
+ */
+@property (nonatomic, strong) QBChatDialog *dialogFromPush;
+
 @end

@@ -25,6 +25,11 @@
     
     // Enables detailed XMPP logging in console output
     [QBSettings enableXMPPLogging];
+    
+    // app was launched from push notification, handling it
+    if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        [self application:application didReceiveRemoteNotification:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
+    }
 		
     return YES;
 }
@@ -38,7 +43,11 @@
     
     // if user logged in with different userID
     if (defaultsUserID && ServicesManager.instance.currentUser.ID != defaultsUserID) {
-        [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:nil errorBlock:nil];
+        [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
+            NSLog(@"Successfully unsubbed from pushes");
+        } errorBlock:^(QBError *error) {
+            NSLog(@"Unsubbing from pushes: ERROR - %@", error);
+        }];
         // force update defaultsUserID
         defaultsUserID = 0;
     }
@@ -76,21 +85,25 @@
         NSLog(@"New push: %@", userInfo);
         
         NSString *dialogID = userInfo[@"dialog_id"];
-        
         if ([dialogID isEqualToString:[ServicesManager instance].currentDialogID])
             return;
         
         if (userInfo[@"dialog_id"]) {
-            // initializing dialog from push
-            QBChatDialog *dialog = [[QBChatDialog alloc] initWithDialogID:userInfo[@"dialog_id"] type:[userInfo[@"dialog_type"] intValue]];
-            dialog.occupantIDs = userInfo[@"dialog_occupants"];
+            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
             
-            // opening chat controller with dialog
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-            chatController.didRecieveChatFromPush = YES;
-            chatController.dialog = dialog;
-            [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
+            if (dialog) {
+                // opening chat controller with dialog
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+                chatController.didRecieveChatFromPush = YES;
+                chatController.dialog = dialog;
+                [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
+            }
+            else {
+                // app just launched or requested dialog is not cached yet, DialogsViewController will handle it
+                // with dialogID
+                ServicesManager.instance.dialogFromPush = [[QBChatDialog alloc] initWithDialogID:dialogID type:0];
+            }
         }
     }
     else
