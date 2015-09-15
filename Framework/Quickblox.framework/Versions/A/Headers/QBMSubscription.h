@@ -10,7 +10,7 @@
 
 /** QBMSubscription class declaration. */
 /** Overview */
-/** Class represents user subscription to push chanell */
+/** Class represents user subscription to push channel */
 
 @interface QBMSubscription : QBCEntity <NSCoding, NSCopying>
 
