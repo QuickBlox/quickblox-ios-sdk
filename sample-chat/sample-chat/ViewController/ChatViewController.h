@@ -15,5 +15,6 @@
 
 @property (nonatomic, strong) QBChatDialog* dialog;
 @property (nonatomic, assign) BOOL shouldUpdateNavigationStack;
+@property (nonatomic, assign) BOOL didRecieveChatFromPush;
 
 @end

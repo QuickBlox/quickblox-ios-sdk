@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
-#import "DialogsViewController.h"
 
 @implementation AppDelegate
 
@@ -75,7 +74,13 @@
     {
         NSLog(@"Received notifications while inactive.");
         NSLog(@"New push: %@", userInfo);
-        if (userInfo[@"dialog_id"] && userInfo[@"dialog_id"] != [ServicesManager instance].currentDialogID) {
+        
+        NSString *dialogID = userInfo[@"dialog_id"];
+        
+        if ([dialogID isEqualToString:[ServicesManager instance].currentDialogID])
+            return;
+        
+        if (userInfo[@"dialog_id"]) {
             // initializing dialog from push
             QBChatDialog *dialog = [[QBChatDialog alloc] initWithDialogID:userInfo[@"dialog_id"] type:[userInfo[@"dialog_type"] intValue]];
             dialog.occupantIDs = userInfo[@"dialog_occupants"];
@@ -83,6 +88,7 @@
             // opening chat controller with dialog
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+            chatController.didRecieveChatFromPush = YES;
             chatController.dialog = dialog;
             [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
         }

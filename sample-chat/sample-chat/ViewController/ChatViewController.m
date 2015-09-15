@@ -153,7 +153,7 @@ UIActionSheetDelegate
     
     [[ServicesManager instance].chatService addDelegate:self];
     [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
-	
+    
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
@@ -173,10 +173,15 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    if ([self.items count] > 0) {
-        [self refreshMessagesShowingProgress:NO];
-    } else {
-        [self refreshMessagesShowingProgress:YES];
+    if (!self.didRecieveChatFromPush) {
+        if ([self.items count] > 0) {
+            [self refreshMessagesShowingProgress:NO];
+        } else {
+            [self refreshMessagesShowingProgress:YES];
+        }
+    }
+    else {
+        self.didRecieveChatFromPush = NO;
     }
 }
 
@@ -290,14 +295,32 @@ UIActionSheetDelegate
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     
+    // Sending push
+    [self sendPushWithText:text];
+    
+    [self finishSendingMessageAnimated:YES];
+}
+
+#pragma mark - Push message
+
+- (void)sendPushWithText: (NSString*)text {
+    // remove current user from occupants
+    NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
+    for (NSNumber *identifier in self.dialog.occupantIDs) {
+        if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
+            [occupantsWithoutCurrentUser addObject:identifier];
+        }
+    }
+    
     // Sending push with event
     QBMEvent *event = [QBMEvent event];
     event.notificationType = QBMNotificationTypePush;
-    event.usersIDs = [self.dialog.occupantIDs componentsJoinedByString:@","];
+    event.usersIDs = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
     event.type = QBMEventTypeOneShot;
     //
     // custom params
-    NSDictionary  *dictPush = @{@"message" : text,
+    NSString *pushMessage = [[ServicesManager.instance.currentUser.login stringByAppendingString:@": "] stringByAppendingString:text];
+    NSDictionary  *dictPush = @{@"message" : pushMessage,
                                 @"dialog_id" : self.dialog.ID,
                                 @"dialog_type" : [NSNumber numberWithInt:self.dialog.type],
                                 @"dialog_occupants" : self.dialog.occupantIDs
@@ -316,8 +339,6 @@ UIActionSheetDelegate
         //
         NSLog(@"Event Push sent: ERROR - %@", response.error);
     }];
-    
-    [self finishSendingMessageAnimated:YES];
 }
 
 #pragma mark - Cell classes
@@ -668,12 +689,6 @@ UIActionSheetDelegate
     }
     
     self.unreadMessages = nil;
-    
-    if (self.shouldUpdateMessagesAfterLogIn) {
-        
-        self.shouldUpdateMessagesAfterLogIn = NO;
-        [self refreshMessagesShowingProgress:NO];
-    }
 }
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error
