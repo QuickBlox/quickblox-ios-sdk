@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "DialogsViewController.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
 #import "DialogsViewController.h"
@@ -64,18 +63,34 @@
     }];
 }
 
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    // failed to register push
+    NSLog(@"Failed to register PUSH: %@", error);
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSLog(@"New push: %@", userInfo);
-    
-    NSString *dialogID = userInfo[@"dialog_id"];
-    QBChatDialog *dialog = [[QBChatDialog alloc] initWithDialogID:dialogID type:[userInfo[@"dialog_type"] intValue]];
-    dialog.occupantIDs = userInfo[@"dialog_occupants"];
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-    chatController.dialog = dialog;
-    [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
+    if ([application applicationState] == UIApplicationStateInactive)
+    {
+        NSLog(@"Received notifications while inactive.");
+        NSLog(@"New push: %@", userInfo);
+        if (userInfo[@"dialog_id"] && userInfo[@"dialog_id"] != [ServicesManager instance].currentDialogID) {
+            // initializing dialog from push
+            QBChatDialog *dialog = [[QBChatDialog alloc] initWithDialogID:userInfo[@"dialog_id"] type:[userInfo[@"dialog_type"] intValue]];
+            dialog.occupantIDs = userInfo[@"dialog_occupants"];
+            
+            // opening chat controller with dialog
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+            chatController.dialog = dialog;
+            [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
+        }
+    }
+    else
+    {
+        NSLog(@"Received notifications while active.");
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
