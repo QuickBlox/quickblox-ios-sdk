@@ -71,15 +71,17 @@ QMChatConnectionDelegate
     // unsubscribing from pushes
     NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
-        NSLog(@"Successfully unsubbed from pushes");
+        //
         // logging out
         [[QMServicesManager instance] logoutWithCompletion:^{
             [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
             [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
         }];
+        NSLog(@"success unsub push");
     } errorBlock:^(QBError *error) {
-        NSLog(@"Unsubbing from pushes: ERROR - %@", error);
-        [SVProgressHUD showErrorWithStatus:@"Failed to logout. Please check your internet connection."];
+        //
+        [SVProgressHUD showErrorWithStatus:@"Logout error. Check your internet connection."];
+        NSLog(@"error unsub push - %@", error);
     }];
 }
 
@@ -113,11 +115,12 @@ QMChatConnectionDelegate
         }
         
         // if app was launched from push and need to navigate to chat
-        if (ServicesManager.instance.dialogFromPush.ID) {
-            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:ServicesManager.instance.dialogFromPush.ID];
+        NSString *pushDialogID = [[NSUserDefaults standardUserDefaults] objectForKey:kPushDialogIdentifierKey];
+        if (pushDialogID != nil) {
+            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:pushDialogID];
             [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
-            ServicesManager.instance.dialogFromPush = nil;
-            //return;
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPushDialogIdentifierKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }];
 }

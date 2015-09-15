@@ -51,4 +51,10 @@ static NSString *const kGoToAddOccupantsSegueIdentifier = @"goToAddOccupants";
  */
 static NSString *const kGoToChatSegueIdentifier = @"goToChat";
 
+/**
+ * Dialog keys
+ */
+static NSString *const kDialogIdentifierKey = @"dialog_id";
+static NSString *const kPushDialogIdentifierKey = @"pushDialogID";
+
 #endif

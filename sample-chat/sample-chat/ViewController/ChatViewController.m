@@ -173,7 +173,7 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    if (!self.didRecieveChatFromPush) {
+    if (!self.didRecieveDialogFromPush) {
         if ([self.items count] > 0) {
             [self refreshMessagesShowingProgress:NO];
         } else {
@@ -181,7 +181,7 @@ UIActionSheetDelegate
         }
     }
     else {
-        self.didRecieveChatFromPush = NO;
+        self.didRecieveDialogFromPush = NO;
     }
 }
 
@@ -302,9 +302,9 @@ UIActionSheetDelegate
 }
 
 /**
- * If you want to send push messages manually
+ * If you want to send custom push notifications.
  * uncomment function bellow.
- * By default push messages sending automatically
+ * By default push messages are disabled in admin panel.
  * (you can change settings in admin panel -> Chat -> Alert)
 */
 
@@ -337,7 +337,7 @@ UIActionSheetDelegate
         NSLog(@"Push about text");
     }
     NSDictionary  *dictPush = @{@"message" : pushMessage,
-                                @"dialog_id" : self.dialog.ID,
+                                kDialogIdentifierKey : self.dialog.ID,
                                 //@"dialog_type" : [NSNumber numberWithInt:self.dialog.type],
                                 //@"dialog_occupants" : self.dialog.occupantIDs
                                 };

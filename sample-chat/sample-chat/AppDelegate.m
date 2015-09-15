@@ -30,33 +30,13 @@
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
         [self application:application didReceiveRemoteNotification:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
     }
-		
+    
     return YES;
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSUInteger defaultsUserID = [defaults integerForKey:@"userID"];
-    
-    // if user logged in with different userID
-    if (defaultsUserID && ServicesManager.instance.currentUser.ID != defaultsUserID) {
-        [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
-            NSLog(@"Successfully unsubbed from pushes");
-        } errorBlock:^(QBError *error) {
-            NSLog(@"Unsubbing from pushes: ERROR - %@", error);
-        }];
-        // force update defaultsUserID
-        defaultsUserID = 0;
-    }
-    
-    // if userID is not stored
-    if (!defaultsUserID) {
-        [defaults setInteger:ServicesManager.instance.currentUser.ID forKey:@"userID"];
-        [defaults synchronize];
-    }
     
     // subscribing for push notifications
     QBMSubscription *subscription = [QBMSubscription subscription];
@@ -65,9 +45,9 @@
     subscription.deviceToken = deviceToken;
     
     [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
-        NSLog(@"Subscription creation: SUCCESS");
+        //
     } errorBlock:^(QBResponse *response) {
-        NSLog(@"Subscription creation: ERROR");
+        //
     }];
 }
 
@@ -81,34 +61,29 @@
 {
     if ([application applicationState] == UIApplicationStateInactive)
     {
-        NSLog(@"Received notifications while inactive.");
-        NSLog(@"New push: %@", userInfo);
-        
-        NSString *dialogID = userInfo[@"dialog_id"];
+        NSString *dialogID = userInfo[kDialogIdentifierKey];
         if ([dialogID isEqualToString:[ServicesManager instance].currentDialogID])
             return;
         
-        if (userInfo[@"dialog_id"]) {
+        if (userInfo[kDialogIdentifierKey] != nil) {
             QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
             
-            if (dialog) {
+            if (dialog == nil) {
+                // app just launched or requested dialog is not cached yet, DialogsViewController will handle it
+                // with dialogID
+                // adding dialogID to NSUserDefaults
+                [[NSUserDefaults standardUserDefaults] setObject:dialogID forKey:kPushDialogIdentifierKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+            else {
                 // opening chat controller with dialog
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-                chatController.didRecieveChatFromPush = YES;
+                chatController.didRecieveDialogFromPush = YES;
                 chatController.dialog = dialog;
                 [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
             }
-            else {
-                // app just launched or requested dialog is not cached yet, DialogsViewController will handle it
-                // with dialogID
-                ServicesManager.instance.dialogFromPush = [[QBChatDialog alloc] initWithDialogID:dialogID type:0];
-            }
         }
-    }
-    else
-    {
-        NSLog(@"Received notifications while active.");
     }
 }
 
