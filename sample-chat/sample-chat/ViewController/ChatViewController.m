@@ -296,14 +296,14 @@ UIActionSheetDelegate
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     
     // Sending push
-    [self sendPushWithText:text];
+    [self sendPushWithText:text andAttachment:NO];
     
     [self finishSendingMessageAnimated:YES];
 }
 
 #pragma mark - Push message
 
-- (void)sendPushWithText: (NSString*)text {
+- (void)sendPushWithText: (NSString*)text andAttachment:(BOOL)attachment {
     // remove current user from occupants
     NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
     for (NSNumber *identifier in self.dialog.occupantIDs) {
@@ -319,7 +319,15 @@ UIActionSheetDelegate
     event.type = QBMEventTypeOneShot;
     //
     // custom params
-    NSString *pushMessage = [[ServicesManager.instance.currentUser.login stringByAppendingString:@": "] stringByAppendingString:text];
+    NSMutableString *pushMessage = [NSMutableString string];
+    if (attachment) {
+        pushMessage = [[ServicesManager.instance.currentUser.login stringByAppendingString:@" sent Attachment"] mutableCopy];
+        NSLog(@"Push about attachment");
+    }
+    else {
+        pushMessage = [[[ServicesManager.instance.currentUser.login stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
+        NSLog(@"Push about text");
+    }
     NSDictionary  *dictPush = @{@"message" : pushMessage,
                                 @"dialog_id" : self.dialog.ID,
                                 @"dialog_type" : [NSNumber numberWithInt:self.dialog.type],
@@ -776,6 +784,7 @@ UIActionSheetDelegate
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
                                                                           }
                                                                           weakSelf.isSendingAttachment = NO;
+                                                                          [weakSelf sendPushWithText:nil andAttachment:YES];
                                                                       });
                                                                   }];
     });
