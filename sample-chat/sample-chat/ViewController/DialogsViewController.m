@@ -66,9 +66,19 @@ QMChatConnectionDelegate
 - (IBAction)logoutButtonPressed:(UIButton *)sender
 {
     [SVProgressHUD showWithStatus:@"Logging out..." maskType:SVProgressHUDMaskTypeClear];
-    [[QMServicesManager instance] logoutWithCompletion:^{
-        [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
-        [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
+    
+    // unsubscribing from pushes
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
+        NSLog(@"Successfully unsubbed from pushes");
+        // logging out
+        [[QMServicesManager instance] logoutWithCompletion:^{
+            [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
+        }];
+    } errorBlock:^(QBError *error) {
+        NSLog(@"Unsubbing from pushes: ERROR - %@", error);
+        [SVProgressHUD showErrorWithStatus:@"Failed to logout. Please check your internet connection."];
     }];
 }
 
