@@ -321,7 +321,7 @@ UIActionSheetDelegate
     // custom params
     NSMutableString *pushMessage = [NSMutableString string];
     if (attachment) {
-        pushMessage = [[ServicesManager.instance.currentUser.login stringByAppendingString:@" sent Attachment"] mutableCopy];
+        pushMessage = [[ServicesManager.instance.currentUser.login stringByAppendingString:@" sent attachment."] mutableCopy];
         NSLog(@"Push about attachment");
     }
     else {
