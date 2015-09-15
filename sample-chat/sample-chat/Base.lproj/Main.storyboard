@@ -142,7 +142,7 @@
         <!--Chat-->
         <scene sceneID="LtF-Ct-8zW">
             <objects>
-                <viewController title="Chat" id="1Ve-9p-jH0" customClass="ChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatViewController" title="Chat" id="1Ve-9p-jH0" customClass="ChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ztw-sb-nia"/>
                         <viewControllerLayoutGuide type="bottom" id="8FT-n9-ws2"/>
