@@ -321,11 +321,11 @@ UIActionSheetDelegate
     // custom params
     NSMutableString *pushMessage = [NSMutableString string];
     if (attachment) {
-        pushMessage = [[ServicesManager.instance.currentUser.login stringByAppendingString:@" sent attachment."] mutableCopy];
+        pushMessage = [[[self senderDisplayName] stringByAppendingString:@" sent attachment."] mutableCopy];
         NSLog(@"Push about attachment");
     }
     else {
-        pushMessage = [[[ServicesManager.instance.currentUser.login stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
+        pushMessage = [[[[self senderDisplayName] stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
         NSLog(@"Push about text");
     }
     NSDictionary  *dictPush = @{@"message" : pushMessage,
