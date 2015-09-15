@@ -19,9 +19,29 @@
 
 @implementation LoginTableViewController
 
+static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
+
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+    
+    if (ServicesManager.instance.currentUser) {
+        // loggin in with previous user
+        ServicesManager.instance.currentUser.password = kTestUsersDefaultPassword; // default password for test users
+        [SVProgressHUD showWithStatus:[@"Logging in as " stringByAppendingString:ServicesManager.instance.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
+        
+        __weak __typeof(self)weakSelf = self;
+        [ServicesManager.instance logInWithUser:ServicesManager.instance.currentUser completion:^(BOOL success, NSString *errorMessage) {
+            if (success) {
+                [SVProgressHUD showSuccessWithStatus:@"Logged in"];
+                [weakSelf registerForRemoteNotifications];
+                __typeof(self) strongSelf = weakSelf;
+                [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
+            } else {
+                [SVProgressHUD showErrorWithStatus:@"Can not login"];
+            }
+        }];
+    }
 
     [self retrieveUsers];
 }
@@ -92,7 +112,7 @@
 	[SVProgressHUD showWithStatus:@"Logging in..." maskType:SVProgressHUDMaskTypeClear];
 	
 	QBUUser *selectedUser = self.dataSource.users[indexPath.row];
-	selectedUser.password = @"x6Bt0VDy5"; // default password for test users
+	selectedUser.password = kTestUsersDefaultPassword; // default password for test users
 	
 	__weak __typeof(self)weakSelf = self;
     // Logging in to Quickblox REST API and chat.
