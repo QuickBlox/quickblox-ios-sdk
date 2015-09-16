@@ -68,21 +68,28 @@ QMChatConnectionDelegate
 {
     [SVProgressHUD showWithStatus:@"Logging out..." maskType:SVProgressHUDMaskTypeClear];
     
+    dispatch_group_t logoutGroup = dispatch_group_create();
+    dispatch_group_enter(logoutGroup);
     // unsubscribing from pushes
     NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
         //
-        // logging out
-        [[QMServicesManager instance] logoutWithCompletion:^{
-            [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
-            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
-        }];
         NSLog(@"success unsub push");
+        dispatch_group_leave(logoutGroup);
     } errorBlock:^(QBError *error) {
         //
-        [SVProgressHUD showErrorWithStatus:@"Logout error. Check your internet connection."];
         NSLog(@"error unsub push - %@", error);
+        dispatch_group_leave(logoutGroup);
     }];
+    
+    __weak typeof(self)weakSelf = self;
+    dispatch_group_notify(logoutGroup,dispatch_get_main_queue(),^{
+        // logging out
+        [[QMServicesManager instance] logoutWithCompletion:^{
+            [weakSelf performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
+        }];
+    });
 }
 
 - (void)loadDialogs
