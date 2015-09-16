@@ -49,7 +49,6 @@ UIActionSheetDelegate
 
 @property (nonatomic, strong) NSArray* unreadMessages;
 
-@property (nonatomic, assign) BOOL shouldUpdateMessagesAfterLogIn;
 @property (nonatomic, assign) BOOL isSendingAttachment;
 
 @end
@@ -160,8 +159,6 @@ UIActionSheetDelegate
         
         if ([[QBChat instance] isLoggedIn]) {
             [strongSelf refreshMessagesShowingProgress:NO];
-        } else {
-            strongSelf.shouldUpdateMessagesAfterLogIn = YES;
         }
 	}];
     
@@ -173,15 +170,8 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    if (!self.didRecieveDialogFromPush) {
-        if ([self.items count] > 0) {
-            [self refreshMessagesShowingProgress:NO];
-        } else {
-            [self refreshMessagesShowingProgress:YES];
-        }
-    }
-    else {
-        self.didRecieveDialogFromPush = NO;
+    if ([self.items count] == 0) {
+        [self refreshMessagesShowingProgress:YES];
     }
 }
 

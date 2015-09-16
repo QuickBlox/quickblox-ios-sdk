@@ -54,7 +54,6 @@
     }
     
     ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
-    chatController.didRecieveDialogFromPush = YES;
     chatController.dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
