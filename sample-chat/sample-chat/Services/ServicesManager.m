@@ -30,7 +30,6 @@
         [QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
 		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
 		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
-        _notificationService = [[NotificationService alloc] init];
 	}
     
 	return self;

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
+#import "DialogsViewController.h"
 
 @implementation AppDelegate
 
@@ -28,6 +29,7 @@
     
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        self.appLaunchedFromPush = YES;
         [self application:application didReceiveRemoteNotification:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
     }
     
@@ -61,11 +63,44 @@
 {
     if ([application applicationState] == UIApplicationStateInactive)
     {
-        [ServicesManager.instance.notificationService openChatPageForPushNotification:userInfo completion:^(BOOL completed) {
-            if (!completed) {
-                // error
+        NSString *dialogID = userInfo[kDialogIdentifierKey];
+        
+        if (dialogID != nil) {
+            if (ServicesManager.instance.currentUser == nil) {
+                self.appLaunchedFromPush = NO;
+                return;
             }
-        }];
+            NSString *dialogWithIDWasEntered = [ServicesManager instance].currentDialogID;
+            if ([dialogWithIDWasEntered isEqualToString:dialogID]) return;
+            
+            __weak __typeof(self)weakSelf = self;
+            [ServicesManager.instance.chatService fetchDialogWithID:dialogID completion:^(QBChatDialog *chatDialog) {
+                //
+                if (chatDialog != nil) {
+                    //
+                    UINavigationController *navigationController = (UINavigationController *)weakSelf.window.rootViewController;
+                    
+                    ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
+                    chatController.dialog = chatDialog;
+                    
+                    if (dialogWithIDWasEntered != nil) {
+                        // some chat already opened, return to dialogs view controller first
+                        [navigationController popViewControllerAnimated:NO];
+                    }
+                    
+                    // check if Dialogs view controller exists in UINavigationController stack
+                    // if no - create it
+                    NSUInteger numberOfViewControllers = navigationController.viewControllers.count;
+                    if (numberOfViewControllers < 2) {
+                        DialogsViewController *dialogsController = (DialogsViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DialogsViewController"];
+                        [navigationController pushViewController:dialogsController animated:NO];
+                     }
+                    
+                    [navigationController pushViewController:chatController animated:NO];
+                }
+            }];
+
+        }
     }
 }
 

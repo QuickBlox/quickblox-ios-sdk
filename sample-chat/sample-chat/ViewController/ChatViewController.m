@@ -285,19 +285,19 @@ UIActionSheetDelegate
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     
-    // Manual push sending (uncomment this and sendPushWithText: function)
+    // Custom push sending
     //[self sendPushWithText:text andAttachment:NO];
     
     [self finishSendingMessageAnimated:YES];
+    
 }
 
 /**
- * If you want to send custom push notifications.
- * uncomment function bellow.
- * By default push messages are disabled in admin panel.
- * (you can change settings in admin panel -> Chat -> Alert)
-*/
-
+ *  If you want to send custom push notifications.
+ *  uncomment function bellow.
+ *  By default push messages are disabled in admin panel.
+ *  (you can change settings in admin panel -> Chat -> Alert)
+ */
 
 /*#pragma mark - Manual push messages sending
 

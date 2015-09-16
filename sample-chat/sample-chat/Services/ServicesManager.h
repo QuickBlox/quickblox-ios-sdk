@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "UsersService.h"
-#import "NotificationService.h"
 
 #define qbUsersMemoryStorage ServicesManager.instance.usersService.contactListService.usersMemoryStorage
 /**
@@ -20,11 +19,6 @@
  *  User's service.
  */
 @property (nonatomic, readonly) UsersService* usersService;
-
-/**
- *  Notification service
- */
-@property (nonatomic, readonly) NotificationService* notificationService;
 
 /**
  *  Current opened dialog ID.

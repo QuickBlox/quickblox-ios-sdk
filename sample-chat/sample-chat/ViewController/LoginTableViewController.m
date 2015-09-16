@@ -9,6 +9,7 @@
 #import "LoginTableViewController.h"
 #import "ServicesManager.h"
 #import "UsersDataSource.h"
+#import "AppDelegate.h"
 
 @interface LoginTableViewController ()
 
@@ -27,7 +28,6 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    
     if (ServicesManager.instance.currentUser != nil) {
         // loggin in with previous user
         ServicesManager.instance.currentUser.password = kTestUsersDefaultPassword;
@@ -37,17 +37,15 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
         [ServicesManager.instance logInWithUser:ServicesManager.instance.currentUser completion:^(BOOL success, NSString *errorMessage) {
             if (success) {
                 [SVProgressHUD showSuccessWithStatus:@"Logged in"];
-                //[weakSelf registerForRemoteNotifications];
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
                 
-                // checking if app was launched from push
-                // if no - perform dialog controller
-                if (!ServicesManager.instance.notificationService.appLaunchedByPush) {
+                BOOL appLaunchedFromPush = [(AppDelegate *)[[UIApplication sharedApplication] delegate] appLaunchedFromPush];
+                if (!appLaunchedFromPush) {
                     [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
                 }
                 else {
-                    ServicesManager.instance.notificationService.appLaunchedByPush = NO;
+                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setAppLaunchedFromPush:NO];
                 }
             } else {
                 [SVProgressHUD showErrorWithStatus:@"Can not login"];
