@@ -17,7 +17,7 @@
 {
     NSString *dialogID = notification[kDialogIdentifierKey];
     
-    if (dialogID == nil) {
+    if (dialogID == nil || ServicesManager.instance.currentUser == nil) {
         
         if (completionBlock)
             completionBlock(NO);
@@ -67,7 +67,7 @@
     }
     
     // check if Dialogs view controller exists in UINavigationController stack
-    // if no - create it
+    // if not - create it
     NSUInteger numberOfViewControllers = navigationController.viewControllers.count;
     if (numberOfViewControllers < 2) {
         DialogsViewController *dialogsController = (DialogsViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DialogsViewController"];
