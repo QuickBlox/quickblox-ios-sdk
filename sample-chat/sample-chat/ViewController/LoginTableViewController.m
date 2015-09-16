@@ -40,7 +40,15 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
                 //[weakSelf registerForRemoteNotifications];
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
-                [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
+                
+                // checking if app was launched from push
+                // if no - perform dialog controller
+                if (!ServicesManager.instance.notificationService.appLaunchedByPush) {
+                    [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
+                }
+                else {
+                    ServicesManager.instance.notificationService.appLaunchedByPush = NO;
+                }
             } else {
                 [SVProgressHUD showErrorWithStatus:@"Can not login"];
             }

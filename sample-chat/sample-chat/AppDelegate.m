@@ -61,32 +61,11 @@
 {
     if ([application applicationState] == UIApplicationStateInactive)
     {
-        NSString *dialogID = userInfo[kDialogIdentifierKey];
-        if ([dialogID isEqualToString:[ServicesManager instance].currentDialogID])
-            return;
-        
-        if (userInfo[kDialogIdentifierKey] != nil) {
-            if ([ServicesManager instance].currentDialogID != nil) {
-                // some chat already opened, return to dialogs view controller first
-                [(UINavigationController*)self.window.rootViewController popViewControllerAnimated:NO];
+        [ServicesManager.instance.notificationService openChatPageForPushNotification:userInfo completion:^(BOOL completed) {
+            if (!completed) {
+                // error
             }
-            
-            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
-            if (dialog == nil) {
-                // app just launched or requested dialog is not cached yet, DialogsViewController will handle it
-                // adding dialogID to NSUserDefaults
-                [[NSUserDefaults standardUserDefaults] setObject:dialogID forKey:kPushDialogIdentifierKey];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-            else {
-                // opening chat controller with dialog
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                ChatViewController *chatController = [storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-                chatController.didRecieveDialogFromPush = YES;
-                chatController.dialog = dialog;
-                [(UINavigationController*)self.window.rootViewController pushViewController:chatController animated:NO];
-            }
-        }
+        }];
     }
 }
 

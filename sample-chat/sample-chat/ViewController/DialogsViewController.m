@@ -120,15 +120,6 @@ QMChatConnectionDelegate
         if (shouldShowSuccessStatus) {
             [SVProgressHUD showSuccessWithStatus:@"Completed"];
         }
-        
-        // if app was launched from push and need to navigate to chat
-        NSString *pushDialogID = [[NSUserDefaults standardUserDefaults] objectForKey:kPushDialogIdentifierKey];
-        if (pushDialogID != nil) {
-            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:pushDialogID];
-            [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
-            [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPushDialogIdentifierKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
     }];
 }
 
