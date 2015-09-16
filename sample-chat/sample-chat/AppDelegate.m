@@ -54,7 +54,7 @@
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     // failed to register push
-    NSLog(@"Failed to register PUSH: %@", error);
+    NSLog(@"Push failed to register with error: %@", error);
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -66,11 +66,14 @@
             return;
         
         if (userInfo[kDialogIdentifierKey] != nil) {
-            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
+            if ([ServicesManager instance].currentDialogID != nil) {
+                // some chat already opened, return to dialogs view controller first
+                [(UINavigationController*)self.window.rootViewController popViewControllerAnimated:NO];
+            }
             
+            QBChatDialog *dialog = [ServicesManager.instance.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
             if (dialog == nil) {
                 // app just launched or requested dialog is not cached yet, DialogsViewController will handle it
-                // with dialogID
                 // adding dialogID to NSUserDefaults
                 [[NSUserDefaults standardUserDefaults] setObject:dialogID forKey:kPushDialogIdentifierKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
