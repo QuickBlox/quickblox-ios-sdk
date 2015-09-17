@@ -285,68 +285,55 @@ UIActionSheetDelegate
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     
-    // Custom push sending
-    //[self sendPushWithText:text andAttachment:NO];
+    // Custom push sending (uncomment sendPushWithText method and line below)
+    //[self sendPushWithText:text];
     
     [self finishSendingMessageAnimated:YES];
     
 }
 
+#pragma mark - Custom push notifications
+
 /**
  *  If you want to send custom push notifications.
- *  uncomment function bellow.
+ *  uncomment methods bellow.
  *  By default push messages are disabled in admin panel.
  *  (you can change settings in admin panel -> Chat -> Alert)
  */
 
-/*#pragma mark - Manual push messages sending
-
-- (void)sendPushWithText: (NSString*)text andAttachment:(BOOL)attachment {
-    // removing current user from occupants
-    NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
-    for (NSNumber *identifier in self.dialog.occupantIDs) {
-        if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
-            [occupantsWithoutCurrentUser addObject:identifier];
-        }
-    }
-    
-    // Sending push with event
-    QBMEvent *event = [QBMEvent event];
-    event.notificationType = QBMNotificationTypePush;
-    event.usersIDs = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
-    event.type = QBMEventTypeOneShot;
-    //
-    // custom params
-    NSMutableString *pushMessage = [NSMutableString string];
-    if (attachment) {
-        pushMessage = [[[self senderDisplayName] stringByAppendingString:@" sent attachment."] mutableCopy];
-        NSLog(@"Push about attachment");
-    }
-    else {
-        pushMessage = [[[[self senderDisplayName] stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
-        NSLog(@"Push about text");
-    }
-    NSDictionary  *dictPush = @{@"message" : pushMessage,
-                                kDialogIdentifierKey : self.dialog.ID,
-                                //@"dialog_type" : [NSNumber numberWithInt:self.dialog.type],
-                                //@"dialog_occupants" : self.dialog.occupantIDs
-                                };
-    //
-    NSError *error = nil;
-    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
-    //
-    event.message = jsonString;
-    
-    [QBRequest createEvent:event successBlock:^(QBResponse *response, NSArray *events) {
-        //
-        NSLog(@"Event Push sent: SUCCEED");
-    } errorBlock:^(QBResponse *response) {
-        //
-        NSLog(@"Event Push sent: ERROR - %@", response.error);
-    }];
-}*/
-
+//- (void)sendPushWithText: (NSString*)text {
+//    NSArray *occupantsWithoutCurrentUser = [self removeCurrentUserFromOccupants:self.dialog.occupantIDs];
+//    NSString *pushMessage = [[[[self senderDisplayName] stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
+//    NSString *users = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
+//    
+//    [QBRequest sendPushWithText:pushMessage toUsers:users successBlock:^(QBResponse *response, NSArray *events) {
+//        //
+//    } errorBlock:^(QBError *error) {
+//        //
+//    }];
+//}
+//
+//- (void)sendPushWithAttachment {
+//    NSArray *occupantsWithoutCurrentUser = [self removeCurrentUserFromOccupants:self.dialog.occupantIDs];
+//    NSString *pushMessage = [[[self senderDisplayName] stringByAppendingString:@" sent attachment."] mutableCopy];
+//    NSString *users = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
+//    
+//    [QBRequest sendPushWithText:pushMessage toUsers:users successBlock:^(QBResponse *response, NSArray *events) {
+//        //
+//    } errorBlock:^(QBError *error) {
+//        //
+//    }];
+//}
+//
+//- (NSArray *)removeCurrentUserFromOccupants: (NSArray *)occupantIDs {
+//    NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
+//    for (NSNumber *identifier in occupantIDs) {
+//        if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
+//            [occupantsWithoutCurrentUser addObject:identifier];
+//        }
+//    }
+//    return [occupantsWithoutCurrentUser copy];
+//}
 
 #pragma mark - Cell classes
 
@@ -783,8 +770,8 @@ UIActionSheetDelegate
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
                                                                           }
                                                                           weakSelf.isSendingAttachment = NO;
-                                                                          // Manual push sending (uncomment this and sendPushWithText: function)
-                                                                          //[weakSelf sendPushWithText:nil andAttachment:YES];
+                                                                          // Custom push sending (uncomment sendPushWithAttachment method and line below)
+                                                                          //[weakSelf sendPushWithAttachment];
                                                                       });
                                                                   }];
     });
