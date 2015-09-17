@@ -9,9 +9,10 @@
 #import "AppDelegate.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
-#import "DialogsViewController.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    BOOL launchedFromPush;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -29,7 +30,7 @@
     
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
-        self.appLaunchedFromPush = YES;
+        launchedFromPush = YES;
         [self application:application didReceiveRemoteNotification:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
     }
     
@@ -63,25 +64,27 @@
 {
     if ([application applicationState] == UIApplicationStateInactive)
     {
-        NSString *dialogID = userInfo[kDialogIdentifierKey];
+        self.pushDialogID = userInfo[kDialogIdentifierKey];
         
-        if (dialogID != nil) {
+        if (self.pushDialogID != nil) {
             if (ServicesManager.instance.currentUser == nil) {
-                self.appLaunchedFromPush = NO;
                 return;
             }
+            if (launchedFromPush) {
+                launchedFromPush = NO;
+                return;
+            }
+            
             NSString *dialogWithIDWasEntered = [ServicesManager instance].currentDialogID;
-            if ([dialogWithIDWasEntered isEqualToString:dialogID]) return;
+            if ([dialogWithIDWasEntered isEqualToString:self.pushDialogID]) return;
             
             __weak __typeof(self)weakSelf = self;
-            [ServicesManager.instance.chatService fetchDialogWithID:dialogID completion:^(QBChatDialog *chatDialog) {
+            [ServicesManager.instance.chatService fetchDialogWithID:self.pushDialogID completion:^(QBChatDialog *chatDialog) {
                 //
-                if (chatDialog == nil) {
-                    weakSelf.appLaunchedFromPush = NO;
-                }
-                else {
-                    //
-                    UINavigationController *navigationController = (UINavigationController *)weakSelf.window.rootViewController;
+                if (chatDialog != nil) {
+                    __typeof(weakSelf)strongSelf = weakSelf;
+                    strongSelf.pushDialogID = nil;
+                    UINavigationController *navigationController = (UINavigationController *)strongSelf.window.rootViewController;
                     
                     ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
                     chatController.dialog = chatDialog;
@@ -89,14 +92,6 @@
                     if (dialogWithIDWasEntered != nil) {
                         // some chat already opened, return to dialogs view controller first
                         [navigationController popViewControllerAnimated:NO];
-                    }
-                    
-                    // check if Dialogs view controller exists in UINavigationController stack
-                    // if no - create it
-                    NSUInteger numberOfViewControllers = navigationController.viewControllers.count;
-                    if (numberOfViewControllers < 2) {
-                        DialogsViewController *dialogsController = (DialogsViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DialogsViewController"];
-                        [navigationController pushViewController:dialogsController animated:NO];
                     }
                     
                     [navigationController pushViewController:chatController animated:NO];

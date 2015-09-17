@@ -10,6 +10,8 @@
 #import "ServicesManager.h"
 #import "UsersDataSource.h"
 #import "AppDelegate.h"
+#import "DialogsViewController.h"
+#import "ChatViewController.h"
 
 @interface LoginTableViewController ()
 
@@ -39,12 +41,27 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
                 
-                BOOL appLaunchedFromPush = [(AppDelegate *)[[UIApplication sharedApplication] delegate] appLaunchedFromPush];
-                if (!appLaunchedFromPush) {
+                NSString *pushDialogID = [(AppDelegate *)[[UIApplication sharedApplication] delegate] pushDialogID];
+                if (pushDialogID == nil) {
                     [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
                 }
                 else {
-                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setAppLaunchedFromPush:NO];
+                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setPushDialogID:nil];
+                    [ServicesManager.instance.chatService fetchDialogWithID:pushDialogID completion:^(QBChatDialog *chatDialog) {
+                        //
+                        if (chatDialog == nil) {
+                            // no dialog
+                            [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
+                        }
+                        else {
+                            DialogsViewController *dialogsController = (DialogsViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DialogsViewController"];
+                            [self.navigationController pushViewController:dialogsController animated:NO];
+                            
+                            ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
+                            chatController.dialog = chatDialog;
+                            [self.navigationController pushViewController:chatController animated:NO];
+                        }
+                    }];
                 }
                 [SVProgressHUD showSuccessWithStatus:@"Logged in"];
             } else {

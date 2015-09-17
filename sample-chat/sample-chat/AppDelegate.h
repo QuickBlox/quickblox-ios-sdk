@@ -11,6 +11,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic, assign) BOOL appLaunchedFromPush;
+@property (strong, nonatomic) NSString *pushDialogID;
 
 @end
