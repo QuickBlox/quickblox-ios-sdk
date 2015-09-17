@@ -36,7 +36,6 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
         __weak __typeof(self)weakSelf = self;
         [ServicesManager.instance logInWithUser:ServicesManager.instance.currentUser completion:^(BOOL success, NSString *errorMessage) {
             if (success) {
-                [SVProgressHUD showSuccessWithStatus:@"Logged in"];
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
                 
@@ -47,6 +46,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
                 else {
                     [(AppDelegate *)[[UIApplication sharedApplication] delegate] setAppLaunchedFromPush:NO];
                 }
+                [SVProgressHUD showSuccessWithStatus:@"Logged in"];
             } else {
                 [SVProgressHUD showErrorWithStatus:@"Can not login"];
             }

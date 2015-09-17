@@ -76,7 +76,10 @@
             __weak __typeof(self)weakSelf = self;
             [ServicesManager.instance.chatService fetchDialogWithID:dialogID completion:^(QBChatDialog *chatDialog) {
                 //
-                if (chatDialog != nil) {
+                if (chatDialog == nil) {
+                    weakSelf.appLaunchedFromPush = NO;
+                }
+                else {
                     //
                     UINavigationController *navigationController = (UINavigationController *)weakSelf.window.rootViewController;
                     
@@ -94,12 +97,11 @@
                     if (numberOfViewControllers < 2) {
                         DialogsViewController *dialogsController = (DialogsViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DialogsViewController"];
                         [navigationController pushViewController:dialogsController animated:NO];
-                     }
+                    }
                     
                     [navigationController pushViewController:chatController animated:NO];
                 }
             }];
-
         }
     }
 }
