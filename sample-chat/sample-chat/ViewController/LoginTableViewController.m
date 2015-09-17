@@ -54,10 +54,12 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
                             [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
                         }
                         else {
-                            DialogsViewController *dialogsController = (DialogsViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"DialogsViewController"];
+                            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                            
+                            DialogsViewController *dialogsController = (DialogsViewController *)[storyboard instantiateViewControllerWithIdentifier:@"DialogsViewController"];
                             [strongSelf.navigationController pushViewController:dialogsController animated:NO];
                             
-                            ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
+                            ChatViewController *chatController = (ChatViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
                             chatController.dialog = chatDialog;
                             [strongSelf.navigationController pushViewController:chatController animated:NO];
                         }
