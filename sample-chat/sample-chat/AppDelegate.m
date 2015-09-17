@@ -68,6 +68,7 @@
         
         if (self.pushDialogID != nil) {
             if (ServicesManager.instance.currentUser == nil) {
+                launchedFromPush = NO;
                 return;
             }
             if (launchedFromPush) {
