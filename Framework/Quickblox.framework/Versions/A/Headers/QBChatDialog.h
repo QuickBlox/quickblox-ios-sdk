@@ -16,13 +16,12 @@ extern NSString* const QBChatDialogOnJoinFailedPrefix;
 extern NSString* const QBChatDialogIsTypingPrefix;
 extern NSString* const QBChatDialogStopTypingPrefix;
 
-typedef void(^QBChatDialogStatusBlock)() ;
-typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers) ;
+typedef void(^QBChatDialogStatusBlock)();
+typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray* onlineUsers);
 typedef void(^QBChatDialogJoinFailedBlock)(NSError* error);
 typedef void(^QBChatDialogIsTypingBlock)(NSUInteger userID);
 typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
 
-@class QBChatRoom;
 @class QBChatMessage;
 @interface QBChatDialog : NSObject <NSCoding, NSCopying>
 
@@ -193,12 +192,5 @@ typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
  *  Clears typing status blocks. Call this method if you don't want to recieve typing statuses for this dialog.
  */
 - (void)clearTypingStatusBlocks;
-
-@end
-
-@interface QBChatDialog (Deprecated)
-
-/** Returns an autoreleased instance of QBChatRoom to join if type = QBChatDialogTypeGroup or QBChatDialogTypePublicGroup. nil otherwise. */
-@property (nonatomic, readonly) QBChatRoom *chatRoom;
 
 @end

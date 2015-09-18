@@ -70,7 +70,34 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)deleteDialogWithID:(NSString *)dialogID successBlock:(void(^)(QBResponse *responce))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteDialogWithID:(NSString *)dialogID successBlock:(void(^)(QBResponse *responce))successBlock errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("Use leaveDialogsWithIDs:successBlock:errorBlock: for leave dialogs and deleteDialogsWithIDs:successBlock:errorBlock: for remove dialogs")));
+
+/**
+ Delete dialogs
+ 
+ @param dialogIDs. The IDs of a dialogs to delete
+ @param successBlock Block with response if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @discussion This request completely remove dialogs from server. Only dialog owner can do it!
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)deleteDialogsWithIDs:(NSSet *)dialogIDs successBlock:(void(^)(QBResponse *response, NSArray *deletedObjectsIDs, NSArray *notFoundObjectsIDs, NSArray *wrongPermissionsObjectsIDs))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
+
+/**
+ Leave dialogs
+ 
+ @param dialogIDs. The IDs of a dialogs to leave
+ @param successBlock Block with response if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @discussion Each user from dialog’s occupant_ids field can leave the dialog. Dialog will be removed only for current user.
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)leaveDialogsWithIDs:(NSSet *)dialogIDs successBlock:(void(^)(QBResponse *response, NSArray *leftObjectsIDs, NSArray *notFoundObjectsIDs, NSArray *wrongPermissionsObjectsIDs))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
+
 
 /**
  Retrieve first 100 chat messages within particular dialog
@@ -91,6 +118,12 @@
  @param page response page instance
  @param successBlock Block with response instance and array of chat messages for page if request succeded
  @param errorBlock Block with response instance if request failed
+ 
+ @discussion By default all messages retrieved from server is marked as read, if you need another behaviour please use mark_as_read parameter in extendedParameters dictionary.
+ 
+ @code
+ [extendedParameters setObject:@"0" forKey:@"mark_as_read"];
+ @endcode
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -154,6 +187,28 @@
 + (QBRequest *)deleteMessagesWithIDs:(NSSet *)messageIDs successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
 
 /**
+ Delete existent chat message completely for all users
+ 
+ @param messageID Message ID to delete
+ @param successBlock Block with response instance if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)deleteMessageCompletelyWithID:(NSString *)messageID successBlock:(void (^)(QBResponse *))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
+
+/**
+ Delete existent chat messages completely for all users
+ 
+ @param messageIDs Set of message IDs to delete
+ @param successBlock Block with response instance if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)deleteMessagesCompletelyWithIDs:(NSSet *)messageIDs successBlock:(void(^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
+
+/**
  Returns count of dialogs.
  
  @param parameters Dialogs filter parameters.
@@ -178,5 +233,9 @@
                           extendedRequest:(NSDictionary *)parameters
                              successBlock:(void(^)(QBResponse * response, NSUInteger count)) successBlock
                                errorBlock:(QBRequestErrorBlock)errorBlock;
+
++ (QBRequest *)totalUnreadMessageCountForDialogsWithIDs:(NSSet *)dialogIDs
+                                           successBlock:(void(^)(QBResponse * response, NSUInteger count, NSDictionary *dialogs))successBlock
+                                             errorBlock:(QBRequestErrorBlock)errorBlock;
 
 @end
