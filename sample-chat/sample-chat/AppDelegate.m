@@ -10,9 +10,11 @@
 #import "ServicesManager.h"
 #import "ChatViewController.h"
 
-@implementation AppDelegate {
-    BOOL launchedFromPush;
-}
+@interface AppDelegate () <NotificationServiceDelegate>
+
+@end
+
+@implementation AppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,8 +32,7 @@
     
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
-        launchedFromPush = YES;
-        [self application:application didReceiveRemoteNotification:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]];
+        ServicesManager.instance.notificationService.pushDialogID = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][kDialogIdentifierKey];
     }
     
     return YES;
@@ -64,40 +65,13 @@
 {
     if ([application applicationState] == UIApplicationStateInactive)
     {
-        self.pushDialogID = userInfo[kDialogIdentifierKey];
-        
-        if (self.pushDialogID != nil) {
-            if (ServicesManager.instance.currentUser == nil) {
-                launchedFromPush = NO;
-                return;
-            }
-            if (launchedFromPush) {
-                launchedFromPush = NO;
-                return;
-            }
-            
+        NSString *dialogID = userInfo[kDialogIdentifierKey];
+        if (dialogID != nil) {
             NSString *dialogWithIDWasEntered = [ServicesManager instance].currentDialogID;
-            if ([dialogWithIDWasEntered isEqualToString:self.pushDialogID]) return;
+            if ([dialogWithIDWasEntered isEqualToString:dialogID]) return;
             
-            __weak __typeof(self)weakSelf = self;
-            [ServicesManager.instance.chatService fetchDialogWithID:self.pushDialogID completion:^(QBChatDialog *chatDialog) {
-                //
-                if (chatDialog != nil) {
-                    __typeof(weakSelf)strongSelf = weakSelf;
-                    strongSelf.pushDialogID = nil;
-                    UINavigationController *navigationController = (UINavigationController *)strongSelf.window.rootViewController;
-                    
-                    ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
-                    chatController.dialog = chatDialog;
-                    
-                    if (dialogWithIDWasEntered != nil) {
-                        // some chat already opened, return to dialogs view controller first
-                        [navigationController popViewControllerAnimated:NO];
-                    }
-                    
-                    [navigationController pushViewController:chatController animated:NO];
-                }
-            }];
+            ServicesManager.instance.notificationService.pushDialogID = dialogID;
+            [ServicesManager.instance.notificationService handlePushNotificationWithDelegate:self];
         }
     }
 }
@@ -135,6 +109,23 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - NotificationServiceDelegate protocol
+
+- (void)notificationServiceDidSucceedFetchingDialog:(QBChatDialog *)chatDialog {
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    
+    ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    chatController.dialog = chatDialog;
+    
+    NSString *dialogWithIDWasEntered = [ServicesManager instance].currentDialogID;
+    if (dialogWithIDWasEntered != nil) {
+        // some chat already opened, return to dialogs view controller first
+        [navigationController popViewControllerAnimated:NO];
+    }
+    
+    [navigationController pushViewController:chatController animated:NO];
 }
 
 @end

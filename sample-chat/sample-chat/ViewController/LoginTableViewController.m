@@ -13,7 +13,7 @@
 #import "DialogsViewController.h"
 #import "ChatViewController.h"
 
-@interface LoginTableViewController ()
+@interface LoginTableViewController () <NotificationServiceDelegate>
 
 @property (strong, nonatomic) UsersDataSource *dataSource;
 @property (nonatomic, assign, getter=isUsersAreDownloading) BOOL usersAreDownloading;
@@ -40,32 +40,15 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
             if (success) {
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
+                [SVProgressHUD showSuccessWithStatus:@"Logged in"];
                 
-                NSString *pushDialogID = [(AppDelegate *)[[UIApplication sharedApplication] delegate] pushDialogID];
-                if (pushDialogID == nil) {
+                if (ServicesManager.instance.notificationService.pushDialogID == nil) {
                     [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
                 }
                 else {
-                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setPushDialogID:nil];
-                    [ServicesManager.instance.chatService fetchDialogWithID:pushDialogID completion:^(QBChatDialog *chatDialog) {
-                        //
-                        if (chatDialog == nil) {
-                            // no dialog
-                            [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
-                        }
-                        else {
-                            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                            
-                            DialogsViewController *dialogsController = (DialogsViewController *)[storyboard instantiateViewControllerWithIdentifier:@"DialogsViewController"];
-                            [strongSelf.navigationController pushViewController:dialogsController animated:NO];
-                            
-                            ChatViewController *chatController = (ChatViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
-                            chatController.dialog = chatDialog;
-                            [strongSelf.navigationController pushViewController:chatController animated:NO];
-                        }
-                    }];
+                    [ServicesManager.instance.notificationService handlePushNotificationWithDelegate:self];
                 }
-                [SVProgressHUD showSuccessWithStatus:@"Logged in"];
+                
             } else {
                 [SVProgressHUD showErrorWithStatus:@"Can not login"];
             }
@@ -115,6 +98,28 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     self.dataSource.isLoginDataSource = YES;
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
+}
+
+#pragma mark - NotificationServiceDelegate protocol
+
+- (void)notificationServiceDidStartLoadingDialogFromServer {
+    [SVProgressHUD showWithStatus:@"Loading dialog..." maskType:SVProgressHUDMaskTypeClear];
+}
+
+- (void)notificationServiceDidFinishLoadingDialogFromServer {
+    [SVProgressHUD dismiss];
+}
+
+- (void)notificationServiceDidSucceedFetchingDialog:(QBChatDialog *)chatDialog {
+    DialogsViewController *dialogsController = (DialogsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DialogsViewController"];
+    ChatViewController *chatController = (ChatViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    chatController.dialog = chatDialog;
+    
+    self.navigationController.viewControllers = @[dialogsController, chatController];
+}
+
+- (void)notificationServiceDidFailFetchingDialog {
+    [self performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
 }
 
 #pragma mark - Push Notifications
