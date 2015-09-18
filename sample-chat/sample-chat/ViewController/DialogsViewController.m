@@ -74,11 +74,9 @@ QMChatConnectionDelegate
     NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
         //
-        NSLog(@"success unsub push");
         dispatch_group_leave(logoutGroup);
     } errorBlock:^(QBError *error) {
         //
-        NSLog(@"error unsub push - %@", error);
         dispatch_group_leave(logoutGroup);
     }];
     
