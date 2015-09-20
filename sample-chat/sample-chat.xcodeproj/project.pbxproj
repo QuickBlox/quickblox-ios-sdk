@@ -58,6 +58,7 @@
 		8622B9051B821469001241E6 /* QMTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B8E31B821469001241E6 /* QMTypingIndicatorFooterView.m */; };
 		8622B9061B821469001241E6 /* QMTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8622B8E41B821469001241E6 /* QMTypingIndicatorFooterView.xib */; };
 		86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */; };
+		86872E831BAF55A300BE9F23 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 86872E821BAF55A300BE9F23 /* NotificationService.m */; settings = {ASSET_TAGS = (); }; };
 		86A716641B9EF0440019C42A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86A716621B9EF0440019C42A /* LaunchScreen.xib */; };
 		86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86A716651B9EF0820019C42A /* InfoPlist.strings */; };
 		86A7166A1B9EF3D50019C42A /* QMChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86A716681B9EF3D50019C42A /* QMChatViewController.xib */; };
@@ -198,6 +199,8 @@
 		8622B8E41B821469001241E6 /* QMTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QMTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		86401C0B1B428CEA00D45A05 /* MessageStatusStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageStatusStringBuilder.h; path = Utils/MessageStatusStringBuilder.h; sourceTree = "<group>"; };
 		86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageStatusStringBuilder.m; path = Utils/MessageStatusStringBuilder.m; sourceTree = "<group>"; };
+		86872E811BAF55A300BE9F23 /* NotificationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		86872E821BAF55A300BE9F23 /* NotificationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		86A716631B9EF0440019C42A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		86A716661B9EF0820019C42A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		86A716691B9EF3D50019C42A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QMChatViewController.xib; sourceTree = "<group>"; };
@@ -675,6 +678,8 @@
 				86104A1C1B0B5E1900464D52 /* ServicesManager.h */,
 				86104A1D1B0B5E1900464D52 /* ServicesManager.m */,
 				143181731B18714B001A933D /* Constants.h */,
+				86872E811BAF55A300BE9F23 /* NotificationService.h */,
+				86872E821BAF55A300BE9F23 /* NotificationService.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -855,6 +860,7 @@
 				8622B8F21B821469001241E6 /* QMChatContactRequestCell.m in Sources */,
 				8622B8FB1B821469001241E6 /* QMChatCollectionViewFlowLayout.m in Sources */,
 				8622B8FF1B821469001241E6 /* QMToolbarContentView.m in Sources */,
+				86872E831BAF55A300BE9F23 /* NotificationService.m in Sources */,
 				8622B9051B821469001241E6 /* QMTypingIndicatorFooterView.m in Sources */,
 				1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */,
 				8622B8EF1B821469001241E6 /* QMChatAttachmentOutgoingCell.m in Sources */,
@@ -938,6 +944,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "QA=1";
@@ -1004,6 +1011,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1047,6 +1055,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
