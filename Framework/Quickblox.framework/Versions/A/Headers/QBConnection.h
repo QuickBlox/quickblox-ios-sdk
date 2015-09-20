@@ -42,6 +42,13 @@ typedef enum QBConnectionZoneType{
 + (void)setServiceZone:(QBConnectionZoneType)serviceZone;
 
 /**
+ *  Return current Service Zone
+ *
+ *  @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
+ */
++ (QBConnectionZoneType)currentServiceZone;
+
+/**
 * A Boolean value indicating whether the manager is enabled.
 
 * If YES, the manager will change status bar network activity indicator according to network operation notifications it receives. The default value is NO.

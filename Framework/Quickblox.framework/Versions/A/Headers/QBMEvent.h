@@ -63,7 +63,7 @@
 /** The name of the event. Service information. Only for the user..*/
 @property (nonatomic,retain) NSString *name;
 
-/** 
+/**
  Environment of the notification, default: YES
  
  @warning Deprecated in 2.4. See '[QBApplication sharedApplication].autoDetectEnvironment'.
