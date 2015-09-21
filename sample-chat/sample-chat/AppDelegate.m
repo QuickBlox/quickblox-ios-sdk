@@ -19,9 +19,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBApplication sharedApplication].applicationId = 92;
-    [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
-    [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
+    [QBApplication sharedApplication].applicationId = 28554;
+    [QBConnection registerServiceKey:@"XkOrrrXkxSayVF5"];
+    [QBConnection registerServiceSecret:@"HpExAAb6rzh9JUK"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
     // Enables Quickblox REST API calls debug console output

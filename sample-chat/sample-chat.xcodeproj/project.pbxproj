@@ -986,7 +986,7 @@
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "59353764-8f5b-4697-86ee-8c07ac3ea489";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1097,7 +1097,7 @@
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "59353764-8f5b-4697-86ee-8c07ac3ea489";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1126,7 +1126,7 @@
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "59353764-8f5b-4697-86ee-8c07ac3ea489";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
