@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         // app was launched from push notification, handling it
         let remoteNotification: NSDictionary! = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
         if (remoteNotification != nil) {
-            ServicesManager.instance().notificationService?.pushDialogID = remoteNotification["SA_STR_DIALOG_ID".localized] as? String
+            ServicesManager.instance().notificationService?.pushDialogID = remoteNotification["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
         }
 		
 		return true
@@ -60,17 +60,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        NSLog("notification: %@", userInfo)
+        NSLog("my push is: %@", userInfo)
         if application.applicationState == UIApplicationState.Inactive {
-            let dialogID: String! = userInfo["SA_STR_DIALOG_ID".localized] as? String
-            if (!dialogID.isEmpty) {
+            let dialogID: String? = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
+            if (!dialogID!.isEmpty && dialogID != nil) {
                 
                 let dialogWithIDWasEntered: String? = ServicesManager.instance().currentDialogID
                 if dialogWithIDWasEntered == dialogID {
                     return
                 }
                 ServicesManager.instance().notificationService?.pushDialogID = dialogID
-                ServicesManager.instance().notificationService?.handlePushNotificationWithDelegate(self as NotificationServiceDelegate)
+                ServicesManager.instance().notificationService?.handlePushNotificationWithDelegate(self)
             }
         }
     }

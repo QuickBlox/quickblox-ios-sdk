@@ -35,8 +35,8 @@ protocol NotificationServiceDelegate {
 }
 
 /**
- *  Service responsible for working with push notifications
- */
+*  Service responsible for working with push notifications
+*/
 class NotificationService {
     
     var delegate: NotificationServiceDelegate?
@@ -73,6 +73,6 @@ class NotificationService {
                     })
                 }
             }
-        })
+            })
     }
 }

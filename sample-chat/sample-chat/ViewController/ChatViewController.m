@@ -777,10 +777,10 @@ UIActionSheetDelegate
                                                                               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                           } else {
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                                                                              // Custom push sending (uncomment sendPushWithAttachment method and line below)
+//                                                                             [weakSelf sendPushWithAttachment];
                                                                           }
                                                                           weakSelf.isSendingAttachment = NO;
-                                                                          // Custom push sending (uncomment sendPushWithAttachment method and line below)
-//                                                                          [weakSelf sendPushWithAttachment];
                                                                       });
                                                                   }];
     });
