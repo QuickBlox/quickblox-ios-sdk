@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "QBCEntity.h"
-#import "QBMessagesEnums.h"
+#import "QBPushNotificationsEnums.h"
 
 /** QBMEvent class declaration. */
 /** Overview */

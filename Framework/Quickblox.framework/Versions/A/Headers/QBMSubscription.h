@@ -6,7 +6,7 @@
 //
 #import "QBCEntity.h"
 #import "QBMSubscription.h"
-#import "QBMessagesEnums.h"
+#import "QBPushNotificationsEnums.h"
 
 /** QBMSubscription class declaration. */
 /** Overview */

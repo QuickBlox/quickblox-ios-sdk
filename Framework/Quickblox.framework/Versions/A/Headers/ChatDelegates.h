@@ -172,7 +172,7 @@
  *  @param users    Array of joined users.
  *  @param dialogID QBChatDialog identifier.
  */
-- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users dialogID:(NSString *)dialogID;
+- (void)chatRoomDidReceiveListOfOnlineUsers:(NSArray *)users dialogID:(NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'setOnReceiveListOfOnlineUsers:' block instead.")));;
 
 #pragma mark -
 #pragma mark Privacy
