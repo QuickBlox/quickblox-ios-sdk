@@ -58,7 +58,7 @@
 		8622B9051B821469001241E6 /* QMTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8622B8E31B821469001241E6 /* QMTypingIndicatorFooterView.m */; };
 		8622B9061B821469001241E6 /* QMTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8622B8E41B821469001241E6 /* QMTypingIndicatorFooterView.xib */; };
 		86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86401C0C1B428CEA00D45A05 /* MessageStatusStringBuilder.m */; };
-		86872E831BAF55A300BE9F23 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 86872E821BAF55A300BE9F23 /* NotificationService.m */; settings = {ASSET_TAGS = (); }; };
+		86872E831BAF55A300BE9F23 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 86872E821BAF55A300BE9F23 /* NotificationService.m */; };
 		86A716641B9EF0440019C42A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86A716621B9EF0440019C42A /* LaunchScreen.xib */; };
 		86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 86A716651B9EF0820019C42A /* InfoPlist.strings */; };
 		86A7166A1B9EF3D50019C42A /* QMChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86A716681B9EF3D50019C42A /* QMChatViewController.xib */; };

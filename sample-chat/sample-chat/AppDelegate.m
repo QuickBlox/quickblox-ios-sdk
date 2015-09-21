@@ -32,7 +32,7 @@
     
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
-        ServicesManager.instance.notificationService.pushDialogID = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][kDialogIdentifierKey];
+        ServicesManager.instance.notificationService.pushDialogID = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][kPushNotificationDialogIdentifierKey];
     }
     
     return YES;
@@ -65,7 +65,7 @@
 {
     if ([application applicationState] == UIApplicationStateInactive)
     {
-        NSString *dialogID = userInfo[kDialogIdentifierKey];
+        NSString *dialogID = userInfo[kPushNotificationDialogIdentifierKey];
         if (dialogID != nil) {
             NSString *dialogWithIDWasEntered = [ServicesManager instance].currentDialogID;
             if ([dialogWithIDWasEntered isEqualToString:dialogID]) return;

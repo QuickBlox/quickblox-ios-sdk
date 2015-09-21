@@ -286,13 +286,11 @@ UIActionSheetDelegate
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
     
     // Custom push sending (uncomment sendPushWithText method and line below)
-    //[self sendPushWithText:text];
+//    [self sendPushWithText:text];
     
     [self finishSendingMessageAnimated:YES];
     
 }
-
-#pragma mark - Custom push notifications
 
 /**
  *  If you want to send custom push notifications.
@@ -301,38 +299,49 @@ UIActionSheetDelegate
  *  (you can change settings in admin panel -> Chat -> Alert)
  */
 
+//#pragma mark - Custom push notifications
+//
 //- (void)sendPushWithText: (NSString*)text {
-//    NSArray *occupantsWithoutCurrentUser = [self removeCurrentUserFromOccupants:self.dialog.occupantIDs];
 //    NSString *pushMessage = [[[[self senderDisplayName] stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
-//    NSString *users = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
-//    
-//    [QBRequest sendPushWithText:pushMessage toUsers:users successBlock:^(QBResponse *response, NSArray *events) {
-//        //
-//    } errorBlock:^(QBError *error) {
-//        //
-//    }];
+//    [self createEventWithMessage:pushMessage];
 //}
 //
 //- (void)sendPushWithAttachment {
-//    NSArray *occupantsWithoutCurrentUser = [self removeCurrentUserFromOccupants:self.dialog.occupantIDs];
 //    NSString *pushMessage = [[[self senderDisplayName] stringByAppendingString:@" sent attachment."] mutableCopy];
-//    NSString *users = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
-//    
-//    [QBRequest sendPushWithText:pushMessage toUsers:users successBlock:^(QBResponse *response, NSArray *events) {
-//        //
-//    } errorBlock:^(QBError *error) {
-//        //
-//    }];
+//    [self createEventWithMessage:pushMessage];
 //}
 //
-//- (NSArray *)removeCurrentUserFromOccupants: (NSArray *)occupantIDs {
+//- (void)createEventWithMessage: (NSString *)message {
+//    // removing current user from occupantIDs
 //    NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
-//    for (NSNumber *identifier in occupantIDs) {
+//    for (NSNumber *identifier in self.dialog.occupantIDs) {
 //        if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
 //            [occupantsWithoutCurrentUser addObject:identifier];
 //        }
 //    }
-//    return [occupantsWithoutCurrentUser copy];
+//    
+//    // Sending push with event
+//    QBMEvent *event = [QBMEvent event];
+//    event.notificationType = QBMNotificationTypePush;
+//    event.usersIDs = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
+//    event.type = QBMEventTypeOneShot;
+//    //
+//    // custom params
+//    NSDictionary  *dictPush = @{kPushNotificationDialogMessageKey : message,
+//                                kPushNotificationDialogIdentifierKey : self.dialog.ID
+//                                };
+//    //
+//    NSError *error = nil;
+//    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
+//    NSString *jsonString = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
+//    //
+//    event.message = jsonString;
+//    
+//    [QBRequest createEvent:event successBlock:^(QBResponse *response, NSArray *events) {
+//        //
+//    } errorBlock:^(QBResponse *response) {
+//        //
+//    }];
 //}
 
 #pragma mark - Cell classes
@@ -771,7 +780,7 @@ UIActionSheetDelegate
                                                                           }
                                                                           weakSelf.isSendingAttachment = NO;
                                                                           // Custom push sending (uncomment sendPushWithAttachment method and line below)
-                                                                          //[weakSelf sendPushWithAttachment];
+//                                                                          [weakSelf sendPushWithAttachment];
                                                                       });
                                                                   }];
     });
