@@ -245,7 +245,7 @@
         <!--Dialogs View Controller-->
         <scene sceneID="MGy-Ks-vSk">
             <objects>
-                <tableViewController id="doC-Eh-LVP" customClass="DialogsViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="DialogsViewController" id="doC-Eh-LVP" customClass="DialogsViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="22" sectionFooterHeight="22" id="kp0-fC-v3N">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -420,7 +420,7 @@
         <!--Chat-->
         <scene sceneID="6XW-3T-EaS">
             <objects>
-                <viewController title="Chat" id="3e3-Lk-tKV" customClass="ChatViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatViewController" title="Chat" id="3e3-Lk-tKV" customClass="ChatViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HwU-aZ-a47"/>
                         <viewControllerLayoutGuide type="bottom" id="2kO-hk-7BI"/>
@@ -554,6 +554,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Mia-Tg-jSJ"/>
-        <segue reference="k6E-hp-7pJ"/>
+        <segue reference="zt6-Oe-FDk"/>
     </inferredMetricsTieBreakers>
 </document>

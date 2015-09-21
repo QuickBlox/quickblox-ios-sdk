@@ -17,6 +17,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
     
     private var contactListService : QMContactListService!
     var usersService : UsersService!
+    var notificationService: NotificationService!
     
     override init() {
         super.init()
@@ -28,6 +29,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
         QMContactListCache.setupDBWithStoreNamed("sample-cache-contacts")
         self.contactListService = QMContactListService(serviceManager: self, cacheDataSource: self)
         self.usersService = UsersService(contactListService: self.contactListService)
+        self.notificationService = NotificationService()
     }
     
     func handleNewMessage(message: QBChatMessage, dialogID: String) {

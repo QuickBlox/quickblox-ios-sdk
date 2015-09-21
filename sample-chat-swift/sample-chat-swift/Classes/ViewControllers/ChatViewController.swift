@@ -31,8 +31,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     var shouldHoldScrolOnCollectionView = false
     var popoverController : UIPopoverController?
     
-    var shouldUpdateMessagesAfterLogIn = false
-    
     lazy var imagePickerViewController : UIImagePickerController = {
             let imagePickerViewController = UIImagePickerController()
             imagePickerViewController.delegate = self
@@ -92,10 +90,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         weak var weakSelf = self
         
         self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
-    
-            if !QBChat.instance().isLoggedIn() {
-                weakSelf?.shouldUpdateMessagesAfterLogIn = true
-            }
             
         }
         
@@ -275,6 +269,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                         SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
                     } else {
                         SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                        // Custom push sending (uncomment sendPushWithAttachment method and line below)
+//                        weakSelf?.sendPushWithAttachment()
                     }
                 })
             })
@@ -290,8 +286,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         message.text = text;
         message.senderID = self.senderID
         message.markable = true
-
+        
         self.sendMessage(message)
+        
+//        // Custom push sending (uncomment sendPushWithText method and line below)
+//        self.sendPushWithText(text)
     }
     
     func sendMessage(message: QBChatMessage) {
@@ -307,6 +306,59 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         self.finishSendingMessageAnimated(true)
         
     }
+    
+    /**
+    *  If you want to send custom push notifications.
+    *  uncomment methods bellow.
+    *  By default push messages are disabled in admin panel.
+    *  (you can change settings in admin panel -> Chat -> Alert)
+    */
+    
+    // MARK: Custom push notifications
+    
+//    func sendPushWithText(text: String) {
+//        var pushMessage: String! = self.senderDisplayName + "LOL: " + text
+//        self.createEventWithMessage(pushMessage)
+//    }
+//    
+//    func sendPushWithAttachment() {
+//        var pushMessage: String! = self.senderDisplayName + " sent attachment."
+//        self.createEventWithMessage(pushMessage)
+//    }
+//    
+//    func createEventWithMessage(message: String!) {
+//        var users =  self.dialog!.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance().currentUser().ID} ) as! [Int]
+//        var usersString = users.map(
+//        {
+//            (number: Int) -> String in
+//            return String(number)
+//        })
+//        var occupantsWithoutCurrentUser: String! = ",".join(usersString)
+//        
+//        // Sending push with event
+//        var event: QBMEvent! = QBMEvent()
+//        event.notificationType = QBMNotificationTypePush
+//        event.usersIDs = occupantsWithoutCurrentUser
+//        event.type = QBMEventTypeOneShot
+//        //
+//        // custom params
+//        var dictPush: NSMutableDictionary = NSMutableDictionary()
+//        dictPush.setValue(message, forKey: "SA_STR_PUSH_NOTIFICATION_MESSAGE".localized)
+//        dictPush.setValue(self.dialog?.ID, forKey: "SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized)
+//        //
+//        var error: NSError?
+//        var sendData: NSData! = NSJSONSerialization.dataWithJSONObject(dictPush, options: NSJSONWritingOptions.PrettyPrinted, error: &error)
+//        var jsonString: NSString! = NSString(data: sendData, encoding: NSUTF8StringEncoding)
+//        //
+//        event.message = jsonString
+//        
+//        QBRequest.createEvent(event, successBlock: { (response: QBResponse!, events: [AnyObject]!) -> Void in
+//            //
+//            NSLog("create event successful")
+//            }) { (response: QBResponse!) -> Void in
+//            //
+//        }
+//    }
     
     // MARK: Helper
     
@@ -822,11 +874,5 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             self.unreadMessages = nil
         }
-        
-        if self.shouldUpdateMessagesAfterLogIn {
-            self.shouldUpdateMessagesAfterLogIn = false
-            self.updateMessages()
-        }
-        
     }
 }

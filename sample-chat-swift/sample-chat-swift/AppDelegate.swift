@@ -8,13 +8,13 @@
 
 import UIKit
 
-let kQBApplicationID:UInt = 92
-let kQBRegisterServiceKey = "wJHdOcQSxXQGWx5"
-let kQBRegisterServiceSecret = "BTFsj7Rtt27DAmT"
+let kQBApplicationID:UInt = 28563
+let kQBRegisterServiceKey = "SDybbcNkLXHaEff"
+let kQBRegisterServiceSecret = "c4dTGugdx7XAGeL"
 let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelegate {
 	
 	var window: UIWindow?
 	
@@ -31,9 +31,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
+        
+        // app was launched from push notification, handling it
+        let remoteNotification: NSDictionary! = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
+        if (remoteNotification != nil) {
+            ServicesManager.instance().notificationService?.pushDialogID = remoteNotification["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
+        }
 		
 		return true
 	}
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let deviceIdentifier: String = UIDevice.currentDevice().identifierForVendor.UUIDString
+        var subscription: QBMSubscription! = QBMSubscription()
+        
+        subscription.notificationChannel = QBMNotificationChannelAPNS
+        subscription.deviceUDID = deviceIdentifier
+        subscription.deviceToken = deviceToken
+        QBRequest.createSubscription(subscription, successBlock: { (response: QBResponse!, objects: [AnyObject]!) -> Void in
+            //
+            }) { (response: QBResponse!) -> Void in
+            //
+        }
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        NSLog("Push failed to register with error: %@", error)
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        NSLog("my push is: %@", userInfo)
+        if application.applicationState == UIApplicationState.Inactive {
+            let dialogID: String? = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
+            if (!dialogID!.isEmpty && dialogID != nil) {
+                
+                let dialogWithIDWasEntered: String? = ServicesManager.instance().currentDialogID
+                if dialogWithIDWasEntered == dialogID {
+                    return
+                }
+                ServicesManager.instance().notificationService?.pushDialogID = dialogID
+                ServicesManager.instance().notificationService?.handlePushNotificationWithDelegate(self)
+            }
+        }
+    }
 	
 	func applicationWillResignActive(application: UIApplication) {
 	}
@@ -59,6 +99,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		ServicesManager.instance().chatService?.logoutChat()
 	}
 	
-	
+    // MARK: NotificationServiceDelegate protocol
+    
+    func notificationServiceDidStartLoadingDialogFromServer() {
+    }
+    
+    func notificationServiceDidFinishLoadingDialogFromServer() {
+    }
+    
+    func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!) {
+        let navigatonController: UINavigationController! = self.window?.rootViewController as! UINavigationController
+        
+        let chatController: ChatViewController = UIStoryboard(name:"Main", bundle: nil).instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+        chatController.dialog = chatDialog
+        
+        let dialogWithIDWasEntered = ServicesManager.instance().currentDialogID
+        if !dialogWithIDWasEntered.isEmpty {
+            // some chat already opened, return to dialogs view controller first
+            navigatonController.popViewControllerAnimated(false);
+        }
+        
+        navigatonController.pushViewController(chatController, animated: false)
+    }
+    
+    func notificationServiceDidFailFetchingDialog() {
+    }
 }
 

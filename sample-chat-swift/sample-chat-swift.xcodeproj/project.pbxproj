@@ -63,6 +63,7 @@
 		2CC28D821B68D69E00737B80 /* QMChatAttachmentOutgoingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CC28D7E1B68D69E00737B80 /* QMChatAttachmentOutgoingCell.xib */; };
 		2CCAD5CE1B1F3328005F57B3 /* UsersListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCAD5CD1B1F3328005F57B3 /* UsersListTableViewController.swift */; };
 		2CEF78981B4581E20094E6BA /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF78971B4581E20094E6BA /* UIImage+fixOrientation.m */; };
+		58C1E2721BAFF1D0006DF84F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C1E2711BAFF1D0006DF84F /* NotificationService.swift */; };
 		684400CE32CC2D4D22A5AFD5 /* AlertViewWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684403034A069565608E044A /* AlertViewWithTextField.swift */; };
 		684400F787FBE39BBA9B52C8 /* ChatUsersInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440DDFBC8DF8C88DEE2898 /* ChatUsersInfoTableViewController.swift */; };
 		6844023A6DABFA72BD0EF343 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440AC65A0DF248480F2934 /* UserTableViewCell.swift */; };
@@ -188,6 +189,7 @@
 		2CCAD5CD1B1F3328005F57B3 /* UsersListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersListTableViewController.swift; sourceTree = "<group>"; };
 		2CEF78961B4581E20094E6BA /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
 		2CEF78971B4581E20094E6BA /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
+		58C1E2711BAFF1D0006DF84F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DialogsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6844013BAAEEEAE22EEAA322 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		684403034A069565608E044A /* AlertViewWithTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewWithTextField.swift; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 			children = (
 				2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */,
 				2C163E4D1B58F38D003AC718 /* UsersService.swift */,
+				58C1E2711BAFF1D0006DF84F /* NotificationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -822,6 +825,7 @@
 				92B02D141B4C374400752D18 /* DialogTableViewCell.swift in Sources */,
 				684403AB8D5D258A114BD3AB /* LoginTableViewController.swift in Sources */,
 				2CBAD96A1B3011700047941E /* QMChatNotificationCell.m in Sources */,
+				58C1E2721BAFF1D0006DF84F /* NotificationService.swift in Sources */,
 				68440B196D063839CDD277A4 /* ChatViewController.swift in Sources */,
 				684400F787FBE39BBA9B52C8 /* ChatUsersInfoTableViewController.swift in Sources */,
 				68440820F7DF260CB13FCEE0 /* DialogsViewController.swift in Sources */,
@@ -988,7 +992,7 @@
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6651e5e3-1f6f-473e-b306-925fc2adeca2";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1020,7 +1024,7 @@
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "086110e8-c354-47f8-9250-0403ac116fe8";
+				PROVISIONING_PROFILE = "6651e5e3-1f6f-473e-b306-925fc2adeca2";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1089,7 +1093,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "086110e8-c354-47f8-9250-0403ac116fe8";
+				PROVISIONING_PROFILE = "6651e5e3-1f6f-473e-b306-925fc2adeca2";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

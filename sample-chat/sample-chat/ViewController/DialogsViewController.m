@@ -33,6 +33,7 @@ QMChatConnectionDelegate
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    
 	[self.tableView reloadData];
 	__weak __typeof(self)weakSelf = self;
     
@@ -66,10 +67,27 @@ QMChatConnectionDelegate
 - (IBAction)logoutButtonPressed:(UIButton *)sender
 {
     [SVProgressHUD showWithStatus:@"Logging out..." maskType:SVProgressHUDMaskTypeClear];
-    [[QMServicesManager instance] logoutWithCompletion:^{
-        [self performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
-        [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
+    
+    dispatch_group_t logoutGroup = dispatch_group_create();
+    dispatch_group_enter(logoutGroup);
+    // unsubscribing from pushes
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    [QBRequest unregisterSubscriptionForUniqueDeviceIdentifier:deviceIdentifier successBlock:^(QBResponse *response) {
+        //
+        dispatch_group_leave(logoutGroup);
+    } errorBlock:^(QBError *error) {
+        //
+        dispatch_group_leave(logoutGroup);
     }];
+    
+    __weak typeof(self)weakSelf = self;
+    dispatch_group_notify(logoutGroup,dispatch_get_main_queue(),^{
+        // logging out
+        [[QMServicesManager instance] logoutWithCompletion:^{
+            [weakSelf performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
+        }];
+    });
 }
 
 - (void)loadDialogs

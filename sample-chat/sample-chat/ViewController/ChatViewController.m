@@ -49,7 +49,6 @@ UIActionSheetDelegate
 
 @property (nonatomic, strong) NSArray* unreadMessages;
 
-@property (nonatomic, assign) BOOL shouldUpdateMessagesAfterLogIn;
 @property (nonatomic, assign) BOOL isSendingAttachment;
 
 @end
@@ -153,15 +152,13 @@ UIActionSheetDelegate
     
     [[ServicesManager instance].chatService addDelegate:self];
     [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
-	
+    
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
         
         if ([[QBChat instance] isLoggedIn]) {
             [strongSelf refreshMessagesShowingProgress:NO];
-        } else {
-            strongSelf.shouldUpdateMessagesAfterLogIn = YES;
         }
 	}];
     
@@ -173,9 +170,7 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    if ([self.items count] > 0) {
-        [self refreshMessagesShowingProgress:NO];
-    } else {
+    if ([self.items count] == 0) {
         [self refreshMessagesShowingProgress:YES];
     }
 }
@@ -289,8 +284,65 @@ UIActionSheetDelegate
     
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
+    
+    // Custom push sending (uncomment sendPushWithText method and line below)
+//    [self sendPushWithText:text];
+    
     [self finishSendingMessageAnimated:YES];
+    
 }
+
+/**
+ *  If you want to send custom push notifications.
+ *  uncomment methods bellow.
+ *  By default push messages are disabled in admin panel.
+ *  (you can change settings in admin panel -> Chat -> Alert)
+ */
+
+//#pragma mark - Custom push notifications
+//
+//- (void)sendPushWithText: (NSString*)text {
+//    NSString *pushMessage = [[[[self senderDisplayName] stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
+//    [self createEventWithMessage:pushMessage];
+//}
+//
+//- (void)sendPushWithAttachment {
+//    NSString *pushMessage = [[[self senderDisplayName] stringByAppendingString:@" sent attachment."] mutableCopy];
+//    [self createEventWithMessage:pushMessage];
+//}
+//
+//- (void)createEventWithMessage: (NSString *)message {
+//    // removing current user from occupantIDs
+//    NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
+//    for (NSNumber *identifier in self.dialog.occupantIDs) {
+//        if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
+//            [occupantsWithoutCurrentUser addObject:identifier];
+//        }
+//    }
+//    
+//    // Sending push with event
+//    QBMEvent *event = [QBMEvent event];
+//    event.notificationType = QBMNotificationTypePush;
+//    event.usersIDs = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
+//    event.type = QBMEventTypeOneShot;
+//    //
+//    // custom params
+//    NSDictionary  *dictPush = @{kPushNotificationDialogMessageKey : message,
+//                                kPushNotificationDialogIdentifierKey : self.dialog.ID
+//                                };
+//    //
+//    NSError *error = nil;
+//    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
+//    NSString *jsonString = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
+//    //
+//    event.message = jsonString;
+//    
+//    [QBRequest createEvent:event successBlock:^(QBResponse *response, NSArray *events) {
+//        //
+//    } errorBlock:^(QBResponse *response) {
+//        //
+//    }];
+//}
 
 #pragma mark - Cell classes
 
@@ -640,12 +692,6 @@ UIActionSheetDelegate
     }
     
     self.unreadMessages = nil;
-    
-    if (self.shouldUpdateMessagesAfterLogIn) {
-        
-        self.shouldUpdateMessagesAfterLogIn = NO;
-        [self refreshMessagesShowingProgress:NO];
-    }
 }
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error
@@ -731,6 +777,8 @@ UIActionSheetDelegate
                                                                               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                           } else {
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                                                                              // Custom push sending (uncomment sendPushWithAttachment method and line below)
+//                                                                             [weakSelf sendPushWithAttachment];
                                                                           }
                                                                           weakSelf.isSendingAttachment = NO;
                                                                       });

@@ -141,16 +141,35 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
         
-        // Logouts from Quickblox, clears cache.
-        ServicesManager.instance().logoutWithCompletion { () -> Void in
-            
-            SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-            
-            NSNotificationCenter.defaultCenter().removeObserver(self)
-            ServicesManager.instance().chatService.removeDelegate(self)
-            self.navigationController?.popViewControllerAnimated(true)
+        let logoutGroup: dispatch_group_t = dispatch_group_create()
+        dispatch_group_enter(logoutGroup)
+        
+        var deviceIdentifier: String = UIDevice.currentDevice().identifierForVendor.UUIDString
+        QBRequest.unregisterSubscriptionForUniqueDeviceIdentifier(deviceIdentifier, successBlock: { (response: QBResponse!) -> Void in
+            //
+            NSLog("success unsub push")
+            dispatch_group_leave(logoutGroup)
+            }) { (error: QBError!) -> Void in
+                //
+                NSLog("push unsub failed")
+                dispatch_group_leave(logoutGroup)
         }
-    }
+        
+        dispatch_group_notify(logoutGroup, dispatch_get_main_queue()) {
+            [weak self] () -> Void in
+            // Logouts from Quickblox, clears cache.
+            if let strongSelf = self {
+                ServicesManager.instance().logoutWithCompletion { () -> Void in
+                    
+                    NSNotificationCenter.defaultCenter().removeObserver(strongSelf)
+                    ServicesManager.instance().chatService.removeDelegate(strongSelf)
+                    strongSelf.navigationController?.popViewControllerAnimated(true)
+                    
+                    SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                }
+            }
+        }
+}
     
     // MARK: - DataSource Action
     

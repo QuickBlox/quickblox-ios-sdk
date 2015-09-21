@@ -7,18 +7,21 @@
 //
 
 #import "AppDelegate.h"
-#import "DialogsViewController.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
 
-@implementation AppDelegate
+@interface AppDelegate () <NotificationServiceDelegate>
+
+@end
+
+@implementation AppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBApplication sharedApplication].applicationId = 92;
-    [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
-    [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
+    [QBApplication sharedApplication].applicationId = 28554;
+    [QBConnection registerServiceKey:@"XkOrrrXkxSayVF5"];
+    [QBConnection registerServiceSecret:@"HpExAAb6rzh9JUK"];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
     
     // Enables Quickblox REST API calls debug console output
@@ -26,10 +29,53 @@
     
     // Enables detailed XMPP logging in console output
     [QBSettings enableXMPPLogging];
-		
+    
+    // app was launched from push notification, handling it
+    if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
+        ServicesManager.instance.notificationService.pushDialogID = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][kPushNotificationDialogIdentifierKey];
+    }
+    
     return YES;
 }
-							
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    // subscribing for push notifications
+    QBMSubscription *subscription = [QBMSubscription subscription];
+    subscription.notificationChannel = QBMNotificationChannelAPNS;
+    subscription.deviceUDID = deviceIdentifier;
+    subscription.deviceToken = deviceToken;
+    
+    [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
+        //
+    } errorBlock:^(QBResponse *response) {
+        //
+    }];
+}
+
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    // failed to register push
+    NSLog(@"Push failed to register with error: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if ([application applicationState] == UIApplicationStateInactive)
+    {
+        NSString *dialogID = userInfo[kPushNotificationDialogIdentifierKey];
+        if (dialogID != nil) {
+            NSString *dialogWithIDWasEntered = [ServicesManager instance].currentDialogID;
+            if ([dialogWithIDWasEntered isEqualToString:dialogID]) return;
+            
+            ServicesManager.instance.notificationService.pushDialogID = dialogID;
+            [ServicesManager.instance.notificationService handlePushNotificationWithDelegate:self];
+        }
+    }
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -63,6 +109,23 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - NotificationServiceDelegate protocol
+
+- (void)notificationServiceDidSucceedFetchingDialog:(QBChatDialog *)chatDialog {
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    
+    ChatViewController *chatController = (ChatViewController *)[[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ChatViewController"];
+    chatController.dialog = chatDialog;
+    
+    NSString *dialogWithIDWasEntered = [ServicesManager instance].currentDialogID;
+    if (dialogWithIDWasEntered != nil) {
+        // some chat already opened, return to dialogs view controller first
+        [navigationController popViewControllerAnimated:NO];
+    }
+    
+    [navigationController pushViewController:chatController animated:NO];
 }
 
 @end
