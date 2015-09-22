@@ -1,14 +1,48 @@
 PODS:
+  - QMChatViewController (0.1):
+    - QMChatViewController/Categories (= 0.1)
+    - QMChatViewController/KeyboardViewController (= 0.1)
+    - QMChatViewController/Protocols (= 0.1)
+    - QMChatViewController/Views (= 0.1)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Categories (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/KeyboardViewController (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Protocols (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Views (0.1):
+    - QMChatViewController/Categories
+    - QMChatViewController/Protocols
+    - TTTAttributedLabel (~> 1.13)
+  - QMServices (0.2)
   - SVProgressHUD (1.1.3)
   - TTTAttributedLabel (1.13.4)
   - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
+  - QMChatViewController (from `../QMChatViewControllerDevelopment.podspec`)
+  - QMServices (from `../QMServicesDevelopment.podspec`)
   - SVProgressHUD
-  - TTTAttributedLabel (~> 1.13.3)
   - TWMessageBarManager (~> 1.7.2)
 
+EXTERNAL SOURCES:
+  QMChatViewController:
+    :podspec: ../QMChatViewControllerDevelopment.podspec
+  QMServices:
+    :podspec: ../QMServicesDevelopment.podspec
+
+CHECKOUT OPTIONS:
+  QMChatViewController:
+    :commit: 7137e348d6d6746498b9702ca6e96ffe8de3993a
+    :git: https://github.com/QuickBlox/QMChatViewController-ios.git
+  QMServices:
+    :commit: 51595f57b13b0ab6ec6793ea97c41d1f444a6927
+    :git: https://github.com/QuickBlox/q-municate-services-ios.git
+
 SPEC CHECKSUMS:
+  QMChatViewController: 3fc6dfb17551cb15717dee862d4a93300873315a
+  QMServices: 181d36029021b65881d6e9878680eb4db5b7baa2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662

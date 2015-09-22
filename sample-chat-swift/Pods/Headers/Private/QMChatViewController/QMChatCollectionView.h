@@ -1,0 +1,1 @@
+../../../QMChatViewController/QMChatViewController/Views/CollectionView/QMChatCollectionView.h
