@@ -1,0 +1,1 @@
+../../../QMChatViewController/QMChatViewController/Views/ReusableViews/TypingIndicatorFooterView/QMTypingIndicatorFooterView.h

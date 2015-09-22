@@ -8,8 +8,8 @@
 
 #import "ChatViewController.h"
 #import "DialogInfoTableViewController.h"
-#import "UIImage+QM.h"
-#import "UIColor+QM.h"
+#import <QMChatViewController/UIImage+QM.h>
+#import <QMChatViewController/UIColor+QM.h>
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "ServicesManager.h"
 
@@ -17,13 +17,13 @@
 #import "DialogsViewController.h"
 #import "MessageStatusStringBuilder.h"
 
-#import "QMChatAttachmentIncomingCell.h"
-#import "QMChatAttachmentOutgoingCell.h"
-#import "QMChatAttachmentCell.h"
+#import <QMChatViewController/QMChatAttachmentIncomingCell.h>
+#import <QMChatViewController/QMChatAttachmentOutgoingCell.h>
+#import <QMChatViewController/QMChatAttachmentCell.h>
 
 #import "UIImage+fixOrientation.h"
 
-#import "QMCollectionViewFlowLayoutInvalidationContext.h"
+#import <QMCollectionViewFlowLayoutInvalidationContext.h>
 
 static const NSUInteger widthPadding = 40.0f;
 

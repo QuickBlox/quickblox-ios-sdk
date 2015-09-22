@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment version="2048" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="25G-TP-dp0" customClass="QMChatNotificationCell">
+            <rect key="frame" x="0.0" y="0.0" width="317" height="51"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="317" height="51"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRY-Lm-qaj" customClass="QMChatContainerView">
+                        <rect key="frame" x="39" y="0.0" width="239" height="51"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAp-ve-ejs" userLabel="Message Container">
+                                <rect key="frame" x="4" y="4" width="231" height="43"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User 1 would like to chat with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N2F-nz-UcD" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="0.0" y="0.0" width="231" height="43"/>
+                                        <color key="backgroundColor" red="0.0" green="0.77721782169999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95686274510000002" green="0.79795612969999996" blue="0.18798932830000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="N2F-nz-UcD" secondAttribute="trailing" id="GZ9-ck-DeW"/>
+                                    <constraint firstItem="N2F-nz-UcD" firstAttribute="leading" secondItem="BAp-ve-ejs" secondAttribute="leading" id="R5a-u2-gtf"/>
+                                    <constraint firstItem="N2F-nz-UcD" firstAttribute="top" secondItem="BAp-ve-ejs" secondAttribute="top" id="Teb-g2-wuo"/>
+                                    <constraint firstAttribute="bottom" secondItem="N2F-nz-UcD" secondAttribute="bottom" id="pSX-nV-ta3"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BAp-ve-ejs" firstAttribute="leading" secondItem="gRY-Lm-qaj" secondAttribute="leading" constant="4" id="3nP-o9-Czm" userLabel="left"/>
+                            <constraint firstAttribute="width" constant="239" id="JOe-Lx-Yyr"/>
+                            <constraint firstItem="BAp-ve-ejs" firstAttribute="top" secondItem="gRY-Lm-qaj" secondAttribute="top" constant="4" id="Qap-Xw-uUp" userLabel="top"/>
+                            <constraint firstAttribute="trailing" secondItem="BAp-ve-ejs" secondAttribute="trailing" constant="4" id="d4k-hl-cKF" userLabel="right"/>
+                            <constraint firstAttribute="bottom" secondItem="BAp-ve-ejs" secondAttribute="bottom" constant="4" id="sBB-GW-xI6" userLabel="bottom"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                <color key="value" red="0.25201231060000001" green="0.25201231060000001" blue="0.25201231060000001" alpha="0.41999999999999998" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="gRY-Lm-qaj" secondAttribute="centerX" id="N6C-Pt-Rh4"/>
+                <constraint firstAttribute="bottom" secondItem="gRY-Lm-qaj" secondAttribute="bottom" id="RMz-4e-81j"/>
+                <constraint firstItem="gRY-Lm-qaj" firstAttribute="top" secondItem="25G-TP-dp0" secondAttribute="top" id="UpY-2m-PRB"/>
+            </constraints>
+            <size key="customSize" width="252" height="51"/>
+            <connections>
+                <outlet property="containerView" destination="gRY-Lm-qaj" id="aic-o6-pcO"/>
+                <outlet property="containerWidthConstraint" destination="JOe-Lx-Yyr" id="xSv-kJ-1eB"/>
+                <outlet property="messageContainer" destination="BAp-ve-ejs" id="FWo-mZ-nPR"/>
+                <outlet property="messageContainerBottomInsetConstraint" destination="sBB-GW-xI6" id="OnV-Oj-HCw"/>
+                <outlet property="messageContainerLeftInsetConstraint" destination="3nP-o9-Czm" id="8NY-46-adB"/>
+                <outlet property="messageContainerRightInsetConstraint" destination="d4k-hl-cKF" id="bIY-4v-Tul"/>
+                <outlet property="messageContainerTopInsetConstraint" destination="Qap-Xw-uUp" id="quL-8X-N2d"/>
+                <outlet property="textView" destination="N2F-nz-UcD" id="JNq-xB-ce8"/>
+            </connections>
+            <point key="canvasLocation" x="-396.5" y="28.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

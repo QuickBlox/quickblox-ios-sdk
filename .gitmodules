@@ -1,6 +1,0 @@
-[submodule "services/QMServices"]
-	path = services/QMServices
-	url = git@github.com:QuickBlox/q-municate-services-ios.git
-[submodule "QMChatViewController"]
-	path = QMChatViewController
-	url = git@github.com:QuickBlox/QMChatViewController-ios.git
