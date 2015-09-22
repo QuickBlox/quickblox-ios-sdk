@@ -2,5 +2,5 @@ platform :ios, '7.0'
 
 pod 'SVProgressHUD', '1.1.3'
 pod 'TWMessageBarManager', '1.7.2'
-pod 'QMChatViewController', :podspec => 'https://raw.githubusercontent.com/QuickBlox/QMChatViewController-ios/development/QMChatViewControllerDevelopment.podspec'
-pod 'QMServices', :podspec => 'https://raw.githubusercontent.com/QuickBlox/q-municate-services-ios/feature/QBIOSSDK-418/QMServicesDevelopment.podspec'
+pod 'QMChatViewController', :podspec => '../QMChatViewControllerDevelopment.podspec'
+pod 'QMServices', :podspec => '../QMServicesDevelopment.podspec'
