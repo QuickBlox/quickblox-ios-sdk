@@ -253,6 +253,11 @@ UIActionSheetDelegate
         if (![[QBChat instance] readMessage:message]) {
             NSLog(@"Problems while marking message as read!");
         }
+        else {
+            if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
+                [UIApplication sharedApplication].applicationIconBadgeNumber--;
+            }
+        }
     }
 }
 
