@@ -170,7 +170,10 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    if ([self.items count] == 0) {
+    if ([self.items count] > 0) {
+        [self refreshMessagesShowingProgress:NO];
+    }
+    else {
         [self refreshMessagesShowingProgress:YES];
     }
 }
