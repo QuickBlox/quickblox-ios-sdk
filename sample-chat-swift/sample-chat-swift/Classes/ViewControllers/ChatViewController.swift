@@ -170,10 +170,29 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     }
     
     func updateMessages() {
+        // joining group dialog if needed
+        if (self.dialog?.type != QBChatDialogType.Private && self.dialog?.isJoined() == false && QBChat.instance().isLoggedIn()) {
+            // in order to join/rejoin group dialog it must be up to date with the server one
+            ServicesManager.instance().chatService?.loadDialogWithID(self.dialog?.ID, completion: { (loadedDialog: QBChatDialog!) -> Void in
+                //
+                if loadedDialog != nil {
+                    ServicesManager.instance().chatService?.joinToGroupDialog(loadedDialog, failed: { (error: NSError!) -> Void in
+                        //
+                        NSLog("Failed to join group dialog with error: %@", error.localizedDescription);
+                    })
+                }
+                else {
+                    self.navigationController?.popViewControllerAnimated(false)
+                }
+            })
+        }
         
         var isProgressHUDShowed = false
         
-        if self.items.count == 0 {
+        if self.items.count > 0 {
+            isProgressHUDShowed = false
+        }
+        else {
             isProgressHUDShowed = true
             SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
         }
@@ -865,6 +884,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     // MARK : QMChatConnectionDelegate
     
     func chatServiceChatDidLogin() {
+        
+        if self.dialog?.type != QBChatDialogType.Private {
+            self.updateMessages()
+        }
         
         if let unreadMessages = self.unreadMessages {
             
