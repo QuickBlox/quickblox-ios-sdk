@@ -1,0 +1,7 @@
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#endif
+
+#import <Quickblox/Quickblox.h>
+#import <CoreData/CoreData.h>
+#import <Quickblox/QBMulticastDelegate.h>

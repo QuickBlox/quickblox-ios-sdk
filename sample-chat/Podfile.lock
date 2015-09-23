@@ -1,25 +1,50 @@
 PODS:
+  - QMChatViewController (0.1):
+    - QMChatViewController/Categories (= 0.1)
+    - QMChatViewController/KeyboardViewController (= 0.1)
+    - QMChatViewController/Protocols (= 0.1)
+    - QMChatViewController/Views (= 0.1)
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Categories (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/KeyboardViewController (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Protocols (0.1):
+    - TTTAttributedLabel (~> 1.13)
+  - QMChatViewController/Views (0.1):
+    - QMChatViewController/Categories
+    - QMChatViewController/Protocols
+    - TTTAttributedLabel (~> 1.13)
+  - QMServices (0.2)
   - SVProgressHUD (1.1.3)
-  - TTTAttributedLabel (2.0.0)
+  - TTTAttributedLabel (1.13.4)
   - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
+  - QMChatViewController (from `../QMChatViewControllerDevelopment.podspec`)
+  - QMServices (from `../QMServicesDevelopment.podspec`)
   - SVProgressHUD (= 1.1.3)
-  - TTTAttributedLabel (from `https://github.com/TTTAttributedLabel/TTTAttributedLabel.git`)
   - TWMessageBarManager (= 1.7.2)
 
 EXTERNAL SOURCES:
-  TTTAttributedLabel:
-    :git: https://github.com/TTTAttributedLabel/TTTAttributedLabel.git
+  QMChatViewController:
+    :podspec: ../QMChatViewControllerDevelopment.podspec
+  QMServices:
+    :podspec: ../QMServicesDevelopment.podspec
 
 CHECKOUT OPTIONS:
-  TTTAttributedLabel:
-    :commit: 13d2d877707032dc4d4b888bb3832bac822bf9b0
-    :git: https://github.com/TTTAttributedLabel/TTTAttributedLabel.git
+  QMChatViewController:
+    :commit: 14cb7e918d41140603a385bf800836c4cd54c89f
+    :git: https://github.com/QuickBlox/QMChatViewController-ios.git
+  QMServices:
+    :commit: 51595f57b13b0ab6ec6793ea97c41d1f444a6927
+    :git: https://github.com/QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
+  QMChatViewController: 3fc6dfb17551cb15717dee862d4a93300873315a
+  QMServices: 181d36029021b65881d6e9878680eb4db5b7baa2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
-  TTTAttributedLabel: 92aaa37822677380b7ec0baff50bd8010eef08f8
+  TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
 COCOAPODS: 0.38.2
