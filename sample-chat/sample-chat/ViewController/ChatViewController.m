@@ -170,8 +170,19 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    if ([self.items count] == 0) {
+    if ([self.items count] > 0) {
+        [self refreshMessagesShowingProgress:NO];
+    }
+    else {
         [self refreshMessagesShowingProgress:YES];
+    }
+    
+    // joining group dialog if needed
+    if (self.dialog.type != QBChatDialogTypePrivate && [QBChat instance].isLoggedIn) {
+        [[ServicesManager instance].chatService joinToGroupDialog:self.dialog failed:^(NSError *error) {
+            //
+            NSLog(@"Failed to join group dialog with error: %@", error.localizedDescription);
+        }];
     }
 }
 
@@ -685,6 +696,10 @@ UIActionSheetDelegate
 
 - (void)chatServiceChatDidLogin
 {
+    if (self.dialog.type != QBChatDialogTypePrivate) {
+        [self refreshMessagesShowingProgress:NO];
+    }
+    
     [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
     
     for (QBChatMessage* message in self.unreadMessages) {
