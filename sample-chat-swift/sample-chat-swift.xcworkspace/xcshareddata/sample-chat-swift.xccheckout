@@ -12,6 +12,10 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>https://github.com/QuickBlox/quickblox-ios-sdk.git</string>
+		<key>7685896580551A65BF391139D591B99B273195F4</key>
+		<string>github.com:QuickBlox/QMChatViewController-ios.git</string>
+		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
+		<string>github.com:QuickBlox/q-municate-services-ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>sample-chat-swift/sample-chat-swift.xcworkspace</string>
@@ -19,6 +23,10 @@
 	<dict>
 		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
 		<string>../..</string>
+		<key>7685896580551A65BF391139D591B99B273195F4</key>
+		<string>../../../QBSamples/QMChatViewController</string>
+		<key>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</key>
+		<string>../../../QBSamples/services/QMServices</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/QuickBlox/quickblox-ios-sdk.git</string>
@@ -28,6 +36,22 @@
 	<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7685896580551A65BF391139D591B99B273195F4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>QMChatViewController</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D160C3FE7B115E6635EB21EBE93000EBA4B81BC8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>QMServices</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
