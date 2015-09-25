@@ -11,6 +11,15 @@ extern NSString *const kPresenseSubscriptionStateTo;
 extern NSString *const kPresenseSubscriptionStateFrom;
 extern NSString *const kPresenseSubscriptionStateBoth;
 
+extern NSString* const QBChatDialogJoinPrefix;
+extern NSString* const QBChatDialogLeavePrefix;
+extern NSString* const QBChatDialogOnlineUsersPrefix;
+extern NSString* const QBChatDialogOnJoinFailedPrefix;
+extern NSString* const QBChatDialogIsTypingPrefix;
+extern NSString* const QBChatDialogStopTypingPrefix;
+extern NSString* const QBChatDialogOccupantDidJoinPrefix;
+extern NSString* const QBChatDialogOccupantDidLeavePrefix;
+extern NSString* const QBChatDialogOccupantDidUpdatePrefix;
 
 #define discoItems @"http://jabber.org/protocol/disco#items"
 #define discoInfo @"http://jabber.org/protocol/disco#info"
