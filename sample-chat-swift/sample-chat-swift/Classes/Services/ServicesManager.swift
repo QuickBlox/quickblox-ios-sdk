@@ -42,7 +42,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
             return
         }
         
-        var dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
+        let dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
         var dialogName = "New message"
         
         if dialog.type != QBChatDialogType.Private {

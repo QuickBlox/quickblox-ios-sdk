@@ -35,7 +35,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
         
         if let dialog = self.dialog  {
             
-            filteredUsers = filteredUsers.filter({contains(self.dialog!.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+            filteredUsers = filteredUsers.filter({(self.dialog!.occupantIDs as! [UInt]).contains(($0 as QBUUser).ID)})
         }
         
         super.setupUsers(filteredUsers)

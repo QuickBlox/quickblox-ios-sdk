@@ -95,7 +95,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         weak var weakSelf = self
         
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
             if !QBChat.instance().isLoggedIn() {
                 SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
@@ -144,7 +144,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         let logoutGroup: dispatch_group_t = dispatch_group_create()
         dispatch_group_enter(logoutGroup)
         
-        var deviceIdentifier: String = UIDevice.currentDevice().identifierForVendor.UUIDString
+        let deviceIdentifier: String = UIDevice.currentDevice().identifierForVendor!.UUIDString
         QBRequest.unregisterSubscriptionForUniqueDeviceIdentifier(deviceIdentifier, successBlock: { (response: QBResponse!) -> Void in
             //
             NSLog("success unsub push")
@@ -192,7 +192,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_DIALOGS".localized)
                 
                 if response != nil {
-                    println(response.error.error)
+                    print(response.error.error)
                 }
             }
             else {
@@ -299,7 +299,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
             
             let dialog = DialogsViewController.dialogs()[indexPath.row]
             
-            let alert = AlertView(title:"SA_STR_WARNING".localized , message:"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG".localized , cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitle: ["SA_STR_DELETE".localized], didClick: { [weak self] (buttonIndex) -> Void in
+            _ = AlertView(title:"SA_STR_WARNING".localized , message:"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG".localized , cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitle: ["SA_STR_DELETE".localized], didClick:{ (buttonIndex) -> Void in
                 
                 if buttonIndex != 1 {
                     return
@@ -319,7 +319,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                         } else {
                             
                             SVProgressHUD.showErrorWithStatus("SA_STR_ERROR_DELETING".localized)
-                            println(response.error.error)
+                            print(response.error.error)
                         }
                     })
                 }
@@ -330,7 +330,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                     
                 } else {
                     
-                    var occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance().currentUser().ID} )
+                    let occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance().currentUser().ID} )
                     
                     dialog.occupantIDs = occupantIDs
                     
@@ -344,7 +344,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         }
     }
     
-    override func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String! {
+    override func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
         return "SA_STR_DELETE".localized
     }
     

@@ -44,7 +44,7 @@ class UsersService: NSObject {
         
         if (memoryUsers != nil && memoryUsers.count > 0) {
             
-            var sortedUsers = memoryUsers.sorted({ (user1, user2) -> Bool in
+            let sortedUsers = memoryUsers.sort({ (user1, user2) -> Bool in
                 return (user1.login as NSString).compare(user2.login, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
             }) as! [QBUUser]
             
@@ -57,7 +57,7 @@ class UsersService: NSObject {
         
         QMContactListCache.instance().usersSortedBy("login", ascending: true) { (users: [AnyObject]!) -> Void in
             
-            var sortedUsers = users.sorted({ (user1, user2) -> Bool in
+            let sortedUsers = users.sort({ (user1, user2) -> Bool in
                 return (user1.login as NSString).compare(user2.login, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
             }) as! [QBUUser]
             
@@ -75,7 +75,7 @@ class UsersService: NSObject {
         
         QBRequest.usersWithTags([enviroment], successBlock: { (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
             
-            var sortedUsers = users.sorted({ (user1, user2) -> Bool in
+            let sortedUsers = users.sort({ (user1, user2) -> Bool in
                 return (user1.login as NSString).compare(user2.login, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
             }) as! [QBUUser]
 
@@ -108,7 +108,7 @@ class UsersService: NSObject {
     
     func color(forUser user:QBUUser) -> UIColor {
         
-        let userIndex = find(self.users()!, self.user(user.ID)!)
+        let userIndex = (self.users()!).indexOf(self.user(user.ID)!)
         
         if userIndex < self.colors.count {
             return self.colors[userIndex!]
