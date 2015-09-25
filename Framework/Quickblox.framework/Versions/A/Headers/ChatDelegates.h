@@ -145,29 +145,37 @@
 /**
  *  Called when user joined dialog.
  *
+ *  @warning Deprecated in 2.4. Use QBChatDialog 'onJoinOccupant' block instead.
+ *
  *  @param userId   User's ID.
  *  @param dialogID QBChatDialog identifier.
  */
-- (void)chatRoomOccupantDidJoin:(NSUInteger)userId dialogID:(NSString *)dialogID;
+- (void)chatRoomOccupantDidJoin:(NSUInteger)userId dialogID:(NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'onJoinOccupant' block instead.")));
 
 /**
  *  Called when user left dialog.
  *
- *  @param userId   User's ID.
- *  @param dialogID QBChatDialog identifier.
- */
-- (void)chatRoomOccupantDidLeave:(NSUInteger)userId dialogID:(NSString *)dialogID;
-
-/**
- *  Called when user was updated in dialog.
+ *  @warning Deprecated in 2.4. Use QBChatDialog 'onLeaveOccupant' block instead.
  *
  *  @param userId   User's ID.
  *  @param dialogID QBChatDialog identifier.
  */
-- (void)chatRoomOccupantDidUpdate:(NSUInteger)userId dialogID:(NSString *)dialogID;
+- (void)chatRoomOccupantDidLeave:(NSUInteger)userId dialogID:(NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'onLeaveOccupant' block instead.")));
+
+/**
+ *  Called when user was updated in dialog.
+ *
+ *  @warning Deprecated in 2.4. Use QBChatDialog 'onUpdateOccupant' block instead.
+ *
+ *  @param userId   User's ID.
+ *  @param dialogID QBChatDialog identifier.
+ */
+- (void)chatRoomOccupantDidUpdate:(NSUInteger)userId dialogID:(NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'onUpdateOccupant' block instead.")));
 
 /**
  *  Called in case of receiving list of online users in dialog.
+ *
+ *  @warning Deprecated in 2.4. Use QBChatDialog 'setOnReceiveListOfOnlineUsers:' block instead.
  *
  *  @param users    Array of joined users.
  *  @param dialogID QBChatDialog identifier.

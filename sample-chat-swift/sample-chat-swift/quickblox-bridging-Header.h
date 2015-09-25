@@ -13,9 +13,9 @@
 @import Foundation;
 @import SystemConfiguration;
 @import MobileCoreServices;
+@import Quickblox;
 
 
-#import <Quickblox/Quickblox.h>
 #import <QMServices.h>
 #import <SVProgressHUD.h>
 #import "UIAlertDialog.h"
