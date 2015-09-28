@@ -51,7 +51,7 @@ class UsersListTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let users = self.users {
+        if let _ = self.users {
             
             return self.users!.count
             
