@@ -254,61 +254,61 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3426031DA929A635F0F6E8F5FC1221E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6394834C32C660A036A4C034F952F0E3;
-			remoteInfo = TWMessageBarManager;
-		};
-		476393CD1763E563E22486D3829EF48A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BD16F54DE4D73BD8165EE77F2E36BECE;
-			remoteInfo = TTTAttributedLabel;
-		};
-		5C156996C0B8DB48AB52C412C111E5C7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B743162FCF3884EE98CC50CE7E5A2735;
-			remoteInfo = QMChatViewController;
-		};
-		8DB106C49C92E8D5EC6CB737BCC8FCD2 /* PBXContainerItemProxy */ = {
+		15750AA5FA6ACE1C981265D5ADD0BB83 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3784782F80160B3F2C6B4DFB03B40263;
 			remoteInfo = "QMServices-QMChatCacheModel";
 		};
-		ADDE2D8CB009114B69275E3955AED317 /* PBXContainerItemProxy */ = {
+		1D0B23E2E8B5192BA85E4D1516C03BDA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B85F129A617B071220F3CAA2B5E9CB37;
 			remoteInfo = SVProgressHUD;
 		};
-		B0B58A05645D9FDC24B8FC6C66B7F1B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B4571320D54262F3EF63D2B5E14736EA;
-			remoteInfo = "QMServices-QMContactListCacheModel";
-		};
-		D6ABC401721A7059EC1CAB0598AB1460 /* PBXContainerItemProxy */ = {
+		21DA3A3EBB958B6175675C51C4C164F8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BD16F54DE4D73BD8165EE77F2E36BECE;
 			remoteInfo = TTTAttributedLabel;
 		};
-		E63F0C590BEE3512090AE8E279CBB0D4 /* PBXContainerItemProxy */ = {
+		4ABDA62E2EFD19921221A800AC1A4673 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6394834C32C660A036A4C034F952F0E3;
+			remoteInfo = TWMessageBarManager;
+		};
+		6E1654555DC23713D306734C975CACDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B743162FCF3884EE98CC50CE7E5A2735;
+			remoteInfo = QMChatViewController;
+		};
+		7BAF27BB407F8AF343E70D3F8A3B0D9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD16F54DE4D73BD8165EE77F2E36BECE;
+			remoteInfo = TTTAttributedLabel;
+		};
+		81C59D1F341015BF315362A3CFE0F459 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = EF76CB52F01E2AFA63446114C9F5A7ED;
 			remoteInfo = QMServices;
+		};
+		BC2DAFE17F0F453BD777520602B8FD46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B4571320D54262F3EF63D2B5E14736EA;
+			remoteInfo = "QMServices-QMContactListCacheModel";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1336,11 +1336,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				C01A6DE98C076B8806D17B3E985C989F /* PBXTargetDependency */,
-				2732D3312FF06A01FBEE6646DA573EA2 /* PBXTargetDependency */,
-				7D5998C4862EFC4DD0F65051450D5348 /* PBXTargetDependency */,
-				0A2644E12463F2B09730CBA3AD0BE538 /* PBXTargetDependency */,
-				A00BBD51DE948C961DF7BE20C5FA8EE9 /* PBXTargetDependency */,
+				DD7D9517FCDA0BA53F32CEE12C457469 /* PBXTargetDependency */,
+				913D2257FAE0E8A8BBB199D90D03D1DE /* PBXTargetDependency */,
+				A8FB63E9EF620C5C153E8A8314610002 /* PBXTargetDependency */,
+				F2FC07DE9A520EC999B3945663074252 /* PBXTargetDependency */,
+				F3DE630C6EB493EBE3F2FFC7F6F00D0E /* PBXTargetDependency */,
 			);
 			name = Pods;
 			productName = Pods;
@@ -1409,7 +1409,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				44326EA39F40370F2E690AE5EC6F86FA /* PBXTargetDependency */,
+				FC460C294D4211B4ECB6741FECBA239D /* PBXTargetDependency */,
 			);
 			name = QMChatViewController;
 			productName = QMChatViewController;
@@ -1461,8 +1461,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				1F7BEFA937AEE63ADD4D152A44AE8F77 /* PBXTargetDependency */,
-				B1BE345D9AEA4CAB3F12217F0F419B6A /* PBXTargetDependency */,
+				CDE10E5DA5086FC449DD573599B61D53 /* PBXTargetDependency */,
+				8F5BC41EC4C947B509ABD461DDAAC259 /* PBXTargetDependency */,
 			);
 			name = QMServices;
 			productName = QMServices;
@@ -1685,53 +1685,53 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0A2644E12463F2B09730CBA3AD0BE538 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TTTAttributedLabel;
-			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
-			targetProxy = D6ABC401721A7059EC1CAB0598AB1460 /* PBXContainerItemProxy */;
-		};
-		1F7BEFA937AEE63ADD4D152A44AE8F77 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "QMServices-QMChatCacheModel";
-			target = 3784782F80160B3F2C6B4DFB03B40263 /* QMServices-QMChatCacheModel */;
-			targetProxy = 8DB106C49C92E8D5EC6CB737BCC8FCD2 /* PBXContainerItemProxy */;
-		};
-		2732D3312FF06A01FBEE6646DA573EA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = QMServices;
-			target = EF76CB52F01E2AFA63446114C9F5A7ED /* QMServices */;
-			targetProxy = E63F0C590BEE3512090AE8E279CBB0D4 /* PBXContainerItemProxy */;
-		};
-		44326EA39F40370F2E690AE5EC6F86FA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TTTAttributedLabel;
-			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
-			targetProxy = 476393CD1763E563E22486D3829EF48A /* PBXContainerItemProxy */;
-		};
-		7D5998C4862EFC4DD0F65051450D5348 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SVProgressHUD;
-			target = B85F129A617B071220F3CAA2B5E9CB37 /* SVProgressHUD */;
-			targetProxy = ADDE2D8CB009114B69275E3955AED317 /* PBXContainerItemProxy */;
-		};
-		A00BBD51DE948C961DF7BE20C5FA8EE9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TWMessageBarManager;
-			target = 6394834C32C660A036A4C034F952F0E3 /* TWMessageBarManager */;
-			targetProxy = 3426031DA929A635F0F6E8F5FC1221E4 /* PBXContainerItemProxy */;
-		};
-		B1BE345D9AEA4CAB3F12217F0F419B6A /* PBXTargetDependency */ = {
+		8F5BC41EC4C947B509ABD461DDAAC259 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "QMServices-QMContactListCacheModel";
 			target = B4571320D54262F3EF63D2B5E14736EA /* QMServices-QMContactListCacheModel */;
-			targetProxy = B0B58A05645D9FDC24B8FC6C66B7F1B1 /* PBXContainerItemProxy */;
+			targetProxy = BC2DAFE17F0F453BD777520602B8FD46 /* PBXContainerItemProxy */;
 		};
-		C01A6DE98C076B8806D17B3E985C989F /* PBXTargetDependency */ = {
+		913D2257FAE0E8A8BBB199D90D03D1DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QMServices;
+			target = EF76CB52F01E2AFA63446114C9F5A7ED /* QMServices */;
+			targetProxy = 81C59D1F341015BF315362A3CFE0F459 /* PBXContainerItemProxy */;
+		};
+		A8FB63E9EF620C5C153E8A8314610002 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVProgressHUD;
+			target = B85F129A617B071220F3CAA2B5E9CB37 /* SVProgressHUD */;
+			targetProxy = 1D0B23E2E8B5192BA85E4D1516C03BDA /* PBXContainerItemProxy */;
+		};
+		CDE10E5DA5086FC449DD573599B61D53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "QMServices-QMChatCacheModel";
+			target = 3784782F80160B3F2C6B4DFB03B40263 /* QMServices-QMChatCacheModel */;
+			targetProxy = 15750AA5FA6ACE1C981265D5ADD0BB83 /* PBXContainerItemProxy */;
+		};
+		DD7D9517FCDA0BA53F32CEE12C457469 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = QMChatViewController;
 			target = B743162FCF3884EE98CC50CE7E5A2735 /* QMChatViewController */;
-			targetProxy = 5C156996C0B8DB48AB52C412C111E5C7 /* PBXContainerItemProxy */;
+			targetProxy = 6E1654555DC23713D306734C975CACDD /* PBXContainerItemProxy */;
+		};
+		F2FC07DE9A520EC999B3945663074252 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TTTAttributedLabel;
+			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
+			targetProxy = 7BAF27BB407F8AF343E70D3F8A3B0D9F /* PBXContainerItemProxy */;
+		};
+		F3DE630C6EB493EBE3F2FFC7F6F00D0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TWMessageBarManager;
+			target = 6394834C32C660A036A4C034F952F0E3 /* TWMessageBarManager */;
+			targetProxy = 4ABDA62E2EFD19921221A800AC1A4673 /* PBXContainerItemProxy */;
+		};
+		FC460C294D4211B4ECB6741FECBA239D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TTTAttributedLabel;
+			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
+			targetProxy = 21DA3A3EBB958B6175675C51C4C164F8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -8,9 +8,9 @@
 
 import UIKit
 
-let kQBApplicationID:UInt = 28563
-let kQBRegisterServiceKey = "SDybbcNkLXHaEff"
-let kQBRegisterServiceSecret = "c4dTGugdx7XAGeL"
+let kQBApplicationID:UInt = 28784
+let kQBRegisterServiceKey = "QJtmmW2Z7tb-mJF"
+let kQBRegisterServiceSecret = "xuwgyRWcUhcwjCM"
 let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
 
 @UIApplicationMain
