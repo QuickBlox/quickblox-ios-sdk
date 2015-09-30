@@ -1,17 +1,17 @@
 PODS:
-  - QMChatViewController (0.1):
-    - QMChatViewController/Categories (= 0.1)
-    - QMChatViewController/KeyboardViewController (= 0.1)
-    - QMChatViewController/Protocols (= 0.1)
-    - QMChatViewController/Views (= 0.1)
+  - QMChatViewController (0.2.2):
+    - QMChatViewController/Categories (= 0.2.2)
+    - QMChatViewController/KeyboardViewController (= 0.2.2)
+    - QMChatViewController/Protocols (= 0.2.2)
+    - QMChatViewController/Views (= 0.2.2)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Categories (0.1):
+  - QMChatViewController/Categories (0.2.2):
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/KeyboardViewController (0.1):
+  - QMChatViewController/KeyboardViewController (0.2.2):
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Protocols (0.1):
+  - QMChatViewController/Protocols (0.2.2):
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Views (0.1):
+  - QMChatViewController/Views (0.2.2):
     - QMChatViewController/Categories
     - QMChatViewController/Protocols
     - TTTAttributedLabel (~> 1.13)
@@ -41,7 +41,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
-  QMChatViewController: 3fc6dfb17551cb15717dee862d4a93300873315a
+  QMChatViewController: b9da4a55c3b9341f507bee781d85ae6afa1ab6c7
   QMServices: 181d36029021b65881d6e9878680eb4db5b7baa2
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
