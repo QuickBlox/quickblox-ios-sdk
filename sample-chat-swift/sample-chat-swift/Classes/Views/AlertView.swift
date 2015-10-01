@@ -15,7 +15,7 @@ class AlertView: NSObject, UIAlertViewDelegate {
     var alert: UIAlertView
     
     /**
-    :param: cancelButtonTitle cancelButtonTitle has index 0
+    - parameter cancelButtonTitle: cancelButtonTitle has index 0
     */
     init(title: String?, message: String?, cancelButtonTitle: String?, otherButtonTitle:[String], didClick closure:(buttonIndex:Int) -> Void) {
         alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: cancelButtonTitle)
@@ -23,7 +23,7 @@ class AlertView: NSObject, UIAlertViewDelegate {
         alert.delegate = self
         
         //Add buttons from otherButtonTitle
-        for (index, title) in enumerate(otherButtonTitle) {
+        for (_, title) in otherButtonTitle.enumerate() {
             alert.addButtonWithTitle(title)
         }
         

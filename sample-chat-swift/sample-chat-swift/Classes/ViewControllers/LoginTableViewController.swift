@@ -58,8 +58,8 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     }
     
     func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!) {
-        var dialogsController: DialogsViewController! = self.storyboard?.instantiateViewControllerWithIdentifier("DialogsViewController") as! DialogsViewController
-        var chatController: ChatViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+        let dialogsController: DialogsViewController! = self.storyboard?.instantiateViewControllerWithIdentifier("DialogsViewController") as! DialogsViewController
+        let chatController: ChatViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
         chatController.dialog = chatDialog
 
         self.navigationController?.viewControllers = [dialogsController, chatController]
@@ -95,16 +95,14 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     // MARK: Remote notifications
     
     func registerForRemoteNotification() {
-        // Check to see if this is an iOS 8 device.
-        let iOS8 = floor(NSFoundationVersionNumber) > floor(NSFoundationVersionNumber_iOS_7_1)
-        if iOS8 {
-            // Register for push in iOS 8
-            let settings = UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, categories: nil)
+        // Register for push in iOS 8
+        if #available(iOS 8.0, *) {
+            let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound], categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(settings)
             UIApplication.sharedApplication().registerForRemoteNotifications()
         } else {
             // Register for push in iOS 7
-            UIApplication.sharedApplication().registerForRemoteNotificationTypes(UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound | UIRemoteNotificationType.Alert)
+            UIApplication.sharedApplication().registerForRemoteNotificationTypes([UIRemoteNotificationType.Badge, UIRemoteNotificationType.Sound, UIRemoteNotificationType.Alert])
         }
     }
     

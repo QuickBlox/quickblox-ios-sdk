@@ -18,7 +18,7 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate {
     
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
@@ -65,7 +65,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.items = NSMutableArray()
         
-        self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
+        self.collectionView?.typingIndicatorMessageBubbleColor = UIColor.redColor()
                 
         self.senderID = ServicesManager.instance().currentUser().ID
         self.senderDisplayName = ServicesManager.instance().currentUser().login
@@ -74,9 +74,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.updateTitle()
         
-        self.collectionView.backgroundColor = UIColor.whiteColor()
-        self.inputToolbar.contentView.backgroundColor = UIColor.whiteColor()
-        self.inputToolbar.contentView.textView.placeHolder = "Message"
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar?.contentView?.textView?.placeHolder = "Message"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -89,7 +89,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
-        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
         }
         
@@ -223,12 +223,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     }
     
     func refreshCollectionView() {
-        self.collectionView.reloadData()
+        self.collectionView?.reloadData()
         self.scrollToBottomAnimated(false)
     }
     
     static func sendReadStatusForMessage(message: QBChatMessage) {
-        if message.senderID != QBSession.currentSession().currentUser.ID && (message.readIDs == nil || !contains(message.readIDs as! [Int], Int(QBSession.currentSession().currentUser.ID))) {
+        if message.senderID != QBSession.currentSession().currentUser.ID && (message.readIDs == nil || !(message.readIDs as! [Int]).contains(Int(QBSession.currentSession().currentUser.ID))) {
             
             message.markable = true
             // Sending read status for message.
@@ -414,9 +414,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     }
                 }
                 if message.attachments.count > 0 {
-                    statusString += "Seen:" + ", ".join(readersLogin)
+                    statusString += "Seen:" + readersLogin.joinWithSeparator(", ")
                 } else {
-                    statusString += "Read:" + ", ".join(readersLogin)
+                    statusString += "Read:" + readersLogin.joinWithSeparator(", ")
                 }
 
             }
@@ -433,7 +433,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 for deliveredID : Int in messageDeliveredIDs {
                     let user = ServicesManager.instance().usersService.user(UInt(deliveredID))
                     
-                    if contains(readersLogin, user!.login) {
+                    if readersLogin.contains(user!.login) {
                         continue
                     }
                     
@@ -449,7 +449,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 }
                 
                 if deliveredLogin.count > 0 {
-                    statusString += "Delivered:" + " ,".join(deliveredLogin)
+                    statusString += "Delivered:" + deliveredLogin.joinWithSeparator(" ,")
                 }
             }
         }
@@ -664,9 +664,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if let attachmentCell = cell as? QMChatAttachmentCell {
             
             if attachmentCell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
-                (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+                (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
             } else if attachmentCell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
-                (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             }
             
             let message: QBChatMessage = self.items[indexPath.row] as! QBChatMessage;
@@ -725,9 +725,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 })
             }
         } else if cell.isKindOfClass(QMChatIncomingCell.self) || cell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
-            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+            (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
         } else if cell.isKindOfClass(QMChatOutgoingCell.self) || cell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
-            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
     }
     
@@ -775,15 +775,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             if (self.shouldHoldScrolOnCollectionView) {
                 
-                let bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+                let bottomOffset = self.collectionView!.contentSize.height - self.collectionView!.contentOffset.y
                 CATransaction.begin()
                 CATransaction.setDisableActions(true)
                 
                 /* Way for call reloadData sync */
-                self.collectionView.reloadData()
-                self.collectionView.performBatchUpdates(nil, completion: nil)
+                self.collectionView?.reloadData()
+                self.collectionView?.performBatchUpdates(nil, completion: nil)
 
-                self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
+                self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
                 
                 CATransaction.commit()
 
@@ -814,8 +814,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             if updatedMessageIndex != NSNotFound {
                 let context = QMCollectionViewFlowLayoutInvalidationContext()
                 context.invalidateFlowLayoutMessagesCache = true
-                self.collectionView.collectionViewLayout.invalidateLayoutWithContext(context)
-                self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
+                self.collectionView?.collectionViewLayout.invalidateLayoutWithContext(context)
+                self.collectionView?.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
             }
             
         }

@@ -23,7 +23,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     }
     
     func updateUsers() {
-        if let chatDialog = self.dialog  {
+        if let _ = self.dialog  {
             
             self.setupUsers(ServicesManager.instance().usersService.users()!)
         }
@@ -33,9 +33,9 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
         
         var filteredUsers = users.filter({($0 as QBUUser).ID != ServicesManager.instance().currentUser().ID})
         
-        if let dialog = self.dialog  {
+        if let _ = self.dialog  {
             
-            filteredUsers = filteredUsers.filter({contains(self.dialog!.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+            filteredUsers = filteredUsers.filter({(self.dialog!.occupantIDs as! [UInt]).contains(($0 as QBUUser).ID)})
         }
         
         super.setupUsers(filteredUsers)

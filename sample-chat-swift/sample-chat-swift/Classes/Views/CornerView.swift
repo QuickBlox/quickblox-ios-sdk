@@ -19,7 +19,7 @@ class CornerView: UIView {
         }
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.contentMode = UIViewContentMode.Redraw
     }
@@ -31,11 +31,11 @@ class CornerView: UIView {
         
         if let fontAttributeName = UIFont(name: "Helvetica", size: CGFloat(fontSize)){
             
-            let rectangleFontAttributes: Dictionary<NSString, AnyObject> = [NSFontAttributeName: fontAttributeName,
+            let rectangleFontAttributes: [String: AnyObject] = [NSFontAttributeName: fontAttributeName,
                 NSForegroundColorAttributeName: UIColor.whiteColor(),
                 NSParagraphStyleAttributeName: style]
             
-            var rectOffset = CGRectOffset(rect, 0, ((CGRectGetHeight(rect) - text.boundingRectWithSize(rect.size, options:.UsesLineFragmentOrigin, attributes:rectangleFontAttributes, context: nil).size.height)/2))
+            let rectOffset = CGRectOffset(rect, 0, ((CGRectGetHeight(rect) - text.boundingRectWithSize(rect.size, options:.UsesLineFragmentOrigin, attributes:rectangleFontAttributes, context: nil).size.height)/2))
            
             NSString(string: text).drawInRect(rectOffset, withAttributes: rectangleFontAttributes)
         }
