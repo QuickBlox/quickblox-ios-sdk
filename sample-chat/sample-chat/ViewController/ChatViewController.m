@@ -125,22 +125,6 @@ UIActionSheetDelegate
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
-    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined && [QBChat instance].isLoggedIn) {
-        // in order to join/rejoin group dialog it must be up to date with the server one
-        [[ServicesManager instance].chatService loadDialogWithID:self.dialog.ID completion:^(QBChatDialog *loadedDialog) {
-            //
-            if (loadedDialog != nil) {
-                [[ServicesManager instance].chatService joinToGroupDialog:loadedDialog failed:^(NSError *error) {
-                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
-                }];
-            }
-            else {
-                // dialog was not found, let dialogcontroller handle it
-                [self.navigationController popViewControllerAnimated:NO];
-            }
-        }];
-    }
-    
 	if (showingProgress && !self.isSendingAttachment) {
         [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
