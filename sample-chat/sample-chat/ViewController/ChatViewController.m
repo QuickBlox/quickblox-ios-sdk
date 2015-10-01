@@ -17,10 +17,6 @@
 #import "DialogsViewController.h"
 #import "MessageStatusStringBuilder.h"
 
-#import <QMChatViewController/QMChatAttachmentIncomingCell.h>
-#import <QMChatViewController/QMChatAttachmentOutgoingCell.h>
-#import <QMChatViewController/QMChatAttachmentCell.h>
-
 #import "UIImage+fixOrientation.h"
 
 #import <QMCollectionViewFlowLayoutInvalidationContext.h>

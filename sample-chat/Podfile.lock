@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   QMServices:
-    :commit: 51595f57b13b0ab6ec6793ea97c41d1f444a6927
+    :commit: c4d7a7df465c14d3aa032c3998067f2fda90e891
     :git: https://github.com/QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
