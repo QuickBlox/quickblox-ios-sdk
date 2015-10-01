@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 @class QBUUser;
 @class QBASession;
@@ -11,21 +13,21 @@
 
 @interface QBSession : NSObject <NSCoding>
 
-+ (QBSession *)currentSession;
++ (QB_NONNULL QBSession *)currentSession;
 
-@property (nonatomic, readonly) QBUUser *currentUser;
-@property (nonatomic, readonly) QBASession *sessionDetails;
-@property (nonatomic, readonly) NSDate *sessionExpirationDate;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBUUser *currentUser;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBASession *sessionDetails;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDate *sessionExpirationDate;
 
-@property (nonatomic, readonly) NSString *socialProviderToken;
-@property (nonatomic, readonly) NSDate *socialProviderTokenExpirationDate;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSString *socialProviderToken;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDate *socialProviderTokenExpirationDate;
 
 @property (nonatomic, readonly, getter=isTokenValid) BOOL tokenValid;
 
-- (void)startSessionWithDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
-- (void)updateSessionUser:(QBUUser *)user;
-- (void)updateExpirationDate:(NSDate *)newExpirationDate;
-- (void)saveSocialProviderDetailsFromHeaders:(NSDictionary *)headers;
+- (void)startSessionWithDetails:(QB_NONNULL QBASession *)session expirationDate:(QB_NONNULL NSDate *)sessionDate;
+- (void)updateSessionUser:(QB_NULLABLE QBUUser *)user;
+- (void)updateExpirationDate:(QB_NULLABLE NSDate *)newExpirationDate;
+- (void)saveSocialProviderDetailsFromHeaders:(QB_NONNULL NSDictionary QB_GENERIC(NSString *, NSString *) *)headers;
 - (void)endSession;
 
 @end

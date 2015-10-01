@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "43E48969AB834C98133F4F66DEBB455ACE272805",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "7685896580551A65BF391139D591B99B273195F4" : 0,
+    "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8" : 0,
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0A5C2C46-8794-4984-9672-D0E2239C6808",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "7685896580551A65BF391139D591B99B273195F4" : "QBSamples\/QMChatViewController",
+    "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8" : "QBSamples\/services\/QMServices",
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "sample-chat-swift",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "sample-chat-swift\/sample-chat-swift.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/QuickBlox\/quickblox-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43E48969AB834C98133F4F66DEBB455ACE272805"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/QMChatViewController-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7685896580551A65BF391139D591B99B273195F4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/q-municate-services-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8"
+    }
+  ]
+}

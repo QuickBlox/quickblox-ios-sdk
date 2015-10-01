@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import "QBCEntity.h"
 #import "QBPushNotificationsEnums.h"
 
@@ -46,22 +48,22 @@
 @property (nonatomic) QBMPushType pushType;
 
 /** Recipients - should contain a string of user ids divided by comas.*/
-@property (nonatomic,retain) NSString *usersIDs;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersIDs;
 
 /** Recipients - should contain a string of user external ids divided by comas.*/
-@property (nonatomic,retain) NSString *usersExternalIDs;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersExternalIDs;
 
 /** Recipients tags - should contain a string of user tags divided by comas. Recipients (users) must have at LEAST ONE tag that specified in list.*/
-@property (nonatomic,retain) NSString *usersTagsAny;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersTagsAny;
 
 /** Recipients tags - should contain a string of user tags divided by comas. Recipients (users) must exactly have ONLY ALL tags that specified in list. */
-@property (nonatomic,retain) NSString *usersTagsAll;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersTagsAll;
 
 /** Recipients tags - should contain a string of user tags divided by comas. Recipients (users) mustn't have tags that specified in list. */
-@property (nonatomic,retain) NSString *usersTagsExclude;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersTagsExclude;
 
 /** The name of the event. Service information. Only for the user..*/
-@property (nonatomic,retain) NSString *name;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *name;
 
 /**
  Environment of the notification, default: YES
@@ -77,16 +79,16 @@
 @property (nonatomic) BOOL isProductionEnvironment DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4. There is no need to set this property manually if you are using automatic environment detection.");
 
 /** Event message */
-@property (nonatomic,retain) id message;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) id message;
 
 /** Event type */
 @property (nonatomic) QBMEventType type;
 
 /** The date of the event when it'll fire. Required: No, if the envent's 'type' = QBMEventTypeOneShot or QBMEventTypeMultiShot. Yes, if the envent's 'type' = QBMEventTypeFixedDate or QBMEventTypePeriodDate. */
-@property (nonatomic,retain) NSDate *date;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSDate *date;
 
 /** Date of completion of the event. Can't be less than the 'date'. Required: Yes, if the envent's  'type' = QBMEventTypeMultiShot and 'notificationType' = QBMNotificationTypePull **/
-@property (nonatomic,retain) NSDate *endDate;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSDate *endDate;
 
 /** The period of the event in seconds.
  Possible values:
@@ -107,7 +109,7 @@
 /** Create new event
  @return New instance of QBMEvent
  */
-+ (QBMEvent *)event;
++ (QB_NONNULL QBMEvent *)event;
 
 
 - (void)prepareMessage;
@@ -116,16 +118,16 @@
 #pragma mark -
 #pragma mark Converters
 
-+ (enum QBMEventType)eventTypeFromString:(NSString*)eventType;
-+ (NSString*)eventTypeToString:(enum QBMEventType)eventType;
++ (enum QBMEventType)eventTypeFromString:(QB_NULLABLE NSString *)eventType;
++ (QB_NULLABLE NSString *)eventTypeToString:(enum QBMEventType)eventType;
 
-+ (enum QBMNotificationType)notificationTypeFromString:(NSString*)notificationType;
-+ (NSString*)notificationTypeToString:(enum QBMNotificationType)notificationType;
++ (enum QBMNotificationType)notificationTypeFromString:(QB_NULLABLE NSString *)notificationType;
++ (QB_NULLABLE NSString*)notificationTypeToString:(enum QBMNotificationType)notificationType;
 
-+ (enum QBMPushType)pushTypeFromString:(NSString*)pushType;
-+ (NSString*)pushTypeToString:(enum QBMPushType)pushType;
++ (enum QBMPushType)pushTypeFromString:(QB_NULLABLE NSString *)pushType;
++ (QB_NULLABLE NSString *)pushTypeToString:(enum QBMPushType)pushType;
 
-+ (NSString*)messageToString:(NSDictionary*)message;
-+ (NSDictionary*)messageFromString:(NSString*)message;
++ (QB_NONNULL NSString *)messageToString:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)message;
++ (QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)messageFromString:(QB_NULLABLE NSString *)message;
 
 @end

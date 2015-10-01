@@ -83,8 +83,8 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             }
             
             if response != nil && response.error != nil {
-                print(response.error.error)
-                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                print(response.error?.error)
+                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
             }
         }
         
@@ -108,7 +108,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                         weakSelf?.processeNewDialog(dialog)
                         
                     } else {
-                        SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                        SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
                     }
                     
                 })
@@ -174,7 +174,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 
             } else {
                 
-                print(response.error.error)
+                print(response.error?.error)
                 
                 completion?(response: response, dialog: nil)
     
@@ -185,7 +185,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
     static func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
         
-        let chatName = ServicesManager.instance().currentUser()!.login + "_" + users.map({ $0.login ?? $0.email }).joinWithSeparator(", ").stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let chatName = ServicesManager.instance().currentUser()!.login! + "_" + users.map({ $0.login ?? $0.email! }).joinWithSeparator(", ").stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         return chatName
     }

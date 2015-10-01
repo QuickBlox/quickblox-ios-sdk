@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 typedef NS_ENUM(NSUInteger, QBLogLevel) {
     QBLogLevelNothing   =      0,  //  0 - Nothing in Log
@@ -14,7 +16,7 @@ typedef NS_ENUM(NSUInteger, QBLogLevel) {
     QBLogLevelDebug     = NSUIntegerMax
 };
 
-typedef void (^QBLoggerCustomLogBlock)(NSString *string, QBLogLevel level);
+typedef void (^QBLoggerCustomLogBlock)(NSString * QB_NONNULL_S string, QBLogLevel level);
 
 #define functionDescription [NSString stringWithFormat:@"%s [Line %d]", __PRETTY_FUNCTION__, __LINE__]
 
@@ -27,14 +29,14 @@ typedef void (^QBLoggerCustomLogBlock)(NSString *string, QBLogLevel level);
 @interface QBLogger : NSObject
 
 + (void)setCurrentLevel:(QBLogLevel)level;
-+ (void)setLogBlock:(QBLoggerCustomLogBlock)block;
++ (void)setLogBlock:(QB_NONNULL QBLoggerCustomLogBlock)block;
 
-+ (void)logWithLevel:(QBLogLevel)level format:(NSString *)format, ...;
++ (void)logWithLevel:(QBLogLevel)level format:(QB_NONNULL NSString *)format, ...;
 
-+ (void)info:(NSString *)format, ...;
-+ (void)warning:(NSString *)format, ...;
-+ (void)error:(NSString *)format, ...;
-+ (void)errorInFunction:(NSString *)function withFormat:(NSString *)format, ...;
-+ (void)networkLog:(NSString *)format, ...;
++ (void)info:(QB_NONNULL NSString *)format, ...;
++ (void)warning:(QB_NONNULL NSString *)format, ...;
++ (void)error:(QB_NONNULL NSString *)format, ...;
++ (void)errorInFunction:(QB_NONNULL NSString *)function withFormat:(QB_NONNULL NSString *)format, ...;
++ (void)networkLog:(QB_NONNULL NSString *)format, ...;
 
 @end

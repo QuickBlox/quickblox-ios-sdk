@@ -11,6 +11,9 @@
 /** Overview */
 /** This class represents QuickBlox custom object. */
 
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
+
 @class QBCOPermissions;
 
 @interface QBCOCustomObject : NSObject <NSCoding, NSCopying>{
@@ -26,32 +29,32 @@
 }
 
 /** Object ID */
-@property (nonatomic, retain) NSString *ID;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *ID;
 
 /** Relations: parent object's ID */
-@property (nonatomic, retain) NSString *parentID;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *parentID;
 
 /** Date & time when record was created, filled automatically */
-@property (nonatomic,retain) NSDate* createdAt;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate* createdAt;
 
 /** Date & time when record was updated, filled automatically */
-@property (nonatomic,retain) NSDate* updatedAt;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate* updatedAt;
 
 /** Class name */
-@property (nonatomic,retain) NSString* className;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString* className;
 
 /** User's ID, which created current record */
 @property (nonatomic) NSUInteger userID;
 
 /** Custom object's fields */
-@property (nonatomic, retain) NSMutableDictionary *fields;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableDictionary QB_GENERIC(NSString *, id) *fields;
 
 /** Object permissions */
-@property (nonatomic, retain) QBCOPermissions *permissions;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) QBCOPermissions *permissions;
 
 /** Create new custom object
  @return New instance of QBCustomObject
  */
-+ (QBCOCustomObject *)customObject;
++ (QB_NONNULL instancetype)customObject;
 
 @end

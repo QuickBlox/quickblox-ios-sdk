@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import <AVFoundation/AVFoundation.h>
 #import "ChatEnums.h"
 
@@ -34,7 +36,7 @@ typedef enum QBChatServiceError {
 @interface QBChat : NSObject 
 
 /** Contact list */
-@property (nonatomic, readonly) QBContactList *contactList;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBContactList *contactList;
 
 /** Enable or disable message carbons */
 @property (nonatomic, assign, getter = isCarbonsEnabled) BOOL carbonsEnabled;
@@ -77,7 +79,7 @@ typedef enum QBChatServiceError {
 /** Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator. */
 @property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
 
-- (id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
+- (QB_NONNULL id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
 
 #pragma mark -
 #pragma mark Multicaste Delegate
@@ -87,20 +89,20 @@ typedef enum QBChatServiceError {
  
  @param delegate The delegate to add
  */
-- (void)addDelegate:(id<QBChatDelegate>)delegate;
+- (void)addDelegate:(QB_NONNULL id<QBChatDelegate>)delegate;
 
 /** 
  Removes the given delegate implementation from the list of observers
  
  @param delegate The delegate to remove
  */
-- (void)removeDelegate:(id<QBChatDelegate>)delegate;
+- (void)removeDelegate:(QB_NONNULL id<QBChatDelegate>)delegate;
 
 /** Removes all delegates */
 - (void)removeAllDelegates;
 
 /** Array of all delegates*/
-- (NSArray *)delegates;
+- (QB_NULLABLE NSArray QB_GENERIC(id<QBChatDelegate>) *)delegates;
 
 
 #pragma mark -
@@ -120,7 +122,7 @@ typedef enum QBChatServiceError {
  
  @return QBChat Chat service singleton
  */
-+ (instancetype)instance;
++ (QB_NONNULL instancetype)instance;
 
 /**
  Authorize on QuickBlox Chat
@@ -128,7 +130,7 @@ typedef enum QBChatServiceError {
  @param user QBUUser structure represents user's login. Required user's fields: ID, password;
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)loginWithUser:(QBUUser *)user;
+- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user;
 
 /**
  Authorize on QuickBlox Chat
@@ -137,7 +139,7 @@ typedef enum QBChatServiceError {
  @param resource The resource identifier of user.
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)loginWithUser:(QBUUser *)user resource:(NSString *)resource;
+- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource;
 
 /**
  Check if current user logged into Chat
@@ -154,12 +156,12 @@ typedef enum QBChatServiceError {
 - (BOOL)logout;
 
 /**
- Send "read" status for message.
+ Send "read" status for message and update "read" status on a server
  
  @param message QBChatMessage message to mark as read.
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)readMessage:(QBChatMessage *)message;
+- (BOOL)readMessage:(QB_NONNULL QBChatMessage *)message;
 
 /**
  *  Send "delivered" status for message.
@@ -168,7 +170,7 @@ typedef enum QBChatServiceError {
  *
  *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)markAsDelivered:(QBChatMessage *)message;
+- (BOOL)markAsDelivered:(QB_NONNULL QBChatMessage *)message;
 
 /**
  Send presence message. Session will be closed in 90 seconds since last activity.
@@ -182,7 +184,7 @@ typedef enum QBChatServiceError {
  
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendPresenceWithStatus:(NSString *)status;
+- (BOOL)sendPresenceWithStatus:(QB_NONNULL NSString *)status;
 
 /**
  Send direct presence message with status to user. User must be in your contact list.
@@ -191,14 +193,14 @@ typedef enum QBChatServiceError {
  
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendDirectPresenceWithStatus:(NSString *)status toUser:(NSUInteger)userID __attribute__((deprecated("Will be removed in future")));;
+- (BOOL)sendDirectPresenceWithStatus:(QB_NONNULL NSString *)status toUser:(NSUInteger)userID __attribute__((deprecated("Will be removed in future")));;
 
 /**
  Get current chat user
  
  @return An instance of QBUUser
  */
-- (QBUUser *)currentUser;
+- (QB_NULLABLE QBUUser *)currentUser;
 
 
 #pragma mark -
@@ -219,7 +221,7 @@ typedef enum QBChatServiceError {
  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
  @return YES if the request was sent. If not - see log.
  */
-- (BOOL)addUserToContactListRequest:(NSUInteger)userID sentBlock:(void (^)(NSError *error))sentBlock;
+- (BOOL)addUserToContactListRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
 
 /**
  Remove user from contact list
@@ -236,7 +238,7 @@ typedef enum QBChatServiceError {
  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
  @return YES if the request was sent. If not - see log.
  */
-- (BOOL)removeUserFromContactList:(NSUInteger)userID sentBlock:(void (^)(NSError *error))sentBlock;
+- (BOOL)removeUserFromContactList:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
 
 /**
  Confirm add to contact list request
@@ -253,7 +255,7 @@ typedef enum QBChatServiceError {
  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
  @return YES if the request was sent. If not - see log.
  */
-- (BOOL)confirmAddContactRequest:(NSUInteger)userID sentBlock:(void (^)(NSError *error))sentBlock;
+- (BOOL)confirmAddContactRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
 
 /**
  Reject add to contact list request or cancel previously-granted subscription request 
@@ -270,7 +272,7 @@ typedef enum QBChatServiceError {
  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
  @return YES if the request was sent. If not - see log.
  */
-- (BOOL)rejectAddContactRequest:(NSUInteger)userID sentBlock:(void (^)(NSError *error))sentBlock;
+- (BOOL)rejectAddContactRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
 
 #pragma mark -
 #pragma mark Privacy
@@ -279,7 +281,7 @@ typedef enum QBChatServiceError {
  Retrieve a privacy list by name. QBChatDelegate's method 'didReceivePrivacyList:' will be called if success or 'didNotReceivePrivacyListWithName:error:' if there is an error
  @param privacyListName name of privacy list
  */
-- (void)retrievePrivacyListWithName:(NSString *)privacyListName;
+- (void)retrievePrivacyListWithName:(QB_NONNULL NSString *)privacyListName;
 
 /**
  Retrieve privacy list names. QBChatDelegate's method 'didReceivePrivacyListNames:' will be called if success or 'didNotReceivePrivacyListNamesDueToError:' if there is an error
@@ -291,28 +293,28 @@ typedef enum QBChatServiceError {
  
  @param privacyList instance of QBPrivacyList
  */
-- (void)setPrivacyList:(QBPrivacyList *)privacyList;
+- (void)setPrivacyList:(QB_NULLABLE QBPrivacyList *)privacyList;
 
 /**
  Set an active privacy list. QBChatDelegate's method 'didSetActivePrivacyListWithName:' will be called if success or 'didNotSetActivePrivacyListWithName:error:' if there is an error
  
  @param privacyListName name of privacy list
  */
-- (void)setActivePrivacyListWithName:(NSString *)privacyListName;
+- (void)setActivePrivacyListWithName:(QB_NULLABLE NSString *)privacyListName;
 
 /**
  Set a default privacy list. QBChatDelegate's method 'didSetDefaultPrivacyListWithName:' will be called if success or 'didNotSetDefaultPrivacyListWithName:error:' if there is an error
  
  @param privacyListName name of privacy list
  */
-- (void)setDefaultPrivacyListWithName:(NSString *)privacyListName;
+- (void)setDefaultPrivacyListWithName:(QB_NULLABLE NSString *)privacyListName;
 
 /**
  Remove a privacy list. QBChatDelegate's method 'didRemovedPrivacyListWithName:' will be called if success or 'didNotSetPrivacyListWithName:error:' if there is an error
  
  @param privacyListName name of privacy list
  */
-- (void)removePrivacyListWithName:(NSString *)privacyListName;
+- (void)removePrivacyListWithName:(QB_NONNULL NSString *)privacyListName;
 
 #pragma mark -
 #pragma mark System Messages
@@ -324,7 +326,7 @@ typedef enum QBChatServiceError {
  *
  *  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendSystemMessage:(QBChatMessage *)message;
+- (BOOL)sendSystemMessage:(QB_NONNULL QBChatMessage *)message;
 
 @end
 
@@ -338,6 +340,6 @@ typedef enum QBChatServiceError {
  
  @warning *Deprecated in QB iOS SDK 2.1:* Use addDelegate: instead
  */
-@property (weak, nonatomic) id <QBChatDelegate> delegate __attribute__((deprecated("Use addDelegate: instead")));
+@property (weak, nonatomic, QB_NULLABLE_PROPERTY) id <QBChatDelegate> delegate __attribute__((deprecated("Use addDelegate: instead")));
 
 @end
