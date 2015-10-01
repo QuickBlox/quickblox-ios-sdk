@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 @interface QBCOFile : NSObject <NSCoding, NSCopying>{
 @private
@@ -16,17 +18,17 @@
 }
 
 /** File name */
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *name;
 
 /** File content type */
-@property (nonatomic, retain) NSString *contentType;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *contentType;
 
 /** File data */
-@property (nonatomic, retain) NSData *data;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSData *data;
 
 /** Create file object
  @return New instance of QBCOFile
  */
-+ (instancetype)file;
++ (QB_NONNULL instancetype)file;
 
 @end

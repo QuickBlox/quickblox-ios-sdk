@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 
 typedef enum QBConnectionZoneType{
@@ -25,14 +27,14 @@ typedef enum QBConnectionZoneType{
 *
 * @param serviceKey - NSString value of API Key.
 */
-+ (void)registerServiceKey:(NSString *)serviceKey;
++ (void)registerServiceKey:(QB_NONNULL NSString *)serviceKey;
 
 /**
 * Setting API Secret for Quickblox API
 *
 * @param serviceSecret - NSString value of API Secret.
 */
-+ (void)registerServiceSecret:(NSString *)serviceSecret;
++ (void)registerServiceSecret:(QB_NONNULL NSString *)serviceSecret;
 
 /**
 * Allow to change Services Zone to work with Development and Staging environments
@@ -66,13 +68,13 @@ typedef enum QBConnectionZoneType{
 * @param apiDomain - Domain for service i.e. http://my_custom_domain.com. Possible to pass nil to return to default settings
 * @param zone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeProduction
 */
-+ (void)setApiDomain:(NSString *)apiDomain forServiceZone:(enum QBConnectionZoneType)zone;
++ (void)setApiDomain:(QB_NULLABLE NSString *)apiDomain forServiceZone:(enum QBConnectionZoneType)zone;
 
 /**
  *  Returns Api Domain for current zone
  *
  *  @return NSString value of Api Domain
  */
-+ (NSString *)currentApiDomain;
++ (QB_NULLABLE NSString *)currentApiDomain;
 
 @end

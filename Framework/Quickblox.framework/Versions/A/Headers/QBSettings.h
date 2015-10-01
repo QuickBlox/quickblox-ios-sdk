@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import "QBLogger.h"
 
 
@@ -26,14 +28,14 @@
  
  @param accountKey Account key - from admin.quickblox.com
  */
-+ (void)setAccountKey:(NSString *)accountKey;
++ (void)setAccountKey:(QB_NONNULL NSString *)accountKey;
 
 /**
  Get account key
  
  @return Current account key
  */
-+ (NSString *)accountKey;
++ (QB_NULLABLE NSString *)accountKey;
 
 
 #pragma mark -
@@ -44,21 +46,21 @@
  
  @param chatDomain New server's Chat domain
  */
-+ (void)setServerChatDomain:(NSString *)chatDomain;
++ (void)setServerChatDomain:(QB_NONNULL NSString *)chatDomain;
 
 /**
  Get server's Chat domain
  
  @return Current server's Chat domain
  */
-+ (NSString *)serverChatDomain;
++ (QB_NULLABLE NSString *)serverChatDomain;
 
 /**
  *  MUC chat server domain
  *
  *  @return Current server's MUC chat domain
  */
-+ (NSString *)chatServerMUCDomain;
++ (QB_NULLABLE NSString *)chatServerMUCDomain;
 
 /**
  Set Content bucket
@@ -67,7 +69,7 @@
  
  @param bucket New bucket name
  */
-+ (void)setContentBucket:(NSString *)bucket __attribute__((deprecated("No need to use this method anymore.")));
++ (void)setContentBucket:(QB_NONNULL NSString *)bucket __attribute__((deprecated("No need to use this method anymore.")));
 
 /**
  Get Content bucket
@@ -76,7 +78,7 @@
  
  @return Current bucket
  */
-+ (NSString *)contentBucket __attribute__((deprecated("No need to use this method anymore.")));
++ (QB_NULLABLE NSString *)contentBucket __attribute__((deprecated("No need to use this method anymore.")));
 
 
 #pragma mark -
@@ -109,14 +111,14 @@
  
  @param host SOCKS5 proxy host
  */
-+ (void)setChatSOCKS5ProxyHost:(NSString *)host;
++ (void)setChatSOCKS5ProxyHost:(QB_NONNULL NSString *)host;
 
 /**
  Get сhat SOCKS5 proxy host
  
  @return Current сhat SOCKS5 proxy host
  */
-+ (NSString *)chatSOCKS5ProxyHost;
++ (QB_NULLABLE NSString *)chatSOCKS5ProxyHost;
 
 /**
  Set Chat SOCKS5 proxy port

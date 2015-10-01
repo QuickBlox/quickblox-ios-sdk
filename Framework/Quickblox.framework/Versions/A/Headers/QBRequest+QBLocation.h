@@ -30,7 +30,9 @@
  @return An instance of QBRequest for cancel operation mainly.
 */
 
-+ (QBRequest *)createGeoData:(QBLGeoData *)geoData successBlock:(void (^)(QBResponse *response, QBLGeoData *geoData))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)createGeoData:(QB_NONNULL QBLGeoData *)geoData
+                           successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLGeoData * QB_NULLABLE_S geoData))successBlock
+                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -46,7 +48,9 @@
  @return An instance of QBRequest for cancel operation mainly.
 */
 
-+ (QBRequest *)geoDataWithId:(NSUInteger)geoDataId successBlock:(void (^)(QBResponse *response, QBLGeoData *geoData))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)geoDataWithId:(NSUInteger)geoDataId
+                           successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLGeoData * QB_NULLABLE_S geoData))successBlock
+                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -61,7 +65,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)updateGeoData:(QBLGeoData *)geodata successBlock:(void (^)(QBResponse *response, QBLGeoData *geoData))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)updateGeoData:(QB_NONNULL QBLGeoData *)geodata
+                           successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLGeoData * QB_NULLABLE_S geoData))successBlock
+                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -76,7 +82,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)deleteGeoDataWithID:(NSUInteger)geodataID successBlock:(void (^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)deleteGeoDataWithID:(NSUInteger)geodataID
+                                 successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
+                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -91,7 +99,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)deleteGeoDataWithRemainingDays:(NSUInteger)days successBlock:(void (^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)deleteGeoDataWithRemainingDays:(NSUInteger)days
+                                            successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
+                                              errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -107,7 +117,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)geoDataWithFilter:(QBLGeoDataFilter *)filter page:(QBGeneralResponsePage *)page successBlock:(void (^)(QBResponse *response, NSArray* objects, QBGeneralResponsePage* page))successBlock errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)geoDataWithFilter:(QB_NONNULL QBLGeoDataFilter *)filter
+                                       page:(QB_NULLABLE QBGeneralResponsePage *)page
+                               successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBLGeoData *) * QB_NULLABLE_S objects, QBGeneralResponsePage * QB_NULLABLE_S page))successBlock
+                                 errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 
 
@@ -126,7 +139,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)createPlace:(QBLPlace *)place successBlock:(void (^)(QBResponse *response, QBLPlace* place))successBlock errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
++ (QB_NONNULL QBRequest *)createPlace:(QB_NONNULL QBLPlace *)place
+                         successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLPlace * QB_NULLABLE_S place))successBlock
+                           errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
 
 /**
  Update place
@@ -139,7 +154,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)updatePlace:(QBLPlace *)place successBlock:(void (^)(QBResponse *response, QBLPlace* place))successBlock errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
++ (QB_NONNULL QBRequest *)updatePlace:(QB_NONNULL QBLPlace *)place
+                         successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLPlace * QB_NULLABLE_S place))successBlock
+                           errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
 
 /**
  Get place with ID
@@ -152,7 +169,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)placeWithID:(NSUInteger)placeID successBlock:(void (^)(QBResponse *response, QBLPlace* place))successBlock errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
++ (QB_NONNULL QBRequest *)placeWithID:(NSUInteger)placeID
+                         successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLPlace * QB_NULLABLE_S place))successBlock
+                           errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
 
 /**
  Delete place with ID
@@ -165,7 +184,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)deletePlaceWithID:(NSUInteger)placeID successBlock:(void (^)(QBResponse *response))successBlock errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
++ (QB_NONNULL QBRequest *)deletePlaceWithID:(NSUInteger)placeID
+                               successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
+                                 errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
 
 /**
  Get places with paged request
@@ -178,6 +199,8 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)placesForPage:(QBGeneralResponsePage *)page successBlock:(void (^)(QBResponse *response, NSArray* objects, QBGeneralResponsePage* page))successBlock errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
++ (QB_NONNULL QBRequest *)placesForPage:(QB_NULLABLE QBGeneralResponsePage *)page
+                           successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBLPlace *) * QB_NULLABLE_S objects, QBGeneralResponsePage * QB_NULLABLE_S page))successBlock
+                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("The Places API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects module.")));
 
 @end

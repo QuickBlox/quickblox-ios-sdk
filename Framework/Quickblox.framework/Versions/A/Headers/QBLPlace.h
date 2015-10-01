@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import <CoreLocation/CoreLocation.h>
 #import "QBCEntity.h"
 
@@ -32,13 +34,13 @@
 @property (nonatomic) CLLocationDegrees longitude;
 
 /** Address */
-@property (nonatomic, retain) NSString *address;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *address;
 
 /** Place description */
-@property (nonatomic, retain) NSString *placeDescription;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *placeDescription;
 
 /** Title */
-@property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *title;
 
 /** Geo data identitider */
 @property (nonatomic, assign) NSUInteger geoDataID;
@@ -49,6 +51,6 @@
 /** Create new QBLPlace
  @return New instance of QBLPlace
  */
-+ (QBLPlace *)place;
++ (QB_NONNULL QBLPlace *)place;
 
 @end
