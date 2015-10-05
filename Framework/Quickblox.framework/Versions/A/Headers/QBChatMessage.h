@@ -6,6 +6,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
+
+@class QBChatAttachment;
 
 /**
  QBChatMessage structure. Represents message object for peer-to-peer chat.
@@ -17,12 +21,12 @@
 /**
  Unique identifier of message (sequential number)
  */
-@property (nonatomic, copy) NSString *ID;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *ID;
 
 /**
  Message text
  */
-@property (nonatomic, copy) NSString *text;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *text;
 
 /**
  Message receiver ID
@@ -37,22 +41,22 @@
 /**
  Message date sent
  */
-@property (nonatomic, retain) NSDate *dateSent;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *dateSent;
 
 /**
  Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.
  */
-@property (nonatomic, retain) NSMutableDictionary *customParameters;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableDictionary QB_GENERIC(NSString *, NSString *) *customParameters;
 
 /**
  Array of attachments. Array of QBChatAttachment instances.
  */
-@property (nonatomic, retain) NSArray *attachments;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(QBChatAttachment *) *attachments;
 
 /**
  Message sender nick, use only for group Chat 
  */
-@property (nonatomic, copy) NSString *senderNick;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *senderNick;
 
 /**
  Is this message delayed
@@ -67,33 +71,33 @@
 /**
  Unique identifier of chat dialog
  */
-@property (nonatomic, copy) NSString *dialogID;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *dialogID;
 
 /** Created date */
-@property (nonatomic, retain) NSDate *createdAt;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *createdAt;
 
 /** Updated date */
-@property (nonatomic, retain) NSDate *updatedAt;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *updatedAt;
 
 /** 'Read' status of a message */
 @property (nonatomic, getter = isRead) BOOL read;
 
 /** The array of user's ids who read this message. */
-@property (nonatomic, retain) NSArray *readIDs;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSNumber *) *readIDs;
 
 /**
  *  The array of user's ids who received this message.
  */
-@property (nonatomic, retain) NSArray *deliveredIDs;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSNumber *) *deliveredIDs;
 
 /** Create new message
  @return New instance of QBChatMessage
  */
-+ (instancetype)message;
++ (QB_NONNULL instancetype)message;
 
 /** Create new markabe message
  @return New instance of QBChatMessage
  */
-+ (instancetype)markableMessage;
++ (QB_NONNULL instancetype)markableMessage;
 
 @end

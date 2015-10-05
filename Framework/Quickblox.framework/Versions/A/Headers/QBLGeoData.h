@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import <CoreLocation/CoreLocation.h>
 #import "QBCEntity.h"
 
@@ -35,13 +37,13 @@
 @property (nonatomic) CLLocationDegrees longitude;
 
 /** Status message */
-@property (nonatomic, retain) NSString *status;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *status;
 
 /** User ID */
 @property (nonatomic, assign) NSUInteger userID;
 
 /** User */
-@property (nonatomic, retain) QBUUser *user;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) QBUUser *user;
 
 /** Application identitider */
 @property (nonatomic, assign) NSUInteger applicationID;
@@ -52,16 +54,16 @@
 /** Create new GeoData
  @return New instance of QBLGeoData
  */
-+ (QBLGeoData *)geoData;
++ (QB_NONNULL QBLGeoData *)geoData;
 
 /** Obtain current geo data
  @return QBLGeoData initialized with current location
  */
-+ (QBLGeoData *)currentGeoData;
++ (QB_NONNULL QBLGeoData *)currentGeoData;
 
 /** Obtain current geo data location
  @return CLLocation initialized with current geo data latitude & longitude
  */
-- (CLLocation *) location;
+- (QB_NONNULL CLLocation *) location;
 
 @end

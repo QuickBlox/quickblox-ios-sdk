@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import "QBCEntity.h"
 #import "QBContentEnums.h"
 
@@ -34,25 +36,25 @@
 }
 
 /** Content type in mime format */
-@property (nonatomic, retain) NSString* contentType;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString* contentType;
 
 /** File name */
-@property (nonatomic, retain) NSString* name;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString* name;
 
 /** Status of the File */
 @property (nonatomic) enum QBCBlobStatus status;
 
 /** Date when the file upload has been completed */
-@property (nonatomic, retain) NSDate* completedAt;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate* completedAt;
 
 /** The size of file in bytes, readonly */
 @property (nonatomic) NSUInteger size;
 
 /** File unique identifier */
-@property (nonatomic, retain) NSString* UID;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString* UID;
 
 /** Last read file time */
-@property (nonatomic, retain) NSDate *lastReadAccessTs;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *lastReadAccessTs;
 
 /** Time that file will live after delete, in seconds 
  
@@ -61,7 +63,7 @@
 @property (nonatomic) NSUInteger lifetime DEPRECATED_MSG_ATTRIBUTE("will be removed in next releases");
 
 /** An instance of  BlobObjectAccess */
-@property (nonatomic, retain) QBCBlobObjectAccess *blobObjectAccess;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) QBCBlobObjectAccess *blobObjectAccess;
 
 /** File's links count 
  
@@ -70,7 +72,7 @@
 @property (nonatomic) NSUInteger refCount DEPRECATED_MSG_ATTRIBUTE("will be removed in next releases");
 
 /** Coma separated string with file's tags */
-@property (nonatomic, retain) NSString *tags;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *tags;
 
 /** File's visibility */
 @property (nonatomic) BOOL isPublic;
@@ -81,13 +83,13 @@
 /** Create new blob
  @return New instance of QBCBlob
  */
-+ (QBCBlob *)blob;
++ (QB_NONNULL QBCBlob *)blob;
 
 
 /** Get file's public url (available within Internet), if blob is public.
  @return Public url to file
  */
-- (NSString *)publicUrl;
+- (QB_NULLABLE NSString *)publicUrl;
 
 /** Get file's public url (available within Internet) by UID.
  
@@ -95,29 +97,29 @@
  
  @return Public url to file
  */
-+ (NSString *)publicUrlForUID:(NSString *)UID __attribute__((deprecated("use '+[QBCBlob publicUrlForID:]' instead.")));
++ (QB_NULLABLE NSString *)publicUrlForUID:(QB_NULLABLE NSString *)UID __attribute__((deprecated("use '+[QBCBlob publicUrlForID:]' instead.")));
 
 /** Get file's public url (available within Internet) by ID.
  @return Public url to file
  */
-+ (NSString *)publicUrlForID:(NSUInteger)ID;
++ (QB_NULLABLE NSString *)publicUrlForID:(NSUInteger)ID;
 
 
 /** Get file's private url (available only with QuickBlox token), if blob is private.
  @return Private url to file
  */
-- (NSString *)privateUrl;
+- (QB_NULLABLE NSString *)privateUrl;
 
 /** Get file's private url (available only with QuickBlox token) by ID.
  @return Private url to file
  */
-+ (NSString *)privateUrlForID:(NSUInteger)ID;
++ (QB_NULLABLE NSString *)privateUrlForID:(NSUInteger)ID;
 
 
 #pragma mark -
 #pragma mark Converters
 
-+ (enum QBCBlobStatus)statusFromString:(NSString*)status;
-+ (NSString*)statusToString:(enum QBCBlobStatus)status;
++ (enum QBCBlobStatus)statusFromString:(QB_NULLABLE NSString *)status;
++ (QB_NULLABLE NSString *)statusToString:(enum QBCBlobStatus)status;
 
 @end

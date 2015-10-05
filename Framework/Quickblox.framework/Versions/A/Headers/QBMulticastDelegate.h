@@ -7,19 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 @interface QBMulticastDelegate : NSObject
 
 // Adds the given delegate implementation to the list of observers
-- (void)addDelegate:(id)delegate;
+- (void)addDelegate:(QB_NONNULL id)delegate;
 
 // Removes the given delegate implementation from the list of observers
-- (void)removeDelegate:(id)delegate;
+- (void)removeDelegate:(QB_NONNULL id)delegate;
 
 // Removes all delegates
 - (void)removeAllDelegates;
 
 // Hashtable of all delegates
-- (NSHashTable *)delegates;
+- (QB_NONNULL NSHashTable QB_GENERIC(id) *)delegates;
 
 @end

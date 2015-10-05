@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import "QBRequest.h"
 
 @class QBResponse;
@@ -25,8 +27,8 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)createSessionWithSuccessBlock:(void (^)(QBResponse *response, QBASession *session))successBlock
-                                  errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("Session is created and updated automatically by Quickblox SDK.")));
++ (QB_NONNULL QBRequest *)createSessionWithSuccessBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBASession * QB_NULLABLE_S session))successBlock
+                                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("Session is created and updated automatically by Quickblox SDK.")));
 
 /**
  Session Creation with extended parameters
@@ -39,9 +41,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)createSessionWithExtendedParameters:(QBSessionParameters *)extendedParameters
-                                      successBlock:(void (^)(QBResponse *response, QBASession *session))successBlock
-                                        errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("Session is created and updated automatically by Quickblox SDK.")));
++ (QB_NONNULL QBRequest *)createSessionWithExtendedParameters:(QB_NULLABLE QBSessionParameters *)extendedParameters
+                                                 successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBASession * QB_NULLABLE_S session))successBlock
+                                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("Session is created and updated automatically by Quickblox SDK.")));
 
 /**
  Session Destroy
@@ -51,8 +53,8 @@
  
  @return An instance of QBRequest for cancel operation mainly.
 */
-+ (QBRequest *)destroySessionWithSuccessBlock:(void (^)(QBResponse *response))successBlock
-                                   errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)destroySessionWithSuccessBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
+                                              errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 #pragma mark - LogIn
 
@@ -66,10 +68,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logInWithUserLogin:(NSString *)login
-                         password:(NSString *)password
-                     successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock
-                       errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)logInWithUserLogin:(QB_NONNULL NSString *)login
+                                    password:(QB_NONNULL NSString *)password
+                                successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
+                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 /**
  User LogIn with email
@@ -81,10 +83,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logInWithUserEmail:(NSString *)email
-                         password:(NSString *)password
-                     successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock
-                       errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)logInWithUserEmail:(QB_NONNULL NSString *)email
+                                    password:(QB_NONNULL NSString *)password
+                                successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
+                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 
 /**
@@ -99,9 +101,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logInWithSocialProvider:(NSString *)provider
-                                 scope:(NSArray *)scope successBlock:(void (^)(QBResponse *response, QBUUser* user))successBlock
-                            errorBlock:(QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest logInWithSocialProvider:accessToken:accessTokenSecret:successBlock:errorBlock:' instead.")));
++ (QB_NONNULL QBRequest *)logInWithSocialProvider:(QB_NONNULL NSString *)provider
+                                            scope:(QB_NULLABLE NSArray QB_GENERIC(NSString *) *)scope
+                                     successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
+                                       errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("use '+[QBRequest logInWithSocialProvider:accessToken:accessTokenSecret:successBlock:errorBlock:' instead.")));
 
 /**
  User LogIn with social provider's token
@@ -114,11 +117,11 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logInWithSocialProvider:(NSString *)provider
-                           accessToken:(NSString *)accessToken
-                     accessTokenSecret:(NSString *)accessTokenSecret
-                          successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock
-                            errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)logInWithSocialProvider:(QB_NONNULL NSString *)provider
+                           accessToken:(QB_NULLABLE NSString *)accessToken
+                     accessTokenSecret:(QB_NULLABLE NSString *)accessTokenSecret
+                          successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
+                            errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 #pragma mark -  LogOut
 
@@ -130,8 +133,8 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logOutWithSuccessBlock:(void (^)(QBResponse *response))successBlock
-                           errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)logOutWithSuccessBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
+                                      errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Create User
 
@@ -144,8 +147,8 @@
  
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QBRequest *)signUp:(QBUUser *)user
-         successBlock:(void (^)(QBResponse *response, QBUUser *user))successBlock
-		   errorBlock:(QBRequestErrorBlock)errorBlock;
++ (QB_NONNULL QBRequest *)signUp:(QB_NONNULL QBUUser *)user
+                    successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
+                      errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 @end

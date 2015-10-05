@@ -29,7 +29,7 @@ class DialogTableViewCellModel: NSObject {
             
             // Getting recipient from users service.
             if let recipient = ServicesManager.instance().usersService.user(UInt(dialog.recipientID)) {
-                self.textLabelText = recipient.login ?? recipient.email
+                self.textLabelText = recipient.login ?? recipient.email!
             }
             
         } else if dialog.type == .Group {
@@ -87,7 +87,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     override func viewDidLoad() {
 
-        self.navigationItem.title = "SA_STR_WELCOME".localized + " " + ServicesManager.instance().currentUser()!.fullName
+        self.navigationItem.title = "SA_STR_WELCOME".localized + " " + ServicesManager.instance().currentUser()!.fullName!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
@@ -149,7 +149,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
             //
             NSLog("success unsub push")
             dispatch_group_leave(logoutGroup)
-            }) { (error: QBError!) -> Void in
+            }) { (error: QBError?) -> Void in
                 //
                 NSLog("push unsub failed")
                 dispatch_group_leave(logoutGroup)
@@ -192,7 +192,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_DIALOGS".localized)
                 
                 if response != nil {
-                    print(response.error.error)
+                    print(response.error?.error)
                 }
             }
             else {
@@ -267,7 +267,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         let chatDialog = DialogsViewController.dialogs()[indexPath.row]
         
         cell.tag = indexPath.row
-        cell.dialogID = chatDialog.ID
+        cell.dialogID = chatDialog.ID!
         
         let cellModel = DialogTableViewCellModel(dialog: chatDialog)
         
@@ -319,7 +319,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                         } else {
                             
                             SVProgressHUD.showErrorWithStatus("SA_STR_ERROR_DELETING".localized)
-                            print(response.error.error)
+                            print(response.error?.error)
                         }
                     })
                 }
@@ -330,7 +330,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                     
                 } else {
                     
-                    let occupantIDs =  dialog.occupantIDs.filter( {$0 as! UInt != ServicesManager.instance().currentUser().ID} )
+                    let occupantIDs =  dialog.occupantIDs!.filter( {$0 != ServicesManager.instance().currentUser().ID} )
                     
                     dialog.occupantIDs = occupantIDs
                     

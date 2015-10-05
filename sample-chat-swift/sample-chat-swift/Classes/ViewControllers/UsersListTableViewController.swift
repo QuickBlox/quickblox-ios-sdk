@@ -37,7 +37,7 @@ class UsersListTableViewController: UITableViewController {
                     
                     }, error: { (response: QBResponse) -> Void in
                         
-                        SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                        SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
                 })
             }
         }

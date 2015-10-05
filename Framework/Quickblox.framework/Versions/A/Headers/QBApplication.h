@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 /**
 * Class representing Application.
@@ -16,7 +18,7 @@
 *
 * @return Instance of QBApplication
 */
-+ (QBApplication *)sharedApplication;
++ (QB_NONNULL QBApplication *)sharedApplication;
 
 /**
 * Storing and accessing Application ID
@@ -26,7 +28,7 @@
 /**
 * Storing and accessing Rest API Version
 */
-@property (nonatomic, copy) NSString *restAPIVersion;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *restAPIVersion;
 
 /**
 * Production or development environment for push notifications, works only if autoDetectEnvironment = NO.

@@ -5,6 +5,8 @@
 
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 typedef NS_ENUM(NSUInteger, QBRequestType) {
     QBRequestTypeUnknown,
