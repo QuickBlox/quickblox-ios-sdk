@@ -7,7 +7,7 @@
 //
 
 #import "QMChatCache.h"
-#import "ModelIncludes.h"
+#import "QMCCModelIncludes.h"
 
 @implementation QMChatCache
 

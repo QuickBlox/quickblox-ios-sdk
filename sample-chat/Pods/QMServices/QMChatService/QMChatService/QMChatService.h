@@ -127,11 +127,21 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  Change dialog name
  *
  *  @param dialogName Dialog name
- *  @param chatDialog QBChatDialog instane
+ *  @param chatDialog QBChatDialog instance
  *  @param completion Block with response and updated chat dialog instances
  */
 - (void)changeDialogName:(NSString *)dialogName forChatDialog:(QBChatDialog *)chatDialog
               completion:(void(^)(QBResponse *response, QBChatDialog *updatedDialog))completion;
+
+/**
+ *  Change dialog avatar
+ *
+ *  @param avatarPublicUrl avatar url
+ *  @param chatDialog      QBChatDialog instance
+ *  @param completion      Block with response and updated chat dialog instances
+ */
+- (void)changeDialogAvatar:(NSString *)avatarPublicUrl forChatDialog:(QBChatDialog *)chatDialog
+                completion:(void(^)(QBResponse *response, QBChatDialog *updatedDialog))completion;
 
 /**
  *  Join occupants
@@ -239,6 +249,14 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param completion Block with dialog if request succeded or nil if failed
  */
 - (void)loadDialogWithID:(NSString *)dialogID completion:(void (^)(QBChatDialog *loadedDialog))completion;
+
+/**
+ *  Fetch dialog with last activity date from date
+ *
+ *  @param date date to fetch dialogs from
+ *  @param completion Block with response, dialogs, dialogs users and page if request succeded or response only if failed
+ */
+- (void)fetchDialogsWithLastActivityFromDate:(NSDate *)date completion:(void (^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, QBResponsePage *page))completion;
 
 #pragma mark Send message
 

@@ -29,10 +29,7 @@
 
 - (void)addMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     
-    NSMutableOrderedSet *datasource = [self dataSourceWithDialogID:dialogID];
-    
-    [datasource addObject:message];
-    [self sortMessagesForDialogID:dialogID];
+    [self addMessages:@[message] forDialogID:dialogID];
 }
 
 - (void)addMessages:(NSArray *)messages forDialogID:(NSString *)dialogID {
@@ -40,10 +37,15 @@
     NSMutableOrderedSet *datasource = [self dataSourceWithDialogID:dialogID];
     
     for (QBChatMessage* message in messages) {
-        NSUInteger index = [datasource indexOfObject:message];
-        if (index != NSNotFound) {
-            [datasource replaceObjectAtIndex:index withObject:message];
+        
+        NSUInteger indexOfMessage = [datasource indexOfObject:message];
+        
+        if (indexOfMessage != NSNotFound) {
+            
+            [datasource replaceObjectAtIndex:indexOfMessage withObject:message];
+            
         } else {
+            
             [datasource addObject:message];
         }
     }
@@ -54,23 +56,14 @@
 - (void)updateMessage:(QBChatMessage *)message
 {
     NSAssert(message.dialogID, @"Message must have a dialog ID.");
-    NSMutableOrderedSet* messages = [self dataSourceWithDialogID:message.dialogID];
-    NSUInteger indexToReplace = [messages indexOfObjectPassingTest:^BOOL(QBChatMessage* obj, NSUInteger idx, BOOL *stop) {
-        return [obj.ID isEqualToString:message.ID];
-    }];
     
-    if (indexToReplace != NSNotFound) {
-        [messages removeObjectAtIndex:indexToReplace];
-    }
-    
-    [messages addObject:message];
-    
-    [self sortMessagesForDialogID:message.dialogID];
+    [self addMessage:message forDialogID:message.dialogID];
 }
 
 - (QBChatMessage *)lastMessageFromDialogID:(NSString *)dialogID
 {
     NSArray* messages = [self messagesWithDialogID:dialogID];
+    
     return [messages lastObject];
 }
 
@@ -81,6 +74,8 @@
     NSMutableOrderedSet *datasource = [self dataSourceWithDialogID:dialogID];
     [datasource removeAllObjects];
     [datasource addObjectsFromArray:messages];
+    
+    [self sortMessagesForDialogID:dialogID];
 }
 
 #pragma mark - Getters

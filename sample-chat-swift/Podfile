@@ -12,5 +12,5 @@ pod 'QMChatViewController', :podspec => '../QMChatViewControllerDevelopment.pods
 #Production pod
 pod 'QMServices', :podspec => '../QMServicesDevelopment.podspec'
 
-#For development pods
+#For development` pods
 #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'

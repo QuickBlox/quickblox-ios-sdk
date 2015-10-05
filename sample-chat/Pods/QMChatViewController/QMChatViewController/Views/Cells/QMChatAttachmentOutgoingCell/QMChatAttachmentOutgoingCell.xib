@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,11 +17,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAl-F5-usR" userLabel="Avatar Container">
                         <rect key="frame" x="209" y="90" width="44" height="45"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TG7-Nv-KYM" userLabel="Avatar Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TG7-Nv-KYM" userLabel="Avatar Image View" customClass="QMImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="45"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.95686274510000002" green="0.79795612969999996" blue="0.18798932830000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="TG7-Nv-KYM" secondAttribute="trailing" id="BRd-Bn-SYB"/>
                             <constraint firstAttribute="width" constant="44" id="Z8f-dc-CD6"/>
@@ -111,6 +111,7 @@
                 <outlet property="attachmentImageView" destination="Tve-03-DKT" id="3oZ-VO-ymz"/>
                 <outlet property="avatarContainerViewHeightConstraint" destination="spf-dw-DvB" id="Snn-K2-i2s"/>
                 <outlet property="avatarContainerViewWidthConstraint" destination="Z8f-dc-CD6" id="uNG-mW-JjU"/>
+                <outlet property="avatarView" destination="TG7-Nv-KYM" id="CWn-oJ-C5Y"/>
                 <outlet property="bottomLabel" destination="35y-FC-UxN" id="wAh-Ld-TGX"/>
                 <outlet property="bottomLableHeightConstraint" destination="mVx-dl-W2y" id="VTy-24-BSk"/>
                 <outlet property="containerView" destination="mlp-Ig-WT7" id="k8m-rd-Dhd"/>
