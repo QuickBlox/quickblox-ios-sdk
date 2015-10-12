@@ -97,7 +97,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
-            if !QBChat.instance().isLoggedIn() {
+            if !QBChat.instance().isConnected() {
                 SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
                 
                 weakSelf?.shouldUpdateDialogsAfterLogIn = true
@@ -400,14 +400,11 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     func chatServiceChatDidConnect(chatService: QMChatService!) {
         SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized)
-        SVProgressHUD.showWithStatus("SA_STR_LOG_INING".localized, maskType: SVProgressHUDMaskType.Clear)
     }
     
     func chatServiceChatDidLogin() {
         
         self.joinToAllDialogs()
-        
-        SVProgressHUD.showSuccessWithStatus("SA_STR_LOG_IN".localized)
         
         if self.shouldUpdateDialogsAfterLogIn {
             self.shouldUpdateDialogsAfterLogIn = false
