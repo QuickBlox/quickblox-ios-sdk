@@ -26,8 +26,6 @@
 	NSUInteger size;                
 	NSString *UID; 
     NSDate *lastReadAccessTs;
-    NSUInteger lifetime;
-    NSUInteger refCount;
     NSString *tags;
     BOOL isPublic;
     BOOL isNew;
@@ -56,20 +54,8 @@
 /** Last read file time */
 @property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *lastReadAccessTs;
 
-/** Time that file will live after delete, in seconds 
- 
-  @warning Deprecated in 2.4. Will be removed in next releases.
- */
-@property (nonatomic) NSUInteger lifetime DEPRECATED_MSG_ATTRIBUTE("will be removed in next releases");
-
 /** An instance of  BlobObjectAccess */
 @property (nonatomic, retain, QB_NULLABLE_PROPERTY) QBCBlobObjectAccess *blobObjectAccess;
-
-/** File's links count 
- 
- @warning Deprecated in 2.4. Will be removed in next releases.
- */
-@property (nonatomic) NSUInteger refCount DEPRECATED_MSG_ATTRIBUTE("will be removed in next releases");
 
 /** Coma separated string with file's tags */
 @property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *tags;
@@ -90,14 +76,6 @@
  @return Public url to file
  */
 - (QB_NULLABLE NSString *)publicUrl;
-
-/** Get file's public url (available within Internet) by UID.
- 
- @warning Deprecated in 2.3. Use '+[QBCBlob publicUrlForID:]' instead.
- 
- @return Public url to file
- */
-+ (QB_NULLABLE NSString *)publicUrlForUID:(QB_NULLABLE NSString *)UID __attribute__((deprecated("use '+[QBCBlob publicUrlForID:]' instead.")));
 
 /** Get file's public url (available within Internet) by ID.
  @return Public url to file

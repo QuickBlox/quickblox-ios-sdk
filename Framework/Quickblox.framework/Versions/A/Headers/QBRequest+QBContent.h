@@ -242,23 +242,6 @@
                            errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
 
 /**
- Download File task. Contains 2 requests: Get Blob with ID, download file
- 
- @warning *Deprecated in QB iOS SDK 2.3:* Use 'downloadFileWithID:successBlock:statusBlock:errorBlock' instead.
- 
- @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
- @param successBlock Block with response and fileData if request succeded
- @param statusBlock Block with upload/download progress
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QB_NONNULL QBRequest *)TDownloadFileWithBlobID:(NSUInteger)blobID
-                                     successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSData * QB_NONNULL_S fileData))successBlock
-                                      statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                                       errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock __attribute__((deprecated("use 'downloadFileWithID:successBlock:statusBlock:errorBlock' instead.")));
-
-/**
  Update File task. Contains 3 quieries: Update Blob, Upload file, Declaring file uploaded
  
  @param data File to be uploaded

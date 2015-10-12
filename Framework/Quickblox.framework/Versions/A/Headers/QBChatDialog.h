@@ -29,6 +29,9 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /** Created date */
 @property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *createdAt;
 
+/** Updated date */
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *updatedAt;
+
 /** Room JID. If private chat, room JID will be nil */
 @property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *roomJID;
 

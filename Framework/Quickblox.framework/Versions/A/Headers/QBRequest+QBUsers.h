@@ -367,22 +367,6 @@
 #pragma mark - Update User
 
 /**
- Update User
- 
- @warning Deprecated in QB iOS SDK 2.3. Use 'updateCurrentUser:successBlock:errorBlock:' instead.
- 
- @param user An instance of QBUUser, describing the user to be edited.
- @param successBlock Block with response and user instances if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QB_NONNULL QBRequest *)updateUser:(QB_NONNULL QBUUser *)user
-                        successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
-                          errorBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))errorBlock  __attribute__((deprecated("Use updateCurrentUser:successBlock:errorBlock: instead")));
-
-
-/**
  Update current session user.
  
  @param parameters   User parameters that could be updated.

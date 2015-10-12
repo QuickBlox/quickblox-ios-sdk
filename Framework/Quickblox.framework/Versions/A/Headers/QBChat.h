@@ -128,32 +128,75 @@ typedef enum QBChatServiceError {
  Authorize on QuickBlox Chat
  
  @param user QBUUser structure represents user's login. Required user's fields: ID, password;
+ 
+ @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'connectWithUser:' instead.
+ 
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user;
+- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user DEPRECATED_MSG_ATTRIBUTE("Use connectWithUser: instead.");
+
+/**
+ * Connect to QuickBlox Chat
+ *
+ * @param user QBUUser structure represents user's login. Required user's fields: ID, password;
+ *
+ * @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user;
 
 /**
  Authorize on QuickBlox Chat
  
  @param user QBUUser structure represents user's login. Required user's fields: ID, password.
  @param resource The resource identifier of user.
+ 
+ @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'connectWithUser:resource:' instead.
+ 
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource;
+- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:resource:' instead.");
+
+/**
+ * Connect to QuickBlox Chat
+ *
+ * @param user QBUUser structure represents user's login. Required user's fields: ID, password.
+ * @param resource The resource identifier of user.
+ *
+ * @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource;
 
 /**
  Check if current user logged into Chat
  
+ @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'isConnected' instead.
+ 
  @return YES if user is logged in, NO otherwise
  */
-- (BOOL)isLoggedIn;
+- (BOOL)isLoggedIn DEPRECATED_MSG_ATTRIBUTE("Use isConnected instead.");
+
+/**
+ * Check if current user connected to Chat
+ *
+ * @return YES if user is connected in, NO otherwise
+ */
+- (BOOL)isConnected;
 
 /**
  Logout current user from Chat
  
+ @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'disconnect' instead.
+ 
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)logout;
+- (BOOL)logout DEPRECATED_MSG_ATTRIBUTE("Use 'disconnect' instead.");
+
+/**
+ * Disconnect current user from Chat
+ *
+ * @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)disconnect;
 
 /**
  Send "read" status for message and update "read" status on a server
@@ -185,15 +228,6 @@ typedef enum QBChatServiceError {
  @return YES if the request was sent successfully. If not - see log.
  */
 - (BOOL)sendPresenceWithStatus:(QB_NONNULL NSString *)status;
-
-/**
- Send direct presence message with status to user. User must be in your contact list.
- 
- @warning *Deprecated in QB iOS SDK 2.3:* Will be removed in future.
- 
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendDirectPresenceWithStatus:(QB_NONNULL NSString *)status toUser:(NSUInteger)userID __attribute__((deprecated("Will be removed in future")));;
 
 /**
  Get current chat user
@@ -327,19 +361,5 @@ typedef enum QBChatServiceError {
  *  @return YES if the message was sent. If not - see log.
  */
 - (BOOL)sendSystemMessage:(QB_NONNULL QBChatMessage *)message;
-
-@end
-
-
-#pragma mark -
-#pragma mark Deprecated
-
-@interface QBChat (Deprecated)
-
-/** QBChat delegate for callbacks
- 
- @warning *Deprecated in QB iOS SDK 2.1:* Use addDelegate: instead
- */
-@property (weak, nonatomic, QB_NULLABLE_PROPERTY) id <QBChatDelegate> delegate __attribute__((deprecated("Use addDelegate: instead")));
 
 @end

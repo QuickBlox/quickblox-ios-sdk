@@ -29,28 +29,28 @@
 }
 
 /** Object ID */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *ID;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *ID;
 
 /** Relations: parent object's ID */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *parentID;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *parentID;
 
 /** Date & time when record was created, filled automatically */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate* createdAt;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate* createdAt;
 
 /** Date & time when record was updated, filled automatically */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate* updatedAt;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate* updatedAt;
 
 /** Class name */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString* className;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString* className;
 
 /** User's ID, which created current record */
 @property (nonatomic) NSUInteger userID;
 
 /** Custom object's fields */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableDictionary QB_GENERIC(NSString *, id) *fields;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSMutableDictionary QB_GENERIC(NSString *, id) *fields;
 
 /** Object permissions */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) QBCOPermissions *permissions;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) QBCOPermissions *permissions;
 
 /** Create new custom object
  @return New instance of QBCustomObject

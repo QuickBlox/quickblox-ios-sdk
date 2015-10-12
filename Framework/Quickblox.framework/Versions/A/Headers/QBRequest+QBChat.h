@@ -82,7 +82,7 @@
  */
 + (QB_NONNULL QBRequest *)deleteDialogWithID:(QB_NONNULL NSString *)dialogID
                                 successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S responce))successBlock
-                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock __attribute__((deprecated("Use 'deleteDialogsWithIDs:forAllUsers:successBlock:errorBlock:' instead.")));
+                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock DEPRECATED_MSG_ATTRIBUTE("Use 'deleteDialogsWithIDs:forAllUsers:successBlock:errorBlock:' instead.");
 /**
  Delete dialogs
  
@@ -188,7 +188,7 @@
  */
 + (QB_NONNULL QBRequest *)deleteMessageWithID:(QB_NONNULL NSString *)messageID
                                  successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock  __attribute__((deprecated("Use 'deleteMessagesWithIDs:forAllUsers:successBlock:errorBlock:' instead.")));;
+                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock  DEPRECATED_MSG_ATTRIBUTE("Use 'deleteMessagesWithIDs:forAllUsers:successBlock:errorBlock:' instead.");
 
 /**
  Delete existent chat messages completely for all users

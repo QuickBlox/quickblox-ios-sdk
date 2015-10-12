@@ -30,15 +30,20 @@
 
 /**
  didLogin fired by QBChat when connection to service established and login is successfull
+ 
+ @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'chatDidConnect' instead.
+ 
  */
-- (void)chatDidLogin;
+- (void)chatDidLogin DEPRECATED_MSG_ATTRIBUTE("Use chatDidConnect instead.");
 
 /**
  didNotLoginWithError fired when login process did not finished successfully
+ 
+ @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'chatDidNotConnectWithError:' instead.
 
  @param error Error
  */
-- (void)chatDidNotLoginWithError:(QB_NULLABLE NSError *)error;
+- (void)chatDidNotLoginWithError:(QB_NULLABLE NSError *)error DEPRECATED_MSG_ATTRIBUTE("Use 'chatDidNotConnectWithError:' instead.");
 
 /**
  didNotSendMessage fired when message cannot be send to user
@@ -82,6 +87,13 @@
  *  Fired when XMPP stream established connection
  */
 - (void)chatDidConnect;
+
+/**
+ chatDidNotConnectWithError fired when connect process did not finished successfully
+ 
+ @param error Error
+ */
+- (void)chatDidNotConnectWithError:(QB_NULLABLE NSError *)error;
 
 /**
  *  Fired when XMPP stream is accidentaly disconnected
@@ -143,46 +155,6 @@
  *  @param dialogID QBChatDialog identifier.
  */
 - (void)chatRoomDidReceiveMessage:(QB_NONNULL QBChatMessage *)message fromDialogID:(QB_NONNULL NSString *)dialogID;
-
-/**
- *  Called when user joined dialog.
- *
- *  @warning Deprecated in 2.4. Use QBChatDialog 'onJoinOccupant' block instead.
- *
- *  @param userId   User's ID.
- *  @param dialogID QBChatDialog identifier.
- */
-- (void)chatRoomOccupantDidJoin:(NSUInteger)userId dialogID:(QB_NONNULL NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'onJoinOccupant' block instead.")));
-
-/**
- *  Called when user left dialog.
- *
- *  @warning Deprecated in 2.4. Use QBChatDialog 'onLeaveOccupant' block instead.
- *
- *  @param userId   User's ID.
- *  @param dialogID QBChatDialog identifier.
- */
-- (void)chatRoomOccupantDidLeave:(NSUInteger)userId dialogID:(QB_NONNULL NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'onLeaveOccupant' block instead.")));
-
-/**
- *  Called when user was updated in dialog.
- *
- *  @warning Deprecated in 2.4. Use QBChatDialog 'onUpdateOccupant' block instead.
- *
- *  @param userId   User's ID.
- *  @param dialogID QBChatDialog identifier.
- */
-- (void)chatRoomOccupantDidUpdate:(NSUInteger)userId dialogID:(QB_NONNULL NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'onUpdateOccupant' block instead.")));
-
-/**
- *  Called in case of receiving list of online users in dialog.
- *
- *  @warning Deprecated in 2.4. Use QBChatDialog 'setOnReceiveListOfOnlineUsers:' block instead.
- *
- *  @param users    Array of joined users.
- *  @param dialogID QBChatDialog identifier.
- */
-- (void)chatRoomDidReceiveListOfOnlineUsers:(QB_NONNULL NSArray QB_GENERIC(QBContactListItem *) *)users dialogID:(QB_NONNULL NSString *)dialogID __attribute__((deprecated("Use QBChatDialog 'setOnReceiveListOfOnlineUsers:' block instead.")));;
 
 #pragma mark -
 #pragma mark Privacy
@@ -261,40 +233,8 @@
  */
 - (void)chatDidRemovedPrivacyListWithName:(QB_NONNULL NSString *)name;
 
-
-#pragma mark -
-#pragma mark Typing Status
-
-/**
- Called when you received a chat status "user is typing"
- 
- @warning Deprecated in 2.4. Use 'onUserIsTyping:' block in 'QBChatDialog'.
- 
- @param userID privacy list name
- */
-- (void)chatDidReceiveUserIsTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'onUserIsTyping:' block in 'QBChatDialog'.")));
-
-/**
- Called when you received a chat status "user stop typing"
-
- @warning Deprecated in 2.4. Use 'onUserStoppedTyping:' block in 'QBChatDialog'.
- 
- @param userID privacy list name
- */
-- (void)chatDidReceiveUserStopTypingFromUserWithID:(NSUInteger)userID __attribute__((deprecated("Use 'onUserStoppedTyping:' block in 'QBChatDialog'.")));;
-
-
 #pragma mark -
 #pragma mark Delivered status
-
-/**
- Called when you received a confirmation about message delivery
- 
- @warning Deprecated in 2.4. Use 'chatDidDeliverMessageWithID:dialogID:toUserID:' instead.
- 
- @param messageID ID of an original message
- */
-- (void)chatDidDeliverMessageWithID:(QB_NONNULL NSString *)messageID;
 
 /**
  *  Called when message is delivered to user.
@@ -307,15 +247,6 @@
 
 #pragma mark -
 #pragma mark Read status
-
-/**
- Called when you received a confirmation about message read.
- 
- @warning Deprecated in 2.4. Use 'chatDidReadMessageWithID:dialogID:readerID:' instead.
- 
- @param messageID ID of an original message
- */
-- (void)chatDidReadMessageWithID:(QB_NONNULL NSString *)messageID __attribute__((deprecated("Use 'chatDidReadMessageWithID:dialogID:readerID:' instead.")));
 
 /**
  *  Called when message is read by opponent.

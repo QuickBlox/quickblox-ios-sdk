@@ -38,7 +38,7 @@
 @property (copy, QB_NONNULL_PROPERTY) NSString *name;
 
 /// items array of privacy items
-@property (retain, QB_NONNULL_PROPERTY) NSMutableArray QB_GENERIC(QBPrivacyItem *) *items;
+@property (strong, QB_NONNULL_PROPERTY) NSMutableArray QB_GENERIC(QBPrivacyItem *) *items;
 
 /// count of items in list
 - (NSUInteger)count;

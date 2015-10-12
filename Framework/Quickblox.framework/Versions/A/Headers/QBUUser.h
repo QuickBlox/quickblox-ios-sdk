@@ -45,6 +45,9 @@
 /** ID of User in Twitter. */
 @property (nonatomic, retain, QB_NULLABLE) NSString *twitterID;
 
+/** ID of User in Twitter Digits. */
+@property (nonatomic, retain, QB_NULLABLE) NSString *twitterDigitsID;
+
 /** User's full name. */
 @property (nonatomic, retain, QB_NULLABLE) NSString *fullName;
 

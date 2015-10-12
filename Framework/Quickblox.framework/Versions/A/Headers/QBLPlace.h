@@ -34,13 +34,13 @@
 @property (nonatomic) CLLocationDegrees longitude;
 
 /** Address */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *address;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *address;
 
 /** Place description */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *placeDescription;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *placeDescription;
 
 /** Title */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *title;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *title;
 
 /** Geo data identitider */
 @property (nonatomic, assign) NSUInteger geoDataID;

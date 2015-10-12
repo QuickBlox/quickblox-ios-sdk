@@ -15,12 +15,12 @@
 }
 
 /** Type of attachment: audio/video/image */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *type;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *type;
 
 /** Content URL */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *url;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *url;
 
 /** ID of attached element */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *ID;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *ID;
 
 @end
