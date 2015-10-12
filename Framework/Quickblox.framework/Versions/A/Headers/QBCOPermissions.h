@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import "QBCustomObjectsEnums.h"
 
 /** QBCOPermissions class declaration. */
@@ -31,7 +33,7 @@
 }
 
 /** Record ID */
-@property (nonatomic, retain) NSString *recordID;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *recordID;
 
 /** Read access */
 @property (nonatomic, assign) QBCOPermissionsAccess readAccess;
@@ -43,34 +45,34 @@
 @property (nonatomic, assign) QBCOPermissionsAccess deleteAccess;
 
 /** Users IDs  for read access */
-@property (nonatomic, retain) NSMutableArray *usersIDsForReadAccess;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersIDsForReadAccess;
 
 /** Users groups for read access */
-@property (nonatomic, retain) NSMutableArray *usersGroupsForReadAccess;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForReadAccess;
 
 /** Users IDs  for update access */
-@property (nonatomic, retain) NSMutableArray *usersIDsForUpdateAccess;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersIDsForUpdateAccess;
 
 /** Users groups for update access */
-@property (nonatomic, retain) NSMutableArray *usersGroupsForUpdateAccess;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForUpdateAccess;
 
 /** Users IDs  for delete access */
-@property (nonatomic, retain) NSMutableArray *usersIDsForDeleteAccess;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersIDsForDeleteAccess;
 
 /** Users groups for delete access */
-@property (nonatomic, retain) NSMutableArray *usersGroupsForDeleteAccess;
+@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForDeleteAccess;
 
 
 /** Create permissions object
  @return New instance of QBCOPermissions
  */
-+ (QBCOPermissions *)permissions;
++ (QB_NONNULL instancetype)permissions;
 
 
 #pragma mark -
 #pragma mark Converters
 
-+ (enum QBCOPermissionsAccess)permissionsAccessFromString:(NSString *)permissionsAccess;
-+ (NSString *)permissionsAccessToString:(enum QBCOPermissionsAccess)permissionsAccess;
++ (enum QBCOPermissionsAccess)permissionsAccessFromString:(QB_NONNULL NSString *)permissionsAccess;
++ (QB_NULLABLE NSString *)permissionsAccessToString:(enum QBCOPermissionsAccess)permissionsAccess;
 
 @end

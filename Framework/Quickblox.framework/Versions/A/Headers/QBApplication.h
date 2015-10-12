@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 /**
 * Class representing Application.
@@ -16,7 +18,7 @@
 *
 * @return Instance of QBApplication
 */
-+ (QBApplication *)sharedApplication;
++ (QB_NONNULL QBApplication *)sharedApplication;
 
 /**
 * Storing and accessing Application ID
@@ -26,19 +28,21 @@
 /**
 * Storing and accessing Rest API Version
 */
-@property (nonatomic, copy) NSString *restAPIVersion;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *restAPIVersion;
 
 /**
 * Production or development environment for push notifications, works only if autoDetectEnvironment = NO.
 
- @warning Deprecated in 2.4. See 'autoDetectEnvironment'.
+ @warning Deprecated in 2.4.4. See 'autoDetectEnvironment'.
 */
-@property (nonatomic, assign) BOOL productionEnvironmentForPushesEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4. Please use automatic environment detection which is enabled by default.");
+@property (nonatomic, assign) BOOL productionEnvironmentForPushesEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4.4. Please use automatic environment detection which is enabled by default.");
 
 /**
  *  Automatically detects environment for push notifications. By default is - YES.
+ *
+ *  @warning Deprecated in 2.4.4. Will be always enable.
  */
-@property (nonatomic, assign) BOOL autoDetectEnvironment;
+@property (nonatomic, assign) BOOL autoDetectEnvironment DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4.4. Will be always enabled.");
 
 
 @end

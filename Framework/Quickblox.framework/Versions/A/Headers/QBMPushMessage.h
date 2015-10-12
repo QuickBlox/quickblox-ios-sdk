@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import "QBMPushMessageBase.h"
 
 /** QBMPushMessage class declaration. */
@@ -26,28 +28,28 @@
 	NSDictionary *additionalInfo;
 }
 /** Alert body text */
-@property (nonatomic,retain) NSString *alertBody;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *alertBody;
 
 /** Badge number */
-@property (nonatomic,retain) NSNumber *badge;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSNumber *badge;
 
 /** Sound file name */
-@property (nonatomic,retain) NSString *soundFile;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *soundFile;
 
 /** Localized body key may be used instead of alert body to make push message appear on local language. */
-@property (nonatomic,retain) NSString *localizedBodyKey;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *localizedBodyKey;
 
 /** Substitute strings for placeholders in alert text */
-@property (nonatomic,retain) NSArray *localizedBodyArguments;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSArray *localizedBodyArguments;
 
 /** Localization key for name of the alert action button */
-@property (nonatomic,retain) NSString *localizedActionKey;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *localizedActionKey;
 
 /** Dictionary of additional information */
-@property (nonatomic,retain) NSDictionary *additionalInfo;
+@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSDictionary QB_GENERIC(NSString *, NSString *) * additionalInfo;
 
 /** Create new push message
  @return New instance of QBMPushMessage
  */
-+ (QBMPushMessage *)pushMessage;
++ (QB_NONNULL QBMPushMessage *)pushMessage;
 @end

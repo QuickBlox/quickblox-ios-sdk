@@ -7,10 +7,10 @@ pod 'TWMessageBarManager', '~> 1.7.2'
 pod 'QMChatViewController', :podspec => '../QMChatViewControllerDevelopment.podspec'
 
 #For development pods
-#pod 'QMChatViewController', :podspec => '../QMChatViewControllerDevelopment.podspec', :path => '../QMChatViewController/'
+#pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
 
 #Production pod
 pod 'QMServices', :podspec => '../QMServicesDevelopment.podspec'
 
-#For development pods
-#pod 'QMServices', :podspec => '../QMServicesDevelopment.podspec', :path => '../Services/QMServices/'
+#For development` pods
+#pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'

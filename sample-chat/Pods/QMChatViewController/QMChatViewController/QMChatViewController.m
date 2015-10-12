@@ -358,6 +358,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (void)didPressAccessoryButton:(UIButton *)sender {
     
+    [self.inputToolbar.contentView.textView resignFirstResponder];
+    
     UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"

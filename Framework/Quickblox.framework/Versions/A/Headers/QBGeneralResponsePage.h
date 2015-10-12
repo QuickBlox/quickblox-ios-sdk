@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 @interface QBGeneralResponsePage : NSObject
 
@@ -14,9 +16,9 @@
 @property (nonatomic) NSUInteger currentPage;
 @property (nonatomic) NSUInteger perPage;
 
-+ (instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage
++ (QB_NONNULL instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage
                                     perPage:(NSUInteger)perPage
                                totalEntries:(NSUInteger)totalEntries;
-+ (instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage perPage:(NSUInteger)perPage;
++ (QB_NONNULL instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage perPage:(NSUInteger)perPage;
 
 @end

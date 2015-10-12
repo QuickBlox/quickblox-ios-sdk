@@ -71,6 +71,33 @@ typedef void(^QMCacheCollection)(NSArray *collection);
                   completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion;
 
 /**
+ *  Retrieve users with emails
+ *
+ *  @param emails     emails to search users with
+ *  @param completion Block with response, page and users instances if request succeded
+ */
+- (void)retrieveUsersWithEmails:(NSArray *)emails completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion;
+
+/**
+ *  Retrieve users with full name
+ *
+ *  @param  searchText string with full name
+ *  @param  pagedRequest extended set of pagination parameters
+ *  @param  completion Block with response, page and users instances if request succeded
+ *
+ *  @return QBRequest cancelable instance
+ */
+- (QBRequest *)retrieveUsersWithFullName:(NSString *)searchText pagedRequest:(QBGeneralResponsePage *)page completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion;
+
+/**
+ *  Retrieve users with facebook ids (with extended set of pagination parameters)
+ *
+ *  @param facebookIDs facebook ids to search
+ *  @param completion  Block with response, page and users instances if request succeded
+ */
+- (void)retrieveUsersWithFacebookIDs:(NSArray *)facebookIDs completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion;
+
+/**
  *  Add user to contact list request
  *
  *  @param user       user which you would like to add to contact list
@@ -168,5 +195,14 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param user updated QBUUser
  */
 - (void)contactListService:(QMContactListService *)contactListService didUpdateUser:(QBUUser *)user;
+
+/**
+ *  Is called when contact list service did recieve some activity changes of userID
+ *
+ *  @param userID   id of user
+ *  @param isOnline online status for user
+ *  @param status   custom status for user
+ */
+- (void)contactListService:(QMContactListService *)contactListService didReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status;
 
 @end

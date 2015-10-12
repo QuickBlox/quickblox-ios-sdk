@@ -18,7 +18,7 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate {
     
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
@@ -65,7 +65,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.items = NSMutableArray()
         
-        self.collectionView.typingIndicatorMessageBubbleColor = UIColor.redColor()
+        self.collectionView?.typingIndicatorMessageBubbleColor = UIColor.redColor()
                 
         self.senderID = ServicesManager.instance().currentUser().ID
         self.senderDisplayName = ServicesManager.instance().currentUser().login
@@ -74,9 +74,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         self.updateTitle()
         
-        self.collectionView.backgroundColor = UIColor.whiteColor()
-        self.inputToolbar.contentView.backgroundColor = UIColor.whiteColor()
-        self.inputToolbar.contentView.textView.placeHolder = "Message"
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
+        self.inputToolbar?.contentView?.textView?.placeHolder = "Message"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -89,7 +89,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         weak var weakSelf = self
         
-        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
+        self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
         }
         
@@ -125,7 +125,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         
         if let dialog = self.dialog {
             // Saving current dialog ID.
-            ServicesManager.instance().currentDialogID = dialog.ID
+            ServicesManager.instance().currentDialogID = dialog.ID!
         }
     }
 	
@@ -170,23 +170,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     }
     
     func updateMessages() {
-        // joining group dialog if needed
-        if (self.dialog?.type != QBChatDialogType.Private && self.dialog?.isJoined() == false && QBChat.instance().isLoggedIn()) {
-            // in order to join/rejoin group dialog it must be up to date with the server one
-            ServicesManager.instance().chatService?.loadDialogWithID(self.dialog?.ID, completion: { (loadedDialog: QBChatDialog!) -> Void in
-                //
-                if loadedDialog != nil {
-                    ServicesManager.instance().chatService?.joinToGroupDialog(loadedDialog, failed: { (error: NSError!) -> Void in
-                        //
-                        NSLog("Failed to join group dialog with error: %@", error.localizedDescription);
-                    })
-                }
-                else {
-                    self.navigationController?.popViewControllerAnimated(false)
-                }
-            })
-        }
-        
         var isProgressHUDShowed = false
         
         if self.items.count > 0 {
@@ -216,19 +199,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 }
                 
             } else {
-                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
             }
             
         })
     }
     
     func refreshCollectionView() {
-        self.collectionView.reloadData()
+        self.collectionView?.reloadData()
         self.scrollToBottomAnimated(false)
     }
     
     static func sendReadStatusForMessage(message: QBChatMessage) {
-        if message.senderID != QBSession.currentSession().currentUser.ID && (message.readIDs == nil || !contains(message.readIDs as! [Int], Int(QBSession.currentSession().currentUser.ID))) {
+        if message.senderID != QBSession.currentSession().currentUser!.ID && (message.readIDs == nil || !(message.readIDs as! [Int]).contains(Int(QBSession.currentSession().currentUser!.ID))) {
             
             message.markable = true
             // Sending read status for message.
@@ -256,7 +239,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         var messageIDs = [String]()
         
         for message in messages {
-            messageIDs.append(message.ID)
+            messageIDs.append(message.ID!)
         }
     }
 
@@ -408,15 +391,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     let user = ServicesManager.instance().usersService.user(UInt(readID))
                     
                     if user != nil {
-                        readersLogin.append(user!.login)
+                        readersLogin.append(user!.login!)
                     } else {
                         readersLogin.append("Unknown")
                     }
                 }
-                if message.attachments.count > 0 {
-                    statusString += "Seen:" + ", ".join(readersLogin)
+                if message.attachments?.count > 0 {
+                    statusString += "Seen:" + readersLogin.joinWithSeparator(", ")
                 } else {
-                    statusString += "Read:" + ", ".join(readersLogin)
+                    statusString += "Read:" + readersLogin.joinWithSeparator(", ")
                 }
 
             }
@@ -433,12 +416,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 for deliveredID : Int in messageDeliveredIDs {
                     let user = ServicesManager.instance().usersService.user(UInt(deliveredID))
                     
-                    if contains(readersLogin, user!.login) {
+                    if readersLogin.contains(user!.login!) {
                         continue
                     }
                     
                     if user != nil {
-                        deliveredLogin.append(user!.login)
+                        deliveredLogin.append(user!.login!)
                     } else {
                         deliveredLogin.append("Unknown");
                     }
@@ -449,7 +432,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 }
                 
                 if deliveredLogin.count > 0 {
-                    statusString += "Delivered:" + " ,".join(deliveredLogin)
+                    statusString += "Delivered:" + deliveredLogin.joinWithSeparator(" ,")
                 }
             }
         }
@@ -484,7 +467,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             if (item.senderID != self.senderID) {
                 
-                if (item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
                     
                     return QMChatAttachmentIncomingCell.self
                     
@@ -495,7 +478,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 
             } else {
                 
-                if (item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
                     
                     return QMChatAttachmentOutgoingCell.self
                     
@@ -524,7 +507,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
-        let attributedString = NSAttributedString(string: messageItem.text, attributes: attributes)
+        let attributedString = NSAttributedString(string: messageItem.text!, attributes: attributes)
         
         return attributedString
     }
@@ -557,7 +540,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 13)
         
-        var text = messageItem.dateSent != nil ? messageTimeDateFormatter.stringFromDate(messageItem.dateSent) : ""
+        var text = messageItem.dateSent != nil ? messageTimeDateFormatter.stringFromDate(messageItem.dateSent!) : ""
         
         if messageItem.senderID == self.senderID {
             text = text + "\n" + ChatViewController.statusStringFromMessage(messageItem)
@@ -624,7 +607,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             }
             
             if response?.error != nil {
-                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
             } else {
                 SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
             }
@@ -664,19 +647,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
         if let attachmentCell = cell as? QMChatAttachmentCell {
             
             if attachmentCell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
-                (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+                (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
             } else if attachmentCell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
-                (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             }
             
             let message: QBChatMessage = self.items[indexPath.row] as! QBChatMessage;
             
             if let attachments = message.attachments {
                 
-                let attachment: QBChatAttachment = attachments.first as! QBChatAttachment
+                let attachment: QBChatAttachment = attachments.first!
                 var shouldLoadFile = true
                 
-                if self.attachmentCellsMap[attachment.ID] != nil {
+                if self.attachmentCellsMap[attachment.ID!] != nil {
                     shouldLoadFile = false
                 }
 
@@ -693,7 +676,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                     
                 }
                 
-                self.attachmentCellsMap[attachment.ID] = attachmentCell
+                self.attachmentCellsMap[attachment.ID!] = attachmentCell
                 attachmentCell.attachmentID = attachment.ID
                 
                 if !shouldLoadFile {
@@ -709,7 +692,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                         return
                     }
                     
-                    weakSelf?.attachmentCellsMap.removeValueForKey(attachment.ID)
+                    weakSelf?.attachmentCellsMap.removeValueForKey(attachment.ID!)
                     
                     if error != nil {
                         SVProgressHUD.showErrorWithStatus(error.localizedDescription)
@@ -725,9 +708,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
                 })
             }
         } else if cell.isKindOfClass(QMChatIncomingCell.self) || cell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
-            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+            (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
         } else if cell.isKindOfClass(QMChatOutgoingCell.self) || cell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
-            (cell as! QMChatCell).containerView.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         }
     }
     
@@ -775,15 +758,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             
             if (self.shouldHoldScrolOnCollectionView) {
                 
-                let bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+                let bottomOffset = self.collectionView!.contentSize.height - self.collectionView!.contentOffset.y
                 CATransaction.begin()
                 CATransaction.setDisableActions(true)
                 
                 /* Way for call reloadData sync */
-                self.collectionView.reloadData()
-                self.collectionView.performBatchUpdates(nil, completion: nil)
+                self.collectionView?.reloadData()
+                self.collectionView?.performBatchUpdates(nil, completion: nil)
 
-                self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
+                self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
                 
                 CATransaction.commit()
 
@@ -814,8 +797,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
             if updatedMessageIndex != NSNotFound {
                 let context = QMCollectionViewFlowLayoutInvalidationContext()
                 context.invalidateFlowLayoutMessagesCache = true
-                self.collectionView.collectionViewLayout.invalidateLayoutWithContext(context)
-                self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
+                self.collectionView?.collectionViewLayout.invalidateLayoutWithContext(context)
+                self.collectionView?.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
             }
             
         }
@@ -886,7 +869,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UITextVie
     
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService!, didChangeLoadingProgress progress: CGFloat, forChatAttachment attachment: QBChatAttachment!) {
         
-        if let attachmentCell = self.attachmentCellsMap[attachment.ID] {
+        if let attachmentCell = self.attachmentCellsMap[attachment.ID!] {
             attachmentCell.updateLoadingProgress(progress)
         }
     }

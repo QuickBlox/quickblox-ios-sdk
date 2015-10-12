@@ -134,6 +134,12 @@
      }];
 }
 
+- (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status {
+    if ([self.multicastDelegate respondsToSelector:@selector(contactListService:didReceiveContactItemActivity:isOnline:status:)]) {
+        [self.multicastDelegate contactListService:self didReceiveContactItemActivity:userID isOnline:isOnline status:status];
+    }
+}
+
 #pragma mark - Retrive users
 
 - (void)retrieveUsersWithIDs:(NSArray *)ids forceDownload:(BOOL)forceDownload completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
@@ -163,16 +169,7 @@
 	__weak __typeof(self)weakSelf = self;
 	[QBRequest usersWithIDs:usersIDs.allObjects  page:pageResponse successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray * users) {
 		
-		// remove already downloaded users from adding to memory storage
-		NSMutableArray *mutableUsers = [users mutableCopy];
-		for (int i = 0; i < mutableUsers.count; i++ ) {
-			QBUUser *user = mutableUsers[i];
-			if ([weakSelf.usersMemoryStorage userWithID:user.ID] != nil ) {
-				[mutableUsers removeObjectAtIndex:i];
-			}
-		}
-		
-		[weakSelf.usersMemoryStorage addUsers:[mutableUsers copy]];
+		[weakSelf.usersMemoryStorage addUsers:users];
 		
 		if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
 			[weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
@@ -187,6 +184,72 @@
 		completion(response, nil, nil);
 	}];
 	
+}
+
+- (void)retrieveUsersWithEmails:(NSArray *)emails completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
+    
+    __weak __typeof(self)weakSelf = self;
+    [QBRequest usersWithEmails:emails successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+        //
+        
+        [weakSelf.usersMemoryStorage addUsers:users];
+        
+        if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
+            [weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
+        }
+        
+        if (completion) {
+            completion(response, page, users);
+        }
+
+    } errorBlock:^(QBResponse *response) {
+        //
+        completion(response,nil,nil);
+    }];
+}
+
+- (QBRequest *)retrieveUsersWithFullName:(NSString *)searchText pagedRequest:(QBGeneralResponsePage *)page completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
+    __weak __typeof(self)weakSelf = self;
+    return [QBRequest usersWithFullName:searchText page:page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+        //
+
+        [weakSelf.usersMemoryStorage addUsers:users];
+        
+        if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
+            [weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
+        }
+        
+        if (completion) {
+            completion(response, page, users);
+        }
+
+    } errorBlock:^(QBResponse *response) {
+        //
+        completion(response,nil,nil);
+    }];
+}
+
+- (void)retrieveUsersWithFacebookIDs:(NSArray *)facebookIDs completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
+    QBGeneralResponsePage *pageResponse =
+    [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:facebookIDs.count < 100 ? facebookIDs.count : 100];
+    
+    __weak __typeof(self)weakSelf = self;
+    [QBRequest usersWithFacebookIDs:facebookIDs page:pageResponse successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+        
+        [weakSelf.usersMemoryStorage addUsers:users];
+        
+        if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
+            [weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
+        }
+        
+        if (completion) {
+            completion(response, page, users);
+        }
+        
+    } errorBlock:^(QBResponse *response) {
+        //
+        completion(response,nil,nil);
+    }];
 }
 
 #pragma mark - ContactList Request

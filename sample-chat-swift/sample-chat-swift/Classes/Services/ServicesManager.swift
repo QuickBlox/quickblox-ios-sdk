@@ -42,19 +42,19 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
             return
         }
         
-        var dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
+        let dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
         var dialogName = "New message"
         
         if dialog.type != QBChatDialogType.Private {
             
             if dialog.name != nil {
-                dialogName = dialog.name
+                dialogName = dialog.name!
             }
     
         } else {
             
             if let user = ServicesManager.instance().usersService.user(UInt(dialog.recipientID)) {
-                dialogName = user.login
+                dialogName = user.login!
             }
         }
         
@@ -78,7 +78,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
         } else if response.status.rawValue == 0 {
             errorMessage = "Connection network error, please try again"
         } else {
-            errorMessage = response.error.error.localizedDescription.stringByReplacingOccurrencesOfString("(", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).stringByReplacingOccurrencesOfString(")", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+            errorMessage = (response.error?.error?.localizedDescription.stringByReplacingOccurrencesOfString("(", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).stringByReplacingOccurrencesOfString(")", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))!
         }
         
         TWMessageBarManager.sharedInstance().hideAll()

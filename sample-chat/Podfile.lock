@@ -1,21 +1,29 @@
 PODS:
-  - QMChatViewController (0.2.2):
-    - QMChatViewController/Categories (= 0.2.2)
-    - QMChatViewController/KeyboardViewController (= 0.2.2)
-    - QMChatViewController/Protocols (= 0.2.2)
-    - QMChatViewController/Views (= 0.2.2)
+  - QMChatViewController (0.2.4):
+    - QMChatViewController/Categories (= 0.2.4)
+    - QMChatViewController/KeyboardViewController (= 0.2.4)
+    - QMChatViewController/Protocols (= 0.2.4)
+    - QMChatViewController/Views (= 0.2.4)
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Categories (0.2.2):
+  - QMChatViewController/Categories (0.2.4):
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/KeyboardViewController (0.2.2):
+  - QMChatViewController/KeyboardViewController (0.2.4):
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Protocols (0.2.2):
+  - QMChatViewController/Protocols (0.2.4):
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Views (0.2.2):
+  - QMChatViewController/Views (0.2.4):
     - QMChatViewController/Categories
     - QMChatViewController/Protocols
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMServices (0.2.1)
+  - QMServices (0.2.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SVProgressHUD (1.1.3)
   - TTTAttributedLabel (1.13.4)
   - TWMessageBarManager (1.7.2)
@@ -32,14 +40,10 @@ EXTERNAL SOURCES:
   QMServices:
     :podspec: ../QMServicesDevelopment.podspec
 
-CHECKOUT OPTIONS:
-  QMServices:
-    :commit: 51595f57b13b0ab6ec6793ea97c41d1f444a6927
-    :git: https://github.com/QuickBlox/q-municate-services-ios.git
-
 SPEC CHECKSUMS:
-  QMChatViewController: b9da4a55c3b9341f507bee781d85ae6afa1ab6c7
-  QMServices: 766b19db8e081bfea1f5cb73a6442c349b02b8eb
+  QMChatViewController: b235dba817cba8e8c51eba7c2b4c8745e1e948dc
+  QMServices: 5cd9c4ec833d41e1a0db55010ff53c520bd98596
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662

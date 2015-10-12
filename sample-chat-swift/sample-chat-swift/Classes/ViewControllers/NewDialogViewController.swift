@@ -20,7 +20,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         ServicesManager.instance().chatService.addDelegate(self)
         
-        if let dialog = self.dialog {
+        if let _ = self.dialog {
             self.navigationItem.rightBarButtonItem?.title = "Done"
             self.title = "Add Occupants"
         } else {
@@ -35,7 +35,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     }
     
     func updateUsers() {
-        if let dialog = self.dialog  {
+        if let _ = self.dialog  {
             
             self.setupUsers(ServicesManager.instance().usersService.users()!)
         }
@@ -45,9 +45,9 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
         var filteredUsers = users.filter({($0 as QBUUser).ID != ServicesManager.instance().currentUser().ID})
         
-        if let dialog = self.dialog  {
+        if let _ = self.dialog  {
             
-            filteredUsers = filteredUsers.filter({!contains(self.dialog!.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+            filteredUsers = filteredUsers.filter({!(self.dialog!.occupantIDs as! [UInt]).contains(($0 as QBUUser).ID)})
         }
         
         super.setupUsers(filteredUsers)
@@ -55,18 +55,18 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     }
     
     func checkCreateChatButtonState() {
-        self.navigationItem.rightBarButtonItem?.enabled = tableView.indexPathsForSelectedRows()?.count != nil
+        self.navigationItem.rightBarButtonItem?.enabled = tableView.indexPathsForSelectedRows?.count != nil
     }
     
     @IBAction func createChatButtonPressed(sender: AnyObject) {
 
         (sender as! UIBarButtonItem).enabled = false
         
-        let selectedIndexes = self.tableView.indexPathsForSelectedRows() as! [NSIndexPath]
+        let selectedIndexes = self.tableView.indexPathsForSelectedRows
         
         var users: [QBUUser] = []
         
-        for indexPath in selectedIndexes {
+        for indexPath in selectedIndexes! {
             let user = self.users![indexPath.row]
             users.append(user)
         }
@@ -78,13 +78,13 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             (sender as! UIBarButtonItem).enabled = true
             
             if createdDialog != nil {
-                println(createdDialog)
+                print(createdDialog)
                 weakSelf?.processeNewDialog(createdDialog)
             }
             
             if response != nil && response.error != nil {
-                println(response.error.error)
-                SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                print(response.error?.error)
+                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
             }
         }
         
@@ -108,17 +108,17 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                         weakSelf?.processeNewDialog(dialog)
                         
                     } else {
-                        SVProgressHUD.showErrorWithStatus(response.error.error.localizedDescription)
+                        SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
                     }
                     
                 })
                 
             } else {
                 
-                let primaryUsers = ServicesManager.instance().usersService.users(withoutUser: ServicesManager.instance().currentUser())?.filter({contains(dialog.occupantIDs as! [UInt], ($0 as QBUUser).ID)})
+                let primaryUsers = ServicesManager.instance().usersService.users(withoutUser: ServicesManager.instance().currentUser())?.filter({(dialog.occupantIDs as! [UInt]).contains(($0 as QBUUser).ID)})
                 
                 if primaryUsers != nil && primaryUsers!.count > 0 {
-                    users.extend(primaryUsers! as [QBUUser])
+                    users.appendContentsOf(primaryUsers! as [QBUUser])
                 }
                 
                 let chatName = NewDialogViewController.nameForGroupChatWithUsers(users)
@@ -134,7 +134,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
 
             } else {
                 
-                AlertViewWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { [unowned self] (text) -> Void in
+                _ = AlertViewWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { (text) -> Void in
                     
                     var chatName = text
                     
@@ -168,13 +168,13 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 // Notifies existing dialog occupants about new users.
                 ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
                 
-                println(dialog)
+                print(dialog)
                 
                 completion?(response: response, dialog: dialog)
                 
             } else {
                 
-                println(response.error.error)
+                print(response.error?.error)
                 
                 completion?(response: response, dialog: nil)
     
@@ -185,7 +185,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     
     static func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
         
-        let chatName = ServicesManager.instance().currentUser()!.login + "_" + ", ".join(users.map({ $0.login ?? $0.email })).stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let chatName = ServicesManager.instance().currentUser()!.login! + "_" + users.map({ $0.login ?? $0.email! }).joinWithSeparator(", ").stringByReplacingOccurrencesOfString("@", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         return chatName
     }

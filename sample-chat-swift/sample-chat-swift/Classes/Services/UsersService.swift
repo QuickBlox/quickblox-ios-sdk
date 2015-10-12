@@ -44,9 +44,7 @@ class UsersService: NSObject {
         
         if (memoryUsers != nil && memoryUsers.count > 0) {
             
-            var sortedUsers = memoryUsers.sorted({ (user1, user2) -> Bool in
-                return (user1.login as NSString).compare(user2.login, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
-            }) as! [QBUUser]
+            let sortedUsers = UsersService.sortedUsers(memoryUsers as! [QBUUser])
             
             completion?(sortedUsers)
             
@@ -57,9 +55,7 @@ class UsersService: NSObject {
         
         QMContactListCache.instance().usersSortedBy("login", ascending: true) { (users: [AnyObject]!) -> Void in
             
-            var sortedUsers = users.sorted({ (user1, user2) -> Bool in
-                return (user1.login as NSString).compare(user2.login, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
-            }) as! [QBUUser]
+            let sortedUsers = UsersService.sortedUsers(users as! [QBUUser])
             
             weakSelf?.contactListService!.usersMemoryStorage.addUsers(sortedUsers)
             
@@ -73,11 +69,9 @@ class UsersService: NSObject {
         
         let enviroment = Constants.QB_USERS_ENVIROMENT
         
-        QBRequest.usersWithTags([enviroment], successBlock: { (response: QBResponse!, page: QBGeneralResponsePage!, users: [AnyObject]!) -> Void in
+        QBRequest.usersWithTags([enviroment], successBlock: { (response: QBResponse!, page: QBGeneralResponsePage?, users: [QBUUser]?) -> Void in
             
-            var sortedUsers = users.sorted({ (user1, user2) -> Bool in
-                return (user1.login as NSString).compare(user2.login, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
-            }) as! [QBUUser]
+            let sortedUsers = UsersService.sortedUsers(users!)
 
             weakSelf?.contactListService!.usersMemoryStorage.addUsers(sortedUsers)
             QMContactListCache.instance().insertOrUpdateUsers(sortedUsers, completion: nil)
@@ -106,9 +100,18 @@ class UsersService: NSObject {
         return (self.contactListService.usersMemoryStorage.unsortedUsers() as! [QBUUser]).filter({$0.ID != user.ID})
     }
     
+    static func sortedUsers(unsortedUsers: [QBUUser]) -> [QBUUser] {
+        
+        let sortedUsers = unsortedUsers.sort({ (user1, user2) -> Bool in
+            return (user1.login! as NSString).compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
+            })
+        
+        return sortedUsers
+    }
+    
     func color(forUser user:QBUUser) -> UIColor {
         
-        let userIndex = find(self.users()!, self.user(user.ID)!)
+        let userIndex = (self.users()!).indexOf(self.user(user.ID)!)
         
         if userIndex < self.colors.count {
             return self.colors[userIndex!]

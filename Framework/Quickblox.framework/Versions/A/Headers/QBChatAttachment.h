@@ -7,18 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 @interface QBChatAttachment : NSObject <NSCoding, NSCopying> {
 
 }
 
 /** Type of attachment: audio/video/image */
-@property (nonatomic, retain) NSString *type;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *type;
 
 /** Content URL */
-@property (nonatomic, retain) NSString *url;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *url;
 
 /** ID of attached element */
-@property (nonatomic, retain) NSString *ID;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *ID;
 
 @end

@@ -17,10 +17,6 @@
 #import "DialogsViewController.h"
 #import "MessageStatusStringBuilder.h"
 
-#import <QMChatViewController/QMChatAttachmentIncomingCell.h>
-#import <QMChatViewController/QMChatAttachmentOutgoingCell.h>
-#import <QMChatViewController/QMChatAttachmentCell.h>
-
 #import "UIImage+fixOrientation.h"
 
 #import <QMCollectionViewFlowLayoutInvalidationContext.h>
@@ -129,22 +125,6 @@ UIActionSheetDelegate
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
-    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined && [QBChat instance].isLoggedIn) {
-        // in order to join/rejoin group dialog it must be up to date with the server one
-        [[ServicesManager instance].chatService loadDialogWithID:self.dialog.ID completion:^(QBChatDialog *loadedDialog) {
-            //
-            if (loadedDialog != nil) {
-                [[ServicesManager instance].chatService joinToGroupDialog:loadedDialog failed:^(NSError *error) {
-                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
-                }];
-            }
-            else {
-                // dialog was not found, let dialogcontroller handle it
-                [self.navigationController popViewControllerAnimated:NO];
-            }
-        }];
-    }
-    
 	if (showingProgress && !self.isSendingAttachment) {
         [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
@@ -173,8 +153,11 @@ UIActionSheetDelegate
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
         
-        if ([[QBChat instance] isLoggedIn]) {
+        if ([[QBChat instance] isConnected]) {
             [strongSelf refreshMessagesShowingProgress:NO];
+        }
+        else {
+            [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
         }
 	}];
     
@@ -698,13 +681,11 @@ UIActionSheetDelegate
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
-    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
-    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
@@ -717,8 +698,6 @@ UIActionSheetDelegate
     if (self.dialog.type != QBChatDialogTypePrivate) {
         [self refreshMessagesShowingProgress:YES];
     }
-    
-    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
     
     for (QBChatMessage* message in self.unreadMessages) {
         [self sendReadStatusForMessage:message];

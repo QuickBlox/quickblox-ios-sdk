@@ -22,7 +22,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         
         if (ServicesManager.instance().currentUser() != nil) {
             ServicesManager.instance().currentUser().password = kTestUsersDefaultPassword
-            SVProgressHUD.showWithStatus("SA_STR_LOGGIN_IN_AS".localized + ServicesManager.instance().currentUser().login, maskType: SVProgressHUDMaskType.Clear)
+            SVProgressHUD.showWithStatus("SA_STR_LOGGIN_IN_AS".localized + ServicesManager.instance().currentUser().login!, maskType: SVProgressHUDMaskType.Clear)
             // Logging to Quickblox REST API and chat.
             ServicesManager.instance().logInWithUser(ServicesManager.instance().currentUser(), completion:{
                 [weak self] (success:Bool,  errorMessage: String?) -> Void in
@@ -58,8 +58,8 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     }
     
     func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!) {
-        var dialogsController: DialogsViewController! = self.storyboard?.instantiateViewControllerWithIdentifier("DialogsViewController") as! DialogsViewController
-        var chatController: ChatViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+        let dialogsController: DialogsViewController! = self.storyboard?.instantiateViewControllerWithIdentifier("DialogsViewController") as! DialogsViewController
+        let chatController: ChatViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
         chatController.dialog = chatDialog
 
         self.navigationController?.viewControllers = [dialogsController, chatController]
@@ -95,16 +95,14 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     // MARK: Remote notifications
     
     func registerForRemoteNotification() {
-        // Check to see if this is an iOS 8 device.
-        let iOS8 = floor(NSFoundationVersionNumber) > floor(NSFoundationVersionNumber_iOS_7_1)
-        if iOS8 {
-            // Register for push in iOS 8
-            let settings = UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound, categories: nil)
+        // Register for push in iOS 8
+        if #available(iOS 8.0, *) {
+            let settings = UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound], categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(settings)
             UIApplication.sharedApplication().registerForRemoteNotifications()
         } else {
             // Register for push in iOS 7
-            UIApplication.sharedApplication().registerForRemoteNotificationTypes(UIRemoteNotificationType.Badge | UIRemoteNotificationType.Sound | UIRemoteNotificationType.Alert)
+            UIApplication.sharedApplication().registerForRemoteNotificationTypes([UIRemoteNotificationType.Badge, UIRemoteNotificationType.Sound, UIRemoteNotificationType.Alert])
         }
     }
     
@@ -116,7 +114,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         let user = self.users![indexPath.row]
         
         cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().usersService.color(forUser: user))
-        cell.userDescription = "Login as " + user.fullName
+        cell.userDescription = "Login as " + user.fullName!
         cell.tag = indexPath.row
         
         return cell

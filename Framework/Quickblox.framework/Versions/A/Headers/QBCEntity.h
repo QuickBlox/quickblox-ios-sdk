@@ -5,6 +5,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 /** Entity class declaration */
 /** Overview */
@@ -21,9 +23,9 @@
 @property (nonatomic) NSUInteger ID;
 
 /** Created date */
-@property (nonatomic, strong) NSDate* createdAt;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate* createdAt;
 
 /** Updated date */
-@property (nonatomic, strong) NSDate* updatedAt;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate* updatedAt;
 
 @end

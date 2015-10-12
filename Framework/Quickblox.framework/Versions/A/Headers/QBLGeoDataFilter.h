@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import "QBLocationStructs.h"
@@ -17,25 +19,25 @@
 #pragma mark Filters
 
 /** Time of created instance of geodata. When specified, it will return only instances created at 'created_at' time. Type: Unix timestamp. Value example: 1326471371. */
-@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate *createdAt;
 
 /** User id. When specified, it will return only the instances created by QBUUser with id = userID. */
 @property (nonatomic) NSUInteger userID;
 
 /** User ids. When specified, it will return only the instances created by QBUUsers with ids = userIDs. */
-@property (nonatomic, strong) NSArray *userIDs;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSString *) *userIDs;
 
 /** Substring. Search for API Users full_name and login fields. When specified, it will return only the instances created by API Users who have in login or full_name passed substring.*/
-@property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *userName;
 
 #pragma mark -
 #pragma mark Diapazones
 
 /** Min value of created_at. If this parameter is specified, must return instances with created_at greater than or equal to a given value. Type: Unix timestamp. Value example: 1326471371. */
-@property (nonatomic, strong) NSDate *minCreatedAt;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate *minCreatedAt;
 
 /** Max value of created_at. If this parameter is specified, must return instances with created_at less than or equal to a given value. Type: Unix timestamp. Value example: 1326471371. */
-@property (nonatomic, strong) NSDate *maxCreatedAt;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate *maxCreatedAt;
 
 /** If this parameter is correct, must return instances with coordinates that fall within the rectangle and its border. You need two points to build a rectangle (first point -- South West, second -- North East).*/
 @property (nonatomic) struct QBLGeoDataRect geoRect;
@@ -68,6 +70,6 @@
 #pragma mark Parameters
 
 /** Converts instance to dictionary of values */
-- (NSDictionary *)asParameters;
+- (QB_NONNULL NSDictionary *)asParameters;
 
 @end

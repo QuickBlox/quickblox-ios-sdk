@@ -28,7 +28,7 @@ class UserTableViewCell: UITableViewCell {
     
     override func setSelected(selected: Bool, animated: Bool) {
         
-        var markerColor = self.colorMarker.backgroundColor
+        let markerColor = self.colorMarker.backgroundColor
         
         super.setSelected(selected, animated: animated)
         
@@ -37,7 +37,7 @@ class UserTableViewCell: UITableViewCell {
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
         
-        var markerColor = self.colorMarker.backgroundColor
+        let markerColor = self.colorMarker.backgroundColor
         
         super.setHighlighted(highlighted, animated: animated)
         

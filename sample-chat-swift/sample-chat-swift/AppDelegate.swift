@@ -42,13 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
 	}
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        let deviceIdentifier: String = UIDevice.currentDevice().identifierForVendor.UUIDString
-        var subscription: QBMSubscription! = QBMSubscription()
+        let deviceIdentifier: String = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        let subscription: QBMSubscription! = QBMSubscription()
         
         subscription.notificationChannel = QBMNotificationChannelAPNS
         subscription.deviceUDID = deviceIdentifier
         subscription.deviceToken = deviceToken
-        QBRequest.createSubscription(subscription, successBlock: { (response: QBResponse!, objects: [AnyObject]!) -> Void in
+        QBRequest.createSubscription(subscription, successBlock: { (response: QBResponse!, objects: [QBMSubscription]?) -> Void in
             //
             }) { (response: QBResponse!) -> Void in
             //

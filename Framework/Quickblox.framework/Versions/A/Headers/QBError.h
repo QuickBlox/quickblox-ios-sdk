@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 
 @interface QBError : NSObject
 
-@property (nonatomic, readonly) NSDictionary* reasons;
-@property (nonatomic, readonly) NSError* error;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDictionary QB_GENERIC(NSString *, NSString *) * reasons;
+@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSError* error;
 
-+ (instancetype)errorWithError:(NSError *)error;
++ (QB_NONNULL instancetype)errorWithError:(QB_NULLABLE NSError *)error;
 
 @end

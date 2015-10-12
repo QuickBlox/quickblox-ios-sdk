@@ -1,6 +1,6 @@
 {
   "name": "QMChatViewController",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "summary": "An elegant ready-to-go chat view controller for iOS chat applications that use Quickblox communication backend.",
   "description": "* Ready-to-go chat view controller with a set of cells.\n* Automatic cell size calculation.\n* UI customisation for chat cells.\n* Flexibility in improving and extending functionality.\n* Easy to connect with Quickblox.\n* Optimised and performant.\n* Supports portrait and landscape orientations.\n* Auto Layout inside.",
   "homepage": "https://github.com/QuickBlox/QMChatViewController-ios",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/QuickBlox/QMChatViewController-ios.git",
-    "tag": "0.2.2"
+    "tag": "0.2.4"
   },
   "source_files": "QMChatViewController/QMChatViewController.{h,m}",
   "resources": [
@@ -30,6 +30,9 @@
   "dependencies": {
     "TTTAttributedLabel": [
       "~> 1.13"
+    ],
+    "SDWebImage": [
+      "~> 3.6"
     ]
   },
   "subspecs": [

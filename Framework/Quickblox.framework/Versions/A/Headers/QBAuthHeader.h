@@ -10,6 +10,5 @@
 #define Quickblox_QBAuthHeader_h
 
 #import <Quickblox/QBRequest+QBAuth.h>
-#import <Quickblox/QBSessionParameters.h>
 
 #endif
