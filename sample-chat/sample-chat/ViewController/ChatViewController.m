@@ -153,8 +153,11 @@ UIActionSheetDelegate
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
         
-        if ([[QBChat instance] isLoggedIn]) {
+        if ([[QBChat instance] isConnected]) {
             [strongSelf refreshMessagesShowingProgress:NO];
+        }
+        else {
+            [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
         }
 	}];
     
@@ -678,13 +681,11 @@ UIActionSheetDelegate
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
-    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
-    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
@@ -697,8 +698,6 @@ UIActionSheetDelegate
     if (self.dialog.type != QBChatDialogTypePrivate) {
         [self refreshMessagesShowingProgress:YES];
     }
-    
-    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
     
     for (QBChatMessage* message in self.unreadMessages) {
         [self sendReadStatusForMessage:message];

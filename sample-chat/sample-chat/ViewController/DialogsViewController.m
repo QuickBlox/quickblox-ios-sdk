@@ -42,9 +42,10 @@ QMChatConnectionDelegate
                                                                                  usingBlock:^(NSNotification *note) {
         __typeof(self) strongSelf = weakSelf;
                                                                                      
-        if ([[QBChat instance] isLoggedIn]) {
+        if ([[QBChat instance] isConnected]) {
             [strongSelf loadDialogs];
         } else {
+            [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
             strongSelf.shouldUpdateDialogsAfterLogIn = YES;
         }
 	}];
@@ -299,13 +300,11 @@ QMChatConnectionDelegate
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
-    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
-    [SVProgressHUD showWithStatus:@"Logging in to chat..." maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
@@ -315,8 +314,6 @@ QMChatConnectionDelegate
 
 - (void)chatServiceChatDidLogin
 {
-    [SVProgressHUD showSuccessWithStatus:@"Logged in!"];
-    
     if (self.shouldUpdateDialogsAfterLogIn) {
         
         self.shouldUpdateDialogsAfterLogIn = NO;
