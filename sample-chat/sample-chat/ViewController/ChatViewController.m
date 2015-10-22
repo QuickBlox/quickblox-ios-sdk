@@ -297,6 +297,7 @@ UIActionSheetDelegate
     message.markable = YES;
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
+    message.dateSent = date;
     
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
@@ -682,22 +683,7 @@ UIActionSheetDelegate
 
 #pragma mark - QMChatConnectionDelegate
 
-- (void)chatServiceChatDidConnect:(QMChatService *)chatService
-{
-    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
-}
-
-- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
-{
-    [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
-}
-
-- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
-{
-    [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
-}
-
-- (void)chatServiceChatDidLogin
+- (void)refreshAndReadMessages;
 {
     if (self.dialog.type != QBChatDialogTypePrivate) {
         [self refreshMessagesShowingProgress:YES];
@@ -710,14 +696,14 @@ UIActionSheetDelegate
     self.unreadMessages = nil;
 }
 
-- (void)chatServiceChatDidNotLoginWithError:(NSError *)error
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showErrorWithStatus:@"Unable to login to chat!"];
+    [self refreshAndReadMessages];
 }
 
-- (void)chatServiceChatDidFailWithStreamError:(NSError *)error
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showErrorWithStatus:@"Error: No Internet Connection! "];
+    [self refreshAndReadMessages];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate
@@ -782,6 +768,7 @@ UIActionSheetDelegate
         QBChatMessage* message = [QBChatMessage new];
         message.senderID = strongSelf.senderID;
         message.dialogID = strongSelf.dialog.ID;
+        message.dateSent = [NSDate date];
         
         // Sending attachment to dialog.
         [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message
