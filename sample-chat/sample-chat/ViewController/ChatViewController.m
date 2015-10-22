@@ -125,6 +125,8 @@ UIActionSheetDelegate
         __typeof(self) strongSelf = weakSelf;
         [strongSelf updateTitle];
     }];
+    
+    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined) [self.dialog join];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
@@ -159,9 +161,6 @@ UIActionSheetDelegate
         
         if ([[QBChat instance] isConnected]) {
             [strongSelf refreshMessagesShowingProgress:NO];
-        }
-        else {
-            [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
         }
 	}];
     

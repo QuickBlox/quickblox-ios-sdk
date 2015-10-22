@@ -24,44 +24,28 @@ QMChatConnectionDelegate
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
 @property (nonatomic, readonly) NSArray* dialogs;
 
-@property (nonatomic, assign) BOOL shouldUpdateDialogsAfterLogIn;
-
 @end
 
 @implementation DialogsViewController
+
+- (void)viewDidLoad {
+    [ServicesManager.instance.chatService addDelegate:self];
+    self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                                                     object:nil queue:[NSOperationQueue mainQueue]
+                                                                                 usingBlock:^(NSNotification *note) {
+                                                                                     if (![[QBChat instance] isConnected]) {
+                                                                                         [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
+                                                                                     }
+                                                                                 }];
+    [self loadDialogs];
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
     
-	[self.tableView reloadData];
-	__weak __typeof(self)weakSelf = self;
-    
-	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                                                     object:nil queue:[NSOperationQueue mainQueue]
-                                                                                 usingBlock:^(NSNotification *note) {
-        __typeof(self) strongSelf = weakSelf;
-                                                                                     
-        if ([[QBChat instance] isConnected]) {
-            [strongSelf loadDialogs];
-        } else {
-            [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
-            strongSelf.shouldUpdateDialogsAfterLogIn = YES;
-        }
-	}];
-    
     self.navigationItem.title = [NSString stringWithFormat:@"Logged in as %@", [QBSession currentSession].currentUser.login];
-    
-    [ServicesManager.instance.chatService addDelegate:self];
-    
-    [self loadDialogs];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-    
-	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
+	[self.tableView reloadData];
 }
 
 - (IBAction)logoutButtonPressed:(UIButton *)sender
@@ -80,6 +64,9 @@ QMChatConnectionDelegate
         dispatch_group_leave(logoutGroup);
     }];
     
+    // resetting last activity date
+    [ServicesManager instance].lastActivityDate = nil;
+    
     __weak __typeof(self)weakSelf = self;
     dispatch_group_notify(logoutGroup,dispatch_get_main_queue(),^{
         // logging out
@@ -94,6 +81,7 @@ QMChatConnectionDelegate
 {
     __weak __typeof(self) weakSelf = self;
     if ([ServicesManager instance].lastActivityDate != nil) {
+        [[ServicesManager instance] joinAllGroupDialogs];
         [[ServicesManager instance].chatService fetchDialogsUpdatedFromDate:[ServicesManager instance].lastActivityDate andPageLimit:kDialogsPageLimit iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             //
             __typeof(weakSelf) strongSelf = weakSelf;
@@ -107,18 +95,19 @@ QMChatConnectionDelegate
     }
     else {
         [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
-        [ServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+        [[ServicesManager instance].chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             __typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf.tableView reloadData];
         } completion:^(QBResponse *response) {
             if (response != nil && response.success) {
-                [ServicesManager instance].lastActivityDate = [NSDate date];
+                [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                //[ServicesManager instance].lastActivityDate = [NSDate date];
+                [[ServicesManager instance] joinAllGroupDialogs];
             }
             else {
                 [SVProgressHUD showErrorWithStatus:@"Failed to load dialogs"];
             }
         }];
-
     }
 }
 
@@ -300,25 +289,18 @@ QMChatConnectionDelegate
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [self loadDialogs];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
     [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
+    [self loadDialogs];
 }
 
 - (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
 {
     [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
-}
-
-- (void)chatServiceChatDidLogin
-{
-    if (self.shouldUpdateDialogsAfterLogIn) {
-        
-        self.shouldUpdateDialogsAfterLogIn = NO;
-        [self loadDialogs];
-    }
 }
 
 - (void)chatServiceChatDidNotLoginWithError:(NSError *)error
