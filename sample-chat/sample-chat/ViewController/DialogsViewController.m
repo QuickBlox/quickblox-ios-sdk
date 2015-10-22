@@ -62,7 +62,6 @@ QMChatConnectionDelegate
 	[super viewWillDisappear:animated];
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
-    [[ServicesManager instance].chatService removeDelegate:self];
 }
 
 - (IBAction)logoutButtonPressed:(UIButton *)sender
@@ -81,7 +80,7 @@ QMChatConnectionDelegate
         dispatch_group_leave(logoutGroup);
     }];
     
-    __weak typeof(self)weakSelf = self;
+    __weak __typeof(self)weakSelf = self;
     dispatch_group_notify(logoutGroup,dispatch_get_main_queue(),^{
         // logging out
         [[QMServicesManager instance] logoutWithCompletion:^{
@@ -93,39 +92,40 @@ QMChatConnectionDelegate
 
 - (void)loadDialogs
 {
-	BOOL shouldShowSuccessStatus = NO;
-	if ([self dialogs].count == 0) {
-		shouldShowSuccessStatus = YES;
-		[SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
-	}
-	
     __weak __typeof(self) weakSelf = self;
-    [ServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
-        __typeof(self) strongSelf = weakSelf;
-        if (response.error != nil) {
-            [SVProgressHUD showErrorWithStatus:@"Can not download"];
-        }
-        
-        for (QBChatDialog* dialog in dialogObjects) {
-            if (dialog.type != QBChatDialogTypePrivate) {
-                // Joining to group chat dialogs.
-                [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
-                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
-                }];
+    if ([ServicesManager instance].lastActivityDate != nil) {
+        [[ServicesManager instance].chatService fetchDialogsUpdatedFromDate:[ServicesManager instance].lastActivityDate andPageLimit:kDialogsPageLimit iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+            //
+            __typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf.tableView reloadData];
+        } completionBlock:^(QBResponse *response) {
+            //
+            if (response != nil && response.success) {
+                [ServicesManager instance].lastActivityDate = [NSDate date];
             }
-        }
-        [strongSelf.tableView reloadData];
-    } completion:^(QBResponse *response) {
-        if (shouldShowSuccessStatus) {
-            [SVProgressHUD showSuccessWithStatus:@"Completed"];
-        }
-    }];
+        }];
+    }
+    else {
+        [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
+        [ServicesManager.instance.chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
+            __typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf.tableView reloadData];
+        } completion:^(QBResponse *response) {
+            if (response != nil && response.success) {
+                [ServicesManager instance].lastActivityDate = [NSDate date];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:@"Failed to load dialogs"];
+            }
+        }];
+
+    }
 }
 
 - (NSArray *)dialogs
 {
-    // Retrieving dialogs sorted by last message date from memory storage.
-	return [ServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByLastMessageDateWithAscending:NO];
+    // Retrieving dialogs sorted by updatedAt date from memory storage.
+	return [ServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByUpdatedAtWithAscending:NO];
 }
 
 #pragma mark

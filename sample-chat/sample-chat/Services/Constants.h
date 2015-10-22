@@ -28,6 +28,7 @@ static NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentif
  */
 static NSString *const kChatCacheNameKey = @"sample-cache";
 static NSString *const kContactListCacheNameKey = @"sample-cache-contacts";
+static NSString *const kLastActivityDateKey = @"last_activity_date";
 
 /**
  *  LoginTableViewController

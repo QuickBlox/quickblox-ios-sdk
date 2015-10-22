@@ -31,4 +31,14 @@
  */
 @property (nonatomic, strong) NSString* currentDialogID;
 
+/**
+ *  Last activity date. Needed for updating chat dialogs when go back from tray.
+ */
+@property (strong, nonatomic) NSDate *lastActivityDate;
+
+/**
+ *  Joining all group dialogs
+ */
+- (void)joinAllGroupDialogs;
+
 @end
