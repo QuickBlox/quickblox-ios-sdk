@@ -8,8 +8,12 @@
 
 #import "ChatViewController.h"
 #import "DialogInfoTableViewController.h"
-#import <QMChatViewController/UIImage+QM.h>
-#import <QMChatViewController/UIColor+QM.h>
+
+//#import <QMChatViewController/UIImage+QM.h>
+//#import <QMChatViewController/UIColor+QM.h>
+#import <UIColor+QM.h>
+#import <UIImage+QM.h>
+
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "ServicesManager.h"
 

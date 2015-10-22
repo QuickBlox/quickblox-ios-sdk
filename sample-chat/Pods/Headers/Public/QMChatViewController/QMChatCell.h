@@ -1,1 +1,0 @@
-../../../QMChatViewController/QMChatViewController/Views/Cells/QMChatCell/QMChatCell.h
