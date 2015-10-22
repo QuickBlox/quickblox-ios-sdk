@@ -15,6 +15,7 @@ const struct CDDialogAttributes CDDialogAttributes = {
 	.recipientID = @"recipientID",
 	.roomJID = @"roomJID",
 	.unreadMessagesCount = @"unreadMessagesCount",
+	.updatedAt = @"updatedAt",
 	.userID = @"userID",
 };
 
@@ -170,6 +171,8 @@ const struct CDDialogRelationships CDDialogRelationships = {
 - (void)setPrimitiveUnreadMessagesCountValue:(int32_t)value_ {
 	[self setPrimitiveUnreadMessagesCount:[NSNumber numberWithInt:value_]];
 }
+
+@dynamic updatedAt;
 
 @dynamic userID;
 

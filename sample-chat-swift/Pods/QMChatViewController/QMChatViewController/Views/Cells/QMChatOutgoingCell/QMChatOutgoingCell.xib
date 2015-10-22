@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,11 +17,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7u5-rz-uqE" userLabel="Avatar Container">
                         <rect key="frame" x="209" y="29" width="44" height="45"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Ef-cm-mUT" userLabel="Avatar Image View">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Ef-cm-mUT" userLabel="Avatar Image View" customClass="QMImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="45"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.95686274510000002" green="0.79795612969999996" blue="0.18798932830000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="45" id="G4o-g5-Qyf"/>
                             <constraint firstItem="7Ef-cm-mUT" firstAttribute="leading" secondItem="7u5-rz-uqE" secondAttribute="leading" id="Wga-7S-eKb"/>
@@ -119,6 +119,7 @@
             <connections>
                 <outlet property="avatarContainerViewHeightConstraint" destination="G4o-g5-Qyf" id="68d-kl-qQw"/>
                 <outlet property="avatarContainerViewWidthConstraint" destination="uct-ao-DdW" id="jz8-Mx-YYV"/>
+                <outlet property="avatarView" destination="7Ef-cm-mUT" id="e3o-co-mQh"/>
                 <outlet property="bottomLabel" destination="KM3-Oj-tba" id="nlu-fs-GAw"/>
                 <outlet property="bottomLableHeightConstraint" destination="WU0-tf-mgf" id="xLU-KS-YqK"/>
                 <outlet property="containerView" destination="IHn-aU-joG" id="FxQ-jl-eL2"/>

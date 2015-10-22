@@ -15,6 +15,7 @@ extern const struct CDDialogAttributes {
 	__unsafe_unretained NSString *recipientID;
 	__unsafe_unretained NSString *roomJID;
 	__unsafe_unretained NSString *unreadMessagesCount;
+	__unsafe_unretained NSString *updatedAt;
 	__unsafe_unretained NSString *userID;
 } CDDialogAttributes;
 
@@ -95,6 +96,10 @@ extern const struct CDDialogRelationships {
 
 //- (BOOL)validateUnreadMessagesCount:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSDate* updatedAt;
+
+//- (BOOL)validateUpdatedAt:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSNumber* userID;
 
 @property (atomic) int32_t userIDValue;
@@ -163,6 +168,9 @@ extern const struct CDDialogRelationships {
 
 - (int32_t)primitiveUnreadMessagesCountValue;
 - (void)setPrimitiveUnreadMessagesCountValue:(int32_t)value_;
+
+- (NSDate*)primitiveUpdatedAt;
+- (void)setPrimitiveUpdatedAt:(NSDate*)value;
 
 - (NSNumber*)primitiveUserID;
 - (void)setPrimitiveUserID:(NSNumber*)value;

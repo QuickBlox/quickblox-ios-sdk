@@ -1,1 +1,0 @@
-../../../QMCVDevelopment/QMChatViewController/QMChatViewController.h

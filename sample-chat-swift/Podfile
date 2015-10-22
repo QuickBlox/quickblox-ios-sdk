@@ -4,13 +4,13 @@ pod 'SVProgressHUD'
 pod 'TWMessageBarManager', '~> 1.7.2'
 
 #Production pod
-pod 'QMChatViewController', :podspec => '../QMChatViewControllerDevelopment.podspec'
+pod 'QMChatViewController'
 
 #For development pods
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
 
 #Production pod
-pod 'QMServices', :podspec => '../QMServicesDevelopment.podspec'
+pod 'QMServices'
 
-#For development` pods
+#For development pods
 #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'

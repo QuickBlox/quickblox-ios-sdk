@@ -127,11 +127,21 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  Change dialog name
  *
  *  @param dialogName Dialog name
- *  @param chatDialog QBChatDialog instane
+ *  @param chatDialog QBChatDialog instance
  *  @param completion Block with response and updated chat dialog instances
  */
 - (void)changeDialogName:(NSString *)dialogName forChatDialog:(QBChatDialog *)chatDialog
               completion:(void(^)(QBResponse *response, QBChatDialog *updatedDialog))completion;
+
+/**
+ *  Change dialog avatar
+ *
+ *  @param avatarPublicUrl avatar url
+ *  @param chatDialog      QBChatDialog instance
+ *  @param completion      Block with response and updated chat dialog instances
+ */
+- (void)changeDialogAvatar:(NSString *)avatarPublicUrl forChatDialog:(QBChatDialog *)chatDialog
+                completion:(void(^)(QBResponse *response, QBChatDialog *updatedDialog))completion;
 
 /**
  *  Join occupants
@@ -240,6 +250,16 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  */
 - (void)loadDialogWithID:(NSString *)dialogID completion:(void (^)(QBChatDialog *loadedDialog))completion;
 
+/**
+ *  Fetch dialog with last activity date from date
+ *
+ *  @param date         date to fetch dialogs from
+ *  @param limit        page limit
+ *  @param iteration    iteration block with dialogs for pages
+ *  @param completion   Block with response when fetching finished
+ */
+- (void)fetchDialogsUpdatedFromDate:(NSDate *)date andPageLimit:(NSUInteger)limit iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))iteration completionBlock:(void (^)(QBResponse *response))completion;
+
 #pragma mark Send message
 
 /**
@@ -298,6 +318,15 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 
 @protocol QMChatServiceDelegate <NSObject>
 @optional
+
+/**
+ *  Is called when ChatDialogs did load from cache.
+ *
+ *  @param chatService      instance
+ *  @param dialogs          array of QBChatDialogs loaded from cache
+ *  @param dialogsUsersIDs  all users from all ChatDialogs
+ */
+- (void)chatService:(QMChatService *)chatService didLoadChatDialogsFromCache:(NSArray *)dialogs withUsers:(NSSet *)dialogsUsersIDs;
 
 /**
  *  Is called when messages did load from cache for some dialog.

@@ -10,6 +10,7 @@
 #import "QMChatContainerView.h"
 #import "TTTAttributedLabel.h"
 #import "QMChatCellLayoutAttributes.h"
+#import "QMImageView.h"
 
 struct QMChatLayoutModel {
     
@@ -26,6 +27,7 @@ struct QMChatLayoutModel {
 typedef struct QMChatLayoutModel QMChatCellLayoutModel;
 
 @class QMChatCell;
+@class QMImageView;
 
 /**
  *  The `QMChatCellDelegate` protocol defines methods that allow you to manage
@@ -102,6 +104,11 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  */
 @property (weak, nonatomic, readonly) UIView *avatarContainerView;
 @property (weak, nonatomic, readonly) UIImage *avatarImageView;
+
+/**
+ *  Property to set avatar view
+ */
+@property (unsafe_unretained, nonatomic) IBOutlet QMImageView *avatarView;
 
 /**
  *  Returns chat message attributed label.

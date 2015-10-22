@@ -1,0 +1,12 @@
+framework module Quickblox {
+    umbrella header "Quickblox.h"
+    
+    export *
+    module * { export * }
+}
+
+module Quickblox.QBMulticastDelegate {
+    header "QBMulticastDelegate.h"
+    
+    export *
+}

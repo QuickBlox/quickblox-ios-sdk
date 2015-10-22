@@ -15,6 +15,7 @@
     dialog.photo = self.photo;
     dialog.lastMessageText = self.lastMessageText;
     dialog.lastMessageDate = self.lastMessageDate;
+    dialog.updatedAt = self.updatedAt;
     dialog.lastMessageUserID = self.lastMessageUserID.integerValue;
     dialog.unreadMessagesCount = self.unreadMessagesCount.integerValue;
     dialog.occupantIDs = self.occupantsIDs;
@@ -33,6 +34,7 @@
     self.photo = dialog.photo;
     self.lastMessageText = dialog.lastMessageText;
     self.lastMessageDate = dialog.lastMessageDate;
+    self.updatedAt = dialog.updatedAt;
     self.lastMessageUserID = @(dialog.lastMessageUserID);
     self.unreadMessagesCount = @(dialog.unreadMessagesCount);
     self.occupantsIDs = dialog.occupantIDs;

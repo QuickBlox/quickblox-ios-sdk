@@ -1,0 +1,1 @@
+../../../QMChatViewController/QMChatViewController/Protocols/QMChatCollectionViewDelegateFlowLayout.h

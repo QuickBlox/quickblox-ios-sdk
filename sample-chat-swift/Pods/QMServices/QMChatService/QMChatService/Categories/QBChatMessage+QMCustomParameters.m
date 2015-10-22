@@ -64,6 +64,7 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
         self.tDialog.roomJID = self.context[kQMCustomParameterRoomJID];
 		NSAssert(self.tDialog.type != 0, @"dialog type is undefined");
         self.tDialog.name = self.context[kQMCustomParameterDialogRoomName];
+        self.tDialog.photo = self.context[kQMCustomParameterDialogRoomPhoto];
     
         NSString *lastMessageDateTimeInterval = self.context[kQMCustomParameterDialogRoomLastMessageDate];
         

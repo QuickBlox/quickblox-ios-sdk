@@ -1,0 +1,1 @@
+../../../QMServices/QMManagers/QMServicesManager.h

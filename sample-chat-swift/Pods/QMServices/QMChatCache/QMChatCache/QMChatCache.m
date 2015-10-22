@@ -7,7 +7,7 @@
 //
 
 #import "QMChatCache.h"
-#import "ModelIncludes.h"
+#import "QMCCModelIncludes.h"
 
 @implementation QMChatCache
 
@@ -133,7 +133,7 @@ static QMChatCache *_chatCacheInstance = nil;
                 
                 QBChatDialog *tDialog = [cachedDialog toQBChatDialog];
                 
-                if (![dialog isEqual:tDialog]) {
+                if (![dialog.updatedAt isEqual:tDialog.updatedAt]) {
                     
                     [toUpdate addObject:dialog];
                 }

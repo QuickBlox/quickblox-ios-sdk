@@ -163,7 +163,7 @@
 }
 
 - (void)chatService:(QMChatService *)chatService  didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog {
-	NSAssert(message.dialogID == dialog.ID, @"must be equal");
+	NSAssert([message.dialogID isEqualToString:dialog.ID], @"must be equal");
 	
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialog.ID completion:nil];
 	[QMChatCache.instance insertOrUpdateDialog:dialog completion:nil];

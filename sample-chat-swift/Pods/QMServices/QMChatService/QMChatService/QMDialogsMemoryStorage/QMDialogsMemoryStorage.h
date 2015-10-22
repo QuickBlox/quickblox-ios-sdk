@@ -87,6 +87,15 @@
 - (NSArray *)dialogsSortByLastMessageDateWithAscending:(BOOL)ascending;
 
 /**
+ *  Get all dialogs in memory storage sorted by updated at
+ *
+ *  @param ascending sorting parameter
+ *
+ *  @return Array of QBChatDialog items
+ */
+- (NSArray *)dialogsSortByUpdatedAtWithAscending:(BOOL)ascending;
+
+/**
  *  Get all dialogs in memory storage sorted by sort descriptors
  *
  *  @param descriptors Array of NSSortDescriptors

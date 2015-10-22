@@ -1,26 +1,33 @@
 PODS:
-  - QMCVDevelopment (0.2.4):
-    - QMCVDevelopment/Categories (= 0.2.4)
-    - QMCVDevelopment/KeyboardViewController (= 0.2.4)
-    - QMCVDevelopment/Protocols (= 0.2.4)
-    - QMCVDevelopment/Views (= 0.2.4)
+  - QMChatViewController (0.2.5):
+    - QMChatViewController/Categories (= 0.2.5)
+    - QMChatViewController/KeyboardViewController (= 0.2.5)
+    - QMChatViewController/Protocols (= 0.2.5)
+    - QMChatViewController/Views (= 0.2.5)
+    - QuickBlox (~> 2.3)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/Categories (0.2.4):
+  - QMChatViewController/Categories (0.2.5):
+    - QuickBlox (~> 2.3)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/KeyboardViewController (0.2.4):
+  - QMChatViewController/KeyboardViewController (0.2.5):
+    - QuickBlox (~> 2.3)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/Protocols (0.2.4):
+  - QMChatViewController/Protocols (0.2.5):
+    - QuickBlox (~> 2.3)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/Views (0.2.4):
-    - QMCVDevelopment/Categories
-    - QMCVDevelopment/Protocols
+  - QMChatViewController/Views (0.2.5):
+    - QMChatViewController/Categories
+    - QMChatViewController/Protocols
+    - QuickBlox (~> 2.3)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMServicesDevelopment (0.2.2)
+  - QMServices (0.2.4):
+    - QuickBlox (~> 2.4)
+  - QuickBlox (2.4.6)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -29,32 +36,15 @@ PODS:
   - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
-  - QMCVDevelopment (from `https://github.com/QuickBlox/QMChatViewController-ios.git`,
-    branch `development`)
-  - QMServicesDevelopment (from `https://github.com/QuickBlox/q-municate-services-ios.git`,
-    branch `development`)
-  - SVProgressHUD (= 1.1.3)
-  - TWMessageBarManager (= 1.7.2)
-
-EXTERNAL SOURCES:
-  QMCVDevelopment:
-    :branch: development
-    :git: https://github.com/QuickBlox/QMChatViewController-ios.git
-  QMServicesDevelopment:
-    :branch: development
-    :git: https://github.com/QuickBlox/q-municate-services-ios.git
-
-CHECKOUT OPTIONS:
-  QMCVDevelopment:
-    :commit: f2ef4e1047b3edbaec19a0dbec9f7df4beb962fe
-    :git: https://github.com/QuickBlox/QMChatViewController-ios.git
-  QMServicesDevelopment:
-    :commit: 9e64cc7fe7775c090c178dc705693354600a9f6b
-    :git: https://github.com/QuickBlox/q-municate-services-ios.git
+  - QMChatViewController
+  - QMServices
+  - SVProgressHUD
+  - TWMessageBarManager (~> 1.7.2)
 
 SPEC CHECKSUMS:
-  QMCVDevelopment: 750ffd0c0f1be84eb659635a142aa3fb94be07ee
-  QMServicesDevelopment: 6de5f0f4467c9214014fb8d778ccc4d4aa71833c
+  QMChatViewController: 12687df60adf52236e3ca5de399b04e33f2cfaea
+  QMServices: 08fd9a45d1cc80d098cd96112f1bea902913892f
+  QuickBlox: e7da3190be29e14aab5105bf87ad80a80fbf396e
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f

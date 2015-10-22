@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -22,6 +22,7 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xj9-MU-4a2" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="8" y="5" width="239" height="60"/>
+                                        <animations/>
                                         <color key="backgroundColor" red="0.0" green="0.77721782169999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="239" id="5jt-T8-Upn"/>
@@ -42,6 +43,11 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9E-zx-htT">
                                                 <rect key="frame" x="2" y="2" width="44" height="44"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="0Vf-7I-VCA"/>
+                                                    <constraint firstAttribute="width" constant="44" id="kTY-cQ-331"/>
+                                                </constraints>
                                                 <state key="normal" image="rejectBtn">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -51,6 +57,11 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBK-yM-i6a">
                                                 <rect key="frame" x="98" y="2" width="44" height="44"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="44" id="2FU-XI-c2A"/>
+                                                    <constraint firstAttribute="height" constant="44" id="pvd-1H-PP9"/>
+                                                </constraints>
                                                 <state key="normal" image="acceptBtn">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -59,6 +70,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstItem="O9E-zx-htT" firstAttribute="top" secondItem="KnC-yv-rzb" secondAttribute="top" id="2HS-bH-tVx"/>
                                             <constraint firstAttribute="bottom" secondItem="iBK-yM-i6a" secondAttribute="bottom" id="5Oh-eD-7jR"/>
@@ -70,6 +82,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="xj9-MU-4a2" secondAttribute="centerX" id="VKn-1S-6ej"/>
                                     <constraint firstItem="xj9-MU-4a2" firstAttribute="top" secondItem="kyK-sN-Iga" secondAttribute="top" constant="5" id="jXU-db-5jA"/>
@@ -78,6 +91,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kyK-sN-Iga" firstAttribute="top" secondItem="ykU-Kn-Srx" secondAttribute="top" id="4By-TT-DMP"/>
@@ -98,8 +112,10 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <animations/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="ykU-Kn-Srx" secondAttribute="centerX" id="Xup-sB-zOq"/>
                 <constraint firstAttribute="centerY" secondItem="ykU-Kn-Srx" secondAttribute="centerY" id="cxo-ue-GBp"/>

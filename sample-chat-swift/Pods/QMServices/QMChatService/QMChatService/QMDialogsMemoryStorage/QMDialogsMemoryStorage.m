@@ -121,9 +121,14 @@
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"lastMessageDate" ascending:ascending];
     
-    NSArray *sortedDialogs =  [self.dialogs.allValues sortedArrayUsingDescriptors:@[sort]];
+    return [self dialogsWithSortDescriptors:@[sort]];
+};
 
-    return sortedDialogs;
+- (NSArray *)dialogsSortByUpdatedAtWithAscending:(BOOL)ascending {
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"updatedAt" ascending:ascending];
+    
+    return [self dialogsWithSortDescriptors:@[sort]];
 };
 
 - (NSArray *)dialogsWithSortDescriptors:(NSArray *)descriptors {
