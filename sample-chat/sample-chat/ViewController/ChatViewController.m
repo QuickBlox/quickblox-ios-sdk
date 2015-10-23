@@ -8,8 +8,12 @@
 
 #import "ChatViewController.h"
 #import "DialogInfoTableViewController.h"
-#import <QMChatViewController/UIImage+QM.h>
-#import <QMChatViewController/UIColor+QM.h>
+
+//#import <QMChatViewController/UIImage+QM.h>
+//#import <QMChatViewController/UIColor+QM.h>
+#import <UIColor+QM.h>
+#import <UIImage+QM.h>
+
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "ServicesManager.h"
 
@@ -121,6 +125,8 @@ UIActionSheetDelegate
         __typeof(self) strongSelf = weakSelf;
         [strongSelf updateTitle];
     }];
+    
+    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined) [self.dialog join];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
@@ -155,9 +161,6 @@ UIActionSheetDelegate
         
         if ([[QBChat instance] isConnected]) {
             [strongSelf refreshMessagesShowingProgress:NO];
-        }
-        else {
-            [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
         }
 	}];
     
@@ -241,12 +244,10 @@ UIActionSheetDelegate
 
 #pragma mark - Utilities
 
-- (void)sendReadStatusForMessage:(QBChatMessage *)message
+- (void)sendReadStatusForMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
 {
     if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
-        message.markable = YES;
-        // Sending read message status.
-        if (![[QBChat instance] readMessage:message]) {
+        if (![[ServicesManager instance].chatService readMessage:message forDialogID:dialogID]) {
             NSLog(@"Problems while marking message as read!");
         }
         else {
@@ -259,10 +260,8 @@ UIActionSheetDelegate
 
 - (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID
 {
-    if ([QBChat instance].isLoggedIn) {
-        for (QBChatMessage* message in messages) {
-            [self sendReadStatusForMessage:message];
-        }
+    if ([QBChat instance].isConnected) {
+        [[ServicesManager instance].chatService readMessages:messages forDialogID:dialogID];
     } else {
         self.unreadMessages = messages;
     }
@@ -293,6 +292,7 @@ UIActionSheetDelegate
     message.markable = YES;
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
+    message.dateSent = date;
     
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
@@ -628,7 +628,7 @@ UIActionSheetDelegate
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         [self refreshCollectionView];
         
-        [self sendReadStatusForMessage:message];
+        [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
     }
 }
 
@@ -671,49 +671,37 @@ UIActionSheetDelegate
             QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
             context.invalidateFlowLayoutMessagesCache = YES;
             [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
-            [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+            
+            if ([self.collectionView numberOfItemsInSection:0] != 0) {
+                [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+            }
         }
     }
 }
 
 #pragma mark - QMChatConnectionDelegate
 
-- (void)chatServiceChatDidConnect:(QMChatService *)chatService
-{
-    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
-}
-
-- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
-{
-    [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
-}
-
-- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
-{
-    [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
-}
-
-- (void)chatServiceChatDidLogin
+- (void)refreshAndReadMessages;
 {
     if (self.dialog.type != QBChatDialogTypePrivate) {
         [self refreshMessagesShowingProgress:YES];
     }
     
     for (QBChatMessage* message in self.unreadMessages) {
-        [self sendReadStatusForMessage:message];
+        [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
     }
     
     self.unreadMessages = nil;
 }
 
-- (void)chatServiceChatDidNotLoginWithError:(NSError *)error
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showErrorWithStatus:@"Unable to login to chat!"];
+    [self refreshAndReadMessages];
 }
 
-- (void)chatServiceChatDidFailWithStreamError:(NSError *)error
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showErrorWithStatus:@"Error: No Internet Connection! "];
+    [self refreshAndReadMessages];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate
@@ -778,6 +766,7 @@ UIActionSheetDelegate
         QBChatMessage* message = [QBChatMessage new];
         message.senderID = strongSelf.senderID;
         message.dialogID = strongSelf.dialog.ID;
+        message.dateSent = [NSDate date];
         
         // Sending attachment to dialog.
         [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message

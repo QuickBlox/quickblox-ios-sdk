@@ -1,0 +1,1 @@
+../../../QMServicesDevelopment/QMChatService/QMChatService/QMChatConstants.h

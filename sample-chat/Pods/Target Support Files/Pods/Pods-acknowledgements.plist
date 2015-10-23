@@ -295,7 +295,7 @@ before any court of competent jurisdiction.  QuickBlox, as used herein, shall me
 Injoit Ltd, as well as its successors and assigns.
 </string>
 			<key>Title</key>
-			<string>QMChatViewController</string>
+			<string>QMCVDevelopment</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -581,7 +581,7 @@ action to compel specific performance or enjoin any violation of this Agreement
 before any court of competent jurisdiction.  QuickBlox, as used herein, shall mean 
 Injoit Ltd, as well as its successors and assigns.</string>
 			<key>Title</key>
-			<string>QMServices</string>
+			<string>QMServicesDevelopment</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

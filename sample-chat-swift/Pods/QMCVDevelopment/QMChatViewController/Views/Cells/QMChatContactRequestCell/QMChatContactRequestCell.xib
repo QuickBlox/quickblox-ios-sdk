@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment version="2048" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="t7w-Z9-JBy" customClass="QMChatContactRequestCell">
+            <rect key="frame" x="0.0" y="0.0" width="319" height="130"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="319" height="130"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ykU-Kn-Srx" customClass="QMChatContainerView">
+                        <rect key="frame" x="32" y="0.0" width="255" height="130"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyK-sN-Iga" userLabel="Message Container">
+                                <rect key="frame" x="0.0" y="0.0" width="255" height="130"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xj9-MU-4a2" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="8" y="5" width="239" height="60"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.0" green="0.77721782169999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="239" id="5jt-T8-Upn"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="User 1 would like to chat with you">
+                                                <attributes>
+                                                    <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KnC-yv-rzb">
+                                        <rect key="frame" x="56" y="73" width="142" height="47"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9E-zx-htT">
+                                                <rect key="frame" x="2" y="2" width="44" height="44"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="0Vf-7I-VCA"/>
+                                                    <constraint firstAttribute="width" constant="44" id="kTY-cQ-331"/>
+                                                </constraints>
+                                                <state key="normal" image="rejectBtn">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressRejectRequestBtn:" destination="t7w-Z9-JBy" eventType="touchUpInside" id="XwJ-pM-KWV"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBK-yM-i6a">
+                                                <rect key="frame" x="98" y="2" width="44" height="44"/>
+                                                <animations/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="44" id="2FU-XI-c2A"/>
+                                                    <constraint firstAttribute="height" constant="44" id="pvd-1H-PP9"/>
+                                                </constraints>
+                                                <state key="normal" image="acceptBtn">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressAcceptBtn:" destination="t7w-Z9-JBy" eventType="touchUpInside" id="yOH-uo-hE4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstItem="O9E-zx-htT" firstAttribute="top" secondItem="KnC-yv-rzb" secondAttribute="top" id="2HS-bH-tVx"/>
+                                            <constraint firstAttribute="bottom" secondItem="iBK-yM-i6a" secondAttribute="bottom" id="5Oh-eD-7jR"/>
+                                            <constraint firstAttribute="bottom" secondItem="O9E-zx-htT" secondAttribute="bottom" id="EFC-QU-vWQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="iBK-yM-i6a" secondAttribute="trailing" id="RBT-qo-hRZ"/>
+                                            <constraint firstItem="O9E-zx-htT" firstAttribute="leading" secondItem="KnC-yv-rzb" secondAttribute="leading" id="Uyk-75-03X"/>
+                                            <constraint firstItem="iBK-yM-i6a" firstAttribute="leading" secondItem="O9E-zx-htT" secondAttribute="trailing" constant="52" id="a91-6e-1K0"/>
+                                            <constraint firstItem="iBK-yM-i6a" firstAttribute="top" secondItem="KnC-yv-rzb" secondAttribute="top" id="auR-YF-oGm"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="xj9-MU-4a2" secondAttribute="centerX" id="VKn-1S-6ej"/>
+                                    <constraint firstItem="xj9-MU-4a2" firstAttribute="top" secondItem="kyK-sN-Iga" secondAttribute="top" constant="5" id="jXU-db-5jA"/>
+                                    <constraint firstAttribute="centerX" secondItem="KnC-yv-rzb" secondAttribute="centerX" id="sFW-A7-Fo6"/>
+                                    <constraint firstAttribute="bottom" secondItem="KnC-yv-rzb" secondAttribute="bottom" constant="10" id="uIK-Q8-6lb"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kyK-sN-Iga" firstAttribute="top" secondItem="ykU-Kn-Srx" secondAttribute="top" id="4By-TT-DMP"/>
+                            <constraint firstItem="kyK-sN-Iga" firstAttribute="leading" secondItem="ykU-Kn-Srx" secondAttribute="leading" id="5ch-x8-hb9"/>
+                            <constraint firstAttribute="trailing" secondItem="kyK-sN-Iga" secondAttribute="trailing" id="BDV-t9-a08"/>
+                            <constraint firstAttribute="bottom" secondItem="kyK-sN-Iga" secondAttribute="bottom" id="CFQ-rm-rrw"/>
+                            <constraint firstAttribute="width" constant="255" id="DBj-jH-4ha"/>
+                            <constraint firstAttribute="height" constant="130" id="p5k-3M-jUg"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="4"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
+                                <color key="value" red="0.25201231060606055" green="0.25201231060606055" blue="0.25201231060606055" alpha="0.41999999999999998" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="arrow" value="NO"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <animations/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <animations/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="ykU-Kn-Srx" secondAttribute="centerX" id="Xup-sB-zOq"/>
+                <constraint firstAttribute="centerY" secondItem="ykU-Kn-Srx" secondAttribute="centerY" id="cxo-ue-GBp"/>
+            </constraints>
+            <size key="customSize" width="254" height="130"/>
+            <connections>
+                <outlet property="containerView" destination="ykU-Kn-Srx" id="CGW-yN-Oki"/>
+                <outlet property="messageContainer" destination="kyK-sN-Iga" id="LkD-QD-7Lp"/>
+                <outlet property="textView" destination="xj9-MU-4a2" id="6OD-yU-gmH"/>
+            </connections>
+            <point key="canvasLocation" x="271.5" y="546"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="acceptBtn" width="44" height="45"/>
+        <image name="rejectBtn" width="45" height="44"/>
+    </resources>
+</document>
