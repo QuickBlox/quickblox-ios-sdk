@@ -81,8 +81,6 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     private var didEnterBackgroundDate: NSDate?
     
-    var shouldUpdateDialogsAfterLogIn = false
-    
     // MARK: - ViewController overrides
     
     override func viewDidLoad() {
@@ -93,25 +91,16 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 
         ServicesManager.instance().chatService.addDelegate(self)
         
-        weak var weakSelf = self
-        
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
             if !QBChat.instance().isConnected() {
                 SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
-                
-                weakSelf?.shouldUpdateDialogsAfterLogIn = true
             }
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
-        self.joinToAllDialogs()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.getDialogs(nil)
+        self.getDialogs()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -155,6 +144,8 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 dispatch_group_leave(logoutGroup)
         }
         
+        ServicesManager.instance().lastActivityDate = nil
+        
         dispatch_group_notify(logoutGroup, dispatch_get_main_queue()) {
             [weak self] () -> Void in
             // Logouts from Quickblox, clears cache.
@@ -173,76 +164,43 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     // MARK: - DataSource Action
     
-    func getDialogs(extendedRequest: Dictionary<String, AnyObject>?) {
+    func getDialogs() {
         
-        var shouldShowSuccessStatus = false
-        
-        if DialogsViewController.dialogs().count == 0 {
-            shouldShowSuccessStatus = true
-            SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
+        if (ServicesManager.instance().lastActivityDate != nil) {
+            ServicesManager.instance().joinAllGroupDialogs()
+            ServicesManager.instance().chatService.fetchDialogsUpdatedFromDate(ServicesManager.instance().lastActivityDate, andPageLimit: kDialogsPageLimit, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                //
+                }, completionBlock: { (response: QBResponse!) -> Void in
+                    //
+                    if (response != nil && response.success) {
+                        ServicesManager.instance().lastActivityDate = NSDate()
+                    }
+            })
         }
-        
-        // Retrieves all dialogs from Quickblox.
-        ServicesManager.instance().chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest:extendedRequest, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-
-        }) { (response: QBResponse!) -> Void in
-            
-            if response == nil || response?.error != nil {
-                
-                SVProgressHUD.showErrorWithStatus("SA_STR_CANT_DOWNLOAD_DIALOGS".localized)
-                
-                if response != nil {
-                    print(response.error?.error)
-                }
-            }
-            else {
-        
-                if shouldShowSuccessStatus {
-                    SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-                }
-            }
+        else {
+            SVProgressHUD.showWithStatus("Loading...", maskType: SVProgressHUDMaskType.Clear)
+            ServicesManager.instance().chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest: nil, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                //
+                }, completion: { (response: QBResponse!) -> Void in
+                    //
+                    if (response != nil && response.success) {
+                        SVProgressHUD.showSuccessWithStatus("Completed")
+                        ServicesManager.instance().lastActivityDate = NSDate()
+                        ServicesManager.instance().joinAllGroupDialogs()
+                    }
+                    else {
+                        SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
+                    }
+            })
         }
-    }
-    
-    func getLastUpdatedDialogs() {
-        
-        if let didEnterBackgroundDate = self.didEnterBackgroundDate {
-            
-            let extendedRequest = ["last_message_date_sent[gte]" : Int(didEnterBackgroundDate.timeIntervalSince1970)]
-    
-            self.getDialogs(extendedRequest)
-            
-        } else {
-            
-            self.getDialogs(nil)
-            
-        }
-        
     }
     
     // MARK: - DataSource
     
     static func dialogs() -> Array<QBChatDialog> {
         
-        let descriptors = [NSSortDescriptor(key: "lastMessageDate", ascending: false)]
-        // Returns dialogs sorted by last message date.
-        return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsWithSortDescriptors(descriptors) as! Array<QBChatDialog>
-    }
-    
-    // MARK: - Helper
-    
-    func joinToAllDialogs() {
-        
-        for dialog : QBChatDialog in DialogsViewController.dialogs() {
-            
-            // Notifies occupants that user left the dialog.
-            if dialog.type != QBChatDialogType.Private {
-                
-                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
-
-                })
-            }
-        }
+        // Returns dialogs sorted by updatedAt date.
+        return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false) as! Array<QBChatDialog>
     }
     
     // MARK: - UITableViewDataSource
@@ -395,21 +353,12 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     // MARK: QMChatConnectionDelegate
     
     func chatServiceChatDidAccidentallyDisconnect(chatService: QMChatService!) {
-        
+        SVProgressHUD.showErrorWithStatus("SA_STR_DISCONNECTED".localized)
     }
     
     func chatServiceChatDidConnect(chatService: QMChatService!) {
         SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized)
-    }
-    
-    func chatServiceChatDidLogin() {
-        
-        self.joinToAllDialogs()
-        
-        if self.shouldUpdateDialogsAfterLogIn {
-            self.shouldUpdateDialogsAfterLogIn = false
-            self.getLastUpdatedDialogs()
-        }
+        self.getDialogs()
     }
     
     func chatServiceChatDidNotLoginWithError(error: NSError!) {
@@ -418,5 +367,6 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     func chatServiceChatDidReconnect(chatService: QMChatService!) {
         SVProgressHUD.showSuccessWithStatus("SA_STR_RECONNECTED".localized)
+        self.getDialogs()
     }
 }

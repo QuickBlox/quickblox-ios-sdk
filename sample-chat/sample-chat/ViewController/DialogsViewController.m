@@ -101,7 +101,7 @@ QMChatConnectionDelegate
         } completion:^(QBResponse *response) {
             if (response != nil && response.success) {
                 [SVProgressHUD showSuccessWithStatus:@"Completed"];
-                //[ServicesManager instance].lastActivityDate = [NSDate date];
+                [ServicesManager instance].lastActivityDate = [NSDate date];
                 [[ServicesManager instance] joinAllGroupDialogs];
             }
             else {
