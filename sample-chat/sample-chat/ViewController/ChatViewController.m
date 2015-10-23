@@ -671,6 +671,11 @@ UIActionSheetDelegate
             QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
             context.invalidateFlowLayoutMessagesCache = YES;
             [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+            
+            if ([self.collectionView numberOfItemsInSection:0] == 0) {
+                [self.collectionView reloadData];
+            }
+            
             [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
         }
     }

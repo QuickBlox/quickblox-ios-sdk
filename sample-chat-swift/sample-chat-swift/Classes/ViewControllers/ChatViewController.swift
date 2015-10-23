@@ -794,6 +794,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 let context = QMCollectionViewFlowLayoutInvalidationContext()
                 context.invalidateFlowLayoutMessagesCache = true
                 self.collectionView?.collectionViewLayout.invalidateLayoutWithContext(context)
+                
+                if (self.collectionView?.numberOfItemsInSection(0) == 0) {
+                    self.collectionView?.reloadData()
+                }
+                
                 self.collectionView?.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
             }
             
