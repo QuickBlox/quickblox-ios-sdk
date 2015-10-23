@@ -103,6 +103,12 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         self.getDialogs()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.reloadData()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "SA_STR_SEGUE_GO_TO_CHAT".localized {
             if let chatVC = segue.destinationViewController as? ChatViewController {

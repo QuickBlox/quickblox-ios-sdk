@@ -244,12 +244,10 @@ UIActionSheetDelegate
 
 #pragma mark - Utilities
 
-- (void)sendReadStatusForMessage:(QBChatMessage *)message
+- (void)sendReadStatusForMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
 {
     if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
-        message.markable = YES;
-        // Sending read message status.
-        if (![[QBChat instance] readMessage:message]) {
+        if (![[ServicesManager instance].chatService readMessage:message forDialogID:dialogID]) {
             NSLog(@"Problems while marking message as read!");
         }
         else {
@@ -262,10 +260,8 @@ UIActionSheetDelegate
 
 - (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID
 {
-    if ([QBChat instance].isLoggedIn) {
-        for (QBChatMessage* message in messages) {
-            [self sendReadStatusForMessage:message];
-        }
+    if ([QBChat instance].isConnected) {
+        [[ServicesManager instance].chatService readMessages:messages forDialogID:dialogID];
     } else {
         self.unreadMessages = messages;
     }
@@ -632,7 +628,7 @@ UIActionSheetDelegate
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         [self refreshCollectionView];
         
-        [self sendReadStatusForMessage:message];
+        [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
     }
 }
 
@@ -689,7 +685,7 @@ UIActionSheetDelegate
     }
     
     for (QBChatMessage* message in self.unreadMessages) {
-        [self sendReadStatusForMessage:message];
+        [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
     }
     
     self.unreadMessages = nil;

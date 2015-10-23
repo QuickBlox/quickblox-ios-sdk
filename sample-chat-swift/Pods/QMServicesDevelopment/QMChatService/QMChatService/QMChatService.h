@@ -285,6 +285,28 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  */
 - (BOOL)sendMessage:(QBChatMessage *)message toDialogId:(NSString *)dialogID save:(BOOL)save completion:(void (^)(NSError *))completion;
 
+#pragma mark - read messages
+
+/**
+ *  Sending read status for message and updating unreadMessageCount for dialog in cache
+ *
+ *  @param message  QBChatMessage instance to mark as read
+ *  @param dialogID ID of dialog to update
+ *
+ *  @return read message success status
+ */
+- (BOOL)readMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID;
+
+/**
+ *  Sending read status for messages and updating unreadMessageCount for dialog in cache
+ *
+ *  @param messages Array of QBChatMessage instances to mark as read
+ *  @param dialogID ID of dialog to update
+ *
+ *  @return read messages success status
+ */
+- (BOOL)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID;
+
 @end
 
 @protocol QMChatServiceCacheDataSource <NSObject>
