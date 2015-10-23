@@ -1,0 +1,1 @@
+../../../QMCVDevelopment/QMChatViewController/Protocols/QMChatCollectionViewDataSource.h

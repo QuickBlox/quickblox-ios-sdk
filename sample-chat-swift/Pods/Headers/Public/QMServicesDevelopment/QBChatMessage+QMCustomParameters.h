@@ -1,0 +1,1 @@
+../../../QMServicesDevelopment/QMChatService/QMChatService/Categories/QBChatMessage+QMCustomParameters.h

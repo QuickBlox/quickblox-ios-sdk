@@ -9,6 +9,7 @@
 
 @class QBUUser;
 @class QBASession;
+@class QBResponse;
 
 
 @interface QBSession : NSObject <NSCoding>
@@ -28,6 +29,7 @@
 - (void)updateSessionUser:(QB_NULLABLE QBUUser *)user;
 - (void)updateExpirationDate:(QB_NULLABLE NSDate *)newExpirationDate;
 - (void)saveSocialProviderDetailsFromHeaders:(QB_NONNULL NSDictionary QB_GENERIC(NSString *, NSString *) *)headers;
+- (void)validateWithResponse:(QB_NONNULL QBResponse *)response;
 - (void)endSession;
 
 @end

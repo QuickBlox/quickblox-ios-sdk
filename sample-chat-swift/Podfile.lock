@@ -1,50 +1,63 @@
 PODS:
-  - QMChatViewController (0.2.2):
-    - QMChatViewController/Categories (= 0.2.2)
-    - QMChatViewController/KeyboardViewController (= 0.2.2)
-    - QMChatViewController/Protocols (= 0.2.2)
-    - QMChatViewController/Views (= 0.2.2)
+  - QMCVDevelopment (0.2.5):
+    - QMCVDevelopment/Categories (= 0.2.5)
+    - QMCVDevelopment/KeyboardViewController (= 0.2.5)
+    - QMCVDevelopment/Protocols (= 0.2.5)
+    - QMCVDevelopment/Views (= 0.2.5)
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Categories (0.2.2):
+  - QMCVDevelopment/Categories (0.2.5):
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/KeyboardViewController (0.2.2):
+  - QMCVDevelopment/KeyboardViewController (0.2.5):
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Protocols (0.2.2):
+  - QMCVDevelopment/Protocols (0.2.5):
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Views (0.2.2):
-    - QMChatViewController/Categories
-    - QMChatViewController/Protocols
+  - QMCVDevelopment/Views (0.2.5):
+    - QMCVDevelopment/Categories
+    - QMCVDevelopment/Protocols
+    - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMServices (0.2)
+  - QMServicesDevelopment (0.2.5)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SVProgressHUD (1.1.3)
   - TTTAttributedLabel (1.13.4)
   - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
-  - QMChatViewController (from `../QMChatViewControllerDevelopment.podspec`)
-  - QMServices (from `../QMServicesDevelopment.podspec`)
+  - QMCVDevelopment (from `https://github.com/QuickBlox/QMChatViewController-ios`,
+    tag `0.2.5`)
+  - QMServicesDevelopment (from `https://github.com/QuickBlox/q-municate-services-ios`,
+    branch `development`)
   - SVProgressHUD
   - TWMessageBarManager (~> 1.7.2)
 
 EXTERNAL SOURCES:
-  QMChatViewController:
-    :podspec: ../QMChatViewControllerDevelopment.podspec
-  QMServices:
-    :podspec: ../QMServicesDevelopment.podspec
+  QMCVDevelopment:
+    :git: https://github.com/QuickBlox/QMChatViewController-ios
+    :tag: 0.2.5
+  QMServicesDevelopment:
+    :branch: development
+    :git: https://github.com/QuickBlox/q-municate-services-ios
 
 CHECKOUT OPTIONS:
-  QMChatViewController:
-    :commit: 7137e348d6d6746498b9702ca6e96ffe8de3993a
-    :git: https://github.com/QuickBlox/QMChatViewController-ios.git
-  QMServices:
-    :commit: 51595f57b13b0ab6ec6793ea97c41d1f444a6927
-    :git: https://github.com/QuickBlox/q-municate-services-ios.git
+  QMCVDevelopment:
+    :git: https://github.com/QuickBlox/QMChatViewController-ios
+    :tag: 0.2.5
+  QMServicesDevelopment:
+    :commit: 50813e7b3783ea8998e413d4e6659db8f309b1dc
+    :git: https://github.com/QuickBlox/q-municate-services-ios
 
 SPEC CHECKSUMS:
-  QMChatViewController: b9da4a55c3b9341f507bee781d85ae6afa1ab6c7
-  QMServices: 181d36029021b65881d6e9878680eb4db5b7baa2
+  QMCVDevelopment: c214377e5983e4577e608b7e37c88e338febb5e7
+  QMServicesDevelopment: 68a73ccaea931ef4b982616381f60733a9529035
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

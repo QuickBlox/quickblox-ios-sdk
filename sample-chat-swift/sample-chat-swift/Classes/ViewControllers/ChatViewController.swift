@@ -128,10 +128,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             ServicesManager.instance().currentDialogID = dialog.ID!
         }
     }
-	
+
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-
+        
         if let didBecomeActiveHandler: AnyObject = self.didBecomeActiveHandler {
             NSNotificationCenter.defaultCenter().removeObserver(didBecomeActiveHandler)
         }
@@ -210,12 +210,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.scrollToBottomAnimated(false)
     }
     
-    static func sendReadStatusForMessage(message: QBChatMessage) {
+    static func sendReadStatusForMessage(message: QBChatMessage, dialogID: String!) {
         if message.senderID != QBSession.currentSession().currentUser!.ID && (message.readIDs == nil || !(message.readIDs as! [Int]).contains(Int(QBSession.currentSession().currentUser!.ID))) {
-            
-            message.markable = true
-            // Sending read status for message.
-            if !QBChat.instance().readMessage(message) {
+            if !ServicesManager.instance().chatService.readMessage(message, forDialogID: dialogID) {
                 NSLog("Problems while marking message as read!")
             }
             else {
@@ -228,10 +225,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func readMessages(messages: [QBChatMessage], dialogID: String) {
         
-        if QBChat.instance().isLoggedIn() {
-            for message in messages {
-                ChatViewController.sendReadStatusForMessage(message)
-            }
+        if QBChat.instance().isConnected() {
+            ServicesManager.instance().chatService.readMessages(messages, forDialogID: dialogID)
         } else {
             self.unreadMessages = messages
         }
@@ -272,6 +267,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             let message = QBChatMessage()
             message.senderID = ServicesManager.instance().currentUser().ID
             message.dialogID = weakSelf?.dialog?.ID
+            message.dateSent = NSDate()
             
             // Sending attachment.
             ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: weakSelf?.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
@@ -298,6 +294,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         message.text = text;
         message.senderID = self.senderID
         message.markable = true
+        message.dateSent = date
         
         self.sendMessage(message)
         
@@ -316,7 +313,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         self.finishSendingMessageAnimated(true)
-        
     }
     
     /**
@@ -746,7 +742,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
             self.refreshCollectionView()
             
-            ChatViewController.sendReadStatusForMessage(message)
+            ChatViewController.sendReadStatusForMessage(message, dialogID:self.dialog?.ID)
         }
     }
     
@@ -798,7 +794,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 let context = QMCollectionViewFlowLayoutInvalidationContext()
                 context.invalidateFlowLayoutMessagesCache = true
                 self.collectionView?.collectionViewLayout.invalidateLayoutWithContext(context)
-                self.collectionView?.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
+                
+                if (self.collectionView?.numberOfItemsInSection(0) != 0) {
+                    self.collectionView?.reloadItemsAtIndexPaths([NSIndexPath(forRow: updatedMessageIndex, inSection: 0)])
+                }
             }
             
         }
@@ -885,7 +884,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if let unreadMessages = self.unreadMessages {
             
             for message in unreadMessages {
-                ChatViewController.sendReadStatusForMessage(message)
+                ChatViewController.sendReadStatusForMessage(message, dialogID:self.dialog?.ID)
             }
             
             self.unreadMessages = nil

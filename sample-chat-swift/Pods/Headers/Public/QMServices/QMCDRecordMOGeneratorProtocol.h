@@ -1,1 +1,0 @@
-../../../QMServices/QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordMOGeneratorProtocol.h

@@ -90,6 +90,35 @@
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Errors" description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
+#pragma mark - dialogs utils
+
+- (void)joinAllGroupDialogs {
+    NSArray *dialogObjects = [self.chatService.dialogsMemoryStorage unsortedDialogs];
+    for (QBChatDialog* dialog in dialogObjects) {
+        if (dialog.type != QBChatDialogTypePrivate) {
+            // Joining to group chat dialogs.
+            [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+                NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+            }];
+        }
+    }
+}
+
+#pragma mark - Last activity date
+
+- (void)setLastActivityDate:(NSDate *)lastActivityDate
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:lastActivityDate forKey:kLastActivityDateKey];
+    [defaults synchronize];
+}
+
+- (NSDate *)lastActivityDate
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return [defaults objectForKey:kLastActivityDateKey];
+}
+
 #pragma mark QMChatServiceCache delegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {

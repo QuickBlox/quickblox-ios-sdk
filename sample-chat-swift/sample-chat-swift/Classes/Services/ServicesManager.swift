@@ -18,6 +18,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
     private var contactListService : QMContactListService!
     var usersService : UsersService!
     var notificationService: NotificationService!
+    //var lastActivityDate: NSDate!
     
     override init() {
         super.init()
@@ -62,6 +63,36 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
         TWMessageBarManager.sharedInstance().showMessageWithTitle(dialogName, description: message.text, type: TWMessageBarMessageType.Info)
     }
     
+    // MARK: dialog utils
+    
+    func joinAllGroupDialogs() {
+        let allDialogs: Array<QBChatDialog> = ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false) as! Array<QBChatDialog>
+        for dialog : QBChatDialog in allDialogs {
+            
+            // Notifies occupants that user left the dialog.
+            if dialog.type != QBChatDialogType.Private {
+                
+                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
+                    NSLog("Failed to join dialog with error: %@", error)
+                })
+            }
+        }
+    }
+    
+    // MARK: Last activity date
+    
+    var lastActivityDate: NSDate? {
+        get {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            return defaults.valueForKey("SA_STR_LAST_ACTIVITY_DATE".localized) as! NSDate?
+        }
+        set {
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject(newValue, forKey: "SA_STR_LAST_ACTIVITY_DATE".localized)
+            defaults.synchronize()
+        }
+    }
+
     // MARK: QMServiceManagerProtocol
     
     override func handleErrorResponse(response: QBResponse!) {

@@ -1,0 +1,1 @@
+../../../QMServicesDevelopment/QMContactListCache/QMContactListCache/CoreData/Entries/CDContactListItem.h
