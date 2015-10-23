@@ -1,0 +1,1 @@
+../../../QMServicesDevelopment/QMChatCache/QMChatCache/CoreData/Entries/CDMessage.h

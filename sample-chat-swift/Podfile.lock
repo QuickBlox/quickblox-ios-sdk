@@ -1,33 +1,26 @@
 PODS:
-  - QMChatViewController (0.2.5):
-    - QMChatViewController/Categories (= 0.2.5)
-    - QMChatViewController/KeyboardViewController (= 0.2.5)
-    - QMChatViewController/Protocols (= 0.2.5)
-    - QMChatViewController/Views (= 0.2.5)
-    - QuickBlox (~> 2.3)
+  - QMCVDevelopment (0.2.5):
+    - QMCVDevelopment/Categories (= 0.2.5)
+    - QMCVDevelopment/KeyboardViewController (= 0.2.5)
+    - QMCVDevelopment/Protocols (= 0.2.5)
+    - QMCVDevelopment/Views (= 0.2.5)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Categories (0.2.5):
-    - QuickBlox (~> 2.3)
+  - QMCVDevelopment/Categories (0.2.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/KeyboardViewController (0.2.5):
-    - QuickBlox (~> 2.3)
+  - QMCVDevelopment/KeyboardViewController (0.2.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Protocols (0.2.5):
-    - QuickBlox (~> 2.3)
+  - QMCVDevelopment/Protocols (0.2.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMChatViewController/Views (0.2.5):
-    - QMChatViewController/Categories
-    - QMChatViewController/Protocols
-    - QuickBlox (~> 2.3)
+  - QMCVDevelopment/Views (0.2.5):
+    - QMCVDevelopment/Categories
+    - QMCVDevelopment/Protocols
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMServices (0.2.4):
-    - QuickBlox (~> 2.4)
-  - QuickBlox (2.4.6)
+  - QMServicesDevelopment (0.2.4)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -36,15 +29,20 @@ PODS:
   - TWMessageBarManager (1.7.2)
 
 DEPENDENCIES:
-  - QMChatViewController
-  - QMServices
+  - QMCVDevelopment (from `../QMCVDevelopment.podspec`)
+  - QMServicesDevelopment (from `../QMServicesDevelopment.podspec`)
   - SVProgressHUD
   - TWMessageBarManager (~> 1.7.2)
 
+EXTERNAL SOURCES:
+  QMCVDevelopment:
+    :podspec: ../QMCVDevelopment.podspec
+  QMServicesDevelopment:
+    :podspec: ../QMServicesDevelopment.podspec
+
 SPEC CHECKSUMS:
-  QMChatViewController: 12687df60adf52236e3ca5de399b04e33f2cfaea
-  QMServices: 08fd9a45d1cc80d098cd96112f1bea902913892f
-  QuickBlox: e7da3190be29e14aab5105bf87ad80a80fbf396e
+  QMCVDevelopment: c214377e5983e4577e608b7e37c88e338febb5e7
+  QMServicesDevelopment: 5623415b258b20415d64c286db7ae34fa4006d29
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f

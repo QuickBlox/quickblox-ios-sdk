@@ -1,7 +1,0 @@
-#include "QMServices.xcconfig"
-FRAMEWORK_SEARCH_PATHS = ${QMSERVICES_FRAMEWORK_SEARCH_PATHS}
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/QMServices" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/QMChatViewController" "${PODS_ROOT}/Headers/Public/QMServices" "${PODS_ROOT}/Headers/Public/QuickBlox" "${PODS_ROOT}/Headers/Public/QuickBlox/Quickblox" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/SVProgressHUD" "${PODS_ROOT}/Headers/Public/TTTAttributedLabel" "${PODS_ROOT}/Headers/Public/TWMessageBarManager"
-OTHER_LDFLAGS = ${QMSERVICES_OTHER_LDFLAGS}
-PODS_ROOT = ${SRCROOT}
-SKIP_INSTALL = YES

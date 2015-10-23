@@ -1,0 +1,1 @@
+../../../QMServicesDevelopment/QMBaseService/QMBaseService/QMServiceManagerProtocol.h

@@ -26,6 +26,7 @@
 "SA_STR_TYPING" = "Typing...";
 "SA_STR_CONNECTING_TO_CHAT" = "Connecting to chat...";
 "SA_STR_CONNECTED" = "Connected";
+"SA_STR_DISCONNECTED" = "Disconnected";
 "SA_STR_RECONNECTED" = "Reconnected";
 "SA_STR_LOGGIN_IN_AS" = "Loggin in as ";
 "SA_STR_LOADING_DIALOG" = "Loading dialog...";
@@ -76,3 +77,4 @@
 // Dialog
 "SA_STR_PUSH_NOTIFICATION_DIALOG_ID" = "dialog_id";
 "SA_STR_PUSH_NOTIFICATION_MESSAGE" = "message";
+"SA_STR_LAST_ACTIVITY_DATE" = "last_activity_date";

@@ -7,20 +7,20 @@
 #
 
 Pod::Spec.new do |s|
-  s.name         = "QMServices"
-  s.version      = "0.2.2"
+  s.name         = "QMServicesDevelopment"
+  s.version      = "0.2.4"
   s.summary      = "Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat applications."
   s.homepage     = "https://github.com/QuickBlox/q-municate-services-ios"
   s.license      = { :type => 'MIT', :file => 'LICENSE.txt' }
   s.author       = { "Gleb Ustimenko" => "gleb.ustimenko@injoit.com" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/QuickBlox/q-municate-services-ios.git", :tag => "#{s.version}"}
-  s.source_files  = "Classes", "**/*.{h,m}"
-  s.exclude_files = "Pods"
+  s.source_files  = "**/*.{h,m}"
+  s.exclude_files = "Pods" 
   s.requires_arc = true
   s.ios.frameworks      = "MobileCoreServices", "SystemConfiguration", "AVFoundation", "CoreVideo", "Accelerate", "CoreMedia", "AudioToolbox", "CoreLocation", "CoreData", "CoreGraphics", "CFNetwork", "UIKit"
   s.libraries           = "resolv", "xml2", "stdc++", "z"
-  s.xcconfig            = { 'HEADER_SEARCH_PATHS' => '/usr/include/libxml2', "FRAMEWORK_SEARCH_PATHS" => "$(PODS_ROOT)/../../Framework"}
+  s.xcconfig            = { 'HEADER_SEARCH_PATHS' => '/usr/include/libxml2', "FRAMEWORK_SEARCH_PATHS" => "(PODS_ROOT)/../../Framework $(PODS_ROOT)/../External"}
   s.prefix_header_contents = 
   '#import <Quickblox/Quickblox.h>
 #import <CoreData/CoreData.h>
