@@ -9,8 +9,8 @@
 import UIKit
 
 let kQBApplicationID:UInt = 28784
-let kQBRegisterServiceKey = "QJtmmW2Z7tb-mJF"
-let kQBRegisterServiceSecret = "xuwgyRWcUhcwjCM"
+let kQBAuthKey = "QJtmmW2Z7tb-mJF"
+let kQBAuthSecret = "xuwgyRWcUhcwjCM"
 let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
 
 @UIApplicationMain
@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         // Set QuickBlox credentials (You must create application in admin.quickblox.com).
-		QBApplication.sharedApplication().applicationId = kQBApplicationID
-		QBConnection.registerServiceKey(kQBRegisterServiceKey)
-		QBConnection.registerServiceSecret(kQBRegisterServiceSecret)
+        QBSettings.setApplicationID(kQBApplicationID)
+        QBSettings.setAuthKey(kQBAuthKey)
+        QBSettings.setAuthSecret(kQBAuthSecret)
         QBSettings.setAccountKey(kQBAccountKey)
                 
         // Enables Quickblox REST API calls debug console output.

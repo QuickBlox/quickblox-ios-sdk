@@ -15,20 +15,20 @@ const CGFloat kQBRingThickness = 1.f;
 const NSTimeInterval kQBAnswerTimeInterval = 60.f;
 const NSTimeInterval kQBRTCDisconnectTimeInterval = 30.f;
 
-const NSUInteger kQBApplicationID = 92;
-NSString *const kQBRegisterServiceKey = @"wJHdOcQSxXQGWx5";
-NSString *const kQBRegisterServiceSecret = @"BTFsj7Rtt27DAmT";
-NSString *const kQBAccountKey = @"7yvNe17TnjNUqDoPwfqp";
+const NSUInteger kApplicationID = 92;
+NSString *const kAuthKey        = @"wJHdOcQSxXQGWx5";
+NSString *const kAuthSecret     = @"BTFsj7Rtt27DAmT";
+NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //Quickblox preferences
-    [QBApplication sharedApplication].applicationId = kQBApplicationID;
-    [QBConnection registerServiceKey:kQBRegisterServiceKey];
-    [QBConnection registerServiceSecret:kQBRegisterServiceSecret];
-    [QBSettings setAccountKey:kQBAccountKey];
+    [QBSettings setApplicationID:kApplicationID];
+    [QBSettings setAuthKey:kAuthKey];
+    [QBSettings setAuthSecret:kAuthSecret];
+    [QBSettings setAccountKey:kAcconuntKey];
     [QBSettings setLogLevel:QBLogLevelDebug];
     
     //QuickbloxWebRTC preferences

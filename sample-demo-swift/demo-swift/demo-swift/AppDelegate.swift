@@ -8,6 +8,11 @@
 
 import UIKit
 
+let kQBApplicationID:UInt = 92
+let kQBAuthKey = "wJHdOcQSxXQGWx5"
+let kQBAuthSecret = "BTFsj7Rtt27DAmT"
+let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -17,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set QuickBlox credentials (You must create application in admin.quickblox.com)
         //
-        QBApplication.sharedApplication().applicationId = 92;
-        QBConnection.registerServiceKey("wJHdOcQSxXQGWx5");
-        QBConnection.registerServiceSecret("BTFsj7Rtt27DAmT");
-        QBSettings.setAccountKey("7yvNe17TnjNUqDoPwfqp");
+        QBSettings.setApplicationID(kQBApplicationID);
+        QBSettings.setAuthKey(kQBAuthKey);
+        QBSettings.setAuthSecret(kQBAuthSecret);
+        QBSettings.setAccountKey(kQBAccountKey);
 
         return true
     }
