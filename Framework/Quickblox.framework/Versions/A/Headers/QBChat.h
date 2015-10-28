@@ -38,24 +38,48 @@ typedef enum QBChatServiceError {
 /** Contact list */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBContactList *contactList;
 
-/** Enable or disable message carbons */
-@property (nonatomic, assign, getter = isCarbonsEnabled) BOOL carbonsEnabled;
+/**
+ *  Enable or disable message carbons
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setCarbonsEnabled:] and [QBSettings isCarbonsEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isCarbonsEnabled) BOOL carbonsEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setCarbonsEnabled:] and [QBSettings isCarbonsEnabled] instead");
 
-/** Enable or disable Stream Management (XEP-0198) */
-@property (nonatomic, assign, getter = isStreamManagementEnabled) BOOL streamManagementEnabled;
+/**
+ *  Enable or disable Stream Management (XEP-0198)
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setStreamManagementEnabled:] and [QBSettings isStreamManagementEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isStreamManagementEnabled) BOOL streamManagementEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setStreamManagementEnabled:] and [QBSettings isStreamManagementEnabled] instead");
 
-/** Enable or disable Stream Resumption (XEP-0198). Works only if streamManagementEnabled=YES. */
-@property (nonatomic, assign, getter = isStreamResumptionEnabled) BOOL streamResumptionEnabled;
+/**
+ *  Enable or disable Stream Resumption (XEP-0198). Works only if streamManagementEnabled=YES.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setStreamResumptionEnabled:] and [QBSettings isStreamResumptionEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isStreamResumptionEnabled) BOOL streamResumptionEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setStreamResumptionEnabled:] and [QBSettings isStreamResumptionEnabled] instead");
 
-/** The timeout value for Stream Management send a message operation */
-@property (nonatomic, assign) int streamManagementSendMessageTimeout;
+/**
+ *  The timeout value for Stream Management send a message operation
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setStreamManagementSendMessageTimeout:] and [QBSettings streamManagementSendMessageTimeout] instead.
+ */
+@property (nonatomic, assign) int streamManagementSendMessageTimeout DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setStreamManagementSendMessageTimeout:] and [QBSettings streamManagementSendMessageTimeout] instead");
 
-/** Enable or disable auto reconnect */
-@property (nonatomic, assign, getter = isAutoReconnectEnabled) BOOL autoReconnectEnabled;
+/**
+ *  Enable or disable auto reconnect
+ *  
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setAutoReconnectEnabled:] and [QBSettings isAutoReconnectEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isAutoReconnectEnabled) BOOL autoReconnectEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setAutoReconnectEnabled:] and [QBSettings isAutoReconnectEnabled] instead");
 
-/** A reconnect timer may optionally be used to attempt a reconnect periodically.
-  The default value is 5 seconds */
-@property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
+/**
+ *  A reconnect timer may optionally be used to attempt a reconnect periodically.
+ *  The default value is 5 seconds
+ *  
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setReconnectTimerInterval:] and [QBSettings reconnectTimerInterval] instead.
+ */
+@property (nonatomic, assign) NSTimeInterval reconnectTimerInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setReconnectTimerInterval:] and [QBSettings reconnectTimerInterval] instead");
 
 /**
  * Many routers will teardown a socket mapping if there is no activity on the socket.
@@ -73,11 +97,17 @@ typedef enum QBChatServiceError {
  * Upon firing it checks when data was last sent/received,
  * and sends keep-alive data if the elapsed time has exceeded the keepAliveInterval.
  * Thus the effective resolution of the keepalive timer is based on the interval.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setKeepAliveInterval:] and [QBSettings keepAliveInterval] instead.
  */
-@property (nonatomic, assign) NSTimeInterval keepAliveInterval;
+@property (nonatomic, assign) NSTimeInterval keepAliveInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setKeepAliveInterval:] and [QBSettings keepAliveInterval] instead");
 
-/** Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator. */
-@property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
+/**
+ *  Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator.
+ *  
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setBackgroundingEnabled:] and [QBSettings isBackgroundingEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setBackgroundingEnabled:] and [QBSettings isBackgroundingEnabled] instead");
 
 - (QB_NONNULL id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
 
