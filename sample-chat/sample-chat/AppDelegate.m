@@ -10,6 +10,11 @@
 #import "ServicesManager.h"
 #import "ChatViewController.h"
 
+const NSUInteger kApplicationID = 28783;
+NSString *const kAuthKey        = @"b5bVGCHHv6rcAmD";
+NSString *const kAuthSecret     = @"ySwEpardeE7ZXHB";
+NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
+
 @interface AppDelegate () <NotificationServiceDelegate>
 
 @end
@@ -19,10 +24,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBApplication sharedApplication].applicationId = 28783;
-    [QBConnection registerServiceKey:@"b5bVGCHHv6rcAmD"];
-    [QBConnection registerServiceSecret:@"ySwEpardeE7ZXHB"];
-    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
+    [QBSettings setApplicationID:kApplicationID];
+    [QBSettings setAuthKey:kAuthKey];
+    [QBSettings setAuthSecret:kAuthSecret];
+    [QBSettings setAccountKey:kAcconuntKey];
     
     // Enables Quickblox REST API calls debug console output
     [QBSettings setLogLevel:QBLogLevelDebug];

@@ -10,6 +10,11 @@
 
 #import "GeoDataManager.h"
 
+const NSUInteger kApplicationID = 92;
+NSString *const kAuthKey        = @"wJHdOcQSxXQGWx5";
+NSString *const kAuthSecret     = @"BTFsj7Rtt27DAmT";
+NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
+
 @interface AppDelegate()
 
 @end
@@ -19,10 +24,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
-    [QBApplication sharedApplication].applicationId = 92;
-    [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
-    [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
-    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
+    [QBSettings setApplicationID:kApplicationID];
+    [QBSettings setAuthKey:kAuthKey];
+    [QBSettings setAuthSecret:kAuthSecret];
+    [QBSettings setAccountKey:kAcconuntKey];
     
     [[GeoDataManager instance] fetchLatestCheckIns];
     
