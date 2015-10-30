@@ -6,6 +6,9 @@
 //  Copyright (c) 2013 QuickBlox. All rights reserved.
 //
 
+#import "QBNullability.h"
+#import <Quickblox/QBGeneric.h>
+
 typedef NS_ENUM(NSUInteger, QBPresenseShow) {
     QBPresenseShowAway = 1, // The entity or resource is temporarily away.
     QBPresenseShowChat = 2, // The entity or resource is actively interested in chatting.
@@ -25,3 +28,6 @@ typedef NS_ENUM(NSUInteger, QBChatDialogType) {
     QBChatDialogTypeGroup = 2,
     QBChatDialogTypePrivate = 3,
 };
+
+typedef void(^QBChatCompletionBlock)(NSError* QB_NULLABLE_S error);
+typedef void(^QBChatDialogRequestOnlineUsersCompletionBlock)(NSMutableArray QB_GENERIC(NSNumber *) * QB_NULLABLE_S onlineUsers, NSError* QB_NULLABLE_S error);

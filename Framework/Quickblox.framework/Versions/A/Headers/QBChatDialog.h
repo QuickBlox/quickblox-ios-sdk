@@ -70,30 +70,36 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 
 /**
  *  Fired when user joined to room.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'joinWithCompletionBlock:' instead.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogStatusBlock onJoin;
-- (void)setOnJoin:(QB_NULLABLE QBChatDialogStatusBlock)anOnJoin;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogStatusBlock onJoin DEPRECATED_MSG_ATTRIBUTE("Use 'joinWithCompletionBlock:' instead.");
+- (void)setOnJoin:(QB_NULLABLE QBChatDialogStatusBlock)anOnJoin DEPRECATED_MSG_ATTRIBUTE("Use 'joinWithCompletionBlock:' instead.");
 
 /**
  *  Fired when user left room.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'leaveWithCompletionBlock:' instead.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogStatusBlock onLeave;
-- (void)setOnLeave:(QB_NULLABLE QBChatDialogStatusBlock)anOnLeave;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogStatusBlock onLeave DEPRECATED_MSG_ATTRIBUTE("Use 'leaveWithCompletionBlock:' instead.");
+- (void)setOnLeave:(QB_NULLABLE QBChatDialogStatusBlock)anOnLeave DEPRECATED_MSG_ATTRIBUTE("Use 'leaveWithCompletionBlock:' instead.");
 
 /**
  *  Fired when list of online users received.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogRequestOnlineUsersBlock onReceiveListOfOnlineUsers;
-- (void)setOnReceiveListOfOnlineUsers:(QB_NULLABLE QBChatDialogRequestOnlineUsersBlock)anOnReceiveListOfOnlineUsers;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogRequestOnlineUsersBlock onReceiveListOfOnlineUsers DEPRECATED_MSG_ATTRIBUTE("Use 'requestOnlineUsersWithCompletionBlock:' instead.");
+- (void)setOnReceiveListOfOnlineUsers:(QB_NULLABLE QBChatDialogRequestOnlineUsersBlock)anOnReceiveListOfOnlineUsers DEPRECATED_MSG_ATTRIBUTE("Use 'requestOnlineUsersWithCompletionBlock:' instead.");
 
 /**
  *  Fired when join to room failed (in most cases if user is not added to the room)
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogJoinFailedBlock onJoinFailed;
-- (void)setOnJoinFailed:(QB_NULLABLE QBChatDialogJoinFailedBlock)anOnJoinFailed;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogJoinFailedBlock onJoinFailed DEPRECATED_MSG_ATTRIBUTE("Use 'joinWithCompletionBlock:' instead.");
+- (void)setOnJoinFailed:(QB_NULLABLE QBChatDialogJoinFailedBlock)anOnJoinFailed DEPRECATED_MSG_ATTRIBUTE("Use 'joinWithCompletionBlock:' instead.");
 
 /**
  *  Fired when user is typing in dialog.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'joinWithCompletionBlock:' instead.
  */
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogIsTypingBlock onUserIsTyping;
 - (void)setOnUserIsTyping:(QB_NULLABLE QBChatDialogIsTypingBlock)anOnUserIsTyping;
@@ -143,27 +149,51 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
  *
  *  @param message Chat message to send.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.4.5:* Use 'sendMessage:completionBlock:' instead.
+ *
  *  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendMessage:(QB_NONNULL QBChatMessage *)message;
+- (BOOL)sendMessage:(QB_NONNULL QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Use 'sendMessage:completionBlock:' instead.");
 
 /**
  *  Send chat message with sent block
  *
- *  @param message   Chat message to send
+ *  @param message   Chat message to send.
  *  @param sentBlock The block which informs whether a message was delivered to server or not. nil if no errors.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.4.5:* Use 'sendMessage:completionBlock:' instead.
  *
  *  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendMessage:(QB_NONNULL QBChatMessage *)message sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
+- (BOOL)sendMessage:(QB_NONNULL QBChatMessage *)message sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock DEPRECATED_MSG_ATTRIBUTE("Use 'sendMessage:completionBlock:' instead.");
 
 /**
- *Available only for 'Enterprise' clients.* Send group chat message to room, without room join
- 
- @param message Chat message to send
- @return YES if the request was sent successfully. If not - see log.
+ *  Send chat message with completion block.
+ *
+ *  @param message    Chat message to send.
+ *  @param completion Completion block with failure error.
  */
-- (BOOL)sendGroupChatMessageWithoutJoin:(QB_NONNULL QBChatMessage *)message;
+- (void)sendMessage:(QB_NONNULL QBChatMessage *)message completionBlock:(QB_NULLABLE_S QBChatCompletionBlock)completion;
+
+/**
+ *  Available only for 'Enterprise' clients.* Send group chat message to room, without room join
+ *
+ *  @param message Chat message to send
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'sendGroupChatMessageWithoutJoin:completion:' instead.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)sendGroupChatMessageWithoutJoin:(QB_NONNULL QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Use 'sendGroupChatMessageWithoutJoin:completion:' instead.");
+
+/**
+ *  Available only for 'Enterprise' clients.* Send group chat message to room, without room join
+ *
+ *  @param message      Chat message to send
+ *  @param completion   completion block with error if failed or nil if succeed
+ */
+- (void)sendGroupChatMessageWithoutJoin:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+
 #pragma mark - Join/leave
 
 /**
@@ -176,16 +206,34 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /**
  *  Join to room. 'onJoin' block will be called.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'joinWithCompletionBlock:' instead.
+ *
  *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)join;
+- (BOOL)join DEPRECATED_MSG_ATTRIBUTE("Use 'joinWithCompletionBlock:' instead.");
+
+/**
+ *  Join to room.
+ *
+ *  @param completion   completion block with error if failed or nil if succeed.
+ */
+- (void)joinWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  *  Leave joined room. 'onLeave' block will be called.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'leaveWithCompletionBlock:' instead.
+ *
  *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)leave;
+- (BOOL)leave DEPRECATED_MSG_ATTRIBUTE("Use 'leaveWithCompletionBlock:' instead.");
+
+/**
+ *  Leave joined room.
+ *
+ *  @param completion   completion block with error if failed or nil if succeed.
+ */
+- (void)leaveWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  *  Clears dialog occupants status blocks. Call this method if you don't want to recieve join/leave/update for this dialog.
@@ -197,9 +245,18 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /**
  *  Requests users who are joined to room. 'onReceiveListOfOnlineUsers' block will be called.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'requestOnlineUsersWithCompletionBlock:' instead.
+ *
  *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)requestOnlineUsers;
+- (BOOL)requestOnlineUsers DEPRECATED_MSG_ATTRIBUTE("Use 'requestOnlineUsersWithCompletionBlock:' instead.");
+
+/**
+ *  Requests users who are joined to room. 'onReceiveListOfOnlineUsers' block will be called.
+ *
+ *  @param completion   completion block with array of online users ids if success, or error if failed
+ */
+- (void)requestOnlineUsersWithCompletionBlock:(QB_NULLABLE QBChatDialogRequestOnlineUsersCompletionBlock)completion;
 
 #pragma mark - Now typing
 

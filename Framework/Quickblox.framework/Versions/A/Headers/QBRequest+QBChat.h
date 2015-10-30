@@ -25,7 +25,7 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)dialogsWithSuccessBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatDialog *) * QB_NULLABLE_S dialogObjects, NSSet QB_GENERIC(NSString *) * QB_NULLABLE_S dialogsUsersIDs))successBlock
++ (QB_NONNULL QBRequest *)dialogsWithSuccessBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatDialog *) * QB_NULLABLE_S dialogObjects, NSSet QB_GENERIC(NSNumber *) * QB_NULLABLE_S dialogsUsersIDs))successBlock
                                        errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 /**
@@ -40,7 +40,7 @@
  */
 + (QB_NONNULL QBRequest *)dialogsForPage:(QB_NULLABLE QBResponsePage *)page
                          extendedRequest:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedRequest
-                            successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatDialog *) * QB_NULLABLE_S dialogObjects,NSSet QB_GENERIC(NSString *) * QB_NULLABLE_S dialogsUsersIDs, QBResponsePage * QB_NULLABLE_S page))successBlock
+                            successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatDialog *) * QB_NULLABLE_S dialogObjects,NSSet QB_GENERIC(NSNumber *) * QB_NULLABLE_S dialogsUsersIDs, QBResponsePage * QB_NULLABLE_S page))successBlock
                               errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 /**

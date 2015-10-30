@@ -80,14 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
 	
 	func applicationDidEnterBackground(application: UIApplication) {
         // Logging out from chat.
-		ServicesManager.instance().chatService?.logoutChat()
+        ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
 	}
 	
 	func applicationWillEnterForeground(application: UIApplication) {
         // Logging in to chat.
-        ServicesManager.instance().chatService?.logIn({ (error: NSError!) -> Void in
-
-        })
+        ServicesManager.instance().chatService.connectWithCompletionBlock(nil)
 	}
 	
 	func applicationDidBecomeActive(application: UIApplication) {
@@ -96,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
 	
 	func applicationWillTerminate(application: UIApplication) {
         // Logging out from chat.
-		ServicesManager.instance().chatService?.logoutChat()
+		ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
 	}
 	
     // MARK: NotificationServiceDelegate protocol

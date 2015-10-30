@@ -41,8 +41,11 @@
     for (QBChatDialog *dialog in [self.chatService.dialogsMemoryStorage unsortedDialogs]) {
         if (dialog.type == QBChatDialogTypeGroup && !dialog.isJoined) {
             // Joining to group chat dialogs.
-            [self.chatService joinToGroupDialog:dialog failed:^(NSError *error) {
-                NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+            [self.chatService joinToGroupDialog:dialog completion:^(NSError * _Nullable error) {
+                //
+                if (error != nil) {
+                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+                }
             }];
         }
     }
@@ -97,8 +100,11 @@
     for (QBChatDialog* dialog in dialogObjects) {
         if (dialog.type != QBChatDialogTypePrivate) {
             // Joining to group chat dialogs.
-            [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
-                NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+            [self.chatService joinToGroupDialog:dialog completion:^(NSError * _Nullable error) {
+                //
+                if (error != nil) {
+                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+                }
             }];
         }
     }

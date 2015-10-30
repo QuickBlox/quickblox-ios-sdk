@@ -94,7 +94,7 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
     
     // Logout from chat
     //
-	[ServicesManager.instance.chatService logoutChat];
+	[ServicesManager.instance.chatService disconnectWithCompletionBlock:nil];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -103,7 +103,7 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
 	
     // Login to QuickBlox Chat
     //
-	[ServicesManager.instance.chatService logIn:nil];
+	[ServicesManager.instance.chatService connectWithCompletionBlock:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

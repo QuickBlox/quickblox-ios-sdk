@@ -55,7 +55,7 @@
         dispatch_group_enter(self.logoutGroup);
         [self.authService logOut:^(QBResponse *response) {
             __typeof(self) strongSelf = weakSelf;
-            [strongSelf.chatService logoutChat];
+            [strongSelf.chatService disconnectWithCompletionBlock:nil];
             [strongSelf.chatService free];
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
@@ -96,14 +96,16 @@
 		}
 		
         __weak typeof(self) weakSelf = self;
-		[weakSelf.chatService logIn:^(NSError *error) {
+        [weakSelf.chatService connectWithCompletionBlock:^(NSError * _Nullable error) {
+            //
             __typeof(self) strongSelf = weakSelf;
             
             [strongSelf.chatService loadCachedDialogsWithCompletion:^{
                 NSArray* dialogs = [strongSelf.chatService.dialogsMemoryStorage unsortedDialogs];
                 for (QBChatDialog* dialog in dialogs) {
                     if (dialog.type != QBChatDialogTypePrivate) {
-                        [strongSelf.chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+                        [strongSelf.chatService joinToGroupDialog:dialog completion:^(NSError * _Nullable error) {
+                            //
                             if (error != nil) {
                                 NSLog(@"Join error: %@", error.localizedDescription);
                             }
@@ -116,7 +118,7 @@
                 }
                 
             }];
-		}];
+        }];
 	}];
 }
 
