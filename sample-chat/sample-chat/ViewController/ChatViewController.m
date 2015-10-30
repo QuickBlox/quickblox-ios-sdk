@@ -25,6 +25,8 @@
 
 #import <QMCollectionViewFlowLayoutInvalidationContext.h>
 
+#import <TWMessageBarManager.h>
+
 static const NSUInteger widthPadding = 40.0f;
 
 @interface ChatViewController ()
@@ -304,6 +306,7 @@ UIActionSheetDelegate
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:[NSString stringWithFormat:@"Failed to send message: %@", error] description:@"Error" type:TWMessageBarMessageTypeError];
         }
     }];
     
