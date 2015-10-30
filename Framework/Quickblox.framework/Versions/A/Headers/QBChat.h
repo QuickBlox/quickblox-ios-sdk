@@ -48,9 +48,9 @@ typedef enum QBChatServiceError {
 /**
  *  Enable or disable Stream Management (XEP-0198)
  *
- *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setStreamManagementEnabled:] and [QBSettings isStreamManagementEnabled] instead.
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Stream management is enabled by default.
  */
-@property (nonatomic, assign, getter = isStreamManagementEnabled) BOOL streamManagementEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setStreamManagementEnabled:] and [QBSettings isStreamManagementEnabled] instead");
+@property (nonatomic, readonly, assign, getter = isStreamManagementEnabled) BOOL streamManagementEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Stream management is enabled by default");
 
 /**
  *  Enable or disable Stream Resumption (XEP-0198). Works only if streamManagementEnabled=YES.
