@@ -1,6 +1,6 @@
 {
   "name": "QMServicesDevelopment",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "summary": "Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat applications.",
   "homepage": "https://github.com/QuickBlox/q-municate-services-ios",
   "license": {
@@ -15,7 +15,7 @@
   },
   "source": {
     "git": "https://github.com/QuickBlox/q-municate-services-ios.git",
-    "tag": "0.2.4"
+    "tag": "0.2.5"
   },
   "source_files": "**/*.{h,m}",
   "exclude_files": "Pods",
@@ -44,7 +44,7 @@
   ],
   "xcconfig": {
     "HEADER_SEARCH_PATHS": "/usr/include/libxml2",
-    "FRAMEWORK_SEARCH_PATHS": "(PODS_ROOT)/../../Framework $(PODS_ROOT)/../External"
+    "FRAMEWORK_SEARCH_PATHS": "$(PODS_ROOT)/../../Framework $(PODS_ROOT)/../External"
   },
   "prefix_header_contents": "#import <Quickblox/Quickblox.h>\n#import <CoreData/CoreData.h>\n#import <Quickblox/QBMulticastDelegate.h>",
   "resource_bundles": {

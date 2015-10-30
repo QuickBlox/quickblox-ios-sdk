@@ -72,8 +72,10 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
             // Notifies occupants that user left the dialog.
             if dialog.type != QBChatDialogType.Private {
                 
-                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
-                    NSLog("Failed to join dialog with error: %@", error)
+                self.chatService.joinToGroupDialog(dialog, completion: { (error: NSError?) -> Void in
+                    if (error != nil) {
+                        NSLog("Failed to join dialog with error: %@", error!)
+                    }
                 })
             }
         }

@@ -18,8 +18,19 @@
  *  @param chatDialog  QBChatDialog instnace
  *  @param join YES to join in dialog immediately
  *  @param onJoin block called after join
+ *
+ *  @warning *Deprecated in QMServices 0.3:* Use 'addChatDialog:andJoin:completion:' instead.
  */
-- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join  onJoin:(dispatch_block_t)onJoin;
+- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join  onJoin:(dispatch_block_t)onJoin DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3. Use 'addChatDialog:andJoin:completion:' instead.");
+
+/**
+ *  Add dialog to memory storage.
+ *
+ *  @param chatDialog  QBChatDialog instnace
+ *  @param join        YES to join in dialog immediately
+ *  @param completion  completion block with error if failed or nil if succeed
+ */
+- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(QBChatCompletionBlock)completion;
 
 /**
  *  Add dialogs to memory storage
