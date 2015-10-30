@@ -280,8 +280,8 @@
 - (void)addUserToContactListRequest:(QBUUser *)user completion:(void(^)(BOOL success))completion {
     
     __weak __typeof(self)weakSelf = self;
-    [[QBChat instance] addUserToContactListRequest:user.ID sentBlock:^(NSError *error) {
-        
+    [[QBChat instance] addUserToContactListRequest:user.ID completion:^(NSError * _Nullable error) {
+        //
         if (!error) {
             
             [weakSelf.usersMemoryStorage addUser:user];
@@ -297,16 +297,17 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
+
     }];
 }
 
 - (void)removeUserFromContactListWithUserID:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
     
-    [[QBChat instance] removeUserFromContactList:userID sentBlock:^(NSError *error) {
-        
+    [[QBChat instance] removeUserFromContactList:userID completion:^(NSError * _Nullable error) {
+        //
         if (!error) {
             
             if (completion) {
@@ -316,16 +317,16 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
     }];
 }
 
 - (void)acceptContactRequest:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
-    
-    [[QBChat instance] confirmAddContactRequest:userID sentBlock:^(NSError *error) {
-        
+
+    [[QBChat instance] confirmAddContactRequest:userID completion:^(NSError * _Nullable error) {
+        //
         if (!error) {
             
             if (completion) {
@@ -335,7 +336,7 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
     }];
@@ -343,8 +344,8 @@
 
 - (void)rejectContactRequest:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
     
-    [[QBChat instance] rejectAddContactRequest:userID sentBlock:^(NSError *error) {
-        
+    [[QBChat instance] rejectAddContactRequest:userID completion:^(NSError * _Nullable error) {
+        //
         if (!error) {
             
             if (completion) {
@@ -354,7 +355,7 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
     }];
