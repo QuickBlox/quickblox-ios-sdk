@@ -27,6 +27,8 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
     }
     
     private func setupContactServices() {
+        QMChatCache.setupDBWithStoreNamed("sample-cache")
+        QMChatCache.instance().messagesLimitPerDialog = 10
         QMContactListCache.setupDBWithStoreNamed("sample-cache-contacts")
         self.contactListService = QMContactListService(serviceManager: self, cacheDataSource: self)
         self.usersService = UsersService(contactListService: self.contactListService)
