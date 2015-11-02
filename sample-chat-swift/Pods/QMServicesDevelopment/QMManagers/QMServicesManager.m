@@ -27,9 +27,6 @@
 - (instancetype)init {
 	self = [super init];
 	if (self) {
-		[QMChatCache setupDBWithStoreNamed:@"sample-cache"];
-        [QMChatCache instance].messagesLimitPerDialog = 10;
-
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
         [_chatService addDelegate:self];
@@ -174,7 +171,7 @@
 #pragma mark QMChatServiceCacheDataSource
 
 - (void)cachedDialogs:(QMCacheCollection)block {
-	[QMChatCache.instance dialogsSortedBy:CDDialogAttributes.lastMessageDate ascending:YES completion:^(NSArray *dialogs) {
+	[QMChatCache.instance dialogsSortedBy:CDDialogAttributes.updatedAt ascending:YES completion:^(NSArray *dialogs) {
 		block(dialogs);
 	}];
 }
