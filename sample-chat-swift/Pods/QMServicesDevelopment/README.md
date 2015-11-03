@@ -1106,19 +1106,19 @@ Get users with logins:
 
 ```
 
-Get users with tags:
-
-```objective-c
-
-- (BFTask<NSArray<QBUUser *> *> *)retrieveUsersWithTags:(NSArray<NSString *> *)tags;
-
-```
-
 Search for users with full name:
 
 ```objective-c
 
 - (BFTask<NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText;
+
+```
+
+Search for users with tags:
+
+```objective-c
+
+- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags;
 
 ```
 

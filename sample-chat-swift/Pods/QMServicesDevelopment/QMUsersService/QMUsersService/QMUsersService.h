@@ -101,15 +101,6 @@
  */
 - (BFTask<NSArray<QBUUser *> *> *)retrieveUsersWithLogins:(NSArray<NSString *> *)logins;
 
-/**
- *  Retrieve users with tags.
- *
- *  @param tags   array of user tags
- *
- *  @return BFTask with NSArray of QBUUser instances as a result
- */
-- (BFTask<NSArray<QBUUser *> *> *)retrieveUsersWithTags:(NSArray<NSString *> *)tags;
-
 
 #pragma mark - Search
 
@@ -121,6 +112,15 @@
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
 - (BFTask<NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText;
+
+/**
+ *  Search for users with tags.
+ *
+ *  @param tags   array of user tags
+ *
+ *  @return BFTask with NSArray of QBUUser instances as a result
+ */
+- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags;
 
 @end
 

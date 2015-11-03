@@ -132,7 +132,7 @@ class ServicesManager: QMServicesManager {
 
         let enviroment = Constants.QB_USERS_ENVIROMENT
         
-        self.usersService.retrieveUsersWithTags([enviroment]).continueWithBlock {
+        self.usersService.searchUsersWithTags([enviroment]).continueWithBlock {
             [weak self] (task : BFTask!) -> AnyObject! in
             if (task.error != nil) {
                 error?(task.error)

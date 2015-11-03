@@ -248,34 +248,6 @@
     }];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)retrieveUsersWithTags:(NSArray<NSString *> *)tags
-{
-    NSParameterAssert(tags);
-    
-    @weakify(self);
-    return [[self loadFromCache] continueWithBlock:^id(BFTask *task) {
-        @strongify(self);
-        
-        BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
-        
-        [QBRequest usersWithTags:tags
-                    successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users) {
-                        //
-                        [self.usersMemoryStorage addUsers:users];
-                        
-                        if ([self.multicastDelegate respondsToSelector:@selector(usersService:didAddUsers:)]) {
-                            [self.multicastDelegate usersService:self didAddUsers:users];
-                        }
-                        
-                        [source setResult:users];
-                    } errorBlock:^(QBResponse * _Nonnull response) {
-                        //
-                        [source setError:response.error.error];
-                    }];
-        return source.task;
-    }];
-}
-
 #pragma mark - Search
 
 - (BFTask<NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText
@@ -299,6 +271,34 @@
             [source setError:response.error.error];
         }];
         
+        return source.task;
+    }];
+}
+
+- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags
+{
+    NSParameterAssert(tags);
+    
+    @weakify(self);
+    return [[self loadFromCache] continueWithBlock:^id(BFTask *task) {
+        @strongify(self);
+        
+        BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+        
+        [QBRequest usersWithTags:tags
+                    successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users) {
+                        //
+                        [self.usersMemoryStorage addUsers:users];
+                        
+                        if ([self.multicastDelegate respondsToSelector:@selector(usersService:didAddUsers:)]) {
+                            [self.multicastDelegate usersService:self didAddUsers:users];
+                        }
+                        
+                        [source setResult:users];
+                    } errorBlock:^(QBResponse * _Nonnull response) {
+                        //
+                        [source setError:response.error.error];
+                    }];
         return source.task;
     }];
 }

@@ -107,7 +107,7 @@
     environment = @"release";
 #endif
     
-    [[self.usersService retrieveUsersWithTags:@[environment]] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+    [[self.usersService searchUsersWithTags:@[environment]] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
         //
         if (task.error != nil) {
             if (errorBlock) {
