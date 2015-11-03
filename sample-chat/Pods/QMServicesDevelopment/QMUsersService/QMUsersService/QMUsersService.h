@@ -52,7 +52,7 @@
 /**
  *  Load users to memory storage from disc cache.
  */
-- (BFTask<QBUUser *> *)loadFromCache;
+- (BFTask<NSArray<QBUUser *> *> *)loadFromCache;
 
 #pragma mark - Intelligent fetch
 

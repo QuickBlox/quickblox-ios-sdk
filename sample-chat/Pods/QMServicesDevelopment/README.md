@@ -1062,7 +1062,7 @@ Load users to memory storage from disc cache.
 
 ```objective-c
 
-- (BFTask<QBUUser *> *)loadFromCache;
+- (BFTask<NSArray<QBUUser *> *> *)loadFromCache;
 
 ```
 
