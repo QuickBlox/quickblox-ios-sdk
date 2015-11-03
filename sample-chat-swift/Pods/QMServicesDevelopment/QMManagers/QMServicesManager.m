@@ -33,6 +33,11 @@
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
         [_chatService addDelegate:self];
+        
+        [QMUsersCache setupDBWithStoreNamed:@"qb-users-cache"];
+        _usersService = [[QMUsersService alloc] initWithServiceManager:self cacheDataSource:self];
+        [_usersService addDelegate:self];
+        
         _logoutGroup = dispatch_group_create();
 	}
 	return self;
@@ -190,5 +195,23 @@
 		block(array);
 	}];
 }
+
+#pragma mark - QMUsersServiceCacheDataSource
+
+- (void)cachedUsers:(QMCacheCollection)block {
+    [[QMUsersCache.instance usersSortedBy:@"id" ascending:YES] continueWithExecutor:[BFExecutor mainThreadExecutor]
+                                                                          withBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+                                                                              if (block) block(task.result);
+                                                                              return nil;
+                                                                          }];
+}
+
+#pragma mark - QMUsersServiceDelegate
+
+- (void)usersService:(QMUsersService *)usersService didAddUsers:(NSArray<QBUUser *> *)users
+{
+    [QMUsersCache.instance insertOrUpdateUsers:users];
+}
+
 
 @end

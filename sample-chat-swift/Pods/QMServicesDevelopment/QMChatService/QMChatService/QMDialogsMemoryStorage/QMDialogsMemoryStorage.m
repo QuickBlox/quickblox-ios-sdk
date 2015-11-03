@@ -110,14 +110,6 @@
     return dialog;
 }
 
-- (QBChatDialog *)chatDialogWithRoomName:(NSString *)roomName {
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.chatRoom.name"];
-    QBChatDialog *chatDialog = [self.dialogs.allValues filteredArrayUsingPredicate:predicate].firstObject;
-    
-    return chatDialog;
-}
-
 - (NSArray *)unsortedDialogs {
     
     NSArray *dialogs = [self.dialogs allValues];

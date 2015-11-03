@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Quickblox/Quickblox.h>
+#import <Bolts/Bolts.h>
 
 #import <QMDBStorage.h>
 #import <QMChatCache.h>
@@ -23,5 +24,13 @@
 #import <QMUsersMemoryStorage.h>
 #import <QMContactListMemoryStorage.h>
 #import <QMMessagesMemoryStorage.h>
+
+#import <QMUsersCache.h>
+#import <QMUsersService.h>
+
+#import <QMCancellationToken.h>
+
+#import <libextobjc/EXTKeyPathCoding.h>
+#import <libextobjc/EXTScope.h>
 
 #import "QMServicesManager.h"

@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMContactListCache/QMContactListCache/CoreData/Entries/CDUser.h
+../../../QMServicesDevelopment/QMUsersCache/QMUsersCache/CoreData/Entries/CDUser.h
