@@ -63,13 +63,15 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	__weak __typeof(self)weakSelf = self;
     
     // Retrieving users from cache.
-    [[ServicesManager instance] cachedUsers:^(NSArray *collection) {
+    [[[ServicesManager instance].usersService loadFromCache] continueWithBlock:^id(BFTask *task) {
         //
-        if (collection != nil && collection.count != 0) {
-            [weakSelf loadDataSourceWithUsers:collection];
+        if ([task.result count] > 0) {
+            [weakSelf loadDataSourceWithUsers:task.result];
         } else {
             [weakSelf downloadLatestUsers];
         }
+        
+        return nil;
     }];
 }
 
