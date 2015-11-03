@@ -306,7 +306,7 @@ UIActionSheetDelegate
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);
-            [[TWMessageBarManager sharedInstance] showMessageWithTitle:[NSString stringWithFormat:@"Failed to send message: %@", error.localizedRecoverySuggestion] description:@"Error" type:TWMessageBarMessageTypeError];
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error" description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
         }
     }];
     

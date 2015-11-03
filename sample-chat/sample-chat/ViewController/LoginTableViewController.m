@@ -87,8 +87,8 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
         [SVProgressHUD showSuccessWithStatus:@"Completed"];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
-	} errorBlock:^(QBResponse *response) {
-		[SVProgressHUD showErrorWithStatus:@"Can not download users"];
+	} errorBlock:^(NSError *error) {
+		[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Can not download users: %@", error.localizedRecoverySuggestion]];
 		weakSelf.usersAreDownloading = NO;
 	}];
 }

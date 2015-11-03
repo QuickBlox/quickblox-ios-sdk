@@ -90,9 +90,7 @@
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Errors" description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
-- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
-    __weak __typeof(self)weakSelf = self;
-    
+- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
     /**
      *  Different users are taken depending on environment.
      */
@@ -109,25 +107,25 @@
     environment = @"release";
 #endif
     
-    [QBRequest usersWithTags:@[environment] successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-        __typeof(self) strongSelf = weakSelf;
-        
-        NSMutableArray* mutableUsers = [users mutableCopy];
-        [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
-            return [obj1.login compare:obj2.login options:NSNumericSearch];
-        }];
-        
-        [strongSelf.usersService.usersMemoryStorage addUsers:users];
-        [[QMUsersCache instance] insertOrUpdateUsers:[mutableUsers copy]];
-        
-        if (successBlock != nil) {
-            successBlock([mutableUsers copy]);
+    [[self.usersService retrieveUsersWithTags:@[environment]] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+        //
+        if (task.error != nil) {
+            if (errorBlock) {
+                errorBlock(task.error);
+            }
         }
-    } errorBlock:^(QBResponse *response) {
-        if (errorBlock != nil) {
-            errorBlock(response);
+        else {
+            NSMutableArray* mutableUsers = [task.result mutableCopy];
+            [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+                return [obj1.login compare:obj2.login options:NSNumericSearch];
+            }];
+            
+            if (successBlock != nil) {
+                successBlock([mutableUsers copy]);
+            }
         }
-        NSLog(@"error: %@", response.error.error);
+        
+        return nil;
     }];
 }
 
