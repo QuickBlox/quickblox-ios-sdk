@@ -1058,6 +1058,14 @@ Fetch user ids from contact list memory storage.
 
 This class is responsible for operations with users and uses [BFTasks](https://github.com/BoltsFramework/Bolts-iOS "Bolts-iOS").
 
+Load users to memory storage from disc cache.
+
+```objective-c
+
+- (BFTask<QBUUser *> *)loadFromCache;
+
+```
+
 Get user with id:
 
 ```objective-c
