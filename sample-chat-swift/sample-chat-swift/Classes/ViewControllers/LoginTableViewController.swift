@@ -113,7 +113,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         
         let user = self.users![indexPath.row]
         
-        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().usersService.color(forUser: user))
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
         cell.userDescription = "Login as " + user.fullName!
         cell.tag = indexPath.row
         

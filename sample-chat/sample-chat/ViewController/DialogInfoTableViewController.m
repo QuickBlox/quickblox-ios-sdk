@@ -31,12 +31,15 @@
 	__weak __typeof(self) weakSelf = self;
     
     // Retrieving users from cache.
-	[ServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-		__typeof(self) strongSelf = weakSelf;
-		strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:users];
-		strongSelf.tableView.dataSource = weakSelf.usersDatasource;
-		[strongSelf.tableView reloadData];
-	}];
+    [[[ServicesManager instance].usersService retrieveUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+        //
+        __typeof(self) strongSelf = weakSelf;
+        strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:task.result];
+        strongSelf.tableView.dataSource = weakSelf.usersDatasource;
+        [strongSelf.tableView reloadData];
+        
+        return nil;
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

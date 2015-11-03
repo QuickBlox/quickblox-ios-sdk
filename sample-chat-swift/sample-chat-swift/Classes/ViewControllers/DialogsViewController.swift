@@ -28,7 +28,7 @@ class DialogTableViewCellModel: NSObject {
             }
             
             // Getting recipient from users service.
-            if let recipient = ServicesManager.instance().usersService.user(UInt(dialog.recipientID)) {
+            if let recipient = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(dialog.recipientID)) {
                 self.textLabelText = recipient.login ?? recipient.email!
             }
             

@@ -235,7 +235,7 @@ UIActionSheetDelegate
         NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
         [mutableOccupants removeObject:@([self senderID])];
         NSNumber* opponentID = [mutableOccupants firstObject];
-        QBUUser* opponentUser = [qbUsersMemoryStorage userWithID:[opponentID unsignedIntegerValue]];
+        QBUUser* opponentUser = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[opponentID unsignedIntegerValue]];
         NSAssert(opponentUser, @"opponent must exists");
         self.opponentUser = opponentUser;
         self.title = self.opponentUser.fullName;
@@ -306,7 +306,7 @@ UIActionSheetDelegate
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);
-            [[TWMessageBarManager sharedInstance] showMessageWithTitle:[NSString stringWithFormat:@"Failed to send message: %@", error.localizedRecoverySuggestion] description:@"Error" type:TWMessageBarMessageTypeError];
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error" description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
         }
     }];
     
@@ -423,7 +423,7 @@ UIActionSheetDelegate
     NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
-        QBUUser* user = [qbUsersMemoryStorage userWithID:messageItem.senderID];
+        QBUUser* user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:messageItem.senderID];
         topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 

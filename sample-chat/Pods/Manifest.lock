@@ -1,4 +1,15 @@
 PODS:
+  - Bolts (1.3.0):
+    - Bolts/AppLinks (= 1.3.0)
+    - Bolts/Tasks (= 1.3.0)
+  - Bolts/AppLinks (1.3.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.3.0)
+  - libextobjc/EXTKeyPathCoding (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/EXTScope (0.4.1):
+    - libextobjc/RuntimeExtensions
+  - libextobjc/RuntimeExtensions (0.4.1)
   - QMCVDevelopment (0.2.5):
     - QMCVDevelopment/Categories (= 0.2.5)
     - QMCVDevelopment/KeyboardViewController (= 0.2.5)
@@ -20,7 +31,10 @@ PODS:
     - QMCVDevelopment/Protocols
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMServicesDevelopment (0.2.5)
+  - QMServicesDevelopment (0.2.5):
+    - Bolts (= 1.3.0)
+    - libextobjc/EXTKeyPathCoding (= 0.4.1)
+    - libextobjc/EXTScope (= 0.4.1)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
@@ -49,15 +63,17 @@ CHECKOUT OPTIONS:
     :git: https://github.com/QuickBlox/QMChatViewController-ios
     :tag: 0.2.5
   QMServicesDevelopment:
-    :commit: 284da66dd1b51a0064f8368db9299f396fa77e6c
+    :commit: a274b8e4ede6ff9e9862efc92be4d35bc2377c29
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
+  Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
+  libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   QMCVDevelopment: c214377e5983e4577e608b7e37c88e338febb5e7
-  QMServicesDevelopment: 68a73ccaea931ef4b982616381f60733a9529035
+  QMServicesDevelopment: e949a7a1408f07fd6e3a8e4fcae74e417ab01a7e
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2

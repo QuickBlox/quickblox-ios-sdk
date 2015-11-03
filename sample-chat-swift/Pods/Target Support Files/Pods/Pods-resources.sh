@@ -78,6 +78,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "TWMessageBarManager/Classes/Icons/icon-success@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/QMChatCacheModel.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QMContactListCacheModel.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QMUsersCacheModel.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "QMCVDevelopment/QMChatViewController/en.lproj/QMChatViewController.xib"
@@ -100,6 +101,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "TWMessageBarManager/Classes/Icons/icon-success@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/QMChatCacheModel.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QMContactListCacheModel.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QMUsersCacheModel.bundle"
 fi
 if [[ "$CONFIGURATION" == "QA" ]]; then
   install_resource "QMCVDevelopment/QMChatViewController/en.lproj/QMChatViewController.xib"
@@ -122,11 +124,12 @@ if [[ "$CONFIGURATION" == "QA" ]]; then
   install_resource "TWMessageBarManager/Classes/Icons/icon-success@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/QMChatCacheModel.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QMContactListCacheModel.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QMUsersCacheModel.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
-if [[ "${ACTION}" == "install" ]] && [[ "${SKIP_INSTALL}" == "NO" ]]; then
+if [[ "${ACTION}" == "install" ]]; then
   mkdir -p "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
   rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 fi

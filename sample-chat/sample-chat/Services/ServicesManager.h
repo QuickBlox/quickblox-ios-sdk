@@ -7,19 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "UsersService.h"
 #import "NotificationService.h"
 
-#define qbUsersMemoryStorage ServicesManager.instance.usersService.contactListService.usersMemoryStorage
 /**
  *  Implements logic connected with user's memory/disc storage, error handling, top bar notifications.
  */
-@interface ServicesManager : QMServicesManager <QMContactListServiceCacheDataSource>
-
-/**
- *  User's service.
- */
-@property (nonatomic, readonly) UsersService* usersService;
+@interface ServicesManager : QMServicesManager
 
 /**
  *  Notification service
@@ -40,5 +33,10 @@
  *  Joining all group dialogs
  */
 - (void)joinAllGroupDialogs;
+
+/**
+ *  Downlaod latest users
+ */
+- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
 
 @end
