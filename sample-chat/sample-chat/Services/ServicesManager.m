@@ -20,16 +20,13 @@
 
 - (NSArray *)unsortedUsers
 {
-    return [self.contactListService.usersMemoryStorage unsortedUsers];
+    return [self.usersService.usersMemoryStorage unsortedUsers];
 }
 
 - (instancetype)init {
 	self = [super init];
     
 	if (self) {
-        [QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
-		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
-		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
         _notificationService = [[NotificationService alloc] init];
 	}
     
@@ -64,7 +61,7 @@
     if (dialog.type != QBChatDialogTypePrivate) {
         dialogName = dialog.name;
     } else {
-        QBUUser* user = [self.contactListService.usersMemoryStorage userWithID:dialog.recipientID];
+        QBUUser* user = [self.usersService.usersMemoryStorage userWithID:dialog.recipientID];
         if (user != nil) {
             dialogName = user.login;
         }
@@ -91,6 +88,47 @@
     
     [[TWMessageBarManager sharedInstance] hideAll];
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Errors" description:errorMessage type:TWMessageBarMessageTypeError];
+}
+
+- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
+    __weak __typeof(self)weakSelf = self;
+    
+    /**
+     *  Different users are taken depending on environment.
+     */
+    NSString* environment = nil;
+#if DEV
+    environment = @"dev";
+#endif
+    
+#if QA
+    environment = @"qbqa";
+#endif
+    
+#if RELEASE
+    environment = @"release";
+#endif
+    
+    [QBRequest usersWithTags:@[environment] successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
+        __typeof(self) strongSelf = weakSelf;
+        
+        NSMutableArray* mutableUsers = [users mutableCopy];
+        [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+            return [obj1.login compare:obj2.login options:NSNumericSearch];
+        }];
+        
+        [strongSelf.usersService.usersMemoryStorage addUsers:users];
+        [[QMUsersCache instance] insertOrUpdateUsers:[mutableUsers copy]];
+        
+        if (successBlock != nil) {
+            successBlock([mutableUsers copy]);
+        }
+    } errorBlock:^(QBResponse *response) {
+        if (errorBlock != nil) {
+            errorBlock(response);
+        }
+        NSLog(@"error: %@", response.error.error);
+    }];
 }
 
 #pragma mark - dialogs utils
@@ -131,16 +169,6 @@
     [super chatService:chatService didAddMessageToMemoryStorage:message forDialogID:dialogID];
     
     [self showNotificationForMessage:message inDialogID:dialogID];
-}
-
-#pragma mark QMContactListServiceCacheDelegate delegate
-
-- (void)cachedUsers:(QMCacheCollection)block {
-	[QMContactListCache.instance usersSortedBy:@"id" ascending:YES completion:block];
-}
-
-- (void)cachedContactListItems:(QMCacheCollection)block {
-	[QMContactListCache.instance contactListItems:block];
 }
 
 @end

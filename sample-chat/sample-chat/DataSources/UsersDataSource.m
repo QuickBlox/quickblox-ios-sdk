@@ -35,7 +35,7 @@
 		_customUsers =  [[users copy] sortedArrayUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
 			return [obj1.login compare:obj2.login options:NSNumericSearch];
 		}];
-		_users = _customUsers == nil ? qbUsersMemoryStorage.unsortedUsers : _customUsers;
+		_users = _customUsers == nil ? [[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers] : _customUsers;
 	}
 	return self;
 	
@@ -53,19 +53,19 @@
 }
 
 - (instancetype)init {
-	return [self initWithUsers:qbUsersMemoryStorage.unsortedUsers];
+	return [self initWithUsers:[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers]];
 }
 
 - (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {
 	if  (excludeUsersIDs == nil) {
-		_users = self.customUsers == nil ? self.customUsers : qbUsersMemoryStorage.unsortedUsers;
+		_users = self.customUsers == nil ? self.customUsers : [[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers];
 		return;
 	}
 	if ([excludeUsersIDs isEqualToArray:self.users]) {
 		return;
 	}
 	if (self.customUsers == nil) {
-		_users = [qbUsersMemoryStorage.unsortedUsers filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
+		_users = [[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
 	} else {
 		_users = self.customUsers;
 	}

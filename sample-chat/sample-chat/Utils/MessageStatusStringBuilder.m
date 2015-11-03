@@ -28,7 +28,7 @@
         
         NSMutableArray* readLogins = [NSMutableArray array];
         for (NSNumber* readID in readIDs) {
-            QBUUser* user = [qbUsersMemoryStorage userWithID:[readID unsignedIntegerValue]];
+            QBUUser* user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[readID unsignedIntegerValue]];
             NSAssert(user != nil, @"User must not be nil!");
             [readLogins addObject:user.login];
         }
@@ -43,7 +43,7 @@
         
         NSMutableArray* deliveredLogins = [NSMutableArray array];
         for (NSNumber* deliveredID in deliveredIDs) {
-            QBUUser* user = [qbUsersMemoryStorage userWithID:[deliveredID unsignedIntegerValue]];
+            QBUUser* user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[deliveredID unsignedIntegerValue]];
             NSAssert(user != nil, @"User must not be nil!");
             [deliveredLogins addObject:user.login];
         }

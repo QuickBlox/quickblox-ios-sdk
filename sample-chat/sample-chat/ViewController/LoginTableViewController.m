@@ -63,13 +63,14 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	__weak __typeof(self)weakSelf = self;
     
     // Retrieving users from cache.
-	[ServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
-		if (users != nil && users.count != 0) {
-			[weakSelf loadDataSourceWithUsers:users];
+    [[ServicesManager instance] cachedUsers:^(NSArray *collection) {
+        //
+        if (collection != nil && collection.count != 0) {
+            [weakSelf loadDataSourceWithUsers:collection];
         } else {
             [weakSelf downloadLatestUsers];
         }
-	}];
+    }];
 }
 
 - (void)downloadLatestUsers
@@ -82,7 +83,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     [SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
     // Downloading latest users.
-	[ServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
+	[[ServicesManager instance] downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
         [SVProgressHUD showSuccessWithStatus:@"Completed"];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;

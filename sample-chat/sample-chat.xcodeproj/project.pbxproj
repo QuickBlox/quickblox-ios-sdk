@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1402B6961B14B9BC0069E3A4 /* UsersService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6951B14B9BC0069E3A4 /* UsersService.m */; };
 		1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6991B14BF350069E3A4 /* UserTableViewCell.m */; };
 		1402B69D1B14BFBA0069E3A4 /* CornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B69C1B14BFBA0069E3A4 /* CornerView.m */; };
 		1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1402B6A71B14C7340069E3A4 /* LoginTableViewController.m */; };
@@ -50,8 +49,6 @@
 
 /* Begin PBXFileReference section */
 		1299D4EB1DC1CC26B537E061 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.qa.xcconfig; path = "Pods/Target Support Files/Pods/Pods.qa.xcconfig"; sourceTree = "<group>"; };
-		1402B6941B14B9BC0069E3A4 /* UsersService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersService.h; sourceTree = "<group>"; };
-		1402B6951B14B9BC0069E3A4 /* UsersService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersService.m; sourceTree = "<group>"; };
 		1402B6981B14BF350069E3A4 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
 		1402B6991B14BF350069E3A4 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
 		1402B69B1B14BFBA0069E3A4 /* CornerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CornerView.h; sourceTree = "<group>"; };
@@ -273,8 +270,6 @@
 		BFE6FBE2180F293C00E64AC4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				1402B6941B14B9BC0069E3A4 /* UsersService.h */,
-				1402B6951B14B9BC0069E3A4 /* UsersService.m */,
 				86104A1C1B0B5E1900464D52 /* ServicesManager.h */,
 				86104A1D1B0B5E1900464D52 /* ServicesManager.m */,
 				143181731B18714B001A933D /* Constants.h */,
@@ -422,7 +417,6 @@
 				1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */,
 				2CC758A51B0F0EB300999187 /* (null) in Sources */,
 				86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */,
-				1402B6961B14B9BC0069E3A4 /* UsersService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
