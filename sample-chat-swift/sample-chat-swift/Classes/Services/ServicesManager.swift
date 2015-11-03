@@ -11,12 +11,24 @@ import Foundation
 /**
 *  Implements user's memory/cache storing, error handling, show top bar notifications.
 */
-class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
+class ServicesManager: QMServicesManager {
     
     var currentDialogID : String = ""
     
+    var colors = [
+        UIColor(red: 0.992, green:0.510, blue:0.035, alpha:1.000),
+        UIColor(red: 0.039, green:0.376, blue:1.000, alpha:1.000),
+        UIColor(red: 0.984, green:0.000, blue:0.498, alpha:1.000),
+        UIColor(red: 0.204, green:0.644, blue:0.251, alpha:1.000),
+        UIColor(red: 0.580, green:0.012, blue:0.580, alpha:1.000),
+        UIColor(red: 0.396, green:0.580, blue:0.773, alpha:1.000),
+        UIColor(red: 0.765, green:0.000, blue:0.086, alpha:1.000),
+        UIColor.redColor(),
+        UIColor(red: 0.786, green:0.706, blue:0.000, alpha:1.000),
+        UIColor(red: 0.740, green:0.624, blue:0.797, alpha:1.000)
+    ]
+    
     private var contactListService : QMContactListService!
-    var usersService : UsersService!
     var notificationService: NotificationService!
     //var lastActivityDate: NSDate!
     
@@ -27,9 +39,6 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
     }
     
     private func setupContactServices() {
-        QMContactListCache.setupDBWithStoreNamed("sample-cache-contacts")
-        self.contactListService = QMContactListService(serviceManager: self, cacheDataSource: self)
-        self.usersService = UsersService(contactListService: self.contactListService)
         self.notificationService = NotificationService()
     }
     
@@ -54,7 +63,7 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
     
         } else {
             
-            if let user = ServicesManager.instance().usersService.user(UInt(dialog.recipientID)) {
+            if let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(dialog.recipientID)) {
                 dialogName = user.login!
             }
         }
@@ -119,6 +128,45 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
         
     }
     
+    func downloadLatestUsers(success:(([QBUUser]!) -> Void)?, error:((NSError!) -> Void)?) {
+
+        let enviroment = Constants.QB_USERS_ENVIROMENT
+        
+        self.usersService.retrieveUsersWithTags([enviroment]).continueWithBlock {
+            [weak self] (task : BFTask!) -> AnyObject! in
+            if (task.error != nil) {
+                error?(task.error)
+                return nil
+            }
+            
+            let sortedUsers = self?.sortedUsers(task.result as! [QBUUser])
+            success?(sortedUsers)
+            
+            return nil
+        }
+    }
+    
+    func color(forUser user:QBUUser) -> UIColor {
+        
+        let users = self.usersService.usersMemoryStorage.unsortedUsers() as? [QBUUser]
+        let userIndex = (users!).indexOf(self.usersService.usersMemoryStorage.userWithID(user.ID)!)
+        
+        if userIndex < self.colors.count {
+            return self.colors[userIndex!]
+        } else {
+            return UIColor.blackColor()
+        }
+    }
+    
+    func sortedUsers(unsortedUsers: [QBUUser]) -> [QBUUser] {
+        
+        let sortedUsers = unsortedUsers.sort({ (user1, user2) -> Bool in
+            return (user1.login! as NSString).compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
+        })
+        
+        return sortedUsers
+    }
+    
     // MARK: QMChatServiceDelegate
     
     override func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
@@ -126,19 +174,4 @@ class ServicesManager: QMServicesManager, QMContactListServiceCacheDataSource {
         self.handleNewMessage(message, dialogID: dialogID)
     }
     
-    // MARK: QMContactListServiceCacheDataSource
-    
-    func cachedUsers(block: QMCacheCollection!) {
-        // Retrieving users from cache sorted by full name.
-        QMContactListCache.instance().usersSortedBy("fullName", ascending: true) { (users: [AnyObject]!) -> Void in
-            block(users)
-        }
-    }
-    
-    func cachedContactListItems(block: QMCacheCollection!) {
-        // Retrieving all contact list items.
-        QMContactListCache.instance().contactListItems { (items: [AnyObject]!) -> Void in
-            block(items)
-        }
-    }
 }

@@ -47,6 +47,13 @@
  */
 - (void)removeDelegate:(id <QMUsersServiceDelegate>)delegate;
 
+#pragma mark - Tasks
+
+/**
+ *  Load users to memory storage from disc cache.
+ */
+- (BFTask<QBUUser *> *)loadFromCache;
+
 #pragma mark - Intelligent fetch
 
 /**

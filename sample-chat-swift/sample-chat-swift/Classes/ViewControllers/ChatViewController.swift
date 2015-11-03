@@ -163,7 +163,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if self.dialog?.type != QBChatDialogType.Private {
             self.title = self.dialog?.name
         } else {
-            if let recepeint = ServicesManager.instance().usersService.user(UInt(self.dialog!.recipientID)) {
+            if let recepeint = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(self.dialog!.recipientID)) {
                 self.title = recepeint.login
             }
         }
@@ -387,7 +387,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if !messageReadIDs.isEmpty {
                 for readID : Int in messageReadIDs {
-                    let user = ServicesManager.instance().usersService.user(UInt(readID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(readID))
                     
                     if user != nil {
                         readersLogin.append(user!.login!)
@@ -413,7 +413,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if !messageDeliveredIDs.isEmpty {
                 for deliveredID : Int in messageDeliveredIDs {
-                    let user = ServicesManager.instance().usersService.user(UInt(deliveredID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(deliveredID))
                     
                     if readersLogin.contains(user!.login!) {
                         continue
@@ -524,7 +524,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         var topLabelAttributedString : NSAttributedString?
         
-        if let topLabelText = ServicesManager.instance().usersService.user(messageItem.senderID)?.login {
+        if let topLabelText = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(messageItem.senderID)?.login {
             topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
         }
         
