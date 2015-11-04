@@ -178,7 +178,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 //
                 }, completionBlock: { (response: QBResponse!) -> Void in
                     //
-                    if (response != nil && response.success) {
+                    if (ServicesManager.instance().isAuthorized() && response.success) {
                         ServicesManager.instance().lastActivityDate = NSDate()
                     }
             })
@@ -189,13 +189,15 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 //
                 }, completion: { (response: QBResponse!) -> Void in
                     //
-                    if (response != nil && response.success) {
-                        SVProgressHUD.showSuccessWithStatus("Completed")
-                        ServicesManager.instance().lastActivityDate = NSDate()
-                        ServicesManager.instance().joinAllGroupDialogs()
-                    }
-                    else {
-                        SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
+                    if (ServicesManager.instance().isAuthorized()) {
+                        if (response.success) {
+                            SVProgressHUD.showSuccessWithStatus("Completed")
+                            ServicesManager.instance().lastActivityDate = NSDate()
+                            ServicesManager.instance().joinAllGroupDialogs()
+                        }
+                        else {
+                            SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
+                        }
                     }
             })
         }
