@@ -1130,21 +1130,24 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     for (QBChatMessage *message in messages) {
         NSAssert([message.dialogID isEqualToString:dialogID], @"Message is from incorrect dialog.");
         
-        __weak __typeof(self)weakSelf = self;
-        dispatch_group_enter(readGroup);
-        [[QBChat instance] readMessage:message completion:^(NSError * _Nullable error) {
-            //
-            if (error == nil) {
-                if (chatDialogToUpdate.unreadMessagesCount > 0) {
-                    chatDialogToUpdate.unreadMessagesCount--;
+        if (![message.readIDs containsObject:@([QBSession currentSession].currentUser.ID)]) {
+            message.markable = YES;
+            __weak __typeof(self)weakSelf = self;
+            dispatch_group_enter(readGroup);
+            [[QBChat instance] readMessage:message completion:^(NSError * _Nullable error) {
+                //
+                if (error == nil) {
+                    if (chatDialogToUpdate.unreadMessagesCount > 0) {
+                        chatDialogToUpdate.unreadMessagesCount--;
+                    }
+                    
+                    if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
+                        [weakSelf.multicastDelegate chatService:weakSelf didUpdateMessage:message forDialogID:dialogID];
+                    }
                 }
-                
-                if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
-                    [weakSelf.multicastDelegate chatService:weakSelf didUpdateMessage:message forDialogID:dialogID];
-                }
-            }
-            dispatch_group_leave(readGroup);
-        }];
+                dispatch_group_leave(readGroup);
+            }];
+        }
     }
     
     dispatch_group_notify(readGroup, dispatch_get_main_queue(), ^{
@@ -1182,6 +1185,33 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         
         [[QBChat instance] sendSystemMessage:privateMessage completion:nil];
     }
+}
+
+- (void)notifyUsersWithIDs:(NSArray *)usersIDs aboutAddingToDialog:(QBChatDialog *)dialog completion:(QBChatCompletionBlock)completion {
+    
+    dispatch_group_t notifyGroup = dispatch_group_create();
+    
+    for (NSNumber *occupantID in usersIDs) {
+        
+        if (self.serviceManager.currentUser.ID == [occupantID integerValue]) {
+            continue;
+        }
+        
+        QBChatMessage *privateMessage = [self systemMessageWithRecipientID:[occupantID integerValue] parameters:nil];
+        privateMessage.messageType = QMMessageTypeCreateGroupDialog;
+        [privateMessage updateCustomParametersWithDialog:dialog];
+        
+        dispatch_group_enter(notifyGroup);
+        [[QBChat instance] sendSystemMessage:privateMessage completion:^(NSError * _Nullable error) {
+            //
+            dispatch_group_leave(notifyGroup);
+        }];
+    }
+    
+    dispatch_group_notify(notifyGroup, dispatch_get_main_queue(), ^{
+        //
+        if (completion) completion(nil);
+    });
 }
 
 - (void)notifyAboutUpdateDialog:(QBChatDialog *)updatedDialog

@@ -209,13 +209,25 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 - (void)loadCachedDialogsWithCompletion:(void(^)())completion;
 
 #pragma mark - System Messages
+
 /**
  *  Notify opponents about creating the dialog
  *
  *  @param dialog created dialog we notificate about
  *  @param usersIDs [NSNumber] array of OccupantIDs which not be notified
+ *
+ *  @warning *Deprecated in QMServices 0.3:* Use 'notifyUsersWithIDs:aboutAddingToDialog:completion:' instead.
  */
-- (void)notifyUsersWithIDs:(NSArray *)usersIDs aboutAddingToDialog:(QBChatDialog *)dialog;
+- (void)notifyUsersWithIDs:(NSArray *)usersIDs aboutAddingToDialog:(QBChatDialog *)dialog DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3. Use 'notifyUsersWithIDs:aboutAddingToDialog:completion:' instead.");
+
+/**
+ *  Notify opponents about creating the dialog
+ *
+ *  @param dialog       created dialog we notificate about
+ *  @param usersIDs     [NSNumber] array of OccupantIDs which not be notified
+ *  @param completion   completion block with failure  error
+ */
+- (void)notifyUsersWithIDs:(NSArray *)usersIDs aboutAddingToDialog:(QBChatDialog *)dialog completion:(QBChatCompletionBlock)completion;
 
 /**
  *  Notify opponents about update the dialog
