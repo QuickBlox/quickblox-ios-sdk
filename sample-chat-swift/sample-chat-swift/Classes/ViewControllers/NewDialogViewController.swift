@@ -165,14 +165,14 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             if (response.error == nil) {
                 
                 // Notifies users about new dialog with them.
-                ServicesManager.instance().chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog)
-                
-                // Notifies existing dialog occupants about new users.
-                ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
-                
-                print(dialog)
-                
-                completion?(response: response, dialog: dialog)
+                ServicesManager.instance().chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog, completion: { (error: NSError?) -> Void in
+                    // Notifies existing dialog occupants about new users.
+                    ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
+                    
+                    print(dialog)
+                    
+                    completion?(response: response, dialog: dialog)
+                })
                 
             } else {
                 
@@ -212,12 +212,12 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse!, chatDialog: QBChatDialog!) -> Void in
                 
                 if (chatDialog != nil) {
-                    ServicesManager.instance().chatService.notifyUsersWithIDs(chatDialog.occupantIDs, aboutAddingToDialog: chatDialog)
+                    ServicesManager.instance().chatService.notifyUsersWithIDs(chatDialog.occupantIDs, aboutAddingToDialog: chatDialog, completion: { (error: NSError?) -> Void in
+                        //                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
+                        
+                        completion?(response: response, createdDialog: chatDialog)
+                    })
                 }
-                
-//                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
-                
-                completion?(response: response, createdDialog: chatDialog)
             }
         }
     }
