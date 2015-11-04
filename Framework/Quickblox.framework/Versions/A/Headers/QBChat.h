@@ -255,7 +255,7 @@ typedef enum QBChatServiceError {
 /**
  *  Disconnect current user from Chat
  *
- *  @param completion   completion block with error if failed and nil if success
+ *  @param completion  Completion block with failure error.
  */
 - (void)disconnectWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -274,7 +274,7 @@ typedef enum QBChatServiceError {
  *  Send "read" status for message and update "read" status on a server
  *
  *  @param message      QBChatMessage message to mark as read.
- *  @param completion   completion block with error if fail and nil if succeed.
+ *  @param completion   Completion block with failure error.
  */
 - (void)readMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -293,7 +293,7 @@ typedef enum QBChatServiceError {
  *  Send "delivered" status for message.
  *
  *  @param message      QBChatMessage message to mark as delivered.
- *  @param completion   completion block with error if failed and nil if succeed
+ *  @param completion   Completion block with failure error.
  */
 - (void)markAsDelivered:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -337,7 +337,7 @@ typedef enum QBChatServiceError {
  *  Add user to contact list request
  *
  *  @param userID ID of user which you would like to add to contact list
- *  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'addUserToContactListRequest:completion:' instead.
  *  
@@ -349,7 +349,7 @@ typedef enum QBChatServiceError {
  *  Add user to contact list request
  *
  *  @param userID       ID of user which you would like to add to contact list
- *  @param completion   The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param completion   Completion block with failure error.
  */
 - (void)addUserToContactListRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -368,7 +368,7 @@ typedef enum QBChatServiceError {
  *  Remove user from contact list
  *
  *  @param userID ID of user which you would like to remove from contact list
- *  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'removeUserFromContactList:completion:' instead.
  *
@@ -380,7 +380,7 @@ typedef enum QBChatServiceError {
  *  Remove user from contact list
  *
  *  @param userID     ID of user which you would like to remove from contact list
- *  @param completion The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param completion Completion block with failure error.
  */
 - (void)removeUserFromContactList:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -399,7 +399,7 @@ typedef enum QBChatServiceError {
  *  Confirm add to contact list request
  *
  *  @param userID ID of user from which you would like to confirm add to contact request
- *  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'confirmAddContactRequest:completion:' instead.
  *
@@ -411,7 +411,7 @@ typedef enum QBChatServiceError {
  *  Confirm add to contact list request
  *
  *  @param userID       ID of user from which you would like to confirm add to contact request
- *  @param completion   The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param completion   The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  */
 - (void)confirmAddContactRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -430,7 +430,7 @@ typedef enum QBChatServiceError {
  *  Reject add to contact list request or cancel previously-granted subscription request
  *
  *  @param userID ID of user from which you would like to reject add to contact request
- *  @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'rejectAddContactRequest:completion:' instead.
  *
@@ -442,7 +442,7 @@ typedef enum QBChatServiceError {
  *  Reject add to contact list request or cancel previously-granted subscription request
  *
  *  @param userID       ID of user from which you would like to reject add to contact request
- *  @param completion   The block which informs whether a request was delivered to server or not. nil if no errors.
+ *  @param completion   The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  */
 - (void)rejectAddContactRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -506,7 +506,7 @@ typedef enum QBChatServiceError {
  *  Send system message to dialog.
  *
  *  @param message      QBChatMessage instance of message to send.
- *  @param completion   completion block with error if failed or nil if succeed.
+ *  @param completion   Completion block with failure error.
  */
 - (void)sendSystemMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 

@@ -159,7 +159,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
  *  Send chat message with sent block
  *
  *  @param message   Chat message to send.
- *  @param sentBlock The block which informs whether a message was delivered to server or not. nil if no errors.
+ *  @param sentBlock The block which informs whether a message was delivered to server or not. If request succeded error is nil.
  *
  *  @warning *Deprecated in QB iOS SDK 2.4.5:* Use 'sendMessage:completionBlock:' instead.
  *
@@ -190,7 +190,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
  *  Available only for 'Enterprise' clients.* Send group chat message to room, without room join
  *
  *  @param message      Chat message to send
- *  @param completion   completion block with error if failed or nil if succeed
+ *  @param completion   Completion block with failure error.
  */
 - (void)sendGroupChatMessageWithoutJoin:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -215,7 +215,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /**
  *  Join to room.
  *
- *  @param completion   completion block with error if failed or nil if succeed.
+ *  @param completion  Completion block with failure error.
  */
 - (void)joinWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -231,7 +231,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /**
  *  Leave joined room.
  *
- *  @param completion   completion block with error if failed or nil if succeed.
+ *  @param completion  Completion block with failure error.
  */
 - (void)leaveWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
 
@@ -254,7 +254,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /**
  *  Requests users who are joined to room. 'onReceiveListOfOnlineUsers' block will be called.
  *
- *  @param completion   completion block with array of online users ids if success, or error if failed
+ *  @param completion  Completion block with failure error and array of user ids.
  */
 - (void)requestOnlineUsersWithCompletionBlock:(QB_NULLABLE QBChatDialogRequestOnlineUsersCompletionBlock)completion;
 
