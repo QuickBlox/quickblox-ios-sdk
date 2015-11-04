@@ -88,7 +88,7 @@ QMChatConnectionDelegate
             [strongSelf.tableView reloadData];
         } completionBlock:^(QBResponse *response) {
             //
-            if (response != nil && response.success) {
+            if ([ServicesManager instance].isAuthorized && response.success) {
                 [ServicesManager instance].lastActivityDate = [NSDate date];
             }
         }];
@@ -99,13 +99,15 @@ QMChatConnectionDelegate
             __typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf.tableView reloadData];
         } completion:^(QBResponse *response) {
-            if (response != nil && response.success) {
-                [SVProgressHUD showSuccessWithStatus:@"Completed"];
-                [ServicesManager instance].lastActivityDate = [NSDate date];
-                [[ServicesManager instance] joinAllGroupDialogs];
-            }
-            else {
-                [SVProgressHUD showErrorWithStatus:@"Failed to load dialogs"];
+            if ([ServicesManager instance].isAuthorized) {
+                if (response.success) {
+                    [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                    [ServicesManager instance].lastActivityDate = [NSDate date];
+                    [[ServicesManager instance] joinAllGroupDialogs];
+                }
+                else {
+                    [SVProgressHUD showErrorWithStatus:@"Failed to load dialogs"];
+                }
             }
         }];
     }

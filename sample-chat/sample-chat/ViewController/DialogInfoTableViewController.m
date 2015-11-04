@@ -31,7 +31,7 @@
 	__weak __typeof(self) weakSelf = self;
     
     // Retrieving users from cache.
-    [[[ServicesManager instance].usersService retrieveUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+    [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
         //
         __typeof(self) strongSelf = weakSelf;
         strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:task.result];
