@@ -25,11 +25,4 @@
  */
 - (void)setDefaultBackBarButtonItem:(dispatch_block_t)didTouchesEndAction;
 
-/**
- *  Configure IAButton
- */
-- (void)configureAIButton:(IAButton *)button
-            withImageName:(NSString *)name
-                  bgColor:(UIColor *)bgColor
-            selectedColor:(UIColor *)selectedColor;
 @end

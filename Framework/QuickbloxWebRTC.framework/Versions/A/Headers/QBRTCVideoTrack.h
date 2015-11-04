@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QBRTCMediaStreamTrack.h"
 
-@interface QBRTCVideoTrack : NSObject
+/// Entity to describe video track class
+@interface QBRTCVideoTrack : QBRTCMediaStreamTrack
 
-@property (assign, nonatomic, readonly) BOOL isRemote;
-
+/// Init is not a supported initializer for this class.
 - (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
 
 @end

@@ -67,7 +67,7 @@
                      extension:(NSString *)extension;
 /**
  *  Plays a system sound object *as an alert* corresponding to an audio file with the given filename and extension,
- *  and and excutes completionBlock when the sound has stopped playing.
+ *  and and executes completionBlock when the sound has stopped playing.
  *  The system sound player will lazily initialize and load the file before playing it, and then cache its corresponding `SystemSoundID`.
  *  If this file has previously been played, it will be loaded from cache and played immediately.
  *

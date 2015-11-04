@@ -19,6 +19,10 @@
 
 @dynamic users;
 
+- (QBUUser *)currentUser {
+	return [[QBChat instance] currentUser];
+}
+
 NSString *const kDefaultPassword = @"x6Bt0VDy5";
 NSString *const kUsersKey = @"users";
 NSString *const kUserIDKey = @"ID";
@@ -42,8 +46,6 @@ NSString *const kPasswordKey = @"password";
     self = [super init];
     if (self) {
         
-        [self loadUsers];
-        
         _colors =
         @[[UIColor colorWithRed:0.992 green:0.510 blue:0.035 alpha:1.000],
           [UIColor colorWithRed:0.039 green:0.376 blue:1.000 alpha:1.000],
@@ -60,40 +62,48 @@ NSString *const kPasswordKey = @"password";
     return self;
 }
 
-- (void)loadUsers {
+- (NSString *)strWithList:(ListOfUsers)list {
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@Users", QB_VERSION_STR]
+    switch (list) {
+            
+        case ListOfUsersQA: return @"QA";
+        case ListOfUsersDEV: return @"DEV";
+        case ListOfUsersWEB: return @"WEB";
+            
+        default:return @"PROD";
+    }
+}
+
+- (void)loadUsersWithList:(ListOfUsers)list {
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@Users", [self strWithList:list]]
                                                           ofType:@"plist"];
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     
     NSArray *users = dictionary[kUsersKey];
     self.testUsers = [NSMutableArray arrayWithCapacity:users.count];
-    [users enumerateObjectsUsingBlock:^(NSDictionary *user,
-                                        NSUInteger idx,
-                                        BOOL *stop) {
-        QBUUser *testUser =
-        [self userWithID:user[kUserIDKey]
-                   login:user[kLoginKey]
-                fullName:user[kFullNameKey]
-                passowrd:user[kPasswordKey]];
+    [users enumerateObjectsUsingBlock:^(NSDictionary *user, NSUInteger idx, BOOL *stop) {
+        
+        QBUUser *testUser = [self userWithID:@([user[kUserIDKey] integerValue])
+                                       login:user[kLoginKey]
+                                    fullName:user[kFullNameKey]
+                                    passowrd:user[kPasswordKey]];
         
         [self.testUsers addObject:testUser];
     }];
 }
 
-- (NSArray *)users{
+- (NSArray *)users {
     
     return _testUsers.copy;
 }
 
-- (QBUUser *)userWithID:(NSNumber *)userID
-                  login:(NSString *)login
-               fullName:(NSString *)fullName
-               passowrd:(NSString *)password {
+- (QBUUser *)userWithID:(NSNumber *)userID login:(NSString *)login fullName:(NSString *)fullName passowrd:(NSString *)password {
     
     QBUUser *user = [QBUUser user];
-    user.ID = userID.integerValue;
+    
+    user.ID = userID.unsignedIntegerValue;
     user.login = login;
     user.fullName = fullName;
     user.password = password ?:kDefaultPassword;
@@ -105,6 +115,54 @@ NSString *const kPasswordKey = @"password";
     
     NSUInteger idx = [self.testUsers indexOfObject:user];
     return self.colors[idx];
+}
+
+- (NSArray *)usersWithoutMe {
+    
+    return [self.users filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"ID != %@", @(self.currentUser.ID)]];
+}
+
+- (NSUInteger)indexOfUser:(QBUUser *)user {
+    return [self.users indexOfObject:user];
+}
+
+- (NSArray *)idsWithUsers:(NSArray *)users {
+    
+    NSMutableArray *ids = [NSMutableArray arrayWithCapacity:users.count];
+    
+    [users enumerateObjectsUsingBlock:^(QBUUser  *obj, NSUInteger idx, BOOL *stop) {
+        
+        [ids addObject:@(obj.ID)];
+    }];
+
+    return ids.copy;
+}
+
+- (NSArray *)usersWithIDS:(NSArray *)ids {
+
+    NSMutableArray *users = [NSMutableArray arrayWithCapacity:ids.count];
+    
+    [ids enumerateObjectsUsingBlock:^(NSNumber *userID, NSUInteger idx, BOOL *stop) {
+        
+        QBUUser *user = [self userWithID:userID];
+        [users addObject:user];
+    }];
+
+    return users;
+}
+
+- (NSArray *)usersWithIDSWithoutMe:(NSArray *)ids {
+    
+    NSMutableArray *users = [self usersWithIDS:ids].mutableCopy;
+    [users removeObject:self.currentUser];
+    
+    return users.copy;
+}
+
+- (QBUUser *)userWithID:(NSNumber *)userID {
+    
+    NSPredicate *userWithIDPredicate = [NSPredicate predicateWithFormat:@"ID == %@", userID];
+    return [[self.users filteredArrayUsingPredicate:userWithIDPredicate] firstObject];
 }
 
 @end

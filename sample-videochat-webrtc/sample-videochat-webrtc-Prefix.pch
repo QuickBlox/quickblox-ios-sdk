@@ -4,22 +4,11 @@
 //
 //  Created by Andrey Ivanov on 04.12.14.
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
-
 //
 #import <Availability.h>
 
-//0-release, 1-dev, 2-qa, 3-android
+//0-release, 1-dev
 #define QB_RTC_SAMPLE_MODE 0
-
-#if (QB_RTC_SAMPLE_MODE == 0)
-    #define QB_VERSION_STR @"release"
-#elif (QB_RTC_SAMPLE_MODE == 1)
-    #define QB_VERSION_STR @"dev"
-#elif (QB_RTC_SAMPLE_MODE == 2)
-    #define QB_VERSION_STR @"qa"
-#elif (QB_RTC_SAMPLE_MODE == 3)
-    #define QB_VERSION_STR @"android"
-#endif
 
 #ifndef __IPHONE_3_0
 #warning "This project uses features only available in iOS SDK 3.0 and later."
@@ -35,22 +24,38 @@
 
 #if (QB_RTC_SAMPLE_MODE == 1)
 
-    #import "QBRTCTypes.h"
-    #import "QBGLVideoView.h"
-    #import "QBRTCVideoTrack.h"
-    #import "QBRTCClient.h"
-    #import "QBRTCClientDelegate.h"
-    #import "QBRTCSession.h"
-    #import "QBRTCConfig.h"
-    #import "QBICEServer.h"
-    #import "QBSoundRouter.h"
-    #import "QBBackgroundTimer.h"
+#import "CocoaLumberjack.h"
+#import "QBRTCEAGLRenderer.h"
+#import "QBRTCFrameConverter.h"
+#import "QBRTCICEServer.h"
+#import "QBRTCAudioTrack.h"
+#import "QBRTCClient.h"
+#import "QBRTCClientDelegate.h"
+#import "QBRTCConfig.h"
+#import "QBRTCLocalAudioTrack.h"
+#import "QBRTCLocalVideoTrack.h"
+#import "QBRTCMediaStream.h"
+#import "QBRTCMediaStreamTrack.h"
+#import "QBRTCRemoteVideoView.h"
+#import "QBRTCSession.h"
+#import "QBRTCTypes.h"
+#import "QBRTCCameraCapture.h"
+#import "QBRTCVideoFrame.h"
+#import "QBRTCVideoTrack.h"
+#import "QBRTCSampleBufferRenderer.h"
+#import "QBRTCSampleBufferView.h"
+#import "QBRTCSoundRouter.h"
+#import "QBRTCTimer.h"
+#import "QBRTCVideoFormat.h"
+#import "QBRTCVideoRenderer.h"
+#import "RTCI420Frame.h"
+#import "RTCVideoRenderer.h"
 
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;
 
 #else
-    #import <QuickbloxWebRTC/QuickbloxWebRTC.h>
+#import <QuickbloxWebRTC/QuickbloxWebRTC.h>
 #endif
 
 #endif

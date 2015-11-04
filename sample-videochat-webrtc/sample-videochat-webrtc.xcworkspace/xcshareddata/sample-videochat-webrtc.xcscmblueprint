@@ -1,0 +1,107 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "43E48969AB834C98133F4F66DEBB455ACE272805",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F34C977979F46250B44064BFD35BA9250267BA7B" : 0,
+    "53403E622BAB3B22A36A324DC0C5C9EDD3058103" : 0,
+    "63D12146C11159ECAA62CB6B44DAAA40A5455262" : 0,
+    "B415C5F5923FD1699E46B5668327F083B9C32C51" : 0,
+    "6A3B4D2909F28DB31AD1B89DCEECA4FB6C94CC46" : 0,
+    "2B873900A958E0D347CFCD989ACA6447A7A8433A" : 0,
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : 0,
+    "F5D38FC5BD16BFA221E1525959CF901C96293D7B" : 0,
+    "1F749A9C17645530CD5B454B2D8030B9C45FEF70" : 0,
+    "7A197CB7B32EDB86AEA5CFBEAF5A15B1DBED1C37" : 0,
+    "98BE83CCF93C0AE7E08D40416959C0EA7C19F900" : 0,
+    "41448F643041F81E572BBA6E4DCC0AAE1E479EB5" : 0,
+    "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D1A2B0E5-CC69-4F01-9EAF-B59ED513267F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F34C977979F46250B44064BFD35BA9250267BA7B" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/opus\/src\/",
+    "53403E622BAB3B22A36A324DC0C5C9EDD3058103" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/libsrtp\/",
+    "63D12146C11159ECAA62CB6B44DAAA40A5455262" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/usrsctp\/usrsctplib\/",
+    "B415C5F5923FD1699E46B5668327F083B9C32C51" : "SDK-ios-WebRTC",
+    "6A3B4D2909F28DB31AD1B89DCEECA4FB6C94CC46" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/libyuv\/",
+    "2B873900A958E0D347CFCD989ACA6447A7A8433A" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/",
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk",
+    "F5D38FC5BD16BFA221E1525959CF901C96293D7B" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/libvpx_new\/source\/libvpx\/",
+    "1F749A9C17645530CD5B454B2D8030B9C45FEF70" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/boringssl\/src\/",
+    "7A197CB7B32EDB86AEA5CFBEAF5A15B1DBED1C37" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/jsoncpp\/source\/",
+    "98BE83CCF93C0AE7E08D40416959C0EA7C19F900" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/chromium\/src\/third_party\/yasm\/source\/patched-yasm\/",
+    "41448F643041F81E572BBA6E4DCC0AAE1E479EB5" : "perch",
+    "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "sample-videochat-webrtc",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "sample-videochat-webrtc\/sample-videochat-webrtc.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/boringssl.googlesource.com\/boringssl.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1F749A9C17645530CD5B454B2D8030B9C45FEF70"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/chromium\/src.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2B873900A958E0D347CFCD989ACA6447A7A8433A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/perchco\/perchrtc.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "41448F643041F81E572BBA6E4DCC0AAE1E479EB5"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/quickblox-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43E48969AB834C98133F4F66DEBB455ACE272805"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/chromium\/deps\/libsrtp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "53403E622BAB3B22A36A324DC0C5C9EDD3058103"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/external\/usrsctplib.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "63D12146C11159ECAA62CB6B44DAAA40A5455262"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/libyuv\/libyuv.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6A3B4D2909F28DB31AD1B89DCEECA4FB6C94CC46"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/external\/github.com\/open-source-parsers\/jsoncpp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7A197CB7B32EDB86AEA5CFBEAF5A15B1DBED1C37"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/external\/webrtc",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/chromium\/deps\/yasm\/patched-yasm.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "98BE83CCF93C0AE7E08D40416959C0EA7C19F900"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/SDK-ios-WebRTC.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B415C5F5923FD1699E46B5668327F083B9C32C51"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/chromium\/deps\/opus.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F34C977979F46250B44064BFD35BA9250267BA7B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/webm\/libvpx.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F5D38FC5BD16BFA221E1525959CF901C96293D7B"
+    }
+  ]
+}

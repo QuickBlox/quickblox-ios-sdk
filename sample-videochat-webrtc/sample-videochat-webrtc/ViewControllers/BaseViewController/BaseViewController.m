@@ -8,23 +8,11 @@
 
 #import "BaseViewController.h"
 #import "CornerView.h"
-#import "ConnectionManager.h"
-#import "IAButton.h"
+#import "ChatManager.h"
+#import "UsersDataSource.h"
+#import "QBUUser+IndexAndColor.h"
 
 @implementation BaseViewController
-
-- (void)configureAIButton:(IAButton *)button
-            withImageName:(NSString *)name
-                  bgColor:(UIColor *)bgColor
-            selectedColor:(UIColor *)selectedColor {
-    
-    UIImage *icon = [UIImage imageNamed:name];
-    UIImageView *iconView = [[UIImageView alloc] initWithImage:icon];
-    iconView.contentMode = UIViewContentModeScaleAspectFit;
-    button.backgroundColor = bgColor;
-    button.selectedColor = selectedColor;
-    [button setIconView:iconView];
-}
 
 - (UIBarButtonItem *)cornerBarButtonWithColor:(UIColor *)color
                                          title:(NSString *)title
@@ -49,8 +37,8 @@
 - (void)setDefaultBackBarButtonItem:(dispatch_block_t)didTouchesEndAction {
     
     UIBarButtonItem *backBarButtonItem =
-    [self cornerBarButtonWithColor:ConnectionManager.instance.me.color
-                              title:[NSString stringWithFormat:@"%lu", (unsigned long)ConnectionManager.instance.me.index + 1]
+    [self cornerBarButtonWithColor:UsersDataSource.instance.currentUser.color
+                              title:[NSString stringWithFormat:@"%tu", UsersDataSource.instance.currentUser.index + 1]
                      didTouchesEnd:^
      {
          didTouchesEndAction();

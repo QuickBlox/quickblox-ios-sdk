@@ -12,9 +12,11 @@
 
 @interface OpponentCollectionViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) UIView *videoView;
+
 @property (assign, nonatomic) QBRTCConnectionState connectionState;
 
 - (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color;
-- (void)setVideoTrack:(QBRTCVideoTrack *)videoTrack;
 
 @end
+

@@ -8,43 +8,55 @@
 
 #import "OpponentCollectionViewCell.h"
 #import "CornerView.h"
-#import "UserPicView.h"
 
 @interface OpponentCollectionViewCell()
 
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet CornerView *colorMarker;
-@property (weak, nonatomic) IBOutlet UserPicView *userPic;
-@property (weak, nonatomic) IBOutlet QBGLVideoView *remoteVideoView;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
+//@property (strong, nonatomic) UITapGestureRecognizer *doubleTapGestureRecognizer;
 
 @end
 
 @implementation OpponentCollectionViewCell
 
-- (void)dealloc {
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-   [self.activityIndicator startAnimating];
+    self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3];
     self.statusLabel.text = @"";
-    self.userPic.picColor = [UIColor colorWithWhite:0.269 alpha:0.930];
-    self.backgroundColor = [UIColor colorWithWhite:0.724 alpha:0.880];
-    self.remoteVideoView.skipBlackFrames = YES;
-    self.layer.borderWidth = 1.0;
 }
 
-- (void)setVideoTrack:(QBRTCVideoTrack *)videoTrack {
+- (void)didDoubleTap:(UITapGestureRecognizer *)gesture {
+}
+
+- (void)setVideoView:(UIView *)videoView {
     
-    [self.remoteVideoView setVideoTrack:videoTrack];
+    if (_videoView != videoView) {
+
+        [_videoView removeFromSuperview];
+        _videoView = videoView;
+        _videoView.frame = self.bounds;
+        [self.containerView insertSubview:_videoView aboveSubview:self.statusLabel];
+    }
 }
 
 - (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color {
     
     self.colorMarker.bgColor = color;
     self.colorMarker.title = text;
+}
+
+- (void)layoutSubviews {
+    
+    [super layoutSubviews];
+    
+    if (CGRectEqualToRect(_videoView.bounds, self.bounds)) {
+        
+        return;
+    }
+    _videoView.frame = self.bounds;
 }
 
 - (void)setConnectionState:(QBRTCConnectionState)connectionState {
@@ -63,92 +75,75 @@
             case QBRTCConnectionPending:
                 
                 self.statusLabel.text = @"Pending";
-                [self.activityIndicator stopAnimating];
+//                [self.activityIndicator stopAnimating];
                 
                 break;
                 
             case QBRTCConnectionChecking:
                 
                 self.statusLabel.text = @"Checking";
-                [self.activityIndicator startAnimating];
+//                [self.activityIndicator startAnimating];
     
                 break;
                 
             case QBRTCConnectionConnecting:
                 
                 self.statusLabel.text = @"Connecting";
-                [self.activityIndicator startAnimating];
+//                [self.activityIndicator startAnimating];
                 
                 break;
                 
             case QBRTCConnectionConnected:
                 
                 self.statusLabel.text = @"Connected";
-                [self.activityIndicator stopAnimating];
+//                [self.activityIndicator stopAnimating];
                 
                 break;
                 
             case QBRTCConnectionClosed:
                 
                 self.statusLabel.text = @"Closed";
-                [self.activityIndicator stopAnimating];
+//                [self.activityIndicator stopAnimating];
                 
                 break;
                 
             case QBRTCConnectionHangUp:
                 
                 self.statusLabel.text = @"Hung Up";
-                [self.activityIndicator stopAnimating];
+//                [self.activityIndicator stopAnimating];
                 
                 break;
                 
             case QBRTCConnectionRejected:
                 
                 self.statusLabel.text = @"Rejected";
-                [self.activityIndicator stopAnimating];
+//                [self.activityIndicator stopAnimating];
                 
                 break;
                 
             case QBRTCConnectionNoAnswer:
                 
                 self.statusLabel.text = @"No Answer";
-                [self.activityIndicator stopAnimating];
+//                [self.activityIndicator stopAnimating];
                 
                 break;
                 
             case QBRTCConnectionDisconnectTimeout:
                 
                 self.statusLabel.text = @"Time out";
-                [self.activityIndicator stopAnimating];
+//                [self.activityIndicator stopAnimating];
                 
                 break;
                 
             case QBRTCConnectionDisconnected:
                 
                 self.statusLabel.text = @"Disconnected";
-                [self.activityIndicator startAnimating];
+//                [self.activityIndicator startAnimating];
                 
                 break;
             default:
                 break;
         }
-    }
-}
-
-- (void)setHighlighted:(BOOL)highlighted {
-    
-}
-
-- (void)setSelected:(BOOL)selected {
-    [super setSelected:selected];
-    
-    if (selected) {
-        
-        self.layer.borderColor = [UIColor colorWithRed:0.397 green:0.405 blue:0.368 alpha:1.000].CGColor;
-        
-    }
-    else {
-        self.layer.borderColor = [UIColor colorWithRed:1.000 green:0.970 blue:0.995 alpha:0.600].CGColor;
     }
 }
 

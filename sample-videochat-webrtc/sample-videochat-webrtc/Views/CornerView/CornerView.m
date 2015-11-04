@@ -123,14 +123,12 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
     [super touchesEnded:touches withEvent:event];
-    __weak __typeof(self)weakSelf = self;
     
     [UIView animateWithDuration:0.4
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
                      animations:^
      {
-         weakSelf.alpha = 0.0f;
          
      } completion:^(BOOL finished) {
          

@@ -7,38 +7,31 @@
 //
 
 #import "CallViewController.h"
-#import "OpponentCollectionViewCell.h"
-#import "UserPicView.h"
-#import "ConnectionManager.h"
-#import "SVProgressHUD.h"
-#import "IAButton.h"
-#import "QMSoundManager.h"
+#import "ChatManager.h"
 #import "CornerView.h"
+#import "LocalVideoView.h"
+#import "OpponentCollectionViewCell.h"
+#import "OpponentsFlowLayout.h"
+#import "QBButton.h"
+#import "QBButtonsFactory.h"
+#import "QBToolBar.h"
+#import "QMSoundManager.h"
+#import "Settings.h"
+#import "SharingViewController.h"
+#import "SVProgressHUD.h"
+#import "UsersDataSource.h"
 
 NSString *const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
+NSString *const kSharingViewControllerIdentifier = @"SharingViewController";
+
 const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 @interface CallViewController ()
 
-<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCClientDelegate>
+<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCClientDelegate, LocalVideoViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *opponentsCollectionView;
-@property (weak, nonatomic) IBOutlet QBGLVideoView *opponentVideoView;
-@property (weak, nonatomic) IBOutlet QBGLVideoView *localVideoView;
-
-@property (weak, nonatomic) IBOutlet IAButton *microphoneBtn;
-@property (weak, nonatomic) IBOutlet IAButton *switchAudioOutputBtn;
-@property (weak, nonatomic) IBOutlet IAButton *enableVideoBtn;
-@property (weak, nonatomic) IBOutlet IAButton *declineBtn;
-@property (weak, nonatomic) IBOutlet CornerView *markerView;
-
-@property (weak, nonatomic) IBOutlet UILabel *callTimeLabel;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *micItem;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *audioOutputItem;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *declineItem;
-
-@property (weak, nonatomic) IBOutlet UIButton *switchCameraBtn;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet QBToolBar *toolbar;
 
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
 
@@ -46,340 +39,274 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (strong, nonatomic) NSTimer *callTimer;
 @property (assign, nonatomic) NSTimer *beepTimer;
 
+@property (strong, nonatomic) QBRTCCameraCapture *cameraCapture;
+
+@property (strong, nonatomic) NSMutableDictionary *videoViews;
+
+@property (assign, nonatomic, readonly) BOOL isOffer;
+@property (weak, nonatomic) UIView *zoomedView;
+
+@property (strong, nonatomic) QBButton *videoEnabled;
+@property (weak, nonatomic) LocalVideoView *localVideoView;
+
 @end
 
 @implementation CallViewController
 
 - (void)dealloc {
+    
     NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+}
+
+- (NSNumber *)currentUserID {
+    
+    return @(UsersDataSource.instance.currentUser.ID);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self configureGUI];
+    
+    if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
+        
+        Settings *settings = Settings.instance;
+        self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
+                                                                    position:settings.preferredCameraPostion];
+        [self.cameraCapture startSession];
+    }
+    
+    QBUUser *initiator = [UsersDataSource.instance userWithID:self.session.initiatorID];
+    _isOffer = [UsersDataSource.instance.currentUser isEqual:initiator];
+    
+    self.view.backgroundColor = self.opponentsCollectionView.backgroundColor = [UIColor blackColor];
+    
+    [QBRTCClient.instance addDelegate:self];
+    
+    NSMutableArray *users = [NSMutableArray arrayWithCapacity:self.session.opponentsIDs.count + 1];
+    [users insertObject:UsersDataSource.instance.currentUser atIndex:0];
+    
+    NSMutableArray *opponents = [UsersDataSource.instance usersWithIDSWithoutMe:self.session.opponentsIDs].mutableCopy;
+    
+    if (!self.isOffer) {
+        
+        [opponents addObject:initiator];
+    }
+    
+    [users addObjectsFromArray:opponents];
+    
+    self.users = users.copy;
+    
+    [QBRTCSoundRouter.instance initialize];
+    
+    self.isOffer ? [self startCall] : [self acceptCall];
+    
+    if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
+        [QBRTCSoundRouter instance].currentSoundRoute = QBRTCSoundRouteReceiver;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [QBRTCClient.instance addDelegate:self];
-    QBUUser *caller  = [ConnectionManager.instance userWithID:self.session.callerID];
-    [ConnectionManager.instance.me isEqual:caller] ? [self startCall] : [self acceptCall];
+    self.title = @"Connecting...";
+}
 
-    [self.opponentsCollectionView reloadData];
+- (UIView *)videoViewWithOpponentID:(NSNumber *)opponentID {
+    
+    if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
+        return nil;
+    }
+    
+    if (!self.videoViews) {
+        self.videoViews = [NSMutableDictionary dictionary];
+    }
+    
+    id result = self.videoViews[opponentID];
+    
+    if (UsersDataSource.instance.currentUser.ID == opponentID.integerValue) {//Local preview
+        
+        if (!result) {
+            
+            LocalVideoView *localVideoView = [[LocalVideoView alloc] initWithPreviewlayer:self.cameraCapture.previewLayer];
+            self.videoViews[opponentID] = localVideoView;
+            localVideoView.delegate = self;
+            self.localVideoView = localVideoView;
+            return localVideoView;
+        }
+    }
+    else {//Opponents
+        
+        QBRTCRemoteVideoView *remoteVideoView = nil;
+        
+        QBRTCVideoTrack *remoteVideoTrak = [self.session remoteVideoTrackWithUserID:opponentID];
+        
+        if (!result && remoteVideoTrak) {
+            
+            remoteVideoView = [[QBRTCRemoteVideoView alloc] initWithFrame:self.view.bounds];
+            self.videoViews[opponentID] = remoteVideoView;
+            result = remoteVideoView;
+        }
+        
+        [remoteVideoView setVideoTrack:remoteVideoTrak];
+        
+        return result;
+    }
+    
+    return result;
 }
 
 - (void)startCall {
-    
-    self.users = [ConnectionManager.instance usersWithIDS:self.session.opponents];
-    //Start call
-    NSDictionary *userInfo = @{@"newcall" : @"newcall"};
-    [self.session startCall:userInfo];
-
-    if (self.session.conferenceType == QBConferenceTypeAudio) {
-        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
-    }
     //Begin play calling sound
-    self.beepTimer =
-    [NSTimer scheduledTimerWithTimeInterval:[QBRTCConfig dialingTimeInterval]
-                                     target:self
-                                   selector:@selector(playCallingSound:)
-                                   userInfo:nil
-                                    repeats:YES];
+    self.beepTimer = [NSTimer scheduledTimerWithTimeInterval:[QBRTCConfig dialingTimeInterval]
+                                                      target:self
+                                                    selector:@selector(playCallingSound:)
+                                                    userInfo:nil
+                                                     repeats:YES];
     [self playCallingSound:nil];
+    //Start call
+    NSDictionary *userInfo = @{@"startCall" : @"userInfo"};
+    [self.session startCall:userInfo];
+    
 }
 
 - (void)acceptCall {
     
     [QMSysPlayer stopAllSounds];
-    
-    NSMutableArray *usersIDS = self.session.opponents.mutableCopy;
-    NSNumber *me = @(ConnectionManager.instance.me.ID);
-    [usersIDS removeObject:me];
-    [usersIDS addObject:self.session.callerID];
-    
-    self.users =  [ConnectionManager.instance usersWithIDS:usersIDS];
-    
-    if (self.session.conferenceType == QBConferenceTypeAudio) {
-        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
-    }
-    
     //Accept call
-    NSDictionary *userInfo = @{@"accept" : @"hello"};
+    NSDictionary *userInfo = @{@"acceptCall" : @"userInfo"};
     [self.session acceptCall:userInfo];
 }
 
 - (void)configureGUI {
     
-    [self configureNavigationBar];
-    [self configureLocalVideoView];
-    [self configureToolBar];
-    
-    self.markerView.fontSize = 15;
-    self.callTimeLabel.text = @"";
-    self.callTimeLabel.hidden = YES;
-    self.switchCameraBtn.hidden = YES;
-    self.localVideoView.hidden = YES;
-    self.opponentVideoView.skipBlackFrames = YES;
-    //Default selection
-    self.selectedItemIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    
-    [self viewWillTransitionToSize:self.view.frame.size];
-}
-
-- (void)configureNavigationBar {
-    
-    self.title = [NSString stringWithFormat:@"Logged in as %@", ConnectionManager.instance.me.fullName];
-    
     __weak __typeof(self)weakSelf = self;
-    [self setDefaultBackBarButtonItem:^{
+    
+    if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
         
-        [weakSelf.navigationController dismissViewControllerAnimated:YES
-                                                          completion:nil];
+        self.videoEnabled = [QBButtonsFactory videoEnable];
+        [self.toolbar addButton:self.videoEnabled action: ^(UIButton *sender) {
+            
+            weakSelf.session.localMediaStream.videoTrack.enabled ^=1;
+            weakSelf.localVideoView.hidden = !weakSelf.session.localMediaStream.videoTrack.enabled;
+        }];
+    }
+    
+    [self.toolbar addButton:[QBButtonsFactory auidoEnable] action: ^(UIButton *sender) {
+        
+        weakSelf.session.localMediaStream.audioTrack.enabled ^=1;
     }];
-}
-
-- (void)configureLocalVideoView {
-    // drop shadow
-
-    [self.localVideoView.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.localVideoView.layer setShadowOpacity:0.5];
-    [self.localVideoView.layer setShadowRadius:5.0];
-    [self.localVideoView.layer setShadowOffset:CGSizeMake(5.0, 5.0)];
-    self.localVideoView.skipBlackFrames = YES;
-}
-
-- (void)configureToolBar {
-    //Configure toolbar
-    [self.toolbar setBackgroundImage:[[UIImage alloc] init]
-                  forToolbarPosition:UIToolbarPositionAny
-                          barMetrics:UIBarMetricsDefault];
     
-    [self.toolbar setShadowImage:[[UIImage alloc] init]
-              forToolbarPosition:UIToolbarPositionAny];
-    
-    UIColor *gSelected = [UIColor colorWithWhite:0.502 alpha:0.640];
-    UIColor *redBG = [UIColor colorWithRed:0.906 green:0.000 blue:0.191 alpha:0.8];
-    UIColor *redSelected = [UIColor colorWithRed:0.916 green:0.668 blue:0.683 alpha:1.f];
-    UIColor *bg = [UIColor colorWithWhite:1.000 alpha:0.840];
-    //Configure buttons
-    [self configureAIButton:self.declineBtn
-              withImageName:@"decline"
-                    bgColor:redBG
-              selectedColor:redSelected];
-    
-    [self configureAIButton:self.microphoneBtn
-              withImageName:@"mute"
-                    bgColor:bg
-              selectedColor:gSelected];
-    self.microphoneBtn.isPushed = YES;
-    
-    [self configureAIButton:self.switchAudioOutputBtn
-              withImageName:@"dynamic"
-                    bgColor:bg
-              selectedColor:gSelected];
-    self.switchAudioOutputBtn.isPushed = YES;
-    
-    if (self.session.conferenceType == QBConferenceTypeAudio) {
+    [self.toolbar addButton:[QBButtonsFactory dynamicEnable] action:^(UIButton *sender) {
         
-        UIBarButtonItem *fs =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                      target:nil
-                                                      action:nil];
-        //Update tool bar
-        NSArray *items = @[fs, self.micItem, fs, self.audioOutputItem, fs, self.declineItem, fs];
-        [self.toolbar setItems:items];
-    }
-    else {
+        QBRTCSoundRoute route = [QBRTCSoundRouter instance].currentSoundRoute;
         
-        [self configureAIButton:self.enableVideoBtn
-                  withImageName:@"video"
-                        bgColor:bg
-                  selectedColor:gSelected];
-        
-        self.enableVideoBtn.isPushed = YES;
-    }
-}
-
-#pragma mark - Actions
-
-- (IBAction)pressMicBtn:(IAButton *)sender {
-    
-    self.session.audioEnabled = !self.session.audioEnabled;
-}
-
-- (IBAction)pressEnableVideoBtn:(IAButton *)sender {
-    
-    self.session.videoEnabled = !self.session.videoEnabled;
-    self.switchCameraBtn.hidden = !self.session.videoEnabled;
-}
-
-- (IBAction)pressHandUpBtn:(IAButton *)sender {
-    
-    [self.callTimer invalidate];
-    self.callTimer = nil;
-    
-    [self.session hangUp:@{@"hangup" : @"hang up"}];
-}
-
-- (IBAction)pressSwitchCameraBtn:(UIButton *)sender {
-    
-    sender.hidden = YES;
-    __weak __typeof(self)weakSelf = self;
-    [self.session switchCamera:^(BOOL isFrontCamera) {
-        
-        sender.hidden = NO;
-        NSLog(@"%ld", (long) weakSelf.session.currentCaptureDevicePosition);
+        [QBRTCSoundRouter instance].currentSoundRoute =
+        route == QBRTCSoundRouteSpeaker ? QBRTCSoundRouteReceiver : QBRTCSoundRouteSpeaker;
     }];
-}
-
-
-- (IBAction)pressSwitchAudioOutput:(id)sender {
     
-    QBSoundRoute route = [QBSoundRouter instance].currentSoundRoute;
-    
-    if (route == QBSoundRouteSpeaker) {
-
-        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteReceiver;
-    }
-    else {
+    if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
         
-        [QBSoundRouter instance].currentSoundRoute = QBSoundRouteSpeaker;
+        [self.toolbar addButton:[QBButtonsFactory screenShare] action: ^(UIButton *sender) {
+            
+            SharingViewController *sharingVC =
+            [weakSelf.storyboard instantiateViewControllerWithIdentifier:kSharingViewControllerIdentifier];
+            sharingVC.session = weakSelf.session;
+            
+            [weakSelf.navigationController pushViewController:sharingVC animated:YES];
+        }];
     }
+    
+    [self.toolbar addButton:[QBButtonsFactory decline] action: ^(UIButton *sender) {
+        
+        [weakSelf.callTimer invalidate];
+        weakSelf.callTimer = nil;
+        
+        [weakSelf.session hangUp:@{@"hangup" : @"hang up"}];
+    }];
+    
+    [self.toolbar updateItems];
 }
 
 #pragma mark - UICollectionViewDataSource
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return self.users.count;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    OpponentCollectionViewCell *cell =
-    [collectionView dequeueReusableCellWithReuseIdentifier:kOpponentCollectionViewCellIdentifier
-                                              forIndexPath:indexPath];
-    
+    OpponentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kOpponentCollectionViewCellIdentifier
+                                                                                 forIndexPath:indexPath];
     QBUUser *user = self.users[indexPath.row];
     
-    NSNumber *userID = @(user.ID);
-    QBRTCVideoTrack *videoTrack = [self.session remoteVideoTrackWithUserID:userID];
-    
-    //User connection indicator
-    cell.connectionState = [self.session connectionStateForUser:userID];
-    
-    //User marker
-    [cell setColorMarkerText:[NSString stringWithFormat:@"%lu", (unsigned long)user.index + 1]
-                    andColor:user.color];
-    //Selected
-    if (self.selectedItemIndexPath != nil && [indexPath compare:self.selectedItemIndexPath] == NSOrderedSame) {
-        
-        cell.selected = YES;
-        [self.opponentVideoView setVideoTrack:videoTrack];
-        
-        self.markerView.bgColor = user.color;
-        self.markerView.title = user.fullName;
-    }
-    else {
-        
-        cell.selected = NO;
-        [cell setVideoTrack:videoTrack];
-    }
+    [cell setVideoView:[self videoViewWithOpponentID:@(user.ID)]];
+    NSString *markerText = [NSString stringWithFormat:@"%lu", (unsigned long)user.index + 1];
+    [cell setColorMarkerText:markerText andColor:user.color];
     
     return cell;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSMutableArray *indexPaths = [NSMutableArray arrayWithObject:indexPath.copy];
-    
-    if (self.selectedItemIndexPath) {
-        
-        if ([indexPath compare:self.selectedItemIndexPath] == NSOrderedSame){
-            return;
-        }
-        else {
-            
-            [indexPaths addObject:self.selectedItemIndexPath.copy];
-            self.selectedItemIndexPath = indexPath.copy;
-        }
-    }
-    else {
-        
-        self.selectedItemIndexPath = indexPath.copy;
-    }
-    
-    [collectionView reloadItemsAtIndexPaths:indexPaths];
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self.opponentsCollectionView performBatchUpdates:nil completion:nil];// Calling -performBatchUpdates:completion: will invalidate the layout and resize the cells with animation
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(110, 110);
+    CGRect frame = [OpponentsFlowLayout frameForWithNumberOfItems:self.users.count
+                                                              row:indexPath.row
+                                                      contentSize:self.opponentsCollectionView.frame.size];
+    return frame.size;
 }
 
 #pragma mark - Transition to size
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        // Place code here to perform animations during the rotation. You can leave this block empty if not necessary.
-        
-        [self viewWillTransitionToSize:size];
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        
-    }];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size  {
-    
-    [self.opponentsCollectionView.collectionViewLayout invalidateLayout];
-    
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    
-    if (size.width > size.height) {
-        
-        self.opponentVideoView.contentMode = UIViewContentModeScaleAspectFit;
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    }
-    else {
-        
-        self.opponentVideoView.contentMode = UIViewContentModeScaleAspectFill;
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    }
-    
-    [self.opponentsCollectionView setCollectionViewLayout:flowLayout];
-}
-
 - (NSIndexPath *)indexPathAtUserID:(NSNumber *)userID {
     
-    QBUUser *user = [ConnectionManager.instance userWithID:userID];
+    QBUUser *user = [UsersDataSource.instance userWithID:userID];
     NSUInteger idx = [self.users indexOfObject:user];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:0];
     
     return indexPath;
 }
 
-#pragma mark - QBWebRTCChatDelegate
+- (void)performUpdateUserID:(NSNumber *)userID block:(void(^)(OpponentCollectionViewCell *cell))block {
+    
+    NSIndexPath *indexPath = [self indexPathAtUserID:userID];
+    OpponentCollectionViewCell *cell = (id)[self.opponentsCollectionView cellForItemAtIndexPath:indexPath];
+    block(cell);
+}
 
+#pragma mark - QBRTCClientDelegate
+
+- (void)session:(QBRTCSession *)session initializedLocalMediaStream:(QBRTCMediaStream *)mediaStream {
+    
+    session.localMediaStream.videoTrack.videoCapture = self.cameraCapture;
+}
 /**
  * Called in case when you are calling to user, but he hasn't answered
  */
 - (void)session:(QBRTCSession *)session userDoesNotRespond:(NSNumber *)userID {
     
     if (session == self.session) {
-        [self reloadWithUserID:userID];
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
     }
 }
 
-- (void)session:(QBRTCSession *)session acceptByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
+- (void)session:(QBRTCSession *)session acceptedByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
+    if (session == self.session) {
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
+    }
 }
 
 /**
@@ -388,9 +315,10 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 - (void)session:(QBRTCSession *)session rejectedByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
     if (session == self.session) {
-
-        [self reloadWithUserID:userID];
-        NSLog(@"%@", userInfo);
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
     }
 }
 
@@ -399,40 +327,42 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
  */
 - (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
-    if (self.session == session) {
+    if (session == self.session) {
         
-        [self reloadWithUserID:userID];
-        NSLog(@"%@", userInfo);
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
     }
-}
-
-/**
- *  Called in case when receive local video track
- */
-- (void)session:(QBRTCSession *)session didReceiveLocalVideoTrack:(QBRTCVideoTrack *)videoTrack {
-    
-    NSAssert(self.session == session, @"Need update this case");
-    self.switchCameraBtn.hidden = NO;
-    self.localVideoView.hidden = NO;
-    [self.localVideoView setVideoTrack:videoTrack];
 }
 
 /**
  *  Called in case when receive remote video track from opponent
  */
-- (void)session:(QBRTCSession *)session didReceiveRemoteVideoTrack:(QBRTCVideoTrack *)videoTrack fromUser:(NSNumber *)userID {
+
+- (void)session:(QBRTCSession *)session receivedRemoteVideoTrack:(QBRTCVideoTrack *)videoTrack fromUser:(NSNumber *)userID {
     
-    NSAssert(self.session == session, @"Need update this case");
-    [self reloadWithUserID:userID];
+    if (session == self.session) {
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            
+            QBRTCRemoteVideoView *opponentVideoView = (id)[self videoViewWithOpponentID:userID];
+            [cell setVideoView:opponentVideoView];
+        }];
+    }
 }
 
 /**
  *  Called in case when connection initiated
  */
-- (void)session:(QBRTCSession *)session startConnectionToUser:(NSNumber *)userID {
+- (void)session:(QBRTCSession *)session startedConnectionToUser:(NSNumber *)userID {
     
-    NSAssert(self.session == session, @"Need update this case");
-    [self reloadWithUserID:userID];
+    if (session == self.session) {
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
+    }
 }
 
 /**
@@ -440,8 +370,8 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
  */
 - (void)session:(QBRTCSession *)session connectedToUser:(NSNumber *)userID {
     
-    NSAssert(self.session == session, @"Need update this case");
-   
+    NSParameterAssert(self.session == session);
+    
     if (self.beepTimer) {
         
         [self.beepTimer invalidate];
@@ -451,7 +381,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     if (!self.callTimer) {
         
-        self.callTimeLabel.hidden = NO;
         self.callTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshTimeInterval
                                                           target:self
                                                         selector:@selector(refreshCallTime:)
@@ -459,7 +388,9 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
                                                          repeats:YES];
     }
     
-    [self reloadWithUserID:userID];
+    [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+        cell.connectionState = [self.session connectionStateForUser:userID];
+    }];
 }
 
 /**
@@ -467,8 +398,14 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
  */
 - (void)session:(QBRTCSession *)session connectionClosedForUser:(NSNumber *)userID {
     
-    NSAssert(self.session == session, @"Need update this case");
-    [self reloadWithUserID:userID];
+    if (session == self.session) {
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+            [self.videoViews removeObjectForKey:userID];
+            [cell setVideoView:nil];
+        }];
+    }
 }
 
 /**
@@ -476,17 +413,25 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
  */
 - (void)session:(QBRTCSession *)session disconnectedFromUser:(NSNumber *)userID {
     
-    NSAssert(self.session == session, @"Need update this case");
-    [self reloadWithUserID:userID];
+    if (session == self.session) {
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
+    }
 }
 
 /**
  *  Called in case when disconnected by timeout
  */
-- (void)session:(QBRTCSession *)session disconnectTimeoutForUser:(NSNumber *)userID {
+- (void)session:(QBRTCSession *)session disconnectedByTimeoutFromUser:(NSNumber *)userID {
     
-    NSAssert(self.session == session, @"Need update this case");
-    [self reloadWithUserID:userID];
+    if (session == self.session) {
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
+    }
 }
 
 /**
@@ -494,16 +439,22 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
  */
 - (void)session:(QBRTCSession *)session connectionFailedWithUser:(NSNumber *)userID {
     
-    NSAssert(self.session == session, @"Need update this case");
-    [self reloadWithUserID:userID];
+    if (session == self.session) {
+        
+        [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
+            cell.connectionState = [self.session connectionStateForUser:userID];
+        }];
+    }
 }
 
 /**
  *  Called in case when session will close
  */
-- (void)sessionWillClose:(QBRTCSession *)session {
+- (void)sessionDidClose:(QBRTCSession *)session {
     
     if (session == self.session) {
+        
+        [QBRTCSoundRouter.instance deinitialize];
         
         if (self.beepTimer) {
             
@@ -516,34 +467,27 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         self.callTimer = nil;
         
         self.toolbar.userInteractionEnabled = NO;
-        self.localVideoView.hidden = YES;
-        
+        //        self.localVideoView.hidden = YES;
         [UIView animateWithDuration:0.5 animations:^{
             
             self.toolbar.alpha = 0.4;
         }];
         
-        self.callTimeLabel.text = [NSString stringWithFormat:@"End - %@", [self stringWithTimeDuration:self.timeDuration]];
+        self.title = [NSString stringWithFormat:@"End - %@", [self stringWithTimeDuration:self.timeDuration]];
     }
-}
-
-- (void)reloadWithUserID:(NSNumber *)userID {
-    
-    NSIndexPath *indexPath = [self indexPathAtUserID:userID];
-    [self.opponentsCollectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 #pragma mark - Timers actions
 
 - (void)playCallingSound:(id)sender {
     
-    [QMSoundManager playCallingSound];
+    //    [QMSoundManager playCallingSound];
 }
 
-- (void)refreshCallTime:(id)sender {
+- (void)refreshCallTime:(NSTimer *)sender {
     
     self.timeDuration += kRefreshTimeInterval;
-    self.callTimeLabel.text = [NSString stringWithFormat:@"Call time - %@", [self stringWithTimeDuration:self.timeDuration]];
+    self.title = [NSString stringWithFormat:@"Call time - %@", [self stringWithTimeDuration:self.timeDuration]];
 }
 
 - (NSString *)stringWithTimeDuration:(NSTimeInterval )timeDuration {
@@ -554,6 +498,33 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     NSString *timeStr = [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
     
     return timeStr;
+}
+
+- (void)localVideoView:(LocalVideoView *)localVideoView pressedSwitchButton:(UIButton *)sender {
+    
+    AVCaptureDevicePosition position = [self.cameraCapture currentPosition];
+    AVCaptureDevicePosition newPosition = position == AVCaptureDevicePositionBack ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
+    
+    if ([self.cameraCapture hasCameraForPosition:newPosition]) {
+        
+        CATransition *animation = [CATransition animation];
+        animation.duration = .5f;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        animation.type = @"oglFlip";
+        
+        if (position == AVCaptureDevicePositionFront) {
+            
+            animation.subtype = kCATransitionFromRight;
+        }
+        else if(position == AVCaptureDevicePositionBack) {
+            
+            animation.subtype = kCATransitionFromLeft;
+        }
+        
+        [localVideoView.superview.layer addAnimation:animation forKey:nil];
+        
+        [self.cameraCapture selectCameraPosition:newPosition];
+    }
 }
 
 @end
