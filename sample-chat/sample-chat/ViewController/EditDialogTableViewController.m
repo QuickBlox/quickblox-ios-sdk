@@ -71,7 +71,7 @@
 	
 	if (self.dialog.type == QBChatDialogTypePrivate) {
         // Retrieving users with identifiers.
-        [[[ServicesManager instance].usersService retrieveUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+        [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
             //
             __typeof(self) strongSelf = weakSelf;
             [users addObjectsFromArray:task.result];
@@ -111,7 +111,7 @@
 	[SVProgressHUD showWithStatus:@"Updating dialog..." maskType:SVProgressHUDMaskTypeClear];
 	
     // Retrieving users from cache.
-    [[[ServicesManager instance].usersService retrieveUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+    [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
         //
         // Updating dialog with occupants.
         [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
