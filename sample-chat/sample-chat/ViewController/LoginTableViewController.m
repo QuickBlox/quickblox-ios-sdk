@@ -63,13 +63,16 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	__weak __typeof(self)weakSelf = self;
     
     // Retrieving users from cache.
-	[ServicesManager.instance.usersService cachedUsersWithCompletion:^(NSArray *users) {
-		if (users != nil && users.count != 0) {
-			[weakSelf loadDataSourceWithUsers:users];
+    [[[ServicesManager instance].usersService loadFromCache] continueWithBlock:^id(BFTask *task) {
+        //
+        if ([task.result count] > 0) {
+            [weakSelf loadDataSourceWithUsers:task.result];
         } else {
             [weakSelf downloadLatestUsers];
         }
-	}];
+        
+        return nil;
+    }];
 }
 
 - (void)downloadLatestUsers
@@ -82,12 +85,12 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     [SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
 	
     // Downloading latest users.
-	[ServicesManager.instance.usersService downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
+	[[ServicesManager instance] downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
         [SVProgressHUD showSuccessWithStatus:@"Completed"];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
-	} errorBlock:^(QBResponse *response) {
-		[SVProgressHUD showErrorWithStatus:@"Can not download users"];
+	} errorBlock:^(NSError *error) {
+		[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Can not download users: %@", error.localizedRecoverySuggestion]];
 		weakSelf.usersAreDownloading = NO;
 	}];
 }

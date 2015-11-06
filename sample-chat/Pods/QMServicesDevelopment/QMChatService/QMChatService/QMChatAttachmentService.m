@@ -48,7 +48,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
     
     NSData *imageData = UIImagePNGRepresentation(image);
     
-    [QBRequest TUploadFile:imageData fileName:@"attachment" contentType:@"image/png" isPublic:YES successBlock:^(QBResponse *response, QBCBlob *blob) {
+    [QBRequest TUploadFile:imageData fileName:@"attachment" contentType:@"image/png" isPublic:NO successBlock:^(QBResponse *response, QBCBlob *blob) {
        
         QBChatAttachment *attachment = [QBChatAttachment new];
         attachment.type = @"image";

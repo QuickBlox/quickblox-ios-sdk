@@ -38,24 +38,48 @@ typedef enum QBChatServiceError {
 /** Contact list */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBContactList *contactList;
 
-/** Enable or disable message carbons */
-@property (nonatomic, assign, getter = isCarbonsEnabled) BOOL carbonsEnabled;
+/**
+ *  Enable or disable message carbons
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setCarbonsEnabled:] and [QBSettings isCarbonsEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isCarbonsEnabled) BOOL carbonsEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setCarbonsEnabled:] and [QBSettings isCarbonsEnabled] instead");
 
-/** Enable or disable Stream Management (XEP-0198) */
-@property (nonatomic, assign, getter = isStreamManagementEnabled) BOOL streamManagementEnabled;
+/**
+ *  Enable or disable Stream Management (XEP-0198)
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Stream management is enabled by default.
+ */
+@property (nonatomic, readonly, assign, getter = isStreamManagementEnabled) BOOL streamManagementEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Stream management is enabled by default");
 
-/** Enable or disable Stream Resumption (XEP-0198). Works only if streamManagementEnabled=YES. */
-@property (nonatomic, assign, getter = isStreamResumptionEnabled) BOOL streamResumptionEnabled;
+/**
+ *  Enable or disable Stream Resumption (XEP-0198). Works only if streamManagementEnabled=YES.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setStreamResumptionEnabled:] and [QBSettings isStreamResumptionEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isStreamResumptionEnabled) BOOL streamResumptionEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setStreamResumptionEnabled:] and [QBSettings isStreamResumptionEnabled] instead");
 
-/** The timeout value for Stream Management send a message operation */
-@property (nonatomic, assign) int streamManagementSendMessageTimeout;
+/**
+ *  The timeout value for Stream Management send a message operation
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setStreamManagementSendMessageTimeout:] and [QBSettings streamManagementSendMessageTimeout] instead.
+ */
+@property (nonatomic, assign) int streamManagementSendMessageTimeout DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setStreamManagementSendMessageTimeout:] and [QBSettings streamManagementSendMessageTimeout] instead");
 
-/** Enable or disable auto reconnect */
-@property (nonatomic, assign, getter = isAutoReconnectEnabled) BOOL autoReconnectEnabled;
+/**
+ *  Enable or disable auto reconnect
+ *  
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setAutoReconnectEnabled:] and [QBSettings isAutoReconnectEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isAutoReconnectEnabled) BOOL autoReconnectEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setAutoReconnectEnabled:] and [QBSettings isAutoReconnectEnabled] instead");
 
-/** A reconnect timer may optionally be used to attempt a reconnect periodically.
-  The default value is 5 seconds */
-@property (nonatomic, assign) NSTimeInterval reconnectTimerInterval;
+/**
+ *  A reconnect timer may optionally be used to attempt a reconnect periodically.
+ *  The default value is 5 seconds
+ *  
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setReconnectTimerInterval:] and [QBSettings reconnectTimerInterval] instead.
+ */
+@property (nonatomic, assign) NSTimeInterval reconnectTimerInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setReconnectTimerInterval:] and [QBSettings reconnectTimerInterval] instead");
 
 /**
  * Many routers will teardown a socket mapping if there is no activity on the socket.
@@ -73,11 +97,17 @@ typedef enum QBChatServiceError {
  * Upon firing it checks when data was last sent/received,
  * and sends keep-alive data if the elapsed time has exceeded the keepAliveInterval.
  * Thus the effective resolution of the keepalive timer is based on the interval.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setKeepAliveInterval:] and [QBSettings keepAliveInterval] instead.
  */
-@property (nonatomic, assign) NSTimeInterval keepAliveInterval;
+@property (nonatomic, assign) NSTimeInterval keepAliveInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setKeepAliveInterval:] and [QBSettings keepAliveInterval] instead");
 
-/** Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator. */
-@property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled;
+/**
+ *  Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator.
+ *  
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setBackgroundingEnabled:] and [QBSettings isBackgroundingEnabled] instead.
+ */
+@property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setBackgroundingEnabled:] and [QBSettings isBackgroundingEnabled] instead");
 
 - (QB_NONNULL id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
 
@@ -133,16 +163,27 @@ typedef enum QBChatServiceError {
  
  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user DEPRECATED_MSG_ATTRIBUTE("Use connectWithUser: instead.");
+- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:' instead.");
+
 
 /**
  * Connect to QuickBlox Chat
  *
  * @param user QBUUser structure represents user's login. Required user's fields: ID, password;
  *
+ * @warning *Deprecated in QB iOS SDK 2.4.5: Use 'connectWithUser:completion' instead.*
+ *
  * @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user;
+- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:completion' instead.");
+
+/**
+ *  Connect to QuicBlox Chat with completion.
+ *
+ *  @param user       QBUUser structure represents user's login. Required user's fields: ID, password.
+ *  @param completion Completion block with failure error.
+ */
+- (void)connectWithUser:(QB_NONNULL QBUUser *)user completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  Authorize on QuickBlox Chat
@@ -157,14 +198,25 @@ typedef enum QBChatServiceError {
 - (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:resource:' instead.");
 
 /**
- * Connect to QuickBlox Chat
+ * Connect to QuickBlox Chat.
  *
  * @param user QBUUser structure represents user's login. Required user's fields: ID, password.
  * @param resource The resource identifier of user.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.4.5:* Use 'connectWithUser:resource:completion' instead.
+ *
  * @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource;
+- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:resource:completion' instead.");
+
+/**
+ *  Connect to QuickBlox Chat.
+ *
+ *  @param user       QBUUser structure represents user's login. Required user's fields: ID, password.
+ *  @param resource   The resource identifier of user.
+ *  @param completion Completion block with failure error.
+ */
+- (void)connectWithUser:(QB_NONNULL QBUUser *)user resource:(nullable NSString *)resource completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  Check if current user logged into Chat
@@ -192,28 +244,58 @@ typedef enum QBChatServiceError {
 - (BOOL)logout DEPRECATED_MSG_ATTRIBUTE("Use 'disconnect' instead.");
 
 /**
- * Disconnect current user from Chat
+ *  Disconnect current user from Chat
  *
- * @return YES if the request was sent successfully. If not - see log.
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'disconnectWithCompletionBlock:' instead.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)disconnect;
+- (BOOL)disconnect DEPRECATED_MSG_ATTRIBUTE("Use 'disconnectWithCompletionBlock:' instead.");
 
 /**
- Send "read" status for message and update "read" status on a server
- 
- @param message QBChatMessage message to mark as read.
- @return YES if the request was sent successfully. If not - see log.
+ *  Disconnect current user from Chat
+ *
+ *  @param completion  Completion block with failure error.
  */
-- (BOOL)readMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)disconnectWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
+
+/**
+ *  Send "read" status for message and update "read" status on a server
+ *
+ *  @param message QBChatMessage message to mark as read.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'readMessage:completion:' instead.
+ *  
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)readMessage:(QB_NONNULL QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Use 'readMessage:completion:' instead.");
+
+/**
+ *  Send "read" status for message and update "read" status on a server
+ *
+ *  @param message      QBChatMessage message to mark as read.
+ *  @param completion   Completion block with failure error.
+ */
+- (void)readMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  *  Send "delivered" status for message.
  *
  *  @param message QBChatMessage message to mark as delivered.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'markAsDelivered:completion:' instead.
+ *
  *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)markAsDelivered:(QB_NONNULL QBChatMessage *)message;
+- (BOOL)markAsDelivered:(QB_NONNULL QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Use 'markAsDelivered:completion:' instead.");
+
+/**
+ *  Send "delivered" status for message.
+ *
+ *  @param message      QBChatMessage message to mark as delivered.
+ *  @param completion   Completion block with failure error.
+ */
+- (void)markAsDelivered:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  Send presence message. Session will be closed in 90 seconds since last activity.
@@ -241,72 +323,128 @@ typedef enum QBChatServiceError {
 #pragma mark Contact list
 
 /**
- Add user to contact list request
- 
- @param userID ID of user which you would like to add to contact list
- @return YES if the request was sent successfully. If not - see log.
+ *  Add user to contact list request
+ *
+ *  @param userID ID of user which you would like to add to contact list
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'addUserToContactListRequest:completion:' instead.
+ *  
+ *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)addUserToContactListRequest:(NSUInteger)userID;
+- (BOOL)addUserToContactListRequest:(NSUInteger)userID DEPRECATED_MSG_ATTRIBUTE("Use 'addUserToContactListRequest:completion:' instead.");
 
 /**
- Add user to contact list request
- 
- @param userID ID of user which you would like to add to contact list
- @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
- @return YES if the request was sent. If not - see log.
+ *  Add user to contact list request
+ *
+ *  @param userID ID of user which you would like to add to contact list
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'addUserToContactListRequest:completion:' instead.
+ *  
+ *  @return YES if the request was sent. If not - see log.
  */
-- (BOOL)addUserToContactListRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
+- (BOOL)addUserToContactListRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE QBChatCompletionBlock)sentBlock DEPRECATED_MSG_ATTRIBUTE("Use 'addUserToContactListRequest:completion:' instead.");
 
 /**
- Remove user from contact list
- 
- @param userID ID of user which you would like to remove from contact list
- @return YES if the request was sent successfully. If not - see log.
+ *  Add user to contact list request
+ *
+ *  @param userID       ID of user which you would like to add to contact list
+ *  @param completion   Completion block with failure error.
  */
-- (BOOL)removeUserFromContactList:(NSUInteger)userID;
+- (void)addUserToContactListRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
- Remove user from contact list
- 
- @param userID ID of user which you would like to remove from contact list
- @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
- @return YES if the request was sent. If not - see log.
+ *  Remove user from contact list
+ *
+ *  @param userID ID of user which you would like to remove from contact list
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'removeUserFromContactList:completion:' instead.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)removeUserFromContactList:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
+- (BOOL)removeUserFromContactList:(NSUInteger)userID DEPRECATED_MSG_ATTRIBUTE("Use 'removeUserFromContactList:completion:' instead.");
 
 /**
- Confirm add to contact list request
- 
- @param userID ID of user from which you would like to confirm add to contact request
- @return YES if the request was sent successfully. If not - see log.
+ *  Remove user from contact list
+ *
+ *  @param userID ID of user which you would like to remove from contact list
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'removeUserFromContactList:completion:' instead.
+ *
+ *  @return YES if the request was sent. If not - see log.
  */
-- (BOOL)confirmAddContactRequest:(NSUInteger)userID;
+- (BOOL)removeUserFromContactList:(NSUInteger)userID sentBlock:(QB_NULLABLE QBChatCompletionBlock)sentBlock DEPRECATED_MSG_ATTRIBUTE("Use 'removeUserFromContactList:completion:' instead.");
 
 /**
- Confirm add to contact list request
- 
- @param userID ID of user from which you would like to confirm add to contact request
- @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
- @return YES if the request was sent. If not - see log.
+ *  Remove user from contact list
+ *
+ *  @param userID     ID of user which you would like to remove from contact list
+ *  @param completion Completion block with failure error.
  */
-- (BOOL)confirmAddContactRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
+- (void)removeUserFromContactList:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
- Reject add to contact list request or cancel previously-granted subscription request 
- 
- @param userID ID of user from which you would like to reject add to contact request
- @return YES if the request was sent successfully. If not - see log.
+ *  Confirm add to contact list request
+ *
+ *  @param userID ID of user from which you would like to confirm add to contact request
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'confirmAddContactRequest:completion:' instead.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)rejectAddContactRequest:(NSUInteger)userID;
+- (BOOL)confirmAddContactRequest:(NSUInteger)userID DEPRECATED_MSG_ATTRIBUTE("Use 'confirmAddContactRequest:completion:' instead.");
 
 /**
- Reject add to contact list request or cancel previously-granted subscription request
- 
- @param userID ID of user from which you would like to reject add to contact request
- @param sentBlock The block which informs whether a request was delivered to server or not. nil if no errors.
- @return YES if the request was sent. If not - see log.
+ *  Confirm add to contact list request
+ *
+ *  @param userID ID of user from which you would like to confirm add to contact request
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'confirmAddContactRequest:completion:' instead.
+ *
+ *  @return YES if the request was sent. If not - see log.
  */
-- (BOOL)rejectAddContactRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock;
+- (BOOL)confirmAddContactRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE QBChatCompletionBlock)sentBlock DEPRECATED_MSG_ATTRIBUTE("Use 'confirmAddContactRequest:completion:' instead.");
+
+/**
+ *  Confirm add to contact list request
+ *
+ *  @param userID       ID of user from which you would like to confirm add to contact request
+ *  @param completion   The block which informs whether a request was delivered to server or not. If request succeded error is nil.
+ */
+- (void)confirmAddContactRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+
+/**
+ *  Reject add to contact list request or cancel previously-granted subscription request
+ *
+ *  @param userID ID of user from which you would like to reject add to contact request
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'rejectAddContactRequest:completion:' instead.
+ *
+ *  @return YES if the request was sent successfully. If not - see log.
+ */
+- (BOOL)rejectAddContactRequest:(NSUInteger)userID DEPRECATED_MSG_ATTRIBUTE("Use 'rejectAddContactRequest:completion:' instead.");
+
+/**
+ *  Reject add to contact list request or cancel previously-granted subscription request
+ *
+ *  @param userID ID of user from which you would like to reject add to contact request
+ *  @param sentBlock The block which informs whether a request was delivered to server or not. If request succeded error is nil.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'rejectAddContactRequest:completion:' instead.
+ *
+ *  @return YES if the request was sent. If not - see log.
+ */
+- (BOOL)rejectAddContactRequest:(NSUInteger)userID sentBlock:(QB_NULLABLE QBChatCompletionBlock)sentBlock DEPRECATED_MSG_ATTRIBUTE("Use 'rejectAddContactRequest:completion:' instead.");
+
+/**
+ *  Reject add to contact list request or cancel previously-granted subscription request
+ *
+ *  @param userID       ID of user from which you would like to reject add to contact request
+ *  @param completion   The block which informs whether a request was delivered to server or not. If request succeded error is nil.
+ */
+- (void)rejectAddContactRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 #pragma mark -
 #pragma mark Privacy
@@ -358,8 +496,18 @@ typedef enum QBChatServiceError {
  *
  *  @param message Chat message to send.
  *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'sendSystemMessage:completion:' instead.
+ *
  *  @return YES if the message was sent. If not - see log.
  */
-- (BOOL)sendSystemMessage:(QB_NONNULL QBChatMessage *)message;
+- (BOOL)sendSystemMessage:(QB_NONNULL QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Use 'sendSystemMessage:completion:' instead.");
+
+/**
+ *  Send system message to dialog.
+ *
+ *  @param message      QBChatMessage instance of message to send.
+ *  @param completion   Completion block with failure error.
+ */
+- (void)sendSystemMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 @end

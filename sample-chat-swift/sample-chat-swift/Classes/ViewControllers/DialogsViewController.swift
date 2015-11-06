@@ -28,7 +28,7 @@ class DialogTableViewCellModel: NSObject {
             }
             
             // Getting recipient from users service.
-            if let recipient = ServicesManager.instance().usersService.user(UInt(dialog.recipientID)) {
+            if let recipient = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(dialog.recipientID)) {
                 self.textLabelText = recipient.login ?? recipient.email!
             }
             
@@ -178,7 +178,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 //
                 }, completionBlock: { (response: QBResponse!) -> Void in
                     //
-                    if (response != nil && response.success) {
+                    if (ServicesManager.instance().isAuthorized() && response.success) {
                         ServicesManager.instance().lastActivityDate = NSDate()
                     }
             })
@@ -189,13 +189,15 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 //
                 }, completion: { (response: QBResponse!) -> Void in
                     //
-                    if (response != nil && response.success) {
-                        SVProgressHUD.showSuccessWithStatus("Completed")
-                        ServicesManager.instance().lastActivityDate = NSDate()
-                        ServicesManager.instance().joinAllGroupDialogs()
-                    }
-                    else {
-                        SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
+                    if (ServicesManager.instance().isAuthorized()) {
+                        if (response.success) {
+                            SVProgressHUD.showSuccessWithStatus("Completed")
+                            ServicesManager.instance().lastActivityDate = NSDate()
+                            ServicesManager.instance().joinAllGroupDialogs()
+                        }
+                        else {
+                            SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
+                        }
                     }
             })
         }
@@ -299,8 +301,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                     dialog.occupantIDs = occupantIDs
                     
                     // Notifies occupants that user left the dialog.
-                    ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText:"User \(ServicesManager.instance().currentUser().login) has left the dialog", completion: { (error: NSError!) -> Void in
-                        
+                    ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "User \(ServicesManager.instance().currentUser().login) has left the dialog", completion: { (error: NSError?) -> Void in
                         deleteDialogBlock(dialog)
                     })
                 }
@@ -324,8 +325,10 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
             
             // Performing join to the group dialogs.
             if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance().chatService.joinToGroupDialog(dialog, failed: { (error: NSError!) -> Void in
-                    
+                ServicesManager.instance().chatService.joinToGroupDialog(dialog, completion: { (error: NSError?) -> Void in
+                    if (error != nil) {
+                        NSLog("Failed to join dialog with error: %@", error!)
+                    }
                 })
             }
         }
@@ -336,8 +339,10 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
         // Performing join to the group dialogs.
         if chatDialog.type != QBChatDialogType.Private {
-            ServicesManager.instance().chatService.joinToGroupDialog(chatDialog, failed: { (error: NSError!) -> Void in
-                
+            ServicesManager.instance().chatService.joinToGroupDialog(chatDialog, completion: { (error: NSError?) -> Void in
+                if (error != nil) {
+                    NSLog("Failed to join dialog with error: %@", error!)
+                }
             })
         }
         

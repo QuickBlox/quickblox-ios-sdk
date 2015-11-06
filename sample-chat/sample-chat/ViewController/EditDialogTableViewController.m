@@ -71,12 +71,15 @@
 	
 	if (self.dialog.type == QBChatDialogTypePrivate) {
         // Retrieving users with identifiers.
-		[ServicesManager.instance.usersService retrieveUsersWithIDs:self.dialog.occupantIDs completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *occupants) {
+        [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+            //
             __typeof(self) strongSelf = weakSelf;
-			[users addObjectsFromArray:occupants];
-			
-			[strongSelf createGroupDialogWithUsers:users];
-		}];
+            [users addObjectsFromArray:task.result];
+            
+            [strongSelf createGroupDialogWithUsers:users];
+            
+            return nil;
+        }];
 	} else {
 		[self updateGroupDialogWithUsersIDs:usersIDs];
 	}
@@ -108,27 +111,29 @@
 	[SVProgressHUD showWithStatus:@"Updating dialog..." maskType:SVProgressHUDMaskTypeClear];
 	
     // Retrieving users from cache.
-	[ServicesManager.instance.usersService.contactListService retrieveUsersWithIDs:usersIDs forceDownload:NO completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-		
+    [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+        //
         // Updating dialog with occupants.
-		[ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
-			if( response.success ) {
+        [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
+            if( response.success ) {
                 // Notifying users about newly created dialog.
-				[ServicesManager.instance.chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:weakSelf.dialog];
-				
-				NSString *notificationText = [weakSelf updatedMessageWithUsers:users];
+                [ServicesManager.instance.chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:weakSelf.dialog];
+                
+                NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
                 // Notify occupants that dialog was updated.
-				[ServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:notificationText completion:nil];
-				
-				updatedDialog.lastMessageText = notificationText;
-				[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
-				[SVProgressHUD dismiss];
-			}
-			else {
-				[SVProgressHUD showErrorWithStatus:@"Can not update dialog"];
-			}
-		}];
-	}];
+                [ServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:notificationText completion:nil];
+                
+                updatedDialog.lastMessageText = notificationText;
+                [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
+                [SVProgressHUD dismiss];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:@"Can not update dialog"];
+            }
+        }];
+        
+        return nil;
+    }];
 }
 
 - (NSString *)dialogNameFromUsers:(NSArray *)users {

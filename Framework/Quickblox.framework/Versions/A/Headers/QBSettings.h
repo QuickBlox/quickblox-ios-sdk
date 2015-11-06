@@ -11,17 +11,73 @@
 #import <Quickblox/QBGeneric.h>
 #import "QBLogger.h"
 
+typedef enum QBConnectionZoneType{
+	QBConnectionZoneTypeAutomatic = 1, //Default. Endpoints are loaded from QuickBlox
+	QBConnectionZoneTypeProduction      = 2,
+	QBConnectionZoneTypeDevelopment     = 3,
+	QBConnectionZoneTypeStage           = 4
+} QBConnectionZoneType;
 
 /** QBSettings class declaration */
 /** Overview */
 /** Class for setup framework */
 
-@interface QBSettings : NSObject {
-}
+@interface QBSettings : NSObject
 
+/**
+ *  Allow to set api endpoint and chat endpoint for service zone
+ *  @param apiEndpoint  apiEndpoint - Endpoint for service i.e. http://my_custom_endpoint.com. Possible to pass nil to return to default settings
+ *  @param chatEndpoint chat endpoint
+ *  @param zone         QBConnectionZoneType - service zone
+ */
++ (void)setApiEndpoint:(QB_NULLABLE NSString *)apiEndpoint chatEndpoint:(QB_NULLABLE NSString *)chatEndpoint forServiceZone:(QBConnectionZoneType)zone;
+
+#pragma mark -
+#pragma mark Chat settings
+
+/// Enable or disable auto reconnect
++ (void)setAutoReconnectEnabled:(BOOL)autoReconnectEnabled;
+
+/// Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator
++ (void)setBackgroundingEnabled:(BOOL)backgroundingEnabled;
+
+/// Enable or disable message carbons
++ (void)setCarbonsEnabled:(BOOL)carbonsEnabled;
+
+/// Enable or disable Stream Resumption (XEP-0198). Works only if streamManagementEnabled=YES
++ (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled;
+
+/// Set timeout value for Stream Management send a message operation
++ (void)setStreamManagementSendMessageTimeout:(NSUInteger)streamManagementSendMessageTimeout;
+
+/** A reconnect timer may optionally be used to attempt a reconnect periodically.
+    Default value is 5 seconds */
++ (void)setReconnectTimerInterval:(NSTimeInterval)reconnectTimerInterval;
+
+/**
+ * Many routers will teardown a socket mapping if there is no activity on the socket.
+ * For this reason, the stream supports sending keep-alive data.
+ * This is simply whitespace, which is ignored by the protocol.
+ *
+ * Keep-alive data is only sent in the absence of any other data being sent/received.
+ *
+ * The default value is 20s.
+ * The minimum value for TARGET_OS_IPHONE is 10s, else 20s.
+ *
+ * To disable keep-alive, set the interval to zero (or any non-positive number).
+ *
+ * The keep-alive timer (if enabled) fires every (keepAliveInterval / 4) seconds.
+ * Upon firing it checks when data was last sent/received,
+ * and sends keep-alive data if the elapsed time has exceeded the keepAliveInterval.
+ * Thus the effective resolution of the keepalive timer is based on the interval.
+ */
++ (void)setKeepAliveInterval:(NSTimeInterval)keepAliveInterval;
 
 #pragma mark -
 #pragma mark Credentials
+
+/// Storing Application ID
++ (void)setApplicationID:(NSUInteger)applicationID;
 
 /**
  Set account key
@@ -31,68 +87,79 @@
 + (void)setAccountKey:(QB_NONNULL NSString *)accountKey;
 
 /**
- Get account key
- 
- @return Current account key
+ * Setting API Key for Quickblox API
+ *
+ * @param authKey - NSString value of API Key.
  */
-+ (QB_NULLABLE NSString *)accountKey;
++ (void)setAuthKey:(QB_NONNULL NSString *)authKey;
 
+/**
+ * Setting API Secret for Quickblox API
+ *
+ * @param authSecret - NSString value of API Secret.
+ */
++ (void)setAuthSecret:(QB_NONNULL NSString *)authSecret;
 
 #pragma mark -
 #pragma mark Endpoints
 
 /**
- Set server's Chat domain
- 
- @param chatDomain New server's Chat domain
- */
-+ (void)setServerChatDomain:(QB_NONNULL NSString *)chatDomain;
-
-/**
- Get server's Chat domain
- 
- @return Current server's Chat domain
- */
-+ (QB_NULLABLE NSString *)serverChatDomain;
-
-/**
- *  MUC chat server domain
+ * Allow to change Services Zone to work with Development and Staging environments
  *
- *  @return Current server's MUC chat domain
+ * @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeProduction
  */
-+ (QB_NULLABLE NSString *)chatServerMUCDomain;
++ (void)setServiceZone:(QBConnectionZoneType)serviceZone;
+
+/**
+ *  Return current Service Zone
+ *
+ *  @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
+ */
++ (QBConnectionZoneType)currentServiceZone;
+
+/**
+ *  Returns Api Endpoint for current zone
+ *
+ *  @return NSString value of Api Endpoint
+ */
++ (QB_NULLABLE NSString *)apiEndpoint;
 
 #pragma mark -
-#pragma mark Chat proxy
+#pragma mark Chat Endpoints
 
 /**
- Set Chat SOCKS5 proxy host
- 
- @param host SOCKS5 proxy host
+ *  Set server's Chat endpoint for current service zone
+ *
+ *  @param chatEndpoint New server's Chat endpoint
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'setApiEndpoint:chatEndpoint:forServiceZone:' instead.
  */
-+ (void)setChatSOCKS5ProxyHost:(QB_NONNULL NSString *)host;
++ (void)setServerChatDomain:(QB_NONNULL NSString *)chatDomain DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use 'setApiEndpoint:chatEndpoint:forServiceZone:' instead");
 
 /**
- Get сhat SOCKS5 proxy host
- 
- @return Current сhat SOCKS5 proxy host
+ Get server's Chat endpoint
+
+ @note you have to prepend http or https prefix
+ @return Current server's Chat endpoint
  */
-+ (QB_NULLABLE NSString *)chatSOCKS5ProxyHost;
++ (QB_NONNULL NSString *)chatEndpoint;
+/* @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'chatEndpoint' instead. */
++ (QB_NONNULL NSString *)serverChatDomain DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use 'chatEndpoint' instead");
+
+#pragma mark -
+#pragma mark Network Indicator
 
 /**
- Set Chat SOCKS5 proxy port
+ * A Boolean value indicating whether the manager is enabled.
  
- @param port SOCKS5 proxy port
+ * If YES, the manager will change status bar network activity indicator according to network operation notifications it receives. The default value is NO.
  */
-+ (void)setChatSOCKS5ProxyPort:(NSUInteger)port;
++ (void)setNetworkIndicatorManagerEnabled:(BOOL)enabled;
 
 /**
- Get сhat SOCKS5 proxy port
- 
- @return Current сhat SOCKS5 proxy port
+ A Boolean value indicating whether the network activity indicator is currently displayed in the status bar.
  */
-+ (NSUInteger)chatSOCKS5ProxyPort;
-
++ (BOOL)isNetworkIndicatorVisible;
 
 #pragma mark -
 #pragma mark Logging
@@ -103,13 +170,6 @@
  @param logLevel New log level
  */
 + (void)setLogLevel:(QBLogLevel)logLevel;
-
-/**
- Get SDK log level
- 
- @return SDK current log level
- */
-+ (QBLogLevel)logLevel;
 
 /**
  *  Enables XMPP Framework logging to console. By default is disabled.

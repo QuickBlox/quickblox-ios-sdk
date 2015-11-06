@@ -163,7 +163,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if self.dialog?.type != QBChatDialogType.Private {
             self.title = self.dialog?.name
         } else {
-            if let recepeint = ServicesManager.instance().usersService.user(UInt(self.dialog!.recipientID)) {
+            if let recepeint = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(self.dialog!.recipientID)) {
                 self.title = recepeint.login
             }
         }
@@ -212,21 +212,24 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     static func sendReadStatusForMessage(message: QBChatMessage, dialogID: String!) {
         if message.senderID != QBSession.currentSession().currentUser!.ID && (message.readIDs == nil || !(message.readIDs as! [Int]).contains(Int(QBSession.currentSession().currentUser!.ID))) {
-            if !ServicesManager.instance().chatService.readMessage(message, forDialogID: dialogID) {
-                NSLog("Problems while marking message as read!")
-            }
-            else {
-                if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
-                    UIApplication.sharedApplication().applicationIconBadgeNumber--
+            ServicesManager.instance().chatService.readMessage(message, completion: { (error: NSError?) -> Void in
+                //
+                if (error != nil) {
+                    NSLog("Problems while marking message as read! Error: %@", error!)
                 }
-            }
+                else {
+                    if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
+                        UIApplication.sharedApplication().applicationIconBadgeNumber--
+                    }
+                }
+            })
         }
     }
     
     func readMessages(messages: [QBChatMessage], dialogID: String) {
         
         if QBChat.instance().isConnected() {
-            ServicesManager.instance().chatService.readMessages(messages, forDialogID: dialogID)
+            ServicesManager.instance().chatService.readMessages(messages, forDialogID: dialogID, completion: nil)
         } else {
             self.unreadMessages = messages
         }
@@ -305,11 +308,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func sendMessage(message: QBChatMessage) {
         
         // Sending message.
-        let didSent = ServicesManager.instance().chatService.sendMessage(message, toDialogId: self.dialog?.ID, save: true) { (error:NSError!) -> Void in
-        }
-        
-        if !didSent {
-            TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: "SA_STR_CANT_SEND_A_MESSAGE".localized, type: TWMessageBarMessageType.Info)
+        ServicesManager.instance().chatService.sendMessage(message, type: QMMessageType.Text, toDialogID: self.dialog?.ID, saveToHistory: true, saveToStorage: true) { (error: NSError?) -> Void in
+            //
+            if (error != nil) {
+                TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: error?.localizedRecoverySuggestion, type: TWMessageBarMessageType.Info)
+            }
         }
         
         self.finishSendingMessageAnimated(true)
@@ -384,7 +387,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if !messageReadIDs.isEmpty {
                 for readID : Int in messageReadIDs {
-                    let user = ServicesManager.instance().usersService.user(UInt(readID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(readID))
                     
                     if user != nil {
                         readersLogin.append(user!.login!)
@@ -410,7 +413,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if !messageDeliveredIDs.isEmpty {
                 for deliveredID : Int in messageDeliveredIDs {
-                    let user = ServicesManager.instance().usersService.user(UInt(deliveredID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(deliveredID))
                     
                     if readersLogin.contains(user!.login!) {
                         continue
@@ -521,7 +524,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         var topLabelAttributedString : NSAttributedString?
         
-        if let topLabelText = ServicesManager.instance().usersService.user(messageItem.senderID)?.login {
+        if let topLabelText = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(messageItem.senderID)?.login {
             topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
         }
         

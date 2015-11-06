@@ -25,7 +25,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     func updateUsers() {
         if let _ = self.dialog  {
             
-            self.setupUsers(ServicesManager.instance().usersService.users()!)
+            self.setupUsers(ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers() as! [QBUUser])
         }
     }
     

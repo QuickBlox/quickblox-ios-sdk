@@ -19,27 +19,28 @@ class UsersListTableViewController: UITableViewController {
         
 
         // Fetching users from cache.
-        ServicesManager.instance().usersService.cachedUser { (users: [QBUUser]) -> Void in
-            
-            if users.count > 0 {
+        ServicesManager.instance().usersService.loadFromCache().continueWithBlock { (task : BFTask!) -> AnyObject! in
+            if task.result.count > 0 {
                 
-                weakSelf?.setupUsers(users)
+                weakSelf?.setupUsers(task.result as! [QBUUser])
                 
             } else {
                 
                 SVProgressHUD.showWithStatus("Loading users", maskType: SVProgressHUDMaskType.Clear)
                 
                 // Downloading users from Quickblox.
-                ServicesManager.instance().usersService.downloadLatestUsers({ (users: [QBUUser]) -> Void in
+                ServicesManager.instance().downloadLatestUsers({ (users: [QBUUser]!) -> Void in
                     
                     SVProgressHUD.showSuccessWithStatus("Completed")
                     weakSelf?.setupUsers(users)
                     
-                    }, error: { (response: QBResponse) -> Void in
+                    }, error: { (error: NSError!) -> Void in
                         
-                        SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
+                        SVProgressHUD.showErrorWithStatus(error.localizedDescription)
                 })
             }
+            
+            return nil;
         }
     }
     
@@ -66,7 +67,7 @@ class UsersListTableViewController: UITableViewController {
         
         let user = self.users![indexPath.row]
         
-        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().usersService.color(forUser: user))
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
         cell.userDescription = user.fullName
         cell.tag = indexPath.row
         

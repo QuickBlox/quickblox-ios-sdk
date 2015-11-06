@@ -33,6 +33,11 @@
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
         [_chatService addDelegate:self];
+        
+        [QMUsersCache setupDBWithStoreNamed:@"qb-users-cache"];
+        _usersService = [[QMUsersService alloc] initWithServiceManager:self cacheDataSource:self];
+        [_usersService addDelegate:self];
+        
         _logoutGroup = dispatch_group_create();
 	}
 	return self;
@@ -55,7 +60,7 @@
         dispatch_group_enter(self.logoutGroup);
         [self.authService logOut:^(QBResponse *response) {
             __typeof(self) strongSelf = weakSelf;
-            [strongSelf.chatService logoutChat];
+            [strongSelf.chatService disconnectWithCompletionBlock:nil];
             [strongSelf.chatService free];
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
@@ -96,14 +101,16 @@
 		}
 		
         __weak typeof(self) weakSelf = self;
-		[weakSelf.chatService logIn:^(NSError *error) {
+        [weakSelf.chatService connectWithCompletionBlock:^(NSError * _Nullable error) {
+            //
             __typeof(self) strongSelf = weakSelf;
             
             [strongSelf.chatService loadCachedDialogsWithCompletion:^{
                 NSArray* dialogs = [strongSelf.chatService.dialogsMemoryStorage unsortedDialogs];
                 for (QBChatDialog* dialog in dialogs) {
                     if (dialog.type != QBChatDialogTypePrivate) {
-                        [strongSelf.chatService joinToGroupDialog:dialog failed:^(NSError *error) {
+                        [strongSelf.chatService joinToGroupDialog:dialog completion:^(NSError * _Nullable error) {
+                            //
                             if (error != nil) {
                                 NSLog(@"Join error: %@", error.localizedDescription);
                             }
@@ -116,7 +123,7 @@
                 }
                 
             }];
-		}];
+        }];
 	}];
 }
 
@@ -188,5 +195,23 @@
 		block(array);
 	}];
 }
+
+#pragma mark - QMUsersServiceCacheDataSource
+
+- (void)cachedUsers:(QMCacheCollection)block {
+    [[QMUsersCache.instance usersSortedBy:@"id" ascending:YES] continueWithExecutor:[BFExecutor mainThreadExecutor]
+                                                                          withBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+                                                                              if (block) block(task.result);
+                                                                              return nil;
+                                                                          }];
+}
+
+#pragma mark - QMUsersServiceDelegate
+
+- (void)usersService:(QMUsersService *)usersService didAddUsers:(NSArray<QBUUser *> *)users
+{
+    [QMUsersCache.instance insertOrUpdateUsers:users];
+}
+
 
 @end

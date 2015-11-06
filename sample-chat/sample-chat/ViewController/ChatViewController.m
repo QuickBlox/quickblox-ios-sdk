@@ -25,6 +25,8 @@
 
 #import <QMCollectionViewFlowLayoutInvalidationContext.h>
 
+#import <TWMessageBarManager.h>
+
 static const NSUInteger widthPadding = 40.0f;
 
 @interface ChatViewController ()
@@ -126,7 +128,7 @@ UIActionSheetDelegate
         [strongSelf updateTitle];
     }];
     
-    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined) [self.dialog join];
+    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined) [self.dialog joinWithCompletionBlock:nil];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
@@ -233,7 +235,7 @@ UIActionSheetDelegate
         NSMutableArray* mutableOccupants = [self.dialog.occupantIDs mutableCopy];
         [mutableOccupants removeObject:@([self senderID])];
         NSNumber* opponentID = [mutableOccupants firstObject];
-        QBUUser* opponentUser = [qbUsersMemoryStorage userWithID:[opponentID unsignedIntegerValue]];
+        QBUUser* opponentUser = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[opponentID unsignedIntegerValue]];
         NSAssert(opponentUser, @"opponent must exists");
         self.opponentUser = opponentUser;
         self.title = self.opponentUser.fullName;
@@ -247,21 +249,26 @@ UIActionSheetDelegate
 - (void)sendReadStatusForMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
 {
     if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
-        if (![[ServicesManager instance].chatService readMessage:message forDialogID:dialogID]) {
-            NSLog(@"Problems while marking message as read!");
-        }
-        else {
-            if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
-                [UIApplication sharedApplication].applicationIconBadgeNumber--;
+        [[ServicesManager instance].chatService readMessage:message completion:^(NSError * _Nullable error) {
+            //
+            if (error != nil) {
+                NSLog(@"Problems while marking message as read! Error: %@", error);
             }
-        }
+            else {
+                if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
+                    [UIApplication sharedApplication].applicationIconBadgeNumber--;
+                }
+            }
+        }];
     }
 }
 
 - (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID
 {
     if ([QBChat instance].isConnected) {
-        [[ServicesManager instance].chatService readMessages:messages forDialogID:dialogID];
+        [[ServicesManager instance].chatService readMessages:messages forDialogID:dialogID completion:^(NSError * _Nullable error) {
+            //
+        }];
     } else {
         self.unreadMessages = messages;
     }
@@ -295,7 +302,13 @@ UIActionSheetDelegate
     message.dateSent = date;
     
     // Sending message.
-    [[ServicesManager instance].chatService sendMessage:message toDialogId:self.dialog.ID save:YES completion:nil];
+    [[ServicesManager instance].chatService sendMessage:message type:QMMessageTypeText toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError * _Nullable error) {
+        //
+        if (error != nil) {
+            NSLog(@"Failed to send message with error: %@", error);
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error" description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
+        }
+    }];
     
     // Custom push sending (uncomment sendPushWithText method and line below)
 //    [self sendPushWithText:text];
@@ -410,7 +423,7 @@ UIActionSheetDelegate
     NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
-        QBUUser* user = [qbUsersMemoryStorage userWithID:messageItem.senderID];
+        QBUUser* user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:messageItem.senderID];
         topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
 

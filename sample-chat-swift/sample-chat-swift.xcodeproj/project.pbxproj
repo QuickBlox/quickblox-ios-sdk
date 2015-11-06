@@ -18,7 +18,6 @@
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
 		14FAE0481ACAEF0B001D8525 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0471ACAEF0B001D8525 /* libresolv.dylib */; };
 		14FAE04A1ACAEF14001D8525 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */; };
-		2C163E4E1B58F38D003AC718 /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C163E4D1B58F38D003AC718 /* UsersService.swift */; };
 		2C2C62FA1BB568AE00ED46DC /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2C62F91BB568AE00ED46DC /* Quickblox.framework */; };
 		2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */; };
 		2CBFAA1C1BA0342900F7065D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CBFAA1B1BA0342900F7065D /* Launch Screen.xib */; };
@@ -57,7 +56,6 @@
 		14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		14FAE0471ACAEF0B001D8525 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		14FAE0491ACAEF14001D8525 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		2C163E4D1B58F38D003AC718 /* UsersService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
 		2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesManager.swift; sourceTree = "<group>"; };
 		2C2C62F91BB568AE00ED46DC /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		2CBFAA1B1BA0342900F7065D /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -206,7 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */,
-				2C163E4D1B58F38D003AC718 /* UsersService.swift */,
 				58C1E2711BAFF1D0006DF84F /* NotificationService.swift */,
 			);
 			path = Services;
@@ -400,7 +397,6 @@
 				684400CE32CC2D4D22A5AFD5 /* AlertViewWithTextField.swift in Sources */,
 				6844023A6DABFA72BD0EF343 /* UserTableViewCell.swift in Sources */,
 				2CCAD5CE1B1F3328005F57B3 /* UsersListTableViewController.swift in Sources */,
-				2C163E4E1B58F38D003AC718 /* UsersService.swift in Sources */,
 				2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

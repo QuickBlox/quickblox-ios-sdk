@@ -10,12 +10,11 @@
 
 @interface QMContactListService()
 
-<QBChatDelegate, QMUsersMemoryStorageDelegate>
+<QBChatDelegate>
 
 @property (strong, nonatomic) QBMulticastDelegate <QMContactListServiceDelegate> *multicastDelegate;
 @property (weak, nonatomic) id<QMContactListServiceCacheDataSource> cacheDataSource;
 @property (strong, nonatomic) QMContactListMemoryStorage *contactListMemoryStorage;
-@property (strong, nonatomic) QMUsersMemoryStorage *usersMemoryStorage;
 
 @end
 
@@ -47,8 +46,6 @@
     
     self.multicastDelegate = (id<QMContactListServiceDelegate>)[[QBMulticastDelegate alloc] init];
     self.contactListMemoryStorage = [[QMContactListMemoryStorage alloc] init];
-    self.usersMemoryStorage = [[QMUsersMemoryStorage alloc] init];
-    self.usersMemoryStorage.delegate = self;
     
     [[QBChat instance] addDelegate:self];
 }
@@ -68,22 +65,6 @@
             [self.cacheDataSource cachedContactListItems:^(NSArray *collection) {
                 
                 [weakSelf.contactListMemoryStorage updateWithContactListItems:collection];
-                dispatch_semaphore_signal(sem);
-            }];
-            
-            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-        }
-    });
-    //Step 2. Load users for conatc list
-    dispatch_async(queue, ^{
-        
-        if ([self.cacheDataSource respondsToSelector:@selector(cachedUsers:)]) {
-            
-            dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-            
-            [self.cacheDataSource cachedUsers:^(NSArray *collection) {
-                
-                [weakSelf.usersMemoryStorage addUsers:collection];
                 dispatch_semaphore_signal(sem);
             }];
             
@@ -120,17 +101,9 @@
     
     [self.contactListMemoryStorage updateWithContactList:contactList];
     
-    __weak __typeof(self)weakSelf = self;
-    
-    [self retrieveUsersWithIDs:[self.contactListMemoryStorage userIDsFromContactList]
-				 forceDownload:NO completion:^(QBResponse *responce, QBGeneralResponsePage *page, NSArray *users)
-     {
-         if (users.count > 0) {
-             if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:contactListDidChange:)]) {
-                 [weakSelf.multicastDelegate contactListService:self contactListDidChange:contactList];
-             }
-         }
-     }];
+    if ([self.multicastDelegate respondsToSelector:@selector(contactListService:contactListDidChange:)]) {
+        [self.multicastDelegate contactListService:self contactListDidChange:contactList];
+    }
 }
 
 - (void)chatDidReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status {
@@ -139,155 +112,17 @@
     }
 }
 
-#pragma mark - Retrive users
-
-- (void)retrieveIfNeededUserWithID:(NSUInteger)userID completion:(void(^)(BOOL retrieveWasNeeded))completionBlock
-{
-    [self retrieveIfNeededUsersWithIDs:@[@(userID)] completion:completionBlock];
-}
-
-- (void)retrieveIfNeededUsersWithIDs:(NSArray *)usersIDs completion:(void (^)(BOOL retrieveWasNeeded))completionBlock
-{
-    NSArray *memoryStorageUsers = [self.usersMemoryStorage usersWithIDs:usersIDs];
-    
-    if (memoryStorageUsers.count != usersIDs.count) {
-        NSMutableArray *mutableUsersIDs = usersIDs.mutableCopy;
-        for (QBUUser *user in memoryStorageUsers) {
-            [mutableUsersIDs removeObject:@(user.ID)];
-        }
-        
-        [self retrieveUsersWithIDs:mutableUsersIDs forceDownload:YES completion:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-            if (completionBlock) completionBlock(YES);
-        }];
-    }
-    else {
-        if (completionBlock) completionBlock(NO);
-    }
-}
-
-- (void)retrieveUsersWithIDs:(NSArray *)ids forceDownload:(BOOL)forceDownload completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
-	
-	if (ids.count == 0) {
-		if (completion) {
-			completion(nil, nil, @[]);
-		}
-		return;
-	}
-
-	if (!forceDownload) {
-		// if all users with given ids in cache, return them
-		if ([[self.usersMemoryStorage usersWithIDs:ids] count] == [ids count]) {
-			if (completion) {
-				completion(nil, nil, [self.usersMemoryStorage usersWithIDs:ids]);
-			}
-			return;
-		}
-	}
-	
-	NSSet *usersIDs = [NSSet setWithArray:ids];
-	
-	QBGeneralResponsePage *pageResponse =
-	[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:usersIDs.count < 100 ? usersIDs.count : 100];
-	
-	__weak __typeof(self)weakSelf = self;
-	[QBRequest usersWithIDs:usersIDs.allObjects  page:pageResponse successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray * users) {
-		
-		[weakSelf.usersMemoryStorage addUsers:users];
-		
-		if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
-			[weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
-		}
-		
-		if (completion) {
-			completion(response, page, users);
-		}
-		
-	} errorBlock:^(QBResponse *response) {
-		
-		completion(response, nil, nil);
-	}];
-	
-}
-
-- (void)retrieveUsersWithEmails:(NSArray *)emails completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
-    
-    __weak __typeof(self)weakSelf = self;
-    [QBRequest usersWithEmails:emails successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-        //
-        
-        [weakSelf.usersMemoryStorage addUsers:users];
-        
-        if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
-            [weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
-        }
-        
-        if (completion) {
-            completion(response, page, users);
-        }
-
-    } errorBlock:^(QBResponse *response) {
-        //
-        completion(response,nil,nil);
-    }];
-}
-
-- (QBRequest *)retrieveUsersWithFullName:(NSString *)searchText pagedRequest:(QBGeneralResponsePage *)page completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
-    __weak __typeof(self)weakSelf = self;
-    return [QBRequest usersWithFullName:searchText page:page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-        //
-
-        [weakSelf.usersMemoryStorage addUsers:users];
-        
-        if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
-            [weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
-        }
-        
-        if (completion) {
-            completion(response, page, users);
-        }
-
-    } errorBlock:^(QBResponse *response) {
-        //
-        completion(response,nil,nil);
-    }];
-}
-
-- (void)retrieveUsersWithFacebookIDs:(NSArray *)facebookIDs completion:(void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray * users))completion {
-    QBGeneralResponsePage *pageResponse =
-    [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:facebookIDs.count < 100 ? facebookIDs.count : 100];
-    
-    __weak __typeof(self)weakSelf = self;
-    [QBRequest usersWithFacebookIDs:facebookIDs page:pageResponse successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
-        
-        [weakSelf.usersMemoryStorage addUsers:users];
-        
-        if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUsers:)]) {
-            [weakSelf.multicastDelegate contactListService:weakSelf didAddUsers:users];
-        }
-        
-        if (completion) {
-            completion(response, page, users);
-        }
-        
-    } errorBlock:^(QBResponse *response) {
-        //
-        completion(response,nil,nil);
-    }];
-}
-
 #pragma mark - ContactList Request
 
 - (void)addUserToContactListRequest:(QBUUser *)user completion:(void(^)(BOOL success))completion {
     
     __weak __typeof(self)weakSelf = self;
-    [[QBChat instance] addUserToContactListRequest:user.ID sentBlock:^(NSError *error) {
-        
+    [[QBChat instance] addUserToContactListRequest:user.ID completion:^(NSError * _Nullable error) {
+        __typeof(self) strongSelf = weakSelf;
+        //
         if (!error) {
-            
-            [weakSelf.usersMemoryStorage addUser:user];
-            
-            if ([weakSelf.multicastDelegate respondsToSelector:@selector(contactListService:didAddUser:)]) {
-                [weakSelf.multicastDelegate contactListService:weakSelf didAddUser:user];
+            if ([strongSelf.cacheDataSource respondsToSelector:@selector(contactListDidAddUser:)]) {
+                [strongSelf.cacheDataSource contactListDidAddUser:user];
             }
             
             if (completion) {
@@ -297,16 +132,17 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
+
     }];
 }
 
 - (void)removeUserFromContactListWithUserID:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
     
-    [[QBChat instance] removeUserFromContactList:userID sentBlock:^(NSError *error) {
-        
+    [[QBChat instance] removeUserFromContactList:userID completion:^(NSError * _Nullable error) {
+        //
         if (!error) {
             
             if (completion) {
@@ -316,16 +152,16 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
     }];
 }
 
 - (void)acceptContactRequest:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
-    
-    [[QBChat instance] confirmAddContactRequest:userID sentBlock:^(NSError *error) {
-        
+
+    [[QBChat instance] confirmAddContactRequest:userID completion:^(NSError * _Nullable error) {
+        //
         if (!error) {
             
             if (completion) {
@@ -335,7 +171,7 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
     }];
@@ -343,8 +179,8 @@
 
 - (void)rejectContactRequest:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
     
-    [[QBChat instance] rejectAddContactRequest:userID sentBlock:^(NSError *error) {
-        
+    [[QBChat instance] rejectAddContactRequest:userID completion:^(NSError * _Nullable error) {
+        //
         if (!error) {
             
             if (completion) {
@@ -354,7 +190,7 @@
         } else {
             
             if (completion) {
-                completion(YES);
+                completion(NO);
             }
         }
     }];
@@ -372,7 +208,6 @@
 - (void)free {
     
     [self.contactListMemoryStorage free];
-    [self.usersMemoryStorage free];
 }
 
 @end

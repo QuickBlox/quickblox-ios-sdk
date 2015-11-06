@@ -20,16 +20,13 @@
 
 - (NSArray *)unsortedUsers
 {
-    return [self.contactListService.usersMemoryStorage unsortedUsers];
+    return [self.usersService.usersMemoryStorage unsortedUsers];
 }
 
 - (instancetype)init {
 	self = [super init];
     
 	if (self) {
-        [QMContactListCache setupDBWithStoreNamed:kContactListCacheNameKey];
-		_contactListService = [[QMContactListService alloc] initWithServiceManager:self cacheDataSource:self];
-		_usersService = [[UsersService alloc] initWithContactListService:_contactListService];
         _notificationService = [[NotificationService alloc] init];
 	}
     
@@ -41,8 +38,11 @@
     for (QBChatDialog *dialog in [self.chatService.dialogsMemoryStorage unsortedDialogs]) {
         if (dialog.type == QBChatDialogTypeGroup && !dialog.isJoined) {
             // Joining to group chat dialogs.
-            [self.chatService joinToGroupDialog:dialog failed:^(NSError *error) {
-                NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+            [self.chatService joinToGroupDialog:dialog completion:^(NSError * _Nullable error) {
+                //
+                if (error != nil) {
+                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+                }
             }];
         }
     }
@@ -61,7 +61,7 @@
     if (dialog.type != QBChatDialogTypePrivate) {
         dialogName = dialog.name;
     } else {
-        QBUUser* user = [self.contactListService.usersMemoryStorage userWithID:dialog.recipientID];
+        QBUUser* user = [self.usersService.usersMemoryStorage userWithID:dialog.recipientID];
         if (user != nil) {
             dialogName = user.login;
         }
@@ -90,6 +90,45 @@
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Errors" description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
+- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
+    /**
+     *  Different users are taken depending on environment.
+     */
+    NSString* environment = nil;
+#if DEV
+    environment = @"dev";
+#endif
+    
+#if QA
+    environment = @"qbqa";
+#endif
+    
+#if RELEASE
+    environment = @"release";
+#endif
+    
+    [[self.usersService searchUsersWithTags:@[environment]] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+        //
+        if (task.error != nil) {
+            if (errorBlock) {
+                errorBlock(task.error);
+            }
+        }
+        else {
+            NSMutableArray* mutableUsers = [task.result mutableCopy];
+            [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+                return [obj1.login compare:obj2.login options:NSNumericSearch];
+            }];
+            
+            if (successBlock != nil) {
+                successBlock([mutableUsers copy]);
+            }
+        }
+        
+        return nil;
+    }];
+}
+
 #pragma mark - dialogs utils
 
 - (void)joinAllGroupDialogs {
@@ -97,8 +136,11 @@
     for (QBChatDialog* dialog in dialogObjects) {
         if (dialog.type != QBChatDialogTypePrivate) {
             // Joining to group chat dialogs.
-            [[ServicesManager instance].chatService joinToGroupDialog:dialog failed:^(NSError *error) {
-                NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+            [self.chatService joinToGroupDialog:dialog completion:^(NSError * _Nullable error) {
+                //
+                if (error != nil) {
+                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+                }
             }];
         }
     }
@@ -125,16 +167,6 @@
     [super chatService:chatService didAddMessageToMemoryStorage:message forDialogID:dialogID];
     
     [self showNotificationForMessage:message inDialogID:dialogID];
-}
-
-#pragma mark QMContactListServiceCacheDelegate delegate
-
-- (void)cachedUsers:(QMCacheCollection)block {
-	[QMContactListCache.instance usersSortedBy:@"id" ascending:YES completion:block];
-}
-
-- (void)cachedContactListItems:(QMCacheCollection)block {
-	[QMContactListCache.instance contactListItems:block];
 }
 
 @end

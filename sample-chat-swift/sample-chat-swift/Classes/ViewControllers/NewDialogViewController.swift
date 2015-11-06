@@ -37,7 +37,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     func updateUsers() {
         if let _ = self.dialog  {
             
-            self.setupUsers(ServicesManager.instance().usersService.users()!)
+            self.setupUsers(ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers() as! [QBUUser])
         }
     }
     
@@ -115,7 +115,9 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 
             } else {
                 
-                let primaryUsers = ServicesManager.instance().usersService.users(withoutUser: ServicesManager.instance().currentUser())?.filter({(dialog.occupantIDs as! [UInt]).contains(($0 as QBUUser).ID)})
+                let usersWithoutCurrentUser : [QBUUser]? = ((ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers() as! [QBUUser]).filter({$0.ID != ServicesManager.instance().currentUser().ID}))
+                
+                let primaryUsers = usersWithoutCurrentUser?.filter({(dialog.occupantIDs as! [UInt]).contains(($0 as QBUUser).ID)})
                 
                 if primaryUsers != nil && primaryUsers!.count > 0 {
                     users.appendContentsOf(primaryUsers! as [QBUUser])
@@ -241,7 +243,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         let user = self.users![indexPath.row]
         
-        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().usersService.color(forUser: user))
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
         cell.userDescription = user.fullName
         cell.tag = indexPath.row
         

@@ -78,6 +78,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "TWMessageBarManager/Classes/Icons/icon-success@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/QMChatCacheModel.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QMContactListCacheModel.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QMUsersCacheModel.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "QMCVDevelopment/QMChatViewController/en.lproj/QMChatViewController.xib"
@@ -100,6 +101,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "TWMessageBarManager/Classes/Icons/icon-success@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/QMChatCacheModel.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QMContactListCacheModel.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QMUsersCacheModel.bundle"
 fi
 if [[ "$CONFIGURATION" == "QA" ]]; then
   install_resource "QMCVDevelopment/QMChatViewController/en.lproj/QMChatViewController.xib"
@@ -122,6 +124,7 @@ if [[ "$CONFIGURATION" == "QA" ]]; then
   install_resource "TWMessageBarManager/Classes/Icons/icon-success@2x.png"
   install_resource "${BUILT_PRODUCTS_DIR}/QMChatCacheModel.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/QMContactListCacheModel.bundle"
+  install_resource "${BUILT_PRODUCTS_DIR}/QMUsersCacheModel.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

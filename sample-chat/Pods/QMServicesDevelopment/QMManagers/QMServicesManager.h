@@ -12,7 +12,15 @@
 /**
  *  Base manager that handles authentication and chat functionality.
  */
-@interface QMServicesManager : NSObject <QMServiceManagerProtocol, QMChatServiceCacheDataSource, QMChatServiceDelegate, QMChatConnectionDelegate>
+@interface QMServicesManager : NSObject
+<
+QMServiceManagerProtocol,
+QMChatServiceCacheDataSource,
+QMChatServiceDelegate,
+QMChatConnectionDelegate,
+QMUsersServiceCacheDataSource,
+QMUsersServiceDelegate
+>
 
 + (instancetype)instance;
 
@@ -40,5 +48,10 @@
  *  Chat service.
  */
 @property (nonatomic, readonly) QMChatService* chatService;
+
+/**
+ *  Users service.
+ */
+@property (strong, nonatomic, readonly) QMUsersService* usersService;
 
 @end

@@ -61,11 +61,29 @@
     }
 }
 
+- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(QBChatCompletionBlock)completion {
+    NSAssert(chatDialog != nil, @"Chat dialog is nil!");
+    NSAssert(chatDialog.ID != nil, @"Chat dialog without identifier!");
+    self.dialogs[chatDialog.ID] = chatDialog;
+    
+    NSAssert(chatDialog.type != 0, @"Chat type is not defined");
+    if( chatDialog.type == QBChatDialogTypeGroup || chatDialog.type == QBChatDialogTypePublicGroup ){
+        NSAssert(chatDialog.roomJID != nil, @"Chat JID must exists for group chat");
+    }
+    
+    if (join && chatDialog.type != QBChatDialogTypePrivate) {
+        [chatDialog joinWithCompletionBlock:completion];
+    }
+    else {
+        if (completion) completion(nil);
+    }
+}
+
 - (void)addChatDialogs:(NSArray *)dialogs andJoin:(BOOL)join {
     
     for (QBChatDialog *chatDialog in dialogs) {
         
-        [self addChatDialog:chatDialog andJoin:join onJoin:nil];
+        [self addChatDialog:chatDialog andJoin:join completion:nil];
     }
 }
 
@@ -90,14 +108,6 @@
     QBChatDialog *dialog = result.firstObject;
     
     return dialog;
-}
-
-- (QBChatDialog *)chatDialogWithRoomName:(NSString *)roomName {
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.chatRoom.name"];
-    QBChatDialog *chatDialog = [self.dialogs.allValues filteredArrayUsingPredicate:predicate].firstObject;
-    
-    return chatDialog;
 }
 
 - (NSArray *)unsortedDialogs {
