@@ -296,6 +296,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         let message = QBChatMessage()
         message.text = text;
         message.senderID = self.senderID
+        message.deliveredIDs = [(self.senderID)];
+        message.readIDs = [(self.senderID)];
         message.markable = true
         message.dateSent = date
         
