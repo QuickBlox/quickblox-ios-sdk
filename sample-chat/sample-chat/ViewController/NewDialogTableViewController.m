@@ -104,10 +104,10 @@
         // Creating private chat dialog.
 		[ServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if( !response.success  && createdDialog == nil ) {
-				completion(nil);
+				if (completion) completion(nil);
 			}
 			else {
-				completion(createdDialog);
+				if (completion) completion(createdDialog);
 			}
 		}];
 	} else if (selectedUsers.count > 1) {
@@ -125,10 +125,12 @@
 		[ServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if (response.success) {
                 // Notifying users about created dialog.
-				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog];
-				completion(createdDialog);
+				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog completion:^(NSError * _Nullable error) {
+                    //
+                    if (completion) completion(createdDialog);
+                }];
 			} else {
-				completion(nil);
+				if (completion) completion(nil);
 			}
 		}];
 	} else {

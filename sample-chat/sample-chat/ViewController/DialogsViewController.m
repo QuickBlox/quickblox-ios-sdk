@@ -37,7 +37,10 @@ QMChatConnectionDelegate
                                                                                          [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
                                                                                      }
                                                                                  }];
-    [self loadDialogs];
+    
+    if ([QBChat instance].isConnected) {
+        [self loadDialogs];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,7 +106,6 @@ QMChatConnectionDelegate
                 if (response.success) {
                     [SVProgressHUD showSuccessWithStatus:@"Completed"];
                     [ServicesManager instance].lastActivityDate = [NSDate date];
-                    [[ServicesManager instance] joinAllGroupDialogs];
                 }
                 else {
                     [SVProgressHUD showErrorWithStatus:@"Failed to load dialogs"];

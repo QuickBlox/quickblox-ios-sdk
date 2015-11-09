@@ -127,8 +127,6 @@ UIActionSheetDelegate
         __typeof(self) strongSelf = weakSelf;
         [strongSelf updateTitle];
     }];
-    
-    if (self.dialog.type != QBChatDialogTypePrivate && !self.dialog.isJoined) [self.dialog joinWithCompletionBlock:nil];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
@@ -175,12 +173,7 @@ UIActionSheetDelegate
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
     if ([self.items count] > 0) {
-        if (self.dialog.type != QBChatDialogTypePrivate) {
-            [self refreshMessagesShowingProgress:YES];
-        }
-        else {
-            [self refreshMessagesShowingProgress:NO];
-        }
+        [self refreshMessagesShowingProgress:NO];
     }
     else {
         [self refreshMessagesShowingProgress:YES];

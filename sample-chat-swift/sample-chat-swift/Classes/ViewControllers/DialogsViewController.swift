@@ -100,7 +100,9 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterBackgroundNotification", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
-        self.getDialogs()
+        if (QBChat.instance().isConnected()) {
+            self.getDialogs()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -193,7 +195,6 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                         if (response.success) {
                             SVProgressHUD.showSuccessWithStatus("Completed")
                             ServicesManager.instance().lastActivityDate = NSDate()
-                            ServicesManager.instance().joinAllGroupDialogs()
                         }
                         else {
                             SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
