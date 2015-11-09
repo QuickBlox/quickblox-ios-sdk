@@ -297,6 +297,7 @@ UIActionSheetDelegate
     message.text = text;
     message.senderID = senderId;
     message.markable = YES;
+    message.deliveredIDs = @[@(self.senderID)];
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
     message.dateSent = date;
