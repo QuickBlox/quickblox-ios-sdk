@@ -4,7 +4,7 @@
 //
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
-// frameworkVersion 2.5-alpha
+// frameworkVersion 2.5
 
 #import <Quickblox/BaseServiceFramework.h>
 #import <Quickblox/ChatServiceFramework.h>
