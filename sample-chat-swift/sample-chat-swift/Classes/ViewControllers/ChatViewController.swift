@@ -173,12 +173,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         var isProgressHUDShowed = false
         
         if self.items.count > 0 {
-            if self.dialog?.type != QBChatDialogType.Private {
-                isProgressHUDShowed = true
-            }
-            else {
-                isProgressHUDShowed = false
-            }
+            isProgressHUDShowed = false
         }
         else {
             isProgressHUDShowed = true
