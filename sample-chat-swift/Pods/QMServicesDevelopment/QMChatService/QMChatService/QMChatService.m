@@ -335,11 +335,31 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     if (message.messageType == QMMessageTypeCreateGroupDialog) {
         __weak __typeof(self)weakSelf = self;
         
-        [self.dialogsMemoryStorage addChatDialog:message.dialog andJoin:YES completion:^(NSError * _Nullable error) {
+        [self messagesWithChatDialogID:message.dialogID completion:^(QBResponse *response, NSArray *messages) {
             //
-            if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddChatDialogToMemoryStorage:)]) {
-                [weakSelf.multicastDelegate chatService:weakSelf didAddChatDialogToMemoryStorage:message.dialog];
+            __typeof(weakSelf)strongSelf = weakSelf;
+            QBChatDialog *dialogToAdd = message.dialog;
+            
+            if (messages.count > 0) {
+                QBChatMessage *lastMessage = [messages lastObject];
+                dialogToAdd.lastMessageText = [lastMessage encodedText];
+                dialogToAdd.lastMessageDate = lastMessage.dateSent;
+                dialogToAdd.updatedAt       = lastMessage.dateSent;
+                dialogToAdd.unreadMessagesCount++;
             }
+            
+            [strongSelf.dialogsMemoryStorage addChatDialog:dialogToAdd andJoin:YES completion:^(QBChatDialog *addedDialog, NSError *error) {
+                //
+                if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddChatDialogToMemoryStorage:)]) {
+                    [strongSelf.multicastDelegate chatService:strongSelf didAddChatDialogToMemoryStorage:addedDialog];
+                }
+                // calling multicast delegate to show notification
+                if (messages.count > 0) {
+                    if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddMessageToMemoryStorage:forDialogID:)]) {
+                        [strongSelf.multicastDelegate chatService:strongSelf didAddMessageToMemoryStorage:messages.lastObject forDialogID:addedDialog.ID];
+                    }
+                }
+            }];
         }];
     }
 }
@@ -398,7 +418,10 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
             chatDialogToUpdate.lastMessageText = message.encodedText;
             chatDialogToUpdate.lastMessageDate = message.dateSent;
             chatDialogToUpdate.updatedAt = message.dateSent;
-            chatDialogToUpdate.unreadMessagesCount++;
+            
+            if (message.senderID != [QBSession currentSession].currentUser.ID) {
+                chatDialogToUpdate.unreadMessagesCount++;
+            }
             
             if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
                 [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
@@ -644,14 +667,13 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 	__weak __typeof(self)weakSelf = self;
 	[QBRequest createDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *createdDialog) {
 
-        [weakSelf.dialogsMemoryStorage addChatDialog:createdDialog andJoin:YES completion:^(NSError * _Nullable error) {
-            //
+        [weakSelf.dialogsMemoryStorage addChatDialog:createdDialog andJoin:YES completion:^(QBChatDialog *addedDialog, NSError *error) {
             if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddChatDialogToMemoryStorage:)]) {
-                [weakSelf.multicastDelegate chatService:weakSelf didAddChatDialogToMemoryStorage:createdDialog];
+                [weakSelf.multicastDelegate chatService:weakSelf didAddChatDialogToMemoryStorage:addedDialog];
             }
             
             if (completion) {
-                completion(response, createdDialog);
+                completion(response, addedDialog);
             }
         }];
 		
@@ -675,10 +697,9 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 	__weak __typeof(self)weakSelf = self;
 	[QBRequest updateDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *updatedDialog) {
         
-        [weakSelf.dialogsMemoryStorage addChatDialog:updatedDialog andJoin:YES completion:^(NSError * _Nullable error) {
-            //
+        [weakSelf.dialogsMemoryStorage addChatDialog:updatedDialog andJoin:YES completion:^(QBChatDialog *addedDialog, NSError *error) {
             if (completion) {
-                completion(response, updatedDialog);
+                completion(response, addedDialog);
             }
         }];
 		
@@ -702,9 +723,8 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     __weak __typeof(self)weakSelf = self;
     [QBRequest updateDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *dialog) {
         //
-        [weakSelf.dialogsMemoryStorage addChatDialog:dialog andJoin:YES completion:^(NSError * _Nullable error) {
-            //
-            if (completion) completion(response,dialog);
+        [weakSelf.dialogsMemoryStorage addChatDialog:dialog andJoin:YES completion:^(QBChatDialog *addedDialog, NSError *error) {
+            if (completion) completion(response, addedDialog);
         }];
     } errorBlock:^(QBResponse *response) {
         //
@@ -723,10 +743,9 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 	
 	[QBRequest updateDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *updatedDialog) {
 
-        [weakSelf.dialogsMemoryStorage addChatDialog:updatedDialog andJoin:YES completion:^(NSError * _Nullable error) {
-            //
+        [weakSelf.dialogsMemoryStorage addChatDialog:updatedDialog andJoin:YES completion:^(QBChatDialog *addedDialog, NSError *error) {
             if (completion) {
-                completion(response, updatedDialog);
+                completion(response, addedDialog);
             }
         }];
 		
@@ -1063,22 +1082,61 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 
     [dialog sendMessage:message completionBlock:^(NSError * _Nullable error) {
         //
-        if (error != nil) {
-            if (completion) completion(error);
-        }
-        else {
-            if (saveToStorage) {
-                [self.messagesMemoryStorage addMessage:message forDialogID:dialog.ID];
-                
-                if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddMessageToMemoryStorage:forDialogID:)]) {
-                    [self.multicastDelegate chatService:self didAddMessageToMemoryStorage:message forDialogID:dialog.ID];
-                }
-                if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
-                    [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:dialog];
-                }
+        if (error == nil && saveToStorage) {
+            [self.messagesMemoryStorage addMessage:message forDialogID:dialog.ID];
+            
+            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddMessageToMemoryStorage:forDialogID:)]) {
+                [self.multicastDelegate chatService:self didAddMessageToMemoryStorage:message forDialogID:dialog.ID];
+            }
+            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+                [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:dialog];
             }
         }
+        
+        if (completion) completion(error);
     }];
+}
+
+#pragma mark - mark as delivered
+
+- (void)markMessageAsDelivered:(QBChatMessage *)message completion:(QBChatCompletionBlock)completion {
+    [self markMessagesAsDelivered:@[message] completion:completion];
+}
+
+- (void)markMessagesAsDelivered:(NSArray<QBChatMessage *> *)messages completion:(QBChatCompletionBlock)completion {
+    
+    dispatch_group_t deliveredGroup = dispatch_group_create();
+    
+    for (QBChatMessage *message in messages) {
+
+        if (![message.deliveredIDs containsObject:@([QBSession currentSession].currentUser.ID)]) {
+            message.markable = YES;
+            __weak __typeof(self)weakSelf = self;
+            dispatch_group_enter(deliveredGroup);
+            [[QBChat instance] markAsDelivered:message completion:^(NSError * _Nullable error) {
+                //
+                if (error == nil) {
+                    __typeof(weakSelf)strongSelf = weakSelf;
+                    
+                    // updating message in memory storage
+                    [strongSelf.messagesMemoryStorage addMessage:message forDialogID:message.dialogID];
+                    // calling multicast delegate
+                    if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
+                        [strongSelf.multicastDelegate chatService:strongSelf didUpdateMessage:message forDialogID:message.dialogID];
+                    }
+                }
+                dispatch_group_leave(deliveredGroup);
+            }];
+        }
+    }
+    
+    dispatch_group_notify(deliveredGroup, dispatch_get_main_queue(), ^{
+        //
+        if (completion) {
+            completion(nil);
+        }
+    });
+
 }
 
 #pragma mark - read messages
@@ -1137,12 +1195,16 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
             [[QBChat instance] readMessage:message completion:^(NSError * _Nullable error) {
                 //
                 if (error == nil) {
+                    __typeof(weakSelf)strongSelf = weakSelf;
+                    
                     if (chatDialogToUpdate.unreadMessagesCount > 0) {
                         chatDialogToUpdate.unreadMessagesCount--;
                     }
-                    
-                    if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
-                        [weakSelf.multicastDelegate chatService:weakSelf didUpdateMessage:message forDialogID:dialogID];
+                    // updating message in memory storage
+                    [strongSelf.messagesMemoryStorage addMessage:message forDialogID:message.dialogID];
+                    // calling multicast delegate
+                    if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
+                        [strongSelf.multicastDelegate chatService:strongSelf didUpdateMessage:message forDialogID:dialogID];
                     }
                 }
                 dispatch_group_leave(readGroup);

@@ -119,8 +119,8 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 /**
  *  Joins user to group dialog and correctly updates cache. Please use this method instead of 'join' in QBChatDialog if you are using QMServices.
  *
- *  @param dialog       dialog to join.
- *  @param completion   completion block with error if failed or nil if succeed.
+ *  @param dialog       dialog to join
+ *  @param completion   completion block with failure error
  */
 - (void)joinToGroupDialog:(QBChatDialog *)dialog completion:(QBChatCompletionBlock)completion;
 
@@ -225,17 +225,17 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @param dialog       created dialog we notificate about
  *  @param usersIDs     [NSNumber] array of OccupantIDs which not be notified
- *  @param completion   completion block with failure  error
+ *  @param completion   completion block with failure error
  */
 - (void)notifyUsersWithIDs:(NSArray *)usersIDs aboutAddingToDialog:(QBChatDialog *)dialog completion:(QBChatCompletionBlock)completion;
 
 /**
  *  Notify opponents about update the dialog
  *
- *  @param leaveDialog leave dialog
- *  @param occupantsCustomParameters {NSNumber : NSDictionary} dictionary of custom parameters for each occupant
- *  @param notificationText notification text
- *  @param completion completion block
+ *  @param leaveDialog                  leave dialog
+ *  @param occupantsCustomParameters    {NSNumber : NSDictionary} dictionary of custom parameters for each occupant
+ *  @param notificationText             notification text
+ *  @param completion                   completion block with failure error
  */
 - (void)notifyAboutUpdateDialog:(QBChatDialog *)updatedDialog
       occupantsCustomParameters:(NSDictionary *)occupantsCustomParameters
@@ -247,7 +247,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @param accept     YES - accept, NO reject
  *  @param opponent   opponent ID
- *  @param completion Block 
+ *  @param completion completion block with failure error
  */
 - (void)notifyOponentAboutAcceptingContactRequest:(BOOL)accept
                                        opponentID:(NSUInteger)opponentID
@@ -337,7 +337,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param dialogID         dialog identifier
  *  @param saveToHistory    if YES - saves message to chat history
  *  @param saveToStorage    if YES - saves to local storage
- *  @param completion       completion block with error if failed or nil if succeed
+ *  @param completion       completion block with failure error
  */
 - (void)sendMessage:(QBChatMessage *)message
                type:(QMMessageType)type
@@ -354,7 +354,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param dialogID         dialog identifier
  *  @param saveToHistory    if YES - saves message to chat history
  *  @param saveToStorage    if YES - saves to local storage
- *  @param completion       completion block with error if failed or nil if succeed
+ *  @param completion       completion block with failure error
  */
 - (void)sendMessage:(QBChatMessage *)message
                type:(QMMessageType)type
@@ -362,6 +362,24 @@ typedef void(^QMCacheCollection)(NSArray *collection);
       saveToHistory:(BOOL)saveToHistory
       saveToStorage:(BOOL)saveToStorage
          completion:(QBChatCompletionBlock)completion;
+
+#pragma mark - mark as delivered
+
+/**
+ *  Mark message as delivered.
+ * 
+ *  @param message      QBChatMessage instance to mark as delivered
+ *  @param completion   completion block with failure error
+ */
+- (void)markMessageAsDelivered:(QBChatMessage *)message completion:(QBChatCompletionBlock)completion;
+
+/**
+ *  Mark messages as delivered.
+ *
+ *  @param message      array of QBChatMessage instances to mark as delivered
+ *  @param completion   completion block with failure error
+ */
+- (void)markMessagesAsDelivered:(NSArray<QBChatMessage *> *)messages completion:(QBChatCompletionBlock)completion;
 
 #pragma mark - read messages
 
@@ -381,7 +399,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  Sending read status for message and updating unreadMessageCount for dialog in cache
  *
  *  @param message      QBChatMessage instance to mark as read
- *  @param completion   completion block with error if failed or nil if succeed
+ *  @param completion   completion block with failure error
  */
 - (void)readMessage:(QBChatMessage *)message completion:(QBChatCompletionBlock)completion;
 
@@ -402,7 +420,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @param messages     Array of QBChatMessage instances to mark as read
  *  @param dialogID     ID of dialog to update
- *  @param completion   completion block with error if failed or nil if succeed
+ *  @param completion   completion block with failure error
  */
 - (void)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion;
 

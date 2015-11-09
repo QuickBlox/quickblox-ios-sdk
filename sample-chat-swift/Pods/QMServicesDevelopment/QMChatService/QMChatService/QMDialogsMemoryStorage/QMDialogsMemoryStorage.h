@@ -30,7 +30,7 @@
  *  @param join        YES to join in dialog immediately
  *  @param completion  completion block with error if failed or nil if succeed
  */
-- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(QBChatCompletionBlock)completion;
+- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(void(^)(QBChatDialog *addedDialog, NSError *error))completion;
 
 /**
  *  Add dialogs to memory storage

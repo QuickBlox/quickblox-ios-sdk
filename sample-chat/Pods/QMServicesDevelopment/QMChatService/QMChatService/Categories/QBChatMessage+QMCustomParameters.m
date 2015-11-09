@@ -65,7 +65,13 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
 		NSAssert(self.tDialog.type != 0, @"dialog type is undefined");
         self.tDialog.name = self.context[kQMCustomParameterDialogRoomName];
         self.tDialog.photo = self.context[kQMCustomParameterDialogRoomPhoto];
-    
+        
+        NSString *updatedAtTimeInterval = self.context[kQMCustomParameterDialogRoomUpdatedDate];
+        
+        if (updatedAtTimeInterval) {
+            self.tDialog.updatedAt = [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval floatValue]];
+        }
+        
         NSString *lastMessageDateTimeInterval = self.context[kQMCustomParameterDialogRoomLastMessageDate];
         
         if (lastMessageDateTimeInterval) {
@@ -125,6 +131,10 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
 		NSTimeInterval lastMessageDateTimeInterval = [dialog.lastMessageDate timeIntervalSince1970];
 		self.context[kQMCustomParameterDialogRoomLastMessageDate] = [@(lastMessageDateTimeInterval) stringValue];
 	}
+    if (dialog.updatedAt != nil) {
+        NSTimeInterval updatedAtTimeInterval = [dialog.updatedAt timeIntervalSince1970];
+        self.context[kQMCustomParameterDialogRoomUpdatedDate] = [@(updatedAtTimeInterval) stringValue];
+    }
 	
     if (dialog.type == QBChatDialogTypeGroup) {
 		
@@ -137,9 +147,6 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
 		if (dialog.roomJID != nil ){
 			self.context[kQMCustomParameterRoomJID] = dialog.roomJID;
 		}
-		
-        NSTimeInterval nowDateTimeInterval = [[NSDate date] timeIntervalSince1970];
-        self.context[kQMCustomParameterDialogRoomUpdatedDate] = [@(nowDateTimeInterval) stringValue];
 		
         NSString *strIDs = [dialog.occupantIDs componentsJoinedByString:@","];
         self.context[kQMCustomParameterDialogOccupantsIDs] = strIDs;
