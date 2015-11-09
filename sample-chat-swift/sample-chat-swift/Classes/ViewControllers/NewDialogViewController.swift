@@ -167,7 +167,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 // Notifies users about new dialog with them.
                 ServicesManager.instance().chatService.notifyUsersWithIDs(usersIDs, aboutAddingToDialog: dialog, completion: { (error: NSError?) -> Void in
                     // Notifies existing dialog occupants about new users.
-                    ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: "Added new occupants", completion: nil)
+                    ServicesManager.instance().chatService.notifyAboutUpdateDialog(dialog, occupantsCustomParameters: nil, notificationText: self.updatedMessageWithUsers(users), completion: nil)
                     
                     print(dialog)
                     
@@ -183,6 +183,15 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
             }
             
         }
+    }
+    
+    static func updatedMessageWithUsers(users: [QBUUser]) -> String {
+        var message: String = "\(QBSession.currentSession().currentUser!.login!) added "
+        for user: QBUUser in users {
+            message = "\(message)\(user.login!),"
+        }
+        message = message.substringToIndex(message.endIndex.predecessor())
+        return message
     }
     
     static func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
