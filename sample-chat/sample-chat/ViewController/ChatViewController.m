@@ -617,18 +617,14 @@ UIActionSheetDelegate
 
 - (void)collectionViewHasReachedTop {
     // load earlier messages
-    if (self.items.count < 10) return;
-    
-//    [[ServicesManager instance] cachedMessagesWithDialogID:self.dialog.ID block:^(NSArray *collection) {
-//        //
-//    }];
     
     self.shouldHoldScrollOnCollectionView = YES;
     __weak typeof(self)weakSelf = self;
     // Getting earlier messages for chat dialog identifier.
-    [[ServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
-
+    [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask<NSArray<QBChatMessage *> *> *task) {
+        
         weakSelf.shouldHoldScrollOnCollectionView = NO;
+        return nil;
     }];
 }
 
@@ -664,7 +660,7 @@ UIActionSheetDelegate
                 
                 NSMutableArray *indexPaths = [NSMutableArray array];
                 
-                for (NSUInteger i = 0; i < messages.count; i++) {
+                for (NSInteger i = messages.count - 1; i >= 0; i--) {
                     [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                 }
                 
@@ -700,7 +696,7 @@ UIActionSheetDelegate
             [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
             
             if ([self.collectionView numberOfItemsInSection:0] != 0) {
-//                [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+                [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
             }
         }
     }
