@@ -615,7 +615,7 @@ UIActionSheetDelegate
     }
 }
 
-- (void)collectionViewHasReachedTop {
+- (void)collectionViewHasReachedTop:(QMChatCollectionView *)collectionView {
     // load earlier messages
     
     self.shouldHoldScrollOnCollectionView = YES;
