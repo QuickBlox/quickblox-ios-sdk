@@ -4,7 +4,7 @@ pod 'SVProgressHUD'
 pod 'TWMessageBarManager', '~> 1.7.2'
 
 #Production pod
-pod 'QMCVDevelopment', :git => 'https://github.com/QuickBlox/QMChatViewController-ios', :tag => '0.2.5'
+pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :branch => 'development'
 
 #For development pods
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'

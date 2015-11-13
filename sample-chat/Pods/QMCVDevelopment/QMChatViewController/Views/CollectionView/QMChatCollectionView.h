@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @class QMTypingIndicatorFooterView;
-@class QMLoadEarlierHeaderView;
 
 #import "QMChatCollectionViewFlowLayout.h"
 #import "QMChatCollectionViewDataSource.h"
@@ -60,11 +59,6 @@
 @property (strong, nonatomic) UIColor *typingIndicatorEllipsisColor;
 
 /**
- *  The color of the text in the load earlier messages header. The default value is a bright blue color.
- */
-@property (strong, nonatomic) UIColor *loadEarlierMessagesHeaderTextColor;
-
-/**
  *  Returns a `QMTypingIndicatorFooterView` object for the specified index path
  *  that is configured using the collection view's properties:
  *  typingIndicatorDisplaysOnLeft, typingIndicatorMessageBubbleColor, typingIndicatorEllipsisColor.
@@ -74,15 +68,5 @@
  *  @return A valid `QMTypingIndicatorFooterView` object.
  */
 - (QMTypingIndicatorFooterView *)dequeueTypingIndicatorFooterViewForIndexPath:(NSIndexPath *)indexPath;
-
-/**
- *  Returns a `QMLoadEarlierHeaderView` object for the specified index path
- *  that is configured using the collection view's loadEarlierMessagesHeaderTextColor property.
- *
- *  @param indexPath The index path specifying the location of the supplementary view in the collection view. This value must not be `nil`.
- *
- *  @return A valid `QMLoadEarlierHeaderView` object.
- */
-- (QMLoadEarlierHeaderView *)dequeueLoadEarlierMessagesViewHeaderForIndexPath:(NSIndexPath *)indexPath;
 
 @end

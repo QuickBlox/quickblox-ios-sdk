@@ -303,7 +303,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func sendMessage(message: QBChatMessage) {
         
         // Sending message.
-        ServicesManager.instance().chatService.sendMessage(message, type: QMMessageType.Text, toDialogID: self.dialog?.ID, saveToHistory: true, saveToStorage: true) { (error: NSError?) -> Void in
+        ServicesManager.instance().chatService.sendMessage(message, toDialogID: self.dialog?.ID, saveToHistory: true, saveToStorage: true) { (error: NSError?) -> Void in
             //
             if (error != nil) {
                 TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: error?.localizedRecoverySuggestion, type: TWMessageBarMessageType.Info)

@@ -8,7 +8,6 @@
 
 #import "QMChatCollectionView.h"
 
-#import "QMLoadEarlierHeaderView.h"
 #import "QMTypingIndicatorFooterView.h"
 
 #import "QMChatContactRequestCell.h"
@@ -16,7 +15,6 @@
 #import "UIColor+QM.h"
 
 @interface QMChatCollectionView()
-<QMLoadEarlierHeaderViewDelegate>
 @end
 
 @implementation QMChatCollectionView
@@ -41,17 +39,10 @@
     UINib *typingNib = [QMTypingIndicatorFooterView nib];
     NSString *typingIdentifier = [QMTypingIndicatorFooterView footerReuseIdentifier];
     [self registerNib:typingNib forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:typingIdentifier];
-    /**
-     *  Register Earlier header view
-     */
-    UINib *earlierNib = [QMLoadEarlierHeaderView nib];
-    NSString *earlierIdentifier = [QMLoadEarlierHeaderView headerReuseIdentifier];
-    [self registerNib:earlierNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:earlierIdentifier];
     
     _typingIndicatorDisplaysOnLeft = YES;
     _typingIndicatorMessageBubbleColor = [UIColor messageBubbleLightGrayColor];
     _typingIndicatorEllipsisColor = [_typingIndicatorMessageBubbleColor colorByDarkeningColorWithValue:0.3f];
-    _loadEarlierMessagesHeaderTextColor = [UIColor messageBubbleBlueColor];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
@@ -83,29 +74,6 @@
                          forCollectionView:self];
     
     return footerView;
-}
-
-#pragma mark - Load earlier messages header
-
-- (QMLoadEarlierHeaderView *)dequeueLoadEarlierMessagesViewHeaderForIndexPath:(NSIndexPath *)indexPath {
-    
-    QMLoadEarlierHeaderView *headerView = [super dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                    withReuseIdentifier:[QMLoadEarlierHeaderView headerReuseIdentifier]
-                                                                           forIndexPath:indexPath];
-    
-    headerView.loadButton.tintColor = self.loadEarlierMessagesHeaderTextColor;
-    headerView.delegate = self;
-    
-    return headerView;
-}
-
-#pragma mark - Load earlier messages header delegate
-
-- (void)headerView:(QMLoadEarlierHeaderView *)headerView didPressLoadButton:(UIButton *)sender {
-    
-    if ([self.delegate respondsToSelector:@selector(collectionView:header:didTapLoadEarlierMessagesButton:)]) {
-        [self.delegate collectionView:self header:headerView didTapLoadEarlierMessagesButton:sender];
-    }
 }
 
 #pragma mark - Messages collection view cell delegate

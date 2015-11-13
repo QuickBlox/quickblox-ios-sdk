@@ -294,7 +294,7 @@ UIActionSheetDelegate
     message.dateSent = date;
     
     // Sending message.
-    [[ServicesManager instance].chatService sendMessage:message type:QMMessageTypeText toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError * _Nullable error) {
+    [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError * _Nullable error) {
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);

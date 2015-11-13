@@ -57,12 +57,12 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
 - (QBChatDialog *)dialog {
     
     if (!self.tDialog) {
+        NSAssert(self.context[kQMCustomParameterDialogID] != nil, @"Chat dialog doesn't exist");
         
         self.tDialog = [[QBChatDialog alloc] initWithDialogID:self.context[kQMCustomParameterDialogID]
                                                          type:[self.context[kQMCustomParameterDialogType] intValue]];
         //Grap custom parameters;
         self.tDialog.roomJID = self.context[kQMCustomParameterRoomJID];
-		NSAssert(self.tDialog.type != 0, @"dialog type is undefined");
         self.tDialog.name = self.context[kQMCustomParameterDialogRoomName];
         self.tDialog.photo = self.context[kQMCustomParameterDialogRoomPhoto];
         

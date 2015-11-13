@@ -12,7 +12,6 @@
 @class QMChatCollectionView;
 @class QMChatCollectionViewFlowLayout;
 @class QMChatCollectionViewCell;
-@class QMLoadEarlierHeaderView;
 @class QMChatCellLayoutAttributes;
 
 typedef struct QMChatLayoutModel QMChatCellLayoutModel ;
@@ -32,13 +31,11 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel ;
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
- *  Notifies the delegate that the collection view's header did receive a tap event.
+ *  Called when collection view has reached its top.
+ *  You can handle loading of earlier messages here.
  *
- *  @param collectionView The collection view object that is notifying the delegate of the tap event.
- *  @param headerView     The header view in the collection view.
- *  @param sender         The button that was tapped.
+ *  @param collectionView The collection view object that is notifying the delegate of the event.
  */
-- (void)collectionView:(QMChatCollectionView *)collectionView
-                header:(QMLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender;
+- (void)collectionViewHasReachedTop:(QMChatCollectionView *)collectionView;
 
 @end

@@ -7,3 +7,5 @@
 //
 
 #define kQMChatMessagesPerPage 100
+
+static const NSUInteger kQMMessagesLimitPerDialog = 10;
