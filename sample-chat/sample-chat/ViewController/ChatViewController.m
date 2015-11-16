@@ -85,6 +85,10 @@ UIActionSheetDelegate
     return [QBSession currentSession].currentUser.fullName;
 }
 
+- (NSTimeInterval)timeIntervalBetweenSections {
+    return 300.0f;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -445,7 +449,7 @@ UIActionSheetDelegate
 
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth {
     
-    QBChatMessage *item = self.items[indexPath.item];
+    QBChatMessage *item = [self messageForIndexPath:indexPath];
     Class viewClass = [self viewClassForItem:item];
     CGSize size = CGSizeZero;
     
@@ -471,7 +475,7 @@ UIActionSheetDelegate
 
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
     
-    QBChatMessage *item = self.items[indexPath.item];
+    QBChatMessage *item = [self messageForIndexPath:indexPath];
     
     NSAttributedString *attributedString =
     [item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
@@ -485,7 +489,7 @@ UIActionSheetDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
-    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    Class viewClass = [self viewClassForItem:[self messageForIndexPath:indexPath]];
     if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return NO;
     
     return [super collectionView:collectionView canPerformAction:action forItemAtIndexPath:indexPath withSender:sender];
@@ -493,9 +497,9 @@ UIActionSheetDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
-    QBChatMessage* message = self.items[indexPath.row];
+    QBChatMessage* message = [self messageForIndexPath:indexPath];
     
-    Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
+    Class viewClass = [self viewClassForItem:message];
     
     if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return;
     [UIPasteboard generalPasteboard].string = message.text;    
@@ -523,17 +527,14 @@ UIActionSheetDelegate
 - (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
     QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
     
-    if (self.dialog.type == QBChatDialogTypePrivate) {
-        layoutModel.topLabelHeight = 0.0;
-    }
-    
     layoutModel.avatarSize = (CGSize){0.0, 0.0};
     
-    QBChatMessage* item = self.items[indexPath.row];
+    QBChatMessage *item = [self messageForIndexPath:indexPath];
     Class class = [self viewClassForItem:item];
     
     if (class == [QMChatOutgoingCell class] ||
         class == [QMChatAttachmentOutgoingCell class]) {
+        layoutModel.topLabelHeight = 0.0;
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
                                                        withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
@@ -564,7 +565,7 @@ UIActionSheetDelegate
     }
     
     if ([cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {
-        QBChatMessage* message = self.items[indexPath.row];
+        QBChatMessage* message = [self messageForIndexPath:indexPath];
         if (message.attachments != nil) {
             QBChatAttachment* attachment = message.attachments.firstObject;
             
@@ -644,12 +645,13 @@ UIActionSheetDelegate
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {
         [self readMessages:messages forDialogID:dialogID];
+//        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         
         if (self.shouldHoldScrollOnCollectionView) {
             CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
             [CATransaction begin];
             [CATransaction setDisableActions:YES];
-            
+//            [self.collectionView reloadData];
             [self.collectionView performBatchUpdates:^{
                 //
                 NSMutableArray *mutableArray = [NSMutableArray array];
@@ -671,13 +673,20 @@ UIActionSheetDelegate
                 [CATransaction commit];
             }];
             
+            
+//            [self.collectionView performBatchUpdates:^{
+//                //
+//            } completion:^(BOOL finished) {
+//                //
+//                self.collectionView.contentOffset = (CGPoint){0, self.collectionView.contentSize.height - bottomOffset};
+//                [CATransaction commit];
+//            }];
         } else {
             self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
             [self refreshCollectionView];
         }
     }
 }
-
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog{
 	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
@@ -689,15 +698,13 @@ UIActionSheetDelegate
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {        
         self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
-        NSUInteger index = [self.items indexOfObject:message];
-        if (index != NSNotFound) {
+        NSIndexPath *indexPath = [self indexPathForMessage:message];
+        if (indexPath != nil) {
             QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
             context.invalidateFlowLayoutMessagesCache = YES;
             [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
             
-            if ([self.collectionView numberOfItemsInSection:0] != 0) {
-                [self.collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
-            }
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
         }
     }
 }
