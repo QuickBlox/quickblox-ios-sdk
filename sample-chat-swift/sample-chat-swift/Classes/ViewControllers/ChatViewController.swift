@@ -70,8 +70,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.senderID = ServicesManager.instance().currentUser().ID
         self.senderDisplayName = ServicesManager.instance().currentUser().login
         
-        self.showLoadEarlierMessagesHeader = true
-        
         self.updateTitle()
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
@@ -305,7 +303,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func sendMessage(message: QBChatMessage) {
         
         // Sending message.
-        ServicesManager.instance().chatService.sendMessage(message, type: QMMessageType.Text, toDialogID: self.dialog?.ID, saveToHistory: true, saveToStorage: true) { (error: NSError?) -> Void in
+        ServicesManager.instance().chatService.sendMessage(message, toDialogID: self.dialog?.ID, saveToHistory: true, saveToStorage: true) { (error: NSError?) -> Void in
             //
             if (error != nil) {
                 TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: error?.localizedRecoverySuggestion, type: TWMessageBarMessageType.Info)
@@ -586,31 +584,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         return size.width
     }
     
-    override func collectionView(collectionView: QMChatCollectionView!, header headerView: QMLoadEarlierHeaderView!, didTapLoadEarlierMessagesButton sender: UIButton) {
-    
-        weak var weakSelf = self
-        self.shouldHoldScrolOnCollectionView = true
-        
-        SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
-        
-        // Retrieving earlier messages from Quickblox.
-        ServicesManager.instance().chatService.earlierMessagesWithChatDialogID(self.dialog?.ID, completion: { (response: QBResponse!, messages:[AnyObject]!) -> Void in
-            
-            weakSelf?.shouldHoldScrolOnCollectionView = false
-            
-            if messages != nil {
-                weakSelf?.showLoadEarlierMessagesHeader = messages.count == Int(kQMChatMessagesPerPage)
-            }
-            
-            if response?.error != nil {
-                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
-            } else {
-                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-            }
-            
-        })
-    }
-    
     override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
         var layoutModel : QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
         
@@ -734,6 +707,21 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
     }
     
+    override func collectionViewHasReachedTop(collectionView: QMChatCollectionView!) {
+        // load earlier messages
+        if self.items.count == 0 {
+            return
+        }
+        
+        self.shouldHoldScrolOnCollectionView = true
+        ServicesManager.instance().chatService.loadEarlierMessagesWithChatDialogID(self.dialog?.ID).continueWithBlock {
+            [weak self] (task: BFTask!) -> AnyObject! in
+            self?.shouldHoldScrolOnCollectionView = false
+            
+            return nil
+        }
+    }
+    
     // MARK: QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
@@ -750,7 +738,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if self.dialog?.ID == dialogID {
             self.readMessages(messages as! [QBChatMessage], dialogID: dialogID)
-            self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
             
             if (self.shouldHoldScrolOnCollectionView) {
                 
@@ -760,14 +747,27 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 /* Way for call reloadData sync */
                 self.collectionView?.reloadData()
-                self.collectionView?.performBatchUpdates(nil, completion: nil)
-
-                self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
-                
-                CATransaction.commit()
+                self.collectionView?.performBatchUpdates({ () -> Void in
+                    //
+                    self.items = NSMutableArray(array: messages + self.items)
+                    
+                    var indexPaths = [NSIndexPath]()
+                    for var i = messages.count - 1; i >= 0; i-- {
+                        let index = 0 + i
+                        indexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+                    }
+                    
+                    if indexPaths.count > 0 {
+                        self.collectionView!.insertItemsAtIndexPaths(indexPaths)
+                    }
+                    }, completion: { (finished: Bool) -> Void in
+                        //
+                        self.collectionView!.contentOffset = CGPoint(x: 0, y: self.collectionView!.contentSize.height - bottomOffset)
+                        CATransaction.commit()
+                })
 
             } else {
-                
+                self.items = NSMutableArray(array: chatService.messagesMemoryStorage.messagesWithDialogID(dialogID))
                 self.refreshCollectionView()
             }
             

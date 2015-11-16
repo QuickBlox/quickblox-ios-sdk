@@ -76,14 +76,6 @@
 @property (assign, nonatomic) BOOL showTypingIndicator;
 
 /**
- *  Specifies whether or not the view controller should show the "load earlier messages" header view.
- *
- *  @discussion Setting this property to `YES` will show the header view immediately.
- *  Settings this property to `NO` will hide the header view immediately. You will need to scroll to
- *  the top of the collection view in order to see the header.
- */
-@property (assign, nonatomic) BOOL showLoadEarlierMessagesHeader;
-/**
  *  Specifies an additional inset amount to be added to the collectionView's contentInsets.top value.
  *
  *  @discussion Use this property to adjust the top content inset to account for a custom subview at the top of your view controller.

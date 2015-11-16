@@ -688,32 +688,34 @@ Recursively fetch all dialogs from Quickblox.
 					 completion:(void(^)(QBResponse *response))completion;
 ```
 
-Notifies user via XMPP about created dialog.
+Send system message to users about adding to dialog with dialog inside.
 
 ```objective-c
 
-- (void)notifyUsersWithIDs:(NSArray *)usersIDs aboutAddingToDialog:(QBChatDialog *)dialog;
+- (void)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog
+                                  toUsersIDs:(NSArray *)usersIDs
+                                  completion:(QBChatCompletionBlock)completion;
 
 ```
 
-Notifies users via XMPP that dialog was updated.
+Send message about updated dialog with dialog inside and notification.
 
 ```objective-c
 
-- (void)notifyAboutUpdateDialog:(QBChatDialog *)updatedDialog
-	  occupantsCustomParameters:(NSDictionary *)occupantsCustomParameters
-			   notificationText:(NSString *)notificationText
-					 completion:(QBChatCompletionBlock)completion;
+- (void)sendMessageAboutUpdateDialog:(QBChatDialog *)updatedDialog
+                withNotificationText:(NSString *)notificationText
+                    customParameters:(NSDictionary *)customParameters
+                          completion:(QBChatCompletionBlock)completion;
 
 ```
 
-Notifies opponents that user accepted contact request.
+Send message about accepting or rejecting contact requst.
 
 ```objective-c
 
-- (void)notifyOponentAboutAcceptingContactRequest:(BOOL)accept
-									   opponentID:(NSUInteger)opponentID
-									   completion:(QBChatCompletionBlock)completion;
+- (void)sendMessageAboutAcceptingContactRequest:(BOOL)accept
+                                   toOpponentID:(NSUInteger)opponentID
+                                     completion:(QBChatCompletionBlock)completion;
 
 ```
 
@@ -729,7 +731,7 @@ Fetches 100 messages that are older than oldest message in cache.
 
 ```objective-c
 
-- (void)earlierMessagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion;
+- (BFTask <NSArray <QBChatMessage *> *> *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID;
 
 ```
 
@@ -765,11 +767,10 @@ Send message to dialog.
 ```objective-c
 
 - (void)sendMessage:(QBChatMessage *)message
-type:(QMMessageType)type
-toDialog:(QBChatDialog *)dialog
-saveToHistory:(BOOL)saveToHistory
-saveToStorage:(BOOL)saveToStorage
-completion:(QBChatCompletionBlock)completion;
+		   toDialog:(QBChatDialog *)dialog
+      saveToHistory:(BOOL)saveToHistory
+      saveToStorage:(BOOL)saveToStorage
+         completion:(QBChatCompletionBlock)completion;
 
 ```
 

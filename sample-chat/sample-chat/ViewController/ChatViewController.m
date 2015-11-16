@@ -96,8 +96,6 @@ UIActionSheetDelegate
     self.inputToolbar.contentView.textView.placeHolder = @"Message";
     
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
-        
-    self.showLoadEarlierMessagesHeader = YES;
     
     [self updateTitle];
     
@@ -296,7 +294,7 @@ UIActionSheetDelegate
     message.dateSent = date;
     
     // Sending message.
-    [[ServicesManager instance].chatService sendMessage:message type:QMMessageTypeText toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError * _Nullable error) {
+    [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError * _Nullable error) {
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);
@@ -485,18 +483,6 @@ UIActionSheetDelegate
     return size.width;
 }
 
-- (void)collectionView:(QMChatCollectionView *)collectionView header:(QMLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender
-{
-    self.shouldHoldScrollOnCollectionView = YES;
-    __weak typeof(self)weakSelf = self;
-    // Getting earlier messages for chat dialog identifier.
-    [[ServicesManager instance].chatService earlierMessagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
-        __typeof(self) strongSelf = weakSelf;
-        
-        strongSelf.shouldHoldScrollOnCollectionView = NO;
-    }];
-}
-
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
     Class viewClass = [self viewClassForItem:self.items[indexPath.row]];
@@ -531,6 +517,8 @@ UIActionSheetDelegate
     
     return timeStamp;
 }
+
+#pragma mark = QMChatCollectionViewDelegateFlowLayout
 
 - (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
     QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
@@ -627,6 +615,19 @@ UIActionSheetDelegate
     }
 }
 
+- (void)collectionViewHasReachedTop:(QMChatCollectionView *)collectionView {
+    // load earlier messages
+    
+    self.shouldHoldScrollOnCollectionView = YES;
+    __weak typeof(self)weakSelf = self;
+    // Getting earlier messages for chat dialog identifier.
+    [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask<NSArray<QBChatMessage *> *> *task) {
+        
+        weakSelf.shouldHoldScrollOnCollectionView = NO;
+        return nil;
+    }];
+}
+
 #pragma mark - QMChatServiceDelegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
@@ -643,20 +644,35 @@ UIActionSheetDelegate
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {
         [self readMessages:messages forDialogID:dialogID];
-        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
         
         if (self.shouldHoldScrollOnCollectionView) {
             CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
             [CATransaction begin];
             [CATransaction setDisableActions:YES];
             
-            [self.collectionView reloadData];
-            [self.collectionView performBatchUpdates:nil completion:nil];
+            [self.collectionView performBatchUpdates:^{
+                //
+                NSMutableArray *mutableArray = [NSMutableArray array];
+                [mutableArray addObjectsFromArray:messages];
+                [mutableArray addObjectsFromArray:self.items];
+                
+                self.items = [mutableArray mutableCopy];
+                
+                NSMutableArray *indexPaths = [NSMutableArray array];
+                
+                for (NSInteger i = messages.count - 1; i >= 0; i--) {
+                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
+                
+                [self.collectionView insertItemsAtIndexPaths:indexPaths];
+            } completion:^(BOOL finished) {
+                //
+                self.collectionView.contentOffset = (CGPoint){0, self.collectionView.contentSize.height - bottomOffset};
+                [CATransaction commit];
+            }];
             
-            self.collectionView.contentOffset = (CGPoint){0, self.collectionView.contentSize.height - bottomOffset};
-            
-            [CATransaction commit];
         } else {
+            self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
             [self refreshCollectionView];
         }
     }
