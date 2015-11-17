@@ -906,7 +906,7 @@
         <!--Sharing View Controller-->
         <scene sceneID="I2j-8G-mZH">
             <objects>
-                <collectionViewController storyboardIdentifier="SharingViewController" id="dig-P4-hPv" customClass="SharingViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="SharingViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="dig-P4-hPv" customClass="SharingViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="aYt-VW-Cxb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

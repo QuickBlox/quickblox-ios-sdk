@@ -68,7 +68,7 @@
 /**
  *  Selects a new camera position.
  *
- *  @param cameraPosition The camera position to select.
+ *  @param currentPosition The camera position to select.
  */
 - (AVCaptureDevicePosition)currentPosition;
 

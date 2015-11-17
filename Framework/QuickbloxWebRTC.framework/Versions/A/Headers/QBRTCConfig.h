@@ -21,6 +21,7 @@
 
 /**
  * Set custom ICE servers
+ * By default our Quickblox STUN & TURN servers are used
  *
     For example:
 
@@ -50,25 +51,35 @@
 
 /**
  *  Set dialing time interval
- *  Default value: 5 sec
  *
- *  @param dialingTimeInterval time in sec
+ *  Indicates how often we send notifications to your opponents about your call
+ *
+ *  Default value: 5 seconds
+ *  Minimum value: 3 seconds
+ *  @param dialingTimeInterval time in seconds
  */
 + (void)setDialingTimeInterval:(NSTimeInterval)dialingTimeInterval;
 
 /**
  *  Set answer time interval
- *  Default value: 45 sec
- *  Minimal value: 10 sec
- *  @param answerTimeInterval time interval in sec
+ *
+ *  If an opponent did not answer you within dialing time interval, then
+ *  userDidNotRespond: and then connectionClosedForUser: delegate methods will be called
+ *
+ *  Default value: 45 seconds
+ *  Minimum value: 10 seconds
+ *  @param answerTimeInterval time interval in seconds
  */
 + (void)setAnswerTimeInterval:(NSTimeInterval)answerTimeInterval;
 
 /**
  *  Set disconnect time interval
  *
- *  Default value: 30 sec
- *  @param disconnectTimeInterval time interval in sec
+ *  After a disconnect from an opponent happend we are starting timer and waiting for a given time interval
+ *  in case connection establishing/reconnecting again
+ *
+ *  Default value: 30 seconds
+ *  @param disconnectTimeInterval time interval in seconds
  */
 + (void)setDisconnectTimeInterval:(NSTimeInterval)disconnectTimeInterval;
 
@@ -125,5 +136,20 @@
  *  @return QBRTCMediaStreamConfiguration instance
  */
 + (QBRTCMediaStreamConfiguration *)mediaStreamConfiguration;
+
+/**
+ *  Set Stats report time interval. Default 0 which means you never receive stats
+ *
+ *  @note low time interval affects on CPU performance
+ *  @param timeInterval time interval in seconds
+ */
++ (void)setStatsReportTimeInterval:(NSTimeInterval)timeInterval;
+
+/**
+ *  Current stats report time interval
+ *
+ *  @return current value
+ */
++ (NSTimeInterval)statsReportTimeInterval;
 
 @end

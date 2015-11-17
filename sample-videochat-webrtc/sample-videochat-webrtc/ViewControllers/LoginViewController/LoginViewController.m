@@ -129,23 +129,30 @@ const CGFloat kInfoHeaderHeight = 44;
     __weak __typeof(self)weakSelf = self;
     [[ChatManager instance] logInWithUser:user completion:^(BOOL error) {
         
-        if (!error) {
-            
-            [SVProgressHUD dismiss];
-            [weakSelf applyConfiguration];
-            [weakSelf performSegueWithIdentifier:kSettingsCallSegueIdentifier sender:nil];
-        }
-        else {
-            
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Login chat error!", nil)];
-        }
-    }];
-    
+		if (!error) {
+			
+			[SVProgressHUD dismiss];
+			[weakSelf applyConfiguration];
+			[weakSelf performSegueWithIdentifier:kSettingsCallSegueIdentifier sender:nil];
+		}
+		else {
+			
+			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Login chat error!", nil)];
+		}
+	} disconnectedBlock:^{
+        
+		[SVProgressHUD showWithStatus:NSLocalizedString(@"Chat disconnected. Attempting to reconnect", nil)];
+        
+	} reconnectedBlock:^{
+        
+		[SVProgressHUD showSuccessWithStatus:@"Chat reconnected"];
+	}];
+	
 #endif
 }
 
 - (void)applyConfiguration {
-    
+	
     NSMutableArray *iceServers = [NSMutableArray array];
     
     for (NSString *url in self.settings.stunServers) {
@@ -158,6 +165,7 @@ const CGFloat kInfoHeaderHeight = 44;
     
     [QBRTCConfig setICEServers:iceServers];
     [QBRTCConfig setMediaStreamConfiguration:self.settings.mediaConfiguration];
+    [QBRTCConfig setStatsReportTimeInterval:1.f];
 }
 
 - (NSArray *)quickbloxICE {

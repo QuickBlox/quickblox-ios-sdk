@@ -25,6 +25,10 @@ static NSString * const reuseIdentifier = @"SharingCell";
 
 @implementation SharingViewController
 
+- (void)dealloc {
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -38,6 +42,7 @@ static NSString * const reuseIdentifier = @"SharingCell";
     self.screenCapture = [[QBRTCScreenCapture alloc] initWithView:self.view];
     //Switch to sharing
     self.session.localMediaStream.videoTrack.videoCapture = self.screenCapture;
+    self.collectionView.contentInset =  UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -83,26 +88,26 @@ static NSString * const reuseIdentifier = @"SharingCell";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     return self.collectionView.bounds.size;
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
     self.indexPath =  [self.collectionView.indexPathsForVisibleItems firstObject];
+    [self.collectionView.collectionViewLayout invalidateLayout];
     self.collectionView.alpha = 0;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
-    [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
-        
-        [self.collectionView scrollToItemAtIndexPath:self.indexPath
-                                    atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                            animated:NO];
-        self.collectionView.alpha = 1;
-        self.indexPath = nil;
-    }];
+    self.collectionView.alpha = 1;
+    
+    [self.collectionView scrollToItemAtIndexPath:self.indexPath
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:NO];
+    self.indexPath = nil;
 }
+    
 
 @end

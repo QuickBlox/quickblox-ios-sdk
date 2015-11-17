@@ -80,7 +80,7 @@
     BOOL isPortrait = contentSize.width < contentSize.height;
     NSUInteger columns = [self columnsWithWithNumberOfItems:numberOfItems
                                                  isPortrait:isPortrait];
-    NSUInteger border = 4;
+    NSUInteger border = 1;
     
     NSUInteger rows = ceil((float)numberOfItems / (float)columns);
     

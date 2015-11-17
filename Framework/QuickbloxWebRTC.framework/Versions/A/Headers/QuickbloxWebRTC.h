@@ -33,8 +33,10 @@
 #import <QuickbloxWebRTC/RTCVideoRenderer.h>
 #import <QuickbloxWebRTC/QBRTCCameraCapture.h>
 #import <QuickbloxWebRTC/QBRTCMediaStreamConfiguration.h>
+#import <QuickbloxWebRTC/QBRTCBitrateTracker.h>
+#import <QuickbloxWebRTC/QBRTCStatsReport.h>
 
-//2.0
+//2.1
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
-//10505
+//10677
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;

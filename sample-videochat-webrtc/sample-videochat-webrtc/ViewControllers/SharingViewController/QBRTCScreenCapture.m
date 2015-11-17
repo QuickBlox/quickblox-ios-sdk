@@ -78,33 +78,32 @@
                                                   (__bridge CFDictionaryRef)(options),
                                                   &pixelBuffer);
             
-            if(status != kCVReturnSuccess && pixelBuffer == NULL) {
+            if(status == kCVReturnSuccess && pixelBuffer != NULL) {
                 
-                return;
+      
+                CVPixelBufferLockBaseAddress(pixelBuffer, 0);
+                void *pxdata = CVPixelBufferGetBaseAddress(pixelBuffer);
+                
+                CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
+                
+                uint32_t bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst;
+                
+                CGContextRef context =
+                CGBitmapContextCreate(pxdata, w, h, 8, w * 4, rgbColorSpace, bitmapInfo);
+                CGContextDrawImage(context, CGRectMake(0, 0, w, h), [image CGImage]);
+                CGColorSpaceRelease(rgbColorSpace);
+                CGContextRelease(context);
+                
+                QBRTCVideoFrame *videoFrame = [[QBRTCVideoFrame alloc] initWithPixelBuffer:pixelBuffer];
+                videoFrame.timestamp = timeStamp;
+                
+                [super sendVideoFrame:videoFrame];
+                
+                CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+                
             }
             
-            CVPixelBufferLockBaseAddress(pixelBuffer, 0);
-            void *pxdata = CVPixelBufferGetBaseAddress(pixelBuffer);
-            
-            CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
-            
-            uint32_t bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst;
-            
-            CGContextRef context =
-            CGBitmapContextCreate(pxdata, w, h, 8, w * 4, rgbColorSpace, bitmapInfo);
-            
-            CGContextDrawImage(context, CGRectMake(0, 0, w, h), [image CGImage]);
-            CGColorSpaceRelease(rgbColorSpace);
-            CGContextRelease(context);
-            
-            QBRTCVideoFrame *videoFrame = [[QBRTCVideoFrame alloc] initWithPixelBuffer:pixelBuffer];
-            videoFrame.timestamp = timeStamp;
-            
-            [super sendVideoFrame:videoFrame];
-            
-            CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-            
-            CVPixelBufferRelease(pixelBuffer);
+            CVPixelBufferRelease(pixelBuffer);   
         }
     });
 }

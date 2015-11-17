@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, QBRTCVideoCodec) {
 /**
  *  Audio codec
  *
- *  @param audioCodec QBRTCAudioCodecOpus, QBRTCAudioCodecISAC or QBRTCAudioCodeciLBC are possible values
+ *  @note audioCodec QBRTCAudioCodecOpus, QBRTCAudioCodecISAC or QBRTCAudioCodeciLBC are possible values
  */
 @property (nonatomic, assign) QBRTCAudioCodec audioCodec;
 

@@ -50,6 +50,9 @@
 #import "QBRTCVideoRenderer.h"
 #import "RTCI420Frame.h"
 #import "RTCVideoRenderer.h"
+#import "QBRTCMediaStreamConfiguration.h"
+#import "QBRTCBitrateTracker.h"
+#import "QBRTCStatsReport.h"
 
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;

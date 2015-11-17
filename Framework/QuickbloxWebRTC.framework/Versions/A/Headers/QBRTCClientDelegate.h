@@ -9,6 +9,7 @@
 @class QBRTCSession;
 @class QBRTCVideoTrack;
 @class QBRTCMediaStream;
+@class QBRTCStatsReport;
 
 /**
  * QBRTCClientDelegate protocol
@@ -19,7 +20,7 @@
 @optional
 
 /**
- *  Called when someone has started a new session with you
+ *  Called when someone started a new session with you
  *
  *  @param session  QBRTCSession instance
  *  @param userInfo The user information dictionary for the new session. May be nil.
@@ -27,13 +28,26 @@
 - (void)didReceiveNewSession:(QBRTCSession *)session userInfo:(NSDictionary *)userInfo;
 
 /**
- *  Called when local media stream has successfully initialized itself and configured tracks
+ *  Called when local media stream successfully initialized itself and configured tracks
  *	called after startCall: or accept: methods
+ *
+ *  After initializing you are able to set a video capture
  *
  *  @param session     QBRTCSession instance
  *  @param mediaStream QBRTCMediaStream instance
  */
 - (void)session:(QBRTCSession *)session initializedLocalMediaStream:(QBRTCMediaStream *)mediaStream;
+
+/**
+ *  Called by timeout with updated stats report for user ID
+ *
+ *  Configure time interval with [QBRTCConfig setStatsReportTimeInterval:timeInterval]
+ *
+ *  @param session QBRTCSession instance
+ *  @param report  QBRTCStatsReport instance
+ *  @param userID  user ID
+ */
+- (void)session:(QBRTCSession *)session updatedStatsReport:(QBRTCStatsReport *)report forUserID:(NSNumber *)userID;
 
 /**
  * Called in case when user did not respond to your call within timeout
@@ -44,7 +58,7 @@
 - (void)session:(QBRTCSession *)session userDidNotRespond:(NSNumber *)userID;
 
 /**
- * Called in case when user has rejected you call
+ * Called in case when user rejected you call
  *
  * @param userID ID of user
  * @param userInfo The user information dictionary for the reject call. May be nil.
@@ -52,7 +66,7 @@
 - (void)session:(QBRTCSession *)session rejectedByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo;
 
 /**
- * Called in case when user has accepted your call
+ * Called in case when user accepted your call
  *
  * @param userID ID of user
  */

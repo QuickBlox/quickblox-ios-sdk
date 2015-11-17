@@ -20,6 +20,7 @@
 #import "SharingViewController.h"
 #import "SVProgressHUD.h"
 #import "UsersDataSource.h"
+#import <mach/mach.h>
 
 NSString *const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
 NSString *const kSharingViewControllerIdentifier = @"SharingViewController";
@@ -79,7 +80,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     QBUUser *initiator = [UsersDataSource.instance userWithID:self.session.initiatorID];
     _isOffer = [UsersDataSource.instance.currentUser isEqual:initiator];
     
-    self.view.backgroundColor = self.opponentsCollectionView.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = self.opponentsCollectionView.backgroundColor = [UIColor colorWithRed:0.1465 green:0.1465 blue:0.1465 alpha:1.0];
     
     [QBRTCClient.instance addDelegate:self];
     
@@ -280,7 +281,91 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     block(cell);
 }
 
+#pragma Statistic
+
+NSInteger QBRTCGetCpuUsagePercentage() {
+    // Create an array of thread ports for the current task.
+    const task_t task = mach_task_self();
+    thread_act_array_t thread_array;
+    mach_msg_type_number_t thread_count;
+    if (task_threads(task, &thread_array, &thread_count) != KERN_SUCCESS) {
+        return -1;
+    }
+    
+    // Sum cpu usage from all threads.
+    float cpu_usage_percentage = 0;
+    thread_basic_info_data_t thread_info_data = {};
+    mach_msg_type_number_t thread_info_count;
+    for (size_t i = 0; i < thread_count; ++i) {
+        thread_info_count = THREAD_BASIC_INFO_COUNT;
+        kern_return_t ret = thread_info(thread_array[i],
+                                        THREAD_BASIC_INFO,
+                                        (thread_info_t)&thread_info_data,
+                                        &thread_info_count);
+        if (ret == KERN_SUCCESS) {
+            cpu_usage_percentage +=
+            100.f * (float)thread_info_data.cpu_usage / TH_USAGE_SCALE;
+        }
+    }
+    
+    // Dealloc the created array.
+    vm_deallocate(task, (vm_address_t)thread_array,
+                  sizeof(thread_act_t) * thread_count);
+    return lroundf(cpu_usage_percentage);
+}
+
 #pragma mark - QBRTCClientDelegate
+
+- (void)session:(QBRTCSession *)session updatedStatsReport:(QBRTCStatsReport *)report forUserID:(NSNumber *)userID {
+    
+    NSMutableString *result = [NSMutableString string];
+    NSString *systemStatsFormat = @"(cpu)%ld%%\n";
+    [result appendString:[NSString stringWithFormat:systemStatsFormat,
+                          (long)QBRTCGetCpuUsagePercentage()]];
+    
+    // Connection stats.
+    NSString *connStatsFormat = @"CN %@ms | %@->%@/%@ | (s)%@ | (r)%@\n";
+    [result appendString:[NSString stringWithFormat:connStatsFormat,
+                          report.connectionRoundTripTime,
+                          report.localCandidateType, report.remoteCandidateType, report.transportType,
+                          report.connectionSendBitrate, report.connectionReceivedBitrate]];
+    
+    if (session.conferenceType == QBRTCConferenceTypeVideo) {
+        
+        // Video send stats.
+        NSString *videoSendFormat = @"VS (input) %@x%@@%@fps | (sent) %@x%@@%@fps\n"
+        "VS (enc) %@/%@ | (sent) %@/%@ | %@ms | %@\n";
+        [result appendString:[NSString stringWithFormat:videoSendFormat,
+                              report.videoSendInputWidth, report.videoSendInputHeight, report.videoSendInputFps,
+                              report.videoSendWidth, report.videoSendHeight, report.videoSendFps,
+                              report.actualEncodingBitrate, report.targetEncodingBitrate,
+                              report.videoSendBitrate, report.availableSendBandwidth,
+                              report.videoSendEncodeMs,
+                              report.videoSendCodec]];
+        
+        // Video receive stats.
+        NSString *videoReceiveFormat =
+        @"VR (recv) %@x%@@%@fps | (decoded)%@ | (output)%@fps | %@/%@ | %@ms\n";
+        [result appendString:[NSString stringWithFormat:videoReceiveFormat,
+                              report.videoReceivedWidth, report.videoReceivedHeight, report.videoReceivedFps,
+                              report.videoReceivedDecodedFps,
+                              report.videoReceivedOutputFps,
+                              report.videoReceivedBitrate, report.availableReceiveBandwidth,
+                              report.videoReceivedDecodeMs]];
+    }
+    // Audio send stats.
+    NSString *audioSendFormat = @"AS %@ | %@\n";
+    [result appendString:[NSString stringWithFormat:audioSendFormat,
+                          report.audioSendBitrate, report.audioSendCodec]];
+    
+    // Audio receive stats.
+    NSString *audioReceiveFormat = @"AR %@ | %@ | %@ms | (expandrate)%@";
+    [result appendString:[NSString stringWithFormat:audioReceiveFormat,
+                          report.audioReceivedBitrate, report.audioReceivedCodec, report.audioReceivedCurrentDelay,
+                          report.audioReceivedExpandRate]];
+    
+    NSLog(@"%@", result);
+}
 
 - (void)session:(QBRTCSession *)session initializedLocalMediaStream:(QBRTCMediaStream *)mediaStream {
     

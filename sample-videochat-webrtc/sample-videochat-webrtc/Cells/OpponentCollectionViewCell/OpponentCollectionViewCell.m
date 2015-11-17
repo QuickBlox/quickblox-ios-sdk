@@ -15,8 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
-//@property (strong, nonatomic) UITapGestureRecognizer *doubleTapGestureRecognizer;
-
 @end
 
 @implementation OpponentCollectionViewCell
@@ -24,11 +22,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 
-    self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3];
+    self.backgroundColor = [UIColor blackColor];
+    self.statusLabel.backgroundColor = [UIColor colorWithRed:0.9441 green:0.9441 blue:0.9441 alpha:0.350031672297297];
     self.statusLabel.text = @"";
-}
-
-- (void)didDoubleTap:(UITapGestureRecognizer *)gesture {
 }
 
 - (void)setVideoView:(UIView *)videoView {

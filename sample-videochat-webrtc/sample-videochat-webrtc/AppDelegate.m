@@ -14,28 +14,11 @@ const NSTimeInterval kQBAnswerTimeInterval = 60.f;
 const NSTimeInterval kQBRTCDisconnectTimeInterval = 30.f;
 const NSTimeInterval kQBDialingTimeInterval = 5.f;
 
-const NSUInteger kApplicationID = 92;
-NSString *const kAuthKey        = @"wJHdOcQSxXQGWx5";
-NSString *const kAuthSecret     = @"BTFsj7Rtt27DAmT";
-NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    //Quickblox preferences
-    [QBSettings setApplicationID:kApplicationID];
-    [QBSettings setAuthKey:kAuthKey];
-    [QBSettings setAuthSecret:kAuthSecret];
-    [QBSettings setAccountKey:kAcconuntKey];
-    [QBSettings setLogLevel:QBLogLevelDebug];
-    
-    //QuickbloxWebRTC preferences
-    [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
-    [QBRTCConfig setDisconnectTimeInterval:kQBRTCDisconnectTimeInterval];
-    [QBRTCConfig setDialingTimeInterval:5];
     
     //SVProgressHUD preferences
     [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
@@ -49,7 +32,7 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
     }
 
     [QBSettings setLogLevel:QBLogLevelNothing];
-    
+	[[QBChat instance] setAutoReconnectEnabled:YES];
     //QuickbloxWebRTC preferences
     
     [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
@@ -61,3 +44,5 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
 }
 
 @end
+
+

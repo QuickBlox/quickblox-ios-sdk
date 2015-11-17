@@ -98,8 +98,13 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
 
 - (BaseItemModel *)modelWithIndex:(NSUInteger)index section:(VideoSettingsSectionType)section {
     
-    SettingsSectionModel *secton = [self sectionWith:section];
-    SwitchItemModel *model = secton.items[index];
+    SettingsSectionModel *sectionModel = [self sectionWith:section];
+    
+    if (sectionModel.items.count == 0) {
+        return nil;
+    }
+    
+    SwitchItemModel *model = sectionModel.items[index];
     return model;
 }
 

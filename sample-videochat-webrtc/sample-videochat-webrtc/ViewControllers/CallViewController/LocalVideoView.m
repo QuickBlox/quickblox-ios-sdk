@@ -24,7 +24,7 @@
     if (self) {
         
         self.videoLayer = layer;
-        layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        layer.videoGravity = AVLayerVideoGravityResizeAspect;
         
         UIImage *image = [UIImage imageNamed:@"switchCamera"];
         
