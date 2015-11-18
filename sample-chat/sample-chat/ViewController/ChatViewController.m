@@ -9,8 +9,6 @@
 #import "ChatViewController.h"
 #import "DialogInfoTableViewController.h"
 
-//#import <QMChatViewController/UIImage+QM.h>
-//#import <QMChatViewController/UIColor+QM.h>
 #import <UIColor+QM.h>
 #import <UIImage+QM.h>
 
@@ -106,7 +104,12 @@ UIActionSheetDelegate
     self.stringBuilder = [MessageStatusStringBuilder new];
     
     // Retrieving messages from memory storage.
-    self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+//    self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+//    [self addMessages:[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID]];
+    NSArray *chatDialogMessages = [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
+    if (chatDialogMessages != nil) {
+        [self insertMessagesToTheBottomAnimated:chatDialogMessages];
+    }
     
     QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
     context.invalidateFlowLayoutMessagesCache = YES;
@@ -129,6 +132,8 @@ UIActionSheetDelegate
         __typeof(self) strongSelf = weakSelf;
         [strongSelf updateTitle];
     }];
+    
+    if (!self.dialog.isJoined) [self.dialog joinWithCompletionBlock:nil];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
@@ -140,9 +145,13 @@ UIActionSheetDelegate
     // Retrieving message from Quickblox REST history and cache.
 	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
+            
+            [self insertMessagesToTheBottomAnimated:messages];
+            
             if (showingProgress && !self.isSendingAttachment) {
                 [SVProgressHUD dismiss];
             }
+            [SVProgressHUD dismiss];
 		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
@@ -174,12 +183,13 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    if ([self.items count] > 0) {
-        [self refreshMessagesShowingProgress:NO];
-    }
-    else {
-        [self refreshMessagesShowingProgress:YES];
-    }
+//    if ([self.items count] > 0) {
+//        [self refreshMessagesShowingProgress:NO];
+//    }
+//    else {
+//        [self refreshMessagesShowingProgress:YES];
+//    }
+    [self refreshMessagesShowingProgress:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -298,11 +308,14 @@ UIActionSheetDelegate
     message.dateSent = date;
     
     // Sending message.
-    [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError * _Nullable error) {
+    __weak __typeof(self)weakSelf = self;
+    [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error, QBChatMessage *sentMessage) {
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error" description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
+        } else {
+            [weakSelf insertMessageToTheBottomAnimated:sentMessage];
         }
     }];
     
@@ -624,7 +637,10 @@ UIActionSheetDelegate
     // Getting earlier messages for chat dialog identifier.
     [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask<NSArray<QBChatMessage *> *> *task) {
         
-        weakSelf.shouldHoldScrollOnCollectionView = NO;
+        if (task.result.count > 0) {
+            [weakSelf insertMessagesToTheTopAnimated:task.result];
+            weakSelf.shouldHoldScrollOnCollectionView = NO;
+        }
         return nil;
     }];
 }
@@ -633,60 +649,67 @@ UIActionSheetDelegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
-        // Retrieving messages from memory strorage.
-        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
-        [self refreshCollectionView];
-        
+        [self insertMessageToTheBottomAnimated:message];
         [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
     }
 }
-
-- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
-{
-    if ([self.dialog.ID isEqualToString:dialogID]) {
-        [self readMessages:messages forDialogID:dialogID];
-//        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
-        
-        if (self.shouldHoldScrollOnCollectionView) {
-            CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
-            [CATransaction begin];
-            [CATransaction setDisableActions:YES];
-//            [self.collectionView reloadData];
-            [self.collectionView performBatchUpdates:^{
-                //
-                NSMutableArray *mutableArray = [NSMutableArray array];
-                [mutableArray addObjectsFromArray:messages];
-                [mutableArray addObjectsFromArray:self.items];
-                
-                self.items = [mutableArray mutableCopy];
-                
-                NSMutableArray *indexPaths = [NSMutableArray array];
-                
-                for (NSInteger i = messages.count - 1; i >= 0; i--) {
-                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-                }
-                
-                [self.collectionView insertItemsAtIndexPaths:indexPaths];
-            } completion:^(BOOL finished) {
-                //
-                self.collectionView.contentOffset = (CGPoint){0, self.collectionView.contentSize.height - bottomOffset};
-                [CATransaction commit];
-            }];
-            
-            
-//            [self.collectionView performBatchUpdates:^{
-//                //
-//            } completion:^(BOOL finished) {
-//                //
-//                self.collectionView.contentOffset = (CGPoint){0, self.collectionView.contentSize.height - bottomOffset};
-//                [CATransaction commit];
-//            }];
-        } else {
-            self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
-            [self refreshCollectionView];
-        }
-    }
-}
+//
+//- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
+//{
+//    if ([self.dialog.ID isEqualToString:dialogID]) {
+//        [self readMessages:messages forDialogID:dialogID];
+//        [self addMessages:messages];
+////        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
+////        
+////        if (self.shouldHoldScrollOnCollectionView) {
+////            CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
+////            [CATransaction begin];
+////            [CATransaction setDisableActions:YES];
+////            [self.collectionView reloadData];
+////            
+//////            __weak __typeof(self)weakSelf = self;
+//////            [self.collectionView performBatchUpdates:^{
+//////                //
+//////                __typeof(weakSelf)strongSelf = weakSelf;
+//////                
+//////                NSMutableArray *mutableArray = [NSMutableArray array];
+//////                [mutableArray addObjectsFromArray:messages];
+//////                [mutableArray addObjectsFromArray:strongSelf.items];
+//////                
+//////                strongSelf.items = [mutableArray mutableCopy];
+//////                
+//////                NSMutableArray *indexPaths = [NSMutableArray array];
+//////                
+////////                for (NSInteger i = messages.count - 1; i >= 0; i--) {
+////////                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+////////                }
+//////                for (QBChatMessage *message in [messages reverseObjectEnumerator]) {
+//////                    [indexPaths addObject:[self indexPathForMessage:message]];
+//////                }
+//////                
+//////                [strongSelf.collectionView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 5)]];
+//////                [strongSelf.collectionView insertItemsAtIndexPaths:indexPaths];
+//////            } completion:^(BOOL finished) {
+//////                //
+//////                __typeof(weakSelf)strongSelf = weakSelf;
+//////                strongSelf.collectionView.contentOffset = (CGPoint){0, strongSelf.collectionView.contentSize.height - bottomOffset};
+//////                [CATransaction commit];
+//////            }];
+////
+////            
+////            [self.collectionView performBatchUpdates:^{
+////                //
+////            } completion:^(BOOL finished) {
+////                //
+////                self.collectionView.contentOffset = (CGPoint){0, self.collectionView.contentSize.height - bottomOffset};
+////                [CATransaction commit];
+////            }];
+////        } else {
+//////            self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
+////            [self refreshCollectionView];
+////        }
+//    }
+//}
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog{
 	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
@@ -696,16 +719,12 @@ UIActionSheetDelegate
 
 - (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
 {
-    if ([self.dialog.ID isEqualToString:dialogID]) {        
-        self.items = [[chatService.messagesMemoryStorage messagesWithDialogID:dialogID] mutableCopy];
-        NSIndexPath *indexPath = [self indexPathForMessage:message];
-        if (indexPath != nil) {
-            QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
-            context.invalidateFlowLayoutMessagesCache = YES;
-            [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
-            
-            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-        }
+    if ([self.dialog.ID isEqualToString:dialogID]) {
+        QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
+        context.invalidateFlowLayoutMessagesCache = YES;
+        [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+        
+        [self.collectionView reloadItemsAtIndexPaths:@[[self updateMessage:message]]];
     }
 }
 
@@ -740,8 +759,8 @@ UIActionSheetDelegate
 {
     if (message.dialogID == self.dialog.ID) {
         // Retrieving messages for dialog from memory storage.
-        self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
-        [self refreshCollectionView];
+//        self.items = [[[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID] mutableCopy];
+//        [self refreshCollectionView];
     }
 }
 
