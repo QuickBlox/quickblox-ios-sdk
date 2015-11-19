@@ -86,6 +86,10 @@ UIActionSheetDelegate
     return 300.0f;
 }
 
+- (CGFloat)heightForSectionHeader {
+    return 40.0f;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -667,8 +671,9 @@ UIActionSheetDelegate
         QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
         context.invalidateFlowLayoutMessagesCache = YES;
         [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+        NSIndexPath *indexPath = [self updateMessage:message];
         
-        [self.collectionView reloadItemsAtIndexPaths:@[[self updateMessage:message]]];
+        if (indexPath != nil) [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
     }
 }
 
@@ -702,11 +707,16 @@ UIActionSheetDelegate
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
 {
     if (message.dialogID == self.dialog.ID) {
-        QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
-        context.invalidateFlowLayoutMessagesCache = YES;
-        [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
         
-        [self.collectionView reloadItemsAtIndexPaths:@[[self updateMessage:message]]];
+        if (status == QMMessageAttachmentStatusLoading && message.senderID == self.senderID) {
+            [self insertMessageToTheBottomAnimated:message];
+        } else {
+            QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
+            context.invalidateFlowLayoutMessagesCache = YES;
+            [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+            
+            [self.collectionView reloadItemsAtIndexPaths:@[[self updateMessage:message]]];
+        }
     }
 }
 
@@ -752,8 +762,6 @@ UIActionSheetDelegate
     message.senderID = self.senderID;
     message.dialogID = self.dialog.ID;
     message.dateSent = [NSDate date];
-    
-    [self insertMessageToTheBottomAnimated:message];
     
     __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
