@@ -10,7 +10,7 @@
 
 @interface QMHeaderCollectionReusableView : UICollectionReusableView
 
-@property (unsafe_unretained, nonatomic) IBOutlet UILabel *headerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 + (UINib *)nib;
 + (NSString *)cellReuseIdentifier;

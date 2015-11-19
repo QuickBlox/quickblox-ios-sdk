@@ -24,7 +24,7 @@
                 <constraint firstItem="qyJ-bF-dF2" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="hxK-FA-yb6"/>
             </constraints>
             <connections>
-                <outlet property="headerLabel" destination="qyJ-bF-dF2" id="h2u-0b-SIo"/>
+                <outlet property="headerLabel" destination="qyJ-bF-dF2" id="xbN-vV-84P"/>
             </connections>
         </collectionReusableView>
     </objects>

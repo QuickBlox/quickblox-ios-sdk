@@ -871,7 +871,6 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         QBChatMessage *oldestMessage = [self.messagesMemoryStorage oldestMessageForDialogID:chatDialogID];
         NSString *oldestMessageDate = [NSString stringWithFormat:@"%ld", (long)[oldestMessage.dateSent timeIntervalSince1970]];
         QBResponsePage *page = [QBResponsePage responsePageWithLimit:kQMChatMessagesPerPage];
-//        QBResponsePage *page = [QBResponsePage responsePageForLastRecord];
         
         NSMutableDictionary* parameters = [@{
                                              @"date_sent[lt]" : oldestMessageDate,

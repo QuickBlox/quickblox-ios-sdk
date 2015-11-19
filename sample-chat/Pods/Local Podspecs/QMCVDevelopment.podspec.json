@@ -53,6 +53,10 @@
       "source_files": "QMChatViewController/Protocols/*.{h}"
     },
     {
+      "name": "Utils",
+      "source_files": "QMChatViewController/Utils/**/*.{h,m}"
+    },
+    {
       "name": "Views",
       "dependencies": {
         "QMCVDevelopment/Protocols": [

@@ -43,9 +43,16 @@
  *
  *  @return Time interval that used to split messages on sections
  *
- *  @warning must not return '0' from this method.
+ *  @warning must not return `0` from this method.
  */
 - (NSTimeInterval)timeIntervalBetweenSections;
+
+/**
+ *  Height for section header.
+ *
+ *  @return height for header that used as section header
+ */
+- (CGFloat)heightForSectionHeader;
 
 /**
  *  Asks the data source for the message data that corresponds to the specified item at indexPath in the collectionView.
