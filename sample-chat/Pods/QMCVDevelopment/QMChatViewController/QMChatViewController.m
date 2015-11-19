@@ -11,12 +11,13 @@
 #import "QMKeyboardController.h"
 #import "QMToolbarContentView.h"
 #import "QMChatCollectionViewFlowLayout.h"
+#import "QMChatSection.h"
 
 #import "QMCollectionViewFlowLayoutInvalidationContext.h"
 #import "NSString+QM.h"
 #import "UIColor+QM.h"
 #import "UIImage+QM.h"
-#import "QMTypingIndicatorFooterView.h"
+#import "QMHeaderCollectionReusableView.h"
 #import "TTTAttributedLabel.h"
 
 
@@ -36,6 +37,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 @property (assign, nonatomic) BOOL isObserving;
 @property (strong, nonatomic) NSCache *cache;
+
+@property (strong, nonatomic) NSMutableArray *chatSections;
 
 @end
 
@@ -75,6 +78,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     self.keyboardController = nil;
     [self.cache removeAllObjects];
     self.cache = nil;
+    
+    self.chatSections = nil;
 }
 
 - (void)setCacheLimit:(NSUInteger)cacheLimit {
@@ -101,7 +106,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     self.inputToolbar.delegate = self;
     self.inputToolbar.contentView.textView.delegate = self;
     self.automaticallyScrollsToMostRecentMessage = YES;
-    self.showTypingIndicator = NO;
     self.topContentAdditionalInset = 0.0f;
     [self updateCollectionViewInsets];
     
@@ -119,6 +123,12 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (void)registerCells {
+    /**
+     *  Register header view
+     */
+    UINib *headerNib = [QMHeaderCollectionReusableView nib];
+    NSString *headerView = [QMHeaderCollectionReusableView cellReuseIdentifier];
+    [self.collectionView registerNib:headerNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerView];
     /**
      *  Register contact request cell
      */
@@ -143,11 +153,15 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     UINib *incomingNib = [QMChatIncomingCell nib];
     NSString *incomingIdentifier = [QMChatIncomingCell cellReuseIdentifier];
     [self.collectionView  registerNib:incomingNib forCellWithReuseIdentifier:incomingIdentifier];
-    
+    /**
+     *  Register attachment incoming cell
+     */
     UINib *attachmentIncomingNib  = [QMChatAttachmentIncomingCell nib];
     NSString *attachmentIncomingIdentifier = [QMChatAttachmentIncomingCell cellReuseIdentifier];
     [self.collectionView registerNib:attachmentIncomingNib forCellWithReuseIdentifier:attachmentIncomingIdentifier];
-    
+    /**
+     *  Register outgoing incoming cell
+     */
     UINib *attachmentOutgoingNib  = [QMChatAttachmentOutgoingCell nib];
     NSString *attachmentOutgoingIdentifier = [QMChatAttachmentOutgoingCell cellReuseIdentifier];
     [self.collectionView registerNib:attachmentOutgoingNib forCellWithReuseIdentifier:attachmentOutgoingIdentifier];
@@ -166,22 +180,194 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 #pragma mark - Setters
 
-- (void)setShowTypingIndicator:(BOOL)showTypingIndicator {
-    
-    if (_showTypingIndicator == showTypingIndicator) {
-        return;
-    }
-    
-    _showTypingIndicator = showTypingIndicator;
-    
-    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
-    [self.collectionView.collectionViewLayout invalidateLayout];
-}
-
 - (void)setTopContentAdditionalInset:(CGFloat)topContentAdditionalInset {
     
     _topContentAdditionalInset = topContentAdditionalInset;
     [self updateCollectionViewInsets];
+}
+
+#pragma mark - Messages items
+
+- (void)insertMessagesToTheTopAnimated:(NSArray *)messages {
+    NSParameterAssert(messages);
+    
+    NSMutableArray *sectionsToInsert = [NSMutableArray array];
+    NSMutableArray *indexPathToInsert = [NSMutableArray array];
+    NSMutableArray *sectionsToAdd = [NSMutableArray array];
+    
+    QMChatSection *firstSection = [self.chatSections firstObject];
+    NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:messages];
+    [mutableArray addObjectsFromArray:[firstSection messages]];
+    NSArray *arrayWithFirstSection = [mutableArray copy];
+    
+    [self.chatSections removeObjectAtIndex:0];
+    
+    for (QBChatMessage *message in arrayWithFirstSection) {
+        NSAssert(message.dateSent != nil, @"Message must have dateSent!");
+        
+        firstSection = [sectionsToAdd lastObject];
+        if ([message.dateSent timeIntervalSinceDate:[firstSection firstMessageDate]] > self.timeIntervalBetweenSections || firstSection == nil) {
+            
+            QMChatSection *chatSection = [QMChatSection chatSection];
+            [chatSection.messages addObject:message];
+            [sectionsToAdd addObject:chatSection];
+            
+            NSUInteger sectionIndex = [sectionsToAdd count] - 1;
+            [sectionsToInsert addObject:@(sectionIndex)];
+            [indexPathToInsert addObject:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
+        } else {
+            
+            [firstSection.messages addObject:message];
+            NSUInteger sectionIndex = [sectionsToAdd count] - 1;
+            
+            [indexPathToInsert addObject:[NSIndexPath indexPathForRow:firstSection.messages.count - 1 inSection:sectionIndex]];
+        }
+    }
+    
+    NSMutableArray *allSections = [NSMutableArray arrayWithArray:sectionsToAdd];
+    [allSections addObjectsFromArray:self.chatSections];
+    self.chatSections = [allSections mutableCopy];
+    
+    CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+
+    __weak __typeof(self)weakSelf = self;
+    [self.collectionView performBatchUpdates:^{
+        //
+        __typeof(weakSelf)strongSelf = self;
+        
+        [strongSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        [strongSelf.collectionView insertSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [sectionsToInsert count] - 1)]];
+        [strongSelf.collectionView insertItemsAtIndexPaths:indexPathToInsert];
+    } completion:^(BOOL finished) {
+        //
+        __typeof(weakSelf)strongSelf = weakSelf;
+        strongSelf.collectionView.contentOffset = (CGPoint){0, strongSelf.collectionView.contentSize.height - bottomOffset};
+        
+        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
+        [CATransaction commit];
+    }];
+}
+
+- (void)insertMessageToTheBottomAnimated:(QBChatMessage *)message {
+    NSParameterAssert(message);
+    [self insertMessagesToTheBottomAnimated:@[message]];
+}
+
+- (void)insertMessagesToTheBottomAnimated:(NSArray *)messages {
+    NSParameterAssert(messages);
+    
+    if (self.chatSections == nil) {
+        NSDate *lastMessageOfSectionDate = nil;
+        NSMutableDictionary *sectionsDictionary = [NSMutableDictionary dictionary];
+        NSMutableArray *chatSections = [NSMutableArray array];
+        
+        for (QBChatMessage *message in [messages reverseObjectEnumerator]) {
+            NSAssert(message.dateSent != nil, @"Message must have dateSent!");
+            
+            if ([lastMessageOfSectionDate timeIntervalSinceDate:message.dateSent] > self.timeIntervalBetweenSections || lastMessageOfSectionDate == nil) {
+                lastMessageOfSectionDate = message.dateSent;
+            }
+            
+            QMChatSection *chatSection = sectionsDictionary[lastMessageOfSectionDate];
+            if (chatSection == nil) {
+                chatSection = [QMChatSection chatSection];
+                sectionsDictionary[lastMessageOfSectionDate] = chatSection;
+                [chatSections insertObject:chatSection atIndex:0];
+            }
+            
+            [chatSection.messages insertObject:message atIndex:0];
+        }
+        
+        self.chatSections = chatSections.mutableCopy;
+        [self.collectionView reloadData];
+        [self scrollToBottomAnimated:NO];
+        
+        return;
+    }
+    
+    NSMutableArray *sectionsToInsert = [NSMutableArray array];
+    NSMutableArray *indexPathToInsert = [NSMutableArray array];
+    
+    for (QBChatMessage *message in messages) {
+        NSAssert(message.dateSent != nil, @"Message must have dateSent!");
+        
+        if ([self indexPathForMessage:message] != nil) continue;
+        
+        QMChatSection *lastSection = [self.chatSections lastObject];
+        
+        if ([message.dateSent timeIntervalSinceDate:[lastSection firstMessageDate]] > self.timeIntervalBetweenSections || lastSection == nil) {
+            
+            QMChatSection *chatSection = [QMChatSection chatSection];
+            [chatSection.messages addObject:message];
+            [self.chatSections addObject:chatSection];
+            
+            NSUInteger sectionIndex = [self.chatSections count] - 1 + [sectionsToInsert count];
+            [sectionsToInsert addObject:@(sectionIndex)];
+            [indexPathToInsert addObject:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
+        } else {
+            
+            [lastSection.messages addObject:message];
+            NSUInteger sectionIndex = [self.chatSections count] - 1 + [sectionsToInsert count];
+            
+            for (NSUInteger i = [self.collectionView numberOfItemsInSection:sectionIndex]; i < lastSection.messages.count ; i++) {
+                
+                [indexPathToInsert addObject:[NSIndexPath indexPathForRow:i inSection:sectionIndex]];
+            }
+        }
+    }
+    
+    if ([sectionsToInsert count] > 0) {
+        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+        for (NSNumber *sectionIndex in sectionsToInsert) {
+            [indexSet addIndex:[sectionIndex integerValue]];
+        }
+        
+        __weak __typeof(self)weakSelf = self;
+        [self.collectionView performBatchUpdates:^{
+            //
+            __typeof(weakSelf)strongSelf = self;
+            
+            [strongSelf.collectionView insertSections:indexSet];
+            [strongSelf.collectionView insertItemsAtIndexPaths:indexPathToInsert];
+        } completion:^(BOOL finished) {
+            //
+            __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf scrollToBottomAnimated:NO];
+        }];
+    } else if ([indexPathToInsert count] > 0) {
+        __weak __typeof(self)weakSelf = self;
+        [self.collectionView performBatchUpdates:^{
+            //
+            __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf.collectionView insertItemsAtIndexPaths:indexPathToInsert];
+        } completion:^(BOOL finished) {
+            //
+            __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf scrollToBottomAnimated:NO];
+        }];
+    }
+}
+
+- (NSIndexPath *)updateMessage:(QBChatMessage *)message {
+    return [[self updateMessages:@[message]] firstObject];
+}
+
+- (NSArray *)updateMessages:(NSArray *)messages {
+    
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    for (QBChatMessage *message in messages) {
+        NSIndexPath *indexPath = [self indexPathForMessage:message];
+        if (indexPath == nil) continue;
+        
+        [indexPaths addObject:indexPath];
+        
+        QMChatSection *chatSection = self.chatSections[indexPath.section];
+        [chatSection.messages replaceObjectAtIndex:indexPath.item withObject:message];
+    }
+    
+    return [indexPaths copy];
 }
 
 #pragma mark - View lifecycle
@@ -204,6 +390,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     NSParameterAssert(self.senderID != 0);
     NSParameterAssert(self.senderDisplayName != nil);
+    NSParameterAssert(self.timeIntervalBetweenSections != 0);
     
     [super viewWillAppear:animated];
     [self.view layoutIfNeeded];
@@ -322,13 +509,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    
-    if (self.showTypingIndicator) {
-        
-        self.showTypingIndicator = NO;
-        self.showTypingIndicator = YES;
-        [self.collectionView reloadData];
-    }
 }
 
 #pragma mark - Messages view controller
@@ -387,8 +567,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (void)finishReceivingMessageAnimated:(BOOL)animated {
     
-    self.showTypingIndicator = NO;
-    
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
     [self.collectionView reloadData];
     
@@ -423,8 +601,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     //  workaround for really long messages not scrolling
     //  if last message is too long, use scroll position bottom for better appearance, else use top
-    NSUInteger finalRow = MAX(0, [self.collectionView numberOfItemsInSection:0] - 1);
-    NSIndexPath *finalIndexPath = [NSIndexPath indexPathForItem:finalRow inSection:0];
+    NSUInteger finalRow = MAX(0, [self.collectionView numberOfItemsInSection:[self.collectionView numberOfSections] - 1] - 1);
+    NSIndexPath *finalIndexPath = [NSIndexPath indexPathForItem:finalRow inSection:[self.collectionView numberOfSections] - 1];
     CGSize finalCellSize = [self.collectionView.collectionViewLayout sizeForItemAtIndexPath:finalIndexPath];
     
     CGFloat maxHeightForVisibleMessage =
@@ -438,19 +616,24 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 #pragma mark - Collection view data source
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(0, 40);
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return self.items.count;
+    QMChatSection *currentSection = self.chatSections[section];
+    return [currentSection.messages count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     
-    return 1;
+    return [self.chatSections count];
 }
 
 - (UICollectionViewCell *)collectionView:(QMChatCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    id messageItem = self.items[indexPath.row];
+    QBChatMessage *messageItem = [self messageForIndexPath:indexPath];
     
     Class class = [self viewClassForItem:messageItem];
     NSString *itemIdentifier = [class cellReuseIdentifier];
@@ -474,7 +657,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         
         QMChatCell *chatCell = (QMChatCell *)cell;
         
-        id messageItem = self.items[indexPath.row];
+        QBChatMessage *messageItem = [self messageForIndexPath:indexPath];
         
         chatCell.textView.attributedText = [self attributedStringForItem:messageItem];
         chatCell.topLabel.attributedText = [self topLabelAttributedStringForItem:messageItem];
@@ -501,21 +684,17 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
            viewForSupplementaryElementOfKind:(NSString *)kind
                                  atIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.showTypingIndicator && [kind isEqualToString:UICollectionElementKindSectionFooter]) {
+    if (kind == UICollectionElementKindSectionHeader) {
+        QMHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[QMHeaderCollectionReusableView cellReuseIdentifier] forIndexPath:indexPath];
         
-        return [collectionView dequeueTypingIndicatorFooterViewForIndexPath:indexPath];
+        QMChatSection *currentSection = self.chatSections[indexPath.section];
+        
+        headerView.headerLabel.text = currentSection.name;
+        
+        return headerView;
     }
     
     return nil;
-}
-
-- (CGSize)collectionView:(QMChatCollectionView *)collectionView layout:(QMChatCollectionViewFlowLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    
-    if (!self.showTypingIndicator) {
-        return CGSizeZero;
-    }
-    
-    return CGSizeMake([collectionViewLayout itemWidth], kQMTypingIndicatorFooterViewHeight);
 }
 
 #pragma mark - Collection view delegate
@@ -556,14 +735,14 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (NSString *)collectionView:(QMChatCollectionView *)collectionView itemIdAtIndexPath:(NSIndexPath *)indexPath {
     
-    QBChatMessage *message = self.items[indexPath.item];
+    QBChatMessage *message = [self messageForIndexPath:indexPath];
     
     return message.ID;
 }
 
 - (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
     
-    QBChatMessage *item = self.items[indexPath.row];
+    QBChatMessage *item = [self messageForIndexPath:indexPath];
     Class class = [self viewClassForItem:item];
     
     return [class layoutModel];
@@ -827,12 +1006,19 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y <= 0.0) {
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    if (velocity.y < 0.0) {
         // top of the screen
         if ([self.collectionView.delegate respondsToSelector:@selector(collectionViewHasReachedTop:)]) {
             [self.collectionView.delegate collectionViewHasReachedTop:self.collectionView];
         }
+    }
+}
+
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    // top of the screen by tapping status bar
+    if ([self.collectionView.delegate respondsToSelector:@selector(collectionViewHasReachedTop:)]) {
+        [self.collectionView.delegate collectionViewHasReachedTop:self.collectionView];
     }
 }
 
@@ -929,6 +1115,39 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 #pragma mark - Utilities
+
+- (NSUInteger)totalMessagesCount {
+    NSUInteger totalMessagesCount = 0;
+    NSArray *chatSections = [self.chatSections copy];
+    for (QMChatSection *chatSection in chatSections) {
+        totalMessagesCount += [chatSection.messages count];
+    }
+    
+    return totalMessagesCount;
+}
+
+- (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath {
+
+    if (indexPath.item == NSNotFound) {
+        // If the update item's index path has an "item" value of NSNotFound, it means it was a section update, not an individual item.
+        return nil;
+    }
+    
+    QMChatSection *currentSection = self.chatSections[indexPath.section];
+    return currentSection.messages[indexPath.item];
+}
+
+- (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message {
+    
+    NSIndexPath *indexPath = nil;
+    for (QMChatSection *chatSection in self.chatSections) {
+        if ([chatSection.messages containsObject:message]) {
+            indexPath = [NSIndexPath indexPathForItem:[chatSection.messages indexOfObject:message] inSection:[self.chatSections indexOfObject:chatSection]];
+        }
+    }
+    
+    return indexPath;
+}
 
 - (void)addObservers {
     

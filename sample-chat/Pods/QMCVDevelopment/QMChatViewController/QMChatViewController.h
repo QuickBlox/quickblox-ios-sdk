@@ -58,6 +58,15 @@
 @property (assign, nonatomic) NSUInteger senderID;
 
 /**
+ *  The time interval that used to split messages between sections.
+ *
+ *  @discussion You should set time interval in seconds with '- (NSTimeInterval)timeIntervalBetweenSections' data source method.
+ *  The messages that have dateSent difference from the last message in section not greater then the one you set,
+ *  will appear in one section under one date of the first message in section.
+ */
+@property (assign, nonatomic) NSTimeInterval timeIntervalBetweenSections;
+
+/**
  *  Specifies whether or not the view controller should automatically scroll to the most recent message
  *  when the view appears and when sending, receiving, and composing a new message.
  *
@@ -67,15 +76,6 @@
 @property (assign, nonatomic) BOOL automaticallyScrollsToMostRecentMessage;
 
 /**
- *  Specifies whether or not the view controller should show the typing indicator for an incoming message.
- *
- *  @discussion Setting this property to `YES` will animate showing the typing indicator immediately.
- *  Setting this property to `NO` will animate hiding the typing indicator immediately. You will need to scroll
- *  to the bottom of the collection view in order to see the typing indicator. You may use `scrollToBottomAnimated:` for this.
- */
-@property (assign, nonatomic) BOOL showTypingIndicator;
-
-/**
  *  Specifies an additional inset amount to be added to the collectionView's contentInsets.top value.
  *
  *  @discussion Use this property to adjust the top content inset to account for a custom subview at the top of your view controller.
@@ -83,9 +83,62 @@
 @property (assign, nonatomic) CGFloat topContentAdditionalInset;
 
 /**
- *  Chat message items.
+ *  Total count of messages in all sections.
+ *
+ *  @discussion Use this to know how many messages are displayed in chat controller.
  */
-@property (strong, nonatomic) NSMutableArray *items;
+@property (assign, nonatomic, readonly) NSUInteger totalMessagesCount;
+
+/**
+ *  Insert messages to the top.
+ *
+ *  @param messages array of messages to insert
+ *
+ *  @discussion Use this method to insert older messages in chat.
+ */
+- (void)insertMessagesToTheTopAnimated:(NSArray <QBChatMessage *> *)messages;
+
+/**
+ *  Insert message to the bottom.
+ *
+ *  @param message  message to insert
+ *
+ *  @discussion Use this method to insert new message to the chat controller.
+ */
+- (void)insertMessageToTheBottomAnimated:(QBChatMessage *)message;
+
+/**
+ *  Insert messages to the bottom.
+ *
+ *  @param messages array of messages
+ *
+ *  @discussion Use this method to insert new messages to the chat controller.
+ */
+- (void)insertMessagesToTheBottomAnimated:(NSArray <QBChatMessage *> *)messages;
+
+/**
+ *  Update message in chat controller.
+ *
+ *  @param message  updated message
+ *
+ *  @discussion Use this method to update message in chat controller. As parameter use updated message, it will be replaced in items by it's ID.
+ *  After that you need to reload item with index path which method returns.
+ *
+ *  @return Index path of updated message. Use it to reload item in collection view.
+ */
+- (NSIndexPath *)updateMessage:(QBChatMessage *)message;
+
+/**
+ *  Update messages in chat controller.
+ *
+ *  @param messages array of messages to update
+ *
+ *  @discussion Use this method to update messages in chat controller. As parameter use updated message, it will be replaced in items by it's ID.
+ *  After that you need to reload item with index paths which method returns.
+ *
+ *  @return Index paths of updated messages. Use it to reload item in collection view.
+ */
+- (NSArray <NSIndexPath *> *)updateMessages:(NSArray <QBChatMessage *> *)messages;
 
 /**
  *  Method to create chat message text attributed string. Have to be overriden in subclasses.
@@ -173,6 +226,11 @@
  */
 - (void)didPressAccessoryButton:(UIButton *)sender;
 
+/**
+ *  This method is called when the user finishes picking attachment image.
+ *
+ *  @param image    image that was picked by user
+ */
 - (void)didPickAttachmentImage:(UIImage *)image;
 
 /**
@@ -204,7 +262,7 @@
 - (void)finishReceivingMessage;
 
 /**
- *  Completes the "receiving" of a new message by showing the typing indicator, adding a new collection view cell in the collection view,
+ *  Completes the "receiving" of a new message by adding a new collection view cell in the collection view,
  *  reloading the collection view, and scrolling to the newly sent message as specified by `automaticallyScrollsToMostRecentMessage`.
  *  Scrolling to the new message can be animated as specified by the animated parameter.
  *
@@ -222,5 +280,25 @@
  *  @param animated Pass `YES` if you want to animate scrolling, `NO` if it should be immediate.
  */
 - (void)scrollToBottomAnimated:(BOOL)animated;
+
+#pragma mark - Helpers
+
+/**
+ *  Message for index path.
+ *
+ *  @param indexPath    index path to find message
+ *
+ *  @return QBChatMessage instance that conforms to indexPath
+ */
+- (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Index path for message.
+ *
+ *  @param message  message to return index path
+ *
+ *  @return NSIndexPath instance that conforms message or nil if not found
+ */
+- (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message;
 
 @end
