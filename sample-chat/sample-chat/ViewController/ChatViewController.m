@@ -43,7 +43,6 @@ UIActionSheetDelegate
 @property (nonatomic, strong) MessageStatusStringBuilder* stringBuilder;
 @property (nonatomic, strong) NSMapTable* attachmentCells;
 @property (nonatomic, readonly) UIImagePickerController* pickerController;
-@property (nonatomic, assign) BOOL shouldHoldScrollOnCollectionView;
 @property (nonatomic, strong) NSTimer* typingTimer;
 @property (nonatomic, strong) id observerDidEnterBackground;
 
@@ -140,16 +139,16 @@ UIActionSheetDelegate
         [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
 	}
 	
+    __weak __typeof(self)weakSelf = self;
     // Retrieving message from Quickblox REST history and cache.
 	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
             
-            [self insertMessagesToTheBottomAnimated:messages];
+            [weakSelf insertMessagesToTheBottomAnimated:messages];
             
-            if (showingProgress && !self.isSendingAttachment) {
+            if (showingProgress && !weakSelf.isSendingAttachment) {
                 [SVProgressHUD dismiss];
             }
-            [SVProgressHUD dismiss];
 		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
@@ -181,13 +180,12 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-//    if ([self.items count] > 0) {
-//        [self refreshMessagesShowingProgress:NO];
-//    }
-//    else {
-//        [self refreshMessagesShowingProgress:YES];
-//    }
-    [self refreshMessagesShowingProgress:NO];
+    if (self.totalMessagesCount > 0) {
+        [self refreshMessagesShowingProgress:NO];
+    }
+    else {
+        [self refreshMessagesShowingProgress:YES];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -630,14 +628,12 @@ UIActionSheetDelegate
 - (void)collectionViewHasReachedTop:(QMChatCollectionView *)collectionView {
     // load earlier messages
     
-    self.shouldHoldScrollOnCollectionView = YES;
     __weak typeof(self)weakSelf = self;
     // Getting earlier messages for chat dialog identifier.
     [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask<NSArray<QBChatMessage *> *> *task) {
         
         if (task.result.count > 0) {
             [weakSelf insertMessagesToTheTopAnimated:task.result];
-            weakSelf.shouldHoldScrollOnCollectionView = NO;
         }
         return nil;
     }];
@@ -752,24 +748,22 @@ UIActionSheetDelegate
     self.isSendingAttachment = YES;
     [SVProgressHUD showWithStatus:@"Uploading attachment" maskType:SVProgressHUDMaskTypeClear];
     
+    QBChatMessage* message = [QBChatMessage new];
+    message.senderID = self.senderID;
+    message.dialogID = self.dialog.ID;
+    message.dateSent = [NSDate date];
+    
+    [self insertMessageToTheBottomAnimated:message];
+    
     __weak typeof(self)weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        __typeof(self) strongSelf = weakSelf;
+        __typeof(weakSelf)strongSelf = weakSelf;
         UIImage* newImage = image;
         if (strongSelf.pickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
             newImage = [newImage fixOrientation];
         }
         
         UIImage* resizedImage = [strongSelf resizedImageFromImage:newImage];
-        
-        QBChatMessage* message = [QBChatMessage new];
-        message.senderID = strongSelf.senderID;
-        message.dialogID = strongSelf.dialog.ID;
-        message.dateSent = [NSDate date];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf insertMessageToTheBottomAnimated:message];
-        });
         
         // Sending attachment to dialog.
         [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message
@@ -782,10 +776,10 @@ UIActionSheetDelegate
                                                                           } else {
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
                                                                               // Custom push sending (uncomment sendPushWithAttachment method and line below)
-//                                                                             [weakSelf sendPushWithAttachment];
+//                                                                             [strongSelf sendPushWithAttachment];
                                                                               
                                                                           }
-                                                                          weakSelf.isSendingAttachment = NO;
+                                                                          strongSelf.isSendingAttachment = NO;
                                                                       });
                                                                   }];
     });
