@@ -197,7 +197,7 @@
 @property (nonatomic, copy, readonly) NSString *audioSendBitrate;
 
 /** Audio send input level
- *  You can use this property even while audio track disabled
+ *  You can use this property even if audio track is disabled
  *  to check if user is currently speaking/talking etc.
  */
 @property (nonatomic, copy, readonly) NSString *audioSendInputLevel;

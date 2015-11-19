@@ -110,18 +110,17 @@ NSString *const kMediaConfigKey = @"mediaConfig";
         case ListOfUsersQA:
         case ListOfUsersDEV: {
             //Quickblox preferences
-            
-            [QBApplication sharedApplication].applicationId = 92;
-            [QBConnection registerServiceKey:@"wJHdOcQSxXQGWx5"];
-            [QBConnection registerServiceSecret:@"BTFsj7Rtt27DAmT"];
+            [QBSettings setApplicationID:92];
+            [QBSettings setAuthKey:@"wJHdOcQSxXQGWx5"];
+            [QBSettings setAuthSecret:@"BTFsj7Rtt27DAmT"];
             
             break;
         }
         case ListOfUsersWEB: {
             
-            [QBApplication sharedApplication].applicationId = 28287;
-            [QBConnection registerServiceKey:@"XydaWcf8OO9xhGT"];
-            [QBConnection registerServiceSecret:@"JZfqTspCvELAmnW"];
+            [QBSettings setApplicationID:28287];
+            [QBSettings setAuthKey:@"XydaWcf8OO9xhGT"];
+            [QBSettings setAuthSecret:@"JZfqTspCvELAmnW"];
             
             break;
         }

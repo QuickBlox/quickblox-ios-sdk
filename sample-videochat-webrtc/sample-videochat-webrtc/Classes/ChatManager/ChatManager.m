@@ -49,7 +49,9 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
     self.chatLoginCompletionBlock = completion;
 	self.chatDisconnectedBlock = disconnectedBlock;
 	self.chatReconnectedBlock = reconnectedBlock;
-    [QBChat.instance connectWithUser:user];
+    [QBChat.instance connectWithUser:user completion:^(NSError * _Nullable error) {
+        
+    }];
 }
 
 - (void)logOut {
@@ -58,7 +60,9 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
     self.presenceTimer = nil;
     
     if ([QBChat.instance isConnected]) {
-        [QBChat.instance disconnect];
+        [QBChat.instance disconnectWithCompletionBlock:^(NSError * _Nullable error) {
+            
+        }];
     }
 }
 
