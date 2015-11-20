@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '533F80E5211E1425D11A1C01'
+               BlueprintIdentifier = '00E98637D7D5A1A3960D5891'
                BlueprintName = 'QMCVDevelopment'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libQMCVDevelopment.a'>

@@ -187,17 +187,17 @@
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
 
 /**
- *  Collection view reusable section header.
+ *  Collection view reusable section footer.
  *
  *  @param collectionView   collection view to dequeue reusable header
  *  @param indexPath        index path of section header
  *
- *  @discussion Override this method if you want to use custom reusable view as section header.
+ *  @discussion Override this method if you want to use custom reusable view as section footer.
  *
- *  @return collection view reusable view to use as section header
+ *  @return collection view reusable view to use as section footer.
  */
 - (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
-                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath;
+                    sectionFooterAtIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - Class methods
 

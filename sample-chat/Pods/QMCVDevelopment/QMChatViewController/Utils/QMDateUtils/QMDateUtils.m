@@ -10,26 +10,15 @@
 
 @implementation QMDateUtils
 
-+ (NSDateFormatter *)dateFormatter
-{
-    static NSDateFormatter* formatter = nil;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = [NSDateFormatter new];
-        formatter.dateFormat = @"HH:mm";
-    });
-    
-    return formatter;
-}
-
 + (NSString *)formattedStringFromDate:(NSDate *)date
 {
     NSString *formattedString = nil;
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
     NSDateComponents *currentComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     
-    NSString *sectionDate = [[self dateFormatter] stringFromDate:date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"HH:mm";
+    NSString *sectionDate = [dateFormatter stringFromDate:date];
     
     if (components.day == currentComponents.day && components.month == currentComponents.month && components.year == currentComponents.year) {
         formattedString = [NSString stringWithFormat:@"Today %@", sectionDate];
