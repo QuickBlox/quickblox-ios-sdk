@@ -1,1 +1,1 @@
-../../../QMCVDevelopment/QMChatViewController/Categories/UIImage+Cropper.h
+../../../../../../QMChatViewController-ios/QMChatViewController/Categories/UIImage+Cropper.h

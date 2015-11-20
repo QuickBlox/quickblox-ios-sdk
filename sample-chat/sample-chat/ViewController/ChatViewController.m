@@ -153,6 +153,7 @@ UIActionSheetDelegate
             if (showingProgress && !weakSelf.isSendingAttachment) {
                 [SVProgressHUD dismiss];
             }
+            
 		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
@@ -639,6 +640,7 @@ UIActionSheetDelegate
         if (task.result.count > 0) {
             [weakSelf insertMessagesToTheTopAnimated:task.result];
         }
+
         return nil;
     }];
 }
@@ -648,6 +650,7 @@ UIActionSheetDelegate
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
         [self insertMessageToTheBottomAnimated:message];
+        
         [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
     }
 }
