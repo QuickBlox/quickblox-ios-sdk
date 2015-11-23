@@ -45,7 +45,7 @@
  Retrieve all Users for current account with extended request
  
  @param extendedRequest Dictionary with extended request
- @param page Pagination parameters
+ @param responsePage Pagination parameters
  @param successBlock Block with response, page and users instances if request succeded
  @param errorBlock Block with response instance if request failed
  

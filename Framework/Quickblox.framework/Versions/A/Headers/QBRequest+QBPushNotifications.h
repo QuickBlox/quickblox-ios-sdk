@@ -20,7 +20,7 @@
 /**
  Create subscription
  
- @param subscriber An instance of QBMSubscription
+ @param subscription An instance of QBMSubscription
  @param successBlock Block with response and subscriber instances if request succeded
  @param errorBlock Block with response instance if request failed
  

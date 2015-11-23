@@ -30,4 +30,5 @@ typedef NS_ENUM(NSUInteger, QBChatDialogType) {
 };
 
 typedef void(^QBChatCompletionBlock)(NSError* QB_NULLABLE_S error);
+typedef void(^QBChatDialogBlockedMessageBlock)(NSError * QB_NULLABLE_S error);
 typedef void(^QBChatDialogRequestOnlineUsersCompletionBlock)(NSMutableArray QB_GENERIC(NSNumber *) * QB_NULLABLE_S onlineUsers, NSError* QB_NULLABLE_S error);

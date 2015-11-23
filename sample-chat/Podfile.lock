@@ -68,10 +68,10 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: a260aa066ca4d46beb9075f78cd607ffb56d7786
+    :commit: a0ceaa3283775042a16eac23b5431b9c32a2917f
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: d4df3a4b35ae634e611404c8c251d72f3b427252
+    :commit: 14e3a3e88df671234605df952b0f0638f1f44f51
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
@@ -84,4 +84,4 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
   TWMessageBarManager: e7adc066ee425174f5dee79473fce913b1cd1662
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2
