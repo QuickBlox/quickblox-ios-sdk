@@ -252,10 +252,10 @@ UIActionSheetDelegate
 
 #pragma mark - Utilities
 
-- (void)sendReadStatusForMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
+- (void)sendReadStatusForMessage:(QBChatMessage *)message
 {
-    if (message.senderID != [QBSession currentSession].currentUser.ID && ![message.readIDs containsObject:@(self.senderID)]) {
-        [[ServicesManager instance].chatService readMessage:message completion:^(NSError * _Nullable error) {
+    if (message.senderID != self.senderID && ![message.readIDs containsObject:@(self.senderID)]) {
+        [[ServicesManager instance].chatService readMessage:message completion:^(NSError *error) {
             //
             if (error != nil) {
                 NSLog(@"Problems while marking message as read! Error: %@", error);
@@ -269,10 +269,10 @@ UIActionSheetDelegate
     }
 }
 
-- (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID
+- (void)readMessages:(NSArray *)messages
 {
     if ([QBChat instance].isConnected) {
-        [[ServicesManager instance].chatService readMessages:messages forDialogID:dialogID completion:^(NSError * _Nullable error) {
+        [[ServicesManager instance].chatService readMessages:messages forDialogID:self.dialog.ID completion:^(NSError *error) {
             //
         }];
     } else {
@@ -630,35 +630,36 @@ UIActionSheetDelegate
     }
 }
 
-- (void)collectionViewHasReachedTop:(QMChatCollectionView *)collectionView {
-    // load earlier messages
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    __weak typeof(self)weakSelf = self;
-    // Getting earlier messages for chat dialog identifier.
-    [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask<NSArray<QBChatMessage *> *> *task) {
-        
-        if (task.result.count > 0) {
-            [weakSelf insertMessagesToTheTopAnimated:task.result];
-        }
-
-        return nil;
-    }];
+    NSUInteger lastSection = [self.collectionView numberOfSections] - 1;
+    if (indexPath.section == lastSection && indexPath.item == [self.collectionView numberOfItemsInSection:lastSection] - 1) {
+        // the very first message
+        // load more if exists
+        __weak typeof(self)weakSelf = self;
+        // Getting earlier messages for chat dialog identifier.
+        [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask<NSArray<QBChatMessage *> *> *task) {
+            
+            if (task.result.count > 0) {
+                [weakSelf insertMessagesToTheTopAnimated:task.result];
+            }
+            
+            return nil;
+        }];
+    }
+    
+//     marking message as read if needed
+    QBChatMessage *itemMessage = [self messageForIndexPath:indexPath];
+    NSLog(@"%@", itemMessage.text);
+    [self sendReadStatusForMessage:itemMessage];
 }
 
 #pragma mark - QMChatServiceDelegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
+        // Inserting message received from XMPP
         [self insertMessageToTheBottomAnimated:message];
-        
-        [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
-    }
-}
-
-- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID
-{
-    if ([self.dialog.ID isEqualToString:dialogID]) {
-        [self readMessages:messages forDialogID:dialogID];
     }
 }
 
@@ -688,9 +689,7 @@ UIActionSheetDelegate
         [self refreshMessagesShowingProgress:YES];
     }
     
-    for (QBChatMessage* message in self.unreadMessages) {
-        [self sendReadStatusForMessage:message forDialogID:self.dialog.ID];
-    }
+    [self readMessages:self.unreadMessages];
     
     self.unreadMessages = nil;
 }
