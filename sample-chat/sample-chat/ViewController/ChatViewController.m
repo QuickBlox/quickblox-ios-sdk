@@ -127,12 +127,8 @@ UIActionSheetDelegate
 		if (response.success) {
             
             __typeof(weakSelf)strongSelf = weakSelf;
-            
             if ([messages count] > 0) [strongSelf insertMessagesToTheBottomAnimated:messages];
-            
-            if (showingProgress && !strongSelf.isSendingAttachment) {
-                [SVProgressHUD dismiss];
-            }
+            [SVProgressHUD dismiss];
             
 		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
@@ -169,21 +165,20 @@ UIActionSheetDelegate
     NSArray *chatDialogMessages = [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
     if (chatDialogMessages != nil) {
         [self insertMessagesToTheBottomAnimated:chatDialogMessages];
+        [self refreshMessagesShowingProgress:NO];
     } else {
+        [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
+        
         __weak __typeof(self)weakSelf = self;
         [[ServicesManager instance] cachedMessagesWithDialogID:self.dialog.ID block:^(NSArray *collection) {
             //
+            __typeof(weakSelf)strongSelf = weakSelf;
             if ([collection count] > 0) {
-                [weakSelf insertMessagesToTheBottomAnimated:collection];
+                [strongSelf insertMessagesToTheBottomAnimated:collection];
             }
+            
+            [strongSelf refreshMessagesShowingProgress:NO];
         }];
-    }
-    
-    if (self.totalMessagesCount > 0) {
-        [self refreshMessagesShowingProgress:NO];
-    }
-    else {
-        [self refreshMessagesShowingProgress:YES];
     }
 }
 
@@ -587,9 +582,8 @@ UIActionSheetDelegate
         }];
     }
     
-//     marking message as read if needed
+    // marking message as read if needed
     QBChatMessage *itemMessage = [self messageForIndexPath:indexPath];
-    NSLog(@"%@", itemMessage.text);
     [self sendReadStatusForMessage:itemMessage];
 }
 
@@ -624,12 +618,9 @@ UIActionSheetDelegate
 
 - (void)refreshAndReadMessages;
 {
-    if (self.dialog.type != QBChatDialogTypePrivate) {
-        [self refreshMessagesShowingProgress:YES];
-    }
+    [self refreshMessagesShowingProgress:YES];
     
     [self readMessages:self.unreadMessages];
-    
     self.unreadMessages = nil;
 }
 
