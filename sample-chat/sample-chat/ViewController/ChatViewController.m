@@ -113,9 +113,6 @@ UIActionSheetDelegate
         __typeof(self) strongSelf = weakSelf;
         [strongSelf updateTitle];
     }];
-    
-#warning group dialog join fastfix
-    if (!self.dialog.isJoined) [self.dialog joinWithCompletionBlock:nil];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
