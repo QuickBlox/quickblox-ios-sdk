@@ -26,7 +26,7 @@ static NSString *const kQMItemsInsertKey    = @"kQMItemsInsertKey";
 
 static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
-@interface QMChatViewController () <QMInputToolbarDelegate, QMKeyboardControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface QMChatViewController () <QMInputToolbarDelegate, QMKeyboardControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet QMChatCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet QMInputToolbar *inputToolbar;
@@ -205,18 +205,25 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         }
     }
 
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+
     __weak __typeof(self)weakSelf = self;
     [self.collectionView performBatchUpdates:^{
         //
         __typeof(weakSelf)strongSelf = weakSelf;
+        
+        if ([[itemsToInsert firstObject] section] == [strongSelf.collectionView numberOfSections] - 1) {
+            // reloading last section cause layout changed
+            [strongSelf.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[strongSelf.collectionView numberOfSections] - 1]];
+        }
         
         if ([sectionsIndexSet count] > 0) [strongSelf.collectionView insertSections:sectionsIndexSet];
         [strongSelf.collectionView insertItemsAtIndexPaths:itemsToInsert];
         
     } completion:^(BOOL finished) {
         //
-        __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
+        [CATransaction commit];
     }];
 }
 
@@ -255,7 +262,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
             }
         }
     }
-
+    
     self.chatSections = sectionsToAdd;
     
     return @{kQMSectionsInsertKey : sectionsToInsert,
@@ -268,7 +275,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (void)insertMessagesToTheBottomAnimated:(NSArray *)messages {
-    NSParameterAssert(messages);
+    NSAssert([messages count] > 0, @"Array must contain messages!");
     
     if (self.chatSections == nil) {
         [self prepareSectionsForMessages:messages];
@@ -545,6 +552,13 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         NSIndexPath* topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.collectionView scrollToItemAtIndexPath:topIndexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
     }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
+    // disabling scrolll to bottom when tapping status bar
+    return NO;
 }
 
 #pragma mark - Collection view data source

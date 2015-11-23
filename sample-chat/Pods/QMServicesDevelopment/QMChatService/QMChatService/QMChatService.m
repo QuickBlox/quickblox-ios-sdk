@@ -117,7 +117,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 	}
 }
 
-- (void)loadCahcedMessagesWithDialogID:(NSString *)dialogID compleion:(void(^)(NSArray *messages))completion {
+- (void)loadCachedMessagesWithDialogID:(NSString *)dialogID compleion:(void(^)())completion {
 	
 	if ([self.cacheDataSource respondsToSelector:@selector(cachedMessagesWithDialogID:block:)]) {
 		
@@ -134,7 +134,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 			}
             
             if (completion) {
-                completion(collection);
+                completion();
             }
 		}];
 	}
@@ -805,20 +805,25 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 
 - (void)messagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion {
 	
-    @weakify(self);
-    
-	[self loadCahcedMessagesWithDialogID:chatDialogID compleion:^(NSArray *messages) {
+    dispatch_group_t messagesLoadGroup = dispatch_group_create();
+    if ([[self.messagesMemoryStorage messagesWithDialogID:chatDialogID] count] == 0) {
         
+        // loading messages from cache
+        dispatch_group_enter(messagesLoadGroup);
+        [self loadCachedMessagesWithDialogID:chatDialogID compleion:^{
+            //
+            dispatch_group_leave(messagesLoadGroup);
+        }];
+    }
+    
+    @weakify(self);
+    dispatch_group_notify(messagesLoadGroup, dispatch_get_main_queue(), ^{
+        //
         @strongify(self);
         
-        __block NSMutableArray *allMessages = [NSMutableArray arrayWithArray:messages];
-        
         QBResponsePage *page = [QBResponsePage responsePageWithLimit:self.chatMessagesPerPage];
-        
-        NSMutableDictionary* parameters = [@{@"sort_desc" : @"date_sent"} mutableCopy];
-        
-        QBChatMessage* lastMessage = [self.messagesMemoryStorage lastMessageFromDialogID:chatDialogID];
-        
+        NSMutableDictionary *parameters = [@{@"sort_desc" : @"date_sent"} mutableCopy];
+        QBChatMessage *lastMessage = [self.messagesMemoryStorage lastMessageFromDialogID:chatDialogID];
         if (lastMessage != nil) {
             parameters[@"date_sent[gt]"] = @([lastMessage.dateSent timeIntervalSince1970]);
         }
@@ -830,7 +835,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
                                NSArray* sortedMessages = [[messages reverseObjectEnumerator] allObjects];
                                
                                if ([sortedMessages count] > 0) {
-        
+                                   
                                    if (lastMessage == nil) {
                                        [self.messagesMemoryStorage replaceMessages:sortedMessages forDialogID:chatDialogID];
                                    } else {
@@ -843,8 +848,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
                                }
                                
                                if (completion) {
-                                   [allMessages addObjectsFromArray:sortedMessages];
-                                   completion(response, allMessages);
+                                   completion(response, sortedMessages);
                                }
                            } errorBlock:^(QBResponse *response) {
                                // case where we may have deleted dialog from another device
@@ -856,7 +860,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
                                    completion(response, nil);
                                }
                            }];
-    }];
+    });
 }
 
 - (BFTask <NSArray <QBChatMessage *> *> *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID {
