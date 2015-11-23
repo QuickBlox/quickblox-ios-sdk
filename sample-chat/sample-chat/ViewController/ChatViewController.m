@@ -314,64 +314,9 @@ UIActionSheetDelegate
         }
     }];
     
-    // Custom push sending (uncomment sendPushWithText method and line below)
-//    [self sendPushWithText:text];
-    
     [self finishSendingMessageAnimated:YES];
     
 }
-
-/**
- *  If you want to send custom push notifications.
- *  uncomment methods bellow.
- *  By default push messages are disabled in admin panel.
- *  (you can change settings in admin panel -> Chat -> Alert)
- */
-
-//#pragma mark - Custom push notifications
-//
-//- (void)sendPushWithText: (NSString*)text {
-//    NSString *pushMessage = [[[[self senderDisplayName] stringByAppendingString:@": "] stringByAppendingString:text] mutableCopy];
-//    [self createEventWithMessage:pushMessage];
-//}
-//
-//- (void)sendPushWithAttachment {
-//    NSString *pushMessage = [[[self senderDisplayName] stringByAppendingString:@" sent attachment."] mutableCopy];
-//    [self createEventWithMessage:pushMessage];
-//}
-//
-//- (void)createEventWithMessage: (NSString *)message {
-//    // removing current user from occupantIDs
-//    NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
-//    for (NSNumber *identifier in self.dialog.occupantIDs) {
-//        if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
-//            [occupantsWithoutCurrentUser addObject:identifier];
-//        }
-//    }
-//    
-//    // Sending push with event
-//    QBMEvent *event = [QBMEvent event];
-//    event.notificationType = QBMNotificationTypePush;
-//    event.usersIDs = [occupantsWithoutCurrentUser componentsJoinedByString:@","];
-//    event.type = QBMEventTypeOneShot;
-//    //
-//    // custom params
-//    NSDictionary  *dictPush = @{kPushNotificationDialogMessageKey : message,
-//                                kPushNotificationDialogIdentifierKey : self.dialog.ID
-//                                };
-//    //
-//    NSError *error = nil;
-//    NSData *sendData = [NSJSONSerialization dataWithJSONObject:dictPush options:NSJSONWritingPrettyPrinted error:&error];
-//    NSString *jsonString = [[NSString alloc] initWithData:sendData encoding:NSUTF8StringEncoding];
-//    //
-//    event.message = jsonString;
-//    
-//    [QBRequest createEvent:event successBlock:^(QBResponse *response, NSArray *events) {
-//        //
-//    } errorBlock:^(QBResponse *response) {
-//        //
-//    }];
-//}
 
 #pragma mark - Cell classes
 
@@ -779,9 +724,6 @@ UIActionSheetDelegate
                                                                               [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                           } else {
                                                                               [SVProgressHUD showSuccessWithStatus:@"Completed"];
-                                                                              // Custom push sending (uncomment sendPushWithAttachment method and line below)
-//                                                                             [strongSelf sendPushWithAttachment];
-                                                                              
                                                                           }
                                                                           strongSelf.isSendingAttachment = NO;
                                                                       });
