@@ -64,12 +64,6 @@ UIActionSheetDelegate
     return _pickerController;
 }
 
-- (void)refreshCollectionView
-{
-    [self.collectionView reloadData];
-    [self scrollToBottomAnimated:NO];
-}
-
 #pragma mark - Override
 
 - (NSUInteger)senderID
@@ -99,25 +93,11 @@ UIActionSheetDelegate
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.textView.placeHolder = @"Message";
-    
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
+    self.stringBuilder = [MessageStatusStringBuilder new];
     
     [self updateTitle];
     
-    self.stringBuilder = [MessageStatusStringBuilder new];
-    
-    // Retrieving messages from memory storage.
-    NSArray *chatDialogMessages = [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
-    if (chatDialogMessages != nil) {
-        [self insertMessagesToTheBottomAnimated:chatDialogMessages];
-    }
-    
-    QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
-    context.invalidateFlowLayoutMessagesCache = YES;
-    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
-
-    [self refreshCollectionView];
-
     // Handling 'typing' status.
     __weak typeof(self)weakSelf = self;
     [self.dialog setOnUserIsTyping:^(NSUInteger userID) {
@@ -134,6 +114,7 @@ UIActionSheetDelegate
         [strongSelf updateTitle];
     }];
     
+#warning group dialog join fastfix
     if (!self.dialog.isJoined) [self.dialog joinWithCompletionBlock:nil];
 }
 
@@ -186,6 +167,20 @@ UIActionSheetDelegate
     
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
+    
+    // Retrieving messages from memory storage.
+    NSArray *chatDialogMessages = [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
+    if (chatDialogMessages != nil) {
+        [self insertMessagesToTheBottomAnimated:chatDialogMessages];
+    } else {
+        __weak __typeof(self)weakSelf = self;
+        [[ServicesManager instance] cachedMessagesWithDialogID:self.dialog.ID block:^(NSArray *collection) {
+            //
+            if ([collection count] > 0) {
+                [weakSelf insertMessagesToTheBottomAnimated:collection];
+            }
+        }];
+    }
     
     if (self.totalMessagesCount > 0) {
         [self refreshMessagesShowingProgress:NO];
