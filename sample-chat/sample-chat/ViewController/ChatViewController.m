@@ -148,9 +148,11 @@ UIActionSheetDelegate
 	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
 		if (response.success) {
             
-            [weakSelf insertMessagesToTheBottomAnimated:messages];
+            __typeof(weakSelf)strongSelf = weakSelf;
             
-            if (showingProgress && !weakSelf.isSendingAttachment) {
+            if ([messages count] > 0) [strongSelf insertMessagesToTheBottomAnimated:messages];
+            
+            if (showingProgress && !strongSelf.isSendingAttachment) {
                 [SVProgressHUD dismiss];
             }
             
