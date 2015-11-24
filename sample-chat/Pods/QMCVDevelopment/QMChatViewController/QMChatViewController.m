@@ -38,7 +38,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 @property (strong, nonatomic) QMKeyboardController *keyboardController;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 @property (assign, nonatomic) BOOL isObserving;
-@property (strong, nonatomic) NSCache *cache;
 
 @property (strong, nonatomic) NSMutableArray *chatSections;
 @property (strong, nonatomic) NSTimer* timer;
@@ -79,20 +78,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     [self.keyboardController endListeningForKeyboard];
     self.keyboardController = nil;
-    [self.cache removeAllObjects];
-    self.cache = nil;
     
     self.chatSections = nil;
-}
-
-- (void)setCacheLimit:(NSUInteger)cacheLimit {
-    
-    self.cache.countLimit = cacheLimit;
-}
-
-- (NSUInteger)cacheLimit {
-    
-    return self.cache.countLimit;
 }
 
 #pragma mark - Initialization
@@ -119,10 +106,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
                                           delegate:self];
     
     [self registerCells];
-    
-    self.cache = [[NSCache alloc] init];
-    self.cache.name = @"com.chat.sizes";
-    self.cache.countLimit = 300;
 }
 
 - (void)registerCells {
@@ -223,6 +206,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         
     } completion:^(BOOL finished) {
         //
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
         [CATransaction commit];
     }];
 }
@@ -329,24 +314,28 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     }];
 }
 
-- (NSIndexPath *)updateMessage:(QBChatMessage *)message {
-    return [[self updateMessages:@[message]] firstObject];
+- (void)updateMessage:(QBChatMessage *)message {
+    [self updateMessages:@[message]];
 }
 
-- (NSArray *)updateMessages:(NSArray *)messages {
+- (void)updateMessages:(NSArray *)messages {
     
     NSMutableArray *indexPaths = [NSMutableArray array];
+    
     for (QBChatMessage *message in messages) {
         NSIndexPath *indexPath = [self indexPathForMessage:message];
         if (indexPath == nil) continue;
         
         [indexPaths addObject:indexPath];
+        [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:message.ID];
         
         QMChatSection *chatSection = self.chatSections[indexPath.section];
         [chatSection.messages replaceObjectAtIndex:indexPath.item withObject:message];
     }
     
-    return [indexPaths copy];
+    if ([indexPaths count] > 0) {
+        [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+    }
 }
 
 #pragma mark - View lifecycle
@@ -579,7 +568,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
-                    sectionFooterAtIndexPath:(NSIndexPath *)indexPath {
+                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
     QMHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                                                                                     withReuseIdentifier:[QMHeaderCollectionReusableView cellReuseIdentifier] forIndexPath:indexPath];
     
@@ -595,8 +584,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
                                  atIndexPath:(NSIndexPath *)indexPath {
     
     if (kind == UICollectionElementKindSectionFooter) {
-        
-        return [self collectionView:collectionView sectionFooterAtIndexPath:indexPath];
+        // due to collection view being reversed, section header is actually footer
+        return [self collectionView:collectionView sectionHeaderAtIndexPath:indexPath];
     }
     
     return nil;

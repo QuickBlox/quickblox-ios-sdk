@@ -104,7 +104,7 @@
  *
  *  @discussion Use this method to insert older messages in chat.
  */
-- (void)insertMessagesToTheTopAnimated:(NSArray <QBChatMessage *> *)messages;
+- (void)insertMessagesToTheTopAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
 /**
  *  Insert message to the bottom.
@@ -122,31 +122,27 @@
  *
  *  @discussion Use this method to insert new messages to the chat controller.
  */
-- (void)insertMessagesToTheBottomAnimated:(NSArray <QBChatMessage *> *)messages;
+- (void)insertMessagesToTheBottomAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
 /**
  *  Update message in chat controller.
  *
  *  @param message  updated message
  *
- *  @discussion Use this method to update message in chat controller. As parameter use updated message, it will be replaced in items by it's ID.
- *  After that you need to reload item with index path which method returns.
- *
- *  @return Index path of updated message. Use it to reload item in collection view.
+ *  @discussion Use this method to update message in chat controller. As parameter use updated message, it will be replaced in items by it's ID
+ *  and reloaded in collection view.
  */
-- (NSIndexPath *)updateMessage:(QBChatMessage *)message;
+- (void)updateMessage:(QBChatMessage *)message;
 
 /**
  *  Update messages in chat controller.
  *
  *  @param messages array of messages to update
  *
- *  @discussion Use this method to update messages in chat controller. As parameter use updated message, it will be replaced in items by it's ID.
- *  After that you need to reload item with index paths which method returns.
- *
- *  @return Index paths of updated messages. Use it to reload item in collection view.
+ *  @discussion Use this method to update messages in chat controller. As parameter use updated message, it will be replaced in items by it's ID
+ *  and reloaded in collection view.
  */
-- (NSArray <NSIndexPath *> *)updateMessages:(NSArray <QBChatMessage *> *)messages;
+- (void)updateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
 /**
  *  Method to create chat message text attributed string. Have to be overriden in subclasses.
@@ -187,17 +183,18 @@
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
 
 /**
- *  Collection view reusable section footer.
+ *  Collection view reusable section header.
  *
  *  @param collectionView   collection view to dequeue reusable header
  *  @param indexPath        index path of section header
  *
- *  @discussion Override this method if you want to use custom reusable view as section footer.
+ *  @discussion Override this method if you want to use custom reusable view as section header.
+ *  Keep in mind that due to collection view being reversed, section header is actually footer.
  *
- *  @return collection view reusable view to use as section footer.
+ *  @return collection view reusable view to use as section header.
  */
 - (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
-                    sectionFooterAtIndexPath:(NSIndexPath *)indexPath;
+                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - Class methods
 

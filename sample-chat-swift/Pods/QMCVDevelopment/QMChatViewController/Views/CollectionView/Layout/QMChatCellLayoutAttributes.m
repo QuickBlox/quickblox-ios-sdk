@@ -18,6 +18,15 @@
 
 #pragma mark - Lifecycle
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.transform = CGAffineTransformMake(1, 0, 0, -1, 0, 0);
+    }
+    return self;
+}
+
 - (void)dealloc {
     
 }
