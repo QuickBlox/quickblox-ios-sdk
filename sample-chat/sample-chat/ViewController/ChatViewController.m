@@ -605,12 +605,7 @@ UIActionSheetDelegate
 - (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
 {
     if ([self.dialog.ID isEqualToString:dialogID]) {
-        QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
-        context.invalidateFlowLayoutMessagesCache = YES;
-        [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
-        NSIndexPath *indexPath = [self updateMessage:message];
-        
-        if (indexPath != nil) [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        [self updateMessage:message];
     }
 }
 
@@ -643,11 +638,7 @@ UIActionSheetDelegate
         if (status == QMMessageAttachmentStatusLoading && message.senderID == self.senderID) {
             [self insertMessageToTheBottomAnimated:message];
         } else {
-            QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
-            context.invalidateFlowLayoutMessagesCache = YES;
-            [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
-            
-            [self.collectionView reloadItemsAtIndexPaths:@[[self updateMessage:message]]];
+            [self updateMessage:message];
         }
     }
 }
