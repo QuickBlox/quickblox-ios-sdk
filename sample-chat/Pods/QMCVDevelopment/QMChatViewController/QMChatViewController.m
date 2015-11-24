@@ -310,6 +310,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     } completion:^(BOOL finished) {
         //
         __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
         [strongSelf scrollToBottomAnimated:NO];
     }];
 }
@@ -1022,7 +1023,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 #pragma mark - Collection view utilities
 
 - (void)updateCollectionViewInsets {
-    
+
     [self setCollectionViewInsetsTopValue:CGRectGetMaxY(self.collectionView.frame) - CGRectGetMinY(self.inputToolbar.frame)
                               bottomValue:self.topLayoutGuide.length + self.topContentAdditionalInset];
 }
