@@ -294,7 +294,6 @@
  @param objectID Identifier of object form which file will be deleted
  @param fileFieldName Name of file field
  @param successBlock Block with response instance if request succeded
- @param statusBlock Block with upload/download progress
  @param errorBlock Block with response instance if request failed
  
  @return An instance of QBRequest for cancel operation mainly.

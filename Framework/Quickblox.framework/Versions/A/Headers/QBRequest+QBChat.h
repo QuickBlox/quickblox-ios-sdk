@@ -32,7 +32,7 @@
  Retrieve chat dialogs for page
  
  @param page Page with skip and limit
- @param extendedParameters Set of request parameters
+ @param extendedRequest Set of request parameters
  @param successBlock Block with response instance, arrays of chat dialogs and chat dialogs users IDs and page instance if request succeded
  @param errorBlock Block with response instance if request failed
  
@@ -59,7 +59,7 @@
 /**
  Update existing chat dialog
  
- @param dialog. The dialog instance to update
+ @param dialog The dialog instance to update
  @param successBlock Block with response and updated chat dialog instances if request succeded
  @param errorBlock Block with response instance if request failed
  
@@ -74,7 +74,7 @@
  
  @warning Deprecated in 2.4.3. Use 'deleteDialogsWithIDs:forAllUsers:successBlock:errorBlock:' instead.
  
- @param dialogID. The ID of a dialog to delete
+ @param dialogID The ID of a dialog to delete
  @param successBlock Block with response if request succeded
  @param errorBlock Block with response instance if request failed
  
@@ -86,8 +86,8 @@
 /**
  Delete dialogs
  
- @param dialogIDs. The IDs of a dialogs to delete.
- @param forAllUsers. Delete dialog for current user or remove it for all users.
+ @param dialogIDs The IDs of a dialogs to delete.
+ @param forAllUsers Delete dialog for current user or remove it for all users.
  @param successBlock Block with response if request succeded.
  @param errorBlock Block with response instance if request failed.
  
@@ -169,7 +169,7 @@
  @note Updates message "read" status only on server.
  
  @param dialogID dialog ID.
- @param messageIDs Set of chat message IDs to mark as read. If messageIDs is nil then all messages in dialog will be marked as read.
+ @param messagesIDs Set of chat message IDs to mark as read. If messageIDs is nil then all messages in dialog will be marked as read.
  @param successBlock Block with response instance if request succeded.
  @param errorBlock Block with response instance if request failed.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
@@ -192,8 +192,8 @@
 
 /**
  Delete existent chat messages completely for all users
- @param messageIDs. The IDs of a messages to delete.
- @param forAllUsers. Delete message for current user or remove it for all users.
+ @param messageIDs The IDs of a messages to delete.
+ @param forAllUsers Delete message for current user or remove it for all users.
  @param successBlock Block with response instance if request succeded.
  @param errorBlock Block with response instance if request failed.
  

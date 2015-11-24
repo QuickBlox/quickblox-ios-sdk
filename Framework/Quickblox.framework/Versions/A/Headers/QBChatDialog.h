@@ -69,6 +69,12 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 @property (nonatomic, readonly) NSInteger recipientID;
 
 /**
+ *  Fired when sent message was blocked on server.
+ */
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogBlockedMessageBlock onBlockedMessage;
+- (void)setOnBlockedMessage:(QB_NULLABLE QBChatDialogBlockedMessageBlock)anOnBlockedMessage;
+
+/**
  *  Fired when user joined to room.
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'joinWithCompletionBlock:' instead.

@@ -13,7 +13,7 @@
 
 /** QBASession class declaration  */
 /** Overview:*/
-/** This class represents session information. */
+/** This class represents session details. */
 
 @interface QBASession : QBCEntity <NSCoding, NSCopying>{
 @private

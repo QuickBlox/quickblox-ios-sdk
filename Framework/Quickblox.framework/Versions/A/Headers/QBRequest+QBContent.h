@@ -245,7 +245,7 @@
  Update File task. Contains 3 quieries: Update Blob, Upload file, Declaring file uploaded
  
  @param data File to be uploaded
- @param blob File which needs to be updated
+ @param file File which needs to be updated
  @param successBlock Block with response if request succeded
  @param statusBlock Block with upload/download progress
  @param errorBlock Block with response instance if request failed

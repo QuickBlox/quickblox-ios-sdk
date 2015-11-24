@@ -25,7 +25,15 @@ typedef enum QBConnectionZoneType{
 @interface QBSettings : NSObject
 
 /**
- *  Allow to set api endpoint and chat endpoint for service zone
+ *  Allow to set api endpoint and chat endpoint for service zone.
+ *
+ *  @note QBConnectionZoneTypeAutomatic is used by default.
+ *  If you are using shared server and you are migrating to enterprise account,
+ *  then you don't need to resubmit your application, endpoints will be updated automatically.
+ 
+ *  To set custom endpoints use QBConnectionZoneTypeProduction or QBConnectionZoneTypeDevelopment service zone.
+ *  Then you should manually activate your service zone by calling setServiceZone:
+ *
  *  @param apiEndpoint  apiEndpoint - Endpoint for service i.e. http://my_custom_endpoint.com. Possible to pass nil to return to default settings
  *  @param chatEndpoint chat endpoint
  *  @param zone         QBConnectionZoneType - service zone
@@ -42,7 +50,7 @@ typedef enum QBConnectionZoneType{
 #pragma mark -
 #pragma mark Chat settings
 
-/// Enable or disable auto reconnect
+/// Enable or disable chat auto reconnect
 + (void)setAutoReconnectEnabled:(BOOL)autoReconnectEnabled;
 
 /* Background mode for stream. Not supported from 2.5.0 due to Apple policy on using battery in background mode.
@@ -116,14 +124,14 @@ typedef enum QBConnectionZoneType{
 /**
  * Allow to change Services Zone to work with Development and Staging environments
  *
- * @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeProduction
+ * @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
  */
 + (void)setServiceZone:(QBConnectionZoneType)serviceZone;
 
 /**
  *  Return current Service Zone
  *
- *  @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
+ *  @note serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
  */
 + (QBConnectionZoneType)currentServiceZone;
 
@@ -140,7 +148,7 @@ typedef enum QBConnectionZoneType{
 /**
  *  Set server's Chat endpoint for current service zone
  *
- *  @param chatEndpoint New server's Chat endpoint
+ *  @param chatDomain New server's Chat endpoint
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'setApiEndpoint:chatEndpoint:forServiceZone:' instead.
  */
