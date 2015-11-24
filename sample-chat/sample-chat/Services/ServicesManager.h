@@ -30,11 +30,6 @@
 @property (strong, nonatomic) NSDate *lastActivityDate;
 
 /**
- *  Joining all group dialogs
- */
-- (void)joinAllGroupDialogs;
-
-/**
  *  Downlaod latest users
  */
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;

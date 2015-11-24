@@ -14,7 +14,7 @@
 @class QMChatCollectionViewCell;
 @class QMChatCellLayoutAttributes;
 
-typedef struct QMChatLayoutModel QMChatCellLayoutModel ;
+typedef struct QMChatLayoutModel QMChatCellLayoutModel;
 
 /**
  *  The `QMChatCollectionViewDelegateFlowLayout` protocol defines methods that allow you to
@@ -29,13 +29,5 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel ;
 
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth;
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
- *  Called when collection view has reached its top.
- *  You can handle loading of earlier messages here.
- *
- *  @param collectionView The collection view object that is notifying the delegate of the event.
- */
-- (void)collectionViewHasReachedTop:(QMChatCollectionView *)collectionView;
 
 @end

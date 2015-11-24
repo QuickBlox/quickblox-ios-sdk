@@ -84,7 +84,6 @@ QMChatConnectionDelegate
 {
     __weak __typeof(self) weakSelf = self;
     if ([ServicesManager instance].lastActivityDate != nil) {
-        [[ServicesManager instance] joinAllGroupDialogs];
         [[ServicesManager instance].chatService fetchDialogsUpdatedFromDate:[ServicesManager instance].lastActivityDate andPageLimit:kDialogsPageLimit iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             //
             __typeof(weakSelf) strongSelf = weakSelf;

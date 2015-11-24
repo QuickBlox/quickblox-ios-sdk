@@ -55,7 +55,7 @@
                                                object:nil];
     
     self.cache = [[NSCache alloc] init];
-    self.cache.countLimit = 3000;
+    self.cache.countLimit = 300;
     self.cache.name = @"com.qm.chat.sizes";
 }
 
@@ -133,6 +133,16 @@
         _visibleIndexPaths = [NSMutableSet new];
     }
     return _visibleIndexPaths;
+}
+
+- (void)setCacheLimit:(NSUInteger)cacheLimit {
+
+    self.cache.countLimit = cacheLimit;
+}
+
+- (NSUInteger)cacheLimit {
+
+    return self.cache.countLimit;
 }
 
 #pragma mark - Notifications
@@ -326,6 +336,10 @@
 }
 
 #pragma mark - Message cell layout utilities
+
+- (void)removeSizeFromCacheForItemID:(NSString *)itemID {
+    [self.cache removeObjectForKey:itemID];
+}
 
 - (CGSize)containerViewSizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     

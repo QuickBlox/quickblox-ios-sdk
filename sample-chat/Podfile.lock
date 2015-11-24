@@ -14,6 +14,8 @@ PODS:
     - QMCVDevelopment/Categories (= 0.2.5)
     - QMCVDevelopment/KeyboardViewController (= 0.2.5)
     - QMCVDevelopment/Protocols (= 0.2.5)
+    - QMCVDevelopment/QMChatSection (= 0.2.5)
+    - QMCVDevelopment/Utils (= 0.2.5)
     - QMCVDevelopment/Views (= 0.2.5)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
@@ -24,6 +26,12 @@ PODS:
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
   - QMCVDevelopment/Protocols (0.2.5):
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMCVDevelopment/QMChatSection (0.2.5):
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (~> 1.13)
+  - QMCVDevelopment/Utils (0.2.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
   - QMCVDevelopment/Views (0.2.5):
@@ -44,32 +52,32 @@ PODS:
 
 DEPENDENCIES:
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`,
-    branch `development`)
+    branch `feature/QBIOSSDK-541`)
   - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`,
-    branch `development`)
+    branch `feature/QBIOSSDK-541`)
   - SVProgressHUD
   - TWMessageBarManager (~> 1.7.2)
 
 EXTERNAL SOURCES:
   QMCVDevelopment:
-    :branch: development
+    :branch: feature/QBIOSSDK-541
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :branch: development
+    :branch: feature/QBIOSSDK-541
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: e00b407f5b90834e8b83c42807a06d0ac86ac246
+    :commit: 6c9af19c70fbe4e370f884c275c45bb11b6824f7
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 877a95df0224a153afc58f0b44889ef050af7db6
+    :commit: d53959bc4232627787b23b21ed6a4dd2bceca9e1
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  QMCVDevelopment: c214377e5983e4577e608b7e37c88e338febb5e7
+  QMCVDevelopment: 327c0ced54fd44b0772a8de25d3a26ff82f1db97
   QMServicesDevelopment: 3a6ea48e553ffbb818ce18a768da17e82e57a6bb
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1

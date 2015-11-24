@@ -117,7 +117,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 	}
 }
 
-- (void)loadCahcedMessagesWithDialogID:(NSString *)dialogID compleion:(dispatch_block_t)completion {
+- (void)loadCachedMessagesWithDialogID:(NSString *)dialogID compleion:(void(^)())completion {
 	
 	if ([self.cacheDataSource respondsToSelector:@selector(cachedMessagesWithDialogID:block:)]) {
 		
@@ -805,22 +805,27 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 
 - (void)messagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion {
 	
-    @weakify(self);
-    
-	[self loadCahcedMessagesWithDialogID:chatDialogID compleion:^{
+    dispatch_group_t messagesLoadGroup = dispatch_group_create();
+    if ([[self.messagesMemoryStorage messagesWithDialogID:chatDialogID] count] == 0) {
         
+        // loading messages from cache
+        dispatch_group_enter(messagesLoadGroup);
+        [self loadCachedMessagesWithDialogID:chatDialogID compleion:^{
+            //
+            dispatch_group_leave(messagesLoadGroup);
+        }];
+    }
+    
+    @weakify(self);
+    dispatch_group_notify(messagesLoadGroup, dispatch_get_main_queue(), ^{
+        //
         @strongify(self);
         
-        QBResponsePage *page = [QBResponsePage responsePageWithLimit:kQMChatMessagesPerPage];
-        
-        NSMutableDictionary* parameters = [@{@"sort_desc" : @"date_sent"} mutableCopy];
-        
-        QBChatMessage* lastMessage = [self.messagesMemoryStorage lastMessageFromDialogID:chatDialogID];
-        
+        QBResponsePage *page = [QBResponsePage responsePageWithLimit:self.chatMessagesPerPage];
+        NSMutableDictionary *parameters = [@{@"sort_desc" : @"date_sent"} mutableCopy];
+        QBChatMessage *lastMessage = [self.messagesMemoryStorage lastMessageFromDialogID:chatDialogID];
         if (lastMessage != nil) {
             parameters[@"date_sent[gt]"] = @([lastMessage.dateSent timeIntervalSince1970]);
-        } else {
-            self.loadedAllMessages[chatDialogID] = kQMLoadedAllMessages;
         }
         
         [QBRequest messagesWithDialogID:chatDialogID
@@ -830,7 +835,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
                                NSArray* sortedMessages = [[messages reverseObjectEnumerator] allObjects];
                                
                                if ([sortedMessages count] > 0) {
-        
+                                   
                                    if (lastMessage == nil) {
                                        [self.messagesMemoryStorage replaceMessages:sortedMessages forDialogID:chatDialogID];
                                    } else {
@@ -855,25 +860,31 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
                                    completion(response, nil);
                                }
                            }];
-    }];
+    });
 }
 
 - (BFTask <NSArray <QBChatMessage *> *> *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID {
     
-    if ([self.loadedAllMessages[chatDialogID]  isEqualToNumber: kQMLoadedAllMessages]) return [BFTask taskWithResult:@[]];
+    if ([self.loadedAllMessages[chatDialogID] isEqualToNumber: kQMLoadedAllMessages]) return [BFTask taskWithResult:@[]];
     
     if (self.loadEarlierMessagesTask == nil) {
         BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
         
         QBChatMessage *oldestMessage = [self.messagesMemoryStorage oldestMessageForDialogID:chatDialogID];
         NSString *oldestMessageDate = [NSString stringWithFormat:@"%ld", (long)[oldestMessage.dateSent timeIntervalSince1970]];
-        QBResponsePage *page = [QBResponsePage responsePageWithLimit:kQMChatMessagesPerPage];
+        QBResponsePage *page = [QBResponsePage responsePageWithLimit:self.chatMessagesPerPage];
+        
+        NSMutableDictionary* parameters = [@{
+                                             @"date_sent[lt]" : oldestMessageDate,
+                                             @"sort_desc"     : @"date_sent"
+                                             } mutableCopy];
+        
         
         @weakify(self);
-        [QBRequest messagesWithDialogID:chatDialogID extendedRequest:@{@"date_sent[lt]": oldestMessageDate} forPage:page successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
+        [QBRequest messagesWithDialogID:chatDialogID extendedRequest:parameters forPage:page successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
             @strongify(self);
             
-            if ([messages count] < kQMChatMessagesPerPage) self.loadedAllMessages[chatDialogID] = kQMLoadedAllMessages;
+            if ([messages count] < self.chatMessagesPerPage) self.loadedAllMessages[chatDialogID] = kQMLoadedAllMessages;
             
             if ([messages count] > 0) {
                 
@@ -884,7 +895,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
                 }
             }
             
-            [source setResult:messages];
+            [source setResult:[[messages reverseObjectEnumerator] allObjects]];
             
         } errorBlock:^(QBResponse *response) {
             @strongify(self);
@@ -898,9 +909,10 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         }];
         
         self.loadEarlierMessagesTask = source.task;
+        return self.loadEarlierMessagesTask;
     }
     
-    return self.loadEarlierMessagesTask;
+    return nil;
 }
 
 - (void)earlierMessagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion {
@@ -914,7 +926,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     
     QBChatMessage *oldestMessage = [self.messagesMemoryStorage oldestMessageForDialogID:chatDialogID];
     NSString *oldestMessageDate = [NSString stringWithFormat:@"%ld", (long)[oldestMessage.dateSent timeIntervalSince1970]];
-    QBResponsePage *page = [QBResponsePage responsePageWithLimit:kQMChatMessagesPerPage];
+    QBResponsePage *page = [QBResponsePage responsePageWithLimit:self.chatMessagesPerPage];
     
     __weak __typeof(self) weakSelf = self;
     
@@ -1135,41 +1147,10 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 
 #pragma mark - read messages
 
-- (BOOL)readMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
-    return [self readMessages:@[message] forDialogID:dialogID];
-}
-
 - (void)readMessage:(QBChatMessage *)message completion:(QBChatCompletionBlock)completion {
     NSAssert(message.dialogID != nil, @"Message must have a dialog ID!");
     
     [self readMessages:@[message] forDialogID:message.dialogID completion:completion];
-}
-
-- (BOOL)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID {
-    NSAssert(dialogID != nil, @"dialogID can't be nil");
-    
-    if (![QBChat instance].isConnected) return NO;
-    
-    QBChatDialog *chatDialogToUpdate = [self.dialogsMemoryStorage chatDialogWithID:dialogID];
-    
-    for (QBChatMessage *message in messages) {
-        message.markable = YES;
-        if ([[QBChat instance] readMessage:message]) {
-            if (chatDialogToUpdate.unreadMessagesCount > 0) {
-                chatDialogToUpdate.unreadMessagesCount--;
-            }
-            
-            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
-                [self.multicastDelegate chatService:self didUpdateMessage:message forDialogID:dialogID];
-            }
-        }
-    }
-    
-    if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
-        [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
-    }
-    
-    return YES;
 }
 
 - (void)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion {
