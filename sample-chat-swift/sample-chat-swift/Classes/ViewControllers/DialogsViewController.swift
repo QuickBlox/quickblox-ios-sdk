@@ -175,7 +175,6 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     func getDialogs() {
         
         if (ServicesManager.instance().lastActivityDate != nil) {
-            ServicesManager.instance().joinAllGroupDialogs()
             ServicesManager.instance().chatService.fetchDialogsUpdatedFromDate(ServicesManager.instance().lastActivityDate, andPageLimit: kDialogsPageLimit, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
                 //
                 }, completionBlock: { (response: QBResponse!) -> Void in

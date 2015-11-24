@@ -72,24 +72,6 @@ class ServicesManager: QMServicesManager {
         TWMessageBarManager.sharedInstance().showMessageWithTitle(dialogName, description: message.text, type: TWMessageBarMessageType.Info)
     }
     
-    // MARK: dialog utils
-    
-    func joinAllGroupDialogs() {
-        let allDialogs: Array<QBChatDialog> = ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false) as! Array<QBChatDialog>
-        for dialog : QBChatDialog in allDialogs {
-            
-            // Notifies occupants that user left the dialog.
-            if dialog.type != QBChatDialogType.Private {
-                
-                self.chatService.joinToGroupDialog(dialog, completion: { (error: NSError?) -> Void in
-                    if (error != nil) {
-                        NSLog("Failed to join dialog with error: %@", error!)
-                    }
-                })
-            }
-        }
-    }
-    
     // MARK: Last activity date
     
     var lastActivityDate: NSDate? {
