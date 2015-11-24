@@ -128,13 +128,17 @@ UIActionSheetDelegate
             
             __typeof(weakSelf)strongSelf = weakSelf;
             if ([messages count] > 0) [strongSelf insertMessagesToTheBottomAnimated:messages];
-            [SVProgressHUD dismiss];
+            if (!self.isSendingAttachment) [SVProgressHUD dismiss];
             
 		} else {
 			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
 			NSLog(@"can not refresh messages: %@", response.error.error);
 		}
 	}];
+}
+
+- (NSArray *)storedMessages {
+    return [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -161,10 +165,10 @@ UIActionSheetDelegate
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
-    // Retrieving messages from memory storage.
-    NSArray *chatDialogMessages = [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
-    if (chatDialogMessages != nil) {
-        [self insertMessagesToTheBottomAnimated:chatDialogMessages];
+    // Retrieving messages
+    if ([[self storedMessages] count] > 0) {
+        
+        [self insertMessagesToTheBottomAnimated:[self storedMessages]];
         [self refreshMessagesShowingProgress:NO];
     } else {
         [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
@@ -679,6 +683,7 @@ UIActionSheetDelegate
 - (void)didPickAttachmentImage:(UIImage *)image
 {
     self.isSendingAttachment = YES;
+    
     [SVProgressHUD showWithStatus:@"Uploading attachment" maskType:SVProgressHUDMaskTypeClear];
     
     QBChatMessage* message = [QBChatMessage new];
