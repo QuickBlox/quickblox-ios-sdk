@@ -40,14 +40,24 @@ typedef enum QBConnectionZoneType{
  */
 + (void)setApiEndpoint:(QB_NULLABLE NSString *)apiEndpoint chatEndpoint:(QB_NULLABLE NSString *)chatEndpoint forServiceZone:(QBConnectionZoneType)zone;
 
+/**
+ *  You can pass your session configuration for NSURLSession that is used for REST APi requests.
+ *
+ *  @param configuration NSURLSessionConfiguration object.
+ */
++ (void)setSessionConfiguration:(QB_NULLABLE NSURLSessionConfiguration *)configuration;
+
 #pragma mark -
 #pragma mark Chat settings
 
 /// Enable or disable chat auto reconnect
 + (void)setAutoReconnectEnabled:(BOOL)autoReconnectEnabled;
 
-/// Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator
-+ (void)setBackgroundingEnabled:(BOOL)backgroundingEnabled;
+/* Background mode for stream. Not supported from 2.5.0 due to Apple policy on using battery in background mode.
+ *
+ * @warning *Deprecated in QB iOS SDK 2.5.0:* Method is no longer available.
+ */
++ (void)setBackgroundingEnabled:(BOOL)backgroundingEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5.0. Method is no longer available.");
 
 /// Enable or disable message carbons
 + (void)setCarbonsEnabled:(BOOL)carbonsEnabled;

@@ -102,12 +102,11 @@ typedef enum QBChatServiceError {
  */
 @property (nonatomic, assign) NSTimeInterval keepAliveInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setKeepAliveInterval:] instead");
 
-/**
- *  Background mode for stream. By default is NO. Should be set before login to chat. Does not work on simulator.
- *  
- *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setBackgroundingEnabled:] instead.
+/* Background mode for stream. Not supported from 2.5.0 due to Apple policy on using battery in background mode.
+ *
+ * @warning *Deprecated in QB iOS SDK 2.5.0:* Method is no longer available.
  */
-@property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings setBackgroundingEnabled:] instead");
+@property (nonatomic, assign, getter = isBackgroundingEnabled) BOOL backgroundingEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5.0. Method is no longer available.");
 
 - (QB_NONNULL id)init __attribute__((unavailable("'init' is not a supported initializer for this class.")));
 
