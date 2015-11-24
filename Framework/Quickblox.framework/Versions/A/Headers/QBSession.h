@@ -9,27 +9,26 @@
 
 @class QBUUser;
 @class QBASession;
-@class QBResponse;
 
+/** QBSession class declaration. */
+/** Overview */
+/** This class represents session information. */
 
 @interface QBSession : NSObject <NSCoding>
 
+/* Current session instance*/
 + (QB_NONNULL QBSession *)currentSession;
 
+/* Session user */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBUUser *currentUser;
+
+/* Session details */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBASession *sessionDetails;
+
+/* Session expiration date */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDate *sessionExpirationDate;
 
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSString *socialProviderToken;
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDate *socialProviderTokenExpirationDate;
-
+/* Token valid state */
 @property (nonatomic, readonly, getter=isTokenValid) BOOL tokenValid;
-
-- (void)startSessionWithDetails:(QB_NONNULL QBASession *)session expirationDate:(QB_NONNULL NSDate *)sessionDate;
-- (void)updateSessionUser:(QB_NULLABLE QBUUser *)user;
-- (void)updateExpirationDate:(QB_NULLABLE NSDate *)newExpirationDate;
-- (void)saveSocialProviderDetailsFromHeaders:(QB_NONNULL NSDictionary QB_GENERIC(NSString *, NSString *) *)headers;
-- (void)validateWithResponse:(QB_NONNULL QBResponse *)response;
-- (void)endSession;
 
 @end

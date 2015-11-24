@@ -30,10 +30,10 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
     [QBSettings setAccountKey:kAcconuntKey];
     
     // Enables Quickblox REST API calls debug console output
-    [QBSettings setLogLevel:QBLogLevelDebug];
+    [QBSettings setLogLevel:QBLogLevelNothing];
     
     // Enables detailed XMPP logging in console output
-    [QBSettings enableXMPPLogging];
+    [QBSettings disableXMPPLogging];
     
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {

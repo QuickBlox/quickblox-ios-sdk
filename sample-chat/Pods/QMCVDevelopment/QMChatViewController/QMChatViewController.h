@@ -58,6 +58,23 @@
 @property (assign, nonatomic) NSUInteger senderID;
 
 /**
+ *  The time interval that used to split messages between sections.
+ *
+ *  @discussion You should set time interval in seconds with '- (NSTimeInterval)timeIntervalBetweenSections' data source method.
+ *  The messages that have dateSent difference from the last message in section not greater then the one you set,
+ *  will appear in one section under one date of the first message in section.
+ */
+@property (assign, nonatomic) NSTimeInterval timeIntervalBetweenSections;
+
+/**
+ *  Float value that used as height for section header.
+ *
+ *  @discussion Set this value with data source method '- (CGFloat)heightForSectionHeader'.
+ *  Section header will not be displayed if value is '0'.
+ */
+@property (assign, nonatomic) CGFloat heightForSectionHeader;
+
+/**
  *  Specifies whether or not the view controller should automatically scroll to the most recent message
  *  when the view appears and when sending, receiving, and composing a new message.
  *
@@ -67,15 +84,6 @@
 @property (assign, nonatomic) BOOL automaticallyScrollsToMostRecentMessage;
 
 /**
- *  Specifies whether or not the view controller should show the typing indicator for an incoming message.
- *
- *  @discussion Setting this property to `YES` will animate showing the typing indicator immediately.
- *  Setting this property to `NO` will animate hiding the typing indicator immediately. You will need to scroll
- *  to the bottom of the collection view in order to see the typing indicator. You may use `scrollToBottomAnimated:` for this.
- */
-@property (assign, nonatomic) BOOL showTypingIndicator;
-
-/**
  *  Specifies an additional inset amount to be added to the collectionView's contentInsets.top value.
  *
  *  @discussion Use this property to adjust the top content inset to account for a custom subview at the top of your view controller.
@@ -83,9 +91,58 @@
 @property (assign, nonatomic) CGFloat topContentAdditionalInset;
 
 /**
- *  Chat message items.
+ *  Total count of messages in all sections.
+ *
+ *  @discussion Use this to know how many messages are displayed in chat controller.
  */
-@property (strong, nonatomic) NSMutableArray *items;
+@property (assign, nonatomic, readonly) NSUInteger totalMessagesCount;
+
+/**
+ *  Insert messages to the top.
+ *
+ *  @param messages array of messages to insert
+ *
+ *  @discussion Use this method to insert older messages in chat.
+ */
+- (void)insertMessagesToTheTopAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+
+/**
+ *  Insert message to the bottom.
+ *
+ *  @param message  message to insert
+ *
+ *  @discussion Use this method to insert new message to the chat controller.
+ */
+- (void)insertMessageToTheBottomAnimated:(QBChatMessage *)message;
+
+/**
+ *  Insert messages to the bottom.
+ *
+ *  @param messages array of messages
+ *
+ *  @discussion Use this method to insert new messages to the chat controller.
+ */
+- (void)insertMessagesToTheBottomAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+
+/**
+ *  Update message in chat controller.
+ *
+ *  @param message  updated message
+ *
+ *  @discussion Use this method to update message in chat controller. As parameter use updated message, it will be replaced in items by it's ID
+ *  and reloaded in collection view.
+ */
+- (void)updateMessage:(QBChatMessage *)message;
+
+/**
+ *  Update messages in chat controller.
+ *
+ *  @param messages array of messages to update
+ *
+ *  @discussion Use this method to update messages in chat controller. As parameter use updated message, it will be replaced in items by it's ID
+ *  and reloaded in collection view.
+ */
+- (void)updateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
 /**
  *  Method to create chat message text attributed string. Have to be overriden in subclasses.
@@ -124,6 +181,20 @@
 - (Class)viewClassForItem:(QBChatMessage *)item;
 
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Collection view reusable section header.
+ *
+ *  @param collectionView   collection view to dequeue reusable header
+ *  @param indexPath        index path of section header
+ *
+ *  @discussion Override this method if you want to use custom reusable view as section header.
+ *  Keep in mind that due to collection view being reversed, section header is actually footer.
+ *
+ *  @return collection view reusable view to use as section header.
+ */
+- (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
+                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark - Class methods
 
@@ -173,6 +244,11 @@
  */
 - (void)didPressAccessoryButton:(UIButton *)sender;
 
+/**
+ *  This method is called when the user finishes picking attachment image.
+ *
+ *  @param image    image that was picked by user
+ */
 - (void)didPickAttachmentImage:(UIImage *)image;
 
 /**
@@ -204,7 +280,7 @@
 - (void)finishReceivingMessage;
 
 /**
- *  Completes the "receiving" of a new message by showing the typing indicator, adding a new collection view cell in the collection view,
+ *  Completes the "receiving" of a new message by adding a new collection view cell in the collection view,
  *  reloading the collection view, and scrolling to the newly sent message as specified by `automaticallyScrollsToMostRecentMessage`.
  *  Scrolling to the new message can be animated as specified by the animated parameter.
  *
@@ -222,5 +298,34 @@
  *  @param animated Pass `YES` if you want to animate scrolling, `NO` if it should be immediate.
  */
 - (void)scrollToBottomAnimated:(BOOL)animated;
+
+#pragma mark - Helpers
+
+/**
+ *  Generating name for section with date.
+ *
+ *  @param date Date of section
+ *
+ *  @discussion override this method if you want to generate custom name for section with it's date.
+ */
+- (NSString *)nameForSectionWithDate:(NSDate *)date;
+
+/**
+ *  Message for index path.
+ *
+ *  @param indexPath    index path to find message
+ *
+ *  @return QBChatMessage instance that conforms to indexPath
+ */
+- (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Index path for message.
+ *
+ *  @param message  message to return index path
+ *
+ *  @return NSIndexPath instance that conforms message or nil if not found
+ */
+- (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message;
 
 @end

@@ -8,8 +8,6 @@
 
 #import "QMChatCollectionView.h"
 
-#import "QMTypingIndicatorFooterView.h"
-
 #import "QMChatContactRequestCell.h"
 
 #import "UIColor+QM.h"
@@ -33,16 +31,6 @@
     self.keyboardDismissMode = UIScrollViewKeyboardDismissModeNone;
     self.alwaysBounceVertical = YES;
     self.bounces = YES;
-    /**
-     *  Register Typing footer view
-     */
-    UINib *typingNib = [QMTypingIndicatorFooterView nib];
-    NSString *typingIdentifier = [QMTypingIndicatorFooterView footerReuseIdentifier];
-    [self registerNib:typingNib forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:typingIdentifier];
-    
-    _typingIndicatorDisplaysOnLeft = YES;
-    _typingIndicatorMessageBubbleColor = [UIColor messageBubbleLightGrayColor];
-    _typingIndicatorEllipsisColor = [_typingIndicatorMessageBubbleColor colorByDarkeningColorWithValue:0.3f];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
@@ -59,21 +47,6 @@
     
     [super awakeFromNib];
     [self configureCollectionView];
-}
-
-#pragma mark - Typing indicator
-
-- (QMTypingIndicatorFooterView *)dequeueTypingIndicatorFooterViewForIndexPath:(NSIndexPath *)indexPath {
-    
-    QMTypingIndicatorFooterView *footerView = [super dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                                                                        withReuseIdentifier:[QMTypingIndicatorFooterView footerReuseIdentifier]
-                                                                               forIndexPath:indexPath];
-    [footerView configureWithEllipsisColor:self.typingIndicatorEllipsisColor
-                        messageBubbleColor:self.typingIndicatorMessageBubbleColor
-                       shouldDisplayOnLeft:self.typingIndicatorDisplaysOnLeft
-                         forCollectionView:self];
-    
-    return footerView;
 }
 
 #pragma mark - Messages collection view cell delegate
