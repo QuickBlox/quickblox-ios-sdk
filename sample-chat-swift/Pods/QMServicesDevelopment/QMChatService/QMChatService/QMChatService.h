@@ -309,7 +309,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @return BFTask instance of QBChatMessage's array
  */
-- (BFTask <NSArray <QBChatMessage *> *> *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBChatMessage *) *) *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID;
 
 /**
  *  Loads 100 messages that are older than oldest message in cache.
@@ -397,7 +397,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param message      array of QBChatMessage instances to mark as delivered
  *  @param completion   completion block with failure error
  */
-- (void)markMessagesAsDelivered:(NSArray<QBChatMessage *> *)messages completion:(QBChatCompletionBlock)completion;
+- (void)markMessagesAsDelivered:(NSArray QB_GENERIC(QBChatMessage *) *)messages completion:(QBChatCompletionBlock)completion;
 
 #pragma mark - read messages
 
@@ -416,7 +416,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param dialogID     ID of dialog to update
  *  @param completion   completion block with failure error
  */
-- (void)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion;
+- (void)readMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion;
 
 @end
 

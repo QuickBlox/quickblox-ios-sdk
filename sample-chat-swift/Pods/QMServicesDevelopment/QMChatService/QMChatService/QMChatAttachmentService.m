@@ -123,7 +123,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
     else {
         // Support for attachments that were send with old chat attachment service
         // old chat attachment service used UID for attachments instead of blobID
-        [QBRequest downloadFileWithUID:attachment.ID successBlock:^(QBResponse * _Nonnull response, NSData * _Nonnull fileData) {
+        [QBRequest downloadFileWithUID:attachment.ID successBlock:^(QBResponse *response, NSData *fileData) {
             
             UIImage *image = [UIImage imageWithData:fileData];
             NSError *error;
@@ -132,13 +132,13 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             
             if (completion) completion(error, image);
 
-        } statusBlock:^(QBRequest * _Nonnull request, QBRequestStatus * _Nullable status) {
+        } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
             
             if ([self.delegate respondsToSelector:@selector(chatAttachmentService:didChangeLoadingProgress:forChatAttachment:)]) {
                 [self.delegate chatAttachmentService:self didChangeLoadingProgress:status.percentOfCompletion forChatAttachment:attachment];
             }
             
-        } errorBlock:^(QBResponse * _Nonnull response) {
+        } errorBlock:^(QBResponse *response) {
             
             if (completion) completion(response.error.error, nil);
             

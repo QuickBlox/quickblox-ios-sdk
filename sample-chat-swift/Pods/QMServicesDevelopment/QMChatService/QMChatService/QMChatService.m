@@ -519,7 +519,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     
     NSString *dialogID = dialog.ID;
     
-    [dialog joinWithCompletionBlock:^(NSError * _Nullable error) {
+    [dialog joinWithCompletionBlock:^(NSError *error) {
         //
         if (error != nil) {
             if (error.code == 201 || error.code == 404 || error.code == 407) {
@@ -770,7 +770,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     
     __weak __typeof(self)weakSelf = self;
     
-    [QBRequest deleteDialogsWithIDs:[NSSet setWithObject:dialogId] forAllUsers:NO successBlock:^(QBResponse * _Nonnull response, NSArray<NSString *> * _Nullable deletedObjectsIDs, NSArray<NSString *> * _Nullable notFoundObjectsIDs, NSArray<NSString *> * _Nullable wrongPermissionsObjectsIDs) {
+    [QBRequest deleteDialogsWithIDs:[NSSet setWithObject:dialogId] forAllUsers:NO successBlock:^(QBResponse *response, NSArray *deletedObjectsIDs, NSArray *notFoundObjectsIDs, NSArray *wrongPermissionsObjectsIDs) {
         //
         [weakSelf.dialogsMemoryStorage deleteChatDialogWithID:dialogId];
         [weakSelf.messagesMemoryStorage deleteMessagesWithDialogID:dialogId];
@@ -782,7 +782,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         if (completion) {
             completion(response);
         }
-    } errorBlock:^(QBResponse * _Nonnull response) {
+    } errorBlock:^(QBResponse *response) {
         //
         if (response.status == QBResponseStatusCodeNotFound) {
             [weakSelf.dialogsMemoryStorage deleteChatDialogWithID:dialogId];
@@ -863,7 +863,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     });
 }
 
-- (BFTask <NSArray <QBChatMessage *> *> *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID {
+- (BFTask *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID {
     
     if ([self.loadedAllMessages[chatDialogID] isEqualToNumber: kQMLoadedAllMessages]) return [BFTask taskWithResult:@[]];
     
@@ -1058,11 +1058,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     message.senderID = currentUser.ID;
     message.dialogID = dialog.ID;
     
-    dialog.lastMessageText = message.encodedText;
-    dialog.lastMessageDate = message.dateSent;
-    dialog.updatedAt = message.dateSent;
-    
-    [dialog sendMessage:message completionBlock:^(NSError * _Nullable error) {
+    [dialog sendMessage:message completionBlock:^(NSError *error) {
         //
         if (error == nil && saveToStorage) {
             [self.messagesMemoryStorage addMessage:message forDialogID:dialog.ID];
@@ -1070,6 +1066,11 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
             if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddMessageToMemoryStorage:forDialogID:)]) {
                 [self.multicastDelegate chatService:self didAddMessageToMemoryStorage:message forDialogID:dialog.ID];
             }
+            
+            dialog.lastMessageText = message.encodedText;
+            dialog.lastMessageDate = message.dateSent;
+            dialog.updatedAt = message.dateSent;
+            
             if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
                 [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:dialog];
             }
@@ -1109,7 +1110,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     [self markMessagesAsDelivered:@[message] completion:completion];
 }
 
-- (void)markMessagesAsDelivered:(NSArray<QBChatMessage *> *)messages completion:(QBChatCompletionBlock)completion {
+- (void)markMessagesAsDelivered:(NSArray *)messages completion:(QBChatCompletionBlock)completion {
     
     dispatch_group_t deliveredGroup = dispatch_group_create();
     
@@ -1119,7 +1120,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
             message.markable = YES;
             __weak __typeof(self)weakSelf = self;
             dispatch_group_enter(deliveredGroup);
-            [[QBChat instance] markAsDelivered:message completion:^(NSError * _Nullable error) {
+            [[QBChat instance] markAsDelivered:message completion:^(NSError *error) {
                 //
                 if (error == nil) {
                     __typeof(weakSelf)strongSelf = weakSelf;
@@ -1167,7 +1168,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
             message.markable = YES;
             __weak __typeof(self)weakSelf = self;
             dispatch_group_enter(readGroup);
-            [[QBChat instance] readMessage:message completion:^(NSError * _Nullable error) {
+            [[QBChat instance] readMessage:message completion:^(NSError *error) {
                 //
                 if (error == nil) {
                     __typeof(weakSelf)strongSelf = weakSelf;
@@ -1223,7 +1224,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         [privateMessage updateCustomParametersWithDialog:dialog];
         
         dispatch_group_enter(notifyGroup);
-        [[QBChat instance] sendSystemMessage:privateMessage completion:^(NSError * _Nullable error) {
+        [[QBChat instance] sendSystemMessage:privateMessage completion:^(NSError *error) {
             //
             dispatch_group_leave(notifyGroup);
         }];

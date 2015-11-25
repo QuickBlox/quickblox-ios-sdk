@@ -93,7 +93,7 @@
     }
     
     if (join && chatDialog.type != QBChatDialogTypePrivate) {
-        [chatDialog joinWithCompletionBlock:^(NSError * _Nullable error) {
+        [chatDialog joinWithCompletionBlock:^(NSError *error) {
             //
             if (completion) {
                 completion(chatDialog,error);
