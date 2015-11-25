@@ -154,59 +154,12 @@ typedef enum QBChatServiceError {
 + (QB_NONNULL instancetype)instance;
 
 /**
- Authorize on QuickBlox Chat
- 
- @param user QBUUser structure represents user's login. Required user's fields: ID, password;
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'connectWithUser:' instead.
- 
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:' instead.");
-
-
-/**
- * Connect to QuickBlox Chat
- *
- * @param user QBUUser structure represents user's login. Required user's fields: ID, password;
- *
- * @warning *Deprecated in QB iOS SDK 2.4.5: Use 'connectWithUser:completion' instead.*
- *
- * @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:completion' instead.");
-
-/**
  *  Connect to QuicBlox Chat with completion.
  *
  *  @param user       QBUUser structure represents user's login. Required user's fields: ID, password.
  *  @param completion Completion block with failure error.
  */
 - (void)connectWithUser:(QB_NONNULL QBUUser *)user completion:(QB_NULLABLE QBChatCompletionBlock)completion;
-
-/**
- Authorize on QuickBlox Chat
- 
- @param user QBUUser structure represents user's login. Required user's fields: ID, password.
- @param resource The resource identifier of user.
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'connectWithUser:resource:' instead.
- 
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)loginWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:resource:' instead.");
-
-/**
- * Connect to QuickBlox Chat.
- *
- * @param user QBUUser structure represents user's login. Required user's fields: ID, password.
- * @param resource The resource identifier of user.
- *
- *  @warning *Deprecated in QB iOS SDK 2.4.5:* Use 'connectWithUser:resource:completion' instead.
- *
- * @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)connectWithUser:(QB_NONNULL QBUUser *)user resource:(QB_NULLABLE NSString *)resource DEPRECATED_MSG_ATTRIBUTE("Use 'connectWithUser:resource:completion' instead.");
 
 /**
  *  Connect to QuickBlox Chat.
@@ -218,29 +171,11 @@ typedef enum QBChatServiceError {
 - (void)connectWithUser:(QB_NONNULL QBUUser *)user resource:(nullable NSString *)resource completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
- Check if current user logged into Chat
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'isConnected' instead.
- 
- @return YES if user is logged in, NO otherwise
- */
-- (BOOL)isLoggedIn DEPRECATED_MSG_ATTRIBUTE("Use isConnected instead.");
-
-/**
  * Check if current user connected to Chat
  *
  * @return YES if user is connected in, NO otherwise
  */
 - (BOOL)isConnected;
-
-/**
- Logout current user from Chat
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'disconnect' instead.
- 
- @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)logout DEPRECATED_MSG_ATTRIBUTE("Use 'disconnectWithCompletionBlock' instead.");
 
 /**
  *  Disconnect current user from Chat

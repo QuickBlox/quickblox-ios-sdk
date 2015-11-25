@@ -70,20 +70,6 @@
                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 /**
- Delete a dialog.
- 
- @warning Deprecated in 2.4.3. Use 'deleteDialogsWithIDs:forAllUsers:successBlock:errorBlock:' instead.
- 
- @param dialogID The ID of a dialog to delete
- @param successBlock Block with response if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QB_NONNULL QBRequest *)deleteDialogWithID:(QB_NONNULL NSString *)dialogID
-                                successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S responce))successBlock
-                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock DEPRECATED_MSG_ATTRIBUTE("Use 'deleteDialogsWithIDs:forAllUsers:successBlock:errorBlock:' instead.");
-/**
  Delete dialogs
  
  @param dialogIDs The IDs of a dialogs to delete.
@@ -178,17 +164,6 @@
                                     dialogID:(QB_NONNULL NSString *)dialogID
                                 successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
-
-/**
- Delete existing chat message for current user.
- 
- @warning Deprecated in 2.4.3. Use 'deleteDialogsWithIDs:forAllUsers:successBlock:errorBlock:' instead.
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QB_NONNULL QBRequest *)deleteMessageWithID:(QB_NONNULL NSString *)messageID
-                                 successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock  DEPRECATED_MSG_ATTRIBUTE("Use 'deleteMessagesWithIDs:forAllUsers:successBlock:errorBlock:' instead.");
 
 /**
  Delete existent chat messages completely for all users
