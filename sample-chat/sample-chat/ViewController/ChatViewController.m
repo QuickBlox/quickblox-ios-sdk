@@ -35,8 +35,7 @@ UITextViewDelegate,
 QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
-UIActionSheetDelegate,
-QMChatCellDelegate
+UIActionSheetDelegate
 >
 
 @property (nonatomic, weak) QBUUser* opponentUser;
@@ -50,8 +49,6 @@ QMChatCellDelegate
 @property (nonatomic, strong) NSArray* unreadMessages;
 
 @property (nonatomic, assign) BOOL isSendingAttachment;
-
-@property (nonatomic, strong) NSMutableSet *detailedCells;
 
 @end
 
@@ -98,7 +95,6 @@ QMChatCellDelegate
     self.inputToolbar.contentView.textView.placeHolder = @"Message";
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
     self.stringBuilder = [MessageStatusStringBuilder new];
-    self.detailedCells = [NSMutableSet set];
     
     [self updateTitle];
     
@@ -387,20 +383,16 @@ QMChatCellDelegate
 
 - (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
     
-    NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
+    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1 alpha:0.7f] : [UIColor colorWithWhite:0.000 alpha:0.7f];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
     
-    if ([self.detailedCells containsObject:messageItem.ID]) {
-        UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1 alpha:0.7f] : [UIColor colorWithWhite:0.000 alpha:0.7f];
-        UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
-        
-        NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
-        NSString* text = messageItem.dateSent ? [self timeStampWithDate:messageItem.dateSent] : @"";
-        if ([messageItem senderID] == self.senderID) {
-            text = [NSString stringWithFormat:@"%@\n%@", text, [self.stringBuilder statusFromMessage:messageItem]];
-        }
-        attrStr = [[NSMutableAttributedString alloc] initWithString:text
-                                                         attributes:attributes];
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
+    NSString* text = messageItem.dateSent ? [self timeStampWithDate:messageItem.dateSent] : @"";
+    if ([messageItem senderID] == self.senderID) {
+        text = [NSString stringWithFormat:@"%@\n%@", text, [self.stringBuilder statusFromMessage:messageItem]];
     }
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text
+                                                                                attributes:attributes];
     
     return attrStr;
 }
@@ -495,22 +487,16 @@ QMChatCellDelegate
     if (class == [QMChatOutgoingCell class] ||
         class == [QMChatAttachmentOutgoingCell class]) {
         layoutModel.topLabelHeight = 0.0;
-    } else if (class == [QMChatAttachmentIncomingCell class] ||
-               class == [QMChatIncomingCell class]) {
-        layoutModel.topLabelHeight = 20.0f;        
-        layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
-    }
-    
-    QBChatMessage *currentMessage = [self messageForIndexPath:indexPath];
-    if ([self.detailedCells containsObject:currentMessage.ID]) {
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
                                                        withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
                                                 limitedToNumberOfLines:0];
         
         layoutModel.bottomLabelHeight = ceilf(size.height);
-    } else {
-        layoutModel.bottomLabelHeight = 0.0f;
+    } else if (class == [QMChatAttachmentIncomingCell class] ||
+               class == [QMChatIncomingCell class]) {
+        layoutModel.topLabelHeight = 20.0f;        
+        layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
     
     layoutModel.spaceBetweenTextViewAndBottomLabel = 5.0f;
@@ -521,9 +507,6 @@ QMChatCellDelegate
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     [super collectionView:collectionView configureCell:cell forIndexPath:indexPath];
-    
-    // subscribing to cell delegate
-    [(QMChatCell *)cell setDelegate:self];
 
     [(QMChatCell *)cell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     
@@ -606,36 +589,6 @@ QMChatCellDelegate
     // marking message as read if needed
     QBChatMessage *itemMessage = [self messageForIndexPath:indexPath];
     [self sendReadStatusForMessage:itemMessage];
-}
-
-#pragma mark - QMChatCellDelegate
-
-- (void)chatCellDidTapContainer:(QMChatCell *)cell {
-    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    QBChatMessage *currentMessage = [self messageForIndexPath:indexPath];
-    NSLog(@"%@", currentMessage.text);
-
-    if ([self.detailedCells containsObject:currentMessage.ID]) {
-        [self.detailedCells removeObject:currentMessage.ID];
-    } else {
-        [self.detailedCells addObject:currentMessage.ID];
-    }
-    
-    [self.collectionView.collectionViewLayout invalidateLayout];
-    [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:currentMessage.ID];
-    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-}
-
-- (void)chatCell:(QMChatCell *)cell didPerformAction:(SEL)action withSender:(id)sender {
-    
-}
-
-- (void)chatCellDidTapAvatar:(QMChatCell *)cell {
-    
-}
-
-- (void)chatCell:(QMChatCell *)cell didTapAtPosition:(CGPoint)position {
-    
 }
 
 #pragma mark - QMChatServiceDelegate
