@@ -151,29 +151,6 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 #pragma mark - Send message
 
 /**
- *  Send chat message to dialog.
- *
- *  @param message Chat message to send.
- *
- *  @warning *Deprecated in QB iOS SDK 2.4.5:* Use 'sendMessage:completionBlock:' instead.
- *
- *  @return YES if the message was sent. If not - see log.
- */
-- (BOOL)sendMessage:(QB_NONNULL QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Use 'sendMessage:completionBlock:' instead.");
-
-/**
- *  Send chat message with sent block
- *
- *  @param message   Chat message to send.
- *  @param sentBlock The block which informs whether a message was delivered to server or not. If request succeded error is nil.
- *
- *  @warning *Deprecated in QB iOS SDK 2.4.5:* Use 'sendMessage:completionBlock:' instead.
- *
- *  @return YES if the message was sent. If not - see log.
- */
-- (BOOL)sendMessage:(QB_NONNULL QBChatMessage *)message sentBlock:(QB_NULLABLE void (^)(NSError * QB_NULLABLE_S error))sentBlock DEPRECATED_MSG_ATTRIBUTE("Use 'sendMessage:completionBlock:' instead.");
-
-/**
  *  Send chat message with completion block.
  *
  *  @param message    Chat message to send.

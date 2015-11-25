@@ -29,23 +29,6 @@
 #pragma mark Base IM
 
 /**
- didLogin fired by QBChat when connection to service established and login is successfull
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'chatDidConnect' instead.
- 
- */
-- (void)chatDidLogin DEPRECATED_MSG_ATTRIBUTE("Use chatDidConnect instead.");
-
-/**
- didNotLoginWithError fired when login process did not finished successfully
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'chatDidNotConnectWithError:' instead.
-
- @param error Error
- */
-- (void)chatDidNotLoginWithError:(QB_NULLABLE NSError *)error DEPRECATED_MSG_ATTRIBUTE("Use 'chatDidNotConnectWithError:' instead.");
-
-/**
  *  didNotSendMessage fired when message cannot be send to user
  *
  *  @param message message passed to sendMessage method into QBChat
