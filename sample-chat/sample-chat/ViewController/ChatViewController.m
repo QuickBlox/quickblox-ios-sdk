@@ -507,17 +507,12 @@ QMChatCellDelegate
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
     
-    QBChatMessage *currentMessage = [self messageForIndexPath:indexPath];
-    if ([self.detailedCells containsObject:currentMessage.ID]) {
-        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
-        CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
-                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                                limitedToNumberOfLines:0];
-        
-        layoutModel.bottomLabelHeight = ceilf(size.height);
-    } else {
-        layoutModel.bottomLabelHeight = 0.0f;
-    }
+    NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
+    CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
+                                                   withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                            limitedToNumberOfLines:0];
+    
+    layoutModel.bottomLabelHeight = ceilf(size.height);
     
     layoutModel.spaceBetweenTextViewAndBottomLabel = 5.0f;
     
