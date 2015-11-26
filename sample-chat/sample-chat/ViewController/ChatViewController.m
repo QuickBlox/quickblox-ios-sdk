@@ -622,9 +622,26 @@ QMChatCellDelegate
         [self.detailedCells addObject:currentMessage.ID];
     }
     
-    [self.collectionView.collectionViewLayout invalidateLayout];
+    
     [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:currentMessage.ID];
-    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    
+    CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    
+    __weak __typeof(self)weakSelf = self;
+    [self.collectionView performBatchUpdates:^{
+        //
+        __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    } completion:^(BOOL finished) {
+        //
+        __typeof(weakSelf)strongSelf = weakSelf;
+        strongSelf.collectionView.contentOffset = CGPointMake(0, strongSelf.collectionView.contentSize.height - bottomOffset);
+        [CATransaction commit];
+        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
+    }];
 }
 
 - (void)chatCell:(QMChatCell *)cell didPerformAction:(SEL)action withSender:(id)sender {
