@@ -39,7 +39,7 @@ typedef void (^QBRequestErrorBlock)(QBResponse *QB_NONNULL_S response);
 @interface QBRequest : NSObject
 
 @property (nonatomic, getter=isCancelled, readonly) BOOL canceled;
-@property (nonatomic, weak, QB_NULLABLE_PROPERTY) NSOperation *operation;
+@property (nonatomic, weak, QB_NULLABLE_PROPERTY) NSOperation *operation DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.6 due to internal architecture changes.");
 @property (nonatomic, weak, QB_NULLABLE_PROPERTY) NSURLSessionTask* task;
 @property (nonatomic, assign, readonly) QBRequestTaskType taskType;
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBRequestCompletionBlock completionBlock;
