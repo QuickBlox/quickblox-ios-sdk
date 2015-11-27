@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0172E911F83FACF28E90D1AD6D3AD4B5 /* NSAttributeDescription+QMCDDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3F6B2B6CC2E288EEFC02459878EE04 /* NSAttributeDescription+QMCDDataImport.m */; };
 		0375360A74BFF03B52FE34F2C18B6697 /* SDWebImageDownloaderOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = BD9E7E0F87179EA65B535F2CBB98E497 /* SDWebImageDownloaderOperation.h */; };
+		0451AC73A25AB78CB67BE9966E520CCE /* BFURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 523060973FCA6CBA40EDDB5156B69754 /* BFURL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0505B35A7E848379125AD60EEBA91651 /* QMCancellationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 627E9DF7D9EFC9AF767FBF50B0206E72 /* QMCancellationToken.m */; };
 		060DCAB4BAC0DF80FA9CE61C922A623F /* NSManagedObject+QMCDFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FB8398AB287034400A23F8BE8104087 /* NSManagedObject+QMCDFetching.m */; };
 		08DAB868905505E4C039AAD64C77E5ED /* QMCLModelIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = F5CDB190CEA0498E6840F7572A1A4CEC /* QMCLModelIncludes.h */; };
@@ -33,14 +34,16 @@
 		117FDD37DDCDBDFF72DE84B97E9B7895 /* QMMemoryStorageProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 64DF9DB79A3A46161ABDD77D007DCBD2 /* QMMemoryStorageProtocol.h */; };
 		122F19D231E875792D421600066DA8B2 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F77B55CFC3D1E1EBC131445296ECA9 /* UIView+WebCacheOperation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		13ADF621D5014570EDBB34550582B078 /* UIImage+Cropper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1275F4D2AFAEE2A62DE0D7E042B42FF6 /* UIImage+Cropper.h */; };
-		1468AAA9865826970C966AE7AFDFA7EF /* BFTaskCompletionSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4272A333EFDEA31D19126C4E405D6 /* BFTaskCompletionSource.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		16E72AD55424E2F307DACCE5831C50E9 /* NSFetchedResultsController+QMCDFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FD50EBDB72949E77E4697C573878487 /* NSFetchedResultsController+QMCDFetching.m */; };
 		16FA86363C8541261650F426EE37049F /* CDUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 135BC96740B495B5A803784F893E8931 /* CDUser.h */; };
 		18D7F26A1987B0EEE53A7BF3D01118FD /* AutoMigratingQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = A8D2B6791676B974C14EDBA7F7E0D944 /* AutoMigratingQMCDRecordStack.h */; };
 		18EB0186685380BA152341CF4708E996 /* SDWebImageDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 076421984558B1E0230FB5F75C060FBE /* SDWebImageDecoder.h */; };
 		193BA961ACA165E4BAD9774BA93BC892 /* NSString+GTMNSStringHTMLAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = CA4A919BE1651287041FA83560AD00E4 /* NSString+GTMNSStringHTMLAdditions.h */; };
 		19B7B4354D01EE54191C38927FA65BAF /* UIView+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 78DDE52F2B57E32B2059ED4CF63F1A03 /* UIView+QM.m */; };
+		1A0A47E05997B16F9D4419C6E0B90D56 /* BFMeasurementEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA6B66558C8B95E25CF2075BD54527D /* BFMeasurementEvent.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1A5E81A7BA089AAC9D6203D6278D7F9A /* BFDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = C4DDFCD8C2EA107969AEF43FD2E5D51A /* BFDefines.h */; };
 		1B326B33E617ED53A101C5263DAF0C6F /* QMChatCellLayoutAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6B8230DA82496872460371AD5A7B5A /* QMChatCellLayoutAttributes.h */; };
+		1B763577C67EFA6A1DE0E90B4D511463 /* BFAppLinkNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7BC5558B0EDDE5EC39DDF2FC117AE /* BFAppLinkNavigation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		1BE3FD0738D275501517D01330C24221 /* NSManagedObject+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E8D74861D2E40BA1C51493F22B29894 /* NSManagedObject+QMCDRecord.m */; };
 		1CAAEE16D8AAC46874F74DF9D0AF40FD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
 		1CE77E531C568404E6D64EACBC6AE3D0 /* QMCDRecordStack+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF39E8C9A7D2918A96C0723176BDE62 /* QMCDRecordStack+Actions.m */; };
@@ -50,15 +53,15 @@
 		217F3AC5AF74866F7774F91980353A8C /* NSManagedObject+QMCDAggregation.h in Headers */ = {isa = PBXBuildFile; fileRef = 913C608D9D8CBD5F662462C06339727B /* NSManagedObject+QMCDAggregation.h */; };
 		227AB15A6D8A7FC44407F9BEA36A0656 /* QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = BC2782FC79A8F3ADA69EAA8470499AA6 /* QMCDRecord.h */; };
 		2309DA22C1A97A89849067613CC63C33 /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = D40D2974956F3AF920FCCDA68D7BDDE2 /* SVIndefiniteAnimatedView.h */; };
+		2344797D8C045D8531A9FF713EA6CD91 /* BFAppLink_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F73440562BBBBD35D1681CD7ECB4220 /* BFAppLink_Internal.h */; };
 		23BB795A753422414238EDE432345BE5 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 059CB520D7BDB3EF03655F03B96E992B /* metamacros.h */; };
+		245524AE05CF03456FC51CEDFBE02DFE /* BFAppLinkReturnToRefererView_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 719EA298BB1347A7552D014D3FFB3BBF /* BFAppLinkReturnToRefererView_Internal.h */; };
 		249D2E44849DC0C653B586B31D152BBB /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 821C8082961008CBE390555C5A53E9B4 /* SVProgressHUD.h */; };
 		26A64D913F5B97D0C2E769BD4B6A3A11 /* QMChatOutgoingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D95EC3F7E3B8659E3B7A791268DEDE15 /* QMChatOutgoingCell.m */; };
 		26B8F8188C748087160D534A410D7C23 /* QMChatAttachmentIncomingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AB8E67CAD7A17CC5B625CD1C96E14576 /* QMChatAttachmentIncomingCell.h */; };
 		27D330708339DB04DAA86CB4D523F9BB /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3896F09A78F0815E888102BF6422F0C1 /* CoreMedia.framework */; };
-		2918BD8FE58E8C5EA99E61432BD94CA0 /* BFAppLinkNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 344BD47FFCF622E75FB10B7B1027071D /* BFAppLinkNavigation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		2A57B93E5D877608B6645CA3CEDEA98B /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BFFAE59747E27FB88A94A7A1E68790 /* QMCollectionViewFlowLayoutInvalidationContext.m */; };
 		2A8C273CDA658E879E4BA95EDE0D54B5 /* NSPersistentStoreCoordinator+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FBB044ACF139B604B617A6607C025A /* NSPersistentStoreCoordinator+QMCDRecord.m */; };
-		2AFAD5452A2D863DDD876DCD17EDA5F3 /* BFWebViewAppLinkResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = CF7651D51CAB225666D96C49F28CB2A9 /* BFWebViewAppLinkResolver.h */; };
 		2C6E44A4D34F4D1A9E6B75C0CC660421 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7375A74ED37D71CC67352F0596749A39 /* UIImageView+WebCache.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		2D1DEFAC89A3AE5313004D70E0530963 /* QMCDImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = D36C1A12E0C22C11F8FB5B6B449515D0 /* QMCDImportFunctions.m */; };
 		2DA72003B0DE07C013A056D4F46109D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D2E1B6F83E572785E1D0768C2E75BD /* CoreGraphics.framework */; };
@@ -72,9 +75,11 @@
 		33810724CCF605EDFF0B6E5AFF4669F9 /* QMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D1D1573AFC4162CB1AAE71C7F1C7A1 /* QMCDRecordStack.m */; };
 		342E24EA0386A5B98A6776FA8E55FD9B /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C73AB624E7A0E491594E7AB009FCA16E /* Pods-dummy.m */; };
 		34B4692E62448A206216C892D73F624C /* QMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 67DEFDC60A359728DA8AE0A3002C95CD /* QMCDRecordStack.h */; };
+		350B1FAB80223C18973FA6FE6A39C3D0 /* BFCancellationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = C063415775C7D9D74E0EB7F41495D9A7 /* BFCancellationToken.h */; };
 		35BD650DBAB4D25F506CAE87E4029245 /* QMChatCollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 94B7EC3906EE32607D030B17A8794DD3 /* QMChatCollectionView.h */; };
 		35C454506FD305CF95938AA4D5E845EE /* CDAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 58EB9F7DFE0335725E0364033E4047A4 /* CDAttachment.h */; };
 		3650CE9415BCEE7474BE70648F440B07 /* QMBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DFCB6D8DECCC3326A5877A9689A2D3 /* QMBaseService.m */; };
+		37A4C66C5B96FD9BA90223B694E193F3 /* BFCancellationTokenSource.h in Headers */ = {isa = PBXBuildFile; fileRef = E94DD67417085D915B55F00A54A3B987 /* BFCancellationTokenSource.h */; };
 		38D474BE6E6CBA3D8053FD4169FBD3FF /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 6885DBF0F307859DE09E0D92C5CCA909 /* UIImage+GIF.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		39399525D5913D5F75E857CB18475E8E /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C18BF30A665DB94A6EC79228648FE2 /* SVIndefiniteAnimatedView.m */; };
 		394F54D63289EF2EE6696571A846FF73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
@@ -83,6 +88,7 @@
 		3A0BCC85BD58BBFE0A8D94A4C39981D0 /* NSPersistentStoreCoordinator+QMCDAutoMigrations.h in Headers */ = {isa = PBXBuildFile; fileRef = BE6C0B707664383EAC300EC50CC2772A /* NSPersistentStoreCoordinator+QMCDAutoMigrations.h */; };
 		3C90FC18297A0C90FCB708B8965F3485 /* QMCDRecordMOGeneratorProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D449A88849B7D03FB31C5B5B86E01F1 /* QMCDRecordMOGeneratorProtocol.h */; };
 		3C9B9E5DD45E4035A8D0CE53481CC617 /* NSManagedObjectModel+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EDC39225146D04977247340730DB2A3 /* NSManagedObjectModel+QMCDRecord.h */; };
+		3E767EEBBDE6667FAB31CE5D5ADAF637 /* BFCancellationTokenRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = AFA851C60DAF20C53BF24D52CCB9F349 /* BFCancellationTokenRegistration.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		3EB2FB0FE012B5C7636F5B21F6F411A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D2E1B6F83E572785E1D0768C2E75BD /* CoreGraphics.framework */; };
 		3EBBFEE67E4642CC2D8CF3435715FBF8 /* QMCCModelIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = 04F9CEA7A782E6A735C5BD7A0C313B25 /* QMCCModelIncludes.h */; };
 		3F700A3CCE81E6CB400FA7E16D37D6FC /* NSFetchedResultsController+QMCDFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = 79D476E0CD3EEDABFE8FEDB99C58DB98 /* NSFetchedResultsController+QMCDFetching.h */; };
@@ -90,17 +96,16 @@
 		439578470B2C3B76A3CBE02217645A91 /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 1654938F59F484F6D996584B0237A66D /* NSData+ImageContentType.h */; };
 		446D17789E698AAC24CED13117326CD5 /* NSDictionary+QMCDRecordAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B017E58AD6D2A002C763269F7DFB3225 /* NSDictionary+QMCDRecordAdditions.m */; };
 		45AD4FC823DACC568EA548980466C60D /* QMServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C059C3014ACED7FD0E2CC2B69746D5 /* QMServicesManager.m */; };
-		463DF716ABF41DB65437108DA6C1EE51 /* BFExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2263923FABD2FDC36D79838ED7CC8F6A /* BFExecutor.h */; };
 		466EE9CAD7BBF908D261D7DE1CF6329F /* SDWebImageOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F3BD5AF2EF81E447BA74C0187A4407E /* SDWebImageOperation.h */; };
 		469945A871D78FA13A7590E4353B3C18 /* EXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 770B2910EE25C7D7DB6C3DCD5BC8713C /* EXTRuntimeExtensions.h */; };
 		46ED6BAF9EFF8D86FB311B75C6503CE1 /* QMChatAttachmentIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC61D8E867D88999730325B1E9644F67 /* QMChatAttachmentIncomingCell.m */; };
 		4705C83260284EF4C7383CD5E39A15A6 /* QMChatCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4746F32C90E209141A5E759FD72086ED /* QMChatCollectionView.m */; };
-		474A9992AD2A1E02D5295934D51954F3 /* BFAppLinkReturnToRefererView_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 87A6467269C95D9C3A93269BBD719B17 /* BFAppLinkReturnToRefererView_Internal.h */; };
+		4716391B0CC56717767EBABFE507CCCB /* BFAppLinkReturnToRefererView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45821958A713E742EE238D302011ADCC /* BFAppLinkReturnToRefererView.h */; };
 		4769D2AAC4706F5ABDDBC7A9D87E816E /* QMDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F03BB16E89611569682011B1D0A6B71 /* QMDateUtils.m */; };
+		4797C9AF14C505C74299262937AB0006 /* BFMeasurementEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 41AD92E991563EF0E394F24EE87096AD /* BFMeasurementEvent.h */; };
 		47B8ED2E46C6997774DF035E67B4756C /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = AACF505C176E1B3BD5C4192988667DDD /* SDWebImagePrefetcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		47ECF6D9D3F0C1E03AE98BD174177E80 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB06D7061A9B6AE2A4DBCDACA0FA959 /* UIImageView+HighlightedWebCache.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		47F9AD42E081C80CDF1F1B32621D64F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
-		48142DFC61302DBB2A8060570D936C06 /* BFAppLinkReturnToRefererView.h in Headers */ = {isa = PBXBuildFile; fileRef = 42F829643519AAC0327B750076791980 /* BFAppLinkReturnToRefererView.h */; };
 		4A580B5C22D3937B8BC07EDA41A87CD6 /* UIImage+GIF.h in Headers */ = {isa = PBXBuildFile; fileRef = D4092FCB4B2457E21A9AEF651B49650F /* UIImage+GIF.h */; };
 		4B6B6BAE1255C83ADF92CF328B234211 /* CDDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ECA0DAB9863975EAB163A53777A7CE /* CDDialog.m */; };
 		4BD843B72F48FCAB7E8B58E35CE2182F /* QMMessagesMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = A76A27757F6BBB7FAD34309A24C99858 /* QMMessagesMemoryStorage.h */; };
@@ -115,15 +120,17 @@
 		53FF19FF64EFF13C198FD02D1A40E034 /* QMToolbarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD5AC25A2A3FC464DDDB136C34578E64 /* QMToolbarContentView.m */; };
 		5467C0709EDFB0839C05E9AFC7C4D118 /* QMChatTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 09BC7877B8B1644557BFA5F2AF030E71 /* QMChatTypes.h */; };
 		5473E55714888C0B135ADC0DB25E03D7 /* NSPersistentStoreCoordinator+QMCDManualMigrations.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C2C1333EADD62CA4E15C1D677174E7 /* NSPersistentStoreCoordinator+QMCDManualMigrations.m */; };
-		55A2188CCD2409AA0D44E2D177600BDE /* BFTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 09183BDCA0559E5F67371168BDBEA272 /* BFTask.h */; };
+		5703B915F22D05285E37E3E06EEBA0CB /* BFAppLinkNavigation.h in Headers */ = {isa = PBXBuildFile; fileRef = 46FD61071400CC55B8AC8A3D78BC38F5 /* BFAppLinkNavigation.h */; };
 		5836A1712C600FD4DDC31C0EDE62FDDA /* QMCDRecord+Actions.h in Headers */ = {isa = PBXBuildFile; fileRef = DFA5585EA791B8CDE0991F26E1AB671B /* QMCDRecord+Actions.h */; };
 		596A1DD8457C774BB29414B6696A35C0 /* EXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB9D67DA8D27FB044F880664EEBB130 /* EXTRuntimeExtensions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		5A3C760DDE0B1C762F93651BF02C92B4 /* UIImage+Cropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8B2530A4D2A645C66EE5AFF191F29D /* UIImage+Cropper.m */; };
 		5A4802D070A6A9EF06515CDD015C2DFA /* QMImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 329CD8646E71A3BEB723CB4DD852DE25 /* QMImageView.h */; };
 		5AB9D952E97837A5E8B7A48AF952EB93 /* NSPersistentStoreCoordinator+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = DD2E0F01A1F58F061C6D65161235C3D5 /* NSPersistentStoreCoordinator+QMCDRecord.h */; };
 		5AC1309BD03B9C281EC8B264CD3DFB59 /* NSManagedObject+QMCDDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = B195BC8EC8BCDE8D951C859EEA14A617 /* NSManagedObject+QMCDDataImport.m */; };
+		5B7A5A96C7A9BF71A69E2B80DB6D00C5 /* Bolts-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FADAA54B3D4C71436DD76671B92A6FA /* Bolts-dummy.m */; };
 		5C54C1930E14E04266030CBF139835FB /* NSArray+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 443925986CD95525DA7C487F91932164 /* NSArray+QMCDRecord.h */; };
 		5D5B0AE9DFE8079B41286A2090231904 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 697EE2276959AD3F3D8A7B3A08DCB656 /* UIButton+WebCache.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		5F123742FC7EF4B0A414CFAD6D9F37E5 /* BFWebViewAppLinkResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA239DC8ED9E90B6FDB9EBC1DB4521D /* BFWebViewAppLinkResolver.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		5F16E1455E31FBAD9947A4D4487E7E43 /* QMCDRecord+Options.h in Headers */ = {isa = PBXBuildFile; fileRef = E75CC137188F40F95FC235B6DD9F8E17 /* QMCDRecord+Options.h */; };
 		60CABDBBEB34285B1C9648B91B4CF4A5 /* QMContactListService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CEE159392A978CC03E0605DFA9AC8F9 /* QMContactListService.h */; };
 		60FB2DBA1812B61041E4F5A14CBA838F /* QMChatService.m in Sources */ = {isa = PBXBuildFile; fileRef = D23CFD22858CED89784676CA5EE7A49F /* QMChatService.m */; };
@@ -131,7 +138,6 @@
 		61E8070BD354F0392554AF8BD7CBB1BA /* NSManagedObject+QMCDFinders.m in Sources */ = {isa = PBXBuildFile; fileRef = A893754D4E737AFF2D58AF24B6F920FB /* NSManagedObject+QMCDFinders.m */; };
 		669172352C4109DCA340AB847D40ACA0 /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A6A18C9669C959821C8B97116002FC17 /* TWMessageBarManager.h */; };
 		67B94B8787B4FC45886EE7EF8DB9C936 /* NSManagedObjectContext+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = E83D3D899F996A9ADA08DAC59943103D /* NSManagedObjectContext+QMCDRecord.h */; };
-		67F78A6D1C25E5E479B267A4891791F2 /* BoltsVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 3277A7ADE47EE85784C1F12AC0F5E9C0 /* BoltsVersion.h */; };
 		686A129E3EF89A6EFA82F8ACF53723CC /* _CDDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 2322DD8E28A61AC7DF2615DBC9281D5A /* _CDDialog.h */; };
 		6895557505E02BA70C564F85D6AD520E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2967571F0702E31C5C1299F41349493 /* AudioToolbox.framework */; };
 		695D4298DD30E1325C30C95F4A3D93EE /* CDContactListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0962167DD6C641DA51DC2DF2E0474CF /* CDContactListItem.m */; };
@@ -139,43 +145,43 @@
 		69DE7D1162C63593CCF587E3FCB91612 /* NSString+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = E55590BE43AEEE232845B4005C725BB7 /* NSString+QM.m */; };
 		6AFDF8720AC6CD58350B81015D70C7CC /* QMDBStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA28716AC166B065C6CFC6698836EEE /* QMDBStorage.m */; };
 		6B2549B99815D28F223EDF6B96F60911 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88FB318E719490E049884BC506B5871 /* CoreText.framework */; };
+		6BCA44AEDBC08322690734BAA583D31A /* BFCancellationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = C32661A9BB29BD0921F00F4466A7DD2E /* BFCancellationToken.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		6BE25C66C821A467DCA95C4DD90B7AA7 /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C3697FC04E8FF78234C5D210900E45F /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.h */; };
 		6BEF9FC425B49E8463DAEB9559E5D818 /* QMChatAttachmentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 62BB86805534A2B13C411D1B5FEAA090 /* QMChatAttachmentService.m */; };
 		6C217E808D487DFABDB2127CCDF84ABA /* UIButton+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 808E566202F0860B352F8BE737FB5292 /* UIButton+WebCache.h */; };
+		6C7F54261DFFAC461ACA6E49436F1A46 /* BFCancellationTokenSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EAB8C6531D6925C75C5F7613002BD1 /* BFCancellationTokenSource.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		6D4A13F1663E654FBF5A19349A1A5D05 /* NSManagedObjectContext+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CA35B8120C75A6927FB53F25A884E25 /* NSManagedObjectContext+QMCDRecord.m */; };
+		6E55963A2F3321BEF4B218A1DC27F99D /* BFExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = D76B74E1339086027C1A069763E44A7E /* BFExecutor.h */; };
 		704BFC58AD6787F3EEF955D4502172B3 /* NSEntityDescription+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = A2C4E27985DCDFAA4E13ED3B420E1FD3 /* NSEntityDescription+QMCDDataImport.h */; };
 		70B2C3BBD82EF3C241834BF7209971FE /* QMCDMigrationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CBD5C6D371F3DCD57351937638CFE0F /* QMCDMigrationManager.h */; };
 		70C9E6B49271E662A0A5D276DF413DE5 /* _CDContactListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BF08886EA1DC0BE4A31E28B6AC52EFD7 /* _CDContactListItem.h */; };
-		71416BA428D20C1DEA798D0D152431AA /* BFURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AB8A58AC85BC6DF01E39D97E16E318C /* BFURL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		71C23399669D922FC29FB59665FC0CBD /* NSNumber+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 68CEB9DCE54D38B0730623D744A835CC /* NSNumber+QMCDDataImport.h */; };
 		724C922868EB43420548952856113BF2 /* QMChatViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B5CF84EA23E9F2A355FC2ACDF3E422C6 /* QMChatViewController.h */; };
+		72751610575A93748834042D697326D8 /* BFTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C7640626EABAEC9502FBB42098ABB /* BFTask.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		72DC38AE7282945567DEADB9D5B4352D /* ClassicSQLiteQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 60A9103E1618FF9FA416DEB9F26110D0 /* ClassicSQLiteQMCDRecordStack.h */; };
-		732FEDA70BBAB53A3F44978E65AFA426 /* BFAppLinkReturnToRefererView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4AAF2331927FD44E08FB5C31E950D /* BFAppLinkReturnToRefererView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		7461297A1067DA7C48CB9D52C99A51B2 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 655FE947B6E0A2C2FFB421A747FEF991 /* EXTScope.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		7570D50590919FCFFCB84E3C17F40B26 /* QMAuthService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6F28DE005343C06F09C0AADC8BC658 /* QMAuthService.m */; };
 		761C25EA391EA8C4428CF93D4588E5B4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C1A4BA04E28A0F38B22C54C2EB5065 /* QuartzCore.framework */; };
 		78006B5C3A8B305217FB61A2558F3DD2 /* QMChatCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 820BC853E6F78DFEF7212EE3175A781C /* QMChatCollectionViewFlowLayout.m */; };
 		79121C76DD0784D6FFE16C9E9156F304 /* NSManagedObjectContext+QMCDSaves.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE3E4CD39E6A1FE7B82C002902A7A4B /* NSManagedObjectContext+QMCDSaves.m */; };
+		7917E400CDC75B046B84D1C257B77480 /* BFURL.h in Headers */ = {isa = PBXBuildFile; fileRef = E70EC70060EBD88DBDB0B05BF588CE6B /* BFURL.h */; };
+		7A07370FF5B3AA923700F174B08CF78F /* BFTaskCompletionSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9B862D76AAEE2F5C05AEAFACF99751 /* BFTaskCompletionSource.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		7A38577DA7FAAF69710B4F8E03830B9E /* QMDialogsMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AD52EFB419C2C201EEBD2A1D5E1154C /* QMDialogsMemoryStorage.h */; };
 		7AA0496309489EBC72D6B25FABB24912 /* NSNumber+QMCDDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B73922D2B324E017F06A5A9FCD8D0F /* NSNumber+QMCDDataImport.m */; };
-		7B0A23A207C161C738DDCB63DD782900 /* BFCancellationTokenSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FDB416A549692EF6C5217533050E5BA /* BFCancellationTokenSource.h */; };
 		7B5BCD8C7AC7A1D6E971716D317B4815 /* _CDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 02DD7A4BE4326AD318E59A3DBD00FBCA /* _CDMessage.m */; };
-		7D1CB0C04C6EC0B5DE3F3D70543389C2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
-		7E0D5422BF035304EBBAFF4B4C1C4C0E /* BFCancellationTokenSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D01DFD7AA9972E3482167A741BD18E8D /* BFCancellationTokenSource.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		7E78EC95ADA691823B48719301E034A7 /* QBUUser+CustomData.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CDE03A6B7F01CD136C338AA9C5AA563 /* QBUUser+CustomData.h */; };
+		80CD7284DD7D33FD477DE5C1F8E83B91 /* BFURL_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = E6AEAD2E7746BB398EE7B54556269ADF /* BFURL_Internal.h */; };
 		8275E836ACC548008E63A1EEECF3301B /* QMBaseService.h in Headers */ = {isa = PBXBuildFile; fileRef = CA672F53C591D5C9A5D897552FC1B843 /* QMBaseService.h */; };
 		82FBA6FECE68CAB28E67A8A1FD4FF66C /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 150BCAE09DDBD2B716EF74E419A5941E /* SDWebImageManager.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		836A73319609CE0253372678226C7EE5 /* UIImageView+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = B68BE68C7CF9B1EE426E02A3627EF4A4 /* UIImageView+WebCache.h */; };
 		83B95DBC4A604BCF31FDB3A9F5E38EE0 /* ManuallyMigratingQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CEBDE18F4A7D187E7F96DB0CBF79538 /* ManuallyMigratingQMCDRecordStack.m */; };
 		84ADA7ED6D82D78989FE81FED23DEDA6 /* QMCDRecord+Setup.h in Headers */ = {isa = PBXBuildFile; fileRef = 41C402929A21EF6B3139EC3FA9435A9F /* QMCDRecord+Setup.h */; };
-		86505D22BD5BF66662D47A0EDDE25E87 /* Bolts-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DCF50BE6214AF5DCC01D5E92451DB4DB /* Bolts-dummy.m */; };
 		86B56A045362FC664E92F2208658F03A /* NSManagedObject+QMCDFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = AF4AE9D25E82A984FFEDC931CB01FFCB /* NSManagedObject+QMCDFetching.h */; };
 		88CE5348FD14B3AA10D1F0F4590C02E7 /* QMChatIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3502DB53FAEF6CE4E75CA871E0C1143C /* QMChatIncomingCell.m */; };
 		89C4538B7ECAE0EA6444988161AF05C0 /* QMServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 62765FCA6B25ECCB4437FC35F8453481 /* QMServices.m */; };
 		89DE68C191A29CF992AC1FA86A90180F /* QMChatCellLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 34CD387C5D5BD82BBA8DCB1F8724F709 /* QMChatCellLayoutAttributes.m */; };
 		89F7C9180897BB4D45E2DE44DBB23F27 /* NSPersistentStore+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C7DA2EDB8DAD6B72D278185B2DC6F75 /* NSPersistentStore+QMCDRecord.h */; };
 		8A475E9A4137C6A8DB19B2BC930EAD49 /* QMChatCache.m in Sources */ = {isa = PBXBuildFile; fileRef = DF04941BECBA6B743BCE92D85962C101 /* QMChatCache.m */; };
-		8BAB8CCE22E9904FAE9794673CF79FA6 /* BFCancellationTokenRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = 86CE39ACD2613B518642FFC73A7E4DE9 /* BFCancellationTokenRegistration.h */; };
 		8C8BF7B990F3B176EA6F2012E7139B49 /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A3D5DCF1CF1F6139327A8F019A0398 /* TWMessageBarManager.m */; };
 		8D22160590E9AE28329E31AEE93883A1 /* NSManagedObject+QMCDRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADA461EF8FD6C7263723CF8267881D7 /* NSManagedObject+QMCDRequests.m */; };
 		8DB87BB1E6EA383402E9E3634B8BB175 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88E8CAEA05F4650622EEAAB4856AF8E /* MobileCoreServices.framework */; };
@@ -189,21 +195,17 @@
 		92E79F6DBCEE5FD8FD7F2A8D81786858 /* QMChatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D395BEC0AE0632217C013A1052A9B8 /* QMChatCell.m */; };
 		93E73B892924221E26138E0D059F1259 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9909C0961724B2E43A5EF1F690059317 /* SDWebImageDecoder.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		942E12D5665D3B0779B3C7FCA4A480BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A95631B6567DB82DB7789FF79B942BA1 /* CFNetwork.framework */; };
-		9443E3250EB4BD1C111BB978F33B219C /* BFAppLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 102332AC97C57DC9A7A03960E550E9D2 /* BFAppLink.h */; };
 		952B96A8227DCEC6BDA608B59E4CF150 /* NSManagedObject+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = C669DF2DE2B4BC60A3CA154204418D60 /* NSManagedObject+QMCDRecord.h */; };
 		95CD434913AE482683187B784FEE2DA0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C1A4BA04E28A0F38B22C54C2EB5065 /* QuartzCore.framework */; };
 		95E560DC5E283C9AA685F2E03E6E16A6 /* QMUsersMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = D7A8D98CE8F02E3004647C004EA1DFF4 /* QMUsersMemoryStorage.h */; };
 		96579B7B4D8158C1B40525FE99F0CBDA /* UIImage+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EECC4BDF2CC16293EF12AFA46EA6D15 /* UIImage+QM.h */; };
 		96625603159BF402E67ADB8329DFE48D /* QMUsersService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDEFD6C7CE234B7F44ED4A92F00ECA5 /* QMUsersService.m */; };
-		96817E5D0C4D1678D2DDDB45FD5D119E /* BFMeasurementEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = D853A3536E7D296A26D2947DAAF07396 /* BFMeasurementEvent.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		976DE6DE61D41A9A5CF51D164252156F /* BFMeasurementEvent_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = AB45C5DA1A3B1FDD44480E733FAFC801 /* BFMeasurementEvent_Internal.h */; };
+		9681C6816903966025E52ED4E0783341 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
 		97B99E060D6A05D594A50B9E157536FF /* NSManagedObject+QMCDRequests.h in Headers */ = {isa = PBXBuildFile; fileRef = 14FDD2D8EFAC36BA7351ECD2E8DBA757 /* NSManagedObject+QMCDRequests.h */; };
 		984C00747AE392478167AFAD0E745B89 /* QMToolbarContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = A938C0F523FD51529A55155E8A7F95C0 /* QMToolbarContentView.h */; };
 		98E05F4DA870E431DA48F13C1D2685A2 /* QMChatOutgoingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 30C0F4FF7226BC823E2981AA790BAAE4 /* QMChatOutgoingCell.h */; };
 		9900FC9BACF94401A011B97C08C03D0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
-		99F274A0CC19778749011E255F50F730 /* BFTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C75652105D55663D5C01552F453894 /* BFTask.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9B23FE028EFE187A33002024263A5219 /* BFAppLinkNavigation.h in Headers */ = {isa = PBXBuildFile; fileRef = 026E944AA798102541B64591E4E62B6B /* BFAppLinkNavigation.h */; };
-		9B459111B7FAC68EE51A76DCCF9DEE7A /* Bolts.h in Headers */ = {isa = PBXBuildFile; fileRef = AFBDB15433FE558D041387354601EFB8 /* Bolts.h */; };
+		9CC13CC2D258FBA36D76B08C8B04DEB1 /* BFAppLinkTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = EDFD0362865453F0F774FABF6AECBB50 /* BFAppLinkTarget.h */; };
 		9CF25139325DBB670EA09993A83D3575 /* CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3057E330929EE5AE3CA80CCA8DE2C247 /* CDUser.m */; };
 		9D793654FADF0D0099B2CE049ADF1B45 /* UIImage+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = A8714BCBEA25355E20DB273DAE1C6DF3 /* UIImage+QM.m */; };
 		9D79C102460B68349BAD711B712AB144 /* QMCDRecordDeprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 958F9622847A2984EB5A63E451CAB740 /* QMCDRecordDeprecated.h */; };
@@ -219,39 +221,35 @@
 		A49DA0B5B400AA65D4F091C27DF640D0 /* QMChatNotificationCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 304CDAB0336D611931CCC503FC8AFDBD /* QMChatNotificationCell.h */; };
 		A56B4A711230F1E8F1AD684F9B9CDC38 /* NSRelationshipDescription+QMCDDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF7F96DF02587E4EE063963BCDA9808 /* NSRelationshipDescription+QMCDDataImport.m */; };
 		A57994128B5EB201EE89FEA8AC3BBFF0 /* NSString+GTMNSStringHTMLAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BD962900DB768CA5368D22B1B89463 /* NSString+GTMNSStringHTMLAdditions.m */; };
-		A5BB7D038DFEDE630767644C4A36F94F /* BFExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 12C5C4684B8737B0A719656BB9BDE9CA /* BFExecutor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		A63FED29D0A6C402B98992FA94968432 /* QMCVDevelopment-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 146801978815660DEB04D785728DE4F8 /* QMCVDevelopment-dummy.m */; };
 		A7461E6343AF90DE1FEB673338C7DB1B /* InMemoryQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9BA760683D11269011CB60070D62A3 /* InMemoryQMCDRecordStack.m */; };
 		A818B7329C32219CE8FDC1BB7DEC135A /* QMUsersCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F9019B1410221D08E8965EA563BA17E /* QMUsersCache.h */; };
 		AA2B1B48B54C8E28F49159FD8615B540 /* CDDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E2166F6D16193F729CC5D09BE9695BD /* CDDialog.h */; };
+		AA597E1CA77D3C922856ACBEB267FA66 /* Bolts.m in Sources */ = {isa = PBXBuildFile; fileRef = 901A821D1A16036B2BC6B6F99326E953 /* Bolts.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		AAF4F107F26AD3C371CE88F211589237 /* QBUUser+CustomData.m in Sources */ = {isa = PBXBuildFile; fileRef = 46460D6D247BE9F83F34ED4A7F6E9B9F /* QBUUser+CustomData.m */; };
 		AB6C6FC79E19A7DED9C524EF7166BAAC /* QMUsersService.h in Headers */ = {isa = PBXBuildFile; fileRef = 843D830347125EDC103BB3956C26B0A3 /* QMUsersService.h */; };
 		AC10E698241CE5BE7C0C8E82E2DEC0E8 /* TWMessageBarManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B02BBBDB84C92060250ADC3BC1D5314E /* TWMessageBarManager-dummy.m */; };
 		AC3A179501592073719CA865DBCEFA47 /* _CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = F8B81876313991F37341E3447716E1F6 /* _CDUser.m */; };
 		AC3B3FC310C36725634A609FFA6D2420 /* QMCDRecord+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6550E0661D9DB3EE3D29AA1F4AAD3408 /* QMCDRecord+Actions.m */; };
-		AC87622B82306543B11DF6C30CA6D925 /* BFCancellationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E9EC0B0D728E1542E65029AFF1985DD /* BFCancellationToken.h */; };
+		AD3586855CCCE245611B56934CBDAE93 /* BFCancellationTokenRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = A19A985E6372FE1C4D034E9E663E47CD /* BFCancellationTokenRegistration.h */; };
 		AD5DF68FC33E7591FE11AB3339301888 /* QMImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6E1362907948F400455FD83FAEB8C1 /* QMImageView.m */; };
 		ADC578CA4582623A3E210EC03369C557 /* QMContactListMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = ED082516EF3C749EA9DB7F23C329EAC3 /* QMContactListMemoryStorage.m */; };
 		ADE2C9E009B06981614BE92EFBAFC5A2 /* EXTScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C7D8D9594D1541763D6ACA8D8D6414D /* EXTScope.h */; };
-		AE1BB8B5CCFAF8CD11ADE5DD4A8AFDDD /* BFWebViewAppLinkResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E510F2CD7688D1E32D8A39A3796047 /* BFWebViewAppLinkResolver.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		AFC0952A63DA45D9A7AD06A7238FBE34 /* NSString+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 446D90F26C81C999A71593B65F750063 /* NSString+QMCDDataImport.h */; };
 		B029170C7817C038884B9EA46FF182E4 /* ClassicSQLiteQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC7B921C4AE17C95FBAE707377D412F /* ClassicSQLiteQMCDRecordStack.m */; };
 		B0DDC9A1C49D2CF2DAD4B102B8DA5292 /* SDWebImagePrefetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = EAD4EC5AA721AB4D033F6500CB49F400 /* SDWebImagePrefetcher.h */; };
-		B1157FAA9ADAD64694274AE1494201F7 /* BFAppLinkResolving.h in Headers */ = {isa = PBXBuildFile; fileRef = 1615CFE257F8DDAE6D50A5D381F21D2F /* BFAppLinkResolving.h */; };
 		B11C332F64B3E412DD40AFFDE8523CB5 /* QMServicesManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C98BC2773CE96A779FBE1D85C69D58C /* QMServicesManager.h */; };
 		B1A15CBD7AE298519921C594424FCB74 /* QMDateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 29D6FF2E643D4E6163902F66CE33F1F9 /* QMDateUtils.h */; };
-		B268C53A8505D48C93EE966A7BF05C72 /* BFURL_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1684DAB1393ABE322204FB86FD73A096 /* BFURL_Internal.h */; };
+		B20A099FBF0B504DFCA65FA83BCA5413 /* BFTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F16353B46891B4AD1BCE37B111015F1 /* BFTask.h */; };
 		B34E22996480A6F1FAB7C2DDBA588612 /* QMChatContactRequestCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F47052CE34104304C8CDE2A130848A6 /* QMChatContactRequestCell.h */; };
-		B388E4A599DF9E71AFC332D05D453D3B /* BFAppLinkTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = FBEB7D76932E33F33AC93DA6C483D9E8 /* BFAppLinkTarget.h */; };
-		B3EF46571B7A7B8E765A244A9FBB4E4F /* BFAppLinkTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = F639D4907F77121E56CD49F53326EFA9 /* BFAppLinkTarget.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		B41CC176A1103A8F8A4A2929BBBA139C /* QMKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF11D33B24BDC953567474ABC9106388 /* QMKeyboardController.m */; };
 		B622C6DF1D34FD8BCCD5F67CB9A79C23 /* QMChatActionsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F03DBD731D5F0C5F1E65920A077217B /* QMChatActionsHandler.h */; };
 		B88C312830B07A16727B6BF5F0B89D4A /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 022A76A34984207DB81583427876EB27 /* Accelerate.framework */; };
 		B9438DE073945420C40247726CF4B358 /* _CDContactListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E42392C0E0CC891EE420C7EB3234AB62 /* _CDContactListItem.m */; };
 		BA4A62ADF539768CFA93ABC444FB5E1D /* UIView+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = 772AA4B771B4B9CDEF058B5E1F68C088 /* UIView+QM.h */; };
 		BABC79EDE739FDFC3F66AFCC2658D720 /* CDMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 84866CB6E8B9D6F41E3A2C913A09145A /* CDMessage.h */; };
-		BD19CDFCEFF9F433453DE48811BD759E /* BFDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 77A70FAD125DDB5CD0B32BB2DD40402F /* BFDefines.h */; };
 		BD66C31BE4E6F0D580FC37495791C42A /* QMAuthService.h in Headers */ = {isa = PBXBuildFile; fileRef = 273AACB212C708C35BC06BAD21D76575 /* QMAuthService.h */; };
+		BFA3946A011D24F6C2D778211F502944 /* Bolts.h in Headers */ = {isa = PBXBuildFile; fileRef = BA814CC92C187A5BA7153D15BABC724E /* Bolts.h */; };
 		C029D0CFF055584EE99527964D31EA05 /* QMServiceManagerProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EDFBE4EB40CC81FD92AD0920827A4A4 /* QMServiceManagerProtocol.h */; };
 		C05610EEF3A2C3834AB47CA1CB84AB74 /* EXTKeyPathCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = D31DF4C82F6BBB78F61C64DF0F1F72C5 /* EXTKeyPathCoding.h */; };
 		C0E4D6AC33325D4B31B35D226CC514D1 /* QMCDRecordInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3B13CE11BB2833634B1DF38E4869E7 /* QMCDRecordInternal.m */; };
@@ -260,9 +258,8 @@
 		C28D3682FD0085C7827C00DE6D591D46 /* QMChatCollectionViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 862177AB2F4C69876AA185321C891EF6 /* QMChatCollectionViewDataSource.h */; };
 		C2D427D5BF1F391D5813ED8E0E1007F9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CC9E9AA366E99CDD44851E96784566 /* AVFoundation.framework */; };
 		C3A72B6974A583FC7ED296A062270C11 /* SDWebImageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 149CCFCFA5AEE3B451A56CB0FEA0F244 /* SDWebImageManager.h */; };
-		C3D2D635C0E215A750BEDF9DFBA5EEF5 /* BFCancellationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = DDF432FBC8D207012F7B0A9C69B365BB /* BFCancellationToken.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		C405E8A23C83D23F00104CFBF0D006D9 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CD542120493C4BA46683B84C8F81B3E5 /* SDImageCache.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		C4DCE11A38F9D6A8D277E3665D3FC20C /* BFAppLink_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = DBB0069C3095EC77A1E8B65B7340765E /* BFAppLink_Internal.h */; };
+		C46777D61786129C2DD2C634331D9E67 /* BFMeasurementEvent_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9485BCE0CA8510D7BBD3C4DC1AA11F45 /* BFMeasurementEvent_Internal.h */; };
 		C5B13D2CCF66DFDD5AE074EE01B81281 /* QMServicesDevelopment-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 176717076DC1B980273243EF7CF9EC9E /* QMServicesDevelopment-dummy.m */; };
 		C6BA09F77F3CB434D5C186BC71012486 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1FA577099252DE4A6CC94023E77F8C /* SDWebImageDownloader.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		C797E0F6381497AE195B37672BA42FC3 /* NSAttributeDescription+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 711570F4C84D6AC3758C48779E6C92E0 /* NSAttributeDescription+QMCDDataImport.h */; };
@@ -272,16 +269,20 @@
 		C89197BCC142BDBCE07621115BE17EF1 /* QMKeyboardController.h in Headers */ = {isa = PBXBuildFile; fileRef = 483AF28EC0724511DBB2568ED74369B9 /* QMKeyboardController.h */; };
 		C8C9449A8C2FE4C88CA5A3F1099A2590 /* _CDAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 5207F5ED8EF606E918B3B4113CE00EE2 /* _CDAttachment.m */; };
 		CA60C68912B761ABC0E3A00C5310274E /* NSError+QMCDRecordErrorHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = C01F1B94DB15DA7360A73A98B71AD59A /* NSError+QMCDRecordErrorHandling.h */; };
+		CB9324592042DDD6768802826604EF19 /* BFAppLinkReturnToRefererView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23153633C117417F67CE097A6A7430F0 /* BFAppLinkReturnToRefererView.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		CBC3A1BA14E78ED539EE1B8FD829A307 /* CDContactListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = BA2785D5BB426A961118BAF7022E43B4 /* CDContactListItem.h */; };
 		CBD76220268065DF6A9377CC921CBD47 /* QMDialogsMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA958C35C4F9F2B54D0C1DDA6767B38 /* QMDialogsMemoryStorage.m */; };
 		CC1EDACCE71FFC1EFBBCB635774A96B9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961F1B11FA30D6351042DD164679197C /* CoreData.framework */; };
+		CD15FA793E5182F43F2EE9A8986A9DFB /* BFAppLinkReturnToRefererController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBB36A615E12EF01BDD20B87DC856D1 /* BFAppLinkReturnToRefererController.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		CECD3D50A5196401E4182EDB4DB04BF7 /* SQLiteQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 1704632D86358791448BFC1072E3F898 /* SQLiteQMCDRecordStack.m */; };
 		CFCF379D0A34DBD3967CFBA8F4282453 /* QMServices.h in Headers */ = {isa = PBXBuildFile; fileRef = B9300DBACC65242483D2104EF1CB2943 /* QMServices.h */; };
+		D0179589F7DBE38437863AB0A252F43C /* BFAppLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F82BF507DBD1A630E7B37BEA8B06437 /* BFAppLink.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D05ECA509FCC5B3757405CB5A79F5972 /* QMCDRecordShorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB39C584656698FB58109EDF289B601 /* QMCDRecordShorthand.m */; };
 		D07CC984FC41C2BED2EF86D767BF6519 /* QMPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32465B7267CEDB6169DD0BA525C9B5FE /* QMPlaceHolderTextView.m */; };
+		D08D8DB3A62A19EF1DAC509AE07EDB2F /* BFAppLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 35B6A46BF8BF95FC3C1AA300535689D3 /* BFAppLink.h */; };
 		D0918CAEF09A8CD1F9EC017BA566BBB6 /* SDImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 895D9ABCA4C30E567A3AEAC5FA381695 /* SDImageCache.h */; };
 		D0A48C2127B91C1E9B6A893558F44130 /* QMChatSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 573B0A251702AFF62FAC9D2C8D3B1A8F /* QMChatSection.m */; };
-		D41CF194CEF754A4D0897F0B248B4782 /* BFTaskCompletionSource.h in Headers */ = {isa = PBXBuildFile; fileRef = F8FFFF2FD8A498DDE8B43588F95E2C22 /* BFTaskCompletionSource.h */; };
+		D37576DEE59BE04D189A365AB381573C /* BFAppLinkTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = C4CCA8469AC0BE4D133CD3AF8681CAB7 /* BFAppLinkTarget.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D45E77A0427ABC20E2F5FA6411897680 /* QMUsersCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 74ECFAAAD08570BAB9129587B8B99890 /* QMUsersCache.m */; };
 		D4B26F78A7FCE5D4D5D45ADD0C5B0948 /* CDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1414DC0E3C7479CED1C63A0EE3DCC /* CDMessage.m */; };
 		D5634F35ABCF2A6AF5D63440281017C4 /* QMDBStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = A36F03766E9A6D2A04D16A080E352506 /* QMDBStorage.h */; };
@@ -290,30 +291,30 @@
 		D697E39E6A04A165A461E2DEF6B9587E /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 722B03FE7162317732284E4A4541FD82 /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D7758B29E1D7E792E11111A65F86102A /* SQLiteWithSavingContextQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = AB4D031B14E5B7309A823BECA194E76A /* SQLiteWithSavingContextQMCDRecordStack.h */; };
 		D7BBD5344A9E05C5905549BBBE720576 /* NSDictionary+QMCDRecordAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EA41186DD60827414CBFE87367A347F3 /* NSDictionary+QMCDRecordAdditions.h */; };
+		D8A2D79F3A319CE849181DD8144F1258 /* BFTaskCompletionSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 669CC1A4A0B2E9036A7316DFD124A3AC /* BFTaskCompletionSource.h */; };
 		D8E7EE845CC0324A5AB12A4C896090A4 /* QMCDRecordInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A59ADA89FFFEE8005BBF3B6F7C42CCD /* QMCDRecordInternal.h */; };
 		DA30B5D43187E51C62145451B33A5EFE /* NSManagedObject+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 89E286057A5522BFEBC6DABB8FF3A219 /* NSManagedObject+QMCDDataImport.h */; };
 		DC3CF95FFA5BCF890C5FF0EC61EFC241 /* QMContactListService.m in Sources */ = {isa = PBXBuildFile; fileRef = A77279EFD08895992DE526A41260201E /* QMContactListService.m */; };
 		DC3F0139E02BA33B23BD4CC43CE6B4B6 /* QMChatAttachmentOutgoingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B23509CD11F99EE0FB93481F9D529B19 /* QMChatAttachmentOutgoingCell.h */; };
 		DCC33717570C9ACF8F8F9A46B3BDE4DF /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EA6650C46DA3C0A32A17D5ECC9756C5 /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.m */; };
-		DD4F2AEE5EEA674A156A2DD2D0B74A24 /* Bolts.m in Sources */ = {isa = PBXBuildFile; fileRef = EC14E8853FD0F0AA0BAE1A273C17D54C /* Bolts.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		DDDD254D417D7080F89E928C6CAE8E5C /* NSManagedObject+QMCDAggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E412A2DD45ADFEF2AA03414B2AE344D /* NSManagedObject+QMCDAggregation.m */; };
+		DDE37F8C6222318F89479F85F999838D /* BoltsVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = E12CF3D7AD759DD1E7A730F3159CD2E1 /* BoltsVersion.h */; };
 		DFB22A0D0AB7970F2ABCF546685BF996 /* QMCDRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = E7167D2677CBB427F05B0064D5866FC0 /* QMCDRecord+Setup.m */; };
-		E17A20F3B304CCEAF76EFD17915A5DDD /* BFCancellationTokenRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D691432A8C3F8D628D53A3B29E989C2 /* BFCancellationTokenRegistration.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		E1A08E871884EEFBB701B05B28D3E33B /* NSManagedObjectContext+QMCDObserving.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D6499215D89E3F7AE43AA9263D8A324 /* NSManagedObjectContext+QMCDObserving.h */; };
 		E203C412DD6E36ADD17FF20D4FDFC60E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
+		E20B5CE26A24FD0BEE1D8061AE814DE1 /* BFAppLinkReturnToRefererController.h in Headers */ = {isa = PBXBuildFile; fileRef = F849F7BFC68E53E3623D8B1659606CE6 /* BFAppLinkReturnToRefererController.h */; };
 		E3A07B79923A311EDBC99058F83ED0F5 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B945AE4188481C7BD283FE01D508019C /* ImageIO.framework */; };
 		E48D5F6042735D51C746389EEF943A1A /* NSPersistentStore+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = B1DBB6354F6632BE2A0D3554175F3EDF /* NSPersistentStore+QMCDRecord.m */; };
-		E57512852103F77D0E2903DE472BAD23 /* BFAppLinkReturnToRefererController.m in Sources */ = {isa = PBXBuildFile; fileRef = C83E75533F013BFB7CB21101A7F861BE /* BFAppLinkReturnToRefererController.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		E5C694951CFDCD6092C1331ECC4DDCD3 /* NSManagedObjectContext+QMCDSaves.h in Headers */ = {isa = PBXBuildFile; fileRef = CE143EC93E2F344F14F42FA51522AD49 /* NSManagedObjectContext+QMCDSaves.h */; };
 		E61D9CFAB00F352817F6795642A13CD2 /* QMCDRecordStack+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = AB4869FF1CFD67EEECFE97F3BA07D8E2 /* QMCDRecordStack+Private.h */; };
 		E62E263073C3CDA4A2D799C910CA683C /* QMInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E4773DFE498B43EDE4E93DCC5E196D56 /* QMInputToolbar.m */; };
 		E6E717CE164DEE6FE804EC70892C77B8 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 77FE14F364B3F197040B3E56E8EE0547 /* NSData+ImageContentType.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		E7100B34C60D23B16E9A4240652DB470 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 40546F154700FCE1EA763E480D904475 /* SVProgressHUD.m */; };
 		E7B6CB1B80CDE82CD04DC17EA63AE1DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E069E26FA422A062A6E48DA485EDEBC5 /* UIKit.framework */; };
-		E7C60C358CFD04E01ADF18D0ED44EDA2 /* BFURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 04982AB1387FF628AB0F02C372242CD9 /* BFURL.h */; };
 		E8407B060A18C9DAEF9578C6B0C6343D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
 		E89A00425EFF51B1B2AD4FF126E96152 /* NSManagedObjectModel+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = AE54CBB6D370DEF24E058B5E27E53D4B /* NSManagedObjectModel+QMCDRecord.m */; };
-		E8B10F3EE3F11FFD0DDF54B845584C15 /* BFAppLink.m in Sources */ = {isa = PBXBuildFile; fileRef = E0EAFD29DD8DB82C7883E0E7C81BB0A6 /* BFAppLink.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E8DFD7E14A8A12FF96C0F3ABC78A6092 /* BFWebViewAppLinkResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = A0F0159C8B8DE8328AADDEAF4B34C2C6 /* BFWebViewAppLinkResolver.h */; };
+		E8F646C1FAB293B019365FD3297154A9 /* BFExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF49E87CDFFB619156A6A0256DFE76 /* BFExecutor.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		E93E04128C1731F3F9EE0FF57AB2A0ED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */; };
 		E9D7007B5986AADFDBF99588E7D33E69 /* SQLiteQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = D644D9489EB915523EED2064E08B956D /* SQLiteQMCDRecordStack.h */; };
 		EA1593EDE2249F3DBC1B8B78DE301CF7 /* TTTAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 31ABEA39B92661887798425ABEE72FEC /* TTTAttributedLabel.h */; };
@@ -321,7 +322,6 @@
 		EBEAC4113A9A08256512C4BC7F309943 /* QMChatAttachmentService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6937FCE2FDD2535217A82D55D775DF4A /* QMChatAttachmentService.h */; };
 		EC398C937A0330F901DCC549779C0ACA /* NSManagedObjectContext+QMCDObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB0FCDC1502E14B6C9888CA88DE7272 /* NSManagedObjectContext+QMCDObserving.m */; };
 		EC4C2DF03689AFFA156549F4ADD9143B /* _CDDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D991E9D5F233391D6234D90C099C49B /* _CDDialog.m */; };
-		EE28EC779C4386B0285009BAC510450A /* BFMeasurementEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 091BDEF9E367FA0BD18E032736AD5AFB /* BFMeasurementEvent.h */; };
 		EFB15D4F190713131DFB48BF16184EBE /* NSPersistentStoreCoordinator+QMCDAutoMigrations.m in Sources */ = {isa = PBXBuildFile; fileRef = C800102150E7D3F37A403317441A025F /* NSPersistentStoreCoordinator+QMCDAutoMigrations.m */; };
 		EFDD35D9FFAB61D430957F713B74CE49 /* QMCDRecord+VersionInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 82238068D4A963637E251BD559A5A0DE /* QMCDRecord+VersionInformation.m */; };
 		F0782BAE3EE8D735F96903B7B41452D2 /* QMInputToolbar.h in Headers */ = {isa = PBXBuildFile; fileRef = 416D7516F11C2DDA9EDAC38DF8BC9B82 /* QMInputToolbar.h */; };
@@ -333,6 +333,7 @@
 		F60783A655BD089C9C4226B0A70399AB /* QMUsersModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 0A37C300D98B3C1110A3E9912E0D4442 /* QMUsersModel.xcdatamodeld */; };
 		F726042BEA473989C5E5685C0F199AFB /* NSEntityDescription+QMCDDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = AF46D7FA4DDB3517C2BEBEF755410D3D /* NSEntityDescription+QMCDDataImport.m */; };
 		F741711363356CA6D09B545EFB4D076A /* TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE4DF8C3D52D8F7EE2447F8473BE44E /* TTTAttributedLabel-dummy.m */; };
+		F7421E1080231788D3A9F2F32AE224C6 /* BFAppLinkResolving.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D1F242FB5EA4375F5CCF4F95C7B3FE /* BFAppLinkResolving.h */; };
 		F8204B14AF951A988763B64069E7C7D5 /* QMCDRecordStack+Actions.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EC188CFEBA286FA1359933B7DA9241 /* QMCDRecordStack+Actions.h */; };
 		F8F61181CDF2405B19401A512EBF1558 /* QMContactListMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 936DD8C0F3DF7FDA591B0492D06473A1 /* QMContactListMemoryStorage.h */; };
 		F970EBC7232AA2ABDD6B6F5E7A920418 /* NSArray+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 929270012E39CD011702BBA51957D83E /* NSArray+QMCDRecord.m */; };
@@ -343,109 +344,108 @@
 		FD316681ECE233FA45F3C7BCA05E9617 /* NSPersistentStoreCoordinator+QMCDManualMigrations.h in Headers */ = {isa = PBXBuildFile; fileRef = CF47A0BD7786453A164FEF1D7CBBF21D /* NSPersistentStoreCoordinator+QMCDManualMigrations.h */; };
 		FD3B1166EE79A836F0B0ED7320A1117F /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B49D0CEDE185DB85FB27A0BC1BA8F5D /* SDWebImageDownloaderOperation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		FD929B18D41D5CABFA0CCDE0591809D1 /* QMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24655C2033A55D4D5D89F256AFB5144C /* QMChatViewController.m */; };
-		FF21393BAC2C0F790DA7C8567DB286FB /* BFAppLinkReturnToRefererController.h in Headers */ = {isa = PBXBuildFile; fileRef = A6D589BEBAAA76A0A835FE5FBEDDE1C7 /* BFAppLinkReturnToRefererController.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0B6743432F63CD49C58925F0FB17D236 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BD16F54DE4D73BD8165EE77F2E36BECE;
-			remoteInfo = TTTAttributedLabel;
-		};
-		166F893CED1C24089D2B5D8F71E70ABB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B06AB07FFB5C551832317302763DC591;
-			remoteInfo = libextobjc;
-		};
-		2344459624D68230DD2B2479499A1B37 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 451BE75EDAF400A3779E874D1795D949;
-			remoteInfo = QMCVDevelopment;
-		};
-		39D5A551FBDBC5F7883A18391C838A6A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B06AB07FFB5C551832317302763DC591;
-			remoteInfo = libextobjc;
-		};
-		4C0A157100A6C51333D5675957A9EC12 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B76ADC364854D8D9F72EFDB83164A684;
-			remoteInfo = "QMServicesDevelopment-QMChatCacheModel";
-		};
-		4FDEC2D8EFB9D94CFC11FF27439889D1 /* PBXContainerItemProxy */ = {
+		025FAF7FA06AA1DE9EFDD0D2C4FE95C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6394834C32C660A036A4C034F952F0E3;
 			remoteInfo = TWMessageBarManager;
 		};
-		5E8609031A41760D38920F0259084B5B /* PBXContainerItemProxy */ = {
+		0FA8AAF07261EC2790022793F973AAF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = BD16F54DE4D73BD8165EE77F2E36BECE;
 			remoteInfo = TTTAttributedLabel;
 		};
-		643FEC4A8AD63E87B1F0176DAB83DE31 /* PBXContainerItemProxy */ = {
+		14FC6F9F217C0E600AA51B837696E929 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7B9C282821CD8E5B19C5ED7696AC156A;
-			remoteInfo = "QMServicesDevelopment-QMContactListCacheModel";
+			remoteGlobalIDString = B76ADC364854D8D9F72EFDB83164A684;
+			remoteInfo = "QMServicesDevelopment-QMChatCacheModel";
 		};
-		987F97BD5FA9DFF8500C4FC168CA66B6 /* PBXContainerItemProxy */ = {
+		4CA1824EBCFF4BA28A603B8E973C256B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4C7D96A05DDD96F3301ED33DB4098EF0;
+			remoteGlobalIDString = D7C215DC391E7D2AA178C487D8AE4D30;
 			remoteInfo = Bolts;
 		};
-		99F932B6FC9903C2416C1C42496396CE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4E56C960294B1ADE9DC2C61A758E8FC3;
-			remoteInfo = "QMServicesDevelopment-QMUsersCacheModel";
-		};
-		AB2F4F9BED811D36E36B779BE8C64DEC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C7D96A05DDD96F3301ED33DB4098EF0;
-			remoteInfo = Bolts;
-		};
-		C0FEDCB212F16BA5AA8AE1B5F7B667ED /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6150161EE53E4CFDEF0EBEF023786C41;
-			remoteInfo = QMServicesDevelopment;
-		};
-		D78C66AC836B4D3F53C6784AD0B9C7BF /* PBXContainerItemProxy */ = {
+		620E033D4B6FD4A0B815AE3F2D39027D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 24D55CEC1148C773E57D3ADE95A93F12;
 			remoteInfo = SDWebImage;
 		};
-		DCC3BAB840273A8D3B16022EAC60262A /* PBXContainerItemProxy */ = {
+		736F46AF066B98AB1927310BBC51107E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D7C215DC391E7D2AA178C487D8AE4D30;
+			remoteInfo = Bolts;
+		};
+		7AEE72780CC295917BF54AE7E825FA2D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B85F129A617B071220F3CAA2B5E9CB37;
 			remoteInfo = SVProgressHUD;
 		};
-		EBB9CF28461AF868FB82E251DF39C071 /* PBXContainerItemProxy */ = {
+		90DBFCD65D219EE41B46A8181E1078FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B06AB07FFB5C551832317302763DC591;
+			remoteInfo = libextobjc;
+		};
+		A5E7B87A053D08E548D6F90F8982CEFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 451BE75EDAF400A3779E874D1795D949;
+			remoteInfo = QMCVDevelopment;
+		};
+		B2CA0CADA77F0A713166FF160192959D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B06AB07FFB5C551832317302763DC591;
+			remoteInfo = libextobjc;
+		};
+		B864977F8AB4893468A426E363CF9B11 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E56C960294B1ADE9DC2C61A758E8FC3;
+			remoteInfo = "QMServicesDevelopment-QMUsersCacheModel";
+		};
+		D7A64C65E86921B370ABF23C4E534769 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD16F54DE4D73BD8165EE77F2E36BECE;
+			remoteInfo = TTTAttributedLabel;
+		};
+		E9292E18B5C09F686961D74FE8C203EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6150161EE53E4CFDEF0EBEF023786C41;
+			remoteInfo = QMServicesDevelopment;
+		};
+		ED0E734685F18EB607B3E26FAEB22174 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B9C282821CD8E5B19C5ED7696AC156A;
+			remoteInfo = "QMServicesDevelopment-QMContactListCacheModel";
+		};
+		FB7636CA87B58205E4E753A996893531 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
@@ -457,11 +457,10 @@
 /* Begin PBXFileReference section */
 		0194134C33B52E0E381D012FAFADF63E /* SVProgressHUD-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SVProgressHUD-Private.xcconfig"; sourceTree = "<group>"; };
 		022A76A34984207DB81583427876EB27 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
-		026E944AA798102541B64591E4E62B6B /* BFAppLinkNavigation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkNavigation.h; path = Bolts/iOS/BFAppLinkNavigation.h; sourceTree = "<group>"; };
 		02DD7A4BE4326AD318E59A3DBD00FBCA /* _CDMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CDMessage.m; path = QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDMessage.m; sourceTree = "<group>"; };
 		038487CAD086B466CD94DF54E7DB3DC0 /* libQMCVDevelopment.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQMCVDevelopment.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D2E1B6F83E572785E1D0768C2E75BD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		04982AB1387FF628AB0F02C372242CD9 /* BFURL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFURL.h; path = Bolts/iOS/BFURL.h; sourceTree = "<group>"; };
+		03EAB8C6531D6925C75C5F7613002BD1 /* BFCancellationTokenSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationTokenSource.m; path = Bolts/Common/BFCancellationTokenSource.m; sourceTree = "<group>"; };
 		04F9CEA7A782E6A735C5BD7A0C313B25 /* QMCCModelIncludes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCCModelIncludes.h; path = QMChatCache/QMChatCache/CoreData/QMCCModelIncludes.h; sourceTree = "<group>"; };
 		054D34E1FE8AE6A020E631C97A77373B /* UIImage+MultiFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MultiFormat.m"; path = "SDWebImage/UIImage+MultiFormat.m"; sourceTree = "<group>"; };
 		059CB520D7BDB3EF03655F03B96E992B /* metamacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = metamacros.h; path = extobjc/metamacros.h; sourceTree = "<group>"; };
@@ -469,22 +468,17 @@
 		076421984558B1E0230FB5F75C060FBE /* SDWebImageDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageDecoder.h; path = SDWebImage/SDWebImageDecoder.h; sourceTree = "<group>"; };
 		07C059C3014ACED7FD0E2CC2B69746D5 /* QMServicesManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMServicesManager.m; path = QMManagers/QMServicesManager.m; sourceTree = "<group>"; };
 		0816097E096C09EE50833DBB9B6455AF /* NSObject+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSObject+QMCDDataImport.m"; sourceTree = "<group>"; };
-		09183BDCA0559E5F67371168BDBEA272 /* BFTask.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFTask.h; path = Bolts/Common/BFTask.h; sourceTree = "<group>"; };
-		091BDEF9E367FA0BD18E032736AD5AFB /* BFMeasurementEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFMeasurementEvent.h; path = Bolts/iOS/BFMeasurementEvent.h; sourceTree = "<group>"; };
 		09BC7877B8B1644557BFA5F2AF030E71 /* QMChatTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatTypes.h; path = QMChatService/QMChatService/QMChatTypes.h; sourceTree = "<group>"; };
 		0AD52EFB419C2C201EEBD2A1D5E1154C /* QMDialogsMemoryStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMDialogsMemoryStorage.h; path = QMChatService/QMChatService/QMDialogsMemoryStorage/QMDialogsMemoryStorage.h; sourceTree = "<group>"; };
 		0BB11F97BFFD51A23C9C777B7958BCCA /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
 		0CA35B8120C75A6927FB53F25A884E25 /* NSManagedObjectContext+QMCDRecord.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectContext+QMCDRecord.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectContext/NSManagedObjectContext+QMCDRecord.m"; sourceTree = "<group>"; };
 		0CBD5C6D371F3DCD57351937638CFE0F /* QMCDMigrationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDMigrationManager.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDMigrationManager.h; sourceTree = "<group>"; };
 		0D6499215D89E3F7AE43AA9263D8A324 /* NSManagedObjectContext+QMCDObserving.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+QMCDObserving.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectContext/NSManagedObjectContext+QMCDObserving.h"; sourceTree = "<group>"; };
-		0D691432A8C3F8D628D53A3B29E989C2 /* BFCancellationTokenRegistration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationTokenRegistration.m; path = Bolts/Common/BFCancellationTokenRegistration.m; sourceTree = "<group>"; };
 		0F43146AFAB65A7E3EC98541280DFB35 /* Pods.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.qa.xcconfig; sourceTree = "<group>"; };
 		0FBBDB2D48F1032CE7392EBB6D0EAA30 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
-		102332AC97C57DC9A7A03960E550E9D2 /* BFAppLink.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLink.h; path = Bolts/iOS/BFAppLink.h; sourceTree = "<group>"; };
 		10F0578341ECA43B57DB91D72D4236F5 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		11869F1670FBA11B990898E5508C2BB6 /* QBChatMessage+TextEncoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QBChatMessage+TextEncoding.h"; path = "QMChatService/QMChatService/Categories/QBChatMessage+TextEncoding.h"; sourceTree = "<group>"; };
 		1275F4D2AFAEE2A62DE0D7E042B42FF6 /* UIImage+Cropper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Cropper.h"; path = "QMChatViewController/Categories/UIImage+Cropper.h"; sourceTree = "<group>"; };
-		12C5C4684B8737B0A719656BB9BDE9CA /* BFExecutor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFExecutor.m; path = Bolts/Common/BFExecutor.m; sourceTree = "<group>"; };
 		135BC96740B495B5A803784F893E8931 /* CDUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CDUser.h; path = QMUsersCache/QMUsersCache/CoreData/Entries/CDUser.h; sourceTree = "<group>"; };
 		13C1CB2F815D8D20706D510FBAFA3375 /* QBChatMessage+QMCustomParameters.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QBChatMessage+QMCustomParameters.h"; path = "QMChatService/QMChatService/Categories/QBChatMessage+QMCustomParameters.h"; sourceTree = "<group>"; };
 		146801978815660DEB04D785728DE4F8 /* QMCVDevelopment-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QMCVDevelopment-dummy.m"; sourceTree = "<group>"; };
@@ -492,10 +486,8 @@
 		14FDD2D8EFAC36BA7351ECD2E8DBA757 /* NSManagedObject+QMCDRequests.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDRequests.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDRequests.h"; sourceTree = "<group>"; };
 		150BCAE09DDBD2B716EF74E419A5941E /* SDWebImageManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageManager.m; path = SDWebImage/SDWebImageManager.m; sourceTree = "<group>"; };
 		15D5CC5D6A40EEC4994ADCF1FBBE510D /* libQMServicesDevelopment.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQMServicesDevelopment.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		1615CFE257F8DDAE6D50A5D381F21D2F /* BFAppLinkResolving.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkResolving.h; path = Bolts/iOS/BFAppLinkResolving.h; sourceTree = "<group>"; };
 		161FF6756FFFAF0D40422A05AECA7CAD /* TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TWMessageBarManager.xcconfig; sourceTree = "<group>"; };
 		1654938F59F484F6D996584B0237A66D /* NSData+ImageContentType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+ImageContentType.h"; path = "SDWebImage/NSData+ImageContentType.h"; sourceTree = "<group>"; };
-		1684DAB1393ABE322204FB86FD73A096 /* BFURL_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFURL_Internal.h; path = Bolts/iOS/BFURL_Internal.h; sourceTree = "<group>"; };
 		1704632D86358791448BFC1072E3F898 /* SQLiteQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SQLiteQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/SQLiteQMCDRecordStack.m; sourceTree = "<group>"; };
 		176717076DC1B980273243EF7CF9EC9E /* QMServicesDevelopment-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QMServicesDevelopment-dummy.m"; sourceTree = "<group>"; };
 		1770D85DA9C5B6D2C442FD48F3041436 /* QMChatViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatViewController.xib; path = QMChatViewController/en.lproj/QMChatViewController.xib; sourceTree = "<group>"; };
@@ -508,10 +500,12 @@
 		1E412A2DD45ADFEF2AA03414B2AE344D /* NSManagedObject+QMCDAggregation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDAggregation.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDAggregation.m"; sourceTree = "<group>"; };
 		1EC8D1DE66F6724A35ADE3D7EF1ECBE4 /* QBChatMessage+TextEncoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QBChatMessage+TextEncoding.m"; path = "QMChatService/QMChatService/Categories/QBChatMessage+TextEncoding.m"; sourceTree = "<group>"; };
 		1EECC4BDF2CC16293EF12AFA46EA6D15 /* UIImage+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+QM.h"; path = "QMChatViewController/Categories/UIImage+QM.h"; sourceTree = "<group>"; };
+		1F16353B46891B4AD1BCE37B111015F1 /* BFTask.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFTask.h; path = Bolts/Common/BFTask.h; sourceTree = "<group>"; };
+		1FA239DC8ED9E90B6FDB9EBC1DB4521D /* BFWebViewAppLinkResolver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFWebViewAppLinkResolver.m; path = Bolts/iOS/BFWebViewAppLinkResolver.m; sourceTree = "<group>"; };
 		1FB8EF13946B5D254A54F63B0EA60D7E /* QMCDRecord+VersionInformation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QMCDRecord+VersionInformation.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+VersionInformation.h"; sourceTree = "<group>"; };
 		1FFB22038E787411D17D837808D4C352 /* QMChatAttachmentCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatAttachmentCell.h; path = QMChatViewController/Views/Cells/QMChatAttachmentCell/QMChatAttachmentCell.h; sourceTree = "<group>"; };
 		21E48CB5BB1DAB962C88B85D60C9F879 /* UIImageView+HighlightedWebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+HighlightedWebCache.h"; path = "SDWebImage/UIImageView+HighlightedWebCache.h"; sourceTree = "<group>"; };
-		2263923FABD2FDC36D79838ED7CC8F6A /* BFExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFExecutor.h; path = Bolts/Common/BFExecutor.h; sourceTree = "<group>"; };
+		23153633C117417F67CE097A6A7430F0 /* BFAppLinkReturnToRefererView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkReturnToRefererView.m; path = Bolts/iOS/BFAppLinkReturnToRefererView.m; sourceTree = "<group>"; };
 		2322DD8E28A61AC7DF2615DBC9281D5A /* _CDDialog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDDialog.h; path = QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDDialog.h; sourceTree = "<group>"; };
 		24655C2033A55D4D5D89F256AFB5144C /* QMChatViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatViewController.m; path = QMChatViewController/QMChatViewController.m; sourceTree = "<group>"; };
 		24CB78E3EB3D030A540C34FEFEFD6F4C /* QMServicesDevelopment-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QMServicesDevelopment-prefix.pch"; sourceTree = "<group>"; };
@@ -525,7 +519,6 @@
 		2B49D0CEDE185DB85FB27A0BC1BA8F5D /* SDWebImageDownloaderOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageDownloaderOperation.m; path = SDWebImage/SDWebImageDownloaderOperation.m; sourceTree = "<group>"; };
 		2C7DA2EDB8DAD6B72D278185B2DC6F75 /* NSPersistentStore+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStore+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStore+QMCDRecord.h"; sourceTree = "<group>"; };
 		2CB0FCDC1502E14B6C9888CA88DE7272 /* NSManagedObjectContext+QMCDObserving.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectContext+QMCDObserving.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectContext/NSManagedObjectContext+QMCDObserving.m"; sourceTree = "<group>"; };
-		2CB4AAF2331927FD44E08FB5C31E950D /* BFAppLinkReturnToRefererView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkReturnToRefererView.m; path = Bolts/iOS/BFAppLinkReturnToRefererView.m; sourceTree = "<group>"; };
 		2D991E9D5F233391D6234D90C099C49B /* _CDDialog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CDDialog.m; path = QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDDialog.m; sourceTree = "<group>"; };
 		2DCFACD83262FF22E3E854B9BC229F96 /* TWMessageBarManager-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "TWMessageBarManager-Private.xcconfig"; sourceTree = "<group>"; };
 		2DD1414DC0E3C7479CED1C63A0EE3DCC /* CDMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CDMessage.m; path = QMChatCache/QMChatCache/CoreData/Entries/CDMessage.m; sourceTree = "<group>"; };
@@ -540,16 +533,14 @@
 		31ABEA39B92661887798425ABEE72FEC /* TTTAttributedLabel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TTTAttributedLabel.h; path = TTTAttributedLabel/TTTAttributedLabel.h; sourceTree = "<group>"; };
 		31CA6B9FB6AD89038317EEC7B72A74CD /* icon-success.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success.png"; path = "Classes/Icons/icon-success.png"; sourceTree = "<group>"; };
 		32465B7267CEDB6169DD0BA525C9B5FE /* QMPlaceHolderTextView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMPlaceHolderTextView.m; path = QMChatViewController/Views/CustomUI/PlaceHolderTextView/QMPlaceHolderTextView.m; sourceTree = "<group>"; };
-		3277A7ADE47EE85784C1F12AC0F5E9C0 /* BoltsVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BoltsVersion.h; path = Bolts/Common/BoltsVersion.h; sourceTree = "<group>"; };
 		329CD8646E71A3BEB723CB4DD852DE25 /* QMImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMImageView.h; path = QMChatViewController/Views/CustomUI/QMImageView/QMImageView.h; sourceTree = "<group>"; };
 		32D395BEC0AE0632217C013A1052A9B8 /* QMChatCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatCell.m; path = QMChatViewController/Views/Cells/QMChatCell/QMChatCell.m; sourceTree = "<group>"; };
 		32F02630C6DD1FE7FD44E4A649AB04BF /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		344BD47FFCF622E75FB10B7B1027071D /* BFAppLinkNavigation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkNavigation.m; path = Bolts/iOS/BFAppLinkNavigation.m; sourceTree = "<group>"; };
 		34CD387C5D5BD82BBA8DCB1F8724F709 /* QMChatCellLayoutAttributes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatCellLayoutAttributes.m; path = QMChatViewController/Views/CollectionView/Layout/QMChatCellLayoutAttributes.m; sourceTree = "<group>"; };
 		3502DB53FAEF6CE4E75CA871E0C1143C /* QMChatIncomingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatIncomingCell.m; path = QMChatViewController/Views/Cells/QMChatIncomingCell/QMChatIncomingCell.m; sourceTree = "<group>"; };
 		35114C2B998575B22F374C223007B35C /* SQLiteWithSavingContextQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SQLiteWithSavingContextQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/SQLiteWithSavingContextQMCDRecordStack.m; sourceTree = "<group>"; };
 		35478117892D7AC34AEB03458E07FEA1 /* NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.h"; sourceTree = "<group>"; };
-		37C75652105D55663D5C01552F453894 /* BFTask.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFTask.m; path = Bolts/Common/BFTask.m; sourceTree = "<group>"; };
+		35B6A46BF8BF95FC3C1AA300535689D3 /* BFAppLink.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLink.h; path = Bolts/iOS/BFAppLink.h; sourceTree = "<group>"; };
 		37D2613225F72016A10320ACB279B1DA /* icon-success@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-success@2x.png"; path = "Classes/Icons/icon-success@2x.png"; sourceTree = "<group>"; };
 		3896F09A78F0815E888102BF6422F0C1 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		3918D70BFFD85709351D540DA825C93B /* NSObject+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSObject+QMCDDataImport.h"; sourceTree = "<group>"; };
@@ -559,34 +550,37 @@
 		3D449A88849B7D03FB31C5B5B86E01F1 /* QMCDRecordMOGeneratorProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordMOGeneratorProtocol.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordMOGeneratorProtocol.h; sourceTree = "<group>"; };
 		3DC001CFAE164FF68128B2A4CB998AFB /* QMChatCollectionViewDelegateFlowLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCollectionViewDelegateFlowLayout.h; path = QMChatViewController/Protocols/QMChatCollectionViewDelegateFlowLayout.h; sourceTree = "<group>"; };
 		3E3B13CE11BB2833634B1DF38E4869E7 /* QMCDRecordInternal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMCDRecordInternal.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordInternal.m; sourceTree = "<group>"; };
-		3E9EC0B0D728E1542E65029AFF1985DD /* BFCancellationToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationToken.h; path = Bolts/Common/BFCancellationToken.h; sourceTree = "<group>"; };
+		3EEF49E87CDFFB619156A6A0256DFE76 /* BFExecutor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFExecutor.m; path = Bolts/Common/BFExecutor.m; sourceTree = "<group>"; };
 		3FD50EBDB72949E77E4697C573878487 /* NSFetchedResultsController+QMCDFetching.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSFetchedResultsController+QMCDFetching.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSFetchedResultsController+QMCDFetching.m"; sourceTree = "<group>"; };
 		40546F154700FCE1EA763E480D904475 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
 		416D7516F11C2DDA9EDAC38DF8BC9B82 /* QMInputToolbar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMInputToolbar.h; path = QMChatViewController/Views/CustomUI/InputToolBar/QMInputToolbar.h; sourceTree = "<group>"; };
+		41AD92E991563EF0E394F24EE87096AD /* BFMeasurementEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFMeasurementEvent.h; path = Bolts/iOS/BFMeasurementEvent.h; sourceTree = "<group>"; };
 		41C402929A21EF6B3139EC3FA9435A9F /* QMCDRecord+Setup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QMCDRecord+Setup.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Setup.h"; sourceTree = "<group>"; };
 		42D3F68D67379DFB700B6D1899BA7C52 /* _CDUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDUser.h; path = QMUsersCache/QMUsersCache/CoreData/EntriesMachine/_CDUser.h; sourceTree = "<group>"; };
-		42F829643519AAC0327B750076791980 /* BFAppLinkReturnToRefererView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkReturnToRefererView.h; path = Bolts/iOS/BFAppLinkReturnToRefererView.h; sourceTree = "<group>"; };
 		443925986CD95525DA7C487F91932164 /* NSArray+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSArray+QMCDRecord.h"; sourceTree = "<group>"; };
 		446D90F26C81C999A71593B65F750063 /* NSString+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSString+QMCDDataImport.h"; sourceTree = "<group>"; };
 		4472EB1900EF40A61CC118D78D0B5FCE /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AutoMigratingWithSourceAndTargetModelQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/AutoMigratingWithSourceAndTargetModelQMCDRecordStack.h; sourceTree = "<group>"; };
+		45821958A713E742EE238D302011ADCC /* BFAppLinkReturnToRefererView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkReturnToRefererView.h; path = Bolts/iOS/BFAppLinkReturnToRefererView.h; sourceTree = "<group>"; };
 		45C93CA8CD27E0112CF2F3042C556AAD /* Bolts-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Bolts-prefix.pch"; sourceTree = "<group>"; };
+		45D1F242FB5EA4375F5CCF4F95C7B3FE /* BFAppLinkResolving.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkResolving.h; path = Bolts/iOS/BFAppLinkResolving.h; sourceTree = "<group>"; };
 		46460D6D247BE9F83F34ED4A7F6E9B9F /* QBUUser+CustomData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QBUUser+CustomData.m"; path = "QMUsersService/QMUsersService/Categories/QBUUser+CustomData.m"; sourceTree = "<group>"; };
+		46FD61071400CC55B8AC8A3D78BC38F5 /* BFAppLinkNavigation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkNavigation.h; path = Bolts/iOS/BFAppLinkNavigation.h; sourceTree = "<group>"; };
 		4746F32C90E209141A5E759FD72086ED /* QMChatCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatCollectionView.m; path = QMChatViewController/Views/CollectionView/QMChatCollectionView.m; sourceTree = "<group>"; };
 		47A242BB7185859D06E2500EB501330A /* QMUsersMemoryStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMUsersMemoryStorage.m; path = QMUsersService/QMUsersService/QMUsersMemoryStorage/QMUsersMemoryStorage.m; sourceTree = "<group>"; };
 		483AF28EC0724511DBB2568ED74369B9 /* QMKeyboardController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMKeyboardController.h; path = QMChatViewController/KeyboardViewController/QMKeyboardController.h; sourceTree = "<group>"; };
 		48C0C2172562DA97A495A1873D0854B1 /* QMServicesDevelopment-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "QMServicesDevelopment-Private.xcconfig"; sourceTree = "<group>"; };
-		49E510F2CD7688D1E32D8A39A3796047 /* BFWebViewAppLinkResolver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFWebViewAppLinkResolver.m; path = Bolts/iOS/BFWebViewAppLinkResolver.m; sourceTree = "<group>"; };
 		4AD6ACB7259F02D5E0061DA2496DF0AD /* QMChatContactRequestCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatContactRequestCell.xib; path = QMChatViewController/Views/Cells/QMChatContactRequestCell/QMChatContactRequestCell.xib; sourceTree = "<group>"; };
 		4C2AF55394C50705E4EC6C770AD62EE4 /* libTTTAttributedLabel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTTTAttributedLabel.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DFF2EB7C784924B89D00EE86FC13C8A /* NSError+QMCDRecordErrorHandling.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSError+QMCDRecordErrorHandling.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSError+QMCDRecordErrorHandling.m"; sourceTree = "<group>"; };
 		4EDA2DC073BA5739B554DD6705CC4BD7 /* QMCancellationToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCancellationToken.h; path = QMBaseService/QMBaseService/QMCancellationToken.h; sourceTree = "<group>"; };
 		4EDC39225146D04977247340730DB2A3 /* NSManagedObjectModel+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectModel+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectModel+QMCDRecord.h"; sourceTree = "<group>"; };
+		4F82BF507DBD1A630E7B37BEA8B06437 /* BFAppLink.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLink.m; path = Bolts/iOS/BFAppLink.m; sourceTree = "<group>"; };
 		4FB8398AB287034400A23F8BE8104087 /* NSManagedObject+QMCDFetching.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDFetching.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDFetching.m"; sourceTree = "<group>"; };
-		4FDB416A549692EF6C5217533050E5BA /* BFCancellationTokenSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationTokenSource.h; path = Bolts/Common/BFCancellationTokenSource.h; sourceTree = "<group>"; };
 		50BD962900DB768CA5368D22B1B89463 /* NSString+GTMNSStringHTMLAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+GTMNSStringHTMLAdditions.m"; path = "QMChatService/QMChatService/Categories/NSString+GTMNSStringHTMLAdditions.m"; sourceTree = "<group>"; };
 		50F285B6E9E3AABCCE15058A633E33AD /* NSPersistentStore+QMCDRecordPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStore+QMCDRecordPrivate.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStore+QMCDRecordPrivate.h"; sourceTree = "<group>"; };
 		50F3562C9286578E9F5E155CF7AD28A1 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "SDWebImage/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		5207F5ED8EF606E918B3B4113CE00EE2 /* _CDAttachment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CDAttachment.m; path = QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDAttachment.m; sourceTree = "<group>"; };
+		523060973FCA6CBA40EDDB5156B69754 /* BFURL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFURL.m; path = Bolts/iOS/BFURL.m; sourceTree = "<group>"; };
 		5549FE1924CD4230E4A365938F87CD3D /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AutoMigratingWithSourceAndTargetModelQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/AutoMigratingWithSourceAndTargetModelQMCDRecordStack.m; sourceTree = "<group>"; };
 		558313C3BBEE23FA49F6BF05ED53E63D /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		55EC188CFEBA286FA1359933B7DA9241 /* QMCDRecordStack+Actions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QMCDRecordStack+Actions.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/QMCDRecordStack+Actions.h"; sourceTree = "<group>"; };
@@ -600,8 +594,8 @@
 		5ADA461EF8FD6C7263723CF8267881D7 /* NSManagedObject+QMCDRequests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDRequests.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDRequests.m"; sourceTree = "<group>"; };
 		5BB38E93E18DF113F002491DC918678C /* QMContactListCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMContactListCache.m; path = QMContactListCache/QMContactListCache/QMContactListCache.m; sourceTree = "<group>"; };
 		5CD8575E5D937CC0CF076BB1C6181CBB /* QMCDRecordLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordLogging.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordLogging.h; sourceTree = "<group>"; };
-		5DE4272A333EFDEA31D19126C4E405D6 /* BFTaskCompletionSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFTaskCompletionSource.m; path = Bolts/Common/BFTaskCompletionSource.m; sourceTree = "<group>"; };
 		5EDFBE4EB40CC81FD92AD0920827A4A4 /* QMServiceManagerProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMServiceManagerProtocol.h; path = QMBaseService/QMBaseService/QMServiceManagerProtocol.h; sourceTree = "<group>"; };
+		5FADAA54B3D4C71436DD76671B92A6FA /* Bolts-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Bolts-dummy.m"; sourceTree = "<group>"; };
 		5FF08BA45C7BF5B6158981F7A2A1CCC9 /* TTTAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TTTAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
 		60A9103E1618FF9FA416DEB9F26110D0 /* ClassicSQLiteQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ClassicSQLiteQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ClassicSQLiteQMCDRecordStack.h; sourceTree = "<group>"; };
 		62765FCA6B25ECCB4437FC35F8453481 /* QMServices.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMServices.m; path = QMServices/QMServices.m; sourceTree = "<group>"; };
@@ -610,6 +604,7 @@
 		64DF9DB79A3A46161ABDD77D007DCBD2 /* QMMemoryStorageProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMMemoryStorageProtocol.h; path = QMBaseService/QMBaseService/QMMemoryStorageProtocol.h; sourceTree = "<group>"; };
 		6550E0661D9DB3EE3D29AA1F4AAD3408 /* QMCDRecord+Actions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QMCDRecord+Actions.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Actions.m"; sourceTree = "<group>"; };
 		655FE947B6E0A2C2FFB421A747FEF991 /* EXTScope.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = extobjc/EXTScope.m; sourceTree = "<group>"; };
+		669CC1A4A0B2E9036A7316DFD124A3AC /* BFTaskCompletionSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFTaskCompletionSource.h; path = Bolts/Common/BFTaskCompletionSource.h; sourceTree = "<group>"; };
 		66A829BAB57730F258B28EA755E6C1E7 /* libextobjc-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "libextobjc-prefix.pch"; sourceTree = "<group>"; };
 		67DEFDC60A359728DA8AE0A3002C95CD /* QMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/QMCDRecordStack.h; sourceTree = "<group>"; };
 		6885DBF0F307859DE09E0D92C5CCA909 /* UIImage+GIF.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+GIF.m"; path = "SDWebImage/UIImage+GIF.m"; sourceTree = "<group>"; };
@@ -624,22 +619,24 @@
 		6DEAEEC428A6B620A55ABD21687CCC5B /* SDWebImageCompat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageCompat.h; path = SDWebImage/SDWebImageCompat.h; sourceTree = "<group>"; };
 		6E8D74861D2E40BA1C51493F22B29894 /* NSManagedObject+QMCDRecord.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDRecord.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDRecord.m"; sourceTree = "<group>"; };
 		6ED132A1C58FF22F699C0B056D5A9341 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		6F73440562BBBBD35D1681CD7ECB4220 /* BFAppLink_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLink_Internal.h; path = Bolts/iOS/BFAppLink_Internal.h; sourceTree = "<group>"; };
 		6F8B2530A4D2A645C66EE5AFF191F29D /* UIImage+Cropper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Cropper.m"; path = "QMChatViewController/Categories/UIImage+Cropper.m"; sourceTree = "<group>"; };
+		6FA6B66558C8B95E25CF2075BD54527D /* BFMeasurementEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFMeasurementEvent.m; path = Bolts/iOS/BFMeasurementEvent.m; sourceTree = "<group>"; };
 		6FB178028CC31F6DE3F3B2769D47D725 /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BFFAE59747E27FB88A94A7A1E68790 /* QMCollectionViewFlowLayoutInvalidationContext.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMCollectionViewFlowLayoutInvalidationContext.m; path = QMChatViewController/Views/CollectionView/Layout/QMCollectionViewFlowLayoutInvalidationContext.m; sourceTree = "<group>"; };
 		711570F4C84D6AC3758C48779E6C92E0 /* NSAttributeDescription+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSAttributeDescription+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSAttributeDescription+QMCDDataImport.h"; sourceTree = "<group>"; };
+		719EA298BB1347A7552D014D3FFB3BBF /* BFAppLinkReturnToRefererView_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkReturnToRefererView_Internal.h; path = Bolts/iOS/BFAppLinkReturnToRefererView_Internal.h; sourceTree = "<group>"; };
+		71ABB15474ECC0A8DA09190C20571D01 /* libBolts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBolts.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		722B03FE7162317732284E4A4541FD82 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTAttributedLabel.m; path = TTTAttributedLabel/TTTAttributedLabel.m; sourceTree = "<group>"; };
 		7242D8B817BD99B306F9AD34944A1EC3 /* QMChatAttachmentOutgoingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatAttachmentOutgoingCell.m; path = QMChatViewController/Views/Cells/QMChatAttachmentOutgoingCell/QMChatAttachmentOutgoingCell.m; sourceTree = "<group>"; };
 		72DD536BBA0224E387DDC6EC6D060735 /* QMChatOutgoingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatOutgoingCell.xib; path = QMChatViewController/Views/Cells/QMChatOutgoingCell/QMChatOutgoingCell.xib; sourceTree = "<group>"; };
 		7375A74ED37D71CC67352F0596749A39 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WebCache.m"; path = "SDWebImage/UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		74980B24814427B7A67165D6C2563CDD /* QMContactListCacheModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QMContactListCacheModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		74ECFAAAD08570BAB9129587B8B99890 /* QMUsersCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMUsersCache.m; path = QMUsersCache/QMUsersCache/QMUsersCache.m; sourceTree = "<group>"; };
-		769C3A43DFFB69E13C1C7366738E95F2 /* libBolts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBolts.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		770B2910EE25C7D7DB6C3DCD5BC8713C /* EXTRuntimeExtensions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EXTRuntimeExtensions.h; path = extobjc/EXTRuntimeExtensions.h; sourceTree = "<group>"; };
 		7711DB7F066829053CBFB9055E0866EA /* ManuallyMigratingQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ManuallyMigratingQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ManuallyMigratingQMCDRecordStack.h; sourceTree = "<group>"; };
 		772AA4B771B4B9CDEF058B5E1F68C088 /* UIView+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+QM.h"; path = "QMChatViewController/Categories/UIView+QM.h"; sourceTree = "<group>"; };
 		7795C17FECC57D41F3243E802B3A309D /* QMChatContainerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatContainerView.h; path = QMChatViewController/Views/QMChatContainerView.h; sourceTree = "<group>"; };
-		77A70FAD125DDB5CD0B32BB2DD40402F /* BFDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFDefines.h; path = Bolts/Common/BFDefines.h; sourceTree = "<group>"; };
 		77FE14F364B3F197040B3E56E8EE0547 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+ImageContentType.m"; path = "SDWebImage/NSData+ImageContentType.m"; sourceTree = "<group>"; };
 		7898D5FD3FF6F12962EB1A6A0348073A /* QMChatContactRequestCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatContactRequestCell.m; path = QMChatViewController/Views/Cells/QMChatContactRequestCell/QMChatContactRequestCell.m; sourceTree = "<group>"; };
 		78CF05E9C8B3987B0CFCCCB5F7FF9B6C /* libextobjc-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "libextobjc-Private.xcconfig"; sourceTree = "<group>"; };
@@ -659,19 +656,16 @@
 		82238068D4A963637E251BD559A5A0DE /* QMCDRecord+VersionInformation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QMCDRecord+VersionInformation.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+VersionInformation.m"; sourceTree = "<group>"; };
 		835DBB46B508B23C3EC0087E8A36F271 /* QMUsersModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMUsersModel.xcdatamodel; sourceTree = "<group>"; };
 		843D830347125EDC103BB3956C26B0A3 /* QMUsersService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMUsersService.h; path = QMUsersService/QMUsersService/QMUsersService.h; sourceTree = "<group>"; };
+		846C7640626EABAEC9502FBB42098ABB /* BFTask.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFTask.m; path = Bolts/Common/BFTask.m; sourceTree = "<group>"; };
 		84866CB6E8B9D6F41E3A2C913A09145A /* CDMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CDMessage.h; path = QMChatCache/QMChatCache/CoreData/Entries/CDMessage.h; sourceTree = "<group>"; };
 		84A8E4C577EEA1DEBEB508E2C1B8BFD4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8598336D34120CD37B266262F21C16AF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
 		8610C50F040C39C3D5AA70C0EBF3317C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
 		862177AB2F4C69876AA185321C891EF6 /* QMChatCollectionViewDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCollectionViewDataSource.h; path = QMChatViewController/Protocols/QMChatCollectionViewDataSource.h; sourceTree = "<group>"; };
-		86B76163A022CBF92DD25E19A5DE43CE /* Bolts-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Bolts-Private.xcconfig"; sourceTree = "<group>"; };
-		86CE39ACD2613B518642FFC73A7E4DE9 /* BFCancellationTokenRegistration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationTokenRegistration.h; path = Bolts/Common/BFCancellationTokenRegistration.h; sourceTree = "<group>"; };
 		86E7A7694A4B41C81D687904C345BB86 /* AutoMigratingQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AutoMigratingQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/AutoMigratingQMCDRecordStack.m; sourceTree = "<group>"; };
-		87A6467269C95D9C3A93269BBD719B17 /* BFAppLinkReturnToRefererView_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkReturnToRefererView_Internal.h; path = Bolts/iOS/BFAppLinkReturnToRefererView_Internal.h; sourceTree = "<group>"; };
 		87B30263004FFBBBEA0300B365514B24 /* TTTAttributedLabel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TTTAttributedLabel.xcconfig; sourceTree = "<group>"; };
 		895D9ABCA4C30E567A3AEAC5FA381695 /* SDImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageCache.h; path = SDWebImage/SDImageCache.h; sourceTree = "<group>"; };
 		89E286057A5522BFEBC6DABB8FF3A219 /* NSManagedObject+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDDataImport.h"; sourceTree = "<group>"; };
-		8AB8A58AC85BC6DF01E39D97E16E318C /* BFURL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFURL.m; path = Bolts/iOS/BFURL.m; sourceTree = "<group>"; };
 		8B1FA577099252DE4A6CC94023E77F8C /* SDWebImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageDownloader.m; path = SDWebImage/SDWebImageDownloader.m; sourceTree = "<group>"; };
 		8BA0B3699AC71CBE233CFEA761EFC960 /* QMCVDevelopment.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QMCVDevelopment.xcconfig; sourceTree = "<group>"; };
 		8C3697FC04E8FF78234C5D210900E45F /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.h; sourceTree = "<group>"; };
@@ -681,11 +675,13 @@
 		8E4741D35D68F61D27D2BECE0C6289F0 /* QMChatNotificationCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatNotificationCell.m; path = QMChatViewController/Views/Cells/QMChatNotificationCell/QMChatNotificationCell.m; sourceTree = "<group>"; };
 		8F3BD5AF2EF81E447BA74C0187A4407E /* SDWebImageOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageOperation.h; path = SDWebImage/SDWebImageOperation.h; sourceTree = "<group>"; };
 		8FCB9D8171E3EEAC1B1927946A7C2B14 /* QMHeaderCollectionReusableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMHeaderCollectionReusableView.h; path = QMChatViewController/Views/CustomUI/QMHeaderCollectionReusableView/QMHeaderCollectionReusableView.h; sourceTree = "<group>"; };
+		901A821D1A16036B2BC6B6F99326E953 /* Bolts.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Bolts.m; path = Bolts/Common/Bolts.m; sourceTree = "<group>"; };
 		910F5EC514655E38A008B11252512F15 /* QMUsersModelIncludes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMUsersModelIncludes.h; path = QMUsersCache/QMUsersCache/CoreData/QMUsersModelIncludes.h; sourceTree = "<group>"; };
 		913C608D9D8CBD5F662462C06339727B /* NSManagedObject+QMCDAggregation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDAggregation.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDAggregation.h"; sourceTree = "<group>"; };
 		929270012E39CD011702BBA51957D83E /* NSArray+QMCDRecord.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+QMCDRecord.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSArray+QMCDRecord.m"; sourceTree = "<group>"; };
 		936DD8C0F3DF7FDA591B0492D06473A1 /* QMContactListMemoryStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMContactListMemoryStorage.h; path = QMContactListService/QMContactListService/QMContactListMemoryStorage/QMContactListMemoryStorage.h; sourceTree = "<group>"; };
 		93ED73E20503234CBB825F9BFCA61A84 /* QMPlaceHolderTextView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMPlaceHolderTextView.h; path = QMChatViewController/Views/CustomUI/PlaceHolderTextView/QMPlaceHolderTextView.h; sourceTree = "<group>"; };
+		9485BCE0CA8510D7BBD3C4DC1AA11F45 /* BFMeasurementEvent_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFMeasurementEvent_Internal.h; path = Bolts/iOS/BFMeasurementEvent_Internal.h; sourceTree = "<group>"; };
 		94B7EC3906EE32607D030B17A8794DD3 /* QMChatCollectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCollectionView.h; path = QMChatViewController/Views/CollectionView/QMChatCollectionView.h; sourceTree = "<group>"; };
 		94D8F2709DDD8769B9A96C06E3534B8B /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		95055D086EF80E1D6097270E20BD1ED2 /* QMChatContainerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatContainerView.m; path = QMChatViewController/Views/QMChatContainerView.m; sourceTree = "<group>"; };
@@ -700,10 +696,14 @@
 		9C69108C5D68C294C5BDB42EE991FE4C /* QMUsersCacheModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QMUsersCacheModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CEBDE18F4A7D187E7F96DB0CBF79538 /* ManuallyMigratingQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ManuallyMigratingQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ManuallyMigratingQMCDRecordStack.m; sourceTree = "<group>"; };
 		9D82B55502A09ADB09D3084B89CB5D1A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		9E9B862D76AAEE2F5C05AEAFACF99751 /* BFTaskCompletionSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFTaskCompletionSource.m; path = Bolts/Common/BFTaskCompletionSource.m; sourceTree = "<group>"; };
 		9F03DBD731D5F0C5F1E65920A077217B /* QMChatActionsHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatActionsHandler.h; path = QMChatViewController/Views/QMChatActionsHandler.h; sourceTree = "<group>"; };
 		9F47052CE34104304C8CDE2A130848A6 /* QMChatContactRequestCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatContactRequestCell.h; path = QMChatViewController/Views/Cells/QMChatContactRequestCell/QMChatContactRequestCell.h; sourceTree = "<group>"; };
 		9FF7F96DF02587E4EE063963BCDA9808 /* NSRelationshipDescription+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSRelationshipDescription+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSRelationshipDescription+QMCDDataImport.m"; sourceTree = "<group>"; };
 		A0962167DD6C641DA51DC2DF2E0474CF /* CDContactListItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CDContactListItem.m; path = QMContactListCache/QMContactListCache/CoreData/Entries/CDContactListItem.m; sourceTree = "<group>"; };
+		A0A7BC5558B0EDDE5EC39DDF2FC117AE /* BFAppLinkNavigation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkNavigation.m; path = Bolts/iOS/BFAppLinkNavigation.m; sourceTree = "<group>"; };
+		A0F0159C8B8DE8328AADDEAF4B34C2C6 /* BFWebViewAppLinkResolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFWebViewAppLinkResolver.h; path = Bolts/iOS/BFWebViewAppLinkResolver.h; sourceTree = "<group>"; };
+		A19A985E6372FE1C4D034E9E663E47CD /* BFCancellationTokenRegistration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationTokenRegistration.h; path = Bolts/Common/BFCancellationTokenRegistration.h; sourceTree = "<group>"; };
 		A1FAC069BA10C7E76DAC30F4BDE2E3F7 /* Bolts.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Bolts.xcconfig; sourceTree = "<group>"; };
 		A286C5050B03DEA640E4A711343AE7E3 /* liblibextobjc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibextobjc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C4E27985DCDFAA4E13ED3B420E1FD3 /* NSEntityDescription+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSEntityDescription+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSEntityDescription+QMCDDataImport.h"; sourceTree = "<group>"; };
@@ -711,7 +711,6 @@
 		A3708E6507BF1D96DBFD486EB7ECAA61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		A5751ADC439F79D9C61B93CF18471D0E /* TTTAttributedLabel-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "TTTAttributedLabel-Private.xcconfig"; sourceTree = "<group>"; };
 		A6A18C9669C959821C8B97116002FC17 /* TWMessageBarManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TWMessageBarManager.h; path = Classes/TWMessageBarManager.h; sourceTree = "<group>"; };
-		A6D589BEBAAA76A0A835FE5FBEDDE1C7 /* BFAppLinkReturnToRefererController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkReturnToRefererController.h; path = Bolts/iOS/BFAppLinkReturnToRefererController.h; sourceTree = "<group>"; };
 		A730E630D68EE998586F3D26B1BADCAA /* QMToolbarContentView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMToolbarContentView.xib; path = QMChatViewController/Views/CustomUI/InputToolBar/QMToolbarContentView.xib; sourceTree = "<group>"; };
 		A76A27757F6BBB7FAD34309A24C99858 /* QMMessagesMemoryStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMMessagesMemoryStorage.h; path = QMChatService/QMChatService/QMMessagesMemoryStorage/QMMessagesMemoryStorage.h; sourceTree = "<group>"; };
 		A77279EFD08895992DE526A41260201E /* QMContactListService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMContactListService.m; path = QMContactListService/QMContactListService/QMContactListService.m; sourceTree = "<group>"; };
@@ -722,14 +721,13 @@
 		A938C0F523FD51529A55155E8A7F95C0 /* QMToolbarContentView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMToolbarContentView.h; path = QMChatViewController/Views/CustomUI/InputToolBar/QMToolbarContentView.h; sourceTree = "<group>"; };
 		A95631B6567DB82DB7789FF79B942BA1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		AACF505C176E1B3BD5C4192988667DDD /* SDWebImagePrefetcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImagePrefetcher.m; path = SDWebImage/SDWebImagePrefetcher.m; sourceTree = "<group>"; };
-		AB45C5DA1A3B1FDD44480E733FAFC801 /* BFMeasurementEvent_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFMeasurementEvent_Internal.h; path = Bolts/iOS/BFMeasurementEvent_Internal.h; sourceTree = "<group>"; };
 		AB4869FF1CFD67EEECFE97F3BA07D8E2 /* QMCDRecordStack+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QMCDRecordStack+Private.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/QMCDRecordStack+Private.h"; sourceTree = "<group>"; };
 		AB4D031B14E5B7309A823BECA194E76A /* SQLiteWithSavingContextQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SQLiteWithSavingContextQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/SQLiteWithSavingContextQMCDRecordStack.h; sourceTree = "<group>"; };
 		AB8E67CAD7A17CC5B625CD1C96E14576 /* QMChatAttachmentIncomingCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatAttachmentIncomingCell.h; path = QMChatViewController/Views/Cells/QMChatAttachmentIncomingCell/QMChatAttachmentIncomingCell.h; sourceTree = "<group>"; };
 		AE54CBB6D370DEF24E058B5E27E53D4B /* NSManagedObjectModel+QMCDRecord.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectModel+QMCDRecord.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectModel+QMCDRecord.m"; sourceTree = "<group>"; };
 		AF46D7FA4DDB3517C2BEBEF755410D3D /* NSEntityDescription+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSEntityDescription+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSEntityDescription+QMCDDataImport.m"; sourceTree = "<group>"; };
 		AF4AE9D25E82A984FFEDC931CB01FFCB /* NSManagedObject+QMCDFetching.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDFetching.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDFetching.h"; sourceTree = "<group>"; };
-		AFBDB15433FE558D041387354601EFB8 /* Bolts.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Bolts.h; path = Bolts/Common/Bolts.h; sourceTree = "<group>"; };
+		AFA851C60DAF20C53BF24D52CCB9F349 /* BFCancellationTokenRegistration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationTokenRegistration.m; path = Bolts/Common/BFCancellationTokenRegistration.m; sourceTree = "<group>"; };
 		B017E58AD6D2A002C763269F7DFB3225 /* NSDictionary+QMCDRecordAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+QMCDRecordAdditions.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSDictionary+QMCDRecordAdditions.m"; sourceTree = "<group>"; };
 		B02BBBDB84C92060250ADC3BC1D5314E /* TWMessageBarManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TWMessageBarManager-dummy.m"; sourceTree = "<group>"; };
 		B123DC8D141D15151C383C3A44113FBF /* QMCVDevelopment-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QMCVDevelopment-prefix.pch"; sourceTree = "<group>"; };
@@ -749,6 +747,7 @@
 		BA2785D5BB426A961118BAF7022E43B4 /* CDContactListItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CDContactListItem.h; path = QMContactListCache/QMContactListCache/CoreData/Entries/CDContactListItem.h; sourceTree = "<group>"; };
 		BA31EE612544960EB6BE727F10A1EC13 /* ChatAssets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = ChatAssets.xcassets; path = QMChatViewController/ChatAssets.xcassets; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BA814CC92C187A5BA7153D15BABC724E /* Bolts.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Bolts.h; path = Bolts/Common/Bolts.h; sourceTree = "<group>"; };
 		BBB39C584656698FB58109EDF289B601 /* QMCDRecordShorthand.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMCDRecordShorthand.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordShorthand.m; sourceTree = "<group>"; };
 		BBF39E8C9A7D2918A96C0723176BDE62 /* QMCDRecordStack+Actions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QMCDRecordStack+Actions.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/QMCDRecordStack+Actions.m"; sourceTree = "<group>"; };
 		BC2782FC79A8F3ADA69EAA8470499AA6 /* QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecord.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord.h; sourceTree = "<group>"; };
@@ -760,12 +759,15 @@
 		BEE4DF8C3D52D8F7EE2447F8473BE44E /* TTTAttributedLabel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TTTAttributedLabel-dummy.m"; sourceTree = "<group>"; };
 		BF08886EA1DC0BE4A31E28B6AC52EFD7 /* _CDContactListItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDContactListItem.h; path = QMContactListCache/QMContactListCache/CoreData/EntriesMachine/_CDContactListItem.h; sourceTree = "<group>"; };
 		C01F1B94DB15DA7360A73A98B71AD59A /* NSError+QMCDRecordErrorHandling.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSError+QMCDRecordErrorHandling.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSError+QMCDRecordErrorHandling.h"; sourceTree = "<group>"; };
+		C063415775C7D9D74E0EB7F41495D9A7 /* BFCancellationToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationToken.h; path = Bolts/Common/BFCancellationToken.h; sourceTree = "<group>"; };
 		C2967571F0702E31C5C1299F41349493 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		C32661A9BB29BD0921F00F4466A7DD2E /* BFCancellationToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationToken.m; path = Bolts/Common/BFCancellationToken.m; sourceTree = "<group>"; };
+		C4CCA8469AC0BE4D133CD3AF8681CAB7 /* BFAppLinkTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkTarget.m; path = Bolts/iOS/BFAppLinkTarget.m; sourceTree = "<group>"; };
+		C4DDFCD8C2EA107969AEF43FD2E5D51A /* BFDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFDefines.h; path = Bolts/Common/BFDefines.h; sourceTree = "<group>"; };
 		C5CC9E9AA366E99CDD44851E96784566 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		C669DF2DE2B4BC60A3CA154204418D60 /* NSManagedObject+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDRecord.h"; sourceTree = "<group>"; };
 		C73AB624E7A0E491594E7AB009FCA16E /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
 		C800102150E7D3F37A403317441A025F /* NSPersistentStoreCoordinator+QMCDAutoMigrations.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSPersistentStoreCoordinator+QMCDAutoMigrations.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDAutoMigrations.m"; sourceTree = "<group>"; };
-		C83E75533F013BFB7CB21101A7F861BE /* BFAppLinkReturnToRefererController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkReturnToRefererController.m; path = Bolts/iOS/BFAppLinkReturnToRefererController.m; sourceTree = "<group>"; };
 		C8BBF54D40CBA3F51F3D3FCED4F4BB6D /* QMChatAttachmentOutgoingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatAttachmentOutgoingCell.xib; path = QMChatViewController/Views/Cells/QMChatAttachmentOutgoingCell/QMChatAttachmentOutgoingCell.xib; sourceTree = "<group>"; };
 		C8C18BF30A665DB94A6EC79228648FE2 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
 		CA4A919BE1651287041FA83560AD00E4 /* NSString+GTMNSStringHTMLAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+GTMNSStringHTMLAdditions.h"; path = "QMChatService/QMChatService/Categories/NSString+GTMNSStringHTMLAdditions.h"; sourceTree = "<group>"; };
@@ -774,8 +776,6 @@
 		CE143EC93E2F344F14F42FA51522AD49 /* NSManagedObjectContext+QMCDSaves.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+QMCDSaves.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectContext/NSManagedObjectContext+QMCDSaves.h"; sourceTree = "<group>"; };
 		CEAC09FA2FA8CD1A2D5528740C636ADF /* QMHeaderCollectionReusableView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMHeaderCollectionReusableView.m; path = QMChatViewController/Views/CustomUI/QMHeaderCollectionReusableView/QMHeaderCollectionReusableView.m; sourceTree = "<group>"; };
 		CF47A0BD7786453A164FEF1D7CBBF21D /* NSPersistentStoreCoordinator+QMCDManualMigrations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStoreCoordinator+QMCDManualMigrations.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDManualMigrations.h"; sourceTree = "<group>"; };
-		CF7651D51CAB225666D96C49F28CB2A9 /* BFWebViewAppLinkResolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFWebViewAppLinkResolver.h; path = Bolts/iOS/BFWebViewAppLinkResolver.h; sourceTree = "<group>"; };
-		D01DFD7AA9972E3482167A741BD18E8D /* BFCancellationTokenSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationTokenSource.m; path = Bolts/Common/BFCancellationTokenSource.m; sourceTree = "<group>"; };
 		D1587CC2758CCF0685EEDB4A88DEAEFB /* SDWebImage-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SDWebImage-Private.xcconfig"; sourceTree = "<group>"; };
 		D23CFD22858CED89784676CA5EE7A49F /* QMChatService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatService.m; path = QMChatService/QMChatService/QMChatService.m; sourceTree = "<group>"; };
 		D24829013122B364F6214A03205C7777 /* QMChatService+AttachmentService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QMChatService+AttachmentService.h"; path = "QMChatService/QMChatService/Categories/QMChatService+AttachmentService.h"; sourceTree = "<group>"; };
@@ -786,54 +786,54 @@
 		D40D2974956F3AF920FCCDA68D7BDDE2 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
 		D5041533F875E143765E2657DE9A6447 /* icon-info.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "icon-info.png"; path = "Classes/Icons/icon-info.png"; sourceTree = "<group>"; };
 		D644D9489EB915523EED2064E08B956D /* SQLiteQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SQLiteQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/SQLiteQMCDRecordStack.h; sourceTree = "<group>"; };
+		D76B74E1339086027C1A069763E44A7E /* BFExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFExecutor.h; path = Bolts/Common/BFExecutor.h; sourceTree = "<group>"; };
 		D7A8D98CE8F02E3004647C004EA1DFF4 /* QMUsersMemoryStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMUsersMemoryStorage.h; path = QMUsersService/QMUsersService/QMUsersMemoryStorage/QMUsersMemoryStorage.h; sourceTree = "<group>"; };
-		D853A3536E7D296A26D2947DAAF07396 /* BFMeasurementEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFMeasurementEvent.m; path = Bolts/iOS/BFMeasurementEvent.m; sourceTree = "<group>"; };
 		D88E8CAEA05F4650622EEAAB4856AF8E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		D95EC3F7E3B8659E3B7A791268DEDE15 /* QMChatOutgoingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatOutgoingCell.m; path = QMChatViewController/Views/Cells/QMChatOutgoingCell/QMChatOutgoingCell.m; sourceTree = "<group>"; };
 		DB84E60265692795FA97A36271865732 /* QMCDRecordShorthand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordShorthand.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordShorthand.h; sourceTree = "<group>"; };
-		DBB0069C3095EC77A1E8B65B7340765E /* BFAppLink_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLink_Internal.h; path = Bolts/iOS/BFAppLink_Internal.h; sourceTree = "<group>"; };
 		DC683CB9252C3FBEE854AE3E12EDE6AC /* SDWebImage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SDWebImage.xcconfig; sourceTree = "<group>"; };
 		DC69DDD0B44C316985BAC2E27C369C40 /* UIColor+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+QM.h"; path = "QMChatViewController/Categories/UIColor+QM.h"; sourceTree = "<group>"; };
 		DC94B4F66C2642572F92762E504BAD9B /* QMChatCollectionViewFlowLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCollectionViewFlowLayout.h; path = QMChatViewController/Views/CollectionView/Layout/QMChatCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		DCF50BE6214AF5DCC01D5E92451DB4DB /* Bolts-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Bolts-dummy.m"; sourceTree = "<group>"; };
 		DD2E0F01A1F58F061C6D65161235C3D5 /* NSPersistentStoreCoordinator+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStoreCoordinator+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDRecord.h"; sourceTree = "<group>"; };
-		DDF432FBC8D207012F7B0A9C69B365BB /* BFCancellationToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationToken.m; path = Bolts/Common/BFCancellationToken.m; sourceTree = "<group>"; };
 		DF04941BECBA6B743BCE92D85962C101 /* QMChatCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatCache.m; path = QMChatCache/QMChatCache/QMChatCache.m; sourceTree = "<group>"; };
 		DFA5585EA791B8CDE0991F26E1AB671B /* QMCDRecord+Actions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QMCDRecord+Actions.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Actions.h"; sourceTree = "<group>"; };
 		E01284FBE9AAC6289125DE7409A91C51 /* QMServicesDevelopment.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QMServicesDevelopment.xcconfig; sourceTree = "<group>"; };
 		E069E26FA422A062A6E48DA485EDEBC5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		E0A3D5DCF1CF1F6139327A8F019A0398 /* TWMessageBarManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TWMessageBarManager.m; path = Classes/TWMessageBarManager.m; sourceTree = "<group>"; };
 		E0E04CB1D78DD65207B9514F721ED444 /* QMChatAttachmentIncomingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatAttachmentIncomingCell.xib; path = QMChatViewController/Views/Cells/QMChatAttachmentIncomingCell/QMChatAttachmentIncomingCell.xib; sourceTree = "<group>"; };
-		E0EAFD29DD8DB82C7883E0E7C81BB0A6 /* BFAppLink.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLink.m; path = Bolts/iOS/BFAppLink.m; sourceTree = "<group>"; };
+		E12CF3D7AD759DD1E7A730F3159CD2E1 /* BoltsVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BoltsVersion.h; path = Bolts/Common/BoltsVersion.h; sourceTree = "<group>"; };
 		E1B73922D2B324E017F06A5A9FCD8D0F /* NSNumber+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSNumber+QMCDDataImport.m"; sourceTree = "<group>"; };
 		E3C2C1333EADD62CA4E15C1D677174E7 /* NSPersistentStoreCoordinator+QMCDManualMigrations.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSPersistentStoreCoordinator+QMCDManualMigrations.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDManualMigrations.m"; sourceTree = "<group>"; };
 		E42392C0E0CC891EE420C7EB3234AB62 /* _CDContactListItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CDContactListItem.m; path = QMContactListCache/QMContactListCache/CoreData/EntriesMachine/_CDContactListItem.m; sourceTree = "<group>"; };
 		E4773DFE498B43EDE4E93DCC5E196D56 /* QMInputToolbar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMInputToolbar.m; path = QMChatViewController/Views/CustomUI/InputToolBar/QMInputToolbar.m; sourceTree = "<group>"; };
 		E55590BE43AEEE232845B4005C725BB7 /* NSString+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+QM.m"; path = "QMChatViewController/Categories/NSString+QM.m"; sourceTree = "<group>"; };
+		E6AEAD2E7746BB398EE7B54556269ADF /* BFURL_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFURL_Internal.h; path = Bolts/iOS/BFURL_Internal.h; sourceTree = "<group>"; };
+		E70EC70060EBD88DBDB0B05BF588CE6B /* BFURL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFURL.h; path = Bolts/iOS/BFURL.h; sourceTree = "<group>"; };
 		E7167D2677CBB427F05B0064D5866FC0 /* QMCDRecord+Setup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QMCDRecord+Setup.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Setup.m"; sourceTree = "<group>"; };
 		E75CC137188F40F95FC235B6DD9F8E17 /* QMCDRecord+Options.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QMCDRecord+Options.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Options.h"; sourceTree = "<group>"; };
 		E83D3D899F996A9ADA08DAC59943103D /* NSManagedObjectContext+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectContext/NSManagedObjectContext+QMCDRecord.h"; sourceTree = "<group>"; };
 		E850456652004EC64E5EB2197B51EEBF /* QMMessagesMemoryStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMMessagesMemoryStorage.m; path = QMChatService/QMChatService/QMMessagesMemoryStorage/QMMessagesMemoryStorage.m; sourceTree = "<group>"; };
 		E88FB318E719490E049884BC506B5871 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		E916252C98AD3B8092D0DFAD680E114F /* _CDAttachment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDAttachment.h; path = QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDAttachment.h; sourceTree = "<group>"; };
+		E94DD67417085D915B55F00A54A3B987 /* BFCancellationTokenSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationTokenSource.h; path = Bolts/Common/BFCancellationTokenSource.h; sourceTree = "<group>"; };
 		EA41186DD60827414CBFE87367A347F3 /* NSDictionary+QMCDRecordAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+QMCDRecordAdditions.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSDictionary+QMCDRecordAdditions.h"; sourceTree = "<group>"; };
 		EA6E1362907948F400455FD83FAEB8C1 /* QMImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMImageView.m; path = QMChatViewController/Views/CustomUI/QMImageView/QMImageView.m; sourceTree = "<group>"; };
 		EA8F5340D922605222C4113E57EBD555 /* QMChatCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCell.h; path = QMChatViewController/Views/Cells/QMChatCell/QMChatCell.h; sourceTree = "<group>"; };
 		EAD4EC5AA721AB4D033F6500CB49F400 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImagePrefetcher.h; path = SDWebImage/SDWebImagePrefetcher.h; sourceTree = "<group>"; };
-		EC14E8853FD0F0AA0BAE1A273C17D54C /* Bolts.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Bolts.m; path = Bolts/Common/Bolts.m; sourceTree = "<group>"; };
 		EC6B8230DA82496872460371AD5A7B5A /* QMChatCellLayoutAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCellLayoutAttributes.h; path = QMChatViewController/Views/CollectionView/Layout/QMChatCellLayoutAttributes.h; sourceTree = "<group>"; };
 		ED082516EF3C749EA9DB7F23C329EAC3 /* QMContactListMemoryStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMContactListMemoryStorage.m; path = QMContactListService/QMContactListService/QMContactListMemoryStorage/QMContactListMemoryStorage.m; sourceTree = "<group>"; };
 		ED5D1D0F033F375AA91512BFB150FEBF /* NSString+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSString+QMCDDataImport.m"; sourceTree = "<group>"; };
 		ED81F0D6C43AEF7E4029FCCD8B5160A8 /* QMChatCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCache.h; path = QMChatCache/QMChatCache/QMChatCache.h; sourceTree = "<group>"; };
+		EDFD0362865453F0F774FABF6AECBB50 /* BFAppLinkTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkTarget.h; path = Bolts/iOS/BFAppLinkTarget.h; sourceTree = "<group>"; };
+		F00F490C52DDC97332FCE9F80CB2AEC7 /* Bolts-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Bolts-Private.xcconfig"; sourceTree = "<group>"; };
 		F4DFCB6D8DECCC3326A5877A9689A2D3 /* QMBaseService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMBaseService.m; path = QMBaseService/QMBaseService/QMBaseService.m; sourceTree = "<group>"; };
 		F5CDB190CEA0498E6840F7572A1A4CEC /* QMCLModelIncludes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCLModelIncludes.h; path = QMContactListCache/QMContactListCache/CoreData/QMCLModelIncludes.h; sourceTree = "<group>"; };
-		F639D4907F77121E56CD49F53326EFA9 /* BFAppLinkTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkTarget.m; path = Bolts/iOS/BFAppLinkTarget.m; sourceTree = "<group>"; };
 		F74B2453C8887EE8664E1B0EA3AE3A1F /* QMChatConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatConstants.h; path = QMChatService/QMChatService/QMChatConstants.h; sourceTree = "<group>"; };
+		F849F7BFC68E53E3623D8B1659606CE6 /* BFAppLinkReturnToRefererController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkReturnToRefererController.h; path = Bolts/iOS/BFAppLinkReturnToRefererController.h; sourceTree = "<group>"; };
 		F8B81876313991F37341E3447716E1F6 /* _CDUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CDUser.m; path = QMUsersCache/QMUsersCache/CoreData/EntriesMachine/_CDUser.m; sourceTree = "<group>"; };
-		F8FFFF2FD8A498DDE8B43588F95E2C22 /* BFTaskCompletionSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFTaskCompletionSource.h; path = Bolts/Common/BFTaskCompletionSource.h; sourceTree = "<group>"; };
 		F93515150E44C3B78170D2D214AC7E15 /* QMHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMHeaderCollectionReusableView.xib; path = QMChatViewController/Views/CustomUI/QMHeaderCollectionReusableView/QMHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		FAB9D67DA8D27FB044F880664EEBB130 /* EXTRuntimeExtensions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = EXTRuntimeExtensions.m; path = extobjc/EXTRuntimeExtensions.m; sourceTree = "<group>"; };
-		FBEB7D76932E33F33AC93DA6C483D9E8 /* BFAppLinkTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkTarget.h; path = Bolts/iOS/BFAppLinkTarget.h; sourceTree = "<group>"; };
+		FBBB36A615E12EF01BDD20B87DC856D1 /* BFAppLinkReturnToRefererController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkReturnToRefererController.m; path = Bolts/iOS/BFAppLinkReturnToRefererController.m; sourceTree = "<group>"; };
 		FC1DBE73DB180B572B511B18B72E3252 /* _CDMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDMessage.h; path = QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDMessage.h; sourceTree = "<group>"; };
 		FCC7B921C4AE17C95FBAE707377D412F /* ClassicSQLiteQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ClassicSQLiteQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ClassicSQLiteQMCDRecordStack.m; sourceTree = "<group>"; };
 		FE4ECE981A4154C56382036798C6685B /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
@@ -865,14 +865,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E203C412DD6E36ADD17FF20D4FDFC60E /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5B6194CCB3EA5AE77E45A4701DFE9429 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7D1CB0C04C6EC0B5DE3F3D70543389C2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,6 +944,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CAAEE16D8AAC46874F74DF9D0AF40FD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFFB913FD7371B4EB5A64B923A766D7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9681C6816903966025E52ED4E0783341 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1255,8 +1255,8 @@
 			isa = PBXGroup;
 			children = (
 				A1FAC069BA10C7E76DAC30F4BDE2E3F7 /* Bolts.xcconfig */,
-				86B76163A022CBF92DD25E19A5DE43CE /* Bolts-Private.xcconfig */,
-				DCF50BE6214AF5DCC01D5E92451DB4DB /* Bolts-dummy.m */,
+				F00F490C52DDC97332FCE9F80CB2AEC7 /* Bolts-Private.xcconfig */,
+				5FADAA54B3D4C71436DD76671B92A6FA /* Bolts-dummy.m */,
 				45C93CA8CD27E0112CF2F3042C556AAD /* Bolts-prefix.pch */,
 			);
 			name = "Support Files";
@@ -1454,22 +1454,22 @@
 		C015A796BA5B81F41FB61C61FDEB65B1 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				3E9EC0B0D728E1542E65029AFF1985DD /* BFCancellationToken.h */,
-				DDF432FBC8D207012F7B0A9C69B365BB /* BFCancellationToken.m */,
-				86CE39ACD2613B518642FFC73A7E4DE9 /* BFCancellationTokenRegistration.h */,
-				0D691432A8C3F8D628D53A3B29E989C2 /* BFCancellationTokenRegistration.m */,
-				4FDB416A549692EF6C5217533050E5BA /* BFCancellationTokenSource.h */,
-				D01DFD7AA9972E3482167A741BD18E8D /* BFCancellationTokenSource.m */,
-				77A70FAD125DDB5CD0B32BB2DD40402F /* BFDefines.h */,
-				2263923FABD2FDC36D79838ED7CC8F6A /* BFExecutor.h */,
-				12C5C4684B8737B0A719656BB9BDE9CA /* BFExecutor.m */,
-				09183BDCA0559E5F67371168BDBEA272 /* BFTask.h */,
-				37C75652105D55663D5C01552F453894 /* BFTask.m */,
-				F8FFFF2FD8A498DDE8B43588F95E2C22 /* BFTaskCompletionSource.h */,
-				5DE4272A333EFDEA31D19126C4E405D6 /* BFTaskCompletionSource.m */,
-				AFBDB15433FE558D041387354601EFB8 /* Bolts.h */,
-				EC14E8853FD0F0AA0BAE1A273C17D54C /* Bolts.m */,
-				3277A7ADE47EE85784C1F12AC0F5E9C0 /* BoltsVersion.h */,
+				C063415775C7D9D74E0EB7F41495D9A7 /* BFCancellationToken.h */,
+				C32661A9BB29BD0921F00F4466A7DD2E /* BFCancellationToken.m */,
+				A19A985E6372FE1C4D034E9E663E47CD /* BFCancellationTokenRegistration.h */,
+				AFA851C60DAF20C53BF24D52CCB9F349 /* BFCancellationTokenRegistration.m */,
+				E94DD67417085D915B55F00A54A3B987 /* BFCancellationTokenSource.h */,
+				03EAB8C6531D6925C75C5F7613002BD1 /* BFCancellationTokenSource.m */,
+				C4DDFCD8C2EA107969AEF43FD2E5D51A /* BFDefines.h */,
+				D76B74E1339086027C1A069763E44A7E /* BFExecutor.h */,
+				3EEF49E87CDFFB619156A6A0256DFE76 /* BFExecutor.m */,
+				1F16353B46891B4AD1BCE37B111015F1 /* BFTask.h */,
+				846C7640626EABAEC9502FBB42098ABB /* BFTask.m */,
+				669CC1A4A0B2E9036A7316DFD124A3AC /* BFTaskCompletionSource.h */,
+				9E9B862D76AAEE2F5C05AEAFACF99751 /* BFTaskCompletionSource.m */,
+				BA814CC92C187A5BA7153D15BABC724E /* Bolts.h */,
+				901A821D1A16036B2BC6B6F99326E953 /* Bolts.m */,
+				E12CF3D7AD759DD1E7A730F3159CD2E1 /* BoltsVersion.h */,
 			);
 			name = Tasks;
 			sourceTree = "<group>";
@@ -1507,7 +1507,7 @@
 				6BEFA989ACBDD029D2205E752E4FBCF0 /* QMChatCacheModel.bundle */,
 				74980B24814427B7A67165D6C2563CDD /* QMContactListCacheModel.bundle */,
 				9C69108C5D68C294C5BDB42EE991FE4C /* QMUsersCacheModel.bundle */,
-				769C3A43DFFB69E13C1C7366738E95F2 /* libBolts.a */,
+				71ABB15474ECC0A8DA09190C20571D01 /* libBolts.a */,
 				84A8E4C577EEA1DEBEB508E2C1B8BFD4 /* libPods.a */,
 				038487CAD086B466CD94DF54E7DB3DC0 /* libQMCVDevelopment.a */,
 				15D5CC5D6A40EEC4994ADCF1FBBE510D /* libQMServicesDevelopment.a */,
@@ -1575,27 +1575,27 @@
 		DF72A023C2E6DDC87C3774FABC639E1B /* AppLinks */ = {
 			isa = PBXGroup;
 			children = (
-				102332AC97C57DC9A7A03960E550E9D2 /* BFAppLink.h */,
-				E0EAFD29DD8DB82C7883E0E7C81BB0A6 /* BFAppLink.m */,
-				026E944AA798102541B64591E4E62B6B /* BFAppLinkNavigation.h */,
-				344BD47FFCF622E75FB10B7B1027071D /* BFAppLinkNavigation.m */,
-				1615CFE257F8DDAE6D50A5D381F21D2F /* BFAppLinkResolving.h */,
-				A6D589BEBAAA76A0A835FE5FBEDDE1C7 /* BFAppLinkReturnToRefererController.h */,
-				C83E75533F013BFB7CB21101A7F861BE /* BFAppLinkReturnToRefererController.m */,
-				42F829643519AAC0327B750076791980 /* BFAppLinkReturnToRefererView.h */,
-				2CB4AAF2331927FD44E08FB5C31E950D /* BFAppLinkReturnToRefererView.m */,
-				87A6467269C95D9C3A93269BBD719B17 /* BFAppLinkReturnToRefererView_Internal.h */,
-				FBEB7D76932E33F33AC93DA6C483D9E8 /* BFAppLinkTarget.h */,
-				F639D4907F77121E56CD49F53326EFA9 /* BFAppLinkTarget.m */,
-				DBB0069C3095EC77A1E8B65B7340765E /* BFAppLink_Internal.h */,
-				091BDEF9E367FA0BD18E032736AD5AFB /* BFMeasurementEvent.h */,
-				D853A3536E7D296A26D2947DAAF07396 /* BFMeasurementEvent.m */,
-				AB45C5DA1A3B1FDD44480E733FAFC801 /* BFMeasurementEvent_Internal.h */,
-				04982AB1387FF628AB0F02C372242CD9 /* BFURL.h */,
-				8AB8A58AC85BC6DF01E39D97E16E318C /* BFURL.m */,
-				1684DAB1393ABE322204FB86FD73A096 /* BFURL_Internal.h */,
-				CF7651D51CAB225666D96C49F28CB2A9 /* BFWebViewAppLinkResolver.h */,
-				49E510F2CD7688D1E32D8A39A3796047 /* BFWebViewAppLinkResolver.m */,
+				35B6A46BF8BF95FC3C1AA300535689D3 /* BFAppLink.h */,
+				4F82BF507DBD1A630E7B37BEA8B06437 /* BFAppLink.m */,
+				46FD61071400CC55B8AC8A3D78BC38F5 /* BFAppLinkNavigation.h */,
+				A0A7BC5558B0EDDE5EC39DDF2FC117AE /* BFAppLinkNavigation.m */,
+				45D1F242FB5EA4375F5CCF4F95C7B3FE /* BFAppLinkResolving.h */,
+				F849F7BFC68E53E3623D8B1659606CE6 /* BFAppLinkReturnToRefererController.h */,
+				FBBB36A615E12EF01BDD20B87DC856D1 /* BFAppLinkReturnToRefererController.m */,
+				45821958A713E742EE238D302011ADCC /* BFAppLinkReturnToRefererView.h */,
+				23153633C117417F67CE097A6A7430F0 /* BFAppLinkReturnToRefererView.m */,
+				719EA298BB1347A7552D014D3FFB3BBF /* BFAppLinkReturnToRefererView_Internal.h */,
+				EDFD0362865453F0F774FABF6AECBB50 /* BFAppLinkTarget.h */,
+				C4CCA8469AC0BE4D133CD3AF8681CAB7 /* BFAppLinkTarget.m */,
+				6F73440562BBBBD35D1681CD7ECB4220 /* BFAppLink_Internal.h */,
+				41AD92E991563EF0E394F24EE87096AD /* BFMeasurementEvent.h */,
+				6FA6B66558C8B95E25CF2075BD54527D /* BFMeasurementEvent.m */,
+				9485BCE0CA8510D7BBD3C4DC1AA11F45 /* BFMeasurementEvent_Internal.h */,
+				E70EC70060EBD88DBDB0B05BF588CE6B /* BFURL.h */,
+				523060973FCA6CBA40EDDB5156B69754 /* BFURL.m */,
+				E6AEAD2E7746BB398EE7B54556269ADF /* BFURL_Internal.h */,
+				A0F0159C8B8DE8328AADDEAF4B34C2C6 /* BFWebViewAppLinkResolver.h */,
+				1FA239DC8ED9E90B6FDB9EBC1DB4521D /* BFWebViewAppLinkResolver.m */,
 			);
 			name = AppLinks;
 			sourceTree = "<group>";
@@ -1780,35 +1780,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A26658CE6CAA6774ACF0213784AB0576 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9443E3250EB4BD1C111BB978F33B219C /* BFAppLink.h in Headers */,
-				9B23FE028EFE187A33002024263A5219 /* BFAppLinkNavigation.h in Headers */,
-				B1157FAA9ADAD64694274AE1494201F7 /* BFAppLinkResolving.h in Headers */,
-				FF21393BAC2C0F790DA7C8567DB286FB /* BFAppLinkReturnToRefererController.h in Headers */,
-				48142DFC61302DBB2A8060570D936C06 /* BFAppLinkReturnToRefererView.h in Headers */,
-				474A9992AD2A1E02D5295934D51954F3 /* BFAppLinkReturnToRefererView_Internal.h in Headers */,
-				B388E4A599DF9E71AFC332D05D453D3B /* BFAppLinkTarget.h in Headers */,
-				C4DCE11A38F9D6A8D277E3665D3FC20C /* BFAppLink_Internal.h in Headers */,
-				AC87622B82306543B11DF6C30CA6D925 /* BFCancellationToken.h in Headers */,
-				8BAB8CCE22E9904FAE9794673CF79FA6 /* BFCancellationTokenRegistration.h in Headers */,
-				7B0A23A207C161C738DDCB63DD782900 /* BFCancellationTokenSource.h in Headers */,
-				BD19CDFCEFF9F433453DE48811BD759E /* BFDefines.h in Headers */,
-				463DF716ABF41DB65437108DA6C1EE51 /* BFExecutor.h in Headers */,
-				EE28EC779C4386B0285009BAC510450A /* BFMeasurementEvent.h in Headers */,
-				976DE6DE61D41A9A5CF51D164252156F /* BFMeasurementEvent_Internal.h in Headers */,
-				55A2188CCD2409AA0D44E2D177600BDE /* BFTask.h in Headers */,
-				D41CF194CEF754A4D0897F0B248B4782 /* BFTaskCompletionSource.h in Headers */,
-				E7C60C358CFD04E01ADF18D0ED44EDA2 /* BFURL.h in Headers */,
-				B268C53A8505D48C93EE966A7BF05C72 /* BFURL_Internal.h in Headers */,
-				2AFAD5452A2D863DDD876DCD17EDA5F3 /* BFWebViewAppLinkResolver.h in Headers */,
-				9B459111B7FAC68EE51A76DCCF9DEE7A /* Bolts.h in Headers */,
-				67F78A6D1C25E5E479B267A4891791F2 /* BoltsVersion.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D1E9E13B8E161AADDC2CCE4D044C9516 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1851,6 +1822,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA1593EDE2249F3DBC1B8B78DE301CF7 /* TTTAttributedLabel.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC687D720BD08A251CB58AF8168571E9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D08D8DB3A62A19EF1DAC509AE07EDB2F /* BFAppLink.h in Headers */,
+				5703B915F22D05285E37E3E06EEBA0CB /* BFAppLinkNavigation.h in Headers */,
+				F7421E1080231788D3A9F2F32AE224C6 /* BFAppLinkResolving.h in Headers */,
+				E20B5CE26A24FD0BEE1D8061AE814DE1 /* BFAppLinkReturnToRefererController.h in Headers */,
+				4716391B0CC56717767EBABFE507CCCB /* BFAppLinkReturnToRefererView.h in Headers */,
+				245524AE05CF03456FC51CEDFBE02DFE /* BFAppLinkReturnToRefererView_Internal.h in Headers */,
+				9CC13CC2D258FBA36D76B08C8B04DEB1 /* BFAppLinkTarget.h in Headers */,
+				2344797D8C045D8531A9FF713EA6CD91 /* BFAppLink_Internal.h in Headers */,
+				350B1FAB80223C18973FA6FE6A39C3D0 /* BFCancellationToken.h in Headers */,
+				AD3586855CCCE245611B56934CBDAE93 /* BFCancellationTokenRegistration.h in Headers */,
+				37A4C66C5B96FD9BA90223B694E193F3 /* BFCancellationTokenSource.h in Headers */,
+				1A5E81A7BA089AAC9D6203D6278D7F9A /* BFDefines.h in Headers */,
+				6E55963A2F3321BEF4B218A1DC27F99D /* BFExecutor.h in Headers */,
+				4797C9AF14C505C74299262937AB0006 /* BFMeasurementEvent.h in Headers */,
+				C46777D61786129C2DD2C634331D9E67 /* BFMeasurementEvent_Internal.h in Headers */,
+				B20A099FBF0B504DFCA65FA83BCA5413 /* BFTask.h in Headers */,
+				D8A2D79F3A319CE849181DD8144F1258 /* BFTaskCompletionSource.h in Headers */,
+				7917E400CDC75B046B84D1C257B77480 /* BFURL.h in Headers */,
+				80CD7284DD7D33FD477DE5C1F8E83B91 /* BFURL_Internal.h in Headers */,
+				E8DFD7E14A8A12FF96C0F3ABC78A6092 /* BFWebViewAppLinkResolver.h in Headers */,
+				BFA3946A011D24F6C2D778211F502944 /* Bolts.h in Headers */,
+				DDE37F8C6222318F89479F85F999838D /* BoltsVersion.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1916,29 +1916,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				97307741A15A862EB25C169E0D1FEBDF /* PBXTargetDependency */,
-				764B822229FCE201D5C0775B42F46FF0 /* PBXTargetDependency */,
+				20543FBF4B25D094C6563CA4B00D91C9 /* PBXTargetDependency */,
+				C33C607A114D8F682CFF66BCA695EE2F /* PBXTargetDependency */,
 			);
 			name = QMCVDevelopment;
 			productName = QMCVDevelopment;
 			productReference = 038487CAD086B466CD94DF54E7DB3DC0 /* libQMCVDevelopment.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		4C7D96A05DDD96F3301ED33DB4098EF0 /* Bolts */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ABE59CDE4DE326224B5CCC4793024F16 /* Build configuration list for PBXNativeTarget "Bolts" */;
-			buildPhases = (
-				B0233514B026E34E0B06D9FA7377314A /* Sources */,
-				5B6194CCB3EA5AE77E45A4701DFE9429 /* Frameworks */,
-				A26658CE6CAA6774ACF0213784AB0576 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Bolts;
-			productName = Bolts;
-			productReference = 769C3A43DFFB69E13C1C7366738E95F2 /* libBolts.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		4E56C960294B1ADE9DC2C61A758E8FC3 /* QMServicesDevelopment-QMUsersCacheModel */ = {
@@ -1969,11 +1952,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				7E023FAA1B8A10A017203B7D1496D1FE /* PBXTargetDependency */,
-				7A1879331FBA8ED3396CD0198EE451D8 /* PBXTargetDependency */,
-				2164AB205B1BCE2A74A7F77562C2F7CE /* PBXTargetDependency */,
-				EFB5530035DBEE66E49EE1DA58CB7A57 /* PBXTargetDependency */,
-				F09B95D4AFA9C62CFFFB316F600A55D6 /* PBXTargetDependency */,
+				DD350BB4E35B0BE62BB105EF711C62F4 /* PBXTargetDependency */,
+				2B9DC2E964E50732CF7E24ED9E41F458 /* PBXTargetDependency */,
+				633A0AEFD3744C273C7ADEE10635078D /* PBXTargetDependency */,
+				D53977BD80EEE811294C4948903AE085 /* PBXTargetDependency */,
+				F3B09D7A781982610AC40658CF2E343C /* PBXTargetDependency */,
 			);
 			name = QMServicesDevelopment;
 			productName = QMServicesDevelopment;
@@ -2007,14 +1990,14 @@
 			buildRules = (
 			);
 			dependencies = (
-				1DFC4F9EBE2225A19E509D8DA366F32E /* PBXTargetDependency */,
-				8E40299329231C58171DFE948D63C64C /* PBXTargetDependency */,
-				FDE7347A41C8496890028BC919C22194 /* PBXTargetDependency */,
-				27F54676A7B7A885D44E9A60ED19F5F0 /* PBXTargetDependency */,
-				F6546594F8451A0C226EA1C95B9B7BBF /* PBXTargetDependency */,
-				B14A56B4EFDEBB4331D15952ED647A1D /* PBXTargetDependency */,
-				C63F8D22F51A7B82176E0024B488C516 /* PBXTargetDependency */,
-				C650CD298D1A88565F43337AA5062D3B /* PBXTargetDependency */,
+				930A4289AD917E6C6CD61877C70B4326 /* PBXTargetDependency */,
+				A75341BF95D16ABC3E7A04F2D5724277 /* PBXTargetDependency */,
+				4BA18658D55524AFF7BD0E01A2FBBDEF /* PBXTargetDependency */,
+				213CD45FCB5F8FF883AE6D0D5591DAC6 /* PBXTargetDependency */,
+				C8FD6AA0941A7194D2E90A4D72CC9342 /* PBXTargetDependency */,
+				15189DA120C31805B74CAA4BD2EDA056 /* PBXTargetDependency */,
+				0A4D552B9A02EF8B9BEE2C5E32BD76EE /* PBXTargetDependency */,
+				3033AF95BB293E68D68A3958152FF0EB /* PBXTargetDependency */,
 			);
 			name = Pods;
 			productName = Pods;
@@ -2106,6 +2089,23 @@
 			productReference = 4C2AF55394C50705E4EC6C770AD62EE4 /* libTTTAttributedLabel.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		D7C215DC391E7D2AA178C487D8AE4D30 /* Bolts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D205A46D76C2AA76699B18371AAECBF1 /* Build configuration list for PBXNativeTarget "Bolts" */;
+			buildPhases = (
+				C2600CA4A696C592B26D127B4BB80826 /* Sources */,
+				FFFB913FD7371B4EB5A64B923A766D7A /* Frameworks */,
+				EC687D720BD08A251CB58AF8168571E9 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bolts;
+			productName = Bolts;
+			productReference = 71ABB15474ECC0A8DA09190C20571D01 /* libBolts.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2127,7 +2127,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4C7D96A05DDD96F3301ED33DB4098EF0 /* Bolts */,
+				D7C215DC391E7D2AA178C487D8AE4D30 /* Bolts */,
 				691AC0E14C8F4193ACDFFCEA39A7FC25 /* Pods */,
 				451BE75EDAF400A3779E874D1795D949 /* QMCVDevelopment */,
 				6150161EE53E4CFDEF0EBEF023786C41 /* QMServicesDevelopment */,
@@ -2332,26 +2332,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B0233514B026E34E0B06D9FA7377314A /* Sources */ = {
+		C2600CA4A696C592B26D127B4BB80826 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8B10F3EE3F11FFD0DDF54B845584C15 /* BFAppLink.m in Sources */,
-				2918BD8FE58E8C5EA99E61432BD94CA0 /* BFAppLinkNavigation.m in Sources */,
-				E57512852103F77D0E2903DE472BAD23 /* BFAppLinkReturnToRefererController.m in Sources */,
-				732FEDA70BBAB53A3F44978E65AFA426 /* BFAppLinkReturnToRefererView.m in Sources */,
-				B3EF46571B7A7B8E765A244A9FBB4E4F /* BFAppLinkTarget.m in Sources */,
-				C3D2D635C0E215A750BEDF9DFBA5EEF5 /* BFCancellationToken.m in Sources */,
-				E17A20F3B304CCEAF76EFD17915A5DDD /* BFCancellationTokenRegistration.m in Sources */,
-				7E0D5422BF035304EBBAFF4B4C1C4C0E /* BFCancellationTokenSource.m in Sources */,
-				A5BB7D038DFEDE630767644C4A36F94F /* BFExecutor.m in Sources */,
-				96817E5D0C4D1678D2DDDB45FD5D119E /* BFMeasurementEvent.m in Sources */,
-				99F274A0CC19778749011E255F50F730 /* BFTask.m in Sources */,
-				1468AAA9865826970C966AE7AFDFA7EF /* BFTaskCompletionSource.m in Sources */,
-				71416BA428D20C1DEA798D0D152431AA /* BFURL.m in Sources */,
-				AE1BB8B5CCFAF8CD11ADE5DD4A8AFDDD /* BFWebViewAppLinkResolver.m in Sources */,
-				86505D22BD5BF66662D47A0EDDE25E87 /* Bolts-dummy.m in Sources */,
-				DD4F2AEE5EEA674A156A2DD2D0B74A24 /* Bolts.m in Sources */,
+				D0179589F7DBE38437863AB0A252F43C /* BFAppLink.m in Sources */,
+				1B763577C67EFA6A1DE0E90B4D511463 /* BFAppLinkNavigation.m in Sources */,
+				CD15FA793E5182F43F2EE9A8986A9DFB /* BFAppLinkReturnToRefererController.m in Sources */,
+				CB9324592042DDD6768802826604EF19 /* BFAppLinkReturnToRefererView.m in Sources */,
+				D37576DEE59BE04D189A365AB381573C /* BFAppLinkTarget.m in Sources */,
+				6BCA44AEDBC08322690734BAA583D31A /* BFCancellationToken.m in Sources */,
+				3E767EEBBDE6667FAB31CE5D5ADAF637 /* BFCancellationTokenRegistration.m in Sources */,
+				6C7F54261DFFAC461ACA6E49436F1A46 /* BFCancellationTokenSource.m in Sources */,
+				E8F646C1FAB293B019365FD3297154A9 /* BFExecutor.m in Sources */,
+				1A0A47E05997B16F9D4419C6E0B90D56 /* BFMeasurementEvent.m in Sources */,
+				72751610575A93748834042D697326D8 /* BFTask.m in Sources */,
+				7A07370FF5B3AA923700F174B08CF78F /* BFTaskCompletionSource.m in Sources */,
+				0451AC73A25AB78CB67BE9966E520CCE /* BFURL.m in Sources */,
+				5F123742FC7EF4B0A414CFAD6D9F37E5 /* BFWebViewAppLinkResolver.m in Sources */,
+				5B7A5A96C7A9BF71A69E2B80DB6D00C5 /* Bolts-dummy.m in Sources */,
+				AA597E1CA77D3C922856ACBEB267FA66 /* Bolts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2402,95 +2402,95 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1DFC4F9EBE2225A19E509D8DA366F32E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Bolts;
-			target = 4C7D96A05DDD96F3301ED33DB4098EF0 /* Bolts */;
-			targetProxy = 987F97BD5FA9DFF8500C4FC168CA66B6 /* PBXContainerItemProxy */;
-		};
-		2164AB205B1BCE2A74A7F77562C2F7CE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "QMServicesDevelopment-QMContactListCacheModel";
-			target = 7B9C282821CD8E5B19C5ED7696AC156A /* QMServicesDevelopment-QMContactListCacheModel */;
-			targetProxy = 643FEC4A8AD63E87B1F0176DAB83DE31 /* PBXContainerItemProxy */;
-		};
-		27F54676A7B7A885D44E9A60ED19F5F0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SDWebImage;
-			target = 24D55CEC1148C773E57D3ADE95A93F12 /* SDWebImage */;
-			targetProxy = D78C66AC836B4D3F53C6784AD0B9C7BF /* PBXContainerItemProxy */;
-		};
-		764B822229FCE201D5C0775B42F46FF0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TTTAttributedLabel;
-			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
-			targetProxy = 5E8609031A41760D38920F0259084B5B /* PBXContainerItemProxy */;
-		};
-		7A1879331FBA8ED3396CD0198EE451D8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "QMServicesDevelopment-QMChatCacheModel";
-			target = B76ADC364854D8D9F72EFDB83164A684 /* QMServicesDevelopment-QMChatCacheModel */;
-			targetProxy = 4C0A157100A6C51333D5675957A9EC12 /* PBXContainerItemProxy */;
-		};
-		7E023FAA1B8A10A017203B7D1496D1FE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Bolts;
-			target = 4C7D96A05DDD96F3301ED33DB4098EF0 /* Bolts */;
-			targetProxy = AB2F4F9BED811D36E36B779BE8C64DEC /* PBXContainerItemProxy */;
-		};
-		8E40299329231C58171DFE948D63C64C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = QMCVDevelopment;
-			target = 451BE75EDAF400A3779E874D1795D949 /* QMCVDevelopment */;
-			targetProxy = 2344459624D68230DD2B2479499A1B37 /* PBXContainerItemProxy */;
-		};
-		97307741A15A862EB25C169E0D1FEBDF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SDWebImage;
-			target = 24D55CEC1148C773E57D3ADE95A93F12 /* SDWebImage */;
-			targetProxy = EBB9CF28461AF868FB82E251DF39C071 /* PBXContainerItemProxy */;
-		};
-		B14A56B4EFDEBB4331D15952ED647A1D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TTTAttributedLabel;
-			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
-			targetProxy = 0B6743432F63CD49C58925F0FB17D236 /* PBXContainerItemProxy */;
-		};
-		C63F8D22F51A7B82176E0024B488C516 /* PBXTargetDependency */ = {
+		0A4D552B9A02EF8B9BEE2C5E32BD76EE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TWMessageBarManager;
 			target = 6394834C32C660A036A4C034F952F0E3 /* TWMessageBarManager */;
-			targetProxy = 4FDEC2D8EFB9D94CFC11FF27439889D1 /* PBXContainerItemProxy */;
+			targetProxy = 025FAF7FA06AA1DE9EFDD0D2C4FE95C5 /* PBXContainerItemProxy */;
 		};
-		C650CD298D1A88565F43337AA5062D3B /* PBXTargetDependency */ = {
+		15189DA120C31805B74CAA4BD2EDA056 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TTTAttributedLabel;
+			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
+			targetProxy = 0FA8AAF07261EC2790022793F973AAF6 /* PBXContainerItemProxy */;
+		};
+		20543FBF4B25D094C6563CA4B00D91C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDWebImage;
+			target = 24D55CEC1148C773E57D3ADE95A93F12 /* SDWebImage */;
+			targetProxy = FB7636CA87B58205E4E753A996893531 /* PBXContainerItemProxy */;
+		};
+		213CD45FCB5F8FF883AE6D0D5591DAC6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDWebImage;
+			target = 24D55CEC1148C773E57D3ADE95A93F12 /* SDWebImage */;
+			targetProxy = 620E033D4B6FD4A0B815AE3F2D39027D /* PBXContainerItemProxy */;
+		};
+		2B9DC2E964E50732CF7E24ED9E41F458 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "QMServicesDevelopment-QMChatCacheModel";
+			target = B76ADC364854D8D9F72EFDB83164A684 /* QMServicesDevelopment-QMChatCacheModel */;
+			targetProxy = 14FC6F9F217C0E600AA51B837696E929 /* PBXContainerItemProxy */;
+		};
+		3033AF95BB293E68D68A3958152FF0EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = libextobjc;
 			target = B06AB07FFB5C551832317302763DC591 /* libextobjc */;
-			targetProxy = 39D5A551FBDBC5F7883A18391C838A6A /* PBXContainerItemProxy */;
+			targetProxy = B2CA0CADA77F0A713166FF160192959D /* PBXContainerItemProxy */;
 		};
-		EFB5530035DBEE66E49EE1DA58CB7A57 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "QMServicesDevelopment-QMUsersCacheModel";
-			target = 4E56C960294B1ADE9DC2C61A758E8FC3 /* QMServicesDevelopment-QMUsersCacheModel */;
-			targetProxy = 99F932B6FC9903C2416C1C42496396CE /* PBXContainerItemProxy */;
-		};
-		F09B95D4AFA9C62CFFFB316F600A55D6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = libextobjc;
-			target = B06AB07FFB5C551832317302763DC591 /* libextobjc */;
-			targetProxy = 166F893CED1C24089D2B5D8F71E70ABB /* PBXContainerItemProxy */;
-		};
-		F6546594F8451A0C226EA1C95B9B7BBF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SVProgressHUD;
-			target = B85F129A617B071220F3CAA2B5E9CB37 /* SVProgressHUD */;
-			targetProxy = DCC3BAB840273A8D3B16022EAC60262A /* PBXContainerItemProxy */;
-		};
-		FDE7347A41C8496890028BC919C22194 /* PBXTargetDependency */ = {
+		4BA18658D55524AFF7BD0E01A2FBBDEF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = QMServicesDevelopment;
 			target = 6150161EE53E4CFDEF0EBEF023786C41 /* QMServicesDevelopment */;
-			targetProxy = C0FEDCB212F16BA5AA8AE1B5F7B667ED /* PBXContainerItemProxy */;
+			targetProxy = E9292E18B5C09F686961D74FE8C203EE /* PBXContainerItemProxy */;
+		};
+		633A0AEFD3744C273C7ADEE10635078D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "QMServicesDevelopment-QMContactListCacheModel";
+			target = 7B9C282821CD8E5B19C5ED7696AC156A /* QMServicesDevelopment-QMContactListCacheModel */;
+			targetProxy = ED0E734685F18EB607B3E26FAEB22174 /* PBXContainerItemProxy */;
+		};
+		930A4289AD917E6C6CD61877C70B4326 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Bolts;
+			target = D7C215DC391E7D2AA178C487D8AE4D30 /* Bolts */;
+			targetProxy = 736F46AF066B98AB1927310BBC51107E /* PBXContainerItemProxy */;
+		};
+		A75341BF95D16ABC3E7A04F2D5724277 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QMCVDevelopment;
+			target = 451BE75EDAF400A3779E874D1795D949 /* QMCVDevelopment */;
+			targetProxy = A5E7B87A053D08E548D6F90F8982CEFF /* PBXContainerItemProxy */;
+		};
+		C33C607A114D8F682CFF66BCA695EE2F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TTTAttributedLabel;
+			target = BD16F54DE4D73BD8165EE77F2E36BECE /* TTTAttributedLabel */;
+			targetProxy = D7A64C65E86921B370ABF23C4E534769 /* PBXContainerItemProxy */;
+		};
+		C8FD6AA0941A7194D2E90A4D72CC9342 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVProgressHUD;
+			target = B85F129A617B071220F3CAA2B5E9CB37 /* SVProgressHUD */;
+			targetProxy = 7AEE72780CC295917BF54AE7E825FA2D /* PBXContainerItemProxy */;
+		};
+		D53977BD80EEE811294C4948903AE085 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "QMServicesDevelopment-QMUsersCacheModel";
+			target = 4E56C960294B1ADE9DC2C61A758E8FC3 /* QMServicesDevelopment-QMUsersCacheModel */;
+			targetProxy = B864977F8AB4893468A426E363CF9B11 /* PBXContainerItemProxy */;
+		};
+		DD350BB4E35B0BE62BB105EF711C62F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Bolts;
+			target = D7C215DC391E7D2AA178C487D8AE4D30 /* Bolts */;
+			targetProxy = 4CA1824EBCFF4BA28A603B8E973C256B /* PBXContainerItemProxy */;
+		};
+		F3B09D7A781982610AC40658CF2E343C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = libextobjc;
+			target = B06AB07FFB5C551832317302763DC591 /* libextobjc */;
+			targetProxy = 90DBFCD65D219EE41B46A8181E1078FB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2547,6 +2547,22 @@
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		0C452BA656BEC223A33FDD3D87E2A765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00F490C52DDC97332FCE9F80CB2AEC7 /* Bolts-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
@@ -2621,21 +2637,21 @@
 			};
 			name = QA;
 		};
-		53F8D765D2DC4FFF0D03506134BCB54C /* Release */ = {
+		4A6B989EB358EACB979DD1000BAB3AA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86B76163A022CBF92DD25E19A5DE43CE /* Bolts-Private.xcconfig */;
+			baseConfigurationReference = F00F490C52DDC97332FCE9F80CB2AEC7 /* Bolts-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 		54D602755B03A38D439FD8BA5DFBC4AB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -2731,22 +2747,6 @@
 			};
 			name = QA;
 		};
-		62BC28C5FAE98E91F09CBEBE9C73DAF6 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86B76163A022CBF92DD25E19A5DE43CE /* Bolts-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
 		6B385FB138D4CD1E22AAF59B413652F1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 48C0C2172562DA97A495A1873D0854B1 /* QMServicesDevelopment-Private.xcconfig */;
@@ -2786,22 +2786,6 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
-		};
-		717B5FD8A0C262D06114D2E8D1FD5DDC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86B76163A022CBF92DD25E19A5DE43CE /* Bolts-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
 		};
 		71FF9D5A7B787EDADAFAF57E5573616B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2957,6 +2941,22 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
+		};
+		B35A59C0A93A1952E5F975EC0E177AC0 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F00F490C52DDC97332FCE9F80CB2AEC7 /* Bolts-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
 		};
 		B37F0F91F85060E28F1DAAB522DC7EC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3200,16 +3200,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ABE59CDE4DE326224B5CCC4793024F16 /* Build configuration list for PBXNativeTarget "Bolts" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				717B5FD8A0C262D06114D2E8D1FD5DDC /* Debug */,
-				62BC28C5FAE98E91F09CBEBE9C73DAF6 /* QA */,
-				53F8D765D2DC4FFF0D03506134BCB54C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		AD3A825071A04502EC4F0B034687CCF1 /* Build configuration list for PBXNativeTarget "SVProgressHUD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3226,6 +3216,16 @@
 				9C2401CB7333E78543F5738E86884612 /* Debug */,
 				C0C65B8C8302D3FE4C43D5C52C7182AD /* QA */,
 				0878B3283599BA0118843504F425FF48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D205A46D76C2AA76699B18371AAECBF1 /* Build configuration list for PBXNativeTarget "Bolts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A6B989EB358EACB979DD1000BAB3AA1 /* Debug */,
+				B35A59C0A93A1952E5F975EC0E177AC0 /* QA */,
+				0C452BA656BEC223A33FDD3D87E2A765 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
