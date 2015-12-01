@@ -92,7 +92,7 @@
     environment = @"release";
 #endif
     
-    [[self.usersService searchUsersWithTags:@[environment]] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+    [[self.usersService searchUsersWithTags:@[environment]] continueWithBlock:^id(BFTask *task) {
         //
         if (task.error != nil) {
             if (errorBlock) {
@@ -106,7 +106,7 @@
             }];
             
             if (successBlock != nil) {
-                successBlock([mutableUsers copy]);
+                successBlock([mutableUsers subarrayWithRange:NSMakeRange(0, kUsersLimit)]);
             }
         }
         

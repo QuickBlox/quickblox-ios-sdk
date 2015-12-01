@@ -125,7 +125,7 @@
 		[ServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if (response.success) {
                 // Notifying users about created dialog.
-				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog completion:^(NSError * _Nullable error) {
+				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog completion:^(NSError *error) {
                     //
                     if (completion) completion(createdDialog);
                 }];
