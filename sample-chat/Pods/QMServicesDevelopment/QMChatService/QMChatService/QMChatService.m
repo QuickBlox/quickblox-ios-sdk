@@ -75,13 +75,6 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 	[QBChat.instance addDelegate:self];
 }
 
-#pragma mark - Getters
-
-- (NSNumber *)dateSendTimeInterval {
-	
-	return @((NSInteger)CFAbsoluteTimeGetCurrent() + kCFAbsoluteTimeIntervalSince1970);
-}
-
 #pragma mark - Load cached data
 
 - (void)loadCachedDialogsWithCompletion:(void(^)())completion
@@ -1035,7 +1028,6 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
       saveToStorage:(BOOL)saveToStorage
          completion:(QBChatCompletionBlock)completion
 {
-    message.customDateSent = self.dateSendTimeInterval;
     message.dateSent = [NSDate date];
     message.text = [message.text gtm_stringByEscapingForHTML];
     
@@ -1154,7 +1146,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     [self readMessages:@[message] forDialogID:message.dialogID completion:completion];
 }
 
-- (void)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion {
+- (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion {
     NSAssert(dialogID != nil, @"dialogID can't be nil");
     
     dispatch_group_t readGroup = dispatch_group_create();
@@ -1300,7 +1292,6 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 	message.senderID = self.serviceManager.currentUser.ID;
     message.text = text;
     message.dateSent = [NSDate date];
-	message.customDateSent = self.dateSendTimeInterval;
 	
 	if (save) {
 		message.saveToHistory = kChatServiceSaveToHistoryTrue;

@@ -10,8 +10,6 @@
 #import "QMBaseService.h"
 #import "QMUsersMemoryStorage.h"
 
-@class QMCancellationToken;
-
 @protocol QMUsersServiceDelegate;
 @protocol QMUsersServiceCacheDataSource;
 

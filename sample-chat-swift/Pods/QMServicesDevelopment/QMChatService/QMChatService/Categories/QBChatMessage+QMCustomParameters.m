@@ -13,7 +13,6 @@
 NSString const *kQMCustomParameterSaveToHistory = @"save_to_history";
 NSString const *kQMCustomParameterMessageType = @"notification_type";
 NSString const *kQMCustomParameterChatMessageID = @"chat_message_id";
-NSString const *kQMCustomParameterDateSent = @"date_sent";
 NSString const *kQMCustomParameterChatMessageDeliveryStatus = @"message_delivery_status_read";
 /*Dialogs keys*/
 NSString const *kQMCustomParameterDialogID = @"dialog_id";
@@ -40,7 +39,6 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
 @dynamic saveToHistory;
 @dynamic messageType;
 @dynamic chatMessageID;
-@dynamic customDateSent;
 @dynamic messageDeliveryStatus;
 @dynamic dialog;
 @dynamic attachmentStatus;
@@ -128,12 +126,12 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
     self.context[kQMCustomParameterDialogType] = @(dialog.type);
 	
 	if (dialog.lastMessageDate != nil){
-		NSTimeInterval lastMessageDateTimeInterval = [dialog.lastMessageDate timeIntervalSince1970];
-		self.context[kQMCustomParameterDialogRoomLastMessageDate] = [@(lastMessageDateTimeInterval) stringValue];
+        NSNumber *lastMessageDate = @((NSUInteger)[dialog.lastMessageDate timeIntervalSince1970]);
+		self.context[kQMCustomParameterDialogRoomLastMessageDate] = [lastMessageDate stringValue];
 	}
     if (dialog.updatedAt != nil) {
-        NSTimeInterval updatedAtTimeInterval = [dialog.updatedAt timeIntervalSince1970];
-        self.context[kQMCustomParameterDialogRoomUpdatedDate] = [@(updatedAtTimeInterval) stringValue];
+        NSNumber *updatedAt = @((NSUInteger)[dialog.updatedAt timeIntervalSince1970]);
+        self.context[kQMCustomParameterDialogRoomUpdatedDate] = [updatedAt stringValue];
     }
 	
     if (dialog.type == QBChatDialogTypeGroup) {
@@ -184,18 +182,6 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
 - (NSString *)chatMessageID {
     
     return self.context[kQMCustomParameterChatMessageID];
-}
-
-#pragma mark - dateSent
-
-- (void)setCustomDateSent:(NSNumber *)dateSent {
-    
-    self.context[kQMCustomParameterDateSent] = dateSent;
-}
-
-- (NSNumber *)customDateSent {
-    
-    return self.context[kQMCustomParameterDateSent];
 }
 
 #pragma mark - cParamSaveToHistory

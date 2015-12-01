@@ -7,7 +7,6 @@
 //
 
 #import "QMUsersService.h"
-#import "QMCancellationToken.h"
 
 @interface QMUsersService () <QBChatDelegate>
 
