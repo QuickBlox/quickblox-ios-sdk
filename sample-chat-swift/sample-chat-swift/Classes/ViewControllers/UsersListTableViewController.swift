@@ -22,7 +22,7 @@ class UsersListTableViewController: UITableViewController {
         ServicesManager.instance().usersService.loadFromCache().continueWithBlock { (task : BFTask!) -> AnyObject! in
             if task.result.count > 0 {
                 
-                weakSelf?.setupUsers(ServicesManager.instance().sortedUsers(task.result as! [QBUUser]))
+                weakSelf?.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
                 
             } else {
                 
@@ -32,7 +32,7 @@ class UsersListTableViewController: UITableViewController {
                 ServicesManager.instance().downloadLatestUsers({ (users: [QBUUser]!) -> Void in
                     
                     SVProgressHUD.showSuccessWithStatus("Completed")
-                    weakSelf?.setupUsers(ServicesManager.instance().sortedUsers(users))
+                    weakSelf?.setupUsers(users)
                     
                     }, error: { (error: NSError!) -> Void in
                         

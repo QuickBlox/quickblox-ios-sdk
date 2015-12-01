@@ -77,6 +77,7 @@
 
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
     
+    __weak __typeof(self)weakSelf = self;
     [[self.usersService searchUsersWithTags:@[[self currentEnvironment]]] continueWithBlock:^id(BFTask *task) {
         //
         if (task.error != nil) {
@@ -87,7 +88,7 @@
         else {
             
             if (successBlock != nil) {
-                successBlock(task.result);
+                successBlock([weakSelf filteredUsersByCurrentEnvironment]);
             }
         }
         
@@ -95,7 +96,7 @@
     }];
 }
 
-- (NSArray *)filterUsers:(NSArray *)users {
+- (NSArray *)filteredUsersByCurrentEnvironment {
     
     NSString *currentEnvironment = [self currentEnvironment];
     NSString *containsString;
@@ -107,6 +108,8 @@
     
     NSString *expression = [NSString stringWithFormat:@"SELF.login contains '%@'", containsString];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:expression];
+    
+    NSArray *users = [self.usersService.usersMemoryStorage unsortedUsers];
     NSArray *filteredArray = [users filteredArrayUsingPredicate:predicate];
     
     NSMutableArray *mutableUsers = [[filteredArray subarrayWithRange:NSMakeRange(0, kUsersLimit)] mutableCopy];

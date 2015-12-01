@@ -66,7 +66,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     [[[ServicesManager instance].usersService loadFromCache] continueWithBlock:^id(BFTask *task) {
         //
         if ([task.result count] > 0) {
-            [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] filterUsers:task.result]];
+            [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] filteredUsersByCurrentEnvironment]];
         } else {
             [weakSelf downloadLatestUsers];
         }
@@ -87,7 +87,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     // Downloading latest users.
 	[[ServicesManager instance] downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
         [SVProgressHUD showSuccessWithStatus:@"Completed"];
-        [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] filterUsers:latestUsers]];
+        [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
 	} errorBlock:^(NSError *error) {
 		[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Can not download users: %@", error.localizedRecoverySuggestion]];
