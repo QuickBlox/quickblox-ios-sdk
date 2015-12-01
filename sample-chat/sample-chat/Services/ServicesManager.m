@@ -106,7 +106,7 @@
             }];
             
             if (successBlock != nil) {
-                successBlock([mutableUsers copy]);
+                successBlock([mutableUsers subarrayWithRange:NSMakeRange(0, kUsersLimit)]);
             }
         }
         
