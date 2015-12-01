@@ -66,7 +66,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     [[[ServicesManager instance].usersService loadFromCache] continueWithBlock:^id(BFTask *task) {
         //
         if ([task.result count] > 0) {
-            [weakSelf loadDataSourceWithUsers:[task.result subarrayWithRange:NSMakeRange(0, kUsersLimit)]];
+            [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] filteredUsersByCurrentEnvironment]];
         } else {
             [weakSelf downloadLatestUsers];
         }
