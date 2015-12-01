@@ -140,9 +140,9 @@ class ServicesManager: QMServicesManager {
         }
     }
     
-    func sortedUsers(unsortedUsers: [QBUUser]) -> [QBUUser] {
+    func sortedUsers(unsortedUsers: [QBUUser]!) -> [QBUUser] {
         
-        let sortedUsers = unsortedUsers.sort({ (user1, user2) -> Bool in
+        let sortedUsers = unsortedUsers[0..<kUsersLimit].sort({ (user1, user2) -> Bool in
             return (user1.login! as NSString).compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
         })
         
