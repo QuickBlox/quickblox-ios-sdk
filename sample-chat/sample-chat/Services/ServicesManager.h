@@ -34,4 +34,6 @@
  */
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
 
+- (NSArray *)filterUsers:(NSArray *)users;
+
 @end

@@ -32,7 +32,7 @@ class UsersListTableViewController: UITableViewController {
                 ServicesManager.instance().downloadLatestUsers({ (users: [QBUUser]!) -> Void in
                     
                     SVProgressHUD.showSuccessWithStatus("Completed")
-                    weakSelf?.setupUsers(users)
+                    weakSelf?.setupUsers(ServicesManager.instance().sortedUsers(users))
                     
                     }, error: { (error: NSError!) -> Void in
                         

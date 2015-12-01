@@ -53,7 +53,7 @@
 }
 
 - (instancetype)init {
-	return [self initWithUsers:[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers]];
+	return [self initWithUsers:[[ServicesManager instance] filterUsers:[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers]]];
 }
 
 - (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {

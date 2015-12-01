@@ -115,14 +115,13 @@ class ServicesManager: QMServicesManager {
         let enviroment = Constants.QB_USERS_ENVIROMENT
         
         self.usersService.searchUsersWithTags([enviroment]).continueWithBlock {
-            [weak self] (task : BFTask!) -> AnyObject! in
+            (task : BFTask!) -> AnyObject! in
             if (task.error != nil) {
                 error?(task.error)
                 return nil
             }
             
-            let sortedUsers = self?.sortedUsers(task.result as! [QBUUser])
-            success?(sortedUsers)
+            success?(task.result as! [QBUUser])
             
             return nil
         }
@@ -142,7 +141,20 @@ class ServicesManager: QMServicesManager {
     
     func sortedUsers(unsortedUsers: [QBUUser]!) -> [QBUUser] {
         
-        let sortedUsers = unsortedUsers[0..<kUsersLimit].sort({ (user1, user2) -> Bool in
+        let currentEnvironment = Constants.QB_USERS_ENVIROMENT
+        var containsString: String
+        
+        if (currentEnvironment == "qbqa") {
+            containsString = "qa"
+        } else {
+            containsString = currentEnvironment
+        }
+        
+        let filteredUsers = unsortedUsers[0..<kUsersLimit].filter { (user: QBUUser) -> Bool in
+            return user.login?.lowercaseString.rangeOfString(containsString) != nil
+        }
+        
+        let sortedUsers = filteredUsers.sort({ (user1, user2) -> Bool in
             return (user1.login! as NSString).compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
         })
         

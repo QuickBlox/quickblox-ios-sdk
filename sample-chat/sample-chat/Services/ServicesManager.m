@@ -76,9 +76,50 @@
 }
 
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
-    /**
-     *  Different users are taken depending on environment.
-     */
+    
+    [[self.usersService searchUsersWithTags:@[[self currentEnvironment]]] continueWithBlock:^id(BFTask *task) {
+        //
+        if (task.error != nil) {
+            if (errorBlock) {
+                errorBlock(task.error);
+            }
+        }
+        else {
+            
+            if (successBlock != nil) {
+                successBlock(task.result);
+            }
+        }
+        
+        return nil;
+    }];
+}
+
+- (NSArray *)filterUsers:(NSArray *)users {
+    
+    NSString *currentEnvironment = [self currentEnvironment];
+    NSString *containsString;
+    if ([currentEnvironment isEqualToString:@"qbqa"]) {
+        containsString = @"qa";
+    } else {
+        containsString = currentEnvironment;
+    }
+    
+    NSString *expression = [NSString stringWithFormat:@"SELF.login contains '%@'", containsString];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:expression];
+    NSArray *filteredArray = [users filteredArrayUsingPredicate:predicate];
+    
+    NSMutableArray *mutableUsers = [[filteredArray subarrayWithRange:NSMakeRange(0, kUsersLimit)] mutableCopy];
+    [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+        return [obj1.login compare:obj2.login options:NSNumericSearch];
+    }];
+    
+    return [mutableUsers copy];
+}
+
+#pragma mark - Helpers
+
+- (NSString *)currentEnvironment {
     NSString* environment = nil;
 #if DEV
     environment = @"dev";
@@ -88,30 +129,7 @@
     environment = @"qbqa";
 #endif
     
-#if RELEASE
-    environment = @"release";
-#endif
-    
-    [[self.usersService searchUsersWithTags:@[environment]] continueWithBlock:^id(BFTask *task) {
-        //
-        if (task.error != nil) {
-            if (errorBlock) {
-                errorBlock(task.error);
-            }
-        }
-        else {
-            NSMutableArray* mutableUsers = [task.result mutableCopy];
-            [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
-                return [obj1.login compare:obj2.login options:NSNumericSearch];
-            }];
-            
-            if (successBlock != nil) {
-                successBlock([mutableUsers subarrayWithRange:NSMakeRange(0, kUsersLimit)]);
-            }
-        }
-        
-        return nil;
-    }];
+    return environment;
 }
 
 #pragma mark - Last activity date

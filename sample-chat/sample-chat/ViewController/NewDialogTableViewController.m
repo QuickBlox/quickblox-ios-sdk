@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad
 {
-    self.dataSource = [[UsersDataSource alloc] initWithUsers:[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers]];
+    self.dataSource = [[UsersDataSource alloc] initWithUsers:[[ServicesManager instance] filterUsers:[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers]]];
     [self.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
     self.tableView.dataSource = self.dataSource;
 
