@@ -123,7 +123,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *  
  *  @return Array of QBUUser instances as users
  */
-- (NSArray<QBUUser *> *)usersWithLogins:(NSArray<NSString *> *)logins;
+- (NSArray QB_GENERIC(QBUUser *) *)usersWithLogins:(NSArray QB_GENERIC(NSString *) *)logins;
 
 /**
  *  Get users with user emails.
@@ -132,7 +132,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUser instances as users
  */
-- (NSArray<QBUUser *> *)usersWithEmails:(NSArray<NSString *> *)emails;
+- (NSArray QB_GENERIC(QBUUser *) *)usersWithEmails:(NSArray QB_GENERIC(NSString *) *)emails;
 
 /**
  *  Get users with user facebook ids.
@@ -141,7 +141,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUser instances as users
  */
-- (NSArray<QBUUser *> *)usersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs;
+- (NSArray QB_GENERIC(QBUUser *) *)usersWithFacebookIDs:(NSArray QB_GENERIC(NSString *) *)facebookIDs;
 
 #pragma mark - Search & Exclude
 
@@ -152,7 +152,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (NSDictionary *)usersByExcludingUsersIDs:(NSArray<NSNumber *> *)ids;
+- (NSDictionary *)usersByExcludingUsersIDs:(NSArray QB_GENERIC(NSNumber *) *)ids;
 
 /**
  *  Search for users excluding users with users logins.
@@ -161,7 +161,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (NSDictionary *)usersByExcludingLogins:(NSArray<NSString *> *)logins;
+- (NSDictionary *)usersByExcludingLogins:(NSArray QB_GENERIC(NSString *) *)logins;
 
 /**
  *  Search for users excluding users with users logins.
@@ -170,7 +170,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (NSDictionary *)usersByExcludingEmails:(NSArray<NSString *> *)emails;
+- (NSDictionary *)usersByExcludingEmails:(NSArray QB_GENERIC(NSString *) *)emails;
 
 /**
  *  Search for users excluding users with users facebook IDs.
@@ -179,6 +179,6 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (NSDictionary *)usersByExcludingFacebookIDs:(NSArray<NSString *> *)facebookIDs;
+- (NSDictionary *)usersByExcludingFacebookIDs:(NSArray QB_GENERIC(NSString *) *)facebookIDs;
 
 @end

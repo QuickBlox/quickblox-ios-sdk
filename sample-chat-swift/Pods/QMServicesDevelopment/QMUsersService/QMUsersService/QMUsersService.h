@@ -10,8 +10,6 @@
 #import "QMBaseService.h"
 #import "QMUsersMemoryStorage.h"
 
-@class QMCancellationToken;
-
 @protocol QMUsersServiceDelegate;
 @protocol QMUsersServiceCacheDataSource;
 
@@ -52,7 +50,7 @@
 /**
  *  Load users to memory storage from disc cache.
  */
-- (BFTask<NSArray<QBUUser *> *> *)loadFromCache;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)loadFromCache;
 
 #pragma mark - Intelligent fetch
 
@@ -63,7 +61,7 @@
  *
  *  @return BFTask with QBUUser as a result
  */
-- (BFTask<QBUUser *> *)getUserWithID:(NSUInteger)userID;
+- (BFTask QB_GENERIC(QBUUser *) *)getUserWithID:(NSUInteger)userID;
 
 /**
  *  Get users by ids.
@@ -72,7 +70,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithIDs:(NSArray QB_GENERIC(NSNumber *) *)usersIDs;
 
 /**
  *  Get users by ids with extended pagination parameters.
@@ -82,7 +80,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs page:(QBGeneralResponsePage *)page;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithIDs:(NSArray QB_GENERIC(NSNumber *) *)usersIDs page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by emails.
@@ -91,7 +89,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithEmails:(NSArray QB_GENERIC(NSString *) *)emails;
 
 /**
  *  Get users by emails with extended pagination parameters.
@@ -101,7 +99,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails page:(QBGeneralResponsePage *)page;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithEmails:(NSArray QB_GENERIC(NSString *) *)emails page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by facebook ids.
@@ -110,7 +108,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithFacebookIDs:(NSArray QB_GENERIC(NSString *) *)facebookIDs;
 
 /**
  *  Get users by facebook ids with extended pagination parameters.
@@ -120,7 +118,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs page:(QBGeneralResponsePage *)page;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithFacebookIDs:(NSArray QB_GENERIC(NSString *) *)facebookIDs page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by logins.
@@ -129,7 +127,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithLogins:(NSArray QB_GENERIC(NSString *) *)logins;
 
 /**
  *  Get users by logins with extended pagination parameters.
@@ -139,7 +137,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins page:(QBGeneralResponsePage *)page;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithLogins:(NSArray QB_GENERIC(NSString *) *)logins page:(QBGeneralResponsePage *)page;
 
 
 #pragma mark - Search
@@ -151,7 +149,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)searchUsersWithFullName:(NSString *)searchText;
 
 /**
  *  Search for users by full name with extended pagination parameters.
@@ -161,7 +159,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText page:(QBGeneralResponsePage *)page;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)searchUsersWithFullName:(NSString *)searchText page:(QBGeneralResponsePage *)page;
 
 /**
  *  Search for users by tags.
@@ -170,7 +168,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)searchUsersWithTags:(NSArray QB_GENERIC(NSString *) *)tags;
 
 /**
  *  Search for users by tags with extended pagination parameters.
@@ -180,7 +178,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags page:(QBGeneralResponsePage *)page;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)searchUsersWithTags:(NSArray QB_GENERIC(NSString *) *)tags page:(QBGeneralResponsePage *)page;
 
 @end
 
@@ -212,6 +210,6 @@
  *  @param usersService     QMUsersService instance
  *  @param user             NSArray of QBUUser instances as users
  */
-- (void)usersService:(QMUsersService *)usersService didAddUsers:(NSArray<QBUUser *> *)user;
+- (void)usersService:(QMUsersService *)usersService didAddUsers:(NSArray QB_GENERIC(QBUUser *) *)user;
 
 @end

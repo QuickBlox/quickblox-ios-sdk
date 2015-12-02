@@ -29,29 +29,14 @@
 #pragma mark Base IM
 
 /**
- didLogin fired by QBChat when connection to service established and login is successfull
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'chatDidConnect' instead.
- 
+ *  didNotSendMessage fired when message cannot be send to user
+ *
+ *  @param message message passed to sendMessage method into QBChat
+ *  @param error Error
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'onBlockedMessage' or 'setOnBlockedMessage' of QBChatDialog class instead.
  */
-- (void)chatDidLogin DEPRECATED_MSG_ATTRIBUTE("Use chatDidConnect instead.");
-
-/**
- didNotLoginWithError fired when login process did not finished successfully
- 
- @warning *Deprecated in QB iOS SDK 2.4.4:* Use 'chatDidNotConnectWithError:' instead.
-
- @param error Error
- */
-- (void)chatDidNotLoginWithError:(QB_NULLABLE NSError *)error DEPRECATED_MSG_ATTRIBUTE("Use 'chatDidNotConnectWithError:' instead.");
-
-/**
- didNotSendMessage fired when message cannot be send to user
- 
- @param message message passed to sendMessage method into QBChat
- @param error Error
- */
-- (void)chatDidNotSendMessage:(QB_NONNULL QBChatMessage *)message error:(QB_NULLABLE NSError *)error;
+- (void)chatDidNotSendMessage:(QB_NONNULL QBChatMessage *)message error:(QB_NULLABLE NSError *)error DEPRECATED_MSG_ATTRIBUTE("Use 'onBlockedMessage' or 'setOnBlockedMessage' of QBChatDialog class instead.");
 
 /**
  *  Fired when message cannot be send to the group chat.
@@ -59,8 +44,10 @@
  *  @param message  QBChatMessage message.
  *  @param dialogID QBChatDialog identifier.
  *  @param error    Error.
+ *
+ *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'onBlockedMessage' or 'setOnBlockedMessage' of QBChatDialog class instead.
  */
-- (void)chatDidNotSendMessage:(QB_NONNULL QBChatMessage *)message toDialogID:(QB_NONNULL NSString *)dialogID error:(QB_NULLABLE NSError *)error;
+- (void)chatDidNotSendMessage:(QB_NONNULL QBChatMessage *)message toDialogID:(QB_NONNULL NSString *)dialogID error:(QB_NULLABLE NSError *)error DEPRECATED_MSG_ATTRIBUTE("Use 'onBlockedMessage' or 'setOnBlockedMessage' of QBChatDialog class instead.");
 
 /**
  didReceiveMessage fired when new message was received from QBChat
@@ -229,7 +216,6 @@
 /**
  Called when you removed a privacy list
  @param name privacy list name
- @param error Error
  */
 - (void)chatDidRemovedPrivacyListWithName:(QB_NONNULL NSString *)name;
 
@@ -241,7 +227,7 @@
  *
  *  @param messageID Message identifier.
  *  @param dialogID  Dialog identifier.
- *  @param readerID  User identifier.
+ *  @param userID  User identifier.
  */
 - (void)chatDidDeliverMessageWithID:(QB_NONNULL NSString *)messageID dialogID:(QB_NONNULL NSString *)dialogID toUserID:(NSUInteger)userID;
 

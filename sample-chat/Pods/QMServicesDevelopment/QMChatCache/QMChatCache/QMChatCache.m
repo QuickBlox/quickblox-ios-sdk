@@ -331,7 +331,7 @@ static QMChatCache *_chatCacheInstance = nil;
             
             if (cdMessage) {
                 
-                if (![cachedMessage isEqual:message]) {
+                if (![cachedMessage.deliveredIDs isEqualToArray:message.deliveredIDs] || ![cachedMessage.readIDs isEqualToArray:message.readIDs]) {
                     
                     [toUpdate addObject:message];
                 }

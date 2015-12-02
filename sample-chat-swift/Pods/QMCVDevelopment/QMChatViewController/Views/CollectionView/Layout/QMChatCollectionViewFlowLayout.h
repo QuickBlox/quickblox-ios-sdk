@@ -29,6 +29,12 @@
  */
 @property (weak, nonatomic) QMChatCollectionView *chatCollectionView;
 
+/**
+ *  The maximum number of items that the layout should keep in its cache of layout information.
+ *
+ *  @discussion The default value is `300`. A limit of `0` means no limit. This is not a strict limit.
+ */
+@property (assign, nonatomic) NSUInteger cacheLimit;
 
 /**
  *  Specifies whether or not the layout should enable spring behavior dynamics for its items using `UIDynamics`.
@@ -56,11 +62,19 @@
 @property (readonly, nonatomic) CGFloat itemWidth;
 
 /**
- *  The maximum number of items that the layout should keep in its cache of layout information.
+ *  Size for item and index path.
  *
- *  @discussion The default value is `200`. A limit of `0` means no limit. This is not a strict limit.
+ *  @discussion Returns cached size of item. If size is not in cache, then counts it first.
+ *
+ *  @return Size of item at index path
  */
-
 - (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ *  Removing size for itemID from cache.
+ *
+ *  @discussion Use this method before any of collection view reload methods, that will update missed cached sizes.
+ */
+- (void)removeSizeFromCacheForItemID:(NSString *)itemID;
 
 @end

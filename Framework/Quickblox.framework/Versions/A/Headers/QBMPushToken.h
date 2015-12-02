@@ -16,7 +16,6 @@
 
 @interface QBMPushToken : QBCEntity <NSCoding, NSCopying>{
 	NSString *clientIdentificationSequence;
-	BOOL isProductionEnvironment;
 }
 
 /** Identifies client device in 3-rd party service like APNS, C2DM, MPNS, BBPS.*/
@@ -24,12 +23,6 @@
 
 /** Set custom UDID or use auto-generated UDID if customUDID is nil */
 @property(nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *customUDID;
-
-/** Determine application mode. It allows conveniently separate development and production modes, default: YES
- 
- @warning Deprecated in 2.4.4. See '[QBApplication sharedApplication].autoDetectEnvironment'.
- */
-@property (nonatomic) BOOL isProductionEnvironment DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4.4. There is no need to set this property manually if you are using automatic environment detection.");
 
 /** Create new push token
  @return New instance of QBMPushToken

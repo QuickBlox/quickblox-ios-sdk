@@ -36,7 +36,7 @@
 /**
  *  Allow to change Services Zone to work with Development and Staging environments
  *
- *  @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeProduction
+ *  @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setServiceZone:] instead.
  */
@@ -45,7 +45,7 @@
 /**
  *  Return current Service Zone
  *
- *  @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
+ *  @note serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings currentServiceZone] instead.
  */
@@ -70,7 +70,7 @@
  *  Allow to set custom domain for specific zone.
  *
  *  @param apiDomain - Domain for service i.e. http://my_custom_domain.com. Possible to pass nil to return to default settings
- *  @param zone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeProduction
+ *  @param zone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
  *
  *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use [QBSettings setApiEndpoint:chatEndpoint:forServiceZone:] instead.
  */

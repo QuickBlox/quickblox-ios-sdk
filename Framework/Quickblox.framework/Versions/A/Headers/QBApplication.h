@@ -34,19 +34,4 @@
  */
 @property (nonatomic, readonly, QB_NONNULL_PROPERTY) NSString *restAPIVersion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings restAPIVersion] instead");
 
-/**
-* Production or development environment for push notifications, works only if autoDetectEnvironment = NO.
-
- @warning Deprecated in 2.4.4. See 'autoDetectEnvironment'.
-*/
-@property (nonatomic, assign) BOOL productionEnvironmentForPushesEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4.4. Please use automatic environment detection which is enabled by default.");
-
-/**
- *  Automatically detects environment for push notifications. By default is - YES.
- *
- *  @warning Deprecated in 2.4.4. Will be always enable.
- */
-@property (nonatomic, assign) BOOL autoDetectEnvironment DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.4.4. Will be always enabled.");
-
-
 @end

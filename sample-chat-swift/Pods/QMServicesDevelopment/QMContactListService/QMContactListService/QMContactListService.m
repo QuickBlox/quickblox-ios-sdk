@@ -117,7 +117,7 @@
 - (void)addUserToContactListRequest:(QBUUser *)user completion:(void(^)(BOOL success))completion {
     
     __weak __typeof(self)weakSelf = self;
-    [[QBChat instance] addUserToContactListRequest:user.ID completion:^(NSError * _Nullable error) {
+    [[QBChat instance] addUserToContactListRequest:user.ID completion:^(NSError *error) {
         __typeof(self) strongSelf = weakSelf;
         //
         if (!error) {
@@ -141,7 +141,7 @@
 
 - (void)removeUserFromContactListWithUserID:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
     
-    [[QBChat instance] removeUserFromContactList:userID completion:^(NSError * _Nullable error) {
+    [[QBChat instance] removeUserFromContactList:userID completion:^(NSError *error) {
         //
         if (!error) {
             
@@ -160,7 +160,7 @@
 
 - (void)acceptContactRequest:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
 
-    [[QBChat instance] confirmAddContactRequest:userID completion:^(NSError * _Nullable error) {
+    [[QBChat instance] confirmAddContactRequest:userID completion:^(NSError *error) {
         //
         if (!error) {
             
@@ -179,7 +179,7 @@
 
 - (void)rejectContactRequest:(NSUInteger)userID completion:(void(^)(BOOL success))completion {
     
-    [[QBChat instance] rejectAddContactRequest:userID completion:^(NSError * _Nullable error) {
+    [[QBChat instance] rejectAddContactRequest:userID completion:^(NSError *error) {
         //
         if (!error) {
             

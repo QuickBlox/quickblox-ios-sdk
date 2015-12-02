@@ -72,24 +72,6 @@ class ServicesManager: QMServicesManager {
         TWMessageBarManager.sharedInstance().showMessageWithTitle(dialogName, description: message.text, type: TWMessageBarMessageType.Info)
     }
     
-    // MARK: dialog utils
-    
-    func joinAllGroupDialogs() {
-        let allDialogs: Array<QBChatDialog> = ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false) as! Array<QBChatDialog>
-        for dialog : QBChatDialog in allDialogs {
-            
-            // Notifies occupants that user left the dialog.
-            if dialog.type != QBChatDialogType.Private {
-                
-                self.chatService.joinToGroupDialog(dialog, completion: { (error: NSError?) -> Void in
-                    if (error != nil) {
-                        NSLog("Failed to join dialog with error: %@", error!)
-                    }
-                })
-            }
-        }
-    }
-    
     // MARK: Last activity date
     
     var lastActivityDate: NSDate? {
@@ -139,8 +121,7 @@ class ServicesManager: QMServicesManager {
                 return nil
             }
             
-            let sortedUsers = self?.sortedUsers(task.result as! [QBUUser])
-            success?(sortedUsers)
+            success?(self?.filteredUsersByCurrentEnvironment())
             
             return nil
         }
@@ -158,9 +139,24 @@ class ServicesManager: QMServicesManager {
         }
     }
     
-    func sortedUsers(unsortedUsers: [QBUUser]) -> [QBUUser] {
+    func filteredUsersByCurrentEnvironment() -> [QBUUser] {
         
-        let sortedUsers = unsortedUsers.sort({ (user1, user2) -> Bool in
+        let currentEnvironment = Constants.QB_USERS_ENVIROMENT
+        var containsString: String
+        
+        if (currentEnvironment == "qbqa") {
+            containsString = "qa"
+        } else {
+            containsString = currentEnvironment
+        }
+        
+        let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers() as! [QBUUser]
+
+        let filteredUsers = unsortedUsers[0..<kUsersLimit].filter { (user: QBUUser) -> Bool in
+            return user.login?.lowercaseString.rangeOfString(containsString) != nil
+        }
+        
+        let sortedUsers = filteredUsers.sort({ (user1, user2) -> Bool in
             return (user1.login! as NSString).compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
         })
         

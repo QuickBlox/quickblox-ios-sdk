@@ -29,7 +29,7 @@
  *  @param users      Array of QBUUser instances
  *  @param completion Completion block is called after update or insert operation is completed
  */
-- (BFTask *)insertOrUpdateUsers:(NSArray<QBUUser *> *)users;
+- (BFTask *)insertOrUpdateUsers:(NSArray QB_GENERIC(QBUUser *) *)users;
 /**
  *  Delete user from cahce
  *
@@ -52,7 +52,7 @@
  *  @param predicate  Predicate to evaluate objects against
  *  @param completion Completion block that is called after the fetch has completed. Returns an instance of QBUUser
  */
-- (BFTask<QBUUser *> *)userWithPredicate:(NSPredicate *) predicate;
+- (BFTask QB_GENERIC(QBUUser *) *)userWithPredicate:(NSPredicate *) predicate;
 /**
  *  Fetch users with sort attribute, sorted ascending
  *
@@ -60,7 +60,7 @@
  *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBUUser instances
  */
-- (BFTask<NSArray<QBUUser *> *> *)usersSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending;
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)usersSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending;
 /**
  *  Fetch users with predicate, sort attribute, sorted ascending
  *
@@ -69,7 +69,7 @@
  *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBUUser instances
  */
-- (BFTask<NSArray<QBUUser *> *> *)usersWithPredicate:(NSPredicate *)predicate
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)usersWithPredicate:(NSPredicate *)predicate
                                             sortedBy:(NSString *)sortTerm
                                            ascending:(BOOL)ascending;
 

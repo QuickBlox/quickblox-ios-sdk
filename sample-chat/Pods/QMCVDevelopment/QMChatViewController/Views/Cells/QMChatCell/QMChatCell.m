@@ -109,14 +109,13 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 }
 
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
-    
     return layoutAttributes;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
-    
+
     [super applyLayoutAttributes:layoutAttributes];
-    
+
     QMChatCellLayoutAttributes *customAttributes = (id)layoutAttributes;
     
     [self updateConstraint:self.avatarContainerViewHeightConstraint withConstant:customAttributes.avatarSize.height];

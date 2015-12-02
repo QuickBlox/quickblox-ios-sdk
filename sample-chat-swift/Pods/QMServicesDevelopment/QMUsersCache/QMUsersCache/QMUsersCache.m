@@ -53,7 +53,7 @@ static QMUsersCache *_usersCacheInstance = nil;
     return [self insertOrUpdateUsers:@[user]];
 }
 
-- (BFTask *)insertOrUpdateUsers:(NSArray<QBUUser *> *)users
+- (BFTask *)insertOrUpdateUsers:(NSArray *)users
 {
     __weak __typeof(self)weakSelf = self;
     return [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
@@ -134,7 +134,7 @@ static QMUsersCache *_usersCacheInstance = nil;
     }];
 }
 
-- (BFTask<QBUUser *> *)userWithPredicate:(NSPredicate *) predicate
+- (BFTask *)userWithPredicate:(NSPredicate *) predicate
 {
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
 
@@ -151,12 +151,12 @@ static QMUsersCache *_usersCacheInstance = nil;
     return source.task;
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)usersSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending
+- (BFTask *)usersSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending
 {
     return [self usersWithPredicate:nil sortedBy:sortTerm ascending:ascending];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)usersWithPredicate:(NSPredicate *)predicate sortedBy:(NSString *)sortTerm ascending:(BOOL)ascending
+- (BFTask *)usersWithPredicate:(NSPredicate *)predicate sortedBy:(NSString *)sortTerm ascending:(BOOL)ascending
 {
     __weak __typeof(self)weakSelf = self;
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];

@@ -15,7 +15,7 @@
 @interface ServicesManager : QMServicesManager
 
 /**
- *  Notification service
+ *  Notification service.
  */
 @property (nonatomic, readonly) NotificationService* notificationService;
 
@@ -30,13 +30,15 @@
 @property (strong, nonatomic) NSDate *lastActivityDate;
 
 /**
- *  Joining all group dialogs
- */
-- (void)joinAllGroupDialogs;
-
-/**
- *  Downlaod latest users
+ *  Downlaod latest users.
  */
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
+
+/**
+ *  Filtering array of users by current environment.
+ *
+ *  @return Filtered array of users from memory storage by current unvironment.
+ */
+- (NSArray *)filteredUsersByCurrentEnvironment;
 
 @end

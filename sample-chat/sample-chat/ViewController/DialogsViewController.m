@@ -37,7 +37,10 @@ QMChatConnectionDelegate
                                                                                          [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
                                                                                      }
                                                                                  }];
-    [self loadDialogs];
+    
+    if ([QBChat instance].isConnected) {
+        [self loadDialogs];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,7 +84,6 @@ QMChatConnectionDelegate
 {
     __weak __typeof(self) weakSelf = self;
     if ([ServicesManager instance].lastActivityDate != nil) {
-        [[ServicesManager instance] joinAllGroupDialogs];
         [[ServicesManager instance].chatService fetchDialogsUpdatedFromDate:[ServicesManager instance].lastActivityDate andPageLimit:kDialogsPageLimit iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             //
             __typeof(weakSelf) strongSelf = weakSelf;
@@ -103,7 +105,6 @@ QMChatConnectionDelegate
                 if (response.success) {
                     [SVProgressHUD showSuccessWithStatus:@"Completed"];
                     [ServicesManager instance].lastActivityDate = [NSDate date];
-                    [[ServicesManager instance] joinAllGroupDialogs];
                 }
                 else {
                     [SVProgressHUD showErrorWithStatus:@"Failed to load dialogs"];

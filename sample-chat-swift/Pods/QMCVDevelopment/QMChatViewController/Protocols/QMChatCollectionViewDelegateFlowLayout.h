@@ -12,10 +12,9 @@
 @class QMChatCollectionView;
 @class QMChatCollectionViewFlowLayout;
 @class QMChatCollectionViewCell;
-@class QMLoadEarlierHeaderView;
 @class QMChatCellLayoutAttributes;
 
-typedef struct QMChatLayoutModel QMChatCellLayoutModel ;
+typedef struct QMChatLayoutModel QMChatCellLayoutModel;
 
 /**
  *  The `QMChatCollectionViewDelegateFlowLayout` protocol defines methods that allow you to
@@ -30,15 +29,5 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel ;
 
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth;
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
- *  Notifies the delegate that the collection view's header did receive a tap event.
- *
- *  @param collectionView The collection view object that is notifying the delegate of the tap event.
- *  @param headerView     The header view in the collection view.
- *  @param sender         The button that was tapped.
- */
-- (void)collectionView:(QMChatCollectionView *)collectionView
-                header:(QMLoadEarlierHeaderView *)headerView didTapLoadEarlierMessagesButton:(UIButton *)sender;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "QMUsersService.h"
-#import "QMCancellationToken.h"
 
 @interface QMUsersService () <QBChatDelegate>
 
@@ -81,14 +80,14 @@
 
 #pragma mark - Retrive users
 
-- (BFTask<QBUUser *> *)getUserWithID:(NSUInteger)userID
+- (BFTask *)getUserWithID:(NSUInteger)userID
 {
-    return (BFTask<QBUUser *> *)[[self getUsersWithIDs:@[@(userID)]] continueWithBlock:^id(BFTask *task) {
+    return (BFTask *)[[self getUsersWithIDs:@[@(userID)]] continueWithBlock:^id(BFTask *task) {
         return [BFTask taskWithResult:[task.result firstObject]];
     }];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs
+- (BFTask *)getUsersWithIDs:(NSArray *)usersIDs
 {
     QBGeneralResponsePage *pageResponse =
     [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:usersIDs.count < 100 ? usersIDs.count : 100];
@@ -96,7 +95,7 @@
     return [self getUsersWithIDs:usersIDs page:pageResponse];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs page:(QBGeneralResponsePage *)page
+- (BFTask *)getUsersWithIDs:(NSArray *)usersIDs page:(QBGeneralResponsePage *)page
 {
     NSParameterAssert(usersIDs);
     NSParameterAssert(page);
@@ -119,7 +118,7 @@
     }];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray *)ids foundUsers:(NSArray *)foundUsers forceDownload:(BOOL)forceDownload page:(QBGeneralResponsePage *)page
+- (BFTask *)getUsersWithIDs:(NSArray *)ids foundUsers:(NSArray *)foundUsers forceDownload:(BOOL)forceDownload page:(QBGeneralResponsePage *)page
 {
     if (ids.count == 0) {
         return [BFTask taskWithResult:foundUsers];
@@ -148,12 +147,12 @@
 }
 
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails
+- (BFTask *)getUsersWithEmails:(NSArray *)emails
 {
     return [self getUsersWithEmails:emails page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100]];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails page:(QBGeneralResponsePage *)page
+- (BFTask *)getUsersWithEmails:(NSArray *)emails page:(QBGeneralResponsePage *)page
 {
     NSParameterAssert(emails);
     NSParameterAssert(page);
@@ -173,7 +172,7 @@
         
         [QBRequest usersWithEmails:searchInfo[QMUsersSearchKey.notFoundSearchValues]
                               page:page
-                      successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users) {
+                      successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
                           //
                           [self.usersMemoryStorage addUsers:users];
                           
@@ -182,7 +181,7 @@
                           }
                           
                           [source setResult:[foundUsers arrayByAddingObjectsFromArray:users]];
-                      } errorBlock:^(QBResponse * _Nonnull response) {
+                      } errorBlock:^(QBResponse *response) {
                           //
                           [source setError:response.error.error];
                       }];
@@ -191,7 +190,7 @@
     }];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs
+- (BFTask *)getUsersWithFacebookIDs:(NSArray *)facebookIDs
 {
     QBGeneralResponsePage *pageResponse =
     [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:facebookIDs.count < 100 ? facebookIDs.count : 100];
@@ -199,7 +198,7 @@
     return [self getUsersWithFacebookIDs:facebookIDs page:pageResponse];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs page:(QBGeneralResponsePage *)page
+- (BFTask *)getUsersWithFacebookIDs:(NSArray *)facebookIDs page:(QBGeneralResponsePage *)page
 {
     NSParameterAssert(facebookIDs);
     NSParameterAssert(page);
@@ -234,7 +233,7 @@
     }];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins
+- (BFTask *)getUsersWithLogins:(NSArray *)logins
 {
     QBGeneralResponsePage *pageResponse =
     [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:logins.count < 100 ? logins.count : 100];
@@ -242,7 +241,7 @@
     return [self getUsersWithLogins:logins page:pageResponse];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins page:(QBGeneralResponsePage *)page
+- (BFTask *)getUsersWithLogins:(NSArray *)logins page:(QBGeneralResponsePage *)page
 {
     NSParameterAssert(logins);
     NSParameterAssert(page);
@@ -278,12 +277,12 @@
 
 #pragma mark - Search
 
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText
+- (BFTask *)searchUsersWithFullName:(NSString *)searchText
 {
     return [self searchUsersWithFullName:searchText page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100]];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText page:(QBGeneralResponsePage *)page
+- (BFTask *)searchUsersWithFullName:(NSString *)searchText page:(QBGeneralResponsePage *)page
 {
     NSParameterAssert(searchText);
     NSParameterAssert(page);
@@ -311,12 +310,12 @@
     }];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags
+- (BFTask *)searchUsersWithTags:(NSArray *)tags
 {
     return [self searchUsersWithTags:tags page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100]];
 }
 
-- (BFTask<NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags page:(QBGeneralResponsePage *)page
+- (BFTask *)searchUsersWithTags:(NSArray *)tags page:(QBGeneralResponsePage *)page
 {
     NSParameterAssert(tags);
     NSParameterAssert(page);
@@ -329,7 +328,7 @@
         
         [QBRequest usersWithTags:tags
                             page:page
-                    successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users) {
+                    successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *users) {
                         //
                         [self.usersMemoryStorage addUsers:users];
                         
@@ -338,7 +337,7 @@
                         }
                         
                         [source setResult:users];
-                    } errorBlock:^(QBResponse * _Nonnull response) {
+                    } errorBlock:^(QBResponse *response) {
                         //
                         [source setError:response.error.error];
                     }];
