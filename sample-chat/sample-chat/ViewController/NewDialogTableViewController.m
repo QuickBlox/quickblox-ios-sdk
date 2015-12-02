@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad
 {
-    self.dataSource = [[UsersDataSource alloc] initWithUsers:[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers]];
+    self.dataSource = [[UsersDataSource alloc] initWithUsers:[[ServicesManager instance] filteredUsersByCurrentEnvironment]];
     [self.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
     self.tableView.dataSource = self.dataSource;
 
@@ -125,7 +125,7 @@
 		[ServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if (response.success) {
                 // Notifying users about created dialog.
-				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog completion:^(NSError * _Nullable error) {
+				[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog completion:^(NSError *error) {
                     //
                     if (completion) completion(createdDialog);
                 }];

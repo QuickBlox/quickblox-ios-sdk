@@ -28,8 +28,6 @@
 #import <QMUsersCache.h>
 #import <QMUsersService.h>
 
-#import <QMCancellationToken.h>
-
 #import <libextobjc/EXTKeyPathCoding.h>
 #import <libextobjc/EXTScope.h>
 

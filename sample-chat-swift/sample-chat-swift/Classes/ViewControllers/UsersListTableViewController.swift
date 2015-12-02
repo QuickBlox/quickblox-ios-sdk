@@ -22,7 +22,7 @@ class UsersListTableViewController: UITableViewController {
         ServicesManager.instance().usersService.loadFromCache().continueWithBlock { (task : BFTask!) -> AnyObject! in
             if task.result.count > 0 {
                 
-                weakSelf?.setupUsers(task.result as! [QBUUser])
+                weakSelf?.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
                 
             } else {
                 

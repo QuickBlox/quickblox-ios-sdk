@@ -71,7 +71,7 @@
 	
 	if (self.dialog.type == QBChatDialogTypePrivate) {
         // Retrieving users with identifiers.
-        [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+        [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask *task) {
             //
             __typeof(self) strongSelf = weakSelf;
             [users addObjectsFromArray:task.result];
@@ -111,13 +111,13 @@
 	[SVProgressHUD showWithStatus:@"Updating dialog..." maskType:SVProgressHUDMaskTypeClear];
 	
     // Retrieving users from cache.
-    [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask<NSArray<QBUUser *> *> *task) {
+    [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask *task) {
         //
         // Updating dialog with occupants.
         [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
             if( response.success ) {
                 // Notifying users about newly created dialog.
-                [[ServicesManager instance].chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:updatedDialog completion:^(NSError * _Nullable error) {
+                [[ServicesManager instance].chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:updatedDialog completion:^(NSError *error) {
                     //
                     NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
                     // Notify occupants that dialog was updated.

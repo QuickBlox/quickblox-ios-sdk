@@ -594,9 +594,9 @@ QMChatCellDelegate
         // load more if exists
         __weak typeof(self)weakSelf = self;
         // Getting earlier messages for chat dialog identifier.
-        [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask<NSArray<QBChatMessage *> *> *task) {
+        [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask *task) {
             
-            if (task.result.count > 0) {
+            if ([task.result count] > 0) {
                 [weakSelf insertMessagesToTheTopAnimated:task.result];
             }
             

@@ -37,7 +37,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     func updateUsers() {
         if let _ = self.dialog  {
             
-            self.setupUsers(ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers() as! [QBUUser])
+            self.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
         }
     }
     
