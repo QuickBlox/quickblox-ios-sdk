@@ -208,7 +208,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     } completion:^(BOOL finished) {
         //
         __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
         [CATransaction commit];
     }];
 }
@@ -311,7 +310,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     } completion:^(BOOL finished) {
         //
         __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
         [strongSelf scrollToBottomAnimated:NO];
     }];
 }
@@ -571,7 +569,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 - (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
                     sectionHeaderAtIndexPath:(NSIndexPath *)indexPath {
     QMHeaderCollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter
-                                                                                    withReuseIdentifier:[QMHeaderCollectionReusableView cellReuseIdentifier] forIndexPath:indexPath];
+                                                                                    withReuseIdentifier:[QMHeaderCollectionReusableView cellReuseIdentifier]
+                                                                                           forIndexPath:indexPath];
     
     QMChatSection *chatSection = self.chatSections[indexPath.section];
     headerView.headerLabel.text = [self nameForSectionWithDate:[chatSection lastMessageDate]];
