@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EEEFB444BB8706C7934F5498"
-               BuildableName = "libQMCVDevelopment.a"
-               BlueprintName = "QMCVDevelopment"
+               BlueprintIdentifier = "07073638D88DD42EF84D87AE"
+               BuildableName = "libQMServicesDevelopment.a"
+               BlueprintName = "QMServicesDevelopment"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

@@ -521,11 +521,6 @@ UIActionSheetDelegate
         if (message.attachments != nil) {
             QBChatAttachment* attachment = message.attachments.firstObject;
             
-            BOOL shouldLoadFile = YES;
-            if ([self.attachmentCells objectForKey:attachment.ID] != nil) {
-                shouldLoadFile = NO;
-            }
-            
             NSMutableArray* keysToRemove = [NSMutableArray array];
             
             NSEnumerator* enumerator = [self.attachmentCells keyEnumerator];
@@ -544,11 +539,10 @@ UIActionSheetDelegate
             [self.attachmentCells setObject:cell forKey:attachment.ID];
             [(UICollectionViewCell<QMChatAttachmentCell> *)cell setAttachmentID:attachment.ID];
             
-            if (!shouldLoadFile) return;
-            
             __weak typeof(self)weakSelf = self;
             // Getting image from chat attachment service.
-            [[ServicesManager instance].chatService.chatAttachmentService getImageForChatAttachment:attachment completion:^(NSError *error, UIImage *image) {
+            [[ServicesManager instance].chatService.chatAttachmentService getImageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
+                //
                 __typeof(self) strongSelf = weakSelf;
                 
                 if ([(UICollectionViewCell<QMChatAttachmentCell> *)cell attachmentID] != attachment.ID) return;
@@ -608,7 +602,7 @@ UIActionSheetDelegate
 
 - (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
 {
-    if ([self.dialog.ID isEqualToString:dialogID]) {
+    if ([self.dialog.ID isEqualToString:dialogID] && message.senderID == self.senderID) {
         [self updateMessage:message];
     }
 }
@@ -637,13 +631,9 @@ UIActionSheetDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message
 {
-    if (message.dialogID == self.dialog.ID) {
+    if ([message.dialogID isEqualToString:self.dialog.ID]) {
         
-        if (status == QMMessageAttachmentStatusLoading && message.senderID == self.senderID) {
-            [self insertMessageToTheBottomAnimated:message];
-        } else {
-            [self updateMessage:message];
-        }
+        [self updateMessage:message];
     }
 }
 
@@ -702,19 +692,20 @@ UIActionSheetDelegate
         UIImage* resizedImage = [strongSelf resizedImageFromImage:newImage];
         
         // Sending attachment to dialog.
-        [[ServicesManager instance].chatService.chatAttachmentService sendMessage:message
-                                                                         toDialog:strongSelf.dialog
-                                                                  withChatService:[ServicesManager instance].chatService
-                                                                withAttachedImage:resizedImage completion:^(NSError *error) {
-                                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                                          if (error != nil) {
-                                                                              [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                                                                          } else {
-                                                                              [SVProgressHUD showSuccessWithStatus:@"Completed"];
-                                                                          }
-                                                                          strongSelf.isSendingAttachment = NO;
-                                                                      });
-                                                                  }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[ServicesManager instance].chatService sendAttachmentMessage:message
+                                                                 toDialog:strongSelf.dialog
+                                                      withAttachmentImage:resizedImage
+                                                               completion:^(NSError *error) {
+                                                                   //
+                                                                   if (error != nil) {
+                                                                       [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                                                                   } else {
+                                                                       [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                                                                   }
+                                                                   strongSelf.isSendingAttachment = NO;
+                                                               }];
+        });
     });
 }
 
