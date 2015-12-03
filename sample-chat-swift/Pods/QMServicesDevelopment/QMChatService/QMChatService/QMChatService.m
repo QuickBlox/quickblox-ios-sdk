@@ -905,7 +905,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         return self.loadEarlierMessagesTask;
     }
     
-    return nil;
+    return [BFTask taskWithResult:@[]];
 }
 
 - (void)earlierMessagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion {
@@ -1094,6 +1094,22 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     NSAssert(message.messageType == QMMessageTypeText, @"You can only send text messages with this method.");
     
     [self sendMessage:message type:QMMessageTypeText toDialog:dialog saveToHistory:saveToHistory saveToStorage:saveToStorage completion:completion];
+}
+
+- (void)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
+                     toDialog:(QBChatDialog *)dialog
+          withAttachmentImage:(UIImage *)image
+                   completion:(QBChatCompletionBlock)completion
+{
+    
+    [self.messagesMemoryStorage addMessage:attachmentMessage forDialogID:dialog.ID];
+    if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddMessageToMemoryStorage:forDialogID:)]) {
+        
+        [self.multicastDelegate chatService:self didAddMessageToMemoryStorage:attachmentMessage forDialogID:dialog.ID];
+        
+    }
+    
+    [self.chatAttachmentService uploadAndSendAttachmentMessage:attachmentMessage toDialog:dialog withChatService:self withAttachedImage:image completion:completion];
 }
 
 #pragma mark - mark as delivered
