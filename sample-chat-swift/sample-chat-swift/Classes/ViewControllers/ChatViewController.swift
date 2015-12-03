@@ -270,9 +270,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             UIGraphicsEndImageContext()
             
             // Sending attachment.
-            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { [weak self] (error: NSError!) -> Void in
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                ServicesManager.instance().chatService.sendAttachmentMessage(message, toDialog: self.dialog, withAttachmentImage: resizedImage, completion: {
+                    [weak self] (error: NSError?) -> Void in
                     if error != nil {
                         SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
                     } else {
@@ -577,46 +577,46 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if let attachments = message.attachments {
                 
-                let attachment: QBChatAttachment = attachments.first!
-                
-                for (existingAttachmentID, existingAttachmentCell) in self.attachmentCellsMap {
-                    
-                    if existingAttachmentCell === attachmentCell  {
+                if let attachment: QBChatAttachment = attachments.first {
+                    for (existingAttachmentID, existingAttachmentCell) in self.attachmentCellsMap {
                         
-                        if existingAttachmentID == attachment.ID {
-                            continue
-                        } else {
-                            self.attachmentCellsMap.removeValueForKey(existingAttachmentID)
-                        }
-                    }
-                    
-                }
-                
-                self.attachmentCellsMap[attachment.ID!] = attachmentCell
-                attachmentCell.attachmentID = attachment.ID
-                
-                // Getting image from chat attachment cache.
-                ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message, completion: {
-                    [weak self] (error: NSError!, image: UIImage!) -> Void in
-                    //
-                    if attachmentCell.attachmentID != attachment.ID {
-                        return
-                    }
-                    
-                    self!.attachmentCellsMap.removeValueForKey(attachment.ID!)
-                    
-                    if error != nil {
-                        SVProgressHUD.showErrorWithStatus(error.localizedDescription)
-                    } else {
-                        
-                        if image != nil {
+                        if existingAttachmentCell === attachmentCell  {
                             
-                            attachmentCell.setAttachmentImage(image)
-                            cell.updateConstraints()
+                            if existingAttachmentID == attachment.ID {
+                                continue
+                            } else {
+                                self.attachmentCellsMap.removeValueForKey(existingAttachmentID)
+                            }
                         }
                         
                     }
-                })
+                    
+                    self.attachmentCellsMap[attachment.ID!] = attachmentCell
+                    attachmentCell.attachmentID = attachment.ID
+                    
+                    // Getting image from chat attachment cache.
+                    ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message, completion: {
+                        [weak self] (error: NSError!, image: UIImage!) -> Void in
+                        //
+                        if attachmentCell.attachmentID != attachment.ID {
+                            return
+                        }
+                        
+                        self!.attachmentCellsMap.removeValueForKey(attachment.ID!)
+                        
+                        if error != nil {
+                            SVProgressHUD.showErrorWithStatus(error.localizedDescription)
+                        } else {
+                            
+                            if image != nil {
+                                
+                                attachmentCell.setAttachmentImage(image)
+                                cell.updateConstraints()
+                            }
+                            
+                        }
+                    })
+                }
             }
         } else if cell.isKindOfClass(QMChatIncomingCell.self) || cell.isKindOfClass(QMChatAttachmentIncomingCell.self) {
             (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
@@ -656,7 +656,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             // the very first message
             // load more if exists
             // Getting earlier messages for chat dialog identifier.
-            ServicesManager.instance().chatService.loadEarlierMessagesWithChatDialogID(self.dialog?.ID).continueWithBlock({
+            ServicesManager.instance().chatService?.loadEarlierMessagesWithChatDialogID(self.dialog?.ID).continueWithBlock({
                 [weak self] (task: BFTask!) -> AnyObject! in
                 
                 if (task.result.count > 0) {
@@ -755,11 +755,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if message.dialogID == self.dialog?.ID {
             
-            if (status == QMMessageAttachmentStatus.Loading && message.senderID == self.senderID) {
-                self.insertMessageToTheBottomAnimated(message)
-            } else if (message.senderID != self.senderID) {
-                self.updateMessage(message)
-            }
+            self.updateMessage(message)
         }
     }
     
