@@ -1,1 +1,1 @@
-../../../QMCVDevelopment/QMChatViewController/Categories/UIColor+QM.h
+../../../../../../QMChatViewController-ios/QMChatViewController/Categories/UIColor+QM.h

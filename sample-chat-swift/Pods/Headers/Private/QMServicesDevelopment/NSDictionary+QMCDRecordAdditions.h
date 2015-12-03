@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSDictionary+QMCDRecordAdditions.h
+../../../../../../q-municate-services-ios/QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSDictionary+QMCDRecordAdditions.h

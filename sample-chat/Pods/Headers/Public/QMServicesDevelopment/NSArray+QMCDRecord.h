@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSArray+QMCDRecord.h
+../../../../../../q-municate-services-ios/QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSArray+QMCDRecord.h

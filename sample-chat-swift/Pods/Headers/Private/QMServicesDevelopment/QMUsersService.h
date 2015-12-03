@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMUsersService/QMUsersService/QMUsersService.h
+../../../../../../q-municate-services-ios/QMUsersService/QMUsersService/QMUsersService.h

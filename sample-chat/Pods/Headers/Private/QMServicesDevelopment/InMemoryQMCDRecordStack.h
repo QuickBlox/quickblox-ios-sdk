@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/InMemoryQMCDRecordStack.h
+../../../../../../q-municate-services-ios/QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/InMemoryQMCDRecordStack.h

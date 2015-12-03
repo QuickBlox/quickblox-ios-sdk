@@ -1,1 +1,1 @@
-../../../QMCVDevelopment/QMChatViewController/Categories/NSString+QM.h
+../../../../../../QMChatViewController-ios/QMChatViewController/Categories/NSString+QM.h

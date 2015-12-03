@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMChatCache/QMChatCache/CoreData/Entries/CDDialog.h
+../../../../../../q-municate-services-ios/QMChatCache/QMChatCache/CoreData/Entries/CDDialog.h

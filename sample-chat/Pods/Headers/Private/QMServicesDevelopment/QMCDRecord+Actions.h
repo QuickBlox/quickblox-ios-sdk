@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Actions.h
+../../../../../../q-municate-services-ios/QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Actions.h

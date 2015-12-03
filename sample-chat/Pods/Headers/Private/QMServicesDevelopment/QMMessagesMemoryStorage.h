@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMChatService/QMChatService/QMMessagesMemoryStorage/QMMessagesMemoryStorage.h
+../../../../../../q-municate-services-ios/QMChatService/QMChatService/QMMessagesMemoryStorage/QMMessagesMemoryStorage.h

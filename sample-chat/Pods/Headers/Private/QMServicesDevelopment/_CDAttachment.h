@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDAttachment.h
+../../../../../../q-municate-services-ios/QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDAttachment.h

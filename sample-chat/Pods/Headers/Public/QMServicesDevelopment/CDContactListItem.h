@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMContactListCache/QMContactListCache/CoreData/Entries/CDContactListItem.h
+../../../../../../q-municate-services-ios/QMContactListCache/QMContactListCache/CoreData/Entries/CDContactListItem.h

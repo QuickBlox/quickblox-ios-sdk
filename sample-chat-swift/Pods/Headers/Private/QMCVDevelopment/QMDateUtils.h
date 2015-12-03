@@ -1,1 +1,1 @@
-../../../QMCVDevelopment/QMChatViewController/Utils/QMDateUtils/QMDateUtils.h
+../../../../../../QMChatViewController-ios/QMChatViewController/Utils/QMDateUtils/QMDateUtils.h

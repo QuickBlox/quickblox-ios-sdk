@@ -1,1 +1,1 @@
-../../../QMCVDevelopment/QMChatViewController/Views/CustomUI/QMImageView/QMImageView.h
+../../../../../../QMChatViewController-ios/QMChatViewController/Views/CustomUI/QMImageView/QMImageView.h

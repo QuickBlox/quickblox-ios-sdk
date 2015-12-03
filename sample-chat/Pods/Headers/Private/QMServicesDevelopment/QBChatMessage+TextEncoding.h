@@ -1,1 +1,1 @@
-../../../QMServicesDevelopment/QMChatService/QMChatService/Categories/QBChatMessage+TextEncoding.h
+../../../../../../q-municate-services-ios/QMChatService/QMChatService/Categories/QBChatMessage+TextEncoding.h
