@@ -352,7 +352,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 #pragma mark Send message
 
 /**
- *  Send message to dialog with identifier
+ *  Send message to dialog with identifier.
  *
  *  @param message          QBChatMessage instance
  *  @param dialogID         dialog identifier
@@ -367,7 +367,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
          completion:(QBChatCompletionBlock)completion;
 
 /**
- *  Send message to dialog with identifier
+ *  Send message to dialog with identifier.
  *
  *  @param message          QBChatMessage instance
  *  @param dialogID         dialog identifier
@@ -380,6 +380,19 @@ typedef void(^QMCacheCollection)(NSArray *collection);
       saveToHistory:(BOOL)saveToHistory
       saveToStorage:(BOOL)saveToStorage
          completion:(QBChatCompletionBlock)completion;
+
+/**
+ *  Send message to dialog with identifier.
+ *
+ *  @param attachmentMessage    QBChatMessage instance with attachment
+ *  @param dialog               dialog to send message to
+ *  @param image                attachment image to upload
+ *  @param completion           completion block with failure error
+ */
+- (void)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
+                     toDialog:(QBChatDialog *)dialog
+          withAttachmentImage:(UIImage *)image
+                   completion:(QBChatCompletionBlock)completion;
 
 #pragma mark - mark as delivered
 

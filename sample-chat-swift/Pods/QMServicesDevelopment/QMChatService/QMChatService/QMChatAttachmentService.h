@@ -55,8 +55,20 @@
  *  @param image        Attachment image
  *  @param completion   Send message result
  *
+ *  @warning *Deprecated in QMServices 0.3.2:* Use '[chatService sendAttachmentMessage:toDialog:withAttachmentImage:completion:]' instead.
  */
-- (void)sendMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(void(^)(NSError *error))completion;
+- (void)sendMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(void(^)(NSError *error))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.2. Use '[chatService sendAttachmentMessage:toDialog:withAttachmentImage:completion:]' instead.");
+
+/**
+ *  Upload and send attachment message to dialog.
+ *
+ *  @param message      QBChatMessage instance
+ *  @param dialog       QBChatDialog instance
+ *  @param chatService  QMChatService instance
+ *  @param image        Attachment image
+ *  @param completion   Send message result
+ */
+- (void)uploadAndSendAttachmentMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(QBChatCompletionBlock)completion;
 
 /**
  *  Get image by attachment
@@ -66,7 +78,7 @@
  *
  *  @warning *Deprecated in QMServices 0.3.2:* Use 'getImageForAttachmentMessage:completion:' instead.
  */
-- (void)getImageForChatAttachment:(QBChatAttachment *)attachment completion:(void (^)(NSError *error, UIImage *image))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.2. Use 'getImageForAttachmentMessage:completion:' instead.");;
+- (void)getImageForChatAttachment:(QBChatAttachment *)attachment completion:(void (^)(NSError *error, UIImage *image))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.2. Use 'getImageForAttachmentMessage:completion:' instead.");
 
 /**
  *  Get image by attachment message.

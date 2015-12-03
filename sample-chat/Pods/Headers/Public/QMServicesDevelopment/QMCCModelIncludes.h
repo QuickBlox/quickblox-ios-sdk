@@ -1,1 +1,1 @@
-../../../../../../q-municate-services-ios/QMChatCache/QMChatCache/CoreData/QMCCModelIncludes.h
+../../../QMServicesDevelopment/QMChatCache/QMChatCache/CoreData/QMCCModelIncludes.h

@@ -1,1 +1,1 @@
-../../../../../../q-municate-services-ios/QMBaseService/QMBaseService/QMBaseService.h
+../../../QMServicesDevelopment/QMBaseService/QMBaseService/QMBaseService.h

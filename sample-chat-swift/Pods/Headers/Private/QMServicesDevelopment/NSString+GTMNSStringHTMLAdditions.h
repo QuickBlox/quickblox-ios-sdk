@@ -1,1 +1,1 @@
-../../../../../../q-municate-services-ios/QMChatService/QMChatService/Categories/NSString+GTMNSStringHTMLAdditions.h
+../../../QMServicesDevelopment/QMChatService/QMChatService/Categories/NSString+GTMNSStringHTMLAdditions.h

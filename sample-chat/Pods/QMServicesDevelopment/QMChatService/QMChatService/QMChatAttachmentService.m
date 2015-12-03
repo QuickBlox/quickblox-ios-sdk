@@ -44,12 +44,17 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
     
     [chatService.messagesMemoryStorage addMessage:message forDialogID:dialog.ID];
     
+    [self uploadAndSendAttachmentMessage:message toDialog:dialog withChatService:chatService withAttachedImage:image completion:completion];
+}
+
+- (void)uploadAndSendAttachmentMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(QBChatCompletionBlock)completion {
+    
     [self changeMessageAttachmentStatus:QMMessageAttachmentStatusLoading forMessage:message];
     
     NSData *imageData = UIImagePNGRepresentation(image);
     
     [QBRequest TUploadFile:imageData fileName:@"attachment" contentType:@"image/png" isPublic:NO successBlock:^(QBResponse *response, QBCBlob *blob) {
-       
+        
         QBChatAttachment *attachment = [QBChatAttachment new];
         attachment.type = @"image";
         attachment.ID = [@(blob.ID) stringValue];

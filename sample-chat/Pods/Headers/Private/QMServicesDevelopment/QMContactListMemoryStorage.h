@@ -1,1 +1,1 @@
-../../../../../../q-municate-services-ios/QMContactListService/QMContactListService/QMContactListMemoryStorage/QMContactListMemoryStorage.h
+../../../QMServicesDevelopment/QMContactListService/QMContactListService/QMContactListMemoryStorage/QMContactListMemoryStorage.h

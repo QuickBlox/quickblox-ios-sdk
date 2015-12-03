@@ -1,1 +1,1 @@
-../../../../../../q-municate-services-ios/QMChatService/QMChatService/QMChatConstants.h
+../../../QMServicesDevelopment/QMChatService/QMChatService/QMChatConstants.h

@@ -1,1 +1,1 @@
-../../../../../../q-municate-services-ios/QMUsersService/QMUsersService/Categories/QBUUser+CustomData.h
+../../../QMServicesDevelopment/QMUsersService/QMUsersService/Categories/QBUUser+CustomData.h

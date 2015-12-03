@@ -1,1 +1,1 @@
-../../../../../../q-municate-services-ios/QMBaseService/QMBaseService/QMMemoryStorageProtocol.h
+../../../QMServicesDevelopment/QMBaseService/QMBaseService/QMMemoryStorageProtocol.h

@@ -232,10 +232,6 @@
 			__typeof(self)strongSelf = weakSelf;
             [strongSelf configureCellLayoutAttributes:attributesItem];
         }
-        else {
-            
-            attributesItem.zIndex = -1;
-        }
     }];
     
     return attributesInRect;
