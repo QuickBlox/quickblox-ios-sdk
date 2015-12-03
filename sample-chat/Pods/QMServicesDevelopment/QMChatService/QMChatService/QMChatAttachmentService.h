@@ -64,8 +64,16 @@
  *  @param attachment      QBChatAttachment instance
  *  @param completion      Fetch image result
  *
+ *  @warning *Deprecated in QMServices 0.3.2:* Use 'getImageForAttachmentMessage:completion:' instead.
  */
-- (void)getImageForChatAttachment:(QBChatAttachment *)attachment completion:(void (^)(NSError *error, UIImage *image))completion;
+- (void)getImageForChatAttachment:(QBChatAttachment *)attachment completion:(void (^)(NSError *error, UIImage *image))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.2. Use 'getImageForAttachmentMessage:completion:' instead.");;
 
+/**
+ *  Get image by attachment message.
+ *
+ *  @param attachmentMessage      message with attachment
+ *  @param completion             fetched image or error if failed
+ */
+- (void)getImageForAttachmentMessage:(QBChatMessage *)attachmentMessage completion:(void(^)(NSError *error, UIImage *image))completion;
 
 @end

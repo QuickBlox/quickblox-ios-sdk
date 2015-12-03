@@ -58,6 +58,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     return [[[self class] alloc] initWithNibName:NSStringFromClass([QMChatViewController class]) bundle:[NSBundle bundleForClass:[QMChatViewController class]]];
 }
 
+
 - (void)dealloc {
     
     [self registerForNotifications:NO];
@@ -620,7 +621,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         
         QBChatMessage *messageItem = [self messageForIndexPath:indexPath];
         
-        chatCell.textView.attributedText = [self attributedStringForItem:messageItem];
+        chatCell.textView.text = [self attributedStringForItem:messageItem];
         chatCell.topLabel.attributedText = [self topLabelAttributedStringForItem:messageItem];
         chatCell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:messageItem];
     }
