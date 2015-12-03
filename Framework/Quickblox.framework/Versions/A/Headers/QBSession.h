@@ -16,19 +16,31 @@
 
 @interface QBSession : NSObject <NSCoding>
 
-/* Current session instance*/
+/**
+ *  Current session instance.
+ *
+ *  @return QBSession instance.
+ */
 + (QB_NONNULL QBSession *)currentSession;
 
-/* Session user */
+/**
+ *  Session user
+ */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBUUser *currentUser;
 
-/* Session details */
+/**
+ *  Session details
+ */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBASession *sessionDetails;
 
-/* Session expiration date */
+/**
+ *  Session expiration date
+ */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDate *sessionExpirationDate;
 
-/* Token valid state */
+/**
+ *  Token valid state
+ */
 @property (nonatomic, readonly, getter=isTokenValid) BOOL tokenValid;
 
 @end

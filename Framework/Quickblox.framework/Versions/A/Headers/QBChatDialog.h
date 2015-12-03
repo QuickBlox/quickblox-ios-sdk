@@ -151,9 +151,9 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 #pragma mark - Send message
 
 /**
- *  Send chat message with completion block.
+ *  Send chat message with completion block.
  *
- *  @param message    Chat message to send.
+ *  @param message    Chat message to send.
  *  @param completion Completion block with failure error.
  */
 - (void)sendMessage:(QB_NONNULL QBChatMessage *)message completionBlock:(QB_NULLABLE_S QBChatCompletionBlock)completion;
