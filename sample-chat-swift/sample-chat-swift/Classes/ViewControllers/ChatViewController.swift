@@ -307,8 +307,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             //
             if (error != nil) {
                 TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: error?.localizedRecoverySuggestion, type: TWMessageBarMessageType.Info)
-            } else {
-                self.insertMessageToTheBottomAnimated(message)
             }
         }
         
@@ -602,18 +600,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                             return
                         }
                         
-                        self!.attachmentCellsMap.removeValueForKey(attachment.ID!)
-                        
-                        if error != nil {
-                            SVProgressHUD.showErrorWithStatus(error.localizedDescription)
-                        } else {
+                        if (self != nil) {
+                            self!.attachmentCellsMap.removeValueForKey(attachment.ID!)
                             
-                            if image != nil {
+                            if error != nil {
+                                SVProgressHUD.showErrorWithStatus(error.localizedDescription)
+                            } else {
                                 
-                                attachmentCell.setAttachmentImage(image)
-                                cell.updateConstraints()
+                                if image != nil {
+                                    
+                                    attachmentCell.setAttachmentImage(image)
+                                    cell.updateConstraints()
+                                }
+                                
                             }
-                            
                         }
                     })
                 }
@@ -659,6 +659,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             ServicesManager.instance().chatService?.loadEarlierMessagesWithChatDialogID(self.dialog?.ID).continueWithBlock({
                 [weak self] (task: BFTask!) -> AnyObject! in
                 
+                if self == nil { return nil }
+                
                 if (task.result.count > 0) {
                     self!.insertMessagesToTheTopAnimated(task.result as! [QBChatMessage]!)
                 }
@@ -678,6 +680,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
         
         if self.dialog?.ID == dialogID {
+            // Insert message received from XMPP or self sent
             self.insertMessageToTheBottomAnimated(message)
         }
     }

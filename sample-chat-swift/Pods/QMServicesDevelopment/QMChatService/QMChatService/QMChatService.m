@@ -905,7 +905,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         return self.loadEarlierMessagesTask;
     }
     
-    return nil;
+    return [BFTask taskWithResult:@[]];
 }
 
 - (void)earlierMessagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion {

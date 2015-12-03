@@ -302,14 +302,11 @@ UIActionSheetDelegate
     message.dateSent = date;
     
     // Sending message.
-    __weak __typeof(self)weakSelf = self;
     [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error) {
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);
             [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error" description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
-        } else {
-            [weakSelf insertMessageToTheBottomAnimated:message];
         }
     }];
     
@@ -589,7 +586,7 @@ UIActionSheetDelegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     if ([self.dialog.ID isEqualToString:dialogID]) {
-        // Inserting message received from XMPP
+        // Inserting message received from XMPP or self sent
         [self insertMessageToTheBottomAnimated:message];
     }
 }
