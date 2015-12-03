@@ -25,6 +25,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     var didBecomeActiveHandler : AnyObject?
     var didEnterBackgroundHandler : AnyObject?
     var attachmentCellsMap : [String : QMChatAttachmentCell] = [String : QMChatAttachmentCell]()
+    var isSendingAttachment: Bool = false
     
     var typingTimer : NSTimer?
     
@@ -170,13 +171,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func loadMessages() {
         // Retrieving messages for chat dialog ID.
         ServicesManager.instance().chatService.messagesWithChatDialogID(self.dialog?.ID, completion: {
-            [weak self] (response: QBResponse!, messages: [AnyObject]!) -> Void in
+            [unowned self] (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
             if response.error == nil {
                 if (messages.count > 0) {
-                    self!.insertMessagesToTheBottomAnimated(messages as! [QBChatMessage]!)
+                    self.insertMessagesToTheBottomAnimated(messages as! [QBChatMessage]!)
                 }
-                SVProgressHUD.dismiss()
+                if (!self.isSendingAttachment) {
+                    SVProgressHUD.dismiss()
+                }
                 
             } else {
                 SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
@@ -239,6 +242,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func didPickAttachmentImage(image: UIImage!) {
         SVProgressHUD.showWithStatus("SA_STR_UPLOADING_ATTACHMENT".localized, maskType: SVProgressHUDMaskType.Clear)
+        self.isSendingAttachment = true
         
         let message = QBChatMessage()
         message.senderID = ServicesManager.instance().currentUser().ID
@@ -266,7 +270,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             UIGraphicsEndImageContext()
             
             // Sending attachment.
-            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { (error: NSError!) -> Void in
+            ServicesManager.instance().chatService.chatAttachmentService.sendMessage(message, toDialog: self.dialog, withChatService: ServicesManager.instance().chatService, withAttachedImage: resizedImage, completion: { [weak self] (error: NSError!) -> Void in
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     if error != nil {
@@ -274,6 +278,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     } else {
                         SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
                     }
+                    self?.isSendingAttachment = false
                 })
             })
         })
@@ -573,12 +578,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             if let attachments = message.attachments {
                 
                 let attachment: QBChatAttachment = attachments.first!
-                var shouldLoadFile = true
                 
-                if self.attachmentCellsMap[attachment.ID!] != nil {
-                    shouldLoadFile = false
-                }
-
                 for (existingAttachmentID, existingAttachmentCell) in self.attachmentCellsMap {
                     
                     if existingAttachmentCell === attachmentCell  {
@@ -595,20 +595,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 self.attachmentCellsMap[attachment.ID!] = attachmentCell
                 attachmentCell.attachmentID = attachment.ID
                 
-                if !shouldLoadFile {
-                    return
-                }
-                
-                weak var weakSelf = self
-                
                 // Getting image from chat attachment cache.
-                ServicesManager.instance().chatService.chatAttachmentService.getImageForChatAttachment(attachment, completion: { (error, image) -> Void in
-                    
+                ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message, completion: {
+                    [weak self] (error: NSError!, image: UIImage!) -> Void in
+                    //
                     if attachmentCell.attachmentID != attachment.ID {
                         return
                     }
                     
-                    weakSelf?.attachmentCellsMap.removeValueForKey(attachment.ID!)
+                    self!.attachmentCellsMap.removeValueForKey(attachment.ID!)
                     
                     if error != nil {
                         SVProgressHUD.showErrorWithStatus(error.localizedDescription)
@@ -762,7 +757,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if (status == QMMessageAttachmentStatus.Loading && message.senderID == self.senderID) {
                 self.insertMessageToTheBottomAnimated(message)
-            } else {
+            } else if (message.senderID != self.senderID) {
                 self.updateMessage(message)
             }
         }
