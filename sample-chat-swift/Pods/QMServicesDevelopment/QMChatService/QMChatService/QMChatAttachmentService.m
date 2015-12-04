@@ -153,7 +153,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
 
 - (void)getImageForAttachmentMessage:(QBChatMessage *)attachmentMessage completion:(void(^)(NSError *error, UIImage *image))completion {
     
-    if (attachmentMessage.attachmentStatus == QMMessageAttachmentStatusLoading) {
+    if (attachmentMessage.attachmentStatus == QMMessageAttachmentStatusLoading || attachmentMessage.attachmentStatus == QMMessageAttachmentStatusError) {
         return;
     }
     
@@ -204,7 +204,14 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             
         } errorBlock:^(QBResponse *response) {
             
-            [self changeMessageAttachmentStatus:QMMessageAttachmentStatusNotLoaded forMessage:attachmentMessage];
+            if (response.status == QBResponseStatusCodeNotFound) {
+                
+                [self changeMessageAttachmentStatus:QMMessageAttachmentStatusError forMessage:attachmentMessage];
+            } else {
+                
+                [self changeMessageAttachmentStatus:QMMessageAttachmentStatusNotLoaded forMessage:attachmentMessage];
+            }
+            
             if (completion) completion(response.error.error, nil);
             
         }];
@@ -231,7 +238,14 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             
         } errorBlock:^(QBResponse *response) {
             
-            [self changeMessageAttachmentStatus:QMMessageAttachmentStatusNotLoaded forMessage:attachmentMessage];
+            if (response.status == QBResponseStatusCodeNotFound) {
+                
+                [self changeMessageAttachmentStatus:QMMessageAttachmentStatusError forMessage:attachmentMessage];
+            } else {
+                
+                [self changeMessageAttachmentStatus:QMMessageAttachmentStatusNotLoaded forMessage:attachmentMessage];
+            }
+            
             if (completion) completion(response.error.error, nil);
             
         }];

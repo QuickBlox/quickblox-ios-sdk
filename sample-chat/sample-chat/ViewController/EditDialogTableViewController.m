@@ -95,7 +95,9 @@
 		
 		if( response.success ) {
 			[SVProgressHUD dismiss];
-			[ServicesManager.instance.chatService notifyUsersWithIDs:createdDialog.occupantIDs aboutAddingToDialog:createdDialog completion:nil];
+            [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
+                //
+            }];
 			[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:createdDialog];
 		}
 		else {
@@ -117,11 +119,13 @@
         [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
             if( response.success ) {
                 // Notifying users about newly created dialog.
-                [[ServicesManager instance].chatService notifyUsersWithIDs:usersIDs aboutAddingToDialog:updatedDialog completion:^(NSError *error) {
+                [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog toUsersIDs:usersIDs completion:^(NSError *error) {
                     //
                     NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
                     // Notify occupants that dialog was updated.
-                    [ServicesManager.instance.chatService notifyAboutUpdateDialog:updatedDialog occupantsCustomParameters:nil notificationText:notificationText completion:nil];
+                    [[ServicesManager instance].chatService sendMessageAboutUpdateDialog:updatedDialog withNotificationText:notificationText customParameters:nil completion:^(NSError *error) {
+                        //
+                    }];
                     
                     updatedDialog.lastMessageText = notificationText;
                     [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
