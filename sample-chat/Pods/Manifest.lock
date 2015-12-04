@@ -71,7 +71,7 @@ CHECKOUT OPTIONS:
     :commit: db3d908e18f863f1eeb364f9efdb5fad42d6eaac
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: bddba5040d62a218c6f0cd4f549cd27226ea7030
+    :commit: 1d0b463a80f50c7d4fcf9ed21df97236d0d7b221
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
