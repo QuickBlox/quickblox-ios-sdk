@@ -263,36 +263,23 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 
 #pragma mark - Chat Login/Logout
 
-- (void)logIn:(QBChatCompletionBlock)completion {
-	
-	BOOL isAuthorized = self.serviceManager.isAuthorized;
-	NSAssert(isAuthorized, @"User must be authorized");
-	
-	QBUUser *user = self.serviceManager.currentUser;
+- (void)connectWithCompletionBlock:(QBChatCompletionBlock)completion {
+    
+    BOOL isAuthorized = self.serviceManager.isAuthorized;
+    NSAssert(isAuthorized, @"User must be authorized");
+    
+    QBUUser *user = self.serviceManager.currentUser;
     NSAssert(user != nil, @"User must be already allocated!");
-	
-	if (QBChat.instance.isConnected) {
-		if(completion){
-			completion(nil);
-		}
-	}
-	else {
+    
+    if ([QBChat instance].isConnected) {
+        if(completion){
+            completion(nil);
+        }
+    }
+    else {
         [QBSettings setAutoReconnectEnabled:YES];
         [[QBChat instance] connectWithUser:user completion:completion];
-	}
-}
-
-- (void)connectWithCompletionBlock:(QBChatCompletionBlock)completion {
-    [self logIn:completion];
-}
-
-- (void)logoutChat {
-	
-	[self stopSendPresence];
-	
-	if (QBChat.instance.isConnected) {
-		[QBChat.instance disconnect];
-	}
+    }
 }
 
 - (void)disconnectWithCompletionBlock:(QBChatCompletionBlock)completion {
@@ -905,7 +892,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
         return self.loadEarlierMessagesTask;
     }
     
-    return nil;
+    return [BFTask taskWithResult:@[]];
 }
 
 - (void)earlierMessagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion {
@@ -1211,6 +1198,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 
 - (void)free {
 	
+    [self.loadedAllMessages removeAllObjects];
 	[self.messagesMemoryStorage free];
 	[self.dialogsMemoryStorage free];
 }

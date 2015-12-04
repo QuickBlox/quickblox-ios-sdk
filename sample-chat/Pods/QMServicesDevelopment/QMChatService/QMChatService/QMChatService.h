@@ -70,27 +70,11 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 - (void)removeDelegate:(id<QMChatServiceDelegate, QMChatConnectionDelegate>)delegate;
 
 /**
- *  Login to chat
- *
- *  @param completion The block which informs whether a chat did login or not. nil if no errors.
- *
- *  @warning *Deprecated in QMServices 0.3:* Use 'connectWithCompletionBlock:' instead.
- */
-- (void)logIn:(QBChatCompletionBlock)completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3. Use 'connectWithCompletionBlock:' instead.");
-
-/**
  *  Connect to chat
  *
  *  @param completion   The block which informs whether a chat did connect or not. nil if no errors.
  */
 - (void)connectWithCompletionBlock:(QBChatCompletionBlock)completion;
-
-/**
- *  Logout from chat
- *
- *  @warning *Deprecated in QMServices 0.3:* Use 'disconnectWithCompletionBlock:' instead.
- */
-- (void)logoutChat DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3. Use 'disconnectWithCompletionBlock:' instead.");
 
 /**
  *  Disconnect from chat
