@@ -1190,10 +1190,10 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 - (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion {
     NSAssert(dialogID != nil, @"dialogID can't be nil");
     
-    dispatch_group_t readGroup = dispatch_group_create();
-    
     QBChatDialog *chatDialogToUpdate = [self.dialogsMemoryStorage chatDialogWithID:dialogID];
-
+    NSAssert(chatDialogToUpdate != nil, @"Dialog wasn't found in memory storage!");
+    
+    dispatch_group_t readGroup = dispatch_group_create();
     for (QBChatMessage *message in messages) {
         NSAssert([message.dialogID isEqualToString:dialogID], @"Message is from incorrect dialog.");
         
