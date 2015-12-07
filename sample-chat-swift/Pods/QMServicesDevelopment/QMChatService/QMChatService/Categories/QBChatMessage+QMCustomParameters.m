@@ -9,22 +9,31 @@
 #import "QBChatMessage+QMCustomParameters.h"
 #import <objc/runtime.h>
 
-/*Message keys*/
+/**
+ *  Message keys
+ */
 NSString const *kQMCustomParameterSaveToHistory = @"save_to_history";
 NSString const *kQMCustomParameterMessageType = @"notification_type";
 NSString const *kQMCustomParameterChatMessageID = @"chat_message_id";
-NSString const *kQMCustomParameterChatMessageDeliveryStatus = @"message_delivery_status_read";
-/*Dialogs keys*/
+
+/**
+ *  Dialog keys
+ */
 NSString const *kQMCustomParameterDialogID = @"dialog_id";
-NSString const *kQMCustomParameterRoomJID = @"room_jid";
 NSString const *kQMCustomParameterDialogRoomName = @"room_name";
 NSString const *kQMCustomParameterDialogRoomPhoto = @"room_photo";
 NSString const *kQMCustomParameterDialogRoomLastMessageDate = @"room_last_message_date";
 NSString const *kQMCustomParameterDialogUpdatedDate = @"dialog_updated_date";
 NSString const *kQMCustomParameterDialogType = @"type";
-NSString const *kQMCustomParameterDialogOccupantsIDs = @"occupants_ids";
-NSString const *kQMCustomParameterDialogDeletedID = @"deleted_id";
 NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
+
+/**
+ *  Public dialog keys
+ */
+NSString const *kQMCustomParameterDialogUpdateInfo = @"dialog_update_info";
+NSString const *kQMCustomParameterDialogCurrentOccupantsIDs = @"current_occupant_ids";
+NSString const *kQMCustomParameterDialogAddedOccupantsIDs = @"added_occupant_ids";
+NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant_ids";
 
 @interface QBChatMessage (Context)
 
@@ -35,13 +44,27 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
 
 @implementation QBChatMessage (QMCustomParameters)
 
-/*Message params*/
+/**
+ *  Message params
+ */
 @dynamic saveToHistory;
 @dynamic messageType;
 @dynamic chatMessageID;
 @dynamic messageDeliveryStatus;
 @dynamic dialog;
 @dynamic attachmentStatus;
+
+/**
+ *  Dialog params
+ */
+@dynamic dialogUpdateType;
+@dynamic currentOccupantsIDs;
+@dynamic addedOccupantsIDs;
+@dynamic deletedOccupantsIDs;
+@dynamic dialogName;
+@dynamic dialogPhoto;
+
+#pragma mark - Context
 
 - (NSMutableDictionary *)context {
     
@@ -52,15 +75,16 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
     return self.customParameters;
 }
 
+#pragma mark - Full QBChatDialog instance
+
 - (QBChatDialog *)dialog {
     
     if (!self.tDialog) {
-        NSAssert(self.context[kQMCustomParameterDialogID] != nil, @"Chat dialog doesn't exist");
+        if (self.context[kQMCustomParameterDialogID] == nil) return nil;
         
         self.tDialog = [[QBChatDialog alloc] initWithDialogID:self.context[kQMCustomParameterDialogID]
                                                          type:[self.context[kQMCustomParameterDialogType] intValue]];
         //Grap custom parameters;
-        self.tDialog.roomJID = self.context[kQMCustomParameterRoomJID];
         self.tDialog.name = self.context[kQMCustomParameterDialogRoomName];
         self.tDialog.photo = self.context[kQMCustomParameterDialogRoomPhoto];
         
@@ -76,7 +100,7 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
             self.tDialog.lastMessageDate = [NSDate dateWithTimeIntervalSince1970:[lastMessageDateTimeInterval floatValue]];
         }
         
-        NSString * strIDs = self.context[kQMCustomParameterDialogOccupantsIDs];
+        NSString * strIDs = self.context[kQMCustomParameterDialogCurrentOccupantsIDs];
         
         NSArray *componets = [strIDs componentsSeparatedByString:@","];
         NSMutableArray *occupatnsIDs = [NSMutableArray arrayWithCapacity:componets.count];
@@ -102,6 +126,55 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
     objc_setAssociatedObject(self, @selector(tDialog), tDialog, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+#pragma mark - Utils
+
+- (void)updateCustomParametersWithDialog:(QBChatDialog *)dialog {
+    
+    self.tDialog = nil;
+    
+    self.context[kQMCustomParameterDialogID] = dialog.ID;
+    self.context[kQMCustomParameterDialogType] = @(dialog.type);
+    
+    if (dialog.lastMessageDate != nil){
+        NSNumber *lastMessageDate = @((NSUInteger)[dialog.lastMessageDate timeIntervalSince1970]);
+        self.context[kQMCustomParameterDialogRoomLastMessageDate] = [lastMessageDate stringValue];
+    }
+    if (dialog.updatedAt != nil) {
+        NSNumber *updatedAt = @((NSUInteger)[dialog.updatedAt timeIntervalSince1970]);
+        self.context[kQMCustomParameterDialogRoomUpdatedDate] = [updatedAt stringValue];
+    }
+    
+    if (dialog.type == QBChatDialogTypeGroup) {
+        
+        if (dialog.photo != nil) {
+            self.context[kQMCustomParameterDialogRoomPhoto] = dialog.photo;
+        }
+        if (dialog.name != nil) {
+            self.context[kQMCustomParameterDialogRoomName] = dialog.name;
+        }
+        
+        NSString *strIDs = [dialog.occupantIDs componentsJoinedByString:@","];
+        self.context[kQMCustomParameterDialogCurrentOccupantsIDs] = strIDs;
+    }
+}
+
+- (NSArray *)arrayOfUserIDsWithString:(NSString *)userIDs {
+    
+    NSString *strIDs = userIDs;
+    
+    NSArray *componets = [strIDs componentsSeparatedByString:@","];
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:componets.count];
+    
+    for (NSString *occupantID in componets) {
+        
+        [result addObject:@(occupantID.integerValue)];
+    }
+    
+    return result;
+}
+
+#pragma mark Message attachment status
+
 - (QMMessageAttachmentStatus)attachmentStatus {
     return [[self tAttachmentStatus] integerValue];
 }
@@ -118,58 +191,80 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
     objc_setAssociatedObject(self, @selector(tAttachmentStatus), attachmentStatusNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)updateCustomParametersWithDialog:(QBChatDialog *)dialog {
+#pragma mark - Dialog occupants IDs
+
+- (void)setCurrentOccupantsIDs:(NSArray *)currentOccupantsIDs {
     
-    self.tDialog = nil;
-    
-    self.context[kQMCustomParameterDialogID] = dialog.ID;
-    self.context[kQMCustomParameterDialogType] = @(dialog.type);
-	
-	if (dialog.lastMessageDate != nil){
-        NSNumber *lastMessageDate = @((NSUInteger)[dialog.lastMessageDate timeIntervalSince1970]);
-		self.context[kQMCustomParameterDialogRoomLastMessageDate] = [lastMessageDate stringValue];
-	}
-    if (dialog.updatedAt != nil) {
-        NSNumber *updatedAt = @((NSUInteger)[dialog.updatedAt timeIntervalSince1970]);
-        self.context[kQMCustomParameterDialogRoomUpdatedDate] = [updatedAt stringValue];
-    }
-	
-    if (dialog.type == QBChatDialogTypeGroup) {
-		
-		if (dialog.photo != nil) {
-			self.context[kQMCustomParameterDialogRoomPhoto] = dialog.photo;
-		}
-		if (dialog.name != nil) {
-			self.context[kQMCustomParameterDialogRoomName] = dialog.name;
-		}
-		if (dialog.roomJID != nil ){
-			self.context[kQMCustomParameterRoomJID] = dialog.roomJID;
-		}
-		
-        NSString *strIDs = [dialog.occupantIDs componentsJoinedByString:@","];
-        self.context[kQMCustomParameterDialogOccupantsIDs] = strIDs;
-    }
+    NSString *strIDs = [currentOccupantsIDs componentsJoinedByString:@","];
+    self.context[kQMCustomParameterDialogCurrentOccupantsIDs] = strIDs;
 }
 
-- (void)setDialogOccupantsIDs:(NSArray *)dialogOccupantsIDs {
+- (NSArray *)currentOccupantsIDs {
     
-    NSString *strIDs = [dialogOccupantsIDs componentsJoinedByString:@","];
-    self.context[kQMCustomParameterDialogOccupantsIDs] = strIDs;
+    NSString *occupantsIDsString = self.context[kQMCustomParameterDialogCurrentOccupantsIDs];
+    return [self arrayOfUserIDsWithString:occupantsIDsString];
 }
 
-- (NSArray *)dialogOccupantsIDs {
+- (void)setAddedOccupantsIDs:(NSArray *)addedOccupantsIDs {
     
-    NSString *strIDs = self.context[kQMCustomParameterDialogOccupantsIDs];
+    NSString *strIDs = [addedOccupantsIDs componentsJoinedByString:@","];
+    self.context[kQMCustomParameterDialogAddedOccupantsIDs] = strIDs;
+}
+
+- (NSArray *)addedOccupantsIDs {
     
-    NSArray *componets = [strIDs componentsSeparatedByString:@","];
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:componets.count];
+    NSString *occupantsIDsString = self.context[kQMCustomParameterDialogAddedOccupantsIDs];
+    return [self arrayOfUserIDsWithString:occupantsIDsString];
+}
+
+- (void)setDeletedOccupantsIDs:(NSArray *)deletedOccupantsIDs {
     
-    for (NSString *occupantID in componets) {
-        
-        [result addObject:@(occupantID.integerValue)];
-    }
+    NSString *strIDs = [deletedOccupantsIDs componentsJoinedByString:@","];
+    self.context[kQMCustomParameterDialogDeletedOccupantsIDs] = strIDs;
+}
+
+- (NSArray *)deletedOccupantsIDs {
     
-    return result;
+    NSString *occupantsIDsString = self.context[kQMCustomParameterDialogDeletedOccupantsIDs];
+    return [self arrayOfUserIDsWithString:occupantsIDsString];
+}
+
+#pragma mark - Room updated at
+
+- (void)setDialogUpdatedAt:(NSDate *)dialogUpdatedAt {
+    
+    NSNumber *updatedAt = @((NSUInteger)[dialogUpdatedAt timeIntervalSince1970]);
+    self.context[kQMCustomParameterDialogRoomUpdatedDate] = [updatedAt stringValue];
+}
+
+- (NSDate *)dialogUpdatedAt {
+    
+    NSString *updatedAtTimeInterval = self.context[kQMCustomParameterDialogRoomUpdatedDate];
+    return [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval doubleValue]];
+}
+
+#pragma mark - Room name
+
+- (void)setDialogName:(NSString *)dialogName {
+    
+    self.context[kQMCustomParameterDialogRoomName] = dialogName;
+}
+
+- (NSString *)dialogName {
+    
+    return self.context[kQMCustomParameterDialogRoomName];
+}
+
+#pragma mark - Dialog photo
+
+- (void)setDialogPhoto:(NSString *)dialogPhoto {
+    
+    self.context[kQMCustomParameterDialogRoomPhoto] = dialogPhoto;
+}
+
+- (NSString *)dialogPhoto {
+    
+    return self.context[kQMCustomParameterDialogRoomPhoto];
 }
 
 #pragma mark - cParamChatMessageID
@@ -196,18 +291,6 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
     return self.context[kQMCustomParameterSaveToHistory];
 }
 
-#pragma mark - dialogDeletedID
-
-- (void)setDialogDeletedID:(NSNumber *)dialogDeletedID {
-    
-    self.context[kQMCustomParameterDialogDeletedID] = dialogDeletedID;
-}
-
-- (NSNumber *)dialogDeletedID {
-    
-    return self.context[kQMCustomParameterDialogDeletedID];
-}
-
 #pragma mark - messageType
 
 - (void)setMessageType:(QMMessageType)messageType {
@@ -222,6 +305,20 @@ NSString const *kQMCustomParameterDialogRoomUpdatedDate = @"room_updated_date";
     
     return [self.context[kQMCustomParameterMessageType] integerValue];
 }
+
+#pragma mark - dialogUpdateType
+
+- (void)setDialogUpdateType:(QMDialogUpdateType)dialogUpdateType {
+    
+    self.context[kQMCustomParameterDialogUpdateInfo] = @(dialogUpdateType);
+}
+
+- (QMDialogUpdateType)dialogUpdateType {
+    
+    return [self.context[kQMCustomParameterDialogUpdateInfo] integerValue];
+}
+
+#pragma mark - extra params
 
 - (BOOL)isNotificatonMessage {
     

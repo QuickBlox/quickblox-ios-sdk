@@ -40,13 +40,6 @@ typedef enum QBConnectionZoneType{
  */
 + (void)setApiEndpoint:(QB_NULLABLE NSString *)apiEndpoint chatEndpoint:(QB_NULLABLE NSString *)chatEndpoint forServiceZone:(QBConnectionZoneType)zone;
 
-/**
- *  You can pass your session configuration for NSURLSession that is used for REST APi requests.
- *
- *  @param configuration NSURLSessionConfiguration object.
- */
-+ (void)setSessionConfiguration:(QB_NULLABLE NSURLSessionConfiguration *)configuration;
-
 #pragma mark -
 #pragma mark Chat settings
 
