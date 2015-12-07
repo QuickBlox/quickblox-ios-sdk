@@ -613,25 +613,14 @@ QMChatCellDelegate
         [self.detailedCells addObject:currentMessage.ID];
     }
     
-    
     [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:currentMessage.ID];
-    
-    CGFloat bottomOffset = self.collectionView.contentSize.height - self.collectionView.contentOffset.y;
-    
-    [CATransaction begin];
-    [CATransaction setDisableActions:YES];
     
     __weak __typeof(self)weakSelf = self;
     [self.collectionView performBatchUpdates:^{
         //
-        __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        [weakSelf.collectionView reloadItemsAtIndexPaths:@[indexPath]];
     } completion:^(BOOL finished) {
         //
-        __typeof(weakSelf)strongSelf = weakSelf;
-        strongSelf.collectionView.contentOffset = CGPointMake(0, strongSelf.collectionView.contentSize.height - bottomOffset);
-        [CATransaction commit];
-        [strongSelf.collectionView.collectionViewLayout invalidateLayout];
     }];
 }
 
