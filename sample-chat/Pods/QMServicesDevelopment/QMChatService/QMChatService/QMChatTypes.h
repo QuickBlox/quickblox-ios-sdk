@@ -7,7 +7,6 @@
 //
 
 typedef NS_ENUM(NSUInteger, QMMessageType) {
-
     /** Default message type*/
     QMMessageTypeText = 0,
     QMMessageTypeCreateGroupDialog = 1,
@@ -26,3 +25,8 @@ typedef NS_ENUM(NSUInteger, QMMessageAttachmentStatus) {
     QMMessageAttachmentStatusError,
 };
 
+typedef NS_ENUM(NSUInteger, QMDialogUpdateType) {
+    QMDialogUpdateTypePhoto     = 1,
+    QMDialogUpdateTypeName      = 2,
+    QMDialogUpdateTypeOccupants = 3
+};

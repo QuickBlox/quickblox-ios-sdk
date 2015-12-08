@@ -572,7 +572,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
-				PROVISIONING_PROFILE = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
+				PROVISIONING_PROFILE = "59353764-8f5b-4697-86ee-8c07ac3ea489";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -638,7 +638,7 @@
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "ee2916f1-b8db-4b90-8d21-b3b56fcf4341";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
