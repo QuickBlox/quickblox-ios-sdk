@@ -86,7 +86,7 @@
 + (QB_NULLABLE NSString *)publicUrlForFileUID:(QB_NONNULL NSString *)fileUID;
 
 /** Get file's public url (available within Internet) by ID.
- @warning *Deprecated in 2.6.1.* Use 'publicUrlForFileUID:' instead.
+ @warning *Deprecated in 2.6.0.2.* Use 'publicUrlForFileUID:' instead.
  @return Public url to file
  */
 + (QB_NULLABLE NSString *)publicUrlForID:(NSUInteger)ID;
@@ -97,7 +97,7 @@
 - (QB_NULLABLE NSString *)privateUrl;
 
 /** Get file's private url (available only with QuickBlox token) by ID.
- @warning *Deprecated in 2.6.1.* Use 'privateUrlForFileUID::' instead.
+ @warning *Deprecated in 2.6.0.2.* Use 'privateUrlForFileUID::' instead.
  @return Private url to file
  */
 + (QB_NULLABLE NSString *)privateUrlForID:(NSUInteger)ID;
