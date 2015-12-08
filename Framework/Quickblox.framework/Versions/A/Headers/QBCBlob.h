@@ -71,17 +71,25 @@
  */
 + (QB_NONNULL QBCBlob *)blob;
 
-
 /** Get file's public url (available within Internet), if blob is public.
  @return Public url to file
  */
 - (QB_NULLABLE NSString *)publicUrl;
 
+/**
+ *  Get file's public url (available within Internet), if blob is public.
+ *
+ *  @param fileUID File unique identifier.
+ *
+ *  @return Public url to file.
+ */
++ (QB_NULLABLE NSString *)publicUrlForFileUID:(QB_NONNULL NSString *)fileUID;
+
 /** Get file's public url (available within Internet) by ID.
+ @warning *Deprecated in 2.6.1.* Use 'publicUrlForFileUID:' instead.
  @return Public url to file
  */
 + (QB_NULLABLE NSString *)publicUrlForID:(NSUInteger)ID;
-
 
 /** Get file's private url (available only with QuickBlox token), if blob is private.
  @return Private url to file
@@ -89,10 +97,19 @@
 - (QB_NULLABLE NSString *)privateUrl;
 
 /** Get file's private url (available only with QuickBlox token) by ID.
+ @warning *Deprecated in 2.6.1.* Use 'privateUrlForFileUID::' instead.
  @return Private url to file
  */
 + (QB_NULLABLE NSString *)privateUrlForID:(NSUInteger)ID;
 
+/**
+ *  Get file's private url (available only with QuickBlox token), if blob is private.
+ *
+ *  @param fileUID File unique identifier.
+ *
+ *  @return Private url to file.
+ */
++ (QB_NULLABLE NSString *)privateUrlForFileUID:(QB_NONNULL NSString *)fileUID;
 
 #pragma mark -
 #pragma mark Converters
