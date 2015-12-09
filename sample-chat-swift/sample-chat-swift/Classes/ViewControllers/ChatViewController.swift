@@ -171,13 +171,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func loadMessages() {
         // Retrieving messages for chat dialog ID.
         ServicesManager.instance().chatService.messagesWithChatDialogID(self.dialog?.ID, completion: {
-            [unowned self] (response: QBResponse!, messages: [AnyObject]!) -> Void in
+            [weak self] (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
+            if self == nil { return; }
             if response.error == nil {
                 if (messages.count > 0) {
-                    self.insertMessagesToTheBottomAnimated(messages as! [QBChatMessage]!)
+                    self!.insertMessagesToTheBottomAnimated(messages as! [QBChatMessage]!)
                 }
-                if (!self.isSendingAttachment) {
+                if (!self!.isSendingAttachment) {
                     SVProgressHUD.dismiss()
                 }
                 
@@ -780,7 +781,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
         self.loadMessages()
         
-        self.readMessages(self.unreadMessages!)
+        if let messagesToRead = self.unreadMessages {
+            self.readMessages(messagesToRead)
+        }
         self.unreadMessages = nil
     }
     
