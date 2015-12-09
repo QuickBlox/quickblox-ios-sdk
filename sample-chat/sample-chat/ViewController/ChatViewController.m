@@ -498,7 +498,7 @@ UIActionSheetDelegate
             NSAttributedString *topLabelString = [self topLabelAttributedStringForItem:item];
             CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:topLabelString
                                                            withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                                    limitedToNumberOfLines:0];
+                                                    limitedToNumberOfLines:1];
             layoutModel.topLabelHeight = size.height;
         }
 

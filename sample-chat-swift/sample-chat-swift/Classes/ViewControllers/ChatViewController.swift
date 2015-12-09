@@ -545,7 +545,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 layoutModel.topLabelHeight = 0.0
             } else {
                 let topAttributedString = self.topLabelAttributedStringForItem(item)
-                let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+                let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:1)
                 layoutModel.topLabelHeight = size.height
             }
             
