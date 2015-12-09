@@ -179,6 +179,7 @@
 
 - (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
     [QMChatCache.instance deleteDialogWithID:chatDialogID completion:nil];
+    [QMChatCache.instance deleteMessageWithDialogID:chatDialogID completion:nil];
 }
 
 - (void)chatService:(QMChatService *)chatService  didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog {

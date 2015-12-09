@@ -400,17 +400,14 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
             // old custom parameters handling
             if (message.dialog != nil) {
                 
-                if ([chatDialogToUpdate.updatedAt compare:message.dialog.updatedAt] == NSOrderedAscending) {
-                    
-                    if (message.dialog.name != nil) {
-                        chatDialogToUpdate.name = message.dialog.name;
-                    }
-                    if (message.dialog.photo != nil) {
-                        chatDialogToUpdate.photo = message.dialog.photo;
-                    }
-                    if ([message.dialog.occupantIDs count] > 0) {
-                        chatDialogToUpdate.occupantIDs = message.dialog.occupantIDs;
-                    }
+                if (message.dialog.name != nil) {
+                    chatDialogToUpdate.name = message.dialog.name;
+                }
+                if (message.dialog.photo != nil) {
+                    chatDialogToUpdate.photo = message.dialog.photo;
+                }
+                if ([message.dialog.occupantIDs count] > 0) {
+                    chatDialogToUpdate.occupantIDs = message.dialog.occupantIDs;
                 }
             }
             
@@ -1148,7 +1145,8 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     dispatch_group_t deliveredGroup = dispatch_group_create();
     
     for (QBChatMessage *message in messages) {
-
+        if (message.senderID == self.serviceManager.currentUser.ID) continue;
+        
         if (![message.deliveredIDs containsObject:@([QBSession currentSession].currentUser.ID)]) {
             message.markable = YES;
             __weak __typeof(self)weakSelf = self;
@@ -1190,10 +1188,10 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 - (void)readMessages:(NSArray *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion {
     NSAssert(dialogID != nil, @"dialogID can't be nil");
     
-    dispatch_group_t readGroup = dispatch_group_create();
-    
     QBChatDialog *chatDialogToUpdate = [self.dialogsMemoryStorage chatDialogWithID:dialogID];
-
+    NSAssert(chatDialogToUpdate != nil, @"Dialog wasn't found in memory storage!");
+    
+    dispatch_group_t readGroup = dispatch_group_create();
     for (QBChatMessage *message in messages) {
         NSAssert([message.dialogID isEqualToString:dialogID], @"Message is from incorrect dialog.");
         
@@ -1331,7 +1329,7 @@ const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
     
     notificationMessage.currentOccupantsIDs = [occupantsWithoutCurrentUser copy];
     
-    [self sendMessage:notificationMessage type:QMMessageTypeUpdateGroupDialog toDialog:chatDialog saveToHistory:YES saveToStorage:YES completion:completion];
+    [self sendMessage:notificationMessage type:QMMessageTypeUpdateGroupDialog toDialog:chatDialog saveToHistory:YES saveToStorage:NO completion:completion];
 }
 
 - (void)sendNotificationMessageAboutChangingDialogPhoto:(QBChatDialog *)chatDialog
