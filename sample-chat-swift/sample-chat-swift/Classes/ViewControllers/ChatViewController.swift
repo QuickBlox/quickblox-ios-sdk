@@ -536,14 +536,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
         var layoutModel : QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
         
-        if self.dialog?.type == QBChatDialogType.Private {
-            layoutModel.topLabelHeight = 0.0
-        }
-        
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
         layoutModel.spaceBetweenTextViewAndBottomLabel = 5;
         
         if let item : QBChatMessage = self.messageForIndexPath(indexPath) {
+            
+            if self.dialog?.type == QBChatDialogType.Private {
+                layoutModel.topLabelHeight = 0.0
+            } else {
+                let topAttributedString = self.topLabelAttributedStringForItem(item)
+                let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:1)
+                layoutModel.topLabelHeight = size.height
+            }
+            
             let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
             
             if viewClass === QMChatOutgoingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
