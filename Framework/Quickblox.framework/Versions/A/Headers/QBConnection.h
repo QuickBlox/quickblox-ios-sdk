@@ -85,4 +85,11 @@
  */
 + (QB_NULLABLE NSString *)currentApiDomain DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use [QBSettings apiEndpoint] instead");
 
++ (void)restoreBackgroundSession;
++ (void)setDownloadTaskDidFinishDownloadingBlock:(QB_NULLABLE NSURL * QB_NULLABLE_S (^)( NSURLSession * QB_NONNULL_S session, NSURLSessionDownloadTask * QB_NONNULL_S downloadTask, NSURL * QB_NONNULL_S location))block;
++ (void)setURLSessionDidFinishBackgroundEventsBlock:(QB_NULLABLE void (^)(NSURLSession * QB_NULLABLE_S session))block;
+
++ (void)enableBackgroundSession;
++ (void)disableBackgroundSession;
+
 @end

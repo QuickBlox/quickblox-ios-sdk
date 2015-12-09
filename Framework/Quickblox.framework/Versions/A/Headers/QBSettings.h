@@ -192,4 +192,7 @@ typedef enum QBConnectionZoneType{
  */
 + (void)disableXMPPLogging;
 
++ (void)setSessionConfiguration:(QB_NULLABLE NSURLSessionConfiguration *)configuration;
++ (QB_NULLABLE NSURLSessionConfiguration *)sessionConfiguration;
+
 @end
