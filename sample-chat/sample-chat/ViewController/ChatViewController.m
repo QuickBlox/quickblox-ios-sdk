@@ -477,13 +477,13 @@ UIActionSheetDelegate
     QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
     
     layoutModel.avatarSize = (CGSize){0.0, 0.0};
+    layoutModel.topLabelHeight = 0.0f;
     
     QBChatMessage *item = [self messageForIndexPath:indexPath];
     Class class = [self viewClassForItem:item];
     
     if (class == [QMChatOutgoingCell class] ||
         class == [QMChatAttachmentOutgoingCell class]) {
-        layoutModel.topLabelHeight = 0.0;
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
                                                        withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
@@ -492,7 +492,16 @@ UIActionSheetDelegate
         layoutModel.bottomLabelHeight = ceilf(size.height);
     } else if (class == [QMChatAttachmentIncomingCell class] ||
                class == [QMChatIncomingCell class]) {
-        layoutModel.topLabelHeight = 20.0f;        
+        
+        if (self.dialog.type != QBChatDialogTypePrivate) {
+            
+            NSAttributedString *topLabelString = [self topLabelAttributedStringForItem:item];
+            CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:topLabelString
+                                                           withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                                    limitedToNumberOfLines:0];
+            layoutModel.topLabelHeight = size.height;
+        }
+
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
     
