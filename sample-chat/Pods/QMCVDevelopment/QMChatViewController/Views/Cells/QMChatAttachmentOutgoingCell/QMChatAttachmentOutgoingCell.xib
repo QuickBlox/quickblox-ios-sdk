@@ -7,14 +7,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="QMChatAttachmentOutgoingCell" id="vDG-KF-S8V" customClass="QMChatAttachmentOutgoingCell">
-            <rect key="frame" x="0.0" y="0.0" width="253" height="135"/>
+            <rect key="frame" x="0.0" y="0.0" width="253" height="183"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="253" height="135"/>
+                <rect key="frame" x="0.0" y="0.0" width="253" height="183"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAl-F5-usR" userLabel="Avatar Container">
-                        <rect key="frame" x="209" y="90" width="44" height="45"/>
+                        <rect key="frame" x="209" y="138" width="44" height="45"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TG7-Nv-KYM" userLabel="Avatar Image View" customClass="QMImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="45"/>
@@ -33,17 +33,28 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlp-Ig-WT7" userLabel="ContainerView" customClass="QMChatContainerView">
-                        <rect key="frame" x="26" y="0.0" width="181" height="135"/>
+                        <rect key="frame" x="26" y="0.0" width="181" height="183"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUM-zm-5ky" userLabel="Message Container">
-                                <rect key="frame" x="4" y="4" width="165" height="127"/>
+                                <rect key="frame" x="4" y="4" width="165" height="175"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tve-03-DKT">
-                                        <rect key="frame" x="0.0" y="0.0" width="165" height="106"/>
+                                        <rect key="frame" x="0.0" y="21" width="165" height="133"/>
                                         <animations/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diF-ca-yd3" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="21"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="hqg-jI-Mlo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:44" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35y-FC-UxN" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="0.0" y="106" width="165" height="21"/>
+                                        <rect key="frame" x="0.0" y="154" width="165" height="21"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -54,16 +65,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2c-d1-FIr">
-                                        <rect key="frame" x="82" y="43" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="82" y="67" width="0.0" height="0.0"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="diF-ca-yd3" firstAttribute="leading" secondItem="aUM-zm-5ky" secondAttribute="leading" id="2GS-ez-PaZ"/>
+                                    <constraint firstItem="diF-ca-yd3" firstAttribute="top" secondItem="aUM-zm-5ky" secondAttribute="top" id="2YG-PH-oBY"/>
                                     <constraint firstAttribute="centerX" secondItem="W2c-d1-FIr" secondAttribute="centerX" id="9FQ-Is-V1I"/>
                                     <constraint firstAttribute="trailing" secondItem="35y-FC-UxN" secondAttribute="trailing" id="AoC-SQ-Y4a"/>
                                     <constraint firstItem="Tve-03-DKT" firstAttribute="leading" secondItem="aUM-zm-5ky" secondAttribute="leading" id="Cu1-jT-1tl"/>
@@ -71,8 +84,9 @@
                                     <constraint firstItem="35y-FC-UxN" firstAttribute="leading" secondItem="aUM-zm-5ky" secondAttribute="leading" id="Xda-1O-jom"/>
                                     <constraint firstAttribute="trailing" secondItem="Tve-03-DKT" secondAttribute="trailing" id="nJl-Te-LvY"/>
                                     <constraint firstAttribute="bottom" secondItem="35y-FC-UxN" secondAttribute="bottom" id="qjn-WF-jgP"/>
-                                    <constraint firstItem="Tve-03-DKT" firstAttribute="top" secondItem="aUM-zm-5ky" secondAttribute="top" id="qxF-xv-2vB"/>
                                     <constraint firstAttribute="centerY" secondItem="W2c-d1-FIr" secondAttribute="centerY" constant="21" id="rwv-1O-YvD"/>
+                                    <constraint firstAttribute="trailing" secondItem="diF-ca-yd3" secondAttribute="trailing" id="sf6-RH-gfz"/>
+                                    <constraint firstItem="Tve-03-DKT" firstAttribute="top" secondItem="diF-ca-yd3" secondAttribute="bottom" id="xs4-sc-NTj"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -114,7 +128,7 @@
                 <constraint firstItem="mlp-Ig-WT7" firstAttribute="top" secondItem="vDG-KF-S8V" secondAttribute="top" id="hdz-W0-txv"/>
                 <constraint firstAttribute="bottom" secondItem="mlp-Ig-WT7" secondAttribute="bottom" id="lOt-4R-bff"/>
             </constraints>
-            <size key="customSize" width="253" height="135"/>
+            <size key="customSize" width="253" height="183"/>
             <connections>
                 <outlet property="attachmentImageView" destination="Tve-03-DKT" id="3oZ-VO-ymz"/>
                 <outlet property="avatarContainerViewHeightConstraint" destination="spf-dw-DvB" id="Snn-K2-i2s"/>
@@ -130,8 +144,11 @@
                 <outlet property="messageContainerTopInsetConstraint" destination="5b4-p7-Dki" id="ivg-8j-Kut"/>
                 <outlet property="progressLabel" destination="W2c-d1-FIr" id="2Q0-cr-Aau"/>
                 <outlet property="textViewBottomLableVerticalSpaceConstraint" destination="QGP-lp-lfN" id="TaH-Pe-XyQ"/>
+                <outlet property="topLabel" destination="diF-ca-yd3" id="c6N-mg-5vB"/>
+                <outlet property="topLabelTextViewVerticalSpaceConstraint" destination="xs4-sc-NTj" id="XNp-5O-3BZ"/>
+                <outlet property="topLableHeightConstraint" destination="hqg-jI-Mlo" id="b0g-LR-8VA"/>
             </connections>
-            <point key="canvasLocation" x="-41.5" y="293.5"/>
+            <point key="canvasLocation" x="-41.5" y="269.5"/>
         </collectionViewCell>
     </objects>
 </document>
