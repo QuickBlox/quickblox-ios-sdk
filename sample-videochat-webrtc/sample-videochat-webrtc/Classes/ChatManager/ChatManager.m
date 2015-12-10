@@ -15,7 +15,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 
 <QBChatDelegate>
 
-@property (copy, nonatomic) void(^chatLoginCompletionBlock)(BOOL error);
+@property (copy, nonatomic) void(^chatConnectCompletionBlock)(BOOL error);
 @property (copy, nonatomic) dispatch_block_t chatDisconnectedBlock;
 @property (copy, nonatomic) dispatch_block_t chatReconnectedBlock;
 @property (strong, nonatomic) QBRTCTimer *presenceTimer;
@@ -46,7 +46,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
         return;
     }
     
-    self.chatLoginCompletionBlock = completion;
+    self.chatConnectCompletionBlock = completion;
 	self.chatDisconnectedBlock = disconnectedBlock;
 	self.chatReconnectedBlock = reconnectedBlock;
     [QBChat.instance connectWithUser:user completion:^(NSError * _Nullable error) {
@@ -68,46 +68,37 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 
 #pragma mark - QBChatDelegate
 
-- (void)chatDidNotLogin {
+- (void)chatDidNotConnectWithError:(NSError *)error {
     
-    if (self.chatLoginCompletionBlock) {
+    if (self.chatConnectCompletionBlock) {
         
-        self.chatLoginCompletionBlock(YES);
-        self.chatLoginCompletionBlock = nil;
+        self.chatConnectCompletionBlock(YES);
+        self.chatConnectCompletionBlock = nil;
     }
 }
 
 - (void)chatDidAccidentallyDisconnect {
     
-	if (self.chatLoginCompletionBlock) {
+	if (self.chatConnectCompletionBlock) {
         
-		self.chatLoginCompletionBlock(YES);
-		self.chatLoginCompletionBlock = nil;
+		self.chatConnectCompletionBlock(YES);
+		self.chatConnectCompletionBlock = nil;
 	}
 	if (self.chatDisconnectedBlock) {
 		self.chatDisconnectedBlock();
 	}
 }
 
-- (void)chatDidNotConnectWithError:(NSError *)error {
-    
-	if (self.chatLoginCompletionBlock) {
-        
-		self.chatLoginCompletionBlock(YES);
-		self.chatLoginCompletionBlock = nil;
-	}
-}
-
 - (void)chatDidFailWithStreamError:(NSError *)error {
     
-    if (self.chatLoginCompletionBlock) {
+    if (self.chatConnectCompletionBlock) {
         
-        self.chatLoginCompletionBlock(YES);
-        self.chatLoginCompletionBlock = nil;
+        self.chatConnectCompletionBlock(YES);
+        self.chatConnectCompletionBlock = nil;
     }
 }
 
-- (void)chatDidLogin {
+- (void)chatDidConnect {
     
     [[QBChat instance] sendPresence];
     __weak __typeof(self)weakSelf = self;
@@ -121,7 +112,7 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
     } expiration:^{
         
         if ([QBChat.instance isConnected]) {
-            [QBChat.instance disconnect];
+			[QBChat.instance disconnectWithCompletionBlock:nil];
         }
         
         [weakSelf.presenceTimer invalidate];
@@ -130,10 +121,10 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
     
     self.presenceTimer.label = @"Chat presence timer";
     
-    if (self.chatLoginCompletionBlock) {
+    if (self.chatConnectCompletionBlock) {
         
-        self.chatLoginCompletionBlock(NO);
-        self.chatLoginCompletionBlock = nil;
+        self.chatConnectCompletionBlock(NO);
+        self.chatConnectCompletionBlock = nil;
     }
 }
 
