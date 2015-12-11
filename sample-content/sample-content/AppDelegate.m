@@ -9,9 +9,9 @@
 #import "AppDelegate.h"
 #import <QuickBlox/QuickBlox.h>
 
-const NSUInteger kApplicationID = 92;
-NSString *const kAuthKey        = @"wJHdOcQSxXQGWx5";
-NSString *const kAuthSecret     = @"BTFsj7Rtt27DAmT";
+const NSUInteger kApplicationID = 32186;
+NSString *const kAuthKey        = @"hZW5jgFxzOS2aCC";
+NSString *const kAuthSecret     = @"HOvhKhWNeGgV8cF";
 NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
 
 typedef void (^CompletionHandlerType)();
@@ -19,7 +19,7 @@ typedef void (^CompletionHandlerType)();
 @interface AppDelegate ()
 
 @property (nonatomic, strong) NSMutableDictionary* completionHandlers;
-
+@property (nonatomic, strong) id observer;
 @end
 
 @implementation AppDelegate
@@ -41,6 +41,8 @@ typedef void (^CompletionHandlerType)();
     [QBSettings setAuthSecret:kAuthSecret];
     [QBSettings setAccountKey:kAcconuntKey];
     
+    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     return YES;
 }
@@ -67,31 +69,65 @@ typedef void (^CompletionHandlerType)();
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)subscribeForPushNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    QBMSubscription *subscription = [QBMSubscription subscription];
+    subscription.notificationChannel = QBMNotificationChannelAPNS;
+    subscription.deviceUDID = deviceIdentifier;
+    subscription.deviceToken = deviceToken;
+
+    [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
+        NSLog(@"Successfull response!");
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"Error response!");
+    }];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    if ([QBSession currentSession].currentUser == nil) {
+        [QBRequest logInWithUserLogin:@"sample_content" password:@"sample_content" successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nullable user) {
+            [self subscribeForPushNotificationsWithDeviceToken:deviceToken];
+        } errorBlock:^(QBResponse * _Nonnull response) {}];
+    } else {
+        [self subscribeForPushNotificationsWithDeviceToken:deviceToken];
+    }
+}
+
 #pragma mark - Background Session
 
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
 {
     [QBConnection restoreBackgroundSession];
     
-    [QBConnection setDownloadTaskDidFinishDownloadingBlock:^NSURL * _Nullable(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, NSURL * _Nonnull location) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSURL* url = [NSURL fileURLWithPath:[[paths firstObject] stringByAppendingPathComponent:location.lastPathComponent]];
-        return url;
-    }];
-    
-    [QBConnection setURLSessionDidFinishBackgroundEventsBlock:^(NSURLSession * _Nullable session) {
-        if (session.configuration.identifier) {
-            [self callCompletionHandlerForSession:session.configuration.identifier];
-        }
-    }];
-    
     [self addCompletionHandler:completionHandler forSession:identifier];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{    
+{
+    NSLog(@"Did receive remote notifications.");
     [QBConnection enableBackgroundSession];
-    [QBRequest downloadFileWithUID:@"UID" successBlock:nil statusBlock:nil errorBlock:nil];
+    
+    [QBConnection setDownloadTaskDidFinishDownloadingBlock:^NSURL * _Nullable(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, NSURL * _Nonnull location) {
+        NSLog(@"Download finished!");
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString* fileName = [downloadTask.originalRequest.URL.lastPathComponent stringByAppendingString:@".jpg"];
+        NSURL* url = [NSURL fileURLWithPath:[[paths firstObject] stringByAppendingPathComponent:fileName]];
+        NSLog(@"Path: %@", url);
+
+        return url;
+    }];
+    
+    [QBConnection setURLSessionDidFinishBackgroundEventsBlock:^(NSURLSession * _Nullable session) {
+        NSLog(@"URL session did finished background events.");
+        if (session.configuration.identifier) {
+            [self callCompletionHandlerForSession:session.configuration.identifier];
+        }
+    }];
+
+    [QBRequest downloadFileWithUID:@"74d679ca65ae4fa2870cfda5bc0e75c700" successBlock:nil statusBlock:nil errorBlock:nil];
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
