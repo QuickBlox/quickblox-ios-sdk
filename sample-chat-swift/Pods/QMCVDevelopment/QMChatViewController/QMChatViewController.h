@@ -145,6 +145,20 @@
 - (void)updateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
 /**
+ *  Delete message from chat controller.
+ *
+ *  @param message message to delete
+ */
+- (void)deleteMessage:(QBChatMessage *)message;
+
+/**
+ *  Delete messages from chat controller.
+ *
+ *  @param messages array of messages to remove from chat controller
+ */
+- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+
+/**
  *  Method to create chat message text attributed string. Have to be overriden in subclasses.
  *
  *  @param messageItem Chat message instance.
