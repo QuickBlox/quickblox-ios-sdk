@@ -306,9 +306,8 @@ QMChatConnectionDelegate
     [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
 }
 
-- (void)chatServiceChatDidNotLoginWithError:(NSError *)error
-{
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not login with error: %@", [error description]]];
+- (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error {
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not connect with error: %@", [error description]]];
 }
 
 - (void)chatServiceChatDidFailWithStreamError:(NSError *)error
