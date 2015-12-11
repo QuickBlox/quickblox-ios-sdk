@@ -35,7 +35,8 @@ UITextViewDelegate,
 QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
-UIActionSheetDelegate
+UIActionSheetDelegate,
+QMChatCellDelegate
 >
 
 @property (nonatomic, weak) QBUUser* opponentUser;
@@ -49,6 +50,8 @@ UIActionSheetDelegate
 @property (nonatomic, strong) NSArray* unreadMessages;
 
 @property (nonatomic, assign) BOOL isSendingAttachment;
+
+@property (nonatomic, strong) NSMutableSet *detailedCells;
 
 @end
 
@@ -95,6 +98,7 @@ UIActionSheetDelegate
     self.inputToolbar.contentView.textView.placeHolder = @"Message";
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
     self.stringBuilder = [MessageStatusStringBuilder new];
+    self.detailedCells = [NSMutableSet set];
     
     [self updateTitle];
     
@@ -429,9 +433,15 @@ UIActionSheetDelegate
     NSAttributedString *attributedString =
     [item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
     
-    CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                   withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                            limitedToNumberOfLines:0];
+    CGSize size = CGSizeMake(0.0f, 0.0f);
+    if ([item senderID] == self.senderID && ![self.detailedCells containsObject:item.ID]) {
+        
+        
+    } else {
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
+    }
     
     return size.width;
 }
@@ -484,12 +494,12 @@ UIActionSheetDelegate
     
     if (class == [QMChatOutgoingCell class] ||
         class == [QMChatAttachmentOutgoingCell class]) {
-        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
-        CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
-                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                                limitedToNumberOfLines:0];
-        
-        layoutModel.bottomLabelHeight = ceilf(size.height);
+//        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
+//        CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
+//                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+//                                                limitedToNumberOfLines:0];
+//        
+//        layoutModel.bottomLabelHeight = ceilf(size.height);
     } else if (class == [QMChatAttachmentIncomingCell class] ||
                class == [QMChatIncomingCell class]) {
         
@@ -505,6 +515,15 @@ UIActionSheetDelegate
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
     
+    CGSize size = CGSizeMake(0.0f, 0.0f);
+    if ([self.detailedCells containsObject:item.ID]) {
+        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
+                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                                limitedToNumberOfLines:0];
+    }
+    layoutModel.bottomLabelHeight = ceilf(size.height);
+    
     layoutModel.spaceBetweenTextViewAndBottomLabel = 5.0f;
     
     return layoutModel;
@@ -513,6 +532,9 @@ UIActionSheetDelegate
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
     [super collectionView:collectionView configureCell:cell forIndexPath:indexPath];
+    
+    // subscribing to cell delegate
+    [(QMChatCell *)cell setDelegate:self];
 
     [(QMChatCell *)cell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     
@@ -589,6 +611,41 @@ UIActionSheetDelegate
     // marking message as read if needed
     QBChatMessage *itemMessage = [self messageForIndexPath:indexPath];
     [self sendReadStatusForMessage:itemMessage];
+}
+
+#pragma mark - QMChatCellDelegate
+
+- (void)chatCellDidTapContainer:(QMChatCell *)cell {
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    QBChatMessage *currentMessage = [self messageForIndexPath:indexPath];
+    NSLog(@"%@", currentMessage.text);
+    
+    if ([self.detailedCells containsObject:currentMessage.ID]) {
+        [self.detailedCells removeObject:currentMessage.ID];
+    } else {
+        [self.detailedCells addObject:currentMessage.ID];
+    }
+    
+    [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:currentMessage.ID];
+//    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+//    [self.collectionView.collectionViewLayout invalidateLayout];
+//    [self.collectionView.collectionViewLayout prepareLayout];
+    [self.collectionView performBatchUpdates:nil completion:^(BOOL finished) {
+        //
+        [cell setNeedsLayout];
+    }];
+}
+
+- (void)chatCell:(QMChatCell *)cell didPerformAction:(SEL)action withSender:(id)sender {
+    
+}
+
+- (void)chatCellDidTapAvatar:(QMChatCell *)cell {
+    
+}
+
+- (void)chatCell:(QMChatCell *)cell didTapAtPosition:(CGPoint)position {
+    
 }
 
 #pragma mark - QMChatServiceDelegate
