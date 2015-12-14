@@ -371,8 +371,8 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized)
         self.getDialogs()
     }
-    
-    func chatServiceChatDidNotLoginWithError(error: NSError!) {
+
+    func chatService(chatService: QMChatService!, chatDidNotConnectWithError error: NSError!) {
         SVProgressHUD.showErrorWithStatus(error.localizedDescription)
     }
     

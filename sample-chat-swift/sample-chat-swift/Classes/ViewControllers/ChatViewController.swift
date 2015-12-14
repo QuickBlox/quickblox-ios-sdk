@@ -192,11 +192,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func updateMessages() {
         
         // Retrieving messages
-        if (self.storedMessages()?.count > 0) {
+        if (self.storedMessages()?.count > 0 && self.totalMessagesCount == 0) {
             self.insertMessagesToTheBottomAnimated(self.storedMessages()!)
             self.loadMessages()
         } else {
-            SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
+            if self.totalMessagesCount == 0 { SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear) }
             
             ServicesManager.instance().cachedMessagesWithDialogID(self.dialog?.ID, block: {
                 [unowned self] (collection: [AnyObject]!) -> Void in

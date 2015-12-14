@@ -166,12 +166,12 @@ UIActionSheetDelegate
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
     // Retrieving messages
-    if ([[self storedMessages] count] > 0) {
+    if ([[self storedMessages] count] > 0 && self.totalMessagesCount == 0) {
         
         [self insertMessagesToTheBottomAnimated:[self storedMessages]];
         [self refreshMessagesShowingProgress:NO];
     } else {
-        [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
+        if (self.totalMessagesCount == 0) [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
         
         __weak __typeof(self)weakSelf = self;
         [[ServicesManager instance] cachedMessagesWithDialogID:self.dialog.ID block:^(NSArray *collection) {
