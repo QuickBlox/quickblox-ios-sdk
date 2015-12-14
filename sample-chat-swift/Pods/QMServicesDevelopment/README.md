@@ -719,6 +719,47 @@ Send message about accepting or rejecting contact requst.
 
 ```
 
+Sending notification message about adding occupants to specific dialog.
+
+```objective-c
+
+- (void)sendNotificationMessageAboutAddingOccupants:(NSArray *)occupantsIDs
+                                           toDialog:(QBChatDialog *)chatDialog
+                               withNotificationText:(NSString *)notificationText
+                                         completion:(QBChatCompletionBlock)completion;
+                                         
+```
+
+Sending notification message about leaving dialog.
+
+```objective-c
+
+- (void)sendNotificationMessageAboutLeavingDialog:(QBChatDialog *)chatDialog
+                             withNotificationText:(NSString *)notificationText
+                                       completion:(QBChatCompletionBlock)completion;
+                                         
+```
+
+Sending notification message about changing dialog photo.
+
+```objective-c
+
+- (void)sendNotificationMessageAboutChangingDialogPhoto:(QBChatDialog *)chatDialog
+                                   withNotificationText:(NSString *)notificationText
+                                             completion:(QBChatCompletionBlock)completion;
+                                         
+```
+
+Sending notification message about changing dialog name.
+
+```objective-c
+
+- (void)sendNotificationMessageAboutChangingDialogName:(QBChatDialog *)chatDialog
+                                  withNotificationText:(NSString *)notificationText
+                                            completion:(QBChatCompletionBlock)completion;
+                                         
+```
+
 Fetches 100 messages starting from latest message in cache.
 
 ```objective-c
@@ -771,6 +812,17 @@ Send message to dialog.
       saveToHistory:(BOOL)saveToHistory
       saveToStorage:(BOOL)saveToStorage
          completion:(QBChatCompletionBlock)completion;
+
+```
+
+Send attachment message to dialog.
+
+```objective-c
+
+- (void)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
+                     toDialog:(QBChatDialog *)dialog
+          withAttachmentImage:(UIImage *)image
+                   completion:(QBChatCompletionBlock)completion;
 
 ```
 
@@ -986,19 +1038,11 @@ Attachment status delegate:
 
 ```
 
-Send image attachment.
-
-```objective-c
-
-- (void)sendMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(void(^)(NSError *error))completion;
-
-```
-
 Get attachment image. (Download from Quickblox or load from disc).
 
 ```objective-c
 
-- (void)getImageForChatAttachment:(QBChatAttachment *)attachment completion:(void (^)(NSError *error, UIImage *image))completion;
+- (void)getImageForAttachmentMessage:(QBChatMessage *)attachmentMessage completion:(void(^)(NSError *error, UIImage *image))completion;
 
 ```
 

@@ -26,9 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         QBSettings.setAuthSecret(kQBAuthSecret)
         QBSettings.setAccountKey(kQBAccountKey)
         
-        // Enabling carbons for chat
-        QBSettings.setCarbonsEnabled(true)
-        
         // Enables Quickblox REST API calls debug console output.
 		QBSettings.setLogLevel(QBLogLevel.Debug)
         
