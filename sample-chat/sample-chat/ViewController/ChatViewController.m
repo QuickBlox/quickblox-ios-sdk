@@ -430,7 +430,7 @@ QMChatCellDelegate
     
     QBChatMessage *item = [self messageForIndexPath:indexPath];
 
-    CGSize size = CGSizeMake(0.0f, 0.0f);
+    CGSize size = CGSizeZero;
     if ([self.detailedCells containsObject:item.ID]) {
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:[self bottomLabelAttributedStringForItem:item]
@@ -517,7 +517,7 @@ QMChatCellDelegate
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
     
-    CGSize size = CGSizeMake(0.0f, 0.0f);
+    CGSize size = CGSizeZero;
     if ([self.detailedCells containsObject:item.ID]) {
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
