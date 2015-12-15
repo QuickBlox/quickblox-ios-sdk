@@ -21,10 +21,11 @@ An elegant ready-to-go chat view controller for iOS chat applications that use Q
 - Xcode 6+
 - Quickblox SDK 2.0+
 - TTTAttributedLabel
+- SDWebImage
 
 # Installation
 ## CocoaPods
-	pod 'QMChatViewController', '~> 0.1'
+	pod 'QMChatViewController'
 	
 ## Manually
 * Drag QMChatViewController folder to your project folder and link to the appropriate target.
@@ -35,6 +36,10 @@ An elegant ready-to-go chat view controller for iOS chat applications that use Q
 - TTTAttributedLabel. If you are using pods, add this to your Podfile:
 
   *pod 'TTTAttributedLabel', :git => 'https://github.com/TTTAttributedLabel/TTTAttributedLabel.git'*
+
+- SDWebImage. If you are using pods, add this to your Podfile:
+
+  *pod 'SDWebImage', '~> 3.6'*
 - Quickblox iOS SDK v2.0+. If you are using pods, add this to your Podfile:
 
   *pod 'QuickBlox'*
@@ -49,141 +54,138 @@ Steps to add QMChatViewController to Your app:
     * Configure chat sender ID and display name:
 
 	````objective-c
-    	self.senderID = 2000;
-    	self.senderDisplayName = @"user1";
+		self.senderID = 2000;
+		self.senderDisplayName = @"user1";
 	````
 
-    * Set array of chat messages and reload collection view:
+    * Insert messages using corresponding methods:
 
 	````objective-c
-    	self.items = <array of messages>;
-    	[self.collectionView reloadData];
+    	[self insertMessagesToTheBottomAnimated:<array of messages>];
 	````    
 
 3. Handle message sending.
 
-  ````objective-c
-- (void)didPressSendButton:(UIButton *)button
-           withMessageText:(NSString *)text
-                  senderId:(NSUInteger)senderId
-         senderDisplayName:(NSString *)senderDisplayName
-                      date:(NSDate *)date {
-    	// Add sending message - for example:
-    	QBChatMessage *message = [QBChatMessage message];
-    	message.text = text;
-    	message.senderID = senderId;
+	````objective-c
+    	- (void)didPressSendButton:(UIButton *)button
+			       withMessageText:(NSString *)text
+					      senderId:(NSUInteger)senderId
+         		 senderDisplayName:(NSString *)senderDisplayName
+                      		  date:(NSDate *)date {
+			// Add sending message - for example:
+            QBChatMessage *message = [QBChatMessage message];
+    		message.text = text;
+    		message.senderID = senderId;
     
-	QBChatAttachment *attacment = [[QBChatAttachment alloc] init];
-    	message.attachments = @[attacment];
+			QBChatAttachment *attacment = [[QBChatAttachment alloc] init];
+    		message.attachments = @[attacment];
     
-    	[self.items addObject:message];
+    		[self insertMessageToTheBottomAnimated:message];
     
-    	[self finishSendingMessageAnimated:YES];
+    		[self finishSendingMessageAnimated:YES];
     
-     	// Save message to your cache/memory storage.                     
-     	// Send message using Quickblox SDK
-}
-  ````
+	     	// Save message to your cache/memory storage.                     
+     		// Send message using Quickblox SDK
+		}
+	````    
 
 4. Return cell view classes specific to chat message:
 
-  ````objective-c
-- (Class)viewClassForItem:(QBChatMessage *)item {
-	 // Cell class for message
-        if (item.senderID != self.senderID) {
+	````objective-c
+    	- (Class)viewClassForItem:(QBChatMessage *)item {
+	 		// Cell class for message
+        	if (item.senderID != self.senderID) {
             
-            return [QMChatIncomingCell class];
-        }
-        else {
+            	return [QMChatIncomingCell class];
+        	} else {
             
-            return [QMChatOutgoingCell class];
-        }
+            	return [QMChatOutgoingCell class];
+       		}
     
-    	return nil;
-}
-  ````
+    		return nil;
+		}
+	````
   
 5. Calculate size of cell and minimum width:
 
-  ````objective-c
-	- (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath 	*)indexPath maxWidth:(CGFloat)maxWidth {
+	````objective-c
+		- (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath 	*)indexPath maxWidth:(CGFloat)maxWidth {
     
-		QBChatMessage *item = self.items[indexPath.item];
+			QBChatMessage *item = self.items[indexPath.item];
     
-		NSAttributedString *attributedString = [self attributedStringForItem:item];
+			NSAttributedString *attributedString = [self attributedStringForItem:item];
     
-		CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+			CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
 	        	                                       withConstraints:CGSizeMake(maxWidth, MAXFLOAT)
         	        	                        limitedToNumberOfLines:0];
-		return size;
-	}
+			return size;
+		}
 
-	- (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
-		QBChatMessage *item = self.items[indexPath.item];
+		- (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
+			QBChatMessage *item = [self messageForIndexPath:indexPath];
     
-		NSAttributedString *attributedString =
-		[item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
+			NSAttributedString *attributedString =
+			[item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
     
-		CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+			CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
                                                        withConstraints:CGSizeMake(1000, 10000)
                                                 limitedToNumberOfLines:1];
     
     		return size.width;
-}
-  ````
+		}
+	````
 
 6. Top, bottom and text labels.
 
-  ````objective-c
-	- (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
-		UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor colorWithWhite:0.290 alpha:1.000];
-		UIFont *font = [UIFont fontWithName:@"Helvetica" size:15];
-		NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
+	````objective-c
+		- (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
+			UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor colorWithWhite:0.290 alpha:1.000];
+			UIFont *font = [UIFont fontWithName:@"Helvetica" size:15];
+			NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
 
-		NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text attributes:attributes];
+			NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text attributes:attributes];
     
-		return attrStr;
-	}
+			return attrStr;
+		}
 
-	- (NSAttributedString *)topLabelAttributedStringForItem:(QBChatMessage *)messageItem {
-		UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
+		- (NSAttributedString *)topLabelAttributedStringForItem:(QBChatMessage *)messageItem {
+			UIFont *font = [UIFont fontWithName:@"Helvetica" size:14];
     
-		if ([messageItem senderID] == self.senderID) {
+			if ([messageItem senderID] == self.senderID) {
 	    		return nil;
     		}
     		NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0.184 green:0.467 blue:0.733 alpha:1.000], NSFontAttributeName:font};
     
-		NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] 	initWithString:messageItem.senderNick attributes:attributes];
+			NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] 	initWithString:messageItem.senderNick attributes:attributes];
     
 	    	return attrStr;
-	}
+		}
 
-	- (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
+		- (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
     		UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1.000 alpha:0.510] : [UIColor colorWithWhite:0.000 alpha:0.490];
     		UIFont *font = [UIFont fontWithName:@"Helvetica" size:12];
     
     		NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
-    		NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[messageItem.dateSent description]
-                                           					    attributes:attributes];
+    		NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:[messageItem.dateSent description] attributes:attributes];
     
     		return attrStr;
-	}
-  ````
+		}
+	````
   
 7. Modifying collection chat cell attributes without changing constraints:
 
 	````objective-c
-	struct QMChatLayoutModel {
+		struct QMChatLayoutModel {
 	    
-	    CGSize avatarSize;
-	    CGSize containerSize;
-	    UIEdgeInsets containerInsets;
-	    CGFloat topLabelHeight;
-	    CGFloat bottomLabelHeight;
-	    CGSize staticContainerSize;
-	};
+	    	CGSize avatarSize;
+	    	CGSize containerSize;
+	    	UIEdgeInsets containerInsets;
+	    	CGFloat topLabelHeight;
+	    	CGFloat bottomLabelHeight;
+	    	CGSize staticContainerSize;
+		};
 	
-	typedef struct QMChatLayoutModel QMChatCellLayoutModel;
+		typedef struct QMChatLayoutModel QMChatCellLayoutModel;
 	````
 	
 	* size of the avatar image view
@@ -195,12 +197,12 @@ Steps to add QMChatViewController to Your app:
 	You can modify this attributes in this method:
 	
 	````objective-c
-	- (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
-		QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
-		// update attributes here
+		- (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
+			QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
+			// update attributes here
     
-		return layoutModel;
-	}
+			return layoutModel;
+		}
 	````
 	
 	So if you want to hide top label or bottom label you just need to set their height to 0.

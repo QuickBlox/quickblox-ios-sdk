@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         QBSettings.setAuthKey(kQBAuthKey)
         QBSettings.setAuthSecret(kQBAuthSecret)
         QBSettings.setAccountKey(kQBAccountKey)
-                
+        
         // Enables Quickblox REST API calls debug console output.
 		QBSettings.setLogLevel(QBLogLevel.Debug)
         

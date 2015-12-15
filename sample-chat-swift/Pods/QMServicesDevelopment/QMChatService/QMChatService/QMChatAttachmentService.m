@@ -11,6 +11,12 @@
 #import "QBChatMessage+QMCustomParameters.h"
 #import "QMChatService+AttachmentService.h"
 
+@interface QMChatAttachmentService()
+
+@property (nonatomic, strong) NSMutableDictionary *attachmentsStorage;
+
+@end
+
 static NSString* attachmentCacheDir() {
     
     static NSString *attachmentCacheDirString;
@@ -39,6 +45,14 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
 
 @implementation QMChatAttachmentService
 
+- (instancetype)init {
+    
+    if (self = [super init]) {
+        self.attachmentsStorage = [NSMutableDictionary dictionary];
+    }
+    
+    return self;
+}
 
 - (void)sendMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(void (^)(NSError *))completion {
     
@@ -64,6 +78,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
         message.text = @"Attachment image";
         
         [self saveImageData:imageData chatAttachment:attachment error:nil];
+        [self.attachmentsStorage setObject:image forKey:attachment.ID];
         
         [self changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded forMessage:message];
         
@@ -159,6 +174,12 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
     
     QBChatAttachment *attachment = [attachmentMessage.attachments firstObject];
     
+    // checking attachment in storage
+    if ([self.attachmentsStorage objectForKey:attachment.ID] != nil) {
+        if (completion) completion(nil, [self.attachmentsStorage objectForKey:attachment.ID]);
+        return;
+    }
+    
     // checking attachment in cache
     NSString *path = attachmentPath(attachment);
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
@@ -169,6 +190,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:&error];
             
             UIImage *image = [UIImage imageWithData:data];
+            [self.attachmentsStorage setObject:image forKey:attachment.ID];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) completion(error, image);
@@ -191,6 +213,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             NSError *error;
             
             [self saveImageData:fileData chatAttachment:attachment error:&error];
+            [self.attachmentsStorage setObject:image forKey:attachmentID];
             
             [self changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded forMessage:attachmentMessage];
             
@@ -225,6 +248,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             NSError *error;
             
             [self saveImageData:fileData chatAttachment:attachment error:&error];
+            [self.attachmentsStorage setObject:image forKey:attachmentID];
             
             [self changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded forMessage:attachmentMessage];
             

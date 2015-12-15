@@ -242,39 +242,47 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 /**
  *  Sending notification message about adding occupants to specific dialog.
  *
- *  @param occupantsIDs array of occupants that were added to a specific dialog
- *  @param chatDialog   chat dialog to send notification message to
- *  @param completion   completion block with failure error
+ *  @param occupantsIDs     array of occupants that were added to a specific dialog
+ *  @param chatDialog       chat dialog to send notification message to
+ *  @param notificationText notification message body (text)
+ *  @param completion       completion block with failure error
  */
 - (void)sendNotificationMessageAboutAddingOccupants:(NSArray *)occupantsIDs
                                            toDialog:(QBChatDialog *)chatDialog
+                               withNotificationText:(NSString *)notificationText
                                          completion:(QBChatCompletionBlock)completion;
 
 /**
  *  Sending notification message about leaving dialog.
  *
- *  @param chatDialog chat dialog to send message to
- *  @param completion completion block with failure error
+ *  @param chatDialog       chat dialog to send message to
+ *  @param notificationText notification message body (text)
+ *  @param completion       completion block with failure error
  */
 - (void)sendNotificationMessageAboutLeavingDialog:(QBChatDialog *)chatDialog
+                             withNotificationText:(NSString *)notificationText
                                        completion:(QBChatCompletionBlock)completion;
 
 /**
  *  Sending notification message about changing dialog photo.
  *
- *  @param chatDialog chat dialog to send message to
- *  @param completion completion block with failure error
+ *  @param chatDialog       chat dialog to send message to
+ *  @param notificationText notification message body (text)
+ *  @param completion       completion block with failure error
  */
 - (void)sendNotificationMessageAboutChangingDialogPhoto:(QBChatDialog *)chatDialog
+                                   withNotificationText:(NSString *)notificationText
                                              completion:(QBChatCompletionBlock)completion;
 
 /**
  *  Sending notification message about changing dialog name.
  *
- *  @param chatDialog chat dialog to send message to
- *  @param completion completion block with failure error
+ *  @param chatDialog       chat dialog to send message to
+ *  @param notificationText notification message body (text)
+ *  @param completion       completion block with failure error
  */
 - (void)sendNotificationMessageAboutChangingDialogName:(QBChatDialog *)chatDialog
+                                  withNotificationText:(NSString *)notificationText
                                             completion:(QBChatCompletionBlock)completion;
 
 #pragma mark - Fetch messages
@@ -353,10 +361,10 @@ typedef void(^QMCacheCollection)(NSArray *collection);
          completion:(QBChatCompletionBlock)completion;
 
 /**
- *  Send message to dialog with identifier.
+ *  Send message to.
  *
  *  @param message          QBChatMessage instance
- *  @param dialogID         dialog identifier
+ *  @param dialog           dialog instance to send message to
  *  @param saveToHistory    if YES - saves message to chat history
  *  @param saveToStorage    if YES - saves to local storage
  *  @param completion       completion block with failure error
@@ -368,10 +376,10 @@ typedef void(^QMCacheCollection)(NSArray *collection);
          completion:(QBChatCompletionBlock)completion;
 
 /**
- *  Send message to dialog with identifier.
+ *  Send attachment message to dialog.
  *
  *  @param attachmentMessage    QBChatMessage instance with attachment
- *  @param dialog               dialog to send message to
+ *  @param dialog               dialog instance to send message to
  *  @param image                attachment image to upload
  *  @param completion           completion block with failure error
  */
@@ -556,16 +564,12 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService;
 
 /**
- *  It called when user did login in chat.
- */
-- (void)chatServiceChatDidLogin;
-
-/**
- *  It called when user login failed.
+ *  Called when chat did not connect.
  *
- *  @param error NSError login fail reason
+ *  @param chatService instance
+ *  @param error       connection failure error
  */
-- (void)chatServiceChatDidNotLoginWithError:(NSError *)error;
+- (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error;
 
 /**
  *  It called when chat did accidentally disconnect
