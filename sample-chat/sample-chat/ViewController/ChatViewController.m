@@ -434,10 +434,8 @@ QMChatCellDelegate
     [item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
     
     CGSize size = CGSizeMake(0.0f, 0.0f);
-    if ([item senderID] == self.senderID && ![self.detailedCells containsObject:item.ID]) {
-        
-        
-    } else {
+    
+    if ([self.detailedCells containsObject:item.ID]) {
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
                                                 withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
                                          limitedToNumberOfLines:0];
@@ -494,12 +492,8 @@ QMChatCellDelegate
     
     if (class == [QMChatOutgoingCell class] ||
         class == [QMChatAttachmentOutgoingCell class]) {
-//        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
-//        CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
-//                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-//                                                limitedToNumberOfLines:0];
-//        
-//        layoutModel.bottomLabelHeight = ceilf(size.height);
+        // Outgoing cells layout model
+        
     } else if (class == [QMChatAttachmentIncomingCell class] ||
                class == [QMChatIncomingCell class]) {
         
@@ -626,10 +620,11 @@ QMChatCellDelegate
         [self.detailedCells addObject:currentMessage.ID];
     }
     
+    __weak __typeof(self)weakSelf = self;
     [self.collectionView performBatchUpdates:^{
-        [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:currentMessage.ID];
+        [weakSelf.collectionView.collectionViewLayout removeSizeFromCacheForItemID:currentMessage.ID];
         QMCollectionViewFlowLayoutInvalidationContext* context = [QMCollectionViewFlowLayoutInvalidationContext context];
-        [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
+        [weakSelf.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
     } completion:nil];
 }
 
