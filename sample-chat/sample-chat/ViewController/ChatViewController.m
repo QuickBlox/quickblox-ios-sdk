@@ -365,7 +365,7 @@ QMChatCellDelegate
     
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:17.0f];
     
-    if ([messageItem senderID] == self.senderID) {
+    if ([messageItem senderID] == self.senderID || self.dialog.type == QBChatDialogTypePrivate) {
         return nil;
     }
     
@@ -429,16 +429,24 @@ QMChatCellDelegate
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
     
     QBChatMessage *item = [self messageForIndexPath:indexPath];
-    
-    NSAttributedString *attributedString =
-    [item senderID] == self.senderID ?  [self bottomLabelAttributedStringForItem:item] : [self topLabelAttributedStringForItem:item];
-    
+
     CGSize size = CGSizeMake(0.0f, 0.0f);
-    
     if ([self.detailedCells containsObject:item.ID]) {
-        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+        
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:[self bottomLabelAttributedStringForItem:item]
                                                 withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
                                          limitedToNumberOfLines:0];
+    }
+    
+    if (self.dialog.type != QBChatDialogTypePrivate) {
+        
+        CGSize topLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:[self topLabelAttributedStringForItem:item]
+                                                               withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                                        limitedToNumberOfLines:0];
+        
+        if (topLabelSize.width > size.width) {
+            size = topLabelSize;
+        }
     }
     
     return size.width;
@@ -612,7 +620,6 @@ QMChatCellDelegate
 - (void)chatCellDidTapContainer:(QMChatCell *)cell {
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QBChatMessage *currentMessage = [self messageForIndexPath:indexPath];
-    NSLog(@"%@", currentMessage.text);
     
     if ([self.detailedCells containsObject:currentMessage.ID]) {
         [self.detailedCells removeObject:currentMessage.ID];
