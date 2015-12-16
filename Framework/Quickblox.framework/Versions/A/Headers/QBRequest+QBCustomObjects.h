@@ -290,7 +290,7 @@
 /**
  Download file using background NSURLSession.
  
- @discussion If download is triggered by 'content-available' push blocks will not be fired.
+ @discussion If download is triggered by 'content-available' push - blocks will not be fired.
  
  @param className Name of class
  @param objectID Identifier of object which file will be downloaded
