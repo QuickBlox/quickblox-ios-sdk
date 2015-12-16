@@ -172,8 +172,10 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     //
     __weak __typeof(self)weakSelf = self;
     [SVProgressHUD showWithStatus:@"Uploading image"];
+    
     [QBRequest TUploadFile:imageData fileName:@"iOS Content-Sample image" contentType:@"image/png" isPublic:NO
               successBlock:^(QBResponse *response, QBCBlob *blob) {
+
                   [SVProgressHUD dismiss];
                   
                   // Saving image directly SDWebImageCache

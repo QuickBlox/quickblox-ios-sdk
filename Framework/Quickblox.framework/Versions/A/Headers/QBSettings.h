@@ -192,4 +192,22 @@ typedef enum QBConnectionZoneType{
  */
 + (void)disableXMPPLogging;
 
+#pragma mark - 
+#pragma mark NSURLSessionConfiguration
+
+/**
+ *  Set custom session configuration that will be used for REST API requests.
+ *  '[NSURLSessionConfiguration defaultSessionConfiguration]' is used if nil is passed.
+ *
+ *  @param configuration Your NSURLSessionConfiguration object.
+ */
++ (void)setSessionConfiguration:(QB_NULLABLE NSURLSessionConfiguration *)configuration;
+
+/**
+ *  Get custom session configuration.
+ *
+ *  @return Your NSURLSessionConfiguration object.
+ */
++ (QB_NULLABLE NSURLSessionConfiguration *)sessionConfiguration;
+
 @end
