@@ -11,40 +11,41 @@
 #import "QBRTCTypes.h"
 
 @class QBRTCVideoTrack;
+@class QBRTCMediaStream;
 
+/**
+ * Class for storing information about QBWebRTC session, tracks and opponents
+ */
 @interface QBRTCSession : NSObject
 
-/**
- *  Unique session identifier
- */
+/// Init is not a supported initializer for this class., use [[QBRTCClient instance] createNewSessionWithOpponents:withConferenceType:]
+- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class., use [[QBRTCClient instance] createNewSessionWithOpponents:withConferenceType:]")));
+
+/// Unique session identifier
 @property (strong, nonatomic, readonly) NSString *ID;
 
-/**
- *  Caller ID
- */
-@property (strong, nonatomic, readonly) NSNumber *callerID;
+/// Initiator ID
+@property (strong, nonatomic, readonly) NSNumber *initiatorID;
 
-/**
- *  IDs of opponents in current session
- */
-@property (strong, nonatomic, readonly) NSArray *opponents;
+/// IDs of opponents in current session
+@property (strong, nonatomic, readonly) NSArray *opponentsIDs;
 
-/**
- *  Conference type QBConferenceTypeAudio - audio conference, QBConferenceTypeVideo - video conference
- */
-@property (assign, nonatomic, readonly) QBConferenceType conferenceType;
+/// Conference type QBRTCConferenceTypeAudio - audio conference, QBRTCConferenceTypeVideo - video conference
+@property (assign, nonatomic, readonly) QBRTCConferenceType conferenceType;
 
-- (id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+/// QBRTCMediaStream instance that has both video and audio tracks and allows to manage them
+@property (strong, nonatomic, readonly) QBRTCMediaStream *localMediaStream;
 
 /**
  *  Start call. Opponent will receive new session signal in QBRTCClientDelegate method 'didReceiveNewSession:userInfo:
+ *  called by startCall: or acceptCall:
  *
  * @param userInfo The user information dictionary for the stat call. May be nil.
  */
 - (void)startCall:(NSDictionary *)userInfo;
 
 /**
- * Accept call. Opponent's will receive accept signal in QBRTCClientDelegate method 'session:acceptByUser:userInfo:'
+ * Accept call. Opponent's will receive accept signal in QBRTCClientDelegate method 'session:acceptedByUser:userInfo:'
  *
  * @param userInfo The user information dictionary for the accept call. May be nil.
  */
@@ -78,35 +79,8 @@
  *
  *  @param userID ID of opponent
  *
- *  @return ID of opponent
+ *  @return QBRTCConnectionState connection state for opponent
  */
 - (QBRTCConnectionState)connectionStateForUser:(NSNumber *)userID;
-
-/**
- *  Enable/Disable audio stream
- */
-@property (assign, nonatomic) BOOL audioEnabled;
-
-#pragma mark - Video
-#pragma mark  AVCaptureSession
-
-/**
- * Enable/Disable video stream
- */
-@property (assign, nonatomic) BOOL videoEnabled;
-
-@property(nonatomic, readonly) AVCaptureSession* captureSession;
-
-/**
- *  Indicating the physical position of an AVCaptureDevice's hardware on the system.
- */
-@property (assign, nonatomic, readonly) AVCaptureDevicePosition currentCaptureDevicePosition;
-
-/**
- *  Switch Front / Back video input. (Default: Front camera)
- *
- *  @param block isFrontCamera YES/NO
- */
-- (void)switchCamera:(void (^)(BOOL isFrontCamera))block;
 
 @end

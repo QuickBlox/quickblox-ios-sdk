@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>95C928AC-2FEA-4BD0-AD72-E2C3D86E0F7D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>sample-videochat-webrtc</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
+		<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
+		<key>B415C5F5923FD1699E46B5668327F083B9C32C51</key>
+		<string>github.com:QuickBlox/SDK-ios-WebRTC.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>sample-videochat-webrtc/sample-videochat-webrtc.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>43E48969AB834C98133F4F66DEBB455ACE272805</key>
+		<string>../../..</string>
+		<key>B415C5F5923FD1699E46B5668327F083B9C32C51</key>
+		<string>../../../../SDK-ios-WebRTC</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:QuickBlox/quickblox-ios-sdk.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>43E48969AB834C98133F4F66DEBB455ACE272805</string>
+			<key>IDESourceControlWCCName</key>
+			<string>quickblox-ios-sdk</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B415C5F5923FD1699E46B5668327F083B9C32C51</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDK-ios-WebRTC</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>users</key>
+	<array>
+		<dict>
+			<key>password</key>
+			<string>webuser111</string>
+			<key>login</key>
+			<string>webuser111</string>
+			<key>fullName</key>
+			<string>User 1 (Web)</string>
+			<key>ID</key>
+			<string>5395743</string>
+		</dict>
+		<dict>
+			<key>password</key>
+			<string>webuser112</string>
+			<key>login</key>
+			<string>webuser112</string>
+			<key>fullName</key>
+			<string>User 2 (Web)</string>
+			<key>ID</key>
+			<string>5395747</string>
+		</dict>
+		<dict>
+			<key>password</key>
+			<string>webuser113</string>
+			<key>login</key>
+			<string>webuser113</string>
+			<key>fullName</key>
+			<string>User 3 (Web)</string>
+			<key>ID</key>
+			<string>5681538</string>
+		</dict>
+		<dict>
+			<key>password</key>
+			<string>webuser114</string>
+			<key>login</key>
+			<string>webuser114</string>
+			<key>fullName</key>
+			<string>User 4 (Web)</string>
+			<key>ID</key>
+			<string>5719859</string>
+		</dict>
+		<dict>
+			<key>password</key>
+			<string>webuser115</string>
+			<key>login</key>
+			<string>webuser115</string>
+			<key>fullName</key>
+			<string>User 5 (Web)</string>
+			<key>ID</key>
+			<string>5719860</string>
+		</dict>
+		<dict>
+			<key>password</key>
+			<string>webuser116</string>
+			<key>login</key>
+			<string>webuser116</string>
+			<key>fullName</key>
+			<string>User 6 (Web)</string>
+			<key>ID</key>
+			<string>5719866</string>
+		</dict>
+	</array>
+</dict>
+</plist>

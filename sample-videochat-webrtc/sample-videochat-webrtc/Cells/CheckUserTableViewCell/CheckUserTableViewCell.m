@@ -13,19 +13,14 @@
 @interface CheckUserTableViewCell()
 
 @property (weak, nonatomic) IBOutlet CheckMarkView *checkmakrView;
-@property (assign, nonatomic) BOOL checkmark;
 
 @end
 
 @implementation CheckUserTableViewCell
 
 - (void)setCheckmark:(BOOL)isCheck {
-    
-    if (_checkmark != isCheck) {
-        
-        _checkmark = isCheck;
-        self.checkmakrView.check = isCheck;
-    }
+    self.checkmakrView.checked = isCheck;
 }
+
 
 @end

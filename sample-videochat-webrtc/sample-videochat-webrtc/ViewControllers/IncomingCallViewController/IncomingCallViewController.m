@@ -7,20 +7,22 @@
 //
 
 #import "IncomingCallViewController.h"
-#import "ContainerViewController.h"
-#import "ConnectionManager.h"
+#import "ChatManager.h"
 #import "CornerView.h"
-#import "IAButton.h"
+#import "QBButton.h"
 #import "QMSoundManager.h"
+#import "UsersDataSource.h"
+#import "QBToolBar.h"
+#import "QBButtonsFactory.h"
+#import "QBUUser+IndexAndColor.h"
 
 @interface IncomingCallViewController () <QBRTCClientDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *callStatusLabel;
 @property (weak, nonatomic) IBOutlet UITextView *callInfoTextView;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet QBToolBar *toolbar;
 @property (weak, nonatomic) IBOutlet CornerView *colorMarker;
-@property (weak, nonatomic) IBOutlet IAButton *declineBtn;
-@property (weak, nonatomic) IBOutlet IAButton *acceptBtn;
+
 @property (weak, nonatomic) NSTimer *dialignTimer;
 
 @end
@@ -33,9 +35,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [QMSoundManager playRingtoneSound];
     
     [QBRTCClient.instance addDelegate:self];
-    self.users = [ConnectionManager.instance usersWithIDS:self.session.opponents];
+    self.users = [UsersDataSource.instance usersWithIDS:self.session.opponentsIDs];
     [self confiugreGUI];
     
     self.dialignTimer =
@@ -58,31 +61,37 @@
     [self defaultToolbarConfiguration];
     [self updateOfferInfo];
     [self updateCallInfo];
+    
+    self.title = [NSString stringWithFormat:@"Logged in as %@", UsersDataSource.instance.currentUser.fullName];
+    [self setDefaultBackBarButtonItem:^{
+        
+    }];
 }
 
 - (void)defaultToolbarConfiguration {
- 
-    [self.toolbar setBackgroundImage:[[UIImage alloc] init]
-                  forToolbarPosition:UIToolbarPositionAny
-                          barMetrics:UIBarMetricsDefault];
     
-    [self.toolbar setShadowImage:[[UIImage alloc] init]
-              forToolbarPosition:UIToolbarPositionAny];
+    self.toolbar.backgroundColor = [UIColor clearColor];
+    __weak __typeof(self)weakSelf = self;
     
-    [self configureAIButton:self.declineBtn
-              withImageName:@"decline"
-                    bgColor:[UIColor colorWithRed:0.906 green:0.000 blue:0.191 alpha:1.000]
-              selectedColor:[UIColor colorWithRed:0.916 green:0.668 blue:0.683 alpha:1.000]];
+    [self.toolbar addButton:[QBButtonsFactory circleDecline] action: ^(UIButton *sender) {
+        
+        [weakSelf cleanUp];
+        [weakSelf.delegate incomingCallViewController:weakSelf didRejectSession:weakSelf.session];
+    }];
     
-    [self configureAIButton:self.acceptBtn
-              withImageName:@"answer"
-                    bgColor:[UIColor colorWithRed:0.130 green:0.889 blue:0.074 alpha:1.000]
-              selectedColor:[UIColor colorWithRed:0.596 green:0.920 blue:0.647 alpha:1.000]];
+    [self.toolbar addButton:[QBButtonsFactory answer] action: ^(UIButton *sender) {
+        
+        [weakSelf cleanUp];
+        [weakSelf.delegate incomingCallViewController:weakSelf didAcceptSession:weakSelf.session];
+    }];
+    
+    
+    [self.toolbar updateItems];
 }
 
 - (void)updateOfferInfo {
     
-    QBUUser *caller = [ConnectionManager.instance userWithID:self.session.callerID];
+    QBUUser *caller = [UsersDataSource.instance userWithID:self.session.initiatorID];
     
     self.colorMarker.bgColor = caller.color;
     self.colorMarker.title = caller.fullName;
@@ -93,16 +102,18 @@
     
     NSMutableArray *info = [NSMutableArray array];
     
-    [self.users enumerateObjectsUsingBlock:^(QBUUser *user, NSUInteger idx, BOOL *stop) {
+    
+    for (QBUUser *user in self.users ) {
+        
         [info addObject:[NSString stringWithFormat:@"%@(ID %@)", user.fullName, @(user.ID)]];
-    }];
+    }
     
     self.callInfoTextView.text = [info componentsJoinedByString:@", "];
     self.callInfoTextView.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:19];
     self.callInfoTextView.textAlignment = NSTextAlignmentCenter;
     
     NSString *text =
-    self.session.conferenceType == QBConferenceTypeVideo ? @"Incoming video call" : @"Incoming audio call";
+    self.session.conferenceType == QBRTCConferenceTypeVideo ? @"Incoming video call" : @"Incoming audio call";
     self.callStatusLabel.text = NSLocalizedString(text, nil);
 }
 
@@ -114,24 +125,13 @@
     self.dialignTimer = nil;
     
     [QBRTCClient.instance removeDelegate:self];
+	[QBRTCSoundRouter.instance deinitialize];
     [QMSysPlayer stopAllSounds];
 }
 
-- (IBAction)pressAcceptCall:(id)sender {
+- (void)sessionDidClose:(QBRTCSession *)session {
     
-    [self cleanUp];
-    [self.containerViewController next];
-}
-
-- (IBAction)pressDeclineBtn:(id)sender {
-    
-    [self cleanUp];
-    [self.session rejectCall:@{@"reject" : @"busy"}];
-}
-
-- (void)sessionWillClose:(QBRTCSession *)session {
-    
-    [self cleanUp];
+      [self cleanUp];
 }
 
 @end

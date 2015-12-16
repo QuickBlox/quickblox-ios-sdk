@@ -10,6 +10,6 @@
 
 @interface CheckMarkView : UIView
 
-@property (assign, nonatomic, getter=isCheck) BOOL check;
+@property (assign, nonatomic) BOOL checked;
 
 @end

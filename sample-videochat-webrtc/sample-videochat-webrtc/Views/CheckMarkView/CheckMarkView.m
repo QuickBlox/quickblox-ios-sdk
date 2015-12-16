@@ -16,12 +16,11 @@
     if (self) {
         
         self.backgroundColor = [UIColor clearColor];
-        [self setContentMode:UIViewContentModeRedraw];
     }
     return self;
 }
 
-- (void)drawCheckMarkElementWithFrame:(CGRect)frame isCheck:(BOOL)isCheck {
+- (void)drawCheckMarkElementWithFrame:(CGRect)frame checked:(BOOL)checked {
     
     //// Color Declarations
     UIColor* clGray = [UIColor colorWithWhite:0.790 alpha:0.500];
@@ -35,8 +34,8 @@
                                      floor(CGRectGetHeight(frame) * 0.97895 + 0.5) - floor(CGRectGetHeight(frame) * 0.02105 + 0.5));
     //// ElementGroup
     {
-        if (isCheck)
-            //// CheckGroup
+        if (checked)
+            //// CheckGroupx5
         {
             //// checkBG Drawing
             UIBezierPath* checkBGPath = UIBezierPath.bezierPath;
@@ -102,7 +101,7 @@
             [checkPath fill];
         }
         
-        if (!isCheck) {
+        if (!checked) {
             //// border Drawing
             UIBezierPath* borderPath = UIBezierPath.bezierPath;
             [borderPath moveToPoint: CGPointMake(CGRectGetMinX(elementGroup) + 0.20084 * CGRectGetWidth(elementGroup),
@@ -182,17 +181,46 @@
 - (void)drawRect:(CGRect)rect {
     
     [self drawCheckMarkElementWithFrame:self.bounds
-                                isCheck:self.isCheck];
+                                checked:self.checked];
     // Drawing code
 }
 
 #pragma mark - Setters
 
-- (void)setCheck:(BOOL)check {
+- (void)setChecked:(BOOL)checked {
     
-    if (_check != check) {
-        _check = check;
+    if (_checked != checked) {
+        _checked = checked;
         
+        self.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
+        
+        if (_checked) {
+            
+            [UIView animateWithDuration:0.12 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                
+                self.transform = CGAffineTransformMakeScale(1.16f, 1.16f);
+                
+             } completion:^(BOOL finished) {
+                 
+                 if (finished) {
+                     
+                     [UIView animateWithDuration:0.08f delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                         
+                          self.transform = CGAffineTransformIdentity;
+                         
+                      } completion:nil];
+                 }
+             }];
+        }
+        else {
+            
+            [UIView animateWithDuration:0.16 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                
+                 self.transform = CGAffineTransformIdentity;
+                
+             } completion:nil];
+        }
+
         [self setNeedsDisplay];
     }
 }

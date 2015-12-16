@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "43E48969AB834C98133F4F66DEBB455ACE272805",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8" : 0,
+    "7685896580551A65BF391139D591B99B273195F4" : 0,
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "55886A36-B068-446C-AB54-81126006766E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8" : "q-municate-services-ios\/",
+    "7685896580551A65BF391139D591B99B273195F4" : "QMChatViewController-ios\/",
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "sample-chat",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "sample-chat\/sample-chat.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/QuickBlox\/quickblox-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43E48969AB834C98133F4F66DEBB455ACE272805"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/QMChatViewController-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7685896580551A65BF391139D591B99B273195F4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/QuickBlox\/q-municate-services-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8"
+    }
+  ]
+}
