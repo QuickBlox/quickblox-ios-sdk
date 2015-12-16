@@ -288,6 +288,28 @@
                                          errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
 
 /**
+ Download file using background NSURLSession.
+ 
+ @discussion If download is triggered by 'content-available' push - blocks will not be fired.
+ 
+ @param className Name of class
+ @param objectID Identifier of object which file will be downloaded
+ @param fileFieldName Name of file field
+ @param successBlock Block with response instance and NSData instance if request succeded
+ @param statusBlock Block with upload/download progress
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QB_NONNULL QBRequest *)backgroundDownloadFileFromClassName:(QB_NONNULL NSString *)className
+                                                     objectID:(QB_NONNULL NSString *)objectID
+                                                fileFieldName:(QB_NONNULL NSString *)fileFieldName
+                                                 successBlock:(QB_NULLABLE void (^)(QBResponse *QB_NONNULL_S response, NSData *QB_NULLABLE_S loadedData))successBlock
+                                                  statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
+                                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
+
+
+/**
  Delete file
 
  @param className Name of class

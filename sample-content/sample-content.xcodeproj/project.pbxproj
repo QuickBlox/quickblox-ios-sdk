@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		860B9F461B9A0B0100BDB01E /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 860B9F451B9A0B0100BDB01E /* ImageCollectionViewCell.m */; };
+		86911C161C1AFE5000FC3E15 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD351B26E2860005B39D /* Quickblox.framework */; };
 		98FDFB40252F006913C009AB /* libPods-sample-content.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF6A11FDEEA897B051BF7F /* libPods-sample-content.a */; };
 		BF7ECD0D1B26D8770005B39D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD0C1B26D8770005B39D /* main.m */; };
 		BF7ECD101B26D8770005B39D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD0F1B26D8770005B39D /* AppDelegate.m */; };
@@ -15,9 +16,7 @@
 		BF7ECD161B26D8770005B39D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF7ECD141B26D8770005B39D /* Main.storyboard */; };
 		BF7ECD181B26D8770005B39D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF7ECD171B26D8770005B39D /* Images.xcassets */; };
 		BF7ECD1B1B26D8770005B39D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF7ECD191B26D8770005B39D /* LaunchScreen.xib */; };
-		BF7ECD271B26D8770005B39D /* sample_contentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD261B26D8770005B39D /* sample_contentTests.m */; };
 		BF7ECD321B26DE890005B39D /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD311B26DE890005B39D /* ImageViewController.m */; };
-		BF7ECD361B26E2860005B39D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD351B26E2860005B39D /* Quickblox.framework */; };
 		BF7ECD3E1B26E6C80005B39D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD3D1B26E6C80005B39D /* CFNetwork.framework */; };
 		BF7ECD401B26E6D00005B39D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD3F1B26E6D00005B39D /* SystemConfiguration.framework */; };
 		BF7ECD421B26E6D60005B39D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD411B26E6D60005B39D /* MobileCoreServices.framework */; };
@@ -35,16 +34,6 @@
 		BF7ECD5A1B26E71B0005B39D /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD591B26E71B0005B39D /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		BF7ECD211B26D8770005B39D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BF7ECCFF1B26D8770005B39D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BF7ECD061B26D8770005B39D;
-			remoteInfo = "sample-content";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		4438634C1918A3626A1E2954 /* Pods-sample-content.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-content.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-content/Pods-sample-content.debug.xcconfig"; sourceTree = "<group>"; };
 		63EF6A11FDEEA897B051BF7F /* libPods-sample-content.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-content.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +50,6 @@
 		BF7ECD151B26D8770005B39D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF7ECD171B26D8770005B39D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BF7ECD1A1B26D8770005B39D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		BF7ECD201B26D8770005B39D /* sample-contentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sample-contentTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF7ECD251B26D8770005B39D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF7ECD261B26D8770005B39D /* sample_contentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = sample_contentTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BF7ECD301B26DE890005B39D /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ImageViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -97,6 +85,7 @@
 				BF7ECD501B26E6FC0005B39D /* CoreVideo.framework in Frameworks */,
 				BF7ECD4E1B26E6F80005B39D /* Accelerate.framework in Frameworks */,
 				BF7ECD4C1B26E6F30005B39D /* CoreMedia.framework in Frameworks */,
+				86911C161C1AFE5000FC3E15 /* Quickblox.framework in Frameworks */,
 				BF7ECD4A1B26E6EE0005B39D /* AudioToolbox.framework in Frameworks */,
 				BF7ECD481B26E6E80005B39D /* CoreData.framework in Frameworks */,
 				BF7ECD461B26E6E40005B39D /* CoreLocation.framework in Frameworks */,
@@ -104,15 +93,7 @@
 				BF7ECD421B26E6D60005B39D /* MobileCoreServices.framework in Frameworks */,
 				BF7ECD401B26E6D00005B39D /* SystemConfiguration.framework in Frameworks */,
 				BF7ECD3E1B26E6C80005B39D /* CFNetwork.framework in Frameworks */,
-				BF7ECD361B26E2860005B39D /* Quickblox.framework in Frameworks */,
 				98FDFB40252F006913C009AB /* libPods-sample-content.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BF7ECD1D1B26D8770005B39D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				BF7ECD071B26D8770005B39D /* sample-content.app */,
-				BF7ECD201B26D8770005B39D /* sample-contentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -229,6 +209,7 @@
 				BF7ECD041B26D8770005B39D /* Frameworks */,
 				BF7ECD051B26D8770005B39D /* Resources */,
 				8C16FF6406860F5C541D7F9E /* Copy Pods Resources */,
+				9711057DA5E195E961E1022B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -238,24 +219,6 @@
 			productName = "sample-content";
 			productReference = BF7ECD071B26D8770005B39D /* sample-content.app */;
 			productType = "com.apple.product-type.application";
-		};
-		BF7ECD1F1B26D8770005B39D /* sample-contentTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BF7ECD2D1B26D8770005B39D /* Build configuration list for PBXNativeTarget "sample-contentTests" */;
-			buildPhases = (
-				BF7ECD1C1B26D8770005B39D /* Sources */,
-				BF7ECD1D1B26D8770005B39D /* Frameworks */,
-				BF7ECD1E1B26D8770005B39D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BF7ECD221B26D8770005B39D /* PBXTargetDependency */,
-			);
-			name = "sample-contentTests";
-			productName = "sample-contentTests";
-			productReference = BF7ECD201B26D8770005B39D /* sample-contentTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -268,10 +231,11 @@
 				TargetAttributes = {
 					BF7ECD061B26D8770005B39D = {
 						CreatedOnToolsVersion = 6.3.2;
-					};
-					BF7ECD1F1B26D8770005B39D = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = BF7ECD061B26D8770005B39D;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -289,7 +253,6 @@
 			projectRoot = "";
 			targets = (
 				BF7ECD061B26D8770005B39D /* sample-content */,
-				BF7ECD1F1B26D8770005B39D /* sample-contentTests */,
 			);
 		};
 /* End PBXProject section */
@@ -302,13 +265,6 @@
 				BF7ECD161B26D8770005B39D /* Main.storyboard in Resources */,
 				BF7ECD1B1B26D8770005B39D /* LaunchScreen.xib in Resources */,
 				BF7ECD181B26D8770005B39D /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BF7ECD1E1B26D8770005B39D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +301,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		9711057DA5E195E961E1022B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-content/Pods-sample-content-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -360,23 +331,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF7ECD1C1B26D8770005B39D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BF7ECD271B26D8770005B39D /* sample_contentTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		BF7ECD221B26D8770005B39D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BF7ECD061B26D8770005B39D /* sample-content */;
-			targetProxy = BF7ECD211B26D8770005B39D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BF7ECD141B26D8770005B39D /* Main.storyboard */ = {
@@ -437,6 +392,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "d63b78e4-79c9-4872-bbad-0cab86a7cdba";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -473,6 +429,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "69ad5063-7425-498a-b138-954105b48c04";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -490,7 +447,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "sample-content/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -498,7 +455,9 @@
 					"-lstdc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.samplecontent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d63b78e4-79c9-4872-bbad-0cab86a7cdba";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -515,7 +474,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "sample-content/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -523,42 +482,10 @@
 					"-lstdc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.samplecontent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "69ad5063-7425-498a-b138-954105b48c04";
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		BF7ECD2E1B26D8770005B39D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "sample-contentTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sample-content.app/sample-content";
-			};
-			name = Debug;
-		};
-		BF7ECD2F1B26D8770005B39D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "sample-contentTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sample-content.app/sample-content";
 			};
 			name = Release;
 		};
@@ -579,15 +506,6 @@
 			buildConfigurations = (
 				BF7ECD2B1B26D8770005B39D /* Debug */,
 				BF7ECD2C1B26D8770005B39D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BF7ECD2D1B26D8770005B39D /* Build configuration list for PBXNativeTarget "sample-contentTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BF7ECD2E1B26D8770005B39D /* Debug */,
-				BF7ECD2F1B26D8770005B39D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

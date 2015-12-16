@@ -340,6 +340,54 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     }
 }
 
+- (void)deleteMessage:(QBChatMessage *)message {
+    [self deleteMessages:@[message]];
+}
+
+- (void)deleteMessages:(NSArray *)messages {
+    NSAssert([NSThread isMainThread], @"You are trying to delete messages in background thread!");
+    
+    NSMutableArray *itemsToDelete    = [NSMutableArray array];
+    NSMutableArray *sectionsToDelete = [NSMutableArray array];
+    
+    for (QBChatMessage *message in messages) {
+        NSIndexPath *indexPath = [self indexPathForMessage:message];
+        if (indexPath == nil) continue;
+        
+        [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:message.ID];
+        
+        QMChatSection *chatSection = self.chatSections[indexPath.section];
+        [chatSection.messages removeObjectAtIndex:indexPath.item];
+        
+        if ([chatSection.messages count] == 0) {
+            [sectionsToDelete addObject:@(indexPath.section)];
+            [self.chatSections removeObjectAtIndex:indexPath.section];
+            
+            // no need to remove elements whose section will be removed
+            NSArray *items = [itemsToDelete copy];
+            for (NSIndexPath *index in items) {
+                if (index.section == indexPath.section) {
+                    [itemsToDelete removeObject:index];
+                }
+            }
+        } else {
+            [itemsToDelete addObject:indexPath];
+        }
+    }
+    
+    if ([sectionsToDelete count] > 0) {
+        NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+        for (NSNumber *number in sectionsToDelete) {
+            [indexSet addIndex:[number integerValue]];
+        }
+        
+        [self.collectionView deleteSections:indexSet];
+    }
+    if ([itemsToDelete count] > 0) {
+        [self.collectionView deleteItemsAtIndexPaths:itemsToDelete];
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
@@ -514,9 +562,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
     
-    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
-    [self.collectionView reloadData];
-    
     if (self.automaticallyScrollsToMostRecentMessage) {
         [self scrollToBottomAnimated:animated];
     }
@@ -528,9 +573,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (void)finishReceivingMessageAnimated:(BOOL)animated {
-    
-    [self.collectionView.collectionViewLayout invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
-    [self.collectionView reloadData];
     
     if (self.automaticallyScrollsToMostRecentMessage && ![self isMenuVisible]) {
         [self scrollToBottomAnimated:animated];

@@ -171,13 +171,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func loadMessages() {
         // Retrieving messages for chat dialog ID.
         ServicesManager.instance().chatService.messagesWithChatDialogID(self.dialog?.ID, completion: {
-            [unowned self] (response: QBResponse!, messages: [AnyObject]!) -> Void in
+            [weak self] (response: QBResponse!, messages: [AnyObject]!) -> Void in
             
+            if self == nil { return; }
             if response.error == nil {
                 if (messages.count > 0) {
-                    self.insertMessagesToTheBottomAnimated(messages as! [QBChatMessage]!)
+                    self!.insertMessagesToTheBottomAnimated(messages as! [QBChatMessage]!)
                 }
-                if (!self.isSendingAttachment) {
+                if (!self!.isSendingAttachment) {
                     SVProgressHUD.dismiss()
                 }
                 
@@ -191,11 +192,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func updateMessages() {
         
         // Retrieving messages
-        if (self.storedMessages()?.count > 0) {
+        if (self.storedMessages()?.count > 0 && self.totalMessagesCount == 0) {
             self.insertMessagesToTheBottomAnimated(self.storedMessages()!)
             self.loadMessages()
         } else {
-            SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
+            if self.totalMessagesCount == 0 { SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear) }
             
             ServicesManager.instance().cachedMessagesWithDialogID(self.dialog?.ID, block: {
                 [unowned self] (collection: [AnyObject]!) -> Void in
@@ -448,7 +449,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
-        let attributedString = NSAttributedString(string: messageItem.text!, attributes: attributes)
+        let attributedString = NSAttributedString(string: messageItem.encodedText!, attributes: attributes)
         
         return attributedString
     }
@@ -536,14 +537,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
         var layoutModel : QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
         
-        if self.dialog?.type == QBChatDialogType.Private {
-            layoutModel.topLabelHeight = 0.0
-        }
-        
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
         layoutModel.spaceBetweenTextViewAndBottomLabel = 5;
         
         if let item : QBChatMessage = self.messageForIndexPath(indexPath) {
+            
+            if self.dialog?.type == QBChatDialogType.Private {
+                layoutModel.topLabelHeight = 0.0
+            } else {
+                let topAttributedString = self.topLabelAttributedStringForItem(item)
+                let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:1)
+                layoutModel.topLabelHeight = size.height
+            }
+            
             let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
             
             if viewClass === QMChatOutgoingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
@@ -775,7 +781,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
         self.loadMessages()
         
-        self.readMessages(self.unreadMessages!)
+        if let messagesToRead = self.unreadMessages {
+            self.readMessages(messagesToRead)
+        }
         self.unreadMessages = nil
     }
     

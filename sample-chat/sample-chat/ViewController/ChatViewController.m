@@ -166,12 +166,12 @@ UIActionSheetDelegate
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
     // Retrieving messages
-    if ([[self storedMessages] count] > 0) {
+    if ([[self storedMessages] count] > 0 && self.totalMessagesCount == 0) {
         
         [self insertMessagesToTheBottomAnimated:[self storedMessages]];
         [self refreshMessagesShowingProgress:NO];
     } else {
-        [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
+        if (self.totalMessagesCount == 0) [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
         
         __weak __typeof(self)weakSelf = self;
         [[ServicesManager instance] cachedMessagesWithDialogID:self.dialog.ID block:^(NSArray *collection) {
@@ -352,7 +352,7 @@ UIActionSheetDelegate
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.text : @"" attributes:attributes];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.encodedText : @"" attributes:attributes];
     
     return attrStr;
 }
@@ -477,13 +477,13 @@ UIActionSheetDelegate
     QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
     
     layoutModel.avatarSize = (CGSize){0.0, 0.0};
+    layoutModel.topLabelHeight = 0.0f;
     
     QBChatMessage *item = [self messageForIndexPath:indexPath];
     Class class = [self viewClassForItem:item];
     
     if (class == [QMChatOutgoingCell class] ||
         class == [QMChatAttachmentOutgoingCell class]) {
-        layoutModel.topLabelHeight = 0.0;
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
                                                        withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
@@ -492,7 +492,16 @@ UIActionSheetDelegate
         layoutModel.bottomLabelHeight = ceilf(size.height);
     } else if (class == [QMChatAttachmentIncomingCell class] ||
                class == [QMChatIncomingCell class]) {
-        layoutModel.topLabelHeight = 20.0f;        
+        
+        if (self.dialog.type != QBChatDialogTypePrivate) {
+            
+            NSAttributedString *topLabelString = [self topLabelAttributedStringForItem:item];
+            CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:topLabelString
+                                                           withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                                    limitedToNumberOfLines:1];
+            layoutModel.topLabelHeight = size.height;
+        }
+
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
     

@@ -9,17 +9,28 @@
 #import "AppDelegate.h"
 #import <QuickBlox/QuickBlox.h>
 
-const NSUInteger kApplicationID = 92;
-NSString *const kAuthKey        = @"wJHdOcQSxXQGWx5";
-NSString *const kAuthSecret     = @"BTFsj7Rtt27DAmT";
+const NSUInteger kApplicationID = 32186;
+NSString *const kAuthKey        = @"hZW5jgFxzOS2aCC";
+NSString *const kAuthSecret     = @"HOvhKhWNeGgV8cF";
 NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
+
+typedef void (^CompletionHandlerType)();
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) NSMutableDictionary* completionHandlers;
+@property (nonatomic, strong) id observer;
 @end
 
 @implementation AppDelegate
 
+- (NSMutableDictionary *)completionHandlers
+{
+    if (_completionHandlers == nil) {
+        _completionHandlers = [NSMutableDictionary dictionary];
+    }
+    return _completionHandlers;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
@@ -30,29 +41,107 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
     [QBSettings setAuthSecret:kAuthSecret];
     [QBSettings setAccountKey:kAcconuntKey];
     
+    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (void)subscribeForPushNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    
+    QBMSubscription *subscription = [QBMSubscription subscription];
+    subscription.notificationChannel = QBMNotificationChannelAPNS;
+    subscription.deviceUDID = deviceIdentifier;
+    subscription.deviceToken = deviceToken;
+
+    [QBRequest createSubscription:subscription successBlock:^(QBResponse *response, NSArray *objects) {
+        NSLog(@"Subscribed successfully!");
+    } errorBlock:^(QBResponse *response) {
+        NSLog(@"Create subscription error: %@", response.error);
+    }];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    if ([QBSession currentSession].currentUser == nil) {
+        [QBRequest logInWithUserLogin:@"sample_content" password:@"sample_content"
+                         successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nullable user) {
+            [self subscribeForPushNotificationsWithDeviceToken:deviceToken];
+        } errorBlock:^(QBResponse * _Nonnull response) {
+            NSLog(@"Login error: %@", response.error);
+        }];
+    } else {
+        [self subscribeForPushNotificationsWithDeviceToken:deviceToken];
+    }
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+#pragma mark - Background Session Download support
+
+// Refer to this guide https://www.objc.io/issues/5-ios7/multitasking/#nsurlsessiondownloadtask
+
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
+{
+    // You must re-establish a reference to the background session,
+    // or NSURLSessionDownloadDelegate and NSURLSessionDelegate methods will not be called
+    // as no delegate is attached to the session.
+    [QBConnection restoreBackgroundSession];
+    
+    // Store the completion handler to update your UI after processing session events
+    [self addCompletionHandler:completionHandler forSession:identifier];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+// This sample handles Push Notifications with content from admin panel
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    // Must be setBlock that is fired when download finished.
+    [QBConnection setDownloadTaskDidFinishDownloadingBlock:^NSURL * _Nullable(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, NSURL * _Nonnull location) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString* fileName = downloadTask.originalRequest.URL.lastPathComponent;
+        NSURL* url = [NSURL fileURLWithPath:[[paths firstObject] stringByAppendingPathComponent:fileName]];
+
+        return url;
+    }];
+    
+    // Block that is fired when all background events are finished,
+    [QBConnection setURLSessionDidFinishBackgroundEventsBlock:^(NSURLSession * _Nullable session) {
+        if (session.configuration.identifier) {
+            [self callCompletionHandlerForSession:session.configuration.identifier];
+        }
+    }];
+    
+    // Request that uses background session to upload task.
+    [QBRequest backgroundDownloadFileWithID:[userInfo[@"rich_content"] integerValue] successBlock:^(QBResponse * _Nonnull response, NSData * _Nonnull fileData) {
+        NSLog(@"Download succeded!");
+    } statusBlock:^(QBRequest * _Nonnull request, QBRequestStatus * _Nullable status) {
+        NSLog(@"Progress: %f", status.percentOfCompletion);
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        NSLog(@"Download error: %@", response.error);
+    }];
+    
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+- (void)addCompletionHandler:(CompletionHandlerType)handler forSession:(NSString *)identifier
+{
+    if ([self.completionHandlers objectForKey:identifier]) {
+        NSLog(@"Error: Got multiple handlers for a single session identifier. This should not happen.\n");
+    }
+    
+    [self.completionHandlers setObject:handler forKey:identifier];
+}
+
+- (void)callCompletionHandlerForSession: (NSString *)identifier
+{
+    CompletionHandlerType handler = [self.completionHandlers objectForKey: identifier];
+    
+    if (handler) {
+        [self.completionHandlers removeObjectForKey:identifier];
+        NSLog(@"Calling completion handler for session %@", identifier);
+        
+        handler();
+    }
 }
 
 @end
