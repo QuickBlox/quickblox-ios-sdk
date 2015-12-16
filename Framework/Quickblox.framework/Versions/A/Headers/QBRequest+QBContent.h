@@ -205,7 +205,7 @@
 /**
  Download file using background NSURLSession.
  
- @discussion If download is triggered by 'content-available' push blocks will not be fired.
+ @discussion If download is triggered by 'content-available' push - blocks will not be fired.
  
  @param UID File unique identifier, value of UID property of the QBCBlob instance.
  @param successBlock Block with response if request succeded
@@ -236,7 +236,7 @@
 /**
  Download File by file identifier using background NSURLSession.
  
- @discussion If download is triggered by 'content-available' push blocks will not be fired.
+ @discussion If download is triggered by 'content-available' push - blocks will not be fired.
  
  @param fileID File identifier.
  @param successBlock Block with response and fileData if request succeded
