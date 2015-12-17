@@ -710,17 +710,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 self.detailedCells.insert(currentMessage.ID!)
             }
             
-            self.collectionView?.performBatchUpdates({
-                [weak self] () -> Void in
-                //
-                if (self != nil) {
-                    self!.collectionView?.collectionViewLayout.removeSizeFromCacheForItemID(currentMessage.ID)
-                    let context = QMCollectionViewFlowLayoutInvalidationContext()
-                    context.invalidateFlowLayoutDelegateMetrics = true;
-                    context.invalidateFlowLayoutAttributes = true;
-                    self!.collectionView?.collectionViewLayout.invalidateLayoutWithContext(context)
-                }
-                }, completion: nil)
+            self.collectionView?.collectionViewLayout.removeSizeFromCacheForItemID(currentMessage.ID)
+            self.collectionView?.performBatchUpdates(nil, completion: nil)
         }
     }
     
