@@ -37,26 +37,6 @@
 @property (assign, nonatomic) NSUInteger cacheLimit;
 
 /**
- *  Specifies whether or not the layout should enable spring behavior dynamics for its items using `UIDynamics`.
- *
- *  @discussion The default value is `NO`, which disables "springy" or "bouncy" items in the layout.
- *  Set to `YES` if you want items to have spring behavior dynamics. You *must* set this property from `viewDidAppear:`
- *  in your `QMChatViewController` subclass.
- *
- *  @warning Though this feature is mostly stable, it is still considered an experimental feature.
- */
-@property (assign, nonatomic) BOOL springinessEnabled;
-
-/**
- *  Specifies the degree of resistence for the "springiness" of items in the layout.
- *  This property has no effect if `springinessEnabled` is set to `NO`.
- *
- *  @discussion The default value is `1000`. Increasing this value increases the resistance, that is, items become less "bouncy".
- *  Decrease this value in order to make items more "bouncy".
- */
-@property (assign, nonatomic) NSUInteger springResistanceFactor;
-
-/**
  *  Returns the width of items in the layout.
  */
 @property (readonly, nonatomic) CGFloat itemWidth;

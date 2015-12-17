@@ -72,7 +72,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
         QBChatAttachment *attachment = [QBChatAttachment new];
         attachment.type = @"image";
         attachment.ID = [@(blob.ID) stringValue];
-        attachment.url = [blob publicUrl];
+        attachment.url = [blob privateUrl];
         
         message.attachments = @[attachment];
         message.text = @"Attachment image";

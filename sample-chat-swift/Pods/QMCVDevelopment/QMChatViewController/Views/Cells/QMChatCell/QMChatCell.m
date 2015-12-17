@@ -134,6 +134,8 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     
     [self updateConstraint:self.topLabelTextViewVerticalSpaceConstraint withConstant:customAttributes.spaceBetweenTopLabelAndTextView];
     [self updateConstraint:self.textViewBottomLableVerticalSpaceConstraint withConstant:customAttributes.spaceBetweenTextViewAndBottomLabel];
+    
+    [self layoutIfNeeded];
 }
 
 - (void)updateConstraint:(NSLayoutConstraint *)constraint withConstant:(CGFloat)constant {

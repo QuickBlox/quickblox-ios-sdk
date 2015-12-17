@@ -33,16 +33,9 @@ An elegant ready-to-go chat view controller for iOS chat applications that use Q
 * Install dependencies.
 
 # Dependencies
-- TTTAttributedLabel. If you are using pods, add this to your Podfile:
-
-  *pod 'TTTAttributedLabel', :git => 'https://github.com/TTTAttributedLabel/TTTAttributedLabel.git'*
-
-- SDWebImage. If you are using pods, add this to your Podfile:
-
-  *pod 'SDWebImage', '~> 3.6'*
-- Quickblox iOS SDK v2.0+. If you are using pods, add this to your Podfile:
-
-  *pod 'QuickBlox'*
+- [TTTAttributedLabel](https://github.com/TTTAttributedLabel/TTTAttributedLabel)
+- [SDWebImage](https://github.com/rs/SDWebImage) 
+- [Quickblox iOS SDK v2.0+](https://github.com/QuickBlox/quickblox-ios-sdk/archive/master.zip)
 
 # Getting started
 Example is included in repository. Try it out to see how chat view controller works.

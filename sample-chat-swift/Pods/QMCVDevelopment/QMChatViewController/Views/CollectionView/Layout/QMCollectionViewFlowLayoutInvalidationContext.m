@@ -17,8 +17,6 @@
     self = [super init];
     if (self) {
         
-        self.invalidateFlowLayoutDelegateMetrics = NO;
-        self.invalidateFlowLayoutAttributes = NO;
         _invalidateFlowLayoutMessagesCache = NO;
     }
     return self;
@@ -26,13 +24,7 @@
 
 + (instancetype)context {
     
-    QMCollectionViewFlowLayoutInvalidationContext *context =
-    [[QMCollectionViewFlowLayoutInvalidationContext alloc] init];
-    
-    context.invalidateFlowLayoutDelegateMetrics = YES;
-    context.invalidateFlowLayoutAttributes = YES;
-    
-    return context;
+    return [[QMCollectionViewFlowLayoutInvalidationContext alloc] init];
 }
 
 #pragma mark - NSObject
