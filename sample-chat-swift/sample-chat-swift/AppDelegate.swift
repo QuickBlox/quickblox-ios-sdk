@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
             navigatonController.popViewControllerAnimated(false);
         }
         
-        navigatonController.pushViewController(chatController, animated: false)
+        navigatonController.pushViewController(chatController, animated: true)
     }
     
     func notificationServiceDidFailFetchingDialog() {

@@ -130,7 +130,7 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
         [navigationController popViewControllerAnimated:NO];
     }
     
-    [navigationController pushViewController:chatController animated:NO];
+    [navigationController pushViewController:chatController animated:YES];
 }
 
 @end
