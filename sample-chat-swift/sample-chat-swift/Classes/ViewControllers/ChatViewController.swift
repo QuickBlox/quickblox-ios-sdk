@@ -18,7 +18,7 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate {
     
     var dialog: QBChatDialog?
     var shouldFixViewControllersStack = false
@@ -26,6 +26,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     var didEnterBackgroundHandler : AnyObject?
     var attachmentCellsMap : [String : QMChatAttachmentCell] = [String : QMChatAttachmentCell]()
     var isSendingAttachment: Bool = false
+    var detailedCells: Set<String> = []
     
     var typingTimer : NSTimer?
     
@@ -518,18 +519,24 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
      override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        
-        var attributedString : NSAttributedString = NSAttributedString()
-        
+
+        var size = CGSizeZero
         if let item : QBChatMessage = self.messageForIndexPath(indexPath) {
-            if item.senderID == self.senderID {
-                attributedString = self.bottomLabelAttributedStringForItem(item) ?? self.topLabelAttributedStringForItem(item)
-            } else {
-                attributedString = self.topLabelAttributedStringForItem(item) ?? self.bottomLabelAttributedStringForItem(item)
+            
+            if self.detailedCells.contains(item.ID!) {
+                
+                size = TTTAttributedLabel.sizeThatFitsAttributedString(self.bottomLabelAttributedStringForItem(item), withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+            }
+            
+            if self.dialog?.type != QBChatDialogType.Private {
+                
+                let topLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(self.topLabelAttributedStringForItem(item), withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+                
+                if topLabelSize.width > size.width {
+                    size = topLabelSize
+                }
             }
         }
-
-        let size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
         
         return size.width
     }
@@ -538,28 +545,34 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         var layoutModel : QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
         
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
-        layoutModel.spaceBetweenTextViewAndBottomLabel = 5;
+        layoutModel.spaceBetweenTextViewAndBottomLabel = 5
+        layoutModel.topLabelHeight = 0.0
         
         if let item : QBChatMessage = self.messageForIndexPath(indexPath) {
-            
-            if self.dialog?.type == QBChatDialogType.Private {
-                layoutModel.topLabelHeight = 0.0
-            } else {
-                let topAttributedString = self.topLabelAttributedStringForItem(item)
-                let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:1)
-                layoutModel.topLabelHeight = size.height
-            }
-            
             let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
             
             if viewClass === QMChatOutgoingCell.self || viewClass === QMChatAttachmentOutgoingCell.self {
-                let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
-                let size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
-                layoutModel.bottomLabelHeight = ceil(size.height)
-            } else {
+                // Outgoing cells layout model
+
+            } else if viewClass == QMChatIncomingCell.self || viewClass == QMChatAttachmentIncomingCell.self {
                 
-                layoutModel.spaceBetweenTopLabelAndTextView = 5;
+                if self.dialog?.type != QBChatDialogType.Private {
+                    let topAttributedString = self.topLabelAttributedStringForItem(item)
+                    let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:1)
+                    layoutModel.topLabelHeight = size.height
+                }
+                
+                layoutModel.spaceBetweenTopLabelAndTextView = 5
             }
+            
+            var size = CGSizeZero
+            if self.detailedCells.contains(item.ID!) {
+                
+                let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
+                size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+            }
+            
+            layoutModel.bottomLabelHeight = ceil(size.height)
         }
 
         return layoutModel
@@ -568,6 +581,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     override func collectionView(collectionView: QMChatCollectionView!, configureCell cell: UICollectionViewCell!, forIndexPath indexPath: NSIndexPath!) {
         
         super.collectionView(collectionView, configureCell: cell, forIndexPath: indexPath)
+        
+        // subscribing to cell delegate
+        (cell as! QMChatCell).delegate = self
         
         if let attachmentCell = cell as? QMChatAttachmentCell {
             
@@ -679,6 +695,33 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if let message = self.messageForIndexPath(indexPath) {
             self.sendReadStatusForMessage(message)
         }
+    }
+    
+    // MARK: QMChatCellDelegate
+    
+    func chatCellDidTapContainer(cell: QMChatCell!) {
+        let indexPath = self.collectionView?.indexPathForCell(cell)
+        
+        if let currentMessage = self.messageForIndexPath(indexPath) {
+            
+            if self.detailedCells.contains(currentMessage.ID!) {
+                self.detailedCells.remove(currentMessage.ID!)
+            } else {
+                self.detailedCells.insert(currentMessage.ID!)
+            }
+            
+            self.collectionView?.collectionViewLayout.removeSizeFromCacheForItemID(currentMessage.ID)
+            self.collectionView?.performBatchUpdates(nil, completion: nil)
+        }
+    }
+    
+    func chatCell(cell: QMChatCell!, didPerformAction action: Selector, withSender sender: AnyObject!) {
+    }
+    
+    func chatCell(cell: QMChatCell!, didTapAtPosition position: CGPoint) {
+    }
+    
+    func chatCellDidTapAvatar(cell: QMChatCell!) {
     }
     
     // MARK: QMChatServiceDelegate
