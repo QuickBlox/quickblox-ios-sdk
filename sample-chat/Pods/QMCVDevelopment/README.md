@@ -10,6 +10,7 @@ An elegant ready-to-go chat view controller for iOS chat applications that use Q
 - Optimised and performant.
 - Supports portrait and landscape orientations.
 - Auto Layout inside.
+- Time header view with custom time intervals
 
 # Screenshots
 
@@ -203,6 +204,31 @@ Steps to add QMChatViewController to Your app:
 ## Attachemnts
 
 *QMChatViewController* supports image attachment cell messages. *QMChatAttachmentIncomingCell* is used for incoming attachments, *QMChatAttachmentOutgoingCell* is used for outgoing attachments. Both of them have progress label to display loading progress. XIB's are also included.
+
+## Time headers
+
+*QMChatViewController* supports time headers for messages. You can setup your own time interval between headers using QMChatCollectionViewDataSource method:
+
+````objective-c
+	- (NSTimeInterval)timeIntervalBetweenSections {
+	    return 300.0f;
+	}
+````
+
+You can also customize header height using this data source method:
+
+````objective-c
+	- (CGFloat)heightForSectionHeader {
+    	return 40.0f;
+	}
+````
+
+If you are not happy with default time header view, you can override this method and have your own one:
+
+````objective-c
+	- (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
+                    	sectionHeaderAtIndexPath:(NSIndexPath *)indexPath;
+````
 
 # Questions & Help
 - You could create an issue on GitHub if you are experiencing any problems. We will be happy to help you. 

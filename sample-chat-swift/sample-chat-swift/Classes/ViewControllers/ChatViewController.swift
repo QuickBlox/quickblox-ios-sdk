@@ -79,9 +79,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        ServicesManager.instance().chatService.addDelegate(self)
-        ServicesManager.instance().chatService.chatAttachmentService.delegate = self
-        
         self.updateMessages()
         
         self.didBecomeActiveHandler = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
@@ -97,6 +94,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if let storedMessagesCount = self.storedMessages()?.count {
+            
+            if self.totalMessagesCount != UInt(storedMessagesCount) {
+                self.insertMessagesToTheBottomAnimated(self.storedMessages()!)
+            }
+        }
+        
+        ServicesManager.instance().chatService.addDelegate(self)
+        ServicesManager.instance().chatService.chatAttachmentService.delegate = self
         
         if self.shouldFixViewControllersStack {
             
@@ -194,7 +201,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         // Retrieving messages
         if (self.storedMessages()?.count > 0 && self.totalMessagesCount == 0) {
-            self.insertMessagesToTheBottomAnimated(self.storedMessages()!)
+            self.updateDataSourceWithMessages(self.storedMessages()!)
             self.loadMessages()
         } else {
             if self.totalMessagesCount == 0 { SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear) }

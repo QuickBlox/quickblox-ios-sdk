@@ -179,16 +179,11 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     NSAssert([NSThread isMainThread], @"You are trying to insert messages in background thread!");
     NSParameterAssert(messages);
 
-    NSDictionary *sectionsAndItems = [self prepareSectionsForMessages:messages];
+    NSDictionary *sectionsAndItems = [self updateDataSourceWithMessages:messages];
     NSArray *sectionsToInsert = sectionsAndItems[kQMSectionsInsertKey];
     NSArray *itemsToInsert = sectionsAndItems[kQMItemsInsertKey];
     
-    NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];
-    if ([sectionsToInsert count] > 0) {
-        for (NSNumber *sectionIndex in sectionsToInsert) {
-            [sectionsIndexSet addIndex:[sectionIndex integerValue]];
-        }
-    }
+    NSIndexSet *sectionsIndexSet = [self indexSetForSectionsToInsert:sectionsToInsert];
 
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
@@ -212,7 +207,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     }];
 }
 
-- (NSDictionary *)prepareSectionsForMessages:(NSArray *)messages
+- (NSDictionary *)updateDataSourceWithMessages:(NSArray *)messages
 {
     NSMutableArray *sectionsToAdd = [NSMutableArray arrayWithArray:self.chatSections];
     
@@ -222,6 +217,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     if (self.chatSections == nil) {
         [sectionsToAdd addObject:[QMChatSection chatSectionWithMessage:[messages lastObject]]];
         [sectionsToInsert addObject:@(0)];
+        [indexPathToInsert addObject:[NSIndexPath indexPathForRow:0
+                                                        inSection:0]];
     }
     
     for (QBChatMessage *message in [messages reverseObjectEnumerator]) {
@@ -264,8 +261,20 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     NSAssert([messages count] > 0, @"Array must contain messages!");
     
     if (self.chatSections == nil) {
-        [self prepareSectionsForMessages:messages];
-        [self.collectionView reloadData];
+        NSDictionary *sectionsAndItems = [self updateDataSourceWithMessages:messages];
+        NSArray *sectionsToInsert = sectionsAndItems[kQMSectionsInsertKey];
+        NSArray *itemsToInsert = sectionsAndItems[kQMItemsInsertKey];
+        
+        NSIndexSet *sectionsIndexSet = [self indexSetForSectionsToInsert:sectionsToInsert];
+        
+        __weak __typeof(self)weakSelf = self;
+        [self.collectionView performBatchUpdates:^{
+            //
+            __typeof(weakSelf)strongSelf = weakSelf;
+            if ([sectionsIndexSet count] > 0) [strongSelf.collectionView insertSections:sectionsIndexSet];
+            [strongSelf.collectionView insertItemsAtIndexPaths:itemsToInsert];
+            
+        } completion:nil];
         return;
     }
     
@@ -297,15 +306,12 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
     }
     
-    NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];
-    for (NSNumber *sectionIndex in sectionsToInsert) {
-        [sectionsIndexSet addIndex:[sectionIndex integerValue]];
-    }
+    NSIndexSet *sectionsIndexSet = [self indexSetForSectionsToInsert:sectionsToInsert];
+    
     __weak __typeof(self)weakSelf = self;
     [self.collectionView performBatchUpdates:^{
         //
-        __typeof(weakSelf)strongSelf = self;
-        
+        __typeof(weakSelf)strongSelf = weakSelf;
         if ([sectionsIndexSet count] > 0) [strongSelf.collectionView insertSections:sectionsIndexSet];
         [strongSelf.collectionView insertItemsAtIndexPaths:indexPathToInsert];
     } completion:^(BOOL finished) {
@@ -1082,6 +1088,18 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 #pragma mark - Utilities
+
+- (NSIndexSet *)indexSetForSectionsToInsert:(NSArray *)sectionsToInsert {
+    
+    NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];
+    if ([sectionsToInsert count] > 0) {
+        for (NSNumber *sectionIndex in sectionsToInsert) {
+            [sectionsIndexSet addIndex:[sectionIndex integerValue]];
+        }
+    }
+    
+    return [sectionsIndexSet copy];
+}
 
 - (NSUInteger)totalMessagesCount {
     NSUInteger totalMessagesCount = 0;

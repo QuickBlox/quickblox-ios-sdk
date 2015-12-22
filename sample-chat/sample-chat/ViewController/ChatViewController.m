@@ -149,9 +149,6 @@ QMChatCellDelegate
 {
     [super viewWillAppear:animated];
     
-    [[ServicesManager instance].chatService addDelegate:self];
-    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
-    
 	__weak __typeof(self) weakSelf = self;
 	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
 		__typeof(self) strongSelf = weakSelf;
@@ -172,7 +169,7 @@ QMChatCellDelegate
     // Retrieving messages
     if ([[self storedMessages] count] > 0 && self.totalMessagesCount == 0) {
         
-        [self insertMessagesToTheBottomAnimated:[self storedMessages]];
+        [self updateDataSourceWithMessages:[self storedMessages]];
         [self refreshMessagesShowingProgress:NO];
     } else {
         if (self.totalMessagesCount == 0) [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
@@ -194,6 +191,13 @@ QMChatCellDelegate
 {
     [super viewDidAppear:animated];
 	
+    if (self.totalMessagesCount != [self storedMessages].count) {
+        [self insertMessagesToTheBottomAnimated:[self storedMessages]];
+    }
+
+    [[ServicesManager instance].chatService addDelegate:self];
+    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    
     if (self.shouldUpdateNavigationStack) {
         NSMutableArray *newNavigationStack = [NSMutableArray array];
         

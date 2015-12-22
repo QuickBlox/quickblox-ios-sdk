@@ -98,6 +98,17 @@
 @property (assign, nonatomic, readonly) NSUInteger totalMessagesCount;
 
 /**
+ *  Updating data source with messages without reloading of collection view.
+ *
+ *  @param messages QBChatMessage instances to update data source with
+ *
+ *  @return dictionary with section indexes and items index pathes to insert
+ *
+ *  @discussion Use this method to update data source without reloading collection view. For example in viewWillAppear method.
+ */
+- (NSDictionary *)updateDataSourceWithMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+
+/**
  *  Insert messages to the top.
  *
  *  @param messages array of messages to insert
