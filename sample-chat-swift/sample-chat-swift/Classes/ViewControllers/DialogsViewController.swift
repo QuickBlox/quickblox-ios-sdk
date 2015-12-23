@@ -185,7 +185,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
             })
         }
         else {
-            SVProgressHUD.showWithStatus("Loading...", maskType: SVProgressHUDMaskType.Clear)
+            SVProgressHUD.showWithStatus("SA_STR_LOADING_DIALOGS".localized, maskType: SVProgressHUDMaskType.Clear)
             ServicesManager.instance().chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest: nil, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
                 //
                 }, completion: { (response: QBResponse!) -> Void in

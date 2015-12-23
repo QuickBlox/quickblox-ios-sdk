@@ -28,8 +28,9 @@
 "SA_STR_CONNECTED" = "Connected";
 "SA_STR_DISCONNECTED" = "Disconnected";
 "SA_STR_RECONNECTED" = "Reconnected";
-"SA_STR_LOGGIN_IN_AS" = "Loggin in as ";
-"SA_STR_LOADING_DIALOG" = "Loading dialog...";
+"SA_STR_LOGGING_IN_AS" = "Logging in REST as ";
+"SA_STR_LOADING_DIALOG" = "Loading dialog";
+"SA_STR_LOADING_DIALOGS" = "Loading dialogs";
 
 
 "SA_STR_CANT_SEND_A_MESSAGE" = "Can't send a message";
@@ -37,8 +38,8 @@
 "SA_STR_CANT_DOWNLOAD_DIALOGS" = "Can't download dialogs";
 "SA_STR_YOU_ARE_IN_THE_BLACKLIST" = "You are in the blacklist";
 "SA_STR_FORBIDDEN" = "forbidden";
-"SA_STR_LOADING_MESSAGES" = "Loading messages...";
-"SA_STR_UPLOADING_ATTACHMENT" = "Uploading attachment...";
+"SA_STR_LOADING_MESSAGES" = "Loading messages";
+"SA_STR_UPLOADING_ATTACHMENT" = "Uploading attachment";
 "SA_STR_ENTER_CHAT_NAME" = "Enter chat name";
 "STR_DIALOG_CREATED" = "Dialog created";
 
