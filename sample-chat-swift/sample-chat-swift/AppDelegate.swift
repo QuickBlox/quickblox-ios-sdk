@@ -78,28 +78,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
             }
         }
     }
-	
-	func applicationWillResignActive(application: UIApplication) {
-	}
-	
-	func applicationDidEnterBackground(application: UIApplication) {
+    
+    func applicationWillResignActive(application: UIApplication) {
+    }
+    
+    func applicationDidEnterBackground(application: UIApplication) {
         // Logging out from chat.
         ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
-	}
-	
-	func applicationWillEnterForeground(application: UIApplication) {
+    }
+    
+    func applicationWillEnterForeground(application: UIApplication) {
         // Logging in to chat.
         ServicesManager.instance().chatService.connectWithCompletionBlock(nil)
-	}
-	
-	func applicationDidBecomeActive(application: UIApplication) {
-
-	}
-	
-	func applicationWillTerminate(application: UIApplication) {
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+    }
+    
+    func applicationWillTerminate(application: UIApplication) {
         // Logging out from chat.
-		ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
-	}
+        ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
+    }
 	
     // MARK: NotificationServiceDelegate protocol
     
