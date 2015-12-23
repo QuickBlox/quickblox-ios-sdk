@@ -43,5 +43,4 @@ class UserTableViewCell: UITableViewCell {
         
         self.colorMarker.backgroundColor = markerColor
     }
-
 }

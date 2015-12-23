@@ -192,11 +192,11 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                     //
                     if (ServicesManager.instance().isAuthorized()) {
                         if (response.success) {
-                            SVProgressHUD.showSuccessWithStatus("Completed")
+                            SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
                             ServicesManager.instance().lastActivityDate = NSDate()
                         }
                         else {
-                            SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
+                            SVProgressHUD.showErrorWithStatus("SA_STR_FAILED_LOAD_DIALOGS".localized)
                         }
                     }
             })
