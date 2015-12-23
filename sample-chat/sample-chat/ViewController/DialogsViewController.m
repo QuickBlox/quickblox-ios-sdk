@@ -96,7 +96,7 @@ QMChatConnectionDelegate
         }];
     }
     else {
-        [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:@"Loading dialogs" maskType:SVProgressHUDMaskTypeClear];
         [[ServicesManager instance].chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             __typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf.tableView reloadData];

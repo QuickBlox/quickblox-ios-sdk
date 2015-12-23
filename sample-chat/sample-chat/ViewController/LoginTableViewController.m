@@ -33,7 +33,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     if (ServicesManager.instance.currentUser != nil) {
         // loggin in with previous user
         ServicesManager.instance.currentUser.password = kTestUsersDefaultPassword;
-        [SVProgressHUD showWithStatus:[@"Logging in as " stringByAppendingString:ServicesManager.instance.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:[@"Logging in REST as " stringByAppendingString:ServicesManager.instance.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
         
         __weak __typeof(self)weakSelf = self;
         [ServicesManager.instance logInWithUser:ServicesManager.instance.currentUser completion:^(BOOL success, NSString *errorMessage) {
@@ -106,7 +106,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 #pragma mark - NotificationServiceDelegate protocol
 
 - (void)notificationServiceDidStartLoadingDialogFromServer {
-    [SVProgressHUD showWithStatus:@"Loading dialog..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:@"Loading dialog" maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)notificationServiceDidFinishLoadingDialogFromServer {
@@ -146,10 +146,11 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[SVProgressHUD showWithStatus:@"Logging in..." maskType:SVProgressHUDMaskTypeClear];
 	
 	QBUUser *selectedUser = self.dataSource.users[indexPath.row];
 	selectedUser.password = kTestUsersDefaultPassword;
+	
+	[SVProgressHUD showWithStatus:[@"Logging in REST as " stringByAppendingString:selectedUser.login] maskType:SVProgressHUDMaskTypeClear];
 	
 	__weak __typeof(self)weakSelf = self;
     // Logging in to Quickblox REST API and chat.
