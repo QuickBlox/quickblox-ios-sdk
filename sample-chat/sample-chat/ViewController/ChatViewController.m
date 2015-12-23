@@ -191,7 +191,7 @@ QMChatCellDelegate
 {
     [super viewDidAppear:animated];
 	
-    if (self.totalMessagesCount != [self storedMessages].count) {
+    if ([self storedMessages].count > 0 && self.totalMessagesCount != [self storedMessages].count) {
         [self insertMessagesToTheBottomAnimated:[self storedMessages]];
     }
 

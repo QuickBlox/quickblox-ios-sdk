@@ -70,32 +70,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
                     return
                 }
                 ServicesManager.instance().notificationService?.pushDialogID = dialogID
-                ServicesManager.instance().notificationService?.handlePushNotificationWithDelegate(self)
+                
+                // calling dispatch async for push notification handling to have priority in main queue
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    ServicesManager.instance().notificationService?.handlePushNotificationWithDelegate(self)
+                });
             }
         }
     }
-	
-	func applicationWillResignActive(application: UIApplication) {
-	}
-	
-	func applicationDidEnterBackground(application: UIApplication) {
+    
+    func applicationWillResignActive(application: UIApplication) {
+    }
+    
+    func applicationDidEnterBackground(application: UIApplication) {
         // Logging out from chat.
         ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
-	}
-	
-	func applicationWillEnterForeground(application: UIApplication) {
+    }
+    
+    func applicationWillEnterForeground(application: UIApplication) {
         // Logging in to chat.
         ServicesManager.instance().chatService.connectWithCompletionBlock(nil)
-	}
-	
-	func applicationDidBecomeActive(application: UIApplication) {
-
-	}
-	
-	func applicationWillTerminate(application: UIApplication) {
+    }
+    
+    func applicationDidBecomeActive(application: UIApplication) {
+    }
+    
+    func applicationWillTerminate(application: UIApplication) {
         // Logging out from chat.
-		ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
-	}
+        ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
+    }
 	
     // MARK: NotificationServiceDelegate protocol
     

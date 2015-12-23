@@ -76,7 +76,11 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
             if ([dialogWithIDWasEntered isEqualToString:dialogID]) return;
             
             ServicesManager.instance.notificationService.pushDialogID = dialogID;
-            [ServicesManager.instance.notificationService handlePushNotificationWithDelegate:self];
+            
+            // calling dispatch async for push notification handling to have priority in main queue
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [ServicesManager.instance.notificationService handlePushNotificationWithDelegate:self];
+            });
         }
     }
 }
