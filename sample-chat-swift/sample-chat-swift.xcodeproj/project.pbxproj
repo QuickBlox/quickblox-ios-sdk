@@ -12,7 +12,6 @@
 		1437A7991AC9948600A39692 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1437A7981AC9948600A39692 /* Images.xcassets */; };
 		146DE9791ACAA42600F203A5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 146DE9781ACAA42600F203A5 /* libz.dylib */; };
 		147DA9D91AEA730C0001F691 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 147DA9D81AEA730C0001F691 /* Localizable.strings */; };
-		147E76FA1AE117E10067340A /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 147E76F91AE117E10067340A /* UIAlertDialog.m */; };
 		1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493F7991AEA525F00FA51A4 /* String+Localized.swift */; };
 		14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */; };
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
@@ -48,8 +47,6 @@
 		146DE9781ACAA42600F203A5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		147DA9D81AEA730C0001F691 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		147DA9DA1AEA73160001F691 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		147E76F81AE117D90067340A /* UIAlertDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAlertDialog.h; sourceTree = "<group>"; };
-		147E76F91AE117E10067340A /* UIAlertDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertDialog.m; sourceTree = "<group>"; };
 		1493F7991AEA525F00FA51A4 /* String+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		14A4DCC41AC9A5210046D45C /* quickblox-bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quickblox-bridging-Header.h"; sourceTree = "<group>"; };
 		14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -157,15 +154,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		147E76F71AE117C10067340A /* UIAlertDialog */ = {
-			isa = PBXGroup;
-			children = (
-				147E76F81AE117D90067340A /* UIAlertDialog.h */,
-				147E76F91AE117E10067340A /* UIAlertDialog.m */,
-			);
-			name = UIAlertDialog;
-			sourceTree = "<group>";
-		};
 		5B6D920FF484FAD0667CB524 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -192,14 +180,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		6844012ADBD3DC9B139E2CC1 /* objCClasses */ = {
-			isa = PBXGroup;
-			children = (
-				147E76F71AE117C10067340A /* UIAlertDialog */,
-			);
-			path = objCClasses;
-			sourceTree = "<group>";
-		};
 		684406F7477B1DC33312AC5E /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				864DDA2B1B5FEF3900D4A22F /* Constants.swift */,
-				6844012ADBD3DC9B139E2CC1 /* objCClasses */,
 				684409C0C00FA779DF442551 /* Extensions */,
 				68440F80943F897FCE549345 /* ViewControllers */,
 				6844005FE5EDBE47EFDB2426 /* Views */,
@@ -364,7 +343,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				147E76FA1AE117E10067340A /* UIAlertDialog.m in Sources */,
 				1437A7921AC9948600A39692 /* AppDelegate.swift in Sources */,
 				2CEF78981B4581E20094E6BA /* UIImage+fixOrientation.m in Sources */,
 				1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */,
@@ -496,11 +474,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
-					"/Users/injoit/Development/iOS/quickblox-ios-sdk/Framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SDKROOT)/usr/include/libxml2",
 					"\"$(PROJECT_DIR)\"/../Framework/**",
 					"$(SRCROOT)/../services/**",
@@ -530,11 +507,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
-					"/Users/injoit/Development/iOS/quickblox-ios-sdk/Framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SDKROOT)/usr/include/libxml2",
 					"\"$(PROJECT_DIR)\"/../Framework/**",
 					"$(SRCROOT)/../services/**",
@@ -603,11 +579,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Framework\"",
-					"/Users/injoit/Development/iOS/quickblox-ios-sdk/Framework",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SDKROOT)/usr/include/libxml2",
 					"\"$(PROJECT_DIR)\"/../Framework/**",
 					"$(SRCROOT)/../services/**",

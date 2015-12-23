@@ -15,5 +15,3 @@ profile
 *.moved-aside
 DerivedData
 .idea/
-sample-chat/Pods
-sample-chat-swift/Pods

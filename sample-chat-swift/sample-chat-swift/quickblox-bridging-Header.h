@@ -18,7 +18,6 @@
 
 #import <QMServices.h>
 #import <SVProgressHUD.h>
-#import "UIAlertDialog.h"
 
 #import "QMChatViewController.h"
 #import "QMChatContactRequestCell.h"
