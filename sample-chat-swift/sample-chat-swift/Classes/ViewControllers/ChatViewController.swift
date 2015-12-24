@@ -347,7 +347,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     }
                 }
                 
-                statusString += message.isMediaMessage() ? "SA_STR_SEEN_BY_NAMES_STATUS".localized : "SA_STR_READ_BY_NAMES_STATUS".localized + readersLogin.joinWithSeparator(", ")
+                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readersLogin.joinWithSeparator(", ")
             }
         }
         
@@ -378,7 +378,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
                 
                 if deliveredLogin.count > 0 {
-                    statusString += "SA_STR_DELIVERED_TO_NAMES_STATUS".localized + deliveredLogin.joinWithSeparator(", ")
+                    statusString += "SA_STR_DELIVERED_STATUS".localized + ": " + deliveredLogin.joinWithSeparator(", ")
                 }
             }
         }

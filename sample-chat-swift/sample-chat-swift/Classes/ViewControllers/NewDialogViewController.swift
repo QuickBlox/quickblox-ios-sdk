@@ -186,7 +186,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     }
     
     static func updatedMessageWithUsers(users: [QBUUser]) -> String {
-        var message: String = "\(QBSession.currentSession().currentUser!.login!) added "
+        var message: String = "\(QBSession.currentSession().currentUser!.login!) " + "SA_STR_ADD".localized + " "
         for user: QBUUser in users {
             message = "\(message)\(user.login!),"
         }
