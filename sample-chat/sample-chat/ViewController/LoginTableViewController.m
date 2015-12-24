@@ -33,14 +33,14 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     if (ServicesManager.instance.currentUser != nil) {
         // loggin in with previous user
         ServicesManager.instance.currentUser.password = kTestUsersDefaultPassword;
-        [SVProgressHUD showWithStatus:[@"Logging in REST as " stringByAppendingString:ServicesManager.instance.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:ServicesManager.instance.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
         
         __weak __typeof(self)weakSelf = self;
         [ServicesManager.instance logInWithUser:ServicesManager.instance.currentUser completion:^(BOOL success, NSString *errorMessage) {
             if (success) {
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
-                [SVProgressHUD showSuccessWithStatus:@"Logged in"];
+                [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_LOGGED_IN", nil)];
                 
                 if (ServicesManager.instance.notificationService.pushDialogID == nil) {
                     [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
@@ -50,7 +50,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
                 }
                 
             } else {
-                [SVProgressHUD showErrorWithStatus:@"Can not login"];
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
             }
         }];
     }
@@ -82,15 +82,15 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	self.usersAreDownloading = YES;
 	
 	__weak __typeof(self)weakSelf = self;
-    [SVProgressHUD showWithStatus:@"Loading users" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_USERS", nil) maskType:SVProgressHUDMaskTypeClear];
 	
     // Downloading latest users.
 	[[ServicesManager instance] downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
-        [SVProgressHUD showSuccessWithStatus:@"Completed"];
+        [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
 	} errorBlock:^(NSError *error) {
-		[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Can not download users: %@", error.localizedRecoverySuggestion]];
+		[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"SA_STR_CANT_DOWNLOAD_USERS", nil), error.localizedRecoverySuggestion]];
 		weakSelf.usersAreDownloading = NO;
 	}];
 }
@@ -106,7 +106,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 #pragma mark - NotificationServiceDelegate protocol
 
 - (void)notificationServiceDidStartLoadingDialogFromServer {
-    [SVProgressHUD showWithStatus:@"Loading dialog" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_DIALOG", nil) maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)notificationServiceDidFinishLoadingDialogFromServer {
@@ -150,18 +150,18 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	QBUUser *selectedUser = self.dataSource.users[indexPath.row];
 	selectedUser.password = kTestUsersDefaultPassword;
 	
-	[SVProgressHUD showWithStatus:[@"Logging in REST as " stringByAppendingString:selectedUser.login] maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:selectedUser.login] maskType:SVProgressHUDMaskTypeClear];
 	
 	__weak __typeof(self)weakSelf = self;
     // Logging in to Quickblox REST API and chat.
     [ServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
-            [SVProgressHUD showSuccessWithStatus:@"Logged in"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_LOGGED_IN", nil)];
             [weakSelf registerForRemoteNotifications];
             __typeof(self) strongSelf = weakSelf;
             [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"Can not login"];
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
         }
     }];
 	

@@ -35,9 +35,9 @@
         
         if (readLogins.count > 0) {
             if (message.attachments.count > 0) {
-                [statusString appendFormat:@"Seen: %@", [readLogins componentsJoinedByString:@", "]];
+                [statusString appendFormat:@"%@: %@", NSLocalizedString(@"SA_STR_SEEN_STATUS", nil), [readLogins componentsJoinedByString:@", "]];
             } else {
-                [statusString appendFormat:@"Read: %@", [readLogins componentsJoinedByString:@", "]];
+                [statusString appendFormat:@"%@: %@", NSLocalizedString(@"SA_STR_READ_STATUS", nil), [readLogins componentsJoinedByString:@", "]];
             }
         }
         
@@ -50,12 +50,12 @@
         
         if (deliveredLogins.count > 0) {
             if (readLogins.count > 0) [statusString appendString:@"\n"];
-            [statusString appendFormat:@"Delivered: %@", [deliveredLogins componentsJoinedByString:@", "]];
+            [statusString appendFormat:@"%@: %@", NSLocalizedString(@"SA_STR_DELIVERED_STATUS", nil), [deliveredLogins componentsJoinedByString:@", "]];
         }
         
         return [statusString copy];
     }
-    return @"Sent";
+    return NSLocalizedString(@"SA_STR_SENT_STATUS", nil);
 }
 
 @end

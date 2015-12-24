@@ -53,7 +53,7 @@ class ServicesManager: QMServicesManager {
         }
         
         let dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
-        var dialogName = "New message"
+        var dialogName = "SA_STR_NEW_MESSAGE".localized
         
         if dialog.type != QBChatDialogType.Private {
             
@@ -98,15 +98,15 @@ class ServicesManager: QMServicesManager {
         var errorMessage : String
         
         if response.status.rawValue == 502 {
-            errorMessage = "Bad Gateway, please try again"
+            errorMessage = "SA_STR_BAD_GATEWAY".localized
         } else if response.status.rawValue == 0 {
-            errorMessage = "Connection network error, please try again"
+            errorMessage = "SA_STR_NETWORK_ERROR".localized
         } else {
             errorMessage = (response.error?.error?.localizedDescription.stringByReplacingOccurrencesOfString("(", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).stringByReplacingOccurrencesOfString(")", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))!
         }
         
         TWMessageBarManager.sharedInstance().hideAll()
-        TWMessageBarManager.sharedInstance().showMessageWithTitle("Error", description: errorMessage, type: TWMessageBarMessageType.Error)
+        TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: errorMessage, type: TWMessageBarMessageType.Error)
         
     }
     

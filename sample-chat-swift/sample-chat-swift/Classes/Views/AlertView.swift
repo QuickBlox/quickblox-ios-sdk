@@ -39,5 +39,4 @@ class AlertView: NSObject, UIAlertViewDelegate {
         }
         self.unmanaged?.release()
     }
-    
 }

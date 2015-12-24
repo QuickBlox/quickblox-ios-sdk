@@ -44,6 +44,4 @@ class CornerView: UIView {
     override func drawRect(rect: CGRect) {
         self.drawWithRect(self.bounds, text: self.title, fontSize: self.fontSize)
     }
-    
-    
 }

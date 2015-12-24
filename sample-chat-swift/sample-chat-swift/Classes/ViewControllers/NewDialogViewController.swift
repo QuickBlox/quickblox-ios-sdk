@@ -21,11 +21,11 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         ServicesManager.instance().chatService.addDelegate(self)
         
         if let _ = self.dialog {
-            self.navigationItem.rightBarButtonItem?.title = "Done"
-            self.title = "Add Occupants"
+            self.navigationItem.rightBarButtonItem?.title = "SA_STR_DONE".localized
+            self.title = "SA_STR_ADD_OCCUPANTS"
         } else {
-            self.navigationItem.rightBarButtonItem?.title = "Create"
-            self.title = "New Chat"
+            self.navigationItem.rightBarButtonItem?.title = "SA_STR_CREATE".localized
+            self.title = "SA_STR_NEW_CHAT".localized
         }
     }
     
@@ -186,7 +186,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
     }
     
     static func updatedMessageWithUsers(users: [QBUUser]) -> String {
-        var message: String = "\(QBSession.currentSession().currentUser!.login!) added "
+        var message: String = "\(QBSession.currentSession().currentUser!.login!) " + "SA_STR_ADD".localized + " "
         for user: QBUUser in users {
             message = "\(message)\(user.login!),"
         }

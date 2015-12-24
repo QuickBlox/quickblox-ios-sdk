@@ -32,13 +32,13 @@ class AlertViewWithTextField: NSObject, UIAlertViewDelegate {
         // ios 8
         if #available(iOS 8.0, *) {
             alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "OK", style: .Default, handler: { [weak self] (action) -> Void in
+            let ok = UIAlertAction(title: "SA_STR_OK".localized, style: .Default, handler: { [weak self] (action) -> Void in
                 if let strongSelf = self {
                     closureOk(text: strongSelf.alertViewControllerTextField?.text)
                     strongSelf.unmanaged?.release()
                 }
                 })
-            let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+            let cancel = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .Cancel) { (action) -> Void in
                 closureCancel();
             }
             
@@ -58,7 +58,7 @@ class AlertViewWithTextField: NSObject, UIAlertViewDelegate {
             let alertMessage = message == nil ? "" : message
             let alertTitle = title == nil ? "" : title
 
-            alertView = UIAlertView(title: alertTitle!, message: alertMessage!, delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Ok")
+            alertView = UIAlertView(title: alertTitle!, message: alertMessage!, delegate: self, cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitles: "SA_STR_OK".localized)
             alertView!.alertViewStyle = UIAlertViewStyle.PlainTextInput
             alertView!.show()
             

@@ -73,7 +73,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
-        self.inputToolbar?.contentView?.textView?.placeHolder = "Message"
+        self.inputToolbar?.contentView?.textView?.placeHolder = "SA_STR_MESSAGE_PLACEHOLDER".localized
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -343,15 +343,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     if user != nil {
                         readersLogin.append(user!.login!)
                     } else {
-                        readersLogin.append("Unknown")
+                        readersLogin.append("SA_STR_UNKNOWN_USER".localized)
                     }
                 }
-                if message.attachments?.count > 0 {
-                    statusString += "Seen:" + readersLogin.joinWithSeparator(", ")
-                } else {
-                    statusString += "Read:" + readersLogin.joinWithSeparator(", ")
-                }
-
+                
+                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readersLogin.joinWithSeparator(", ")
             }
         }
         
@@ -373,7 +369,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     if user != nil {
                         deliveredLogin.append(user!.login!)
                     } else {
-                        deliveredLogin.append("Unknown");
+                        deliveredLogin.append("SA_STR_UNKNOWN_USER".localized);
                     }
                 }
                 
@@ -382,13 +378,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
                 
                 if deliveredLogin.count > 0 {
-                    statusString += "Delivered:" + deliveredLogin.joinWithSeparator(", ")
+                    statusString += "SA_STR_DELIVERED_STATUS".localized + ": " + deliveredLogin.joinWithSeparator(", ")
                 }
             }
         }
         
         if statusString.isEmpty {
-            statusString = "Sent"
+            statusString = "SA_STR_SENT_STATUS".localized
         }
         
         return statusString

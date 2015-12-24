@@ -95,7 +95,7 @@ QMChatCellDelegate
 
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
-    self.inputToolbar.contentView.textView.placeHolder = @"Message";
+    self.inputToolbar.contentView.textView.placeHolder = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
     self.stringBuilder = [MessageStatusStringBuilder new];
     self.detailedCells = [NSMutableSet set];
@@ -109,7 +109,7 @@ QMChatCellDelegate
         if ([QBSession currentSession].currentUser.ID == userID) {
             return;
         }
-        strongSelf.title = @"typing...";
+        strongSelf.title = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
     }];
 
     // Handling user stopped typing.
@@ -122,7 +122,7 @@ QMChatCellDelegate
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
 	if (showingProgress && !self.isSendingAttachment) {
-        [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil) maskType:SVProgressHUDMaskTypeClear];
 	}
 	
     __weak __typeof(self)weakSelf = self;
@@ -135,7 +135,7 @@ QMChatCellDelegate
             if (!self.isSendingAttachment) [SVProgressHUD dismiss];
             
 		} else {
-			[SVProgressHUD showErrorWithStatus:@"Can not refresh messages"];
+			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
 			NSLog(@"can not refresh messages: %@", response.error.error);
 		}
 	}];
@@ -172,7 +172,7 @@ QMChatCellDelegate
         [self updateDataSourceWithMessages:[self storedMessages]];
         [self refreshMessagesShowingProgress:NO];
     } else {
-        if (self.totalMessagesCount == 0) [SVProgressHUD showWithStatus:@"Refreshing..." maskType:SVProgressHUDMaskTypeClear];
+        if (self.totalMessagesCount == 0) [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil) maskType:SVProgressHUDMaskTypeClear];
         
         __weak __typeof(self)weakSelf = self;
         [[ServicesManager instance] cachedMessagesWithDialogID:self.dialog.ID block:^(NSArray *collection) {
@@ -314,7 +314,7 @@ QMChatCellDelegate
         //
         if (error != nil) {
             NSLog(@"Failed to send message with error: %@", error);
-            [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Error" description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
+            [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
         }
     }];
     
@@ -736,7 +736,7 @@ QMChatCellDelegate
 {
     self.isSendingAttachment = YES;
     
-    [SVProgressHUD showWithStatus:@"Uploading attachment" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_UPLOADING_ATTACHMENT", nil) maskType:SVProgressHUDMaskTypeClear];
     
     QBChatMessage* message = [QBChatMessage new];
     message.senderID = self.senderID;
@@ -763,7 +763,7 @@ QMChatCellDelegate
                                                                    if (error != nil) {
                                                                        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                    } else {
-                                                                       [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                                                                       [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
                                                                    }
                                                                    strongSelf.isSendingAttachment = NO;
                                                                }];
@@ -788,4 +788,3 @@ QMChatCellDelegate
 }
 
 @end
-
