@@ -66,13 +66,13 @@
 				[strongSelf navigateToChatViewControllerWithDialog:dialog];
 			}
 			else {
-				[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+				[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_CANNOT_CREATE_DIALOG", nil)];
 			}
 		}];
 	} else {
-		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Enter chat name:" andMessage:@""];
+		UIAlertDialog *dialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:[NSString stringWithFormat:@"%@:", NSLocalizedString(@"SA_STR_ENTER_CHAT_NAME", nil)] andMessage:@""];
 		
-		[dialog addButtonWithTitle:@"Create" andHandler:^(NSInteger buttonIndex, UIAlertDialog *dialog) {
+		[dialog addButtonWithTitle:NSLocalizedString(@"SA_STR_CREATE", nil) andHandler:^(NSInteger buttonIndex, UIAlertDialog *dialog) {
             __typeof(self) strongSelf = weakSelf;
 			sender.enabled = NO;
 			[strongSelf createChatWithName:[dialog textFieldText] completion:^(QBChatDialog *dialog){
@@ -81,12 +81,12 @@
 					[strongSelf navigateToChatViewControllerWithDialog:dialog];
 				}
 				else {
-					[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+					[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_CANNOT_CREATE_DIALOG", nil)];
 				}
 			}];
 		}];
 		dialog.showTextField = YES;
-		dialog.textFieldPlaceholderText = @"Enter chat name";
+		dialog.textFieldPlaceholderText = NSLocalizedString(@"SA_STR_ENTER_CHAT_NAME", nil);
 		[dialog showInViewController:self];
 	}
 }
@@ -119,7 +119,7 @@
 			name = [name substringToIndex:name.length - 1]; // remove last , (comma)
 		}
 		
-		[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
 		
         // Creating group chat dialog.
 		[ServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {

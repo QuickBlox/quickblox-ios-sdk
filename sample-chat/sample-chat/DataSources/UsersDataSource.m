@@ -103,7 +103,7 @@
 	
 	cell.user = user;
     if (self.isLoginDataSource) {
-        cell.userDescription = [NSString stringWithFormat:@"Login as %@", user.fullName];
+        cell.userDescription = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_LOGIN_AS", nil), user.fullName];
     } else {
         cell.userDescription = user.fullName;
     }

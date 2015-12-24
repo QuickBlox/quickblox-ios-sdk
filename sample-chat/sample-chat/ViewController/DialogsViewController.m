@@ -34,7 +34,7 @@ QMChatConnectionDelegate
                                                                                      object:nil queue:[NSOperationQueue mainQueue]
                                                                                  usingBlock:^(NSNotification *note) {
                                                                                      if (![[QBChat instance] isConnected]) {
-                                                                                         [SVProgressHUD showWithStatus:@"Connecting to the chat..." maskType:SVProgressHUDMaskTypeClear];
+                                                                                         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_CONNECTING_TO_CHAT", nil) maskType:SVProgressHUDMaskTypeClear];
                                                                                      }
                                                                                  }];
     
@@ -47,13 +47,13 @@ QMChatConnectionDelegate
 {
 	[super viewWillAppear:animated];
     
-    self.navigationItem.title = [NSString stringWithFormat:@"Logged in as %@", [QBSession currentSession].currentUser.login];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_WELCOME", nil), [ServicesManager instance].currentUser.login];
 	[self.tableView reloadData];
 }
 
 - (IBAction)logoutButtonPressed:(UIButton *)sender
 {
-    [SVProgressHUD showWithStatus:@"Logging out..." maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOGOUTING", nil) maskType:SVProgressHUDMaskTypeClear];
     
     dispatch_group_t logoutGroup = dispatch_group_create();
     dispatch_group_enter(logoutGroup);
@@ -75,7 +75,7 @@ QMChatConnectionDelegate
         // logging out
         [[QMServicesManager instance] logoutWithCompletion:^{
             [weakSelf performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
-            [SVProgressHUD showSuccessWithStatus:@"Logged out!"];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
         }];
     });
 }
@@ -96,18 +96,18 @@ QMChatConnectionDelegate
         }];
     }
     else {
-        [SVProgressHUD showWithStatus:@"Loading dialogs" maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_DIALOGS", nil) maskType:SVProgressHUDMaskTypeClear];
         [[ServicesManager instance].chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             __typeof(weakSelf) strongSelf = weakSelf;
             [strongSelf.tableView reloadData];
         } completion:^(QBResponse *response) {
             if ([ServicesManager instance].isAuthorized) {
                 if (response.success) {
-                    [SVProgressHUD showSuccessWithStatus:@"Completed"];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
                     [ServicesManager instance].lastActivityDate = [NSDate date];
                 }
                 else {
-                    [SVProgressHUD showErrorWithStatus:@"Failed to load dialogs"];
+                    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_FAILED_LOAD_DIALOGS", nil)];
                 }
             }
         }];
@@ -186,7 +186,7 @@ QMChatConnectionDelegate
 															[strongSelf.tableView reloadData];
 															[SVProgressHUD dismiss];
 														} else {
-															[SVProgressHUD showErrorWithStatus:@"Can not delete dialog"];
+															[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR_DELETING", nil)];
 															NSLog(@"can not delete dialog: %@", response.error);
 														}
                                                     }];
@@ -234,13 +234,14 @@ QMChatConnectionDelegate
         chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
         
         
-        [SVProgressHUD showWithStatus:@"Leaving dialog..." maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_DELETING", nil) maskType:SVProgressHUDMaskTypeClear];
         
         if (chatDialog.type == QBChatDialogTypeGroup) {
+            NSString *notificationText = [NSString stringWithFormat:@"%@ %@", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_USER_HAS_LEFT", nil)];
             __weak __typeof(self) weakSelf = self;
             // Notifying user about updated dialog - user left it.
             [[ServicesManager instance].chatService sendMessageAboutUpdateDialog:chatDialog
-                                                            withNotificationText:[NSString stringWithFormat:@"%@ has left dialog!", [ServicesManager instance].currentUser.login]
+                                                            withNotificationText:notificationText
                                                                 customParameters:nil
                                                                       completion:^(NSError *error) {
                                                                           //
@@ -253,7 +254,7 @@ QMChatConnectionDelegate
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"Leave";
+    return NSLocalizedString(@"SA_STR_DELETE", nil);
 }
 
 #pragma mark -
@@ -291,28 +292,29 @@ QMChatConnectionDelegate
 
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showSuccessWithStatus:@"Chat connected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_CONNECTED", nil) maskType:SVProgressHUDMaskTypeClear];
     [self loadDialogs];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showSuccessWithStatus:@"Chat reconnected!" maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_RECONNECTED", nil) maskType:SVProgressHUDMaskTypeClear];
     [self loadDialogs];
 }
 
 - (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
 {
-    [SVProgressHUD showErrorWithStatus:@"Chat disconnected!"];
+    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_DISCONNECTED", nil)];
 }
 
-- (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Did not connect with error: %@", [error description]]];
+- (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error
+{
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_DID_NOT_CONNECT_ERROR", nil), [error description]]];
 }
 
 - (void)chatServiceChatDidFailWithStreamError:(NSError *)error
 {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Chat failed with error: %@", [error description]]];
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_FAILED_TO_CONNECT_WITH_ERROR", nil), [error description]]];
 }
 
 @end

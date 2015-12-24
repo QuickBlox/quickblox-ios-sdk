@@ -88,7 +88,7 @@
 - (void)createGroupDialogWithUsers:(NSArray *)users {
 	__weak __typeof(self)weakSelf = self;
 	
-	[SVProgressHUD showWithStatus:@"Creating dialog..." maskType:SVProgressHUDMaskTypeClear];
+	[SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
 	
     // Creating group chat dialog.
 	[ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
@@ -101,7 +101,7 @@
 			[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:createdDialog];
 		}
 		else {
-			[SVProgressHUD showErrorWithStatus:@"Can not create dialog"];
+			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_CANNOT_CREATE_DIALOG", nil)];
 			NSLog(@"can not create dialog: %@", response.error.error);
 		}
 	}];
@@ -110,7 +110,7 @@
 - (void)updateGroupDialogWithUsersIDs:(NSArray *)usersIDs {
 	__weak __typeof(self)weakSelf = self;
 	
-	[SVProgressHUD showWithStatus:@"Updating dialog..." maskType:SVProgressHUDMaskTypeClear];
+	[SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
 	
     // Retrieving users from cache.
     [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask *task) {
@@ -133,7 +133,7 @@
                 }];
             }
             else {
-                [SVProgressHUD showErrorWithStatus:@"Can not update dialog"];
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
             }
         }];
         
@@ -151,7 +151,7 @@
 }
 
 - (NSString *)updatedMessageWithUsers:(NSArray *)users {
-	NSString *message = [NSString stringWithFormat:@"%@ added ", [QBSession currentSession].currentUser.login];
+	NSString *message = [NSString stringWithFormat:@"%@ %@", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADD", nil)];
 	for (QBUUser *user in users) {
 		message = [NSString stringWithFormat:@"%@%@,", message, user.login];
 	}

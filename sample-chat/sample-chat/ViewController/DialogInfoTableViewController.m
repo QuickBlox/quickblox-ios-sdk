@@ -23,7 +23,7 @@
 {
     [super viewDidLoad];
     self.tableView.tableFooterView = [UIView new];
-    self.title = @"Chat Info";
+    self.title = NSLocalizedString(@"SA_STR_CHAT_INFO", nil);
 	[self refreshDataSource];
 }
 
