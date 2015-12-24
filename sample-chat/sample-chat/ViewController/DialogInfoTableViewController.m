@@ -33,9 +33,12 @@
     // Retrieving users from cache.
     [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask *task) {
         //
-        __typeof(self) strongSelf = weakSelf;
+        __typeof(weakSelf)strongSelf = weakSelf;
         strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:task.result];
-        strongSelf.tableView.dataSource = weakSelf.usersDatasource;
+        strongSelf.tableView.dataSource = strongSelf.usersDatasource;
+        
+        if ([task.result count] >= kUsersLimit) strongSelf.navigationItem.rightBarButtonItem.enabled = NO;
+        
         [strongSelf.tableView reloadData];
         
         return nil;
