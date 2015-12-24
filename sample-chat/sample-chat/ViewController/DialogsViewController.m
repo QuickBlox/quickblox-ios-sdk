@@ -47,7 +47,7 @@ QMChatConnectionDelegate
 {
 	[super viewWillAppear:animated];
     
-    self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_WELCOME", nil), [ServicesManager instance].currentUser.login];
+    self.navigationItem.title = [ServicesManager instance].currentUser.login;
 	[self.tableView reloadData];
 }
 

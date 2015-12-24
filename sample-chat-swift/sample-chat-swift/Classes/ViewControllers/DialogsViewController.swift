@@ -85,7 +85,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     override func viewDidLoad() {
 
-        self.navigationItem.title = "SA_STR_WELCOME".localized + " " + ServicesManager.instance().currentUser()!.fullName!
+        self.navigationItem.title = ServicesManager.instance().currentUser()!.fullName!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
