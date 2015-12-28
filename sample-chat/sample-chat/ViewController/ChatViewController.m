@@ -420,9 +420,25 @@ QMChatCellDelegate
                                                            limitedToNumberOfLines:0];
         size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
     } else {
-        NSAttributedString *attributedString = [self attributedStringForItem:item];
-        
-        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+        NSAttributedString *messagetextAttributedString = [self attributedStringForItem:item];
+		
+		NSAttributedString *topLabelAttributedString = [self attributedStringForItem:item];
+		
+		NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+		
+		CGSize maxSize = CGSizeMake(maxWidth, CGFLOAT_MAX);
+		
+		CGRect messageTextLabelRect = [messagetextAttributedString boundingRectWithSize:maxSize options:options context:nil];
+		CGRect topLabelTextLabelRect = [topLabelAttributedString boundingRectWithSize:maxSize options:options context:nil];
+		
+		NSAttributedString *desiredString = messagetextAttributedString;
+		
+		
+		if (messageTextLabelRect.size.width < topLabelTextLabelRect.size.width) {
+			desiredString = topLabelAttributedString;
+		}
+		
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:desiredString
                                                 withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
                                          limitedToNumberOfLines:0];
     }
