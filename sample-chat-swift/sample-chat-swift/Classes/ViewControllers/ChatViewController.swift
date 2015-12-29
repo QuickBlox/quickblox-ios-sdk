@@ -25,7 +25,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     var didBecomeActiveHandler : AnyObject?
     var didEnterBackgroundHandler : AnyObject?
     var attachmentCellsMap : [String : QMChatAttachmentCell] = [String : QMChatAttachmentCell]()
-    var isSendingAttachment: Bool = false
     var detailedCells: Set<String> = []
     
     var typingTimer : NSTimer?
@@ -186,9 +185,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 if (messages.count > 0) {
                     self!.insertMessagesToTheBottomAnimated(messages as! [QBChatMessage]!)
                 }
-                if (!self!.isSendingAttachment) {
-                    SVProgressHUD.dismiss()
-                }
+                SVProgressHUD.dismiss()
                 
             } else {
                 SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
@@ -250,8 +247,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     // MARK: Actions
     
     override func didPickAttachmentImage(image: UIImage!) {
-        SVProgressHUD.showWithStatus("SA_STR_UPLOADING_ATTACHMENT".localized, maskType: SVProgressHUDMaskType.Clear)
-        self.isSendingAttachment = true
         
         let message = QBChatMessage()
         message.senderID = ServicesManager.instance().currentUser().ID
@@ -282,12 +277,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 ServicesManager.instance().chatService.sendAttachmentMessage(message, toDialog: self.dialog, withAttachmentImage: resizedImage, completion: {
                     [weak self] (error: NSError?) -> Void in
+                    if self != nil {
+                        self!.attachmentCellsMap.removeValueForKey(message.ID!)
+                    }
                     if error != nil {
                         SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
-                    } else {
-                        SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                        
+                        // perform local attachment deleting
+                        ServicesManager.instance().chatService.deleteMessageLocally(message)
+                        if self != nil {
+                            self!.deleteMessage(message)
+                        }
                     }
-                    self?.isSendingAttachment = false
                 })
             })
         })
@@ -690,7 +691,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 if self == nil { return nil }
                 
-                if (task.result.count > 0) {
+                if (task.result!.count > 0) {
                     self!.insertMessagesToTheTopAnimated(task.result as! [QBChatMessage]!)
                 }
                 
@@ -822,6 +823,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if let attachmentCell = self.attachmentCellsMap[attachment.ID!] {
             attachmentCell.updateLoadingProgress(progress)
+        }
+    }
+    
+    func chatAttachmentService(chatAttachmentService: QMChatAttachmentService!, didChangeUploadingProgress progress: CGFloat, forMessage message: QBChatMessage!) {
+        var cell = self.attachmentCellsMap[message.ID!]
+        
+        if cell == nil && progress < 1.0 {
+            let indexPath = self.indexPathForMessage(message)
+            cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as? QMChatAttachmentCell
+            self.attachmentCellsMap[message.ID!] = cell
+        }
+        
+        if cell != nil {
+            cell!.updateLoadingProgress(progress)
         }
     }
     

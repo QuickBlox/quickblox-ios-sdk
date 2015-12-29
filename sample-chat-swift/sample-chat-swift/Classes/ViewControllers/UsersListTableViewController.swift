@@ -20,7 +20,7 @@ class UsersListTableViewController: UITableViewController {
 
         // Fetching users from cache.
         ServicesManager.instance().usersService.loadFromCache().continueWithBlock { (task : BFTask!) -> AnyObject! in
-            if task.result.count > 0 {
+            if task.result!.count > 0 {
                 
                 weakSelf?.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
                 
