@@ -163,6 +163,14 @@
 - (void)deleteMessage:(QBChatMessage *)message completion:(void(^)(void))completion;
 
 /**
+ *  Delete messages
+ *
+ *  @param messages   messages to delete
+ *  @param completion Completion block that is called after the delete operation has completed.
+ */
+- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *)*)messages completion:(dispatch_block_t)completion;
+
+/**
  *  Delete messages for dialog ID
  *
  *  @param dialogID   dialog identifier

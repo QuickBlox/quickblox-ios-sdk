@@ -288,6 +288,21 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 #pragma mark - Fetch messages
 
 /**
+ *  Deleting message from cache and memory storage.
+ *
+ *  @param message message to delete
+ */
+- (void)deleteMessageLocally:(QBChatMessage *)message;
+
+/**
+ *  Deleting messages from cache and memory storage.
+ *
+ *  @param messages messages to delete
+ *  @param dialogID chat dialog identifier
+ */
+- (void)deleteMessagesLocally:(NSArray *)messages forDialogID:(NSString *)dialogID;
+
+/**
  *  Fetch messages with chat dialog id.
  *
  *  @param chatDialogID Chat dialog id.
@@ -534,7 +549,25 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param messages array of QBChatMessage
  *  @param dialogID message dialog ID
  */
-- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID;
+- (void)chatService:(QMChatService *)chatService didAddMessagesToMemoryStorage:(NSArray QB_GENERIC(QBChatMessage *)*)messages forDialogID:(NSString *)dialogID;
+
+/**
+ *  Is called when message was deleted from memory storage for dialog id
+ *
+ *  @param chatService chat service instance
+ *  @param message     message that was deleted
+ *  @param dialogID    dialog identifier of deleted message
+ */
+- (void)chatService:(QMChatService *)chatService didDeleteMessageFromMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID;
+
+/**
+ *  Is called when messages was deleted from memory storage for dialog id
+ *
+ *  @param chatService chat service instance
+ *  @param messages    messages that were deleted
+ *  @param dialogID    dialog identifier of deleted messages
+ */
+- (void)chatService:(QMChatService *)chatService didDeleteMessagesFromMemoryStorage:(NSArray QB_GENERIC(QBChatMessage *)*)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Is called when chat service did receive notification message
@@ -544,8 +577,6 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param dialog QBChatDialog from notification message
  */
 - (void)chatService:(QMChatService *)chatService  didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog;
-
-
 
 @end
 

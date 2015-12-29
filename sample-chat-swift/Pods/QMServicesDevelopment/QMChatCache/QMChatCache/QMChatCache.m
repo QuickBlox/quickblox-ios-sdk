@@ -427,6 +427,23 @@ static QMChatCache *_chatCacheInstance = nil;
     }];
 }
 
+- (void)deleteMessages:(NSArray *)messages completion:(dispatch_block_t)completion {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    [self async:^(NSManagedObjectContext *context) {
+        //
+        [weakSelf deleteMessages:messages inContext:context];
+        
+        [weakSelf save:^{
+            //
+            if (completion) {
+                completion();
+            }
+        }];
+    }];
+}
+
 - (void)deleteMessageWithDialogID:(NSString *)dialogID completion:(dispatch_block_t)completion {
     
     __weak __typeof(self)weakSelf = self;

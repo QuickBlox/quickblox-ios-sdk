@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -19,10 +19,8 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Ef-cm-mUT" userLabel="Avatar Image View" customClass="QMImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="45"/>
-                                <animations/>
                             </imageView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="45" id="G4o-g5-Qyf"/>
@@ -41,7 +39,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8u-4h-IEt" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="162" height="21"/>
-                                        <animations/>
                                         <color key="backgroundColor" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="VYw-Ld-ar1"/>
@@ -52,7 +49,6 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwl-pf-rea" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="21" width="162" height="24"/>
-                                        <animations/>
                                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,7 +56,6 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:44" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KM3-Oj-tba" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="45" width="162" height="21"/>
-                                        <animations/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="WU0-tf-mgf"/>
@@ -70,26 +65,24 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="h8u-4h-IEt" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" id="2hL-wa-XL0"/>
                                     <constraint firstItem="KM3-Oj-tba" firstAttribute="top" secondItem="gwl-pf-rea" secondAttribute="bottom" id="BQZ-mi-zJi"/>
-                                    <constraint firstAttribute="trailing" secondItem="gwl-pf-rea" secondAttribute="trailing" id="C4J-58-vtD"/>
+                                    <constraint firstAttribute="trailing" secondItem="gwl-pf-rea" secondAttribute="trailing" identifier="outgCellMessageTextTrailing" id="C4J-58-vtD"/>
                                     <constraint firstAttribute="trailing" secondItem="KM3-Oj-tba" secondAttribute="trailing" id="Cnr-Ch-k1c"/>
                                     <constraint firstItem="h8u-4h-IEt" firstAttribute="top" secondItem="UGA-Lo-mbI" secondAttribute="top" id="E1C-0z-mfn"/>
                                     <constraint firstAttribute="trailing" secondItem="h8u-4h-IEt" secondAttribute="trailing" id="KrN-Zw-ZY1"/>
                                     <constraint firstAttribute="bottom" secondItem="KM3-Oj-tba" secondAttribute="bottom" id="Qq4-nq-W8i"/>
                                     <constraint firstItem="KM3-Oj-tba" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" id="UGl-WW-1AM"/>
                                     <constraint firstItem="gwl-pf-rea" firstAttribute="top" secondItem="h8u-4h-IEt" secondAttribute="bottom" id="mbp-Hv-6Tq"/>
-                                    <constraint firstItem="gwl-pf-rea" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" id="x6U-gp-Ps7"/>
+                                    <constraint firstItem="gwl-pf-rea" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" identifier="outgCellMessageTextLeading" id="x6U-gp-Ps7"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="181" id="D1r-Pq-zcf"/>
+                            <constraint firstAttribute="width" priority="750" constant="181" id="D1r-Pq-zcf"/>
                             <constraint firstItem="UGA-Lo-mbI" firstAttribute="top" secondItem="IHn-aU-joG" secondAttribute="top" constant="4" id="Oep-MV-D9j"/>
                             <constraint firstAttribute="trailing" secondItem="UGA-Lo-mbI" secondAttribute="trailing" constant="15" id="UcN-qd-Nxu"/>
                             <constraint firstAttribute="bottom" secondItem="UGA-Lo-mbI" secondAttribute="bottom" constant="4" id="XFF-Rw-dM5"/>
@@ -113,16 +106,14 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <animations/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="7u5-rz-uqE" secondAttribute="trailing" id="Dl5-2o-5N4"/>
                 <constraint firstAttribute="bottom" secondItem="IHn-aU-joG" secondAttribute="bottom" id="HI8-MG-YKY"/>
-                <constraint firstItem="7u5-rz-uqE" firstAttribute="leading" secondItem="IHn-aU-joG" secondAttribute="trailing" constant="2" id="hRe-dp-gde"/>
+                <constraint firstItem="7u5-rz-uqE" firstAttribute="leading" secondItem="IHn-aU-joG" secondAttribute="trailing" constant="2" identifier="outgCellMessageAvaLeadingToContainerTrailing" id="hRe-dp-gde"/>
                 <constraint firstItem="IHn-aU-joG" firstAttribute="top" secondItem="MUd-TY-LP8" secondAttribute="top" id="kQX-PE-key"/>
-                <constraint firstAttribute="bottom" secondItem="7u5-rz-uqE" secondAttribute="bottom" id="wcc-4f-AaS"/>
+                <constraint firstAttribute="bottom" secondItem="7u5-rz-uqE" secondAttribute="bottom" identifier="outgCellMessageAvaBottomToCellBottom" id="wcc-4f-AaS"/>
             </constraints>
             <size key="customSize" width="253" height="74"/>
             <connections>

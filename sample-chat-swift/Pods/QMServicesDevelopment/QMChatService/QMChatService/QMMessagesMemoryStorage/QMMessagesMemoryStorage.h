@@ -54,6 +54,21 @@
 - (NSArray *)messagesWithDialogID:(NSString *)dialogID;
 
 /**
+ *  Delete message from memory storage.
+ *
+ *  @param message message to delete.
+ */
+- (void)deleteMessage:(QBChatMessage *)message;
+
+/**
+ *  Delete messages from memory storage.
+ *
+ *  @param messages messages to delete
+ *  @param dialogID chat dialog identifier
+ */
+- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *)*)messages forDialogID:(NSString *)dialogID;
+
+/**
  *  Delete messages with dialog indetifier
  *
  *  @param dialogID Chat dialog identifier
