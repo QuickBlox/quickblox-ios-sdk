@@ -99,6 +99,18 @@
     return [messages array];
 }
 
+- (void)deleteMessage:(QBChatMessage *)message {
+    NSAssert(message.dialogID, @"Message must have a dialog ID.");
+    
+    [self deleteMessages:@[message] forDialogID:message.dialogID];
+}
+
+- (void)deleteMessages:(NSArray *)messages forDialogID:(NSString *)dialogID {
+    
+    NSMutableOrderedSet *dataSource = [self dataSourceWithDialogID:dialogID];
+    [dataSource removeObjectsInArray:messages];
+}
+
 - (void)deleteMessagesWithDialogID:(NSString *)dialogID {
 	
 	[self.datasources removeObjectForKey:dialogID];

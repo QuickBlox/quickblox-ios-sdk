@@ -34,6 +34,16 @@
  */
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeLoadingProgress:(CGFloat)progress forChatAttachment:(QBChatAttachment *)attachment;
 
+/**
+ *  Is called when chat attachment service did change Uploading progress for attachment in message.
+ *  Used for display loading progress.
+ *
+ *  @param chatAttachmentService QMChatAttachmentService instance
+ *  @param progress              changed value of progress min 0.0, max 1.0
+ *  @param messageID             ID of message that contains attachment
+ */
+- (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeUploadingProgress:(CGFloat)progress forMessage:(QBChatMessage *)message;
+
 @end
 
 /**

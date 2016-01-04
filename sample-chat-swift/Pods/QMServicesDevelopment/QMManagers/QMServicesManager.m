@@ -182,6 +182,14 @@
     [QMChatCache.instance deleteMessageWithDialogID:chatDialogID completion:nil];
 }
 
+- (void)chatService:(QMChatService *)chatService didDeleteMessageFromMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
+    [QMChatCache.instance deleteMessage:message completion:nil];
+}
+
+- (void)chatService:(QMChatService *)chatService didDeleteMessagesFromMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID {
+    [QMChatCache.instance deleteMessages:messages completion:nil];
+}
+
 - (void)chatService:(QMChatService *)chatService  didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog {
 	NSAssert([message.dialogID isEqualToString:dialog.ID], @"must be equal");
 	

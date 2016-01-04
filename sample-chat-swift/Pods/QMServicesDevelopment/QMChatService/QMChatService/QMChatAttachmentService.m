@@ -85,6 +85,10 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
         [chatService sendMessage:message type:QMMessageTypeText toDialog:dialog saveToHistory:YES saveToStorage:YES completion:completion];
         
     } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
+
+        if ([self.delegate respondsToSelector:@selector(chatAttachmentService:didChangeUploadingProgress:forMessage:)]) {
+            [self.delegate chatAttachmentService:self didChangeUploadingProgress:status.percentOfCompletion forMessage:message];
+        }
         
     } errorBlock:^(QBResponse *response) {
         
@@ -276,11 +280,11 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
     }
 }
 
-- (void)saveImageData:(NSData *)imageData chatAttachment:(QBChatAttachment *)attachment error:(NSError **)errorPtr {
+- (BOOL)saveImageData:(NSData *)imageData chatAttachment:(QBChatAttachment *)attachment error:(NSError **)errorPtr {
     
     NSString *path = attachmentPath(attachment);
     
-    [imageData writeToFile:path options:NSDataWritingAtomic error:errorPtr];
+    return [imageData writeToFile:path options:NSDataWritingAtomic error:errorPtr];
 }
 
 - (void)changeMessageAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message {

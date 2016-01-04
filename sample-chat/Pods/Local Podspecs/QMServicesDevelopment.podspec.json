@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "Bolts": [
-      "1.3.0"
+      "1.5.0"
     ],
     "libextobjc/EXTKeyPathCoding": [
       "0.4.1"

@@ -49,8 +49,6 @@ QMChatCellDelegate
 
 @property (nonatomic, strong) NSArray* unreadMessages;
 
-@property (nonatomic, assign) BOOL isSendingAttachment;
-
 @property (nonatomic, strong) NSMutableSet *detailedCells;
 
 @end
@@ -121,7 +119,7 @@ QMChatCellDelegate
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
 	
-	if (showingProgress && !self.isSendingAttachment) {
+	if (showingProgress) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil) maskType:SVProgressHUDMaskTypeClear];
 	}
 	
@@ -132,7 +130,7 @@ QMChatCellDelegate
             
             __typeof(weakSelf)strongSelf = weakSelf;
             if ([messages count] > 0) [strongSelf insertMessagesToTheBottomAnimated:messages];
-            if (!self.isSendingAttachment) [SVProgressHUD dismiss];
+            [SVProgressHUD dismiss];
             
 		} else {
 			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
@@ -723,6 +721,21 @@ QMChatCellDelegate
     }
 }
 
+- (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeUploadingProgress:(CGFloat)progress forMessage:(QBChatMessage *)message
+{
+    UICollectionViewCell<QMChatAttachmentCell>* cell = [self.attachmentCells objectForKey:message.ID];
+    
+    if (cell == nil && progress < 1.0f) {
+        NSIndexPath *indexPath = [self indexPathForMessage:message];
+        cell = (UICollectionViewCell <QMChatAttachmentCell> *)[self.collectionView cellForItemAtIndexPath:indexPath];
+        [self.attachmentCells setObject:cell forKey:message.ID];
+    }
+    
+    if (cell != nil) {
+        [cell updateLoadingProgress:progress];
+    }
+}
+
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -750,10 +763,6 @@ QMChatCellDelegate
 
 - (void)didPickAttachmentImage:(UIImage *)image
 {
-    self.isSendingAttachment = YES;
-    
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_UPLOADING_ATTACHMENT", nil) maskType:SVProgressHUDMaskTypeClear];
-    
     QBChatMessage* message = [QBChatMessage new];
     message.senderID = self.senderID;
     message.dialogID = self.dialog.ID;
@@ -776,12 +785,15 @@ QMChatCellDelegate
                                                       withAttachmentImage:resizedImage
                                                                completion:^(NSError *error) {
                                                                    //
+                                                                   [strongSelf.attachmentCells removeObjectForKey:message.ID];
+                                                                   
                                                                    if (error != nil) {
                                                                        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                                                                   } else {
-                                                                       [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
+                                                                       
+                                                                       // perform local attachment deleting
+                                                                       [[ServicesManager instance].chatService deleteMessageLocally:message];
+                                                                       [strongSelf deleteMessage:message];
                                                                    }
-                                                                   strongSelf.isSendingAttachment = NO;
                                                                }];
         });
     });
