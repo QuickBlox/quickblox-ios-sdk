@@ -362,11 +362,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 for deliveredID : Int in messageDeliveredIDs {
                     let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(deliveredID))
                     
-                    if readersLogin.contains(user!.login!) {
-                        continue
-                    }
-                    
                     if user != nil {
+						
+						if readersLogin.contains(user!.login!) {
+							continue
+						}
+						
                         deliveredLogin.append(user!.login!)
                     } else {
                         deliveredLogin.append("SA_STR_UNKNOWN_USER".localized);
