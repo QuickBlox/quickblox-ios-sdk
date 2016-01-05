@@ -22,7 +22,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         
         if (ServicesManager.instance().currentUser() != nil) {
             ServicesManager.instance().currentUser().password = kTestUsersDefaultPassword
-            SVProgressHUD.showWithStatus("SA_STR_LOGGIN_IN_AS".localized + ServicesManager.instance().currentUser().login!, maskType: SVProgressHUDMaskType.Clear)
+            SVProgressHUD.showWithStatus("SA_STR_LOGGING_IN_AS".localized + ServicesManager.instance().currentUser().login!, maskType: SVProgressHUDMaskType.Clear)
             // Logging to Quickblox REST API and chat.
             ServicesManager.instance().logInWithUser(ServicesManager.instance().currentUser(), completion:{
                 [weak self] (success:Bool,  errorMessage: String?) -> Void in
@@ -73,7 +73,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     
     func logInChatWithUser(user: QBUUser) {
         
-        SVProgressHUD.showWithStatus("SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.Clear)
+        SVProgressHUD.showWithStatus("SA_STR_LOGGING_IN_AS".localized + user.login!, maskType: SVProgressHUDMaskType.Clear)
 
         // Logging to Quickblox REST API and chat.
         ServicesManager.instance().logInWithUser(user, completion:{
@@ -114,7 +114,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         let user = self.users![indexPath.row]
         
         cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
-        cell.userDescription = "Login as " + user.fullName!
+        cell.userDescription = "SA_STR_LOGIN_AS".localized + " " + user.fullName!
         cell.tag = indexPath.row
         
         return cell

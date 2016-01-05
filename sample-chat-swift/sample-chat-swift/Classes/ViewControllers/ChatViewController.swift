@@ -72,7 +72,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
-        self.inputToolbar?.contentView?.textView?.placeHolder = "Message"
+        self.inputToolbar?.contentView?.textView?.placeHolder = "SA_STR_MESSAGE_PLACEHOLDER".localized
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -344,15 +344,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     if user != nil {
                         readersLogin.append(user!.login!)
                     } else {
-                        readersLogin.append("Unknown")
+                        readersLogin.append("SA_STR_UNKNOWN_USER".localized)
                     }
                 }
-                if message.attachments?.count > 0 {
-                    statusString += "Seen:" + readersLogin.joinWithSeparator(", ")
-                } else {
-                    statusString += "Read:" + readersLogin.joinWithSeparator(", ")
-                }
-
+                
+                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readersLogin.joinWithSeparator(", ")
             }
         }
         
@@ -367,14 +363,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 for deliveredID : Int in messageDeliveredIDs {
                     let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(deliveredID))
                     
-                    if readersLogin.contains(user!.login!) {
-                        continue
-                    }
-                    
                     if user != nil {
+						
+						if readersLogin.contains(user!.login!) {
+							continue
+						}
+						
                         deliveredLogin.append(user!.login!)
                     } else {
-                        deliveredLogin.append("Unknown");
+                        deliveredLogin.append("SA_STR_UNKNOWN_USER".localized);
                     }
                 }
                 
@@ -383,13 +380,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
                 
                 if deliveredLogin.count > 0 {
-                    statusString += "Delivered:" + deliveredLogin.joinWithSeparator(", ")
+                    statusString += "SA_STR_DELIVERED_STATUS".localized + ": " + deliveredLogin.joinWithSeparator(", ")
                 }
             }
         }
         
         if statusString.isEmpty {
-            statusString = "Sent"
+            statusString = "SA_STR_SENT_STATUS".localized
         }
         
         return statusString
@@ -446,7 +443,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: Strings builder
     
-    override func attributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString! {
+    override func attributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString? {
         
         if messageItem.text == nil {
             return nil
@@ -517,9 +514,22 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.max), limitedToNumberOfLines: 0)
                 size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
             } else {
-                let attributedString = self.attributedStringForItem(item)
-                
-                size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
+				
+                let messageTextLabelAttributedString = self.attributedStringForItem(item)
+                let topLabelAttributedString = self.topLabelAttributedStringForItem(item)
+				
+				let options: NSStringDrawingOptions = [NSStringDrawingOptions.UsesLineFragmentOrigin, NSStringDrawingOptions.UsesFontLeading]
+				
+				let messageTextLabelRect = messageTextLabelAttributedString?.boundingRectWithSize(CGSize(width: maxWidth, height: CGFloat.max), options: options, context: nil)
+				let topLabelTextLabelRect = topLabelAttributedString?.boundingRectWithSize(CGSize(width: maxWidth, height: CGFloat.max), options: options, context: nil)
+				
+				var desiredAttributedString = messageTextLabelAttributedString
+				
+				if messageTextLabelRect?.size.width < topLabelTextLabelRect?.size.width {
+					desiredAttributedString = topLabelAttributedString
+				}
+				
+                size = TTTAttributedLabel.sizeThatFitsAttributedString(desiredAttributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
             }
         }
         
@@ -532,8 +542,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if let item : QBChatMessage = self.messageForIndexPath(indexPath) {
             
             if self.detailedCells.contains(item.ID!) {
-                
-                size = TTTAttributedLabel.sizeThatFitsAttributedString(self.bottomLabelAttributedStringForItem(item), withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+				
+				let str = self.bottomLabelAttributedStringForItem(item)
+				let frameWidth = CGRectGetWidth(collectionView.frame)
+				let maxHeight = CGFloat.max;
+				
+                size = TTTAttributedLabel.sizeThatFitsAttributedString(str, withConstraints: CGSize(width:frameWidth - kMessageContainerWidthPadding, height: maxHeight), limitedToNumberOfLines:0)
             }
             
             if self.dialog?.type != QBChatDialogType.Private {
@@ -545,7 +559,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
             }
         }
-        
         return size.width
     }
     
@@ -580,7 +593,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
             }
             
-            layoutModel.bottomLabelHeight = ceil(size.height)
+            layoutModel.bottomLabelHeight = floor(size.height)
         }
 
         return layoutModel

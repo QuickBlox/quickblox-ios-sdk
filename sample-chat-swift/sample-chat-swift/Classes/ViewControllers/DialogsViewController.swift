@@ -85,7 +85,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     override func viewDidLoad() {
 
-        self.navigationItem.title = "SA_STR_WELCOME".localized + " " + ServicesManager.instance().currentUser()!.fullName!
+        self.navigationItem.title = ServicesManager.instance().currentUser()!.fullName!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
 
@@ -185,18 +185,18 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
             })
         }
         else {
-            SVProgressHUD.showWithStatus("Loading...", maskType: SVProgressHUDMaskType.Clear)
+            SVProgressHUD.showWithStatus("SA_STR_LOADING_DIALOGS".localized, maskType: SVProgressHUDMaskType.Clear)
             ServicesManager.instance().chatService.allDialogsWithPageLimit(kDialogsPageLimit, extendedRequest: nil, iterationBlock: { (response: QBResponse!, dialogObjects: [AnyObject]!, dialogsUsersIDs: Set<NSObject>!, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
                 //
                 }, completion: { (response: QBResponse!) -> Void in
                     //
                     if (ServicesManager.instance().isAuthorized()) {
                         if (response.success) {
-                            SVProgressHUD.showSuccessWithStatus("Completed")
+                            SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
                             ServicesManager.instance().lastActivityDate = NSDate()
                         }
                         else {
-                            SVProgressHUD.showErrorWithStatus("Failed to load dialogs")
+                            SVProgressHUD.showErrorWithStatus("SA_STR_FAILED_LOAD_DIALOGS".localized)
                         }
                     }
             })
@@ -301,7 +301,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                     dialog.occupantIDs = occupantIDs
                     
                     // Notifies occupants that user left the dialog.
-                    ServicesManager.instance().chatService.sendMessageAboutUpdateDialog(dialog, withNotificationText: "User \(ServicesManager.instance().currentUser().login!) has left the dialog", customParameters: nil, completion: { (error: NSError?) -> Void in
+                    ServicesManager.instance().chatService.sendMessageAboutUpdateDialog(dialog, withNotificationText: "User \(ServicesManager.instance().currentUser().login!) " + "SA_STR_USER_HAS_LEFT".localized, customParameters: nil, completion: { (error: NSError?) -> Void in
                         deleteDialogBlock(dialog)
                     })
                 }

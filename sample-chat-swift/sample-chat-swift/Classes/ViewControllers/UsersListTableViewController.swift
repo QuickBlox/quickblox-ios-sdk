@@ -26,12 +26,12 @@ class UsersListTableViewController: UITableViewController {
                 
             } else {
                 
-                SVProgressHUD.showWithStatus("Loading users", maskType: SVProgressHUDMaskType.Clear)
+                SVProgressHUD.showWithStatus("SA_STR_LOADING_USERS".localized, maskType: SVProgressHUDMaskType.Clear)
                 
                 // Downloading users from Quickblox.
                 ServicesManager.instance().downloadLatestUsers({ (users: [QBUUser]!) -> Void in
                     
-                    SVProgressHUD.showSuccessWithStatus("Completed")
+                    SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
                     weakSelf?.setupUsers(users)
                     
                     }, error: { (error: NSError!) -> Void in

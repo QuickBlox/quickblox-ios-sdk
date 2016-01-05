@@ -39,7 +39,7 @@
     
     if (message.senderID == self.currentUser.ID) return;
     
-    NSString* dialogName = @"New message";
+    NSString* dialogName = NSLocalizedString(@"SA_STR_NEW_MESSAGE", nil);
     
     QBChatDialog* dialog = [self.chatService.dialogsMemoryStorage chatDialogWithID:dialogID];
     
@@ -65,14 +65,14 @@
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
 	if( response.status == 502 ) { // bad gateway, server error
-		errorMessage = @"Bad Gateway, please try again";
+		errorMessage = NSLocalizedString(@"SA_STR_BAD_GATEWAY", nil);
 	}
 	else if( response.status == 0 ) { // bad gateway, server error
-		errorMessage = @"Connection network error, please try again";
+		errorMessage = NSLocalizedString(@"SA_STR_NETWORK_ERROR", nil);
 	}
     
     [[TWMessageBarManager sharedInstance] hideAll];
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:@"Errors" description:errorMessage type:TWMessageBarMessageTypeError];
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
 - (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
