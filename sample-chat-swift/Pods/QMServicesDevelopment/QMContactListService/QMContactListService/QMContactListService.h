@@ -89,6 +89,56 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 
 @end
 
+#pragma mark - Bolts
+
+@interface QMContactListService (Bolts)
+
+/**
+ *  Add user to contact list request using Bolts.
+ *
+ *  @param user user to add to contact list
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask *)addUserToContactListRequest:(QBUUser *)user;
+
+/**
+ *  Remove user from contact list using Bolts.
+ *
+ *  @param userID id of user to remove
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask *)removeUserFromContactListWithUserID:(NSUInteger)userID;
+
+/**
+ *  Accept contact request using Bolts.
+ *
+ *  @param userID id of user to accept contact request
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask *)acceptContactRequest:(NSUInteger)userID;
+
+/**
+ *  Reject contact request for user id using Bolts.
+ *
+ *  @param userID id of user to reject contact request
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask *)rejectContactRequest:(NSUInteger)userID;
+
+@end
+
 #pragma mark - Protocols
 
 /**

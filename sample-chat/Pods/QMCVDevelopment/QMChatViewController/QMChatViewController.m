@@ -257,68 +257,77 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (void)insertMessagesToTheBottomAnimated:(NSArray *)messages {
-    NSAssert([NSThread isMainThread], @"You are trying to insert messages in background thread!");
-    NSAssert([messages count] > 0, @"Array must contain messages!");
-    
-    if (self.chatSections == nil) {
-        NSDictionary *sectionsAndItems = [self updateDataSourceWithMessages:messages];
-        NSArray *sectionsToInsert = sectionsAndItems[kQMSectionsInsertKey];
-        NSArray *itemsToInsert = sectionsAndItems[kQMItemsInsertKey];
-        
-        NSIndexSet *sectionsIndexSet = [self indexSetForSectionsToInsert:sectionsToInsert];
-        
-        __weak __typeof(self)weakSelf = self;
-        [self.collectionView performBatchUpdates:^{
-            //
-            __typeof(weakSelf)strongSelf = weakSelf;
-            if ([sectionsIndexSet count] > 0) [strongSelf.collectionView insertSections:sectionsIndexSet];
-            [strongSelf.collectionView insertItemsAtIndexPaths:itemsToInsert];
-            
-        } completion:nil];
-        return;
-    }
-    
-    NSMutableArray *sectionsToInsert = [NSMutableArray array];
-    NSMutableArray *indexPathToInsert = [NSMutableArray array];
-    
-    for (QBChatMessage *message in messages) {
-        NSAssert(message.dateSent != nil, @"Message must have dateSent!");
-        
-        if ([self indexPathForMessage:message] != nil) continue;
-        
-        QMChatSection *firstSection = [self.chatSections firstObject];
-        
-        NSUInteger sectionIndex = [self.chatSections indexOfObject:firstSection];
-        
-        if ([message.dateSent timeIntervalSinceDate:[firstSection firstMessageDate]] > self.timeIntervalBetweenSections || firstSection == nil) {
-            
-            QMChatSection* newSection = [QMChatSection chatSectionWithMessage:message];
-            [self.chatSections insertObject:newSection atIndex:0];
-            
-            sectionIndex = [self.chatSections indexOfObject:newSection];
-            [sectionsToInsert addObject:@(sectionIndex)];
-        } else {
-            [firstSection.messages insertObject:message atIndex:0];
-        }
-        
-        [indexPathToInsert addObject:[NSIndexPath indexPathForRow:0
-                                                        inSection:sectionIndex]];
-
-    }
-    
-    NSIndexSet *sectionsIndexSet = [self indexSetForSectionsToInsert:sectionsToInsert];
-    
-    __weak __typeof(self)weakSelf = self;
-    [self.collectionView performBatchUpdates:^{
-        //
-        __typeof(weakSelf)strongSelf = weakSelf;
-        if ([sectionsIndexSet count] > 0) [strongSelf.collectionView insertSections:sectionsIndexSet];
-        [strongSelf.collectionView insertItemsAtIndexPaths:indexPathToInsert];
-    } completion:^(BOOL finished) {
-        //
-        __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf scrollToBottomAnimated:NO];
-    }];
+	NSAssert([NSThread isMainThread], @"You are trying to insert messages in background thread!");
+	NSAssert([messages count] > 0, @"Array must contain messages!");
+	
+	if (self.chatSections == nil) {
+		NSDictionary *sectionsAndItems = [self updateDataSourceWithMessages:messages];
+		NSArray *sectionsToInsert = sectionsAndItems[kQMSectionsInsertKey];
+		NSArray *itemsToInsert = sectionsAndItems[kQMItemsInsertKey];
+		
+		NSIndexSet *sectionsIndexSet = [self indexSetForSectionsToInsert:sectionsToInsert];
+		
+		__weak __typeof(self)weakSelf = self;
+		[self.collectionView performBatchUpdates:^{
+			//
+			__typeof(weakSelf)strongSelf = weakSelf;
+			if ([sectionsIndexSet count] > 0) [strongSelf.collectionView insertSections:sectionsIndexSet];
+			[strongSelf.collectionView insertItemsAtIndexPaths:itemsToInsert];
+			
+		} completion:nil];
+		return;
+	}
+	
+	NSUInteger sectionsToInsert = 0;
+	NSMutableArray *indexPathToInsert = [NSMutableArray array];
+	
+	for (QBChatMessage *message in messages) {
+		NSAssert(message.dateSent != nil, @"Message must have dateSent!");
+		
+		if ([self indexPathForMessage:message] != nil) continue;
+		
+		QMChatSection *firstSection = [self.chatSections firstObject];
+		
+		NSUInteger sectionIndex = [self.chatSections indexOfObject:firstSection];
+		
+		if ([message.dateSent timeIntervalSinceDate:[firstSection firstMessageDate]] > self.timeIntervalBetweenSections || firstSection == nil) {
+			
+			// move previous sections
+			NSArray *indexPathToInsert_t = [indexPathToInsert copy];
+			for (NSIndexPath *indexPath in indexPathToInsert_t) {
+				NSIndexPath *updatedIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
+				[indexPathToInsert replaceObjectAtIndex:[indexPathToInsert indexOfObject:indexPath] withObject:updatedIndexPath];
+			}
+			
+			QMChatSection* newSection = [QMChatSection chatSectionWithMessage:message];
+			[self.chatSections insertObject:newSection atIndex:0];
+			
+			sectionIndex = [self.chatSections indexOfObject:newSection];
+			sectionsToInsert++;
+		} else {
+			[firstSection.messages insertObject:message atIndex:0];
+		}
+		
+		[indexPathToInsert addObject:[NSIndexPath indexPathForRow:0
+														inSection:sectionIndex]];
+	}
+	
+	NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];
+	for (NSUInteger i = 0; i < sectionsToInsert; i++) {
+		[sectionsIndexSet addIndex:i];
+	}
+	
+	__weak __typeof(self)weakSelf = self;
+	[self.collectionView performBatchUpdates:^{
+		//
+		__typeof(weakSelf)strongSelf = weakSelf;
+		if ([sectionsIndexSet count] > 0) [strongSelf.collectionView insertSections:sectionsIndexSet];
+		[strongSelf.collectionView insertItemsAtIndexPaths:indexPathToInsert];
+	} completion:^(BOOL finished) {
+		//
+		__typeof(weakSelf)strongSelf = weakSelf;
+		[strongSelf scrollToBottomAnimated:NO];
+	}];
 }
 
 - (void)updateMessage:(QBChatMessage *)message {
@@ -327,13 +336,13 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (void)updateMessages:(NSArray *)messages {
     NSAssert([NSThread isMainThread], @"You are trying to update messages in background thread!");
-    
+	
     NSMutableArray *indexPaths = [NSMutableArray array];
-    
+	
     for (QBChatMessage *message in messages) {
         NSIndexPath *indexPath = [self indexPathForMessage:message];
         if (indexPath == nil) continue;
-        
+		
         [indexPaths addObject:indexPath];
         [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:message.ID];
         
@@ -506,7 +515,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     
     if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
@@ -664,27 +673,27 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     if ([cell isKindOfClass:[QMChatCell class]]) {
         
         QMChatCell *chatCell = (QMChatCell *)cell;
-        
+
         QBChatMessage *messageItem = [self messageForIndexPath:indexPath];
         
         chatCell.textView.text = [self attributedStringForItem:messageItem];
-        chatCell.topLabel.attributedText = [self topLabelAttributedStringForItem:messageItem];
-        chatCell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:messageItem];
+        chatCell.topLabel.text = [self topLabelAttributedStringForItem:messageItem];
+        chatCell.bottomLabel.text = [self bottomLabelAttributedStringForItem:messageItem];
     }
 }
 
 - (NSAttributedString *)topLabelAttributedStringForItem:(QBChatMessage *)messageItem {
-    NSAssert(NO, @"Have to be overriden in subclasses!");
+    NSAssert(NO, @"Have to be overridden in subclasses!");
     return nil;
 }
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
-    NSAssert(NO, @"Have to be overriden in subclasses!");
+    NSAssert(NO, @"Have to be overridden in subclasses!");
     return nil;
 }
 
 - (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
-    NSAssert(NO, @"Have to be overriden in subclasses!");
+    NSAssert(NO, @"Have to be overridden in subclasses!");
     return nil;
 }
 
@@ -698,21 +707,17 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    
-    if (action == @selector(copy:)) {
-        
-        return YES;
-    }
-    
-    return NO;
+
+    return action == @selector(copy:);
+
 }
 
 - (void)collectionView:(QMChatCollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    NSAssert(NO, @"Have to be overriden in subclasses.");
+    NSAssert(NO, @"Have to be overridden in subclasses.");
 }
 
 - (Class)viewClassForItem:(QBChatMessage *)item {
-    NSAssert(NO, @"Have to be overriden in subclasses.");
+    NSAssert(NO, @"Have to be overridden in subclasses.");
     return nil;
 }
 
@@ -814,8 +819,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 #pragma mark - UIActionSheetDelegate
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentViewController:self.pickerController animated:YES completion:nil];
@@ -896,8 +900,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         if (object == self.inputToolbar.contentView.textView
             && [keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))]) {
             
-            CGSize oldContentSize = [[change objectForKey:NSKeyValueChangeOldKey] CGSizeValue];
-            CGSize newContentSize = [[change objectForKey:NSKeyValueChangeNewKey] CGSizeValue];
+            CGSize oldContentSize = [change[NSKeyValueChangeOldKey] CGSizeValue];
+            CGSize newContentSize = [change[NSKeyValueChangeNewKey] CGSizeValue];
             
             CGFloat dy = newContentSize.height - oldContentSize.height;
             

@@ -254,12 +254,12 @@
         CGFloat finalWidth = dynamicSize.width + horizontalInsetsTotal;
         
         CGFloat cellHeight = dynamicSize.height + verticalContainerInsets + additionalSpace;
-        CGFloat finalCellHeigh = MAX(cellHeight, layoutModel.avatarSize.height);
+        CGFloat finalCellHeight = MAX(cellHeight, layoutModel.avatarSize.height);
         
-        CGFloat minWidht = [self.chatCollectionView.delegate collectionView:self.chatCollectionView minWidthAtIndexPath:indexPath];
-        minWidht+=horizontalContainerInsets;
+        CGFloat minWidth = [self.chatCollectionView.delegate collectionView:self.chatCollectionView minWidthAtIndexPath:indexPath];
+        minWidth += horizontalContainerInsets;
         
-        finalSize = CGSizeMake(MAX(finalWidth, minWidht), finalCellHeigh);
+        finalSize = CGSizeMake(MAX(finalWidth, minWidth), finalCellHeight);
     }
     else {
         

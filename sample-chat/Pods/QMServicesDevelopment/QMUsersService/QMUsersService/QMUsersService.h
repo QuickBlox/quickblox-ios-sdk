@@ -26,7 +26,7 @@
  *  @param serviceDataDelegate   instance confirmed id<QMServiceDataDelegate> protocol
  *  @param cacheDataSource       instance confirmed id<QMUsersServiceCacheDataSource> protocol
  *
- *  @return QMContactListService instance
+ *  @return QMUsersService instance
  */
 - (instancetype)initWithServiceManager:(id<QMServiceManagerProtocol>)serviceManager
                        cacheDataSource:(id<QMUsersServiceCacheDataSource>)cacheDataSource;

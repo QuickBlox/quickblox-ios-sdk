@@ -35,32 +35,6 @@
 
 #pragma mark - Add / Join / Remove
 
-- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join onJoin:(dispatch_block_t)onJoin {
-    NSAssert(chatDialog != nil, @"Chat dialog is nil!");
-    NSAssert(chatDialog.ID != nil, @"Chat dialog without identifier!");
-    self.dialogs[chatDialog.ID] = chatDialog;
-	
-	NSAssert(chatDialog.type != 0, @"Chat type is not defined");
-	if( chatDialog.type == QBChatDialogTypeGroup || chatDialog.type == QBChatDialogTypePublicGroup ){
-		NSAssert(chatDialog.roomJID != nil, @"Chat JID must exists for group chat");
-	}
-	
-    if (join) {
-        
-        if (chatDialog.isJoined) {
-            
-            if (onJoin) {
-                onJoin();
-            }
-        } else {
-            NSAssert(!chatDialog.isJoined, @"Need update this case");
-            [chatDialog setOnJoin:onJoin];
-
-            [chatDialog join];
-        }
-    }
-}
-
 - (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(void(^)(QBChatDialog *dialog, NSError *error))completion {
     NSAssert(chatDialog != nil, @"Chat dialog is nil!");
     NSAssert(chatDialog.ID != nil, @"Chat dialog without identifier!");
