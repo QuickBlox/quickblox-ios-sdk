@@ -610,7 +610,7 @@ QMChatCellDelegate
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSUInteger lastSection = [self.collectionView numberOfSections] - 1;
     if (indexPath.section == lastSection && indexPath.item == [self.collectionView numberOfItemsInSection:lastSection] - 1) {
@@ -631,6 +631,8 @@ QMChatCellDelegate
     // marking message as read if needed
     QBChatMessage *itemMessage = [self messageForIndexPath:indexPath];
     [self sendReadStatusForMessage:itemMessage];
+    
+    return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
 }
 
 #pragma mark - QMChatCellDelegate

@@ -692,8 +692,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        //
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
         let lastSection = (self.collectionView?.numberOfSections())! - 1
         if (indexPath.section == lastSection && indexPath.item == (self.collectionView?.numberOfItemsInSection(lastSection))! - 1) {
             // the very first message
@@ -709,13 +709,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
                 
                 return nil
-            })
+                })
         }
         
         // marking message as read if needed
         if let message = self.messageForIndexPath(indexPath) {
             self.sendReadStatusForMessage(message)
         }
+        
+        return super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
     }
     
     // MARK: QMChatCellDelegate
