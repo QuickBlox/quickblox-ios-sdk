@@ -91,13 +91,13 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
         NSString *updatedAtTimeInterval = self.context[kQMCustomParameterDialogRoomUpdatedDate];
         
         if (updatedAtTimeInterval) {
-            self.tDialog.updatedAt = [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval floatValue]];
+            self.tDialog.updatedAt = [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval integerValue]];
         }
         
         NSString *lastMessageDateTimeInterval = self.context[kQMCustomParameterDialogRoomLastMessageDate];
         
         if (lastMessageDateTimeInterval) {
-            self.tDialog.lastMessageDate = [NSDate dateWithTimeIntervalSince1970:[lastMessageDateTimeInterval floatValue]];
+            self.tDialog.lastMessageDate = [NSDate dateWithTimeIntervalSince1970:[lastMessageDateTimeInterval integerValue]];
         }
         
         NSString * strIDs = self.context[kQMCustomParameterDialogCurrentOccupantsIDs];

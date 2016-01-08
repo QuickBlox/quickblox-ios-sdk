@@ -307,6 +307,7 @@
 				BFE6FB6F180E8EF100E64AC4 /* Frameworks */,
 				BFE6FB70180E8EF100E64AC4 /* Resources */,
 				EA0FB2DEF001482B9E0AC531 /* Copy Pods Resources */,
+				0BAA8C3E84AC2BBFECD5F146 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -323,7 +324,7 @@
 		BFE6FB6A180E8EF100E64AC4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Quickblox;
 				TargetAttributes = {
 					BFE6FB71180E8EF100E64AC4 = {
@@ -366,6 +367,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BAA8C3E84AC2BBFECD5F146 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5948AA2C6DD54920BE8F0F50 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -514,6 +530,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "f9c2a4c6-ab11-404a-9205-2399e793ee22";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -541,6 +558,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -625,6 +643,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -654,6 +673,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
 				PROVISIONING_PROFILE = "f9c2a4c6-ab11-404a-9205-2399e793ee22";
 				TARGETED_DEVICE_FAMILY = 1;

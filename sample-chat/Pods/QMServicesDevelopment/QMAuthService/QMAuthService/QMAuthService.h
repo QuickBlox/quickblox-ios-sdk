@@ -37,7 +37,7 @@
  *  @param user       QuickBlox User
  *  @param completion completion block
  *
- *  @return Canceble request
+ *  @return Cancelable request
  */
 - (QBRequest *)signUpAndLoginWithUser:(QBUUser *)user completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
 
@@ -47,7 +47,7 @@
  *  @param user       QuickBlox User
  *  @param completion completion block
  *
- *  @return Canceble request
+ *  @return Cancelable request
  */
 - (QBRequest *)logInWithUser:(QBUUser *)user completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
 
@@ -57,7 +57,7 @@
  *  @param sessionToken Facebook session token
  *  @param completion   Completion block
  *
- *  @return Canceble request
+ *  @return Cancelable request
  */
 - (QBRequest *)logInWithFacebookSessionToken:(NSString *)sessionToken completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
 
@@ -66,9 +66,60 @@
  *
  *  @param completion completion block
  *
- *  @return Cancable request
+ *  @return Cancelable request
  */
 - (QBRequest *)logOut:(void(^)(QBResponse *response))completion;
+
+@end
+
+#pragma mark - Bolts
+
+/**
+ *  Bolts methods for QMAuthService
+ */
+@interface QMAuthService (Bolts)
+
+/**
+ *  Sign up user and login using Bolts.
+ *
+ *  @param user user instance to sign up and login
+ *
+ *  @return BFTask with QBUUser instance
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask QB_GENERIC(QBUUser *) *)signUpAndLoginWithUser:(QBUUser *)user;
+
+/**
+ *  Login with user using Bolts.
+ *
+ *  @param user user instance to login
+ *
+ *  @return BFTask with QBUUser instance
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask QB_GENERIC(QBUUser *) *)loginWithUser:(QBUUser *)user;
+
+/**
+ *  Login with facebook session token using Bolts.
+ *
+ *  @param sessionToken valid facebook token with Email access
+ *
+ *  @return BFTask with QBUUser instance
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask QB_GENERIC(QBUUser *) *)loginWithFacebookSessionToken:(NSString *)sessionToken;
+
+/**
+ *  Logout current user using Bolts.
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask *)logout;
 
 @end
 

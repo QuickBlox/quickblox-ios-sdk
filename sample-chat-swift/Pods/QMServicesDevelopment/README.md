@@ -20,7 +20,9 @@
 	- [Fetching users](#fetching-users)
 	- [Subclass of QMServicesManager example](#qmservices-example)
 	- [QMAuthService](#qmauthservice)
+		- [QMAuthService + Bolts](#qmauthservice--bolts)
 	- [QMChatService](#qmauthservice)
+		- [QMChatService + Bolts](#qmchatservice--bolts)
 		- [QMDialogsMemoryStorage](#qmdialogsmemorystorage)
 		- [QMMessagesMemoryStorage](#qmmessagesmemorystorage)
 		- [QMChatAttachmentService](#qmchatattachmentservice)
@@ -43,6 +45,7 @@ Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat 
 * High level API for Chat features including authentication service for logging to Quickblox REST and XMPP
 * Inbox persistent storage for messages, dialogs and users
 * Inbox memory storage for messages, dialogs and users
+* Bolts version of all methods. See [Bolts-iOS](https://github.com/BoltsFramework/Bolts-iOS "Bolts-iOS"") for more information.
 
 # Requirements
 
@@ -578,6 +581,42 @@ Logout user from Quickblox.
 
 ```
 
+### QMAuthService + Bolts 
+
+QMAuthService also has all methods implemented using BFTasks.
+
+Sign up user and log's in to Quickblox using Bolts.
+
+```objective-c
+
+- (BFTask *)signUpAndLoginWithUser:(QBUUser *)user;
+
+```
+
+Login user to Quickblox using Bolts.
+
+```objective-c
+
+- (BFTask *)loginWithUser:(QBUUser *)user;
+
+```
+
+Login with facebook session token using Bolts.
+
+```objective-c
+
+- (BFTask *)loginWithFacebookSessionToken:(NSString *)sessionToken;
+
+```
+
+Logout user from Quickblox using Bolts.
+
+```objective-c
+
+- (BFTask *)logout;
+
+```
+
 ## QMChatService
 
 This class is responsible for operation with messages and dialogs.
@@ -855,6 +894,218 @@ Send read status for messages and update unreadMessageCount for dialog in storag
 ```objective-c
 
 - (void)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID completion:(QBChatCompletionBlock)completion;
+
+```
+
+### QMChatService + Bolts 
+
+QMChatService also has all methods implemented using BFTasks.
+
+Connect user to Quickblox chat using Bolts.
+
+```objective-c
+
+- (BFTask *)connect;
+
+```
+
+Disconnect user from Quickblox chat using Bolts.
+
+```objective-c
+
+- (BFTask *)disconnect;
+
+```
+
+Join user to group dialog using Bolts.
+
+```objective-c
+
+- (BFTask *)joinToGroupDialog:(QBChatDialog *)dialog;
+
+```
+
+Create group chat dialog with occupants on Quickblox using Bolts.
+
+```objective-c
+
+- (BFTask *)createGroupChatDialogWithName:(NSString *)name photo:(NSString *)photo occupants:(NSArray *)occupants;
+
+```
+
+Create private chat dialog with opponent on Quickblox using Bolts.
+
+```objective-c
+
+- (BFTask *)createPrivateChatDialogWithOpponent:(QBUUser *)opponent;
+
+```
+
+Change dialog name using Bolts.
+
+```objective-c
+
+- (BFTask *)changeDialogName:(NSString *)dialogName forChatDialog:(QBChatDialog *)chatDialog;
+
+```
+
+Change dialog avatar using Bolts.
+
+```objective-c
+
+- (BFTask *)changeDialogAvatar:(NSString *)avatarPublicUrl forChatDialog:(QBChatDialog *)chatDialog;
+
+```
+
+Add occupants to dialog using Bolts.
+
+``` objective-c
+
+- (BFTask *)joinOccupantsWithIDs:(NSArray *)ids toChatDialog:(QBChatDialog *)chatDialog;
+
+```
+
+Deletes dialog on service and in cache using Bolts.
+
+```objective-c
+
+- (BFTask *)deleteDialogWithID:(NSString *)dialogID;
+
+```
+
+Recursively fetch all dialogs from Quickblox using Bolts.
+
+```objective-c
+
+- (BFTask *)allDialogsWithPageLimit:(NSUInteger)limit
+                    extendedRequest:(NSDictionary *)extendedRequest
+                     iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))interationBlock;
+
+```
+
+Send system message to users about adding to dialog with dialog inside using Bolts.
+
+```objective-c
+
+- (BFTask *)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog
+                                      toUsersIDs:(NSArray *)usersIDs;
+
+```
+
+Send message about accepting or rejecting contact requst using Bolts.
+
+```objective-c
+
+- (BFTask *)sendMessageAboutAcceptingContactRequest:(BOOL)accept
+                                       toOpponentID:(NSUInteger)opponentID;
+
+```
+
+Sending notification message about adding occupants to specific dialog using Bolts.
+
+```objective-c
+
+- (BFTask *)sendNotificationMessageAboutAddingOccupants:(NSArray *)occupantsIDs
+                                               toDialog:(QBChatDialog *)chatDialog
+                                   withNotificationText:(NSString *)notificationText;
+                                         
+```
+
+Sending notification message about leaving dialog using Bolts.
+
+```objective-c
+
+- (BFTask *)sendNotificationMessageAboutLeavingDialog:(QBChatDialog *)chatDialog
+                                 withNotificationText:(NSString *)notificationText;
+                                         
+```
+
+Sending notification message about changing dialog photo using Bolts.
+
+```objective-c
+
+- (BFTask *)sendNotificationMessageAboutChangingDialogPhoto:(QBChatDialog *)chatDialog
+                                       withNotificationText:(NSString *)notificationText;
+                                         
+```
+
+Sending notification message about changing dialog name using Bolts.
+
+```objective-c
+
+- (BFTask *)sendNotificationMessageAboutChangingDialogName:(QBChatDialog *)chatDialog
+                                      withNotificationText:(NSString *)notificationText;
+                                         
+```
+
+Fetches messages with chat dialog ID using Bolts.
+
+```objective-c
+
+- (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID;
+
+```
+
+Fetch dialog with dialog identifier using Bolts.
+
+```objective-c
+
+- (BFTask *)fetchDialogWithID:(NSString *)dialogID;
+
+```
+
+Load dialog with dialog identifier from Quickblox server and save to local storage using Bolts.
+
+```objective-c
+
+- (BFTask *)loadDialogWithID:(NSString *)dialogID;
+
+```
+
+Fetch dialogs updated from date using Bolts.
+
+```objective-c
+
+- (BFTask *)fetchDialogsUpdatedFromDate:(NSDate *)date
+                           andPageLimit:(NSUInteger)limit
+                         iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))iteration;
+
+```
+
+Send message to dialog using Bolts.
+
+```objective-c
+
+- (BFTask *)sendMessage:(QBChatMessage *)message
+               toDialog:(QBChatDialog *)dialog
+          saveToHistory:(BOOL)saveToHistory
+          saveToStorage:(BOOL)saveToStorage;
+
+```
+
+Send attachment message to dialog using Bolts.
+
+```objective-c
+
+- (BFTask *)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
+                         toDialog:(QBChatDialog *)dialog
+              withAttachmentImage:(UIImage *)image;
+
+```
+
+Mark message as delivered using Bolts.
+
+```objective-c
+
+- (BFTask *)markMessageAsDelivered:(QBChatMessage *)message;
+
+```
+
+Send read status for message and update unreadMessageCount for dialog in storage using Bolts.
+
+```objective-c
+
+- (BFTask *)readMessage:(QBChatMessage *)message;
 
 ```
 

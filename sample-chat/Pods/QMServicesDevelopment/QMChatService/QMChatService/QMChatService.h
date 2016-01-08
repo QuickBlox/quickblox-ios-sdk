@@ -500,7 +500,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBChatDialog *) *)createGroupChatDialogWithName:(NSString *)name photo:(NSString *)photo occupants:(NSArray QB_GENERIC(QBUUser *)*)occupants;
+- (BFTask QB_GENERIC(QBChatDialog *) *)createGroupChatDialogWithName:(NSString *)name photo:(NSString *)photo occupants:(NSArray QB_GENERIC(QBUUser *) *)occupants;
 
 /**
  *  Create private dialog if needed using Bolts.

@@ -91,6 +91,9 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 
 #pragma mark - Bolts
 
+/**
+ *  Bolts methods for QMContactListService
+ */
 @interface QMContactListService (Bolts)
 
 /**
