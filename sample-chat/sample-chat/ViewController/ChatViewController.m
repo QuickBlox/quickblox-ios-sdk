@@ -323,37 +323,28 @@ QMChatCellDelegate
 #pragma mark - Cell classes
 
 - (Class)viewClassForItem:(QBChatMessage *)item
-{    
-    if (item.senderID == QMMessageTypeContactRequest) {
-        if (item.senderID != self.senderID) {
-            return [QMChatContactRequestCell class];
-        }
-    } else if (item.senderID == QMMessageTypeRejectContactRequest) {
-        return [QMChatNotificationCell class];
-    } else if (item.senderID == QMMessageTypeAcceptContactRequest) {
-        return [QMChatNotificationCell class];
-    } else {
-        if (item.senderID != self.senderID) {
-            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-                return [QMChatAttachmentIncomingCell class];
-            } else {
-                return [QMChatIncomingCell class];
-            }
-        } else {
-            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-                return [QMChatAttachmentOutgoingCell class];
-            } else {
-                return [QMChatOutgoingCell class];
-            }
-        }
-    }
-    return nil;
+{
+	// TODO: check and add QMMessageTypeAcceptContactRequest, QMMessageTypeRejectContactRequest, QMMessageTypeContactRequest
+	
+	if (item.senderID != self.senderID) {
+		if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+			return [QMChatAttachmentIncomingCell class];
+		} else {
+			return [QMChatIncomingCell class];
+		}
+	} else {
+		if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+			return [QMChatAttachmentOutgoingCell class];
+		} else {
+			return [QMChatOutgoingCell class];
+		}
+	}
 }
 
 #pragma mark - Strings builder
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
-    
+	
     UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};

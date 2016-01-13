@@ -395,60 +395,41 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     // MARK: Override
     
     override func viewClassForItem(item: QBChatMessage) -> AnyClass! {
-        
-        if item.senderID == QMMessageType.ContactRequest.rawValue {
-            
-            if item.senderID != self.senderID {
-                
-                return QMChatContactRequestCell.self
-            }
-            
-        } else if item.senderID == QMMessageType.RejectContactRequest.rawValue {
-            
-            return QMChatNotificationCell.self
-            
-        } else if item.senderID == QMMessageType.AcceptContactRequest.rawValue {
-            
-            return QMChatNotificationCell.self
-            
-        } else {
-            
-            if (item.senderID != self.senderID) {
-                
-                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
-                    
-                    return QMChatAttachmentIncomingCell.self
-                    
-                } else {
-                    
-                    return QMChatIncomingCell.self
-                }
-                
-            } else {
-                
-                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
-                    
-                    return QMChatAttachmentOutgoingCell.self
-                    
-                } else {
-                    
-                    return QMChatOutgoingCell.self
-                }
-                
-            }
-        }
-        
-        return nil
+		// TODO: check and add QMMessageType.AcceptContactRequest, QMMessageType.RejectContactRequest, QMMessageType.ContactRequest
+		
+		
+		if (item.senderID != self.senderID) {
+			
+			if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+				
+				return QMChatAttachmentIncomingCell.self
+				
+			} else {
+				
+				return QMChatIncomingCell.self
+			}
+			
+		} else {
+			
+			if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+				
+				return QMChatAttachmentOutgoingCell.self
+				
+			} else {
+				
+				return QMChatOutgoingCell.self
+			}
+		}
     }
-    
+	
     // MARK: Strings builder
-    
+	
     override func attributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString? {
-        
+		
         if messageItem.text == nil {
             return nil
         }
-        
+		
         let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
         
         var attributes = Dictionary<String, AnyObject>()
