@@ -13,7 +13,7 @@
 const NSUInteger kApplicationID = 92;
 NSString *const kAuthKey        = @"wJHdOcQSxXQGWx5";
 NSString *const kAuthSecret     = @"BTFsj7Rtt27DAmT";
-NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
+NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 
 @interface AppDelegate()
 
@@ -27,7 +27,7 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
     [QBSettings setApplicationID:kApplicationID];
     [QBSettings setAuthKey:kAuthKey];
     [QBSettings setAuthSecret:kAuthSecret];
-    [QBSettings setAccountKey:kAcconuntKey];
+    [QBSettings setAccountKey:kAccountKey];
     
     [[GeoDataManager instance] fetchLatestCheckIns];
     

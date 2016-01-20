@@ -12,7 +12,7 @@
 const NSUInteger kApplicationID = 32186;
 NSString *const kAuthKey        = @"hZW5jgFxzOS2aCC";
 NSString *const kAuthSecret     = @"HOvhKhWNeGgV8cF";
-NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
+NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 
 typedef void (^CompletionHandlerType)();
 
@@ -39,7 +39,7 @@ typedef void (^CompletionHandlerType)();
     [QBSettings setApplicationID:kApplicationID];
     [QBSettings setAuthKey:kAuthKey];
     [QBSettings setAuthSecret:kAuthSecret];
-    [QBSettings setAccountKey:kAcconuntKey];
+    [QBSettings setAccountKey:kAccountKey];
     
     [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
     [[UIApplication sharedApplication] registerForRemoteNotifications];

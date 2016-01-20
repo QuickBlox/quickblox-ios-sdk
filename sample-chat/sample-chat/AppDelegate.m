@@ -13,7 +13,7 @@
 const NSUInteger kApplicationID = 28783;
 NSString *const kAuthKey        = @"b5bVGCHHv6rcAmD";
 NSString *const kAuthSecret     = @"ySwEpardeE7ZXHB";
-NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
+NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 
 @interface AppDelegate () <NotificationServiceDelegate>
 
@@ -27,7 +27,7 @@ NSString *const kAcconuntKey    = @"7yvNe17TnjNUqDoPwfqp";
     [QBSettings setApplicationID:kApplicationID];
     [QBSettings setAuthKey:kAuthKey];
     [QBSettings setAuthSecret:kAuthSecret];
-    [QBSettings setAccountKey:kAcconuntKey];
+    [QBSettings setAccountKey:kAccountKey];
     
     // Enables Quickblox REST API calls debug console output
     [QBSettings setLogLevel:QBLogLevelDebug];
