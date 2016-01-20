@@ -55,7 +55,7 @@ typedef enum QBConnectionZoneType{
 /// Enable or disable message carbons
 + (void)setCarbonsEnabled:(BOOL)carbonsEnabled;
 
-/// Enable or disable Stream Resumption (XEP-0198). Works only if streamManagementEnabled=YES
+/// Enable or disable Stream Resumption (XEP-0198).
 + (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled;
 
 /// Set timeout value for Stream Management send a message operation

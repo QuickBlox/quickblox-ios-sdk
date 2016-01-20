@@ -379,35 +379,53 @@
                                successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
                                  errorBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))errorBlock;
 
-#pragma mark - Delete User
+#pragma mark - Delete Current User
+
 
 /**
- Delete User by identifier
+ Delete Current User
+ 
+ @note You should login firstly in order to delete current user
+ 
+ @param successBlock Block with response instance if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QB_NONNULL QBRequest *)deleteCurrentUserWithSuccessBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
+												 errorBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))errorBlock;
+
+/**
+ Delete Current User by identifier
  
  @param userID ID of user to be removed.
  @param successBlock Block with response instance if request succeded
  @param errorBlock Block with response instance if request failed
  
+ @warning *Deprecated in QB iOS SDK 2.6.2:* Use '+[QBRequest deleteCurrentUser:successBlock:errorBlock:] instead.
+ 
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QB_NONNULL QBRequest *)deleteUserWithID:(NSUInteger)userID
                               successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
-                                errorBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))errorBlock;
+                                errorBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))errorBlock DEPRECATED_MSG_ATTRIBUTE("use '+[QBRequest deleteCurrentUser:successBlock:errorBlock:]' instead.");
 
 #pragma mark - Delete User with external ID
 
 /**
- Delete User by external identifier
+ Delete Current User by external identifier
  
  @param userExternalID External ID of user to be removed.
  @param successBlock Block with response instance if request succeded
  @param errorBlock Block with response instance if request failed
  
+ @warning *Deprecated in QB iOS SDK 2.6.2:* Use '+[QBRequest deleteCurrentUser:successBlock:errorBlock:] instead.
+ 
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QB_NONNULL QBRequest *)deleteUserWithExternalID:(NSUInteger)userExternalID
                                       successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
-                                        errorBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))errorBlock;
+                                        errorBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))errorBlock DEPRECATED_MSG_ATTRIBUTE("use '+[QBRequest deleteCurrentUser:successBlock:errorBlock:]' instead.");
 
 #pragma mark - Reset password
 

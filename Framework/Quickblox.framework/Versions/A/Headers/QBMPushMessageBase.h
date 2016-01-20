@@ -18,6 +18,5 @@
 
 - (QB_NONNULL instancetype)initWithPayload:(QB_NONNULL NSDictionary QB_GENERIC(NSString *, NSString *) *)payload;
 - (QB_NULLABLE NSString *)json;
-- (NSInteger)charsLeft;
 
 @end
