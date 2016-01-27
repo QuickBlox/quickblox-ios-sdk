@@ -11,9 +11,9 @@
 @class QBResponse;
 @class QBRequestStatus;
 
-@protocol QBResponseSerialisationProtocol;
+@protocol QBResponseSerializationProtocol;
 @protocol QBRequestSerialisationProtocol;
-@class QBHTTPRequestSerialiser;
+@class QBHTTPRequestSerializer;
 
 extern const struct QBRequestMethod {
     __unsafe_unretained NSString *QB_NONNULL_S POST;
@@ -60,10 +60,10 @@ typedef void (^QBRequestErrorBlock)(QBResponse *QB_NONNULL_S response);
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBRequestStatusUpdateBlock updateBlock;
 
 /** Request serialiser */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) QBHTTPRequestSerialiser<QBRequestSerialisationProtocol> *requestSerialisator;
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) QBHTTPRequestSerializer <QBRequestSerialisationProtocol> *requestSerialisator;
 
-/** Response serialiser (QBHTTPResponseSerialiser<QBResponseSerialisationProtocol>) */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(__kindof id<QBResponseSerialisationProtocol>) *responseSerialisators;
+/** Response serialiser (QBHTTPResponseSerializer<QBResponseSerializationProtocol>) */
+@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(__kindof id<QBResponseSerializationProtocol>) *responseSerialisators;
 
 /** Request headers */
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSDictionary QB_GENERIC(NSString *, NSString *) *headers;

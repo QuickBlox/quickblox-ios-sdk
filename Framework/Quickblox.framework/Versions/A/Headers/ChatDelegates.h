@@ -9,11 +9,6 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
-#define kStopVideoChatCallStatus_OpponentDidNotAnswer @"kStopVideoChatCallStatus_OpponentDidNotAnswer"
-#define kStopVideoChatCallStatus_Manually @"kStopVideoChatCallStatus_Manually"
-#define kStopVideoChatCallStatus_Cancel @"kStopVideoChatCallStatus_Cancel"
-#define kStopVideoChatCallStatus_BadConnection @"kStopVideoChatCallStatus_BadConnection"
-
 /**
  QBChatDelegate protocol definition
  This protocol defines methods signatures for callbacks. Implement this protocol in your class and
@@ -52,7 +47,7 @@
 /**
  didReceiveMessage fired when new 1-1 message was received from QBChat
  
- @note Will fire only on recepient device
+ @note Will fire only on recipient device
  @param message Message received from Chat
  */
 - (void)chatDidReceiveMessage:(QB_NONNULL QBChatMessage *)message;
@@ -60,7 +55,7 @@
 /**
  didReceiveSystemMessage fired when new system message was received from QBChat
  
- @note Will fire only on recepient device
+ @note Will fire only on recipient device
  @param message Message received from Chat
  */
 - (void)chatDidReceiveSystemMessage:(QB_NONNULL QBChatMessage *)message;

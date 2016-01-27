@@ -10,9 +10,7 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
-@interface QBChatAttachment : NSObject <NSCoding, NSCopying> {
-
-}
+@interface QBChatAttachment : NSObject <NSCoding, NSCopying>
 
 /** Type of attachment: audio/video/image */
 @property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *type;

@@ -18,17 +18,6 @@
 @class QBChatDialog;
 @class QBPrivacyList;
 
-/**
- QBChatServiceError enum defines following connection error codes:
- QBChatServiceErrorConnectionRefused - Connection with server is not available
- QBChatServiceErrorConnectionClosed  - Chat service suddenly became unavailable
- QBChatServiceErrorConnectionTimeout - Connection with server timed out
- */
-typedef enum QBChatServiceError {
-    QBChatServiceErrorConnectionClosed = 1,
-    QBChatServiceErrorConnectionTimeout
-} QBChatServiceError;
-
 /** QBChat class declaration. */
 /** Overview */
 /** This class is the main entry point to work with Quickblox Chat API. */
@@ -147,7 +136,7 @@ typedef enum QBChatServiceError {
 + (QB_NONNULL instancetype)instance;
 
 /**
- *  Connect to QuicBlox Chat with completion.
+ *  Connect to QuickBlox Chat with completion.
  *
  *  @param user       QBUUser structure represents user's login. Required user's fields: ID, password.
  *  @param completion Completion block with failure error.
