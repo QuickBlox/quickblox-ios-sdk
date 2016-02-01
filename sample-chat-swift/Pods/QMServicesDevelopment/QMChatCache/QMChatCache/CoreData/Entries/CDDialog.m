@@ -10,7 +10,6 @@
     
     QBChatDialog *dialog = [[QBChatDialog alloc] initWithDialogID:self.dialogID type:self.dialogType.intValue];
     
-    dialog.roomJID = self.roomJID;
     dialog.name = self.name;
     dialog.photo = self.photo;
     dialog.lastMessageText = self.lastMessageText;
@@ -28,7 +27,6 @@
 	NSAssert(dialog.type != 0, @"dialog type is undefined");
 	
     self.dialogID = dialog.ID;
-    self.roomJID = dialog.roomJID;
     self.dialogType = @(dialog.type);
     self.name = dialog.name;
     self.photo = dialog.photo;

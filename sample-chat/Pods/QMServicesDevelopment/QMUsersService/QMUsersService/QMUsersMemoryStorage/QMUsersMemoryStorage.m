@@ -8,6 +8,11 @@
 
 #import "QMUsersMemoryStorage.h"
 
+static NSString *const kQMQBUUserIDKeyPath = @"ID";
+static NSString *const kQMQBUUserLoginKeyPath = @"login";
+static NSString *const kQMQBUUserEmailKeyPath = @"email";
+static NSString *const kQMQBUUserFacebookIDKeyPath = @"facebookID";
+
 const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
     .foundObjects = @"kFoundObjects",
     .notFoundSearchValues = @"notFoundSearchValues"
@@ -153,17 +158,17 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
 
 - (NSArray *)usersWithLogins:(NSArray *)logins
 {
-    return [self usersForKeypath:@keypath(QBUUser.new, login) withValues:logins];
+    return [self usersForKeypath:kQMQBUUserLoginKeyPath withValues:logins];
 }
 
 - (NSArray *)usersWithEmails:(NSArray *)emails
 {
-    return [self usersForKeypath:@keypath(QBUUser.new, email) withValues:emails];
+    return [self usersForKeypath:kQMQBUUserEmailKeyPath withValues:emails];
 }
 
 - (NSArray *)usersWithFacebookIDs:(NSArray *)facebookIDs
 {
-    return [self usersForKeypath:@keypath(QBUUser.new, facebookID) withValues:facebookIDs];
+    return [self usersForKeypath:kQMQBUUserFacebookIDKeyPath withValues:facebookIDs];
 }
 
 #pragma mark - Filter
@@ -187,22 +192,22 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
 
 - (NSDictionary *)usersByExcludingUsersIDs:(NSArray *)ids
 {
-    return [self valuesForKeypath:@keypath(QBUUser.new, ID) byExcludingValues:ids];
+    return [self valuesForKeypath:kQMQBUUserIDKeyPath byExcludingValues:ids];
 }
 
 - (NSDictionary *)usersByExcludingLogins:(NSArray *)logins
 {
-    return [self valuesForKeypath:@keypath(QBUUser.new, login) byExcludingValues:logins];
+    return [self valuesForKeypath:kQMQBUUserLoginKeyPath byExcludingValues:logins];
 }
 
 - (NSDictionary *)usersByExcludingEmails:(NSArray *)emails
 {
-    return [self valuesForKeypath:@keypath(QBUUser.new, email) byExcludingValues:emails];
+    return [self valuesForKeypath:kQMQBUUserEmailKeyPath byExcludingValues:emails];
 }
 
 - (NSDictionary *)usersByExcludingFacebookIDs:(NSArray *)facebookIDs
 {
-    return [self valuesForKeypath:@keypath(QBUUser.new, facebookID) byExcludingValues:facebookIDs];
+    return [self valuesForKeypath:kQMQBUUserFacebookIDKeyPath byExcludingValues:facebookIDs];
 }
 
 @end

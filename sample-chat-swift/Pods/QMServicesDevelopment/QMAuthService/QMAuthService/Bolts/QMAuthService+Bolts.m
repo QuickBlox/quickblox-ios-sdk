@@ -22,7 +22,7 @@
     return source.task;
 }
 
-- (BFTask<QBUUser *> *)loginWithUser:(QBUUser *)user {
+- (BFTask *)loginWithUser:(QBUUser *)user {
     
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
@@ -34,7 +34,19 @@
     return source.task;
 }
 
-- (BFTask<QBUUser *> *)loginWithFacebookSessionToken:(NSString *)sessionToken {
+- (BFTask *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders {
+    
+    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self loginWithTwitterDigitsAuthHeaders:authHeaders completion:^(QBResponse *response, QBUUser *userProfile) {
+        //
+        response.success ? [source setResult:userProfile] : [source setError:response.error.error];
+    }];
+    
+    return source.task;
+}
+
+- (BFTask *)loginWithFacebookSessionToken:(NSString *)sessionToken {
     
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     

@@ -240,7 +240,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         if (oldestMessage == nil) return [BFTask taskWithResult:@[]];
         
-        NSString *oldestMessageDate = [NSString stringWithFormat:@"%ld", (NSUInteger)[oldestMessage.dateSent timeIntervalSince1970]];
+        NSString *oldestMessageDate = [NSString stringWithFormat:@"%tu", (NSUInteger)[oldestMessage.dateSent timeIntervalSince1970]];
         
         QBResponsePage *page = [QBResponsePage responsePageWithLimit:self.chatMessagesPerPage];
         
@@ -250,31 +250,30 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
                                      };
         
         
-        @weakify(self);
+        __weak __typeof(self)weakSelf = self;
         [QBRequest messagesWithDialogID:chatDialogID extendedRequest:parameters forPage:page successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
-            @strongify(self);
+            __typeof(weakSelf)strongSelf = weakSelf;
             
-            if ([messages count] < self.chatMessagesPerPage) {
-                self.loadedAllMessages[chatDialogID] = kQMLoadedAllMessages;
+            if ([messages count] < strongSelf.chatMessagesPerPage) {
+                strongSelf.loadedAllMessages[chatDialogID] = kQMLoadedAllMessages;
             }
             
             if ([messages count] > 0) {
                 
-                [self.messagesMemoryStorage addMessages:messages forDialogID:chatDialogID];
+                [strongSelf.messagesMemoryStorage addMessages:messages forDialogID:chatDialogID];
                 
-                if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddMessagesToMemoryStorage:forDialogID:)]) {
-                    [self.multicastDelegate chatService:self didAddMessagesToMemoryStorage:messages forDialogID:chatDialogID];
+                if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddMessagesToMemoryStorage:forDialogID:)]) {
+                    [strongSelf.multicastDelegate chatService:strongSelf didAddMessagesToMemoryStorage:messages forDialogID:chatDialogID];
                 }
             }
             
             [source setResult:[[messages reverseObjectEnumerator] allObjects]];
             
         } errorBlock:^(QBResponse *response) {
-            @strongify(self);
             
             // case where we may have deleted dialog from another device
             if( response.status != QBResponseStatusCodeNotFound ) {
-                [self.serviceManager handleErrorResponse:response];
+                [weakSelf.serviceManager handleErrorResponse:response];
             }
             
             [source setError:response.error.error];
@@ -307,20 +306,21 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     NSMutableDictionary *extendedRequest = @{@"_id":dialogID}.mutableCopy;
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
-    @weakify(self);
+    __weak __typeof(self)weakSelf = self;
     [QBRequest dialogsForPage:responsePage extendedRequest:extendedRequest successBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, QBResponsePage *page) {
-        @strongify(self);
+        __typeof(weakSelf)strongSelf = weakSelf;
+        
         if ([dialogObjects firstObject] != nil) {
-            [self.dialogsMemoryStorage addChatDialog:[dialogObjects firstObject] andJoin:YES completion:nil];
-            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddChatDialogToMemoryStorage:)]) {
-                [self.multicastDelegate chatService:self didAddChatDialogToMemoryStorage:[dialogObjects firstObject]];
+            [strongSelf.dialogsMemoryStorage addChatDialog:[dialogObjects firstObject] andJoin:YES completion:nil];
+            if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddChatDialogToMemoryStorage:)]) {
+                [strongSelf.multicastDelegate chatService:strongSelf didAddChatDialogToMemoryStorage:[dialogObjects firstObject]];
             }
         }
         
         [source setResult:[dialogObjects firstObject]];
     } errorBlock:^(QBResponse *response) {
-        @strongify(self);
-        [self.serviceManager handleErrorResponse:response];
+        
+        [weakSelf.serviceManager handleErrorResponse:response];
         [source setError:response.error.error];
     }];
     

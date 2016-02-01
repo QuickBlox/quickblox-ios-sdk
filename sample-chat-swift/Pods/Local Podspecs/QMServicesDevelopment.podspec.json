@@ -1,6 +1,6 @@
 {
   "name": "QMServicesDevelopment",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "summary": "Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat applications.",
   "homepage": "https://github.com/QuickBlox/q-municate-services-ios",
   "license": {
@@ -15,7 +15,7 @@
   },
   "source": {
     "git": "https://github.com/QuickBlox/q-municate-services-ios.git",
-    "tag": "0.3.4"
+    "tag": "0.3.5"
   },
   "source_files": "**/*.{h,m}",
   "exclude_files": [
@@ -49,7 +49,7 @@
     "HEADER_SEARCH_PATHS": "/usr/include/libxml2",
     "FRAMEWORK_SEARCH_PATHS": "$(PODS_ROOT)/../../Framework $(PODS_ROOT)/../External"
   },
-  "prefix_header_contents": "#import <Quickblox/Quickblox.h>\n#import <CoreData/CoreData.h>\n#import <Quickblox/QBMulticastDelegate.h>\n#import <Bolts/Bolts.h>\n#import <libextobjc/EXTKeyPathCoding.h>\n#import <libextobjc/EXTScope.h>",
+  "prefix_header_contents": "#import <Quickblox/Quickblox.h>\n#import <CoreData/CoreData.h>\n#import <Quickblox/QBMulticastDelegate.h>\n#import <Bolts/Bolts.h>",
   "resource_bundles": {
     "QMChatCacheModel": "QMChatCache/QMChatCache/CoreData/QMChatServiceModel.xcdatamodeld",
     "QMContactListCacheModel": "QMContactListCache/QMContactListCache/CoreData/QMContactListModel.xcdatamodeld",
@@ -58,12 +58,6 @@
   "dependencies": {
     "Bolts": [
       "1.5.0"
-    ],
-    "libextobjc/EXTKeyPathCoding": [
-      "0.4.1"
-    ],
-    "libextobjc/EXTScope": [
-      "0.4.1"
     ]
   }
 }

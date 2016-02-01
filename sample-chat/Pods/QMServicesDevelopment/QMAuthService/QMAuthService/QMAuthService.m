@@ -136,6 +136,33 @@ NSString *const kQMAuthSocialProvider = @"facebook";
     return request;
 }
 
+- (QBRequest *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion {
+    
+    __weak __typeof(self)weakSelf = self;
+    QBRequest *request = [QBRequest logInWithTwitterDigitsAuthHeaders:authHeaders successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nullable user) {
+        __typeof(weakSelf)strongSelf = weakSelf;
+        user.password = [QBSession currentSession].sessionDetails.token;
+        strongSelf.isAuthorized = YES;
+        
+        if ([strongSelf.multicastDelegate respondsToSelector:@selector(authService:didLoginWithUser:)]) {
+            [strongSelf.multicastDelegate authService:strongSelf didLoginWithUser:user];
+        }
+        
+        if (completion) {
+            completion(response, user);
+        }
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        
+        [weakSelf.serviceManager handleErrorResponse:response];
+        
+        if (completion) {
+            completion(response, nil);
+        }
+    }];
+    
+    return request;
+}
+
 #pragma mark - Social auth
 
 - (QBRequest *)logInWithFacebookSessionToken:(NSString *)sessionToken completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion {

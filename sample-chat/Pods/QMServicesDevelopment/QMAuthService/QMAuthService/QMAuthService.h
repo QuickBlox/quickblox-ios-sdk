@@ -52,6 +52,16 @@
 - (QBRequest *)logInWithUser:(QBUUser *)user completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
 
 /**
+ *  Login with twitter digits auth headers
+ *
+ *  @param authHeaders Taken from '-[DGTOAuthSigning OAuthEchoHeadersToVerifyCredentials]'
+ *  @param completion  completion block with response and user profile
+ *
+ *  @return Cancelable request
+ */
+- (QBRequest *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
+
+/**
  *  Login with facebook
  *
  *  @param sessionToken Facebook session token
@@ -100,6 +110,17 @@
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
 - (BFTask QB_GENERIC(QBUUser *) *)loginWithUser:(QBUUser *)user;
+
+/**
+ *  Login with twitter digits using Bolts.
+ *
+ *  @param authHeaders Taken from '-[DGTOAuthSigning OAuthEchoHeadersToVerifyCredentials]'
+ *
+ *  @return BFTask with QBUUser instance
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask QB_GENERIC(QBUUser *) *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders;
 
 /**
  *  Login with facebook session token using Bolts.

@@ -28,7 +28,4 @@
 #import <QMUsersCache.h>
 #import <QMUsersService.h>
 
-#import <libextobjc/EXTKeyPathCoding.h>
-#import <libextobjc/EXTScope.h>
-
 #import "QMServicesManager.h"

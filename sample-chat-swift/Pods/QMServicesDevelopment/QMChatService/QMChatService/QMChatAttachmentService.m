@@ -71,7 +71,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
         
         QBChatAttachment *attachment = [QBChatAttachment new];
         attachment.type = @"image";
-        attachment.ID = [@(blob.ID) stringValue];
+        attachment.ID = blob.UID;
         attachment.url = [blob privateUrl];
         
         message.attachments = @[attachment];
@@ -194,7 +194,10 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:&error];
             
             UIImage *image = [UIImage imageWithData:data];
-            [self.attachmentsStorage setObject:image forKey:attachment.ID];
+            
+            if (image != nil) {
+                [self.attachmentsStorage setObject:image forKey:attachment.ID];
+            }
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) completion(error, image);
@@ -217,7 +220,10 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
             NSError *error;
             
             [self saveImageData:fileData chatAttachment:attachment error:&error];
-            [self.attachmentsStorage setObject:image forKey:attachmentID];
+            
+            if (image != nil) {
+                [self.attachmentsStorage setObject:image forKey:attachmentID];
+            }
             
             [self changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded forMessage:attachmentMessage];
             
@@ -244,15 +250,16 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
         }];
     }
     else {
-        // Support for attachments that were send with old chat attachment service
-        // old chat attachment service used UID for attachments instead of blobID
+        // attachment ID is UID
         [QBRequest downloadFileWithUID:attachment.ID successBlock:^(QBResponse *response, NSData *fileData) {
             
             UIImage *image = [UIImage imageWithData:fileData];
             NSError *error;
             
             [self saveImageData:fileData chatAttachment:attachment error:&error];
-            [self.attachmentsStorage setObject:image forKey:attachmentID];
+            if (image != nil) {
+                [self.attachmentsStorage setObject:image forKey:attachmentID];
+            }
             
             [self changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded forMessage:attachmentMessage];
             
