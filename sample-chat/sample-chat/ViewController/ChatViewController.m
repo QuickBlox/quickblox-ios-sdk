@@ -90,7 +90,7 @@ QMChatCellDelegate
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.textView.placeHolder = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
@@ -109,7 +109,7 @@ QMChatCellDelegate
         }
         strongSelf.title = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
     }];
-
+    
     // Handling user stopped typing.
     [self.dialog setOnUserStoppedTyping:^(NSUInteger userID) {
         __typeof(self) strongSelf = weakSelf;
@@ -118,25 +118,25 @@ QMChatCellDelegate
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
-	
-	if (showingProgress) {
+    
+    if (showingProgress) {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil) maskType:SVProgressHUDMaskTypeClear];
-	}
-	
+    }
+    
     __weak __typeof(self)weakSelf = self;
     // Retrieving message from Quickblox REST history and cache.
-	[[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {        
-		if (response.success) {
+    [[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
+        if (response.success) {
             
             __typeof(weakSelf)strongSelf = weakSelf;
             if ([messages count] > 0) [strongSelf insertMessagesToTheBottomAnimated:messages];
             [SVProgressHUD dismiss];
             
-		} else {
-			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
-			NSLog(@"can not refresh messages: %@", response.error.error);
-		}
-	}];
+        } else {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
+            NSLog(@"can not refresh messages: %@", response.error.error);
+        }
+    }];
 }
 
 - (NSArray *)storedMessages {
@@ -147,14 +147,14 @@ QMChatCellDelegate
 {
     [super viewWillAppear:animated];
     
-	__weak __typeof(self) weakSelf = self;
-	self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
-		__typeof(self) strongSelf = weakSelf;
+    __weak __typeof(self) weakSelf = self;
+    self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        __typeof(self) strongSelf = weakSelf;
         
         if ([[QBChat instance] isConnected]) {
             [strongSelf refreshMessagesShowingProgress:NO];
         }
-	}];
+    }];
     
     self.observerDidEnterBackground = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         __typeof(self) strongSelf = weakSelf;
@@ -188,11 +188,11 @@ QMChatCellDelegate
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-	
+    
     if ([self storedMessages].count > 0 && self.totalMessagesCount != [self storedMessages].count) {
         [self insertMessagesToTheBottomAnimated:[self storedMessages]];
     }
-
+    
     [[ServicesManager instance].chatService addDelegate:self];
     [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
     
@@ -216,7 +216,7 @@ QMChatCellDelegate
     [super viewWillDisappear:animated];
     
     [[ServicesManager instance].chatService removeDelegate:self];
-	[[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidBecomeActive];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerDidEnterBackground];
     
     // Deletes typing blocks.
@@ -324,27 +324,27 @@ QMChatCellDelegate
 
 - (Class)viewClassForItem:(QBChatMessage *)item
 {
-	// TODO: check and add QMMessageTypeAcceptContactRequest, QMMessageTypeRejectContactRequest, QMMessageTypeContactRequest
-	
-	if (item.senderID != self.senderID) {
-		if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-			return [QMChatAttachmentIncomingCell class];
-		} else {
-			return [QMChatIncomingCell class];
-		}
-	} else {
-		if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-			return [QMChatAttachmentOutgoingCell class];
-		} else {
-			return [QMChatOutgoingCell class];
-		}
-	}
+    // TODO: check and add QMMessageTypeAcceptContactRequest, QMMessageTypeRejectContactRequest, QMMessageTypeContactRequest
+    
+    if (item.senderID != self.senderID) {
+        if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+            return [QMChatAttachmentIncomingCell class];
+        } else {
+            return [QMChatIncomingCell class];
+        }
+    } else {
+        if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+            return [QMChatAttachmentOutgoingCell class];
+        } else {
+            return [QMChatOutgoingCell class];
+        }
+    }
 }
 
 #pragma mark - Strings builder
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
-	
+    
     UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
@@ -368,7 +368,7 @@ QMChatCellDelegate
         QBUUser* user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:messageItem.senderID];
         topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"%lu",(unsigned long)messageItem.senderID];
     }
-
+    
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:[UIColor colorWithRed:0 green:122.0f / 255.0f blue:1.0f alpha:1.000], NSFontAttributeName:font};
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:topLabelText attributes:attributes];
     
@@ -403,30 +403,30 @@ QMChatCellDelegate
         size = CGSizeMake(MIN(200, maxWidth), 200);
     } else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
         NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
-    
+        
         CGSize bottomLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
                                                                   withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
                                                            limitedToNumberOfLines:0];
         size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
     } else {
         NSAttributedString *messagetextAttributedString = [self attributedStringForItem:item];
-		
-		NSAttributedString *topLabelAttributedString = [self attributedStringForItem:item];
-		
-		NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
-		
-		CGSize maxSize = CGSizeMake(maxWidth, CGFLOAT_MAX);
-		
-		CGRect messageTextLabelRect = [messagetextAttributedString boundingRectWithSize:maxSize options:options context:nil];
-		CGRect topLabelTextLabelRect = [topLabelAttributedString boundingRectWithSize:maxSize options:options context:nil];
-		
-		NSAttributedString *desiredString = messagetextAttributedString;
-		
-		
-		if (messageTextLabelRect.size.width < topLabelTextLabelRect.size.width) {
-			desiredString = topLabelAttributedString;
-		}
-		
+        
+        NSAttributedString *topLabelAttributedString = [self attributedStringForItem:item];
+        
+        NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+        
+        CGSize maxSize = CGSizeMake(maxWidth, CGFLOAT_MAX);
+        
+        CGRect messageTextLabelRect = [messagetextAttributedString boundingRectWithSize:maxSize options:options context:nil];
+        CGRect topLabelTextLabelRect = [topLabelAttributedString boundingRectWithSize:maxSize options:options context:nil];
+        
+        NSAttributedString *desiredString = messagetextAttributedString;
+        
+        
+        if (messageTextLabelRect.size.width < topLabelTextLabelRect.size.width) {
+            desiredString = topLabelAttributedString;
+        }
+        
         size = [TTTAttributedLabel sizeThatFitsAttributedString:desiredString
                                                 withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
                                          limitedToNumberOfLines:0];
@@ -438,7 +438,7 @@ QMChatCellDelegate
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
     
     QBChatMessage *item = [self messageForIndexPath:indexPath];
-
+    
     CGSize size = CGSizeZero;
     if ([self.detailedCells containsObject:item.ID]) {
         
@@ -476,7 +476,7 @@ QMChatCellDelegate
     Class viewClass = [self viewClassForItem:message];
     
     if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return;
-    [UIPasteboard generalPasteboard].string = message.text;    
+    [UIPasteboard generalPasteboard].string = message.text;
 }
 
 #pragma mark - Utility
@@ -522,7 +522,7 @@ QMChatCellDelegate
                                                     limitedToNumberOfLines:1];
             layoutModel.topLabelHeight = size.height;
         }
-
+        
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
     
@@ -530,8 +530,8 @@ QMChatCellDelegate
     if ([self.detailedCells containsObject:item.ID]) {
         NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
         size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
-                                                       withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                                limitedToNumberOfLines:0];
+                                                withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
     }
     layoutModel.bottomLabelHeight = ceilf(size.height);
     
@@ -546,7 +546,7 @@ QMChatCellDelegate
     
     // subscribing to cell delegate
     [(QMChatCell *)cell setDelegate:self];
-
+    
     [(QMChatCell *)cell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     
     if ([cell isKindOfClass:[QMChatOutgoingCell class]] || [cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
@@ -657,20 +657,30 @@ QMChatCellDelegate
 #pragma mark - QMChatServiceDelegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
+    
     if ([self.dialog.ID isEqualToString:dialogID]) {
         // Inserting message received from XMPP or self sent
         [self insertMessageToTheBottomAnimated:message];
     }
 }
 
-- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog{
-	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
-		self.dialog = chatDialog;
-	}
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+    
+    if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
+        self.dialog = chatDialog;
+    }
 }
 
-- (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID
-{
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray *)dialogs {
+    
+    if ([dialogs containsObject:self.dialog]) {
+        NSUInteger index = [dialogs indexOfObject:self.dialog];
+        self.dialog = dialogs[index];
+    }
+}
+
+- (void)chatService:(QMChatService *)chatService didUpdateMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
+    
     if ([self.dialog.ID isEqualToString:dialogID] && message.senderID == self.senderID) {
         [self updateMessage:message];
     }
