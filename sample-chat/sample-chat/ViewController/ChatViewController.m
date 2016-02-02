@@ -673,8 +673,9 @@ QMChatCellDelegate
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray *)dialogs {
     
-    if ([dialogs containsObject:self.dialog]) {
-        NSUInteger index = [dialogs indexOfObject:self.dialog];
+    NSUInteger index = [dialogs indexOfObject:self.dialog];
+    if (index != NSNotFound) {
+        
         self.dialog = dialogs[index];
     }
 }
