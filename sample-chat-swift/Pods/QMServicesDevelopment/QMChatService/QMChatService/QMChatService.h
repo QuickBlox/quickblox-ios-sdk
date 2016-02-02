@@ -834,7 +834,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param dialogs          array of QBChatDialogs loaded from cache
  *  @param dialogsUsersIDs  all users from all ChatDialogs
  */
-- (void)chatService:(QMChatService *)chatService didLoadChatDialogsFromCache:(NSArray *)dialogs withUsers:(NSSet *)dialogsUsersIDs;
+- (void)chatService:(QMChatService *)chatService didLoadChatDialogsFromCache:(NSArray QB_GENERIC(QBChatDialog *) *)dialogs withUsers:(NSSet QB_GENERIC(NSNumber *) *)dialogsUsersIDs;
 
 /**
  *  Is called when messages did load from cache for some dialog.
@@ -843,7 +843,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param messages array of QBChatMessages loaded from cache
  *  @param dialogID messages dialog ID
  */
-- (void)chatService:(QMChatService *)chatService didLoadMessagesFromCache:(NSArray *)messages forDialogID:(NSString *)dialogID;
+- (void)chatService:(QMChatService *)chatService didLoadMessagesFromCache:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Is called when dialog instance did add to memmory storage.
@@ -859,7 +859,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param chatService instance
  *  @param chatDialogs QBChatDialog items has added to memory storage
  */
-- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray *)chatDialogs;
+- (void)chatService:(QMChatService *)chatService didAddChatDialogsToMemoryStorage:(NSArray QB_GENERIC(QBChatDialog *) *)chatDialogs;
 
 /**
  *  Is called when some dialog did update in memory storage
@@ -868,6 +868,14 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param chatDialog updated QBChatDialog
  */
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog;
+
+/**
+ *  Is called when some dialogs did update in memory storage
+ *
+ *  @param chatService instance
+ *  @param dialogs     updated array of QBChatDialog's
+ */
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray QB_GENERIC(QBChatDialog *) *)dialogs;
 
 /**
  *  Is called when some dialog did delete from memory storage
