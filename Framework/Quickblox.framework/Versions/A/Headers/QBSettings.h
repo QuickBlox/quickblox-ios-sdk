@@ -183,12 +183,12 @@ typedef enum QBConnectionZoneType{
 + (void)setLogLevel:(QBLogLevel)logLevel;
 
 /**
- *  Enables XMPP Framework logging to console. By default is disabled.
+ *  Enables full XMPP Framework logging to console. By default is disabled.
  */
 + (void)enableXMPPLogging;
 
 /**
- *   Disables XMPP Framework logging to console.
+ *   Disables full XMPP Framework logging to console.
  */
 + (void)disableXMPPLogging;
 

@@ -33,7 +33,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 @property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *updatedAt;
 
 /** Room JID. If private chat, room JID will be nil */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *roomJID;
+@property (nonatomic, retain, readonly, QB_NULLABLE_PROPERTY) NSString *roomJID;
 
 /** Chat type: Private/Group/PublicGroup */
 @property (nonatomic, readonly) QBChatDialogType type;
