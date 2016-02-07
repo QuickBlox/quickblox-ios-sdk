@@ -13,7 +13,6 @@ const struct CDDialogAttributes CDDialogAttributes = {
 	.occupantsIDs = @"occupantsIDs",
 	.photo = @"photo",
 	.recipientID = @"recipientID",
-	.roomJID = @"roomJID",
 	.unreadMessagesCount = @"unreadMessagesCount",
 	.updatedAt = @"updatedAt",
 	.userID = @"userID",
@@ -149,8 +148,6 @@ const struct CDDialogRelationships CDDialogRelationships = {
 - (void)setPrimitiveRecipientIDValue:(int32_t)value_ {
 	[self setPrimitiveRecipientID:[NSNumber numberWithInt:value_]];
 }
-
-@dynamic roomJID;
 
 @dynamic unreadMessagesCount;
 

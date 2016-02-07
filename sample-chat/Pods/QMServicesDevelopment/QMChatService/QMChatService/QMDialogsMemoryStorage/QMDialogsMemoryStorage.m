@@ -42,39 +42,35 @@
     QBChatDialog *dialog = self.dialogs[chatDialog.ID];
     
     if (dialog != nil) {
-        dialog.createdAt            = chatDialog.createdAt;
-        dialog.updatedAt            = chatDialog.updatedAt;
-        dialog.name                 = chatDialog.name;
-        dialog.photo                = chatDialog.photo;
-        dialog.lastMessageDate      = chatDialog.lastMessageDate;
-        dialog.lastMessageUserID    = chatDialog.lastMessageUserID;
-        dialog.unreadMessagesCount  = chatDialog.unreadMessagesCount;
-        dialog.occupantIDs          = chatDialog.occupantIDs;
-        dialog.data                 = chatDialog.data;
         
-        if (dialog.isJoined) {
-            if (completion) completion(dialog,nil);
-            return;
-        }
+        dialog.createdAt = chatDialog.createdAt;
+        dialog.updatedAt = chatDialog.updatedAt;
+        dialog.name = chatDialog.name;
+        dialog.photo = chatDialog.photo;
+        dialog.lastMessageDate = chatDialog.lastMessageDate;
+        dialog.lastMessageUserID = chatDialog.lastMessageUserID;
+        dialog.unreadMessagesCount = chatDialog.unreadMessagesCount;
+        dialog.occupantIDs = chatDialog.occupantIDs;
+        dialog.data = chatDialog.data;
     }
     else {
+        
         self.dialogs[chatDialog.ID] = chatDialog;
     }
     
     NSAssert(chatDialog.type != 0, @"Chat type is not defined");
-    if( chatDialog.type == QBChatDialogTypeGroup || chatDialog.type == QBChatDialogTypePublicGroup ){
-        NSAssert(chatDialog.roomJID != nil, @"Chat JID must exists for group chat");
-    }
     
-    if (join && chatDialog.type != QBChatDialogTypePrivate) {
+    if (chatDialog.type != QBChatDialogTypePrivate && !chatDialog.isJoined && join) {
+        
         [chatDialog joinWithCompletionBlock:^(NSError *error) {
-            //
+            
             if (completion) {
                 completion(chatDialog,error);
             }
         }];
     }
     else {
+        
         if (completion) completion(chatDialog, nil);
     }
 }
@@ -123,7 +119,7 @@
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"unreadMessagesCount > 0"];
     NSArray *result = [self.dialogs.allValues filteredArrayUsingPredicate:predicate];
-
+    
     return result;
 }
 

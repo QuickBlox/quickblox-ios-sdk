@@ -20,15 +20,16 @@
     
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
-    @weakify(self);
+    __weak __typeof(self)weakSelf = self;
     [[QBChat instance] addUserToContactListRequest:user.ID completion:^(NSError *error) {
-        //
+        __typeof(weakSelf)strongSelf = weakSelf;
+        
         if (error != nil) {
             [source setError:error];
         } else {
-            @strongify(self);
-            if ([self.cacheDataSource respondsToSelector:@selector(contactListDidAddUser:)]) {
-                [self.cacheDataSource contactListDidAddUser:user];
+            
+            if ([strongSelf.cacheDataSource respondsToSelector:@selector(contactListDidAddUser:)]) {
+                [strongSelf.cacheDataSource contactListDidAddUser:user];
             }
             
             [source setResult:nil];

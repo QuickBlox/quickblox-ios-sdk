@@ -319,9 +319,9 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         self.tableView.reloadData()
     }
     
-    func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [AnyObject]!) {
+    func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [QBChatDialog]!) {
         
-        for dialog : QBChatDialog in chatDialogs as! [QBChatDialog] {
+        for dialog : QBChatDialog in chatDialogs {
             
             // Performing join to the group dialogs.
             if dialog.type != QBChatDialogType.Private {

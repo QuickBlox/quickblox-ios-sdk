@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A284" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Xcode 4.3">
     <entity name="CDAttachment" representedClassName="CDAttachment" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mimeType" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,7 +16,6 @@
         <attribute name="occupantsIDs" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recipientID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="roomJID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unreadMessagesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -42,7 +41,7 @@
     </entity>
     <elements>
         <element name="CDAttachment" positionX="-333" positionY="-96" width="128" height="105"/>
-        <element name="CDDialog" positionX="-713" positionY="-217" width="128" height="255"/>
+        <element name="CDDialog" positionX="-713" positionY="-217" width="128" height="240"/>
         <element name="CDMessage" positionX="-567" positionY="-216" width="128" height="285"/>
     </elements>
 </model>

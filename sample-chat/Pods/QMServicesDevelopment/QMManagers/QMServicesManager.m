@@ -163,6 +163,10 @@
 	[QMChatCache.instance insertOrUpdateDialog:chatDialog completion:nil];
 }
 
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray *)dialogs {
+    [QMChatCache.instance insertOrUpdateDialogs:dialogs completion:nil];
+}
+
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     [self.chatService markMessageAsDelivered:message completion:nil];
 	[QMChatCache.instance insertOrUpdateMessage:message withDialogId:dialogID completion:nil];
