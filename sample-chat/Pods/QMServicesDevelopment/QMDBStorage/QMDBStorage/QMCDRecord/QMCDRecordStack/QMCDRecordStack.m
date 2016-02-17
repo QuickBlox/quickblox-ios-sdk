@@ -29,7 +29,7 @@ static QMCDRecordStack *defaultStack;
     [self reset];
 }
 
-- (NSString *) description;
+- (NSString *) description
 {
     NSMutableString *status = [NSMutableString stringWithString:@"\n"];
 
@@ -42,25 +42,25 @@ static QMCDRecordStack *defaultStack;
     return status;
 }
 
-+ (instancetype) defaultStack;
++ (instancetype) defaultStack
 {
     NSAssert(defaultStack, @"No Default Stack Found. Did you forget to setup QMCDRecord?");
     return defaultStack;
 }
 
-+ (void) setDefaultStack:(QMCDRecordStack *)stack;
++ (void) setDefaultStack:(QMCDRecordStack *)stack
 {
     defaultStack = stack;
     [stack loadStack];
     QMCDLogVerbose(@"Default Core Data Stack Initialized: %@", stack);
 }
 
-+ (instancetype) stack;
++ (instancetype) stack
 {
     return [[self alloc] init];
 }
 
-- (void) loadStack;
+- (void) loadStack
 {
     NSManagedObjectContext *context = [self context];
     NSString *stackType = NSStringFromClass([self class]);
@@ -77,20 +77,20 @@ static QMCDRecordStack *defaultStack;
 #endif
 }
 
-- (void) setModelFromClass:(Class)modelClass;
+- (void) setModelFromClass:(Class)modelClass
 {
     NSBundle *bundle = [NSBundle bundleForClass:modelClass];
     NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:[NSArray arrayWithObject:bundle]];
     [self setModel:model];
 }
 
-- (void) setModelNamed:(NSString *)modelName;
+- (void) setModelNamed:(NSString *)modelName
 {
     NSManagedObjectModel *model = [NSManagedObjectModel QM_managedObjectModelNamed:modelName];
     [self setModel:model];
 }
 
-- (void) reset;
+- (void) reset
 {
     self.context = nil;
     self.model = nil;
@@ -98,7 +98,7 @@ static QMCDRecordStack *defaultStack;
     self.store = nil;
 }
 
-- (NSManagedObjectContext *) context;
+- (NSManagedObjectContext *) context
 {
     if (_context == nil)
     {
@@ -110,7 +110,7 @@ static QMCDRecordStack *defaultStack;
     return _context;
 }
 
-- (NSString *) stackName;
+- (NSString *) stackName
 {
     if (_stackName == nil)
     {
@@ -119,7 +119,7 @@ static QMCDRecordStack *defaultStack;
     return _stackName;
 }
 
-- (NSManagedObjectContext *) createConfinementContext;
+- (NSManagedObjectContext *) createConfinementContext
 {
     NSManagedObjectContext *context = [NSManagedObjectContext QM_confinementContext];
     NSString *workingName = [[context QM_workingName] stringByAppendingFormat:@" (%@)", [self stackName]];
@@ -128,14 +128,14 @@ static QMCDRecordStack *defaultStack;
     return context;
 }
 
-- (NSManagedObjectContext *) newConfinementContext;
+- (NSManagedObjectContext *) newConfinementContext
 {
     NSManagedObjectContext *context = [self createConfinementContext];
 
     return context;
 }
 
-- (NSManagedObjectModel *) model;
+- (NSManagedObjectModel *) model
 {
     if (_model == nil)
     {
@@ -144,7 +144,7 @@ static QMCDRecordStack *defaultStack;
     return _model;
 }
 
-- (NSPersistentStoreCoordinator *)coordinator;
+- (NSPersistentStoreCoordinator *)coordinator
 {
     if (_coordinator == nil)
     {
@@ -154,12 +154,12 @@ static QMCDRecordStack *defaultStack;
     return _coordinator;
 }
 
-- (NSPersistentStoreCoordinator *) createCoordinator;
+- (NSPersistentStoreCoordinator *) createCoordinator
 {
     return [self createCoordinatorWithOptions:nil];
 }
 
-- (NSPersistentStoreCoordinator *) createCoordinatorWithOptions:(NSDictionary *)options;
+- (NSPersistentStoreCoordinator *) createCoordinatorWithOptions:(NSDictionary *)options
 {
     QMCDLogError(@"%@ must be overridden in %@", NSStringFromSelector(_cmd), NSStringFromClass([self class]));
     return nil;
@@ -167,17 +167,17 @@ static QMCDRecordStack *defaultStack;
 
 #pragma mark - Handle System Notifications
 
-- (BOOL) saveOnApplicationWillResignActive;
+- (BOOL) saveOnApplicationWillResignActive
 {
     return self.applicationWillResignActive != nil;
 }
 
-- (void) setSaveOnApplicationWillResignActive:(BOOL)save;
+- (void) setSaveOnApplicationWillResignActive:(BOOL)save
 {
     [self setApplicationWillTerminate:save ? [NSNotificationCenter defaultCenter] : nil];
 }
 
--(void)setApplicationWillResignActive:(NSNotificationCenter *)applicationWillResignActive;
+-(void)setApplicationWillResignActive:(NSNotificationCenter *)applicationWillResignActive
 {
     NSString *notificationName = nil;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -195,17 +195,17 @@ static QMCDRecordStack *defaultStack;
                                     object:nil];
 }
 
-- (BOOL) saveOnApplicationWillTerminate;
+- (BOOL) saveOnApplicationWillTerminate
 {
     return self.applicationWillTerminate != nil;
 }
 
-- (void) setSaveOnApplicationWillTerminate:(BOOL)save;
+- (void) setSaveOnApplicationWillTerminate:(BOOL)save
 {
     [self setApplicationWillTerminate:save ? [NSNotificationCenter defaultCenter] : nil];
 }
 
-- (void) setApplicationWillTerminate:(NSNotificationCenter *)willTerminate;
+- (void) setApplicationWillTerminate:(NSNotificationCenter *)willTerminate
 {
     NSString *notificationName = nil;
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -223,7 +223,7 @@ static QMCDRecordStack *defaultStack;
                              object:nil];
 }
 
-- (void) autoSaveHandle:(NSNotification *)notification;
+- (void) autoSaveHandle:(NSNotification *)notification
 {
     [[self context] QM_saveToPersistentStoreAndWait];
 }

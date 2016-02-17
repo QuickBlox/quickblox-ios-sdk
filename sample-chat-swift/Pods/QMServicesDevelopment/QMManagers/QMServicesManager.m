@@ -32,7 +32,7 @@
 
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
-        [self.chatService setChatMessagesPerPage:kQMChatMessagesPerPage];
+        [_chatService setChatMessagesPerPage:kQMChatMessagesPerPage];
         [_chatService addDelegate:self];
         
         [QMUsersCache setupDBWithStoreNamed:@"qb-users-cache"];
@@ -161,6 +161,10 @@
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
 	[QMChatCache.instance insertOrUpdateDialog:chatDialog completion:nil];
+}
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray *)dialogs {
+    [QMChatCache.instance insertOrUpdateDialogs:dialogs completion:nil];
 }
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
