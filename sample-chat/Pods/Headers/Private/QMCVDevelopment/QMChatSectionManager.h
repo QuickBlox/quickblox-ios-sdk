@@ -1,0 +1,1 @@
+../../../QMCVDevelopment/QMChatViewController/QMChatSection/QMChatSectionManager.h

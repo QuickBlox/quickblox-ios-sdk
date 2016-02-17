@@ -39,15 +39,6 @@
 - (NSUInteger)senderID;
 
 /**
- *  Time interval that used to split messages on sections.
- *
- *  @return Time interval that used to split messages on sections
- *
- *  @warning must not return `0` from this method.
- */
-- (NSTimeInterval)timeIntervalBetweenSections;
-
-/**
  *  Height for section header.
  *
  *  @return height for header that used as section header
