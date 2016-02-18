@@ -32,7 +32,7 @@
 
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
-        [self.chatService setChatMessagesPerPage:kQMChatMessagesPerPage];
+        [_chatService setChatMessagesPerPage:kQMChatMessagesPerPage];
         [_chatService addDelegate:self];
         
         [QMUsersCache setupDBWithStoreNamed:@"qb-users-cache"];

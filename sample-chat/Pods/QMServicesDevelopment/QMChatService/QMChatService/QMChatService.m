@@ -30,6 +30,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 @property (weak, nonatomic)   BFTask* loadEarlierMessagesTask;
 @property (strong, nonatomic) NSMutableDictionary *loadedAllMessages;
+@property (strong, nonatomic) NSMutableDictionary *lastMessagesLoadDate;
 
 @end
 
@@ -53,12 +54,13 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 	
 	if (self) {
 		
-		self.cacheDataSource = cacheDataSource;
+		_cacheDataSource = cacheDataSource;
 		
-		self.presenceTimerInterval = 45.0;
-		self.automaticallySendPresences = YES;
+		_presenceTimerInterval = 45.0;
+		_automaticallySendPresences = YES;
         
-        self.loadedAllMessages = [NSMutableDictionary dictionary];
+        _loadedAllMessages = [NSMutableDictionary dictionary];
+        _lastMessagesLoadDate = [NSMutableDictionary dictionary];
         
         if ([QBSession currentSession].currentUser != nil) [self loadCachedDialogsWithCompletion:nil];
     }
@@ -379,7 +381,10 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 		chatDialogToUpdate.lastMessageDate = message.dateSent;
         chatDialogToUpdate.updatedAt = message.dateSent;
         
-        if (message.senderID != [QBSession currentSession].currentUser.ID) {
+        if (message.senderID != [QBSession currentSession].currentUser.ID
+            && !(chatDialogToUpdate.type == QBChatDialogTypePrivate && message.delayed))
+        {
+            
             chatDialogToUpdate.unreadMessagesCount++;
         }
         
@@ -843,15 +848,23 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         QBResponsePage *page = [QBResponsePage responsePageWithLimit:strongSelf.chatMessagesPerPage];
         NSMutableDictionary *parameters = [@{@"sort_desc" : @"date_sent"} mutableCopy];
+        
+        NSDate *lastMessagesLoadDate = self.lastMessagesLoadDate[chatDialogID];
         QBChatMessage *lastMessage = [strongSelf.messagesMemoryStorage lastMessageFromDialogID:chatDialogID];
-        if (lastMessage != nil) {
-            parameters[@"date_sent[gt]"] = @([lastMessage.dateSent timeIntervalSince1970]);
+        
+        if (lastMessagesLoadDate == nil && lastMessage != nil) {
+            
+            lastMessagesLoadDate = lastMessage.dateSent;
         }
+        
+        parameters[@"date_sent[gt]"] = @([lastMessagesLoadDate timeIntervalSince1970]);
         
         [QBRequest messagesWithDialogID:chatDialogID
                         extendedRequest:parameters
                                 forPage:page
                            successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
+                               
+                               strongSelf.lastMessagesLoadDate[chatDialogID] = [NSDate date];
                                NSArray* sortedMessages = [[messages reverseObjectEnumerator] allObjects];
                                
                                if ([sortedMessages count] > 0) {
@@ -1192,6 +1205,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 - (void)free {
 	
     [self.loadedAllMessages removeAllObjects];
+    [self.lastMessagesLoadDate removeAllObjects];
 	[self.messagesMemoryStorage free];
 	[self.dialogsMemoryStorage free];
 }
