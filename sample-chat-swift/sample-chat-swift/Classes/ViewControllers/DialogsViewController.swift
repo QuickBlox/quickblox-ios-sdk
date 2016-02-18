@@ -320,6 +320,11 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         self.tableView.reloadData()
     }
     
+    func chatService(chatService: QMChatService!, didUpdateChatDialogsInMemoryStorage dialogs: [QBChatDialog]!) {
+        
+        self.tableView.reloadData()
+    }
+    
     func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [QBChatDialog]!) {
         
         self.tableView.reloadData()

@@ -272,6 +272,10 @@ QMChatConnectionDelegate
 	[self.tableView reloadData];
 }
 
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray *)dialogs {
+    [self.tableView reloadData];
+}
+
 - (void)chatService:(QMChatService *)chatService didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog {
 	[self.tableView reloadData];
 }
