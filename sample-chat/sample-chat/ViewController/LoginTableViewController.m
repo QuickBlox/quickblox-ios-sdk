@@ -118,8 +118,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     ChatViewController *chatController = (ChatViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
     chatController.dialog = chatDialog;
     
-    [self.navigationController pushViewController:dialogsController animated:YES];
-    [self.navigationController pushViewController:chatController animated:YES];
+    self.navigationController.viewControllers = @[dialogsController, chatController];
 }
 
 - (void)notificationServiceDidFailFetchingDialog {

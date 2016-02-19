@@ -62,8 +62,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         let chatController: ChatViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
         chatController.dialog = chatDialog
 
-        self.navigationController?.pushViewController(dialogsController, animated: true)
-        self.navigationController?.pushViewController(chatController, animated: true)
+        self.navigationController?.viewControllers = [dialogsController, chatController]
     }
     
     func notificationServiceDidFailFetchingDialog() {
