@@ -32,6 +32,7 @@
 	[self.dataSource setExcludeUsersIDs:self.dialog.occupantIDs];
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
+    [self updateSaveButtonState];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

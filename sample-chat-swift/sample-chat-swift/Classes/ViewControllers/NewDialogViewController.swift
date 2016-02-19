@@ -38,6 +38,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         if let _ = self.dialog  {
             
             self.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
+            self.checkCreateChatButtonState()
         }
     }
     
