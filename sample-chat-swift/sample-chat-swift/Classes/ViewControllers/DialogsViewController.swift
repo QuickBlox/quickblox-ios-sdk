@@ -83,8 +83,10 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     // MARK: - ViewController overrides
     
-    override func viewDidLoad() {
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
+        // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
         self.navigationItem.title = ServicesManager.instance().currentUser()!.fullName!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
@@ -316,6 +318,11 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     // MARK: - QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
+        
+        self.tableView.reloadData()
+    }
+    
+    func chatService(chatService: QMChatService!, didUpdateChatDialogsInMemoryStorage dialogs: [QBChatDialog]!) {
         
         self.tableView.reloadData()
     }

@@ -65,11 +65,23 @@
 
 #pragma mark - QMChatServiceDelegate
 
-- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog{
-	if( [self.dialog.ID isEqualToString:chatDialog.ID] ) {
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+    
+	if([self.dialog.ID isEqualToString:chatDialog.ID]) {
+        
 		self.dialog = chatDialog;
 		[self refreshDataSource];
 	}
+}
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray *)dialogs {
+    
+    if ([dialogs containsObject:self.dialog]) {
+        
+        NSUInteger index = [dialogs indexOfObject:self.dialog];
+        self.dialog = dialogs[index];
+        [self refreshDataSource];
+    }
 }
 
 @end
