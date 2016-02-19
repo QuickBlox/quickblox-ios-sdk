@@ -67,8 +67,10 @@
  *  @discussion You should set time interval in seconds with '- (NSTimeInterval)timeIntervalBetweenSections' data source method.
  *  The messages that have dateSent difference from the last message in section not greater then the one you set,
  *  will appear in one section under one date of the first message in section.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use 'self.chatSectionManager.timeIntervalBetweenSections' instead.
  */
-@property (assign, nonatomic) NSTimeInterval timeIntervalBetweenSections;
+@property (assign, nonatomic) NSTimeInterval timeIntervalBetweenSections DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use 'self.chatSectionManager.timeIntervalBetweenSections' instead.");
 
 /**
  *  Float value that used as height for section header.

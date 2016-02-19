@@ -977,6 +977,16 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 #pragma mark - Utilities
 
+- (NSTimeInterval)timeIntervalBetweenSections {
+    
+    return self.chatSectionManager.timeIntervalBetweenSections;
+}
+
+- (void)setTimeIntervalBetweenSections:(NSTimeInterval)timeIntervalBetweenSections {
+    
+    [self.chatSectionManager setTimeIntervalBetweenSections:timeIntervalBetweenSections];
+}
+
 - (NSIndexSet *)indexSetForSectionsToInsert:(NSArray *)sectionsToInsert {
     
     NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];

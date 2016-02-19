@@ -244,6 +244,13 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 #pragma mark - Now typing
 
 /**
+ *  Available only for 'Enterprise' clients.*
+ *  
+ *  Send is typing message to occupants.
+ */
+- (void)sendUserIsTypingWithoutJoin;
+
+/**
  *  Send is typing message to occupants.
  */
 - (void)sendUserIsTyping;
@@ -252,6 +259,13 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
  *  Send stopped typing message to occupants.
  */
 - (void)sendUserStoppedTyping;
+
+/**
+ *  Available only for 'Enterprise' clients.*
+ *
+ *  Send stopped typing message to occupants.
+ */
+- (void)sendUserStoppedTypingWithoutJoin;
 
 /**
  *  Clears typing status blocks. Call this method if you don't want to recieve typing statuses for this dialog.

@@ -323,6 +323,12 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 - (void)handleSystemMessage:(QBChatMessage *)message {
     
     if (message.messageType == QMMessageTypeCreateGroupDialog) {
+        
+        if ([self.dialogsMemoryStorage chatDialogWithID:message.dialogID] != nil) {
+            
+            return;
+        }
+        
         __weak __typeof(self)weakSelf = self;
         
         [self messagesWithChatDialogID:message.dialogID completion:^(QBResponse *response, NSArray *messages) {
