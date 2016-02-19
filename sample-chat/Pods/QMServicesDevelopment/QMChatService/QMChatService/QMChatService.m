@@ -764,6 +764,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 	
 	[QBRequest updateDialog:chatDialog successBlock:^(QBResponse *response, QBChatDialog *updatedDialog) {
 
+        chatDialog.pushOccupantsIDs = @[];
         [weakSelf.dialogsMemoryStorage addChatDialog:updatedDialog andJoin:YES completion:^(QBChatDialog *addedDialog, NSError *error) {
             if (completion) {
                 completion(response, addedDialog);
@@ -772,6 +773,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 		
 	} errorBlock:^(QBResponse *response) {
 		
+        chatDialog.pushOccupantsIDs = @[];
 		[weakSelf.serviceManager handleErrorResponse:response];
 		
 		if (completion) {

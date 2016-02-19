@@ -53,8 +53,6 @@
         dialog.unreadMessagesCount = chatDialog.unreadMessagesCount;
         dialog.occupantIDs = chatDialog.occupantIDs;
         dialog.data = chatDialog.data;
-        dialog.pushOccupantsIDs = @[];
-        dialog.pullOccupantsIDs = @[];
     }
     else {
         

@@ -55,7 +55,7 @@ Steps to add QMChatViewController to Your app:
     * Insert messages using corresponding methods:
 
 	````objective-c
-    	[self insertMessagesToTheBottomAnimated:<array of messages>];
+    	[self.chatSectionManager addMessages:<array of messages>];
 	````    
 
 3. Handle message sending.
@@ -74,7 +74,7 @@ Steps to add QMChatViewController to Your app:
 			QBChatAttachment *attacment = [[QBChatAttachment alloc] init];
     		message.attachments = @[attacment];
     
-    		[self insertMessageToTheBottomAnimated:message];
+    		[self.chatSectionManager addMessage:message];
     
     		[self finishSendingMessageAnimated:YES];
     
@@ -177,6 +177,7 @@ Steps to add QMChatViewController to Your app:
 	    	CGFloat topLabelHeight;
 	    	CGFloat bottomLabelHeight;
 	    	CGSize staticContainerSize;
+	    	CGFloat maxWidthMarginSpace;
 		};
 	
 		typedef struct QMChatLayoutModel QMChatCellLayoutModel;
@@ -187,6 +188,7 @@ Steps to add QMChatViewController to Your app:
 	* top label height
 	* bottom label height
 	* static size of container view
+	* margin space between message and screen end
 
 	You can modify this attributes in this method:
 	
@@ -207,15 +209,13 @@ Steps to add QMChatViewController to Your app:
 
 ## Time headers
 
-*QMChatViewController* supports time headers for messages. You can setup your own time interval between headers using QMChatCollectionViewDataSource method:
+*QMChatViewController* supports time headers for messages. Default value is 300 seconds (e.g. 5 minutes). You can setup your own time interval between headers using QMChatSectionManager property:
 
 ````objective-c
-	- (NSTimeInterval)timeIntervalBetweenSections {
-	    return 300.0f;
-	}
+	self.chatSectionManager.timeIntervalBetweenSections = 500.0f;
 ````
 
-You can also customize header height using this data source method:
+You can also customize header height using this QMChatCollectionViewDataSource data source method:
 
 ````objective-c
 	- (CGFloat)heightForSectionHeader {
@@ -229,6 +229,22 @@ If you are not happy with default time header view, you can override this method
 	- (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
                     	sectionHeaderAtIndexPath:(NSIndexPath *)indexPath;
 ````
+
+## Chat section manager
+
+QMChatViewController contains its section manager called QMChatSectionManager. It has implementation of all methods, which you need to work with QMChatViewController chat sections.
+This class should be used to add, update and delete messages from data source. QMChatSectionManager has delegate, which called whenever  data source were modified.
+You can also disable animation for collection view changes using this property:
+
+````objective-c
+/**
+ *  Determines whether animation for inserting or deleting is enabled.
+ *  Default value: YES
+ */
+@property (assign, nonatomic) BOOL animationEnabled;
+````
+
+For more information on methods and its usage check out our inline doc in QMChatSectionManager.h.
 
 # Questions & Help
 - You could create an issue on GitHub if you are experiencing any problems. We will be happy to help you. 

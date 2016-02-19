@@ -45,26 +45,26 @@ PODS:
 
 DEPENDENCIES:
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`,
-    commit `d54825b3269af976d21968910d077f640fa2c814`)
+    commit `17ada21717a26235a73069a7ef0e396871ac8514`)
   - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`,
-    commit `3c2aa67b3aaa4d5599906a2b1275d2cd83a0c95d`)
+    commit `f79c5459c2ff92296c8173992a4884bb77b06e18`)
   - SVProgressHUD
   - TWMessageBarManager (~> 1.7.2)
 
 EXTERNAL SOURCES:
   QMCVDevelopment:
-    :commit: d54825b3269af976d21968910d077f640fa2c814
+    :commit: 17ada21717a26235a73069a7ef0e396871ac8514
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 3c2aa67b3aaa4d5599906a2b1275d2cd83a0c95d
+    :commit: f79c5459c2ff92296c8173992a4884bb77b06e18
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: d54825b3269af976d21968910d077f640fa2c814
+    :commit: 17ada21717a26235a73069a7ef0e396871ac8514
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 3c2aa67b3aaa4d5599906a2b1275d2cd83a0c95d
+    :commit: f79c5459c2ff92296c8173992a4884bb77b06e18
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
