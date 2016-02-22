@@ -210,4 +210,18 @@ typedef enum QBConnectionZoneType{
  */
 + (QB_NULLABLE NSURLSessionConfiguration *)sessionConfiguration;
 
+/**
+ *  Enable or Disable chat DNS Lookup cache for current chat endpoint
+ *
+ *  @param enable YES / NO. Defaults NO
+ */
++ (void)setChatDNSLookupCache:(BOOL)enable;
+
+/**
+ *  Get Chat DNS lookup cache is enabled
+ *
+ *  @return YES / NO.
+ */
++ (BOOL)chatDNSLookupCacheIsEnable;
+
 @end

@@ -89,7 +89,7 @@
  @warning *Deprecated in 2.6.1.* Use 'publicUrlForFileUID:' instead.
  @return Public url to file
  */
-+ (QB_NULLABLE NSString *)publicUrlForID:(NSUInteger)ID;
++ (QB_NULLABLE NSString *)publicUrlForID:(NSUInteger)ID DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.6.1. Use 'publicUrlForFileUID:' instead.");
 
 /** Get file's private url (available only with QuickBlox token), if blob is private.
  @return Private url to file
@@ -97,10 +97,11 @@
 - (QB_NULLABLE NSString *)privateUrl;
 
 /** Get file's private url (available only with QuickBlox token) by ID.
- @warning *Deprecated in 2.6.1.* Use 'privateUrlForFileUID::' instead.
+ @warning *Deprecated in 2.6.1.* Use 'privateUrlForFileUID:' instead.
  @return Private url to file
  */
-+ (QB_NULLABLE NSString *)privateUrlForID:(NSUInteger)ID;
++ (QB_NULLABLE NSString *)privateUrlForID:(NSUInteger)ID DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.6.1. Use 'privateUrlForFileUID:' instead.");
+;
 
 /**
  *  Get file's private url (available only with QuickBlox token), if blob is private.

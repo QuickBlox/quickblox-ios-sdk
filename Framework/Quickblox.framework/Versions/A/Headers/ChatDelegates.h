@@ -1,5 +1,5 @@
 //
-//  Delegates.h
+//  ChatDelegates.h
 //  QBChat
 //
 //  Copyright 2012 QuickBlox team. All rights reserved.
