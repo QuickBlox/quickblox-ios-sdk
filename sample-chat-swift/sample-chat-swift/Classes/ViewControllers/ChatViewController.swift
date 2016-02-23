@@ -807,9 +807,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService!, didChangeAttachmentStatus status: QMMessageAttachmentStatus, forMessage message: QBChatMessage!) {
         
-        if message.dialogID == self.dialog?.ID {
+        if status == QMMessageAttachmentStatus.NotLoaded {
             
-            self.chatSectionManager.updateMessage(message)
+        }
+        else {
+            
+            if message.dialogID == self.dialog?.ID {
+                self.chatSectionManager.updateMessage(message)
+            }
         }
     }
     

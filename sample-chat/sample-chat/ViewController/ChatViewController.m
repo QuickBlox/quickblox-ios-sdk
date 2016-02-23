@@ -681,10 +681,16 @@ QMChatCellDelegate
 #pragma mark - QMChatAttachmentServiceDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message {
-    
-    if ([message.dialogID isEqualToString:self.dialog.ID]) {
+
+    if (status == QMMessageAttachmentStatusNotLoaded) {
         
-        [self.chatSectionManager updateMessage:message];
+    }
+    else {
+        
+        if ([message.dialogID isEqualToString:self.dialog.ID]) {
+            
+            [self.chatSectionManager updateMessage:message];
+        }
     }
 }
 
