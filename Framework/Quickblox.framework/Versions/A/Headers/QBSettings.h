@@ -213,15 +213,17 @@ typedef enum QBConnectionZoneType{
 /**
  *  Enable or Disable chat DNS Lookup cache for current chat endpoint
  *
+ *  Caches DNS lookup for chat api endpoint.
+ *
  *  @param enable YES / NO. Defaults NO
  */
-+ (void)setChatDNSLookupCache:(BOOL)enable;
++ (void)setChatDNSLookupCacheEnabled:(BOOL)enabled;
 
 /**
- *  Get Chat DNS lookup cache is enabled
+ *  Get Chat DNS lookup cache enabled state
  *
- *  @return YES / NO.
+ *  @return YES if cache is enabled, NO if cache is disabled.
  */
-+ (BOOL)chatDNSLookupCacheIsEnable;
++ (BOOL)isChatDNSLookupCacheEnabled;
 
 @end
