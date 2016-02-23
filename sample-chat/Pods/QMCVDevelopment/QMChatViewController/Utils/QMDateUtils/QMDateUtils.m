@@ -35,7 +35,7 @@
         formattedString = [NSString stringWithFormat:@"TODAY %@", sectionDate];
     } else if (components.day == currentComponents.day-1 && components.month == currentComponents.month && components.year == currentComponents.year) {
         formattedString = [NSString stringWithFormat:@"YESTERDAY %@", sectionDate];
-    } else if (components.year == components.year) {
+    } else if (components.year == currentComponents.year) {
         formattedString = [NSString stringWithFormat:@"%@ %ld %@", [self monthFromNumber:components.month], (long)components.day, sectionDate];
     } else {
         formattedString = [NSString stringWithFormat:@"%@ %ld %ld %@", [self monthFromNumber:components.month], (long)components.day, (long)components.year, sectionDate];

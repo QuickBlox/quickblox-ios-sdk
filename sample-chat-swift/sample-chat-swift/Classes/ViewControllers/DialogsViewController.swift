@@ -15,7 +15,7 @@ class DialogTableViewCellModel: NSObject {
     var unreadMessagesCounterLabelText : String?
     var unreadMessagesCounterHiden = true
     var dialogIcon : UIImage?
-
+    
     init(dialog: QBChatDialog) {
         super.init()
         
@@ -83,12 +83,14 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     // MARK: - ViewController overrides
     
-    override func viewDidLoad() {
-
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
         self.navigationItem.title = ServicesManager.instance().currentUser()!.fullName!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
-
+        
         ServicesManager.instance().chatService.addDelegate(self)
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
@@ -168,7 +170,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 }
             }
         }
-}
+    }
     
     // MARK: - DataSource Action
     
@@ -316,48 +318,37 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     // MARK: - QMChatServiceDelegate
     
     func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
+        
+        self.tableView.reloadData()
+    }
+    
+    func chatService(chatService: QMChatService!, didUpdateChatDialogsInMemoryStorage dialogs: [QBChatDialog]!) {
+        
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didAddChatDialogsToMemoryStorage chatDialogs: [QBChatDialog]!) {
         
-        for dialog : QBChatDialog in chatDialogs {
-            
-            // Performing join to the group dialogs.
-            if dialog.type != QBChatDialogType.Private {
-                ServicesManager.instance().chatService.joinToGroupDialog(dialog, completion: { (error: NSError?) -> Void in
-                    if (error != nil) {
-                        NSLog("Failed to join dialog with error: %@", error!)
-                    }
-                })
-            }
-        }
-        
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog!) {
-        // Performing join to the group dialogs.
-        if chatDialog.type != QBChatDialogType.Private {
-            ServicesManager.instance().chatService.joinToGroupDialog(chatDialog, completion: { (error: NSError?) -> Void in
-                if (error != nil) {
-                    NSLog("Failed to join dialog with error: %@", error!)
-                }
-            })
-        }
         
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String!) {
+        
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didAddMessagesToMemoryStorage messages: [QBChatMessage]!, forDialogID dialogID: String!) {
+        
         self.tableView.reloadData()
     }
     
     func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
+        
         self.tableView.reloadData()
     }
     
@@ -371,7 +362,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized)
         self.getDialogs()
     }
-
+    
     func chatService(chatService: QMChatService!, chatDidNotConnectWithError error: NSError!) {
         SVProgressHUD.showErrorWithStatus(error.localizedDescription)
     }

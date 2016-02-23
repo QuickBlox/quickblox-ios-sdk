@@ -49,6 +49,7 @@
         dialog.photo = chatDialog.photo;
         dialog.lastMessageDate = chatDialog.lastMessageDate;
         dialog.lastMessageUserID = chatDialog.lastMessageUserID;
+        dialog.lastMessageText = chatDialog.lastMessageText;
         dialog.unreadMessagesCount = chatDialog.unreadMessagesCount;
         dialog.occupantIDs = chatDialog.occupantIDs;
         dialog.data = chatDialog.data;

@@ -14,6 +14,7 @@
 #import "QMChatActionsHandler.h"
 #import "QMInputToolbar.h"
 #import <Quickblox/Quickblox.h>
+#import "QMChatSectionManager.h"
 
 #import "QMChatContactRequestCell.h"
 #import "QMChatIncomingCell.h"
@@ -23,6 +24,9 @@
 #import "QMChatAttachmentOutgoingCell.h"
 
 @interface QMChatViewController : UIViewController <QMChatCollectionViewDataSource, QMChatCollectionViewDelegateFlowLayout, UITextViewDelegate>
+
+
+@property (strong, nonatomic) QMChatSectionManager *chatSectionManager;
 
 /**
  *  Cell's contact request delegate.
@@ -63,8 +67,10 @@
  *  @discussion You should set time interval in seconds with '- (NSTimeInterval)timeIntervalBetweenSections' data source method.
  *  The messages that have dateSent difference from the last message in section not greater then the one you set,
  *  will appear in one section under one date of the first message in section.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use 'self.chatSectionManager.timeIntervalBetweenSections' instead.
  */
-@property (assign, nonatomic) NSTimeInterval timeIntervalBetweenSections;
+@property (assign, nonatomic) NSTimeInterval timeIntervalBetweenSections DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use 'self.chatSectionManager.timeIntervalBetweenSections' instead.");
 
 /**
  *  Float value that used as height for section header.
@@ -94,8 +100,10 @@
  *  Total count of messages in all sections.
  *
  *  @discussion Use this to know how many messages are displayed in chat controller.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use 'self.chatSectionManager.totalMessagesCount' instead.
  */
-@property (assign, nonatomic, readonly) NSUInteger totalMessagesCount;
+@property (assign, nonatomic, readonly) NSUInteger totalMessagesCount DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use 'self.chatSectionManager.totalMessagesCount' instead.");
 
 /**
  *  Updating data source with messages without reloading of collection view.
@@ -105,8 +113,10 @@
  *  @return dictionary with section indexes and items index pathes to insert
  *
  *  @discussion Use this method to update data source without reloading collection view. For example in viewWillAppear method.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.
  */
-- (NSDictionary *)updateDataSourceWithMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+- (NSDictionary *)updateDataSourceWithMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.");
 
 /**
  *  Insert messages to the top.
@@ -114,8 +124,10 @@
  *  @param messages array of messages to insert
  *
  *  @discussion Use this method to insert older messages in chat.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.
  */
-- (void)insertMessagesToTheTopAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+- (void)insertMessagesToTheTopAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.");
 
 /**
  *  Insert message to the bottom.
@@ -123,8 +135,10 @@
  *  @param message  message to insert
  *
  *  @discussion Use this method to insert new message to the chat controller.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.
  */
-- (void)insertMessageToTheBottomAnimated:(QBChatMessage *)message;
+- (void)insertMessageToTheBottomAnimated:(QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.");
 
 /**
  *  Insert messages to the bottom.
@@ -132,8 +146,10 @@
  *  @param messages array of messages
  *
  *  @discussion Use this method to insert new messages to the chat controller.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.
  */
-- (void)insertMessagesToTheBottomAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+- (void)insertMessagesToTheBottomAnimated:(NSArray QB_GENERIC(QBChatMessage *) *)messages DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager addMessage:]' or '[self.chatSectionManager addMessages:]' instead.");
 
 /**
  *  Update message in chat controller.
@@ -142,8 +158,10 @@
  *
  *  @discussion Use this method to update message in chat controller. As parameter use updated message, it will be replaced in items by it's ID
  *  and reloaded in collection view.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager updateMessage:]' or '[self.chatSectionManager updateMessages:]' instead.
  */
-- (void)updateMessage:(QBChatMessage *)message;
+- (void)updateMessage:(QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager updateMessage:]' or '[self.chatSectionManager updateMessages:]' instead.");
 
 /**
  *  Update messages in chat controller.
@@ -152,15 +170,19 @@
  *
  *  @discussion Use this method to update messages in chat controller. As parameter use updated message, it will be replaced in items by it's ID
  *  and reloaded in collection view.
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager updateMessage:]' or '[self.chatSectionManager updateMessages:]' instead.
  */
-- (void)updateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+- (void)updateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager updateMessage:]' or '[self.chatSectionManager updateMessages:]' instead.");
 
 /**
  *  Delete message from chat controller.
  *
  *  @param message message to delete
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager deleteMessage:]' or '[self.chatSectionManager deleteMessages:]' instead.
  */
-- (void)deleteMessage:(QBChatMessage *)message;
+- (void)deleteMessage:(QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager deleteMessage:]' or '[self.chatSectionManager deleteMessages:]' instead.");
 
 /**
  *  Delete messages from chat controller.
@@ -341,8 +363,10 @@
  *  @param indexPath    index path to find message
  *
  *  @return QBChatMessage instance that conforms to indexPath
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager messageForIndexPath:]' instead.
  */
-- (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath;
+- (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager messageForIndexPath:]' instead.");
 
 /**
  *  Index path for message.
@@ -350,7 +374,9 @@
  *  @param message  message to return index path
  *
  *  @return NSIndexPath instance that conforms message or nil if not found
+ *
+ *  @warning *Deprecated in QMChatViewController 0.3.3:* Use '[self.chatSectionManager indexPathForMessage:]' instead.
  */
-- (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message;
+- (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.3. Use '[self.chatSectionManager indexPathForMessage:]' instead.");
 
 @end

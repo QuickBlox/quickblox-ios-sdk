@@ -22,7 +22,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         
         if let _ = self.dialog {
             self.navigationItem.rightBarButtonItem?.title = "SA_STR_DONE".localized
-            self.title = "SA_STR_ADD_OCCUPANTS"
+            self.title = "SA_STR_ADD_OCCUPANTS".localized
         } else {
             self.navigationItem.rightBarButtonItem?.title = "SA_STR_CREATE".localized
             self.title = "SA_STR_NEW_CHAT".localized
@@ -38,6 +38,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
         if let _ = self.dialog  {
             
             self.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
+            self.checkCreateChatButtonState()
         }
     }
     

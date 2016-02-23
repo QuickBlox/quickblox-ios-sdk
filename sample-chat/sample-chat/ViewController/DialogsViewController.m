@@ -28,7 +28,10 @@ QMChatConnectionDelegate
 
 @implementation DialogsViewController
 
-- (void)viewDidLoad {
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
     [ServicesManager.instance.chatService addDelegate:self];
     self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                                                      object:nil queue:[NSOperationQueue mainQueue]
@@ -270,6 +273,10 @@ QMChatConnectionDelegate
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
 	[self.tableView reloadData];
+}
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogsInMemoryStorage:(NSArray *)dialogs {
+    [self.tableView reloadData];
 }
 
 - (void)chatService:(QMChatService *)chatService didReceiveNotificationMessage:(QBChatMessage *)message createDialog:(QBChatDialog *)dialog {
