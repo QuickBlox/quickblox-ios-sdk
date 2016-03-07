@@ -63,10 +63,21 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
     NSLog(@"didReceiveRemoteNotification userInfo=%@", userInfo);
     
     // Get push alert
-    NSString *message = userInfo[QBMPushMessageApsKey][QBMPushMessageAlertKey];
-    NSMutableDictionary *pushInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:message, @"message", nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"kPushDidReceive" object:nil userInfo:pushInfo];
+	[self postPushNotificationWithUserInfo:userInfo];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+	NSLog(@"didReceiveRemoteNotification userInfo=%@ completionHandler", userInfo);
+	[self postPushNotificationWithUserInfo:userInfo];
+	
+	completionHandler(UIBackgroundFetchResultNoData);
+}
+
+- (void)postPushNotificationWithUserInfo:(NSDictionary *)userInfo {
+	NSString *message = userInfo[QBMPushMessageApsKey][QBMPushMessageAlertKey];
+	NSMutableDictionary *pushInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:message, @"message", nil];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"kPushDidReceive" object:nil userInfo:pushInfo];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
