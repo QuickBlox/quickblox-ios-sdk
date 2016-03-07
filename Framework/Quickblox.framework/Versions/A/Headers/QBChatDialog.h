@@ -65,7 +65,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /** Dialog owner */
 @property (nonatomic, assign) NSUInteger userID;
 
-/** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise.  */
+/** ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise. Will always return -1 if QBSession currentUser is nil.  */
 @property (nonatomic, readonly) NSInteger recipientID;
 
 /**
