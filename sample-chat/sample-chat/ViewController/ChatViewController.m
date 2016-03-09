@@ -294,19 +294,23 @@ QMChatCellDelegate
 
 - (Class)viewClassForItem:(QBChatMessage *)item
 {
-    // TODO: check and add QMMessageTypeAcceptContactRequest, QMMessageTypeRejectContactRequest, QMMessageTypeContactRequest
-    
-    if (item.senderID != self.senderID) {
-        if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-            return [QMChatAttachmentIncomingCell class];
-        } else {
-            return [QMChatIncomingCell class];
-        }
+    if (item.isNotificatonMessage) {
+        
+        return [QMChatNotificationCell class];
+        
     } else {
-        if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-            return [QMChatAttachmentOutgoingCell class];
+        if (item.senderID != self.senderID) {
+            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+                return [QMChatAttachmentIncomingCell class];
+            } else {
+                return [QMChatIncomingCell class];
+            }
         } else {
-            return [QMChatOutgoingCell class];
+            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+                return [QMChatAttachmentOutgoingCell class];
+            } else {
+                return [QMChatOutgoingCell class];
+            }
         }
     }
 }
@@ -378,8 +382,8 @@ QMChatCellDelegate
     if (viewClass == [QMChatAttachmentIncomingCell class]) {
         
         size = CGSizeMake(MIN(200, maxWidth), 200);
-    }
-    else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
+        
+    } else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
         
         NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
         
@@ -387,8 +391,14 @@ QMChatCellDelegate
                                                                   withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
                                                            limitedToNumberOfLines:0];
         size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
-    }
-    else {
+        
+    } else if (viewClass == [QMChatNotificationCell class]) {
+        NSAttributedString *attributedString = [self attributedStringForItem:item];
+        
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:3];
+    } else {
         
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
@@ -469,7 +479,7 @@ QMChatCellDelegate
     return timeStamp;
 }
 
-#pragma mark = QMChatCollectionViewDelegateFlowLayout
+#pragma mark - QMChatCollectionViewDelegateFlowLayout
 
 - (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
     QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
@@ -492,6 +502,9 @@ QMChatCellDelegate
                                                     limitedToNumberOfLines:1];
             layoutModel.topLabelHeight = size.height;
         }
+        
+        layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
+    } else if (class == [QMChatNotificationCell class]) {
         
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
@@ -522,6 +535,8 @@ QMChatCellDelegate
         [(QMChatIncomingCell *)cell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
     } else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
         [(QMChatOutgoingCell *)cell containerView].bgColor = [UIColor colorWithRed:231.0f / 255.0f green:231.0f / 255.0f blue:231.0f / 255.0f alpha:1.0f];
+    } else if ([cell isKindOfClass:[QMChatNotificationCell class]]) {
+        [(QMChatCell *)cell containerView].bgColor = self.collectionView.backgroundColor;
     }
     
     if ([cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {
