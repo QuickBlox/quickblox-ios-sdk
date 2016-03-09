@@ -48,6 +48,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (weak, nonatomic) UIView *zoomedView;
 
 @property (strong, nonatomic) QBButton *videoEnabled;
+@property (strong, nonatomic) QBButton *dynamicEnable;
 @property (weak, nonatomic) LocalVideoView *localVideoView;
 
 @end
@@ -99,7 +100,9 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     self.users = users.copy;
     
     [QBRTCSoundRouter.instance initialize];
-    
+	
+	[self updateDynamicImage];
+	
     self.isOffer ? [self startCall] : [self acceptCall];
     
     if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
@@ -107,10 +110,37 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     }
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+	[self updateDynamicImage];
+}
+
+- (void)updateDynamicImage {
+	QBRTCSoundRouter *router = QBRTCSoundRouter.instance;
+	
+	BOOL pressed = NO;
+	
+	if (router.currentSoundRoute == QBRTCSoundRouteSpeaker) {
+		pressed = YES;
+	} else if (router.currentSoundRoute == QBRTCSoundRouteReceiver) {
+		pressed = NO;
+	}
+	
+	dispatch_async(dispatch_get_main_queue(), ^{
+		self.dynamicEnable.pressed = pressed;
+	});
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+	
+	[QBRTCSoundRouter.instance addObserver:self forKeyPath:@"currentSoundRoute" options:NSKeyValueObservingOptionNew context:nil];
+	
     self.title = @"Connecting...";
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[QBRTCSoundRouter.instance removeObserver:self forKeyPath:@"currentSoundRoute"];
 }
 
 - (UIView *)videoViewWithOpponentID:(NSNumber *)opponentID {
@@ -197,8 +227,10 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         
         weakSelf.session.localMediaStream.audioTrack.enabled ^=1;
     }];
-    
-    [self.toolbar addButton:[QBButtonsFactory dynamicEnable] action:^(UIButton *sender) {
+	
+	self.dynamicEnable = [QBButtonsFactory dynamicEnable];
+	
+    [self.toolbar addButton:self.dynamicEnable action:^(UIButton *sender) {
         
         QBRTCSoundRoute route = [QBRTCSoundRouter instance].currentSoundRoute;
         
@@ -228,6 +260,8 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     [self.toolbar updateItems];
 }
+
+
 
 #pragma mark - UICollectionViewDataSource
 
