@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
-        QBSettings.setChatDNSLookupCache(true);
+        QBSettings.setChatDNSLookupCacheEnabled(true);
         
         // app was launched from push notification, handling it
         let remoteNotification: NSDictionary! = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
