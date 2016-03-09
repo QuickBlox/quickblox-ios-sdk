@@ -402,7 +402,7 @@ QMChatCellDelegate
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
                                                 withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
-                                         limitedToNumberOfLines:3];
+                                         limitedToNumberOfLines:0];
     } else {
         
         NSAttributedString *attributedString = [self attributedStringForItem:item];
