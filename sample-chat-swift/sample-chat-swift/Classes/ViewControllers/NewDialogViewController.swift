@@ -168,7 +168,7 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
                 // Notifies users about new dialog with them.
                 ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(dialog, toUsersIDs: usersIDs, completion: { (error: NSError?) -> Void in
                     // Notifies existing dialog occupants about new users.
-                    ServicesManager.instance().chatService.sendMessageAboutUpdateDialog(dialog, withNotificationText: self.updatedMessageWithUsers(users), customParameters: nil, completion: nil)
+                    ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(usersIDs, toDialog: dialog, withNotificationText: self.updatedMessageWithUsers(users))
                     
                     print(dialog)
                     
