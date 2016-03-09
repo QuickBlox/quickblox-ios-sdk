@@ -119,13 +119,18 @@
         // Updating dialog with occupants.
         [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
             if( response.success ) {
+                
                 // Notifying users about newly created dialog.
                 [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog toUsersIDs:usersIDs completion:^(NSError *error) {
                     //
                     NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
+                    
                     // Notify occupants that dialog was updated.
-                    [[ServicesManager instance].chatService sendMessageAboutUpdateDialog:updatedDialog withNotificationText:notificationText customParameters:nil completion:^(NSError *error) {
-                        //
+                  [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:usersIDs
+                                                                                             toDialog:updatedDialog
+                                                                                 withNotificationText:notificationText
+                                                                                           completion:^(NSError * _Nullable error) {
+                        
                     }];
                     
                     updatedDialog.lastMessageText = notificationText;
