@@ -320,6 +320,11 @@ QMChatCellDelegate
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
     
     UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
+    
+    if (messageItem.isNotificatonMessage) {
+        textColor =  [UIColor blackColor];
+    }
+    
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     
@@ -537,6 +542,8 @@ QMChatCellDelegate
         [(QMChatOutgoingCell *)cell containerView].bgColor = [UIColor colorWithRed:231.0f / 255.0f green:231.0f / 255.0f blue:231.0f / 255.0f alpha:1.0f];
     } else if ([cell isKindOfClass:[QMChatNotificationCell class]]) {
         [(QMChatCell *)cell containerView].bgColor = self.collectionView.backgroundColor;
+        //avoid tapping for Notification Cell
+        cell.userInteractionEnabled = NO;
     }
     
     if ([cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {
