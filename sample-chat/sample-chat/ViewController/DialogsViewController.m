@@ -242,15 +242,13 @@ QMChatConnectionDelegate
         if (chatDialog.type == QBChatDialogTypeGroup) {
             NSString *notificationText = [NSString stringWithFormat:@"%@ %@", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_USER_HAS_LEFT", nil)];
             __weak __typeof(self) weakSelf = self;
-            // Notifying user about updated dialog - user left it.
-            [[[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog
-                                                                          withNotificationText:notificationText] continueWithBlock:^id _Nullable(BFTask * _Nonnull task) {
-                [weakSelf deleteDialogWithID:chatDialog.ID];
-                return nil;
-            }];
             
-
-        } else {
+            // Notifying user about updated dialog - user left it.
+              [[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError * _Nullable error) {
+                    [weakSelf deleteDialogWithID:chatDialog.ID];
+              }];
+        }
+        else {
             [self deleteDialogWithID:chatDialog.ID];
         }
     }

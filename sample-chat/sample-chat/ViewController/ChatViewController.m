@@ -298,17 +298,21 @@ QMChatCellDelegate
         
         return [QMChatNotificationCell class];
         
-    } else {
+    }
+    else {
         if (item.senderID != self.senderID) {
             if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentIncomingCell class];
-            } else {
+            }
+            else {
                 return [QMChatIncomingCell class];
             }
-        } else {
+        }
+        else {
             if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentOutgoingCell class];
-            } else {
+            }
+            else {
                 return [QMChatOutgoingCell class];
             }
         }
@@ -388,7 +392,8 @@ QMChatCellDelegate
         
         size = CGSizeMake(MIN(200, maxWidth), 200);
         
-    } else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
+    }
+    else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
         
         NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
         
@@ -397,13 +402,15 @@ QMChatCellDelegate
                                                            limitedToNumberOfLines:0];
         size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
         
-    } else if (viewClass == [QMChatNotificationCell class]) {
+    }
+    else if (viewClass == [QMChatNotificationCell class]) {
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
                                                 withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
                                          limitedToNumberOfLines:0];
-    } else {
+    }
+    else {
         
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
@@ -509,7 +516,8 @@ QMChatCellDelegate
         }
         
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
-    } else if (class == [QMChatNotificationCell class]) {
+    }
+    else if (class == [QMChatNotificationCell class]) {
         
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
@@ -538,9 +546,11 @@ QMChatCellDelegate
     
     if ([cell isKindOfClass:[QMChatOutgoingCell class]] || [cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
         [(QMChatIncomingCell *)cell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
-    } else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
+    }
+    else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
         [(QMChatOutgoingCell *)cell containerView].bgColor = [UIColor colorWithRed:231.0f / 255.0f green:231.0f / 255.0f blue:231.0f / 255.0f alpha:1.0f];
-    } else if ([cell isKindOfClass:[QMChatNotificationCell class]]) {
+    }
+    else if ([cell isKindOfClass:[QMChatNotificationCell class]]) {
         [(QMChatCell *)cell containerView].bgColor = self.collectionView.backgroundColor;
         //avoid tapping for Notification Cell
         cell.userInteractionEnabled = NO;

@@ -390,25 +390,29 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         // TODO: check and add QMMessageType.AcceptContactRequest, QMMessageType.RejectContactRequest, QMMessageType.ContactRequest
         if  item.isNotificatonMessage() {
             return QMChatNotificationCell.self
-        } else {
+        }
+        else {
             if (item.senderID != self.senderID) {
                 
                 if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
                     
                     return QMChatAttachmentIncomingCell.self
                     
-                } else {
+                }
+                else {
                     
                     return QMChatIncomingCell.self
                 }
                 
-            } else {
+            }
+            else {
                 
                 if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
                     
                     return QMChatAttachmentOutgoingCell.self
                     
-                } else {
+                }
+                else {
                     
                     return QMChatOutgoingCell.self
                 }
@@ -489,16 +493,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if let item : QBChatMessage = self.chatSectionManager.messageForIndexPath(indexPath) {
             if self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
                 size = CGSize(width: min(200, maxWidth), height: 200)
-            } else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
+            }
+            else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
                 let attributedString = self.bottomLabelAttributedStringForItem(item)
                 
                 let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.max), limitedToNumberOfLines: 0)
                 size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
-            } else if self.viewClassForItem(item) === QMChatNotificationCell.self {
+            }
+            else if self.viewClassForItem(item) === QMChatNotificationCell.self {
                 let attributedString = self.attributedStringForItem(item)
                  size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
                 
-            } else {
+            }
+            else {
                 
                 let attributedString = self.attributedStringForItem(item)
                 
