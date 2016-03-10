@@ -129,10 +129,7 @@
                   [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:usersIDs
                                                                                              toDialog:updatedDialog
                                                                                  withNotificationText:notificationText
-                                                                                           completion:^(NSError * _Nullable error) {
-                        
-                    }];
-                    
+                                                                                           completion:nil];
                     updatedDialog.lastMessageText = notificationText;
                     [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
                     [SVProgressHUD dismiss];

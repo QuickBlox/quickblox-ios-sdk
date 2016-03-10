@@ -301,7 +301,7 @@ QMChatCellDelegate
     }
     else {
         if (item.senderID != self.senderID) {
-            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+            if (item.isMediaMessage || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentIncomingCell class];
             }
             else {
@@ -309,7 +309,7 @@ QMChatCellDelegate
             }
         }
         else {
-            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+            if (item.isMediaMessage|| item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentOutgoingCell class];
             }
             else {
@@ -323,10 +323,13 @@ QMChatCellDelegate
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
     
-    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
+    UIColor *textColor;
     
     if (messageItem.isNotificatonMessage) {
         textColor =  [UIColor blackColor];
+    }
+    else {
+       textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
     }
     
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
@@ -404,6 +407,7 @@ QMChatCellDelegate
         
     }
     else if (viewClass == [QMChatNotificationCell class]) {
+        
         NSAttributedString *attributedString = [self attributedStringForItem:item];
         
         size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
