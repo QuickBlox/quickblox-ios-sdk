@@ -388,27 +388,34 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func viewClassForItem(item: QBChatMessage) -> AnyClass! {
         // TODO: check and add QMMessageType.AcceptContactRequest, QMMessageType.RejectContactRequest, QMMessageType.ContactRequest
-        
-        if (item.senderID != self.senderID) {
-            
-            if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+        if  item.isNotificatonMessage() {
+            return QMChatNotificationCell.self
+        }
+        else {
+            if (item.senderID != self.senderID) {
                 
-                return QMChatAttachmentIncomingCell.self
+                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                    
+                    return QMChatAttachmentIncomingCell.self
+                    
+                }
+                else {
+                    
+                    return QMChatIncomingCell.self
+                }
                 
-            } else {
-                
-                return QMChatIncomingCell.self
             }
-            
-        } else {
-            
-            if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+            else {
                 
-                return QMChatAttachmentOutgoingCell.self
-                
-            } else {
-                
-                return QMChatOutgoingCell.self
+                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                    
+                    return QMChatAttachmentOutgoingCell.self
+                    
+                }
+                else {
+                    
+                    return QMChatOutgoingCell.self
+                }
             }
         }
     }
@@ -421,7 +428,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             return nil
         }
         
-        let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
+        var textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
+        if messageItem.isNotificatonMessage() {
+            textColor = UIColor.blackColor()
+        }
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
@@ -483,12 +493,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if let item : QBChatMessage = self.chatSectionManager.messageForIndexPath(indexPath) {
             if self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
                 size = CGSize(width: min(200, maxWidth), height: 200)
-            } else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
+            }
+            else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
                 let attributedString = self.bottomLabelAttributedStringForItem(item)
                 
                 let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.max), limitedToNumberOfLines: 0)
                 size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
-            } else {
+            }
+            else if self.viewClassForItem(item) === QMChatNotificationCell.self {
+                let attributedString = self.attributedStringForItem(item)
+                 size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
+                
+            }
+            else {
                 
                 let attributedString = self.attributedStringForItem(item)
                 
@@ -626,6 +643,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
         } else if cell.isKindOfClass(QMChatOutgoingCell.self) || cell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
             (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        } else if cell.isKindOfClass(QMChatNotificationCell.self) {
+            cell.userInteractionEnabled = false
+            (cell as! QMChatCell).containerView?.bgColor = self.collectionView?.backgroundColor
         }
     }
     
