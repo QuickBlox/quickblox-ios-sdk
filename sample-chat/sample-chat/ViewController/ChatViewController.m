@@ -84,6 +84,9 @@ QMChatCellDelegate
     
     [self updateTitle];
     
+    self.navigationController.navigationBar.topItem.backBarButtonItem = [[UIBarButtonItem alloc]
+                                                                         initWithTitle:[ServicesManager instance].currentUser.login style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     if (self.dialog.type == QBChatDialogTypePrivate) {
         
         // Handling 'typing' status.

@@ -47,6 +47,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         self.updateTitle()
         
+        self.navigationController!.navigationBar.topItem!.backBarButtonItem = UIBarButtonItem(title: ServicesManager.instance().currentUser().login, style:.Plain, target: nil, action: nil);
+
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.textView?.placeHolder = "SA_STR_MESSAGE_PLACEHOLDER".localized
