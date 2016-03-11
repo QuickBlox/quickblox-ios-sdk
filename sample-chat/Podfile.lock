@@ -34,7 +34,7 @@ PODS:
     - QMCVDevelopment/Protocols
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMServicesDevelopment (0.3.6):
+  - QMServicesDevelopment (0.3.7):
     - Bolts (= 1.5.0)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
@@ -47,7 +47,7 @@ DEPENDENCIES:
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`,
     commit `17ada21717a26235a73069a7ef0e396871ac8514`)
   - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`,
-    commit `f79c5459c2ff92296c8173992a4884bb77b06e18`)
+    commit `d48db73bd0c062c9e16c37b3482baae161bb2bfb`)
   - SVProgressHUD
   - TWMessageBarManager (~> 1.7.2)
 
@@ -56,7 +56,7 @@ EXTERNAL SOURCES:
     :commit: 17ada21717a26235a73069a7ef0e396871ac8514
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: f79c5459c2ff92296c8173992a4884bb77b06e18
+    :commit: d48db73bd0c062c9e16c37b3482baae161bb2bfb
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 CHECKOUT OPTIONS:
@@ -64,13 +64,13 @@ CHECKOUT OPTIONS:
     :commit: 17ada21717a26235a73069a7ef0e396871ac8514
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: f79c5459c2ff92296c8173992a4884bb77b06e18
+    :commit: d48db73bd0c062c9e16c37b3482baae161bb2bfb
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: 722ab9a4f8b50fc4ed1b9998a5a7a2b3f16d80b4
   QMCVDevelopment: 3e9e615f02bf3a7cb87801729f512a484d61c9b8
-  QMServicesDevelopment: 3424ab8cd83c4d17c2aeff2b51da617a0b70e39c
+  QMServicesDevelopment: 7e90fd5b370463384214b8064cce3edcc7007c2a
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f

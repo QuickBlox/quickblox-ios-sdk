@@ -53,7 +53,15 @@
             __weak __typeof(self)weakSelf = self;
             [self.cacheDataSource cachedUsers:^(NSArray *collection) {
                 
-                [weakSelf.usersMemoryStorage addUsers:collection];
+                if (collection.count > 0) {
+                    
+                    [weakSelf.usersMemoryStorage addUsers:collection];
+                    
+                    if ([self.multicastDelegate respondsToSelector:@selector(usersService:didLoadUsersFromCache:)]) {
+                        [self.multicastDelegate usersService:self didLoadUsersFromCache:collection];
+                    }
+                }
+                
                 [source setResult:collection];
             }];
             loadFromCacheTask = source.task;
