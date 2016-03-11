@@ -24,6 +24,14 @@
 + (QB_NONNULL QBSession *)currentSession;
 
 /**
+ *  Start session with details
+ *
+ *  @param session     QBASession instance, token, applicationID, userID are required fields
+ *  @param sessionDate expiration date
+ */
+- (void)startSessionWithDetails:(QB_NONNULL QBASession *)session expirationDate:(QB_NONNULL NSDate *)sessionDate;
+
+/**
  *  Session user
  */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBUUser *currentUser;
