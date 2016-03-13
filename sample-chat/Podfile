@@ -14,3 +14,8 @@ pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-servic
 
 #For development pods
 #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
+
+
+pod 'StickerPipe', :git => 'https://github.com/908Inc/stkiOS', :branch => 'settings'
+pod 'MD5Digest', '~> 1.1'
+pod 'SSKeychain', '~> 1.3'
