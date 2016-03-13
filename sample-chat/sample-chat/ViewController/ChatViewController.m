@@ -17,6 +17,11 @@
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import <TWMessageBarManager.h>
 
+#import "STKStickerPipe.h"
+#import "STKUtility.h"
+#import "STKShowStickerButton.h"
+#import "STKImageManager.h"
+
 static const NSUInteger widthPadding = 40.0f;
 
 @interface ChatViewController ()
@@ -28,7 +33,8 @@ QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 UIActionSheetDelegate,
-QMChatCellDelegate
+QMChatCellDelegate,
+STKStickerControllerDelegate
 >
 
 @property (nonatomic, weak) QBUUser* opponentUser;
@@ -42,6 +48,8 @@ QMChatCellDelegate
 
 @property (nonatomic, strong) NSMutableSet *detailedCells;
 
+@property (strong, nonatomic) STKStickerController *stickerController;
+
 @end
 
 @implementation ChatViewController
@@ -54,6 +62,63 @@ QMChatCellDelegate
         _pickerController.delegate = self;
     }
     return _pickerController;
+}
+
+- (STKStickerController *)stickerController {
+    if (!_stickerController) {
+        _stickerController = [STKStickerController new];
+        _stickerController.delegate = self;
+        _stickerController.textInputView = self.inputToolbar.contentView.textView;
+    }
+    return _stickerController;
+}
+
+#pragma mark - STKSTickerController delegate
+
+- (UIViewController *)stickerControllerViewControllerForPresentingModalView {
+    return self;
+}
+
+- (void)stickerController:(STKStickerController *)stickerController didSelectStickerWithMessage:(NSString *)message {
+    __weak __typeof(self)weakSelf = self;
+    
+    STKImageManager *imageManager = [STKImageManager new];
+    [imageManager getImageForStickerMessage:message
+                                 andDensity:[STKUtility maxDensity] withProgress:nil andCompletion:^(NSError *error, UIImage *stickerImage) {
+    
+        QBChatMessage* message = [QBChatMessage new];
+        message.senderID = self.senderID;
+        message.dialogID = self.dialog.ID;
+        message.dateSent = [NSDate date];
+        message.text = @"Sticker Message";
+                                     
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __typeof(weakSelf)strongSelf = weakSelf;
+            
+            
+                                         
+        // Sending attachment to dialog.
+        dispatch_async(dispatch_get_main_queue(), ^{
+       [[ServicesManager instance].chatService sendAttachmentMessage:message
+                                                                                                  toDialog:strongSelf.dialog
+                                                                                       withAttachmentImage:stickerImage
+                                                                                                completion:^(NSError *error) {
+                                                                                                    
+                                                                                                    [strongSelf.attachmentCells removeObjectForKey:message.ID];
+                                                                                                    
+                                                                                                    if (error != nil) {
+                                                                                                        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                                                                                                        
+                                                                                                        // perform local attachment deleting
+                                                                                                        [[ServicesManager instance].chatService deleteMessageLocally:message];
+                                                                                                        [strongSelf.chatSectionManager deleteMessage:message];
+                                                                                                    }
+                                                                                                }];
+                                         });
+                                     });
+         
+    }];
+    
 }
 
 #pragma mark - Override
@@ -83,6 +148,12 @@ QMChatCellDelegate
     self.detailedCells = [NSMutableSet set];
     
     [self updateTitle];
+    
+    
+    //tap gesture
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textViewDidTap:)];
+    [self.inputToolbar.contentView.textView addGestureRecognizer:tapGesture];
     
     if (self.dialog.type == QBChatDialogTypePrivate) {
         
@@ -117,6 +188,12 @@ QMChatCellDelegate
     }
     
     [self refreshMessagesShowingProgress:NO];
+}
+
+- (void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    [self.stickerController updateFrames];
 }
 
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
@@ -747,6 +824,10 @@ QMChatCellDelegate
     [super textViewDidEndEditing:textView];
     
     [self fireStopTypingIfNecessary];
+}
+
+- (void) textViewDidTap:(UITapGestureRecognizer*) gestureRecognizer {
+    [self.inputToolbar.contentView.textView becomeFirstResponder];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
