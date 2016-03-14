@@ -26,6 +26,17 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 @interface QMChatService : QMBaseService
 
 /**
+ *  Determines whether auto join for group dialogs is enabled or not.
+ *  Default value is YES.
+ *
+ *  @discussion Disable auto join if you want to handla group chat dialogs joining manually
+ *  or you are using our Enterprise feature to manage group chat dialogs without join being required.
+ *  By default QMServices will perform join to all existent group dialogs in cache after every chat connect/reconnect 
+ *  and every chat dialog receive/update.
+ */
+@property (assign, nonatomic, getter=isAutoJoinEnabled) BOOL enableAutoJoin;
+
+/**
  *  Chat messages per page with messages load methods
  */
 @property (assign, nonatomic) NSUInteger chatMessagesPerPage;

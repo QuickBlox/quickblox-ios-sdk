@@ -107,6 +107,25 @@
     return dialog;
 }
 
+- (NSArray *)chatDialogsWithUsersIDs:(NSArray *)usersIDs {
+    
+    NSArray *dialogs = [self.dialogs allValues];
+    
+    NSMutableArray *result = [NSMutableArray array];
+    NSSet *usersIDsSet = [NSSet setWithArray:usersIDs];
+    
+    for (QBChatDialog *dialog in dialogs) {
+        
+        NSMutableSet *occupantIDs = [NSMutableSet setWithArray:dialog.occupantIDs];
+        if ([occupantIDs intersectsSet:usersIDsSet]) {
+            
+            [result addObject:dialog];
+        }
+    }
+    
+    return result.copy;
+}
+
 - (NSArray *)unsortedDialogs {
     
     NSArray *dialogs = [self.dialogs allValues];

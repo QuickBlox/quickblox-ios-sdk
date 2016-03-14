@@ -35,6 +35,11 @@
         [_chatService setChatMessagesPerPage:kQMChatMessagesPerPage];
         [_chatService addDelegate:self];
         
+        // Enables auto join handling for group chat dialogs.
+        // Remove this or set it to NO if you want to handle group chat dialog joining manually
+        // or you are using our Enterprise feature to manage group chat dialogs without join being required.
+        _chatService.enableAutoJoin = YES;
+        
         [QMUsersCache setupDBWithStoreNamed:@"qb-users-cache"];
         _usersService = [[QMUsersService alloc] initWithServiceManager:self cacheDataSource:self];
         [_usersService addDelegate:self];
@@ -124,7 +129,13 @@
 	return [QBSession currentSession].currentUser;
 }
 
-- (void)joinAllGroupDialogs {
+- (void)joinAllGroupDialogsIfNeeded {
+    
+    if (!self.chatService.isAutoJoinEnabled) {
+        // if auto join is not enabled QMServices will not join group chat dialogs automatically.
+        return;
+    }
+    
     NSArray *dialogObjects = [self.chatService.dialogsMemoryStorage unsortedDialogs];
     for (QBChatDialog* dialog in dialogObjects) {
         if (dialog.type != QBChatDialogTypePrivate) {
@@ -142,11 +153,11 @@
 #pragma mark - QMChatServiceDelegate
 
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService {
-    [self joinAllGroupDialogs];
+    [self joinAllGroupDialogsIfNeeded];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService {
-    [self joinAllGroupDialogs];
+    [self joinAllGroupDialogsIfNeeded];
 }
 
 #pragma mark QMChatServiceCache delegate

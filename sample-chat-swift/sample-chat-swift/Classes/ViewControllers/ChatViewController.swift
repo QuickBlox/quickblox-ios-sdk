@@ -437,7 +437,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
-        let attributedString = NSAttributedString(string: messageItem.encodedText!, attributes: attributes)
+        let attributedString = NSAttributedString(string: messageItem.text!, attributes: attributes)
         
         return attributedString
     }

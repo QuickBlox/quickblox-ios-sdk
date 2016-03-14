@@ -53,7 +53,7 @@
     }
     
     [[TWMessageBarManager sharedInstance] hideAll];
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:dialogName description:message.encodedText type:TWMessageBarMessageTypeInfo];
+    [[TWMessageBarManager sharedInstance] showMessageWithTitle:dialogName description:message.text type:TWMessageBarMessageTypeInfo];
 }
 
 - (void)handleErrorResponse:(QBResponse *)response {
