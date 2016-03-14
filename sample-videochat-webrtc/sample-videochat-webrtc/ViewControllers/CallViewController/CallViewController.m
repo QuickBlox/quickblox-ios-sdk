@@ -231,10 +231,12 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 	self.dynamicEnable = [QBButtonsFactory dynamicEnable];
 	
     [self.toolbar addButton:self.dynamicEnable action:^(UIButton *sender) {
+		
+		QBRTCSoundRouter *router = [QBRTCSoundRouter instance];
+		
+        QBRTCSoundRoute route = router.currentSoundRoute;
         
-        QBRTCSoundRoute route = [QBRTCSoundRouter instance].currentSoundRoute;
-        
-        [QBRTCSoundRouter instance].currentSoundRoute =
+        router.currentSoundRoute =
         route == QBRTCSoundRouteSpeaker ? QBRTCSoundRouteReceiver : QBRTCSoundRouteSpeaker;
     }];
     
