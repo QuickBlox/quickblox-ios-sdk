@@ -44,13 +44,14 @@ QMChatConnectionDelegate
     if ([QBChat instance].isConnected) {
         [self loadDialogs];
     }
+     self.navigationItem.title = [ServicesManager instance].currentUser.login;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
     
-    self.navigationItem.title = [ServicesManager instance].currentUser.login;
+   
 	[self.tableView reloadData];
 }
 

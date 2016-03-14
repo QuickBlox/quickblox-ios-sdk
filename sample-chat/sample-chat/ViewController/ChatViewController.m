@@ -84,18 +84,6 @@ QMChatCellDelegate
     
     [self updateTitle];
     
-
-    NSArray *viewControllerArray = [self.navigationController viewControllers];
-    // get index of the previous ViewContoller
-    long previousIndex = [viewControllerArray indexOfObject:self] - 1;
-    if (previousIndex >= 0) {
-        UIViewController *previous = [viewControllerArray objectAtIndex:previousIndex];
-        previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]
-                                                     initWithTitle:[ServicesManager instance].currentUser.login
-                                                     style:UIBarButtonItemStylePlain
-                                                     target:self
-                                                     action:nil];
-    }
     if (self.dialog.type == QBChatDialogTypePrivate) {
         
         // Handling 'typing' status.
@@ -347,7 +335,7 @@ QMChatCellDelegate
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.encodedText : @"" attributes:attributes];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.TEXT : @"" attributes:attributes];
     
     return attrStr;
 }
