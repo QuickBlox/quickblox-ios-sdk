@@ -84,9 +84,18 @@ QMChatCellDelegate
     
     [self updateTitle];
     
-    self.navigationController.navigationBar.topItem.backBarButtonItem = [[UIBarButtonItem alloc]
-                                                                         initWithTitle:[ServicesManager instance].currentUser.login style:UIBarButtonItemStylePlain target:nil action:nil];
-    
+
+    NSArray *viewControllerArray = [self.navigationController viewControllers];
+    // get index of the previous ViewContoller
+    long previousIndex = [viewControllerArray indexOfObject:self] - 1;
+    if (previousIndex >= 0) {
+        UIViewController *previous = [viewControllerArray objectAtIndex:previousIndex];
+        previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]
+                                                     initWithTitle:[ServicesManager instance].currentUser.login
+                                                     style:UIBarButtonItemStylePlain
+                                                     target:self
+                                                     action:nil];
+    }
     if (self.dialog.type == QBChatDialogTypePrivate) {
         
         // Handling 'typing' status.

@@ -47,7 +47,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         self.updateTitle()
         
-        self.navigationController!.navigationBar.topItem!.backBarButtonItem = UIBarButtonItem(title: ServicesManager.instance().currentUser().login, style:.Plain, target: nil, action: nil);
+        let viewControllerArray = self.navigationController!.viewControllers as NSArray;
+        // get index of the previous ViewContoller
+        let previousIndex = viewControllerArray.indexOfObject(self) - 1;
+        if (previousIndex >= 0) {
+            let previous = viewControllerArray[previousIndex] as! UIViewController;
+            previous.navigationItem.backBarButtonItem = UIBarButtonItem(title: ServicesManager.instance().currentUser().login, style:.Plain, target: nil, action: nil);
+        }
 
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
