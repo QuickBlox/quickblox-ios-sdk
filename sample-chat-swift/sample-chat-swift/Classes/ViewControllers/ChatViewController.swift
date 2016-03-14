@@ -46,8 +46,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.heightForSectionHeader = 40.0
         
         self.updateTitle()
-        
-        self.navigationController!.navigationBar.topItem!.backBarButtonItem = UIBarButtonItem(title: ServicesManager.instance().currentUser().login, style:.Plain, target: nil, action: nil);
 
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()

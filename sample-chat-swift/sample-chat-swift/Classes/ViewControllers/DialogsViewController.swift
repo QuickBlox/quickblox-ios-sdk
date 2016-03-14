@@ -87,7 +87,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         super.awakeFromNib()
         
         // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
-        self.navigationItem.title = ServicesManager.instance().currentUser()!.fullName!
+        self.navigationItem.title = ServicesManager.instance().currentUser()!.login()
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
         

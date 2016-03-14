@@ -84,9 +84,6 @@ QMChatCellDelegate
     
     [self updateTitle];
     
-    self.navigationController.navigationBar.topItem.backBarButtonItem = [[UIBarButtonItem alloc]
-                                                                         initWithTitle:[ServicesManager instance].currentUser.login style:UIBarButtonItemStylePlain target:nil action:nil];
-    
     if (self.dialog.type == QBChatDialogTypePrivate) {
         
         // Handling 'typing' status.
@@ -339,7 +336,7 @@ QMChatCellDelegate
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.text : @"" attributes:attributes];
-    
+
     return attrStr;
 }
 
