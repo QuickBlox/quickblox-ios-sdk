@@ -30,6 +30,7 @@
 		9A4892881C981AB300EF980E /* OutgoingStickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4892871C981AB300EF980E /* OutgoingStickerCell.xib */; };
 		9A48928D1C98480E00EF980E /* IncomingStickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A48928B1C98480E00EF980E /* IncomingStickerCell.m */; };
 		9A48928E1C98480E00EF980E /* IncomingStickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A48928C1C98480E00EF980E /* IncomingStickerCell.xib */; };
+		9AA5446D1C986387008E3F5A /* MainStickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA5446C1C986387008E3F5A /* MainStickerCell.m */; };
 		9ACBAB771C96156B00366A2A /* OutgoingStickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACBAB751C96156B00366A2A /* OutgoingStickerCell.m */; };
 		BFBD3C941832CF30009D090B /* sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BFBD3C931832CF30009D090B /* sound.mp3 */; };
 		BFE6FB76180E8EF100E64AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFE6FB75180E8EF100E64AC4 /* Foundation.framework */; };
@@ -92,6 +93,8 @@
 		9A48928A1C98480E00EF980E /* IncomingStickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomingStickerCell.h; sourceTree = "<group>"; };
 		9A48928B1C98480E00EF980E /* IncomingStickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomingStickerCell.m; sourceTree = "<group>"; };
 		9A48928C1C98480E00EF980E /* IncomingStickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IncomingStickerCell.xib; sourceTree = "<group>"; };
+		9AA5446B1C986387008E3F5A /* MainStickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainStickerCell.h; sourceTree = "<group>"; };
+		9AA5446C1C986387008E3F5A /* MainStickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainStickerCell.m; sourceTree = "<group>"; };
 		9ACBAB741C96156B00366A2A /* OutgoingStickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutgoingStickerCell.h; sourceTree = "<group>"; };
 		9ACBAB751C96156B00366A2A /* OutgoingStickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutgoingStickerCell.m; sourceTree = "<group>"; };
 		B28710F05CC3FC9C8169A7CA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +199,15 @@
 				9A48928C1C98480E00EF980E /* IncomingStickerCell.xib */,
 			);
 			name = IncomingStickerCell;
+			sourceTree = "<group>";
+		};
+		9AA5446A1C986369008E3F5A /* MainStickerCell */ = {
+			isa = PBXGroup;
+			children = (
+				9AA5446B1C986387008E3F5A /* MainStickerCell.h */,
+				9AA5446C1C986387008E3F5A /* MainStickerCell.m */,
+			);
+			name = MainStickerCell;
 			sourceTree = "<group>";
 		};
 		9ACBAB791C96BF0000366A2A /* OutgoingStickerCell */ = {
@@ -315,6 +327,7 @@
 		BFE6FBF21812E0D300E64AC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9AA5446A1C986369008E3F5A /* MainStickerCell */,
 				9A4892891C9847E100EF980E /* IncomingStickerCell */,
 				9ACBAB791C96BF0000366A2A /* OutgoingStickerCell */,
 				1402B6981B14BF350069E3A4 /* UserTableViewCell.h */,
@@ -455,6 +468,7 @@
 			files = (
 				1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
+				9AA5446D1C986387008E3F5A /* MainStickerCell.m in Sources */,
 				86EE31B71B270B7F00B8A383 /* DialogInfoTableViewController.m in Sources */,
 				9ACBAB771C96156B00366A2A /* OutgoingStickerCell.m in Sources */,
 				1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */,

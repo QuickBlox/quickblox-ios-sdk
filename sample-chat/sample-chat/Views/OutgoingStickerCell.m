@@ -10,8 +10,4 @@
 
 @implementation OutgoingStickerCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
 @end

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainStickerCell.h"
 
-@interface OutgoingStickerCell : UICollectionViewCell
-@property (nonatomic, weak) IBOutlet UIImageView *stickerImage;
+@interface OutgoingStickerCell : MainStickerCell
+
+
 @end

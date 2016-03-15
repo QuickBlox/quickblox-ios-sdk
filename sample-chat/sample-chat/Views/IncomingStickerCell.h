@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QMChatCell.h"
+#import "MainStickerCell.h"
 
-@interface IncomingStickerCell : QMChatCell
+@interface IncomingStickerCell : MainStickerCell
 
-@property (nonatomic, weak) IBOutlet UIImageView *stickerImage;
-
-+ (QMChatCellLayoutModel)layoutModel;
 
 @end
