@@ -80,45 +80,14 @@ STKStickerControllerDelegate
 }
 
 - (void)stickerController:(STKStickerController *)stickerController didSelectStickerWithMessage:(NSString *)message {
-    __weak __typeof(self)weakSelf = self;
     
-    STKImageManager *imageManager = [STKImageManager new];
-    [imageManager getImageForStickerMessage:message
-                                 andDensity:[STKUtility maxDensity] withProgress:nil andCompletion:^(NSError *error, UIImage *stickerImage) {
+    QBChatMessage* stickerMessage = [QBChatMessage new];
+    stickerMessage.senderID = self.senderID;
+    stickerMessage.dialogID = self.dialog.ID;
+    stickerMessage.dateSent = [NSDate date];
+    stickerMessage.text = message;
     
-        QBChatMessage* message = [QBChatMessage new];
-        message.senderID = self.senderID;
-        message.dialogID = self.dialog.ID;
-        message.dateSent = [NSDate date];
-        message.text = @"Sticker Message";
-                                     
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        __typeof(weakSelf)strongSelf = weakSelf;
-            
-            
-                                         
-        // Sending attachment to dialog.
-        dispatch_async(dispatch_get_main_queue(), ^{
-       [[ServicesManager instance].chatService sendAttachmentMessage:message
-                                                                                                  toDialog:strongSelf.dialog
-                                                                                       withAttachmentImage:stickerImage
-                                                                                                completion:^(NSError *error) {
-                                                                                                    
-                                                                                                    [strongSelf.attachmentCells removeObjectForKey:message.ID];
-                                                                                                    
-                                                                                                    if (error != nil) {
-                                                                                                        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                                                                                                        
-                                                                                                        // perform local attachment deleting
-                                                                                                        [[ServicesManager instance].chatService deleteMessageLocally:message];
-                                                                                                        [strongSelf.chatSectionManager deleteMessage:message];
-                                                                                                    }
-                                                                                                }];
-                                         });
-                                     });
-         
-    }];
-    
+    [[ServicesManager instance].chatService sendMessage:stickerMessage toDialog:self.dialog saveToHistory:YES saveToStorage:YES];
 }
 
 #pragma mark - Override
