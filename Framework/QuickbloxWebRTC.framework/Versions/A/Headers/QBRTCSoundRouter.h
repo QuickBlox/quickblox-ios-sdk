@@ -59,7 +59,7 @@ typedef NS_ENUM(NSUInteger, QBRTCSoundRoute) {
  *
  *  @param currentSoundRoute QBRTCSoundRouteSpeaker and QBRTCSoundRouteReceiver are allowed values
  *
- *  @return YES if success, NO if error
+ *  @return YES if success, NO if error or currentSoundRoute already set
  */
 - (BOOL)setCurrentSoundRoute:(QBRTCSoundRoute)currentSoundRoute;
 
