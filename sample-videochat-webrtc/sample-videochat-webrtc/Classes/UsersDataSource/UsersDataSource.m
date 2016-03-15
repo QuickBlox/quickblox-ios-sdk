@@ -64,14 +64,14 @@ NSString *const kPasswordKey = @"password";
 
 - (NSString *)strWithList:(ListOfUsers)list {
     
-    switch (list) {
-            
-        case ListOfUsersQA: return @"QA";
-        case ListOfUsersDEV: return @"DEV";
-        case ListOfUsersWEB: return @"WEB";
-            
-        default:return @"PROD";
-    }
+//    switch (list) {
+	
+//        case ListOfUsersQA: return @"QA";
+//        case ListOfUsersDEV: return @"DEV";
+//        case ListOfUsersWEB: return @"WEB";
+			
+        /*default:*/return @"PROD";
+//    }
 }
 
 - (void)loadUsersWithList:(ListOfUsers)list {
