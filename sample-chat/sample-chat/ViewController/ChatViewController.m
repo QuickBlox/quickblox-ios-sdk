@@ -22,6 +22,9 @@
 #import "STKShowStickerButton.h"
 #import "STKImageManager.h"
 
+#import "OutgoingStickerCell.h"
+#import "IncomingStickerCell.h"
+
 static const NSUInteger widthPadding = 40.0f;
 
 @interface ChatViewController ()
@@ -157,6 +160,9 @@ STKStickerControllerDelegate
     }
     
     [self refreshMessagesShowingProgress:NO];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"OutgoingStickerCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"stickerCell"];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"IncomingStickerCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"IncomingStickerCell"];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -341,20 +347,26 @@ STKStickerControllerDelegate
 - (Class)viewClassForItem:(QBChatMessage *)item
 {
     // TODO: check and add QMMessageTypeAcceptContactRequest, QMMessageTypeRejectContactRequest, QMMessageTypeContactRequest
-    
     if (item.senderID != self.senderID) {
-        if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+        if ([STKStickersManager isStickerMessage:item.text]) {
+            return [IncomingStickerCell class];
+        }
+        else if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
             return [QMChatAttachmentIncomingCell class];
+            
         } else {
             return [QMChatIncomingCell class];
         }
-    } else {
-        if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-            return [QMChatAttachmentOutgoingCell class];
+    } else
+        if ([STKStickersManager isStickerMessage:item.text]) {
+            return [OutgoingStickerCell class];
         } else {
-            return [QMChatOutgoingCell class];
+            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+                return [QMChatAttachmentOutgoingCell class];
+            } else {
+                return [QMChatOutgoingCell class];
+            }
         }
-    }
 }
 
 #pragma mark - Strings builder
@@ -434,6 +446,16 @@ STKStickerControllerDelegate
                                                            limitedToNumberOfLines:0];
         size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
     }
+    else  if (viewClass == [OutgoingStickerCell class] ||
+              viewClass == [IncomingStickerCell class]) {
+        NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
+        
+        CGSize bottomLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                                  withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
+                                                           limitedToNumberOfLines:0];
+        size = CGSizeMake(MIN(160, maxWidth), 160 + ceilf(bottomLabelSize.height));
+    }
+    
     else {
         
         NSAttributedString *attributedString = [self attributedStringForItem:item];
@@ -518,42 +540,50 @@ STKStickerControllerDelegate
 #pragma mark = QMChatCollectionViewDelegateFlowLayout
 
 - (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
-    QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
-    
-    layoutModel.avatarSize = (CGSize){0.0, 0.0};
-    layoutModel.topLabelHeight = 0.0f;
-    layoutModel.maxWidthMarginSpace = 20.0f;
     
     QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
-    Class class = [self viewClassForItem:item];
     
-    if (class == [QMChatAttachmentIncomingCell class] ||
-        class == [QMChatIncomingCell class]) {
+    if ([STKStickersManager isStickerMessage:item.text]) {
+        return [OutgoingStickerCell layoutModel];
+    }
+    else {
         
-        if (self.dialog.type != QBChatDialogTypePrivate) {
+        QMChatCellLayoutModel layoutModel = [super collectionView:collectionView layoutModelAtIndexPath:indexPath];
+        
+        layoutModel.avatarSize = (CGSize){0.0, 0.0};
+        layoutModel.topLabelHeight = 0.0f;
+        layoutModel.maxWidthMarginSpace = 20.0f;
+        
+        Class class = [self viewClassForItem:item];
+        
+        if (class == [QMChatAttachmentIncomingCell class] ||
+            class == [QMChatIncomingCell class]) {
             
-            NSAttributedString *topLabelString = [self topLabelAttributedStringForItem:item];
-            CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:topLabelString
-                                                           withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                                    limitedToNumberOfLines:1];
-            layoutModel.topLabelHeight = size.height;
+            if (self.dialog.type != QBChatDialogTypePrivate) {
+                
+                NSAttributedString *topLabelString = [self topLabelAttributedStringForItem:item];
+                CGSize size = [TTTAttributedLabel sizeThatFitsAttributedString:topLabelString
+                                                               withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                                        limitedToNumberOfLines:1];
+                layoutModel.topLabelHeight = size.height;
+            }
+            
+            layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
         }
         
-        layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
+        CGSize size = CGSizeZero;
+        if ([self.detailedCells containsObject:item.ID]) {
+            NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
+            size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
+                                                    withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
+                                             limitedToNumberOfLines:0];
+        }
+        layoutModel.bottomLabelHeight = ceilf(size.height);
+        
+        layoutModel.spaceBetweenTextViewAndBottomLabel = 5.0f;
+        
+        return layoutModel;
     }
-    
-    CGSize size = CGSizeZero;
-    if ([self.detailedCells containsObject:item.ID]) {
-        NSAttributedString* bottomAttributedString = [self bottomLabelAttributedStringForItem:item];
-        size = [TTTAttributedLabel sizeThatFitsAttributedString:bottomAttributedString
-                                                withConstraints:CGSizeMake(CGRectGetWidth(self.collectionView.frame) - widthPadding, CGFLOAT_MAX)
-                                         limitedToNumberOfLines:0];
-    }
-    layoutModel.bottomLabelHeight = ceilf(size.height);
-    
-    layoutModel.spaceBetweenTextViewAndBottomLabel = 5.0f;
-    
-    return layoutModel;
 }
 
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
@@ -638,7 +668,25 @@ STKStickerControllerDelegate
     QBChatMessage *itemMessage = [self.chatSectionManager messageForIndexPath:indexPath];
     [self sendReadStatusForMessage:itemMessage];
     
-    return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+  //  if ([STKStickersManager isStickerMessage:itemMessage.text]) {
+    Class viewClass = [self viewClassForItem:itemMessage];
+
+    if (viewClass == [OutgoingStickerCell class]) {
+        OutgoingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"stickerCell" forIndexPath:indexPath];
+        [cell.stickerImage stk_setStickerWithMessage:itemMessage.text placeholder:nil placeholderColor:nil progress:nil completion:nil];
+        cell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:itemMessage];
+
+        return cell;
+    } else  if (viewClass == [IncomingStickerCell class]) {
+        IncomingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"IncomingStickerCell" forIndexPath:indexPath];
+        [cell.stickerImage stk_setStickerWithMessage:itemMessage.text placeholder:nil placeholderColor:nil progress:nil completion:nil];
+        cell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:itemMessage];
+        
+        return cell;
+    }
+    else {
+        return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    }
 }
 
 #pragma mark - QMChatCellDelegate
@@ -727,7 +775,7 @@ STKStickerControllerDelegate
 #pragma mark - QMChatAttachmentServiceDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message {
-
+    
     if (status == QMMessageAttachmentStatusNotLoaded) {
         
     }
