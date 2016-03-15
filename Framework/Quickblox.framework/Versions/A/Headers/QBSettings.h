@@ -46,12 +46,6 @@ typedef enum QBConnectionZoneType{
 /// Enable or disable chat auto reconnect
 + (void)setAutoReconnectEnabled:(BOOL)autoReconnectEnabled;
 
-/* Background mode for stream. Not supported from 2.5.0 due to Apple policy on using battery in background mode.
- *
- * @warning *Deprecated in QB iOS SDK 2.5.0:* Method is no longer available.
- */
-+ (void)setBackgroundingEnabled:(BOOL)backgroundingEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5.0. Method is no longer available.");
-
 /// Enable or disable message carbons
 + (void)setCarbonsEnabled:(BOOL)carbonsEnabled;
 
@@ -139,23 +133,12 @@ typedef enum QBConnectionZoneType{
 #pragma mark Chat Endpoints
 
 /**
- *  Set server's Chat endpoint for current service zone
- *
- *  @param chatDomain New server's Chat endpoint
- *
- *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'setApiEndpoint:chatEndpoint:forServiceZone:' instead.
- */
-+ (void)setServerChatDomain:(QB_NONNULL NSString *)chatDomain DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use 'setApiEndpoint:chatEndpoint:forServiceZone:' instead");
-
-/**
  Get server's Chat endpoint
 
  @note you have to prepend http or https prefix
  @return Current server's Chat endpoint
  */
 + (QB_NONNULL NSString *)chatEndpoint;
-/* @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'chatEndpoint' instead. */
-+ (QB_NONNULL NSString *)serverChatDomain DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use 'chatEndpoint' instead");
 
 #pragma mark -
 #pragma mark Network Indicator
