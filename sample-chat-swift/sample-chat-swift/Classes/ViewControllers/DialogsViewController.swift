@@ -87,7 +87,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         super.awakeFromNib()
         
         // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
-        self.navigationItem.title = ServicesManager.instance().currentUser()!.login()
+        self.navigationItem.title = ServicesManager.instance().currentUser()?.login!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
         
@@ -210,7 +210,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     static func dialogs() -> Array<QBChatDialog> {
         
         // Returns dialogs sorted by updatedAt date.
-        return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false) as! Array<QBChatDialog>
+        return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false)
     }
     
     // MARK: - UITableViewDataSource
