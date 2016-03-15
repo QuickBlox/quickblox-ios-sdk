@@ -410,6 +410,11 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
             //if current user leaves the chat there are no needs for updating the dialog
             if ([message.deletedOccupantsIDs containsObject:currentUserID]) {
                 
+                [self.dialogsMemoryStorage deleteChatDialogWithID:chatDialogToUpdate.ID];
+                if ([self.multicastDelegate respondsToSelector:@selector(chatService: didDeleteChatDialogWithIDFromMemoryStorage:)]) {
+                    [self.multicastDelegate chatService:self didDeleteChatDialogWithIDFromMemoryStorage:chatDialogToUpdate.ID];
+                }
+                
                 return;
             }
             

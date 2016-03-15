@@ -10,7 +10,7 @@ pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-io
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
 
 #Production pod
-pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => 'd48db73bd0c062c9e16c37b3482baae161bb2bfb'
+pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => 'ca8c67ff94704c3403c29eecf69f425c8bfc7e4f'
 
 #For development pods
 #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
