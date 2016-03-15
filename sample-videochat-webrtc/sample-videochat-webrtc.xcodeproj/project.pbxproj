@@ -42,7 +42,7 @@
 		FB4490581BFB8B2E00A8233D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4490571BFB8B2E00A8233D /* Accelerate.framework */; };
 		FB44905F1BFB95D000A8233D /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905D1BFB95D000A8233D /* Quickblox.framework */; };
 		FB4490601BFB95D000A8233D /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905E1BFB95D000A8233D /* QuickbloxWebRTC.framework */; };
-		FB5764E01B42A00F00501049 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5764DF1B42A00F00501049 /* VideoToolbox.framework */; };
+		FB5764E01B42A00F00501049 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5764DF1B42A00F00501049 /* VideoToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FB5D2C571BDF8BA400C3B328 /* QBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D2C521BDF8BA400C3B328 /* QBButton.m */; };
 		FB5D2C581BDF8BA400C3B328 /* QBButtonsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D2C541BDF8BA400C3B328 /* QBButtonsFactory.m */; };
 		FB5D2C591BDF8BA400C3B328 /* QBToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5D2C561BDF8BA400C3B328 /* QBToolBar.m */; };
@@ -906,8 +906,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -935,7 +934,6 @@
 				OTHER_LIBTOOLFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "sample-videochat-webrtc";
-				PROVISIONING_PROFILE = "707306e1-7693-4343-a5f5-1cb70c2c7663";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -947,8 +945,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -975,7 +972,6 @@
 				OTHER_LIBTOOLFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "sample-videochat-webrtc";
-				PROVISIONING_PROFILE = "707306e1-7693-4343-a5f5-1cb70c2c7663";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
