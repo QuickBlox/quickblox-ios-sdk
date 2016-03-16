@@ -56,8 +56,8 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r0R-1D-pod">
                                         <rect key="frame" x="0.0" y="17" width="160" height="160"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="gO9-ke-wmQ"/>
-                                            <constraint firstAttribute="height" constant="160" id="rZ2-eV-ipl"/>
+                                            <constraint firstAttribute="height" constant="160" id="cFe-mU-EdJ"/>
+                                            <constraint firstAttribute="width" constant="160" id="fuG-Bz-UQf"/>
                                         </constraints>
                                     </imageView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zP-gG-jcU" customClass="TTTAttributedLabel">
@@ -73,22 +73,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="r0R-1D-pod" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="4RD-G1-vRg"/>
+                                    <constraint firstItem="QiU-85-fAf" firstAttribute="top" secondItem="r0R-1D-pod" secondAttribute="bottom" constant="4" id="220-9t-yrR"/>
                                     <constraint firstAttribute="bottom" secondItem="QiU-85-fAf" secondAttribute="bottom" id="5QR-Yr-ELL"/>
                                     <constraint firstAttribute="trailing" secondItem="5zP-gG-jcU" secondAttribute="trailing" id="E2M-U2-RyQ"/>
-                                    <constraint firstItem="r0R-1D-pod" firstAttribute="centerX" secondItem="s32-Fm-GMb" secondAttribute="centerX" id="Id5-Ln-DQz"/>
-                                    <constraint firstItem="r0R-1D-pod" firstAttribute="top" secondItem="5zP-gG-jcU" secondAttribute="bottom" id="J4s-Eo-Ekg"/>
                                     <constraint firstAttribute="centerX" secondItem="Rzg-Xq-U74" secondAttribute="centerX" id="JZZ-Cn-5sL"/>
-                                    <constraint firstItem="QiU-85-fAf" firstAttribute="top" secondItem="r0R-1D-pod" secondAttribute="bottom" id="Mo3-Hf-lBQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="r0R-1D-pod" secondAttribute="trailing" id="TvH-To-jsH"/>
                                     <constraint firstItem="QiU-85-fAf" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="VlC-K5-ew0"/>
                                     <constraint firstItem="5zP-gG-jcU" firstAttribute="top" secondItem="s32-Fm-GMb" secondAttribute="top" id="Vn9-ka-v5E"/>
                                     <constraint firstItem="5zP-gG-jcU" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="XuN-CK-Nui"/>
                                     <constraint firstAttribute="centerY" secondItem="Rzg-Xq-U74" secondAttribute="centerY" id="bQk-fy-f6u"/>
-                                    <constraint firstItem="r0R-1D-pod" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="dRi-zf-V7j"/>
-                                    <constraint firstItem="QiU-85-fAf" firstAttribute="top" secondItem="r0R-1D-pod" secondAttribute="bottom" constant="4" id="lRo-pb-LOw"/>
-                                    <constraint firstItem="r0R-1D-pod" firstAttribute="top" secondItem="s32-Fm-GMb" secondAttribute="top" constant="17" id="mxs-oR-ecp"/>
-                                    <constraint firstAttribute="trailing" secondItem="r0R-1D-pod" secondAttribute="trailing" id="qJJ-4r-g7E"/>
+                                    <constraint firstItem="r0R-1D-pod" firstAttribute="centerX" secondItem="s32-Fm-GMb" secondAttribute="centerX" id="vjR-fh-Zx5"/>
                                     <constraint firstAttribute="trailing" secondItem="QiU-85-fAf" secondAttribute="trailing" id="zS3-ac-qx2"/>
                                 </constraints>
                             </view>
@@ -142,10 +135,8 @@
                 <outlet property="messageContainerLeftInsetConstraint" destination="LvE-XN-fWn" id="9G7-mm-9MC"/>
                 <outlet property="messageContainerTopInsetConstraint" destination="pBY-ZT-Aia" id="i8Y-YT-Xxe"/>
                 <outlet property="stickerImage" destination="r0R-1D-pod" id="CLJ-FW-g79"/>
-                <outlet property="textViewBottomLabelVerticalSpaceConstraint" destination="Mo3-Hf-lBQ" id="Moq-Un-Ac8"/>
                 <outlet property="topLabel" destination="5zP-gG-jcU" id="Q1B-o7-ZKw"/>
                 <outlet property="topLabelHeightConstraint" destination="mCm-Yz-dNh" id="myg-bW-cWD"/>
-                <outlet property="topLabelTextViewVerticalSpaceConstraint" destination="J4s-Eo-Ekg" id="JJX-Uw-zoF"/>
             </connections>
             <point key="canvasLocation" x="263.5" y="243"/>
         </collectionViewCell>
