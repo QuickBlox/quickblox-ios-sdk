@@ -37,16 +37,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s32-Fm-GMb" userLabel="Message Container">
                                 <rect key="frame" x="12" y="3" width="160" height="194"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zP-gG-jcU" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="165" height="21"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="mCm-Yz-dNh"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:44" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiU-85-fAf" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="181" width="165" height="21"/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -65,13 +55,28 @@
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r0R-1D-pod">
                                         <rect key="frame" x="0.0" y="17" width="160" height="160"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="gO9-ke-wmQ"/>
+                                            <constraint firstAttribute="height" constant="160" id="rZ2-eV-ipl"/>
+                                        </constraints>
                                     </imageView>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zP-gG-jcU" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="21"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="mCm-Yz-dNh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="r0R-1D-pod" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="4RD-G1-vRg"/>
                                     <constraint firstAttribute="bottom" secondItem="QiU-85-fAf" secondAttribute="bottom" id="5QR-Yr-ELL"/>
                                     <constraint firstAttribute="trailing" secondItem="5zP-gG-jcU" secondAttribute="trailing" id="E2M-U2-RyQ"/>
+                                    <constraint firstItem="r0R-1D-pod" firstAttribute="centerX" secondItem="s32-Fm-GMb" secondAttribute="centerX" id="Id5-Ln-DQz"/>
                                     <constraint firstItem="r0R-1D-pod" firstAttribute="top" secondItem="5zP-gG-jcU" secondAttribute="bottom" id="J4s-Eo-Ekg"/>
                                     <constraint firstAttribute="centerX" secondItem="Rzg-Xq-U74" secondAttribute="centerX" id="JZZ-Cn-5sL"/>
                                     <constraint firstItem="QiU-85-fAf" firstAttribute="top" secondItem="r0R-1D-pod" secondAttribute="bottom" id="Mo3-Hf-lBQ"/>
