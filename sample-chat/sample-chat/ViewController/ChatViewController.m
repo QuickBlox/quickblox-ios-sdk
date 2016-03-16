@@ -21,6 +21,7 @@
 #import "STKUtility.h"
 #import "STKShowStickerButton.h"
 #import "STKImageManager.h"
+#import "STKStickersPurchaseService.h"
 
 #import "OutgoingStickerCell.h"
 #import "IncomingStickerCell.h"
@@ -37,8 +38,13 @@ UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 UIActionSheetDelegate,
 QMChatCellDelegate,
-STKStickerControllerDelegate
+STKStickerControllerDelegate,
+UIAlertViewDelegate
 >
+{
+    NSString *packName;
+    NSString *packPrice;
+}
 
 @property (nonatomic, weak) QBUUser* opponentUser;
 @property (nonatomic, strong) MessageStatusStringBuilder* stringBuilder;
@@ -56,6 +62,7 @@ STKStickerControllerDelegate
 @end
 
 @implementation ChatViewController
+
 @synthesize pickerController = _pickerController;
 
 - (UIImagePickerController *)pickerController
@@ -93,6 +100,34 @@ STKStickerControllerDelegate
     [[ServicesManager instance].chatService sendMessage:stickerMessage toDialog:self.dialog saveToHistory:YES saveToStorage:YES];
 }
 
+- (void)purchasePack:(NSNotification *)notification {
+    
+    packName = notification.userInfo[@"packName"];
+    packPrice = notification.userInfo[@"packPrice"];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Purchase this stickers pack?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alertView.delegate = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [alertView show];
+    });
+}
+
+#pragma mark - Alert controller delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+            [[STKStickersPurchaseService sharedInstance] purchaseFailedError:nil];
+            break;
+        case 1:[[STKStickersPurchaseService sharedInstance] purchasInternalPackName:packName andPackPrice:packPrice];
+            
+        default:
+            break;
+    }
+    
+}
 #pragma mark - Override
 
 - (NSUInteger)senderID {
@@ -210,8 +245,8 @@ STKStickerControllerDelegate
                                                                                   usingBlock:^(NSNotification *note) {
                                                                                       
                                                                                       __typeof(self) strongSelf = weakSelf;
-                                                                                      [strongSelf fireStopTypingIfNecessary];
-                                                                                  }];
+                                                                                      [strongSelf fireStopTypingIfNecessary];                                                                                 }];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchasePack:) name:STKPurchasePackNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

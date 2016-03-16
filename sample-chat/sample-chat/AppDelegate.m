@@ -68,6 +68,9 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
     [STKStickersManager setStartTimeInterval];
     [STKStickersManager setUserKey:[self userId]];
     
+    [STKStickersManager setPriceBWithLabel:@"0.99 USD" andValue:0.99f];
+    [STKStickersManager setPriceCwithLabel:@"1.99 USD" andValue:1.99f];
+    
     [STKStickersManager setUserIsSubscriber:NO];
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
