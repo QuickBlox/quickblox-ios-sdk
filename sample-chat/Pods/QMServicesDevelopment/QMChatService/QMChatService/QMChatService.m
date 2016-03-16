@@ -349,10 +349,8 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
             QBChatDialog *dialogToAdd = message.dialog;
             
             if (messages.count > 0) {
-                QBChatMessage *lastMessage		= [messages lastObject];
-				
-				[self updateParamsForQBChatDialog:dialogToAdd withQBChatMessage:lastMessage];
-				
+                QBChatMessage *lastMessage = [messages lastObject];
+				[self updateParamsForQBChatDialog:dialogToAdd withQBChatMessage:message];
                 dialogToAdd.unreadMessagesCount++;
             }
             
@@ -382,7 +380,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     }
     
     QBChatDialog *chatDialogToUpdate = [self.dialogsMemoryStorage chatDialogWithID:message.dialogID];
-
+	
 	[self updateParamsForQBChatDialog:chatDialogToUpdate withQBChatMessage:message];
 	
 	if (message.messageType == QMMessageTypeText) {
@@ -405,7 +403,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         }
 		
 		[self updateParamsForQBChatDialog:chatDialogToUpdate withQBChatMessage:message];
-        
+		
         if (shouldSaveDialog) {
             [self.dialogsMemoryStorage addChatDialog:chatDialogToUpdate andJoin:NO completion:nil];
             
@@ -483,7 +481,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
                     chatDialogToUpdate.updatedAt = updatedAt;
                 }
             }
-			
+            
             if (message.senderID != [QBSession currentSession].currentUser.ID) {
                 chatDialogToUpdate.unreadMessagesCount++;
             }
@@ -510,8 +508,8 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
             chatDialogToUpdate.occupantIDs = @[@([self.serviceManager currentUser].ID), @(message.senderID)];
 			
 			[self updateParamsForQBChatDialog:chatDialogToUpdate withQBChatMessage:message];
-
-            chatDialogToUpdate.unreadMessagesCount++;
+			
+			chatDialogToUpdate.unreadMessagesCount++;
             
             [self.dialogsMemoryStorage addChatDialog:chatDialogToUpdate andJoin:NO completion:nil];
             

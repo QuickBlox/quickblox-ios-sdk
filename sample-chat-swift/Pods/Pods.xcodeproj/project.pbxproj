@@ -23,6 +23,7 @@
 		0A71853565BFC84510401E1A96F23BEA /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEC98ED6B3767EDAED80BAB61CDF510 /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.m */; };
 		0A83BF22D50453F8201B5CB2D3E54183 /* QMContactListService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D24944559A1CFA518F6E31965C1AC1C /* QMContactListService.m */; };
 		0AA5F710359292846DA2033A8670A1ED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6C75E046063344BCAF942A3698F05B /* QuartzCore.framework */; };
+		0B86FC74D96056FD5C42A8E5A0EDE58D /* QMUsersModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E332CA6D430ECBA34E3075FBD94FD137 /* QMUsersModel.xcdatamodeld */; };
 		0B91015EB5DED2EB647B00D624BFC362 /* BFWebViewAppLinkResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 22BA625F5266A23E423EECCFA8B159FE /* BFWebViewAppLinkResolver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0C237A33A6EC21F976C2EE9BDBA77B16 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AA9B0BB11BF271233F495A650155065 /* CoreLocation.framework */; };
 		0CC335B3BED0EB194C8637F0EF3D120B /* NSFetchedResultsController+QMCDFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F45AA50DFCACF4F4CA097C84DCDCCDC /* NSFetchedResultsController+QMCDFetching.m */; };
@@ -82,7 +83,7 @@
 		35E10E47D62A9A929556323D0B3275A9 /* UIView+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = 0835A5230416719078A3CB734DE964FA /* UIView+QM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		368612C6B70E6D0200D1B8CF7E17D152 /* QMCDRecordInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = F68B5976B7923B0685ECAA518AD3B94A /* QMCDRecordInternal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37F77156784632F23FD940C8C5E8DED2 /* CDUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C6FB44ADD0CC2D7A3DB7C5CCDC091584 /* CDUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		386D399F84B8F1E922C1C05733F1A3DC /* QMContactListModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 5E63A63A090C24B445244E3C170FC500 /* QMContactListModel.xcdatamodeld */; };
+		386D399F84B8F1E922C1C05733F1A3DC /* QMContactListModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 53A496A3EBF63FA0C4B4D644B214D31A /* QMContactListModel.xcdatamodeld */; };
 		39BAEB8358271D23AED1F00FD2E2F716 /* BFAppLinkReturnToRefererView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEFA69766A3594DD0E25603C96B27655 /* BFAppLinkReturnToRefererView.m */; };
 		3ABEDA04AA7AA186EDA63A3AD02D38BD /* QMInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = F1703EC9BE1E1D5764B400374BC0DFA8 /* QMInputToolbar.m */; };
 		3B62942FDDE5FA192B5A38709E299B25 /* QMServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0544888A05DB774E681C93B2E6459155 /* QMServicesManager.m */; };
@@ -281,10 +282,9 @@
 		D143C73FEE6E69B953B3657C6E6B60FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76D0CBD82694B7A8911BC4BFAA1E63D6 /* UIKit.framework */; };
 		D2380A6A4D6D7FFF49CE494D70ED9CB3 /* QMChatAttachmentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5B1E49B6CCC0464F1DCD9FF52C858D /* QMChatAttachmentService.m */; };
 		D321F17F520FDC2749D1DEA6306B0844 /* QMDialogsMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B8255D76A41A3A2F789350672C3808C7 /* QMDialogsMemoryStorage.m */; };
-		D35BA16F156EEA38C0E0F08CA0660794 /* QMChatServiceModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = D7A9B134280CC9503698211477B20CC3 /* QMChatServiceModel.xcdatamodeld */; };
+		D35BA16F156EEA38C0E0F08CA0660794 /* QMChatServiceModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = C1CDD6512A59777689546EE7A9E1D52E /* QMChatServiceModel.xcdatamodeld */; };
 		D3685EB47FADDE47AD2BC0A9467B0834 /* _CDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B279736B6C802CCCA10C27D2279D64 /* _CDMessage.m */; };
 		D4F88799FD9A3A4D40EF90AA409D5B51 /* BFTask.h in Headers */ = {isa = PBXBuildFile; fileRef = E8B79E821F10E902283C11125E8BEFEE /* BFTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D5B5EA80F69D021272D07B45204E7CCB /* QMUsersModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = B145FC804ACB94E037FCE512DC82B62C /* QMUsersModel.xcdatamodeld */; };
 		D73942722F6B024E1953F743FB2EB3C5 /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 605DA8C62AA7A5599432F4600FE37641 /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D771D8394F004EDF91161F6998E210E1 /* QMChatConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CA567A8E93B2DE8303FD741E115A3B7 /* QMChatConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9E108CCAEE32631105367017005B474 /* QMCDRecordShorthand.m in Sources */ = {isa = PBXBuildFile; fileRef = 41869A6F9DE845175985BD8291D02589 /* QMCDRecordShorthand.m */; };
@@ -432,7 +432,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		006E34F2F6FABF6E230E1151EE2CB496 /* QMModel2.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel2.xcdatamodel; sourceTree = "<group>"; };
 		00F5EC44D775710567C6EDB9AE46D514 /* NSAttributeDescription+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSAttributeDescription+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSAttributeDescription+QMCDDataImport.m"; sourceTree = "<group>"; };
 		0294260DE648DB24888B15CCD3BA9118 /* libBolts.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBolts.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		0322481B0F37B72C8C7FE51FB003A5F9 /* BFURL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFURL.h; path = Bolts/iOS/BFURL.h; sourceTree = "<group>"; };
@@ -512,7 +511,6 @@
 		316BFFD9F8ED15C84A21648592BFEB28 /* QMChatAttachmentIncomingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatAttachmentIncomingCell.m; path = QMChatViewController/Views/Cells/QMChatAttachmentIncomingCell/QMChatAttachmentIncomingCell.m; sourceTree = "<group>"; };
 		31D2643779F57D9454681D58F143A695 /* QMUsersService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMUsersService.m; path = QMUsersService/QMUsersService/QMUsersService.m; sourceTree = "<group>"; };
 		322DACA22C313B44C103A39E09323FFA /* NSData+ImageContentType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+ImageContentType.m"; path = "SDWebImage/NSData+ImageContentType.m"; sourceTree = "<group>"; };
-		33BC26FBE988B52556BFC04563E37059 /* QMUsersModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMUsersModel.xcdatamodel; sourceTree = "<group>"; };
 		3410954E2963AB5D1DD66E7B86EE9646 /* UIColor+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+QM.h"; path = "QMChatViewController/Categories/UIColor+QM.h"; sourceTree = "<group>"; };
 		3412618D489231B6A8A015CCBBB22AE2 /* QMToolbarContentView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMToolbarContentView.m; path = QMChatViewController/Views/CustomUI/InputToolBar/QMToolbarContentView.m; sourceTree = "<group>"; };
 		3449D7886EE47EACEDDD8672D2FA2770 /* QMChatService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatService.m; path = QMChatService/QMChatService/QMChatService.m; sourceTree = "<group>"; };
@@ -636,7 +634,6 @@
 		8A241171313141576DD4E7D49C75F532 /* NSManagedObject+QMCDFetching.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDFetching.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDFetching.h"; sourceTree = "<group>"; };
 		8A3F339191582F5E98D62B529C41A713 /* NSPersistentStore+QMCDRecord.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSPersistentStore+QMCDRecord.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStore+QMCDRecord.m"; sourceTree = "<group>"; };
 		8BC4C096701FDD25EA954D45CEAD6F23 /* NSRelationshipDescription+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSRelationshipDescription+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSRelationshipDescription+QMCDDataImport.m"; sourceTree = "<group>"; };
-		8D79A0952B071969C54AF55E1AD7520F /* QMModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel.xcdatamodel; sourceTree = "<group>"; };
 		8DF3D0387DD55E1347BC7F27A7F84EF5 /* libSDWebImage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EDD9E07D9B1A6CB7E5B041D13D049BA /* NSDictionary+QMCDRecordAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+QMCDRecordAdditions.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSDictionary+QMCDRecordAdditions.m"; sourceTree = "<group>"; };
 		8F1A4AB80E500FAE9A96BAF08940588F /* QMBaseService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMBaseService.h; path = QMBaseService/QMBaseService/QMBaseService.h; sourceTree = "<group>"; };
@@ -650,6 +647,7 @@
 		921A77EECAAD08FF3950E793C9719491 /* ClassicSQLiteQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ClassicSQLiteQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ClassicSQLiteQMCDRecordStack.h; sourceTree = "<group>"; };
 		922817E08FA63AACF10BC41ADA32118D /* TWMessageBarManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = TWMessageBarManager.xcconfig; sourceTree = "<group>"; };
 		922E00000A479EE4D1B14E43D25FF049 /* QMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/QMCDRecordStack.h; sourceTree = "<group>"; };
+		925626BCA86980D9579AAA9B7FAE9008 /* QMUsersModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMUsersModel.xcdatamodel; sourceTree = "<group>"; };
 		92B17D1CBE16E0B8F028DD8E1DE1E010 /* BFAppLink.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLink.h; path = Bolts/iOS/BFAppLink.h; sourceTree = "<group>"; };
 		92D1ADA1F092103CCA3D01AA4B897A41 /* NSManagedObject+QMCDFinders.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDFinders.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDFinders.h"; sourceTree = "<group>"; };
 		93849159B8F6474131CB13D5A7498943 /* QMChatActionsHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatActionsHandler.h; path = QMChatViewController/Views/QMChatActionsHandler.h; sourceTree = "<group>"; };
@@ -663,7 +661,6 @@
 		98280B597FC651B2E3A4930CF24C7EBB /* UIImage+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+QM.m"; path = "QMChatViewController/Categories/UIImage+QM.m"; sourceTree = "<group>"; };
 		98FBD47226CE2ABCAE4D071B606CE6DC /* NSData+ImageContentType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+ImageContentType.h"; path = "SDWebImage/NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		9A2110A410CF4F9254EB1B3D0C5F026C /* QMChatCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCell.h; path = QMChatViewController/Views/Cells/QMChatCell/QMChatCell.h; sourceTree = "<group>"; };
-		9A4D63BD357C190C8B5BF4EA95C97EF3 /* QMModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel.xcdatamodel; sourceTree = "<group>"; };
 		9A5AF0C2F9C86A7AD1735F15871CAE86 /* ManuallyMigratingQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ManuallyMigratingQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ManuallyMigratingQMCDRecordStack.m; sourceTree = "<group>"; };
 		9B659F58B5D807B4589A925886A29B25 /* ClassicSQLiteQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ClassicSQLiteQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ClassicSQLiteQMCDRecordStack.m; sourceTree = "<group>"; };
 		9B82DEBEC1C33CD7E9E88AEE06ED8513 /* _CDMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDMessage.h; path = QMChatCache/QMChatCache/CoreData/EntriesMachine/_CDMessage.h; sourceTree = "<group>"; };
@@ -714,9 +711,11 @@
 		BA8E859C0FE49DB21C040BF4AC9866B6 /* QMServicesDevelopment.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QMServicesDevelopment.xcconfig; sourceTree = "<group>"; };
 		BA9887C6EC9D3ECDA4894C6FA81D9C8A /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
 		BBBC85F917809AE5A04596F33C0FFD52 /* QMChatViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatViewController.xib; path = QMChatViewController/en.lproj/QMChatViewController.xib; sourceTree = "<group>"; };
+		BC43810918ABD779BE48C68C0B35A869 /* QMModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel.xcdatamodel; sourceTree = "<group>"; };
 		BC90F7758288CC258EF026DB874759D1 /* QBUUser+CustomData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QBUUser+CustomData.m"; path = "QMUsersService/QMUsersService/Categories/QBUUser+CustomData.m"; sourceTree = "<group>"; };
 		BD2D6F9857AB16CB740D770278619700 /* NSObject+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSObject+QMCDDataImport.h"; sourceTree = "<group>"; };
 		BE0C5C0357F50F9AD26D1B948ED19BB2 /* NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.m"; sourceTree = "<group>"; };
+		BE35AD25F8BD74E023AE59D67B6CA9C4 /* QMModel2.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel2.xcdatamodel; sourceTree = "<group>"; };
 		BEFA69766A3594DD0E25603C96B27655 /* BFAppLinkReturnToRefererView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkReturnToRefererView.m; path = Bolts/iOS/BFAppLinkReturnToRefererView.m; sourceTree = "<group>"; };
 		BFC2F2AED4921B68B7517643C9218EC2 /* QBUUser+CustomData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QBUUser+CustomData.h"; path = "QMUsersService/QMUsersService/Categories/QBUUser+CustomData.h"; sourceTree = "<group>"; };
 		C055C5BA9F620F9AF2AE5A9BF7938F0F /* QMChatSection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatSection.m; path = QMChatViewController/QMChatSection/QMChatSection.m; sourceTree = "<group>"; };
@@ -764,6 +763,7 @@
 		E4FB2F150692568DAF66D14B3997C24F /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E577357230A9609703A7AA722F3CA56C /* CDContactListItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CDContactListItem.h; path = QMContactListCache/QMContactListCache/CoreData/Entries/CDContactListItem.h; sourceTree = "<group>"; };
 		E707B5165C681A03C9EA7152D58D34DE /* libTWMessageBarManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTWMessageBarManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7D71653B18D87B4DB5CB6EB494A0EF5 /* QMUsersModel2.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMUsersModel2.xcdatamodel; sourceTree = "<group>"; };
 		E7DD7331341E19995A022A9DA5A111AE /* BFExecutor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFExecutor.h; path = Bolts/Common/BFExecutor.h; sourceTree = "<group>"; };
 		E7F1A8E94562657B05D688B852457456 /* Bolts-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Bolts-dummy.m"; sourceTree = "<group>"; };
 		E8016B3A38257939EDFF59832C97E1FA /* _CDUser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDUser.h; path = QMUsersCache/QMUsersCache/CoreData/EntriesMachine/_CDUser.h; sourceTree = "<group>"; };
@@ -797,6 +797,7 @@
 		F8725D4FE44406117A717A8790A77FA9 /* ManuallyMigratingQMCDRecordStack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ManuallyMigratingQMCDRecordStack.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ManuallyMigratingQMCDRecordStack.h; sourceTree = "<group>"; };
 		F8BDB85EEB0D843B9C27517BEF836A0E /* QMHeaderCollectionReusableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMHeaderCollectionReusableView.h; path = QMChatViewController/Views/CustomUI/QMHeaderCollectionReusableView/QMHeaderCollectionReusableView.h; sourceTree = "<group>"; };
 		F8EF224E114021CC78F3599D665E2657 /* NSManagedObject+QMCDAggregation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDAggregation.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDAggregation.m"; sourceTree = "<group>"; };
+		FA81E5406DAC4D3421AAC22627ED3608 /* QMModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel.xcdatamodel; sourceTree = "<group>"; };
 		FD7C455A525F9507128A98A30AA4F87E /* NSPersistentStoreCoordinator+QMCDManualMigrations.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSPersistentStoreCoordinator+QMCDManualMigrations.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDManualMigrations.m"; sourceTree = "<group>"; };
 		FE863B2F56D03A2EBF0A95B05F9BBAF5 /* NSManagedObjectContext+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectContext/NSManagedObjectContext+QMCDRecord.h"; sourceTree = "<group>"; };
 		FFBD419A714C51F3564095E42786CDA7 /* NSEntityDescription+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSEntityDescription+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSEntityDescription+QMCDDataImport.h"; sourceTree = "<group>"; };
@@ -910,6 +911,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05CA2611F368B19BA56B375AFA60BF3F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C1CDD6512A59777689546EE7A9E1D52E /* QMChatServiceModel.xcdatamodeld */,
+				53A496A3EBF63FA0C4B4D644B214D31A /* QMContactListModel.xcdatamodeld */,
+				E332CA6D430ECBA34E3075FBD94FD137 /* QMUsersModel.xcdatamodeld */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		0BEFA58F7CBBF5EBAD6FC5A6DDCFF371 /* TTTAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -979,16 +990,6 @@
 				B62CD4D416E5CF1A1B5D0246099B2D90 /* Pods */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		333B0C4E8CF9E52617F424D6B6A7B4C3 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D7A9B134280CC9503698211477B20CC3 /* QMChatServiceModel.xcdatamodeld */,
-				5E63A63A090C24B445244E3C170FC500 /* QMContactListModel.xcdatamodeld */,
-				B145FC804ACB94E037FCE512DC82B62C /* QMUsersModel.xcdatamodeld */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		33C9EB1EEA99DB6B5F3C1229C872176F /* Views */ = {
@@ -1237,7 +1238,7 @@
 				1D53A59A79BD2912B675B108A5515662 /* SQLiteQMCDRecordStack.m */,
 				5E78EF8DB23CC531168DACD934ED0191 /* SQLiteWithSavingContextQMCDRecordStack.h */,
 				A5B924F23A68C37F0B957B6E6DD940E7 /* SQLiteWithSavingContextQMCDRecordStack.m */,
-				333B0C4E8CF9E52617F424D6B6A7B4C3 /* Resources */,
+				05CA2611F368B19BA56B375AFA60BF3F /* Resources */,
 				82EA5F61C4B42AFCB0BDECF27ED20824 /* Support Files */,
 			);
 			path = QMServicesDevelopment;
@@ -2024,7 +2025,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5B5EA80F69D021272D07B45204E7CCB /* QMUsersModel.xcdatamodeld in Resources */,
+				0B86FC74D96056FD5C42A8E5A0EDE58D /* QMUsersModel.xcdatamodeld in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3109,37 +3110,38 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5E63A63A090C24B445244E3C170FC500 /* QMContactListModel.xcdatamodeld */ = {
+		53A496A3EBF63FA0C4B4D644B214D31A /* QMContactListModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				8D79A0952B071969C54AF55E1AD7520F /* QMModel.xcdatamodel */,
+				FA81E5406DAC4D3421AAC22627ED3608 /* QMModel.xcdatamodel */,
 			);
-			currentVersion = 8D79A0952B071969C54AF55E1AD7520F /* QMModel.xcdatamodel */;
+			currentVersion = FA81E5406DAC4D3421AAC22627ED3608 /* QMModel.xcdatamodel */;
 			name = QMContactListModel.xcdatamodeld;
 			path = QMContactListCache/QMContactListCache/CoreData/QMContactListModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
-		B145FC804ACB94E037FCE512DC82B62C /* QMUsersModel.xcdatamodeld */ = {
+		C1CDD6512A59777689546EE7A9E1D52E /* QMChatServiceModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				33BC26FBE988B52556BFC04563E37059 /* QMUsersModel.xcdatamodel */,
+				BC43810918ABD779BE48C68C0B35A869 /* QMModel.xcdatamodel */,
+				BE35AD25F8BD74E023AE59D67B6CA9C4 /* QMModel2.xcdatamodel */,
 			);
-			currentVersion = 33BC26FBE988B52556BFC04563E37059 /* QMUsersModel.xcdatamodel */;
-			name = QMUsersModel.xcdatamodeld;
-			path = QMUsersCache/QMUsersCache/CoreData/QMUsersModel.xcdatamodeld;
+			currentVersion = BE35AD25F8BD74E023AE59D67B6CA9C4 /* QMModel2.xcdatamodel */;
+			name = QMChatServiceModel.xcdatamodeld;
+			path = QMChatCache/QMChatCache/CoreData/QMChatServiceModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
-		D7A9B134280CC9503698211477B20CC3 /* QMChatServiceModel.xcdatamodeld */ = {
+		E332CA6D430ECBA34E3075FBD94FD137 /* QMUsersModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				9A4D63BD357C190C8B5BF4EA95C97EF3 /* QMModel.xcdatamodel */,
-				006E34F2F6FABF6E230E1151EE2CB496 /* QMModel2.xcdatamodel */,
+				925626BCA86980D9579AAA9B7FAE9008 /* QMUsersModel.xcdatamodel */,
+				E7D71653B18D87B4DB5CB6EB494A0EF5 /* QMUsersModel2.xcdatamodel */,
 			);
-			currentVersion = 006E34F2F6FABF6E230E1151EE2CB496 /* QMModel2.xcdatamodel */;
-			name = QMChatServiceModel.xcdatamodeld;
-			path = QMChatCache/QMChatCache/CoreData/QMChatServiceModel.xcdatamodeld;
+			currentVersion = E7D71653B18D87B4DB5CB6EB494A0EF5 /* QMUsersModel2.xcdatamodel */;
+			name = QMUsersModel.xcdatamodeld;
+			path = QMUsersCache/QMUsersCache/CoreData/QMUsersModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
