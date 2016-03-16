@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="253" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGz-wK-mWb" userLabel="Avatar Container">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGz-wK-mWb" userLabel="Avatar Container">
                         <rect key="frame" x="209" y="138" width="44" height="45"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tzf-DB-ict" userLabel="Avatar Image View" customClass="QMImageView">
@@ -31,11 +31,11 @@
                             <constraint firstAttribute="height" constant="45" id="pGQ-gF-m4i"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZV-tv-PDG" userLabel="ContainerView" customClass="QMChatContainerView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZV-tv-PDG" userLabel="ContainerView" customClass="QMChatContainerView">
                         <rect key="frame" x="26" y="0.0" width="181" height="206"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s32-Fm-GMb" userLabel="Message Container">
-                                <rect key="frame" x="4" y="4" width="160" height="194"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s32-Fm-GMb" userLabel="Message Container">
+                                <rect key="frame" x="12" y="3" width="160" height="194"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zP-gG-jcU" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="165" height="21"/>
@@ -57,14 +57,14 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzg-Xq-U74">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rzg-Xq-U74">
                                         <rect key="frame" x="82" y="87.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r0R-1D-pod">
-                                        <rect key="frame" x="0.0" y="19" width="165" height="160"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r0R-1D-pod">
+                                        <rect key="frame" x="0.0" y="17" width="160" height="160"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,10 +75,14 @@
                                     <constraint firstItem="r0R-1D-pod" firstAttribute="top" secondItem="5zP-gG-jcU" secondAttribute="bottom" id="J4s-Eo-Ekg"/>
                                     <constraint firstAttribute="centerX" secondItem="Rzg-Xq-U74" secondAttribute="centerX" id="JZZ-Cn-5sL"/>
                                     <constraint firstItem="QiU-85-fAf" firstAttribute="top" secondItem="r0R-1D-pod" secondAttribute="bottom" id="Mo3-Hf-lBQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="r0R-1D-pod" secondAttribute="trailing" id="TvH-To-jsH"/>
                                     <constraint firstItem="QiU-85-fAf" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="VlC-K5-ew0"/>
                                     <constraint firstItem="5zP-gG-jcU" firstAttribute="top" secondItem="s32-Fm-GMb" secondAttribute="top" id="Vn9-ka-v5E"/>
                                     <constraint firstItem="5zP-gG-jcU" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="XuN-CK-Nui"/>
                                     <constraint firstAttribute="centerY" secondItem="Rzg-Xq-U74" secondAttribute="centerY" id="bQk-fy-f6u"/>
+                                    <constraint firstItem="r0R-1D-pod" firstAttribute="leading" secondItem="s32-Fm-GMb" secondAttribute="leading" id="dRi-zf-V7j"/>
+                                    <constraint firstItem="QiU-85-fAf" firstAttribute="top" secondItem="r0R-1D-pod" secondAttribute="bottom" constant="4" id="lRo-pb-LOw"/>
+                                    <constraint firstItem="r0R-1D-pod" firstAttribute="top" secondItem="s32-Fm-GMb" secondAttribute="top" constant="17" id="mxs-oR-ecp"/>
                                     <constraint firstAttribute="trailing" secondItem="r0R-1D-pod" secondAttribute="trailing" id="qJJ-4r-g7E"/>
                                     <constraint firstAttribute="trailing" secondItem="QiU-85-fAf" secondAttribute="trailing" id="zS3-ac-qx2"/>
                                 </constraints>
