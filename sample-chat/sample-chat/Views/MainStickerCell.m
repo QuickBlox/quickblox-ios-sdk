@@ -11,15 +11,12 @@
 @implementation MainStickerCell
 
 - (void)awakeFromNib {
-    self.containerView.bgColor = [UIColor clearColor];
-    self.bottomLabel.backgroundColor = [UIColor clearColor];
-}
+    [super awakeFromNib];
 
-- (void)setSelected:(BOOL)selected {
-    if (selected) {
-        self.containerView.bgColor = [UIColor clearColor];
-    }
-    
+    self.containerView.bgColor = [UIColor clearColor];
+    self.containerView.highlightColor = [UIColor clearColor];
+    self.bottomLabel.backgroundColor = [UIColor clearColor];
+
 }
 
 + (QMChatCellLayoutModel)layoutModel {
