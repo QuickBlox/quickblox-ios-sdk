@@ -322,7 +322,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         let currentUserID = Int(ServicesManager.instance().currentUser().ID)
         
-        var readersLogin = [String]()
+        var readLogins = [String]()
         
         if message.readIDs != nil {
             let messageReadIDs = (message.readIDs as! [Int]).filter { (element : Int) -> Bool in
@@ -334,13 +334,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(readID))
                     
                     if user != nil {
-                        readersLogin.append(user!.login!)
+                        readLogins.append(user!.login!)
                     } else {
-                        readersLogin.append("SA_STR_UNKNOWN_USER".localized)
+						let unknownUserLogin = "SA_STR_UNKNOWN_USER".localized + "\(readID)"
+                        readLogins.append(unknownUserLogin)
                     }
                 }
                 
-                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readersLogin.joinWithSeparator(", ")
+                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readLogins.joinWithSeparator(", ")
             }
         }
         
@@ -357,17 +358,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     
                     if user != nil {
                         
-                        if readersLogin.contains(user!.login!) {
+                        if readLogins.contains(user!.login!) {
                             continue
                         }
                         
                         deliveredLogin.append(user!.login!)
                     } else {
-                        deliveredLogin.append("SA_STR_UNKNOWN_USER".localized)
+						let unknownUserLogin = "SA_STR_UNKNOWN_USER".localized + "\(deliveredID)"
+                        deliveredLogin.append(unknownUserLogin)
                     }
                 }
                 
-                if readersLogin.count > 0 && deliveredLogin.count > 0 {
+                if readLogins.count > 0 && deliveredLogin.count > 0 {
                     statusString += "\n"
                 }
                 

@@ -380,7 +380,7 @@ QMChatCellDelegate
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text
                                                                                 attributes:attributes];
     
-    return attrStr;
+    return attrStr;	
 }
 
 #pragma mark - Collection View Datasource
