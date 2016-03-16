@@ -8,10 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stickerCell" id="jVO-RS-WPq" customClass="OutgoingStickerCell">
-            <rect key="frame" x="0.0" y="0.0" width="253" height="183"/>
+            <rect key="frame" x="0.0" y="0.0" width="253" height="210"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="253" height="183"/>
+                <rect key="frame" x="0.0" y="0.0" width="253" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGz-wK-mWb" userLabel="Avatar Container">
@@ -32,10 +32,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZV-tv-PDG" userLabel="ContainerView" customClass="QMChatContainerView">
-                        <rect key="frame" x="26" y="0.0" width="181" height="183"/>
+                        <rect key="frame" x="26" y="0.0" width="181" height="206"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s32-Fm-GMb" userLabel="Message Container">
-                                <rect key="frame" x="4" y="4" width="165" height="175"/>
+                                <rect key="frame" x="4" y="4" width="160" height="194"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zP-gG-jcU" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="0.0" y="0.0" width="165" height="21"/>
@@ -48,7 +48,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:44" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiU-85-fAf" customClass="TTTAttributedLabel">
-                                        <rect key="frame" x="0.0" y="154" width="165" height="21"/>
+                                        <rect key="frame" x="0.0" y="181" width="165" height="21"/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="0Cr-Q6-VNY"/>
@@ -64,7 +64,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r0R-1D-pod">
-                                        <rect key="frame" x="0.0" y="21" width="165" height="133"/>
+                                        <rect key="frame" x="0.0" y="19" width="165" height="160"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -138,7 +138,7 @@
                 <outlet property="topLabelHeightConstraint" destination="mCm-Yz-dNh" id="myg-bW-cWD"/>
                 <outlet property="topLabelTextViewVerticalSpaceConstraint" destination="J4s-Eo-Ekg" id="JJX-Uw-zoF"/>
             </connections>
-            <point key="canvasLocation" x="-6.5" y="208.5"/>
+            <point key="canvasLocation" x="263.5" y="243"/>
         </collectionViewCell>
     </objects>
 </document>
