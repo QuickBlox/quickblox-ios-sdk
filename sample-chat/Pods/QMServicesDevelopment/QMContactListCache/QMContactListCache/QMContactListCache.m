@@ -101,6 +101,7 @@ static QMContactListCache *_chatCacheInstance = nil;
 }
 
 - (void)insertOrUpdateContactListItemsWithContactList:(QBContactList *)contactList completion:(dispatch_block_t)completion {
+    
     NSMutableArray *items =
     [NSMutableArray arrayWithCapacity:contactList.contacts.count + contactList.pendingApproval.count];
     

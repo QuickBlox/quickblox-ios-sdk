@@ -87,7 +87,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         super.awakeFromNib()
         
         // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
-        self.navigationItem.title = ServicesManager.instance().currentUser()!.fullName!
+        self.navigationItem.title = ServicesManager.instance().currentUser()?.login!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
         
@@ -210,7 +210,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     static func dialogs() -> Array<QBChatDialog> {
         
         // Returns dialogs sorted by updatedAt date.
-        return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false) as! Array<QBChatDialog>
+        return ServicesManager.instance().chatService.dialogsMemoryStorage.dialogsSortByUpdatedAtWithAscending(false)
     }
     
     // MARK: - UITableViewDataSource
@@ -302,8 +302,9 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                     
                     dialog.occupantIDs = occupantIDs
                     
+                    let  notificationMessage = "User \(ServicesManager.instance().currentUser().login!) " + "SA_STR_USER_HAS_LEFT".localized
                     // Notifies occupants that user left the dialog.
-                    ServicesManager.instance().chatService.sendMessageAboutUpdateDialog(dialog, withNotificationText: "User \(ServicesManager.instance().currentUser().login!) " + "SA_STR_USER_HAS_LEFT".localized, customParameters: nil, completion: { (error: NSError?) -> Void in
+                    ServicesManager.instance().chatService.sendNotificationMessageAboutLeavingDialog(dialog, withNotificationText: notificationMessage, completion: { (error : NSError?) -> Void in
                         deleteDialogBlock(dialog)
                     })
                 }

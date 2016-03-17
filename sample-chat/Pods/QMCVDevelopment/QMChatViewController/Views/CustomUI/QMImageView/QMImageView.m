@@ -35,6 +35,50 @@
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        [self configure];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        
+        [self configure];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithImage:(UIImage *)image {
+    
+    self = [super initWithImage:image];
+    if (self) {
+        
+        [self configure];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithImage:(UIImage *)image highlightedImage:(UIImage *)highlightedImage {
+    
+    self = [super initWithImage:image highlightedImage:highlightedImage];
+    if (self) {
+        
+        [self configure];
+    }
+    
+    return self;
+}
+
 - (void)awakeFromNib {
     
     [super awakeFromNib];

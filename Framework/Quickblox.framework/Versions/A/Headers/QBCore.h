@@ -9,7 +9,6 @@
 #ifndef Quickblox_QBCore_h
 #define Quickblox_QBCore_h
 
-#import <Quickblox/QBApplication.h>
 #import <Quickblox/QBSession.h>
 #import <Quickblox/QBASession.h>
 #import <Quickblox/QBResponsePage.h>

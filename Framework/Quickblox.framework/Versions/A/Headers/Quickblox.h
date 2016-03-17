@@ -4,11 +4,10 @@
 //
 //  Copyright (c) 2012 QuickBlox. All rights reserved.
 //
-// frameworkVersion 2.6.6
+// frameworkVersion 2.7
 
 #import <Quickblox/BaseServiceFramework.h>
 #import <Quickblox/ChatServiceFramework.h>
-
 #import <Quickblox/QBCore.h>
 #import <Quickblox/QBAuthHeader.h>
 #import <Quickblox/QBLocationHeader.h>

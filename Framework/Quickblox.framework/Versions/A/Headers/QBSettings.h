@@ -25,7 +25,7 @@ typedef enum QBConnectionZoneType{
 @interface QBSettings : NSObject
 
 /**
- *  Allow to set api endpoint and chat endpoint for service zone.
+ *  Allows to set api endpoint and chat endpoint for service zone.
  *
  *  @note QBConnectionZoneTypeAutomatic is used by default.
  *  If you are using shared server and you are migrating to enterprise account,
@@ -43,19 +43,26 @@ typedef enum QBConnectionZoneType{
 #pragma mark -
 #pragma mark Chat settings
 
-/// Enable or disable chat auto reconnect
+/**
+ *  Enable or disable chat auto reconnect
+ *
+ *  @param autoReconnectEnabled The default value is NO
+ */
 + (void)setAutoReconnectEnabled:(BOOL)autoReconnectEnabled;
 
-/* Background mode for stream. Not supported from 2.5.0 due to Apple policy on using battery in background mode.
+/**
+ *  Enable or disable message carbons
  *
- * @warning *Deprecated in QB iOS SDK 2.5.0:* Method is no longer available.
+ *  @note Call this method after chat connection has been established
+ *  @param carbonsEnabled BOOL value
  */
-+ (void)setBackgroundingEnabled:(BOOL)backgroundingEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5.0. Method is no longer available.");
-
-/// Enable or disable message carbons
 + (void)setCarbonsEnabled:(BOOL)carbonsEnabled;
 
-/// Enable or disable Stream Resumption (XEP-0198).
+/**
+ *  Enable or disable Stream Resumption (XEP-0198).
+ *
+ *  @param streamResumptionEnabled BOOL value. The default value is NO
+ */
 + (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled;
 
 /// Set timeout value for Stream Management send a message operation
@@ -115,9 +122,9 @@ typedef enum QBConnectionZoneType{
 #pragma mark Endpoints
 
 /**
- * Allow to change Services Zone to work with Development and Staging environments
+ * Allows to change Services Zone to work with Production, Development and Staging environments
  *
- * @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
+ * @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic.
  */
 + (void)setServiceZone:(QBConnectionZoneType)serviceZone;
 
@@ -139,23 +146,12 @@ typedef enum QBConnectionZoneType{
 #pragma mark Chat Endpoints
 
 /**
- *  Set server's Chat endpoint for current service zone
- *
- *  @param chatDomain New server's Chat endpoint
- *
- *  @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'setApiEndpoint:chatEndpoint:forServiceZone:' instead.
- */
-+ (void)setServerChatDomain:(QB_NONNULL NSString *)chatDomain DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use 'setApiEndpoint:chatEndpoint:forServiceZone:' instead");
-
-/**
  Get server's Chat endpoint
 
  @note you have to prepend http or https prefix
  @return Current server's Chat endpoint
  */
 + (QB_NONNULL NSString *)chatEndpoint;
-/* @warning *Deprecated in QB iOS SDK 2.5.0:* Use 'chatEndpoint' instead. */
-+ (QB_NONNULL NSString *)serverChatDomain DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.5. Use 'chatEndpoint' instead");
 
 #pragma mark -
 #pragma mark Network Indicator
@@ -163,7 +159,8 @@ typedef enum QBConnectionZoneType{
 /**
  * A Boolean value indicating whether the manager is enabled.
  
- * If YES, the manager will change status bar network activity indicator according to network operation notifications it receives. The default value is NO.
+ * If YES, the manager will change status bar network activity indicator according to network operation notifications it receives.
+ * The default value is NO.
  */
 + (void)setNetworkIndicatorManagerEnabled:(BOOL)enabled;
 
@@ -176,19 +173,19 @@ typedef enum QBConnectionZoneType{
 #pragma mark Logging
 
 /**
- Set SDK log level (by default: QBLogLevelDebug). Posible values: QBLogLevelDebug, QBLogLevelNothing.
+ Set SDK log level (by default: QBLogLevelDebug). Possible values: QBLogLevelDebug, QBLogLevelNothing.
  
  @param logLevel New log level
  */
 + (void)setLogLevel:(QBLogLevel)logLevel;
 
 /**
- *  Enables full XMPP Framework logging to console. By default is disabled.
+ *  Enable full XMPP Framework logging to console. By default is disabled.
  */
 + (void)enableXMPPLogging;
 
 /**
- *   Disables full XMPP Framework logging to console.
+ *   Disable full XMPP Framework logging to console.
  */
 + (void)disableXMPPLogging;
 

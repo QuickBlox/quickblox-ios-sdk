@@ -46,7 +46,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.heightForSectionHeader = 40.0
         
         self.updateTitle()
-        
+
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.textView?.placeHolder = "SA_STR_MESSAGE_PLACEHOLDER".localized
@@ -322,7 +322,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         let currentUserID = Int(ServicesManager.instance().currentUser().ID)
         
-        var readersLogin = [String]()
+        var readLogins = [String]()
         
         if message.readIDs != nil {
             let messageReadIDs = (message.readIDs as! [Int]).filter { (element : Int) -> Bool in
@@ -334,13 +334,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(readID))
                     
                     if user != nil {
-                        readersLogin.append(user!.login!)
+                        readLogins.append(user!.login!)
                     } else {
-                        readersLogin.append("SA_STR_UNKNOWN_USER".localized)
+						let unknownUserLogin = "SA_STR_UNKNOWN_USER".localized + "\(readID)"
+                        readLogins.append(unknownUserLogin)
                     }
                 }
                 
-                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readersLogin.joinWithSeparator(", ")
+                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readLogins.joinWithSeparator(", ")
             }
         }
         
@@ -357,17 +358,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     
                     if user != nil {
                         
-                        if readersLogin.contains(user!.login!) {
+                        if readLogins.contains(user!.login!) {
                             continue
                         }
                         
                         deliveredLogin.append(user!.login!)
                     } else {
-                        deliveredLogin.append("SA_STR_UNKNOWN_USER".localized)
+						let unknownUserLogin = "SA_STR_UNKNOWN_USER".localized + "\(deliveredID)"
+                        deliveredLogin.append(unknownUserLogin)
                     }
                 }
                 
-                if readersLogin.count > 0 && deliveredLogin.count > 0 {
+                if readLogins.count > 0 && deliveredLogin.count > 0 {
                     statusString += "\n"
                 }
                 
@@ -388,27 +390,34 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func viewClassForItem(item: QBChatMessage) -> AnyClass! {
         // TODO: check and add QMMessageType.AcceptContactRequest, QMMessageType.RejectContactRequest, QMMessageType.ContactRequest
-        
-        if (item.senderID != self.senderID) {
-            
-            if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+        if  item.isNotificatonMessage() {
+            return QMChatNotificationCell.self
+        }
+        else {
+            if (item.senderID != self.senderID) {
                 
-                return QMChatAttachmentIncomingCell.self
+                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                    
+                    return QMChatAttachmentIncomingCell.self
+                    
+                }
+                else {
+                    
+                    return QMChatIncomingCell.self
+                }
                 
-            } else {
-                
-                return QMChatIncomingCell.self
             }
-            
-        } else {
-            
-            if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+            else {
                 
-                return QMChatAttachmentOutgoingCell.self
-                
-            } else {
-                
-                return QMChatOutgoingCell.self
+                if (item.attachments != nil && item.attachments!.count > 0) || item.attachmentStatus != QMMessageAttachmentStatus.NotLoaded {
+                    
+                    return QMChatAttachmentOutgoingCell.self
+                    
+                }
+                else {
+                    
+                    return QMChatOutgoingCell.self
+                }
             }
         }
     }
@@ -421,13 +430,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             return nil
         }
         
-        let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
+        var textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
+        if messageItem.isNotificatonMessage() {
+            textColor = UIColor.blackColor()
+        }
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
         
-        let attributedString = NSAttributedString(string: messageItem.encodedText!, attributes: attributes)
+        let attributedString = NSAttributedString(string: messageItem.text!, attributes: attributes)
         
         return attributedString
     }
@@ -483,12 +495,19 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if let item : QBChatMessage = self.chatSectionManager.messageForIndexPath(indexPath) {
             if self.viewClassForItem(item) === QMChatAttachmentIncomingCell.self {
                 size = CGSize(width: min(200, maxWidth), height: 200)
-            } else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
+            }
+            else if self.viewClassForItem(item) === QMChatAttachmentOutgoingCell.self {
                 let attributedString = self.bottomLabelAttributedStringForItem(item)
                 
                 let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.max), limitedToNumberOfLines: 0)
                 size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
-            } else {
+            }
+            else if self.viewClassForItem(item) === QMChatNotificationCell.self {
+                let attributedString = self.attributedStringForItem(item)
+                 size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
+                
+            }
+            else {
                 
                 let attributedString = self.attributedStringForItem(item)
                 
@@ -626,6 +645,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
         } else if cell.isKindOfClass(QMChatOutgoingCell.self) || cell.isKindOfClass(QMChatAttachmentOutgoingCell.self) {
             (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        } else if cell.isKindOfClass(QMChatNotificationCell.self) {
+            cell.userInteractionEnabled = false
+            (cell as! QMChatCell).containerView?.bgColor = self.collectionView?.backgroundColor
         }
     }
     

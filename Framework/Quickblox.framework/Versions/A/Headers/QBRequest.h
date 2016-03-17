@@ -45,8 +45,6 @@ typedef void (^QBRequestErrorBlock)(QBResponse *QB_NONNULL_S response);
 /** Determines if NSURLSessionTask was canceled */
 @property (nonatomic, getter=isCancelled, readonly) BOOL canceled;
 
-@property (nonatomic, weak, QB_NULLABLE_PROPERTY) NSOperation *operation DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.6 due to internal architecture changes.");
-
 /** Formed NSURLSessionTask with request information */
 @property (nonatomic, weak, QB_NULLABLE_PROPERTY) NSURLSessionTask* task;
 

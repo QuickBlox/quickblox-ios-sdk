@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,28 +10,35 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyJ-bF-dF2">
-                    <rect key="frame" x="100" y="14" width="121" height="21"/>
-                    <animations/>
-                    <attributedString key="attributedText">
-                        <fragment content="TODAY 15:18">
-                            <attributes>
-                                <color key="NSColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
-                                <font key="NSFont" size="13" name="HelveticaNeue-Medium"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                            </attributes>
-                        </fragment>
-                    </attributedString>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CwB-RT-Hnk">
+                    <rect key="frame" x="109" y="11" width="102" height="28"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Today 18:17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEj-yI-KA4">
+                            <rect key="frame" x="12" y="3" width="78" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.73725490196078436" green="0.72549019607843135" blue="0.6588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="JEj-yI-KA4" secondAttribute="trailing" constant="12" id="IPP-FT-d0E"/>
+                        <constraint firstItem="JEj-yI-KA4" firstAttribute="leading" secondItem="CwB-RT-Hnk" secondAttribute="leading" constant="12" id="KOq-DY-lqe"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
-            <animations/>
             <constraints>
-                <constraint firstItem="qyJ-bF-dF2" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Vlb-uF-q85"/>
-                <constraint firstItem="qyJ-bF-dF2" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="hxK-FA-yb6"/>
+                <constraint firstItem="CwB-RT-Hnk" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="8P0-R9-g4w"/>
+                <constraint firstItem="CwB-RT-Hnk" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="eVx-qG-lAc"/>
             </constraints>
             <connections>
-                <outlet property="headerLabel" destination="qyJ-bF-dF2" id="xbN-vV-84P"/>
+                <outlet property="containerView" destination="CwB-RT-Hnk" id="rOi-lc-fVZ"/>
+                <outlet property="headerLabel" destination="JEj-yI-KA4" id="MmZ-wT-3mb"/>
             </connections>
         </collectionReusableView>
     </objects>

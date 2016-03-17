@@ -29,8 +29,13 @@
         NSMutableArray* readLogins = [NSMutableArray array];
         for (NSNumber* readID in readIDs) {
             QBUUser* user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[readID unsignedIntegerValue]];
-            NSAssert(user != nil, @"User must not be nil!");
-            [readLogins addObject:user.login];
+			if (user) {
+				[readLogins addObject:user.login];
+			}
+			else {
+				NSString *unkownUserLogin = [@"Unknown user: %@" stringByAppendingString:[readID stringValue]];
+				[readLogins addObject:unkownUserLogin];
+			}
         }
         
         if (readLogins.count > 0) {
@@ -43,9 +48,15 @@
         
         NSMutableArray* deliveredLogins = [NSMutableArray array];
         for (NSNumber* deliveredID in deliveredIDs) {
-            QBUUser* user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[deliveredID unsignedIntegerValue]];
-            NSAssert(user != nil, @"User must not be nil!");
-            [deliveredLogins addObject:user.login];
+            QBUUser *user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[deliveredID unsignedIntegerValue]];
+			if (user) {
+				[deliveredLogins addObject:user.login];
+			}
+			else {
+				NSString *unkownUserLogin = [@"Unknown user: %@" stringByAppendingString:[deliveredID stringValue]];
+				[deliveredLogins addObject:unkownUserLogin];
+			}
+			
         }
         
         if (deliveredLogins.count > 0) {

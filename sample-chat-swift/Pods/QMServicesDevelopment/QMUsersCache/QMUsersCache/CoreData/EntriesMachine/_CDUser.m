@@ -12,6 +12,7 @@ const struct CDUserAttributes CDUserAttributes = {
 	.facebookID = @"facebookID",
 	.fullName = @"fullName",
 	.id = @"id",
+	.lastRequestAt = @"lastRequestAt",
 	.login = @"login",
 	.phone = @"phone",
 	.tags = @"tags",
@@ -134,6 +135,8 @@ const struct CDUserAttributes CDUserAttributes = {
 - (void)setPrimitiveIdValue:(int32_t)value_ {
 	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
 }
+
+@dynamic lastRequestAt;
 
 @dynamic login;
 

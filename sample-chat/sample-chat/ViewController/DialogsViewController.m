@@ -44,13 +44,14 @@ QMChatConnectionDelegate
     if ([QBChat instance].isConnected) {
         [self loadDialogs];
     }
+     self.navigationItem.title = [ServicesManager instance].currentUser.login;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
     
-    self.navigationItem.title = [ServicesManager instance].currentUser.login;
+   
 	[self.tableView reloadData];
 }
 
@@ -242,15 +243,13 @@ QMChatConnectionDelegate
         if (chatDialog.type == QBChatDialogTypeGroup) {
             NSString *notificationText = [NSString stringWithFormat:@"%@ %@", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_USER_HAS_LEFT", nil)];
             __weak __typeof(self) weakSelf = self;
+            
             // Notifying user about updated dialog - user left it.
-            [[ServicesManager instance].chatService sendMessageAboutUpdateDialog:chatDialog
-                                                            withNotificationText:notificationText
-                                                                customParameters:nil
-                                                                      completion:^(NSError *error) {
-                                                                          //
-                                                                          [weakSelf deleteDialogWithID:chatDialog.ID];
-                                                                      }];
-        } else {
+              [[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError * _Nullable error) {
+                    [weakSelf deleteDialogWithID:chatDialog.ID];
+              }];
+        }
+        else {
             [self deleteDialogWithID:chatDialog.ID];
         }
     }

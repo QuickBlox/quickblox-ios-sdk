@@ -248,7 +248,7 @@
     if (firstSectionDateIsNotDescending) {
         // message is older then first message of first section
         
-        if (fabs([message.dateSent timeIntervalSinceDate:firstSection.firstMessageDate]) > self.timeIntervalBetweenSections) {
+        if (fabs([message.dateSent timeIntervalSinceDate:firstSection.lastMessageDate]) > self.timeIntervalBetweenSections) {
             
             firstSection = [QMChatSection chatSection];
             [self.editableSections insertObject:firstSection atIndex:0];
@@ -258,12 +258,12 @@
     }
     
     QMChatSection *lastSection = self.editableSections.lastObject;
-    BOOL lastSectionDateIsNotAscending = [lastSection.lastMessageDate compare:message.dateSent] != NSOrderedAscending;
+    BOOL lastSectionDateIsNotAscending = [lastSection.firstMessageDate compare:message.dateSent] != NSOrderedAscending;
     
     if (lastSectionDateIsNotAscending) {
         // message is newer then last message of last section
         
-        if (fabs([message.dateSent timeIntervalSinceDate:lastSection.lastMessageDate]) > self.timeIntervalBetweenSections) {
+        if (fabs([message.dateSent timeIntervalSinceDate:lastSection.firstMessageDate]) > self.timeIntervalBetweenSections) {
             
             lastSection = [QMChatSection chatSection];
             [self.editableSections addObject:lastSection];
