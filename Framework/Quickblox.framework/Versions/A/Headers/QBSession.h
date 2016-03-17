@@ -56,7 +56,7 @@
  *  Start session with details
  *  Disables auto create session
  *
- *  @note updateSessionBlock executes synchonously on background thread and you are allowed to execute
+ *  @note updateSessionBlock executes synchronously on background thread and you are allowed to execute
  *  synchronous URL request and to block a background thread from executing until you receive updated credentials
  *
  *  @note by the end of updateSessionBlock you should call startSessionWithDetails: with updated credentials
@@ -70,7 +70,7 @@
  *  Start updated session with details
  *  Use this method to update session details
  *
- *  @note updateSessionBlock block executes synchonously on background thread and you are allowed to execute
+ *  @note updateSessionBlock block executes synchronously on background thread and you are allowed to execute
  *  synchronous URL request and to block a background thread from executing until you receive updated credentials
  *
  *  @note call this method after first session start with startSessionWithDetails:updateSessionBlock:

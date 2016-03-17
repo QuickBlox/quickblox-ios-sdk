@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, QBResponseStatusCode){
     QBResponseStatusCodeUnknown             = -1,
     QBResponseStatusCodeAccepted            = 202,
     QBResponseStatusCodeCreated             = 201,
+    QBResponseStatusCodeForbidden           = 403,
     QBResponseStatusCodeNotFound            = 404,
     QBResponseStatusCodeOK                  = 200,
     QBResponseStatusCodeBadRequest          = 400,

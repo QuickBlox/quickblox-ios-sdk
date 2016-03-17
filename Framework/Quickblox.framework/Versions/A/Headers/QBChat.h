@@ -30,7 +30,7 @@
 - (QB_NONNULL id)init NS_UNAVAILABLE;
 
 #pragma mark -
-#pragma mark Multicaste Delegate
+#pragma mark Multicast Delegate
 
 /** 
  *  Adds the given delegate implementation to the list of observers
@@ -91,7 +91,7 @@
 - (void)connectWithUser:(QB_NONNULL QBUUser *)user resource:(nullable NSString *)resource completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
- * Check if current user connected to Chat
+ * Check if current user is connected to Chat
  *
  * @return YES if user is connected in, NO otherwise
  */

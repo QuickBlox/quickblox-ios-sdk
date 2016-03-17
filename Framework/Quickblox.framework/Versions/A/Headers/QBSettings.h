@@ -25,7 +25,7 @@ typedef enum QBConnectionZoneType{
 @interface QBSettings : NSObject
 
 /**
- *  Allow to set api endpoint and chat endpoint for service zone.
+ *  Allows to set api endpoint and chat endpoint for service zone.
  *
  *  @note QBConnectionZoneTypeAutomatic is used by default.
  *  If you are using shared server and you are migrating to enterprise account,
@@ -43,13 +43,26 @@ typedef enum QBConnectionZoneType{
 #pragma mark -
 #pragma mark Chat settings
 
-/// Enable or disable chat auto reconnect
+/**
+ *  Enable or disable chat auto reconnect
+ *
+ *  @param autoReconnectEnabled The default value is NO
+ */
 + (void)setAutoReconnectEnabled:(BOOL)autoReconnectEnabled;
 
-/// Enable or disable message carbons
+/**
+ *  Enable or disable message carbons
+ *
+ *  @note Call this method after chat connection has been established
+ *  @param carbonsEnabled BOOL value
+ */
 + (void)setCarbonsEnabled:(BOOL)carbonsEnabled;
 
-/// Enable or disable Stream Resumption (XEP-0198).
+/**
+ *  Enable or disable Stream Resumption (XEP-0198).
+ *
+ *  @param streamResumptionEnabled BOOL value. The default value is NO
+ */
 + (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled;
 
 /// Set timeout value for Stream Management send a message operation
@@ -109,9 +122,9 @@ typedef enum QBConnectionZoneType{
 #pragma mark Endpoints
 
 /**
- * Allow to change Services Zone to work with Development and Staging environments
+ * Allows to change Services Zone to work with Production, Development and Staging environments
  *
- * @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
+ * @param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic.
  */
 + (void)setServiceZone:(QBConnectionZoneType)serviceZone;
 
@@ -146,7 +159,8 @@ typedef enum QBConnectionZoneType{
 /**
  * A Boolean value indicating whether the manager is enabled.
  
- * If YES, the manager will change status bar network activity indicator according to network operation notifications it receives. The default value is NO.
+ * If YES, the manager will change status bar network activity indicator according to network operation notifications it receives.
+ * The default value is NO.
  */
 + (void)setNetworkIndicatorManagerEnabled:(BOOL)enabled;
 
@@ -159,19 +173,19 @@ typedef enum QBConnectionZoneType{
 #pragma mark Logging
 
 /**
- Set SDK log level (by default: QBLogLevelDebug). Posible values: QBLogLevelDebug, QBLogLevelNothing.
+ Set SDK log level (by default: QBLogLevelDebug). Possible values: QBLogLevelDebug, QBLogLevelNothing.
  
  @param logLevel New log level
  */
 + (void)setLogLevel:(QBLogLevel)logLevel;
 
 /**
- *  Enables full XMPP Framework logging to console. By default is disabled.
+ *  Enable full XMPP Framework logging to console. By default is disabled.
  */
 + (void)enableXMPPLogging;
 
 /**
- *   Disables full XMPP Framework logging to console.
+ *   Disable full XMPP Framework logging to console.
  */
 + (void)disableXMPPLogging;
 
