@@ -445,11 +445,19 @@ NSInteger QBRTCGetCpuUsagePercentage() {
 
 /**
  *  Called in case when opponent hung up
+ *  HangUp when initiator ended a call
  */
 - (void)session:(QBRTCSession *)session hungUpByUser:(NSNumber *)userID userInfo:(NSDictionary *)userInfo {
     
     if (session == self.session) {
-        
+		
+		/**
+		 HangUp when initiator ended a call
+		 */
+		if ([session.initiatorID isEqualToNumber:userID]) {
+			[session hangUp:@{}];
+		}
+
         [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
             
             cell.connectionState = [self.session connectionStateForUser:userID];
