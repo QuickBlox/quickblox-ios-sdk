@@ -30,6 +30,7 @@
 		684403FFA3130E8D9A8E5322 /* NewDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440AC5E7B04D8555A9110C /* NewDialogViewController.swift */; };
 		68440820F7DF260CB13FCEE0 /* DialogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440035DAA846751DEDBE4D /* DialogsViewController.swift */; };
 		68440B196D063839CDD277A4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440972CDF0423CCE31BC15 /* ChatViewController.swift */; };
+		68440B6E4666D17B5141B787 /* ReplaceSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684405C1BE6055BDCDBEF5C2 /* ReplaceSegue.swift */; };
 		68440D4EE3FECE357167667C /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440A2C1E78F6FC561A7A09 /* CornerView.swift */; };
 		68440EE02D9A7184D21DF0F7 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440EF02AB27CCF47A87701 /* AlertView.swift */; };
 		864DDA2C1B5FEF3900D4A22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864DDA2B1B5FEF3900D4A22F /* Constants.swift */; };
@@ -63,6 +64,7 @@
 		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DialogsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6844013BAAEEEAE22EEAA322 /* LoginTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		684403034A069565608E044A /* AlertViewWithTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewWithTextField.swift; sourceTree = "<group>"; };
+		684405C1BE6055BDCDBEF5C2 /* ReplaceSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplaceSegue.swift; sourceTree = "<group>"; };
 		68440972CDF0423CCE31BC15 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChatViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		68440A2C1E78F6FC561A7A09 /* CornerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
 		68440AC5E7B04D8555A9110C /* NewDialogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDialogViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +182,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		6844040F67E63439F365550D /* ReplaceSegue */ = {
+			isa = PBXGroup;
+			children = (
+				684405C1BE6055BDCDBEF5C2 /* ReplaceSegue.swift */,
+			);
+			path = ReplaceSegue;
+			sourceTree = "<group>";
+		};
 		684406F7477B1DC33312AC5E /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +217,7 @@
 				68440F80943F897FCE549345 /* ViewControllers */,
 				6844005FE5EDBE47EFDB2426 /* Views */,
 				684406F7477B1DC33312AC5E /* Services */,
+				6844040F67E63439F365550D /* ReplaceSegue */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -376,6 +387,7 @@
 				6844023A6DABFA72BD0EF343 /* UserTableViewCell.swift in Sources */,
 				2CCAD5CE1B1F3328005F57B3 /* UsersListTableViewController.swift in Sources */,
 				2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */,
+				68440B6E4666D17B5141B787 /* ReplaceSegue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
