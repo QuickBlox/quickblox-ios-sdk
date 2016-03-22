@@ -31,7 +31,7 @@
 "SA_STR_LOADING_DIALOG" = "Loading dialog";
 "SA_STR_LOADING_DIALOGS" = "Loading dialogs";
 "SA_STR_DONE" = "Done";
-"SA_STR_ADD" = "added";
+"SA_STR_ADDED" = "added";
 
 // chat dialog
 "SA_STR_MESSAGE_PLACEHOLDER" = "Message";
