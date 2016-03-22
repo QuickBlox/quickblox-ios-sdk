@@ -10,31 +10,40 @@ import Foundation
 
 class UsersListTableViewController: UITableViewController {
     
-    var users : [QBUUser]?
+    var users : [QBUUser] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        weak var weakSelf = self
-        
+		
 
         // Fetching users from cache.
-        ServicesManager.instance().usersService.loadFromCache().continueWithBlock { (task : BFTask!) -> AnyObject! in
+        ServicesManager.instance().usersService.loadFromCache().continueWithBlock { [weak self] (task : BFTask!) -> AnyObject! in
             if task.result!.count > 0 {
-                
-                weakSelf?.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
+				guard let users = ServicesManager.instance().sortedUsers() else {
+					print("No cached users")
+					return nil
+				}
+                self?.setupUsers(users)
                 
             } else {
                 
                 SVProgressHUD.showWithStatus("SA_STR_LOADING_USERS".localized, maskType: SVProgressHUDMaskType.Clear)
                 
                 // Downloading users from Quickblox.
-                ServicesManager.instance().downloadLatestUsers({ (users: [QBUUser]!) -> Void in
-                    
+
+				
+                ServicesManager.instance().downloadCurrentEnvironmentUsers({ (users: [QBUUser]?) -> Void in
+					
+					guard let unwrappedUsers = users else {
+						SVProgressHUD.showErrorWithStatus("No users downloaded")
+						return
+					}
+					
                     SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-                    weakSelf?.setupUsers(users)
+					
+                    self?.setupUsers(unwrappedUsers)
                     
-                    }, error: { (error: NSError!) -> Void in
+                    }, errorBlock: { (error: NSError!) -> Void in
                         
                         SVProgressHUD.showErrorWithStatus(error.localizedDescription)
                 })
@@ -51,21 +60,13 @@ class UsersListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if let _ = self.users {
-            
-            return self.users!.count
-            
-        } else {
-            
-            return 0
-        }
+		return users.count;
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! UserTableViewCell
         
-        let user = self.users![indexPath.row]
+        let user = self.users[indexPath.row]
         
         cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
         cell.userDescription = user.fullName
