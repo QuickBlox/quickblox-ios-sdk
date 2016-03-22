@@ -63,7 +63,7 @@
 /** File's visibility */
 @property (nonatomic) BOOL isPublic;
 
-/** Set as YES if you want to updated blob's file */
+/** Set as YES if you want to update blob's file */
 @property (nonatomic) BOOL isNew;
 
 /** Create new blob
