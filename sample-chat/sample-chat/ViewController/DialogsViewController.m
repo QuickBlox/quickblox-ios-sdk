@@ -22,7 +22,7 @@ QMChatConnectionDelegate
 >
 
 @property (nonatomic, strong) id <NSObject> observerDidBecomeActive;
-@property (nonatomic, readonly) NSArray* dialogs;
+@property (nonatomic, readonly) NSArray *dialogs;
 
 @end
 
@@ -32,7 +32,7 @@ QMChatConnectionDelegate
     [super awakeFromNib];
     
     // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
-    [ServicesManager.instance.chatService addDelegate:self];
+    [[ServicesManager instance].chatService addDelegate:self];
     self.observerDidBecomeActive = [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                                                      object:nil queue:[NSOperationQueue mainQueue]
                                                                                  usingBlock:^(NSNotification *note) {
@@ -41,7 +41,7 @@ QMChatConnectionDelegate
                                                                                      }
                                                                                  }];
     
-    if ([QBChat instance].isConnected) {
+    if ([ServicesManager instance].isAuthorized) {
         [self loadDialogs];
     }
      self.navigationItem.title = [ServicesManager instance].currentUser.login;
@@ -87,6 +87,7 @@ QMChatConnectionDelegate
 - (void)loadDialogs
 {
     __weak __typeof(self) weakSelf = self;
+	
     if ([ServicesManager instance].lastActivityDate != nil) {
         [[ServicesManager instance].chatService fetchDialogsUpdatedFromDate:[ServicesManager instance].lastActivityDate andPageLimit:kDialogsPageLimit iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             //
@@ -166,7 +167,7 @@ QMChatConnectionDelegate
     BOOL hasUnreadMessages = chatDialog.unreadMessagesCount > 0;
     cell.unreadContainerView.hidden = !hasUnreadMessages;
     if (hasUnreadMessages) {
-        NSString* unreadText = nil;
+        NSString *unreadText = nil;
         if (chatDialog.unreadMessagesCount > 99) {
             unreadText = @"99+";
         } else {
@@ -213,7 +214,7 @@ QMChatConnectionDelegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
-        ChatViewController* chatViewController = segue.destinationViewController;
+        ChatViewController *chatViewController = segue.destinationViewController;
         chatViewController.dialog = sender;
     }
 }
@@ -245,7 +246,7 @@ QMChatConnectionDelegate
             __weak __typeof(self) weakSelf = self;
             
             // Notifying user about updated dialog - user left it.
-              [[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError * _Nullable error) {
+              [[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError  *_Nullable error) {
                     [weakSelf deleteDialogWithID:chatDialog.ID];
               }];
         }
