@@ -21,12 +21,12 @@ var messageTimeDateFormatter: NSDateFormatter {
 class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate {
     
     var dialog: QBChatDialog!
-    var willResignActiveBlock : AnyObject?
-    var attachmentCellsMap : [String : QMChatAttachmentCell] = [String : QMChatAttachmentCell]()
+    var willResignActiveBlock: AnyObject?
+    var attachmentCellsMap: NSMapTable!
     var detailedCells: Set<String> = []
     
-    var typingTimer : NSTimer?
-    var popoverController : UIPopoverController?
+    var typingTimer: NSTimer?
+    var popoverController: UIPopoverController?
     
     lazy var imagePickerViewController : UIImagePickerController = {
         let imagePickerViewController = UIImagePickerController()
@@ -49,7 +49,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
         self.inputToolbar?.contentView?.textView?.placeHolder = "SA_STR_MESSAGE_PLACEHOLDER".localized
-        
+		
+		self.attachmentCellsMap = NSMapTable(keyOptions: NSPointerFunctionsOptions.StrongMemory, valueOptions: NSPointerFunctionsOptions.WeakMemory)
+		
         if self.dialog.type == QBChatDialogType.Private {
             
             self.dialog.onUserIsTyping = {
@@ -259,7 +261,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 ServicesManager.instance().chatService.sendAttachmentMessage(message, toDialog: self!.dialog, withAttachmentImage: resizedImage, completion: {
                     [weak self] (error: NSError?) -> Void in
 					
-					self?.attachmentCellsMap.removeValueForKey(message.ID!)
+					self?.attachmentCellsMap.removeObjectForKey(message.ID)
 					
 					guard error != nil else { return }
 					
@@ -634,20 +636,28 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             let message = self.chatSectionManager.messageForIndexPath(indexPath)
 			
-            if let attachment = message.attachments?.first {
-					
-					for (existingAttachmentID, existingAttachmentCell) in self.attachmentCellsMap
-						where existingAttachmentCell === attachmentCell {
-
-						if existingAttachmentID != attachment.ID {
-							self.attachmentCellsMap.removeValueForKey(existingAttachmentID)
-						}
+			if let attachment = message.attachments?.first {
+				
+				var keysToRemove: [String] = []
+				
+				let enumerator = self.attachmentCellsMap.keyEnumerator()
+				
+				while let existingAttachmentID = enumerator.nextObject() as? String {
+					let cachedCell = self.attachmentCellsMap.objectForKey(existingAttachmentID)
+					if cachedCell === cell {
+						keysToRemove.append(existingAttachmentID)
 					}
-					
-					self.attachmentCellsMap[attachment.ID!] = attachmentCell
-					attachmentCell.attachmentID = attachment.ID
-					
-					// Getting image from chat attachment cache.
+				}
+				
+				for key in keysToRemove {
+					self.attachmentCellsMap.removeObjectForKey(key)
+				}
+				
+				self.attachmentCellsMap.setObject(attachmentCell, forKey: attachment.ID)
+				
+				attachmentCell.attachmentID = attachment.ID
+				
+				// Getting image from chat attachment cache.
 				
 				ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message, completion: {
 					[weak self] (error: NSError?, image: UIImage?) -> Void in
@@ -656,10 +666,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 						return
 					}
 					
-					self?.attachmentCellsMap.removeValueForKey(attachment.ID!)
+					self?.attachmentCellsMap.removeObjectForKey(attachment.ID)
 					
 					guard error == nil else {
 						SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
+						print("Error downloading image from server: \(error).localizedDescription")
 						return
 					}
 					
@@ -887,18 +898,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService, didChangeLoadingProgress progress: CGFloat, forChatAttachment attachment: QBChatAttachment) {
         
-        if let attachmentCell = self.attachmentCellsMap[attachment.ID!] {
+        if let attachmentCell = self.attachmentCellsMap.objectForKey(attachment.ID!) {
             attachmentCell.updateLoadingProgress(progress)
         }
     }
     
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService, didChangeUploadingProgress progress: CGFloat, forMessage message: QBChatMessage) {
-        var cell = self.attachmentCellsMap[message.ID!]
+        var cell = self.attachmentCellsMap.objectForKey(message.ID)
         
         if cell == nil && progress < 1.0 {
             let indexPath = self.chatSectionManager.indexPathForMessage(message)
             cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as? QMChatAttachmentCell
-            self.attachmentCellsMap[message.ID!] = cell
+            self.attachmentCellsMap.setObject(cell, forKey: message.ID)
         }
 		
 		cell?.updateLoadingProgress(progress)
