@@ -477,8 +477,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if let topLabelText = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(messageItem.senderID)?.login {
             topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
-        }
-        
+		} else { // no user in memory storage
+			topLabelAttributedString = NSAttributedString(string: "@\(messageItem.senderID)", attributes: attributes)
+		}
+			
         return topLabelAttributedString
     }
 	
@@ -618,14 +620,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         super.collectionView(collectionView, configureCell: cell, forIndexPath: indexPath)
         
         // subscribing to cell delegate
-        (cell as! QMChatCell).delegate = self
+		let chatCell = cell as! QMChatCell
+		
+        chatCell.delegate = self
         
         if let attachmentCell = cell as? QMChatAttachmentCell {
             
             if attachmentCell is QMChatAttachmentIncomingCell {
-                (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+                chatCell.containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
             } else if attachmentCell is QMChatAttachmentOutgoingCell {
-                (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+                chatCell.containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             }
             
             let message = self.chatSectionManager.messageForIndexPath(indexPath)
@@ -646,32 +650,36 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 					// Getting image from chat attachment cache.
 				
 				ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message, completion: {
-						[weak self] (error: NSError?, image: UIImage?) -> Void in
-						
-						guard attachmentCell.attachmentID == attachment.ID else {
-							return
-						}
-						
-						self?.attachmentCellsMap.removeValueForKey(attachment.ID!)
-						
-						guard error == nil else {
-							SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
-							return
-						}
-						
-						attachmentCell.setAttachmentImage(image)
-						cell.updateConstraints()
-						
-						})
+					[weak self] (error: NSError?, image: UIImage?) -> Void in
+					
+					guard attachmentCell.attachmentID == attachment.ID else {
+						return
+					}
+					
+					self?.attachmentCellsMap.removeValueForKey(attachment.ID!)
+					
+					guard error == nil else {
+						SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
+						return
+					}
+					
+					if image == nil {
+						print("Image is nil")
+					}
+					
+					attachmentCell.setAttachmentImage(image)
+					cell.updateConstraints()
+					
+					})
 			}
 			
         } else if cell is QMChatIncomingCell || cell is QMChatAttachmentIncomingCell {
-            (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
+            chatCell.containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
         } else if cell is QMChatOutgoingCell || cell is QMChatAttachmentOutgoingCell {
-            (cell as! QMChatCell).containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            chatCell.containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         } else if cell is QMChatNotificationCell {
             cell.userInteractionEnabled = false
-            (cell as! QMChatCell).containerView?.bgColor = self.collectionView?.backgroundColor
+            chatCell.containerView?.bgColor = self.collectionView?.backgroundColor
         }
     }
 	
