@@ -14,7 +14,7 @@
 
 @class QBGeneralResponsePage;
 
-typedef void(^QMCacheCollection)(NSArray *collection);
+typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
 
 @protocol QMContactListServiceDelegate;
 @protocol QMContactListServiceCacheDataSource;
@@ -28,7 +28,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
 /**
  *  Memory storage for contact list items.
  */
-@property (strong, nonatomic, readonly) QMContactListMemoryStorage *contactListMemoryStorage;
+@property (strong, nonatomic, readonly, QB_NULLABLE) QMContactListMemoryStorage *contactListMemoryStorage;
 
 /**
  *  Init with service data delegate and contact list cache protocol.
@@ -38,22 +38,22 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @return QMContactListService instance
  */
-- (instancetype)initWithServiceManager:(id<QMServiceManagerProtocol>)serviceManager
-                       cacheDataSource:(id<QMContactListServiceCacheDataSource>)cacheDataSource;
+- (QB_NONNULL instancetype)initWithServiceManager:(QB_NULLABLE id<QMServiceManagerProtocol>)serviceManager
+                       cacheDataSource:(QB_NULLABLE id<QMContactListServiceCacheDataSource>)cacheDataSource;
 
 /**
  *  Add instance that confirms contact list service multicaste protocol
  *
  *  @param delegate instance that confirms id<QMContactListServiceDelegate> protocol
  */
-- (void)addDelegate:(id <QMContactListServiceDelegate>)delegate;
+- (void)addDelegate:(QB_NONNULL id <QMContactListServiceDelegate>)delegate;
 
 /**
  *  Remove instance that confirms contact list service multicaste protocol
  *
  *  @param delegate instance that confirms id<QMContactListServiceDelegate> protocol
  */
-- (void)removeDelegate:(id <QMContactListServiceDelegate>)delegate;
+- (void)removeDelegate:(QB_NONNULL id <QMContactListServiceDelegate>)delegate;
 
 /**
  *  Add user to contact list request
@@ -61,7 +61,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param user       user which you would like to add to contact list
  *  @param completion completion block
  */
-- (void)addUserToContactListRequest:(QBUUser *)user completion:(void(^)(BOOL success))completion;
+- (void)addUserToContactListRequest:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(BOOL success))completion;
 
 /**
  *  Remove user from contact list request
@@ -69,7 +69,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param userID     user ID which you would like to remove from contact list
  *  @param completion completion block
  */
-- (void)removeUserFromContactListWithUserID:(NSUInteger)userID completion:(void(^)(BOOL success))completion;
+- (void)removeUserFromContactListWithUserID:(NSUInteger)userID completion:(void(^QB_NULLABLE_S)(BOOL success))completion;
 
 /**
  *  Accept contact request
@@ -77,7 +77,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param userID     user ID from which you would like to accept contact request
  *  @param completion completion block
  */
-- (void)acceptContactRequest:(NSUInteger)userID completion:(void (^)(BOOL success))completion;
+- (void)acceptContactRequest:(NSUInteger)userID completion:(void (^QB_NULLABLE_S)(BOOL success))completion;
 
 /**
  *  Reject contact request
@@ -85,7 +85,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param userID     user ID from which you would like to reject contact request
  *  @param completion completion block
  */
-- (void)rejectContactRequest:(NSUInteger)userID completion:(void(^)(BOOL success))completion;
+- (void)rejectContactRequest:(NSUInteger)userID completion:(void(^QB_NULLABLE_S)(BOOL success))completion;
 
 @end
 
@@ -105,7 +105,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask *)addUserToContactListRequest:(QBUUser *)user;
+- (QB_NONNULL BFTask *)addUserToContactListRequest:(QB_NONNULL QBUUser *)user;
 
 /**
  *  Remove user from contact list using Bolts.
@@ -116,7 +116,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask *)removeUserFromContactListWithUserID:(NSUInteger)userID;
+- (QB_NONNULL BFTask *)removeUserFromContactListWithUserID:(NSUInteger)userID;
 
 /**
  *  Accept contact request using Bolts.
@@ -127,7 +127,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask *)acceptContactRequest:(NSUInteger)userID;
+- (QB_NONNULL BFTask *)acceptContactRequest:(NSUInteger)userID;
 
 /**
  *  Reject contact request for user id using Bolts.
@@ -138,7 +138,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask *)rejectContactRequest:(NSUInteger)userID;
+- (QB_NONNULL BFTask *)rejectContactRequest:(NSUInteger)userID;
 
 @end
 
@@ -156,11 +156,11 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @param block Block for provide QBContactListItem collection
  */
-- (void)cachedContactListItems:(QMCacheCollection)block;
+- (void)cachedContactListItems:(QB_NULLABLE QMCacheCollection)block;
 
 @optional
 
-- (void)contactListDidAddUser:(QBUUser *)user;
+- (void)contactListDidAddUser:(QB_NONNULL QBUUser *)user;
 
 @end
 
@@ -181,7 +181,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *
  *  @param contactList updated QBContactList
  */
-- (void)contactListService:(QMContactListService *)contactListService contactListDidChange:(QBContactList *)contactList;
+- (void)contactListService:(QB_NONNULL QMContactListService *)contactListService contactListDidChange:(QB_NONNULL QBContactList *)contactList;
 
 /**
  *  Is called when contact list service did recieve some activity changes of userID
@@ -190,7 +190,7 @@ typedef void(^QMCacheCollection)(NSArray *collection);
  *  @param isOnline online status for user
  *  @param status   custom status for user
  */
-- (void)contactListService:(QMContactListService *)contactListService didReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(NSString *)status;
+- (void)contactListService:(QB_NONNULL QMContactListService *)contactListService didReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(QB_NULLABLE NSString *)status;
 
 
 
