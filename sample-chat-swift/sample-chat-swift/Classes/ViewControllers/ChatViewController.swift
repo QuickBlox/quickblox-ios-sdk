@@ -310,7 +310,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 	Read: login1, login2, login3
 	Delivered: login1, login3, @12345
 	
-	If there is no user in usersMemoryStorage, then ID will be used instead of login
+	If user does not exist in usersMemoryStorage, then ID will be used instead of login
  
 	- parameter message: QBChatMessage instance
 	
@@ -318,7 +318,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 	*/
 	func statusStringFromMessage(message: QBChatMessage) -> String {
         
-        var statusString : String = ""
+        var statusString = ""
         
         let currentUserID = NSNumber(unsignedInteger: ServicesManager.instance().currentUser().ID)
         
@@ -448,7 +448,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         return attributedString
     }
     
-    
+	
+	/**
+	Creates top label attributed string from QBChatMessage
+	
+	- parameter messageItem: QBCHatMessage instance
+	
+	- returns: login string, example: @SwiftTestDevUser1
+	*/
     override func topLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString? {
         
 		guard messageItem.senderID != self.senderID else {
@@ -474,7 +481,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         return topLabelAttributedString
     }
-    
+	
+	/**
+	Creates bottom label attributed string from QBChatMessage using self.statusStringFromMessage
+	
+	- parameter messageItem: QBChatMessage instance
+	
+	- returns: bottom label status string
+	*/
     override func bottomLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString! {
         
         let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
@@ -561,7 +575,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
 	
     override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
-        var layoutModel : QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
+        var layoutModel: QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
         
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
         layoutModel.topLabelHeight = 0.0
@@ -621,9 +635,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 					for (existingAttachmentID, existingAttachmentCell) in self.attachmentCellsMap
 						where existingAttachmentCell === attachmentCell {
 
-						if existingAttachmentID == attachment.ID {
-							continue
-						} else {
+						if existingAttachmentID != attachment.ID {
 							self.attachmentCellsMap.removeValueForKey(existingAttachmentID)
 						}
 					}
@@ -632,7 +644,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 					attachmentCell.attachmentID = attachment.ID
 					
 					// Getting image from chat attachment cache.
-				
 				
 				ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message, completion: {
 						[weak self] (error: NSError?, image: UIImage?) -> Void in
@@ -663,7 +674,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             (cell as! QMChatCell).containerView?.bgColor = self.collectionView?.backgroundColor
         }
     }
-    
+	
+	/**
+	Allows to copy text from QMChatIncomingCell and QMChatOutgoingCell
+	*/
     override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool {
 		
 		guard let item = self.chatSectionManager.messageForIndexPath(indexPath) else {
@@ -739,7 +753,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     // MARK: QMChatCellDelegate
-    
+	
+	/**
+	Removes size from cache for item to allow cell expand and show read/delivered IDS or unexpand cell
+	*/
     func chatCellDidTapContainer(cell: QMChatCell!) {
         let indexPath = self.collectionView?.indexPathForCell(cell)
         
@@ -852,10 +869,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService, didChangeAttachmentStatus status: QMMessageAttachmentStatus, forMessage message: QBChatMessage) {
         
-        if status == QMMessageAttachmentStatus.NotLoaded {
-            
-        }
-        else {
+        if status != QMMessageAttachmentStatus.NotLoaded {
             
             if message.dialogID == self.dialog.ID {
                 self.chatSectionManager.updateMessage(message)

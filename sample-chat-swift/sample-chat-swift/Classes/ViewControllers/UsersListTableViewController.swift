@@ -30,7 +30,6 @@ class UsersListTableViewController: UITableViewController {
                 SVProgressHUD.showWithStatus("SA_STR_LOADING_USERS".localized, maskType: SVProgressHUDMaskType.Clear)
                 
                 // Downloading users from Quickblox.
-
 				
                 ServicesManager.instance().downloadCurrentEnvironmentUsers({ (users: [QBUUser]?) -> Void in
 					
