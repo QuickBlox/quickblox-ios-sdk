@@ -53,7 +53,7 @@
 }
 
 - (instancetype)init {
-	return [self initWithUsers:[[ServicesManager instance] filteredUsersByCurrentEnvironment]];
+	return [self initWithUsers:[[ServicesManager instance] sortedUsers]];
 }
 
 - (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {

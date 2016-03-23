@@ -13,14 +13,14 @@
  */
 @interface UsersDataSource : NSObject<UITableViewDataSource>
 
-- (instancetype)initWithUsers:(NSArray *)users;
+- (instancetype)initWithUsers:(NSArray<QBUUser *> *)users;
 
 /**
  *  Adds users to datasource.
  *
  *  @param users NSArray of users to add.
  */
-- (void)addUsers:(NSArray *)users;
+- (void)addUsers:(NSArray<QBUUser *> *)users;
 
 /**
  *  Default: empty []
@@ -30,8 +30,8 @@
 /**
  *  @return Array of QBUUser instances
  */
-@property (nonatomic, strong, readonly) NSArray *users;
-@property (nonatomic, strong) NSArray *excludeUsersIDs;
+@property (nonatomic, strong, readonly) NSArray<QBUUser *> *users;
+@property (nonatomic, strong) NSArray<NSNumber *> *excludeUsersIDs;
 @property (nonatomic, assign) BOOL isLoginDataSource;
 
 - (NSUInteger)indexOfUser:(QBUUser *)user;
