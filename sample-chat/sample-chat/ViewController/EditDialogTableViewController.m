@@ -58,8 +58,8 @@
 	NSArray *indexPathArray = [self.tableView indexPathsForSelectedRows];
 	assert(indexPathArray.count != 0);
 	
-	NSMutableArray *users = [NSMutableArray arrayWithCapacity:indexPathArray.count];
-	NSMutableArray *usersIDs = [NSMutableArray arrayWithCapacity:indexPathArray.count];
+	NSMutableArray<QBUUser *> *users = [NSMutableArray arrayWithCapacity:indexPathArray.count];
+	NSMutableArray<NSNumber *> *usersIDs = [NSMutableArray arrayWithCapacity:indexPathArray.count];
 	
 	for (NSIndexPath *indexPath in indexPathArray) {
 		UserTableViewCell *selectedCell = (UserTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
@@ -86,7 +86,7 @@
 	}
 }
 
-- (void)createGroupDialogWithUsers:(NSArray *)users {
+- (void)createGroupDialogWithUsers:(NSArray<QBUUser *> *)users {
 	__weak __typeof(self)weakSelf = self;
 	
 	[SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
@@ -108,7 +108,7 @@
 	}];
 }
 
-- (void)updateGroupDialogWithUsersIDs:(NSArray *)usersIDs {
+- (void)updateGroupDialogWithUsersIDs:(NSArray<NSNumber *> *)usersIDs {
 	__weak __typeof(self)weakSelf = self;
 	
 	[SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
@@ -144,7 +144,7 @@
     }];
 }
 
-- (NSString *)dialogNameFromUsers:(NSArray *)users {
+- (NSString *)dialogNameFromUsers:(NSArray<QBUUser *> *)users {
 	NSString *name = [NSString stringWithFormat:@"%@_", [QBSession currentSession].currentUser.login];
 	for (QBUUser *user in users) {
 		name = [NSString stringWithFormat:@"%@%@,", name, user.login];
@@ -153,7 +153,7 @@
 	return name;
 }
 
-- (NSString *)updatedMessageWithUsers:(NSArray *)users {
+- (NSString *)updatedMessageWithUsers:(NSArray<QBUUser *> *)users {
 	NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADD", nil)];
 	for (QBUUser *user in users) {
 		message = [NSString stringWithFormat:@"%@%@,", message, user.login];
@@ -167,17 +167,16 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if( [segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
+	if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
 		ChatViewController *vc = (ChatViewController *) segue.destinationViewController;
 		vc.dialog = sender;
-		vc.shouldUpdateNavigationStack = YES;
 	}
 }
 
 #pragma mark QMChatServiceDelegate delegate
 
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
-	if( [chatDialog.ID isEqualToString:self.dialog.ID] ) {
+	if ([chatDialog.ID isEqualToString:self.dialog.ID]) {
 		self.dialog = chatDialog;
 		[self reloadDataSource];
 	}
