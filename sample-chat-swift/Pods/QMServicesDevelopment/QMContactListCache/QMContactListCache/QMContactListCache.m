@@ -170,7 +170,7 @@ static QMContactListCache *_chatCacheInstance = nil;
     return contactListItems;
 }
 
-- (void)contactListItems:(void(^)(NSArray *contactListItems))completion{
+- (void)contactListItems:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBContactListItem *) *QB_NULLABLE_S contactListItems))completion {
     
     __weak __typeof(self)weakSelf = self;
     [self async:^(NSManagedObjectContext *context) {
