@@ -13,6 +13,7 @@
 		143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 143181781B1882EC001A933D /* NewDialogTableViewController.m */; };
 		1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */; };
 		1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */; };
+		14B088D91CA2D9700035E29D /* ReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B088D81CA2D9700035E29D /* ReplaceSegue.m */; };
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		584B33AF1C2AF4490041B431 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 584B33AE1C2AF4490041B431 /* Localizable.strings */; };
 		5857DCD11BD91F3700AB2D53 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; };
@@ -63,6 +64,8 @@
 		1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogTableViewCell.m; sourceTree = "<group>"; };
 		1485D5FB1B25E60A00D26B2A /* EditDialogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDialogTableViewController.h; sourceTree = "<group>"; };
 		1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDialogTableViewController.m; sourceTree = "<group>"; };
+		14B088D71CA2D9700035E29D /* ReplaceSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReplaceSegue.h; path = ReplaceSegue/ReplaceSegue.h; sourceTree = "<group>"; };
+		14B088D81CA2D9700035E29D /* ReplaceSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReplaceSegue.m; path = ReplaceSegue/ReplaceSegue.m; sourceTree = "<group>"; };
 		1C300553BEFAEB30F2850033 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		584B33AE1C2AF4490041B431 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = ../Localizable.strings; sourceTree = "<group>"; };
 		5857DCD01BD91F3700AB2D53 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
@@ -139,6 +142,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14B088D61CA2D9590035E29D /* ReplaceSegue */ = {
+			isa = PBXGroup;
+			children = (
+				14B088D71CA2D9700035E29D /* ReplaceSegue.h */,
+				14B088D81CA2D9700035E29D /* ReplaceSegue.m */,
+			);
+			name = ReplaceSegue;
+			sourceTree = "<group>";
+		};
 		8614B8DA1B8205D400DBB753 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +235,7 @@
 		BFE6FB7B180E8EF100E64AC4 /* sample-chat */ = {
 			isa = PBXGroup;
 			children = (
+				14B088D61CA2D9590035E29D /* ReplaceSegue */,
 				8614B8DF1B82060000DBB753 /* ThirdParty */,
 				8614B8DA1B8205D400DBB753 /* DataSources */,
 				BFE6FB84180E8EF100E64AC4 /* AppDelegate.h */,
@@ -419,6 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14B088D91CA2D9700035E29D /* ReplaceSegue.m in Sources */,
 				1402B69A1B14BF350069E3A4 /* UserTableViewCell.m in Sources */,
 				BFE6FB86180E8EF100E64AC4 /* AppDelegate.m in Sources */,
 				86EE31B71B270B7F00B8A383 /* DialogInfoTableViewController.m in Sources */,
