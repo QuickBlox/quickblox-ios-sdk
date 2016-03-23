@@ -13,7 +13,7 @@
 
 @interface DialogInfoTableViewController() <QMChatServiceDelegate, QMChatConnectionDelegate>
 
-@property (nonatomic, strong) UsersDataSource* usersDatasource;
+@property (nonatomic, strong) UsersDataSource *usersDatasource;
 
 @end
 
@@ -55,10 +55,9 @@
 	[[ServicesManager instance].chatService removeDelegate:self];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:kGoToAddOccupantsSegueIdentifier]) {
-        EditDialogTableViewController* viewController = segue.destinationViewController;
+        EditDialogTableViewController *viewController = segue.destinationViewController;
         viewController.dialog = self.dialog;
     }
 }
