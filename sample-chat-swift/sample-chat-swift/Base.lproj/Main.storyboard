@@ -134,7 +134,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="xDY-Jn-VPt">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select Users You Want to Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3q-JU-fNp">
@@ -161,13 +161,13 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="cVE-Kh-tSy">
-                            <rect key="frame" x="0.0" y="174" width="600" height="1"/>
+                            <rect key="frame" x="0.0" y="110" width="600" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="BYb-5H-JmT" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="130" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="66" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BYb-5H-JmT" id="VtI-2y-0es">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -536,7 +536,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="3ff-8d-9pb" kind="show" identifier="goToSelectOpponents" customClass="ReplaceSegue" customModule="sample_chat_swift" customModuleProvider="target" id="P2j-TU-AWx"/>
+                                    <segue destination="3ff-8d-9pb" kind="custom" identifier="goToSelectOpponents" customClass="ReplaceSegue" customModule="sample_chat_swift" customModuleProvider="target" id="P2j-TU-AWx"/>
                                 </connections>
                             </button>
                         </barButtonItem>
