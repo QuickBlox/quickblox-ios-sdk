@@ -20,9 +20,8 @@
 
 @implementation NewDialogTableViewController
 
-- (void)viewDidLoad
-{
-    self.dataSource = [[UsersDataSource alloc] initWithUsers:[[ServicesManager instance] filteredUsersByCurrentEnvironment]];
+- (void)viewDidLoad {
+    self.dataSource = [[UsersDataSource alloc] initWithUsers:[[ServicesManager instance] sortedUsers]];
     [self.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
     self.tableView.dataSource = self.dataSource;
 
@@ -37,22 +36,18 @@
 	[self.tableView reloadData];
 }
 
-- (void)checkJoinChatButtonState
-{
+- (void)checkJoinChatButtonState {
 	self.navigationItem.rightBarButtonItem.enabled = self.tableView.indexPathsForSelectedRows.count != 0;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
         ChatViewController* viewController = segue.destinationViewController;
-        viewController.shouldUpdateNavigationStack = YES;
         viewController.dialog = sender;
     }
 }
 
-- (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog
-{
+- (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog {
     [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
 }
 
@@ -91,23 +86,34 @@
 	}
 }
 
-- (void)createChatWithName:(NSString *)name completion:(void(^)(QBChatDialog* dialog))completion
-{
-    NSMutableIndexSet* indexSet = [NSMutableIndexSet indexSet];
+/**
+ *  Creates a chat with name
+ *  If name is empty, then "login1_login2, login3, login4" string will be used as a chat name, where login1 is
+ *  a dialog creator(owner)
+ *
+ *  @param name       chat name, can be nil
+ *  @param completion completion block
+ */
+- (void)createChatWithName:(NSString *)name completion:(void(^)(QBChatDialog *dialog))completion {
+    NSMutableIndexSet *selectedUsersIndexSet = [NSMutableIndexSet indexSet];
     [self.tableView.indexPathsForSelectedRows enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL *stop) {
-        [indexSet addIndex:obj.row];
+        [selectedUsersIndexSet addIndex:obj.row];
     }];
 	
-	NSArray *selectedUsers = [self.dataSource.users objectsAtIndexes:indexSet];
+	NSArray<QBUUser*> *selectedUsers = [self.dataSource.users objectsAtIndexes:selectedUsersIndexSet];
 	
 	if (selectedUsers.count == 1) {
         // Creating private chat dialog.
 		[ServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-			if( !response.success  && createdDialog == nil ) {
-				if (completion) completion(nil);
+			if (!response.success  && createdDialog == nil) {
+				if (completion) {
+					completion(nil);
+				}
 			}
 			else {
-				if (completion) completion(createdDialog);
+				if (completion) {
+					completion(createdDialog);
+				}
 			}
 		}];
 	} else if (selectedUsers.count > 1) {
@@ -127,26 +133,28 @@
                 // Notifying users about created dialog.
                 [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
                     //
-                    if (completion) completion(createdDialog);
+					if (completion) {
+						completion(createdDialog);
+					}
                 }];
 			} else {
-				if (completion) completion(nil);
+				if (completion) {
+					completion(nil);
+				}
 			}
 		}];
 	} else {
-		assert("no users given");
+		assert("no given users");
 	}
 }
 
 #pragma mark UITableView delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self checkJoinChatButtonState];
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self checkJoinChatButtonState];
 }
 
