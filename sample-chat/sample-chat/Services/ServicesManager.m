@@ -96,23 +96,11 @@
     }];
 }
 
-- (NSArray *)filteredUsersByCurrentEnvironment {
-    
-    NSString *currentEnvironment = [self currentEnvironment];
-    NSString *containsString;
-    if ([currentEnvironment isEqualToString:@"qbqa"]) {
-        containsString = @"qa";
-    } else {
-        containsString = currentEnvironment;
-    }
-    
-    NSString *expression = [NSString stringWithFormat:@"SELF.login contains '%@'", containsString];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:expression];
+- (NSArray *)sortedUsers {
     
     NSArray *users = [self.usersService.usersMemoryStorage unsortedUsers];
-    NSArray *filteredArray = [users filteredArrayUsingPredicate:predicate];
     
-    NSMutableArray *mutableUsers = [[filteredArray subarrayWithRange:NSMakeRange(0, kUsersLimit)] mutableCopy];
+    NSMutableArray *mutableUsers = [users mutableCopy];
     [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
         return [obj1.login compare:obj2.login options:NSNumericSearch];
     }];
