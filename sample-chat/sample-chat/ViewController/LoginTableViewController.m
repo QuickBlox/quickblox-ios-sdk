@@ -27,8 +27,7 @@
  */
 static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
 	[super viewDidLoad];
 	
 	ServicesManager *servicesManager = [ServicesManager instance];
@@ -61,8 +60,10 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     [self retrieveUsers];
 }
 
-- (void)retrieveUsers
-{
+/**
+ *  Retrieve users from cache or download them from REST
+ */
+- (void)retrieveUsers {
 	__weak __typeof(self)weakSelf = self;
     
     // Retrieving users from cache.
@@ -71,15 +72,14 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
         if ([task.result count] > 0) {
             [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] sortedUsers]];
         } else {
-            [weakSelf downloadLatestUsers];
+            [weakSelf downloadCurrentEnvironmentUsers];
         }
         
         return nil;
     }];
 }
 
-- (void)downloadLatestUsers
-{
+- (void)downloadCurrentEnvironmentUsers {
 	if (self.isUsersAreDownloading) return;
     
 	self.usersAreDownloading = YES;
@@ -98,8 +98,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	}];
 }
 
-- (void)loadDataSourceWithUsers:(NSArray<QBUUser *> *)users
-{
+- (void)loadDataSourceWithUsers:(NSArray<QBUUser *> *)users {
 	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
     self.dataSource.isLoginDataSource = YES;
 	self.tableView.dataSource = self.dataSource;
@@ -171,8 +170,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue
-{
+- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue {
 
 }
 
