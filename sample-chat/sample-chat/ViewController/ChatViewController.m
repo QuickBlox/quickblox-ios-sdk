@@ -47,8 +47,7 @@ QMChatCellDelegate
 @implementation ChatViewController
 @synthesize pickerController = _pickerController;
 
-- (UIImagePickerController *)pickerController
-{
+- (UIImagePickerController *)pickerController {
     if (_pickerController == nil) {
         _pickerController = [UIImagePickerController new];
         _pickerController.delegate = self;
@@ -130,9 +129,10 @@ QMChatCellDelegate
 	// Retrieving messages from Quickblox REST history and cache.
     [[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
         if (response.success) {
-            
-            __typeof(weakSelf)strongSelf = weakSelf;
-            if ([messages count] > 0) [strongSelf.chatSectionManager addMessages:messages];
+			
+			if ([messages count] > 0) {
+				[weakSelf.chatSectionManager addMessages:messages];
+			}
             [SVProgressHUD dismiss];
             
         } else {
@@ -157,9 +157,7 @@ QMChatCellDelegate
                                                                                       object:nil
                                                                                        queue:nil
                                                                                   usingBlock:^(NSNotification *note) {
-                                                                                      
-                                                                                      __typeof(self) strongSelf = weakSelf;
-                                                                                      [strongSelf fireStopTypingIfNecessary];
+                                                                                      [weakSelf fireStopTypingIfNecessary];
                                                                                   }];
 }
 
@@ -280,32 +278,30 @@ QMChatCellDelegate
     if (item.isNotificatonMessage) {
         
         return [QMChatNotificationCell class];
-        
-    }
-    else {
-        if (item.senderID != self.senderID) {
-            if (item.isMediaMessage && item.attachmentStatus != QMMessageAttachmentStatusError) {
-                return [QMChatAttachmentIncomingCell class];
-            }
-            else {
-                return [QMChatIncomingCell class];
-            }
-        }
-        else {
-            if (item.isMediaMessage && item.attachmentStatus != QMMessageAttachmentStatusError) {
-                return [QMChatAttachmentOutgoingCell class];
-            }
-            else {
-                return [QMChatOutgoingCell class];
-            }
-        }
-    }
+	}
+	
+	if (item.senderID != self.senderID) {
+		if (item.isMediaMessage && item.attachmentStatus != QMMessageAttachmentStatusError) {
+			return [QMChatAttachmentIncomingCell class];
+		}
+		else {
+			return [QMChatIncomingCell class];
+		}
+	}
+	else {
+		if (item.isMediaMessage && item.attachmentStatus != QMMessageAttachmentStatusError) {
+			return [QMChatAttachmentOutgoingCell class];
+		}
+		else {
+			return [QMChatOutgoingCell class];
+		}
+	}
 }
 
 #pragma mark - Strings builder
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
-    
+	
     UIColor *textColor;
     
     if (messageItem.isNotificatonMessage) {
@@ -730,7 +726,7 @@ QMChatCellDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeLoadingProgress:(CGFloat)progress forChatAttachment:(QBChatAttachment *)attachment {
     
-    UICollectionViewCell<QMChatAttachmentCell> *cell = [self.attachmentCells objectForKey:attachment.ID];
+    id<QMChatAttachmentCell> cell = [self.attachmentCells objectForKey:attachment.ID];
     if (cell != nil) {
         
         [cell updateLoadingProgress:progress];
@@ -739,7 +735,7 @@ QMChatCellDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeUploadingProgress:(CGFloat)progress forMessage:(QBChatMessage *)message {
     
-    UICollectionViewCell<QMChatAttachmentCell> *cell = [self.attachmentCells objectForKey:message.ID];
+    id<QMChatAttachmentCell> cell = [self.attachmentCells objectForKey:message.ID];
     
     if (cell == nil && progress < 1.0f) {
         
@@ -758,7 +754,7 @@ QMChatCellDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
-    if (![QBChat instance].isConnected) {
+    if (![ServicesManager instance].isAuthorized) {
         
         return YES;
     }

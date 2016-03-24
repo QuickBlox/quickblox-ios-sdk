@@ -60,7 +60,10 @@
     
     [super handleErrorResponse:response];
     
-    if (![self isAuthorized]) return;
+	if (![self isAuthorized]){
+		return;
+	}
+	
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
@@ -125,15 +128,13 @@
 
 #pragma mark - Last activity date
 
-- (void)setLastActivityDate:(NSDate *)lastActivityDate
-{
+- (void)setLastActivityDate:(NSDate *)lastActivityDate {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:lastActivityDate forKey:kLastActivityDateKey];
     [defaults synchronize];
 }
 
-- (NSDate *)lastActivityDate
-{
+- (NSDate *)lastActivityDate {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:kLastActivityDateKey];
 }

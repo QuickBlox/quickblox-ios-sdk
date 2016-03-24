@@ -32,7 +32,7 @@
  */
 @property (nonatomic, strong, readonly) NSArray<QBUUser *> *users;
 @property (nonatomic, strong) NSArray<NSNumber *> *excludeUsersIDs;
-@property (nonatomic, assign) BOOL isLoginDataSource;
+@property (nonatomic, assign) BOOL addStringLoginAsBeforeUserFullname;
 
 - (NSUInteger)indexOfUser:(QBUUser *)user;
 - (UIColor *)colorForUser:(QBUUser *)user;

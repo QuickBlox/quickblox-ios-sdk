@@ -19,8 +19,7 @@
 
 @implementation DialogInfoTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.tableFooterView = [UIView new];
     self.title = NSLocalizedString(@"SA_STR_CHAT_INFO", nil);
@@ -32,13 +31,15 @@
     
     // Retrieving users from cache.
     [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask *task) {
-        //
         __typeof(weakSelf)strongSelf = weakSelf;
+		
         strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:task.result];
         strongSelf.tableView.dataSource = strongSelf.usersDatasource;
         
-        if ([task.result count] >= kUsersLimit) strongSelf.navigationItem.rightBarButtonItem.enabled = NO;
-        
+		if ([task.result count] >= kUsersLimit) {
+			strongSelf.navigationItem.rightBarButtonItem.enabled = NO;
+		}
+		
         [strongSelf.tableView reloadData];
         
         return nil;

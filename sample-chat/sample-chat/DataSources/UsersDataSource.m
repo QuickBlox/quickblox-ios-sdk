@@ -102,7 +102,7 @@
 	QBUUser *user = (QBUUser *)self.users[indexPath.row];
 	
 	cell.user = user;
-    if (self.isLoginDataSource) {
+    if (self.addStringLoginAsBeforeUserFullname) {
         cell.userDescription = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_LOGIN_AS", nil), user.fullName];
     } else {
         cell.userDescription = user.fullName;

@@ -100,7 +100,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
 - (void)loadDataSourceWithUsers:(NSArray<QBUUser *> *)users {
 	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
-    self.dataSource.isLoginDataSource = YES;
+    self.dataSource.addStringLoginAsBeforeUserFullname = YES;
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
 }
@@ -124,6 +124,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)notificationServiceDidFailFetchingDialog {
+	// TODO: maybe segue class should be ReplaceSegue?
     [self performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
 }
 
@@ -158,9 +159,10 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     // Logging in to Quickblox REST API and chat.
     [ServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
+			__typeof(self) strongSelf = weakSelf;
+			
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_LOGGED_IN", nil)];
-            [weakSelf registerForRemoteNotifications];
-            __typeof(self) strongSelf = weakSelf;
+            [strongSelf registerForRemoteNotifications];
             [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
         } else {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];

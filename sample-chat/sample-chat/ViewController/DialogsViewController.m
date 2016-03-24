@@ -47,8 +47,7 @@ QMChatConnectionDelegate
      self.navigationItem.title = [ServicesManager instance].currentUser.login;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     
    
@@ -84,15 +83,13 @@ QMChatConnectionDelegate
     });
 }
 
-- (void)loadDialogs
-{
+- (void)loadDialogs {
     __weak __typeof(self) weakSelf = self;
 	
     if ([ServicesManager instance].lastActivityDate != nil) {
         [[ServicesManager instance].chatService fetchDialogsUpdatedFromDate:[ServicesManager instance].lastActivityDate andPageLimit:kDialogsPageLimit iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
             //
-            __typeof(weakSelf) strongSelf = weakSelf;
-            [strongSelf.tableView reloadData];
+            [weakSelf.tableView reloadData];
         } completionBlock:^(QBResponse *response) {
             //
             if ([ServicesManager instance].isAuthorized && response.success) {
@@ -103,8 +100,7 @@ QMChatConnectionDelegate
     else {
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_DIALOGS", nil) maskType:SVProgressHUDMaskTypeClear];
         [[ServicesManager instance].chatService allDialogsWithPageLimit:kDialogsPageLimit extendedRequest:nil iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
-            __typeof(weakSelf) strongSelf = weakSelf;
-            [strongSelf.tableView reloadData];
+            [weakSelf.tableView reloadData];
         } completion:^(QBResponse *response) {
             if ([ServicesManager instance].isAuthorized) {
                 if (response.success) {
@@ -119,8 +115,7 @@ QMChatConnectionDelegate
     }
 }
 
-- (NSArray *)dialogs
-{
+- (NSArray *)dialogs {
     // Retrieving dialogs sorted by updatedAt date from memory storage.
 	return [ServicesManager.instance.chatService.dialogsMemoryStorage dialogsSortByUpdatedAtWithAscending:NO];
 }
@@ -128,13 +123,11 @@ QMChatConnectionDelegate
 #pragma mark
 #pragma mark UITableViewDelegate & UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return self.dialogs.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
@@ -197,8 +190,7 @@ QMChatConnectionDelegate
                                                     }];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	QBChatDialog *dialog = self.dialogs[indexPath.row];
@@ -206,54 +198,48 @@ QMChatConnectionDelegate
     [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 64.0f;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
         ChatViewController *chatViewController = segue.destinationViewController;
         chatViewController.dialog = sender;
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        QBChatDialog *chatDialog = self.dialogs[indexPath.row];
-
-        // remove current user from occupants
-        NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
-        for (NSNumber *identifier in chatDialog.occupantIDs) {
-            if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
-                [occupantsWithoutCurrentUser addObject:identifier];
-            }
-        }
-        chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
-        
-        
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_DELETING", nil) maskType:SVProgressHUDMaskTypeClear];
-        
-        if (chatDialog.type == QBChatDialogTypeGroup) {
-            NSString *notificationText = [NSString stringWithFormat:@"%@ %@", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_USER_HAS_LEFT", nil)];
-            __weak __typeof(self) weakSelf = self;
-            
-            // Notifying user about updated dialog - user left it.
-              [[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError  *_Nullable error) {
-                    [weakSelf deleteDialogWithID:chatDialog.ID];
-              }];
-        }
-        else {
-            [self deleteDialogWithID:chatDialog.ID];
-        }
-    }
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle != UITableViewCellEditingStyleDelete) {
+		return;
+	}
+	
+	QBChatDialog *chatDialog = self.dialogs[indexPath.row];
+	
+	// remove current user from occupants
+	NSMutableArray *occupantsWithoutCurrentUser = [NSMutableArray array];
+	for (NSNumber *identifier in chatDialog.occupantIDs) {
+		if (![identifier isEqualToNumber:@(ServicesManager.instance.currentUser.ID)]) {
+			[occupantsWithoutCurrentUser addObject:identifier];
+		}
+	}
+	chatDialog.occupantIDs = [occupantsWithoutCurrentUser copy];
+	
+	[SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_DELETING", nil) maskType:SVProgressHUDMaskTypeClear];
+	
+	if (chatDialog.type == QBChatDialogTypeGroup) {
+		NSString *notificationText = [NSString stringWithFormat:@"%@ %@", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_USER_HAS_LEFT", nil)];
+		__weak __typeof(self) weakSelf = self;
+		
+		// Notifying user about updated dialog - user left it.
+		[[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError  *_Nullable error) {
+			[weakSelf deleteDialogWithID:chatDialog.ID];
+		}];
+	}
+	else {
+		[self deleteDialogWithID:chatDialog.ID];
+		
+	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -297,30 +283,25 @@ QMChatConnectionDelegate
 
 #pragma mark - QMChatConnectionDelegate
 
-- (void)chatServiceChatDidConnect:(QMChatService *)chatService
-{
+- (void)chatServiceChatDidConnect:(QMChatService *)chatService {
     [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_CONNECTED", nil) maskType:SVProgressHUDMaskTypeClear];
     [self loadDialogs];
 }
 
-- (void)chatServiceChatDidReconnect:(QMChatService *)chatService
-{
+- (void)chatServiceChatDidReconnect:(QMChatService *)chatService {
     [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_RECONNECTED", nil) maskType:SVProgressHUDMaskTypeClear];
     [self loadDialogs];
 }
 
-- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService
-{
+- (void)chatServiceChatDidAccidentallyDisconnect:(QMChatService *)chatService {
     [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_DISCONNECTED", nil)];
 }
 
-- (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error
-{
+- (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error {
     [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_DID_NOT_CONNECT_ERROR", nil), [error description]]];
 }
 
-- (void)chatServiceChatDidFailWithStreamError:(NSError *)error
-{
+- (void)chatServiceChatDidFailWithStreamError:(NSError *)error {
     [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_FAILED_TO_CONNECT_WITH_ERROR", nil), [error description]]];
 }
 
