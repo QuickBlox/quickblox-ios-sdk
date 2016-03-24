@@ -20,11 +20,11 @@
  *  @param saveToStorage    if YES - saves to local storage
  *  @param completion       completion block with failure error
  */
-- (void)sendMessage:(QBChatMessage *)message
+- (void)sendMessage:(QB_NONNULL QBChatMessage *)message
                type:(QMMessageType)type
-           toDialog:(QBChatDialog *)dialog
+           toDialog:(QB_NONNULL QBChatDialog *)dialog
       saveToHistory:(BOOL)saveToHistory
       saveToStorage:(BOOL)saveToStorage
-         completion:(QBChatCompletionBlock)completion;
+         completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 @end

@@ -10,6 +10,6 @@
 
 @interface DialogInfoTableViewController : UITableViewController
 
-@property (nonatomic, copy) QBChatDialog* dialog;
+@property (nonatomic, copy) QBChatDialog *dialog;
 
 @end

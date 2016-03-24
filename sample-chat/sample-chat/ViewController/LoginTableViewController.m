@@ -23,30 +23,32 @@
 @implementation LoginTableViewController
 
 /*
- *  Default test users password
+ * Default test users password
  */
 static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
 	[super viewDidLoad];
-    if (ServicesManager.instance.currentUser != nil) {
+	
+	ServicesManager *servicesManager = [ServicesManager instance];
+	
+    if (servicesManager.currentUser != nil) {
         // loggin in with previous user
-        ServicesManager.instance.currentUser.password = kTestUsersDefaultPassword;
-        [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:ServicesManager.instance.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
+        servicesManager.currentUser.password = kTestUsersDefaultPassword;
+        [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:servicesManager.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
         
         __weak __typeof(self)weakSelf = self;
-        [ServicesManager.instance logInWithUser:ServicesManager.instance.currentUser completion:^(BOOL success, NSString *errorMessage) {
+        [servicesManager logInWithUser:servicesManager.currentUser completion:^(BOOL success, NSString *errorMessage) {
             if (success) {
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
                 [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_LOGGED_IN", nil)];
                 
-                if (ServicesManager.instance.notificationService.pushDialogID == nil) {
+                if (servicesManager.notificationService.pushDialogID == nil) {
                     [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
                 }
                 else {
-                    [ServicesManager.instance.notificationService handlePushNotificationWithDelegate:self];
+                    [servicesManager.notificationService handlePushNotificationWithDelegate:self];
                 }
                 
             } else {
@@ -58,25 +60,26 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     [self retrieveUsers];
 }
 
-- (void)retrieveUsers
-{
+/**
+ *  Retrieve users from cache or download them from REST
+ */
+- (void)retrieveUsers {
 	__weak __typeof(self)weakSelf = self;
     
     // Retrieving users from cache.
     [[[ServicesManager instance].usersService loadFromCache] continueWithBlock:^id(BFTask *task) {
         //
         if ([task.result count] > 0) {
-            [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] filteredUsersByCurrentEnvironment]];
+            [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] sortedUsers]];
         } else {
-            [weakSelf downloadLatestUsers];
+            [weakSelf downloadCurrentEnvironmentUsers];
         }
         
         return nil;
     }];
 }
 
-- (void)downloadLatestUsers
-{
+- (void)downloadCurrentEnvironmentUsers {
 	if (self.isUsersAreDownloading) return;
     
 	self.usersAreDownloading = YES;
@@ -85,7 +88,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_USERS", nil) maskType:SVProgressHUDMaskTypeClear];
 	
     // Downloading latest users.
-	[[ServicesManager instance] downloadLatestUsersWithSuccessBlock:^(NSArray *latestUsers) {
+	[[ServicesManager instance] downloadCurrentEnvironmentUsersWithSuccessBlock:^(NSArray *latestUsers) {
         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
@@ -95,10 +98,9 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	}];
 }
 
-- (void)loadDataSourceWithUsers:(NSArray *)users
-{
+- (void)loadDataSourceWithUsers:(NSArray<QBUUser *> *)users {
 	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
-    self.dataSource.isLoginDataSource = YES;
+    self.dataSource.addStringLoginAsBeforeUserFullname = YES;
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
 }
@@ -122,6 +124,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)notificationServiceDidFailFetchingDialog {
+	// TODO: maybe segue class should be ReplaceSegue?
     [self performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
 }
 
@@ -156,9 +159,10 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     // Logging in to Quickblox REST API and chat.
     [ServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
+			__typeof(self) strongSelf = weakSelf;
+			
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_LOGGED_IN", nil)];
-            [weakSelf registerForRemoteNotifications];
-            __typeof(self) strongSelf = weakSelf;
+            [strongSelf registerForRemoteNotifications];
             [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
         } else {
             [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
@@ -168,8 +172,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue
-{
+- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue {
 
 }
 

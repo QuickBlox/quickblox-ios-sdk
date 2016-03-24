@@ -189,7 +189,7 @@
 
 #pragma mark - QMUsersMemoryStorageDelegate
 
-- (NSArray *)contactsIDS {
+- (NSArray QB_GENERIC(NSNumber *)*)contactsIDS {
     
     return [self.contactListMemoryStorage userIDsFromContactList];
 }

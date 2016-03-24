@@ -11,7 +11,6 @@
 
 @interface ChatViewController : QMChatViewController
 
-@property (nonatomic, strong) QBChatDialog* dialog;
-@property (nonatomic, assign) BOOL shouldUpdateNavigationStack;
+@property (nonatomic, strong) QBChatDialog *dialog;
 
 @end

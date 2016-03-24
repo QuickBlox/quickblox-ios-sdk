@@ -116,7 +116,7 @@ To generate bundle for dialogs and messages you need to open **QMServices** proj
 
 # Architecture
 
-QMServices contains:
+QMServices contain:
 
 * **QMAuthService**
 * **QMChatService**
@@ -128,7 +128,7 @@ They all inherited from **QMBaseService**.
 To support CoreData caching you can use **QMContactListCache**, **QMChatCache** and **QMUsersCache**, which are inherited from **QMDBStorage**. Of course you could use your own database storage - just need to implement **QMChatServiceDelegate**, **QMContactListServiceDelegate** or **QMUsersServiceDelegate** depending on your needs.
 
 # Getting started
-Add **#import \<QMServices.h\>** to your apps *.pch* file.
+Add **#import \<QMServices.h\>** to your app's *.pch* file.
 
 ## Service Manager
 
@@ -173,12 +173,12 @@ In ``init`` method, services and cache are initialised.
 	self = [super init];
 	if (self) {
 		[QMChatCache setupDBWithStoreNamed:@"sample-cache"];
-        	[QMChatCache instance].messagesLimitPerDialog = 10;
+		[QMChatCache instance].messagesLimitPerDialog = 10;
 
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
-        	[_chatService addDelegate:self];
-        	_logoutGroup = dispatch_group_create();
+		[_chatService addDelegate:self];
+		_logoutGroup = dispatch_group_create();
 	}
 	return self;
 }
@@ -213,7 +213,7 @@ Also you have to implement **QMServiceManagerProtocol** methods:
 	// handle error response from services here
 }
 
-- (BOOL)isAutorized {
+- (BOOL)isAuthorized {
 	return self.authService.isAuthorized;
 }
 
@@ -276,7 +276,7 @@ Also for prefetching initial dialogs and messages you have to implement **QMChat
 We encourage to use automatic session creation, to simplify communication with backend:
 
 ```objective-c
-[QBConnection setAutoCreateSessionEnabled:YES];
+[QBSettings setAutoCreateSessionEnabled:YES];
 ```
 
 ### Login
@@ -287,6 +287,7 @@ This method logins user to Quickblox REST API backend and to the Quickblox Chat 
 - (void)logInWithUser:(QBUUser *)user
 		   completion:(void (^)(BOOL success, NSString *errorMessage))completion
 {
+	__weak typeof(self) weakSelf = self;
 	[self.authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
 		if (response.error != nil) {
 			if (completion != nil) {
@@ -295,8 +296,7 @@ This method logins user to Quickblox REST API backend and to the Quickblox Chat 
 			return;
 		}
 		
-        __weak typeof(self) weakSelf = self;
-        [weakSelf.chatService connectWithCompletionBlock:^(NSError * _Nullable error) {
+		[weakSelf.chatService connectWithCompletionBlock:^(NSError * _Nullable error) {
             //
             __typeof(self) strongSelf = weakSelf;
             
@@ -331,9 +331,9 @@ Example of usage:
     // Logging in to Quickblox REST API and chat.
     [QMServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
-        	// Handle success login
+            // Handle success login
         } else {
-            	// Handle error with error message
+            // Handle error with error message
         }
     }];
 ```
@@ -344,8 +344,8 @@ Example of usage:
 - (void)logoutWithCompletion:(dispatch_block_t)completion
 {
     if ([QBSession currentSession].currentUser != nil) {
-        __weak typeof(self)weakSelf = self;    
-        
+        __weak typeof(self)weakSelf = self;
+                
         dispatch_group_enter(self.logoutGroup);
         [self.authService logOut:^(QBResponse *response) {
             __typeof(self) strongSelf = weakSelf;
@@ -355,13 +355,13 @@ Example of usage:
         }];
         
         dispatch_group_enter(self.logoutGroup);
-        [[QMChatCache instance] deleteAllDialogs:^{
+        [[QMChatCache instance] deleteAllDialogsWithCompletion:^{
             __typeof(self) strongSelf = weakSelf;
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
         
         dispatch_group_enter(self.logoutGroup);
-        [[QMChatCache instance] deleteAllMessages:^{
+        [[QMChatCache instance] deleteAllMessagesWithCompletion:^{
             __typeof(self) strongSelf = weakSelf;
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
@@ -513,7 +513,7 @@ Implementation file:
     
     [super handleErrorResponse:response];
     
-    if (![self isAutorized]) return;
+    if (![self isAuthorized]) return;
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
@@ -560,7 +560,7 @@ Current user authorisation status:
 
 ```
 
-Sign up user and log's in to Quickblox.
+Sign up user and login to Quickblox.
 
 ```objective-c
 
@@ -648,22 +648,6 @@ Disconnect user from Quickblox chat.
 
 ```
 
-Automatically send presences after logging in to Quickblox chat.
-
-```objective-c
-
-@property (nonatomic, assign) BOOL automaticallySendPresences;
-
-```
-
-Time interval for sending preseneces - default value 45 seconds.
-
-```objective-c
-
-@property (nonatomic, assign) NSTimeInterval presenceTimerInterval;
-
-```
-
 Join user to group dialog.
 
 ```objective-c
@@ -734,7 +718,7 @@ Recursively fetch all dialogs from Quickblox.
 
 - (void)allDialogsWithPageLimit:(NSUInteger)limit
 				extendedRequest:(NSDictionary *)extendedRequest
-				 iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))interationBlock
+				 iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))iterationBlock
 					 completion:(void(^)(QBResponse *response))completion;
 ```
 
@@ -990,7 +974,7 @@ Recursively fetch all dialogs from Quickblox using Bolts.
 
 - (BFTask *)allDialogsWithPageLimit:(NSUInteger)limit
                     extendedRequest:(NSDictionary *)extendedRequest
-                     iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))interationBlock;
+                     iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))iterationBlock;
 
 ```
 
@@ -1522,7 +1506,7 @@ Add users to memory storage.
 
 ```objective-c
 
-- (void)addUsers:(NSArray *)users;
+- (void)addUsers:(NSArray<QBUUser *> *)users;
 
 ```
 
@@ -1532,7 +1516,7 @@ Get all users from memory storage without sorting.
 
 ```objective-c
 
-- (NSArray *)unsortedUsers;
+- (NSArray<QBUUser *> *)unsortedUsers;
 
 ```
 
@@ -1540,7 +1524,7 @@ Get all users in memory storage sorted by key.
 
 ```objective-c
 
-- (NSArray *)usersSortedByKey:(NSString *)key ascending:(BOOL)ascending;
+- (NSArray<QBUUser *> *)usersSortedByKey:(NSString *)key ascending:(BOOL)ascending;
 
 ```
 
@@ -1556,7 +1540,7 @@ Get users with ids without some id.
 
 ```objective-c
 
-- (NSArray *)usersWithIDs:(NSArray *)IDs withoutID:(NSUInteger)ID;
+- (NSArray<QBUUser *> *)usersWithIDs:(NSArray *)IDs withoutID:(NSUInteger)ID;
 
 ```
 
@@ -1580,7 +1564,7 @@ Get users with user ids.
 
 ```objective-c
 
-- (NSArray *)usersWithIDs:(NSArray *)ids;
+- (NSArray<QBUUser *> *)usersWithIDs:(NSArray *)ids;
 
 ```
 

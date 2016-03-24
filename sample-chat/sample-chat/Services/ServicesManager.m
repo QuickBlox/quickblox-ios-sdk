@@ -60,7 +60,10 @@
     
     [super handleErrorResponse:response];
     
-    if (![self isAuthorized]) return;
+	if (![self isAuthorized]){
+		return;
+	}
+	
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
@@ -75,7 +78,7 @@
     [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:errorMessage type:TWMessageBarMessageTypeError];
 }
 
-- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
+- (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray<QBUUser *> *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
     
     __weak __typeof(self)weakSelf = self;
     [[self.usersService searchUsersWithTags:@[[self currentEnvironment]]] continueWithBlock:^id(BFTask *task) {
@@ -88,7 +91,7 @@
         else {
             
             if (successBlock != nil) {
-                successBlock([weakSelf filteredUsersByCurrentEnvironment]);
+                successBlock([weakSelf sortedUsers]);
             }
         }
         
@@ -96,23 +99,11 @@
     }];
 }
 
-- (NSArray *)filteredUsersByCurrentEnvironment {
-    
-    NSString *currentEnvironment = [self currentEnvironment];
-    NSString *containsString;
-    if ([currentEnvironment isEqualToString:@"qbqa"]) {
-        containsString = @"qa";
-    } else {
-        containsString = currentEnvironment;
-    }
-    
-    NSString *expression = [NSString stringWithFormat:@"SELF.login contains '%@'", containsString];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:expression];
+- (NSArray *)sortedUsers {
     
     NSArray *users = [self.usersService.usersMemoryStorage unsortedUsers];
-    NSArray *filteredArray = [users filteredArrayUsingPredicate:predicate];
     
-    NSMutableArray *mutableUsers = [[filteredArray subarrayWithRange:NSMakeRange(0, kUsersLimit)] mutableCopy];
+    NSMutableArray *mutableUsers = [users mutableCopy];
     [mutableUsers sortUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
         return [obj1.login compare:obj2.login options:NSNumericSearch];
     }];
@@ -137,15 +128,13 @@
 
 #pragma mark - Last activity date
 
-- (void)setLastActivityDate:(NSDate *)lastActivityDate
-{
+- (void)setLastActivityDate:(NSDate *)lastActivityDate {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:lastActivityDate forKey:kLastActivityDateKey];
     [defaults synchronize];
 }
 
-- (NSDate *)lastActivityDate
-{
+- (NSDate *)lastActivityDate {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:kLastActivityDateKey];
 }
