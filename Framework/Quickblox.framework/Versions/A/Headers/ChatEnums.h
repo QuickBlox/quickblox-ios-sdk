@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, QBPresenceShow) {
     QBPresenceShowChat = 2, // The entity or resource is actively interested in chatting.
     QBPresenceShowDND = 3, // The entity or resource is busy (dnd = "Do Not Disturb").
     QBPresenceShowXA = 4, // The entity or resource is away for an extended period (xa = "eXtended Away").
-};
+} DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.1. This enum is unused and will be removed in a future versions.");
 
 typedef NS_ENUM(NSUInteger, QBPresenseSubscriptionState){
     QBPresenceSubscriptionStateNone = 1, // the user does not have a subscription to the contact's presence information, and the contact does not have a subscription to the user's presence information
