@@ -36,7 +36,7 @@
         strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:task.result];
         strongSelf.tableView.dataSource = strongSelf.usersDatasource;
         
-		if ([task.result count] >= kUsersLimit) {
+		if ([task.result count] >= strongSelf.usersDatasource.users.count) {
 			strongSelf.navigationItem.rightBarButtonItem.enabled = NO;
 		}
 		
