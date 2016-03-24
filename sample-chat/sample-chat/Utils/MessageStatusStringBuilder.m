@@ -33,7 +33,7 @@
 				[readLogins addObject:user.login];
 			}
 			else {
-				NSString *unkownUserLogin = [@"Unknown user: %@" stringByAppendingString:[readID stringValue]];
+				NSString *unkownUserLogin = [@"@%@" stringByAppendingString:[readID stringValue]];
 				[readLogins addObject:unkownUserLogin];
 			}
         }
@@ -53,7 +53,7 @@
 				[deliveredLogins addObject:user.login];
 			}
 			else {
-				NSString *unkownUserLogin = [@"Unknown user: %@" stringByAppendingString:[deliveredID stringValue]];
+				NSString *unkownUserLogin = [@"@%@" stringByAppendingString:[deliveredID stringValue]];
 				[deliveredLogins addObject:unkownUserLogin];
 			}
 			
