@@ -126,7 +126,8 @@ QMChatCellDelegate
     }
     
     __weak __typeof(self)weakSelf = self;
-    // Retrieving message from Quickblox REST history and cache.
+	
+	// Retrieving messages from Quickblox REST history and cache.
     [[ServicesManager instance].chatService messagesWithChatDialogID:self.dialog.ID completion:^(QBResponse *response, NSArray *messages) {
         if (response.success) {
             
@@ -190,7 +191,10 @@ QMChatCellDelegate
         [mutableOccupants removeObject:@([self senderID])];
         NSNumber *opponentID = [mutableOccupants firstObject];
         QBUUser *opponentUser = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:[opponentID unsignedIntegerValue]];
-        NSAssert(opponentUser, @"opponent must exists");
+		if (!opponentUser) {
+			self.title = [opponentID stringValue];
+			return;
+		}
         self.opponentUser = opponentUser;
         self.title = self.opponentUser.fullName;
     }
@@ -209,12 +213,11 @@ QMChatCellDelegate
             
             if (error != nil) {
                 NSLog(@"Problems while marking message as read! Error: %@", error);
+				return;
             }
-            else {
-                if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
-                    [UIApplication sharedApplication].applicationIconBadgeNumber--;
-                }
-            }
+			if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
+				[UIApplication sharedApplication].applicationIconBadgeNumber--;
+			}
         }];
     }
 }
@@ -327,12 +330,18 @@ QMChatCellDelegate
     if ([messageItem senderID] == self.senderID || self.dialog.type == QBChatDialogTypePrivate) {
         return nil;
     }
-    
+	
     NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
-        QBUUser *user = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:messageItem.senderID];
-        topLabelText = (user != nil) ? user.login : [NSString stringWithFormat:@"@%lu",(unsigned long)messageItem.senderID];
+        QBUUser *messageSender = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:messageItem.senderID];
+		
+		if (messageSender) {
+			topLabelText = messageSender.login;
+		}
+		else {
+			topLabelText = [NSString stringWithFormat:@"@%lu",(unsigned long)messageItem.senderID];
+		}
     }
     
     // setting the paragraph style lineBreakMode to NSLineBreakByTruncatingTail in order to TTTAttributedLabel cut the line in a correct way
