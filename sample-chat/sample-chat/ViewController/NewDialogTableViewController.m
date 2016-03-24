@@ -105,7 +105,7 @@
 	if (selectedUsers.count == 1) {
         // Creating private chat dialog.
 		[ServicesManager.instance.chatService createPrivateChatDialogWithOpponent:selectedUsers.firstObject completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-			if (!response.success  && createdDialog == nil) {
+			if (!response.success && createdDialog == nil) {
 				if (completion) {
 					completion(nil);
 				}
