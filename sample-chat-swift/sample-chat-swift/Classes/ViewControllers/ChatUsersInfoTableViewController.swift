@@ -8,42 +8,32 @@
 
 
 class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
-    var occupantsIDs: [UInt] = []
-    var dialog: QBChatDialog?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    
+    var dialog: QBChatDialog!
+	
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.dialog?.occupantIDs?.count >= kUsersLimit {
+        if self.dialog.occupantIDs?.count >= kUsersLimit {
             self.navigationItem.rightBarButtonItem?.enabled = false
         }
         
         ServicesManager.instance().chatService.addDelegate(self)
     }
-    
+	
     func updateUsers() {
-        if let _ = self.dialog  {
-            
-            self.setupUsers(ServicesManager.instance().filteredUsersByCurrentEnvironment())
-        }
+		if let users = ServicesManager.instance().sortedUsers() {
+			self.setupUsers(users)
+		}
     }
-    
+	
     override func setupUsers(users: [QBUUser]) {
-        
-        var filteredUsers = users.filter({($0 as QBUUser).ID != ServicesManager.instance().currentUser().ID})
-        
-        if let _ = self.dialog  {
-            
-            filteredUsers = filteredUsers.filter({(self.dialog!.occupantIDs as! [UInt]).contains(($0 as QBUUser).ID)})
-        }
+
+        let usersWithoutCurrentUser = users.filter({ $0.ID != ServicesManager.instance().currentUser().ID})
+		
+		let filteredUsers = usersWithoutCurrentUser.filter({self.dialog.occupantIDs!.contains(NSNumber(unsignedInteger: $0.ID))})
+		
         
         super.setupUsers(filteredUsers)
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -58,14 +48,14 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    func chatService(chatService: QMChatService!, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog!) {
+    func chatService(chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
         
         if (chatDialog.ID == self.dialog!.ID) {
             self.dialog = chatDialog
             self.updateUsers()
             self.tableView.reloadData()
         }
-        
+		
     }
     
 }

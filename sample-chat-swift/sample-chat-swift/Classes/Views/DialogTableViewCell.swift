@@ -33,7 +33,7 @@ class DialogTableViewCell: UITableViewCell {
         
         super.setSelected(selected, animated: animated)
         
-        self.self.unreadMessageCounterHolder.backgroundColor = markerColor
+        self.unreadMessageCounterHolder.backgroundColor = markerColor
     }
     
     override func setHighlighted(highlighted: Bool, animated: Bool) {
@@ -42,6 +42,6 @@ class DialogTableViewCell: UITableViewCell {
         
         super.setHighlighted(highlighted, animated: animated)
         
-        self.self.unreadMessageCounterHolder.backgroundColor = markerColor
+        self.unreadMessageCounterHolder.backgroundColor = markerColor
     }
 }

@@ -43,36 +43,44 @@ class NotificationService {
     var pushDialogID: String?
     
     func handlePushNotificationWithDelegate(delegate: NotificationServiceDelegate!) {
-        if self.pushDialogID!.isEmpty {
+        guard let dialogID = self.pushDialogID else {
             return
         }
-        
+		
+		guard !dialogID.isEmpty else {
+			return
+		}
+		
         self.delegate = delegate;
-        
-        ServicesManager.instance().chatService.fetchDialogWithID(self.pushDialogID, completion: {
-            [weak self] (chatDialog: QBChatDialog!) -> Void in
-            if let strongSelf = self {
+
+		
+        ServicesManager.instance().chatService.fetchDialogWithID(dialogID, completion: {
+            [weak self] (chatDialog: QBChatDialog?) -> Void in
+			guard let strongSelf = self else { return }
                 //
-                if (chatDialog != nil) {
-                    strongSelf.pushDialogID = nil;
-                    strongSelf.delegate?.notificationServiceDidSucceedFetchingDialog(chatDialog);
-                }
-                else {
-                    //
-                    strongSelf.delegate?.notificationServiceDidStartLoadingDialogFromServer()
-                    ServicesManager.instance().chatService.loadDialogWithID(strongSelf.pushDialogID, completion: { (loadedDialog: QBChatDialog!) -> Void in
-                        //
-                        strongSelf.delegate?.notificationServiceDidFinishLoadingDialogFromServer()
-                        if (loadedDialog != nil) {
-                            //
-                            strongSelf.delegate?.notificationServiceDidSucceedFetchingDialog(loadedDialog)
-                        }
-                        else {
-                            strongSelf.delegate?.notificationServiceDidFailFetchingDialog()
-                        }
-                    })
-                }
-            }
+			if (chatDialog != nil) {
+				strongSelf.pushDialogID = nil;
+				strongSelf.delegate?.notificationServiceDidSucceedFetchingDialog(chatDialog);
+			}
+			else {
+				//
+				strongSelf.delegate?.notificationServiceDidStartLoadingDialogFromServer()
+				ServicesManager.instance().chatService.loadDialogWithID(dialogID, completion: { (loadedDialog: QBChatDialog?) -> Void in
+					
+					guard let unwrappedDialog = loadedDialog else {
+						strongSelf.delegate?.notificationServiceDidFailFetchingDialog()
+						return
+					}
+					
+					//
+					strongSelf.delegate?.notificationServiceDidFinishLoadingDialogFromServer()
+					
+					//
+					strongSelf.delegate?.notificationServiceDidSucceedFetchingDialog(unwrappedDialog)
+					
+				})
+			}
+
             })
     }
 }

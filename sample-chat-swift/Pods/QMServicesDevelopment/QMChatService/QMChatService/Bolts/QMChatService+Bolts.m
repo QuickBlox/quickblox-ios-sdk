@@ -88,11 +88,13 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     return source.task;
 }
 
-- (BFTask *)allDialogsWithPageLimit:(NSUInteger)limit extendedRequest:(NSDictionary *)extendedRequest iterationBlock:(void (^)(QBResponse *response, NSArray *dialogs, NSSet *dialogsUsers, BOOL *stop))interationBlock {
-    
+- (BFTask *QB_NONNULL_S)allDialogsWithPageLimit:(NSUInteger)limit
+								extendedRequest:(QB_NONNULL NSDictionary *)extendedRequest
+								 iterationBlock:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, NSArray QB_GENERIC(QBChatDialog *) *QB_NULLABLE_S dialogObjects, NSSet QB_GENERIC(NSNumber *) *QB_NULLABLE_S dialogsUsersIDs, BOOL *QB_NULLABLE_S stop))iterationBlock {
+	
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
-    [self allDialogsWithPageLimit:limit extendedRequest:extendedRequest iterationBlock:interationBlock completion:^(QBResponse *response) {
+    [self allDialogsWithPageLimit:limit extendedRequest:extendedRequest iterationBlock:iterationBlock completion:^(QBResponse *response) {
         //
         if (response.success) {
             [source setResult:nil];
@@ -327,11 +329,13 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     return source.task;
 }
 
-- (BFTask *)fetchDialogsUpdatedFromDate:(NSDate *)date andPageLimit:(NSUInteger)limit iterationBlock:(void (^)(QBResponse *response, NSArray *dialogs, NSSet *dialogsUsers, BOOL *stop))iteration {
-    
+- (BFTask *QB_NONNULL_S)fetchDialogsUpdatedFromDate:(QB_NONNULL NSDate *)date
+									   andPageLimit:(NSUInteger)limit
+									 iterationBlock:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, NSArray QB_GENERIC(QBChatDialog *) *QB_NULLABLE_S dialogObjects, NSSet QB_GENERIC(NSNumber *) * QB_NULLABLE_S dialogsUsersIDs, BOOL *QB_NULLABLE_S stop))iterationBlock {
+	
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
-    [self fetchDialogsUpdatedFromDate:date andPageLimit:limit iterationBlock:iteration completionBlock:^(QBResponse *response) {
+    [self fetchDialogsUpdatedFromDate:date andPageLimit:limit iterationBlock:iterationBlock completionBlock:^(QBResponse *response) {
         //
         if (response.success) {
             [source setResult:nil];

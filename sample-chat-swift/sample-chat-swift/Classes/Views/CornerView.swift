@@ -29,18 +29,19 @@ class CornerView: UIView {
         let style = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         style.alignment = NSTextAlignment.Center
         
-        if let fontAttributeName = UIFont(name: "Helvetica", size: CGFloat(fontSize)){
-            
-            let rectangleFontAttributes: [String: AnyObject] = [NSFontAttributeName: fontAttributeName,
-                NSForegroundColorAttributeName: UIColor.whiteColor(),
-                NSParagraphStyleAttributeName: style]
-            
-            let rectOffset = CGRectOffset(rect, 0, ((CGRectGetHeight(rect) - text.boundingRectWithSize(rect.size, options:.UsesLineFragmentOrigin, attributes:rectangleFontAttributes, context: nil).size.height)/2))
-           
-            NSString(string: text).drawInRect(rectOffset, withAttributes: rectangleFontAttributes)
-        }
+		guard let fontAttributeName = UIFont(name: "Helvetica", size: CGFloat(fontSize)) else {
+			return
+		}
+			
+		let rectangleFontAttributes: [String: AnyObject] = [NSFontAttributeName: fontAttributeName,
+			NSForegroundColorAttributeName: UIColor.whiteColor(),
+			NSParagraphStyleAttributeName: style]
+		
+		let rectOffset = CGRectOffset(rect, 0, ((CGRectGetHeight(rect) - text.boundingRectWithSize(rect.size, options:.UsesLineFragmentOrigin, attributes:rectangleFontAttributes, context: nil).size.height)/2))
+		
+		NSString(string: text).drawInRect(rectOffset, withAttributes: rectangleFontAttributes)
     }
-    
+	
     override func drawRect(rect: CGRect) {
         self.drawWithRect(self.bounds, text: self.title, fontSize: self.fontSize)
     }

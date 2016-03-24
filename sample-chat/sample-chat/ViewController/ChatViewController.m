@@ -718,11 +718,8 @@ QMChatCellDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message {
 
-    if (status == QMMessageAttachmentStatusNotLoaded) {
-        
-    }
-    else {
-        
+    if (status != QMMessageAttachmentStatusNotLoaded) {
+		
         if ([message.dialogID isEqualToString:self.dialog.ID]) {
             
             [self.chatSectionManager updateMessage:message];

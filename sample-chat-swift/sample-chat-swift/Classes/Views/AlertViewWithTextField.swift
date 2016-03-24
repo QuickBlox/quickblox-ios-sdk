@@ -68,14 +68,10 @@ class AlertViewWithTextField: NSObject, UIAlertViewDelegate {
     
     internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if buttonIndex == alertView.cancelButtonIndex {
-            if self.closureCancel != nil {
-                self.closureCancel!()
-            }
+			self.closureCancel?()
         }
         else {
-            if self.closureOk != nil {
-                self.closureOk!(text: alertView.textFieldAtIndex(0)?.text)
-            }
+                self.closureOk?(text: alertView.textFieldAtIndex(0)?.text)
         }
         self.unmanaged?.release()
     }
