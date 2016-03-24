@@ -537,27 +537,30 @@ QMChatCellDelegate
 
 - (void)collectionView:(QMChatCollectionView *)collectionView configureCell:(UICollectionViewCell *)cell forIndexPath:(NSIndexPath *)indexPath {
     [super collectionView:collectionView configureCell:cell forIndexPath:indexPath];
-    
+	
+	QMChatCell *chatCell = (QMChatCell *)cell;
+	
     // subscribing to cell delegate
-    [(QMChatCell *)cell setDelegate:self];
+    [chatCell setDelegate:self];
     
-    [(QMChatCell *)cell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
+    [chatCell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     
     if ([cell isKindOfClass:[QMChatOutgoingCell class]] || [cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
-        [(QMChatIncomingCell *)cell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
+        [chatCell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
     }
     else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
-        [(QMChatOutgoingCell *)cell containerView].bgColor = [UIColor colorWithRed:231.0f / 255.0f green:231.0f / 255.0f blue:231.0f / 255.0f alpha:1.0f];
+        [chatCell containerView].bgColor = [UIColor colorWithRed:231.0f / 255.0f green:231.0f / 255.0f blue:231.0f / 255.0f alpha:1.0f];
     }
     else if ([cell isKindOfClass:[QMChatNotificationCell class]]) {
-        [(QMChatCell *)cell containerView].bgColor = self.collectionView.backgroundColor;
-        //avoid tapping for Notification Cell
+        [chatCell containerView].bgColor = self.collectionView.backgroundColor;
+        // avoid tapping for Notification Cell
         cell.userInteractionEnabled = NO;
     }
     
     if (![cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {
 		return;
 	}
+	
 	QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
 	
 	if (message.attachments == nil) {
