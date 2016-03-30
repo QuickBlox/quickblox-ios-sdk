@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CornerView;
 
 @interface UserTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet CornerView *colorMarker;
+@property (weak, nonatomic) IBOutlet UILabel *userDescriptionLabel;
 @property (strong, nonatomic) NSString *userDescription;
 
-- (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color;
+- (void)setMarkerColor:(UIColor *)color;
+- (void)setMarkerText:(NSString *)text;
 
 @end

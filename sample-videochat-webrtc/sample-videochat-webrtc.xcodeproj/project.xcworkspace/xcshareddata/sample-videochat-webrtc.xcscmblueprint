@@ -4,34 +4,34 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8" : 0,
-    "7685896580551A65BF391139D591B99B273195F4" : 0,
+    "B415C5F5923FD1699E46B5668327F083B9C32C51" : 0,
+    "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64" : 0,
     "43E48969AB834C98133F4F66DEBB455ACE272805" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "55886A36-B068-446C-AB54-81126006766E",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "95C928AC-2FEA-4BD0-AD72-E2C3D86E0F7D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8" : "q-municate-services-ios\/",
-    "7685896580551A65BF391139D591B99B273195F4" : "QMChatViewController-ios\/",
-    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk\/"
+    "B415C5F5923FD1699E46B5668327F083B9C32C51" : "SDK-ios-WebRTC",
+    "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/",
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk"
   },
-  "DVTSourceControlWorkspaceBlueprintNameKey" : "sample-chat",
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "sample-videochat-webrtc",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "sample-chat\/sample-chat.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "sample-videochat-webrtc\/sample-videochat-webrtc.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/QuickBlox\/quickblox-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/quickblox-ios-sdk.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43E48969AB834C98133F4F66DEBB455ACE272805"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/QMChatViewController-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/external\/webrtc",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7685896580551A65BF391139D591B99B273195F4"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64"
     },
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/QuickBlox\/q-municate-services-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/SDK-ios-WebRTC.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D160C3FE7B115E6635EB21EBE93000EBA4B81BC8"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B415C5F5923FD1699E46B5668327F083B9C32C51"
     }
   ]
 }

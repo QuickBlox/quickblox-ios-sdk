@@ -10,4 +10,8 @@
 
 @interface OutgoingCallViewController : BaseViewController
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
+- (void)accountLogout;
+
 @end

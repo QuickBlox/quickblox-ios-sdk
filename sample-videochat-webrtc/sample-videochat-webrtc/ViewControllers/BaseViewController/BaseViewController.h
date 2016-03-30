@@ -6,13 +6,12 @@
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
+#import "SampleCore.h"
 
 @class IAButton;
 
 @interface BaseViewController : UIViewController
-
-@property (strong, nonatomic) NSArray *users;
 
 /**
  *  Create custom UIBarButtonItem instance

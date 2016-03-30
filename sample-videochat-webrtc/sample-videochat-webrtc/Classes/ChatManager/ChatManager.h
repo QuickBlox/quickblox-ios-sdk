@@ -10,9 +10,11 @@
 
 @interface ChatManager : NSObject
 
-+ (instancetype)instance;
+// Indicate whether we have an active call or not
+// If we in background, then do disconnect from chat
+@property (nonatomic) BOOL hasActiveCall;
 
-- (void)logInWithUser:(QBUUser *)user completion:(void (^)(BOOL error))completion disconnectedBlock:(dispatch_block_t)disconnectedBlock reconnectedBlock:(dispatch_block_t)reconnectedBlock;
-- (void)logOut;
+// Check hasActiveCall
+- (void)disconnectIfNeededInBackground;
 
 @end

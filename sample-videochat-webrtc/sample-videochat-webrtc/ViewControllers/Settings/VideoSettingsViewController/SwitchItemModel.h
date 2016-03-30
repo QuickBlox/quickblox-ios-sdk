@@ -10,6 +10,10 @@
 
 @interface SwitchItemModel : BaseItemModel
 
+- (instancetype)initWithTitle:(NSString *)title data:(id)data on:(BOOL)on;
+- (instancetype)initWithTitle:(NSString *)title data:(id)data on:(BOOL)on changedBlock:(void(^)(BOOL isOn))changedBlock;
+
 @property (assign, nonatomic) BOOL on;
+@property (copy, nonatomic) void (^changedBlock)(BOOL on);
 
 @end

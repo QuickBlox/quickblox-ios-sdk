@@ -22,5 +22,4 @@
     self.checkmakrView.checked = isCheck;
 }
 
-
 @end

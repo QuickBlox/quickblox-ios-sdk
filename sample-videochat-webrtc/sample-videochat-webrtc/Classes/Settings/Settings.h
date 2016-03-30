@@ -7,23 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Types.h"
+#import <AVFoundation/AVCaptureDevice.h>
+
+
 
 @interface Settings : NSObject
 
 @property (strong, nonatomic) QBRTCVideoFormat *videoFormat;
-
 @property (strong, nonatomic) QBRTCMediaStreamConfiguration *mediaConfiguration;
-
-@property (assign, nonatomic) QBRendererType remoteVideoViewRendererType;
-
-@property (assign, nonatomic) AVCaptureDevicePosition preferredCameraPostion;
-
-@property (assign, nonatomic) ListOfUsers listType;
-
+@property (assign, nonatomic) AVCaptureDevicePosition preferredCameraPosition;
 @property (strong, nonatomic) NSArray *stunServers;
 
-+ (instancetype)instance;
+// RTC Config
+
+@property (nonatomic) NSTimeInterval answerTimeInterval;
+@property (nonatomic) NSTimeInterval disconnectTimeInterval;
+@property (nonatomic) NSTimeInterval dialingTimeInterval;
+@property (nonatomic) BOOL DTLSEnabled;
+
+// UI testing
+@property (nonatomic) BOOL autoAcceptCalls;
 
 - (void)saveToDisk;
 

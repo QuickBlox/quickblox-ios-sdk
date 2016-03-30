@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) QBRTCSession *session;
 
+@property (nonatomic, strong) NSArray *users;
+
 @end
