@@ -349,6 +349,17 @@ static NSString *kUserLogin = @"keychain_user_login";
 	} errorBlock:errorBlock];
 }
 
++ (void)downloadAndCacheUsersWithTags:(NSArray *)tags successBlock:(dispatch_block_t)successBlock errorBlock:(void (^)(QBResponse *))errorBlock {
+	
+	[UsersService allUsersWithTags:tags perPageLimit:50 successBlock:^(NSArray *usersObjects) {
+		[[SampleCore usersDataSource] loadUsersWithArray:usersObjects tags:tags];
+		if (successBlock) {
+			successBlock();
+		}
+	} errorBlock:errorBlock];
+	
+}
+
 + (void)allUsersWithTags:(NSArray *)tags perPageLimit:(NSUInteger)limit successBlock:(void (^)(NSArray *))successBlock errorBlock:(void (^)(QBResponse *))errorBlock {
 	NSCParameterAssert(tags);
 	

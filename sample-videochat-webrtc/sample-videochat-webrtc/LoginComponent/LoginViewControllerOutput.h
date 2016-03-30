@@ -5,12 +5,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class LoginTagViewController;
+@protocol LoginViewControllerInput;
 
+/**
+ *  LoginViewController delegate methods
+ */
 @protocol LoginViewControllerOutput <NSObject>
 
-- (void)loginViewControllerViewDidLoad:(LoginTagViewController *)loginViewController;
+- (void)loginViewControllerViewDidLoad:(id<LoginViewControllerInput>)loginViewControllerInput;
 
-- (void)loginViewControllerDidTapLoginButton:(LoginTagViewController *)loginViewController;
+- (void)loginViewControllerDidTapLoginButton:(id<LoginViewControllerInput>)loginViewControllerInput;
 
 @end

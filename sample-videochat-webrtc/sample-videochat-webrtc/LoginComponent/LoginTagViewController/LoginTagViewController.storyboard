@@ -177,7 +177,7 @@ You can join existent chat room.</string>
                     <connections>
                         <outlet property="login" destination="0eq-2s-XnO" id="6DK-L7-52y"/>
                         <outlet property="tag" destination="IrE-zf-nUI" id="M45-I5-1Dh"/>
-                        <outlet property="userName" destination="HSJ-hd-8dc" id="XkT-Po-13L"/>
+                        <outlet property="userInput" destination="HSJ-hd-8dc" id="ddW-fr-gXh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CAb-lf-iEl" userLabel="First Responder" sceneMemberID="firstResponder"/>

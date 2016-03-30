@@ -16,7 +16,7 @@
 @property (nonatomic, strong) id<LoginViewControllerOutput> output;
 
 @property (nonatomic, weak) IBOutlet UIButton *login;
-@property (nonatomic, weak) IBOutlet UITextField *userName;
+@property (nonatomic, weak) IBOutlet UITextField *userInput;
 @property (nonatomic, weak) IBOutlet UITextField *tag;
 
 @end

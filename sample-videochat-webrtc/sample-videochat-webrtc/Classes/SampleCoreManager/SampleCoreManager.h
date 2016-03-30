@@ -51,6 +51,14 @@
 
 + (void)downloadAndCacheUserIfNeeded:(NSNumber *)userID successBlock:(void (^)(QBUUser *))successBlock errorBlock:(void (^)(QBResponse *))errorBlock;
 
+/**
+ *  Download users with tags and cache them into UsersDataSource
+ */
++ (void)downloadAndCacheUsersWithTags:(NSArray *)tags successBlock:(dispatch_block_t)successBlock errorBlock:(void (^)(QBResponse *))errorBlock;
+
+/**
+ *  Download users with tags
+ */
 + (void)allUsersWithTags:(NSArray *)tags perPageLimit:(NSUInteger)limit
 			successBlock:(void(^)(NSArray *usersObjects))successBlock
 			  errorBlock:(void(^)(QBResponse *response))errorBlock;

@@ -5,6 +5,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Retrieve data from LoginViewController and send methods
+ */
 @protocol LoginViewControllerInput <NSObject>
 
 - (void)enableInput;
@@ -14,5 +17,8 @@
 
 - (NSArray *)tags;
 - (NSString *)userName;
+
+- (void)setTags:(NSArray *)tags;
+- (void)setUserName:(NSString *)userName;
 
 @end

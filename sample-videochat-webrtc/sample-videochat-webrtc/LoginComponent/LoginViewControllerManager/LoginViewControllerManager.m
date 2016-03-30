@@ -22,10 +22,13 @@
 
 @implementation LoginViewControllerManager
 
-NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallViewControllerWithTagID";
+static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallViewControllerWithTagID";
 
 - (void)loginWithCachedUser:(QBUUser *)cachedUser {
 	self.user = cachedUser;
+	
+	[self.input setTags:cachedUser.tags];
+	[self.input setUserName:cachedUser.fullName];
 	
 	// MARK: Step 0
 	[self loginWithCurrentUser];
@@ -45,7 +48,6 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 	self.tags = self.input.tags;
 	
 	self.userName = [self.input.userName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-	
 
     [SVProgressHUD setBackgroundColor:[UIColor grayColor]];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging in REST", nil)];
@@ -55,13 +57,10 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 
         [strongSelf updateCurrentUserFullNameAndTagsWithSuccessBlock:^{
 
-            [SampleCoreManager allUsersWithTags:@[strongSelf.tags] perPageLimit:50 successBlock:^(NSArray *usersObjects) {
-
-                [[SampleCore usersDataSource] loadUsersWithArray:usersObjects tags:[strongSelf.tags mutableCopy]];
-
-                [strongSelf connectToChatWithErrorBlock:errorBlock];
-
-            } errorBlock:errorBlock];
+			[SampleCoreManager downloadAndCacheUsersWithTags:strongSelf.tags successBlock:^{
+				[strongSelf connectToChatWithErrorBlock:errorBlock];
+			} errorBlock:errorBlock];
+			
         } errorBlock:errorBlock];
     } errorBlock:errorBlock];
 
@@ -156,6 +155,8 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 
 - (void)loginViewControllerDidTapLoginButton:(LoginTagViewController *)loginViewController {
 	[self.input disableInput];
+	
+	[self loginWithCurrentUser];
 }
 
 @end
