@@ -11,7 +11,6 @@
 @protocol UsersDataSourceProtocol;
 @class PushMessagesManager;
 @class Settings;
-@class ChatManager;
 @class QMSoundManager;
 
 /**

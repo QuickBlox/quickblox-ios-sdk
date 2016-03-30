@@ -36,7 +36,6 @@
 		FB29BBFA1B32BBC0009751A1 /* CheckUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBAE1B32BBC0009751A1 /* CheckUserTableViewCell.m */; };
 		FB29BBFB1B32BBC0009751A1 /* OpponentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBB11B32BBC0009751A1 /* OpponentCollectionViewCell.m */; };
 		FB29BBFC1B32BBC0009751A1 /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBB41B32BBC0009751A1 /* UserTableViewCell.m */; };
-		FB29BBFE1B32BBC0009751A1 /* ChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBBB1B32BBC0009751A1 /* ChatManager.m */; };
 		FB29BBFF1B32BBC0009751A1 /* QMSoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBBE1B32BBC0009751A1 /* QMSoundManager.m */; };
 		FB29BC021B32BBC0009751A1 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBC31B32BBC0009751A1 /* Launch Screen.xib */; };
 		FB29BC031B32BBC0009751A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBC41B32BBC0009751A1 /* main.m */; };
@@ -208,8 +207,6 @@
 		FB29BBB11B32BBC0009751A1 /* OpponentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpponentCollectionViewCell.m; sourceTree = "<group>"; };
 		FB29BBB31B32BBC0009751A1 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
 		FB29BBB41B32BBC0009751A1 /* UserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserTableViewCell.m; sourceTree = "<group>"; };
-		FB29BBBA1B32BBC0009751A1 /* ChatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatManager.h; sourceTree = "<group>"; };
-		FB29BBBB1B32BBC0009751A1 /* ChatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatManager.m; sourceTree = "<group>"; };
 		FB29BBBD1B32BBC0009751A1 /* QMSoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMSoundManager.h; sourceTree = "<group>"; };
 		FB29BBBE1B32BBC0009751A1 /* QMSoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMSoundManager.m; sourceTree = "<group>"; };
 		FB29BBC21B32BBC0009751A1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
@@ -661,7 +658,6 @@
 				68440A7D11236FCCCD33EF24 /* KeychainHelper */,
 				1450B65D1C05B62F0094C67B /* PushMessagesManager */,
 				FBCA4EDE1B3C0F0F005B537A /* Settings */,
-				FB29BBB91B32BBC0009751A1 /* ChatManager */,
 				FB29BBBC1B32BBC0009751A1 /* QMSoundManager */,
 				FB29BBBF1B32BBC0009751A1 /* UsersDataSource */,
 				684401773E55DFA8D3E2DC4B /* SampleCore */,
@@ -669,15 +665,6 @@
 				6844073F333FCA1DEA409EA4 /* UsersService */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		FB29BBB91B32BBC0009751A1 /* ChatManager */ = {
-			isa = PBXGroup;
-			children = (
-				FB29BBBA1B32BBC0009751A1 /* ChatManager.h */,
-				FB29BBBB1B32BBC0009751A1 /* ChatManager.m */,
-			);
-			path = ChatManager;
 			sourceTree = "<group>";
 		};
 		FB29BBBC1B32BBC0009751A1 /* QMSoundManager */ = {
@@ -1167,7 +1154,6 @@
 				FB5D2C581BDF8BA400C3B328 /* QBButtonsFactory.m in Sources */,
 				FB29BBFB1B32BBC0009751A1 /* OpponentCollectionViewCell.m in Sources */,
 				FB5D2C571BDF8BA400C3B328 /* QBButton.m in Sources */,
-				FB29BBFE1B32BBC0009751A1 /* ChatManager.m in Sources */,
 				FBCA4EE11B3C0F24005B537A /* Settings.m in Sources */,
 				FB92AE051BBC163A00390D58 /* BaseSettingsCell.m in Sources */,
 				FB29BBFF1B32BBC0009751A1 /* QMSoundManager.m in Sources */,

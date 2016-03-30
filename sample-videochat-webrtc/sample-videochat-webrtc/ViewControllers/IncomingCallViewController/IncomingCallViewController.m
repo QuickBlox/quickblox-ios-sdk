@@ -7,7 +7,6 @@
 //
 
 #import "IncomingCallViewController.h"
-#import "ChatManager.h"
 #import "CornerView.h"
 #import "QBButton.h"
 #import "QMSoundManager.h"

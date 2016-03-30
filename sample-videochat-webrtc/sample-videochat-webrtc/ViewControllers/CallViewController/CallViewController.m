@@ -7,7 +7,6 @@
 //
 
 #import "CallViewController.h"
-#import "ChatManager.h"
 #import "CornerView.h"
 #import "LocalVideoView.h"
 #import "OpponentCollectionViewCell.h"

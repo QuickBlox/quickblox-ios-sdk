@@ -9,7 +9,6 @@
 #import "OutgoingCallViewController.h"
 
 #import "CallViewController.h"
-#import "ChatManager.h"
 #import "CheckUserTableViewCell.h"
 #import "IncomingCallViewController.h"
 #import "QMSoundManager.h"
@@ -161,21 +160,19 @@ const NSUInteger kTableRowHeight = 44;
 	//Create new session
 	QBRTCSession *session = [[QBRTCClient instance] createNewSessionWithOpponents:opponentsIDs withConferenceType:conferenceType];
 	
-	if (session) {
-		
-		self.currentSession = session;
-		CallViewController *callViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
-		callViewController.session = self.currentSession;
-		
-		self.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
-		self.nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-		
-		[self presentViewController:self.nav animated:NO completion:nil];
-	}
-	else {
-		
+	if (!session) {
 		[SVProgressHUD showErrorWithStatus:@"You should login to use chat API. Session hasn’t been created. Please try to relogin the chat."];
+		return;
 	}
+	
+	self.currentSession = session;
+	CallViewController *callViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
+	callViewController.session = self.currentSession;
+	
+	self.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
+	self.nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+	
+	[self presentViewController:self.nav animated:NO completion:nil];
 	
 }
 
