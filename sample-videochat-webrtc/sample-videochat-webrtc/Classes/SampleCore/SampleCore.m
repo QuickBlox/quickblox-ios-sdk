@@ -40,13 +40,6 @@ static id _soundManager;
 	return _pushMessagesManager;
 }
 
-+ (void)setChatManager:(ChatManager *)chatManager {
-	_chatManager = chatManager;
-}
-
-+ (ChatManager *)chatManager {
-	return _chatManager;
-}
 
 + (void)setSoundManager:(QMSoundManager *)soundManager {
 	_soundManager = soundManager;

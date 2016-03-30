@@ -17,6 +17,7 @@
 #import "QBToolBar.h"
 #import "QMSoundManager.h"
 #import "SampleCore.h"
+#import "SampleCoreManager.h"
 #import "Settings.h"
 #import "SharingViewController.h"
 #import "UsersDataSourceProtocol.h"
@@ -80,7 +81,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 - (void)start {
     
-    [SampleCore chatManager].hasActiveCall = YES;
+    [SampleCoreManager instance].hasActiveCall = YES;
     
     self.title = @"Connecting...";
     

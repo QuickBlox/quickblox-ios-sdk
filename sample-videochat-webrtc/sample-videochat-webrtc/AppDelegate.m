@@ -41,7 +41,6 @@ void eHandler(NSException *exception) {
 	
 	[SampleCore setUsersDataSource:[[UsersDataSource alloc] init]];
 	[SampleCore setPushMessagesManager:[[PushMessagesManager alloc] init]];
-	[SampleCore setChatManager:[[ChatManager alloc] init]];
 	[SampleCore setSettings:[[Settings alloc] init]];
 	[SampleCore setSoundManager:[[QMSoundManager alloc] init]];
 
@@ -147,7 +146,7 @@ void eHandler(NSException *exception) {
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-	[[SampleCore chatManager] disconnectIfNeededInBackground];
+	[[SampleCoreManager instance] disconnectFromChatIfNeededInBackground];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

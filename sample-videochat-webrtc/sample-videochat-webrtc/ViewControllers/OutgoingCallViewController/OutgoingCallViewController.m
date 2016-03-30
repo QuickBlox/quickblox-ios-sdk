@@ -213,7 +213,7 @@ const NSUInteger kTableRowHeight = 44;
 - (void)sessionDidClose:(QBRTCSession *)session {
     
     if (session == self.currentSession ) {
-		[SampleCore chatManager].hasActiveCall = NO;
+		[SampleCoreManager instance].hasActiveCall = NO;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             self.nav.view.userInteractionEnabled = NO;
@@ -228,14 +228,14 @@ const NSUInteger kTableRowHeight = 44;
 
 - (BOOL)usersToCall {
     
-    BOOL isOK = (self.selectedUsers.count > 0);
+    BOOL selectedUsersToCall = (self.selectedUsers.count > 0);
     
-    if (!isOK) {
+    if (!selectedUsersToCall) {
         
         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Please select one or more users", nil)];
     }
     
-    return isOK;
+    return selectedUsersToCall;
 }
 
 - (void)procUser:(QBUUser *)user {
@@ -251,7 +251,7 @@ const NSUInteger kTableRowHeight = 44;
 }
 
 - (void)incomingCallViewController:(IncomingCallViewController *)vc didAcceptSession:(QBRTCSession *)session {
-    [SampleCore chatManager].hasActiveCall = YES;
+    [SampleCoreManager instance].hasActiveCall = YES;
 	
     CallViewController *callViewController =
     [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];

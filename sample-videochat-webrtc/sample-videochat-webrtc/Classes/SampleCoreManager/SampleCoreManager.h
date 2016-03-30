@@ -62,4 +62,14 @@
 + (void)allUsersWithTags:(NSArray *)tags perPageLimit:(NSUInteger)limit
 			successBlock:(void(^)(NSArray *usersObjects))successBlock
 			  errorBlock:(void(^)(QBResponse *response))errorBlock;
+
+#pragma mark Call service
+
+// Indicate whether we have an active call or not
+// If we in background, then do disconnect from chat
+@property (nonatomic) BOOL hasActiveCall;
+
+// Check hasActiveCall
+- (void)disconnectFromChatIfNeededInBackground;
+
 @end

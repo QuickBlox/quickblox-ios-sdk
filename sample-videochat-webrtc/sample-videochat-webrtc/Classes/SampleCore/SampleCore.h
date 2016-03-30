@@ -28,9 +28,6 @@
 + (void)setSettings:(Settings *)settings;
 + (Settings *)settings;
 
-+ (void)setChatManager:(ChatManager *)chatManager;
-+ (ChatManager *)chatManager;
-
 + (void)setSoundManager:(QMSoundManager *)soundManager;
 + (QMSoundManager *)soundManager;
 

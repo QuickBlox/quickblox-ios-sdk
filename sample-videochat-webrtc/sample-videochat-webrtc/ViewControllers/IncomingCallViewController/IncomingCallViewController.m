@@ -15,6 +15,7 @@
 #import "QBButtonsFactory.h"
 #import "Settings.h"
 #import "SampleCore.h"
+#import "SampleCoreManager.h"
 #import "UsersDataSourceProtocol.h"
 
 @interface IncomingCallViewController () <QBRTCClientDelegate>
@@ -128,9 +129,7 @@
     [self.dialingTimer invalidate];
     self.dialingTimer = nil;
 	
-	[SampleCore chatManager].hasActiveCall = NO;
-	
-	[[SampleCore chatManager] disconnectIfNeededInBackground];
+	[SampleCoreManager instance].hasActiveCall = NO;
 	
     [[QBRTCClient instance] removeDelegate:self];
     [QMSysPlayer stopAllSounds];

@@ -366,4 +366,26 @@ static NSString *kUserLogin = @"keychain_user_login";
 	[UsersService allUsersWithTags:tags perPageLimit:limit successBlock:successBlock errorBlock:errorBlock];
 }
 
+#pragma mark Call service
+
+- (void)setHasActiveCall:(BOOL)hasActiveCall {
+	if (_hasActiveCall != hasActiveCall) {
+		_hasActiveCall = hasActiveCall;
+		
+		if (!_hasActiveCall) {
+			[self disconnectFromChatIfNeededInBackground];
+		}
+	}
+}
+
+- (void)disconnectFromChatIfNeededInBackground {
+	if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground &&
+		!self.hasActiveCall &&
+		[[QBChat instance] isConnected]) {
+		
+		[self disconnectFromChatWithSuccessBlock:nil errorBlock:nil];
+	}
+}
+
+
 @end
