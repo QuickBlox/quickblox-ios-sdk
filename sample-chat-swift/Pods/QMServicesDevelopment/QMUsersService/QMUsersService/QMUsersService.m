@@ -119,9 +119,9 @@
         }
         
         return [strongSelf getUsersWithIDs:searchInfo[QMUsersSearchKey.notFoundSearchValues]
-                          foundUsers:foundUsers
-                       forceDownload:YES
-                                page:page];
+                                foundUsers:foundUsers
+                             forceDownload:YES
+                                      page:page];
     }];
 }
 
@@ -130,7 +130,7 @@
     if (ids.count == 0) {
         return [BFTask taskWithResult:foundUsers];
     }
-
+    
     __weak __typeof(self)weakSelf = self;
     return [[self loadFromCache] continueWithBlock:^id(BFTask *task) {
         __typeof(weakSelf)strongSelf = weakSelf;

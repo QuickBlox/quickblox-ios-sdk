@@ -45,7 +45,7 @@ NSString *const kQMAuthSocialProvider = @"facebook";
 }
 
 - (QBRequest *)logOut:(void(^)(QBResponse *response))completion {
-
+    
     __weak __typeof(self)weakSelf = self;
     
     weakSelf.isAuthorized = NO;

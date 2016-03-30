@@ -917,6 +917,15 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
 - (void)chatService:(QB_NONNULL QMChatService *)chatService didUpdateMessage:(QB_NONNULL QBChatMessage *)message forDialogID:(QB_NONNULL NSString *)dialogID;
 
 /**
+ *  Is called when message did update in memory storage for dialog with id
+ *
+ *  @param chatService  instance
+ *  @param messages     array of updated messages
+ *  @param dialogID     messages dialog ID
+ */
+- (void)chatService:(QB_NONNULL QMChatService *)chatService didUpdateMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
+
+/**
  *  Is called when messages did add to memory storage for dialog with id
  *
  *  @param chatService instance

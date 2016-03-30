@@ -28,7 +28,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
 /**
  *  Delegate for getting UsersMemoryStorage user ids.
  */
-@property (weak, nonatomic) id <QMUsersMemoryStorageDelegate> delegate;
+@property (weak, nonatomic, QB_NULLABLE) id <QMUsersMemoryStorageDelegate> delegate;
 
 /**
  *  Add user to memory storage.

@@ -54,7 +54,7 @@
 /**
  *  Chat attachment service delegate
  */
-@property (nonatomic, weak) id<QMChatAttachmentServiceDelegate> delegate;
+@property (nonatomic, weak, QB_NULLABLE) id<QMChatAttachmentServiceDelegate> delegate;
 
 /**
  *  Send message with attachment to dialog

@@ -839,6 +839,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
     }
     
+    func chatService(chatService: QMChatService, didUpdateMessages messages: [QBChatMessage], forDialogID dialogID: String) {
+        
+        if self.dialog.ID == dialogID {
+            self.chatSectionManager.updateMessages(messages)
+        }
+        
+    }
+    
     // MARK: UITextViewDelegate
     
     override func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {

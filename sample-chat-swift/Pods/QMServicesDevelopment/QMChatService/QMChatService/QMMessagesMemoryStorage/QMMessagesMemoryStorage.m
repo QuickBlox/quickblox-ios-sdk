@@ -137,20 +137,28 @@
     [datasource sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateSent" ascending:YES]]];
 }
 
-- (QBChatMessage *)messageWithID:(NSString *)messageID fromDialogID:(NSString *)dialogID;
-{
+- (QBChatMessage *)messageWithID:(NSString *)messageID fromDialogID:(NSString *)dialogID {
     NSParameterAssert(messageID != nil);
     NSParameterAssert(dialogID != nil);
     
     NSArray* messages = [self messagesWithDialogID:dialogID];
     
     for (QBChatMessage* message in messages) {
+        
         if ([message.ID isEqualToString:messageID]) {
+            
             return message;
         }
     }
     
     return nil;
+}
+
+- (BOOL)isMessageExistent:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
+    
+    NSMutableOrderedSet *messages = self.datasources[dialogID];
+    
+    return [messages containsObject:message];
 }
 
 #pragma mark - QMMemeoryStorageProtocol

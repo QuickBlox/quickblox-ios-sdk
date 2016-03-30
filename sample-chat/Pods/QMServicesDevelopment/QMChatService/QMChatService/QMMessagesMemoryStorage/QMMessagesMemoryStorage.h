@@ -93,6 +93,16 @@
  */
 - (QB_NULLABLE QBChatMessage *)lastMessageFromDialogID:(QB_NONNULL NSString *)dialogID;
 
+/**
+ *  Is message existent for dialog.
+ *
+ *  @param message  QBChatMessage instance
+ *  @param dialogID dialog ID
+ *
+ *  @return whether message existent for a specific dialog
+ */
+- (BOOL)isMessageExistent:(QB_NONNULL QBChatMessage *)message forDialogID:(QB_NONNULL NSString *)dialogID;
+
 #pragma mark - Helpers
 
 /**

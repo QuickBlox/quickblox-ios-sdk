@@ -691,6 +691,14 @@ QMChatCellDelegate
     }
 }
 
+- (void)chatService:(QMChatService *)chatService didUpdateMessages:(NSArray *)messages forDialogID:(NSString *)dialogID {
+    
+    if ([self.dialog.ID isEqualToString:dialogID]) {
+        
+        [self.chatSectionManager updateMessages:messages];
+    }
+}
+
 #pragma mark - QMChatConnectionDelegate
 
 - (void)refreshAndReadMessages; {

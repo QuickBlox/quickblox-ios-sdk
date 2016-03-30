@@ -30,7 +30,6 @@
 
 - (void)serviceWillStart {
     
-    NSAssert(nil, @"");
 }
 
 #pragma mark - QMMemoryStorageProtocol

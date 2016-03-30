@@ -68,6 +68,32 @@
     return formattedString;
 }
 
++ (NSString *)formattedShortDateString:(NSDate *)date
+{
+    NSString *formattedString = nil;
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
+    NSDateComponents *currentComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    if (components.day == currentComponents.day && components.month == currentComponents.month && components.year == currentComponents.year) {
+        
+        formattedString = [NSString stringWithFormat:@"%@", [self formatDateForTimeRange:date]];
+    }
+    else if (components.day == currentComponents.day - 1 && components.month == currentComponents.month && components.year == currentComponents.year) {
+        
+        formattedString = [NSString stringWithFormat:@"%@", [self formatDateForDayRange:date]];
+    }
+    else if (components.weekOfMonth == currentComponents.weekOfMonth && components.month == currentComponents.month && components.year == currentComponents.year) {
+        
+        formattedString = [NSString stringWithFormat:@"%@", [self formatDateForWeekRange:date]];
+    }
+    else {
+        
+        formattedString = [NSString stringWithFormat:@"%@", [self formatShortDateForString:date]];
+    }
+    
+    return formattedString;
+}
+
 + (NSString *)formatDateForTimeRange:(NSDate *)date
 {
     static NSDateFormatter* formatter;
@@ -138,6 +164,18 @@
     dispatch_once(&onceToken, ^{
         formatter = [NSDateFormatter new];
         formatter.dateFormat = @"d/MM/y";
+    });
+    
+    return [formatter stringFromDate:date];
+}
+
++ (NSString *)formatShortDateForString:(NSDate *)date
+{
+    static NSDateFormatter* formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [NSDateFormatter new];
+        formatter.dateFormat = @"d.MM.yy";
     });
     
     return [formatter stringFromDate:date];

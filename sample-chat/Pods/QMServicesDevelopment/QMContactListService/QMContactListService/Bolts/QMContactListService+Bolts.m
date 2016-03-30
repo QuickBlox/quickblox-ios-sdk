@@ -25,10 +25,13 @@
         __typeof(weakSelf)strongSelf = weakSelf;
         
         if (error != nil) {
+            
             [source setError:error];
-        } else {
+        }
+        else {
             
             if ([strongSelf.cacheDataSource respondsToSelector:@selector(contactListDidAddUser:)]) {
+                
                 [strongSelf.cacheDataSource contactListDidAddUser:user];
             }
             
@@ -44,10 +47,13 @@
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
     [[QBChat instance] removeUserFromContactList:userID completion:^(NSError *error) {
-        //
+        
         if (error != nil) {
+            
             [source setError:error];
-        } else {
+        }
+        else {
+            
             [source setResult:nil];
         }
     }];
@@ -60,10 +66,13 @@
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
     [[QBChat instance] confirmAddContactRequest:userID completion:^(NSError *error) {
-        //
+        
         if (error != nil) {
+            
             [source setError:error];
-        } else {
+        }
+        else {
+            
             [source setResult:nil];
         }
     }];
@@ -76,10 +85,13 @@
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
     [[QBChat instance] rejectAddContactRequest:userID completion:^(NSError *error) {
-        //
+        
         if (error != nil) {
+            
             [source setError:error];
-        } else {
+        }
+        else {
+            
             [source setResult:nil];
         }
     }];

@@ -96,13 +96,20 @@ Navigate to **Build Settings**, then search for **Framework Search Paths** and d
 
 Add a new item using **+**: `"$(SRCROOT)/Vendor/QMServices/Frameworks"`
 
+<p style='color:red'>** NOTE**</p>
+<p style='color:red'>Only for manual installation: if you do not follow the steps below you will get compiler errors that Quickblox.framework and Bolts.framework are not found</p> Quickblox.framework and Bolts.framework in `"$(SRCROOT)/Vendor/QMServices/Frameworks"` does NOT contain binary data, they used only for generating bundles. <br>
+If you plan to use QMServices as sub-project, then <br>
+1. Download Quickblox.framework https://github.com/QuickBlox/quickblox-ios-sdk/archive/master.zip <br>
+2. Download Bolts.framework https://github.com/BoltsFramework/Bolts-ObjC/releases/download/1.5.1/Bolts-iOS.zip <br>
+3. Put the frameworks in the folder 'Vendor/QMServices/Frameworks' <br>
+
 > ** NOTE**: By default, *QMServices* subprojects reference Quickblox and Bolts frameworks at `../Frameworks`.
 > To change the path, you need to open Quickblox.xcconfig file and replace `../Frameworks` with your path to the Quickblox.framework and Bolts.framework.
 
 > ** NOTE** Please be aware that if you've set Xcode's **Link Frameworks Automatically** to **No** then you may need to add the Quickblox.framework, CoreData.framework to your project on iOS, as UIKit does not include Core Data by default. On OS X, Cocoa includes Core Data.
 
 Now navigate to QMServices.xcodeproj subproject, open **Build Settings**, search for **Framework Search Paths** and locate Quickblox and Bolts frameworks folder there.
-Remember, that you have to link *QMServices* in **Target Dependencies** and *libQMServices.a* in **Link Binary with Libraries**.
+Remember, that you have to link *QMServices* in **Target Dependencies** and (or) *libQMServices.a* in **Link Binary with Libraries**.
 Don't forget to add Quickblox and Bolts frameworks to your project.
 
 ### Bundle generation
