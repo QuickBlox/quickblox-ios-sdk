@@ -3,11 +3,11 @@
 // Copyright (c) 2016 QuickBlox Team. All rights reserved.
 //
 
-#import "LoginManager.h"
+#import "LoginHelper.h"
 
-@implementation LoginManager
+@implementation LoginHelper
 
-+ (void)loginOrSignupUser:(QBUUser *)user successBlock:(void(^)(QBResponse * response, QBUUser * _Nullable user))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
++ (void)loginOrSignUpUser:(QBUUser *)user successBlock:(void (^)(QBResponse *response, QBUUser *_Nullable user))successBlock errorBlock:(void(^)(QBResponse *response))errorBlock {
 	
 	
 	[self loginWithUser:user successBlock:successBlock errorBlock:^(QBResponse *response) {

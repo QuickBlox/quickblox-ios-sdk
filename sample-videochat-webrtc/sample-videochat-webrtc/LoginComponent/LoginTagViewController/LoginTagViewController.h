@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoginViewControllerInput.h"
+#import "LoginViewControllerOutput.h"
 
-@interface LoginTagViewController : UITableViewController
+@interface LoginTagViewController : UITableViewController <LoginViewControllerInput>
+
+
+@property (nonatomic, strong) id<LoginViewControllerOutput> output;
 
 @property (nonatomic, weak) IBOutlet UIButton *login;
 @property (nonatomic, weak) IBOutlet UITextField *userName;

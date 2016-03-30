@@ -14,21 +14,30 @@
 #import <AdSupport/ASIdentifierManager.h>
 
 #import "SampleCoreManager.h"
-#import "LoginManager.h"
+#import "LoginHelper.h"
+
+#import "LoginViewControllerManager.h"
 
 @interface LoginTagViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) QBUUser *user;
+
+@property (nonatomic, strong) LoginViewControllerManager *manager;
 @end
 
 @implementation LoginTagViewController
 
-NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallViewControllerWithTagID";
+static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallViewControllerWithTagID";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// setup table view auto sizing
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
 	self.tableView.estimatedRowHeight = 80;
+	
+	LoginViewControllerManager *manager = [[LoginViewControllerManager alloc] init];
+	
+	self.output = manager;
+	manager.input = self;
 	
 	[self.userName addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 	[self.tag addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -42,9 +51,11 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 		
 		[self loginWithCachedUser:cachedUser];
 	}
+	
+	[self.output loginViewControllerViewDidLoad:self];
 }
 
-- (void)allowInput:(BOOL)enabled {
+- (void)setInputEnabled:(BOOL)enabled {
 	self.tag.enabled = enabled;
 	self.userName.enabled = enabled;
 	self.login.enabled = enabled;
@@ -58,8 +69,8 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 }
 
 - (IBAction)login:(UIButton *)sender {
-	
-	[self allowInput:NO];
+
+	[self setInputEnabled:NO];
 	
 	self.tag.text = [self.tag.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	self.userName.text = [self.userName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -68,7 +79,9 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 	self.user.login = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 	self.user.password = [[SampleCore usersDataSource] defaultPassword];
 	self.user.fullName = self.userName.text;
-	
+
+	[self.output loginViewControllerDidTapLoginButton:self];
+
 	// MARK: Step 0
 	[self loginWithCurrentUser];
 }
@@ -81,30 +94,29 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 			NSLog(@"Error %@", response.error);
 		}
 		[SVProgressHUD dismiss];
-		[weakSelf allowInput:YES];
+		[weakSelf setInputEnabled:YES];
 	};
 	
 	
 	[SVProgressHUD setBackgroundColor:[UIColor grayColor]];
 	[SVProgressHUD showWithStatus:NSLocalizedString(@"Logging in REST", nil)];
-	
-	[LoginManager loginOrSignupUser:self.user successBlock:^(QBResponse *response, QBUUser * _Nullable user) {
-		__typeof(self)strongSelf = weakSelf;
-		
+
+	[LoginHelper loginOrSignUpUser:self.user successBlock:^(QBResponse *response, QBUUser *_Nullable user) {
+		__typeof(self) strongSelf = weakSelf;
+
 		[strongSelf updateCurrentUserFullNameAndTagsWithSuccessBlock:^{
-			
+
 			// MARK: Step 5 - download users with tag
 			// Note: There is always at least one user with given tag – current user
 			[SampleCoreManager allUsersWithTags:@[strongSelf.tag.text] perPageLimit:50 successBlock:^(NSArray *usersObjects) {
-				
+
 				[[SampleCore usersDataSource] loadUsersWithArray:usersObjects tags:[@[strongSelf.tag.text] mutableCopy]];
-				
+
 				[strongSelf connectToChatWithErrorBlock:errorBlock];
-				
+
 			} errorBlock:errorBlock];
 		} errorBlock:errorBlock];
 	} errorBlock:errorBlock];
-	
 	
 }
 
@@ -134,16 +146,12 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 }
 
 - (void)showUsersViewController {
-	[self allowInput:YES];
+	[self setInputEnabled:YES];
 	
 	UIStoryboard *st = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 	OutgoingCallViewController *outgoingVC = [st instantiateViewControllerWithIdentifier:kOutgoingCallViewControllerWithTagIdentifier];
 	
-	if ([self respondsToSelector:@selector(showViewController:sender:)]) {
-		[self showViewController:outgoingVC sender:nil];
-	} else {
-		[self.navigationController pushViewController:outgoingVC animated:YES];
-	}
+	[self showViewController:outgoingVC];
 }
 
 - (void)updateCurrentUserFullNameAndTagsWithSuccessBlock:(dispatch_block_t)successBlock errorBlock:(void(^)(QBResponse * _Nonnull response))errorBlock {
@@ -216,5 +224,25 @@ NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"OutgoingCallVie
 	
 	self.login.enabled = userName.length >= minCharactersCount && tag.length >= minCharactersCount;
 }
+
+#pragma mark LoginViewControllerInput
+
+- (void)enableInput {
+	[self setInputEnabled:YES];
+}
+
+- (void)disableInput {
+	[self setInputEnabled:NO];
+}
+
+- (void)showViewController:(UIViewController *)viewController {
+	if ([self respondsToSelector:@selector(showViewController:sender:)]) {
+		[self showViewController:viewController sender:nil];
+	} else {
+		[self.navigationController pushViewController:viewController animated:YES];
+	}
+}
+
+#pragma mark LoginViewControlleroutput
 
 @end

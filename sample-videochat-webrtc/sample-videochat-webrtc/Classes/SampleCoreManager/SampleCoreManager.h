@@ -40,6 +40,7 @@
 - (void)disconnectFromChatWithSuccessBlock:(dispatch_block_t)successBlock errorBlock:(dispatch_block_t)errorBlock;
 #pragma mark Push notifications
 
+- (void)registerForRemoteNotifications;
 - (void)registerCurrentUserForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken successBlock:(dispatch_block_t)successBlock errorBlock:(void(^)(QBError *error))errorBlock;
 
 - (void)unsubscribeSavedUserFromPushNotificationsIfNeededWithSuccessBlock:(dispatch_block_t)successBlock errorBlock:(void(^)(QBError *error))errorBlock;

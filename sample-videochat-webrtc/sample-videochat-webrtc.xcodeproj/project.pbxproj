@@ -11,12 +11,10 @@
 		140A2CD31C0CB3CA008BCBFC /* SettingSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140A2CD11C0CB3CA008BCBFC /* SettingSwitchCell.xib */; };
 		140A2CD81C0CB422008BCBFC /* SettingSliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 140A2CD61C0CB422008BCBFC /* SettingSliderCell.xib */; };
 		14174C0D1C0DA33000543A07 /* CallSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14174C0C1C0DA33000543A07 /* CallSettingsViewController.m */; };
-		143819E41C51260100B5A271 /* LoginTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483BFB91C43F38C002F43FE /* LoginTagViewController.m */; };
 		1450B6601C05B62F0094C67B /* PushMessagesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1450B65F1C05B62F0094C67B /* PushMessagesManager.m */; };
 		14520AC21CAAAA5100B84522 /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14520AC11CAAAA5100B84522 /* QuickbloxWebRTC.framework */; };
 		1458ECDF1C60B17B0077B9FF /* OutgoingCallViewControllerNavTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1458ECDE1C60B17B0077B9FF /* OutgoingCallViewControllerNavTitleView.m */; };
 		1458ECE21C60B18A0077B9FF /* OutgoingCallViewControllerNavTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1458ECE11C60B18A0077B9FF /* OutgoingCallViewControllerNavTitleView.xib */; };
-		1483BFB51C43F103002F43FE /* LoginTagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1483BFB41C43F103002F43FE /* LoginTagViewController.storyboard */; };
 		14DABF4B1CABEC9E0058FE68 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14DABF4A1CABEC9E0058FE68 /* Quickblox.framework */; };
 		14F4BA1B1C45105800D2AE39 /* UsersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4BA1A1C45105800D2AE39 /* UsersDataSource.m */; };
 		14F4BA2B1C47FE0E00D2AE39 /* OutgoingCallViewControllerWithTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4BA2A1C47FE0E00D2AE39 /* OutgoingCallViewControllerWithTagViewController.m */; };
@@ -25,10 +23,13 @@
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
 		6844010FDF45D46A902B8AD0 /* BaseSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440DF3CB228E73B1A3CA08 /* BaseSettingsController.m */; };
+		684401DF86D756B173B73D27 /* LoginTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844028012190EE093EAD12D /* LoginTagViewController.m */; };
 		684402E9974D81458A9D2B37 /* KeychainHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844024CEE0F2ABAAF2376E8 /* KeychainHelper.m */; };
+		684409A2A0ED8AF434FAD64D /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844091C16B055004258B3B0 /* LoginHelper.m */; };
 		684409CA8864712158FAAC4F /* UsersService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844054E73EBC1E0FDC1026D /* UsersService.m */; };
+		68440CD5FEC7D5A4DFA9CA48 /* LoginTagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6844037ED4B1D5A60FEDE90E /* LoginTagViewController.storyboard */; };
+		68440D36EA6266C732AD7CC7 /* LoginViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 684404BD070D63C2C4085403 /* LoginViewControllerManager.m */; };
 		68440F2C9B289AC1B299110B /* SampleCoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440E2C3E41D64E4E9E2368 /* SampleCoreManager.m */; };
-		68440F489085AA5B460524CD /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 684404B6C65E77358BF6F33F /* LoginManager.m */; };
 		68440FFD701AF5111CAE9FE9 /* SampleCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440ED3042FE7D46C9B2A63 /* SampleCore.m */; };
 		FB29BBF81B32BBC0009751A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBA81B32BBC0009751A1 /* AppDelegate.m */; };
 		FB29BBF91B32BBC0009751A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBA91B32BBC0009751A1 /* Main.storyboard */; };
@@ -100,9 +101,6 @@
 		1458ECE11C60B18A0077B9FF /* OutgoingCallViewControllerNavTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OutgoingCallViewControllerNavTitleView.xib; path = OutgoingCallViewControllerNavTitleView/OutgoingCallViewControllerNavTitleView.xib; sourceTree = "<group>"; };
 		1459F3EA1C1F271C00DC2A1B /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../../../../Quickblox/Quickblox.framework; sourceTree = "<group>"; };
 		1459F3F01C20042300DC2A1B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		1483BFB41C43F103002F43FE /* LoginTagViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LoginTagViewController.storyboard; path = LoginTagViewController/LoginTagViewController.storyboard; sourceTree = "<group>"; };
-		1483BFB81C43F38C002F43FE /* LoginTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginTagViewController.h; path = LoginTagViewController/LoginTagViewController.h; sourceTree = "<group>"; };
-		1483BFB91C43F38C002F43FE /* LoginTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginTagViewController.m; path = LoginTagViewController/LoginTagViewController.m; sourceTree = "<group>"; };
 		14DABF4A1CABEC9E0058FE68 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
 		14F4BA191C45105800D2AE39 /* UsersDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersDataSource.h; sourceTree = "<group>"; };
 		14F4BA1A1C45105800D2AE39 /* UsersDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersDataSource.m; sourceTree = "<group>"; };
@@ -115,14 +113,21 @@
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		55F6BDC91A3F21CC0080C326 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		684400247B597E92B6AA0C31 /* LoginTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTagViewController.h; sourceTree = "<group>"; };
 		6844024CEE0F2ABAAF2376E8 /* KeychainHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainHelper.m; sourceTree = "<group>"; };
+		6844028012190EE093EAD12D /* LoginTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTagViewController.m; sourceTree = "<group>"; };
+		6844037ED4B1D5A60FEDE90E /* LoginTagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginTagViewController.storyboard; sourceTree = "<group>"; };
 		684403DA9F3AC525778D8AFE /* BaseSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSettingsController.h; sourceTree = "<group>"; };
-		684404B6C65E77358BF6F33F /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		684403DB811DDC1ACD0CD89C /* LoginViewControllerInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewControllerInput.h; sourceTree = "<group>"; };
+		684404BD070D63C2C4085403 /* LoginViewControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewControllerManager.m; sourceTree = "<group>"; };
 		6844054E73EBC1E0FDC1026D /* UsersService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersService.m; sourceTree = "<group>"; };
 		684407820D4715C59639F964 /* UsersService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersService.h; sourceTree = "<group>"; };
-		68440BAF23AACB20B1CEBC53 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		6844091C16B055004258B3B0 /* LoginHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHelper.m; sourceTree = "<group>"; };
+		684409A0E942475FE7A5ED92 /* LoginViewControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewControllerManager.h; sourceTree = "<group>"; };
 		68440BD31A7288DDF40E4FC6 /* SampleCoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCoreManager.h; sourceTree = "<group>"; };
+		68440C9D7636E6A0D7ED8563 /* LoginHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHelper.h; sourceTree = "<group>"; };
 		68440D16EE594628A7733BB3 /* SampleCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleCore.h; sourceTree = "<group>"; };
+		68440D8B7E2AA5A3B1A4D76F /* LoginViewControllerOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewControllerOutput.h; sourceTree = "<group>"; };
 		68440DC305C37371FBEE1985 /* KeychainHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainHelper.h; sourceTree = "<group>"; };
 		68440DF3CB228E73B1A3CA08 /* BaseSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSettingsController.m; sourceTree = "<group>"; };
 		68440E2C3E41D64E4E9E2368 /* SampleCoreManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleCoreManager.m; sourceTree = "<group>"; };
@@ -363,16 +368,6 @@
 			name = OutgoingCallViewControllerNavTitleView;
 			sourceTree = "<group>";
 		};
-		1483BFB31C43F0F5002F43FE /* LoginTagViewController */ = {
-			isa = PBXGroup;
-			children = (
-				1483BFB41C43F103002F43FE /* LoginTagViewController.storyboard */,
-				1483BFB81C43F38C002F43FE /* LoginTagViewController.h */,
-				1483BFB91C43F38C002F43FE /* LoginTagViewController.m */,
-			);
-			name = LoginTagViewController;
-			sourceTree = "<group>";
-		};
 		14F4BA281C47FDEB00D2AE39 /* OutgoingCallViewControllerWithTag */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +414,15 @@
 			path = SampleCore;
 			sourceTree = "<group>";
 		};
+		68440725C6F2E6CC3AD1B0F1 /* LoginViewControllerManager */ = {
+			isa = PBXGroup;
+			children = (
+				684409A0E942475FE7A5ED92 /* LoginViewControllerManager.h */,
+				684404BD070D63C2C4085403 /* LoginViewControllerManager.m */,
+			);
+			path = LoginViewControllerManager;
+			sourceTree = "<group>";
+		};
 		6844073F333FCA1DEA409EA4 /* UsersService */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,13 +432,13 @@
 			path = UsersService;
 			sourceTree = "<group>";
 		};
-		6844089DEEF611C89B7EE3B3 /* LoginManager */ = {
+		684408004059FD259CFBACA1 /* LoginHelper */ = {
 			isa = PBXGroup;
 			children = (
-				684404B6C65E77358BF6F33F /* LoginManager.m */,
-				68440BAF23AACB20B1CEBC53 /* LoginManager.h */,
+				6844091C16B055004258B3B0 /* LoginHelper.m */,
+				68440C9D7636E6A0D7ED8563 /* LoginHelper.h */,
 			);
-			path = LoginManager;
+			path = LoginHelper;
 			sourceTree = "<group>";
 		};
 		68440A7D11236FCCCD33EF24 /* KeychainHelper */ = {
@@ -453,6 +457,28 @@
 				68440E2C3E41D64E4E9E2368 /* SampleCoreManager.m */,
 			);
 			path = SampleCoreManager;
+			sourceTree = "<group>";
+		};
+		68440B4C9F5E9D3C0FB080F6 /* LoginTagViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6844037ED4B1D5A60FEDE90E /* LoginTagViewController.storyboard */,
+				684400247B597E92B6AA0C31 /* LoginTagViewController.h */,
+				6844028012190EE093EAD12D /* LoginTagViewController.m */,
+			);
+			path = LoginTagViewController;
+			sourceTree = "<group>";
+		};
+		68440B60412D6E2EFA101028 /* LoginComponent */ = {
+			isa = PBXGroup;
+			children = (
+				68440B4C9F5E9D3C0FB080F6 /* LoginTagViewController */,
+				684408004059FD259CFBACA1 /* LoginHelper */,
+				68440D8B7E2AA5A3B1A4D76F /* LoginViewControllerOutput.h */,
+				684403DB811DDC1ACD0CD89C /* LoginViewControllerInput.h */,
+				68440725C6F2E6CC3AD1B0F1 /* LoginViewControllerManager */,
+			);
+			path = LoginComponent;
 			sourceTree = "<group>";
 		};
 		68440CB2DA8F30B0EC414140 /* BaseSettingsController */ = {
@@ -587,6 +613,7 @@
 				FB29BBAB1B32BBC0009751A1 /* Cells */,
 				FB29BBD21B32BBC0009751A1 /* ViewControllers */,
 				FB29BBE81B32BBC0009751A1 /* Views */,
+				68440B60412D6E2EFA101028 /* LoginComponent */,
 			);
 			path = "sample-videochat-webrtc";
 			sourceTree = "<group>";
@@ -640,7 +667,6 @@
 				684401773E55DFA8D3E2DC4B /* SampleCore */,
 				68440AA2B098BAC63E72E278 /* SampleCoreManager */,
 				6844073F333FCA1DEA409EA4 /* UsersService */,
-				6844089DEEF611C89B7EE3B3 /* LoginManager */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -708,7 +734,6 @@
 		FB29BBD21B32BBC0009751A1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1483BFB31C43F0F5002F43FE /* LoginTagViewController */,
 				FB5D2C601BDFA26400C3B328 /* SharingViewController */,
 				FBCA4ECD1B3C0E25005B537A /* SettingsViewController */,
 				FB29BBD31B32BBC0009751A1 /* BaseViewController */,
@@ -1082,10 +1107,10 @@
 				FB29BC0B1B32BBC0009751A1 /* calling.wav in Resources */,
 				FB29BBF91B32BBC0009751A1 /* Main.storyboard in Resources */,
 				FBE079F41BEA204000718C56 /* StunList.plist in Resources */,
-				1483BFB51C43F103002F43FE /* LoginTagViewController.storyboard in Resources */,
 				140A2CCE1C0CB368008BCBFC /* SettingCell.xib in Resources */,
 				FB29BC021B32BBC0009751A1 /* Launch Screen.xib in Resources */,
 				FBE079F61BEA204000718C56 /* DEVUsers.plist in Resources */,
+				68440CD5FEC7D5A4DFA9CA48 /* LoginTagViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1154,13 +1179,14 @@
 				FB29BC031B32BBC0009751A1 /* main.m in Sources */,
 				FB29BC0F1B32BBC0009751A1 /* CallViewController.m in Sources */,
 				FB29BBFA1B32BBC0009751A1 /* CheckUserTableViewCell.m in Sources */,
-				143819E41C51260100B5A271 /* LoginTagViewController.m in Sources */,
 				6844010FDF45D46A902B8AD0 /* BaseSettingsController.m in Sources */,
 				68440FFD701AF5111CAE9FE9 /* SampleCore.m in Sources */,
 				684402E9974D81458A9D2B37 /* KeychainHelper.m in Sources */,
 				68440F2C9B289AC1B299110B /* SampleCoreManager.m in Sources */,
 				684409CA8864712158FAAC4F /* UsersService.m in Sources */,
-				68440F489085AA5B460524CD /* LoginManager.m in Sources */,
+				684401DF86D756B173B73D27 /* LoginTagViewController.m in Sources */,
+				684409A2A0ED8AF434FAD64D /* LoginHelper.m in Sources */,
+				68440D36EA6266C732AD7CC7 /* LoginViewControllerManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
