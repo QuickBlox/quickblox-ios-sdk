@@ -25,7 +25,7 @@
         <!--Enter to chat-->
         <scene sceneID="nTz-99-Ce4">
             <objects>
-                <tableViewController id="ZwU-1N-zDg" customClass="LoginTagViewController" sceneMemberID="viewController">
+                <tableViewController id="ZwU-1N-zDg" customClass="LoginViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="45" sectionHeaderHeight="28" sectionFooterHeight="28" id="yfq-Hy-5T2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

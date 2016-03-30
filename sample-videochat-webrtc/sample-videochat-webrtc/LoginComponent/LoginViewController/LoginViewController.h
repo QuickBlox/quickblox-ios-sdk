@@ -1,5 +1,5 @@
 //
-//  LoginTagViewController.h
+//  LoginViewController.h
 //  sample-videochat-webrtc
 //
 //  Created by Anton Sokolchenko on 1/11/16.
@@ -10,7 +10,7 @@
 #import "LoginViewControllerInput.h"
 #import "LoginViewControllerOutput.h"
 
-@interface LoginTagViewController : UITableViewController <LoginViewControllerInput>
+@interface LoginViewController : UITableViewController <LoginViewControllerInput>
 
 
 @property (nonatomic, strong) id<LoginViewControllerOutput> output;

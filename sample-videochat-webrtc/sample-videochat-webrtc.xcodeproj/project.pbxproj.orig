@@ -21,10 +21,10 @@
 		1459F3F91C20245D00DC2A1B /* sample_videochat_webrtcUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1459F3F81C20245D00DC2A1B /* sample_videochat_webrtcUITests.m */; };
 		147D95921C48046200D54C35 /* UsersWithTagDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 147D95911C48046200D54C35 /* UsersWithTagDownloader.m */; };
 		147D95931C48046200D54C35 /* UsersWithTagDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 147D95911C48046200D54C35 /* UsersWithTagDownloader.m */; };
-		1483BFB51C43F103002F43FE /* LoginTagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1483BFB41C43F103002F43FE /* LoginTagViewController.storyboard */; };
-		1483BFB61C43F103002F43FE /* LoginTagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1483BFB41C43F103002F43FE /* LoginTagViewController.storyboard */; };
-		1483BFBA1C43F38C002F43FE /* LoginTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483BFB91C43F38C002F43FE /* LoginTagViewController.m */; };
-		1483BFBB1C43F38C002F43FE /* LoginTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483BFB91C43F38C002F43FE /* LoginTagViewController.m */; };
+		1483BFB51C43F103002F43FE /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1483BFB41C43F103002F43FE /* LoginViewController.storyboard */; };
+		1483BFB61C43F103002F43FE /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1483BFB41C43F103002F43FE /* LoginViewController.storyboard */; };
+		1483BFBA1C43F38C002F43FE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483BFB91C43F38C002F43FE /* LoginViewController.m */; };
+		1483BFBB1C43F38C002F43FE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1483BFB91C43F38C002F43FE /* LoginViewController.m */; };
 		14F4BA1B1C45105800D2AE39 /* UsersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4BA1A1C45105800D2AE39 /* UsersDataSource.m */; };
 		14F4BA1C1C45105800D2AE39 /* UsersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4BA1A1C45105800D2AE39 /* UsersDataSource.m */; };
 		14F4BA2B1C47FE0E00D2AE39 /* OutgoingCallViewControllerWithTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14F4BA2A1C47FE0E00D2AE39 /* OutgoingCallViewControllerWithTagViewController.m */; };
@@ -394,9 +394,9 @@
 		1459F3FA1C20245D00DC2A1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		147D95901C48046200D54C35 /* UsersWithTagDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersWithTagDownloader.h; path = usersWithTagsDownloader/UsersWithTagDownloader.h; sourceTree = "<group>"; };
 		147D95911C48046200D54C35 /* UsersWithTagDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersWithTagDownloader.m; path = usersWithTagsDownloader/UsersWithTagDownloader.m; sourceTree = "<group>"; };
-		1483BFB41C43F103002F43FE /* LoginTagViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LoginTagViewController.storyboard; path = LoginTagViewController/LoginTagViewController.storyboard; sourceTree = "<group>"; };
-		1483BFB81C43F38C002F43FE /* LoginTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginTagViewController.h; path = LoginTagViewController/LoginTagViewController.h; sourceTree = "<group>"; };
-		1483BFB91C43F38C002F43FE /* LoginTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginTagViewController.m; path = LoginTagViewController/LoginTagViewController.m; sourceTree = "<group>"; };
+		1483BFB41C43F103002F43FE /* LoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LoginViewController.storyboard; path = LoginViewController/LoginViewController.storyboard; sourceTree = "<group>"; };
+		1483BFB81C43F38C002F43FE /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = LoginViewController/LoginViewController.h; sourceTree = "<group>"; };
+		1483BFB91C43F38C002F43FE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = LoginViewController/LoginViewController.m; sourceTree = "<group>"; };
 		14F4BA191C45105800D2AE39 /* UsersDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersDataSource.h; sourceTree = "<group>"; };
 		14F4BA1A1C45105800D2AE39 /* UsersDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersDataSource.m; sourceTree = "<group>"; };
 		14F4BA291C47FE0E00D2AE39 /* OutgoingCallViewControllerWithTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OutgoingCallViewControllerWithTagViewController.h; path = OutgoingCallViewControllerWithTag/OutgoingCallViewControllerWithTagViewController.h; sourceTree = "<group>"; };
@@ -914,14 +914,14 @@
 			name = UsersWithTagsDownloader;
 			sourceTree = "<group>";
 		};
-		1483BFB31C43F0F5002F43FE /* LoginTagViewController */ = {
+		1483BFB31C43F0F5002F43FE /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
-				1483BFB41C43F103002F43FE /* LoginTagViewController.storyboard */,
-				1483BFB81C43F38C002F43FE /* LoginTagViewController.h */,
-				1483BFB91C43F38C002F43FE /* LoginTagViewController.m */,
+				1483BFB41C43F103002F43FE /* LoginViewController.storyboard */,
+				1483BFB81C43F38C002F43FE /* LoginViewController.h */,
+				1483BFB91C43F38C002F43FE /* LoginViewController.m */,
 			);
-			name = LoginTagViewController;
+			name = LoginViewController;
 			sourceTree = "<group>";
 		};
 		14F4BA281C47FDEB00D2AE39 /* OutgoingCallViewControllerWithTag */ = {
@@ -1202,7 +1202,7 @@
 		FB29BBD21B32BBC0009751A1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1483BFB31C43F0F5002F43FE /* LoginTagViewController */,
+				1483BFB31C43F0F5002F43FE /* LoginViewController */,
 				FB0255C11C20388400CFEB1E /* RecordsBrowserViewController */,
 				FB5D2C601BDFA26400C3B328 /* SharingViewController */,
 				FBCA4ECD1B3C0E25005B537A /* SettingsViewController */,
@@ -2188,7 +2188,7 @@
 				FB29BC0B1B32BBC0009751A1 /* calling.wav in Resources */,
 				FB29BBF91B32BBC0009751A1 /* Main.storyboard in Resources */,
 				FBE079F41BEA204000718C56 /* StunList.plist in Resources */,
-				1483BFB51C43F103002F43FE /* LoginTagViewController.storyboard in Resources */,
+				1483BFB51C43F103002F43FE /* LoginViewController.storyboard in Resources */,
 				140A2CCE1C0CB368008BCBFC /* SettingCell.xib in Resources */,
 				FB29BC021B32BBC0009751A1 /* Launch Screen.xib in Resources */,
 				FBE079F61BEA204000718C56 /* DEVUsers.plist in Resources */,
@@ -2213,7 +2213,7 @@
 				FB57E9991C0DE3F900D0E6FC /* SVProgressHUD.bundle in Resources */,
 				FB57E99B1C0DE3F900D0E6FC /* calling.wav in Resources */,
 				FB57E99C1C0DE3F900D0E6FC /* Main.storyboard in Resources */,
-				1483BFB61C43F103002F43FE /* LoginTagViewController.storyboard in Resources */,
+				1483BFB61C43F103002F43FE /* LoginViewController.storyboard in Resources */,
 				FB57E99D1C0DE3F900D0E6FC /* StunList.plist in Resources */,
 				FB57E99E1C0DE3F900D0E6FC /* Launch Screen.xib in Resources */,
 				FB57E99F1C0DE3F900D0E6FC /* DEVUsers.plist in Resources */,
@@ -2299,7 +2299,7 @@
 				FBE175291BE10B3A00A2A88A /* QBRTCScreenCapture.m in Sources */,
 				FB29BC171B32BBC0009751A1 /* CornerView.m in Sources */,
 				FB29BC111B32BBC0009751A1 /* IncomingCallViewController.m in Sources */,
-1483BFBA1C43F38C002F43FE /* LoginTagViewController.m in Sources */,
+1483BFBA1C43F38C002F43FE /* LoginViewController.m in Sources */,
 				FB328A651C2ADF0000733C13 /* RTCMediaStreamTrack.mm in Sources */,
 				142874E41BE7956E00AE33F1 /* QBRTCVideoFormat.m in Sources */,
 				FBA84D961BE230C900DA5A72 /* QBRTCSignalingProvider.m in Sources */,
@@ -2415,7 +2415,7 @@
 				FB57E93A1C0DE3F900D0E6FC /* BaseViewController.m in Sources */,
 				FB57E93B1C0DE3F900D0E6FC /* QBRTCScreenCapture.m in Sources */,
 				FB57E93C1C0DE3F900D0E6FC /* CornerView.m in Sources */,
-				1483BFBB1C43F38C002F43FE /* LoginTagViewController.m in Sources */,
+				1483BFBB1C43F38C002F43FE /* LoginViewController.m in Sources */,
 				FB57E93D1C0DE3F900D0E6FC /* IncomingCallViewController.m in Sources */,
 				FB328A661C2ADF0000733C13 /* RTCMediaStreamTrack.mm in Sources */,
 				FB57E9401C0DE3F900D0E6FC /* QBRTCVideoFormat.m in Sources */,

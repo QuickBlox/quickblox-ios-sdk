@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- *  Retrieve data from LoginViewController and send methods
+ *  Retrieve data from and send methods to LoginViewController
  */
 @protocol LoginViewControllerInput <NSObject>
 

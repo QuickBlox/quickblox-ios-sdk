@@ -4,8 +4,7 @@
 //
 
 #import "LoginViewControllerManager.h"
-#import "LoginViewControllerOutput.h"
-#import "LoginTagViewController.h"
+#import "LoginViewController.h"
 #import "SVProgressHUD.h"
 #import "LoginHelper.h"
 #import "SampleCoreManager.h"
@@ -141,7 +140,7 @@ static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"Outgoing
 
 #pragma mark LoginViewControllerOutput
 
-- (void)loginViewControllerViewDidLoad:(LoginTagViewController *)loginViewController {
+- (void)loginViewControllerViewDidLoad:(id<LoginViewControllerInput>)loginViewController {
 	QBUUser *cachedUser = [[SampleCore usersDataSource] currentUserWithDefaultPassword];
 	
 	if (cachedUser) {
@@ -153,7 +152,7 @@ static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"Outgoing
 	}
 }
 
-- (void)loginViewControllerDidTapLoginButton:(LoginTagViewController *)loginViewController {
+- (void)loginViewControllerDidTapLoginButton:(id<LoginViewControllerInput>)loginViewController {
 	[self.input disableInput];
 	
 	[self loginWithCurrentUser];

@@ -1,29 +1,20 @@
 //
-//  LoginTagViewController.m
+//  LoginViewController.m
 //  sample-videochat-webrtc
 //
 //  Created by Anton Sokolchenko on 1/11/16.
 //  Copyright © 2016 QuickBlox Team. All rights reserved.
 //
 
-#import "LoginTagViewController.h"
-#import "OutgoingCallViewController.h"
-#import "PushMessagesManager.h"
-#import "SVProgressHUD.h"
-#import "UsersDataSourceProtocol.h"
-#import <AdSupport/ASIdentifierManager.h>
-
-#import "SampleCoreManager.h"
-#import "LoginHelper.h"
-
+#import "LoginViewController.h"
 #import "LoginViewControllerManager.h"
 
-@interface LoginTagViewController () <UITextFieldDelegate>
+@interface LoginViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) LoginViewControllerManager *manager;
 @end
 
-@implementation LoginTagViewController
+@implementation LoginViewController
 
 - (void)viewDidLoad {
 	[super viewDidLoad];

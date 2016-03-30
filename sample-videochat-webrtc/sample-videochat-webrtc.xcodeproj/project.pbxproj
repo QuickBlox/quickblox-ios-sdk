@@ -23,11 +23,11 @@
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
 		6844010FDF45D46A902B8AD0 /* BaseSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440DF3CB228E73B1A3CA08 /* BaseSettingsController.m */; };
-		684401DF86D756B173B73D27 /* LoginTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844028012190EE093EAD12D /* LoginTagViewController.m */; };
+		684401DF86D756B173B73D27 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844028012190EE093EAD12D /* LoginViewController.m */; };
 		684402E9974D81458A9D2B37 /* KeychainHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844024CEE0F2ABAAF2376E8 /* KeychainHelper.m */; };
 		684409A2A0ED8AF434FAD64D /* LoginHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844091C16B055004258B3B0 /* LoginHelper.m */; };
 		684409CA8864712158FAAC4F /* UsersService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6844054E73EBC1E0FDC1026D /* UsersService.m */; };
-		68440CD5FEC7D5A4DFA9CA48 /* LoginTagViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6844037ED4B1D5A60FEDE90E /* LoginTagViewController.storyboard */; };
+		68440CD5FEC7D5A4DFA9CA48 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6844037ED4B1D5A60FEDE90E /* LoginViewController.storyboard */; };
 		68440D36EA6266C732AD7CC7 /* LoginViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 684404BD070D63C2C4085403 /* LoginViewControllerManager.m */; };
 		68440F2C9B289AC1B299110B /* SampleCoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440E2C3E41D64E4E9E2368 /* SampleCoreManager.m */; };
 		68440FFD701AF5111CAE9FE9 /* SampleCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440ED3042FE7D46C9B2A63 /* SampleCore.m */; };
@@ -113,10 +113,10 @@
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		55F6BDC91A3F21CC0080C326 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		684400247B597E92B6AA0C31 /* LoginTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTagViewController.h; sourceTree = "<group>"; };
+		684400247B597E92B6AA0C31 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		6844024CEE0F2ABAAF2376E8 /* KeychainHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainHelper.m; sourceTree = "<group>"; };
-		6844028012190EE093EAD12D /* LoginTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTagViewController.m; sourceTree = "<group>"; };
-		6844037ED4B1D5A60FEDE90E /* LoginTagViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginTagViewController.storyboard; sourceTree = "<group>"; };
+		6844028012190EE093EAD12D /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		6844037ED4B1D5A60FEDE90E /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		684403DA9F3AC525778D8AFE /* BaseSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseSettingsController.h; sourceTree = "<group>"; };
 		684403DB811DDC1ACD0CD89C /* LoginViewControllerInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewControllerInput.h; sourceTree = "<group>"; };
 		684404BD070D63C2C4085403 /* LoginViewControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewControllerManager.m; sourceTree = "<group>"; };
@@ -459,20 +459,20 @@
 			path = SampleCoreManager;
 			sourceTree = "<group>";
 		};
-		68440B4C9F5E9D3C0FB080F6 /* LoginTagViewController */ = {
+		68440B4C9F5E9D3C0FB080F6 /* LoginViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6844037ED4B1D5A60FEDE90E /* LoginTagViewController.storyboard */,
-				684400247B597E92B6AA0C31 /* LoginTagViewController.h */,
-				6844028012190EE093EAD12D /* LoginTagViewController.m */,
+				6844037ED4B1D5A60FEDE90E /* LoginViewController.storyboard */,
+				684400247B597E92B6AA0C31 /* LoginViewController.h */,
+				6844028012190EE093EAD12D /* LoginViewController.m */,
 			);
-			path = LoginTagViewController;
+			path = LoginViewController;
 			sourceTree = "<group>";
 		};
 		68440B60412D6E2EFA101028 /* LoginComponent */ = {
 			isa = PBXGroup;
 			children = (
-				68440B4C9F5E9D3C0FB080F6 /* LoginTagViewController */,
+				68440B4C9F5E9D3C0FB080F6 /* LoginViewController */,
 				684408004059FD259CFBACA1 /* LoginHelper */,
 				68440D8B7E2AA5A3B1A4D76F /* LoginViewControllerOutput.h */,
 				684403DB811DDC1ACD0CD89C /* LoginViewControllerInput.h */,
@@ -1110,7 +1110,7 @@
 				140A2CCE1C0CB368008BCBFC /* SettingCell.xib in Resources */,
 				FB29BC021B32BBC0009751A1 /* Launch Screen.xib in Resources */,
 				FBE079F61BEA204000718C56 /* DEVUsers.plist in Resources */,
-				68440CD5FEC7D5A4DFA9CA48 /* LoginTagViewController.storyboard in Resources */,
+				68440CD5FEC7D5A4DFA9CA48 /* LoginViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1184,7 +1184,7 @@
 				684402E9974D81458A9D2B37 /* KeychainHelper.m in Sources */,
 				68440F2C9B289AC1B299110B /* SampleCoreManager.m in Sources */,
 				684409CA8864712158FAAC4F /* UsersService.m in Sources */,
-				684401DF86D756B173B73D27 /* LoginTagViewController.m in Sources */,
+				684401DF86D756B173B73D27 /* LoginViewController.m in Sources */,
 				684409A2A0ED8AF434FAD64D /* LoginHelper.m in Sources */,
 				68440D36EA6266C732AD7CC7 /* LoginViewControllerManager.m in Sources */,
 			);
