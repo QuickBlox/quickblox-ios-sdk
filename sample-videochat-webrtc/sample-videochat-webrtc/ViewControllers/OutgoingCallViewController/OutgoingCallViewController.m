@@ -14,7 +14,6 @@
 #import "IncomingCallViewController.h"
 #import "QMSoundManager.h"
 #import "SVProgressHUD.h"
-#import "PushMessagesManager.h"
 #import "SVProgressHUD.h"
 #import "Settings.h"
 #import "SampleCore.h"
@@ -152,31 +151,32 @@ const NSUInteger kTableRowHeight = 44;
 
 - (void)callWithConferenceType:(QBRTCConferenceType)conferenceType {
     
-    if ([self usersToCall]) {
-        
-        NSParameterAssert(!self.currentSession);
-        NSParameterAssert(!self.nav);
-        
-        NSArray *opponentsIDs = [[SampleCore usersDataSource] idsWithUsers:[self.selectedUsers copy]];
-        //Create new session
-        QBRTCSession *session = [[QBRTCClient instance] createNewSessionWithOpponents:opponentsIDs withConferenceType:conferenceType];
-        
-        if (session) {
-			
-            self.currentSession = session;
-            CallViewController *callViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
-            callViewController.session = self.currentSession;
-            
-            self.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
-            self.nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            
-            [self presentViewController:self.nav animated:NO completion:nil];
-        }
-        else {
-            
-            [SVProgressHUD showErrorWithStatus:@"You should login to use chat API. Session hasn’t been created. Please try to relogin the chat."];
-        }
-    }
+    if (![self usersToCall]) {
+		return;
+	}
+	NSParameterAssert(!self.currentSession);
+	NSParameterAssert(!self.nav);
+	
+	NSArray *opponentsIDs = [[SampleCore usersDataSource] idsWithUsers:[self.selectedUsers copy]];
+	//Create new session
+	QBRTCSession *session = [[QBRTCClient instance] createNewSessionWithOpponents:opponentsIDs withConferenceType:conferenceType];
+	
+	if (session) {
+		
+		self.currentSession = session;
+		CallViewController *callViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CallViewController"];
+		callViewController.session = self.currentSession;
+		
+		self.nav = [[UINavigationController alloc] initWithRootViewController:callViewController];
+		self.nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+		
+		[self presentViewController:self.nav animated:NO completion:nil];
+	}
+	else {
+		
+		[SVProgressHUD showErrorWithStatus:@"You should login to use chat API. Session hasn’t been created. Please try to relogin the chat."];
+	}
+	
 }
 
 #pragma mark - QBWebRTCChatDelegate

@@ -34,14 +34,11 @@
 	
 	[self.refreshControl beginRefreshing];
 	
-	[SampleCoreManager allUsersWithTags:[[SampleCore usersDataSource] tags] perPageLimit:50 successBlock:^(NSArray *usersObjects) {
-
-		[[SampleCore usersDataSource] loadUsersWithArray:usersObjects tags:[SampleCore usersDataSource].tags];
+	[SampleCoreManager downloadAndCacheUsersWithTags:[[SampleCore usersDataSource] tags] successBlock:^{
 		[SVProgressHUD showSuccessWithStatus:@"Reloaded!"];
-
+		
 		[weakSelf.refreshControl endRefreshing];
 		[weakSelf.tableView reloadData];
-
 	} errorBlock:^(QBResponse *response) {
 		[SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Error: %@", response.error.reasons.description]];
 		[weakSelf.refreshControl endRefreshing];
