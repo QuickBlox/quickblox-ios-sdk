@@ -22,7 +22,7 @@
 /** Overview */
 /** This class is the main entry point to work with Quickblox Chat API. */
 
-@interface QBChat : NSObject 
+@interface QBChat : NSObject
 
 /** Contact list */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBContactList *contactList;
@@ -32,14 +32,14 @@
 #pragma mark -
 #pragma mark Multicast Delegate
 
-/** 
+/**
  *  Adds the given delegate implementation to the list of observers
  *
  *  @param delegate The delegate to add
  */
 - (void)addDelegate:(QB_NONNULL id<QBChatDelegate>)delegate;
 
-/** 
+/**
  *  Removes the given delegate implementation from the list of observers
  *
  *  @param delegate The delegate to remove
@@ -57,7 +57,7 @@
 #pragma mark Reconnection
 
 /**
- *  Run force reconnect. This method disconnects from chat and runs reconnection logic. 
+ *  Run force reconnect. This method disconnects from chat and runs reconnection logic.
  *  Works only if autoReconnectEnabled=YES. Otherwise it does nothing.
  */
 - (void)forceReconnect;
@@ -122,13 +122,15 @@
 
 /**
  *  Send presence message. Session will be closed in 90 seconds since last activity.
- *
+ *  @warning *Deprecated in 2.7.0.:*
  *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendPresence;
+- (BOOL)sendPresence DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.0.");
 
 /**
  *  Send presence message with status. Session will be closed in 90 seconds since last activity.
+ *
+ *  @param status Presence status.
  *
  *  @return YES if the request was sent successfully. If not - see log.
  */
