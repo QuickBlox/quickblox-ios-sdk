@@ -1,28 +1,32 @@
 //
 //  UsersDataSource.h
-//  sample-videochat-webrtc
+//  QBRTCChatSemple
 //
-//  Created by Anton Sokolchenko on 1/12/16.
-//  Copyright © 2016 QuickBlox Team. All rights reserved.
+//  Created by Andrey Ivanov on 11.12.14.
+//  Copyright (c) 2014 QuickBlox Team. All rights reserved.
 //
-#import "UsersDataSourceProtocol.h"
 
-@interface UsersDataSource : NSObject <UsersDataSourceProtocol>
+#import <Foundation/Foundation.h>
+#import "Types.h"
+#import "QBUUser+IndexAndColor.h"
 
+@interface UsersDataSource : NSObject
+
+@property (assign, nonatomic) ListOfUsers list;
 @property (strong, nonatomic, readonly) NSArray *users;
-@property (strong, nonatomic) QBUUser *currentUser;
-@property (strong, nonatomic, readonly) QBUUser *currentUserWithDefaultPassword;
-@property (strong, nonatomic, readonly) NSString *defaultPassword;
+@property (strong, nonatomic, readonly) QBUUser *currentUser;
 @property (strong, nonatomic, readonly) NSArray *usersWithoutMe;
-@property (nonatomic, strong) NSArray *tags;
-/**
- *  Loading users
- *
- *  @param users array of QBUUser instance
- */
-- (void)loadUsersWithArray:(NSArray *)users tags:(NSArray *)tags;
 
-/// @return random color
++ (instancetype)instance;
+
+- (void)loadUsersWithList:(ListOfUsers)list;
 - (UIColor *)colorAtUser:(QBUUser *)user;
+- (NSString *)strWithList:(ListOfUsers)list;
+
+- (NSUInteger)indexOfUser:(QBUUser *)user;
+- (NSArray *)idsWithUsers:(NSArray *)users;
+- (NSArray *)usersWithIDS:(NSArray *)ids;
+- (NSArray *)usersWithIDSWithoutMe:(NSArray *)ids;
+- (QBUUser *)userWithID:(NSNumber *)userID;
 
 @end

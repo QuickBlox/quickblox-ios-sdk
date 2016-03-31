@@ -1,6 +1,6 @@
 //
 //  UserTableViewCell.m
-//  QBRTCChatSample
+//  QBRTCChatSemple
 //
 //  Created by Andrey Ivanov on 11.12.14.
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
@@ -9,15 +9,19 @@
 #import "UserTableViewCell.h"
 #import "CornerView.h"
 
+@interface UserTableViewCell()
+
+@property (weak, nonatomic) IBOutlet CornerView *colorMarker;
+@property (weak, nonatomic) IBOutlet UILabel *userDescriptionLabel;
+
+@end
+
 @implementation UserTableViewCell
 
-- (void)setMarkerColor:(UIColor *)color {
+- (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color {
     
     self.colorMarker.bgColor = color;
-}
-
-- (void)setMarkerText:(NSString *)text {
-	self.colorMarker.title = [text uppercaseString];
+    self.colorMarker.title = text;
 }
 
 - (void)setUserDescription:(NSString *)userDescription {

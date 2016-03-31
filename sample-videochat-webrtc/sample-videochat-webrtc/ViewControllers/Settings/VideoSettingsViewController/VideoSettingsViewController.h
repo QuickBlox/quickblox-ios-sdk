@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseSettingsController.h"
 
-@interface VideoSettingsViewController : BaseSettingsController
+@interface VideoSettingsViewController : UITableViewController
 
 @end

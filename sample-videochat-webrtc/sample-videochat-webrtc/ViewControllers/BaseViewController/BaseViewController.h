@@ -1,17 +1,18 @@
 //
 //  BaseViewController.h
-//  QBRTCChatSample
+//  QBRTCChatSemple
 //
 //  Created by Andrey Ivanov on 16.12.14.
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "SampleCore.h"
+@import UIKit;
 
 @class IAButton;
 
 @interface BaseViewController : UIViewController
+
+@property (strong, nonatomic) NSArray *users;
 
 /**
  *  Create custom UIBarButtonItem instance

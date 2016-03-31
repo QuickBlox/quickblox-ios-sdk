@@ -7,17 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BaseSettingsController.h"
 
 @interface SettingsSectionModel : NSObject
 
 @property (copy, nonatomic, readonly) NSString *title;
-@property (assign, nonatomic) SettingsSectionType type;
 @property (strong, nonatomic) NSArray *items;
 
 /// Init is not a supported initializer for this class
-- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
 
-+ (instancetype)sectionWithTitle:(NSString *)title items:(NSArray *)items type:(SettingsSectionType)type;
++ (instancetype)sectionWithTitle:(NSString *)title items:(NSArray *)items;
 
 @end

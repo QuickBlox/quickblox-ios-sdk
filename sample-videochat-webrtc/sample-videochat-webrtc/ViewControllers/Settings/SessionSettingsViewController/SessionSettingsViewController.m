@@ -7,33 +7,29 @@
 //
 
 #import "SessionSettingsViewController.h"
-#import "UsersDataSourceProtocol.h"
+#import "UsersDataSource.h"
 #import "Settings.h"
-#import "AudioSettingsViewController.h"
-#import "VideoSettingsViewController.h"
-#import "StunSettingsViewController.h"
-#import "CallSettingsViewController.h"
-#import "SampleCore.h"
 
 @interface SessionSettingsViewController()
 
-@property(weak, nonatomic) Settings *settings;
+@property(strong, nonatomic) Settings *settings;
 
 @end
 
 typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     
     SessionConfigureItemVideo,
-    SessionConfigureItemAudio,
-    SessionConfigureItemStunServer,
-	SessionConfigureItemCallSettings,
+    SessionConfigureItemAuido,
+    SessionConfigureItemListOfUsers,
+    SessionConfigureItemStunServer
 };
 
 @implementation SessionSettingsViewController
 
-- (void)loadView {
-	[super loadView];
-	_settings = [SampleCore settings];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.settings = Settings.instance;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -41,76 +37,27 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     [self.tableView reloadData];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
 #pragma mark - Actions
 
 - (IBAction)pressDoneBtn:(id)sender {
     
-    [[SampleCore settings] saveToDisk];
-    [self applyConfiguration];
+    [Settings.instance saveToDisk];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)applyConfiguration {
-    
-    NSMutableArray *iceServers = [NSMutableArray array];
-    
-    for (NSString *url in [SampleCore settings].stunServers) {
-        
-        QBRTCICEServer *server = [QBRTCICEServer serverWithURL:url username:@"" password:@""];
-        [iceServers addObject:server];
-    }
-    
-    [iceServers addObjectsFromArray:[self quickbloxICE]];
-    
-    [QBRTCConfig setICEServers:iceServers];
-    [SampleCore settings].mediaConfiguration.videoCodec = QBRTCVideoCodecH264;
-    [QBRTCConfig setMediaStreamConfiguration:[SampleCore settings].mediaConfiguration];
-    [QBRTCConfig setStatsReportTimeInterval:1.f];
-}
-
-- (NSArray *)quickbloxICE {
-    
-    NSString *password = @"baccb97ba2d92d71e26eb9886da5f1e0";
-    NSString *userName = @"quickblox";
-    
-    NSArray *urls = @[
-                      @"turn.quickblox.com",       //USA
-                      @"turnsingapore.quickblox.com",   //Singapore
-                      @"turnireland.quickblox.com"      //Ireland
-                      ];
-    
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:urls.count];
-    
-    for (NSString *url in urls) {
-        
-        QBRTCICEServer *stunServer = [QBRTCICEServer serverWithURL:[NSString stringWithFormat:@"stun:%@", url]
-                                                          username:@""
-                                                          password:@""];
-        
-        
-        QBRTCICEServer *turnUDPServer = [QBRTCICEServer serverWithURL:[NSString stringWithFormat:@"turn:%@:3478?transport=udp", url]
-                                                             username:userName
-                                                             password:password];
-        
-        QBRTCICEServer *turnTCPServer = [QBRTCICEServer serverWithURL:[NSString stringWithFormat:@"turn:%@:3478?transport=tcp", url]
-                                                             username:userName
-                                                             password:password];
-        
-        [result addObjectsFromArray:@[stunServer, turnTCPServer, turnUDPServer]];
-    }
-    
-    return result;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    cell.detailTextLabel.text = [self detailTextForRowAtIndexPath:indexPath];
+    cell.detailTextLabel.text = [self detailTextForRowAtIndexPaht:indexPath];
     
     return cell;
 }
 
-- (NSString *)detailTextForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)detailTextForRowAtIndexPaht:(NSIndexPath *)indexPath {
 
     
     if (indexPath.row == SessionConfigureItemVideo) {
@@ -118,7 +65,7 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
         return [NSString stringWithFormat:@"%tux%tu", self.settings.videoFormat.width, self.settings.videoFormat.height];
         
     }
-    else if (indexPath.row == SessionConfigureItemAudio) {
+    else if (indexPath.row == SessionConfigureItemAuido) {
         
         if (self.settings.mediaConfiguration.audioCodec == QBRTCAudioCodecOpus ) {
             
@@ -132,39 +79,19 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
             
             return @"iLBC";
         }
+        
+    }
+    else if (indexPath.row == SessionConfigureItemListOfUsers) {
+        
+        return [UsersDataSource.instance strWithList:Settings.instance.listType];
     }
     else if (indexPath.row == SessionConfigureItemStunServer) {
         
-        NSString *selected = [NSString stringWithFormat:@"Selected - %zd", [SampleCore settings].stunServers.count];
+        NSString *selected = [NSString stringWithFormat:@"Selected - %lu", (unsigned long)Settings.instance.stunServers.count];
         return selected;
-	}
-    else if (indexPath.row == SessionConfigureItemCallSettings) {
-        
-		return @""; // nothing to show
-	}
-		
+    }
+    
     return @"Unknown";
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-	BaseSettingsController *VC = nil;
-	if (indexPath.row == SessionConfigureItemStunServer) {
-        
-		VC = [[StunSettingsViewController alloc] init];
-	}
-    else if (indexPath.row == SessionConfigureItemVideo) {
-		VC = [[VideoSettingsViewController alloc] init];
-	}
-    else if (indexPath.row == SessionConfigureItemAudio) {
-		VC = [[AudioSettingsViewController alloc] init];
-	}
-    else if( indexPath.row == SessionConfigureItemCallSettings) {
-		VC = [[CallSettingsViewController alloc] init];
-	}
-    
-	[self.navigationController pushViewController:VC animated:YES];
-	
 }
 
 @end
