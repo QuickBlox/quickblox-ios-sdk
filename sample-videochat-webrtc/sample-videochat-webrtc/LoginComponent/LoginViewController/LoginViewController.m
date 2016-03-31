@@ -22,10 +22,7 @@
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
 	self.tableView.estimatedRowHeight = 80;
 	
-	LoginViewControllerManager *manager = [[LoginViewControllerManager alloc] init];
-	
-	self.output = manager;
-	manager.input = self;
+	self.output = [[LoginViewControllerManager alloc] init];
 	
 	[self.userInput addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 	[self.tag addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -33,15 +30,17 @@
 	[self.output loginViewControllerViewDidLoad:self];
 }
 
-- (IBAction)login:(UIButton *)sender {
-	
-	[self.output loginViewControllerDidTapLoginButton:self];
-}
-
 - (void)setInputEnabled:(BOOL)enabled {
 	self.tag.enabled = enabled;
 	self.userInput.enabled = enabled;
 	self.login.enabled = enabled;
+}
+
+#pragma mark IBActions
+
+- (IBAction)login:(UIButton *)sender {
+	
+	[self.output loginViewControllerDidTapLoginButton:self];
 }
 
 #pragma mark LoginViewControllerInput
@@ -80,7 +79,7 @@
 
 #pragma mark - UITextFieldDelegate methods
 
-/// Limit max length of tag text field to 15
+// Limit max length of tag text field to 15
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	if (textField != self.tag) {
 		return YES; // username can be longer than 15 characters
@@ -94,7 +93,7 @@
 	return newLength <= 15; // max Quickblox tag length
 }
 
-/// Enable login button when user enters 3+ characters
+// Enable login button when user enters 3+ characters
 - (void)textFieldDidChange:(id)sender {
 	NSUInteger minCharactersCount = 3;
 	

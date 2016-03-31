@@ -62,8 +62,8 @@
     cell.textLabel.text = title;
     cell.detailTextLabel.text = url;
 
-    BOOL isCheckmark = [self.selectedServers containsObject:url];
-    cell.accessoryType = isCheckmark ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    BOOL shouldSelectCell = [self.selectedServers containsObject:url];
+    cell.accessoryType = shouldSelectCell ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -82,10 +82,10 @@
         
         [self.selectedServers addObject:url];
     }
-    
+	
+	[SampleCore settings].stunServers = self.selectedServers.copy;
+	
     [self.tableView reloadData];
-    [SampleCore settings].stunServers = self.selectedServers.copy;
-    
 }
 
 @end

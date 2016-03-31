@@ -99,7 +99,14 @@
     QBUUser *caller = [[SampleCore usersDataSource] userWithID:self.session.initiatorID];
 	
 	self.colorMarker.bgColor = [[SampleCore usersDataSource] colorAtUser:caller];
-	self.colorMarker.title = [[[caller fullName] substringToIndex:1] uppercaseString];
+	
+	NSString *userInfo = [[[caller fullName] substringToIndex:1] uppercaseString];
+	
+	if (!userInfo) {
+		userInfo = [self.session.initiatorID stringValue];
+	}
+	
+	self.colorMarker.title = userInfo;
 }
 
 - (void)updateCallInfo {

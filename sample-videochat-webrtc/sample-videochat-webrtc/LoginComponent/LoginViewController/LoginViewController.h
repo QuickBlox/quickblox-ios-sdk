@@ -10,9 +10,12 @@
 #import "LoginViewControllerInput.h"
 #import "LoginViewControllerOutput.h"
 
+
 @interface LoginViewController : UITableViewController <LoginViewControllerInput>
 
-
+/**
+ *  Delegate which will be informed of controller output actions
+ */
 @property (nonatomic, strong) id<LoginViewControllerOutput> output;
 
 @property (nonatomic, weak) IBOutlet UIButton *login;

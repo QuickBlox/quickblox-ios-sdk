@@ -41,7 +41,7 @@ static NSString *kUserLogin = @"keychain_user_login";
 
 - (void)logInWithUserInREST:(QBUUser *)user successBlock:(dispatch_block_t)successBlock errorBlock:(void (^)(NSError *))errorBlock {
 	
-	if ([QBSession currentSession].currentUser.ID == user.ID) {
+	if ([QBSession currentSession].currentUser.ID == user.ID && [[QBSession currentSession] isTokenValid]) {
 		if (successBlock) {
 			successBlock();
 		}
@@ -71,7 +71,7 @@ static NSString *kUserLogin = @"keychain_user_login";
 		self.chatReconnectedBlock = chatReconnectedBlock;
 	}
 	
-	if ([QBChat instance].currentUser.ID == user.ID) {
+	if ([QBChat instance].currentUser.ID == user.ID && [[QBChat instance] isConnected]) {
 		if (successBlock) {
 			successBlock();
 		}

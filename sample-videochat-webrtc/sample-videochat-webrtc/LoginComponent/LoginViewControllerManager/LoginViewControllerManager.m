@@ -48,6 +48,13 @@ static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"Outgoing
 	
 	self.userName = [self.input.userName stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
+	if (!self.user) { // no cache information about user
+		self.user = [QBUUser user];
+		self.user.login = self.userName;
+		self.user.tags = [self.tags mutableCopy];
+		self.user.password = [[SampleCore usersDataSource] defaultPassword];
+	}
+	
     [SVProgressHUD setBackgroundColor:[UIColor grayColor]];
     [SVProgressHUD showWithStatus:NSLocalizedString(@"Logging in REST", nil)];
 
@@ -62,7 +69,6 @@ static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"Outgoing
 			
         } errorBlock:errorBlock];
     } errorBlock:errorBlock];
-
 }
 
 - (void)connectToChatWithErrorBlock:(void(^)(QBResponse *response))errorBlock {
@@ -140,7 +146,9 @@ static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"Outgoing
 
 #pragma mark LoginViewControllerOutput
 
-- (void)loginViewControllerViewDidLoad:(id<LoginViewControllerInput>)loginViewController {
+- (void)loginViewControllerViewDidLoad:(id<LoginViewControllerInput>)loginViewControllerInput {
+	self.input = loginViewControllerInput;
+	
 	QBUUser *cachedUser = [[SampleCore usersDataSource] currentUserWithDefaultPassword];
 	
 	if (cachedUser) {
@@ -152,7 +160,7 @@ static NSString *const kOutgoingCallViewControllerWithTagIdentifier = @"Outgoing
 	}
 }
 
-- (void)loginViewControllerDidTapLoginButton:(id<LoginViewControllerInput>)loginViewController {
+- (void)loginViewControllerDidTapLoginButton:(id<LoginViewControllerInput>)loginViewControllerInput {
 	[self.input disableInput];
 	
 	[self loginWithCurrentUser];
