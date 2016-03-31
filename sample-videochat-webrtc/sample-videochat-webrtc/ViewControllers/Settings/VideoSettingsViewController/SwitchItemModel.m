@@ -7,13 +7,26 @@
 //
 
 #import "SwitchItemModel.h"
-#import "SettingSwichCell.h"
+#import "SettingSwitchCell.h"
 
 @implementation SwitchItemModel
 
+- (instancetype)initWithTitle:(NSString *)title data:(id)data on:(BOOL)on changedBlock:(void (^)(BOOL isOn))changedBlock {
+    self = [super initWithTitle:title data:data];
+    if (self){
+        self.on = on;
+        self.changedBlock = changedBlock;
+    }
+    return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title data:(id)data on:(BOOL)on {
+    return [self initWithTitle:title data:data on:on changedBlock:nil];
+}
+
 - (Class)viewClass {
     
-    return [SettingSwichCell class];
+    return [SettingSwitchCell class];
 }
 
 @end

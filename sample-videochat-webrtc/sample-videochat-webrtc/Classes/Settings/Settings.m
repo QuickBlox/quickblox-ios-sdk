@@ -8,27 +8,23 @@
 
 #import "Settings.h"
 
+
 #pragma mark - keys
 
-NSString *const kListOfUsersKey = @"listOfUsers";
 NSString *const kStunServerListKey = @"stunServerList";
 NSString *const kVideoFormatKey = @"videoFormat";
 NSString *const kPreferredCameraPosition = @"cameraPosition";
 NSString *const kVideoRendererType = @"videoRendererType";
 NSString *const kMediaConfigKey = @"mediaConfig";
 
-@implementation Settings
 
-+ (instancetype)instance {
-    
-    static id instance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[self alloc] init];
-    });
-    
-    return instance;
-}
+// RTC Config
+NSString *const kAnswerTimeInterval = @"answerTimeInterval";
+NSString *const kDisconnectTimeInterval = @"disconnectTimeInterval";
+NSString *const kDialingTimeInterval = @"dialingTimeInterval";
+NSString *const kDTLSEnabled = @"dtlsenabled";
+
+@implementation Settings
 
 - (instancetype)init {
     
@@ -44,17 +40,21 @@ NSString *const kMediaConfigKey = @"mediaConfig";
 - (void)saveToDisk {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *videFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat];
+    NSData *videoFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat];
     NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration];
     
-    [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
-    [defaults setInteger:self.listType forKey:kListOfUsersKey];
-    [defaults setInteger:self.remoteVideoViewRendererType forKey:kVideoRendererType];
+    [defaults setInteger:self.preferredCameraPosition forKey:kPreferredCameraPosition];
     
     [defaults setObject:self.stunServers forKey:kStunServerListKey];
-    [defaults setObject:videFormatData forKey:kVideoFormatKey];
+    [defaults setObject:videoFormatData forKey:kVideoFormatKey];
     [defaults setObject:mediaConfig forKey:kMediaConfigKey];
-    
+	
+	[defaults setDouble:self.answerTimeInterval forKey:kAnswerTimeInterval];
+	[defaults setDouble:self.disconnectTimeInterval forKey:kDisconnectTimeInterval];
+	[defaults setDouble:self.dialingTimeInterval forKey:kDialingTimeInterval];
+	
+	[defaults setBool:self.DTLSEnabled forKey:kDTLSEnabled];
+	
     [defaults synchronize];
 }
 
@@ -62,23 +62,21 @@ NSString *const kMediaConfigKey = @"mediaConfig";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    self.listType = [defaults integerForKey:kListOfUsersKey];
     self.stunServers = [defaults arrayForKey:kStunServerListKey];
     
-    AVCaptureDevicePosition postion = [defaults integerForKey:kPreferredCameraPosition];
+    AVCaptureDevicePosition position = (AVCaptureDevicePosition)[defaults integerForKey:kPreferredCameraPosition];
     
-    if (postion == AVCaptureDevicePositionUnspecified) {
+    if (position == AVCaptureDevicePositionUnspecified) {
         //First launch
-        postion = AVCaptureDevicePositionBack;
+        position = AVCaptureDevicePositionBack;
     }
     
-    self.preferredCameraPostion = postion;
+    self.preferredCameraPosition = position;
     
     NSData *videoFormatData = [defaults objectForKey:kVideoFormatKey];
     if (videoFormatData) {
         
         self.videoFormat = [NSKeyedUnarchiver unarchiveObjectWithData:videoFormatData];
-        
     }
     else {
 
@@ -95,36 +93,68 @@ NSString *const kMediaConfigKey = @"mediaConfig";
         
         self.mediaConfiguration = [QBRTCMediaStreamConfiguration defaultConfiguration];
     }
-    
-    QBRendererType type = [defaults integerForKey:kVideoRendererType];
-    self.remoteVideoViewRendererType = type;
+	
+	// RTCConfig
+	
+	// Answer time interval, min 10
+	if ([defaults objectForKey:kAnswerTimeInterval]) {
+		self.answerTimeInterval = [defaults doubleForKey:kAnswerTimeInterval];
+	} else {
+		self.answerTimeInterval = 45;
+	}
+	
+	
+	// Disconnect time interval, default 30
+	if ([defaults objectForKey:kDisconnectTimeInterval]) {
+		self.disconnectTimeInterval = [defaults doubleForKey:kDisconnectTimeInterval];
+	} else {
+		self.disconnectTimeInterval = 30;
+	}
+	
+	
+	// Dialing time interval default 5
+	if ([defaults objectForKey:kDialingTimeInterval]) {
+		self.dialingTimeInterval = [defaults doubleForKey:kDialingTimeInterval];
+	} else {
+		self.dialingTimeInterval = 5;
+	}
+	
+	// DTLS enabled: default YES
+	if ([defaults objectForKey:kDTLSEnabled]) {
+		self.DTLSEnabled = [defaults boolForKey:kDTLSEnabled];
+	} else {
+		self.DTLSEnabled = YES;
+	}
+	
 }
 
-- (void)setListType:(ListOfUsers)listType {
-
-    _listType = listType;
-    
-    switch (self.listType) {
-            
-        case ListOfUsersPROD:
-        case ListOfUsersQA:
-        case ListOfUsersDEV: {
-            //Quickblox preferences
-            [QBSettings setApplicationID:92];
-            [QBSettings setAuthKey:@"wJHdOcQSxXQGWx5"];
-            [QBSettings setAuthSecret:@"BTFsj7Rtt27DAmT"];
-            
-            break;
-        }
-        case ListOfUsersWEB: {
-            
-            [QBSettings setApplicationID:28287];
-            [QBSettings setAuthKey:@"XydaWcf8OO9xhGT"];
-            [QBSettings setAuthSecret:@"JZfqTspCvELAmnW"];
-            
-            break;
-        }
-    }
+- (void)setAnswerTimeInterval:(NSTimeInterval)answerTimeInterval {
+	if (answerTimeInterval != _answerTimeInterval) {
+		_answerTimeInterval = answerTimeInterval;
+		[QBRTCConfig setAnswerTimeInterval:answerTimeInterval];
+	}
 }
+
+- (void)setDisconnectTimeInterval:(NSTimeInterval)disconnectTimeInterval {
+	if (disconnectTimeInterval != _disconnectTimeInterval) {
+		_disconnectTimeInterval = disconnectTimeInterval;
+		[QBRTCConfig setDisconnectTimeInterval:disconnectTimeInterval];
+	}
+}
+
+- (void)setDialingTimeInterval:(NSTimeInterval)dialingTimeInterval {
+	if (dialingTimeInterval != _dialingTimeInterval) {
+		_dialingTimeInterval = dialingTimeInterval;
+		[QBRTCConfig setDialingTimeInterval:dialingTimeInterval];
+	}
+}
+
+- (void)setDTLSEnabled:(BOOL)DTLSEnabled {
+	if (DTLSEnabled != _DTLSEnabled) {
+		_DTLSEnabled = DTLSEnabled;
+		[QBRTCConfig setDTLSEnabled:DTLSEnabled];
+	}
+}
+
 
 @end
