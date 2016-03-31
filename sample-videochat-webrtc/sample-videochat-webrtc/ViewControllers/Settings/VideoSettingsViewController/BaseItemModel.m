@@ -11,6 +11,20 @@
 
 @implementation BaseItemModel
 
+- (instancetype)initWithTitle:(NSString *)title data:(id)data {
+    self = [super init];
+    if (self) {
+        self.title = title;
+        self.data = data;
+    }
+    return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title {
+    return [self initWithTitle:title data:nil];
+}
+
+
 - (Class)viewClass {
     
     return [SettingCell class];
