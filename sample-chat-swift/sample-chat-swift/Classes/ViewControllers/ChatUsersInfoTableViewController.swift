@@ -13,7 +13,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.dialog.occupantIDs?.count >= kUsersLimit {
+        if self.dialog.occupantIDs?.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers()?.count {
             self.navigationItem.rightBarButtonItem?.enabled = false
         }
         
