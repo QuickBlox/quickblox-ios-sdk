@@ -235,7 +235,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="3e3-Lk-tKV" kind="show" identifier="goToChat" id="k6E-hp-7pJ"/>
+                        <segue destination="3e3-Lk-tKV" kind="custom" identifier="goToChat" customClass="ReplaceSegue" customModule="sample_chat_swift" customModuleProvider="target" id="k6E-hp-7pJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yln-v5-u6S" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -426,7 +426,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2kO-hk-7BI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oVR-4q-jmr">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -453,7 +453,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="oSa-ob-GPD">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-WX-4Ml">
@@ -472,13 +472,13 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="yef-iV-XZh">
-                            <rect key="frame" x="0.0" y="174" width="600" height="1"/>
+                            <rect key="frame" x="0.0" y="110" width="600" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="7q2-An-7NX" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="130" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="66" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7q2-An-7NX" id="wfN-pM-lov">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -536,7 +536,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="3ff-8d-9pb" kind="custom" identifier="goToSelectOpponents" customClass="ReplaceSegue" customModule="sample_chat_swift" customModuleProvider="target" id="P2j-TU-AWx"/>
+                                    <segue destination="3ff-8d-9pb" kind="show" identifier="goToSelectOpponents" id="P2j-TU-AWx"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -554,7 +554,7 @@
         <image name="user" width="49" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zt6-Oe-FDk"/>
         <segue reference="P2j-TU-AWx"/>
+        <segue reference="k6E-hp-7pJ"/>
     </inferredMetricsTieBreakers>
 </document>
