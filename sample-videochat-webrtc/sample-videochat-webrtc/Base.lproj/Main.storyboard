@@ -269,6 +269,42 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="100" id="dl0-gs-qPl" userLabel="Build Info Cell">
+                                        <rect key="frame" x="0.0" y="275" width="600" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dl0-gs-qPl" id="2eU-t3-N6W">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Build 255" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4C-xh-FTD" userLabel="Build 255">
+                                                    <rect key="frame" x="10" y="10" width="69" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Version 1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HG-pm-TnO">
+                                                    <rect key="frame" x="10" y="39" width="79" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Revision 11333," textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTQ-t9-XXO">
+                                                    <rect key="frame" x="10" y="69" width="112" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="B4C-xh-FTD" firstAttribute="top" secondItem="2eU-t3-N6W" secondAttribute="top" constant="10" id="8Ao-Tv-Pw1"/>
+                                                <constraint firstItem="rTQ-t9-XXO" firstAttribute="leading" secondItem="5HG-pm-TnO" secondAttribute="leading" id="Ekw-nK-hHG"/>
+                                                <constraint firstItem="5HG-pm-TnO" firstAttribute="leading" secondItem="B4C-xh-FTD" secondAttribute="leading" id="Pvz-Sy-yc0"/>
+                                                <constraint firstItem="B4C-xh-FTD" firstAttribute="leading" secondItem="2eU-t3-N6W" secondAttribute="leading" constant="10" id="ScG-3R-bEd"/>
+                                                <constraint firstItem="5HG-pm-TnO" firstAttribute="top" secondItem="B4C-xh-FTD" secondAttribute="bottom" constant="10" id="bRC-FT-fD1"/>
+                                                <constraint firstItem="rTQ-t9-XXO" firstAttribute="top" secondItem="5HG-pm-TnO" secondAttribute="bottom" constant="10" id="zU7-ev-lCF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -284,6 +320,11 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="build" destination="B4C-xh-FTD" id="WLv-nG-sdR"/>
+                        <outlet property="revision" destination="rTQ-t9-XXO" id="DJs-6Y-GXr"/>
+                        <outlet property="version" destination="5HG-pm-TnO" id="wfB-b7-9R1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSw-3C-8uy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

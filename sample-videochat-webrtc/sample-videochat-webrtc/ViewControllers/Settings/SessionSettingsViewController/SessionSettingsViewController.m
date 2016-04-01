@@ -19,10 +19,14 @@
 
 @property(weak, nonatomic) Settings *settings;
 
+@property(weak, nonatomic) IBOutlet UILabel *build;
+@property(weak, nonatomic) IBOutlet UILabel *version;
+@property(weak, nonatomic) IBOutlet UILabel *revision;
+
 @end
 
 typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
-    
+	
     SessionConfigureItemVideo,
     SessionConfigureItemAudio,
     SessionConfigureItemStunServer,
@@ -34,6 +38,17 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 - (void)loadView {
 	[super loadView];
 	_settings = [SampleCore settings];
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+
+	self.build.text = [NSString stringWithFormat:@"Build %@", build];
+	self.version.text = [NSString stringWithFormat:@"Version %@", version];
+	self.revision.text = [NSString stringWithFormat:@"QuickbloxWebRTC v%@ webrtc rev %@",QuickbloxWebRTCFrameworkVersion, QuickbloxWebRTCRevision];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -143,7 +158,7 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 		return @""; // nothing to show
 	}
 		
-    return @"Unknown";
+    return @"";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
