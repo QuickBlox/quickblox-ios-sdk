@@ -99,7 +99,9 @@ const NSTimeInterval kChatPresenceTimeInterval = 45;
 }
 
 - (void)chatDidConnect {
-    
+	
+	NSTimer *presenceTimer = [NSTimer scheduledTimerWithTimeInterval:45 target:[QBChat instance] selector:@selector(sendPresence) userInfo:nil repeats:YES];
+	
     [[QBChat instance] sendPresence];
     __weak __typeof(self)weakSelf = self;
     

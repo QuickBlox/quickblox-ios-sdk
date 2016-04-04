@@ -56,8 +56,6 @@
 - (NSUInteger)indexThatConformsToMessage:(QBChatMessage *)message {
     
     NSUInteger index = self.messages.count;
-    
-    
     NSArray *messages = self.messages.copy;
     
     for (QBChatMessage *message_t in messages) {

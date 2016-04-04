@@ -10,6 +10,7 @@
 
 @interface QMHeaderCollectionReusableView : UICollectionReusableView
 
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 + (UINib *)nib;

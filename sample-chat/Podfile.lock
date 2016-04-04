@@ -42,36 +42,36 @@ PODS:
   - DFImageManager/UI (0.5.0):
     - DFImageManager/Core
   - MD5Digest (1.1.0)
-  - QMCVDevelopment (0.3.3):
-    - QMCVDevelopment/Categories (= 0.3.3)
-    - QMCVDevelopment/KeyboardViewController (= 0.3.3)
-    - QMCVDevelopment/Protocols (= 0.3.3)
-    - QMCVDevelopment/QMChatSection (= 0.3.3)
-    - QMCVDevelopment/Utils (= 0.3.3)
-    - QMCVDevelopment/Views (= 0.3.3)
+  - QMCVDevelopment (0.3.5):
+    - QMCVDevelopment/Categories (= 0.3.5)
+    - QMCVDevelopment/KeyboardViewController (= 0.3.5)
+    - QMCVDevelopment/Protocols (= 0.3.5)
+    - QMCVDevelopment/QMChatSection (= 0.3.5)
+    - QMCVDevelopment/Utils (= 0.3.5)
+    - QMCVDevelopment/Views (= 0.3.5)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/Categories (0.3.3):
+  - QMCVDevelopment/Categories (0.3.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/KeyboardViewController (0.3.3):
+  - QMCVDevelopment/KeyboardViewController (0.3.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/Protocols (0.3.3):
+  - QMCVDevelopment/Protocols (0.3.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/QMChatSection (0.3.3):
+  - QMCVDevelopment/QMChatSection (0.3.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/Utils (0.3.3):
+  - QMCVDevelopment/Utils (0.3.5):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMCVDevelopment/Views (0.3.3):
+  - QMCVDevelopment/Views (0.3.5):
     - QMCVDevelopment/Categories
     - QMCVDevelopment/Protocols
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (~> 1.13)
-  - QMServicesDevelopment (0.3.6):
+  - QMServicesDevelopment (0.3.8):
     - Bolts (= 1.5.0)
   - RMStore (0.7.1):
     - RMStore/Core (= 0.7.1)
@@ -98,7 +98,7 @@ PODS:
 DEPENDENCIES:
   - MD5Digest (~> 1.1)
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`,
-    commit `17ada21717a26235a73069a7ef0e396871ac8514`)
+    commit `5bb608405c89bbb3b0189a4e188098f27c2af72a`)
   - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`,
     commit `f79c5459c2ff92296c8173992a4884bb77b06e18`)
   - SSKeychain (~> 1.3)
@@ -109,18 +109,18 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   QMCVDevelopment:
-    :commit: 17ada21717a26235a73069a7ef0e396871ac8514
+    :commit: 5bb608405c89bbb3b0189a4e188098f27c2af72a
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: f79c5459c2ff92296c8173992a4884bb77b06e18
+    :commit: 84e55c43f028589d9f6304b1224bcdc62926b619
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: 17ada21717a26235a73069a7ef0e396871ac8514
+    :commit: 5bb608405c89bbb3b0189a4e188098f27c2af72a
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: f79c5459c2ff92296c8173992a4884bb77b06e18
+    :commit: 84e55c43f028589d9f6304b1224bcdc62926b619
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
@@ -131,6 +131,8 @@ SPEC CHECKSUMS:
   QMCVDevelopment: 3e9e615f02bf3a7cb87801729f512a484d61c9b8
   QMServicesDevelopment: 3424ab8cd83c4d17c2aeff2b51da617a0b70e39c
   RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
+  QMCVDevelopment: 0fdb8ff2cea9426977a6408384405b4572b42f61
+  QMServicesDevelopment: f0c919f0ede0b48d5696716a871e719962e424a6
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SSKeychain: c71293fa57216a40ab06c23f4085387583293de4
   StickerPipe: e044c24b6cdef5f45015abbac80a7866220a68a0

@@ -12,6 +12,7 @@ extern const struct CDUserAttributes {
 	__unsafe_unretained NSString *facebookID;
 	__unsafe_unretained NSString *fullName;
 	__unsafe_unretained NSString *id;
+	__unsafe_unretained NSString *lastRequestAt;
 	__unsafe_unretained NSString *login;
 	__unsafe_unretained NSString *phone;
 	__unsafe_unretained NSString *tags;
@@ -73,6 +74,10 @@ extern const struct CDUserAttributes {
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
+@property (nonatomic, strong) NSDate* lastRequestAt;
+
+//- (BOOL)validateLastRequestAt:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* login;
 
 //- (BOOL)validateLogin:(id*)value_ error:(NSError**)error_;
@@ -133,6 +138,9 @@ extern const struct CDUserAttributes {
 
 - (int32_t)primitiveIdValue;
 - (void)setPrimitiveIdValue:(int32_t)value_;
+
+- (NSDate*)primitiveLastRequestAt;
+- (void)setPrimitiveLastRequestAt:(NSDate*)value;
 
 - (NSString*)primitiveLogin;
 - (void)setPrimitiveLogin:(NSString*)value;

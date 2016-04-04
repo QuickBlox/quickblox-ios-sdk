@@ -381,24 +381,29 @@ UIAlertViewDelegate
 
 - (Class)viewClassForItem:(QBChatMessage *)item
 {
-    // TODO: check and add QMMessageTypeAcceptContactRequest, QMMessageTypeRejectContactRequest, QMMessageTypeContactRequest
-    if (item.senderID != self.senderID) {
-        if ([STKStickersManager isStickerMessage:item.text]) {
-            return [IncomingStickerCell class];
+    if (item.isNotificatonMessage) {
+        
+        return [QMChatNotificationCell class];
+        
+    }
+    else {
+        if (item.senderID != self.senderID) {
+            if ([STKStickersManager isStickerMessage:item.text]) {
+                return [IncomingStickerCell class];
+            } else if (item.isMediaMessage || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+                return [QMChatAttachmentIncomingCell class];
+            }
+            else {
+                return [QMChatIncomingCell class];
+            }
         }
-        else if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
-            return [QMChatAttachmentIncomingCell class];
-            
-        } else {
-            return [QMChatIncomingCell class];
-        }
-    } else
-        if ([STKStickersManager isStickerMessage:item.text]) {
+        else  if ([STKStickersManager isStickerMessage:item.text]) {
             return [OutgoingStickerCell class];
-        } else {
-            if ((item.attachments != nil && item.attachments.count > 0) || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
+        } else
+            if (item.isMediaMessage|| item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentOutgoingCell class];
-            } else {
+            }
+            else {
                 return [QMChatOutgoingCell class];
             }
         }
@@ -408,12 +413,20 @@ UIAlertViewDelegate
 
 - (NSAttributedString *)attributedStringForItem:(QBChatMessage *)messageItem {
     
-    UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
+    UIColor *textColor;
+    
+    if (messageItem.isNotificatonMessage) {
+        textColor =  [UIColor blackColor];
+    }
+    else {
+       textColor = [messageItem senderID] == self.senderID ? [UIColor whiteColor] : [UIColor blackColor];
+    }
+    
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
     
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.encodedText : @"" attributes:attributes];
-    
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.text : @"" attributes:attributes];
+
     return attrStr;
 }
 
@@ -461,7 +474,7 @@ UIAlertViewDelegate
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:text
                                                                                 attributes:attributes];
     
-    return attrStr;
+    return attrStr;	
 }
 
 #pragma mark - Collection View Datasource
@@ -475,6 +488,7 @@ UIAlertViewDelegate
     if (viewClass == [QMChatAttachmentIncomingCell class]) {
         
         size = CGSizeMake(MIN(200, maxWidth), 200);
+        
     }
     else if(viewClass == [QMChatAttachmentOutgoingCell class]) {
         
@@ -484,6 +498,15 @@ UIAlertViewDelegate
                                                                   withConstraints:CGSizeMake(MIN(200, maxWidth), CGFLOAT_MAX)
                                                            limitedToNumberOfLines:0];
         size = CGSizeMake(MIN(200, maxWidth), 200 + ceilf(bottomLabelSize.height));
+        
+    }
+    else if (viewClass == [QMChatNotificationCell class]) {
+        
+        NSAttributedString *attributedString = [self attributedStringForItem:item];
+        
+        size = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
+                                                withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                         limitedToNumberOfLines:0];
     }
     else  if (viewClass == [OutgoingStickerCell class] ||
               viewClass == [IncomingStickerCell class]) {
@@ -579,7 +602,7 @@ UIAlertViewDelegate
     return timeStamp;
 }
 
-#pragma mark = QMChatCollectionViewDelegateFlowLayout
+#pragma mark - QMChatCollectionViewDelegateFlowLayout
 
 - (QMChatCellLayoutModel)collectionView:(QMChatCollectionView *)collectionView layoutModelAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -604,6 +627,10 @@ UIAlertViewDelegate
                                                     limitedToNumberOfLines:1];
             layoutModel.topLabelHeight = size.height;
         }
+        
+        layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
+    }
+    else if (class == [QMChatNotificationCell class]) {
         
         layoutModel.spaceBetweenTopLabelAndTextView = 5.0f;
     }
@@ -632,8 +659,14 @@ UIAlertViewDelegate
     
     if ([cell isKindOfClass:[QMChatOutgoingCell class]] || [cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
         [(QMChatIncomingCell *)cell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
-    } else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
+    }
+    else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
         [(QMChatOutgoingCell *)cell containerView].bgColor = [UIColor colorWithRed:231.0f / 255.0f green:231.0f / 255.0f blue:231.0f / 255.0f alpha:1.0f];
+    }
+    else if ([cell isKindOfClass:[QMChatNotificationCell class]]) {
+        [(QMChatCell *)cell containerView].bgColor = self.collectionView.backgroundColor;
+        //avoid tapping for Notification Cell
+        cell.userInteractionEnabled = NO;
     }
     
     if ([cell conformsToProtocol:@protocol(QMChatAttachmentCell)]) {

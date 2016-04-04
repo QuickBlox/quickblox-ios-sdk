@@ -52,34 +52,25 @@
 
 - (void)loadCachedData {
     
+    dispatch_group_t loadCacheGroup = dispatch_group_create();
     __weak __typeof(self)weakSelf = self;
     
-    dispatch_queue_t queue = dispatch_queue_create("com.qm.loadCacheQueue", DISPATCH_QUEUE_SERIAL);
-    //Step 1. Load contact list (Roster)
-    dispatch_async(queue, ^{
+    if ([self.cacheDataSource respondsToSelector:@selector(cachedContactListItems:)]) {
         
-        if ([self.cacheDataSource respondsToSelector:@selector(cachedContactListItems:)]) {
+        dispatch_group_enter(loadCacheGroup);
+        [self.cacheDataSource cachedContactListItems:^(NSArray *collection) {
             
-            dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-            
-            [self.cacheDataSource cachedContactListItems:^(NSArray *collection) {
-                
-                [weakSelf.contactListMemoryStorage updateWithContactListItems:collection];
-                dispatch_semaphore_signal(sem);
-            }];
-            
-            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+            [weakSelf.contactListMemoryStorage updateWithContactListItems:collection];
+            dispatch_group_leave(loadCacheGroup);
+        }];
+    }
+    
+    dispatch_group_notify(loadCacheGroup, dispatch_get_main_queue(), ^{
+        
+        __typeof(weakSelf)strongSelf = weakSelf;
+        if ([strongSelf.multicastDelegate respondsToSelector:@selector(contactListServiceDidLoadCache)]) {
+            [strongSelf.multicastDelegate contactListServiceDidLoadCache];
         }
-    });
-    //Step 3. Notify about load cache
-    dispatch_async(queue, ^{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if ([self.multicastDelegate respondsToSelector:@selector(contactListServiceDidLoadCache)]) {
-                [self.multicastDelegate contactListServiceDidLoadCache];
-            }
-        });
     });
 }
 
