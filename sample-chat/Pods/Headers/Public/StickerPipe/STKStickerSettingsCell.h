@@ -1,0 +1,1 @@
+../../../StickerPipe/StickerPipe/SDK/STKStickerSettingsCell.h

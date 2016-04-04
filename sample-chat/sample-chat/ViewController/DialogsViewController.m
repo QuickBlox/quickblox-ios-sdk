@@ -13,6 +13,7 @@
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 #import "DialogTableViewCell.h"
+#import "STKStickerPipe.h"
 
 @interface DialogsViewController ()
 <
@@ -137,23 +138,23 @@ QMChatConnectionDelegate
     DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
-    
+    NSString *lastMessageText = [STKStickersManager isStickerMessage:chatDialog.lastMessageText] ? @"Sticker message" : chatDialog.lastMessageText;
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate: {
-            cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
+            cell.lastMessageTextLabel.text = lastMessageText;
 			QBUUser *recipient = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:chatDialog.recipientID];
             cell.dialogNameLabel.text = recipient.login == nil ? (recipient.fullName == nil ? [NSString stringWithFormat:@"%lu", (unsigned long)recipient.ID] : recipient.fullName) : recipient.login;
             cell.dialogImageView.image = [UIImage imageNamed:@"chatRoomIcon"];
         }
             break;
         case QBChatDialogTypeGroup: {
-            cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
+            cell.lastMessageTextLabel.text = lastMessageText;
             cell.dialogNameLabel.text = chatDialog.name;
             cell.dialogImageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }
             break;
         case QBChatDialogTypePublicGroup: {
-            cell.lastMessageTextLabel.text = chatDialog.lastMessageText;
+            cell.lastMessageTextLabel.text = lastMessageText;
             cell.dialogNameLabel.text = chatDialog.name;
             cell.dialogImageView.image = [UIImage imageNamed:@"GroupChatIcon"];
         }

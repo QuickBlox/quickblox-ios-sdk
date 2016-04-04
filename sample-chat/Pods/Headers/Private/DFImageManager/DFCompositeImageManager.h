@@ -1,0 +1,1 @@
+../../../DFImageManager/DFImageManager/Source/Core/Utilities/DFCompositeImageManager.h

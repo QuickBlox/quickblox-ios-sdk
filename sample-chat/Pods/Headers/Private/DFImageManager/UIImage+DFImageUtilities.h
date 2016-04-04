@@ -1,0 +1,1 @@
+../../../DFImageManager/DFImageManager/Source/Core/Utilities/UIImage+DFImageUtilities.h

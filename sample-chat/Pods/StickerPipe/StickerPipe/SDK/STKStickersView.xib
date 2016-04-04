@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="STKStickerController">
+            <connections>
+                <outlet property="internalStickersView" destination="iN0-l3-epB" id="nAX-q7-xxV"/>
+                <outlet property="stickersCollectionView" destination="Ldw-kQ-X5c" id="D5B-GO-Mk7"/>
+                <outlet property="stickersHeaderCollectionView" destination="379-v9-f3Z" id="cR8-3V-BS8"/>
+                <outlet property="stickersShopButton" destination="7jD-2I-ugX" id="hnb-CC-L3u"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="379-v9-f3Z">
+                    <rect key="frame" x="0.0" y="0.0" width="276" height="44"/>
+                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="vCI-HR-T8p"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="QYj-6t-men">
+                        <size key="itemSize" width="44" height="44"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ldw-kQ-X5c">
+                    <rect key="frame" x="0.0" y="44" width="320" height="276"/>
+                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Zsw-hh-4R8">
+                        <size key="itemSize" width="80" height="80"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="1"/>
+                        <inset key="sectionInset" minX="16" minY="12" maxX="16" maxY="12"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jD-2I-ugX" customClass="STKShowStickerButton">
+                    <rect key="frame" x="276" y="0.0" width="44" height="44"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="ZCo-te-txb"/>
+                        <constraint firstAttribute="width" constant="44" id="pWk-rG-lJV"/>
+                    </constraints>
+                    <state key="normal" image="STKShopIcon"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="badgeBorderColor">
+                            <color key="value" red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="stickersShopButtonAction:" destination="-1" eventType="touchUpInside" id="w6a-AE-gf1"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="7jD-2I-ugX" firstAttribute="leading" secondItem="379-v9-f3Z" secondAttribute="trailing" id="36U-s3-yfW"/>
+                <constraint firstAttribute="bottom" secondItem="Ldw-kQ-X5c" secondAttribute="bottom" id="HOt-bK-7Vf"/>
+                <constraint firstItem="379-v9-f3Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Mcf-nX-wns"/>
+                <constraint firstItem="Ldw-kQ-X5c" firstAttribute="top" secondItem="7jD-2I-ugX" secondAttribute="bottom" id="Tsx-ao-Nd7"/>
+                <constraint firstItem="Ldw-kQ-X5c" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="UEd-Tn-ZlU"/>
+                <constraint firstAttribute="trailing" secondItem="7jD-2I-ugX" secondAttribute="trailing" id="UIV-qy-ww0"/>
+                <constraint firstAttribute="trailing" secondItem="Ldw-kQ-X5c" secondAttribute="trailing" id="fpB-lY-4uP"/>
+                <constraint firstItem="379-v9-f3Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hEt-tA-iOy"/>
+                <constraint firstItem="7jD-2I-ugX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="l8X-70-ezV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="306" y="248"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="STKShopIcon" width="21" height="21"/>
+    </resources>
+</document>

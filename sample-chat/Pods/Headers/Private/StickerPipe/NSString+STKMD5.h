@@ -1,0 +1,1 @@
+../../../StickerPipe/StickerPipe/SDK/NSString+STKMD5.h
