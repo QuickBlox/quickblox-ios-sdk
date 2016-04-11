@@ -55,10 +55,10 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
 }
 
 - (void)sendMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(void (^)(NSError *))completion {
-    
-    [chatService.messagesMemoryStorage addMessage:message forDialogID:dialog.ID];
-    
+	
     [self uploadAndSendAttachmentMessage:message toDialog:dialog withChatService:chatService withAttachedImage:image completion:completion];
+	
+	[chatService.messagesMemoryStorage addMessage:message forDialogID:dialog.ID];
 }
 
 - (void)uploadAndSendAttachmentMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(QBChatCompletionBlock)completion {

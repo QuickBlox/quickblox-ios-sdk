@@ -285,6 +285,30 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>170466EC150332B4E55E94F6</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Embed Pods Frameworks</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
 		<key>1C300553BEFAEB30F2850033</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -1100,6 +1124,7 @@ fi
 				<string>BFE6FB6F180E8EF100E64AC4</string>
 				<string>BFE6FB70180E8EF100E64AC4</string>
 				<string>EA0FB2DEF001482B9E0AC531</string>
+				<string>170466EC150332B4E55E94F6</string>
 			</array>
 			<key>buildRules</key>
 			<array/>

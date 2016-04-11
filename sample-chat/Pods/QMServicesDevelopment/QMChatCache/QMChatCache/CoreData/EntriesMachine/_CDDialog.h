@@ -4,6 +4,7 @@
 #import <CoreData/CoreData.h>
 
 extern const struct CDDialogAttributes {
+	__unsafe_unretained NSString *data;
 	__unsafe_unretained NSString *dialogID;
 	__unsafe_unretained NSString *dialogType;
 	__unsafe_unretained NSString *lastMessageDate;
@@ -26,6 +27,8 @@ extern const struct CDDialogRelationships {
 
 @class NSObject;
 
+@class NSObject;
+
 @interface CDDialogID : NSManagedObjectID {}
 @end
 
@@ -34,6 +37,10 @@ extern const struct CDDialogRelationships {
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) CDDialogID* objectID;
+
+@property (nonatomic, strong) id data;
+
+//- (BOOL)validateData:(id*)value_ error:(NSError**)error_;
 
 @property (nonatomic, strong) NSString* dialogID;
 
@@ -118,6 +125,9 @@ extern const struct CDDialogRelationships {
 @end
 
 @interface _CDDialog (CoreDataGeneratedPrimitiveAccessors)
+
+- (id)primitiveData;
+- (void)setPrimitiveData:(id)value;
 
 - (NSString*)primitiveDialogID;
 - (void)setPrimitiveDialogID:(NSString*)value;

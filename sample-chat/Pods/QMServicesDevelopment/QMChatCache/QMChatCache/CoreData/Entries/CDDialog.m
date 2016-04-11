@@ -19,6 +19,7 @@
     dialog.unreadMessagesCount = self.unreadMessagesCount.integerValue;
     dialog.occupantIDs = self.occupantsIDs;
     dialog.userID = self.userID.unsignedIntegerValue;
+    dialog.data = self.data;
     
     return dialog;
 }
@@ -37,6 +38,7 @@
     self.unreadMessagesCount = @(dialog.unreadMessagesCount);
     self.occupantsIDs = dialog.occupantIDs;
     self.userID = @(dialog.userID);
+    self.data = dialog.data;
 }
 
 @end
