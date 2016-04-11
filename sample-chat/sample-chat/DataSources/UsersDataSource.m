@@ -86,12 +86,23 @@
 }
 
 - (NSUInteger)indexOfUser:(QBUUser *)user {
+    
 	return [self.users indexOfObject:user];
 }
 
 - (UIColor *)colorForUser:(QBUUser *)user {
-	NSUInteger idx = [self indexOfUser:user];
-	return self.colors[idx];
+	
+    UIColor *defaultColor = [UIColor blackColor];
+    NSUInteger indexOfUser = [self indexOfUser:user];
+    
+    if (indexOfUser < self.colors.count) {
+        
+        return self.colors[indexOfUser];
+    }
+    else {
+        
+        return defaultColor;
+    }
 }
 
 #pragma mark - UITableViewDataSource methods
