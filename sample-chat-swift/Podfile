@@ -4,13 +4,13 @@ pod 'SVProgressHUD', '~> 1.1.3'
 pod 'TWMessageBarManager', '~> 1.7.2'
 
 #Production pod
-pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => '6cfc8194a1f644fd0eff00ff8938d72e47e15d4d'
+pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => '79031f62b28a11e3272363973fd5c9fe6ad74bc8'
 
 #For development pods
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
 
 #Production pod
-pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => '2aa9a66e860b7710f6f87203b38c20074ad60a0f'
+pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => 'd87c85a6ff174f48cffaa2235c4cced46f84ab4b'
 
 #For development pods
 #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'

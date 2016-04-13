@@ -134,7 +134,10 @@
     
     NSMutableOrderedSet *datasource = [self dataSourceWithDialogID:dialogID];
     
-    [datasource sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"dateSent" ascending:YES]]];
+    NSSortDescriptor *dateSentDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"dateSent" ascending:YES];
+    NSSortDescriptor *idDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"ID" ascending:YES];
+    
+    [datasource sortUsingDescriptors:@[dateSentDescriptor, idDescriptor]];
 }
 
 - (QBChatMessage *)messageWithID:(NSString *)messageID fromDialogID:(NSString *)dialogID {

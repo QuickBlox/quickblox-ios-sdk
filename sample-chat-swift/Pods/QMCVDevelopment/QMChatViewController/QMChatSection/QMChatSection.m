@@ -60,9 +60,12 @@
     
     for (QBChatMessage *message_t in messages) {
         
-        // server date value is always int
-        BOOL dateIsNotAscending = (NSInteger)[message.dateSent timeIntervalSinceDate:message_t.dateSent] >= 0;
-        if (dateIsNotAscending) {
+        NSComparisonResult dateSentComparison = [message.dateSent compare:message_t.dateSent];
+        
+        if ((dateSentComparison == NSOrderedDescending)
+            // if date of messages is same compare them by their IDs
+            // to determine whether message should be upper or lower in message stack
+            || (dateSentComparison == NSOrderedSame && [message.ID compare:message_t.ID] == NSOrderedDescending)) {
             
             index = [messages indexOfObject:message_t];
             break;

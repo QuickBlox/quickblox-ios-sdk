@@ -886,7 +886,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
             lastMessagesLoadDate = lastMessage.dateSent;
         }
         
-        parameters[@"date_sent[gt]"] = @([lastMessagesLoadDate timeIntervalSince1970]);
+        parameters[@"date_sent[gte]"] = @([lastMessagesLoadDate timeIntervalSince1970]);
         
         [QBRequest messagesWithDialogID:chatDialogID
                         extendedRequest:parameters
@@ -965,9 +965,13 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     NSString *oldestMessageDate = [NSString stringWithFormat:@"%ld", (long)[oldestMessage.dateSent timeIntervalSince1970]];
     QBResponsePage *page = [QBResponsePage responsePageWithLimit:self.chatMessagesPerPage];
     
+    NSDictionary *extendedRequest = @{@"date_sent[lte]": oldestMessageDate,
+                                      @"sort_desc" : @"date_sent",
+                                      @"_id[lt]" : oldestMessage.ID};
+    
     __weak __typeof(self) weakSelf = self;
     
-    [QBRequest messagesWithDialogID:chatDialogID extendedRequest:@{@"date_sent[lte]": oldestMessageDate, @"sort_desc" : @"date_sent"} forPage:page successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
+    [QBRequest messagesWithDialogID:chatDialogID extendedRequest:extendedRequest forPage:page successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
         
         if ([messages count] > 0) {
             
@@ -1048,7 +1052,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (void)fetchDialogsUpdatedFromDate:(NSDate *)date andPageLimit:(NSUInteger)limit iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))iteration completionBlock:(void (^)(QBResponse *response))completion {
     NSTimeInterval timeInterval = [date timeIntervalSince1970];
-    NSMutableDictionary *extendedRequest = @{@"updated_at[gt]":@(timeInterval)}.mutableCopy;
+    NSMutableDictionary *extendedRequest = @{@"updated_at[gte]":@(timeInterval)}.mutableCopy;
     
     [self allDialogsWithPageLimit:limit extendedRequest:extendedRequest iterationBlock:^(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop) {
         //

@@ -283,7 +283,8 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         NSDictionary* parameters = @{
                                      @"date_sent[lte]" : oldestMessageDate,
-                                     @"sort_desc" : @"date_sent"
+                                     @"sort_desc" : @"date_sent",
+                                     @"_id[lt]" : oldestMessage.ID,
                                      };
         
         
