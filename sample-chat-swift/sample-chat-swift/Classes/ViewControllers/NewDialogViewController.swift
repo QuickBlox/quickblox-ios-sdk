@@ -260,18 +260,6 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
 	
     func openNewDialog(dialog: QBChatDialog!) {
         self.dialog = dialog
-		
-		let navigationArray = self.navigationController?.viewControllers
-
-		// if we added occupants, but we have Chat VC in navigation stack
-		// then pop to that controller instead of creating new one
-		for vc in navigationArray! {
-			if vc is ChatViewController {
-				self.navigationController?.popToViewController(vc, animated: true)
-				break
-			}
-		}
-		
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized, sender: nil)
     }
     
