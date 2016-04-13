@@ -154,7 +154,7 @@
 }
 
 - (NSString *)updatedMessageWithUsers:(NSArray<QBUUser *> *)users {
-	NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADD", nil)];
+	NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADDED", nil)];
 	for (QBUUser *user in users) {
 		message = [NSString stringWithFormat:@"%@%@,", message, user.login];
 	}
