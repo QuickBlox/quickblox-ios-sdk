@@ -36,7 +36,7 @@
         strongSelf.usersDatasource = [[UsersDataSource alloc] initWithUsers:task.result];
         strongSelf.tableView.dataSource = strongSelf.usersDatasource;
         
-		if ([task.result count] >= strongSelf.usersDatasource.users.count) {
+        if ([task.result count] >= [[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers].count) {
 			strongSelf.navigationItem.rightBarButtonItem.enabled = NO;
 		}
 		
@@ -68,7 +68,6 @@
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
     
 	if([self.dialog.ID isEqualToString:chatDialog.ID]) {
-        
 		self.dialog = chatDialog;
 		[self refreshDataSource];
 	}
