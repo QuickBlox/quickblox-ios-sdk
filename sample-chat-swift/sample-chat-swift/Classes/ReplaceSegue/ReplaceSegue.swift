@@ -16,21 +16,6 @@ class ReplaceSegue : UIStoryboardSegue {
 		
 		let navigationController = sourceViewController.navigationController
 		
-		
-		
-        let navigationArray = navigationController?.viewControllers
-        
-        let newStack = [] as NSMutableArray
-        for vc in navigationArray! {
-            
-            newStack.addObject(vc)
-            if vc is ChatViewController {
-                
-                navigationController?.setViewControllers(newStack.copy() as! [UIViewController], animated: false)
-                return
-            }
-        }
-
 		navigationController?.pushViewController(destinationViewController, animated: false)
         
 		guard var mutableVC = navigationController?.viewControllers else {

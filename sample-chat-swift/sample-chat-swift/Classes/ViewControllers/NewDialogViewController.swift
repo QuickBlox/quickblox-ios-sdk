@@ -260,6 +260,20 @@ class NewDialogViewController: UsersListTableViewController, QMChatServiceDelega
 	
     func openNewDialog(dialog: QBChatDialog!) {
         self.dialog = dialog
+        
+        let navigationArray = self.navigationController?.viewControllers
+        
+        let newStack = [] as NSMutableArray
+        for vc in navigationArray! {
+            
+            newStack.addObject(vc)
+            if vc is ChatViewController {
+                
+                self.navigationController?.setViewControllers(newStack.copy() as! [UIViewController], animated: false)
+                return
+            }
+        }
+
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized, sender: nil)
     }
     
