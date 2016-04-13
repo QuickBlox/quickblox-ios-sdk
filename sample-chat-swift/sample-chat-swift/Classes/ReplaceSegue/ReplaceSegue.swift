@@ -16,11 +16,8 @@ class ReplaceSegue : UIStoryboardSegue {
 		
 		let navigationController = sourceViewController.navigationController
 		
-		navigationController?.pushViewController(destinationViewController, animated: true)
-		
-		// remove source view controller from navigation stack
-		
-		
+		navigationController?.pushViewController(destinationViewController, animated: false)
+        
 		guard var mutableVC = navigationController?.viewControllers else {
 			print("Error: no view controllers")
 			return
