@@ -91,6 +91,9 @@
                 print(error.error)
                 SVProgressHUD.showErrorWithStatus(error.error?.localizedDescription)
             }
+            else {
+                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
+            }
         }
         
         if let dialog = self.dialog {
