@@ -90,6 +90,8 @@
             if let error = unwrappedResponse.error {
                 print(error.error)
                 SVProgressHUD.showErrorWithStatus(error.error?.localizedDescription)
+            }  else {
+                SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
             }
         }
         
