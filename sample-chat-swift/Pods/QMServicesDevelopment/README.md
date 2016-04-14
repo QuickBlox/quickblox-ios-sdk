@@ -51,12 +51,10 @@ Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat 
 
 - Xcode 6+
 - ARC
-- Quickblox iOS SDK
-- Bolts-iOS
 
 # Dependencies
 
-- [Quickblox](https://github.com/QuickBlox/quickblox-ios-sdk 'Quickblox iOS SDK') SDK 2.5+
+- [Quickblox](https://github.com/QuickBlox/quickblox-ios-sdk 'Quickblox iOS SDK') SDK 2.6.5+
 - [Bolts](https://github.com/BoltsFramework/Bolts-iOS 'Bolts-iOS') 1.5.0+
 
 # Installation
@@ -111,6 +109,19 @@ If you plan to use QMServices as sub-project, then <br>
 Now navigate to QMServices.xcodeproj subproject, open **Build Settings**, search for **Framework Search Paths** and locate Quickblox and Bolts frameworks folder there.
 Remember, that you have to link *QMServices* in **Target Dependencies** and (or) *libQMServices.a* in **Link Binary with Libraries**.
 Don't forget to add Quickblox and Bolts frameworks to your project.
+
+Next step is to copy all bundles into your Copy bundle resources in Build Phases tab of your project settings.
+Navigate to QMServices.xcodeproj/Cache and move QMUsersCacheModel.bundle, QMContactListCacheModel.bundle and QMChatCacheModel.bundle that are existent in its subprojects to Copy Bundle Resources of your project. In a pop-up window select only "Create folder references".
+
+If you are adding QMServices to the Swift project, you need to import them in your bridging header:
+
+```swift
+#import "QMServices.h"
+```
+
+To integrate Quckblox iOS SDK into your Swift project see our detailed guide [here](http://quickblox.com/developers/IOS-how-to-connect-Quickblox-framework#Additional_steps_for_Swift_using_Manual_Installation).
+
+If you are still experiencing some crashes, check if you have set up correct Other linker flags for your project (-lxml2, -ObjC, -lstdc++) otherwise feel free to create an issue and let us know your problem.
 
 ### Bundle generation
 **NOTE:** You can skip this step if you do not use dialogs, messages and users memory and disc storage.
