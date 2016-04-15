@@ -188,7 +188,7 @@
 
 - (void)deleteMessage:(QBChatMessage *)message animated:(BOOL)animated {
     
-    [self deleteMessages:@[message] animated:self.animationEnabled];
+    [self deleteMessages:@[message] animated:animated];
 }
 
 - (void)deleteMessages:(NSArray *)messages animated:(BOOL)animated {
@@ -322,17 +322,19 @@
     return newSection;
 }
 
-static inline NSMutableIndexSet* incrementAllIndexesForIndexSet(NSMutableIndexSet *indexSet, NSInteger index) {
+static inline NSMutableIndexSet *incrementAllIndexesForIndexSet(NSMutableIndexSet *indexSet, NSInteger index) {
     
     NSMutableIndexSet *newIndexSet = [NSMutableIndexSet indexSet];
+    
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        
         [newIndexSet addIndex:idx >= index ? idx + 1 : idx];
     }];
     
     return newIndexSet;
 }
 
-static inline NSMutableArray* incrementAllSectionsForIndexPaths(NSMutableArray *indexPaths, NSInteger sectionIndex) {
+static inline NSMutableArray *incrementAllSectionsForIndexPaths(NSMutableArray *indexPaths, NSInteger sectionIndex) {
     
     NSArray *enumerateIndexPaths = indexPaths.copy;
     for (NSIndexPath *indexPath in enumerateIndexPaths) {

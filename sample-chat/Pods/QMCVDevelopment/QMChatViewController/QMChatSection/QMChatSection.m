@@ -65,7 +65,8 @@
         if ((dateSentComparison == NSOrderedDescending)
             // if date of messages is same compare them by their IDs
             // to determine whether message should be upper or lower in message stack
-            || (dateSentComparison == NSOrderedSame && [message.ID compare:message_t.ID] == NSOrderedDescending)) {
+            // if messages IDs are same - return same index
+            || (dateSentComparison == NSOrderedSame && [message.ID compare:message_t.ID] != NSOrderedAscending)) {
             
             index = [messages indexOfObject:message_t];
             break;
