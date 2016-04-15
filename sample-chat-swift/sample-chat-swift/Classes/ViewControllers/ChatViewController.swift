@@ -40,6 +40,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // top layout inset for collectionView
+        self.topContentAdditionalInset = self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height;
+        
         self.senderID = ServicesManager.instance().currentUser().ID
         self.senderDisplayName = ServicesManager.instance().currentUser().login
         self.heightForSectionHeader = 40.0
