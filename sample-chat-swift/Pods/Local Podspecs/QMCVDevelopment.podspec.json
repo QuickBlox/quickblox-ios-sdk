@@ -9,7 +9,9 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Andrey Ivanov": "andrey.ivanov@quickblox.com"
+    "Anton Sokolchenko": "anton.sokolchenko@quickblox.com",
+    "Andrey Ivanov": "andrey.ivanov@quickblox.com",
+    "Vitaliy Gorbachov": "vitaliy.gorbachov@quickblox.com"
   },
   "platforms": {
     "ios": "7.0"

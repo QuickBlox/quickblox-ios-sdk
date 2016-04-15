@@ -22,7 +22,6 @@ static NSString *const kUserPasswordKey = @"password";
  *  UsersDataSource
  */
 static NSString *const kUserTableViewCellIdentifier = @"UserTableViewCellIdentifier";
-static const NSUInteger kUsersLimit = 10;
 
 /**
  *  ServicesManager

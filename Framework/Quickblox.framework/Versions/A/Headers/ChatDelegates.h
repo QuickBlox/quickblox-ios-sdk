@@ -107,6 +107,15 @@
  */
 - (void)chatDidReceiveRejectContactRequestFromUser:(NSUInteger)userID;
 
+#pragma mark -
+#pragma mark Presence
+/**
+ *  Called in case receiving presence with status
+ *
+ *  @param status Recieved presence's status
+ *  @param userID User ID from which received presence
+ */
+- (void)chatDidReceivePresenceWithStatus:(QB_NONNULL NSString *)status fromUser:(NSInteger)userID;
 
 #pragma mark -
 #pragma mark Rooms

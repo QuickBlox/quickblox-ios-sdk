@@ -29,6 +29,15 @@
  */
 + (NSString *)formattedLastSeenString:(NSDate *)date withTimePrefix:(NSString *)timePrefix;
 
+/**
+ *  Formatted short date string.
+ *
+ *  @param date date to make formatted string from
+ *
+ *  @return string with short date format (e.g. time for today, Yesterday, week day name or full date)
+ */
++ (NSString *)formattedShortDateString:(NSDate *)date;
+
 #pragma mark - custom formatting
 
 /**
@@ -79,10 +88,19 @@
 /**
  *  Formatted string for date.
  *
- *  @param date date to make formatted string from
+ *  @param date         date to make formatted string from
  *
  *  @return string with base date format (e.g. 11/08/2011)
  */
 + (NSString *)formatDateForString:(NSDate *)date;
+
+/**
+ *  Formatted string for short date.
+ *
+ *  @param date         date to make formatted string from
+ *
+ *  @return string with base date format (e.g. 11.08.11)
+ */
++ (NSString *)formatShortDateForString:(NSDate *)date;
 
 @end

@@ -6,15 +6,16 @@
 //  Copyright (c) 2014 Quickblox. All rights reserved.
 //
 
-#define QMSysPlayer [QMSoundManager instance]
+
 
 #import <Foundation/Foundation.h>
+#import "SampleCore.h"
+
+#define QMSysPlayer [SampleCore soundManager]
 
 @interface QMSoundManager : NSObject
 
 @property (assign, nonatomic) BOOL on;
-
-+ (instancetype)instance;
 
 /**
  *  Plays a system sound object corresponding to an audio file with the given filename and extension.
@@ -32,7 +33,7 @@
 
 /**
  *  Plays a system sound object corresponding to an audio file with the given filename and extension,
- *  and excutes completionBlock when the sound has stopped playing.
+ *  and executes completionBlock when the sound has stopped playing.
  *  The system sound player will lazily initialize and load the file before playing it, and then cache its corresponding `SystemSoundID`.
  *  If this file has previously been played, it will be loaded from cache and played immediately.
  *
@@ -46,7 +47,7 @@
 */
 - (void)playSoundWithName:(NSString *)filename
                 extension:(NSString *)extension
-               completion:(void(^)(void))completion;
+               completion:(dispatch_block_t)completion;
 
 /**
  *  Plays a system sound object *as an alert* corresponding to an audio file with the given filename and extension.
@@ -80,15 +81,15 @@
  *  @warning If the system sound object cannot be created, this method does nothing.
  *
  *  @warning This method performs the same functions as `playSoundWithName: extension: completion:`,
- *  with the excepion that, depending on the particular iOS device, this method may invoke vibration.
+ *  with the exception that, depending on the particular iOS device, this method may invoke vibration.
  */
 - (void)playAlertSoundWithName:(NSString *)filename
                      extension:(NSString *)extension
-                    completion:(void(^)(void))completion;
+                    completion:(dispatch_block_t)completion;
 
 /**
  *  On some iOS devices, you can call this method to invoke vibration.
- *  On other iOS devices this functionaly is not available, and calling this method does nothing.
+ *  On other iOS devices this functionality is not available, and calling this method does nothing.
  */
 - (void)playVibrateSound;
 

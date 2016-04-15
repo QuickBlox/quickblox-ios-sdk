@@ -13,7 +13,7 @@ import Foundation
 */
 class ServicesManager: QMServicesManager {
     
-    var currentDialogID : String = ""
+    var currentDialogID = ""
     
     var colors = [
         UIColor(red: 0.992, green:0.510, blue:0.035, alpha:1.000),
@@ -44,15 +44,19 @@ class ServicesManager: QMServicesManager {
     
     func handleNewMessage(message: QBChatMessage, dialogID: String) {
         
-        if self.currentDialogID == dialogID {
+        guard self.currentDialogID != dialogID else {
             return
         }
         
-        if message.senderID == self.currentUser().ID {
+        guard message.senderID != self.currentUser().ID else {
             return
         }
-        
-        let dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID)
+		
+		guard let dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID) else {
+			print("chat dialog not found")
+			return
+		}
+		
         var dialogName = "SA_STR_NEW_MESSAGE".localized
         
         if dialog.type != QBChatDialogType.Private {
@@ -91,8 +95,8 @@ class ServicesManager: QMServicesManager {
     override func handleErrorResponse(response: QBResponse!) {
         super.handleErrorResponse(response)
         
-        if !self.isAuthorized() {
-            return;
+        guard self.isAuthorized() else {
+            return
         }
         
         var errorMessage : String
@@ -109,63 +113,91 @@ class ServicesManager: QMServicesManager {
         TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: errorMessage, type: TWMessageBarMessageType.Error)
         
     }
-    
-    func downloadLatestUsers(success:(([QBUUser]!) -> Void)?, error:((NSError!) -> Void)?) {
+	
+	/**
+	Download users accordingly to Constants.QB_USERS_ENVIROMENT
+	
+	- parameter successBlock: successBlock with sorted [QBUUser] if success
+	- parameter errorBlock:   errorBlock with error if request is failed
+	*/
+    func downloadCurrentEnvironmentUsers(successBlock:(([QBUUser]?) -> Void)?, errorBlock:((NSError) -> Void)?) {
 
         let enviroment = Constants.QB_USERS_ENVIROMENT
         
         self.usersService.searchUsersWithTags([enviroment]).continueWithBlock {
             [weak self] (task : BFTask!) -> AnyObject! in
-            if (task.error != nil) {
-                error?(task.error)
+			
+            if let error = task.error {
+                errorBlock?(error)
                 return nil
             }
-            
-            success?(self?.filteredUsersByCurrentEnvironment())
+			
+            successBlock?(self?.sortedUsers())
             
             return nil
         }
     }
     
     func color(forUser user:QBUUser) -> UIColor {
-        
-        let users = self.usersService.usersMemoryStorage.unsortedUsers() as? [QBUUser]
-        let userIndex = (users!).indexOf(self.usersService.usersMemoryStorage.userWithID(user.ID)!)
-        
-        if userIndex < self.colors.count {
-            return self.colors[userIndex!]
+		
+		let defaultColor = UIColor.blackColor()
+		
+		guard let users = self.usersService.usersMemoryStorage.unsortedUsers() else {
+			return defaultColor
+		}
+		
+		guard let givenUser = self.usersService.usersMemoryStorage.userWithID(user.ID) else {
+			return defaultColor
+		}
+		
+		guard let indexOfGivenUser = users.indexOf(givenUser) else {
+			return defaultColor
+		}
+			
+        if indexOfGivenUser < self.colors.count {
+            return self.colors[indexOfGivenUser]
         } else {
-            return UIColor.blackColor()
+            return defaultColor
         }
     }
-    
-    func filteredUsersByCurrentEnvironment() -> [QBUUser] {
-        
-        let currentEnvironment = Constants.QB_USERS_ENVIROMENT
-        var containsString: String
-        
-        if (currentEnvironment == "qbqa") {
-            containsString = "qa"
-        } else {
-            containsString = currentEnvironment
-        }
-        
-        let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers() as! [QBUUser]
+	
+	/**
+	Sorted users
+	
+	- returns: sorted [QBUUser] from usersService.usersMemoryStorage.unsortedUsers()
+	*/
+    func sortedUsers() -> [QBUUser]? {
+		
+		guard let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers() else {
+			return nil
+		}
 
-        let filteredUsers = unsortedUsers[0..<kUsersLimit].filter { (user: QBUUser) -> Bool in
-            return user.login?.lowercaseString.rangeOfString(containsString) != nil
-        }
-        
-        let sortedUsers = filteredUsers.sort({ (user1, user2) -> Bool in
-            return (user1.login! as NSString).compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
+        let sortedUsers = unsortedUsers.sort({ (user1, user2) -> Bool in
+            return user1.login!.compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
         })
         
         return sortedUsers
     }
-    
+	
+	/**
+	Sorted users without current user
+	
+	- returns: [QBUUser]
+	*/
+	func sortedUsersWithoutCurrentUser() -> [QBUUser]? {
+		
+		guard let sortedUsers = self.sortedUsers() else {
+			return nil
+		}
+		
+		let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.ID != self.currentUser().ID})
+		
+		return sortedUsersWithoutCurrentUser
+	}
+	
     // MARK: QMChatServiceDelegate
     
-    override func chatService(chatService: QMChatService!, didAddMessageToMemoryStorage message: QBChatMessage!, forDialogID dialogID: String!) {
+    override func chatService(chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String) {
         super.chatService(chatService, didAddMessageToMemoryStorage: message, forDialogID: dialogID)
         self.handleNewMessage(message, dialogID: dialogID)
     }

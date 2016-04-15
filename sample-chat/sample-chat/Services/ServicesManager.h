@@ -25,20 +25,20 @@
 @property (nonatomic, strong) NSString* currentDialogID;
 
 /**
- *  Last activity date. Needed for updating chat dialogs when go back from tray.
+ *  Last activity date. Needed for updating chat dialogs when going back from tray.
  */
 @property (strong, nonatomic) NSDate *lastActivityDate;
 
 /**
- *  Downlaod latest users.
+ *  Download users accordingly to self.currentEnvironment
  */
-- (void)downloadLatestUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
+- (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray<QBUUser *> *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock;
 
 /**
- *  Filtering array of users by current environment.
+ *  Sorted array of users.
  *
- *  @return Filtered array of users from memory storage by current unvironment.
+ *  @return sorted array of users from memory storage
  */
-- (NSArray *)filteredUsersByCurrentEnvironment;
+- (NSArray<QBUUser *> *)sortedUsers;
 
 @end

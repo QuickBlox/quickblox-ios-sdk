@@ -26,8 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         QBSettings.setAuthSecret(kQBAuthSecret)
         QBSettings.setAccountKey(kQBAccountKey)
         
+        // enabling carbons for chat
+        QBSettings.setCarbonsEnabled(true)
+        
         // Enables Quickblox REST API calls debug console output.
-		QBSettings.setLogLevel(QBLogLevel.Debug)
+		QBSettings.setLogLevel(QBLogLevel.Nothing)
         
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
@@ -36,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         // app was launched from push notification, handling it
         let remoteNotification: NSDictionary! = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
         if (remoteNotification != nil) {
-            ServicesManager.instance().notificationService?.pushDialogID = remoteNotification["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
+            ServicesManager.instance().notificationService.pushDialogID = remoteNotification["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
         }
 		
 		return true
@@ -62,27 +65,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         NSLog("my push is: %@", userInfo)
-        if application.applicationState == UIApplicationState.Inactive {
-            let dialogID: String? = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
-            if (!dialogID!.isEmpty && dialogID != nil) {
-                
-                let dialogWithIDWasEntered: String? = ServicesManager.instance().currentDialogID
-                if dialogWithIDWasEntered == dialogID {
-                    return
-                }
-                ServicesManager.instance().notificationService?.pushDialogID = dialogID
-                
-                // calling dispatch async for push notification handling to have priority in main queue
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    ServicesManager.instance().notificationService?.handlePushNotificationWithDelegate(self)
-                });
-            }
-        }
+		guard application.applicationState == UIApplicationState.Inactive else {
+			return
+		}
+		
+		guard let dialogID = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String else {
+			return
+		}
+		
+		guard !dialogID.isEmpty else {
+			return
+		}
+		
+			
+		let dialogWithIDWasEntered: String? = ServicesManager.instance().currentDialogID
+		if dialogWithIDWasEntered == dialogID {
+			return
+		}
+		
+		ServicesManager.instance().notificationService.pushDialogID = dialogID
+		
+		// calling dispatch async for push notification handling to have priority in main queue
+		dispatch_async(dispatch_get_main_queue(), {
+			ServicesManager.instance().notificationService.handlePushNotificationWithDelegate(self)
+		});
     }
-    
+	
     func applicationWillResignActive(application: UIApplication) {
     }
-    
+	
     func applicationDidEnterBackground(application: UIApplication) {
         // Logging out from chat.
         ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)

@@ -13,7 +13,7 @@
 @interface LocalVideoView : UIView
 
 @property (weak, nonatomic) id <LocalVideoViewDelegate>delegate;
-- (instancetype)initWithPreviewlayer:(AVCaptureVideoPreviewLayer *)layer;
+- (instancetype)initWithPreviewLayer:(AVCaptureVideoPreviewLayer *)layer;
 
 @end
 

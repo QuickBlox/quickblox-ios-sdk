@@ -11,13 +11,21 @@ import Foundation
 
 let kChatPresenceTimeInterval:NSTimeInterval = 45
 let kDialogsPageLimit:UInt = 100
-let kUsersLimit = 10
 let kMessageContainerWidthPadding:CGFloat = 40.0
 
+
+/*  ServicesManager
+	...
+	func downloadLatestUsers(successBlock:(([QBUUser]?) -> Void)?, errorBlock:((NSError) -> Void)?) {
+	
+	let enviroment = Constants.QB_USERS_ENVIROMENT
+	
+	self.usersService.searchUsersWithTags([enviroment])
+	*/
 class Constants {
-    
+	
     class var QB_USERS_ENVIROMENT: String {
-        
+		
 #if DEBUG
         return "dev"
 #elseif QA

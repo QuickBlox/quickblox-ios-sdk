@@ -22,30 +22,30 @@
         __typeof(weakSelf)strongSelf = weakSelf;
         if (chatDialog != nil) {
             strongSelf.pushDialogID = nil;
-            //
+			
             if ([strongSelf.delegate respondsToSelector:@selector(notificationServiceDidSucceedFetchingDialog:)]) {
                 [strongSelf.delegate notificationServiceDidSucceedFetchingDialog:chatDialog];
             }
         }
         else {
-            //
+			
             if ([strongSelf.delegate respondsToSelector:@selector(notificationServiceDidStartLoadingDialogFromServer)]) {
                 [strongSelf.delegate notificationServiceDidStartLoadingDialogFromServer];
             }
             [ServicesManager.instance.chatService loadDialogWithID:strongSelf.pushDialogID completion:^(QBChatDialog *loadedDialog) {
-                //
+				
                 strongSelf.pushDialogID = nil;
                 if ([strongSelf.delegate respondsToSelector:@selector(notificationServiceDidFinishLoadingDialogFromServer)]) {
                     [strongSelf.delegate notificationServiceDidFinishLoadingDialogFromServer];
                 }
                 if (loadedDialog != nil) {
-                    //
+					
                     if ([strongSelf.delegate respondsToSelector:@selector(notificationServiceDidSucceedFetchingDialog:)]) {
                         [strongSelf.delegate notificationServiceDidSucceedFetchingDialog:loadedDialog];
                     }
                 }
                 else {
-                    //
+					
                     if ([strongSelf.delegate respondsToSelector:@selector(notificationServiceDidFailFetchingDialog)]) {
                         [strongSelf.delegate notificationServiceDidFailFetchingDialog];
                     }

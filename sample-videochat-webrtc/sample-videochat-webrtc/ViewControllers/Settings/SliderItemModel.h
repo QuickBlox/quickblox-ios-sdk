@@ -10,6 +10,9 @@
 
 @interface SliderItemModel : BaseItemModel
 
+- (instancetype)initWithTitle:(NSString * )title minValue:(NSUInteger)minValue maxValue:(NSUInteger)maxValue currentValue:(NSUInteger)currentValue;
+- (instancetype)initWithMinValue:(NSUInteger)minValue maxValue:(NSUInteger)maxValue currentValue:(NSUInteger)currentValue;
+
 @property (nonatomic, copy) NSString *minLabel;
 @property (nonatomic, copy) NSString *maxLabel;
 

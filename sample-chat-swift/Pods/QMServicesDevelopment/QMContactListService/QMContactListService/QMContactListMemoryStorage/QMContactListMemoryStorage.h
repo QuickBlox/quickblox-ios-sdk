@@ -15,36 +15,40 @@
 @interface QMContactListMemoryStorage : NSObject <QMMemoryStorageProtocol>
 
 /**
- *  Update memory storage with QBContactList instance
+ *  Update memory storage with QBContactList instance.
  *
  *  @param contactList QBContactList instance
- *
  */
-- (void)updateWithContactList:(QBContactList *)contactList;
+- (void)updateWithContactList:(QB_NULLABLE QBContactList *)contactList;
 
 /**
- *  Update memory storage with QBContactLists items
+ *  Update memory storage with QBContactLists items.
  *
  *  @param contactLists QBContactList items
- *
  */
-- (void)updateWithContactListItems:(NSArray *)contactListItems;
+- (void)updateWithContactListItems:(QB_NULLABLE NSArray QB_GENERIC(QBContactListItem *) *)contactListItems;
 
 /**
- *  Find QBContactListItem by user ID
+ *  Find QBContactListItem by user ID.
  *
  *  @param userID NSUInteger user ID
  *
  *  @return finded QBContactListItem instance
  */
-- (QBContactListItem *)contactListItemWithUserID:(NSUInteger)userID;
+- (QB_NULLABLE QBContactListItem *)contactListItemWithUserID:(NSUInteger)userID;
 
 /**
- *  Get all stored User IDs
+ *  Get all stored User IDs.
  *
  *  @return array of user IDs
- *
  */
-- (NSArray *)userIDsFromContactList;
+- (QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)userIDsFromContactList;
+
+/**
+ *  Get all stored contact list items.
+ *
+ *  @return array of contact list items.
+ */
+- (QB_NONNULL NSArray QB_GENERIC(QBContactListItem *) *)allContactListItems;
 
 @end

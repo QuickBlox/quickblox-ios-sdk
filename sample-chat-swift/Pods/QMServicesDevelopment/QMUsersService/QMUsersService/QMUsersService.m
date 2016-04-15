@@ -24,7 +24,6 @@
     
     NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
     [[QBChat instance] removeDelegate:self];
-    self.usersMemoryStorage = nil;
 }
 
 - (instancetype)initWithServiceManager:(id<QMServiceManagerProtocol>)serviceManager cacheDataSource:(id<QMUsersServiceCacheDataSource>)cacheDataSource
@@ -49,9 +48,9 @@
     if (loadFromCacheTask == nil) {
         BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
         
-        if ([self.cacheDataSource respondsToSelector:@selector(cachedUsers:)]) {
+        if ([self.cacheDataSource respondsToSelector:@selector(cachedUsersWithCompletion:)]) {
             __weak __typeof(self)weakSelf = self;
-            [self.cacheDataSource cachedUsers:^(NSArray *collection) {
+            [self.cacheDataSource cachedUsersWithCompletion:^(NSArray *collection) {
                 
                 if (collection.count > 0) {
                     
@@ -120,9 +119,9 @@
         }
         
         return [strongSelf getUsersWithIDs:searchInfo[QMUsersSearchKey.notFoundSearchValues]
-                          foundUsers:foundUsers
-                       forceDownload:YES
-                                page:page];
+                                foundUsers:foundUsers
+                             forceDownload:YES
+                                      page:page];
     }];
 }
 
@@ -131,7 +130,7 @@
     if (ids.count == 0) {
         return [BFTask taskWithResult:foundUsers];
     }
-
+    
     __weak __typeof(self)weakSelf = self;
     return [[self loadFromCache] continueWithBlock:^id(BFTask *task) {
         __typeof(weakSelf)strongSelf = weakSelf;

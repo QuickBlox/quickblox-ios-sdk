@@ -24,9 +24,9 @@
  */
 @property (strong, nonatomic, readonly) QBChatDialog *dialog;
 @property (assign, nonatomic) QMDialogUpdateType dialogUpdateType;
-@property (strong, nonatomic) NSArray *currentOccupantsIDs;
-@property (strong, nonatomic) NSArray *addedOccupantsIDs;
-@property (strong, nonatomic) NSArray *deletedOccupantsIDs;
+@property (strong, nonatomic) NSArray QB_GENERIC(NSNumber *) *currentOccupantsIDs;
+@property (strong, nonatomic) NSArray QB_GENERIC(NSNumber *) *addedOccupantsIDs;
+@property (strong, nonatomic) NSArray QB_GENERIC(NSNumber *) *deletedOccupantsIDs;
 @property (strong, nonatomic) NSString *dialogName;
 @property (strong, nonatomic) NSString *dialogPhoto;
 @property (strong, nonatomic) NSDate *dialogUpdatedAt;

@@ -4,6 +4,7 @@
 #import "_CDDialog.h"
 
 const struct CDDialogAttributes CDDialogAttributes = {
+	.data = @"data",
 	.dialogID = @"dialogID",
 	.dialogType = @"dialogType",
 	.lastMessageDate = @"lastMessageDate",
@@ -76,6 +77,8 @@ const struct CDDialogRelationships CDDialogRelationships = {
 
 	return keyPaths;
 }
+
+@dynamic data;
 
 @dynamic dialogID;
 

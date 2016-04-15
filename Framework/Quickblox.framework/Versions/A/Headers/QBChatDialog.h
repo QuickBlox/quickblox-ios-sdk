@@ -75,12 +75,12 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 @property (nonatomic, readonly) NSInteger recipientID;
 
 /**
- * Occupants ids to push. Use for update dialog
+ * Occupants ids to push. Use this method to add occupants to the dialog
  */
 @property (strong, nonatomic, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSString *) *pushOccupantsIDs;
 
 /**
- * Occupants ids to pull. Use for update dialog
+ * Occupants ids to pull. Use this method to delete occupants from the dialog
  */
 @property (strong, nonatomic, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSString *) *pullOccupantsIDs;
 
@@ -95,22 +95,22 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogIsTypingBlock onUserIsTyping;
 
 /**
- *  Fired when user stopped typing in dialog.
+ *  Fired when user has stopped typing in dialog.
  */
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogStoppedTypingBlock onUserStoppedTyping;
 
 /**
- *  Fired when occupant joined to dialog.
+ *  Fired when occupant has joined to dialog.
  */
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogOccupantJoinBlock onJoinOccupant;
 
 /**
- *  Fired when occupant left dialog.
+ *  Fired when occupant has left the dialog.
  */
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogOccupantLeaveBlock onLeaveOccupant;
 
 /**
- *  Fired when occupant was update in dialog.
+ *  Fired when occupant has updated his presence status in the dialog.
  */
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogOccupantUpdateBlock onUpdateOccupant;
 
@@ -148,7 +148,7 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 #pragma mark - Join/leave
 
 /**
- *  Join status of room
+ *  Join status of the room
  *
  *  @return YES if user is joined to room, otherwise - no.
  */

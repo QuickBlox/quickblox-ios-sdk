@@ -10,15 +10,13 @@
 
 @implementation DialogTableViewCell
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
     [super awakeFromNib];
     
     self.unreadContainerView.layer.cornerRadius = 10.0f;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     UIColor *color = self.unreadContainerView.backgroundColor;
     [super setSelected:selected animated:animated];
     
@@ -27,8 +25,7 @@
     }
 }
 
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-{
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     UIColor *color = self.unreadContainerView.backgroundColor;
     [super setHighlighted:highlighted animated:animated];
     

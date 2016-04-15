@@ -8,62 +8,46 @@
 
 #import "AudioSettingsViewController.h"
 #import "Settings.h"
-
-@interface AudioSettingsViewController ()
-
-@property (copy, nonatomic) NSIndexPath *audioCodecIndexPath;
-@property (strong, nonatomic) Settings *settings;
-
-@end
+#import "SettingsSectionModel.h"
+#import "SampleCore.h"
 
 @implementation AudioSettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.settings = [Settings instance];
-    self.audioCodecIndexPath = [NSIndexPath indexPathForRow:self.settings.mediaConfiguration.audioCodec inSection:0];
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    [self addSection:SettingsSectionAudioCodec items:^NSArray * {
+        
+        BaseItemModel *opus = [[BaseItemModel alloc] initWithTitle:@"Opus" data:@(QBRTCAudioCodecOpus)];
+        BaseItemModel *isac = [[BaseItemModel alloc] initWithTitle:@"ISAC" data:@(QBRTCAudioCodecISAC)];
+        BaseItemModel *iLBC = [[BaseItemModel alloc] initWithTitle:@"iLBC" data:@(QBRTCAudioCodeciLBC)];
+
+        return @[opus, isac, iLBC];
+    }];
+	
+
+    [self.tableView reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	
+	BaseItemModel *item = self.sections[@(indexPath.section)].items[indexPath.row];
+	
+    BOOL isCheckmark = [(NSNumber *) item.data isEqualToNumber:@([SampleCore settings].mediaConfiguration.audioCodec)];
+    cell.accessoryType = isCheckmark ?  UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
-    UITableViewCell *cell =  [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    
-    void (^checkmakr)(BOOL) = ^(BOOL isCheckmark){
-        
-        if (isCheckmark) {
-            
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        else {
-            
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-    };
-    
-    if (indexPath.section == 0) {
-        
-        checkmakr([indexPath compare:self.audioCodecIndexPath] == NSOrderedSame);
-    }
-    
-    return cell;
+	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.section == 0) {
-        
-        self.audioCodecIndexPath = indexPath;
-        
-        self.settings.mediaConfiguration.audioCodec = indexPath.row;
-    }
-    
+
+    BaseItemModel *item = self.sections[@(indexPath.section)].items[indexPath.row];
+    [SampleCore settings].mediaConfiguration.audioCodec = (QBRTCAudioCodec) [(NSNumber *) item.data unsignedIntegerValue];
+
     [tableView reloadData];
 }
 

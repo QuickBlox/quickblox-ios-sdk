@@ -84,8 +84,8 @@ typedef void (^QBRequestErrorBlock)(QBResponse *QB_NONNULL_S response);
 /** Constructors */
 + (QB_NONNULL instancetype)new NS_UNAVAILABLE;
 
-- (QB_NONNULL instancetype)initWithType:(QBRequestTaskType)type completionBlock:(QB_NULLABLE QBRequestCompletionBlock)completionBlock;
-- (QB_NONNULL instancetype)initWithType:(QBRequestTaskType)type updateBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)updateBlock completionBlock:(QB_NULLABLE QBRequestCompletionBlock)completionBlock;
+- (QB_NULLABLE instancetype)initWithType:(QBRequestTaskType)type completionBlock:(QB_NULLABLE QBRequestCompletionBlock)completionBlock;
+- (QB_NULLABLE instancetype)initWithType:(QBRequestTaskType)type updateBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)updateBlock completionBlock:(QB_NULLABLE QBRequestCompletionBlock)completionBlock;
 
 /**
  *  Cancels NSURLSessionTask associated with request.

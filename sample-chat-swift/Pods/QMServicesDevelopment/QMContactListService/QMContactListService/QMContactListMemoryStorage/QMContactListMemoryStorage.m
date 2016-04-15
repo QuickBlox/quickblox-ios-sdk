@@ -48,14 +48,19 @@
     }];
 }
 
+- (QBContactListItem *)contactListItemWithUserID:(NSUInteger)userID {
+    
+    return self.contactList[@(userID)];
+}
+
 - (NSArray *)userIDsFromContactList {
     
     return self.contactList.allKeys;
 }
 
-- (QBContactListItem *)contactListItemWithUserID:(NSUInteger)userID {
+- (NSArray *)allContactListItems {
     
-    return self.contactList[@(userID)];
+    return self.contactList.allValues;
 }
 
 #pragma mark - QMMemoryStorageProtocol

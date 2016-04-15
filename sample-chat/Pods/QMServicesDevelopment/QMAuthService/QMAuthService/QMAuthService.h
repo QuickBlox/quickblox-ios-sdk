@@ -22,14 +22,14 @@
  *
  *  @param delegate instance that confirms id<QMAuthServiceDelegate> protocol
  */
-- (void)addDelegate:(id <QMAuthServiceDelegate>)delegate;
+- (void)addDelegate:(QB_NONNULL id <QMAuthServiceDelegate>)delegate;
 
 /**
  *  Remove instance that confirms auth service multicaste protocol
  *
  *  @param delegate instance that confirms id<QMAuthServiceDelegate> protocol
  */
-- (void)removeDelegate:(id <QMAuthServiceDelegate>)delegate;
+- (void)removeDelegate:(QB_NONNULL id <QMAuthServiceDelegate>)delegate;
 
 /**
  *  User sign up and login
@@ -39,7 +39,7 @@
  *
  *  @return Cancelable request
  */
-- (QBRequest *)signUpAndLoginWithUser:(QBUUser *)user completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
+- (QB_NONNULL QBRequest *)signUpAndLoginWithUser:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  User login
@@ -49,7 +49,7 @@
  *
  *  @return Cancelable request
  */
-- (QBRequest *)logInWithUser:(QBUUser *)user completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
+- (QB_NONNULL QBRequest *)logInWithUser:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  Login with twitter digits auth headers
@@ -59,17 +59,17 @@
  *
  *  @return Cancelable request
  */
-- (QBRequest *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
+- (QB_NONNULL QBRequest *)loginWithTwitterDigitsAuthHeaders:(QB_NONNULL NSDictionary *)authHeaders completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  Login with facebook
  *
  *  @param sessionToken Facebook session token
- *  @param completion   Completion block
+ *  @param completion   completion block
  *
  *  @return Cancelable request
  */
-- (QBRequest *)logInWithFacebookSessionToken:(NSString *)sessionToken completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion;
+- (QB_NONNULL QBRequest *)logInWithFacebookSessionToken:(QB_NONNULL NSString *)sessionToken completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  Logout
@@ -78,7 +78,7 @@
  *
  *  @return Cancelable request
  */
-- (QBRequest *)logOut:(void(^)(QBResponse *response))completion;
+- (QB_NONNULL QBRequest *)logOut:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response))completion;
 
 @end
 
@@ -98,7 +98,7 @@
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)signUpAndLoginWithUser:(QBUUser *)user;
+- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)signUpAndLoginWithUser:(QB_NONNULL QBUUser *)user;
 
 /**
  *  Login with user using Bolts.
@@ -109,7 +109,7 @@
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)loginWithUser:(QBUUser *)user;
+- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)loginWithUser:(QB_NONNULL QBUUser *)user;
 
 /**
  *  Login with twitter digits using Bolts.
@@ -120,7 +120,7 @@
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders;
+- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)loginWithTwitterDigitsAuthHeaders:(QB_NONNULL NSDictionary *)authHeaders;
 
 /**
  *  Login with facebook session token using Bolts.
@@ -131,7 +131,7 @@
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)loginWithFacebookSessionToken:(NSString *)sessionToken;
+- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)loginWithFacebookSessionToken:(QB_NONNULL NSString *)sessionToken;
 
 /**
  *  Logout current user using Bolts.
@@ -140,7 +140,7 @@
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask *)logout;
+- (QB_NONNULL BFTask *)logout;
 
 @end
 
@@ -152,7 +152,7 @@
  *
  *  @param authService QMAuthService instance
  */
-- (void)authServiceDidLogOut:(QMAuthService *)authService;
+- (void)authServiceDidLogOut:(QB_NONNULL QMAuthService *)authService;
 
 /**
  *  It called when auth service did log in with user
@@ -160,6 +160,6 @@
  *  @param authService QMAuthService instance
  *  @param user logined QBUUser
  */
-- (void)authService:(QMAuthService *)authService didLoginWithUser:(QBUUser *)user;
+- (void)authService:(QB_NONNULL QMAuthService *)authService didLoginWithUser:(QB_NONNULL QBUUser *)user;
 
 @end

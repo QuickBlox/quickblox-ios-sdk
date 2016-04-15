@@ -185,6 +185,27 @@ typedef enum QBConnectionZoneType{
 + (void)enableXMPPLogging;
 
 /**
+ *  Enable log to file
+ *  The approximate maximum size to allow log files to grow.
+ *  If a log file is larger than this value after a log statement is appended,
+ *  then the log file is rolled.
+ *  @param maximumFileSize maximum file size in bytes, for example: 1024 * 1024 * 10 = 10Mb
+ */
++ (void)enableFileLoggingWithMaximumFileSize:(unsigned long long)maximumFileSize;
+
+/**
+ *  Disable logging to file
+ */
++ (void)disableFileLogging;
+
+/**
+ *  Returns log file paths if loggint to file is enabled
+ *  Example name of log file: /var/mobile/Containers/Data/Application/518F9FD2-BB4C-4AF4-89D8-7FF85B0518B7/Library/Caches/Logs/com.quickblox.supersample 2016-03-25 11-23.log
+ *
+ *  @return Array of log file paths or nil if logging to file is disabled
+ */
++ (QB_NULLABLE NSArray QB_GENERIC(NSString *) *)logFilePaths;
+/**
  *   Disable full XMPP Framework logging to console.
  */
 + (void)disableXMPPLogging;

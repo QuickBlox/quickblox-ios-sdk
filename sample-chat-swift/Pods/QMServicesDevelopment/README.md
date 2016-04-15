@@ -51,12 +51,10 @@ Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat 
 
 - Xcode 6+
 - ARC
-- Quickblox iOS SDK
-- Bolts-iOS
 
 # Dependencies
 
-- [Quickblox](https://github.com/QuickBlox/quickblox-ios-sdk 'Quickblox iOS SDK') SDK 2.5+
+- [Quickblox](https://github.com/QuickBlox/quickblox-ios-sdk 'Quickblox iOS SDK') SDK 2.6.5+
 - [Bolts](https://github.com/BoltsFramework/Bolts-iOS 'Bolts-iOS') 1.5.0+
 
 # Installation
@@ -96,14 +94,34 @@ Navigate to **Build Settings**, then search for **Framework Search Paths** and d
 
 Add a new item using **+**: `"$(SRCROOT)/Vendor/QMServices/Frameworks"`
 
+<p style='color:red'>** NOTE**</p>
+<p style='color:red'>Only for manual installation: if you do not follow the steps below you will get compiler errors that Quickblox.framework and Bolts.framework are not found</p> Quickblox.framework and Bolts.framework in `"$(SRCROOT)/Vendor/QMServices/Frameworks"` does NOT contain binary data, they used only for generating bundles. <br>
+If you plan to use QMServices as sub-project, then <br>
+1. Download Quickblox.framework https://github.com/QuickBlox/quickblox-ios-sdk/archive/master.zip <br>
+2. Download Bolts.framework https://github.com/BoltsFramework/Bolts-ObjC/releases/download/1.5.1/Bolts-iOS.zip <br>
+3. Put the frameworks in the folder 'Vendor/QMServices/Frameworks' <br>
+
 > ** NOTE**: By default, *QMServices* subprojects reference Quickblox and Bolts frameworks at `../Frameworks`.
 > To change the path, you need to open Quickblox.xcconfig file and replace `../Frameworks` with your path to the Quickblox.framework and Bolts.framework.
 
 > ** NOTE** Please be aware that if you've set Xcode's **Link Frameworks Automatically** to **No** then you may need to add the Quickblox.framework, CoreData.framework to your project on iOS, as UIKit does not include Core Data by default. On OS X, Cocoa includes Core Data.
 
 Now navigate to QMServices.xcodeproj subproject, open **Build Settings**, search for **Framework Search Paths** and locate Quickblox and Bolts frameworks folder there.
-Remember, that you have to link *QMServices* in **Target Dependencies** and *libQMServices.a* in **Link Binary with Libraries**.
+Remember, that you have to link *QMServices* in **Target Dependencies** and (or) *libQMServices.a* in **Link Binary with Libraries**.
 Don't forget to add Quickblox and Bolts frameworks to your project.
+
+Next step is to copy all bundles into your Copy bundle resources in Build Phases tab of your project settings.
+Navigate to QMServices.xcodeproj/Cache and move QMUsersCacheModel.bundle, QMContactListCacheModel.bundle and QMChatCacheModel.bundle that are existent in its subprojects to Copy Bundle Resources of your project. In a pop-up window select only "Create folder references".
+
+If you are adding QMServices to the Swift project, you need to import them in your bridging header:
+
+```swift
+#import "QMServices.h"
+```
+
+To integrate Quckblox iOS SDK into your Swift project see our detailed guide [here](http://quickblox.com/developers/IOS-how-to-connect-Quickblox-framework#Additional_steps_for_Swift_using_Manual_Installation).
+
+If you are still experiencing some crashes, check if you have set up correct Other linker flags for your project (-lxml2, -ObjC, -lstdc++) otherwise feel free to create an issue and let us know your problem.
 
 ### Bundle generation
 **NOTE:** You can skip this step if you do not use dialogs, messages and users memory and disc storage.
@@ -116,7 +134,7 @@ To generate bundle for dialogs and messages you need to open **QMServices** proj
 
 # Architecture
 
-QMServices contains:
+QMServices contain:
 
 * **QMAuthService**
 * **QMChatService**
@@ -128,7 +146,7 @@ They all inherited from **QMBaseService**.
 To support CoreData caching you can use **QMContactListCache**, **QMChatCache** and **QMUsersCache**, which are inherited from **QMDBStorage**. Of course you could use your own database storage - just need to implement **QMChatServiceDelegate**, **QMContactListServiceDelegate** or **QMUsersServiceDelegate** depending on your needs.
 
 # Getting started
-Add **#import \<QMServices.h\>** to your apps *.pch* file.
+Add **#import \<QMServices.h\>** to your app's *.pch* file.
 
 ## Service Manager
 
@@ -173,12 +191,12 @@ In ``init`` method, services and cache are initialised.
 	self = [super init];
 	if (self) {
 		[QMChatCache setupDBWithStoreNamed:@"sample-cache"];
-        	[QMChatCache instance].messagesLimitPerDialog = 10;
+		[QMChatCache instance].messagesLimitPerDialog = 10;
 
 		_authService = [[QMAuthService alloc] initWithServiceManager:self];
 		_chatService = [[QMChatService alloc] initWithServiceManager:self cacheDataSource:self];
-        	[_chatService addDelegate:self];
-        	_logoutGroup = dispatch_group_create();
+		[_chatService addDelegate:self];
+		_logoutGroup = dispatch_group_create();
 	}
 	return self;
 }
@@ -213,7 +231,7 @@ Also you have to implement **QMServiceManagerProtocol** methods:
 	// handle error response from services here
 }
 
-- (BOOL)isAutorized {
+- (BOOL)isAuthorized {
 	return self.authService.isAuthorized;
 }
 
@@ -276,7 +294,7 @@ Also for prefetching initial dialogs and messages you have to implement **QMChat
 We encourage to use automatic session creation, to simplify communication with backend:
 
 ```objective-c
-[QBConnection setAutoCreateSessionEnabled:YES];
+[QBSettings setAutoCreateSessionEnabled:YES];
 ```
 
 ### Login
@@ -287,6 +305,7 @@ This method logins user to Quickblox REST API backend and to the Quickblox Chat 
 - (void)logInWithUser:(QBUUser *)user
 		   completion:(void (^)(BOOL success, NSString *errorMessage))completion
 {
+	__weak typeof(self) weakSelf = self;
 	[self.authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
 		if (response.error != nil) {
 			if (completion != nil) {
@@ -295,8 +314,7 @@ This method logins user to Quickblox REST API backend and to the Quickblox Chat 
 			return;
 		}
 		
-        __weak typeof(self) weakSelf = self;
-        [weakSelf.chatService connectWithCompletionBlock:^(NSError * _Nullable error) {
+		[weakSelf.chatService connectWithCompletionBlock:^(NSError * _Nullable error) {
             //
             __typeof(self) strongSelf = weakSelf;
             
@@ -331,9 +349,9 @@ Example of usage:
     // Logging in to Quickblox REST API and chat.
     [QMServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
-        	// Handle success login
+            // Handle success login
         } else {
-            	// Handle error with error message
+            // Handle error with error message
         }
     }];
 ```
@@ -344,8 +362,8 @@ Example of usage:
 - (void)logoutWithCompletion:(dispatch_block_t)completion
 {
     if ([QBSession currentSession].currentUser != nil) {
-        __weak typeof(self)weakSelf = self;    
-        
+        __weak typeof(self)weakSelf = self;
+                
         dispatch_group_enter(self.logoutGroup);
         [self.authService logOut:^(QBResponse *response) {
             __typeof(self) strongSelf = weakSelf;
@@ -355,13 +373,13 @@ Example of usage:
         }];
         
         dispatch_group_enter(self.logoutGroup);
-        [[QMChatCache instance] deleteAllDialogs:^{
+        [[QMChatCache instance] deleteAllDialogsWithCompletion:^{
             __typeof(self) strongSelf = weakSelf;
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
         
         dispatch_group_enter(self.logoutGroup);
-        [[QMChatCache instance] deleteAllMessages:^{
+        [[QMChatCache instance] deleteAllMessagesWithCompletion:^{
             __typeof(self) strongSelf = weakSelf;
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
@@ -513,7 +531,7 @@ Implementation file:
     
     [super handleErrorResponse:response];
     
-    if (![self isAutorized]) return;
+    if (![self isAuthorized]) return;
 	NSString *errorMessage = [[response.error description] stringByReplacingOccurrencesOfString:@"(" withString:@""];
 	errorMessage = [errorMessage stringByReplacingOccurrencesOfString:@")" withString:@""];
 	
@@ -560,7 +578,7 @@ Current user authorisation status:
 
 ```
 
-Sign up user and log's in to Quickblox.
+Sign up user and login to Quickblox.
 
 ```objective-c
 
@@ -648,22 +666,6 @@ Disconnect user from Quickblox chat.
 
 ```
 
-Automatically send presences after logging in to Quickblox chat.
-
-```objective-c
-
-@property (nonatomic, assign) BOOL automaticallySendPresences;
-
-```
-
-Time interval for sending preseneces - default value 45 seconds.
-
-```objective-c
-
-@property (nonatomic, assign) NSTimeInterval presenceTimerInterval;
-
-```
-
 Join user to group dialog.
 
 ```objective-c
@@ -734,7 +736,7 @@ Recursively fetch all dialogs from Quickblox.
 
 - (void)allDialogsWithPageLimit:(NSUInteger)limit
 				extendedRequest:(NSDictionary *)extendedRequest
-				 iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))interationBlock
+				 iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))iterationBlock
 					 completion:(void(^)(QBResponse *response))completion;
 ```
 
@@ -990,7 +992,7 @@ Recursively fetch all dialogs from Quickblox using Bolts.
 
 - (BFTask *)allDialogsWithPageLimit:(NSUInteger)limit
                     extendedRequest:(NSDictionary *)extendedRequest
-                     iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))interationBlock;
+                     iterationBlock:(void(^)(QBResponse *response, NSArray *dialogObjects, NSSet *dialogsUsersIDs, BOOL *stop))iterationBlock;
 
 ```
 
@@ -1522,7 +1524,7 @@ Add users to memory storage.
 
 ```objective-c
 
-- (void)addUsers:(NSArray *)users;
+- (void)addUsers:(NSArray<QBUUser *> *)users;
 
 ```
 
@@ -1532,7 +1534,7 @@ Get all users from memory storage without sorting.
 
 ```objective-c
 
-- (NSArray *)unsortedUsers;
+- (NSArray<QBUUser *> *)unsortedUsers;
 
 ```
 
@@ -1540,7 +1542,7 @@ Get all users in memory storage sorted by key.
 
 ```objective-c
 
-- (NSArray *)usersSortedByKey:(NSString *)key ascending:(BOOL)ascending;
+- (NSArray<QBUUser *> *)usersSortedByKey:(NSString *)key ascending:(BOOL)ascending;
 
 ```
 
@@ -1556,7 +1558,7 @@ Get users with ids without some id.
 
 ```objective-c
 
-- (NSArray *)usersWithIDs:(NSArray *)IDs withoutID:(NSUInteger)ID;
+- (NSArray<QBUUser *> *)usersWithIDs:(NSArray *)IDs withoutID:(NSUInteger)ID;
 
 ```
 
@@ -1580,7 +1582,7 @@ Get users with user ids.
 
 ```objective-c
 
-- (NSArray *)usersWithIDs:(NSArray *)ids;
+- (NSArray<QBUUser *> *)usersWithIDs:(NSArray *)ids;
 
 ```
 
