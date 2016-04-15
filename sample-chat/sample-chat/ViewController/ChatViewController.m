@@ -681,7 +681,7 @@ QMChatCellDelegate
 - (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
     
     if (self.dialog.type != QBChatDialogTypePrivate && [self.dialog.ID isEqualToString:chatDialog.ID]) {
-        
+        self.dialog  = chatDialog;
         self.title = self.dialog.name;
     }
 }

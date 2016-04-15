@@ -20,57 +20,53 @@
 
 @implementation EditDialogTableViewController
 
+#pragma mark - View Lyfecycle
+
 - (void)viewDidLoad {
-	[super viewDidLoad];
+    [super viewDidLoad];
     
     self.tableView.tableFooterView = [UIView new];
-	NSParameterAssert(self.dialog);
-}
-
-- (void)reloadDataSource {
-	self.dataSource = [[UsersDataSource alloc] init];
-	[self.dataSource setExcludeUsersIDs:self.dialog.occupantIDs];
-	self.tableView.dataSource = self.dataSource;
-	[self.tableView reloadData];
-    [self updateSaveButtonState];
+    NSParameterAssert(self.dialog);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	[self reloadDataSource];
-	[ServicesManager.instance.chatService addDelegate:self];
+    [super viewWillAppear:animated];
+    [self reloadDataSource];
+    [ServicesManager.instance.chatService addDelegate:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	[ServicesManager.instance.chatService removeDelegate:self];
+    [super viewWillDisappear:animated];
+    [ServicesManager.instance.chatService removeDelegate:self];
 }
 
+#pragma mark - UITableView Delegate Methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self updateSaveButtonState];
+    [self updateSaveButtonState];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self updateSaveButtonState];
+    [self updateSaveButtonState];
 }
 
+#pragma mark - IBActions
 - (IBAction)saveButtonTapped:(id)sender {
-	NSArray *indexPathArray = [self.tableView indexPathsForSelectedRows];
-	assert(indexPathArray.count != 0);
-	
-	NSMutableArray<QBUUser *> *users = [NSMutableArray arrayWithCapacity:indexPathArray.count];
-	NSMutableArray<NSNumber *> *usersIDs = [NSMutableArray arrayWithCapacity:indexPathArray.count];
-	
-	for (NSIndexPath *indexPath in indexPathArray) {
-		UserTableViewCell *selectedCell = (UserTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
-		[users addObject:selectedCell.user];
-		[usersIDs addObject:@(selectedCell.user.ID)];
-		[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-	}
-	
-	__weak __typeof(self)weakSelf = self;
-	
-	if (self.dialog.type == QBChatDialogTypePrivate) {
+    NSArray *indexPathArray = [self.tableView indexPathsForSelectedRows];
+    assert(indexPathArray.count != 0);
+    
+    NSMutableArray<QBUUser *> *users = [NSMutableArray arrayWithCapacity:indexPathArray.count];
+    NSMutableArray<NSNumber *> *usersIDs = [NSMutableArray arrayWithCapacity:indexPathArray.count];
+    
+    for (NSIndexPath *indexPath in indexPathArray) {
+        UserTableViewCell *selectedCell = (UserTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
+        [users addObject:selectedCell.user];
+        [usersIDs addObject:@(selectedCell.user.ID)];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    if (self.dialog.type == QBChatDialogTypePrivate) {
         // Retrieving users with identifiers.
         [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask *task) {
             //
@@ -81,38 +77,57 @@
             
             return nil;
         }];
-	} else {
-		[self updateGroupDialogWithUsersIDs:usersIDs];
-	}
+    } else {
+        [self updateGroupDialogWithUsersIDs:usersIDs];
+    }
 }
 
+#pragma mark QMChatServiceDelegate delegate
+
+- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
+    if ([chatDialog.ID isEqualToString:self.dialog.ID]) {
+        self.dialog = chatDialog;
+        [self reloadDataSource];
+    }
+}
+
+#pragma mark - Helpers
+
+- (void)reloadDataSource {
+    self.dataSource = [[UsersDataSource alloc] init];
+    [self.dataSource setExcludeUsersIDs:self.dialog.occupantIDs];
+    self.tableView.dataSource = self.dataSource;
+    [self.tableView reloadData];
+    [self updateSaveButtonState];
+}
 - (void)createGroupDialogWithUsers:(NSArray<QBUUser *> *)users {
-	__weak __typeof(self)weakSelf = self;
-	
-	[SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
-	
+    __weak __typeof(self)weakSelf = self;
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
+    
     // Creating group chat dialog.
-	[ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
-		
-		if( response.success ) {
-			[SVProgressHUD dismiss];
+    [ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
+        
+        if( response.success ) {
+            [SVProgressHUD dismiss];
             [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
                 //
             }];
-			[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:createdDialog];
-		}
-		else {
-			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_CANNOT_CREATE_DIALOG", nil)];
-			NSLog(@"can not create dialog: %@", response.error.error);
-		}
-	}];
+            __typeof(self) strongSelf = weakSelf;
+            [strongSelf navigateToChatViewControllerWithDialog:createdDialog];
+        }
+        else {
+            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_CANNOT_CREATE_DIALOG", nil)];
+            NSLog(@"can not create dialog: %@", response.error.error);
+        }
+    }];
 }
 
 - (void)updateGroupDialogWithUsersIDs:(NSArray<NSNumber *> *)usersIDs {
-	__weak __typeof(self)weakSelf = self;
-	
-	[SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
-	
+    __weak __typeof(self)weakSelf = self;
+    
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
+    
     // Retrieving users from cache.
     [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask *task) {
         //
@@ -126,12 +141,13 @@
                     NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
                     
                     // Notify occupants that dialog was updated.
-                  [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:usersIDs
-                                                                                             toDialog:updatedDialog
-                                                                                 withNotificationText:notificationText
-                                                                                           completion:nil];
+                    [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:usersIDs
+                                                                                               toDialog:updatedDialog
+                                                                                   withNotificationText:notificationText
+                                                                                             completion:nil];
                     updatedDialog.lastMessageText = notificationText;
-                    [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
+                    __typeof(self) strongSelf = weakSelf;
+                    [strongSelf navigateToChatViewControllerWithDialog:updatedDialog];
                     [SVProgressHUD dismiss];
                 }];
             }
@@ -145,41 +161,54 @@
 }
 
 - (NSString *)dialogNameFromUsers:(NSArray<QBUUser *> *)users {
-	NSString *name = [NSString stringWithFormat:@"%@_", [QBSession currentSession].currentUser.login];
-	for (QBUUser *user in users) {
-		name = [NSString stringWithFormat:@"%@%@,", name, user.login];
-	}
-	name = [name substringToIndex:name.length - 1]; // remove last , (comma)
-	return name;
+    NSString *name = [NSString stringWithFormat:@"%@_", [QBSession currentSession].currentUser.login];
+    for (QBUUser *user in users) {
+        name = [NSString stringWithFormat:@"%@%@,", name, user.login];
+    }
+    name = [name substringToIndex:name.length - 1]; // remove last , (comma)
+    return name;
 }
 
 - (NSString *)updatedMessageWithUsers:(NSArray<QBUUser *> *)users {
-	NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADDED", nil)];
-	for (QBUUser *user in users) {
-		message = [NSString stringWithFormat:@"%@%@,", message, user.login];
-	}
-	message = [message substringToIndex:message.length - 1]; // remove last , (comma)
-	return message;
+    NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADDED", nil)];
+    for (QBUUser *user in users) {
+        message = [NSString stringWithFormat:@"%@%@,", message, user.login];
+    }
+    message = [message substringToIndex:message.length - 1]; // remove last , (comma)
+    return message;
 }
 
 - (void)updateSaveButtonState {
-	self.btnSave.enabled = [[self.tableView indexPathsForSelectedRows] count] != 0;
+    self.btnSave.enabled = [[self.tableView indexPathsForSelectedRows] count] != 0;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
-		ChatViewController *vc = (ChatViewController *) segue.destinationViewController;
-		vc.dialog = sender;
-	}
+    if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
+        ChatViewController *vc = (ChatViewController *) segue.destinationViewController;
+        vc.dialog = sender;
+    }
 }
 
-#pragma mark QMChatServiceDelegate delegate
+- (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog {
+    
+    NSMutableArray *newStack = [NSMutableArray array];
 
-- (void)chatService:(QMChatService *)chatService didUpdateChatDialogInMemoryStorage:(QBChatDialog *)chatDialog {
-	if ([chatDialog.ID isEqualToString:self.dialog.ID]) {
-		self.dialog = chatDialog;
-		[self reloadDataSource];
-	}
+    //change stack by replacing view controllers after ChatVC with ChatVC
+    for (UIViewController * vc in self.navigationController.viewControllers) {
+        [newStack addObject:vc];
+        
+        if ([vc isKindOfClass:[DialogsViewController class]]) {
+            
+            ChatViewController * chatVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+            chatVC.dialog = dialog;
+            
+            [newStack addObject:chatVC];
+            [self.navigationController setViewControllers:newStack animated:true];
+            
+            return;
+        }
+    }
+    
+    [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
 }
-
 @end

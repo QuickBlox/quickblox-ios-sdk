@@ -829,7 +829,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func chatService(chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
         
         if self.dialog.type != QBChatDialogType.Private && self.dialog.ID == chatDialog.ID {
-            
+            self.dialog = chatDialog
             self.title = self.dialog.name
         }
     }
