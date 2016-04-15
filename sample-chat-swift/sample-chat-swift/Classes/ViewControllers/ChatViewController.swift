@@ -406,8 +406,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 		
 		if (item.senderID != self.senderID) {
 			
-			if (item.attachments != nil && item.attachments!.count > 0) &&
-				item.attachmentStatus != QMMessageAttachmentStatus.Error {
+			if (item.isMediaMessage() && item.attachmentStatus != QMMessageAttachmentStatus.Error) {
 				
 				return QMChatAttachmentIncomingCell.self
 				
@@ -420,8 +419,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 		}
 		else {
 			
-			if (item.attachments != nil && item.attachments!.count > 0) &&
-				item.attachmentStatus != QMMessageAttachmentStatus.Error {
+			if (item.isMediaMessage() && item.attachmentStatus != QMMessageAttachmentStatus.Error) {
 				
 				return QMChatAttachmentOutgoingCell.self
 				
