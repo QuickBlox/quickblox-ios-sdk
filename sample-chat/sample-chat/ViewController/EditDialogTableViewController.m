@@ -99,7 +99,8 @@
             [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
                 //
             }];
-			[weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:createdDialog];
+            __typeof(self) strongSelf = weakSelf;
+			[strongSelf navigateToChatViewControllerWithDialog:createdDialog];
 		}
 		else {
 			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_CANNOT_CREATE_DIALOG", nil)];
@@ -131,7 +132,8 @@
                                                                                  withNotificationText:notificationText
                                                                                            completion:nil];
                     updatedDialog.lastMessageText = notificationText;
-                    [weakSelf performSegueWithIdentifier:kGoToChatSegueIdentifier sender:updatedDialog];
+                    __typeof(self) strongSelf = weakSelf;
+                    [strongSelf navigateToChatViewControllerWithDialog:updatedDialog];
                     [SVProgressHUD dismiss];
                 }];
             }
@@ -182,4 +184,29 @@
 	}
 }
 
+#pragma mark - Helpers
+
+- (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog {
+    
+    NSMutableArray *newStack = [NSMutableArray array];
+    UINavigationController * navController = self.navigationController;
+    
+    //change stack by replacing view controllers after ChatVC with ChatVC
+    for (UIViewController * vc in navController.viewControllers) {
+        [newStack addObject:vc];
+        
+        if ([vc isKindOfClass:[DialogsViewController class]]) {
+            
+            ChatViewController * chatVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+            chatVC.dialog = dialog;
+            
+            [newStack addObject:chatVC];
+            [navController setViewControllers:newStack animated:true];
+            
+            return;
+        }
+    }
+    
+    [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
+}
 @end

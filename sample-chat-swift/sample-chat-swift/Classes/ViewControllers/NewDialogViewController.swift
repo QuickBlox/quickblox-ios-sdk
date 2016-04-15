@@ -265,25 +265,23 @@
         self.dialog = dialog
         
         let navigationArray = self.navigationController?.viewControllers
-        
+        let navigationController = self.navigationController
         let newStack = [] as NSMutableArray
         
+        //change stack by replacing view controllers after ChatVC with ChatVC
         for vc in navigationArray! {
-            
+            // ChatViewController
             newStack.addObject(vc)
-            
-            /* if navigation controller stack has ChatViewController */
-            /* e.g: LoginTableViewController->DialogsViewController->*/
-            /* ChatViewController->ChatUsersInfoTableViewController->*/
-            /* NewDialogViewController, then we set new stack with   */
-            /* ChatViewController as last view controller            */
-            
-            if vc is ChatViewController {
-                self.navigationController?.setViewControllers(newStack.copy() as! [UIViewController], animated: false)
-                return
+            if vc is DialogsViewController {
+                let storyboard = self.storyboard
+                let chatVC = storyboard!.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+                chatVC.dialog = dialog
+                newStack.addObject(chatVC)
+                navigationController!.setViewControllers(newStack.copy() as! [UIViewController], animated: true)
+                return;
             }
         }
-        
+
         //else perform segue
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized, sender: nil)
     }
