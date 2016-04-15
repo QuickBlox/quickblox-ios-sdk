@@ -29,6 +29,9 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
     [QBSettings setAccountKey:kAccountKey];
     [QBSettings setChatDNSLookupCacheEnabled:YES];
     
+    // enabling carbons for chat
+    [QBSettings setCarbonsEnabled:YES];
+    
     // Enables Quickblox REST API calls debug console output
     [QBSettings setLogLevel:QBLogLevelNothing];
     
