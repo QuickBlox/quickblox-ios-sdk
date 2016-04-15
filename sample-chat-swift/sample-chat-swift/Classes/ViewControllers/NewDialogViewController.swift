@@ -265,7 +265,6 @@
         self.dialog = dialog
         
         let navigationArray = self.navigationController?.viewControllers
-        let navigationController = self.navigationController
         let newStack = [] as NSMutableArray
         
         //change stack by replacing view controllers after ChatVC with ChatVC
@@ -273,11 +272,10 @@
             // ChatViewController
             newStack.addObject(vc)
             if vc is DialogsViewController {
-                let storyboard = self.storyboard
-                let chatVC = storyboard!.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
+                let chatVC = self.storyboard!.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
                 chatVC.dialog = dialog
                 newStack.addObject(chatVC)
-                navigationController!.setViewControllers(newStack.copy() as! [UIViewController], animated: true)
+                self.navigationController!.setViewControllers(newStack.copy() as! [UIViewController], animated: true)
                 return;
             }
         }

@@ -192,10 +192,9 @@
 - (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog {
     
     NSMutableArray *newStack = [NSMutableArray array];
-    UINavigationController * navController = self.navigationController;
-    
+
     //change stack by replacing view controllers after ChatVC with ChatVC
-    for (UIViewController * vc in navController.viewControllers) {
+    for (UIViewController * vc in self.navigationController.viewControllers) {
         [newStack addObject:vc];
         
         if ([vc isKindOfClass:[DialogsViewController class]]) {
@@ -204,7 +203,7 @@
             chatVC.dialog = dialog;
             
             [newStack addObject:chatVC];
-            [navController setViewControllers:newStack animated:true];
+            [self.navigationController setViewControllers:newStack animated:true];
             
             return;
         }
