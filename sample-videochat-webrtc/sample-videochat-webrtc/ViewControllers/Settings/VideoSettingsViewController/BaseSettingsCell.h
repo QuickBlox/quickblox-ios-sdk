@@ -22,6 +22,6 @@
 
 @protocol SettingsCellDelegate <NSObject>
 
-- (void)cell:(BaseSettingsCell *)cell didChangeModel:(BaseItemModel *)model;
+- (void)cell:(BaseSettingsCell *)cell didChageModel:(BaseItemModel *)model;
 
 @end

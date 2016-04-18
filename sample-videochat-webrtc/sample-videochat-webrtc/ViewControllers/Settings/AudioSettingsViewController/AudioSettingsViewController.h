@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 QuickBlox Team. All rights reserved.
 //
 
-#import "BaseSettingsController.h"
+#import <UIKit/UIKit.h>
 
-@interface AudioSettingsViewController : BaseSettingsController
+@interface AudioSettingsViewController : UITableViewController
 
 @end

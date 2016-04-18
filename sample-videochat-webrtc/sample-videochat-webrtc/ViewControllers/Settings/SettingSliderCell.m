@@ -36,7 +36,7 @@
 - (IBAction)valueChanged:(UISlider *)sender {
     
     SliderItemModel *model = (SliderItemModel *)self.model;
-    model.currentValue = (NSUInteger) sender.value;
+    model.currentValue = sender.value;
     self.label.text = [NSString stringWithFormat:@"%tu", model.currentValue];
 }
 

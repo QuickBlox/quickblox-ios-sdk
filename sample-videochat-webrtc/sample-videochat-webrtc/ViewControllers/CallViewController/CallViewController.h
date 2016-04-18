@@ -1,6 +1,6 @@
 //
 //  CallViewController.h
-//  QBRTCChatSample
+//  QBRTCChatSemple
 //
 //  Created by Andrey Ivanov on 11.12.14.
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
@@ -13,7 +13,5 @@
 @interface CallViewController : BaseViewController
 
 @property (strong, nonatomic) QBRTCSession *session;
-
-@property (nonatomic, strong) NSArray *users;
 
 @end

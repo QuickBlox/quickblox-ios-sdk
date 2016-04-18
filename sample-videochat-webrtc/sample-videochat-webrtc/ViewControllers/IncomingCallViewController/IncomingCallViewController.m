@@ -1,21 +1,20 @@
 //
 //  IncomingCallViewController.m
-//  QBRTCChatSample
+//  QBRTCChatSemple
 //
 //  Created by Andrey Ivanov on 16.12.14.
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
 //
 
 #import "IncomingCallViewController.h"
+#import "ChatManager.h"
 #import "CornerView.h"
 #import "QBButton.h"
 #import "QMSoundManager.h"
+#import "UsersDataSource.h"
 #import "QBToolBar.h"
 #import "QBButtonsFactory.h"
-#import "Settings.h"
-#import "SampleCore.h"
-#import "SampleCoreManager.h"
-#import "UsersDataSourceProtocol.h"
+#import "QBUUser+IndexAndColor.h"
 
 @interface IncomingCallViewController () <QBRTCClientDelegate>
 
@@ -24,21 +23,25 @@
 @property (weak, nonatomic) IBOutlet QBToolBar *toolbar;
 @property (weak, nonatomic) IBOutlet CornerView *colorMarker;
 
-@property (weak, nonatomic) NSTimer *dialingTimer;
+@property (weak, nonatomic) NSTimer *dialignTimer;
 
 @end
 
 @implementation IncomingCallViewController
 
+- (void)dealloc {
+    NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [QMSoundManager playRingtoneSound];
     
-    [[QBRTCClient instance] addDelegate:self];
-    self.users = [[SampleCore usersDataSource] usersWithIDS:self.session.opponentsIDs];
-    [self configureGUI];
+    [QBRTCClient.instance addDelegate:self];
+    self.users = [UsersDataSource.instance usersWithIDS:self.session.opponentsIDs];
+    [self confiugreGUI];
     
-    self.dialingTimer =
+    self.dialignTimer =
     [NSTimer scheduledTimerWithTimeInterval:[QBRTCConfig dialingTimeInterval]
                                      target:self
                                    selector:@selector(dialing:)
@@ -53,28 +56,20 @@
 
 #pragma mark - Update GUI
 
-- (void)configureGUI {
+- (void)confiugreGUI {
     
     [self defaultToolbarConfiguration];
     [self updateOfferInfo];
     [self updateCallInfo];
     
-    self.title = [NSString stringWithFormat:@"Logged in as %@", [SampleCore usersDataSource].currentUser.fullName];
+    self.title = [NSString stringWithFormat:@"Logged in as %@", UsersDataSource.instance.currentUser.fullName];
     [self setDefaultBackBarButtonItem:^{
         
     }];
 }
 
 - (void)defaultToolbarConfiguration {
-	
-	if ([SampleCore settings].autoAcceptCalls) {
-		// auto accept call for UI tests
-		[self cleanUp];
-		[self.delegate incomingCallViewController:self didAcceptSession:self.session];
-		
-		return;
-	}
-	
+    
     self.toolbar.backgroundColor = [UIColor clearColor];
     __weak __typeof(self)weakSelf = self;
     
@@ -83,7 +78,7 @@
         [weakSelf cleanUp];
         [weakSelf.delegate incomingCallViewController:weakSelf didRejectSession:weakSelf.session];
     }];
-	
+    
     [self.toolbar addButton:[QBButtonsFactory answer] action: ^(UIButton *sender) {
         
         [weakSelf cleanUp];
@@ -96,17 +91,11 @@
 
 - (void)updateOfferInfo {
     
-    QBUUser *caller = [[SampleCore usersDataSource] userWithID:self.session.initiatorID];
-	
-	self.colorMarker.bgColor = [[SampleCore usersDataSource] colorAtUser:caller];
-	
-	NSString *userInfo = [[[caller fullName] substringToIndex:1] uppercaseString];
-	
-	if (!userInfo) {
-		userInfo = [self.session.initiatorID stringValue];
-	}
-	
-	self.colorMarker.title = userInfo;
+    QBUUser *caller = [UsersDataSource.instance userWithID:self.session.initiatorID];
+    
+    self.colorMarker.bgColor = caller.color;
+    self.colorMarker.title = caller.fullName;
+    self.colorMarker.fontSize = 30.f;
 }
 
 - (void)updateCallInfo {
@@ -132,12 +121,11 @@
 
 - (void)cleanUp {
     
-    [self.dialingTimer invalidate];
-    self.dialingTimer = nil;
-	
-	[SampleCoreManager instance].hasActiveCall = NO;
-	
-    [[QBRTCClient instance] removeDelegate:self];
+    [self.dialignTimer invalidate];
+    self.dialignTimer = nil;
+    
+    [QBRTCClient.instance removeDelegate:self];
+	[QBRTCSoundRouter.instance deinitialize];
     [QMSysPlayer stopAllSounds];
 }
 

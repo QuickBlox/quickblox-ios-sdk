@@ -13,8 +13,8 @@
 @interface QBButtonsFactory : NSObject
 
 + (QBButton *)videoEnable;
-+ (QBButton *)audioEnable;
-+ (QBButton *)speakerEnable;
++ (QBButton *)auidoEnable;
++ (QBButton *)dynamicEnable;
 + (QBButton *)screenShare;
 + (QBButton *)decline;
 + (QBButton *)circleDecline;

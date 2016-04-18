@@ -18,7 +18,7 @@
 
 @implementation LocalVideoView
 
-- (instancetype)initWithPreviewLayer:(AVCaptureVideoPreviewLayer *)layer {
+- (instancetype)initWithPreviewlayer:(AVCaptureVideoPreviewLayer *)layer {
     
     self = [super initWithFrame:CGRectZero];
     if (self) {
@@ -38,7 +38,6 @@
                        forControlEvents:UIControlEventTouchUpInside];
         
         self.containerView = [[UIView alloc] initWithFrame:self.bounds];
-		self.containerView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
         self.containerView.backgroundColor = [UIColor clearColor];
         [self.containerView.layer insertSublayer:layer atIndex:0];
         
@@ -58,8 +57,8 @@
     
     [super setFrame:frame];
 
-    self.containerView.frame = self.frame;
-    self.videoLayer.frame = self.frame;
+    self.containerView.frame = self.bounds;
+    self.videoLayer.frame = self.bounds;
     
     CGSize buttonSize = CGSizeMake(72 / 2.5, 54 / 2.5);
     self.switchCameraBtn.frame = CGRectMake(self.bounds.size.width - buttonSize.width -5,
