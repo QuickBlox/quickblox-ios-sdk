@@ -100,7 +100,7 @@
         [selectedUsersIndexSet addIndex:obj.row];
     }];
 	
-	NSArray<QBUUser*> *selectedUsers = [self.dataSource.users objectsAtIndexes:selectedUsersIndexSet];
+	NSArray *selectedUsers = [self.dataSource.users objectsAtIndexes:selectedUsersIndexSet];
 	
 	if (selectedUsers.count == 1) {
         // Creating private chat dialog.

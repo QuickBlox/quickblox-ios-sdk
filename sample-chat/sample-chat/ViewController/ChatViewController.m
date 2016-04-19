@@ -38,7 +38,7 @@ QMChatCellDelegate
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
 
-@property (nonatomic, strong) NSArray<QBChatMessage *> *unreadMessages;
+@property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
 
 @property (nonatomic, strong) NSMutableSet *detailedCells;
 
@@ -145,7 +145,7 @@ QMChatCellDelegate
     }];
 }
 
-- (NSArray<QBChatMessage *> *)storedMessages {
+- (NSArray *)storedMessages {
     return [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
 }
 

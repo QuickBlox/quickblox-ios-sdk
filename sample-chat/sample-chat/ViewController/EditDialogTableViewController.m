@@ -54,8 +54,8 @@
     NSArray *indexPathArray = [self.tableView indexPathsForSelectedRows];
     assert(indexPathArray.count != 0);
     
-    NSMutableArray<QBUUser *> *users = [NSMutableArray arrayWithCapacity:indexPathArray.count];
-    NSMutableArray<NSNumber *> *usersIDs = [NSMutableArray arrayWithCapacity:indexPathArray.count];
+    NSMutableArray *users = [NSMutableArray arrayWithCapacity:indexPathArray.count];
+    NSMutableArray *usersIDs = [NSMutableArray arrayWithCapacity:indexPathArray.count];
     
     for (NSIndexPath *indexPath in indexPathArray) {
         UserTableViewCell *selectedCell = (UserTableViewCell *) [self.tableView cellForRowAtIndexPath:indexPath];
@@ -100,7 +100,7 @@
     [self.tableView reloadData];
     [self updateSaveButtonState];
 }
-- (void)createGroupDialogWithUsers:(NSArray<QBUUser *> *)users {
+- (void)createGroupDialogWithUsers:(NSArray *)users {
     __weak __typeof(self)weakSelf = self;
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
@@ -123,7 +123,7 @@
     }];
 }
 
-- (void)updateGroupDialogWithUsersIDs:(NSArray<NSNumber *> *)usersIDs {
+- (void)updateGroupDialogWithUsersIDs:(NSArray *)usersIDs {
     __weak __typeof(self)weakSelf = self;
     
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
@@ -160,7 +160,7 @@
     }];
 }
 
-- (NSString *)dialogNameFromUsers:(NSArray<QBUUser *> *)users {
+- (NSString *)dialogNameFromUsers:(NSArray *)users {
     NSString *name = [NSString stringWithFormat:@"%@_", [QBSession currentSession].currentUser.login];
     for (QBUUser *user in users) {
         name = [NSString stringWithFormat:@"%@%@,", name, user.login];
@@ -169,7 +169,7 @@
     return name;
 }
 
-- (NSString *)updatedMessageWithUsers:(NSArray<QBUUser *> *)users {
+- (NSString *)updatedMessageWithUsers:(NSArray *)users {
     NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADDED", nil)];
     for (QBUUser *user in users) {
         message = [NSString stringWithFormat:@"%@%@,", message, user.login];

@@ -98,7 +98,8 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 	}];
 }
 
-- (void)loadDataSourceWithUsers:(NSArray<QBUUser *> *)users {
+- (void)loadDataSourceWithUsers:(NSArray *)users {
+    
 	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
     self.dataSource.addStringLoginAsBeforeUserFullname = YES;
 	self.tableView.dataSource = self.dataSource;

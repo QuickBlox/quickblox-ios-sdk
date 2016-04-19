@@ -13,14 +13,14 @@
  */
 @interface UsersDataSource : NSObject<UITableViewDataSource>
 
-- (instancetype)initWithUsers:(NSArray<QBUUser *> *)users;
+- (instancetype)initWithUsers:(NSArray QB_GENERIC(QBUUser *) *)users;
 
 /**
  *  Adds users to datasource.
  *
  *  @param users NSArray of users to add.
  */
-- (void)addUsers:(NSArray<QBUUser *> *)users;
+- (void)addUsers:(NSArray QB_GENERIC(QBUUser *) *)users;
 
 /**
  *  Default: empty []
@@ -30,8 +30,8 @@
 /**
  *  @return Array of QBUUser instances
  */
-@property (nonatomic, strong, readonly) NSArray<QBUUser *> *users;
-@property (nonatomic, strong) NSArray<NSNumber *> *excludeUsersIDs;
+@property (nonatomic, strong, readonly) NSArray QB_GENERIC(QBUUser *) *users;
+@property (nonatomic, strong) NSArray QB_GENERIC(NSNumber *) *excludeUsersIDs;
 @property (nonatomic, assign) BOOL addStringLoginAsBeforeUserFullname;
 
 - (NSUInteger)indexOfUser:(QBUUser *)user;

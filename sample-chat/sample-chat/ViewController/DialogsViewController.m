@@ -232,7 +232,7 @@ QMChatConnectionDelegate
 		__weak __typeof(self) weakSelf = self;
 		
 		// Notifying user about updated dialog - user left it.
-		[[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError  *_Nullable error) {
+		[[ServicesManager instance].chatService sendNotificationMessageAboutLeavingDialog:chatDialog withNotificationText:notificationText completion:^(NSError  *error) {
 			[weakSelf deleteDialogWithID:chatDialog.ID];
 		}];
 	}
