@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>44F63C8E-A592-4710-9FDA-3C39311EA253</string>
+	<key>IDESourceControlProjectName</key>
+	<string>QBRTCChatSemple</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B415C5F5923FD1699E46B5668327F083B9C32C51</key>
+		<string>https://github.com/QuickBlox/SDK-ios-WebRTC</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>QuickbloxWebRTC/Framework/QBRTCChatSemple/QBRTCChatSemple.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B415C5F5923FD1699E46B5668327F083B9C32C51</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/QuickBlox/SDK-ios-WebRTC</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B415C5F5923FD1699E46B5668327F083B9C32C51</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B415C5F5923FD1699E46B5668327F083B9C32C51</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SDK-ios-WebRTC</string>
+		</dict>
+	</array>
+</dict>
+</plist>

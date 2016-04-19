@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SettingsItemDelegate;
 
-@interface BaseItemModel : NSObject
+@interface BaseItemModel : NSObject 
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, strong) id data;
 
-- (instancetype)initWithTitle:(NSString *)title data:(id)data;
-- (instancetype)initWithTitle:(NSString *)title;
 - (Class)viewClass;
 
 @end

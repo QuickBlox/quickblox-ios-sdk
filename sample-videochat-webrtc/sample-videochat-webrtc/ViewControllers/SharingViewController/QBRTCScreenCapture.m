@@ -100,6 +100,7 @@
                 [super sendVideoFrame:videoFrame];
                 
                 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+                
             }
             
             CVPixelBufferRelease(pixelBuffer);   

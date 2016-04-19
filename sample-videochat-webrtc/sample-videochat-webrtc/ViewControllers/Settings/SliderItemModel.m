@@ -11,21 +11,6 @@
 
 @implementation SliderItemModel
 
-- (instancetype)initWithTitle:(NSString *)title minValue:(NSUInteger)minValue maxValue:(NSUInteger)maxValue currentValue:(NSUInteger)currentValue {
-    self = [super initWithTitle:title];
-    if (self) {
-        self.title = title;
-        self.minValue = minValue;
-        self.maxValue = maxValue;
-        self.currentValue = currentValue;
-    }
-    return self;
-}
-
-- (instancetype)initWithMinValue:(NSUInteger)minValue maxValue:(NSUInteger)maxValue currentValue:(NSUInteger)currentValue {
-    return [self initWithTitle:@"" minValue:minValue maxValue:maxValue currentValue:currentValue];
-}
-
 - (Class)viewClass {
     
     return [SettingSliderCell class];

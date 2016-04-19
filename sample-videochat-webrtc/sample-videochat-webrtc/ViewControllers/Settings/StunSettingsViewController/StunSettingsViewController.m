@@ -7,8 +7,8 @@
 //
 
 #import "StunSettingsViewController.h"
+#import "SVProgressHUD.h"
 #import "Settings.h"
-#import "SampleCore.h"
 
 @interface StunSettingsViewController ()
 
@@ -30,46 +30,48 @@
     
     self.selectedServers = [NSMutableArray array];
     
-    [self.selectedServers addObjectsFromArray:[SampleCore settings].stunServers];
+    [self.selectedServers addObjectsFromArray:Settings.instance.stunServers];  
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"StunList" ofType:@"plist"];
-	
     self.collection = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     self.titles = self.collection.allKeys;
-	
-	__weak __typeof(self)weakSelf = self;
-	
-	[self addSection:SettingsSectionStun items:^NSArray *{
-        
-		NSMutableArray *items = [NSMutableArray array];
-		[weakSelf.collection enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-			BaseItemModel *baseItem = [[BaseItemModel alloc] initWithTitle:key];
-			[items addObject:baseItem];
-		}];
-        
-		return [items copy];
-	}];
 }
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+    return self.titles.count;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	BaseSettingsCell *cell = (BaseSettingsCell *) [super tableView:tableView cellForRowAtIndexPath:indexPath];
-	
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
     NSString *title = self.titles[indexPath.row];
     NSString *url = self.collection[title];
     
     cell.textLabel.text = title;
     cell.detailTextLabel.text = url;
 
-    BOOL shouldSelectCell = [self.selectedServers containsObject:url];
-    cell.accessoryType = shouldSelectCell ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    if ([self.selectedServers containsObject:url]) {
+        
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else {
+        
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 
     NSString *key = self.titles[indexPath.row];
@@ -82,10 +84,10 @@
         
         [self.selectedServers addObject:url];
     }
-	
-	[SampleCore settings].stunServers = self.selectedServers.copy;
-	
+    
     [self.tableView reloadData];
+    Settings.instance.stunServers = self.selectedServers.copy;
+    
 }
 
 @end
