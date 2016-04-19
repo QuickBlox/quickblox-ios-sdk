@@ -48,7 +48,7 @@ class ServicesManager: QMServicesManager {
             return
         }
         
-        guard message.senderID != self.currentUser().ID else {
+        guard message.senderID != self.currentUser()?.ID else {
             return
         }
 		
@@ -92,7 +92,7 @@ class ServicesManager: QMServicesManager {
 
     // MARK: QMServiceManagerProtocol
     
-    override func handleErrorResponse(response: QBResponse!) {
+    override func handleErrorResponse(response: QBResponse) {
         super.handleErrorResponse(response)
         
         guard self.isAuthorized() else {
@@ -142,20 +142,16 @@ class ServicesManager: QMServicesManager {
 		
 		let defaultColor = UIColor.blackColor()
 		
-		guard let users = self.usersService.usersMemoryStorage.unsortedUsers() else {
-			return defaultColor
-		}
+		let users = self.usersService.usersMemoryStorage.unsortedUsers()
 		
 		guard let givenUser = self.usersService.usersMemoryStorage.userWithID(user.ID) else {
 			return defaultColor
 		}
 		
-		guard let indexOfGivenUser = users.indexOf(givenUser) else {
-			return defaultColor
-		}
+		let indexOfGivenUser = users.indexOf(givenUser)
 			
         if indexOfGivenUser < self.colors.count {
-            return self.colors[indexOfGivenUser]
+            return self.colors[indexOfGivenUser!]
         } else {
             return defaultColor
         }
@@ -168,9 +164,7 @@ class ServicesManager: QMServicesManager {
 	*/
     func sortedUsers() -> [QBUUser]? {
 		
-		guard let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers() else {
-			return nil
-		}
+		let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers()
 
         let sortedUsers = unsortedUsers.sort({ (user1, user2) -> Bool in
             return user1.login!.compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
@@ -190,7 +184,7 @@ class ServicesManager: QMServicesManager {
 			return nil
 		}
 		
-		let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.ID != self.currentUser().ID})
+		let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.ID != self.currentUser()?.ID})
 		
 		return sortedUsersWithoutCurrentUser
 	}

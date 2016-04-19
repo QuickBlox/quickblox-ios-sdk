@@ -318,11 +318,11 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 				
 				// group
 				
-				let occupantIDs = dialog.occupantIDs!.filter( {$0 != ServicesManager.instance().currentUser().ID} )
+				let occupantIDs = dialog.occupantIDs!.filter( {$0 != ServicesManager.instance().currentUser()?.ID} )
 				
 				dialog.occupantIDs = occupantIDs
 				
-				let notificationMessage = "User \(ServicesManager.instance().currentUser().login!) " + "SA_STR_USER_HAS_LEFT".localized
+				let notificationMessage = "User \(ServicesManager.instance().currentUser()?.login!) " + "SA_STR_USER_HAS_LEFT".localized
 				// Notifies occupants that user left the dialog.
 				ServicesManager.instance().chatService.sendNotificationMessageAboutLeavingDialog(dialog, withNotificationText: notificationMessage, completion: { (error : NSError?) -> Void in
 					deleteDialogBlock(dialog)

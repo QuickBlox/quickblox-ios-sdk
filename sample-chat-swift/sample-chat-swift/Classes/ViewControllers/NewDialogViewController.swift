@@ -44,7 +44,7 @@
     
     override func setupUsers(users: [QBUUser]) {
         
-        var filteredUsers = users.filter({($0 as QBUUser).ID != ServicesManager.instance().currentUser().ID})
+        var filteredUsers = users.filter({($0 as QBUUser).ID != ServicesManager.instance().currentUser()?.ID})
         
         if let _ = self.dialog  {
             

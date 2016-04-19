@@ -43,8 +43,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         // top layout inset for collectionView
         self.topContentAdditionalInset = self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height;
         
-        self.senderID = ServicesManager.instance().currentUser().ID
-        self.senderDisplayName = ServicesManager.instance().currentUser().login
+        self.senderID = (ServicesManager.instance().currentUser()?.ID)!
+        self.senderDisplayName = ServicesManager.instance().currentUser()?.login
         self.heightForSectionHeader = 40.0
         
         self.updateTitle()
@@ -60,7 +60,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             self.dialog.onUserIsTyping = {
                 [weak self] (userID)-> Void in
 				
-                if ServicesManager.instance().currentUser().ID == userID {
+                if ServicesManager.instance().currentUser()?.ID == userID {
                     return
                 }
                 
@@ -70,7 +70,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             self.dialog.onUserStoppedTyping = {
                 [weak self] (userID)-> Void in
                 
-                if ServicesManager.instance().currentUser().ID == userID {
+                if ServicesManager.instance().currentUser()?.ID == userID {
                     return
                 }
                 
@@ -231,7 +231,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     override func didPickAttachmentImage(image: UIImage!) {
         
         let message = QBChatMessage()
-        message.senderID = ServicesManager.instance().currentUser().ID
+        message.senderID = self.senderID
         message.dialogID = self.dialog.ID
         message.dateSent = NSDate()
         
@@ -325,7 +325,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         var statusString = ""
         
-        let currentUserID = NSNumber(unsignedInteger: ServicesManager.instance().currentUser().ID)
+        let currentUserID = NSNumber(unsignedInteger:self.senderID)
         
 		var readLogins: [String] = []
         

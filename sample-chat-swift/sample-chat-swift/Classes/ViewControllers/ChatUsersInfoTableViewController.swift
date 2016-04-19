@@ -13,7 +13,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.dialog.occupantIDs?.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers()?.count {
+        if self.dialog.occupantIDs?.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
             self.navigationItem.rightBarButtonItem?.enabled = false
         }
         
@@ -28,7 +28,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
 	
     override func setupUsers(users: [QBUUser]) {
 
-        let usersWithoutCurrentUser = users.filter({ $0.ID != ServicesManager.instance().currentUser().ID})
+        let usersWithoutCurrentUser = users.filter({ $0.ID != ServicesManager.instance().currentUser()?.ID})
 		
 		let filteredUsers = usersWithoutCurrentUser.filter({self.dialog.occupantIDs!.contains(NSNumber(unsignedInteger: $0.ID))})
 		
