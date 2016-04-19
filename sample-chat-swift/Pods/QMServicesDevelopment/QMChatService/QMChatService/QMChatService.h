@@ -44,17 +44,17 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
 /**
  *  Dialogs datasoruce
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMDialogsMemoryStorage *dialogsMemoryStorage;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMDialogsMemoryStorage *dialogsMemoryStorage;
 
 /**
  *  Messages datasource
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMMessagesMemoryStorage *messagesMemoryStorage;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMMessagesMemoryStorage *messagesMemoryStorage;
 
 /**
  *  Attachment Service
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMChatAttachmentService *chatAttachmentService;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMChatAttachmentService *chatAttachmentService;
 
 /**
  *  Init chat service

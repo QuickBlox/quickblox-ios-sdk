@@ -22,7 +22,7 @@ QMUsersServiceCacheDataSource,
 QMUsersServiceDelegate
 >
 
-+ (QB_NULLABLE instancetype)instance;
++ (QB_NONNULL instancetype)instance;
 
 /**
  *  Login to Quickblox REST and chat, group dialog join.
@@ -42,16 +42,16 @@ QMUsersServiceDelegate
 /**
  *  REST authentication service.
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMAuthService* authService;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMAuthService* authService;
 
 /**
  *  Chat service.
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMChatService* chatService;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMChatService* chatService;
 
 /**
  *  Users service.
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMUsersService* usersService;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMUsersService* usersService;
 
 @end

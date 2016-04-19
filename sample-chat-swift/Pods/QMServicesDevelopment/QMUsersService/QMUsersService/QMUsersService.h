@@ -18,7 +18,7 @@
 /**
  *  Memory storage for users items.
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMUsersMemoryStorage *usersMemoryStorage;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMUsersMemoryStorage *usersMemoryStorage;
 
 /**
  *  Init with service data delegate and users cache protocol.

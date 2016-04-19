@@ -28,7 +28,7 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
 /**
  *  Memory storage for contact list items.
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QMContactListMemoryStorage *contactListMemoryStorage;
+@property (strong, nonatomic, readonly, QB_NONNULL) QMContactListMemoryStorage *contactListMemoryStorage;
 
 /**
  *  Init with service data delegate and contact list cache protocol.
