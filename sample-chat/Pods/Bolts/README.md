@@ -1,13 +1,12 @@
 Bolts
 ============
-[![Build Status](https://img.shields.io/travis/BoltsFramework/Bolts-ObjC/master.svg?style=flat)](https://travis-ci.org/BoltsFramework/Bolts-ObjC)
-[![Coverage Status](https://codecov.io/github/BoltsFramework/Bolts-ObjC/coverage.svg?branch=master)](https://codecov.io/github/BoltsFramework/Bolts-ObjC?branch=master)
-[![Pod Platform](https://img.shields.io/cocoapods/p/Bolts.svg?style=flat)](https://cocoapods.org/pods/Bolts)
-[![Pod License](https://img.shields.io/cocoapods/l/Bolts.svg?style=flat)](https://github.com/BoltsFramework/Bolts-ObjC/blob/master/LICENSE)
-[![Reference Status](https://www.versioneye.com/objective-c/bolts/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/bolts/references)
-
-[![Pod Version](https://img.shields.io/cocoapods/v/Bolts.svg?style=flat)](https://cocoapods.org/pods/Bolts)
+[![Build Status](http://img.shields.io/travis/BoltsFramework/Bolts-iOS/master.svg?style=flat)](https://travis-ci.org/BoltsFramework/Bolts-iOS)
+[![Coverage Status](https://codecov.io/github/BoltsFramework/Bolts-iOS/coverage.svg?branch=master)](https://codecov.io/github/BoltsFramework/Bolts-iOS?branch=master)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Pod Version](http://img.shields.io/cocoapods/v/Bolts.svg?style=flat)](http://cocoadocs.org/docsets/Bolts/)
+[![Pod Platform](http://img.shields.io/cocoapods/p/Bolts.svg?style=flat)](http://cocoadocs.org/docsets/Bolts/)
+[![Pod License](http://img.shields.io/cocoapods/l/Bolts.svg?style=flat)](https://github.com/BoltsFramework/Bolts-iOS/blob/master/LICENSE)
+[![Reference Status](https://www.versioneye.com/objective-c/bolts/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/bolts/references)
 
 Bolts is a collection of low-level libraries designed to make developing mobile
 apps easier. Bolts was designed by Parse and Facebook for our own internal use,
@@ -18,7 +17,7 @@ do they require having a Parse or Facebook developer account.
 Bolts includes:
 
 * "Tasks", which make organization of complex asynchronous code more manageable. A task is kind of like a JavaScript Promise, but available for iOS and Android.
-* An implementation of the [App Links protocol](http://applinks.org/), helping you link to content in other apps and handle incoming deep-links.
+* An implementation of the [App Links protocol](http://www.applinks.org), helping you link to content in other apps and handle incoming deep-links.
 
 For more information, see the [Bolts iOS API Reference](http://boltsframework.github.io/docs/ios/).
 
@@ -60,7 +59,7 @@ self.saveAsync(obj).continueWithBlock {
   (task: BFTask!) -> BFTask in
   if task.isCancelled() {
     // the save was cancelled.
-  } else if task.error != nil {
+  } else if task.error() {
     // the save failed.
   } else {
     // the object was saved successfully.
@@ -238,7 +237,7 @@ findAsync(query).continueWithSuccessBlock {
   return self.findAsync(query)
 }.continueWithBlock {
   (task: BFTask!) -> AnyObject! in
-  if task.error != nil {
+  if task.error() {
     // This error handler WILL be called.
     // The error will be the NSError returned above.
     // Let's handle the error by returning a new value.
@@ -504,7 +503,7 @@ We are likely to add some concept like this to Bolts at some point in the future
 
 # App Links
 
-[App Links](http://applinks.org/) provide a cross-platform mechanism that allows a developer to define and publish a deep-linking scheme for their content, allowing other apps to link directly to an experience optimized for the device they are running on. Whether you are building an app that receives incoming links or one that may link out to other apps' content, Bolts provides tools to simplify implementation of the [App Links protocol](http://applinks.org/documentation).
+[App Links](http://www.applinks.org) provide a cross-platform mechanism that allows a developer to define and publish a deep-linking scheme for their content, allowing other apps to link directly to an experience optimized for the device they are running on. Whether you are building an app that receives incoming links or one that may link out to other apps' content, Bolts provides tools to simplify implementation of the [App Links protocol](http://www.applinks.org/documentation).
 
 ## Handling an App Link
 
@@ -630,7 +629,7 @@ The following code assumes that the view controller has an `openedAppLinkURL` `N
 }
 ```
 
-In a navigation-controller view hierarchy, the banner should be displayed above the navigation bar, and `BFAppLinkReturnToRefererController` provides an `initForDisplayAboveNavController` method to assist with this.
+In a navigaton-controller view hierarchy, the banner should be displayed above the navigation bar, and `BFAppLinkReturnToRefererController` provides an `initForDisplayAboveNavController` method to assist with this.
 
 ## Analytics
 
@@ -676,8 +675,8 @@ App Links Measurement Events sends additional information from App Links Intents
 
 # Installation
 
-You can download the latest framework files from our [Releases page](https://github.com/BoltsFramework/Bolts-ObjC/releases).
+You can download the latest framework files from our [Releases page](https://github.com/BoltsFramework/Bolts-iOS/releases).
 
-Bolts is also available through [CocoaPods](https://cocoapods.org/). To install it simply add the following line to your Podfile:
+Bolts is also available through [CocoaPods](http://cocoapods.org). To install it simply add the following line to your Podfile:
 
     pod 'Bolts'

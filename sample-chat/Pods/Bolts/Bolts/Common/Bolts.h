@@ -8,9 +8,11 @@
  *
  */
 
+#import <Bolts/BoltsVersion.h>
 #import <Bolts/BFCancellationToken.h>
 #import <Bolts/BFCancellationTokenRegistration.h>
 #import <Bolts/BFCancellationTokenSource.h>
+#import <Bolts/BFDefines.h>
 #import <Bolts/BFExecutor.h>
 #import <Bolts/BFTask.h>
 #import <Bolts/BFTaskCompletionSource.h>
@@ -27,12 +29,19 @@
 #import <Bolts/BFWebViewAppLinkResolver.h>
 #endif
 
-
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- A string containing the version of the Bolts Framework used by the current application.
+/*! @abstract 80175001: There were multiple errors. */
+extern NSInteger const kBFMultipleErrorsError;
+
+@interface Bolts : NSObject
+
+/*!
+ Returns the version of the Bolts Framework as an NSString.
+ @returns The NSString representation of the current version.
  */
-extern NSString *const BoltsFrameworkVersionString;
++ (NSString *)version;
+
+@end
 
 NS_ASSUME_NONNULL_END

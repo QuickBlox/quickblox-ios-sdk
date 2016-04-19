@@ -15,11 +15,11 @@
 /**
  *  Service manager reference.
  */
-@property (weak, nonatomic, readonly) id <QMServiceManagerProtocol> serviceManager;
+@property (weak, nonatomic, readonly, QB_NULLABLE) id <QMServiceManagerProtocol> serviceManager;
 
-- (id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+- (QB_NULLABLE id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
 
-- (instancetype)initWithServiceManager:(id<QMServiceManagerProtocol>)serviceManager;
+- (QB_NULLABLE instancetype)initWithServiceManager:(QB_NONNULL id<QMServiceManagerProtocol>)serviceManager;
 
 /**
  *  Called when the servise is will begin start

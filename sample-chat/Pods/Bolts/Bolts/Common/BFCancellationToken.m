@@ -11,11 +11,10 @@
 #import "BFCancellationToken.h"
 #import "BFCancellationTokenRegistration.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface BFCancellationToken ()
 
-@property (nullable, nonatomic, strong) NSMutableArray *registrations;
+@property (atomic, assign, getter=isCancellationRequested) BOOL cancellationRequested;
+@property (nonatomic, strong) NSMutableArray *registrations;
 @property (nonatomic, strong) NSObject *lock;
 @property (nonatomic) BOOL disposed;
 
@@ -31,13 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation BFCancellationToken
 
-@synthesize cancellationRequested = _cancellationRequested;
-
 #pragma mark - Initializer
 
 - (instancetype)init {
     self = [super init];
-    if (!self) return self;
+    if (!self) return nil;
 
     _registrations = [NSMutableArray array];
     _lock = [NSObject new];
@@ -127,9 +124,11 @@ NS_ASSUME_NONNULL_BEGIN
         if (self.disposed) {
             return;
         }
-        [self.registrations makeObjectsPerformSelector:@selector(dispose)];
-        self.registrations = nil;
         self.disposed = YES;
+        for (BFCancellationTokenRegistration *registration in self.registrations) {
+            [registration dispose];
+        }
+        [self.registrations removeAllObjects];
     }
 }
 
@@ -140,5 +139,3 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-NS_ASSUME_NONNULL_END

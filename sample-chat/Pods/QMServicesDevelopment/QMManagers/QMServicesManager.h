@@ -22,7 +22,7 @@ QMUsersServiceCacheDataSource,
 QMUsersServiceDelegate
 >
 
-+ (instancetype)instance;
++ (QB_NULLABLE instancetype)instance;
 
 /**
  *  Login to Quickblox REST and chat, group dialog join.
@@ -30,28 +30,28 @@ QMUsersServiceDelegate
  *  @param user       QBUUser for login.
  *  @param completion Completion block with a result.
  */
-- (void)logInWithUser:(QBUUser *)user completion:(void (^)(BOOL success, NSString *errorMessage))completion;
+- (void)logInWithUser:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(BOOL success, NSString * QB_NULLABLE_S errorMessage))completion;
 
 /**
  *  Logouts from Quickblox REST and chat, clears dialogs and messages.
  *
  *  @param completion Completion block with a result.
  */
-- (void)logoutWithCompletion:(dispatch_block_t)completion;
+- (void)logoutWithCompletion:(QB_NULLABLE dispatch_block_t)completion;
 
 /**
  *  REST authentication service.
  */
-@property (nonatomic, readonly) QMAuthService* authService;
+@property (strong, nonatomic, readonly, QB_NULLABLE) QMAuthService* authService;
 
 /**
  *  Chat service.
  */
-@property (nonatomic, readonly) QMChatService* chatService;
+@property (strong, nonatomic, readonly, QB_NULLABLE) QMChatService* chatService;
 
 /**
  *  Users service.
  */
-@property (strong, nonatomic, readonly) QMUsersService* usersService;
+@property (strong, nonatomic, readonly, QB_NULLABLE) QMUsersService* usersService;
 
 @end

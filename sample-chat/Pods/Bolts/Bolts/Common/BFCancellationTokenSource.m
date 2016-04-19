@@ -12,8 +12,6 @@
 
 #import "BFCancellationToken.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface BFCancellationToken (BFCancellationTokenSource)
 
 - (void)cancel;
@@ -30,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init {
     self = [super init];
-    if (!self) return self;
+    if (!self) return nil;
 
     _token = [BFCancellationToken new];
 
@@ -60,5 +58,3 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-NS_ASSUME_NONNULL_END

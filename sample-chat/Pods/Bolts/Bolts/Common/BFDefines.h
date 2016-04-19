@@ -8,14 +8,11 @@
  *
  */
 
-#import "Bolts.h"
+#import <Foundation/Foundation.h>
 
-NSInteger const kBFMultipleErrorsError = 80175001;
-
-@implementation Bolts
-
-+ (NSString *)version {
-    return BOLTS_VERSION;
-}
-
-@end
+#if __has_feature(objc_generics) || __has_extension(objc_generics)
+#  define BF_GENERIC(type) <type>
+#else
+#  define BF_GENERIC(type)
+#  define BFGenericType id
+#endif

@@ -57,19 +57,6 @@
 @property (nonatomic, weak, QB_NULLABLE) id<QMChatAttachmentServiceDelegate> delegate;
 
 /**
- *  Send message with attachment to dialog
- *
- *  @param message      QBChatMessage instance
- *  @param dialog       QBChatDialog instance
- *  @param chatService  QMChatService instance
- *  @param image        Attachment image
- *  @param completion   Send message result
- *
- *  @warning *Deprecated in QMServices 0.3.2:* Use '[chatService sendAttachmentMessage:toDialog:withAttachmentImage:completion:]' instead.
- */
-- (void)sendMessage:(QB_NONNULL QBChatMessage *)message toDialog:(QB_NONNULL QBChatDialog *)dialog withChatService:(QB_NONNULL QMChatService *)chatService withAttachedImage:(QB_NONNULL UIImage *)image completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.2. Use '[chatService sendAttachmentMessage:toDialog:withAttachmentImage:completion:]' instead.");
-
-/**
  *  Upload and send attachment message to dialog.
  *
  *  @param message      QBChatMessage instance
@@ -78,17 +65,7 @@
  *  @param image        Attachment image
  *  @param completion   Send message result
  */
-- (void)uploadAndSendAttachmentMessage:(QB_NONNULL QBChatMessage *)message toDialog:(QB_NONNULL QBChatDialog *)dialog withChatService:(QMChatService *QB_NONNULL_S)chatService withAttachedImage:(QB_NONNULL UIImage *)image completion:(QB_NULLABLE QBChatCompletionBlock)completion;
-
-/**
- *  Get image by attachment
- *
- *  @param attachment      QBChatAttachment instance
- *  @param completion      Fetch image result
- *
- *  @warning *Deprecated in QMServices 0.3.2:* Use 'getImageForAttachmentMessage:completion:' instead.
- */
-- (void)getImageForChatAttachment:(QB_NONNULL QBChatAttachment *)attachment completion:(void (^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.2. Use 'getImageForAttachmentMessage:completion:' instead.");
+- (void)uploadAndSendAttachmentMessage:(QB_NONNULL QBChatMessage *)message toDialog:(QB_NONNULL QBChatDialog *)dialog withChatService:(QB_NONNULL QMChatService *)chatService withAttachedImage:(QB_NONNULL UIImage *)image completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  *  Get image by attachment message.

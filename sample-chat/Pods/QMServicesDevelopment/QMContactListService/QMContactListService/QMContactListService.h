@@ -38,8 +38,8 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *
  *  @return QMContactListService instance
  */
-- (QB_NONNULL instancetype)initWithServiceManager:(QB_NULLABLE id<QMServiceManagerProtocol>)serviceManager
-                       cacheDataSource:(QB_NULLABLE id<QMContactListServiceCacheDataSource>)cacheDataSource;
+- (QB_NULLABLE instancetype)initWithServiceManager:(QB_NONNULL id<QMServiceManagerProtocol>)serviceManager
+                                   cacheDataSource:(QB_NULLABLE id<QMContactListServiceCacheDataSource>)cacheDataSource;
 
 /**
  *  Add instance that confirms contact list service multicaste protocol
@@ -191,7 +191,5 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  @param status   custom status for user
  */
 - (void)contactListService:(QB_NONNULL QMContactListService *)contactListService didReceiveContactItemActivity:(NSUInteger)userID isOnline:(BOOL)isOnline status:(QB_NULLABLE NSString *)status;
-
-
 
 @end

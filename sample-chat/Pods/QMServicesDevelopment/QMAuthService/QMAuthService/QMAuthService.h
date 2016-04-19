@@ -39,7 +39,7 @@
  *
  *  @return Cancelable request
  */
-- (QB_NONNULL QBRequest *)signUpAndLoginWithUser:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
+- (QB_NONNULL QBRequest *)signUpAndLoginWithUser:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  User login
@@ -49,7 +49,7 @@
  *
  *  @return Cancelable request
  */
-- (QB_NONNULL QBRequest *)logInWithUser:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
+- (QB_NONNULL QBRequest *)logInWithUser:(QB_NONNULL QBUUser *)user completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  Login with twitter digits auth headers
@@ -59,7 +59,7 @@
  *
  *  @return Cancelable request
  */
-- (QB_NONNULL QBRequest *)loginWithTwitterDigitsAuthHeaders:(QB_NONNULL NSDictionary *)authHeaders completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
+- (QB_NONNULL QBRequest *)loginWithTwitterDigitsAuthHeaders:(QB_NONNULL NSDictionary *)authHeaders completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  Login with facebook
@@ -69,7 +69,7 @@
  *
  *  @return Cancelable request
  */
-- (QB_NONNULL QBRequest *)logInWithFacebookSessionToken:(QB_NONNULL NSString *)sessionToken completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
+- (QB_NONNULL QBRequest *)logInWithFacebookSessionToken:(QB_NONNULL NSString *)sessionToken completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  Logout
@@ -78,7 +78,7 @@
  *
  *  @return Cancelable request
  */
-- (QB_NONNULL QBRequest *)logOut:(void(^QB_NULLABLE_S)(QBResponse *QB_NULLABLE_S response))completion;
+- (QB_NONNULL QBRequest *)logOut:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response))completion;
 
 @end
 

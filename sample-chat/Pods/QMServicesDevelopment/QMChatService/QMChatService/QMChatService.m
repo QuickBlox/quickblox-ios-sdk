@@ -146,38 +146,38 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 - (void)chatDidFailWithStreamError:(NSError *)error {
     
     if ([self.multicastDelegate respondsToSelector:@selector(chatServiceChatDidFailWithStreamError:)]) {
+        
         [self.multicastDelegate chatServiceChatDidFailWithStreamError:error];
     }
 }
 
-- (void)chatDidConnect
-{
-    
-    // Enabling carbons for chat
-    [QBSettings setCarbonsEnabled:YES];
+- (void)chatDidConnect {
     
     if ([self.multicastDelegate respondsToSelector:@selector(chatServiceChatDidConnect:)]) {
         [self.multicastDelegate chatServiceChatDidConnect:self];
     }
 }
 
-- (void)chatDidNotConnectWithError:(NSError *)error
-{
+- (void)chatDidNotConnectWithError:(NSError *)error {
+    
     if ([self.multicastDelegate respondsToSelector:@selector(chatService:chatDidNotConnectWithError:)]) {
+        
         [self.multicastDelegate chatService:self chatDidNotConnectWithError:error];
     }
 }
 
-- (void)chatDidAccidentallyDisconnect
-{
+- (void)chatDidAccidentallyDisconnect {
+    
     if ([self.multicastDelegate respondsToSelector:@selector(chatServiceChatDidAccidentallyDisconnect:)]) {
+        
         [self.multicastDelegate chatServiceChatDidAccidentallyDisconnect:self];
     }
 }
 
-- (void)chatDidReconnect
-{
+- (void)chatDidReconnect {
+    
     if ([self.multicastDelegate respondsToSelector:@selector(chatServiceChatDidReconnect:)]) {
+        
         [self.multicastDelegate chatServiceChatDidReconnect:self];
     }
 }
@@ -1332,26 +1332,6 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         //
         if (completion) completion(nil);
     });
-}
-
-- (void)sendMessageAboutUpdateDialog:(QBChatDialog *)updatedDialog
-                withNotificationText:(NSString *)notificationText
-                    customParameters:(NSDictionary *)customParameters
-                          completion:(QBChatCompletionBlock)completion
-{
-    NSParameterAssert(updatedDialog);
-    
-    QBChatMessage *message = [QBChatMessage message];
-    message.text = notificationText;
-    
-    [message updateCustomParametersWithDialog:updatedDialog];
-    
-    if (customParameters)
-    {
-        [message.customParameters addEntriesFromDictionary:customParameters];
-    }
-    
-    [self sendMessage:message type:QMMessageTypeUpdateGroupDialog toDialog:updatedDialog saveToHistory:YES saveToStorage:YES completion:completion];
 }
 
 - (void)sendMessageAboutAcceptingContactRequest:(BOOL)accept

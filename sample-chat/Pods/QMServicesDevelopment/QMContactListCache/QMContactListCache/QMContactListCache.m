@@ -92,11 +92,11 @@ static QMContactListCache *_chatCacheInstance = nil;
         }
         
         if (toInsert.count + toUpdate.count > 0) {
+            
             [weakSelf save:completion];
         }
         
-        NSLog(@"ContactListItems to insert %lu", (unsigned long)toInsert.count);
-        NSLog(@"ContactListItems to update %lu", (unsigned long)toUpdate.count);
+        NSLog(@"[%@] ContactListItems to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
     }];
 }
 
@@ -170,7 +170,7 @@ static QMContactListCache *_chatCacheInstance = nil;
     return contactListItems;
 }
 
-- (void)contactListItems:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBContactListItem *) *QB_NULLABLE_S contactListItems))completion {
+- (void)contactListItems:(void(^)(NSArray *contactListItems))completion {
     
     __weak __typeof(self)weakSelf = self;
     [self async:^(NSManagedObjectContext *context) {

@@ -10,8 +10,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import <Bolts/Bolts.h>
-
+#import "BFAppLinkNavigation.h"
+#import "BFTaskCompletionSource.h"
+#import "BFAppLinkTarget.h"
+#import "BoltsVersion.h"
+#import "BFWebViewAppLinkResolver.h"
+#import "BFExecutor.h"
+#import "BFTask.h"
 #import "BFMeasurementEvent_Internal.h"
 #import "BFAppLink_Internal.h"
 
@@ -60,7 +65,7 @@ static id<BFAppLinkResolving> defaultResolver;
 
     // Add applink protocol data
     if (!appLinkData[BFAppLinkUserAgentKeyName]) {
-        appLinkData[BFAppLinkUserAgentKeyName] = [NSString stringWithFormat:@"Bolts iOS %@", BoltsFrameworkVersionString];
+        appLinkData[BFAppLinkUserAgentKeyName] = [NSString stringWithFormat:@"Bolts iOS %@", BOLTS_VERSION];
     }
     if (!appLinkData[BFAppLinkVersionKeyName]) {
         appLinkData[BFAppLinkVersionKeyName] = BFAppLinkVersion;
