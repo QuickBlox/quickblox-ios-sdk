@@ -160,7 +160,7 @@
  @param errorBlock Block with response instance if request failed.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QB_NONNULL QBRequest *)markMessagesAsRead:(QB_NONNULL NSSet QB_GENERIC(NSString *) *)messagesIDs
++ (QB_NONNULL QBRequest *)markMessagesAsRead:(QB_NULLABLE NSSet QB_GENERIC(NSString *) *)messagesIDs
                                     dialogID:(QB_NONNULL NSString *)dialogID
                                 successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
