@@ -139,7 +139,7 @@ NSString *const kQMAuthSocialProvider = @"facebook";
 - (QBRequest *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion {
     
     __weak __typeof(self)weakSelf = self;
-    QBRequest *request = [QBRequest logInWithTwitterDigitsAuthHeaders:authHeaders successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nullable user) {
+    QBRequest *request = [QBRequest logInWithTwitterDigitsAuthHeaders:authHeaders successBlock:^(QBResponse *response, QBUUser *user) {
         __typeof(weakSelf)strongSelf = weakSelf;
         user.password = [QBSession currentSession].sessionDetails.token;
         strongSelf.isAuthorized = YES;
@@ -151,7 +151,7 @@ NSString *const kQMAuthSocialProvider = @"facebook";
         if (completion) {
             completion(response, user);
         }
-    } errorBlock:^(QBResponse * _Nonnull response) {
+    } errorBlock:^(QBResponse *response) {
         
         [weakSelf.serviceManager handleErrorResponse:response];
         

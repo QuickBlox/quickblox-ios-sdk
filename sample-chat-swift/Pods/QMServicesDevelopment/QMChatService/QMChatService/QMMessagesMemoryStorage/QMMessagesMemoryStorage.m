@@ -20,6 +20,7 @@
     
     self = [super init];
     if (self) {
+        
         self.datasources = [NSMutableDictionary dictionary];
     }
     return self;
@@ -53,16 +54,15 @@
     [self sortMessagesForDialogID:dialogID];
 }
 
-- (void)updateMessage:(QBChatMessage *)message
-{
+- (void)updateMessage:(QBChatMessage *)message {
     NSAssert(message.dialogID, @"Message must have a dialog ID.");
     
     [self addMessage:message forDialogID:message.dialogID];
 }
 
-- (QBChatMessage *)lastMessageFromDialogID:(NSString *)dialogID
-{
-    NSArray* messages = [self messagesWithDialogID:dialogID];
+- (QBChatMessage *)lastMessageFromDialogID:(NSString *)dialogID {
+    
+    NSArray *messages = [self messagesWithDialogID:dialogID];
     
     return [messages lastObject];
 }
@@ -112,8 +112,8 @@
 }
 
 - (void)deleteMessagesWithDialogID:(NSString *)dialogID {
-	
-	[self.datasources removeObjectForKey:dialogID];
+    
+    [self.datasources removeObjectForKey:dialogID];
 }
 
 - (BOOL)isEmptyForDialogID:(NSString *)dialogID {

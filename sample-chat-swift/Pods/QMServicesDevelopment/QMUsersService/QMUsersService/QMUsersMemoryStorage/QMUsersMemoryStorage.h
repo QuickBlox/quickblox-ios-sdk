@@ -19,7 +19,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
 
 @protocol QMUsersMemoryStorageDelegate <NSObject>
 
-- (QB_NULLABLE NSArray QB_GENERIC(NSNumber *)*)contactsIDS;
+- (QB_NULLABLE NSArray QB_GENERIC(NSNumber *) *)contactsIDS;
 
 @end
 
@@ -51,7 +51,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUsers instances as users
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBUUser *)*)unsortedUsers;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)unsortedUsers;
 
 /**
  *  Get all users in memory storage sorted by key.
@@ -61,7 +61,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUsers instances as users
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBUUser *)*)usersSortedByKey:(QB_NONNULL NSString *)key ascending:(BOOL)ascending;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *)*)usersSortedByKey:(QB_NONNULL NSString *)key ascending:(BOOL)ascending;
 
 #pragma mark Contacts
 
@@ -73,7 +73,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUsers instances as users
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBUUser *)*)contactsSortedByKey:(QB_NONNULL NSString *)key ascending:(BOOL)ascending;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)contactsSortedByKey:(QB_NONNULL NSString *)key ascending:(BOOL)ascending;
 
 #pragma mark Utils
 
@@ -85,16 +85,16 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUsers instances as users
  */
-- (QB_NULLABLE NSArray *)usersWithIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *)*)IDs withoutID:(NSUInteger)ID;
+- (QB_NONNULL NSArray *)usersWithIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)IDs withoutID:(NSUInteger)ID;
 
 /**
  *  Get string created from users full names, separated by ",".
- *  
+ *
  *  @param users array of QBUUser instances
  *
  *  @return joined names string, separated by ","
  */
-- (QB_NONNULL NSString *)joinedNamesbyUsers:(QB_NONNULL NSArray QB_GENERIC(QBUUser *)*)users;
+- (QB_NONNULL NSString *)joinedNamesbyUsers:(QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)users;
 
 #pragma mark - Fetch
 
@@ -114,16 +114,16 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUser instances as users
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBUUser *)*)usersWithIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *)*)ids;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *)*)ids;
 
 /**
  *  Get users with user logins.
  *
  *  @param logins   array of user logins
- *  
+ *
  *  @return Array of QBUUser instances as users
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBUUser *) *)usersWithLogins:(NSArray QB_GENERIC(NSString *) *QB_NONNULL_S)logins;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithLogins:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)logins;
 
 /**
  *  Get users with user emails.
@@ -132,7 +132,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUser instances as users
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBUUser *) *)usersWithEmails:(NSArray QB_GENERIC(NSString *) *QB_NONNULL_S)emails;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithEmails:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)emails;
 
 /**
  *  Get users with user facebook ids.
@@ -141,7 +141,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return Array of QBUUser instances as users
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBUUser *) *)usersWithFacebookIDs:(NSArray QB_GENERIC(NSString *) *QB_NONNULL_S)facebookIDs;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithFacebookIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)facebookIDs;
 
 #pragma mark - Search & Exclude
 
@@ -152,7 +152,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (QB_NULLABLE NSDictionary *)usersByExcludingUsersIDs:(NSArray QB_GENERIC(NSNumber *) *QB_NONNULL_S)ids;
+- (QB_NONNULL NSDictionary *)usersByExcludingUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)ids;
 
 /**
  *  Search for users excluding users with users logins.
@@ -161,7 +161,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (QB_NULLABLE NSDictionary *)usersByExcludingLogins:(NSArray QB_GENERIC(NSString *) *QB_NONNULL_S)logins;
+- (QB_NONNULL NSDictionary *)usersByExcludingLogins:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)logins;
 
 /**
  *  Search for users excluding users with users logins.
@@ -170,7 +170,7 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (QB_NULLABLE NSDictionary *)usersByExcludingEmails:(NSArray QB_GENERIC(NSString *) *QB_NONNULL_S)emails;
+- (QB_NONNULL NSDictionary *)usersByExcludingEmails:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)emails;
 
 /**
  *  Search for users excluding users with users facebook IDs.
@@ -179,6 +179,6 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *
  *  @return dictionary of found and not found users
  */
-- (QB_NULLABLE NSDictionary *)usersByExcludingFacebookIDs:(NSArray QB_GENERIC(NSString *) *QB_NONNULL_S)facebookIDs;
+- (QB_NONNULL NSDictionary *)usersByExcludingFacebookIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)facebookIDs;
 
 @end

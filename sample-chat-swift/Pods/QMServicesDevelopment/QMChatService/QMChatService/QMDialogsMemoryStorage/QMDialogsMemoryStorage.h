@@ -19,7 +19,7 @@
  *  @param join        YES to join in dialog immediately
  *  @param completion  completion block with error if failed or nil if succeed
  */
-- (void)addChatDialog:(QB_NONNULL QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(void(^QB_NULLABLE_S)(QBChatDialog *QB_NULLABLE_S addedDialog, NSError *QB_NULLABLE_S error))completion;
+- (void)addChatDialog:(QB_NONNULL QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(void(^QB_NULLABLE_S)(QBChatDialog * QB_NONNULL_S addedDialog, NSError * QB_NULLABLE_S error))completion;
 
 /**
  *  Add dialogs to memory storage
@@ -59,7 +59,7 @@
  *
  *  @return Array of QBChatDialog items
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatDialog *) *)unreadDialogs;
+- (QB_NONNULL NSArray QB_GENERIC(QBChatDialog *) *)unreadDialogs;
 
 /**
  *  Get all dialogs with specific user ids.
@@ -68,14 +68,14 @@
  *
  *  @return array of finded QBChatDialog's
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatDialog *) *)chatDialogsWithUsersIDs:(NSArray QB_GENERIC(NSNumber *) *QB_NONNULL_S)usersIDs;
+- (QB_NONNULL NSArray QB_GENERIC(QBChatDialog *) *)chatDialogsWithUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs;
 
 /**
  *  Get all dialogs in memory storage
  *
  *  @return Array of QBChatDialog items
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatDialog *) *)unsortedDialogs;
+- (QB_NONNULL NSArray QB_GENERIC(QBChatDialog *) *)unsortedDialogs;
 
 /**
  *  Get all dialogs in memory storage sorted by last message date
@@ -84,7 +84,7 @@
  *
  *  @return Array of QBChatDialog items
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatDialog *) *)dialogsSortByLastMessageDateWithAscending:(BOOL)ascending;
+- (QB_NONNULL NSArray QB_GENERIC(QBChatDialog *) *)dialogsSortByLastMessageDateWithAscending:(BOOL)ascending;
 
 /**
  *  Get all dialogs in memory storage sorted by updated at
@@ -93,7 +93,7 @@
  *
  *  @return Array of QBChatDialog items
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatDialog *) *)dialogsSortByUpdatedAtWithAscending:(BOOL)ascending;
+- (QB_NONNULL NSArray QB_GENERIC(QBChatDialog *) *)dialogsSortByUpdatedAtWithAscending:(BOOL)ascending;
 
 /**
  *  Get all dialogs in memory storage sorted by sort descriptors
@@ -102,6 +102,6 @@
  *
  *  @return Array of QBChatDialog items
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatDialog *) *)dialogsWithSortDescriptors:(NSArray QB_GENERIC(NSSortDescriptor *) *QB_NONNULL_S)descriptors;
+- (QB_NULLABLE NSArray QB_GENERIC(QBChatDialog *) *)dialogsWithSortDescriptors:(QB_NONNULL NSArray QB_GENERIC(NSSortDescriptor *) *)descriptors;
 
 @end

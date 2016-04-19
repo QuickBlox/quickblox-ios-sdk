@@ -19,14 +19,14 @@
  *
  *  @param contactList QBContactList instance
  */
-- (void)updateWithContactList:(QB_NULLABLE QBContactList *)contactList;
+- (void)updateWithContactList:(QB_NONNULL QBContactList *)contactList;
 
 /**
  *  Update memory storage with QBContactLists items.
  *
  *  @param contactLists QBContactList items
  */
-- (void)updateWithContactListItems:(QB_NULLABLE NSArray QB_GENERIC(QBContactListItem *) *)contactListItems;
+- (void)updateWithContactListItems:(QB_NONNULL NSArray QB_GENERIC(QBContactListItem *) *)contactListItems;
 
 /**
  *  Find QBContactListItem by user ID.

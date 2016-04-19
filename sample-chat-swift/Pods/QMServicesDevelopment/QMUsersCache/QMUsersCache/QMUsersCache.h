@@ -13,7 +13,7 @@
 
 @interface QMUsersCache : QMDBStorage
 
-+ (QB_NONNULL QMUsersCache *)instance;
++ (QB_NULLABLE QMUsersCache *)instance;
 
 #pragma mark - Insert/Update/Delete users in cache
 /**
@@ -70,7 +70,7 @@
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBUUser instances
  */
 - (QB_NONNULL BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)usersWithPredicate:(QB_NULLABLE NSPredicate *)predicate
-                                            sortedBy:(QB_NONNULL NSString *)sortTerm
-                                           ascending:(BOOL)ascending;
+                                                                             sortedBy:(QB_NONNULL NSString *)sortTerm
+                                                                            ascending:(BOOL)ascending;
 
 @end

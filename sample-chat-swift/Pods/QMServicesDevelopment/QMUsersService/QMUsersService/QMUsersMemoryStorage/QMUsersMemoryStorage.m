@@ -30,6 +30,7 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
     
     self = [super init];
     if (self) {
+        
         self.users = [NSMutableDictionary dictionary];
     }
     
@@ -60,7 +61,7 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
 
 - (NSArray *)usersWithIDs:(NSArray *)ids {
     
-    NSMutableArray *allFriends = [NSMutableArray array];
+    NSMutableArray *allFriends = [NSMutableArray arrayWithCapacity:ids.count];
     
     for (NSNumber * friendID in ids) {
         
@@ -72,12 +73,12 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
         }
     }
     
-    return allFriends;
+    return allFriends.copy;
 }
 
 - (NSArray *)idsWithUsers:(NSArray *)users {
-
-    NSMutableSet *ids = [NSMutableSet set];
+    
+    NSMutableSet *ids = [NSMutableSet setWithCapacity:users.count];
     for (QBUUser *user in users) {
         
         [ids addObject:@(user.ID)];
@@ -111,7 +112,7 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
     
     NSSortDescriptor *sorter =
     [[NSSortDescriptor alloc] initWithKey:key ascending:ascending selector:@selector(localizedCaseInsensitiveCompare:)];
-
+    
     NSArray *sortedContacts = [contacts sortedArrayUsingDescriptors:@[sorter]];
     
     return sortedContacts;
@@ -138,8 +139,8 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
     
     NSString *result = [components componentsJoinedByString:@", "];
     return result;
-    
 }
+
 #pragma mark - QMMemoryStorageProtocol
 
 - (void)free {
@@ -149,34 +150,33 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
 
 #pragma mark - Fetch
 
-- (NSArray *)usersForKeypath:(NSString *)keypath withValues:(NSArray *)values
-{
+- (NSArray *)usersForKeypath:(NSString *)keypath withValues:(NSArray *)values {
+    
     return [self.users.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(QBUUser *evaluatedObject, NSDictionary *bindings) {
         return [values containsObject:[evaluatedObject valueForKeyPath:keypath]];
     }]];
 }
 
-- (NSArray *)usersWithLogins:(NSArray *)logins
-{
+- (NSArray *)usersWithLogins:(NSArray *)logins {
+    
     return [self usersForKeypath:kQMQBUUserLoginKeyPath withValues:logins];
 }
 
-- (NSArray *)usersWithEmails:(NSArray *)emails
-{
+- (NSArray *)usersWithEmails:(NSArray *)emails {
+    
     return [self usersForKeypath:kQMQBUUserEmailKeyPath withValues:emails];
 }
 
-- (NSArray *)usersWithFacebookIDs:(NSArray *)facebookIDs
-{
+- (NSArray *)usersWithFacebookIDs:(NSArray *)facebookIDs {
+    
     return [self usersForKeypath:kQMQBUUserFacebookIDKeyPath withValues:facebookIDs];
 }
 
 #pragma mark - Filter
 
-- (NSDictionary *)valuesForKeypath:(NSString *)keypath byExcludingValues:(NSArray *)values
-{
-    NSParameterAssert(values);    
-    NSMutableArray* mutableValues = [values mutableCopy];
+- (NSDictionary *)valuesForKeypath:(NSString *)keypath byExcludingValues:(NSArray *)values {
+    NSParameterAssert(values);
+    NSMutableArray *mutableValues = [values mutableCopy];
     
     NSArray* foundUsers = [self.users.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(QBUUser *evaluatedObject, NSDictionary *bindings) {
         
@@ -187,26 +187,26 @@ const struct QMUsersSearchKeyStruct QMUsersSearchKey = {
         return contains;
     }]];
     
-    return @{QMUsersSearchKey.foundObjects : foundUsers, QMUsersSearchKey.notFoundSearchValues : [mutableValues copy]};
+    return @{QMUsersSearchKey.foundObjects : foundUsers, QMUsersSearchKey.notFoundSearchValues : mutableValues.copy};
 }
 
-- (NSDictionary *)usersByExcludingUsersIDs:(NSArray *)ids
-{
+- (NSDictionary *)usersByExcludingUsersIDs:(NSArray *)ids {
+    
     return [self valuesForKeypath:kQMQBUUserIDKeyPath byExcludingValues:ids];
 }
 
-- (NSDictionary *)usersByExcludingLogins:(NSArray *)logins
-{
+- (NSDictionary *)usersByExcludingLogins:(NSArray *)logins {
+    
     return [self valuesForKeypath:kQMQBUUserLoginKeyPath byExcludingValues:logins];
 }
 
-- (NSDictionary *)usersByExcludingEmails:(NSArray *)emails
-{
+- (NSDictionary *)usersByExcludingEmails:(NSArray *)emails {
+    
     return [self valuesForKeypath:kQMQBUUserEmailKeyPath byExcludingValues:emails];
 }
 
-- (NSDictionary *)usersByExcludingFacebookIDs:(NSArray *)facebookIDs
-{
+- (NSDictionary *)usersByExcludingFacebookIDs:(NSArray *)facebookIDs {
+    
     return [self valuesForKeypath:kQMQBUUserFacebookIDKeyPath byExcludingValues:facebookIDs];
 }
 

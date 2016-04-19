@@ -20,7 +20,7 @@
  *
  *  @return QBUUser instance
  */
-- (QBUUser *)currentUser;
+- (QB_NULLABLE QBUUser *)currentUser;
 
 /**
  *  Check is current session is authorized
@@ -34,6 +34,6 @@
  *  
  *  @param QBResponse instance. See response.error for falling inforamtion.
  */
-- (void)handleErrorResponse:(QBResponse *)response;
+- (void)handleErrorResponse:(QB_NONNULL QBResponse *)response;
 
 @end

@@ -7,5 +7,4 @@
 //
 
 static const NSUInteger kQMMessagesLimitPerDialog = 10;
-
 static const NSUInteger kQMChatMessagesPerPage = 10;

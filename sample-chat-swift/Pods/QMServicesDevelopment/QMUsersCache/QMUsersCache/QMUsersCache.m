@@ -97,8 +97,7 @@ static QMUsersCache *_usersCacheInstance = nil;
             [context QM_saveToPersistentStoreAndWait];
         }
         
-        NSLog(@"Users to insert %lu", (unsigned long)toInsert.count);
-        NSLog(@"Users to update %lu", (unsigned long)toUpdate.count);
+        NSLog(@"[%@] Users to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
 
         return nil;
     }];

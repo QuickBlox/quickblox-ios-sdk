@@ -25,7 +25,7 @@
  *  @param messages Array of QBChatMessage items
  *  @param dialogID Chat dialog identifier
  */
-- (void)addMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *)*)messages forDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)addMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
 
 /**
  *  Replace messages in memory storage for dialog identifier
@@ -33,7 +33,7 @@
  *  @param messages Array of QBChatMessage instances to replace
  *  @param dialogID Chat dialog identifier
  */
-- (void)replaceMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *)*)messages forDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)replaceMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
 
 /**
  *  Updates message in memory storage. Dialog ID is taken from message.
@@ -51,7 +51,7 @@
  *
  *  @return return array of QBChatMessage instances
  */
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatMessage *)*)messagesWithDialogID:(QB_NONNULL NSString *)dialogID;
+- (QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messagesWithDialogID:(QB_NONNULL NSString *)dialogID;
 
 /**
  *  Delete message from memory storage.
@@ -66,7 +66,7 @@
  *  @param messages messages to delete
  *  @param dialogID chat dialog identifier
  */
-- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *)*QB_NONNULL_S)messages forDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)deleteMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
 
 /**
  *  Delete messages with dialog indetifier

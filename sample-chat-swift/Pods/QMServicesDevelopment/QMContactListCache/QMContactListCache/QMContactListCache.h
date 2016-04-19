@@ -18,7 +18,7 @@
  *
  *  @return QMContactListCache instance
  */
-+ (QB_NONNULL QMContactListCache *)instance;
++ (QB_NULLABLE QMContactListCache *)instance;
 
 #pragma mark - Configure store
 
@@ -89,7 +89,7 @@
  *
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBContactListItem instances
  */
-- (void)contactListItems:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBContactListItem *) *QB_NULLABLE_S contactListItems))completion;
+- (void)contactListItems:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBContactListItem *) * QB_NULLABLE_S contactListItems))completion;
 
 /**
  *  Fetch contact list item wiht user ID
@@ -98,7 +98,7 @@
  *  @param completion Completion block that is called after the fetch has completed. Returns an instance of QBContactListItem
  */
 - (void)contactListItemWithUserID:(NSUInteger)userID
-                        completion:(void(^QB_NULLABLE_S)(QBContactListItem *QB_NULLABLE_S))completion;
+                       completion:(void(^QB_NULLABLE_S)(QBContactListItem * QB_NULLABLE_S contactListItems))completion;
 
 
 @end

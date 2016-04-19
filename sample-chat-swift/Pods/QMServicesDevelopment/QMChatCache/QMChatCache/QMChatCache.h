@@ -176,7 +176,7 @@
  *  @param messages   messages to delete
  *  @param completion Completion block that is called after the delete operation has completed.
  */
-- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *) *QB_NONNULL_S )messages completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)deleteMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages completion:(QB_NULLABLE dispatch_block_t)completion;
 
 /**
  *  Delete messages for dialog ID
