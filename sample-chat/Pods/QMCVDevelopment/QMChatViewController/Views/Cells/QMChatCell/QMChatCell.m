@@ -8,12 +8,11 @@
 
 #import "QMChatCell.h"
 #import "QMChatCellLayoutAttributes.h"
-#import "QMImageView.h"
 #import "TTTAttributedLabel.h"
 
 static NSMutableSet *_qmChatCellMenuActions = nil;
 
-@interface QMChatCell()
+@interface QMChatCell() <QMImageViewDelegate>
 
 @property (weak, nonatomic) IBOutlet QMChatContainerView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *messageContainer;
@@ -70,6 +69,8 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    self.avatarView.delegate = self;
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
 	
@@ -206,18 +207,21 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 
 #pragma mark - Gesture recognizers
 
+- (void)imageViewDidTap:(QMImageView *)imageView {
+    
+    [self.delegate chatCellDidTapAvatar:self];
+}
+
 - (void)handleTapGesture:(UITapGestureRecognizer *)tap {
     
     CGPoint touchPt = [tap locationInView:self];
     
-    if (CGRectContainsPoint(self.avatarContainerView.frame, touchPt)) {
-        [self.delegate chatCellDidTapAvatar:self];
-    }
-    else if (CGRectContainsPoint(self.containerView.frame, touchPt)) {
+    if (CGRectContainsPoint(self.containerView.frame, touchPt)) {
         
         [self.delegate chatCellDidTapContainer:self];
     }
     else {
+        
         [self.delegate chatCell:self didTapAtPosition:touchPt];
     }
 }
@@ -227,6 +231,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     CGPoint touchPt = [touch locationInView:self];
     
     if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        
         return CGRectContainsPoint(self.containerView.frame, touchPt);
     }
     
