@@ -404,7 +404,7 @@ UIAlertViewDelegate
     }
     else {
         if (item.senderID != self.senderID) {
-            if ([STKStickersManager isStickerMessage:item.text]) {
+            if ([STKStickersManager isStickerMessage:item.stickerMessage]) {
                 return [QMChatIncomingStickerCell class];
             } else if (item.isMediaMessage || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentIncomingCell class];
@@ -413,7 +413,7 @@ UIAlertViewDelegate
                 return [QMChatIncomingCell class];
             }
         }
-        else  if ([STKStickersManager isStickerMessage:item.text]) {
+        else  if ([STKStickersManager isStickerMessage:item.stickerMessage]) {
             return [QMChatOutgoingStickerCell class];
         } else
             if (item.isMediaMessage|| item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
@@ -757,7 +757,7 @@ UIAlertViewDelegate
     
     if (viewClass == [QMChatOutgoingStickerCell class]) {
         QMChatOutgoingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[QMChatOutgoingStickerCell cellReuseIdentifier] forIndexPath:indexPath];
-        [cell.stickerImage stk_setStickerWithMessage:itemMessage.text placeholder:nil placeholderColor:nil progress:nil completion:nil];
+        [cell.stickerImage stk_setStickerWithMessage:itemMessage.stickerMessage placeholder:nil placeholderColor:nil progress:nil completion:nil];
         cell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:itemMessage];
         [(QMChatCell *)cell setDelegate:self];
         
@@ -765,7 +765,7 @@ UIAlertViewDelegate
         return cell;
     } else  if (viewClass == [QMChatIncomingStickerCell class]) {
         QMChatIncomingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[QMChatIncomingStickerCell cellReuseIdentifier] forIndexPath:indexPath];
-        [cell.stickerImage stk_setStickerWithMessage:itemMessage.text placeholder:nil placeholderColor:nil progress:nil completion:nil];
+        [cell.stickerImage stk_setStickerWithMessage:itemMessage.stickerMessage placeholder:nil placeholderColor:nil progress:nil completion:nil];
         cell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:itemMessage];
         [(QMChatCell *)cell setDelegate:self];
         
