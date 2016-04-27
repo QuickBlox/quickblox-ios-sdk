@@ -138,7 +138,8 @@ QMChatConnectionDelegate
     DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
-    NSString *lastMessageText = [STKStickersManager isStickerMessage:chatDialog.lastMessageText] ? @"Sticker message" : chatDialog.lastMessageText;
+    
+    NSString *lastMessageText = chatDialog.lastMessageText;
     switch (chatDialog.type) {
         case QBChatDialogTypePrivate: {
             cell.lastMessageTextLabel.text = lastMessageText;

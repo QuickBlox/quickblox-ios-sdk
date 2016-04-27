@@ -23,8 +23,10 @@
 #import "STKImageManager.h"
 #import "STKStickersPurchaseService.h"
 
-#import "OutgoingStickerCell.h"
-#import "IncomingStickerCell.h"
+#import "QMChatIncomingStickerCell.h"
+#import "QMChatOutgoingStickerCell.h"
+
+#import "QBChatMessage+QMCustomParameters.h"
 
 static const NSUInteger widthPadding = 40.0f;
 
@@ -95,9 +97,13 @@ UIAlertViewDelegate
     stickerMessage.senderID = self.senderID;
     stickerMessage.dialogID = self.dialog.ID;
     stickerMessage.dateSent = [NSDate date];
-    stickerMessage.text = message;
+    stickerMessage.text = @"Sticker message";
+    stickerMessage.stickerMessage = message;
+    stickerMessage.messageType = QMMessageTypeSticker;
     
-    [[ServicesManager instance].chatService sendMessage:stickerMessage toDialog:self.dialog saveToHistory:YES saveToStorage:YES];
+    [[ServicesManager instance].chatService sendStickerMessage:stickerMessage toDialog:self.dialog saveToHistory:YES saveToStorage:YES completion:^(NSError * _Nullable error) {
+        
+    }];
 }
 
 - (void)purchasePack:(NSNotification *)notification {
@@ -196,8 +202,18 @@ UIAlertViewDelegate
     
     [self refreshMessagesShowingProgress:NO];
     
-    [self.collectionView registerNib:[UINib nibWithNibName:@"OutgoingStickerCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"stickerCell"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"IncomingStickerCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"IncomingStickerCell"];
+    /**
+     *  Register outgoing sticker cell
+     */
+    UINib *stickerOutgoingNib  = [QMChatOutgoingStickerCell nib];
+    NSString *stickerOutgoingIdentifier = [QMChatOutgoingStickerCell cellReuseIdentifier];
+    [self.collectionView registerNib:stickerOutgoingNib forCellWithReuseIdentifier:stickerOutgoingIdentifier];
+    /**
+     *  Register outgoing sticker cell
+     */
+    UINib *stickerIncomingNib  = [QMChatIncomingStickerCell nib];
+    NSString *stickerIncomingIdentifier = [QMChatIncomingStickerCell cellReuseIdentifier];
+    [self.collectionView registerNib:stickerIncomingNib forCellWithReuseIdentifier:stickerIncomingIdentifier];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -389,7 +405,7 @@ UIAlertViewDelegate
     else {
         if (item.senderID != self.senderID) {
             if ([STKStickersManager isStickerMessage:item.text]) {
-                return [IncomingStickerCell class];
+                return [QMChatIncomingStickerCell class];
             } else if (item.isMediaMessage || item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentIncomingCell class];
             }
@@ -398,7 +414,7 @@ UIAlertViewDelegate
             }
         }
         else  if ([STKStickersManager isStickerMessage:item.text]) {
-            return [OutgoingStickerCell class];
+            return [QMChatOutgoingStickerCell class];
         } else
             if (item.isMediaMessage|| item.attachmentStatus != QMMessageAttachmentStatusNotLoaded) {
                 return [QMChatAttachmentOutgoingCell class];
@@ -508,8 +524,8 @@ UIAlertViewDelegate
                                                 withConstraints:CGSizeMake(maxWidth, CGFLOAT_MAX)
                                          limitedToNumberOfLines:0];
     }
-    else  if (viewClass == [OutgoingStickerCell class] ||
-              viewClass == [IncomingStickerCell class]) {
+    else  if (viewClass == [QMChatOutgoingStickerCell class] ||
+              viewClass == [QMChatIncomingStickerCell class]) {
         NSAttributedString *attributedString = [self bottomLabelAttributedStringForItem:item];
         
         CGSize bottomLabelSize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
@@ -567,8 +583,8 @@ UIAlertViewDelegate
         || viewClass == [QMChatContactRequestCell class]){
         
         return NO;
-    } else if (viewClass == [IncomingStickerCell class] ||
-               viewClass == [OutgoingStickerCell class]) {
+    } else if (viewClass == [QMChatIncomingStickerCell class] ||
+               viewClass == [QMChatOutgoingStickerCell class]) {
         return @selector(copy:);
     }
     
@@ -739,16 +755,16 @@ UIAlertViewDelegate
     
     Class viewClass = [self viewClassForItem:itemMessage];
     
-    if (viewClass == [OutgoingStickerCell class]) {
-        OutgoingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"stickerCell" forIndexPath:indexPath];
+    if (viewClass == [QMChatOutgoingStickerCell class]) {
+        QMChatOutgoingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[QMChatOutgoingStickerCell cellReuseIdentifier] forIndexPath:indexPath];
         [cell.stickerImage stk_setStickerWithMessage:itemMessage.text placeholder:nil placeholderColor:nil progress:nil completion:nil];
         cell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:itemMessage];
         [(QMChatCell *)cell setDelegate:self];
         
         
         return cell;
-    } else  if (viewClass == [IncomingStickerCell class]) {
-        IncomingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"IncomingStickerCell" forIndexPath:indexPath];
+    } else  if (viewClass == [QMChatIncomingStickerCell class]) {
+        QMChatIncomingStickerCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[QMChatIncomingStickerCell cellReuseIdentifier] forIndexPath:indexPath];
         [cell.stickerImage stk_setStickerWithMessage:itemMessage.text placeholder:nil placeholderColor:nil progress:nil completion:nil];
         cell.bottomLabel.attributedText = [self bottomLabelAttributedStringForItem:itemMessage];
         [(QMChatCell *)cell setDelegate:self];
