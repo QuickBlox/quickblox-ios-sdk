@@ -1,7 +1,7 @@
 *Help avoid duplicate issue reports, check [existing issues](https://github.com/QuickBlox/quickblox-ios-sdk/issues)*
  
 **Environment details**
-*iOS version, Quickblox iOS SDK version, QuickbloxWebRTC version (optional)*
+*iOS version, Quickblox iOS SDK version, QuickbloxWebRTC SDK version (optional)*
 
 
 **Did this work before?**
