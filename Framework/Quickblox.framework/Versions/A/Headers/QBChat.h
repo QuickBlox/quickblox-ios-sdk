@@ -231,4 +231,38 @@
  */
 - (void)sendSystemMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
+#pragma mark - Send pings to the server or a userID
+
+/**
+ *  Send ping to server
+ *
+ *  @param completion  Completion block with failure error.
+ */
+- (void)pingServer:(QB_NONNULL QBPingCompleitonBlock)completion;
+
+/**
+ *  Send ping to server with timeout
+ *
+ *  @param timeout    timout
+ *  @param completion Completion block with failure error.
+ */
+- (void)pingServerWithTimeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+
+/**
+ *  Send ping to user
+ *
+ *  @param userID     User ID
+ *  @param completion Completion block with failure error.
+ */
+- (void)pingUserWithID:(NSUInteger )userID completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+
+/**
+ *  Send ping to user with timeout
+ *
+ *  @param userID     User ID
+ *  @param timeout    Timeout in seconds
+ *  @param completion Completion block with failure error.
+ */
+- (void)pingUserWithID:(NSUInteger)userID timeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+
 @end

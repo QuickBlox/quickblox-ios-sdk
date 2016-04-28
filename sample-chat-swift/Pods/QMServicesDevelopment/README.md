@@ -1394,6 +1394,11 @@ Load users to memory storage from disc cache.
 
 ```
 
+###Get users
+
+There are several ways to get users by methods below. By default every get method first checking for a specific user in cache. If such user was found in cache method will exclude him from server request, and send request only for users, that weren't found in local cache.  If you want to update users in cache, you need to force them to be loaded from server, even though they are already being cached.
+Every get method has also its implementation with forceLoad flag, set it to YES in order to force users loading from server.
+
 Get user by id:
 
 ```objective-c
@@ -1465,6 +1470,8 @@ Get users by logins with extended pagination parameters:
 - (BFTask<NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins page:(QBGeneralResponsePage *)page;
 
 ```
+
+###Search users
 
 Search for users by full name:
 

@@ -73,7 +73,7 @@ static QMUsersCache *_usersCacheInstance = nil;
                 
                 QBUUser *qbCachedUser = [cachedUser toQBUUser];
                 
-                if (![user isEqual:qbCachedUser]) {
+                if (![user.updatedAt isEqualToDate:qbCachedUser.updatedAt]) {
                     [toUpdate addObject:user];
                 }
             }

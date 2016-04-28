@@ -11,16 +11,6 @@ extern NSString *const kPresenceSubscriptionStateTo;
 extern NSString *const kPresenceSubscriptionStateFrom;
 extern NSString *const kPresenceSubscriptionStateBoth;
 
-extern NSString* const QBChatDialogJoinPrefix;
-extern NSString* const QBChatDialogLeavePrefix;
-extern NSString* const QBChatDialogOnlineUsersPrefix;
-extern NSString* const QBChatDialogOnJoinFailedPrefix;
-extern NSString* const QBChatDialogIsTypingPrefix;
-extern NSString* const QBChatDialogStopTypingPrefix;
-extern NSString* const QBChatDialogOccupantDidJoinPrefix;
-extern NSString* const QBChatDialogOccupantDidLeavePrefix;
-extern NSString* const QBChatDialogOccupantDidUpdatePrefix;
-
 #define discoItems @"http://jabber.org/protocol/disco#items"
 // 561003
 #define requestRoomOnlineUsersQueryIDPrefix @"561005"
