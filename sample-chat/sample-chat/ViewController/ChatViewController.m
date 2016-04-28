@@ -96,7 +96,7 @@ QMChatCellDelegate
             if ([QBSession currentSession].currentUser.ID == userID) {
                 return;
             }
-            strongSelf.title = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
+            strongSelf.title = NSLocalizedString(@"SA_STR_TYPING", nil);
         }];
         
         // Handling user stopped typing.
