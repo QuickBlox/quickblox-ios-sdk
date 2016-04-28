@@ -216,12 +216,6 @@ UIAlertViewDelegate
     [self.collectionView registerNib:stickerIncomingNib forCellWithReuseIdentifier:stickerIncomingIdentifier];
 }
 
-- (void)viewDidLayoutSubviews {
-    
-    [super viewDidLayoutSubviews];
-    [self.stickerController updateFrames];
-}
-
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
     
     if (showingProgress) {
@@ -281,6 +275,9 @@ UIAlertViewDelegate
         
         self.shouldUpdateNavigationStack = NO;
     }
+
+    [self.stickerController updateFrames];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
