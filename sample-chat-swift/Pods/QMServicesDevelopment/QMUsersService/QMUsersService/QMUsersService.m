@@ -631,7 +631,7 @@
 
 - (QBGeneralResponsePage *)generalResponsePageForCount:(NSUInteger)count {
     
-    return [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:count < 100 ?: 100];
+    return [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:count < 100 ? count : 100];
 }
 
 @end
