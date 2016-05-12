@@ -758,7 +758,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 guard let strongSelf = self else { return nil }
                 
-                if (task.result!.count > 0) {
+                if (task.result?.count > 0) {
                     strongSelf.chatSectionManager.addMessages(task.result as! [QBChatMessage]!)
                 }
                 

@@ -28,14 +28,14 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     func updateUsers() {
         ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!) .continueWithBlock { (task :BFTask) -> AnyObject? in
             
-            if task.result!.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
+            if task.result?.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
                 self.navigationItem.rightBarButtonItem?.enabled = false
             }
             else {
                 self.navigationItem.rightBarButtonItem?.enabled = true
             }
             
-            if task.result!.count > 0 {
+            if task.result?.count > 0 {
                 self.setupUsers(task.result! as! [QBUUser])
             }
             
