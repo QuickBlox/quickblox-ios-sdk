@@ -348,7 +348,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 					readLogins.append(unwrappedUser.login!)
                 }
 				
-                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized + ": " + readLogins.joinWithSeparator(", ")
+                statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized;
+                statusString += ": " + readLogins.joinWithSeparator(", ")
             }
         }
         
