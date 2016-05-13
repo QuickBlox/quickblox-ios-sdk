@@ -10,6 +10,11 @@
 class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
     var dialog: QBChatDialog!
 	
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.updateUsers()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -21,19 +26,32 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     }
 	
     func updateUsers() {
-		if let users = ServicesManager.instance().sortedUsers() {
-			self.setupUsers(users)
-		}
+        ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!) .continueWithBlock { (task :BFTask) -> AnyObject? in
+            
+            if task.result!.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
+                self.navigationItem.rightBarButtonItem?.enabled = false
+            }
+            else {
+                self.navigationItem.rightBarButtonItem?.enabled = true
+            }
+            
+            if task.result!.count > 0 {
+                self.setupUsers(task.result! as! [QBUUser])
+            }
+            
+            return nil
+        }
     }
 	
     override func setupUsers(users: [QBUUser]) {
-
-        let usersWithoutCurrentUser = users.filter({ $0.ID != ServicesManager.instance().currentUser()?.ID})
-		
-		let filteredUsers = usersWithoutCurrentUser.filter({self.dialog.occupantIDs!.contains(NSNumber(unsignedInteger: $0.ID))})
-		
         
-        super.setupUsers(filteredUsers)
+        
+        let filteredUsers = users.filter({self.dialog.occupantIDs!.contains(NSNumber(unsignedInteger: $0.ID))})
+        
+        let sortedUsers = filteredUsers.sort({ (user1, user2) -> Bool in
+            return user1.login!.compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
+        })
+        super.setupUsers(sortedUsers)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
