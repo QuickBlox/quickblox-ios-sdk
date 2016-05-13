@@ -152,9 +152,9 @@
                 
                 _ = AlertViewWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { (text) -> Void in
                     
-                    var chatName = text
+                    var chatName = text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
                     
-                    if chatName!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty {
+                    if chatName.isEmpty {
                         chatName = self.nameForGroupChatWithUsers(users)
                     }
                     

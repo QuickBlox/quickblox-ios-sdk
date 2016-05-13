@@ -124,6 +124,10 @@
 			}
 			name = [name substringToIndex:name.length - 1]; // remove last , (comma)
 		}
+        else {
+            name = [name stringByTrimmingCharactersInSet:
+                                       [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
 		
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
 		
