@@ -708,7 +708,10 @@ QMChatCellDelegate
     
     [self refreshMessagesShowingProgress:YES];
     
-    [self readMessages:self.unreadMessages];
+    if (self.unreadMessages.count > 0) {
+        [self readMessages:self.unreadMessages];
+    }
+    
     self.unreadMessages = nil;
 }
 
