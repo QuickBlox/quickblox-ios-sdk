@@ -243,12 +243,6 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
     
     [self.messageBarQueue addObject:messageView];
     
-    TWMessageView * testmessageView = [self.messageBarQueue objectAtIndex:0];
-    CGRect frame = testmessageView.frame;
-    frame.size.height = 60.0f;
-    testmessageView.frame = frame;
-    
-    
     if (!self.messageVisible)
     {
         [self showNextMessage];
@@ -262,10 +256,6 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
         if ([subview isKindOfClass:[TWMessageView class]])
         {
             TWMessageView *currentMessageView = (TWMessageView *)subview;
-            CGRect frame = currentMessageView.frame;
-            frame.size.height = 60.0f;
-            currentMessageView.frame = frame;
-            
             if (animated)
             {
                 [UIView animateWithDuration:kTWMessageBarManagerDismissAnimationDuration animations:^{

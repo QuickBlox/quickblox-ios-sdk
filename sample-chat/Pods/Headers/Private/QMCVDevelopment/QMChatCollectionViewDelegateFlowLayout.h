@@ -1,1 +1,1 @@
-../../../../../../QMChatViewController-ios/QMChatViewController/Protocols/QMChatCollectionViewDelegateFlowLayout.h
+../../../QMCVDevelopment/QMChatViewController/Protocols/QMChatCollectionViewDelegateFlowLayout.h

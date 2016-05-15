@@ -229,8 +229,4 @@ static NSString *const kCompletedCallbackKey = @"completed";
     [self.downloadQueue setSuspended:suspended];
 }
 
-- (void)cancelAllDownloads {
-    [self.downloadQueue cancelAllOperations];
-}
-
 @end

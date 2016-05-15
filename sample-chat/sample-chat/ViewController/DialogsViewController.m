@@ -298,14 +298,11 @@ QMChatConnectionDelegate
 }
 
 - (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_DID_NOT_CONNECT_ERROR", nil), [error localizedDescription]]];
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_DID_NOT_CONNECT_ERROR", nil), [error description]]];
 }
 
 - (void)chatServiceChatDidFailWithStreamError:(NSError *)error {
-    //if ([[QBChat instance] isConnected]) {
-         [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_FAILED_TO_CONNECT_WITH_ERROR", nil), [error localizedDescription]]];
-  //  }
-   
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_FAILED_TO_CONNECT_WITH_ERROR", nil), [error description]]];
 }
 
 @end

@@ -64,8 +64,9 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageOptions) {
     SDWebImageAllowInvalidSSLCertificates = 1 << 7,
 
     /**
-     * By default, images are loaded in the order in which they were queued. This flag moves them to
-     * the front of the queue.
+     * By default, image are loaded in the order they were queued. This flag move them to
+     * the front of the queue and is loaded immediately instead of waiting for the current queue to be loaded (which 
+     * could take a while).
      */
     SDWebImageHighPriority = 1 << 8,
     
