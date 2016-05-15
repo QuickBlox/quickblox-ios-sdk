@@ -1,1 +1,1 @@
-../../../QMCVDevelopment/QMChatViewController/Views/CustomUI/InputToolBar/QMToolbarContentView.h
+../../../../../../QMChatViewController-ios/QMChatViewController/Views/CustomUI/InputToolBar/QMToolbarContentView.h

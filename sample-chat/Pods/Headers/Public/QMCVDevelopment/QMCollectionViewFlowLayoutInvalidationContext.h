@@ -1,1 +1,1 @@
-../../../QMCVDevelopment/QMChatViewController/Views/CollectionView/Layout/QMCollectionViewFlowLayoutInvalidationContext.h
+../../../../../../QMChatViewController-ios/QMChatViewController/Views/CollectionView/Layout/QMCollectionViewFlowLayoutInvalidationContext.h

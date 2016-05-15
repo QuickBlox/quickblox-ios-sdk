@@ -1,6 +1,6 @@
 FRAMEWORK_SEARCH_PATHS = $(inherited) $(PODS_ROOT)/../../Framework $(PODS_ROOT)/../External
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/QMServicesDevelopment" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Bolts" "${PODS_ROOT}/Headers/Public/QMCVDevelopment" "${PODS_ROOT}/Headers/Public/QMServicesDevelopment" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/SVProgressHUD" "${PODS_ROOT}/Headers/Public/TTTAttributedLabel" "${PODS_ROOT}/Headers/Public/TWMessageBarManager" /usr/include/libxml2
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/QMServicesDevelopment" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Bolts" "${PODS_ROOT}/Headers/Public/QMCVDevelopment" "${PODS_ROOT}/Headers/Public/QMServicesDevelopment" "${PODS_ROOT}/Headers/Public/Quickblox" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/SVProgressHUD" "${PODS_ROOT}/Headers/Public/TTTAttributedLabel" "${PODS_ROOT}/Headers/Public/TWMessageBarManager" /usr/include/libxml2
 OTHER_LDFLAGS = -l"resolv" -l"stdc++" -l"xml2" -l"z" -framework "AVFoundation" -framework "Accelerate" -framework "AudioToolbox" -framework "CFNetwork" -framework "CoreData" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreMedia" -framework "CoreVideo" -framework "MobileCoreServices" -framework "SystemConfiguration" -framework "UIKit"
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES

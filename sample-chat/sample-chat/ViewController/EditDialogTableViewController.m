@@ -64,12 +64,18 @@
         [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     
+    [self updateSaveButtonState];
+    
     __weak __typeof(self)weakSelf = self;
     
     if (self.dialog.type == QBChatDialogTypePrivate) {
         // Retrieving users with identifiers.
         [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask *task) {
-            //
+            
+            if (task.error) {
+                [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
+                return nil;
+            }
             __typeof(self) strongSelf = weakSelf;
             [users addObjectsFromArray:task.result];
             
@@ -108,7 +114,7 @@
     // Creating group chat dialog.
     [ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
         
-        if( response.success ) {
+        if (response.success ) {
             [SVProgressHUD dismiss];
             [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
                 //
@@ -130,7 +136,11 @@
     
     // Retrieving users from cache.
     [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask *task) {
-        //
+        
+        if (task.error) {
+            [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
+            return nil;
+        }
         // Updating dialog with occupants.
         [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
             if( response.success ) {
@@ -138,6 +148,10 @@
                 // Notifying users about newly created dialog.
                 [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog toUsersIDs:usersIDs completion:^(NSError *error) {
                     //
+                    if (task.error) {
+                       [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
+                        return;
+                    }
                     NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
                     
                     // Notify occupants that dialog was updated.
@@ -150,9 +164,6 @@
                     [strongSelf navigateToChatViewControllerWithDialog:updatedDialog];
                     [SVProgressHUD dismiss];
                 }];
-            }
-            else {
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
             }
         }];
         
