@@ -61,25 +61,19 @@
     
     @IBAction func createChatButtonPressed(sender: AnyObject) {
         
-        (sender as! UIBarButtonItem).enabled = false
-        
         let selectedIndexes = self.tableView.indexPathsForSelectedRows
         
         var users: [QBUUser] = []
         
-        for indexPath in selectedIndexes! {
-            let user = self.users[indexPath.row]
-            users.append(user)
-            self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        }
-        
-        self.checkCreateChatButtonState()
-        
+
         let completion = {[weak self] (response: QBResponse?, createdDialog: QBChatDialog?) -> Void in
             
-            (sender as! UIBarButtonItem).enabled = true
-            
             if createdDialog != nil {
+                for indexPath in selectedIndexes! {
+                    self?.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                }
+                self?.checkCreateChatButtonState()
+                
                 print(createdDialog)
                 self?.openNewDialog(createdDialog)
             }
@@ -88,7 +82,6 @@
                 print("Error empty response")
                 return
             }
-            
             
             if let error = unwrappedResponse.error {
                 print(error.error)
@@ -107,10 +100,6 @@
                 
                 self.updateDialog(self.dialog!, newUsers:users, completion: {[weak self] (response, dialog) -> Void in
                     
-                    if let rightBarButtonItem = self?.navigationItem.rightBarButtonItem {
-                        rightBarButtonItem.enabled = true
-                    }
-                    
                     guard response.error == nil else {
                         SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
                         return
@@ -118,7 +107,11 @@
                     
                     SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
                     
-                    
+                    for indexPath in selectedIndexes! {
+                        self?.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                    }
+                    self?.checkCreateChatButtonState()
+
                     self?.openNewDialog(dialog)
                     })
                 
@@ -164,9 +157,7 @@
                     self.createChat(chatName, users: users, completion: completion)
                     
                 }) { () -> Void in
-                    
-                    // cancel
-                    (sender as! UIBarButtonItem).enabled = true
+                    self.checkCreateChatButtonState()
                 }
             }
         }
