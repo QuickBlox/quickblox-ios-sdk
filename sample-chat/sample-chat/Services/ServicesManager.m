@@ -54,14 +54,10 @@
 
     NSString * title = dialogName;
     NSString *subtitle = message.text;
-    UIImage *iconImage = [UIImage imageNamed:@"icon-info"];
-    UIColor * backgroundColor = [UIColor colorWithRed:41.0/255.0 green:128.0/255.0 blue:255.0/255.0 alpha:1.0];
 
     [QMMessageNotificationManager showNotificationWithTitle:title
                                                    subtitle:subtitle
-                                                      color:backgroundColor
-                                                  iconImage:iconImage
-];
+                                                       type:QMMessageNotificationTypeInfo];
 
 }
 
@@ -85,13 +81,10 @@
     
     NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
     NSString * subtitle = errorMessage;
-    UIImage *iconImage = [UIImage imageNamed:@"icon-error"];
-    UIColor *backgroundColor = [UIColor colorWithRed:241.0/255.0 green:196.0/255.0 blue:15.0/255.0 alpha:1.0];
 
     [QMMessageNotificationManager showNotificationWithTitle:title
                                                    subtitle:subtitle
-                                                      color:backgroundColor
-                                                  iconImage:iconImage];
+                                                       type:QMMessageNotificationTypeWarning];
 }
 
 - (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {

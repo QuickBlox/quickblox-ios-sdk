@@ -39,6 +39,7 @@
             
             break;
         }
+            
         case QMMessageNotificationTypeWarning: {
             
             iconImage = [UIImage imageNamed:@"icon-error"];
@@ -58,6 +59,13 @@
             break;
     }
     
+    if (!title) {
+        title = @"";
+    }
+    
+    if (!subtitle) {
+        subtitle = @"";
+    }
     
     [self showNotificationWithTitle:title
                            subtitle:subtitle
