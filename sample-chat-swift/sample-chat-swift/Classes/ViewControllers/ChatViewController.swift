@@ -300,7 +300,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         ServicesManager.instance().chatService.sendMessage(message, toDialogID: self.dialog.ID!, saveToHistory: true, saveToStorage: true) { (error: NSError?) -> Void in
             
             if error != nil {
-                TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: error?.localizedRecoverySuggestion, type: TWMessageBarMessageType.Error)
+        
+                QMMessageNotificationManager.showNotificationWithTitle("SA_STR_ERROR".localized, subtitle: error?.localizedDescription, type: QMMessageNotificationType.Warning)
             }
         }
         

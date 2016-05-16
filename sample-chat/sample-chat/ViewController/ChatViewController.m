@@ -15,7 +15,8 @@
 
 #import "UIImage+fixOrientation.h"
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
-#import <TWMessageBarManager.h>
+#import "QMMessageNotificationManager.h"
+
 
 static const NSUInteger widthPadding = 40.0f;
 
@@ -267,8 +268,17 @@ QMChatCellDelegate
     [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error) {
         
         if (error != nil) {
+            
             NSLog(@"Failed to send message with error: %@", error);
-            [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
+            NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
+            NSString * subtitle = error.localizedDescription;
+            UIImage *iconImage = [UIImage imageNamed:@"icon-error"];
+            UIColor *backgroundColor = [UIColor colorWithRed:241.0/255.0 green:196.0/255.0 blue:15.0/255.0 alpha:1.0];
+            
+            [QMMessageNotificationManager showNotificationWithTitle:title
+                                                           subtitle:subtitle
+                                                              color:backgroundColor
+                                                          iconImage:iconImage];
         }
     }];
     

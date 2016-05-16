@@ -8,8 +8,7 @@
 
 #import "ServicesManager.h"
 #import "_CDMessage.h"
-#import <TWMessageBarManager/TWMessageBarManager.h>
-
+#import "QMMessageNotificationManager.h"
 @interface ServicesManager ()
 
 @property (nonatomic, strong) QMContactListService* contactListService;
@@ -28,7 +27,8 @@
     
 	if (self) {
         _notificationService = [[NotificationService alloc] init];
-	}
+        [QMMessageNotificationManager oneByOneModeSetEnabled:NO];
+    }
     
 	return self;
 }
@@ -51,9 +51,14 @@
             dialogName = user.login;
         }
     }
-    
-    [[TWMessageBarManager sharedInstance] hideAll];
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:dialogName description:message.text type:TWMessageBarMessageTypeInfo];
+
+    NSString * title = dialogName;
+    NSString *subtitle = message.text;
+
+    [QMMessageNotificationManager showNotificationWithTitle:title
+                                                   subtitle:subtitle
+                                                       type:QMMessageNotificationTypeInfo];
+
 }
 
 - (void)handleErrorResponse:(QBResponse *)response {
@@ -74,8 +79,12 @@
 		errorMessage = NSLocalizedString(@"SA_STR_NETWORK_ERROR", nil);
 	}
     
-    [[TWMessageBarManager sharedInstance] hideAll];
-    [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:errorMessage type:TWMessageBarMessageTypeError];
+    NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
+    NSString * subtitle = errorMessage;
+
+    [QMMessageNotificationManager showNotificationWithTitle:title
+                                                   subtitle:subtitle
+                                                       type:QMMessageNotificationTypeWarning];
 }
 
 - (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
@@ -146,5 +155,6 @@
     
     [self showNotificationForMessage:message inDialogID:dialogID];
 }
+
 
 @end
