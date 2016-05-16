@@ -14,4 +14,7 @@
                          subtitle:(NSString*)subtitle
                             color:(UIColor*)color
                         iconImage:(UIImage*)iconImage;
+
++ (void)oneByOneModeSetEnabled:(BOOL)enabled;
+
 @end

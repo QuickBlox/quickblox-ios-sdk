@@ -24,6 +24,10 @@
                                            iconImage:iconImage];
 }
 
++ (void)oneByOneModeSetEnabled:(BOOL)enabled {
+    messageNotification().oneByOneMode = enabled;
+}
+
 #pragma mark - Static notifications
 
 QMMessageNotification *messageNotification() {
@@ -34,7 +38,6 @@ QMMessageNotification *messageNotification() {
     dispatch_once(&onceToken, ^{
         
         messageNotification = [[QMMessageNotification alloc] init];
-        messageNotification.oneByOneMode = YES;
     });
     
     return messageNotification;

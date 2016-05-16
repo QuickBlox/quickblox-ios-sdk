@@ -42,26 +42,25 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
     notification.duration = kQMMessageNotificationDuration;
     notification.swipeToDismissEnabled = NO;
     [notification setAnimationType:MPGNotificationAnimationTypeLinear];
+    
     [self showNotification:notification usingOneByOneMode:self.isOneByOneMode];
     
 }
 
 - (void)showNotification:(MPGNotification*)notification usingOneByOneMode:(BOOL)isOneByOneMode {
+
+    __weak __typeof__(self) weakSelf = self;
     
-    if (isOneByOneMode) {
+    notification.dismissHandler = ^(MPGNotification *notification) {
         
-        __weak __typeof__(self) weakSelf = self;
-        
-        notification.dismissHandler = ^(MPGNotification *notification) {
-            
+        if (isOneByOneMode) {
             __typeof__(self) strongSelf = weakSelf;
             
             strongSelf.messageNotification = nil;
             [strongSelf.notificationsQueue removeObject:notification];
             [strongSelf checkNotificationsToShow];
-            
-        };
-    }
+        }
+    };
     
     if (self.messageNotification != nil) {
         
@@ -72,16 +71,16 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
             }
             
             [self.notificationsQueue addObject:notification];
+            
+            return;
         }
         else {
             [self.messageNotification dismissWithAnimation:NO];
         }
-        
     }
-    else {
-        self.messageNotification = notification;
-        [self.messageNotification show];
-    }
+    
+    self.messageNotification = notification;
+    [self.messageNotification show];
 }
 
 - (void)checkNotificationsToShow {
