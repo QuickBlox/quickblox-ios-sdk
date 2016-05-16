@@ -375,6 +375,11 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     // MARK: QMChatConnectionDelegate
     
+    func chatServiceChatDidFailWithStreamError(error: NSError) {
+
+        
+    
+    }
     func chatServiceChatDidAccidentallyDisconnect(chatService: QMChatService) {
         SVProgressHUD.showErrorWithStatus("SA_STR_DISCONNECTED".localized)
     }
