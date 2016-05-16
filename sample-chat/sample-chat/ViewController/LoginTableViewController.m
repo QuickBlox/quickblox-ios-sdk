@@ -166,7 +166,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
             [strongSelf registerForRemoteNotifications];
             [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
         } else {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
+            [SVProgressHUD showErrorWithStatus:errorMessage];
         }
     }];
 	
