@@ -281,6 +281,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 	
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
         
+        if !QBChat.instance().isConnected() {
+            return
+        }
+        
         self.fireSendStopTypingIfNecessary()
         
         let message = QBChatMessage()

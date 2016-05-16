@@ -251,10 +251,14 @@ QMChatCellDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
     
+    if (![[QBChat instance] isConnected]) {
+        return;
+    }
+    
     if (self.typingTimer != nil) {
         [self fireStopTypingIfNecessary];
     }
-    
+
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
