@@ -71,9 +71,7 @@ class ServicesManager: QMServicesManager {
                 dialogName = user.login!
             }
         }
-        
-        TWMessageBarManager.sharedInstance().hideAll()
-        TWMessageBarManager.sharedInstance().showMessageWithTitle(dialogName, description: message.text, type: TWMessageBarMessageType.Info)
+               QMMessageNotificationManager.showNotificationWithTitle(dialogName, subtitle: message.text, type: QMMessageNotificationType.Info)
     }
     
     // MARK: Last activity date
@@ -108,9 +106,10 @@ class ServicesManager: QMServicesManager {
         } else {
             errorMessage = (response.error?.error?.localizedDescription.stringByReplacingOccurrencesOfString("(", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).stringByReplacingOccurrencesOfString(")", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))!
         }
-        
-        TWMessageBarManager.sharedInstance().hideAll()
-        TWMessageBarManager.sharedInstance().showMessageWithTitle("SA_STR_ERROR".localized, description: errorMessage, type: TWMessageBarMessageType.Error)
+
+        QMMessageNotificationManager.showNotificationWithTitle("SA_STR_ERROR".localized,
+                                                               subtitle: errorMessage,
+                                                               type: QMMessageNotificationType.Warning)
         
     }
 	
