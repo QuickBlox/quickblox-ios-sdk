@@ -8,6 +8,7 @@
 
 #import "QMMessageNotification.h"
 
+static const NSTimeInterval kQMMessageNotificationQueueLimit = 5;
 static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 
 @interface QMMessageNotification ()
@@ -20,9 +21,11 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 @implementation QMMessageNotification
 
 - (instancetype)init {
+    
     if (self = [super init]) {
-        _notificationsQueue = [NSMutableArray array];
+        _notificationsQueue = [NSMutableArray arrayWithCapacity:kQMMessageNotificationQueueLimit];
     }
+    
     return self;
 }
 
@@ -53,15 +56,21 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
             
             __typeof__(self) strongSelf = weakSelf;
             
+            strongSelf.messageNotification = nil;
             [strongSelf.notificationsQueue removeObject:notification];
             [strongSelf checkNotificationsToShow];
-            strongSelf.messageNotification = nil;
+            
         };
     }
     
     if (self.messageNotification != nil) {
         
         if (isOneByOneMode) {
+            
+            if (self.notificationsQueue.count == kQMMessageNotificationQueueLimit) {
+                [self.notificationsQueue removeObjectAtIndex:0];
+            }
+            
             [self.notificationsQueue addObject:notification];
         }
         else {
@@ -76,8 +85,8 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 }
 
 - (void)checkNotificationsToShow {
-    if (self.notificationsQueue.lastObject) {
-        MPGNotification * notification  = self.notificationsQueue.lastObject;
+    if (self.notificationsQueue.firstObject) {
+        MPGNotification * notification  = self.notificationsQueue.firstObject;
         self.messageNotification = notification;
         [notification show];
     }
