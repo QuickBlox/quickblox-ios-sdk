@@ -177,7 +177,7 @@
         ServicesManager.instance().chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: dialog) { [weak self] (response: QBResponse, dialog: QBChatDialog?) -> Void in
             
             guard response.error == nil else {
-                print(response.error?.error)
+                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
                 
                 completion?(response: response, dialog: nil)
                 return
@@ -244,6 +244,13 @@
             
             ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse, chatDialog: QBChatDialog?) -> Void in
                 
+            
+                guard response.error == nil else {
+                    
+                    SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
+                    return
+                }
+
                 guard let unwrappedDialog = chatDialog else {
                     return
                 }
@@ -252,6 +259,7 @@
                     print("Chat dialog has not occupants")
                     return
                 }
+                
                 
                 ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: dialogOccupants, completion: { (error: NSError?) -> Void in
                     
