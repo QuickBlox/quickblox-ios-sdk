@@ -70,7 +70,10 @@
         for indexPath in selectedIndexes! {
             let user = self.users[indexPath.row]
             users.append(user)
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
         }
+        
+        self.checkCreateChatButtonState()
         
         let completion = {[weak self] (response: QBResponse?, createdDialog: QBChatDialog?) -> Void in
             
