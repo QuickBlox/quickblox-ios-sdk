@@ -8,12 +8,11 @@
 
 #import "ServicesManager.h"
 #import "_CDMessage.h"
-#import <TWMessageBarManager/TWMessageBarManager.h>
-#import <MPGNotification/MPGNotification.h>
+#import "QMMessageNotificationManager.h"
 @interface ServicesManager ()
 
 @property (nonatomic, strong) QMContactListService* contactListService;
-@property (nonatomic, strong) MPGNotification *notification;
+
 @end
 
 @implementation ServicesManager
@@ -28,12 +27,8 @@
     
 	if (self) {
         _notificationService = [[NotificationService alloc] init];
-        _notification = [MPGNotification new];
-        _notification.duration = 2.0;
-        _notification.swipeToDismissEnabled = YES;
-        [_notification setAnimationType:MPGNotificationAnimationTypeLinear];
-        
-	}
+        [QMMessageNotificationManager oneByOneModeSetEnabled:NO];
+    }
     
 	return self;
 }
@@ -62,20 +57,11 @@
     UIImage *iconImage = [UIImage imageNamed:@"icon-info"];
     UIColor * backgroundColor = [UIColor colorWithRed:41.0/255.0 green:128.0/255.0 blue:255.0/255.0 alpha:1.0];
 
-    [self showNotificationWithTitle:title
-                           subtitle:subtitle
-                              color:backgroundColor
-                          iconImage:iconImage];
-    
-    NSString * title2  = NSLocalizedString(@"SA_STR_ERROR", nil);
-    NSString * subtitle2 = @"vdvdvd";
-    UIImage *iconImage2 = [UIImage imageNamed:@"icon-error"];
-    UIColor *backgroundColor2 = [UIColor colorWithRed:241.0/255.0 green:196.0/255.0 blue:15.0/255.0 alpha:1.0];
-    
-    [self showNotificationWithTitle:title2
-                           subtitle:subtitle2
-                              color:backgroundColor2
-                          iconImage:iconImage2];
+    [QMMessageNotificationManager showNotificationWithTitle:title
+                                                   subtitle:subtitle
+                                                      color:backgroundColor
+                                                  iconImage:iconImage
+];
 
 }
 
@@ -97,16 +83,15 @@
 		errorMessage = NSLocalizedString(@"SA_STR_NETWORK_ERROR", nil);
 	}
     
-
     NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
     NSString * subtitle = errorMessage;
     UIImage *iconImage = [UIImage imageNamed:@"icon-error"];
     UIColor *backgroundColor = [UIColor colorWithRed:241.0/255.0 green:196.0/255.0 blue:15.0/255.0 alpha:1.0];
 
-    [self showNotificationWithTitle:title
-                           subtitle:subtitle
-                              color:backgroundColor
-                          iconImage:iconImage];
+    [QMMessageNotificationManager showNotificationWithTitle:title
+                                                   subtitle:subtitle
+                                                      color:backgroundColor
+                                                  iconImage:iconImage];
 }
 
 - (void)downloadCurrentEnvironmentUsersWithSuccessBlock:(void(^)(NSArray *latestUsers))successBlock errorBlock:(void(^)(NSError *error))errorBlock {
@@ -144,24 +129,6 @@
 
 #pragma mark - Helpers
 
-- (void)showNotificationWithTitle:(NSString*)title
-                         subtitle:(NSString*)subtitle
-                            color:(UIColor*)color
-                        iconImage:(UIImage*)iconImage {
-    
-    [self.notification dismissWithAnimation:NO];
-    self.notification =  [MPGNotification new];
-    self.notification.duration = 2.0;
-    self.notification.swipeToDismissEnabled = YES;
-    [self.notification setAnimationType:MPGNotificationAnimationTypeLinear];
-    self.notification.title = title;
-    self.notification.subtitle = subtitle;
-    self.notification.iconImage = iconImage;
-    self.notification.backgroundColor = color;
-    [self.notification show];
-
-}
-
 - (NSString *)currentEnvironment {
     NSString* environment = nil;
 #if DEV
@@ -195,5 +162,6 @@
     
     [self showNotificationForMessage:message inDialogID:dialogID];
 }
+
 
 @end
