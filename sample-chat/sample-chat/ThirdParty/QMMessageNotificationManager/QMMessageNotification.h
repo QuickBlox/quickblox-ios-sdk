@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MPGNotification.h"
+#import <MPGNotification/MPGNotification.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
