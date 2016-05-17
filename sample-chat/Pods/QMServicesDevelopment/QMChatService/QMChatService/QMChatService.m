@@ -69,8 +69,8 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 #pragma mark - Load cached data
 
-- (void)loadCachedDialogsWithCompletion:(dispatch_block_t)completion
-{
+- (void)loadCachedDialogsWithCompletion:(dispatch_block_t)completion {
+    
     __weak __typeof(self)weakSelf = self;
     
     if ([self.cacheDataSource respondsToSelector:@selector(cachedDialogs:)]) {
@@ -78,21 +78,25 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         NSAssert([QBSession currentSession].currentUser != nil, @"Current user must be non nil!");
         
         [weakSelf.cacheDataSource cachedDialogs:^(NSArray *collection) {
-            // We need only current users dialog
-            NSArray* userDialogs = [collection filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%lu IN self.occupantIDs", [QBSession currentSession].currentUser.ID]];
             
-            [weakSelf.dialogsMemoryStorage addChatDialogs:userDialogs andJoin:NO];
-            
-            if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddChatDialogsToMemoryStorage:)]) {
-                [weakSelf.multicastDelegate chatService:weakSelf didAddChatDialogsToMemoryStorage:collection];
-            }
-            
-            NSMutableSet *dialogsUsersIDs = [NSMutableSet set];
-            for (QBChatDialog *dialog in userDialogs) {
-                [dialogsUsersIDs addObjectsFromArray:dialog.occupantIDs];
-            }
-            if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didLoadChatDialogsFromCache:withUsers:)]) {
-                [weakSelf.multicastDelegate chatService:weakSelf didLoadChatDialogsFromCache:userDialogs withUsers:dialogsUsersIDs.copy];
+            if (collection.count > 0) {
+                // We need only current users dialog
+                
+                NSArray *userDialogs = [collection filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%lu IN self.occupantIDs", [QBSession currentSession].currentUser.ID]];
+                
+                [weakSelf.dialogsMemoryStorage addChatDialogs:userDialogs andJoin:NO];
+                
+                if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didAddChatDialogsToMemoryStorage:)]) {
+                    [weakSelf.multicastDelegate chatService:weakSelf didAddChatDialogsToMemoryStorage:collection];
+                }
+                
+                NSMutableSet *dialogsUsersIDs = [NSMutableSet set];
+                for (QBChatDialog *dialog in userDialogs) {
+                    [dialogsUsersIDs addObjectsFromArray:dialog.occupantIDs];
+                }
+                if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didLoadChatDialogsFromCache:withUsers:)]) {
+                    [weakSelf.multicastDelegate chatService:weakSelf didLoadChatDialogsFromCache:userDialogs withUsers:dialogsUsersIDs.copy];
+                }
             }
             
             if (completion) {
@@ -951,9 +955,18 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
                                    completion(response, sortedMessages);
                                }
                            } errorBlock:^(QBResponse *response) {
+                               
                                // case where we may have deleted dialog from another device
-                               if( response.status != QBResponseStatusCodeNotFound ) {
-                                   [strongSelf.serviceManager handleErrorResponse:response];
+                               if (response.status == QBResponseStatusCodeNotFound || response.status == 403) {
+                                   [weakSelf.dialogsMemoryStorage deleteChatDialogWithID:chatDialogID];
+                                   
+                                   if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:didDeleteChatDialogWithIDFromMemoryStorage:)]) {
+                                       [weakSelf.multicastDelegate chatService:weakSelf didDeleteChatDialogWithIDFromMemoryStorage:chatDialogID];
+                                   }
+                               }
+                               else {
+                                   
+                                   [weakSelf.serviceManager handleErrorResponse:response];
                                }
                                
                                if (completion) {
