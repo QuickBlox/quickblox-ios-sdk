@@ -65,7 +65,11 @@
         
         var users: [QBUUser] = []
         
-
+        for indexPath in selectedIndexes! {
+            let user = self.users[indexPath.row]
+            users.append(user)
+        }
+        
         let completion = {[weak self] (response: QBResponse?, createdDialog: QBChatDialog?) -> Void in
             
             if createdDialog != nil {
