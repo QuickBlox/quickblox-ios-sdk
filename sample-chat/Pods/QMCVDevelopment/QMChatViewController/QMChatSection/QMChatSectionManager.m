@@ -423,6 +423,18 @@ static inline NSMutableArray *incrementAllSectionsForIndexPaths(NSMutableArray *
     return indexPath;
 }
 
+- (NSArray *)allMessages {
+    
+    NSMutableArray *mutableItems = [NSMutableArray array];
+    
+    for (QMChatSection *chatSection in self.chatSections) {
+        
+        [mutableItems addObjectsFromArray:chatSection.messages];
+    }
+    
+    return mutableItems.copy;
+}
+
 - (BOOL)messageExists:(QBChatMessage *)message {
     
     BOOL messageExists = NO;

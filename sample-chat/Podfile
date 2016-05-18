@@ -6,7 +6,7 @@ pod 'SVProgressHUD', '~> 1.1.3'
 pod 'Bolts', '~> 1.5.0'
 
 #Production pod
-pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => '6d70c0f04ef2c199b928ff1a2f8edf9d48b510c5'
+pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => '8f11030fb7b62e4248563f81b56711bea863bdf3'
 
 #For development pods
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
