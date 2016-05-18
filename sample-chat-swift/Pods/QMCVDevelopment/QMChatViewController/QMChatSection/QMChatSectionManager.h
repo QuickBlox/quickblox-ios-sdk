@@ -189,4 +189,11 @@
  */
 - (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message;
 
+/**
+ *  All messages items.
+ *
+ *  @return array of all available messages from all chat sections
+ */
+- (NSArray QB_GENERIC(QBChatMessage *) *)allMessages;
+
 @end
