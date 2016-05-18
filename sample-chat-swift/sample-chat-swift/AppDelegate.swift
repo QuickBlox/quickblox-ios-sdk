@@ -105,6 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
+      
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0;
     }
     
     func applicationWillTerminate(application: UIApplication) {
