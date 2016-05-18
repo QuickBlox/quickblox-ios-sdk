@@ -251,9 +251,9 @@ QMChatCellDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
     
-    BOOL shouldJoin = (self.dialog.type == QBChatDialogTypeGroup ? self.dialog.isJoined : NO);
+    BOOL shouldJoin = (self.dialog.type == QBChatDialogTypeGroup ? !self.dialog.isJoined : NO);
 
-    if (![[QBChat instance] isConnected] || !shouldJoin) {
+    if (![[QBChat instance] isConnected] || shouldJoin) {
         return;
     }
     
