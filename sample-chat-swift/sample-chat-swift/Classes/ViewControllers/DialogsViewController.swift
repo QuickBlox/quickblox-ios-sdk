@@ -376,16 +376,17 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     // MARK: QMChatConnectionDelegate
     
     func chatServiceChatDidFailWithStreamError(error: NSError) {
-
+        SVProgressHUD.showErrorWithStatus(error.localizedDescription)
         
-    
     }
+    
     func chatServiceChatDidAccidentallyDisconnect(chatService: QMChatService) {
         SVProgressHUD.showErrorWithStatus("SA_STR_DISCONNECTED".localized)
     }
     
     func chatServiceChatDidConnect(chatService: QMChatService) {
-        SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized)
+        SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized, maskType:.Clear)
+    
         self.getDialogs()
     }
     
@@ -395,7 +396,8 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 	
 	
     func chatServiceChatDidReconnect(chatService: QMChatService) {
-        SVProgressHUD.showSuccessWithStatus("SA_STR_RECONNECTED".localized)
+        SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized, maskType: .Clear)
         self.getDialogs()
     }
+
 }
