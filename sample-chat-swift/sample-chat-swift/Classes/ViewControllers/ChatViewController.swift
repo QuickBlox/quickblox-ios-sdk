@@ -892,10 +892,17 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             let newLength = currentCharacterCount + text.characters.count - range.length
             
-            if newLength > maxCharactersNumber {
-                self.showCharactersNumberError()
-                return false
+            if  newLength <= maxCharactersNumber {
+                return true;
             }
+            let oldString = textView.text ?? ""
+            let startIndex = oldString.startIndex.advancedBy(range.location)
+            let endIndex = startIndex.advancedBy(range.length)
+            let newString = oldString.stringByReplacingCharactersInRange(startIndex ..< endIndex, withString: text)
+            textView.text = newString.substringToIndex(newString.startIndex.advancedBy(maxCharactersNumber))
+            self.showCharactersNumberError()
+            
+            return false
         }
     
         return true

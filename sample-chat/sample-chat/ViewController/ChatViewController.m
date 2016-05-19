@@ -786,7 +786,6 @@ QMChatCellDelegate
 
 #pragma mark - UITextViewDelegate
 
-
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     // Prevent crashing undo bug
@@ -813,14 +812,20 @@ QMChatCellDelegate
     
     if (maxCharactersNumber > 0) {
         
-        NSUInteger charactersNumber = [[textView text] length] - range.length + text.length;
+        NSString * newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
         
-        if (charactersNumber > maxCharactersNumber) {
-            [self showCharactersNumberError];
-            return NO;
+        if ([newText length]<= maxCharactersNumber ){
+            return YES;
         }
+        
+        // case where text length > maxCharactersNumber
+        textView.text = [newText substringToIndex:maxCharactersNumber];
+        
+        [self showCharactersNumberError];
+        
+        return NO;
     }
-    
+
     return YES;
 }
 
