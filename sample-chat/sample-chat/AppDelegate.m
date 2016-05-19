@@ -22,6 +22,9 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 @implementation AppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    application.applicationIconBadgeNumber = 0;
+    
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
     [QBSettings setApplicationID:kApplicationID];
     [QBSettings setAuthKey:kAuthKey];
@@ -109,7 +112,6 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
