@@ -20,6 +20,8 @@
 
 static const NSUInteger widthPadding = 40.0f;
 
+static const NSUInteger maxCharactersNumber = 1024; // 0 - unlimited
+
 @interface ChatViewController ()
 <
 QMChatServiceDelegate,
@@ -38,6 +40,8 @@ QMChatCellDelegate
 @property (nonatomic, readonly) UIImagePickerController *pickerController;
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
+
+
 
 @property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
 
@@ -782,7 +786,14 @@ QMChatCellDelegate
 
 #pragma mark - UITextViewDelegate
 
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    // Prevent crashing undo bug
+    if(range.length + range.location > textView.text.length)
+    {
+        return NO;
+    }
     
     if (![ServicesManager instance].isAuthorized) {
         
@@ -799,6 +810,16 @@ QMChatCellDelegate
     }
     
     self.typingTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(fireStopTypingIfNecessary) userInfo:nil repeats:NO];
+    
+    if (maxCharactersNumber > 0) {
+        
+        NSUInteger charactersNumber = [[textView text] length] - range.length + text.length;
+        
+        if (charactersNumber > maxCharactersNumber) {
+            [self showCharactersNumberError];
+            return NO;
+        }
+    }
     
     return YES;
 }
@@ -847,6 +868,17 @@ QMChatCellDelegate
                                                                }];
         });
     });
+}
+
+- (void)showCharactersNumberError {
+
+        NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
+        NSString * subtitle = [NSString stringWithFormat:@"The character limit is %lu. ", (unsigned long)maxCharactersNumber];
+        
+        [QMMessageNotificationManager showNotificationWithTitle:title
+                                                       subtitle:subtitle
+                                                           type:QMMessageNotificationTypeWarning];
+
 }
 
 - (UIImage *)resizedImageFromImage:(UIImage *)image {

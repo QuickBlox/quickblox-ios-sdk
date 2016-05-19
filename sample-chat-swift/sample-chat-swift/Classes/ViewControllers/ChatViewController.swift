@@ -19,6 +19,9 @@ var messageTimeDateFormatter: NSDateFormatter {
 }
 
 class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate {
+   
+    let maxCharactersNumber = 1024 // 0 - unlimited
+
     
     var dialog: QBChatDialog!
     var willResignActiveBlock: AnyObject?
@@ -280,7 +283,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
 	
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
-        
+    
         let shouldJoin = self.dialog.type == .Group ? !self.dialog.isJoined() : false
         
         if !QBChat.instance().isConnected() || shouldJoin {
@@ -316,7 +319,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: Helper
 	
-	
+    func showCharactersNumberError() {
+        let title  = "SA_STR_ERROR".localized;
+        let subtitle = String(format: "The character limit is %lu.", maxCharactersNumber)
+        QMMessageNotificationManager.showNotificationWithTitle(title, subtitle: subtitle, type: .Error)
+    }
+
 	/**
 	Builds a string
 	Read: login1, login2, login3
@@ -860,6 +868,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
+         // Prevent crashing undo bug
+        let currentCharacterCount = textView.text?.characters.count ?? 0
+        
+        if (range.length + range.location > currentCharacterCount) {
+            return false
+        }
+        
         if !QBChat.instance().isConnected() { return true }
         
         if let timer = self.typingTimer {
@@ -873,6 +888,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 		
         self.typingTimer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: #selector(ChatViewController.fireSendStopTypingIfNecessary), userInfo: nil, repeats: false)
         
+        if maxCharactersNumber > 0 {
+            
+            let newLength = currentCharacterCount + text.characters.count - range.length
+            
+            if newLength > maxCharactersNumber {
+                self.showCharactersNumberError()
+                return false
+            }
+        }
+    
         return true
     }
     
