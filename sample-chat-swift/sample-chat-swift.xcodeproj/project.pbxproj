@@ -503,7 +503,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
-				PROVISIONING_PROFILE = "e1f90b6f-2770-46ef-ae43-ec3143b0c9a8";
+				PROVISIONING_PROFILE = "57792420-997e-4cfb-92a1-ec0bf4d103bf";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -570,7 +570,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e1f90b6f-2770-46ef-ae43-ec3143b0c9a8";
+				PROVISIONING_PROFILE = "57792420-997e-4cfb-92a1-ec0bf4d103bf";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -608,7 +608,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "-DQA";
-				PROVISIONING_PROFILE = "e1f90b6f-2770-46ef-ae43-ec3143b0c9a8";
+				PROVISIONING_PROFILE = "57792420-997e-4cfb-92a1-ec0bf4d103bf";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -641,7 +641,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e1f90b6f-2770-46ef-ae43-ec3143b0c9a8";
+				PROVISIONING_PROFILE = "57792420-997e-4cfb-92a1-ec0bf4d103bf";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

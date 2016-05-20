@@ -536,7 +536,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
-				PROVISIONING_PROFILE = "f9c2a4c6-ab11-404a-9205-2399e793ee22";
+				PROVISIONING_PROFILE = "024f30fe-d849-4dd9-8458-2f50e715555a";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -566,7 +566,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "f9c2a4c6-ab11-404a-9205-2399e793ee22";
+				PROVISIONING_PROFILE = "024f30fe-d849-4dd9-8458-2f50e715555a";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -649,7 +649,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
-				PROVISIONING_PROFILE = "f9c2a4c6-ab11-404a-9205-2399e793ee22";
+				PROVISIONING_PROFILE = "024f30fe-d849-4dd9-8458-2f50e715555a";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -709,7 +709,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "f9c2a4c6-ab11-404a-9205-2399e793ee22";
+				PROVISIONING_PROFILE = "024f30fe-d849-4dd9-8458-2f50e715555a";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
