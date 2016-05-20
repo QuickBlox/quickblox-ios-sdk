@@ -215,9 +215,22 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  @param chatDialog   created dialog we notificate about
  *  @param usersIDs     array of users id to send message
  *  @param completion   completion block with failure error
+ *  @warning            *Deprecated in QMServices 0.4.1:*
  */
 - (void)sendSystemMessageAboutAddingToDialog:(QB_NONNULL QBChatDialog *)chatDialog
                                   toUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs
+                                  completion:(QB_NULLABLE QBChatCompletionBlock)completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.1.");
+/**
+ *  Send system message to users about adding to dialog with dialog inside with text.
+ *
+ *  @param chatDialog   created dialog we notificate about
+ *  @param usersIDs     array of users id to send message
+ *  @param text         text to users
+ *  @param completion   completion block with failure error
+ */
+- (void)sendSystemMessageAboutAddingToDialog:(QB_NONNULL QBChatDialog *)chatDialog
+                                  toUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs
+                                    withText:(QB_NULLABLE NSString *)text
                                   completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 #pragma mark - Notification messages
@@ -955,6 +968,13 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
 
 @protocol QMChatConnectionDelegate <NSObject>
 @optional
+
+/**
+ *  Called when chat service did start connecting to the chat.
+ *
+ *  @param chatService QMChatService instance
+ */
+- (void)chatServiceChatHasStartedConnecting:(QB_NONNULL QMChatService *)chatService;
 
 /**
  *  It called when chat did connect.
