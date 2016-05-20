@@ -868,6 +868,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
+        
          // Prevent crashing undo bug
         let currentCharacterCount = textView.text?.characters.count ?? 0
         
@@ -890,10 +891,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if maxCharactersNumber > 0 {
             
+            if currentCharacterCount == maxCharactersNumber && text.characters.count > 0 {
+                
+                self.showCharactersNumberError()
+                return false
+            }
+            
             let newLength = currentCharacterCount + text.characters.count - range.length
             
             if  newLength <= maxCharactersNumber {
-                return true;
+                return true
             }
             let oldString = textView.text ?? ""
             let startIndex = oldString.startIndex.advancedBy(range.location)

@@ -812,6 +812,10 @@ QMChatCellDelegate
     
     if (maxCharactersNumber > 0) {
         
+        if (textView.text.length == maxCharactersNumber && text.length > 0) {
+            [self showCharactersNumberError];
+            return NO;
+        }
         NSString * newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
         
         if ([newText length]<= maxCharactersNumber ){
