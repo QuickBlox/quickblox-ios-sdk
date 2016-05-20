@@ -186,7 +186,7 @@
                 return
             }
             guard let strongSelf = self else { return }
-            let notificationText = strongSelf.updatedMessageWithUsers(users)
+            let notificationText = strongSelf.updatedMessageWithUsers(users,isNewDialog: false)
             
             // Notifies users about new dialog with them.
             ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: usersIDs, withText:notificationText, completion: { (error: NSError?) -> Void in
@@ -210,8 +210,11 @@
      
      - returns: String instance
      */
-    func updatedMessageWithUsers(users: [QBUUser]) -> String {
-        var message: String = "\(QBSession.currentSession().currentUser!.login!) " + "SA_STR_ADDED".localized + " "
+    func updatedMessageWithUsers(users: [QBUUser],isNewDialog:Bool) -> String {
+        
+        let dialogMessage = isNewDialog ? "SA_STR_CREATE_NEW".localized : "SA_STR_ADDED".localized
+        
+        var message: String = "\(QBSession.currentSession().currentUser!.login!) " + dialogMessage + " "
         for user: QBUUser in users {
             message = "\(message)\(user.login!),"
         }
@@ -241,7 +244,7 @@
         } else {
             // Creating group chat.
             
-            ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse, chatDialog: QBChatDialog?) -> Void in
+            ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { [weak self] (response: QBResponse, chatDialog: QBChatDialog?) -> Void in
                 
             
                 guard response.error == nil else {
@@ -259,8 +262,13 @@
                     return
                 }
                 
+                guard let strongSelf = self else { return }
                 
-                ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: dialogOccupants, completion: { (error: NSError?) -> Void in
+                let notificationText = strongSelf.updatedMessageWithUsers(users, isNewDialog: true)
+                
+                ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: dialogOccupants, withText:notificationText, completion: { (error: NSError?) -> Void in
+                    
+                     ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(dialogOccupants, toDialog: unwrappedDialog, withNotificationText: notificationText)
                     
                     completion?(response: response, createdDialog: unwrappedDialog)
                 })

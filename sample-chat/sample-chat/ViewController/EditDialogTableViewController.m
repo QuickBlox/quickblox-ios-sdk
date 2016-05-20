@@ -114,14 +114,29 @@
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
     
     // Creating group chat dialog.
+   
+    
     [ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
         
+        __typeof(self) strongSelf = weakSelf;
+        
         if (response.success ) {
+            
             [SVProgressHUD dismiss];
-            [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
-                //
+             NSString *notificationText = [strongSelf updatedMessageWithUsers:users forCreatedDialog:YES];
+            
+            [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog
+                                                                              toUsersIDs:createdDialog.occupantIDs
+                                                                                withText:notificationText
+                                                                              completion:^(NSError *error) {
+                
+                [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:createdDialog.occupantIDs
+                                                                                           toDialog:createdDialog
+                                                                               withNotificationText:notificationText
+                                                                                         completion:nil];
+                
             }];
-            __typeof(self) strongSelf = weakSelf;
+            
             [strongSelf navigateToChatViewControllerWithDialog:createdDialog];
         }
         else {
@@ -154,7 +169,7 @@
                     return;
                 }
                 
-                NSString *notificationText = [strongSelf updatedMessageWithUsers:task.result];
+                NSString *notificationText = [strongSelf updatedMessageWithUsers:task.result forCreatedDialog:NO];
                 
                 // Notifying users about newly created dialog.
                 [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog
@@ -189,12 +204,15 @@
     return name;
 }
 
-- (NSString *)updatedMessageWithUsers:(NSArray *)users {
-    NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADDED", nil)];
+- (NSString *)updatedMessageWithUsers:(NSArray *)users forCreatedDialog:(BOOL)isForCreated {
+    
+    NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, isForCreated ? NSLocalizedString(@"SA_STR_CREATE_NEW", nil) : NSLocalizedString(@"SA_STR_ADDED", nil)];
+    
     for (QBUUser *user in users) {
         message = [NSString stringWithFormat:@"%@%@,", message, user.login];
     }
     message = [message substringToIndex:message.length - 1]; // remove last , (comma)
+    
     return message;
 }
 
