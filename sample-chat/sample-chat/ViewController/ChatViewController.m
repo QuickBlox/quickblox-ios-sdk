@@ -26,7 +26,6 @@ static const NSUInteger maxCharactersNumber = 1024; // 0 - unlimited
 <
 QMChatServiceDelegate,
 QMChatConnectionDelegate,
-UITextViewDelegate,
 QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
@@ -785,6 +784,11 @@ QMChatCellDelegate
 }
 
 #pragma mark - UITextViewDelegate
+
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    [super textViewDidChange:textView];
+}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
