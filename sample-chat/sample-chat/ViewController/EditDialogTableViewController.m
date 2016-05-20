@@ -145,16 +145,23 @@
         }
         // Updating dialog with occupants.
         [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
-            if( response.success ) {
+            
+            __typeof(self) strongSelf = weakSelf;
+            if (response.success) {
+                
+                if (task.error) {
+                    [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
+                    return;
+                }
+                
+                NSString *notificationText = [strongSelf updatedMessageWithUsers:task.result];
                 
                 // Notifying users about newly created dialog.
-                [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog toUsersIDs:usersIDs completion:^(NSError *error) {
+                [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog
+                                                                                  toUsersIDs:usersIDs
+                                                                                    withText:notificationText
+                                                                                  completion:^(NSError *error) {
                     //
-                    if (task.error) {
-                       [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
-                        return;
-                    }
-                    NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
                     
                     // Notify occupants that dialog was updated.
                     [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:usersIDs
@@ -162,7 +169,7 @@
                                                                                    withNotificationText:notificationText
                                                                                              completion:nil];
                     updatedDialog.lastMessageText = notificationText;
-                    __typeof(self) strongSelf = weakSelf;
+                    
                     [strongSelf navigateToChatViewControllerWithDialog:updatedDialog];
                     [SVProgressHUD dismiss];
                 }];

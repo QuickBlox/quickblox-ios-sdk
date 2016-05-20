@@ -185,13 +185,14 @@
                 print("Received dialog is nil")
                 return
             }
+            guard let strongSelf = self else { return }
+            let notificationText = strongSelf.updatedMessageWithUsers(users)
             
             // Notifies users about new dialog with them.
-            ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: usersIDs, completion: { (error: NSError?) -> Void in
+            ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: usersIDs, withText:notificationText, completion: { (error: NSError?) -> Void in
                 
-                guard let strongSelf = self else { return }
                 // Notifies existing dialog occupants about new users.
-                let notificationText = strongSelf.updatedMessageWithUsers(users)
+                
                 
                 ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(usersIDs, toDialog: unwrappedDialog, withNotificationText: notificationText)
                 
