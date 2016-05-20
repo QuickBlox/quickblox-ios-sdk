@@ -866,6 +866,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: UITextViewDelegate
     
+    override func textViewDidChange(textView: UITextView) {
+        super.textViewDidChange(textView)
+    }
+    
     override func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         
