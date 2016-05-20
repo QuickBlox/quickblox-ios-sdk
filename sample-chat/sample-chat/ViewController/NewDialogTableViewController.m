@@ -131,12 +131,24 @@
 		
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
 		
+        
         // Creating group chat dialog.
 		[ServicesManager.instance.chatService createGroupChatDialogWithName:name photo:nil occupants:selectedUsers completion:^(QBResponse *response, QBChatDialog *createdDialog) {
 			if (response.success) {
+                NSString * notificationText = [self updatedMessageWithUsers:selectedUsers];
                 // Notifying users about created dialog.
-                [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
-                    //
+                [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog
+                                                                                  toUsersIDs:createdDialog.occupantIDs
+                                                                                    withText:notificationText
+                                                                                  completion:^(NSError *error) {
+                                                                                      
+                                                                                      
+            // Notify occupants that dialog was updated.
+            [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:createdDialog.occupantIDs
+                                                                                    toDialog:createdDialog
+                                                                                    withNotificationText:notificationText
+                                                                                    completion:nil];
+                                                                                      
 					if (completion) {
 						completion(createdDialog);
 					}
@@ -162,4 +174,17 @@
 	[self checkJoinChatButtonState];
 }
 
+
+#pragma mark - Helpers
+- (NSString *)updatedMessageWithUsers:(NSArray *)users {
+    
+    NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_CREATE_NEW", nil)];
+    
+    for (QBUUser *user in users) {
+        message = [NSString stringWithFormat:@"%@%@,", message, user.login];
+    }
+    message = [message substringToIndex:message.length - 1]; // remove last , (comma)
+    
+    return message;
+}
 @end
