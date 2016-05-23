@@ -24,7 +24,14 @@
 
 @interface QBChat : NSObject
 
-/** Contact list */
+/**
+ *  Check if current user is connected to Chat
+ */
+@property (assign, nonatomic, readonly) BOOL isConnected;
+
+/** 
+ *  Contact list
+ */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBContactList *contactList;
 
 - (QB_NONNULL id)init NS_UNAVAILABLE;
@@ -46,12 +53,15 @@
  */
 - (void)removeDelegate:(QB_NONNULL id<QBChatDelegate>)delegate;
 
-/** Removes all delegates */
+/** 
+ * Removes all delegates
+ */
 - (void)removeAllDelegates;
 
-/** Array of all delegates*/
+/** 
+ *  Array of all delegates
+ */
 - (QB_NULLABLE NSArray QB_GENERIC(id<QBChatDelegate>) *)delegates;
-
 
 #pragma mark -
 #pragma mark Reconnection
@@ -61,7 +71,6 @@
  *  Works only if autoReconnectEnabled=YES. Otherwise it does nothing.
  */
 - (void)forceReconnect;
-
 
 #pragma mark -
 #pragma mark Base Messaging
@@ -89,13 +98,6 @@
  *  @param completion Completion block with failure error.
  */
 - (void)connectWithUser:(QB_NONNULL QBUUser *)user resource:(nullable NSString *)resource completion:(QB_NULLABLE QBChatCompletionBlock)completion;
-
-/**
- * Check if current user is connected to Chat
- *
- * @return YES if user is connected in, NO otherwise
- */
-- (BOOL)isConnected;
 
 /**
  *  Disconnect current user from Chat and leave all rooms
