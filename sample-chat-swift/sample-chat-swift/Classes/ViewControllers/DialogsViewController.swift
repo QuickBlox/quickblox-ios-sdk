@@ -94,14 +94,14 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
-            if !QBChat.instance().isConnected() {
+            if !QBChat.instance().isConnected {
                 SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
             }
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DialogsViewController.didEnterBackgroundNotification), name: UIApplicationDidEnterBackgroundNotification, object: nil)
         
-        if (QBChat.instance().isConnected()) {
+        if (QBChat.instance().isConnected) {
             self.getDialogs()
         }
     }
