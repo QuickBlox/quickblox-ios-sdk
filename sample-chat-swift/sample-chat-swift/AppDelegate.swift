@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-         application.applicationIconBadgeNumber = 0;
+         application.applicationIconBadgeNumber = 0
         
         // Set QuickBlox credentials (You must create application in admin.quickblox.com).
         QBSettings.setApplicationID(kQBApplicationID)
@@ -97,6 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     }
 	
     func applicationDidEnterBackground(application: UIApplication) {
+        
+        application.applicationIconBadgeNumber = 0
         // Logging out from chat.
         ServicesManager.instance().chatService.disconnectWithCompletionBlock(nil)
     }
