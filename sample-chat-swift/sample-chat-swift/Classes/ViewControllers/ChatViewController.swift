@@ -213,7 +213,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
 	
     func readMessages(messages: [QBChatMessage]) {
         
-        if QBChat.instance().isConnected() {
+        if QBChat.instance().isConnected {
 			
 			ServicesManager.instance().chatService.readMessages(messages, forDialogID: self.dialog.ID!, completion: nil)
         }
@@ -286,7 +286,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
         let shouldJoin = self.dialog.type == .Group ? !self.dialog.isJoined() : false
         
-        if !QBChat.instance().isConnected() || shouldJoin {
+        if !QBChat.instance().isConnected || shouldJoin {
             return
         }
         
@@ -880,7 +880,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             return false
         }
         
-        if !QBChat.instance().isConnected() { return true }
+        if !QBChat.instance().isConnected { return true }
         
         if let timer = self.typingTimer {
             timer.invalidate()
