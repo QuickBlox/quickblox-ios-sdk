@@ -138,6 +138,12 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
         
+        if !QBChat.instance().isConnected {
+
+            SVProgressHUD.showErrorWithStatus("You're not connected to the chat.")
+            return
+        }
+        
         let logoutGroup = dispatch_group_create()
         dispatch_group_enter(logoutGroup)
         
