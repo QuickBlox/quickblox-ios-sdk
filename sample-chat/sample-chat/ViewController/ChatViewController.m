@@ -25,6 +25,7 @@ static const NSUInteger maxCharactersNumber = 1024; // 0 - unlimited
 @interface ChatViewController ()
 <
 QMChatServiceDelegate,
+UITextViewDelegate,
 QMChatConnectionDelegate,
 QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
@@ -830,6 +831,8 @@ QMChatCellDelegate
         textView.text = [newText substringToIndex:maxCharactersNumber];
         
         [self showCharactersNumberError];
+        
+        [self textViewDidChange:textView];
         
         return NO;
     }
