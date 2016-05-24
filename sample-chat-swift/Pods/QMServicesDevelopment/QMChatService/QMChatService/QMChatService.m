@@ -26,7 +26,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 @property (weak, nonatomic)   BFTask* loadEarlierMessagesTask;
 @property (strong, nonatomic) NSMutableDictionary *loadedAllMessages;
 @property (strong, nonatomic) NSMutableDictionary *lastMessagesLoadDate;
-@property (strong, nonatomic) NSMutableSet * messagesToRead;
+@property (strong, nonatomic) NSMutableSet *messagesToRead;
 
 @end
 
@@ -226,14 +226,17 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
                 [self.multicastDelegate chatService:self didUpdateMessage:message forDialogID:dialogID];
             }
             
-            QBChatDialog * dialog = [self.dialogsMemoryStorage chatDialogWithID:dialogID];
-            
-            if (dialog.unreadMessagesCount > 0) {
+            if (self.serviceManager.currentUser.ID == readerID) {
                 
-                dialog.unreadMessagesCount--;
+                QBChatDialog * dialog = [self.dialogsMemoryStorage chatDialogWithID:dialogID];
                 
-                if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
-                    [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:dialog];
+                if (dialog.unreadMessagesCount > 0) {
+                    //--
+                    dialog.unreadMessagesCount--;
+                    
+                    if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+                        [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:dialog];
+                    }
                 }
             }
         }
@@ -1258,49 +1261,47 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     dispatch_group_t readGroup = dispatch_group_create();
     
     for (QBChatMessage *message in messages) {
-        
         NSAssert([message.dialogID isEqualToString:dialogID], @"Message is from incorrect dialog.");
         
-        if (![message.readIDs containsObject:@([QBSession currentSession].currentUser.ID)]) {
+        if ([message.readIDs containsObject:@(self.serviceManager.currentUser.ID)]) {
             
-            if ([self.messagesToRead containsObject:message.ID]) {
-                
-                continue;
-            }
-            else {
-                
-                [self.messagesToRead addObject:message.ID];
-            }
+            continue;
+        }
+        
+        if ([self.messagesToRead containsObject:message.ID]) {
             
-            message.markable = YES;
+            continue;
+        }
+        
+        [self.messagesToRead addObject:message.ID];
+        message.markable = YES;
+        
+        dispatch_group_enter(readGroup);
+        [[QBChat instance] readMessage:message completion:^(NSError *error) {
             
-            dispatch_group_enter(readGroup);
-            [[QBChat instance] readMessage:message completion:^(NSError *error) {
+            __typeof(weakSelf)strongSelf = weakSelf;
+            if (error == nil) {
                 
-                __typeof(weakSelf)strongSelf = weakSelf;
-                if (error == nil) {
+                if (chatDialogToUpdate.unreadMessagesCount > 0) {
                     
-                    if (chatDialogToUpdate.unreadMessagesCount > 0) {
-                        
-                        chatDialogToUpdate.unreadMessagesCount--;
-                    }
-                    
-                    // updating message in memory storage
-                    [strongSelf.messagesMemoryStorage updateMessage:message];
-                    
-                    [updatedMessages addObject:message];
+                    chatDialogToUpdate.unreadMessagesCount--;
                 }
                 
-                [self.messagesToRead removeObject:message.ID];
-                dispatch_group_leave(readGroup);
-            }];
-        }
-    }
-    
-    // updating dialog in cache
-    if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
-        
-        [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
+                // updating dialog in cache
+                if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+                    
+                    [strongSelf.multicastDelegate chatService:strongSelf didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
+                }
+                
+                // updating message in memory storage
+                [strongSelf.messagesMemoryStorage updateMessage:message];
+                
+                [updatedMessages addObject:message];
+            }
+            
+            [strongSelf.messagesToRead removeObject:message.ID];
+            dispatch_group_leave(readGroup);
+        }];
     }
     
     dispatch_group_notify(readGroup, dispatch_get_main_queue(), ^{
@@ -1330,10 +1331,11 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 }
 
 #pragma mark - System messages
-- (void)sendSystemMessageAboutAddingToDialog:(QB_NONNULL QBChatDialog *)chatDialog
-                                  toUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs
-                                    withText:(QB_NULLABLE NSString *)text
-                                  completion:(QB_NULLABLE QBChatCompletionBlock)completion {
+
+- (void)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog
+                                  toUsersIDs:(NSArray *)usersIDs
+                                    withText:(NSString *)text
+                                  completion:(QBChatCompletionBlock)completion {
     
     dispatch_group_t notifyGroup = dispatch_group_create();
     
@@ -1352,13 +1354,13 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         dispatch_group_enter(notifyGroup);
         [[QBChat instance] sendSystemMessage:privateMessage completion:^(NSError *error) {
-            //
+            
             dispatch_group_leave(notifyGroup);
         }];
     }
     
     dispatch_group_notify(notifyGroup, dispatch_get_main_queue(), ^{
-        //
+        
         if (completion) completion(nil);
     });
     

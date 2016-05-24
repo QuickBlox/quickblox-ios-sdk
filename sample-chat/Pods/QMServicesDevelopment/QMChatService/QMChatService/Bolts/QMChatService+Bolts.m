@@ -418,6 +418,25 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
     return source.task;
 }
 
+- (BFTask *)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog toUsersIDs:(NSArray *)usersIDs withText:(NSString *)text {
+    
+    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self sendSystemMessageAboutAddingToDialog:chatDialog toUsersIDs:usersIDs withText:text completion:^(NSError *error) {
+        
+        if (error != nil) {
+            
+            [source setError:error];
+        }
+        else {
+            
+            [source setResult:nil];
+        }
+    }];
+    
+    return source.task;
+}
+
 - (BFTask *)sendMessageAboutAcceptingContactRequest:(BOOL)accept toOpponentID:(NSUInteger)opponentID {
     
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];

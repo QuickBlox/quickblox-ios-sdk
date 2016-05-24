@@ -215,11 +215,12 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  @param chatDialog   created dialog we notificate about
  *  @param usersIDs     array of users id to send message
  *  @param completion   completion block with failure error
- *  @warning            *Deprecated in QMServices 0.4.1:*
+ *
+ *  @warning *Deprecated in QMServices 0.4.1:* Use 'sendSystemMessageAboutAddingToDialog:toUsersIDs:withText:completion' instead.
  */
 - (void)sendSystemMessageAboutAddingToDialog:(QB_NONNULL QBChatDialog *)chatDialog
                                   toUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs
-                                  completion:(QB_NULLABLE QBChatCompletionBlock)completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.1.");
+                                  completion:(QB_NULLABLE QBChatCompletionBlock)completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.1. Use 'sendSystemMessageAboutAddingToDialog:toUsersIDs:withText:completion:' instead.");
 /**
  *  Send system message to users about adding to dialog with dialog inside with text.
  *
@@ -637,12 +638,29 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  @param chatDialog   created dialog we notificate about
  *  @param usersIDs     array of users id to send message
  *
+ *  @warning *Deprecated in QMServices 0.4.1:* Use 'sendSystemMessageAboutAddingToDialog:toUsersIDs:withText:' instead.
+ *
  *  @return BFTask with failure error
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
 - (QB_NONNULL BFTask *)sendSystemMessageAboutAddingToDialog:(QB_NONNULL QBChatDialog *)chatDialog
-                                                 toUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs;
+                                                 toUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs  DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.1. Use 'sendSystemMessageAboutAddingToDialog:toUsersIDs:withText:' instead.");
+
+/**
+ *  Send system message to users about adding to dialog with dialog inside using Bolts.
+ *
+ *  @param chatDialog   created dialog we notificate about
+ *  @param usersIDs     array of users id to send message
+ *  @param text         text to users
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (QB_NONNULL BFTask *)sendSystemMessageAboutAddingToDialog:(QB_NONNULL QBChatDialog *)chatDialog
+                                                 toUsersIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)usersIDs
+                                                   withText:(QB_NULLABLE NSString *)text;
 
 /**
  *  Send message about accepting or rejecting contact requst using Bolts.
