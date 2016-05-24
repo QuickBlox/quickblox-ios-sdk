@@ -79,7 +79,7 @@ class DialogTableViewCellModel: NSObject {
 class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
     
     private var didEnterBackgroundDate: NSDate?
-    private var observer:NSObjectProtocol?
+    private var observer: NSObjectProtocol?
     // MARK: - ViewController overrides
     
     override func awakeFromNib() {
@@ -174,6 +174,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 strongSelf.observer = nil
                 
 				ServicesManager.instance().chatService.removeDelegate(strongSelf)
+                
 				strongSelf.navigationController?.popViewControllerAnimated(true)
 				
 				SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
