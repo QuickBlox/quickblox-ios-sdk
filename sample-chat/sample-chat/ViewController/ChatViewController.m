@@ -79,9 +79,6 @@ QMChatCellDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // top layout inset for collection view
-    self.topContentAdditionalInset = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.textView.placeHolder = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
