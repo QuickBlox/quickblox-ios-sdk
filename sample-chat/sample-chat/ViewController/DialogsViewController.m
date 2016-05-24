@@ -83,7 +83,14 @@ QMChatConnectionDelegate
     dispatch_group_notify(logoutGroup,dispatch_get_main_queue(),^{
         // logging out
         [[QMServicesManager instance] logoutWithCompletion:^{
-            [weakSelf performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+            
+            __typeof(self) strongSelf = weakSelf;
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:strongSelf.observerDidBecomeActive];
+            strongSelf.observerDidBecomeActive = nil;
+            
+            [strongSelf performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+            
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
         }];
     });
