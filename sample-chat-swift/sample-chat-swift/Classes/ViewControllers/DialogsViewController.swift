@@ -79,7 +79,7 @@ class DialogTableViewCellModel: NSObject {
 class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
     
     private var didEnterBackgroundDate: NSDate?
-    
+    private var observer: NSObjectProtocol?
     // MARK: - ViewController overrides
     
     override func awakeFromNib() {
@@ -92,7 +92,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         ServicesManager.instance().chatService.addDelegate(self)
         
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
+        self.observer = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
             if !QBChat.instance().isConnected {
                 SVProgressHUD.showWithStatus("SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.Clear)
@@ -168,8 +168,13 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 			guard let strongSelf = self else { return }
 			ServicesManager.instance().logoutWithCompletion {
 				
-				NSNotificationCenter.defaultCenter().removeObserver(strongSelf)
+                NSNotificationCenter.defaultCenter().removeObserver(strongSelf)
+				NSNotificationCenter.defaultCenter().removeObserver(strongSelf.observer!)
+                
+                strongSelf.observer = nil
+                
 				ServicesManager.instance().chatService.removeDelegate(strongSelf)
+                
 				strongSelf.navigationController?.popViewControllerAnimated(true)
 				
 				SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
