@@ -22,6 +22,12 @@ extension String {
     var length: Int {
         return (self as NSString).length
     }
+
+    var composedCount : Int {
+            var count = 0
+            enumerateSubstringsInRange(startIndex..<endIndex, options: .ByComposedCharacterSequences) {_ in count++}
+            return count
+    }
 }
 class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate {
    
@@ -900,7 +906,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if maxCharactersNumber > 0 {
             
-            if currentCharacterCount == maxCharactersNumber && text.length > 0 {
+            if currentCharacterCount >= maxCharactersNumber && text.length > 0 {
                 
                 self.showCharactersNumberError()
                 return false
@@ -912,9 +918,24 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 return true
             }
             let oldString = textView.text ?? ""
-            
+            var lastIndex = maxCharactersNumber
             let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: text)
-            textView.text = (newString as NSString).substringToIndex(maxCharactersNumber)
+            
+            if (newString as NSString).emo_emojiCount() > 0 {
+                var ranges : [NSRange] = (newString as NSString).emo_emojiRanges() as NSArray as! [NSRange]
+                ranges = ranges.reverse()
+                var lastRange : NSRange?
+                for range in ranges where range.location < maxCharactersNumber {
+                    lastRange = range
+                    break
+                }
+                if (lastRange != nil) {
+                    lastIndex = (lastRange?.location)! + (lastRange?.length)!
+                }
+                
+            }
+            
+            textView.text = (newString as NSString).substringToIndex(lastIndex)
             
             self.showCharactersNumberError()
             

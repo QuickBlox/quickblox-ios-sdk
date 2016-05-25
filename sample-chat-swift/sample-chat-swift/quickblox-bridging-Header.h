@@ -36,4 +36,6 @@
 #import "UIColor+QM.h"
 #import "UIImage+fixOrientation.h"
 
+#import "NSString+EMOEmoji.h"
+
 #endif

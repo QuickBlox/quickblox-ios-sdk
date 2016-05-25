@@ -17,6 +17,7 @@
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QMMessageNotificationManager.h"
 
+#import <NSString+EMOEmoji.h>
 
 static const NSUInteger widthPadding = 40.0f;
 
@@ -814,18 +815,37 @@ QMChatCellDelegate
     
     if (maxCharactersNumber > 0) {
         
-        if (textView.text.length == maxCharactersNumber && text.length > 0) {
+        if (textView.text.length >= maxCharactersNumber && text.length > 0) {
             [self showCharactersNumberError];
             return NO;
         }
+        
         NSString * newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
         
-        if ([newText length]<= maxCharactersNumber ){
+        if ([newText length] <= maxCharactersNumber) {
             return YES;
         }
         
+        NSInteger lastIndex = maxCharactersNumber;
+        
+        if (newText.emo_emojiCount > 0) {
+            NSArray * ranges = [[newText.emo_emojiRanges reverseObjectEnumerator] allObjects];;
+            
+            NSRange lastRange;
+            
+            for (NSValue * rangeValue in ranges) {
+                NSRange range = [rangeValue rangeValue];
+                if (range.location < maxCharactersNumber) {
+                    lastRange = range;
+                    break;
+                }
+            }
+            
+            lastIndex = lastRange.location + lastRange.length;
+        }
+        
         // case where text length > maxCharactersNumber
-        textView.text = [newText substringToIndex:maxCharactersNumber];
+        textView.text = [newText substringToIndex:lastIndex];
         
         [self showCharactersNumberError];
         
