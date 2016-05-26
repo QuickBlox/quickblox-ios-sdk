@@ -5,7 +5,6 @@ PODS:
   - Bolts/AppLinks (1.5.1):
     - Bolts/Tasks
   - Bolts/Tasks (1.5.1)
-  - MPGNotification (1.2.4)
   - QMCVDevelopment (0.3.7):
     - QMCVDevelopment/Categories (= 0.3.7)
     - QMCVDevelopment/KeyboardViewController (= 0.3.7)
@@ -46,7 +45,6 @@ PODS:
 
 DEPENDENCIES:
   - Bolts (~> 1.5.0)
-  - MPGNotification (~> 1.2)
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`,
     commit `8f11030fb7b62e4248563f81b56711bea863bdf3`)
   - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`,
@@ -72,7 +70,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
-  MPGNotification: f0e3924087afa9b3eccd5ce624e03965ae31ae61
   QMCVDevelopment: e012abb55b2f77442a3b44d292f5282266962835
   QMServicesDevelopment: 2f71e9eb067e5da53a90cb8777fa49d7637d2566
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
