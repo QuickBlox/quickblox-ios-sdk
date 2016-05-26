@@ -840,8 +840,9 @@ QMChatCellDelegate
                     break;
                 }
             }
-            
-            lastIndex = lastRange.location + lastRange.length;
+            if  (lastRange.location + lastRange.length > maxCharactersNumber) {
+                lastIndex = lastRange.location + lastRange.length;
+            }
         }
         
         // case where text length > maxCharactersNumber

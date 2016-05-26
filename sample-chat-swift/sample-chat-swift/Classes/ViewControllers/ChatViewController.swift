@@ -917,6 +917,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             if  newLength <= maxCharactersNumber {
                 return true
             }
+            
             let oldString = textView.text ?? ""
             var lastIndex = maxCharactersNumber
             let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: text)
@@ -929,7 +930,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     lastRange = range
                     break
                 }
-                if (lastRange != nil) {
+                if lastRange != nil && (lastRange?.location)! + (lastRange?.length)! > maxCharactersNumber{
                     lastIndex = (lastRange?.location)! + (lastRange?.length)!
                 }
                 
