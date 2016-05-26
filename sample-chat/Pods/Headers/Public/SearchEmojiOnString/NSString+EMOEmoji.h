@@ -1,0 +1,1 @@
+../../../SearchEmojiOnString/SearchEmojiOnString-iOS/NSString+EMOEmoji.h

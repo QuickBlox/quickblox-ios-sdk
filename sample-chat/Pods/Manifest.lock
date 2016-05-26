@@ -40,6 +40,7 @@ PODS:
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
+  - SearchEmojiOnString (1.1.0)
   - SVProgressHUD (1.1.3)
   - TTTAttributedLabel (1.13.4)
 
@@ -50,6 +51,7 @@ DEPENDENCIES:
     commit `8f11030fb7b62e4248563f81b56711bea863bdf3`)
   - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`,
     commit `28659323ce54ad6c5531fa879966b580a823ddbd`)
+  - SearchEmojiOnString
   - SVProgressHUD (~> 1.1.3)
 
 EXTERNAL SOURCES:
@@ -74,6 +76,7 @@ SPEC CHECKSUMS:
   QMCVDevelopment: e012abb55b2f77442a3b44d292f5282266962835
   QMServicesDevelopment: 2f71e9eb067e5da53a90cb8777fa49d7637d2566
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 0a2ac7b2dd726d32a070dafb01446026b11e624f
 

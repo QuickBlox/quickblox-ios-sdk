@@ -18,3 +18,5 @@ pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-servic
 #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
 
 pod 'MPGNotification', '~> 1.2'
+
+pod 'SearchEmojiOnString'

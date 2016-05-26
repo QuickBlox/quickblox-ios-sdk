@@ -18,6 +18,17 @@ var messageTimeDateFormatter: NSDateFormatter {
     return Static.instance
 }
 
+extension String {
+    var length: Int {
+        return (self as NSString).length
+    }
+
+    var composedCount : Int {
+            var count = 0
+            enumerateSubstringsInRange(startIndex..<endIndex, options: .ByComposedCharacterSequences) {_ in count++}
+            return count
+    }
+}
 class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate {
    
     let maxCharactersNumber = 1024 // 0 - unlimited
@@ -874,7 +885,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         
          // Prevent crashing undo bug
-        let currentCharacterCount = textView.text?.characters.count ?? 0
+        let currentCharacterCount = textView.text?.length ?? 0
         
         if (range.length + range.location > currentCharacterCount) {
             return false
@@ -895,23 +906,36 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if maxCharactersNumber > 0 {
             
-            if currentCharacterCount == maxCharactersNumber && text.characters.count > 0 {
+            if currentCharacterCount >= maxCharactersNumber && text.length > 0 {
                 
                 self.showCharactersNumberError()
                 return false
             }
             
-            let newLength = currentCharacterCount + text.characters.count - range.length
+            let newLength = currentCharacterCount + text.length - range.length
             
             if  newLength <= maxCharactersNumber {
                 return true
             }
             let oldString = textView.text ?? ""
-            let startIndex = oldString.startIndex.advancedBy(range.location)
-            let endIndex = startIndex.advancedBy(range.length)
-            let newString = oldString.stringByReplacingCharactersInRange(startIndex ..< endIndex, withString: text)
+            var lastIndex = maxCharactersNumber
+            let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: text)
             
-            textView.text = newString.substringToIndex(newString.startIndex.advancedBy(maxCharactersNumber))
+            if (newString as NSString).emo_emojiCount() > 0 {
+                var ranges : [NSRange] = (newString as NSString).emo_emojiRanges() as NSArray as! [NSRange]
+                ranges = ranges.reverse()
+                var lastRange : NSRange?
+                for range in ranges where range.location < maxCharactersNumber {
+                    lastRange = range
+                    break
+                }
+                if (lastRange != nil) {
+                    lastIndex = (lastRange?.location)! + (lastRange?.length)!
+                }
+                
+            }
+            
+            textView.text = (newString as NSString).substringToIndex(lastIndex)
             
             self.showCharactersNumberError()
             
