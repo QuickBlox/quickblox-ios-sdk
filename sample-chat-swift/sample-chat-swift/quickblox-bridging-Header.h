@@ -29,7 +29,7 @@
 #import "TTTAttributedLabel.h"
 
 #import "QMMessageNotificationManager.h"
-#import <MPGNotification/MPGNotification.h>
+#import "MPGNotification.h"
 
 #import "_CDMessage.h"
 #import "UIImage+QM.h"
