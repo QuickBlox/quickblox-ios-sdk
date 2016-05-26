@@ -6,13 +6,13 @@ pod 'SVProgressHUD', '~> 1.1.3'
 pod 'Bolts', '~> 1.5.0'
 
 #Production pod
-pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => '8f11030fb7b62e4248563f81b56711bea863bdf3'
+pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => 'cd01823e177a71a83e8d0a1041191ca5f02a6740'
 
 #For development pods
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
 
 #Production pod
-pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => '28659323ce54ad6c5531fa879966b580a823ddbd'
+pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => '97cb716ef37cde015eae141053778f0578bdc825'
 
 #For development pods
 #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
