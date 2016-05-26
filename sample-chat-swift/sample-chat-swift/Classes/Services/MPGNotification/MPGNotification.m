@@ -770,7 +770,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
         self.windowLevel = [[[[UIApplication sharedApplication] delegate] window] windowLevel];
         
         // Update windowLevel to make sure status bar does not interfere with the notification
-        [[[[UIApplication sharedApplication] delegate] window] setWindowLevel:UIWindowLevelStatusBar+1];
+        [[[[UIApplication sharedApplication] delegate] window] makeKeyAndVisible];
         
         // add the notification to the screen
         [window.subviews.lastObject addSubview:self];
