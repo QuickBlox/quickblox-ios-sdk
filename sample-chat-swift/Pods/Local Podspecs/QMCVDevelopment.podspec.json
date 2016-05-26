@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "TTTAttributedLabel": [
-      "~> 1.13"
+      "> 1.13"
     ],
     "SDWebImage": [
       "~> 3.6"

@@ -27,13 +27,6 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
     
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
     
-    if (!self.serviceManager.isAuthorized) {
-        [source setError:[NSError errorWithDomain:kQMChatServiceDomain
-                                             code:-1000
-                                         userInfo:@{NSLocalizedRecoverySuggestionErrorKey : @"You are not authorized in REST."}]];
-        return source.task;
-    }
-    
     if ([QBChat instance].isConnected) {
         [source setResult:nil];
     }
@@ -46,6 +39,15 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
         }
         
         QBUUser *user = self.serviceManager.currentUser;
+        
+        if (user.password == nil) {
+            
+            [source setError:[NSError errorWithDomain:kQMChatServiceDomain
+                                                 code:-1000
+                                             userInfo:@{NSLocalizedRecoverySuggestionErrorKey : @"QBSession currentUser should have password in order to connect in chat."}]];
+            return source.task;
+        }
+        
         [[QBChat instance] connectWithUser:user completion:^(NSError *error) {
             
             if (error != nil) {
