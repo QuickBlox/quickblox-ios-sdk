@@ -81,6 +81,8 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @property (nonatomic) MPGNotificationButtonConfigration buttonConfiguration;
 
+@property (strong) UIWindow *customWindow;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -92,7 +94,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 {
     // If the App has a keyWindow, get it, else get the 'top'-most window in the App's hierarchy.
     UIWindow *window = [self _topAppWindow];
-
+    
     // Now get the 'top'-most object in that window and use its width for the Notification
     UIView *topSubview = [[window subviews] lastObject];
     CGRect notificationFrame = CGRectMake(0, 0, CGRectGetWidth(topSubview.bounds), kNotificationHeight);
@@ -277,7 +279,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     if (!decelerate &&
         [self _notificationOffScreen] &&
         self.notificationRevealed) {
-        
+        [self removeCustomWindow];
         [self _destroyNotification];
     }
 }
@@ -285,6 +287,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if ([self _notificationOffScreen] &&
         self.notificationRevealed) {
+        [self removeCustomWindow];
         [self _destroyNotification];
     }
 }
@@ -292,6 +295,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 #pragma mark - UIDynamicAnimator Delegate
 
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator{
+    [self removeCustomWindow];
     [self _destroyNotification];
 }
 
@@ -452,13 +456,13 @@ static const CGFloat kColorAdjustmentLight = 0.35;
                 [self.backgroundView addSubview:self.closeButton];
                 
                 self.closeButton.titleLabel.font = [UIFont systemFontOfSize:15.0]; // custom font!
-
+                
             }
             
             break;
         }
             
-        // deliberately grabbing one and two button states
+            // deliberately grabbing one and two button states
         case MPGNotificationButtonConfigrationOneButton:
         case MPGNotificationButtonConfigrationTwoButton: {
             
@@ -492,7 +496,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
             
             break;
         }
-
+            
     }
     
     [self setNeedsLayout];
@@ -524,8 +528,8 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 - (void)_showNotification {
     
     // Called to display the initiliased notification on screen.
-   
-    self.notificationDestroyed = NO; 
+    
+    self.notificationDestroyed = NO;
     self.notificationRevealed = YES;
     
     [self _setupNotificationViews];
@@ -603,14 +607,15 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     if (animated) {
         
         switch (self.animationType) {
-            
-            // deliberately capturing 2 cases
+                
+                // deliberately capturing 2 cases
             case MPGNotificationAnimationTypeLinear:
             case MPGNotificationAnimationTypeDrop: {
                 
                 [UIView animateWithDuration:kLinearAnimationTime animations:^{
                     self.contentOffset = CGPointMake(0, CGRectGetHeight(self.bounds));
                 } completion:^(BOOL finished){
+                    [self removeCustomWindow];
                     [self _destroyNotification];
                 }];
                 break;
@@ -627,7 +632,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
         }
         
     } else {
-        
+        [self removeCustomWindow];
         [self _destroyNotification];
     }
     
@@ -718,6 +723,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 - (void)_destroyNotification {
     
     if (!self.notificationDestroyed) {
+        [self removeCustomWindow];
         self.notificationDestroyed = YES;
         
         if (self.hostViewController == nil) {
@@ -757,6 +763,16 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     }
 }
 
+-(void)removeCustomWindow{
+    
+    if (_customWindow) {
+        
+        [_customWindow removeFromSuperview];
+        _customWindow = nil;
+    }
+    
+}
+
 - (void)_setupNotificationViews {
     
     if (self.hostViewController) {
@@ -769,12 +785,15 @@ static const CGFloat kColorAdjustmentLight = 0.35;
         
         self.windowLevel = [[[[UIApplication sharedApplication] delegate] window] windowLevel];
         
-        // Update windowLevel to make sure status bar does not interfere with the notification
-        [[[[UIApplication sharedApplication] delegate] window] makeKeyAndVisible];
         
         // add the notification to the screen
         [window.subviews.lastObject addSubview:self];
         
+        _customWindow = [[UIWindow alloc] initWithFrame:self.frame];
+        _customWindow.windowLevel = UIWindowLevelStatusBar+1;
+        [_customWindow addSubview:self];
+        
+        [_customWindow makeKeyAndVisible];
     }
     
     UIView *superview = self.superview;
