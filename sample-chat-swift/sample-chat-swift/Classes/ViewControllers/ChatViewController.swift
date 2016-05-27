@@ -914,30 +914,28 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             let newLength = currentCharacterCount + text.length - range.length
             
-            if  newLength <= maxCharactersNumber {
+            if  newLength <= maxCharactersNumber || text.length == 0 {
                 return true
             }
             
             let oldString = textView.text ?? ""
-            var lastIndex = maxCharactersNumber
-            let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: text)
             
-            if (newString as NSString).emo_emojiCount() > 0 {
-                var ranges : [NSRange] = (newString as NSString).emo_emojiRanges() as NSArray as! [NSRange]
-                ranges = ranges.reverse()
-                var lastRange : NSRange?
-                for range in ranges where range.location < maxCharactersNumber {
-                    lastRange = range
-                    break
-                }
-                if lastRange != nil && (lastRange?.location)! + (lastRange?.length)! > maxCharactersNumber{
-                    lastIndex = (lastRange?.location)! + (lastRange?.length)!
-                }
-                
-            }
+            let numberOfSymbolsToCut = maxCharactersNumber - oldString.length
             
-            textView.text = (newString as NSString).substringToIndex(lastIndex)
+            var stringRange = NSMakeRange(0, min(text.length, numberOfSymbolsToCut))
             
+            
+            // adjust the range to include dependent chars
+            stringRange = (text as NSString).rangeOfComposedCharacterSequencesForRange(stringRange)
+            
+            // Now you can create the short string
+            let shortString = (text as NSString).substringWithRange(stringRange)
+            
+            let newText = NSMutableString()
+            newText.appendString(oldString)
+            newText.insertString(shortString, atIndex: range.location)
+            textView.text = newText as String
+
             self.showCharactersNumberError()
             
             self.textViewDidChange(textView)
