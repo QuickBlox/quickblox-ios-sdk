@@ -814,40 +814,34 @@ QMChatCellDelegate
     self.typingTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(fireStopTypingIfNecessary) userInfo:nil repeats:NO];
     
     if (maxCharactersNumber > 0) {
-        
+
         if (textView.text.length >= maxCharactersNumber && text.length > 0) {
             [self showCharactersNumberError];
             return NO;
         }
         
         NSString * newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
-        
-        if ([newText length] <= maxCharactersNumber) {
+      
+        if ([newText length] <= maxCharactersNumber || text.length == 0) {
             return YES;
         }
         
-        NSInteger lastIndex = maxCharactersNumber;
+
+        NSInteger symbolsToCut = maxCharactersNumber - textView.text.length;
         
-        if (newText.emo_emojiCount > 0) {
-            NSArray * ranges = [[newText.emo_emojiRanges reverseObjectEnumerator] allObjects];;
-            
-            NSRange lastRange;
-            
-            for (NSValue * rangeValue in ranges) {
-                NSRange range = [rangeValue rangeValue];
-                if (range.location < maxCharactersNumber) {
-                    lastRange = range;
-                    break;
-                }
-            }
-            if  (lastRange.location + lastRange.length > maxCharactersNumber) {
-                lastIndex = lastRange.location + lastRange.length;
-            }
-        }
+        NSRange stringRange = {0, MIN([text length], symbolsToCut)};
         
-        // case where text length > maxCharactersNumber
-        textView.text = [newText substringToIndex:lastIndex];
+        // adjust the range to include dependent chars
+        stringRange = [text rangeOfComposedCharacterSequencesForRange:stringRange];
         
+        // Now you can create the short string
+        NSString *shortString = [text substringWithRange:stringRange];
+        
+        NSMutableString * newtext = textView.text.mutableCopy;
+        [newtext insertString:shortString atIndex:range.location];
+        
+        textView.text = newtext.copy;
+       
         [self showCharactersNumberError];
         
         [self textViewDidChange:textView];
