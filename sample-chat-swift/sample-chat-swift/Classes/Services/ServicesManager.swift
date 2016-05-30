@@ -191,8 +191,12 @@ class ServicesManager: QMServicesManager {
     // MARK: QMChatServiceDelegate
     
     override func chatService(chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String) {
+        
         super.chatService(chatService, didAddMessageToMemoryStorage: message, forDialogID: dialogID)
-        self.handleNewMessage(message, dialogID: dialogID)
+        
+        if self.authService.isAuthorized {
+            self.handleNewMessage(message, dialogID: dialogID)
+        }
     }
     
 }
