@@ -151,9 +151,12 @@
 #pragma mark QMChatServiceCache delegate
 
 - (void)chatService:(QMChatService *)chatService didAddMessageToMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
+    
     [super chatService:chatService didAddMessageToMemoryStorage:message forDialogID:dialogID];
     
-    [self showNotificationForMessage:message inDialogID:dialogID];
+    if (self.authService.isAuthorized) {
+        [self showNotificationForMessage:message inDialogID:dialogID];
+    }
 }
 
 
