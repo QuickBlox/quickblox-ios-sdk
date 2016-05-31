@@ -13,6 +13,7 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 @interface QMChatService()
 
+@property (assign, nonatomic, readwrite) QMChatConnectionState chatConnectionState;
 @property (strong, nonatomic) QBMulticastDelegate <QMChatServiceDelegate, QMChatConnectionDelegate> *multicastDelegate;
 @property (weak, nonatomic) BFTask* loadEarlierMessagesTask;
 @property (strong, nonatomic) NSMutableDictionary *loadedAllMessages;
@@ -47,6 +48,8 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
                                              userInfo:@{NSLocalizedRecoverySuggestionErrorKey : @"QBSession currentUser should have password in order to connect in chat."}]];
             return source.task;
         }
+        
+        self.chatConnectionState = QMChatConnectionStateConnecting;
         
         [[QBChat instance] connectWithUser:user completion:^(NSError *error) {
             

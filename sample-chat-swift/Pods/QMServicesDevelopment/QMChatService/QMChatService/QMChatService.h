@@ -21,6 +21,24 @@
 typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
 
 /**
+ *  QBChat connection state.
+ */
+typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
+    /**
+     *  Not connected.
+     */
+    QMChatConnectionStateDisconnected,
+    /**
+     *  Connection in progress.
+     */
+    QMChatConnectionStateConnecting,
+    /**
+     *  Connected.
+     */
+    QMChatConnectionStateConnected
+};
+
+/**
  *  Chat dialog service
  */
 @interface QMChatService : QMBaseService
@@ -29,10 +47,10 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  Determines whether auto join for group dialogs is enabled or not.
  *  Default value is YES.
  *
- *  @discussion Disable auto join if you want to handla group chat dialogs joining manually
+ *  @discussion Disable auto join if you want to handle group chat dialogs joining manually
  *  or you are using our Enterprise feature to manage group chat dialogs without join being required.
- *  By default QMServices will perform join to all existent group dialogs in cache after every chat connect/reconnect
- *  and every chat dialog receive/update.
+ *  By default QMServices will perform join to all existent group dialogs in cache after
+ *  every chat connect/reconnect and every chat dialog receive/update.
  */
 @property (assign, nonatomic, getter=isAutoJoinEnabled) BOOL enableAutoJoin;
 
@@ -40,6 +58,11 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  Chat messages per page with messages load methods
  */
 @property (assign, nonatomic) NSUInteger chatMessagesPerPage;
+
+/**
+ *  Chat connection state
+ */
+@property (assign, nonatomic, readonly) QMChatConnectionState chatConnectionState;
 
 /**
  *  Dialogs datasoruce

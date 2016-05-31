@@ -69,6 +69,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 - (NSMutableDictionary *)context {
     
     if (!self.customParameters) {
+        
         self.customParameters = [NSMutableDictionary dictionary];
     }
     
@@ -80,10 +81,17 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 - (QBChatDialog *)dialog {
     
     if (!self.tDialog) {
-        if (self.context[kQMCustomParameterDialogID] == nil) return nil;
         
-        self.tDialog = [[QBChatDialog alloc] initWithDialogID:self.context[kQMCustomParameterDialogID]
-                                                         type:[self.context[kQMCustomParameterDialogType] intValue]];
+        if (self.context[kQMCustomParameterDialogID] == nil
+            && [self.context[kQMCustomParameterDialogType] intValue] == 0) {
+            // no chat dialog in this message
+            return nil;
+        }
+        
+        self.tDialog = [[QBChatDialog alloc]
+                        initWithDialogID:self.context[kQMCustomParameterDialogID]
+                        type:[self.context[kQMCustomParameterDialogType] intValue]];
+        
         //Grap custom parameters;
         self.tDialog.name = self.context[kQMCustomParameterDialogRoomName];
         self.tDialog.photo = self.context[kQMCustomParameterDialogRoomPhoto];
@@ -91,6 +99,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
         NSString *updatedAtTimeInterval = self.context[kQMCustomParameterDialogRoomUpdatedDate];
         
         if (updatedAtTimeInterval) {
+            
             self.tDialog.updatedAt = [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval integerValue]];
         }
         
@@ -147,9 +156,11 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     if (dialog.type == QBChatDialogTypeGroup) {
         
         if (dialog.photo != nil) {
+            
             self.context[kQMCustomParameterDialogRoomPhoto] = dialog.photo;
         }
         if (dialog.name != nil) {
+            
             self.context[kQMCustomParameterDialogRoomName] = dialog.name;
         }
         
@@ -176,18 +187,22 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 #pragma mark Message attachment status
 
 - (QMMessageAttachmentStatus)attachmentStatus {
+    
     return [[self tAttachmentStatus] integerValue];
 }
 
 - (void)setAttachmentStatus:(QMMessageAttachmentStatus)attachmentStatus {
+    
     [self setTAttachmentStatus:@(attachmentStatus)];
 }
 
 - (NSNumber *)tAttachmentStatus {
+    
     return objc_getAssociatedObject(self, @selector(tAttachmentStatus));
 }
 
 - (void)setTAttachmentStatus:(NSNumber *)attachmentStatusNumber {
+    
     objc_setAssociatedObject(self, @selector(tAttachmentStatus), attachmentStatusNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -296,7 +311,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 - (void)setMessageType:(QMMessageType)messageType {
     
     if (messageType != QMMessageTypeText) {
-
+        
         self.context[kQMCustomParameterMessageType] = @(messageType);
     }
 }
@@ -326,8 +341,8 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 }
 
 - (BOOL)isMediaMessage {
-	
-	return self.attachments.count > 0 || self.attachmentStatus == QMMessageAttachmentStatusLoading;
+    
+    return self.attachments.count > 0 || self.attachmentStatus == QMMessageAttachmentStatusLoading;
 }
 
 @end
