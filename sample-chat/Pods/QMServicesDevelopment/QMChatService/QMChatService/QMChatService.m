@@ -383,6 +383,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         // updating dialog last message params
         [self updateLastMessageParamsForChatDialog:chatDialogToUpdate withMessage:message];
+        chatDialogToUpdate.updatedAt = message.dateSent;
         
         if (shouldSaveDialog) {
             
@@ -1336,9 +1337,12 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
                 }
                 
                 // updating dialog in cache
-                if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+                if (chatDialogToUpdate != nil) {
                     
-                    [strongSelf.multicastDelegate chatService:strongSelf didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
+                    if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+                        
+                        [strongSelf.multicastDelegate chatService:strongSelf didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
+                    }
                 }
                 
                 // updating message in memory storage
