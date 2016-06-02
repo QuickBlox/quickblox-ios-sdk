@@ -169,10 +169,12 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 			ServicesManager.instance().logoutWithCompletion {
 				
                 NSNotificationCenter.defaultCenter().removeObserver(strongSelf)
-				NSNotificationCenter.defaultCenter().removeObserver(strongSelf.observer!)
                 
-                strongSelf.observer = nil
-                
+                if strongSelf.observer != nil {
+                    NSNotificationCenter.defaultCenter().removeObserver(strongSelf.observer!)
+                    strongSelf.observer = nil
+                }
+
 				ServicesManager.instance().chatService.removeDelegate(strongSelf)
                 
 				strongSelf.navigationController?.popViewControllerAnimated(true)
