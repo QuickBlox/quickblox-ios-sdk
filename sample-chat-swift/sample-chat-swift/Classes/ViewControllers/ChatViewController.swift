@@ -527,9 +527,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
         
+        let paragrpahStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        paragrpahStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 13)
+        attributes[NSParagraphStyleAttributeName] = paragrpahStyle
         
         var text = messageItem.dateSent != nil ? messageTimeDateFormatter.stringFromDate(messageItem.dateSent!) : ""
         
