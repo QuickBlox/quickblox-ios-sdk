@@ -378,7 +378,13 @@ QMChatCellDelegate
     UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1 alpha:0.7f] : [UIColor colorWithWhite:0.000 alpha:0.7f];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
     
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor,
+                                  NSFontAttributeName:font,
+                                  NSParagraphStyleAttributeName: paragraphStyle};
+    
     NSString *text = messageItem.dateSent ? [self timeStampWithDate:messageItem.dateSent] : @"";
     if ([messageItem senderID] == self.senderID) {
         text = [NSString stringWithFormat:@"%@\n%@", text, [self.stringBuilder statusFromMessage:messageItem]];
