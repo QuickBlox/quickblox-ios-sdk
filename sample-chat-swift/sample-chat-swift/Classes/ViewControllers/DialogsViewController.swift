@@ -252,6 +252,8 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 			return cell
 		}
 		
+        cell.exclusiveTouch = true
+        cell.contentView.exclusiveTouch = true
         
         cell.tag = indexPath.row
         cell.dialogID = chatDialog.ID!
