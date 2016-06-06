@@ -14,7 +14,7 @@ import Foundation
 class ServicesManager: QMServicesManager {
     
     var currentDialogID = ""
-    
+    var isProcessingLogOut: Bool!
     var colors = [
         UIColor(red: 0.992, green:0.510, blue:0.035, alpha:1.000),
         UIColor(red: 0.039, green:0.376, blue:1.000, alpha:1.000),
@@ -30,12 +30,13 @@ class ServicesManager: QMServicesManager {
     
     private var contactListService : QMContactListService!
     var notificationService: NotificationService!
+    
     //var lastActivityDate: NSDate!
     
     override init() {
         super.init()
-        
         self.setupContactServices()
+        self.isProcessingLogOut = false
     }
     
     private func setupContactServices() {
@@ -199,4 +200,45 @@ class ServicesManager: QMServicesManager {
         }
     }
     
+    func logoutUserWithCompletion(completion: (result: Bool)->()) {
+        
+        if self.isProcessingLogOut! {
+            
+            completion(result: false)
+            return
+        }
+        
+        self.isProcessingLogOut = true
+        
+        let logoutGroup = dispatch_group_create()
+        
+        dispatch_group_enter(logoutGroup)
+        
+        let deviceIdentifier = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        
+        QBRequest.unregisterSubscriptionForUniqueDeviceIdentifier(deviceIdentifier, successBlock: { (response: QBResponse!) -> Void in
+            //
+            print("Successfuly unsubscribed from push notifications")
+            dispatch_group_leave(logoutGroup)
+            
+        }) { (error: QBError?) -> Void in
+            //
+            print("Push notifications unsubscribe failed")
+            dispatch_group_leave(logoutGroup)
+        }
+        
+        dispatch_group_notify(logoutGroup, dispatch_get_main_queue()) {
+            [weak self] () -> Void in
+            // Logouts from Quickblox, clears cache.
+            guard let strongSelf = self else { return }
+            
+            strongSelf.logoutWithCompletion {
+                
+                strongSelf.isProcessingLogOut = false
+                
+                completion(result: true)
+                
+            }
+        }
+    }
 }
