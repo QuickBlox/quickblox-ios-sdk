@@ -15,6 +15,7 @@ class DialogTableViewCellModel: NSObject {
     var unreadMessagesCounterLabelText : String?
     var unreadMessagesCounterHiden = true
     var dialogIcon : UIImage?
+
     
     init(dialog: QBChatDialog) {
         super.init()
@@ -74,10 +75,11 @@ class DialogTableViewCellModel: NSObject {
             self.dialogIcon = UIImage(named: "group")
         }
     }
+    
+    
 }
 
-class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMChatConnectionDelegate {
-    
+class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMChatConnectionDelegate, QMAuthServiceDelegate {
     private var didEnterBackgroundDate: NSDate?
     private var observer: NSObjectProtocol?
     // MARK: - ViewController overrides
@@ -92,6 +94,8 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         ServicesManager.instance().chatService.addDelegate(self)
         
+        ServicesManager.instance().authService.addDelegate(self)
+        
         self.observer = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidBecomeActiveNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification) -> Void in
             
             if !QBChat.instance().isConnected {
@@ -104,6 +108,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         if (QBChat.instance().isConnected) {
             self.getDialogs()
         }
+     
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -136,51 +141,35 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     @IBAction func logoutAction() {
         
-        SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
-        
         if !QBChat.instance().isConnected {
 
-            SVProgressHUD.showErrorWithStatus("You're not connected to the chat.")
+            SVProgressHUD.showErrorWithStatus("Error")
             return
         }
         
-        let logoutGroup = dispatch_group_create()
-        dispatch_group_enter(logoutGroup)
+        SVProgressHUD.showWithStatus("SA_STR_LOGOUTING".localized, maskType: SVProgressHUDMaskType.Clear)
         
-        let deviceIdentifier = UIDevice.currentDevice().identifierForVendor!.UUIDString
-		
-        QBRequest.unregisterSubscriptionForUniqueDeviceIdentifier(deviceIdentifier, successBlock: { (response: QBResponse!) -> Void in
-            //
-            print("Successfuly unsubscribed from push notifications")
-            dispatch_group_leave(logoutGroup)
-			
-			}) { (error: QBError?) -> Void in
-                //
-                print("Push notifications unsubscribe failed")
-				dispatch_group_leave(logoutGroup)
-        }
-		
-        ServicesManager.instance().lastActivityDate = nil
-        
-        dispatch_group_notify(logoutGroup, dispatch_get_main_queue()) {
-            [weak self] () -> Void in
-            // Logouts from Quickblox, clears cache.
-			guard let strongSelf = self else { return }
-			ServicesManager.instance().logoutWithCompletion {
-				
+        ServicesManager.instance().logoutUserWithCompletion { [weak self] (boolValue) -> () in
+            
+            guard let strongSelf = self else { return }
+            if boolValue {
                 NSNotificationCenter.defaultCenter().removeObserver(strongSelf)
                 
                 if strongSelf.observer != nil {
                     NSNotificationCenter.defaultCenter().removeObserver(strongSelf.observer!)
                     strongSelf.observer = nil
                 }
-
-				ServicesManager.instance().chatService.removeDelegate(strongSelf)
                 
-				strongSelf.navigationController?.popViewControllerAnimated(true)
-				
-				SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-			}
+                ServicesManager.instance().chatService.removeDelegate(strongSelf)
+                ServicesManager.instance().authService.removeDelegate(strongSelf)
+                
+                ServicesManager.instance().lastActivityDate = nil;
+                
+                strongSelf.navigationController?.popToRootViewControllerAnimated(true)
+                
+                SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
+                
+            }
         }
     }
 	
@@ -254,11 +243,17 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("dialogcell", forIndexPath: indexPath) as! DialogTableViewCell
-		
+        
+        if (self.dialogs()?.count < indexPath.row) {
+            return cell
+        }
+        
 		guard let chatDialog = self.dialogs()?[indexPath.row] else {
 			return cell
 		}
 		
+        cell.exclusiveTouch = true
+        cell.contentView.exclusiveTouch = true
         
         cell.tag = indexPath.row
         cell.dialogID = chatDialog.ID!
@@ -277,11 +272,17 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     // MARK: - UITableViewDelegate
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        if (ServicesManager.instance().isProcessingLogOut!) {
+            return
+        }
         
 		guard let dialog = self.dialogs()?[indexPath.row] else {
 			return
 		}
+        
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_CHAT".localized , sender: dialog)
     }
     
@@ -353,39 +354,39 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 	
     func chatService(chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
 		
-        self.tableView.reloadData()
+        self.reloadTableViewIfNeeded()
     }
 	
     func chatService(chatService: QMChatService,didUpdateChatDialogsInMemoryStorage dialogs: [QBChatDialog]){
 		
-        self.tableView.reloadData()
+        self.reloadTableViewIfNeeded()
     }
 	
     func chatService(chatService: QMChatService, didAddChatDialogsToMemoryStorage chatDialogs: [QBChatDialog]) {
         
-        self.tableView.reloadData()
+        self.reloadTableViewIfNeeded()
     }
     
     func chatService(chatService: QMChatService, didAddChatDialogToMemoryStorage chatDialog: QBChatDialog) {
         
-        self.tableView.reloadData()
+        self.reloadTableViewIfNeeded()
     }
     
     func chatService(chatService: QMChatService, didDeleteChatDialogWithIDFromMemoryStorage chatDialogID: String) {
         
-        self.tableView.reloadData()
+        self.reloadTableViewIfNeeded()
     }
     
     func chatService(chatService: QMChatService, didAddMessagesToMemoryStorage messages: [QBChatMessage], forDialogID dialogID: String) {
         
-        self.tableView.reloadData()
+        self.reloadTableViewIfNeeded()
     }
     
     func chatService(chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String){
         
-        self.tableView.reloadData()
+        self.reloadTableViewIfNeeded()
     }
-    
+
     // MARK: QMChatConnectionDelegate
     
     func chatServiceChatDidFailWithStreamError(error: NSError) {
@@ -399,8 +400,9 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     func chatServiceChatDidConnect(chatService: QMChatService) {
         SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized, maskType:.Clear)
-    
-        self.getDialogs()
+        if !ServicesManager.instance().isProcessingLogOut! {
+            self.getDialogs()
+        }
     }
     
     func chatService(chatService: QMChatService,chatDidNotConnectWithError error: NSError){
@@ -410,7 +412,15 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 	
     func chatServiceChatDidReconnect(chatService: QMChatService) {
         SVProgressHUD.showSuccessWithStatus("SA_STR_CONNECTED".localized, maskType: .Clear)
-        self.getDialogs()
+        if !ServicesManager.instance().isProcessingLogOut! {
+            self.getDialogs()
+        }
     }
-
+    
+// MARK: - Helpers 
+    func reloadTableViewIfNeeded() {
+        if !ServicesManager.instance().isProcessingLogOut! {
+            self.tableView.reloadData()
+        }
+    }
 }
