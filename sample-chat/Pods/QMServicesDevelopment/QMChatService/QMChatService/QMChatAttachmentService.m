@@ -9,7 +9,6 @@
 #import "QMChatAttachmentService.h"
 #import "QMChatService.h"
 #import "QBChatMessage+QMCustomParameters.h"
-#import "QMChatService+AttachmentService.h"
 
 @interface QMChatAttachmentService()
 

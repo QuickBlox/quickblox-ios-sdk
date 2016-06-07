@@ -273,50 +273,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     }
 }
 
-- (void)insertMessagesToTheTopAnimated:(NSArray *)messages {
-    NSParameterAssert(messages);
-    
-    [self.chatSectionManager addMessages:messages];
-}
-
-- (NSDictionary *)updateDataSourceWithMessages:(NSArray *)messages {
-    
-    [self.chatSectionManager addMessages:messages];
-    return @{};
-}
-
-- (void)insertMessageToTheBottomAnimated:(QBChatMessage *)message {
-    NSParameterAssert(message);
-    
-    [self.chatSectionManager addMessages:@[message]];
-}
-
-- (void)insertMessagesToTheBottomAnimated:(NSArray *)messages {
-    NSAssert([messages count] > 0, @"Array must contain messages!");
-    
-    [self.chatSectionManager addMessages:messages];
-}
-
-- (void)updateMessage:(QBChatMessage *)message {
-    
-    [self.chatSectionManager updateMessages:@[message]];
-}
-
-- (void)updateMessages:(NSArray *)messages {
-    
-    [self.chatSectionManager updateMessages:messages];
-}
-
-- (void)deleteMessage:(QBChatMessage *)message {
-    
-    [self.chatSectionManager deleteMessages:@[message]];
-}
-
-- (void)deleteMessages:(NSArray *)messages {
-    
-    [self.chatSectionManager deleteMessages:messages];
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad {
@@ -585,6 +541,12 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     if ([cell isKindOfClass:[QMChatCell class]]) {
         
         QMChatCell *chatCell = (QMChatCell *)cell;
+        
+        if ([cell isKindOfClass:[QMChatIncomingCell class]]
+            || [cell isKindOfClass:[QMChatOutgoingCell class]]) {
+            
+            chatCell.textView.enabledTextCheckingTypes = self.enableTextCheckingTypes;
+        }
         
         QBChatMessage *messageItem = [self.chatSectionManager messageForIndexPath:indexPath];
         
@@ -1035,16 +997,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     return result == NSOrderedAscending;
 }
 
-- (NSTimeInterval)timeIntervalBetweenSections {
-    
-    return self.chatSectionManager.timeIntervalBetweenSections;
-}
-
-- (void)setTimeIntervalBetweenSections:(NSTimeInterval)timeIntervalBetweenSections {
-    
-    [self.chatSectionManager setTimeIntervalBetweenSections:timeIntervalBetweenSections];
-}
-
 - (NSIndexSet *)indexSetForSectionsToInsert:(NSArray *)sectionsToInsert {
     
     NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];
@@ -1057,25 +1009,11 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     return [sectionsIndexSet copy];
 }
 
-- (NSUInteger)totalMessagesCount {
-    
-    return self.chatSectionManager.totalMessagesCount;
-}
-
 - (NSString *)nameForSectionWithDate:(NSDate *)date {
     
     return [QMDateUtils formattedStringFromDate:date];
 }
 
-- (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath {
-    
-    return [self.chatSectionManager messageForIndexPath:indexPath];
-}
-
-- (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message {
-    
-    return [self.chatSectionManager indexPathForMessage:message];
-}
 - (void)addObservers {
     
     if (self.isObserving) {

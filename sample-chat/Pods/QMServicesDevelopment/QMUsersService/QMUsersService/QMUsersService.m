@@ -177,13 +177,13 @@
 
 #pragma mark - Get user by External IDs
 
-- (BFTask *)getUserWithExternalID:(NSUInteger *)externalUserID {
+- (BFTask *)getUserWithExternalID:(NSUInteger)externalUserID {
     
     return [self getUserWithExternalID:externalUserID
                              forceLoad:NO];
 }
 
-- (BFTask *)getUserWithExternalID:(NSUInteger *)externalUserID forceLoad:(BOOL)forceLoad {
+- (BFTask *)getUserWithExternalID:(NSUInteger)externalUserID forceLoad:(BOOL)forceLoad {
     
     __weak __typeof(self)weakSelf = self;
     return [[self loadFromCache] continueWithBlock:^id(BFTask *task) {

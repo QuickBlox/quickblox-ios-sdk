@@ -539,6 +539,25 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 #pragma mark - Message sending
 
+- (BFTask *)sendMessage:(QBChatMessage *)message type:(QMMessageType)type toDialog:(QBChatDialog *)dialog saveToHistory:(BOOL)saveToHistory saveToStorage:(BOOL)saveToStorage {
+    
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self sendMessage:message type:type toDialog:dialog saveToHistory:saveToHistory saveToStorage:saveToStorage completion:^(NSError * _Nullable error) {
+        
+        if (error != nil) {
+            
+            [source setError:error];
+        }
+        else {
+            
+            [source setResult:nil];
+        }
+    }];
+    
+    return source.task;
+}
+
 - (BFTask *)sendMessage:(QBChatMessage *)message toDialogID:(NSString *)dialogID saveToHistory:(BOOL)saveToHistory saveToStorage:(BOOL)saveToStorage {
     
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
