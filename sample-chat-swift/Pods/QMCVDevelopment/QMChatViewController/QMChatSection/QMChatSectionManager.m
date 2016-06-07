@@ -194,7 +194,7 @@
 - (void)deleteMessages:(NSArray *)messages animated:(BOOL)animated {
     
     dispatch_async(_serialQueue, ^{
-        NSUInteger *numberOfMessages = messages.count;
+        NSUInteger numberOfMessages = messages.count;
         
         NSMutableArray *messagesIDs = [NSMutableArray arrayWithCapacity:numberOfMessages];
         NSMutableArray *itemsIndexPaths = [NSMutableArray arrayWithCapacity:numberOfMessages];
