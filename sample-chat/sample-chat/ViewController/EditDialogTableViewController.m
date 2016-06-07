@@ -64,12 +64,20 @@
         [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     
+    [self updateSaveButtonState];
+    
     __weak __typeof(self)weakSelf = self;
+    
+    [weakSelf updateSaveButtonState];
     
     if (self.dialog.type == QBChatDialogTypePrivate) {
         // Retrieving users with identifiers.
         [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask *task) {
-            //
+            
+            if (task.error) {
+                [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
+                return nil;
+            }
             __typeof(self) strongSelf = weakSelf;
             [users addObjectsFromArray:task.result];
             
@@ -106,14 +114,29 @@
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING", nil) maskType:SVProgressHUDMaskTypeClear];
     
     // Creating group chat dialog.
+   
+    
     [ServicesManager.instance.chatService createGroupChatDialogWithName:[self dialogNameFromUsers:users] photo:nil occupants:users completion:^(QBResponse *response, QBChatDialog *createdDialog) {
         
-        if( response.success ) {
+        __typeof(self) strongSelf = weakSelf;
+        
+        if (response.success ) {
+            
             [SVProgressHUD dismiss];
-            [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog toUsersIDs:createdDialog.occupantIDs completion:^(NSError *error) {
-                //
+             NSString *notificationText = [strongSelf updatedMessageWithUsers:users forCreatedDialog:YES];
+            
+            [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:createdDialog
+                                                                              toUsersIDs:createdDialog.occupantIDs
+                                                                                withText:notificationText
+                                                                              completion:^(NSError *error) {
+                
+                [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:createdDialog.occupantIDs
+                                                                                           toDialog:createdDialog
+                                                                               withNotificationText:notificationText
+                                                                                         completion:nil];
+                
             }];
-            __typeof(self) strongSelf = weakSelf;
+            
             [strongSelf navigateToChatViewControllerWithDialog:createdDialog];
         }
         else {
@@ -130,15 +153,30 @@
     
     // Retrieving users from cache.
     [[[ServicesManager instance].usersService getUsersWithIDs:usersIDs] continueWithBlock:^id(BFTask *task) {
-        //
+        
+        if (task.error) {
+            [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
+            return nil;
+        }
         // Updating dialog with occupants.
         [ServicesManager.instance.chatService joinOccupantsWithIDs:usersIDs toChatDialog:self.dialog completion:^(QBResponse *response, QBChatDialog *updatedDialog) {
-            if( response.success ) {
+            
+            __typeof(self) strongSelf = weakSelf;
+            if (response.success) {
+                
+                if (task.error) {
+                    [SVProgressHUD showErrorWithStatus:task.error.localizedDescription];
+                    return;
+                }
+                
+                NSString *notificationText = [strongSelf updatedMessageWithUsers:task.result forCreatedDialog:NO];
                 
                 // Notifying users about newly created dialog.
-                [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog toUsersIDs:usersIDs completion:^(NSError *error) {
+                [[ServicesManager instance].chatService sendSystemMessageAboutAddingToDialog:updatedDialog
+                                                                                  toUsersIDs:usersIDs
+                                                                                    withText:notificationText
+                                                                                  completion:^(NSError *error) {
                     //
-                    NSString *notificationText = [weakSelf updatedMessageWithUsers:task.result];
                     
                     // Notify occupants that dialog was updated.
                     [[ServicesManager instance].chatService sendNotificationMessageAboutAddingOccupants:usersIDs
@@ -146,13 +184,10 @@
                                                                                    withNotificationText:notificationText
                                                                                              completion:nil];
                     updatedDialog.lastMessageText = notificationText;
-                    __typeof(self) strongSelf = weakSelf;
+                    
                     [strongSelf navigateToChatViewControllerWithDialog:updatedDialog];
                     [SVProgressHUD dismiss];
                 }];
-            }
-            else {
-                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
             }
         }];
         
@@ -169,12 +204,15 @@
     return name;
 }
 
-- (NSString *)updatedMessageWithUsers:(NSArray *)users {
-    NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, NSLocalizedString(@"SA_STR_ADDED", nil)];
+- (NSString *)updatedMessageWithUsers:(NSArray *)users forCreatedDialog:(BOOL)isForCreated {
+    
+    NSString *message = [NSString stringWithFormat:@"%@ %@ ", [ServicesManager instance].currentUser.login, isForCreated ? NSLocalizedString(@"SA_STR_CREATE_NEW", nil) : NSLocalizedString(@"SA_STR_ADDED", nil)];
+    
     for (QBUUser *user in users) {
         message = [NSString stringWithFormat:@"%@%@,", message, user.login];
     }
     message = [message substringToIndex:message.length - 1]; // remove last , (comma)
+    
     return message;
 }
 

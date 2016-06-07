@@ -24,7 +24,14 @@
 
 @interface QBChat : NSObject
 
-/** Contact list */
+/**
+ *  Check if current user is connected to Chat
+ */
+@property (assign, nonatomic, readonly) BOOL isConnected;
+
+/** 
+ *  Contact list
+ */
 @property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBContactList *contactList;
 
 - (QB_NONNULL id)init NS_UNAVAILABLE;
@@ -46,12 +53,15 @@
  */
 - (void)removeDelegate:(QB_NONNULL id<QBChatDelegate>)delegate;
 
-/** Removes all delegates */
+/** 
+ * Removes all delegates
+ */
 - (void)removeAllDelegates;
 
-/** Array of all delegates*/
+/** 
+ *  Array of all delegates
+ */
 - (QB_NULLABLE NSArray QB_GENERIC(id<QBChatDelegate>) *)delegates;
-
 
 #pragma mark -
 #pragma mark Reconnection
@@ -61,7 +71,6 @@
  *  Works only if autoReconnectEnabled=YES. Otherwise it does nothing.
  */
 - (void)forceReconnect;
-
 
 #pragma mark -
 #pragma mark Base Messaging
@@ -89,13 +98,6 @@
  *  @param completion Completion block with failure error.
  */
 - (void)connectWithUser:(QB_NONNULL QBUUser *)user resource:(nullable NSString *)resource completion:(QB_NULLABLE QBChatCompletionBlock)completion;
-
-/**
- * Check if current user is connected to Chat
- *
- * @return YES if user is connected in, NO otherwise
- */
-- (BOOL)isConnected;
 
 /**
  *  Disconnect current user from Chat and leave all rooms
@@ -230,5 +232,39 @@
  *  @param completion   Completion block with failure error.
  */
 - (void)sendSystemMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+
+#pragma mark - Send pings to the server or a userID
+
+/**
+ *  Send ping to server
+ *
+ *  @param completion  Completion block with failure error.
+ */
+- (void)pingServer:(QB_NONNULL QBPingCompleitonBlock)completion;
+
+/**
+ *  Send ping to server with timeout
+ *
+ *  @param timeout    timout
+ *  @param completion Completion block with failure error.
+ */
+- (void)pingServerWithTimeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+
+/**
+ *  Send ping to user
+ *
+ *  @param userID     User ID
+ *  @param completion Completion block with failure error.
+ */
+- (void)pingUserWithID:(NSUInteger )userID completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+
+/**
+ *  Send ping to user with timeout
+ *
+ *  @param userID     User ID
+ *  @param timeout    Timeout in seconds
+ *  @param completion Completion block with failure error.
+ */
+- (void)pingUserWithID:(NSUInteger)userID timeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
 
 @end

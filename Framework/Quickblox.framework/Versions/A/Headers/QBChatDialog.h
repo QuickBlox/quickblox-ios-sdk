@@ -11,14 +11,14 @@
 #import <Quickblox/QBGeneric.h>
 #import "ChatEnums.h"
 
-typedef void(^QBChatDialogStatusBlock)();
-typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray QB_GENERIC(NSNumber *) * QB_NULLABLE_S onlineUsers);
-typedef void(^QBChatDialogJoinFailedBlock)(NSError * QB_NULLABLE_S error);
-typedef void(^QBChatDialogIsTypingBlock)(NSUInteger userID);
-typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID);
-typedef void(^QBChatDialogOccupantJoinBlock)(NSUInteger userID);
-typedef void(^QBChatDialogOccupantLeaveBlock)(NSUInteger userID);
-typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
+typedef void(^QBChatDialogStatusBlock)() DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatCompletionBlock instead.");
+typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray QB_GENERIC(NSNumber *) * QB_NULLABLE_S onlineUsers) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogRequestOnlineUsersCompletionBlock instead.");
+typedef void(^QBChatDialogJoinFailedBlock)(NSError * QB_NULLABLE_S error) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatCompletionBlock instead.");
+typedef void(^QBChatDialogIsTypingBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
+typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
+typedef void(^QBChatDialogOccupantJoinBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
+typedef void(^QBChatDialogOccupantLeaveBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
+typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
 
 @class QBChatMessage;
 
@@ -87,32 +87,32 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID);
 /**
  *  Fired when sent message was blocked on server.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogBlockedMessageBlock onBlockedMessage;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatCompletionBlock onBlockedMessage;
 
 /**
  *  Fired when user is typing in dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogIsTypingBlock onUserIsTyping;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onUserIsTyping;
 
 /**
  *  Fired when user has stopped typing in dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogStoppedTypingBlock onUserStoppedTyping;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onUserStoppedTyping;
 
 /**
- *  Fired when occupant has joined to dialog.
+ *  Fired when occupant has joined to Group or Public group dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogOccupantJoinBlock onJoinOccupant;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onJoinOccupant;
 
 /**
- *  Fired when occupant has left the dialog.
+ *  Fired when occupant has left the Group or Public group dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogOccupantLeaveBlock onLeaveOccupant;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onLeaveOccupant;
 
 /**
- *  Fired when occupant has updated his presence status in the dialog.
+ *  Fired when occupant has updated his presence status in the Group or Public group dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogOccupantUpdateBlock onUpdateOccupant;
+@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onUpdateOccupant;
 
 /**  Constructor */
 - (QB_NONNULL instancetype)initWithDialogID:(QB_NULLABLE NSString *)dialogID type:(enum QBChatDialogType)type;

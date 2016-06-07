@@ -28,11 +28,14 @@
 
 #import "TTTAttributedLabel.h"
 
-#import "TWMessageBarManager.h"
+#import "QMMessageNotificationManager.h"
+#import "MPGNotification.h"
 
 #import "_CDMessage.h"
 #import "UIImage+QM.h"
 #import "UIColor+QM.h"
 #import "UIImage+fixOrientation.h"
+
+#import "NSString+EMOEmoji.h"
 
 #endif

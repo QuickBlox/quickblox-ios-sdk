@@ -15,15 +15,19 @@
 
 #import "UIImage+fixOrientation.h"
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
-#import <TWMessageBarManager.h>
+#import "QMMessageNotificationManager.h"
+
+#import <NSString+EMOEmoji.h>
 
 static const NSUInteger widthPadding = 40.0f;
+
+static const NSUInteger maxCharactersNumber = 1024; // 0 - unlimited
 
 @interface ChatViewController ()
 <
 QMChatServiceDelegate,
-QMChatConnectionDelegate,
 UITextViewDelegate,
+QMChatConnectionDelegate,
 QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
@@ -37,6 +41,8 @@ QMChatCellDelegate
 @property (nonatomic, readonly) UIImagePickerController *pickerController;
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
+
+
 
 @property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
 
@@ -74,9 +80,6 @@ QMChatCellDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // top layout inset for collection view
-    self.topContentAdditionalInset = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.textView.placeHolder = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
@@ -96,7 +99,7 @@ QMChatCellDelegate
             if ([QBSession currentSession].currentUser.ID == userID) {
                 return;
             }
-            strongSelf.title = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
+            strongSelf.title = NSLocalizedString(@"SA_STR_TYPING", nil);
         }];
         
         // Handling user stopped typing.
@@ -250,10 +253,16 @@ QMChatCellDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
     
+    BOOL shouldJoin = (self.dialog.type == QBChatDialogTypeGroup ? !self.dialog.isJoined : NO);
+
+    if (![[QBChat instance] isConnected] || shouldJoin) {
+        return;
+    }
+    
     if (self.typingTimer != nil) {
         [self fireStopTypingIfNecessary];
     }
-    
+
     QBChatMessage *message = [QBChatMessage message];
     message.text = text;
     message.senderID = senderId;
@@ -267,8 +276,17 @@ QMChatCellDelegate
     [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error) {
         
         if (error != nil) {
+            
             NSLog(@"Failed to send message with error: %@", error);
-            [[TWMessageBarManager sharedInstance] showMessageWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil) description:error.localizedRecoverySuggestion type:TWMessageBarMessageTypeError];
+            NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
+            NSString * subtitle = error.localizedDescription;
+            UIImage *iconImage = [UIImage imageNamed:@"icon-error"];
+            UIColor *backgroundColor = [UIColor colorWithRed:241.0/255.0 green:196.0/255.0 blue:15.0/255.0 alpha:1.0];
+            
+            [QMMessageNotificationManager showNotificationWithTitle:title
+                                                           subtitle:subtitle
+                                                              color:backgroundColor
+                                                          iconImage:iconImage];
         }
     }];
     
@@ -360,7 +378,13 @@ QMChatCellDelegate
     UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1 alpha:0.7f] : [UIColor colorWithWhite:0.000 alpha:0.7f];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
     
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor,
+                                  NSFontAttributeName:font,
+                                  NSParagraphStyleAttributeName: paragraphStyle};
+    
     NSString *text = messageItem.dateSent ? [self timeStampWithDate:messageItem.dateSent] : @"";
     if ([messageItem senderID] == self.senderID) {
         text = [NSString stringWithFormat:@"%@\n%@", text, [self.stringBuilder statusFromMessage:messageItem]];
@@ -708,7 +732,10 @@ QMChatCellDelegate
     
     [self refreshMessagesShowingProgress:YES];
     
-    [self readMessages:self.unreadMessages];
+    if (self.unreadMessages.count > 0) {
+        [self readMessages:self.unreadMessages];
+    }
+    
     self.unreadMessages = nil;
 }
 
@@ -763,7 +790,18 @@ QMChatCellDelegate
 
 #pragma mark - UITextViewDelegate
 
+- (void)textViewDidChange:(UITextView *)textView {
+    
+    [super textViewDidChange:textView];
+}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    // Prevent crashing undo bug
+    if(range.length + range.location > textView.text.length)
+    {
+        return NO;
+    }
     
     if (![ServicesManager instance].isAuthorized) {
         
@@ -781,6 +819,42 @@ QMChatCellDelegate
     
     self.typingTimer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(fireStopTypingIfNecessary) userInfo:nil repeats:NO];
     
+    if (maxCharactersNumber > 0) {
+
+        if (textView.text.length >= maxCharactersNumber && text.length > 0) {
+            [self showCharactersNumberError];
+            return NO;
+        }
+        
+        NSString * newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
+      
+        if ([newText length] <= maxCharactersNumber || text.length == 0) {
+            return YES;
+        }
+        
+
+        NSInteger symbolsToCut = maxCharactersNumber - textView.text.length;
+        
+        NSRange stringRange = {0, MIN([text length], symbolsToCut)};
+        
+        // adjust the range to include dependent chars
+        stringRange = [text rangeOfComposedCharacterSequencesForRange:stringRange];
+        
+        // Now you can create the short string
+        NSString *shortString = [text substringWithRange:stringRange];
+        
+        NSMutableString * newtext = textView.text.mutableCopy;
+        [newtext insertString:shortString atIndex:range.location];
+        
+        textView.text = newtext.copy;
+       
+        [self showCharactersNumberError];
+        
+        [self textViewDidChange:textView];
+        
+        return NO;
+    }
+
     return YES;
 }
 
@@ -828,6 +902,17 @@ QMChatCellDelegate
                                                                }];
         });
     });
+}
+
+- (void)showCharactersNumberError {
+
+        NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
+        NSString * subtitle = [NSString stringWithFormat:@"The character limit is %lu. ", (unsigned long)maxCharactersNumber];
+        
+        [QMMessageNotificationManager showNotificationWithTitle:title
+                                                       subtitle:subtitle
+                                                           type:QMMessageNotificationTypeWarning];
+
 }
 
 - (UIImage *)resizedImageFromImage:(UIImage *)image {

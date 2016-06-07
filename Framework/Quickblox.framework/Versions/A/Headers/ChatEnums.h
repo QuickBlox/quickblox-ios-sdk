@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, QBChatDialogType) {
     QBChatDialogTypePrivate = 3,
 };
 
+typedef void(^QBPingCompleitonBlock)(NSTimeInterval timeInterval, BOOL success);
 typedef void(^QBChatCompletionBlock)(NSError* QB_NULLABLE_S error);
-typedef void(^QBChatDialogBlockedMessageBlock)(NSError * QB_NULLABLE_S error);
+typedef void(^QBChatDialogBlockedMessageBlock)(NSError * QB_NULLABLE_S error) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatCompletionBlock instead.");
 typedef void(^QBChatDialogRequestOnlineUsersCompletionBlock)(NSMutableArray QB_GENERIC(NSNumber *) * QB_NULLABLE_S onlineUsers, NSError* QB_NULLABLE_S error);
+typedef void(^QBChatDialogUserBlock)(NSUInteger userID);

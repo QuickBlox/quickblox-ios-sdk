@@ -108,13 +108,31 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
 - (QB_NULLABLE QBUUser *)userWithID:(NSUInteger)userID;
 
 /**
+ *  Get user with external user id.
+ *
+ *  @param externalUserID external user ID
+ *
+ *  @return QBUUser instance of user
+ */
+- (QB_NULLABLE QBUUser *)userWithExternalID:(NSUInteger)externalUserID;
+
+/**
+ *  Get users with external user ids.
+ *
+ *  @param externalUserIDs  external users IDs
+ *
+ *  @return Array of QBUUser instances as users
+ */
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithExternalIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)externalUserIDs;
+
+/**
  *  Get users with user ids.
  *
  *  @param ids users IDs
  *
  *  @return Array of QBUUser instances as users
  */
-- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *)*)ids;
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithIDs:(QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)ids;
 
 /**
  *  Get users with user logins.
@@ -137,11 +155,20 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
 /**
  *  Get users with user facebook ids.
  *
- *  @param facebookIDs  array of user logins
+ *  @param facebookIDs  array of user facebook IDs
  *
  *  @return Array of QBUUser instances as users
  */
 - (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithFacebookIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)facebookIDs;
+
+/**
+ *  Get users with user twitter ids.
+ *
+ *  @param twitterIDs  array of user twitter IDs
+ *
+ *  @return Array of QBUUser instances as users
+ */
+- (QB_NONNULL NSArray QB_GENERIC(QBUUser *) *)usersWithTwitterIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)twitterIDs;
 
 #pragma mark - Search & Exclude
 
@@ -180,5 +207,14 @@ extern const struct QMUsersSearchKeyStruct QMUsersSearchKey;
  *  @return dictionary of found and not found users
  */
 - (QB_NONNULL NSDictionary *)usersByExcludingFacebookIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)facebookIDs;
+
+/**
+ *  Search for users excluding users with users twitter IDs.
+ *
+ *  @param twitterIDs  users twitterIDs to exclude
+ *
+ *  @return dictionary of found and not found users
+ */
+- (QB_NONNULL NSDictionary *)usersByExcludingTwitterIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)twitterIDs;
 
 @end

@@ -58,6 +58,12 @@ QMChatConnectionDelegate
 {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOGOUTING", nil) maskType:SVProgressHUDMaskTypeClear];
     
+    if (![[QBChat instance] isConnected]) {
+        
+        [SVProgressHUD showErrorWithStatus:@"You're not connected to the chat."];
+        return;
+    }
+    
     dispatch_group_t logoutGroup = dispatch_group_create();
     dispatch_group_enter(logoutGroup);
     // unsubscribing from pushes
@@ -77,7 +83,14 @@ QMChatConnectionDelegate
     dispatch_group_notify(logoutGroup,dispatch_get_main_queue(),^{
         // logging out
         [[QMServicesManager instance] logoutWithCompletion:^{
-            [weakSelf performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+            
+            __typeof(self) strongSelf = weakSelf;
+            
+            [[NSNotificationCenter defaultCenter] removeObserver:strongSelf.observerDidBecomeActive];
+            strongSelf.observerDidBecomeActive = nil;
+            
+            [strongSelf performSegueWithIdentifier:@"kBackToLoginViewController" sender:nil];
+            
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
         }];
     });
@@ -298,11 +311,11 @@ QMChatConnectionDelegate
 }
 
 - (void)chatService:(QMChatService *)chatService chatDidNotConnectWithError:(NSError *)error {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_DID_NOT_CONNECT_ERROR", nil), [error description]]];
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_DID_NOT_CONNECT_ERROR", nil), [error localizedDescription]]];
 }
 
 - (void)chatServiceChatDidFailWithStreamError:(NSError *)error {
-    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_FAILED_TO_CONNECT_WITH_ERROR", nil), [error description]]];
+    [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_FAILED_TO_CONNECT_WITH_ERROR", nil), [error localizedDescription]]];
 }
 
 @end

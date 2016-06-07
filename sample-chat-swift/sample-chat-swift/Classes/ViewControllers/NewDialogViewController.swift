@@ -61,8 +61,6 @@
     
     @IBAction func createChatButtonPressed(sender: AnyObject) {
         
-        (sender as! UIBarButtonItem).enabled = false
-        
         let selectedIndexes = self.tableView.indexPathsForSelectedRows
         
         var users: [QBUUser] = []
@@ -74,9 +72,12 @@
         
         let completion = {[weak self] (response: QBResponse?, createdDialog: QBChatDialog?) -> Void in
             
-            (sender as! UIBarButtonItem).enabled = true
-            
             if createdDialog != nil {
+                for indexPath in selectedIndexes! {
+                    self?.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                }
+                self?.checkCreateChatButtonState()
+                
                 print(createdDialog)
                 self?.openNewDialog(createdDialog)
             }
@@ -85,7 +86,6 @@
                 print("Error empty response")
                 return
             }
-            
             
             if let error = unwrappedResponse.error {
                 print(error.error)
@@ -104,10 +104,6 @@
                 
                 self.updateDialog(self.dialog!, newUsers:users, completion: {[weak self] (response, dialog) -> Void in
                     
-                    if let rightBarButtonItem = self?.navigationItem.rightBarButtonItem {
-                        rightBarButtonItem.enabled = true
-                    }
-                    
                     guard response.error == nil else {
                         SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
                         return
@@ -115,7 +111,11 @@
                     
                     SVProgressHUD.showSuccessWithStatus("STR_DIALOG_CREATED".localized)
                     
-                    
+                    for indexPath in selectedIndexes! {
+                        self?.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+                    }
+                    self?.checkCreateChatButtonState()
+
                     self?.openNewDialog(dialog)
                     })
                 
@@ -152,18 +152,16 @@
                 
                 _ = AlertViewWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { (text) -> Void in
                     
-                    var chatName = text
+                    var chatName = text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
                     
-                    if chatName!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).isEmpty {
+                    if chatName.isEmpty {
                         chatName = self.nameForGroupChatWithUsers(users)
                     }
                     
                     self.createChat(chatName, users: users, completion: completion)
                     
                 }) { () -> Void in
-                    
-                    // cancel
-                    (sender as! UIBarButtonItem).enabled = true
+                    self.checkCreateChatButtonState()
                 }
             }
         }
@@ -177,7 +175,7 @@
         ServicesManager.instance().chatService.joinOccupantsWithIDs(usersIDs, toChatDialog: dialog) { [weak self] (response: QBResponse, dialog: QBChatDialog?) -> Void in
             
             guard response.error == nil else {
-                print(response.error?.error)
+                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
                 
                 completion?(response: response, dialog: nil)
                 return
@@ -187,13 +185,14 @@
                 print("Received dialog is nil")
                 return
             }
+            guard let strongSelf = self else { return }
+            let notificationText = strongSelf.updatedMessageWithUsers(users,isNewDialog: false)
             
             // Notifies users about new dialog with them.
-            ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: usersIDs, completion: { (error: NSError?) -> Void in
+            ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: usersIDs, withText:notificationText, completion: { (error: NSError?) -> Void in
                 
-                guard let strongSelf = self else { return }
                 // Notifies existing dialog occupants about new users.
-                let notificationText = strongSelf.updatedMessageWithUsers(users)
+                
                 
                 ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(usersIDs, toDialog: unwrappedDialog, withNotificationText: notificationText)
                 
@@ -211,8 +210,11 @@
      
      - returns: String instance
      */
-    func updatedMessageWithUsers(users: [QBUUser]) -> String {
-        var message: String = "\(QBSession.currentSession().currentUser!.login!) " + "SA_STR_ADDED".localized + " "
+    func updatedMessageWithUsers(users: [QBUUser],isNewDialog:Bool) -> String {
+        
+        let dialogMessage = isNewDialog ? "SA_STR_CREATE_NEW".localized : "SA_STR_ADDED".localized
+        
+        var message: String = "\(QBSession.currentSession().currentUser!.login!) " + dialogMessage + " "
         for user: QBUUser in users {
             message = "\(message)\(user.login!),"
         }
@@ -242,8 +244,15 @@
         } else {
             // Creating group chat.
             
-            ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { (response: QBResponse, chatDialog: QBChatDialog?) -> Void in
+            ServicesManager.instance().chatService.createGroupChatDialogWithName(name, photo: nil, occupants: users) { [weak self] (response: QBResponse, chatDialog: QBChatDialog?) -> Void in
                 
+            
+                guard response.error == nil else {
+                    
+                    SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
+                    return
+                }
+
                 guard let unwrappedDialog = chatDialog else {
                     return
                 }
@@ -253,7 +262,13 @@
                     return
                 }
                 
-                ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: dialogOccupants, completion: { (error: NSError?) -> Void in
+                guard let strongSelf = self else { return }
+                
+                let notificationText = strongSelf.updatedMessageWithUsers(users, isNewDialog: true)
+                
+                ServicesManager.instance().chatService.sendSystemMessageAboutAddingToDialog(unwrappedDialog, toUsersIDs: dialogOccupants, withText:notificationText, completion: { (error: NSError?) -> Void in
+                    
+                     ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(dialogOccupants, toDialog: unwrappedDialog, withNotificationText: notificationText)
                     
                     completion?(response: response, createdDialog: unwrappedDialog)
                 })

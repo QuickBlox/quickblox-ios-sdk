@@ -297,5 +297,9 @@
     [QMUsersCache.instance insertOrUpdateUsers:users];
 }
 
+- (void)usersService:(QMUsersService *)usersService didUpdateUsers:(NSArray *)users {
+    
+    [QMUsersCache.instance insertOrUpdateUsers:users];
+}
 
 @end

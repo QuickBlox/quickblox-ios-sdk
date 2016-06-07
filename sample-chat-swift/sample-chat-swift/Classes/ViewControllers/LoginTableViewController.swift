@@ -121,6 +121,8 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! UserTableViewCell
+        cell.exclusiveTouch = true
+        cell.contentView.exclusiveTouch = true
         
         let user = self.users[indexPath.row]
         
