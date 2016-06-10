@@ -14,7 +14,7 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 @interface QMMessageNotification ()
 
 @property (strong, nonatomic) MPGNotification *messageNotification;
-@property (strong, nonatomic) NSMutableArray * notificationsQueue;
+@property (strong, nonatomic) NSMutableArray *notificationsQueue;
 
 @end
 
@@ -30,15 +30,15 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
     return self;
 }
 
-- (void)showNotificationWithTitle:(NSString*)title
-                         subtitle:(NSString*)subtitle
-                            color:(UIColor*)color
-                        iconImage:(UIImage*)iconImage {
+- (void)showNotificationWithTitle:(NSString *)title
+                         subtitle:(NSString *)subtitle
+                            color:(UIColor *)color
+                        iconImage:(UIImage *)iconImage {
     
     MPGNotification *notification = [MPGNotification notificationWithTitle:title
-                                                                   subtitle:subtitle
-                                                            backgroundColor:color
-                                                                  iconImage:iconImage];
+                                                                  subtitle:subtitle
+                                                           backgroundColor:color
+                                                                 iconImage:iconImage];
     
     notification.duration = kQMMessageNotificationDuration;
     notification.swipeToDismissEnabled = NO;
@@ -49,7 +49,7 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 }
 
 - (void)showNotification:(MPGNotification*)notification usingOneByOneMode:(BOOL)isOneByOneMode {
-
+    
     __weak __typeof__(self) weakSelf = self;
     
     notification.dismissHandler = ^(MPGNotification *notification_t) {
