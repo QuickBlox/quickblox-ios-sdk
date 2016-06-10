@@ -554,6 +554,18 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wdeprecated-implementations",
+					"-Werror",
+					"-Wextra",
+					"-Wfloat-equal",
+					"-Wimplicit-retain-self",
+					"-Wshadow",
+					"-Wsign-compare",
+					"-Wreturn-type",
+					"-Wundef",
+				);
 			};
 			name = Debug;
 		};
