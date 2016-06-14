@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) QBUUser *user;
 @property (nonatomic, strong) NSString *userDescription;
+@property (nonatomic, assign) BOOL selectable;
 
 - (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color;
 

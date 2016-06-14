@@ -14,11 +14,15 @@
 @property (weak, nonatomic) IBOutlet UIImageView *checkboxImageView;
 @property (weak, nonatomic) IBOutlet CornerView *colorMarker;
 @property (weak, nonatomic) IBOutlet UILabel *userDescriptionLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *horizontalSpaceConstraint;
 
 @end
 
 @implementation UserTableViewCell
-
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.selectable = false;
+}
 - (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color {
 	
 	self.colorMarker.bgColor = color;
@@ -32,5 +36,11 @@
 		self.userDescriptionLabel.text = userDescription;
 	}
 }
-
+- (void)setSelectable:(BOOL)selectable
+{
+    _selectable = selectable;
+    self.checkboxImageView.hidden = !_selectable;
+    self.horizontalSpaceConstraint.priority = _selectable ?UILayoutPriorityDefaultLow : 999;
+    
+}
 @end
