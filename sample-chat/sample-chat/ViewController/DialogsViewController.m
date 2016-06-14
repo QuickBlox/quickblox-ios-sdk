@@ -13,6 +13,8 @@
 #import "EditDialogTableViewController.h"
 #import "ChatViewController.h"
 #import "DialogTableViewCell.h"
+#import "NewDialogTableViewController.h"
+#import <SVProgressHUD.h>
 
 @interface DialogsViewController ()
 <
@@ -63,6 +65,8 @@ QMChatConnectionDelegate
         [SVProgressHUD showErrorWithStatus:@"You're not connected to the chat."];
         return;
     }
+   // [[SVProgressHUD appearance] setBackgroundColor:[[UIColor blueColor] colorWithAlphaComponent:0.4]];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeGradient];
     
     dispatch_group_t logoutGroup = dispatch_group_create();
     dispatch_group_enter(logoutGroup);
@@ -143,6 +147,9 @@ QMChatConnectionDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
     
+    cell.exclusiveTouch = YES;
+    cell.contentView.exclusiveTouch = YES;
+    
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     
     switch (chatDialog.type) {
@@ -216,9 +223,22 @@ QMChatConnectionDelegate
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([segue.identifier isEqualToString:kGoToChatSegueIdentifier]) {
+        
         ChatViewController *chatViewController = segue.destinationViewController;
         chatViewController.dialog = sender;
+        
+    }
+    else if ([segue.identifier isEqualToString:@"addOpponents"]) {
+        
+        UINavigationController *navigationController = segue.destinationViewController;
+        NewDialogTableViewController *newDialog = (NewDialogTableViewController * )navigationController.topViewController;
+        newDialog.didDismissWithDialog = ^(QBChatDialog * selectedDialog){
+            
+            [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:selectedDialog];
+            
+        };
     }
 }
 

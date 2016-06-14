@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     self.dataSource = [[UsersDataSource alloc] initWithUsers:[[ServicesManager instance] sortedUsers]];
     [self.dataSource setExcludeUsersIDs:@[@([QBSession currentSession].currentUser.ID)]];
+    self.dataSource.editMode = false;
     self.tableView.dataSource = self.dataSource;
 
 	[super viewDidLoad];
@@ -48,7 +49,13 @@
 }
 
 - (void)navigateToChatViewControllerWithDialog:(QBChatDialog *)dialog {
-    [self performSegueWithIdentifier:kGoToChatSegueIdentifier sender:dialog];
+    __weak __typeof(self) weakSelf = self;
+    
+    [self dismissViewControllerAnimated:YES completion:^{
+         __typeof(self) strongSelf = weakSelf;
+        strongSelf.didDismissWithDialog(dialog);
+    }];
+    
 }
 
 - (IBAction)joinChatButtonPressed:(UIButton *)sender {
@@ -173,7 +180,11 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self checkJoinChatButtonState];
 }
-
+#pragma mark - IBActions
+- (IBAction)dismissButtonAction:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - Helpers
 - (NSString *)updatedMessageWithUsers:(NSArray *)users {

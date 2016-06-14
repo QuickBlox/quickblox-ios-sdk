@@ -11,4 +11,6 @@
 
 @interface NewDialogTableViewController : UITableViewController
 
+@property (nonatomic, copy) void (^didDismissWithDialog)(QBChatDialog *selectedDialog);
+
 @end
