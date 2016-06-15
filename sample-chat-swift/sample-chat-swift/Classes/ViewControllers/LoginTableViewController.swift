@@ -14,17 +14,20 @@ import UIKit
 let kTestUsersDefaultPassword = "x6Bt0VDy5"
 
 class LoginTableViewController: UsersListTableViewController, NotificationServiceDelegate {
+    
+    @IBOutlet weak var buildNumberLabel: UILabel!
 
     // MARK: ViewController overrides
     
     override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		
+		self.buildNumberLabel.text = self.versionBuild();
+        
 		guard let currentUser = ServicesManager.instance().currentUser() else {
 			return
 		}
-		
+        
 		currentUser.password = kTestUsersDefaultPassword
 		
 		SVProgressHUD.showWithStatus("SA_STR_LOGGING_IN_AS".localized + currentUser.login!, maskType: SVProgressHUDMaskType.Clear)
@@ -144,4 +147,23 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         self.logInChatWithUser(user)
     }
     
+    //MARK: Helpers
+    
+    func appVersion() -> String {
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+    }
+    
+    func build() -> String {
+         return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleVersionKey as String) as! String
+    }
+
+    func versionBuild() -> String {
+        let version = self.appVersion()
+        let build = self.build()
+        var versionBuild = String(format:"v%@",version)
+        if version != build {
+            versionBuild = String(format:"%@(%@)", versionBuild, build )
+        }
+        return versionBuild as String!
+    }
 }
