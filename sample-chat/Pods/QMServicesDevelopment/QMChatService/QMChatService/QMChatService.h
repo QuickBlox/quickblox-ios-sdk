@@ -21,6 +21,24 @@
 typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
 
 /**
+ *  QBChat connection state.
+ */
+typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
+    /**
+     *  Not connected.
+     */
+    QMChatConnectionStateDisconnected,
+    /**
+     *  Connection in progress.
+     */
+    QMChatConnectionStateConnecting,
+    /**
+     *  Connected.
+     */
+    QMChatConnectionStateConnected
+};
+
+/**
  *  Chat dialog service
  */
 @interface QMChatService : QMBaseService
@@ -29,10 +47,10 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  Determines whether auto join for group dialogs is enabled or not.
  *  Default value is YES.
  *
- *  @discussion Disable auto join if you want to handla group chat dialogs joining manually
+ *  @discussion Disable auto join if you want to handle group chat dialogs joining manually
  *  or you are using our Enterprise feature to manage group chat dialogs without join being required.
- *  By default QMServices will perform join to all existent group dialogs in cache after every chat connect/reconnect
- *  and every chat dialog receive/update.
+ *  By default QMServices will perform join to all existent group dialogs in cache after
+ *  every chat connect/reconnect and every chat dialog receive/update.
  */
 @property (assign, nonatomic, getter=isAutoJoinEnabled) BOOL enableAutoJoin;
 
@@ -40,6 +58,11 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  *  Chat messages per page with messages load methods
  */
 @property (assign, nonatomic) NSUInteger chatMessagesPerPage;
+
+/**
+ *  Chat connection state
+ */
+@property (assign, nonatomic, readonly) QMChatConnectionState chatConnectionState;
 
 /**
  *  Dialogs datasoruce
@@ -358,6 +381,26 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
                     completionBlock:(void (^QB_NULLABLE_S)(QBResponse * QB_NONNULL_S response))completion;
 
 #pragma mark Send message
+
+/**
+ *  Send message with a specific message type to dialog with identifier.
+ *
+ *  @param message       QBChatMessage instance
+ *  @param type          QMMessageType type
+ *  @param dialog        QBChatDialog instance
+ *  @param saveToHistory if YES - saves message to chat history
+ *  @param saveToStorage if YES - saves to local storage
+ *  @param completion    completion block with failure error
+ *
+ *  @discussion The purpose of this method is to have a proper way of sending messages
+ *  with a different message type, which does not have their own methods (e.g. contact request).
+ */
+- (void)sendMessage:(QB_NONNULL QBChatMessage *)message
+               type:(QMMessageType)type
+           toDialog:(QB_NONNULL QBChatDialog *)dialog
+      saveToHistory:(BOOL)saveToHistory
+      saveToStorage:(BOOL)saveToStorage
+         completion:(QB_NULLABLE QBChatCompletionBlock)completion;
 
 /**
  *  Send message to dialog with identifier.
@@ -728,6 +771,29 @@ typedef void(^QMCacheCollection)(NSArray *QB_NULLABLE_S collection);
  */
 - (QB_NONNULL BFTask *)sendNotificationMessageAboutChangingDialogName:(QB_NONNULL QBChatDialog *)chatDialog
                                                  withNotificationText:(QB_NONNULL NSString *)notificationText;
+
+/**
+ *  Send message with a specific message type to dialog with identifier using Bolts.
+ *
+ *  @param message       QBChatMessage instance
+ *  @param type          QMMessageType type
+ *  @param dialog        QBChatDialog instance
+ *  @param saveToHistory if YES - saves message to chat history
+ *  @param saveToStorage if YES - saves to local storage
+ *  @param completion    completion block with failure error
+ *
+ *  @discussion The purpose of this method is to have a proper way of sending messages
+ *  with a different message type, which does not have their own methods (e.g. contact request).
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (QB_NONNULL BFTask *)sendMessage:(QB_NONNULL QBChatMessage *)message
+                              type:(QMMessageType)type
+                          toDialog:(QB_NONNULL QBChatDialog *)dialog
+                     saveToHistory:(BOOL)saveToHistory
+                     saveToStorage:(BOOL)saveToStorage;
 
 /**
  *  Send message to dialog with identifier using Bolts.

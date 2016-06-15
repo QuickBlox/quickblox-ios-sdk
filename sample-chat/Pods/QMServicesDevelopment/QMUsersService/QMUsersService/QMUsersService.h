@@ -126,7 +126,7 @@
  *
  *  @return BFTask with user as a result.
  */
-- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)getUserWithExternalID:(NSUInteger *)externalUserID;
+- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)getUserWithExternalID:(NSUInteger)externalUserID;
 
 /**
  *  Get user with
@@ -138,7 +138,7 @@
  *
  *  @return BFTask with user as a result.
  */
-- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)getUserWithExternalID:(NSUInteger *)externalUserID forceLoad:(BOOL)forceLoad;
+- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)getUserWithExternalID:(NSUInteger)externalUserID forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by emails.
@@ -255,7 +255,7 @@
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (QB_NONNULL BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithTwitterIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)twitterIDs page:(QBGeneralResponsePage *)page;
+- (QB_NONNULL BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithTwitterIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)twitterIDs page:(QB_NONNULL QBGeneralResponsePage *)page;
 
 /**
  *  Get users by twitter ids with extended pagination parameters.
@@ -264,7 +264,7 @@
  *  @param page       QBGeneralResponsePage instance with extended pagination parameters
  *  @param forceLoad  whether users should be loaded from server even when they are already existing in cache
  */
-- (QB_NONNULL BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithTwitterIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)twitterIDs page:(QBGeneralResponsePage *)page forceLoad:(BOOL)forceLoad;
+- (QB_NONNULL BFTask QB_GENERIC(NSArray QB_GENERIC(QBUUser *) *) *)getUsersWithTwitterIDs:(QB_NONNULL NSArray QB_GENERIC(NSString *) *)twitterIDs page:(QB_NONNULL QBGeneralResponsePage *)page forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by logins.
