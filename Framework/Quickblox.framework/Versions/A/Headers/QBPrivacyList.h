@@ -12,35 +12,70 @@
 
 @class QBPrivacyItem;
 
-/// QBPrivacyList class represents collection for storing objects of QBPrivacyItem type
+/**
+ *  QBPrivacyList class interface.
+ *  This class structure represents collection for storing objects of QBPrivacyItem type.
+ */
 @interface QBPrivacyList : NSObject
 
-- (QB_NONNULL instancetype)init __attribute__((unavailable("init not available")));
+// unavailable initializers
+- (QB_NULLABLE instancetype)init NS_UNAVAILABLE;
++ (QB_NULLABLE instancetype)new NS_UNAVAILABLE;
 
 /**
- @param name name of privacy list, must contain at least one character
- @return QBPrivacyList instance
+ *  Init with name.
+ *
+ *  @param name name of privacy list
+ *
+ *  @note Name must contain at least one character.
+ *
+ *  @return QBPrivacyList instance
  */
 - (QB_NONNULL instancetype)initWithName:(QB_NONNULL NSString *)name;
 
 /**
- @param items array of QBPrivacyItems
- @param name name of privacy list, must contain at least one character
- @return QBPrivacyList instance
+ *  Init with name and items.
+ *
+ *  @param name  name of privacy list
+ *  @param items array of privacy items
+ *
+ *  @note This is designated initializer. Name must contain at least one character.
+ *
+ *  @return QBPrivacyList instance
  */
 - (QB_NONNULL instancetype)initWithName:(QB_NONNULL NSString *)name items:(QB_NULLABLE NSArray QB_GENERIC(QBPrivacyItem *) *)items NS_DESIGNATED_INITIALIZER;
 
-/// add object to items array
-/// @param privacyItem privacy item
+/**
+ *  Add privacy item object.
+ *
+ *  @param privacyItem QBPrivacyItem privacy item instance
+ */
 - (void)addObject:(QB_NONNULL QBPrivacyItem *)privacyItem;
 
-/// name of privacy list
+/**
+ *  Name of privacy list.
+ */
 @property (copy, QB_NONNULL_PROPERTY) NSString *name;
 
-/// items array of privacy items
-@property (strong, QB_NONNULL_PROPERTY) NSMutableArray QB_GENERIC(QBPrivacyItem *) *items;
+/**
+ *  Items array of privacy items.
+ *
+ *  @warning Deprecated in 2.7.4. Use 'privacyItems' instead.
+ */
+@property (strong, QB_NONNULL_PROPERTY) NSMutableArray QB_GENERIC(QBPrivacyItem *) *items DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.4. Use 'privacyItems' instead.");
 
-/// count of items in list
-- (NSUInteger)count;
+/**
+ *  Privacy items array.
+ */
+@property (strong, QB_NONNULL_PROPERTY) NSArray QB_GENERIC(QBPrivacyItem *) *privacyItems;
+
+/**
+ *  Count of items in list.
+ *
+ *  @warning Deprecated in 2.7.4. Use 'privacyItems.count' instead.
+ *
+ *  @return count of items
+ */
+- (NSUInteger)count DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.4. Use 'privacyItems.count' instead.");
 
 @end
