@@ -23,11 +23,12 @@
 
 #import <UIAlertView+Blocks/UIAlertView+Blocks.h>
 
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
+
 static const NSUInteger widthPadding = 40.0f;
 
 static const NSUInteger maxCharactersNumber = 1024; // 0 - unlimited
-
-static const NSUInteger callAlertTag = 1;
 
 @interface ChatViewController ()
 <
@@ -48,8 +49,6 @@ UIAlertViewDelegate
 @property (nonatomic, readonly) UIImagePickerController *pickerController;
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
-
-
 
 @property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
 
@@ -179,6 +178,7 @@ UIAlertViewDelegate
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerWillResignActive];
     
     // Deletes typing blocks.
@@ -187,6 +187,7 @@ UIAlertViewDelegate
     // Resetting currently opened dialog.
     [ServicesManager instance].currentDialogID = nil;
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
@@ -688,6 +689,7 @@ UIAlertViewDelegate
     [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:currentMessage.ID];
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
+
 - (void)chatCell:(QMChatCell *)__unused cell didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult {
     
     switch (textCheckingResult.resultType) {
@@ -713,13 +715,19 @@ UIAlertViewDelegate
             
         case NSTextCheckingTypePhoneNumber: {
             
+            NSString *urlString = [NSString stringWithFormat:@"tel:%@", textCheckingResult.phoneNumber];
+            NSURL *url = [NSURL URLWithString:urlString];
+            
+            if (![self canMakeACall]) {
+                [SVProgressHUD showInfoWithStatus:NSLocalizedString(@"Your Device can't make a phone call", nil) maskType:SVProgressHUDMaskTypeNone];
+                break;
+            }
+            
             [self.view endEditing:YES];
             
             void (^callAction)(void) = ^ {
                 
-                    NSString *urlString = [NSString stringWithFormat:@"tel:%@", textCheckingResult.phoneNumber];
-                    NSURL *url = [NSURL URLWithString:urlString];
-                    [[UIApplication sharedApplication] openURL:url];
+                [[UIApplication sharedApplication] openURL:url];
             };
             
             if ([UIAlertController class]) {
@@ -997,6 +1005,7 @@ UIAlertViewDelegate
     });
 }
 
+
 - (void)showCharactersNumberError {
 
         NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
@@ -1006,6 +1015,25 @@ UIAlertViewDelegate
                                                        subtitle:subtitle
                                                            type:QMMessageNotificationTypeWarning];
 
+}
+- (BOOL)canMakeACall {
+    BOOL canMakeACall = false;
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]) {
+        // Check if iOS Device supports phone calls
+        CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
+        CTCarrier *carrier = [netInfo subscriberCellularProvider];
+        NSString *mnc = [carrier mobileNetworkCode];
+        // User will get an alert error when they will try to make a phone call in airplane mode.
+        if (([mnc length] == 0)) {
+            // Device cannot place a call at this time.  SIM might be removed.
+        } else {
+            // iOS Device is capable for making calls
+            canMakeACall = true;
+        }
+    } else {
+        // iOS Device is not capable for making calls
+    }
+    return canMakeACall;
 }
 
 - (UIImage *)resizedImageFromImage:(UIImage *)image {
