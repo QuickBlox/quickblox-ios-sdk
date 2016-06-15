@@ -33,6 +33,7 @@
 "SA_STR_DONE" = "Done";
 "SA_STR_ADDED" = "added";
 "SA_STR_CREATE_NEW" = "created new dialog with: ";
+"SA_STR_CALL" = "Call";
 
 // chat dialog
 "SA_STR_MESSAGE_PLACEHOLDER" = "Message";
