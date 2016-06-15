@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 let kQBApplicationID:UInt = 28784
 let kQBAuthKey = "QJtmmW2Z7tb-mJF"
@@ -20,7 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-         application.applicationIconBadgeNumber = 0
+        Fabric.with([Crashlytics.self])
+        
+        application.applicationIconBadgeNumber = 0
         
         // Set QuickBlox credentials (You must create application in admin.quickblox.com).
         QBSettings.setApplicationID(kQBApplicationID)

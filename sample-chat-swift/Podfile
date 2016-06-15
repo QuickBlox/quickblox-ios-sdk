@@ -12,3 +12,6 @@ pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-io
 pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :branch => 'development'
 
 pod 'SearchEmojiOnString'
+
+pod 'Fabric'
+pod 'Crashlytics'
