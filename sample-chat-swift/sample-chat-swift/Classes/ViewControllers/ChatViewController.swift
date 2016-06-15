@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 quickblox. All rights reserved.
 //
 
+import CoreTelephony
+import SafariServices
+
 var messageTimeDateFormatter: NSDateFormatter {
     struct Static {
         static let instance : NSDateFormatter = {
@@ -24,6 +27,7 @@ extension String {
     }
     
 }
+
 class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate {
     
     let maxCharactersNumber = 1024 // 0 - unlimited
@@ -99,6 +103,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             }
             
             self.loadMessages()
+            
+            self.enableTextCheckingTypes = NSTextCheckingAllTypes
         }
     }
     
@@ -330,7 +336,35 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     // MARK: Helper
-    
+    func canMakeACall() -> Bool {
+        
+        var canMakeACall = false
+        
+        if (UIApplication.sharedApplication().canOpenURL(NSURL.init(string: "tel://")!)) {
+            
+            // Check if iOS Device supports phone calls
+            let networkInfo = CTTelephonyNetworkInfo()
+            let carrier = networkInfo.subscriberCellularProvider
+            if carrier == nil {
+                return false
+            }
+            let mnc = carrier?.mobileNetworkCode
+            if mnc?.length == 0 {
+                // Device cannot place a call at this time.  SIM might be removed.
+            }
+            else {
+                // iOS Device is capable for making calls
+                canMakeACall = true
+            }
+        }
+        else {
+            // iOS Device is not capable for making calls
+        }
+        
+        return canMakeACall
+        
+    }
+
     func showCharactersNumberError() {
         let title  = "SA_STR_ERROR".localized;
         let subtitle = String(format: "The character limit is %lu.", maxCharactersNumber)
@@ -829,10 +863,93 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
     }
     
-    func chatCell(cell: QMChatCell!, didPerformAction action: Selector, withSender sender: AnyObject!) {
-    }
+    func chatCell(cell: QMChatCell!, didTapAtPosition position: CGPoint) {}
     
-    func chatCell(cell: QMChatCell!, didTapAtPosition position: CGPoint) {
+    func chatCell(cell: QMChatCell!, didPerformAction action: Selector, withSender sender: AnyObject!) {}
+    
+    func chatCell(cell: QMChatCell!, didTapOnTextCheckingResult result: NSTextCheckingResult) {
+        
+        switch result.resultType {
+            
+        case NSTextCheckingType.Link:
+            
+            var strUrl : String = (result.URL?.absoluteString)!
+            
+            if strUrl.lowercaseString.hasPrefix("http://") == false {
+                strUrl = "http://".stringByAppendingString(strUrl)
+            }
+            
+            
+            if #available(iOS 9.0, *) {
+                
+                let controller = SFSafariViewController(URL: NSURL(string: strUrl)!)
+                self.presentViewController(controller, animated: true, completion: nil)
+                
+            } else {
+                // Fallback on earlier versions
+                
+                if UIApplication.sharedApplication().canOpenURL(NSURL(string: strUrl)!) {
+                    
+                    UIApplication.sharedApplication().openURL(NSURL(string: strUrl)!)
+                    
+                }
+            }
+            
+            break
+            
+        case NSTextCheckingType.PhoneNumber:
+            
+            if !self.canMakeACall() {
+                
+                SVProgressHUD.showInfoWithStatus("Your Device can't make a phone call".localized, maskType: .None)
+                break
+            }
+            
+            let urlString = String(format: "tel:%@",result.phoneNumber!)
+            let url = NSURL(string: urlString)
+            
+            self.view.endEditing(true)
+            
+            if #available(iOS 8.0, *) {
+                
+                let alertController = UIAlertController(title: "",
+                                                        message: result.phoneNumber,
+                                                        preferredStyle: .Alert)
+                
+                let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .Cancel) { (action) in
+                    
+                }
+                alertController.addAction(cancelAction)
+                
+                let openAction = UIAlertAction(title: "SA_STR_CALL".localized, style: .Destructive) { (action) in
+                    UIApplication.sharedApplication().openURL(url!)
+                }
+                alertController.addAction(openAction)
+                
+                self.presentViewController(alertController, animated: true) {
+                    
+                }
+                
+            }
+            else {
+                
+                // Fallback on earlier versions
+                
+                _ = AlertView(title:"" , message:result.phoneNumber , cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitle: ["SA_STR_CALL".localized,], didClick:{ (buttonIndex) -> Void in
+                    
+                    guard buttonIndex == 1 else {
+                        return
+                    }
+                    UIApplication.sharedApplication().openURL(url!)
+                })
+            }
+            
+            break
+            
+        default:
+            break
+            
+        }
     }
     
     func chatCellDidTapAvatar(cell: QMChatCell!) {

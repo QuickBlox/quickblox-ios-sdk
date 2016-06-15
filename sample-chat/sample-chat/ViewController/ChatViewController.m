@@ -696,7 +696,7 @@ UIAlertViewDelegate
             
         case NSTextCheckingTypeLink: {
             
-            if ([SFSafariViewController class] != nil && 0) {
+            if ([SFSafariViewController class] != nil) {
                 
                 SFSafariViewController *controller = [[SFSafariViewController alloc] initWithURL:textCheckingResult.URL entersReaderIfAvailable:false];
                 [self presentViewController:controller animated:true completion:nil];
@@ -715,13 +715,14 @@ UIAlertViewDelegate
             
         case NSTextCheckingTypePhoneNumber: {
             
-            NSString *urlString = [NSString stringWithFormat:@"tel:%@", textCheckingResult.phoneNumber];
-            NSURL *url = [NSURL URLWithString:urlString];
-            
+
             if (![self canMakeACall]) {
                 [SVProgressHUD showInfoWithStatus:NSLocalizedString(@"Your Device can't make a phone call", nil) maskType:SVProgressHUDMaskTypeNone];
                 break;
             }
+            
+            NSString *urlString = [NSString stringWithFormat:@"tel:%@", textCheckingResult.phoneNumber];
+            NSURL *url = [NSURL URLWithString:urlString];
             
             [self.view endEditing:YES];
             
