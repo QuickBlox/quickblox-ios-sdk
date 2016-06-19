@@ -12,7 +12,10 @@
 
 @interface UsersDataSource()
 @property (nonatomic, strong) NSArray *colors;
-@property (nonatomic, copy) NSArray *customUsers;
+@property (nonatomic, copy) NSArray *sortedUsers;
+@property (nonatomic, strong) NSArray *usersToAdd;
+@property (nonatomic,strong) NSArray * excludedUsers;
+
 @end
 
 @implementation UsersDataSource
@@ -32,10 +35,19 @@
 		  [UIColor colorWithRed:0.786 green:0.706 blue:0.000 alpha:1.000],
 		  [UIColor colorWithRed:0.740 green:0.624 blue:0.797 alpha:1.000]];
 		_excludeUsersIDs = @[];
-		_customUsers =  [[users copy] sortedArrayUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
+        
+		_users =  [[users copy] sortedArrayUsingComparator:^NSComparisonResult(QBUUser *obj1, QBUUser *obj2) {
 			return [obj1.login compare:obj2.login options:NSNumericSearch];
 		}];
-		_users = _customUsers == nil ? [[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers] : _customUsers;
+        
+        NSMutableArray * userIds  = [NSMutableArray array];
+        
+        [_users enumerateObjectsUsingBlock:^(QBUUser *obj, NSUInteger idx, BOOL *stop) {
+            [userIds addObject:@(obj.ID)];
+      
+        }];
+        
+        _usersToAdd = [[[ServicesManager instance] sortedUsers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", userIds.copy]];
 	}
 	return self;
 	
@@ -57,18 +69,13 @@
 }
 
 - (void)setExcludeUsersIDs:(NSArray *)excludeUsersIDs {
+    _excludeUsersIDs = excludeUsersIDs;
+    
 	if  (excludeUsersIDs == nil) {
-		_users = self.customUsers == nil ? self.customUsers : [[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers];
+        self.excludedUsers = [NSArray array];
 		return;
 	}
-	if ([excludeUsersIDs isEqualToArray:self.users]) {
-		return;
-	}
-	if (self.customUsers == nil) {
-		_users = [[[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT (ID IN %@)", self.excludeUsersIDs]];
-	} else {
-		_users = self.customUsers;
-	}
+
 	// add excluded users to future remove
 	NSMutableArray *excludedUsers = [NSMutableArray array];
 	[_users enumerateObjectsUsingBlock:^(QBUUser *obj, NSUInteger idx, BOOL *stop) {
@@ -78,57 +85,103 @@
 			}
 		}
 	}];
-	
+
 	//remove excluded users
 	NSMutableArray *mUsers = [_users mutableCopy];
 	[mUsers removeObjectsInArray:excludedUsers];
-	_users = [mUsers copy];
+    _users = [mUsers copy];
+
 }
 
-- (NSUInteger)indexOfUser:(QBUUser *)user {
-    
-	return [self.users indexOfObject:user];
-}
-
-- (UIColor *)colorForUser:(QBUUser *)user {
+- (UIColor *)colorForRow:(NSInteger)row {
 	
-    UIColor *defaultColor = [UIColor blackColor];
-    NSUInteger indexOfUser = [self indexOfUser:user];
+    UIColor * color = self.colors[row%self.colors.count];
     
-    if (indexOfUser < self.colors.count) {
-        
-        return self.colors[indexOfUser];
-    }
-    else {
-        
-        return defaultColor;
-    }
+    return color;
 }
 
 #pragma mark - UITableViewDataSource methods
 
 - (UserTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
-	
-	QBUUser *user = (QBUUser *)self.users[indexPath.row];
-	
-	cell.user = user;
+    
+    UserTableViewCell* cell  = [tableView dequeueReusableCellWithIdentifier:kUserTableViewCellIdentifier forIndexPath:indexPath];
+ 
+    [self configureCell:cell atIndexPath:indexPath];
+
+    cell.selectable = tableView.allowsMultipleSelection && indexPath.section == 0;
+    
+	return cell;
+}
+
+- (void)configureCell:(UserTableViewCell*)cell
+          atIndexPath:(NSIndexPath*)indexPath {
+    
+    QBUUser *user = [self arrayForSection:indexPath.section][indexPath.row];
+    cell.user = user;
     if (self.addStringLoginAsBeforeUserFullname) {
         cell.userDescription = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_LOGIN_AS", nil), user.fullName];
     } else {
         cell.userDescription = user.fullName;
     }
     
-	[cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row + 1] andColor:[self colorForUser:user]];
-	return cell;
+    cell.userInteractionEnabled = (indexPath.section == 0);
+    
+    [cell setColorMarkerText:[NSString stringWithFormat:@"%zd", indexPath.row + 1] andColor:[self colorForRow:indexPath.row]];
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.users.count;
+   
+    return [self arrayForSection:section].count;
 }
 
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    NSString * title = nil;
+    
+    if (self.isEditMode) {
+        
+        switch (section) {
+                
+            case 0:
+                
+                title = self.usersToAdd.count ? @"Users to add" : @"There is nobody to add";
+                break;
+                
+            case 1:
+
+                title = @"Users in this dialog";
+                break;
+                
+            default:
+                break;
+        }
+    }
+    
+    return title;
+}
+
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+    return self.isEditMode ? 2 : 1;
+}
+
+#pragma mark - Helpers
+- (NSArray*)arrayForSection:(NSInteger)section {
+    
+    if (!self.isEditMode) {
+        return self.users;
+    }
+    
+    if (section == 0) {
+        return self.usersToAdd;
+    }
+    else if (section == 1) {
+        return self.users;
+    }
+    
+    return self.users;
 }
 
 @end

@@ -192,8 +192,15 @@ UIAlertViewDelegate
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"kShowDialogInfoViewController"]) {
-        DialogInfoTableViewController *viewController = segue.destinationViewController;
+        
+        UINavigationController * navController = segue.destinationViewController;
+        DialogInfoTableViewController *viewController = (DialogInfoTableViewController*)navController.topViewController;
         viewController.dialog = self.dialog;
+        viewController.didDismissWithDialog = ^(QBChatDialog * selectedDialog) {
+            
+            [self.navigationController popViewControllerAnimated:NO];
+        };
+
     }
 }
 
@@ -222,7 +229,8 @@ UIAlertViewDelegate
 
 - (void)sendReadStatusForMessage:(QBChatMessage *)message {
     
-    if (message.senderID != self.senderID && ![message.readIDs containsObject:@(self.senderID)]) {
+    
+    if (message.senderID != self.senderID && ![message.readIDs containsObject:@(self.senderID)]) { 
         [[ServicesManager instance].chatService readMessage:message completion:^(NSError *error) {
             NSLog(@"Did read message with text:%@",message.text);
             if (error != nil) {
@@ -233,18 +241,6 @@ UIAlertViewDelegate
 				[UIApplication sharedApplication].applicationIconBadgeNumber--;
 			}
         }];
-    }
-}
-
-- (void)readMessages:(NSArray *)messages {
-    
-    if ([ServicesManager instance].isAuthorized) {
-        
-        [[ServicesManager instance].chatService readMessages:messages forDialogID:self.dialog.ID completion:nil];
-    }
-    else {
-        
-        self.unreadMessages = messages;
     }
 }
 
@@ -834,11 +830,6 @@ UIAlertViewDelegate
     
     [self refreshMessagesShowingProgress:YES];
     
-    if (self.unreadMessages.count > 0) {
-        [self readMessages:self.unreadMessages];
-    }
-    
-    self.unreadMessages = nil;
 }
 
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService {

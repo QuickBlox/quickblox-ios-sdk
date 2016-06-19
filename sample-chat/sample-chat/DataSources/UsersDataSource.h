@@ -33,8 +33,7 @@
 @property (nonatomic, strong, readonly) NSArray QB_GENERIC(QBUUser *) *users;
 @property (nonatomic, strong) NSArray QB_GENERIC(NSNumber *) *excludeUsersIDs;
 @property (nonatomic, assign) BOOL addStringLoginAsBeforeUserFullname;
+@property (nonatomic, assign, getter=isEditMode) BOOL editMode;
 
-- (NSUInteger)indexOfUser:(QBUUser *)user;
-- (UIColor *)colorForUser:(QBUUser *)user;
 
 @end
