@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "ServicesManager.h"
 #import "ChatViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 const NSUInteger kApplicationID = 28783;
 NSString *const kAuthKey        = @"b5bVGCHHv6rcAmD";
@@ -25,6 +27,8 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
     
     application.applicationIconBadgeNumber = 0;
     
+    [Fabric with:@[[Crashlytics class]]];
+
     // Set QuickBlox credentials (You must create application in admin.quickblox.com)
     [QBSettings setApplicationID:kApplicationID];
     [QBSettings setAuthKey:kAuthKey];

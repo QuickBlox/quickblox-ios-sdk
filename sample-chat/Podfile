@@ -20,3 +20,7 @@ pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-servic
 pod 'SearchEmojiOnString'
 
 pod 'UIAlertView+Blocks'
+
+pod 'Fabric'
+
+pod 'Crashlytics'
