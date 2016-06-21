@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6S5-ka-IgZ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,8 +18,8 @@
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Select User for Login to Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34y-R9-ydM">
-                                    <rect key="frame" x="8" y="14" width="188" height="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select User for Login to Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34y-R9-ydM">
+                                    <rect key="frame" x="8" y="14" width="187" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -41,28 +41,36 @@
                                 <constraint firstItem="34y-R9-ydM" firstAttribute="leading" secondItem="u3o-yE-Fi9" secondAttribute="leading" constant="8" id="v7z-SP-boS"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="h5a-AZ-Srb">
+                        <view key="tableFooterView" contentMode="scaleToFill" id="npw-H2-208">
                             <rect key="frame" x="0.0" y="174" width="600" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bbw-lf-pfr">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eI6-1f-SFj">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
-                                    <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.7843137255" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="1" id="npZ-dv-sEZ"/>
+                                        <constraint firstAttribute="height" constant="1" id="3QC-3V-DCx"/>
                                     </constraints>
                                 </view>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="NFB-cq-29P">
-                                    <rect key="frame" x="228" y="31" width="145" height="39"/>
+                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="8Cz-fY-i8d">
+                                    <rect key="frame" x="211" y="31" width="145" height="39"/>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Build number =" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6i-WZ-owL">
+                                    <rect key="frame" x="242" y="6" width="117" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="bbw-lf-pfr" firstAttribute="top" secondItem="h5a-AZ-Srb" secondAttribute="top" id="Q0M-lD-POw"/>
-                                <constraint firstAttribute="centerX" secondItem="NFB-cq-29P" secondAttribute="centerX" id="WD1-UJ-hHu"/>
-                                <constraint firstItem="bbw-lf-pfr" firstAttribute="leading" secondItem="h5a-AZ-Srb" secondAttribute="leading" id="amY-Du-J7w"/>
-                                <constraint firstAttribute="trailing" secondItem="bbw-lf-pfr" secondAttribute="trailing" id="jZ2-Qj-2M7"/>
-                                <constraint firstAttribute="centerY" secondItem="NFB-cq-29P" secondAttribute="centerY" id="rp5-KG-cdn"/>
+                                <constraint firstItem="eI6-1f-SFj" firstAttribute="top" secondItem="npw-H2-208" secondAttribute="top" id="0nj-Xb-xYV"/>
+                                <constraint firstAttribute="trailing" secondItem="eI6-1f-SFj" secondAttribute="trailing" id="0zu-LU-NnI"/>
+                                <constraint firstItem="Z6i-WZ-owL" firstAttribute="centerX" secondItem="npw-H2-208" secondAttribute="centerX" id="1pK-b2-eMp"/>
+                                <constraint firstAttribute="centerY" secondItem="8Cz-fY-i8d" secondAttribute="centerY" id="H9h-Tl-Hol"/>
+                                <constraint firstItem="eI6-1f-SFj" firstAttribute="leading" secondItem="npw-H2-208" secondAttribute="leading" id="duH-4Y-V73"/>
+                                <constraint firstAttribute="centerX" secondItem="8Cz-fY-i8d" secondAttribute="centerX" constant="16.5" id="fwI-wz-VfW"/>
+                                <constraint firstItem="Z6i-WZ-owL" firstAttribute="top" secondItem="eI6-1f-SFj" secondAttribute="bottom" constant="5" id="gWD-ap-FDO"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -118,6 +126,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Sample chat" id="Ach-ib-q8S"/>
                     <connections>
+                        <outlet property="buildNumberLabel" destination="Z6i-WZ-owL" id="mOQ-Zp-YmA"/>
                         <segue destination="doC-Eh-LVP" kind="show" identifier="goToDialogs" id="DrT-em-cKT"/>
                     </connections>
                 </tableViewController>

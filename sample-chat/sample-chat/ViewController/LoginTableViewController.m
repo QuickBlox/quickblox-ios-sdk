@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) UsersDataSource *dataSource;
 @property (nonatomic, assign, getter=isUsersAreDownloading) BOOL usersAreDownloading;
+@property (weak, nonatomic) IBOutlet UILabel *buildNumberLabel;
 
 @end
 
@@ -27,9 +28,36 @@
  */
 static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
++ (NSString *) appVersion
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+}
+
++ (NSString *) build
+{
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+}
+
++ (NSString *) versionBuild
+{
+    NSString * version = [self appVersion];
+    NSString * build = [self build];
+    
+    NSString * versionBuild = [NSString stringWithFormat: @"v%@", version];
+    
+    if (![version isEqualToString: build]) {
+        versionBuild = [NSString stringWithFormat: @"%@(%@)", versionBuild, build];
+    }
+    
+    return versionBuild;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+    
+    NSString *versionString = [NSString stringWithFormat:@"%@",[[self class] versionBuild]];
+    self.buildNumberLabel.text = versionString;
+    
 	ServicesManager *servicesManager = [ServicesManager instance];
 	
     if (servicesManager.currentUser != nil) {
