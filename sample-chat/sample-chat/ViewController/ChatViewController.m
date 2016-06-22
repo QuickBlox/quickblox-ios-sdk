@@ -229,9 +229,6 @@ UIAlertViewDelegate
                 NSLog(@"Problems while marking message as read! Error: %@", error);
 				return;
             }
-			if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
-				[UIApplication sharedApplication].applicationIconBadgeNumber--;
-			}
         }];
     }
 }
@@ -696,7 +693,10 @@ UIAlertViewDelegate
             
         case NSTextCheckingTypeLink: {
             
-            if ([SFSafariViewController class] != nil) {
+            if ([SFSafariViewController class] != nil &&
+                // SFSafariViewController supporting only http and https schemes
+                 ([textCheckingResult.URL.scheme.lowercaseString isEqualToString:@"http"]
+                    || [textCheckingResult.URL.scheme.lowercaseString isEqualToString:@"https"])) {
                 
                 SFSafariViewController *controller = [[SFSafariViewController alloc] initWithURL:textCheckingResult.URL entersReaderIfAvailable:false];
                 [self presentViewController:controller animated:true completion:nil];

@@ -875,24 +875,24 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             var strUrl : String = (result.URL?.absoluteString)!
             
-            if strUrl.lowercaseString.hasPrefix("http://") == false {
-                strUrl = "http://".stringByAppendingString(strUrl)
-            }
-            
+            var hasPrefix = strUrl.lowercaseString.hasPrefix("https://") || strUrl.lowercaseString.hasPrefix("http://")
             
             if #available(iOS 9.0, *) {
-                
-                let controller = SFSafariViewController(URL: NSURL(string: strUrl)!)
-                self.presentViewController(controller, animated: true, completion: nil)
-                
-            } else {
-                // Fallback on earlier versions
-                
-                if UIApplication.sharedApplication().canOpenURL(NSURL(string: strUrl)!) {
+                if hasPrefix {
                     
-                    UIApplication.sharedApplication().openURL(NSURL(string: strUrl)!)
+                    let controller = SFSafariViewController(URL: NSURL(string: strUrl)!)
+                    self.presentViewController(controller, animated: true, completion: nil)
                     
+                    break
                 }
+                
+            }
+            // Fallback on earlier versions
+            
+            if UIApplication.sharedApplication().canOpenURL(NSURL(string: strUrl)!) {
+                
+                UIApplication.sharedApplication().openURL(NSURL(string: strUrl)!)
+                
             }
             
             break
