@@ -73,6 +73,9 @@
         if ([task.result count] >= [[ServicesManager instance].usersService.usersMemoryStorage unsortedUsers].count) {
             strongSelf.navigationItem.rightBarButtonItem.enabled = NO;
         }
+        else {
+            strongSelf.navigationItem.rightBarButtonItem.enabled = YES;
+        }
         
         [strongSelf.tableView reloadData];
         
