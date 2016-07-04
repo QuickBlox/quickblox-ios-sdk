@@ -305,6 +305,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         let shouldJoin = self.dialog.type == .Group ? !self.dialog.isJoined() : false
         
         if !QBChat.instance().isConnected || shouldJoin {
+            
+            if shouldJoin {
+                
+                QMMessageNotificationManager.showNotificationWithTitle("SA_STR_ERROR".localized, subtitle:"SA_STR_MESSAGE_FAILED_TO_SEND".localized, type: QMMessageNotificationType.Error)
+            }
+            
             return
         }
         
