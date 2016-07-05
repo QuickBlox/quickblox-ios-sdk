@@ -263,6 +263,13 @@ UIAlertViewDelegate
     BOOL shouldJoin = (self.dialog.type == QBChatDialogTypeGroup ? !self.dialog.isJoined : NO);
 
     if (![[QBChat instance] isConnected] || shouldJoin) {
+        
+        if (shouldJoin) {
+        [QMMessageNotificationManager showNotificationWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil)
+                                                       subtitle:NSLocalizedString(@"SA_STR_MESSAGE_FAILED_TO_SEND",nil)
+                                                           type:QMMessageNotificationTypeError];
+        }
+        
         return;
     }
     

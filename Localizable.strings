@@ -97,6 +97,7 @@
 "SA_STR_DID_NOT_CONNECT_ERROR" = "Did not connect with error:";
 "SA_STR_FAILED_TO_CONNECT_WITH_ERROR" = "Chat failed with error:";
 "SA_STR_CANNOT_CREATE_DIALOG" = "Can not create dialog";
+"SA_STR_MESSAGE_FAILED_TO_SEND" = "Message failed to send";
 
 // Push notifications
 "SA_STR_PUSH_NOTIFICATION_DIALOG_ID" = "dialog_id";
