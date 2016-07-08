@@ -9,6 +9,8 @@
 #import "QMChatService.h"
 #import "QBChatMessage+QMCustomParameters.h"
 
+#import "QMSLog.h"
+
 const char *kChatCacheQueue = "com.q-municate.chatCacheQueue";
 static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
@@ -35,7 +37,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (void)dealloc {
     
-    NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+    QMSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
     
     [QBChat.instance removeDelegate:self];
 }
@@ -351,7 +353,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     
     if (!message.dialogID) {
         
-        NSLog(@"Need update this case");
+        QMSLog(@"Need update this case");
         
         return;
     }
@@ -1227,14 +1229,32 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
           withAttachmentImage:(UIImage *)image
                    completion:(QBChatCompletionBlock)completion
 {
-    [self.chatAttachmentService uploadAndSendAttachmentMessage:attachmentMessage toDialog:dialog withChatService:self withAttachedImage:image completion:completion];
     
     [self.messagesMemoryStorage addMessage:attachmentMessage forDialogID:dialog.ID];
+    
     if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddMessageToMemoryStorage:forDialogID:)]) {
         
         [self.multicastDelegate chatService:self didAddMessageToMemoryStorage:attachmentMessage forDialogID:dialog.ID];
         
     }
+    
+    [self.chatAttachmentService uploadAndSendAttachmentMessage:attachmentMessage toDialog:dialog withChatService:self withAttachedImage:image completion:^(NSError* QB_NULLABLE_S error) {
+        
+        if (!error) {
+            
+            [self updateLastMessageParamsForChatDialog:dialog withMessage:attachmentMessage];
+            dialog.updatedAt = attachmentMessage.dateSent;
+            
+            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+                [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:dialog];
+            }
+        }
+        
+        if (completion) {
+            completion(error);
+        }
+    }];
+
 }
 
 #pragma mark - mark as delivered

@@ -19,6 +19,7 @@
 #import <QMAuthService.h>
 
 #import <QBChatMessage+QMCustomParameters.h>
+#import <QBChatAttachment+QMCustomData.h>
 
 #import <QMUsersMemoryStorage.h>
 #import <QMContactListMemoryStorage.h>

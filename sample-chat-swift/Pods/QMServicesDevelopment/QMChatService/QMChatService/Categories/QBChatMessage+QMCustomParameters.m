@@ -9,12 +9,18 @@
 #import "QBChatMessage+QMCustomParameters.h"
 #import <objc/runtime.h>
 
+#import "QBChatAttachment+QMCustomData.h"
+
 /**
  *  Message keys
  */
 NSString const *kQMCustomParameterSaveToHistory = @"save_to_history";
 NSString const *kQMCustomParameterMessageType = @"notification_type";
 NSString const *kQMCustomParameterChatMessageID = @"chat_message_id";
+
+static NSString * const kQMChatLocationMessageTypeName = @"location";
+static NSString * const kQMLocationLatitudeKey = @"lat";
+static NSString * const kQMLocationLongitudeKey = @"lng";
 
 /**
  *  Dialog keys
@@ -343,6 +349,67 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 - (BOOL)isMediaMessage {
     
     return self.attachments.count > 0 || self.attachmentStatus == QMMessageAttachmentStatusLoading;
+}
+
+#pragma mark - Location
+
+- (CLLocationCoordinate2D)locationCoordinate {
+    
+    QBChatAttachment *locationAttachment = [self _locationAttachment];
+    
+    if (locationAttachment == nil) {
+        
+        return kCLLocationCoordinate2DInvalid;
+    }
+    
+    CLLocationDegrees lat = [[locationAttachment.context objectForKey:kQMLocationLatitudeKey] doubleValue];
+    CLLocationDegrees lng = [[locationAttachment.context objectForKey:kQMLocationLongitudeKey] doubleValue];
+    
+    return CLLocationCoordinate2DMake(lat, lng);
+}
+
+- (void)setLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate {
+    
+    QBChatAttachment *locationAttachment = [[QBChatAttachment alloc] init];
+    
+    locationAttachment.type = kQMChatLocationMessageTypeName;
+    [locationAttachment.context setObject:[NSString stringWithFormat:@"%lf", locationCoordinate.latitude] forKey:kQMLocationLatitudeKey];
+    [locationAttachment.context setObject:[NSString stringWithFormat:@"%lf", locationCoordinate.longitude] forKey:kQMLocationLongitudeKey];
+    [locationAttachment synchronize];
+    
+    self.attachments = @[locationAttachment];
+}
+
+- (BOOL)isLocationMessage {
+    
+    __block BOOL isLocationMessage = NO;
+    
+    [self.attachments enumerateObjectsUsingBlock:^(QBChatAttachment * _Nonnull obj, NSUInteger __unused idx, BOOL * _Nonnull stop) {
+        
+        if ([obj.type isEqualToString:kQMChatLocationMessageTypeName]) {
+            
+            isLocationMessage = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return isLocationMessage;
+}
+
+- (QBChatAttachment *)_locationAttachment {
+    
+    __block QBChatAttachment *locationAttachment = nil;
+    
+    [self.attachments enumerateObjectsUsingBlock:^(QBChatAttachment * _Nonnull obj, NSUInteger __unused idx, BOOL * _Nonnull stop) {
+        
+        if ([obj.type isEqualToString:kQMChatLocationMessageTypeName]) {
+            
+            locationAttachment = obj;
+            *stop = YES;
+        }
+    }];
+    
+    return locationAttachment;
 }
 
 @end

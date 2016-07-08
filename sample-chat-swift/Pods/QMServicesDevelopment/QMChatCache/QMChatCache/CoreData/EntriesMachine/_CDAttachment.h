@@ -4,6 +4,7 @@
 #import <CoreData/CoreData.h>
 
 extern const struct CDAttachmentAttributes {
+	__unsafe_unretained NSString *data;
 	__unsafe_unretained NSString *id;
 	__unsafe_unretained NSString *mimeType;
 	__unsafe_unretained NSString *url;
@@ -24,6 +25,10 @@ extern const struct CDAttachmentRelationships {
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) CDAttachmentID* objectID;
 
+@property (nonatomic, strong) NSString* data;
+
+//- (BOOL)validateData:(id*)value_ error:(NSError**)error_;
+
 @property (nonatomic, strong) NSString* id;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
@@ -43,6 +48,9 @@ extern const struct CDAttachmentRelationships {
 @end
 
 @interface _CDAttachment (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSString*)primitiveData;
+- (void)setPrimitiveData:(NSString*)value;
 
 - (NSString*)primitiveId;
 - (void)setPrimitiveId:(NSString*)value;

@@ -8,6 +8,8 @@
 
 #import "QMUsersService.h"
 
+#import "QMSLog.h"
+
 @interface QMUsersService () <QBChatDelegate>
 
 @property (strong, nonatomic) QBMulticastDelegate <QMUsersServiceDelegate> *multicastDelegate;
@@ -22,7 +24,7 @@
 
 - (void)dealloc {
     
-    NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+    QMSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
     [[QBChat instance] removeDelegate:self];
 }
 

@@ -11,6 +11,8 @@
 #import "CDContactListItem.h"
 #import "CDUser.h"
 
+#import "QMSLog.h"
+
 @implementation QMContactListCache
 
 static QMContactListCache *_chatCacheInstance = nil;
@@ -96,7 +98,7 @@ static QMContactListCache *_chatCacheInstance = nil;
             [weakSelf save:completion];
         }
         
-        NSLog(@"[%@] ContactListItems to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
+        QMSLog(@"[%@] ContactListItems to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
     }];
 }
 

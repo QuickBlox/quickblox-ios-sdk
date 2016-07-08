@@ -8,6 +8,8 @@
 
 #import "QMContactListService.h"
 
+#import "QMSLog.h"
+
 @interface QMContactListService ()
 
 @property (weak, nonatomic) id<QMContactListServiceCacheDataSource> cacheDataSource;

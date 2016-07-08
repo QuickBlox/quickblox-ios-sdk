@@ -40,8 +40,9 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 @property (assign, nonatomic) BOOL isObserving;
 @property (strong, nonatomic) NSTimer* timer;
-@property BOOL scrollDirectionIsUP;
-@property (nonatomic, assign) CGFloat lastContentOffset;
+
+@property BOOL isScrollingToBottom;
+@property (nonatomic, assign) BOOL isLastCellVisible;
 
 @end
 
@@ -108,6 +109,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
                                           delegate:self];
     
     [self registerCells];
+    self.isLastCellVisible = false;
 }
 
 - (void)registerCells {
@@ -153,6 +155,20 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     UINib *attachmentOutgoingNib  = [QMChatAttachmentOutgoingCell nib];
     NSString *attachmentOutgoingIdentifier = [QMChatAttachmentOutgoingCell cellReuseIdentifier];
     [self.collectionView registerNib:attachmentOutgoingNib forCellWithReuseIdentifier:attachmentOutgoingIdentifier];
+    
+    /**
+     *  Location outgoing cell
+     */
+    UINib *locOutgoingNib = [QMChatLocationOutgoingCell nib];
+    NSString *locOugoingIdentifier = [QMChatLocationOutgoingCell cellReuseIdentifier];
+    [self.collectionView registerNib:locOutgoingNib forCellWithReuseIdentifier:locOugoingIdentifier];
+    
+    /**
+     *  Location incoming cell
+     */
+    UINib *locIncomingNib = [QMChatLocationIncomingCell nib];
+    NSString *locIncomingIdentifier = [QMChatLocationIncomingCell cellReuseIdentifier];
+    [self.collectionView registerNib:locIncomingNib forCellWithReuseIdentifier:locIncomingIdentifier];
 }
 
 #pragma mark - Getters
@@ -209,7 +225,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         } completion:^(BOOL finished) {
             
             if (shouldCancelScrolling) {
-                strongSelf.collectionView.contentOffset = CGPointMake(0, strongSelf.collectionView.contentSize.height - bottomOffset);
+        //        strongSelf.collectionView.contentOffset = CGPointMake(0, strongSelf.collectionView.contentSize.height - bottomOffset);
                 [CATransaction commit];
             }
         }];
@@ -287,7 +303,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     //Customize your toolbar buttons
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
-    
     self.collectionView.transform = CGAffineTransformMake(1, 0, 0, -1, 0, 0);
 }
 
@@ -465,6 +480,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     if (self.chatSectionManager.totalMessagesCount > 0) {
         NSIndexPath* topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.collectionView scrollToItemAtIndexPath:topIndexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        _isLastCellVisible = true;
     }
 }
 
@@ -813,6 +829,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     heightFromBottom = MAX(0.0f, heightFromBottom);
     
+    [self setIsLastCellVisible];
+    
     [self setToolbarBottomLayoutGuideConstant:heightFromBottom];
 }
 
@@ -964,10 +982,14 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (void)setCollectionViewInsetsTopValue:(CGFloat)top bottomValue:(CGFloat)bottom {
-    
+
     UIEdgeInsets insets = UIEdgeInsetsMake(top, 0.0f, bottom, 0.0f);
     self.collectionView.contentInset = insets;
     self.collectionView.scrollIndicatorInsets = insets;
+    
+    if  (_isLastCellVisible) {
+        [self scrollToBottomAnimated:YES];
+    }
 }
 
 - (BOOL)isMenuVisible {
@@ -1132,6 +1154,36 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     }
 }
 
+- (void)setIsLastCellVisible {
+
+    if (self.isScrollingToBottom && _isLastCellVisible) {
+        return;
+    }
+    
+    NSSet * visibleInxexPathes= [NSSet setWithArray:self.collectionView.indexPathsForVisibleItems];
+    
+    //Index path of the first cell - last message
+    NSIndexPath *pathToLastMessage = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    if  ([visibleInxexPathes containsObject:pathToLastMessage]) {
+        
+        CGRect visibleRect = CGRectIntersection(self.collectionView.frame, self.collectionView.superview.bounds);
+        visibleRect.size.height = visibleRect.size.height - self.collectionView.contentInset.top;
+        
+        UICollectionViewLayoutAttributes *attributes = [self.collectionView layoutAttributesForItemAtIndexPath:pathToLastMessage];
+        CGRect cellRect = attributes.frame;
+        CGRect cellFrameInSuperview = [self.collectionView convertRect:cellRect toView:[self.collectionView superview]];
+        
+        CGRect intersect = CGRectIntersection(visibleRect, cellFrameInSuperview);
+        float visibleHeight = CGRectGetHeight(intersect);
+        
+        //Check if visible part of cell is more than half of the cell
+        _isLastCellVisible = (visibleHeight > CGRectGetHeight(cellRect) * 0.55);
+    }
+    else {
+        _isLastCellVisible = false;
+    }
+}
 
 - (void)showAlertForCameraAccess {
     
@@ -1154,4 +1206,23 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     [alert show];
 }
 
+#pragma mark - UIScrollView delegate methods
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self setIsLastCellVisible];
+    self.isScrollingToBottom = false;
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self setIsLastCellVisible];
+    self.isScrollingToBottom = false;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self setIsLastCellVisible];
+        self.isScrollingToBottom = false;
+     
+    }
+}
 @end

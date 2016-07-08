@@ -8,6 +8,8 @@
 
 #import "QMBaseService.h"
 
+#import "QMSLog.h"
+
 @interface QMBaseService()
 
 @property (weak, nonatomic) id <QMServiceManagerProtocol> serviceManager;
@@ -22,7 +24,7 @@
     if (self) {
         
         self.serviceManager = serviceManager;
-        NSLog(@"Init - %@ service...", NSStringFromClass(self.class));
+        QMSLog(@"Init - %@ service...", NSStringFromClass(self.class));
         [self serviceWillStart];
     }
     return self;

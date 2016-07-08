@@ -9,6 +9,8 @@
 #import "QMUsersCache.h"
 #import "QMUsersModelIncludes.h"
 
+#import "QMSLog.h"
+
 @implementation QMUsersCache
 
 static QMUsersCache *_usersCacheInstance = nil;
@@ -97,7 +99,7 @@ static QMUsersCache *_usersCacheInstance = nil;
             [context QM_saveToPersistentStoreAndWait];
         }
         
-        NSLog(@"[%@] Users to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
+        QMSLog(@"[%@] Users to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
 
         return nil;
     }];

@@ -1,4 +1,3 @@
-
 //
 //  QMBaseAuthService.m
 //  QMServices
@@ -9,7 +8,9 @@
 
 #import "QMAuthService.h"
 
-NSString *const kQMAuthSocialProvider = @"facebook";
+#import "QMSLog.h"
+
+static NSString *const kQMFacebookAuthSocialProvider = @"facebook";
 
 @interface QMAuthService()
 
@@ -22,7 +23,7 @@ NSString *const kQMAuthSocialProvider = @"facebook";
 
 - (void)dealloc {
     
-    NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+    QMSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
 }
 
 #pragma  mark Add / Remove multicast delegate
@@ -168,7 +169,7 @@ NSString *const kQMAuthSocialProvider = @"facebook";
 - (QBRequest *)logInWithFacebookSessionToken:(NSString *)sessionToken completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion {
     
     __weak __typeof(self)weakSelf = self;
-    QBRequest *request = [QBRequest logInWithSocialProvider:kQMAuthSocialProvider accessToken:sessionToken accessTokenSecret:nil successBlock:^(QBResponse *response, QBUUser *tUser) {
+    QBRequest *request = [QBRequest logInWithSocialProvider:kQMFacebookAuthSocialProvider accessToken:sessionToken accessTokenSecret:nil successBlock:^(QBResponse *response, QBUUser *tUser) {
         //set password
         tUser.password = [QBSession currentSession].sessionDetails.token;
         

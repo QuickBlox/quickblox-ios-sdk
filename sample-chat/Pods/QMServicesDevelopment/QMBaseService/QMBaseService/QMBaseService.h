@@ -17,7 +17,7 @@
  */
 @property (weak, nonatomic, readonly, QB_NULLABLE) id <QMServiceManagerProtocol> serviceManager;
 
-- (QB_NULLABLE id)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+- (QB_NULLABLE id)init NS_UNAVAILABLE;
 
 - (QB_NULLABLE instancetype)initWithServiceManager:(QB_NONNULL id<QMServiceManagerProtocol>)serviceManager;
 

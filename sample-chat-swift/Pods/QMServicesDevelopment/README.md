@@ -11,6 +11,7 @@
 - [Architecture](#architecture)
 - [Getting started](#getting-started)
 	- [Service Manager](#service-manager)
+	- [Logs](#logs)
 	- [Authentication](#authentication)
 		- [Login](#login)
 		- [Logout](#logout)
@@ -289,13 +290,21 @@ Also for prefetching initial dialogs and messages you have to implement **QMChat
 }
 ```
 
-## Authentication
+## Logs
 
-We encourage to use automatic session creation, to simplify communication with backend:
+By default QMServices logging its information in developer console. You may want to disable them (for example for production, logs can slow your app sometimes). In order to do so use QMServicesManager static method:
 
 ```objective-c
-[QBSettings setAutoCreateSessionEnabled:YES];
++ (void)enableLogging:(BOOL)flag;
 ```
+
+Just set it, for example, in your AppDelegate class like this:
+
+```objective-c
+[QMServicesManager enableLogging:NO];
+```
+
+## Authentication
 
 ### Login
 
