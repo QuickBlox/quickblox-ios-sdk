@@ -26,36 +26,12 @@
 /*
  * Default test users password
  */
-static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
-
-+ (NSString *) appVersion
-{
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-}
-
-+ (NSString *) build
-{
-    return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-}
-
-+ (NSString *) versionBuild
-{
-    NSString * version = [self appVersion];
-    NSString * build = [self build];
-    
-    NSString * versionBuild = [NSString stringWithFormat: @"v%@", version];
-    
-    if (![version isEqualToString: build]) {
-        versionBuild = [NSString stringWithFormat: @"%@(%@)", versionBuild, build];
-    }
-    
-    return versionBuild;
-}
+static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    NSString *versionString = [NSString stringWithFormat:@"%@",[[self class] versionBuild]];
+    NSString *versionString = [NSString stringWithFormat:@"%@", [self versionBuild]];
     self.buildNumberLabel.text = versionString;
     
 	ServicesManager *servicesManager = [ServicesManager instance];
@@ -203,6 +179,23 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
 - (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue {
 
+}
+
+#pragma mark - Private
+
+- (NSString *)versionBuild {
+    
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    
+    NSString *versionBuild = [NSString stringWithFormat: @"v%@", version];
+    
+    if (![version isEqualToString:build]) {
+        
+        versionBuild = [NSString stringWithFormat:@"%@(%@)", versionBuild, build];
+    }
+    
+    return versionBuild;
 }
 
 @end
