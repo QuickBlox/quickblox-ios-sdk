@@ -22,7 +22,33 @@ QMUsersServiceCacheDataSource,
 QMUsersServiceDelegate
 >
 
+/**
+ *  REST authentication service.
+ */
+@property (strong, nonatomic, readonly, QB_NONNULL) QMAuthService* authService;
+
+/**
+ *  Chat service.
+ */
+@property (strong, nonatomic, readonly, QB_NONNULL) QMChatService* chatService;
+
+/**
+ *  Users service.
+ */
+@property (strong, nonatomic, readonly, QB_NONNULL) QMUsersService* usersService;
+
 + (QB_NONNULL instancetype)instance;
+
+/**
+ *  Determines whether extended services logging is enabled.
+ *
+ *  @param enable whether logs should be enabled or not
+ *
+ *  @discussion By default logs are enabled.
+ *
+ *  @note If you don't want logs in production environment you should disable them within this flag.
+ */
++ (void)enableLogging:(BOOL)flag;
 
 /**
  *  Login to Quickblox REST and chat, group dialog join.
@@ -38,20 +64,5 @@ QMUsersServiceDelegate
  *  @param completion Completion block with a result.
  */
 - (void)logoutWithCompletion:(QB_NULLABLE dispatch_block_t)completion;
-
-/**
- *  REST authentication service.
- */
-@property (strong, nonatomic, readonly, QB_NONNULL) QMAuthService* authService;
-
-/**
- *  Chat service.
- */
-@property (strong, nonatomic, readonly, QB_NONNULL) QMChatService* chatService;
-
-/**
- *  Users service.
- */
-@property (strong, nonatomic, readonly, QB_NONNULL) QMUsersService* usersService;
 
 @end

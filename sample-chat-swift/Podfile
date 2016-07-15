@@ -1,16 +1,21 @@
 platform :ios, "7.0"
 
+target 'sample-chat-swift' do
+
 pod 'SVProgressHUD', '~> 1.1.3'
 
 #Production pod
-pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => 'ac7ae17689e75f0554706447d19f2851fc46dc54'
+pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :branch => 'development'
 
 #For development pods
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
 
 #Production pod
-pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => '2eb283ee18896182379a8a046d95f8b12362af73'
-#For development pods
-#pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
+pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :branch => 'development'
 
 pod 'SearchEmojiOnString'
+
+pod 'Fabric'
+pod 'Crashlytics'
+
+end

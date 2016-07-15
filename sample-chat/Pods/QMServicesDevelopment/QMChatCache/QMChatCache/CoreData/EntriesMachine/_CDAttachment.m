@@ -4,6 +4,7 @@
 #import "_CDAttachment.h"
 
 const struct CDAttachmentAttributes CDAttachmentAttributes = {
+	.data = @"data",
 	.id = @"id",
 	.mimeType = @"mimeType",
 	.url = @"url",
@@ -41,6 +42,8 @@ const struct CDAttachmentRelationships CDAttachmentRelationships = {
 
 	return keyPaths;
 }
+
+@dynamic data;
 
 @dynamic id;
 

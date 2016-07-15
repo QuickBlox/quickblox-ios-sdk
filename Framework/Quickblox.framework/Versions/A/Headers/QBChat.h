@@ -25,9 +25,17 @@
 @interface QBChat : NSObject
 
 /**
- *  Check if current user is connected to Chat
- */
+ * Returns YES if the connection is open, and the stream has been properly established.
+ * If the stream is neither disconnected, nor connected, then a connection is currently being established.
+ *
+ * If this method returns YES, then it is ready for you to start sending and receiving elements.
+ **/
 @property (assign, nonatomic, readonly) BOOL isConnected;
+
+/**
+ * Returns YES is the connection is currently connecting
+ **/
+@property (assign, nonatomic, readonly) BOOL isConnecting;
 
 /** 
  *  Contact list
@@ -238,7 +246,7 @@
 /**
  *  Send ping to server
  *
- *  @param completion  Completion block with failure error.
+ *  @param completion  completion block with ping time interval and success flag
  */
 - (void)pingServer:(QB_NONNULL QBPingCompleitonBlock)completion;
 
@@ -246,7 +254,7 @@
  *  Send ping to server with timeout
  *
  *  @param timeout    timout
- *  @param completion Completion block with failure error.
+ *  @param completion completion block with ping time interval and success flag
  */
 - (void)pingServerWithTimeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
 
@@ -254,7 +262,9 @@
  *  Send ping to user
  *
  *  @param userID     User ID
- *  @param completion Completion block with failure error.
+ *  @param completion completion block with ping time interval and success flag
+ *
+ *  @note You must be subscribed to user in contact list in order to successfully ping him
  */
 - (void)pingUserWithID:(NSUInteger )userID completion:(QB_NONNULL QBPingCompleitonBlock)completion;
 
@@ -263,7 +273,9 @@
  *
  *  @param userID     User ID
  *  @param timeout    Timeout in seconds
- *  @param completion Completion block with failure error.
+ *  @param completion completion block with ping time interval and success flag
+ *
+ *  @note You must be subscribed to user in contact list in order to successfully ping him
  */
 - (void)pingUserWithID:(NSUInteger)userID timeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
 

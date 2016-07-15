@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) UsersDataSource *dataSource;
 @property (nonatomic, assign, getter=isUsersAreDownloading) BOOL usersAreDownloading;
+@property (weak, nonatomic) IBOutlet UILabel *buildNumberLabel;
 
 @end
 
@@ -25,11 +26,14 @@
 /*
  * Default test users password
  */
-static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
+static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+    
+    NSString *versionString = [NSString stringWithFormat:@"%@", [self versionBuild]];
+    self.buildNumberLabel.text = versionString;
+    
 	ServicesManager *servicesManager = [ServicesManager instance];
 	
     if (servicesManager.currentUser != nil) {
@@ -175,6 +179,23 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
 - (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue {
 
+}
+
+#pragma mark - Private
+
+- (NSString *)versionBuild {
+    
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    NSString *build = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+    
+    NSString *versionBuild = [NSString stringWithFormat: @"v%@", version];
+    
+    if (![version isEqualToString:build]) {
+        
+        versionBuild = [NSString stringWithFormat:@"%@(%@)", versionBuild, build];
+    }
+    
+    return versionBuild;
 }
 
 @end

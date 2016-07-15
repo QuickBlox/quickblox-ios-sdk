@@ -10,6 +10,8 @@
 #import "QMChatService.h"
 #import "QBChatMessage+QMCustomParameters.h"
 
+#import "QMSLog.h"
+
 @interface QMChatAttachmentService()
 
 @property (nonatomic, strong) NSMutableDictionary *attachmentsStorage;

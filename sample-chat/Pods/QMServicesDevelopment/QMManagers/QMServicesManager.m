@@ -10,10 +10,12 @@
 #import "_CDMessage.h"
 #import "_CDDialog.h"
 
+#import "QMSLog.h"
+
 @interface QMServicesManager ()
 
-@property (nonatomic, strong) QMAuthService* authService;
-@property (nonatomic, strong) QMChatService* chatService;
+@property (nonatomic, strong) QMAuthService *authService;
+@property (nonatomic, strong) QMChatService *chatService;
 
 /**
  *  Logout group for synchronous completion.
@@ -23,6 +25,15 @@
 @end
 
 @implementation QMServicesManager
+
+#pragma mark - Logging management
+
++ (void)enableLogging:(BOOL)flag {
+    
+    QMSLogSetEnabled(flag);
+}
+
+#pragma mark - Construction
 
 - (instancetype)init {
     
@@ -64,6 +75,8 @@
     
     return manager;
 }
+
+#pragma mark - Methods
 
 - (void)logoutWithCompletion:(dispatch_block_t)completion {
     
@@ -166,7 +179,7 @@
                 
                 if (error != nil) {
                     
-                    NSLog(@"Failed to join room with error: %@", error.localizedDescription);
+                    QMSLog(@"Failed to join room with error: %@", error.localizedDescription);
                 }
             }];
         }

@@ -150,9 +150,31 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
     return self.leftBarButtonContainerViewWidthConstraint.constant;
 }
 
+- (void)setRightContentPadding:(CGFloat)rightContentPadding {
+    
+    self.rightHorizontalSpacingConstraint.constant = rightContentPadding;
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)setLeftContentPadding:(CGFloat)leftContentPadding {
+    
+    self.leftHorizontalSpacingConstraint.constant = leftContentPadding;
+    [self setNeedsUpdateConstraints];
+}
+
 - (CGFloat)rightBarButtonItemWidth {
     
     return self.rightBarButtonContainerViewWidthConstraint.constant;
+}
+
+- (CGFloat)rightContentPadding {
+    
+    return self.rightHorizontalSpacingConstraint.constant;
+}
+
+- (CGFloat)leftContentPadding {
+    
+    return self.leftHorizontalSpacingConstraint.constant;
 }
 
 #pragma mark - UIView overrides

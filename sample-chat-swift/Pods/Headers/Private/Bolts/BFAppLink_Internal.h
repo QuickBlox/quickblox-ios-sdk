@@ -1,1 +1,1 @@
-../../../Bolts/Bolts/iOS/BFAppLink_Internal.h
+../../../Bolts/Bolts/iOS/Internal/BFAppLink_Internal.h

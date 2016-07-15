@@ -18,7 +18,8 @@
  *  User custom data context, based on dictionary.
  *
  *  @discussion Add or remove data, that you need to put into customData field of user.
- *  You should always call 'synchronize' method after context change.
+ *  
+ *  @note You should always call 'synchronize' method after context change.
  */
 @property (strong, nonatomic, readonly, QB_NONNULL) NSMutableDictionary *context;
 
@@ -26,7 +27,8 @@
  *  Synchronize context into user custom data field.
  *
  *  @discussion Call this method after every context update.
- *  This will convert NSDIctionary into JSON and put into QBUUser customData field.
+ *
+ *  @note This will convert NSDictionary into JSON and put into QBUUser customData field.
  */
 - (void)synchronize;
 

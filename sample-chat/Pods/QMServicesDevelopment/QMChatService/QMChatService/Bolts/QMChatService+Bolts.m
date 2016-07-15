@@ -8,6 +8,8 @@
 
 #import "QMChatService.h"
 
+#import "QMSLog.h"
+
 #define kQMLoadedAllMessages @1
 static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rkf-Gp-YH3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rkf-Gp-YH3">
     <dependencies>
         <deployment version="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -172,7 +172,7 @@
             <objects>
                 <tableViewController id="afJ-Up-tW1" customClass="DialogInfoTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yHl-ue-AbZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="QTG-jn-rvX">
@@ -308,14 +308,22 @@
                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="i99-ao-Rwh">
                                     <rect key="frame" x="211" y="31" width="145" height="39"/>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Build number =" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZb-DT-jA4">
+                                    <rect key="frame" x="242" y="6" width="117" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="centerY" secondItem="i99-ao-Rwh" secondAttribute="centerY" id="606-c5-dFB"/>
+                                <constraint firstItem="TZb-DT-jA4" firstAttribute="top" secondItem="9Am-F6-RdU" secondAttribute="bottom" constant="5" id="TS2-Og-kD6"/>
                                 <constraint firstAttribute="trailing" secondItem="9Am-F6-RdU" secondAttribute="trailing" id="TU1-15-XJg"/>
                                 <constraint firstItem="9Am-F6-RdU" firstAttribute="top" secondItem="alR-i8-uUK" secondAttribute="top" id="WWZ-KZ-o1s"/>
                                 <constraint firstItem="9Am-F6-RdU" firstAttribute="leading" secondItem="alR-i8-uUK" secondAttribute="leading" id="XOm-Tk-PT7"/>
                                 <constraint firstAttribute="centerX" secondItem="i99-ao-Rwh" secondAttribute="centerX" constant="16.5" id="Xgo-J1-fYE"/>
+                                <constraint firstItem="TZb-DT-jA4" firstAttribute="centerX" secondItem="alR-i8-uUK" secondAttribute="centerX" id="oTJ-B9-P2g"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -367,6 +375,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Chat Sample" id="PRM-QZ-rXP"/>
                     <connections>
+                        <outlet property="buildNumberLabel" destination="TZb-DT-jA4" id="EaF-yO-OKX"/>
                         <segue destination="USy-AC-nck" kind="show" identifier="goToDialogs" id="MXH-uZ-40K"/>
                     </connections>
                 </tableViewController>
@@ -583,9 +592,9 @@
         <image name="checkbox_active" width="22" height="22"/>
         <image name="checkbox_nonactive" width="22" height="22"/>
         <image name="logo" width="145" height="39"/>
-        <image name="second" width="30" height="30"/>
+        <image name="second" width="145" height="39"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Zbl-vY-jcZ"/>
+        <segue reference="htm-nF-U3k"/>
     </inferredMetricsTieBreakers>
 </document>

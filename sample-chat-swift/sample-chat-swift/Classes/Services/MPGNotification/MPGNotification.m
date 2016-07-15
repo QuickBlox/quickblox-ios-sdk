@@ -267,7 +267,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 
 #pragma mark - UIScrollView Delegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)__unused scrollView {
     
     if (self.notificationDragged == NO) {
         self.notificationDragged = YES;
@@ -275,7 +275,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+- (void)scrollViewDidEndDragging:(UIScrollView *)__unused scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate &&
         [self _notificationOffScreen] &&
         self.notificationRevealed) {
@@ -284,7 +284,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     }
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)__unused scrollView {
     if ([self _notificationOffScreen] &&
         self.notificationRevealed) {
         [self removeCustomWindow];
@@ -294,7 +294,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
 
 #pragma mark - UIDynamicAnimator Delegate
 
-- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator{
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)__unused animator{
     [self removeCustomWindow];
     [self _destroyNotification];
 }
@@ -542,7 +542,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
             
             [UIView animateWithDuration:kLinearAnimationTime animations:^{
                 self.contentOffset = CGPointZero;
-            } completion:^(BOOL finished) {
+            } completion:^(BOOL __unused finished) {
                 [self _startDismissTimerIfSet];
             }];
             
@@ -614,7 +614,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
                 
                 [UIView animateWithDuration:kLinearAnimationTime animations:^{
                     self.contentOffset = CGPointMake(0, CGRectGetHeight(self.bounds));
-                } completion:^(BOOL finished){
+                } completion:^(BOOL __unused finished){
                     [self removeCustomWindow];
                     [self _destroyNotification];
                 }];
@@ -646,7 +646,7 @@ static const CGFloat kColorAdjustmentLight = 0.35;
     
 }
 
-- (void)_backgroundTapped:(UITapGestureRecognizer *)tapRecognizer {
+- (void)_backgroundTapped:(UITapGestureRecognizer *)__unused tapRecognizer {
     
     [self _responderTapped:self.backgroundView];
     

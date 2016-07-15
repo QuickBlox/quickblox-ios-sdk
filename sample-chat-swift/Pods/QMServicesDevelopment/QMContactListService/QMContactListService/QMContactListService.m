@@ -8,6 +8,8 @@
 
 #import "QMContactListService.h"
 
+#import "QMSLog.h"
+
 @interface QMContactListService()
 
 <QBChatDelegate>
@@ -22,7 +24,7 @@
 
 - (void)dealloc {
     
-    NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+    QMSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
     [[QBChat instance] removeDelegate:self];
     self.contactListMemoryStorage = nil;
 }
@@ -90,6 +92,13 @@
 #pragma mark - QBChatDelegate
 
 - (void)chatContactListDidChange:(QBContactList *)contactList {
+    
+    if (contactList == nil
+        && ![QBChat instance].isConnected) {
+        // no need to erase contact list cache due to chat
+        // disconnect triggers nil contact list change
+        return;
+    }
     
     [self.contactListMemoryStorage updateWithContactList:contactList];
     

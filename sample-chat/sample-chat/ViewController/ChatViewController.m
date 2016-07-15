@@ -19,6 +19,13 @@
 
 #import <NSString+EMOEmoji.h>
 
+#import <SafariServices/SFSafariViewController.h>
+
+#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
+
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <CoreTelephony/CTCarrier.h>
+
 static const NSUInteger widthPadding = 40.0f;
 
 static const NSUInteger maxCharactersNumber = 1024; // 0 - unlimited
@@ -32,7 +39,8 @@ QMChatAttachmentServiceDelegate,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 UIActionSheetDelegate,
-QMChatCellDelegate
+QMChatCellDelegate,
+UIAlertViewDelegate
 >
 
 @property (nonatomic, weak) QBUUser *opponentUser;
@@ -41,8 +49,6 @@ QMChatCellDelegate
 @property (nonatomic, readonly) UIImagePickerController *pickerController;
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
-
-
 
 @property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
 
@@ -86,6 +92,8 @@ QMChatCellDelegate
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
     self.stringBuilder = [MessageStatusStringBuilder new];
     self.detailedCells = [NSMutableSet set];
+    
+    self.enableTextCheckingTypes = NSTextCheckingAllTypes;
     
     [self updateTitle];
     
@@ -170,6 +178,7 @@ QMChatCellDelegate
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerWillResignActive];
     
     // Deletes typing blocks.
@@ -178,6 +187,7 @@ QMChatCellDelegate
     // Resetting currently opened dialog.
     [ServicesManager instance].currentDialogID = nil;
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
@@ -214,14 +224,11 @@ QMChatCellDelegate
     
     if (message.senderID != self.senderID && ![message.readIDs containsObject:@(self.senderID)]) {
         [[ServicesManager instance].chatService readMessage:message completion:^(NSError *error) {
-            
+            NSLog(@"Did read message with text:%@",message.text);
             if (error != nil) {
                 NSLog(@"Problems while marking message as read! Error: %@", error);
 				return;
             }
-			if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
-				[UIApplication sharedApplication].applicationIconBadgeNumber--;
-			}
         }];
     }
 }
@@ -256,6 +263,13 @@ QMChatCellDelegate
     BOOL shouldJoin = (self.dialog.type == QBChatDialogTypeGroup ? !self.dialog.isJoined : NO);
 
     if (![[QBChat instance] isConnected] || shouldJoin) {
+        
+        if (shouldJoin) {
+        [QMMessageNotificationManager showNotificationWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil)
+                                                       subtitle:NSLocalizedString(@"SA_STR_MESSAGE_FAILED_TO_SEND",nil)
+                                                           type:QMMessageNotificationTypeError];
+        }
+        
         return;
     }
     
@@ -333,7 +347,15 @@ QMChatCellDelegate
     }
     
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f] ;
-    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor, NSFontAttributeName:font};
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineHeightMultiple = 1.0;
+    paragraphStyle.minimumLineHeight = font.lineHeight;
+    paragraphStyle.maximumLineHeight = font.lineHeight;
+    
+    NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor,
+                                  NSFontAttributeName:font,
+                                  NSParagraphStyleAttributeName: paragraphStyle};
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:messageItem.text ? messageItem.text : @"" attributes:attributes];
 
@@ -672,6 +694,93 @@ QMChatCellDelegate
     [self.collectionView performBatchUpdates:nil completion:nil];
 }
 
+- (void)chatCell:(QMChatCell *)__unused cell didTapOnTextCheckingResult:(NSTextCheckingResult *)textCheckingResult {
+    
+    switch (textCheckingResult.resultType) {
+            
+        case NSTextCheckingTypeLink: {
+            
+            if ([SFSafariViewController class] != nil &&
+                // SFSafariViewController supporting only http and https schemes
+                 ([textCheckingResult.URL.scheme.lowercaseString isEqualToString:@"http"]
+                    || [textCheckingResult.URL.scheme.lowercaseString isEqualToString:@"https"])) {
+                
+                SFSafariViewController *controller = [[SFSafariViewController alloc] initWithURL:textCheckingResult.URL entersReaderIfAvailable:false];
+                [self presentViewController:controller animated:true completion:nil];
+                
+            }
+            else {
+                
+                if ([[UIApplication sharedApplication] canOpenURL:textCheckingResult.URL]) {
+                    
+                    [[UIApplication sharedApplication] openURL:textCheckingResult.URL];
+                }
+            }
+            
+            break;
+        }
+            
+        case NSTextCheckingTypePhoneNumber: {
+            
+
+            if (![self canMakeACall]) {
+                [SVProgressHUD showInfoWithStatus:NSLocalizedString(@"Your Device can't make a phone call", nil) maskType:SVProgressHUDMaskTypeNone];
+                break;
+            }
+            
+            NSString *urlString = [NSString stringWithFormat:@"tel:%@", textCheckingResult.phoneNumber];
+            NSURL *url = [NSURL URLWithString:urlString];
+            
+            [self.view endEditing:YES];
+            
+            void (^callAction)(void) = ^ {
+                
+                [[UIApplication sharedApplication] openURL:url];
+            };
+            
+            if ([UIAlertController class]) {
+                UIAlertController *alertController = [UIAlertController
+                                                      alertControllerWithTitle:nil
+                                                      message:textCheckingResult.phoneNumber
+                                                      preferredStyle:UIAlertControllerStyleAlert];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
+                                                                    style:UIAlertActionStyleCancel
+                                                                  handler:^(UIAlertAction * _Nonnull __unused action) {
+                                                                  }]];
+                
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CALL", nil)
+                                                                    style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * _Nonnull __unused action) {
+                                                                      
+                                                                      callAction();
+                                                                      
+                                                                  }]];
+                
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+            else {
+                
+                [UIAlertView showWithTitle:@""
+                                   message:textCheckingResult.phoneNumber
+                         cancelButtonTitle:@"SA_STR_CANCEL"
+                         otherButtonTitles:@[NSLocalizedString(@"SA_STR_CALL", nil)]
+                                  tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                                      if (buttonIndex == 0) {
+                                          callAction();
+                                      }
+                                      
+                                  }];
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
 - (void)chatCell:(QMChatCell *)cell didPerformAction:(SEL)action withSender:(id)sender {
     
 }
@@ -904,6 +1013,7 @@ QMChatCellDelegate
     });
 }
 
+
 - (void)showCharactersNumberError {
 
         NSString * title  = NSLocalizedString(@"SA_STR_ERROR", nil);
@@ -913,6 +1023,25 @@ QMChatCellDelegate
                                                        subtitle:subtitle
                                                            type:QMMessageNotificationTypeWarning];
 
+}
+- (BOOL)canMakeACall {
+    BOOL canMakeACall = false;
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]) {
+        // Check if iOS Device supports phone calls
+        CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
+        CTCarrier *carrier = [netInfo subscriberCellularProvider];
+        NSString *mnc = [carrier mobileNetworkCode];
+        // User will get an alert error when they will try to make a phone call in airplane mode.
+        if (([mnc length] == 0)) {
+            // Device cannot place a call at this time.  SIM might be removed.
+        } else {
+            // iOS Device is capable for making calls
+            canMakeACall = true;
+        }
+    } else {
+        // iOS Device is not capable for making calls
+    }
+    return canMakeACall;
 }
 
 - (UIImage *)resizedImageFromImage:(UIImage *)image {

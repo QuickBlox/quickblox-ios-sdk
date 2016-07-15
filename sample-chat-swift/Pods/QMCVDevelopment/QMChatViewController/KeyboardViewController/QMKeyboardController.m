@@ -13,7 +13,9 @@ NSString * const QMKeyboardControllerUserInfoKeyKeyboardDidChangeFrame = @"QBCha
 
 static void * kQMKeyboardControllerKeyValueObservingContext = &kQMKeyboardControllerKeyValueObservingContext;
 
-@interface QMKeyboardController()
+typedef void (^QMAnimationCompletionBlock)(BOOL finished);
+
+@interface QMKeyboardController() <UIGestureRecognizerDelegate>
 
 @property (assign, nonatomic) BOOL isObserving;
 @property (weak, nonatomic) UIView *keyboardView;
@@ -49,6 +51,7 @@ static void * kQMKeyboardControllerKeyValueObservingContext = &kQMKeyboardContro
     
     [self removeKeyboardFrameObserver];
     [self unregisterForNotifications];
+    
     _textView = nil;
     _contextView = nil;
     _panGestureRecognizer = nil;
@@ -150,7 +153,24 @@ static void * kQMKeyboardControllerKeyValueObservingContext = &kQMKeyboardContro
 
 - (void)didReceiveKeyboardDidShowNotification:(NSNotification *)notification {
     
-    self.keyboardView = self.textView.inputAccessoryView.superview;
+    BOOL isIOS9 =  [[UIDevice currentDevice].systemVersion compare:@"9.0" options:NSNumericSearch] == NSOrderedDescending;
+    
+    UIView *keyboardViewProxy = self.textView.inputAccessoryView.superview;
+    if (isIOS9) {
+        NSPredicate *windowPredicate = [NSPredicate predicateWithFormat:@"self isMemberOfClass: %@", NSClassFromString(@"UIRemoteKeyboardWindow")];
+        UIWindow *keyboardWindow = [[UIApplication sharedApplication].windows filteredArrayUsingPredicate:windowPredicate].firstObject;
+        
+        for (UIView *subview in keyboardWindow.subviews) {
+            for (UIView *hostview in subview.subviews) {
+                if ([hostview isMemberOfClass:NSClassFromString(@"UIInputSetHostView")]) {
+                    keyboardViewProxy = hostview;
+                    break;
+                }
+            }
+        }
+        self.keyboardView = keyboardViewProxy;
+    }
+
     [self setKeyboardViewHidden:NO];
     
     __weak __typeof(self)weakSelf = self;
@@ -182,7 +202,7 @@ static void * kQMKeyboardControllerKeyValueObservingContext = &kQMKeyboardContro
     }];
 }
 
-- (void)handleKeyboardNotification:(NSNotification *)notification completion:(void(^)(BOOL success))completion {
+- (void)handleKeyboardNotification:(NSNotification *)notification completion:(QMAnimationCompletionBlock)completion {
     
     NSDictionary *userInfo = [notification userInfo];
     

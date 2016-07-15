@@ -9,6 +9,8 @@
 #import "QMChatCache.h"
 #import "QMCCModelIncludes.h"
 
+#import "QMSLog.h"
+
 @implementation QMChatCache
 
 static QMChatCache *_chatCacheInstance = nil;
@@ -157,7 +159,7 @@ static QMChatCache *_chatCacheInstance = nil;
             [weakSelf save:completion];
         }
         
-        NSLog(@"[%@] Dialogs to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
+        QMSLog(@"[%@] Dialogs to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
     }];
 }
 
@@ -361,16 +363,17 @@ static QMChatCache *_chatCacheInstance = nil;
             [weakSelf save:^{
                
                 if ([toInsert count] > 0) {
+                    
                     [weakSelf checkMessagesLimitForDialogWithID:dialogID withCompletion:completion];
-                } else {
+                }
+                else {
+                    
                     if (completion) completion();
                 }
-                
-                
             }];
         }
         
-        NSLog(@"[%@] Messages to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
+        QMSLog(@"[%@] Messages to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
     }];
 }
 

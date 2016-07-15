@@ -8,6 +8,8 @@
 
 #import "QMDBStorage.h"
 
+#import "QMSLog.h"
+
 @interface QMDBStorage ()
 
 #define QM_LOGGING_ENABLED 1
@@ -48,12 +50,12 @@
         NSError *error = nil;
         if(![[NSFileManager defaultManager] removeItemAtURL:storeUrl error:&error]) {
             
-            NSLog(@"An error has occurred while deleting %@", storeUrl);
-            NSLog(@"Error description: %@", error.description);
+            QMSLog(@"An error has occurred while deleting %@", storeUrl);
+            QMSLog(@"Error description: %@", error.description);
         }
         else {
             
-            NSLog(@"Clear %@ - Done!", storeUrl);
+            QMSLog(@"Clear %@ - Done!", storeUrl);
         }
     }
 }

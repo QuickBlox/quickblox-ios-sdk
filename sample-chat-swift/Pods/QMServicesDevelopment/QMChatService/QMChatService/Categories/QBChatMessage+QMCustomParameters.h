@@ -19,6 +19,7 @@
 @property (strong, nonatomic, QB_NULLABLE) NSString *chatMessageID;
 @property (assign, nonatomic) BOOL messageDeliveryStatus;
 @property (assign, nonatomic) QMMessageAttachmentStatus attachmentStatus;
+@property (assign, nonatomic) CLLocationCoordinate2D locationCoordinate;
 
 /**
  *  Dialog
@@ -60,5 +61,13 @@
  *  Return `YES` if this item is a notification message, and `NO` if it is a text message.
  */
 - (BOOL)isNotificatonMessage;
+
+/**
+ *  This method is used to determine if the message data item is location.
+ *
+ *  @return A boolean value specifying whether or not this is a location message.
+ *  Return `YES` if this item is a location message, and `NO` if it is a text message.
+ */
+- (BOOL)isLocationMessage;
 
 @end

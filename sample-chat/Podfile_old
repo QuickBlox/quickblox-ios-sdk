@@ -1,0 +1,26 @@
+platform :ios, "7.0"
+
+pod 'SVProgressHUD', '~> 1.1.3'
+
+#Using bolts 1.5.0+ due to Xcode 6 support (no generics and nullability)
+pod 'Bolts', '~> 1.5.0'
+
+#Production pod
+pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :branch => 'development'
+
+#For development pods
+#pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
+
+#Production pod
+pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :branch => 'development'
+
+#For development pods
+#pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
+
+pod 'SearchEmojiOnString'
+
+pod 'UIAlertView+Blocks'
+
+pod 'Fabric'
+
+pod 'Crashlytics'

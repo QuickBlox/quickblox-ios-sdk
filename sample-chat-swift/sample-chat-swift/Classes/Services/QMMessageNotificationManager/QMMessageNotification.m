@@ -8,13 +8,13 @@
 
 #import "QMMessageNotification.h"
 
-static const NSTimeInterval kQMMessageNotificationQueueLimit = 5;
+static const NSUInteger kQMMessageNotificationQueueLimit = 5;
 static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 
 @interface QMMessageNotification ()
 
 @property (strong, nonatomic) MPGNotification *messageNotification;
-@property (strong, nonatomic) NSMutableArray * notificationsQueue;
+@property (strong, nonatomic) NSMutableArray *notificationsQueue;
 
 @end
 
@@ -23,21 +23,22 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 - (instancetype)init {
     
     if (self = [super init]) {
+        
         _notificationsQueue = [NSMutableArray arrayWithCapacity:kQMMessageNotificationQueueLimit];
     }
     
     return self;
 }
 
-- (void)showNotificationWithTitle:(NSString*)title
-                         subtitle:(NSString*)subtitle
-                            color:(UIColor*)color
-                        iconImage:(UIImage*)iconImage {
+- (void)showNotificationWithTitle:(NSString *)title
+                         subtitle:(NSString *)subtitle
+                            color:(UIColor *)color
+                        iconImage:(UIImage *)iconImage {
     
-    MPGNotification * notification = [MPGNotification notificationWithTitle:title
-                                                                   subtitle:subtitle
-                                                            backgroundColor:color
-                                                                  iconImage:iconImage];
+    MPGNotification *notification = [MPGNotification notificationWithTitle:title
+                                                                  subtitle:subtitle
+                                                           backgroundColor:color
+                                                                 iconImage:iconImage];
     
     notification.duration = kQMMessageNotificationDuration;
     notification.swipeToDismissEnabled = NO;
@@ -48,16 +49,16 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
 }
 
 - (void)showNotification:(MPGNotification*)notification usingOneByOneMode:(BOOL)isOneByOneMode {
-
+    
     __weak __typeof__(self) weakSelf = self;
     
-    notification.dismissHandler = ^(MPGNotification *notification) {
+    notification.dismissHandler = ^(MPGNotification *notification_t) {
         
         if (isOneByOneMode) {
             __typeof__(self) strongSelf = weakSelf;
             
             strongSelf.messageNotification = nil;
-            [strongSelf.notificationsQueue removeObject:notification];
+            [strongSelf.notificationsQueue removeObject:notification_t];
             [strongSelf checkNotificationsToShow];
         }
     };
