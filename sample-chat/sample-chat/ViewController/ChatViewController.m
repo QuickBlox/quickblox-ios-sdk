@@ -186,9 +186,16 @@ QMChatCellDelegate
         UINavigationController * navController = segue.destinationViewController;
         DialogInfoTableViewController *viewController = (DialogInfoTableViewController*)navController.topViewController;
         viewController.dialog = self.dialog;
-        viewController.didDismissWithDialog = ^(QBChatDialog * selectedDialog) {
+        viewController.didDismissWithDialog = ^(QBChatDialog * createdDialog) {
             
-            [self.navigationController popViewControllerAnimated:NO];
+            if (![createdDialog.ID isEqualToString:self.dialog.ID]) {
+                
+                DialogsViewController *dialogsController = (DialogsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DialogsViewController"];
+                ChatViewController *chatController = (ChatViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
+                chatController.dialog = createdDialog;
+                
+                self.navigationController.viewControllers = @[dialogsController, chatController];
+            }
         };
 
     }

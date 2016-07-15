@@ -113,7 +113,7 @@
         return;
     }
     
-    self.editMode = !self.isEditMode;
+    self.editMode ^=1;
     [self updateEditButtonState];
     
     self.tableView.allowsMultipleSelection = self.isEditMode;
@@ -257,7 +257,9 @@
 }
 
 - (void)updateEditButtonState {
+    
     NSString * title = @"";
+    
     if (self.isEditMode) {
         title = self.tableView.indexPathsForSelectedRows.count ? @"Done" : @"Cancel";
     }

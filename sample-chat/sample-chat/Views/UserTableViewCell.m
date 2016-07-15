@@ -20,9 +20,11 @@
 
 @implementation UserTableViewCell
 - (void)awakeFromNib {
+    
     [super awakeFromNib];
     self.selectable = false;
 }
+
 - (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color {
 	
 	self.colorMarker.bgColor = color;
@@ -40,7 +42,7 @@
 {
     _selectable = selectable;
     self.checkboxImageView.hidden = !_selectable;
-    self.horizontalSpaceConstraint.priority = _selectable ?UILayoutPriorityDefaultLow : 999;
+    self.horizontalSpaceConstraint.priority = _selectable ? UILayoutPriorityDefaultLow : 999;
     
 }
 @end

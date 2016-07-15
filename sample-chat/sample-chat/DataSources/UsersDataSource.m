@@ -11,6 +11,7 @@
 #import "ServicesManager.h"
 
 @interface UsersDataSource()
+
 @property (nonatomic, strong) NSArray *colors;
 @property (nonatomic, copy) NSArray *sortedUsers;
 @property (nonatomic, strong) NSArray *usersToAdd;
@@ -118,9 +119,11 @@
     
     QBUUser *user = [self arrayForSection:indexPath.section][indexPath.row];
     cell.user = user;
+    
     if (self.addStringLoginAsBeforeUserFullname) {
         cell.userDescription = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"SA_STR_LOGIN_AS", nil), user.fullName];
-    } else {
+    }
+    else {
         cell.userDescription = user.fullName;
     }
     
@@ -181,7 +184,7 @@
         return self.users;
     }
     
-    return self.users;
+    return nil;
 }
 
 @end

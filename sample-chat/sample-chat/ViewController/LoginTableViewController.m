@@ -80,6 +80,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)downloadCurrentEnvironmentUsers {
+    
 	if (self.isUsersAreDownloading) return;
     
 	self.usersAreDownloading = YES;
@@ -125,7 +126,7 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)notificationServiceDidFailFetchingDialog {
-	// TODO: maybe segue class should be ReplaceSegue?
+
     [self performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
 }
 
@@ -171,10 +172,6 @@ static NSString *const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     }];
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue {
-
 }
 
 @end
