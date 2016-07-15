@@ -1121,10 +1121,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     func chatAttachmentService(chatAttachmentService: QMChatAttachmentService, didChangeUploadingProgress progress: CGFloat, forMessage message: QBChatMessage) {
+        
+          guard message.dialogID == self.dialog.ID else {
+            return
+        }
         var cell = self.attachmentCellsMap.objectForKey(message.ID)
         
         if cell == nil && progress < 1.0 {
+            
             let indexPath = self.chatSectionManager.indexPathForMessage(message)
+
             cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as? QMChatAttachmentCell
             self.attachmentCellsMap.setObject(cell, forKey: message.ID)
         }
