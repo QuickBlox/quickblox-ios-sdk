@@ -224,10 +224,9 @@ UIAlertViewDelegate
     
     if (message.senderID != self.senderID && ![message.readIDs containsObject:@(self.senderID)]) {
         [[ServicesManager instance].chatService readMessage:message completion:^(NSError *error) {
-            NSLog(@"Did read message with text:%@",message.text);
             if (error != nil) {
                 NSLog(@"Problems while marking message as read! Error: %@", error);
-				return;
+                return;
             }
         }];
     }
