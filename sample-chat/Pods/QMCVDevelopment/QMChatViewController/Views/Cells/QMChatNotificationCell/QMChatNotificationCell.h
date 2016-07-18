@@ -13,4 +13,6 @@
  */
 @interface QMChatNotificationCell : QMChatCell
 
+@property (weak, nonatomic) IBOutlet UILabel *notificationLabel;
+
 @end

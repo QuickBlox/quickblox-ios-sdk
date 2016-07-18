@@ -554,6 +554,14 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         conatactRequestCell.actionsHandler = self.actionsHandler;
     }
     
+    QBChatMessage *messageItem = [self.chatSectionManager messageForIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[QMChatNotificationCell class]]) {
+        
+        [(QMChatNotificationCell *)cell notificationLabel].attributedText = [self attributedStringForItem:messageItem];
+        return;
+    }
+    
     if ([cell isKindOfClass:[QMChatCell class]]) {
         
         QMChatCell *chatCell = (QMChatCell *)cell;
@@ -563,8 +571,6 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
             
             chatCell.textView.enabledTextCheckingTypes = self.enableTextCheckingTypes;
         }
-        
-        QBChatMessage *messageItem = [self.chatSectionManager messageForIndexPath:indexPath];
         
         chatCell.textView.text = [self attributedStringForItem:messageItem];
         chatCell.topLabel.text = [self topLabelAttributedStringForItem:messageItem];

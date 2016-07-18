@@ -1,6 +1,6 @@
 {
   "name": "QMServicesDevelopment",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "summary": "Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat applications.",
   "homepage": "https://github.com/QuickBlox/q-municate-services-ios",
   "license": {
@@ -17,7 +17,7 @@
   },
   "source": {
     "git": "https://github.com/QuickBlox/q-municate-services-ios.git",
-    "tag": "0.4.2"
+    "tag": "0.4.3"
   },
   "source_files": "**/*.{h,m}",
   "exclude_files": [
