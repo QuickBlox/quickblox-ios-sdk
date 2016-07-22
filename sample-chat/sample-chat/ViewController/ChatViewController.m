@@ -554,7 +554,7 @@ UIAlertViewDelegate
         
         if ([message isMediaMessage]) {
            
-            	[[ServicesManager instance].chatService.chatAttachmentService getLocalImageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
+            	[[ServicesManager instance].chatService.chatAttachmentService localImageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
                     if (image) {
                         
                         [[UIPasteboard generalPasteboard] setValue:UIImageJPEGRepresentation(image, 1)
@@ -684,7 +684,7 @@ UIAlertViewDelegate
 	
 	__weak typeof(self)weakSelf = self;
 	// Getting image from chat attachment service.
-	[[ServicesManager instance].chatService.chatAttachmentService getImageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
+	[[ServicesManager instance].chatService.chatAttachmentService imageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
 		//
 		
 		if ([(id<QMChatAttachmentCell>)cell attachmentID] != attachment.ID) return;

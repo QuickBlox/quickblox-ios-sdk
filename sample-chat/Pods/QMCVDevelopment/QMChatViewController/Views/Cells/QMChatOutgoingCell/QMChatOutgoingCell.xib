@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -119,7 +119,7 @@
             <connections>
                 <outlet property="avatarContainerViewHeightConstraint" destination="G4o-g5-Qyf" id="68d-kl-qQw"/>
                 <outlet property="avatarContainerViewWidthConstraint" destination="uct-ao-DdW" id="jz8-Mx-YYV"/>
-                <outlet property="avatarView" destination="7Ef-cm-mUT" id="e3o-co-mQh"/>
+                <outlet property="avatarView" destination="7Ef-cm-mUT" id="GM1-E5-DB9"/>
                 <outlet property="bottomLabel" destination="KM3-Oj-tba" id="nlu-fs-GAw"/>
                 <outlet property="bottomLabelHeightConstraint" destination="WU0-tf-mgf" id="cf4-8U-nj0"/>
                 <outlet property="containerView" destination="IHn-aU-joG" id="FxQ-jl-eL2"/>
