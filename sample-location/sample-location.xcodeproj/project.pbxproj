@@ -22,7 +22,6 @@
 		8A2F268114F7F1E900292876 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F268014F7F1E900292876 /* SystemConfiguration.framework */; };
 		8A2F268314F7F1EF00292876 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F268214F7F1EF00292876 /* MobileCoreServices.framework */; };
 		8A2F268514F7F1F900292876 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F268414F7F1F900292876 /* CoreLocation.framework */; };
-		8A2F268714F7F1FF00292876 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F268614F7F1FF00292876 /* libz.dylib */; };
 		8A2F268914F7F25B00292876 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F268814F7F25B00292876 /* MapKit.framework */; };
 		8A78244E15061F6600036DEC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A78244D15061F6600036DEC /* QuartzCore.framework */; };
 		8AC09DA514FF6E8C00658181 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC09DA414FF6E8C00658181 /* AppDelegate.m */; };
@@ -30,7 +29,6 @@
 		8AC09DCA14FF710400658181 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC09DC614FF710400658181 /* main.m */; };
 		BB1234501608829200491A31 /* LatestCheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB12344F1608829200491A31 /* LatestCheckinsViewController.m */; };
 		BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED31843E2120044D9E0 /* Security.framework */; };
-		FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA38CC5A1614758600BDD29A /* libxml2.2.dylib */; };
 		FA39FB8F15EF7110002F9D26 /* MapPin.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB8E15EF7110002F9D26 /* MapPin.m */; };
 		FA39FBA315EF715A002F9D26 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB9B15EF715A002F9D26 /* MapViewController.m */; };
 		FAC8B9D716D2D33300F03311 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9D616D2D33300F03311 /* AVFoundation.framework */; };
@@ -38,7 +36,6 @@
 		FAC8B9DB16D2D33D00F03311 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */; };
 		FAC8B9DD16D2D34200F03311 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DC16D2D34200F03311 /* CoreMedia.framework */; };
 		FAC8B9DF16D2D34B00F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DE16D2D34B00F03311 /* AudioToolbox.framework */; };
-		FAE86FF215EB705E002E16AA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86FF115EB705E002E16AA /* libresolv.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,8 +61,6 @@
 		2C2B5E4F1B8F50B500F0D31D /* GeoDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = GeoDataManager.h; path = "sample-location/Objects/GeoDataManager.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2C2B5E501B8F50B500F0D31D /* GeoDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GeoDataManager.m; path = "sample-location/Objects/GeoDataManager.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2C2B5E521B8F5A1B00F0D31D /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		4BF2FD4F7B444F3A804050A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		57A2B782031C55F9D1B3FE65 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		86C9EFEF194C45270064A91E /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		8A2F265714F7F0D300292876 /* sample-location.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-location.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2F265B14F7F0D300292876 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -75,7 +70,6 @@
 		8A2F268014F7F1E900292876 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8A2F268214F7F1EF00292876 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8A2F268414F7F1F900292876 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		8A2F268614F7F1FF00292876 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8A2F268814F7F25B00292876 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8A78244D15061F6600036DEC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8AC09DA314FF6E8C00658181 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppDelegate.h; path = "sample-location/AppDelegate.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -88,8 +82,6 @@
 		BB12344F1608829200491A31 /* LatestCheckinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LatestCheckinsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BFA79ED31843E2120044D9E0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BFFCF7AE19AE2F2F0065AE21 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
-		C33BDCD0D89F42A7674238D0 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		FA38CC5A1614758600BDD29A /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		FA39FB8D15EF7110002F9D26 /* MapPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapPin.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA39FB8E15EF7110002F9D26 /* MapPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MapPin.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		FA39FB9A15EF715A002F9D26 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -99,7 +91,6 @@
 		FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		FAC8B9DC16D2D34200F03311 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		FAC8B9DE16D2D34B00F03311 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		FAE86FF115EB705E002E16AA /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,13 +104,10 @@
 				FAC8B9DB16D2D33D00F03311 /* CoreVideo.framework in Frameworks */,
 				FAC8B9D916D2D33700F03311 /* Accelerate.framework in Frameworks */,
 				FAC8B9D716D2D33300F03311 /* AVFoundation.framework in Frameworks */,
-				FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */,
 				8A2F268514F7F1F900292876 /* CoreLocation.framework in Frameworks */,
-				FAE86FF215EB705E002E16AA /* libresolv.dylib in Frameworks */,
 				8A78244E15061F6600036DEC /* QuartzCore.framework in Frameworks */,
 				8A2F265C14F7F0D300292876 /* UIKit.framework in Frameworks */,
 				8A2F268914F7F25B00292876 /* MapKit.framework in Frameworks */,
-				8A2F268714F7F1FF00292876 /* libz.dylib in Frameworks */,
 				8A2F266014F7F0D300292876 /* CoreGraphics.framework in Frameworks */,
 				8A2F268314F7F1EF00292876 /* MobileCoreServices.framework in Frameworks */,
 				8A2F268114F7F1E900292876 /* SystemConfiguration.framework in Frameworks */,
@@ -173,7 +161,6 @@
 				8A2F266214F7F0D300292876 /* Supporting Files */,
 				8A2F265A14F7F0D300292876 /* Frameworks */,
 				8A2F265814F7F0D300292876 /* Products */,
-				C7946E9AF5F4BCD3CCD83C11 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,9 +182,6 @@
 				FAC8B9DA16D2D33D00F03311 /* CoreVideo.framework */,
 				FAC8B9D816D2D33700F03311 /* Accelerate.framework */,
 				FAC8B9D616D2D33300F03311 /* AVFoundation.framework */,
-				FA38CC5A1614758600BDD29A /* libxml2.2.dylib */,
-				FAE86FF115EB705E002E16AA /* libresolv.dylib */,
-				8A2F268614F7F1FF00292876 /* libz.dylib */,
 				8A78244D15061F6600036DEC /* QuartzCore.framework */,
 				8A2F268814F7F25B00292876 /* MapKit.framework */,
 				8A2F268414F7F1F900292876 /* CoreLocation.framework */,
@@ -207,7 +191,6 @@
 				8A2F265B14F7F0D300292876 /* UIKit.framework */,
 				8A2F265D14F7F0D300292876 /* Foundation.framework */,
 				8A2F265F14F7F0D300292876 /* CoreGraphics.framework */,
-				4BF2FD4F7B444F3A804050A3 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -231,15 +214,6 @@
 				BB12344F1608829200491A31 /* LatestCheckinsViewController.m */,
 			);
 			path = LatestCheckinsViewController;
-			sourceTree = "<group>";
-		};
-		C7946E9AF5F4BCD3CCD83C11 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				57A2B782031C55F9D1B3FE65 /* Pods.debug.xcconfig */,
-				C33BDCD0D89F42A7674238D0 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		FA39FB7615EF6FFC002F9D26 /* Manager */ = {
@@ -321,6 +295,11 @@
 				CLASSPREFIX = SSL;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = QuickBlox;
+				TargetAttributes = {
+					8A2F265614F7F0D300292876 = {
+						DevelopmentTeam = 8885H5G2YX;
+					};
+				};
 			};
 			buildConfigurationList = 8A2F265114F7F0D300292876 /* Build configuration list for PBXProject "sample-location" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -436,6 +415,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "6022c728-3c41-4a63-88f8-462c90559213";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -450,6 +430,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -467,6 +448,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-location";
 				PRODUCT_NAME = "sample-location";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -481,7 +463,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -494,8 +477,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-location";
 				PRODUCT_NAME = "sample-location";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6022c728-3c41-4a63-88f8-462c90559213";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
