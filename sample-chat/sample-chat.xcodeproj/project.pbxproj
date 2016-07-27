@@ -16,8 +16,9 @@
 		14B088D91CA2D9700035E29D /* ReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B088D81CA2D9700035E29D /* ReplaceSegue.m */; };
 		1F0A9CEA10409185DAE9093D /* libPods-samplechat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B99A8BFBFD22FA68A0407EE7 /* libPods-samplechat.a */; };
 		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		5839789F1D48A6D4009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; };
+		583978A01D48A6D4009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		584B33AF1C2AF4490041B431 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 584B33AE1C2AF4490041B431 /* Localizable.strings */; };
-		5857DCD11BD91F3700AB2D53 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; };
 		86104A1E1B0B5E1900464D52 /* ServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 86104A1D1B0B5E1900464D52 /* ServicesManager.m */; };
 		8614B8DD1B8205D400DBB753 /* UsersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8614B8DC1B8205D400DBB753 /* UsersDataSource.m */; };
 		8614B8E41B82060000DBB753 /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 8614B8E11B82060000DBB753 /* UIAlertDialog.m */; };
@@ -52,6 +53,20 @@
 		E06A6BE91D11550800431316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E06A6BE81D11550800431316 /* CoreTelephony.framework */; };
 		E0A42AD51CF71211002E1683 /* MPGNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A42AD41CF71211002E1683 /* MPGNotification.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		583978A11D48A6D4009E970B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				583978A01D48A6D4009E970B /* Quickblox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1402B6981B14BF350069E3A4 /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
@@ -132,7 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E06A6BE91D11550800431316 /* CoreTelephony.framework in Frameworks */,
-				5857DCD11BD91F3700AB2D53 /* Quickblox.framework in Frameworks */,
+				5839789F1D48A6D4009E970B /* Quickblox.framework in Frameworks */,
 				BFE6FBC2180E9E9600E64AC4 /* AVFoundation.framework in Frameworks */,
 				BFE6FBC0180E9E9000E64AC4 /* CoreVideo.framework in Frameworks */,
 				BFE6FBBE180E9E8B00E64AC4 /* Accelerate.framework in Frameworks */,
@@ -359,6 +374,7 @@
 				782CE693D037CFCE3ED4DDC7 /* [CP] Copy Pods Resources */,
 				7EEA214453A1D418D0DC8566 /* 📦 Embed Pods Frameworks */,
 				7CE94099752353050D3B93B1 /* 📦 Copy Pods Resources */,
+				583978A11D48A6D4009E970B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -653,7 +669,8 @@
 					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
@@ -766,7 +783,8 @@
 					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
@@ -796,7 +814,8 @@
 					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat/sample-chat-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
