@@ -247,6 +247,7 @@
 				TargetAttributes = {
 					BF7ECD061B26D8770005B39D = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 8885H5G2YX;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -408,7 +409,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "d63b78e4-79c9-4872-bbad-0cab86a7cdba";
+				PROVISIONING_PROFILE = "e22045c1-9192-4e33-97b0-46f1f11f4d46";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -445,7 +446,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "69ad5063-7425-498a-b138-954105b48c04";
+				PROVISIONING_PROFILE = "5f2ceece-70de-472c-b26f-08a3a3e5268e";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -457,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(SRCROOT)",
@@ -473,7 +475,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.samplecontent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d63b78e4-79c9-4872-bbad-0cab86a7cdba";
+				PROVISIONING_PROFILE = "e22045c1-9192-4e33-97b0-46f1f11f4d46";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -484,6 +486,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(SRCROOT)",
@@ -500,7 +503,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.samplecontent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "69ad5063-7425-498a-b138-954105b48c04";
+				PROVISIONING_PROFILE = "5f2ceece-70de-472c-b26f-08a3a3e5268e";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
