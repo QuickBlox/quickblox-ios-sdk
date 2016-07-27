@@ -11,6 +11,8 @@
 		2C61CD8E1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C61CD8D1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.m */; };
 		2CED4A771B9D769600B6862C /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A761B9D769600B6862C /* SAMTextView.m */; };
 		465124C8A22230ACE87D50AB /* libPods-sample-custom_objects.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99702EE102EBDAE13984C0AC /* libPods-sample-custom_objects.a */; };
+		583978AA1D48A83B009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF3D71B285ED000078084 /* Quickblox.framework */; };
+		583978AB1D48A83B009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF3D71B285ED000078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BF0CF3AE1B28599E00078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3AD1B28599E00078084 /* main.m */; };
 		BF0CF3B11B28599E00078084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3B01B28599E00078084 /* AppDelegate.m */; };
 		BF0CF3B41B28599E00078084 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3B31B28599E00078084 /* MainViewController.m */; };
@@ -20,7 +22,6 @@
 		BF0CF3C81B28599F00078084 /* sample_custom_objectsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3C71B28599F00078084 /* sample_custom_objectsTests.m */; };
 		BF0CF3D31B285E1700078084 /* AddNewMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3D21B285E1700078084 /* AddNewMovieViewController.m */; };
 		BF0CF3D61B285EA800078084 /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3D51B285EA800078084 /* MovieDetailsViewController.m */; };
-		BF0CF3D81B285ED000078084 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF3D71B285ED000078084 /* Quickblox.framework */; };
 		BF0CF3DB1B28612D00078084 /* ObjectsPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3DA1B28612D00078084 /* ObjectsPaginator.m */; };
 		BF0CF3DE1B28619300078084 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3DD1B28619300078084 /* Storage.m */; };
 		BF0CF3E01B28643A00078084 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF3DF1B28643A00078084 /* SystemConfiguration.framework */; };
@@ -43,6 +44,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		583978AC1D48A83C009E970B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				583978AB1D48A83B009E970B /* Quickblox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2C61CD8A1B9DEB2400622035 /* AddNewMovieHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewMovieHeaderFooterView.xib; sourceTree = "<group>"; };
 		2C61CD8C1B9DEBBC00622035 /* AddNewMovieHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNewMovieHeaderFooterView.h; sourceTree = "<group>"; };
@@ -50,6 +65,7 @@
 		2CED4A751B9D769600B6862C /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
 		2CED4A761B9D769600B6862C /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
 		57C5E88D99D7805AD3377371 /* Pods-sample-custom_objects.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-custom_objects.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-custom_objects/Pods-sample-custom_objects.release.xcconfig"; sourceTree = "<group>"; };
+		583978A81D48A834009E970B /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		99702EE102EBDAE13984C0AC /* libPods-sample-custom_objects.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-custom_objects.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49219471C13D3656E4C173A /* Pods-sample-custom_objects.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-custom_objects.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-custom_objects/Pods-sample-custom_objects.debug.xcconfig"; sourceTree = "<group>"; };
 		BF0CF3A81B28599E00078084 /* sample-custom_objects.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-custom_objects.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0CF3EE1B28646500078084 /* libxml2.2.dylib in Frameworks */,
+				583978AA1D48A83B009E970B /* Quickblox.framework in Frameworks */,
 				BF0CF3EC1B28646000078084 /* libresolv.9.dylib in Frameworks */,
 				BF0CF3EA1B28645B00078084 /* libz.1.2.5.dylib in Frameworks */,
 				BF0CF3E81B28645600078084 /* Security.framework in Frameworks */,
@@ -97,7 +114,6 @@
 				BF0CF3E41B28644500078084 /* CoreGraphics.framework in Frameworks */,
 				BF0CF3E21B28644000078084 /* MobileCoreServices.framework in Frameworks */,
 				BF0CF3E01B28643A00078084 /* SystemConfiguration.framework in Frameworks */,
-				BF0CF3D81B285ED000078084 /* Quickblox.framework in Frameworks */,
 				465124C8A22230ACE87D50AB /* libPods-sample-custom_objects.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +214,7 @@
 		D44C08A129FE092205A709F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				583978A81D48A834009E970B /* QuickLook.framework */,
 				BF0CF3D71B285ED000078084 /* Quickblox.framework */,
 				BF0CF3ED1B28646500078084 /* libxml2.2.dylib */,
 				BF0CF3EB1B28646000078084 /* libresolv.9.dylib */,
@@ -224,6 +241,7 @@
 				BF0CF3A51B28599E00078084 /* Frameworks */,
 				BF0CF3A61B28599E00078084 /* Resources */,
 				519B85F377B63BB2FE4871D4 /* Copy Pods Resources */,
+				583978AC1D48A83C009E970B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -490,7 +508,7 @@
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				INFOPLIST_FILE = "sample-custom_objects/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -525,7 +543,7 @@
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				INFOPLIST_FILE = "sample-custom_objects/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

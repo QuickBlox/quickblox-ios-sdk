@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		583978B01D48A8E3009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; };
+		583978B11D48A8E3009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86A716581B9DAA790019C42A /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A716571B9DAA790019C42A /* SAMTextView.m */; };
 		BF0CF3FE1B2976F200078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3FD1B2976F200078084 /* main.m */; };
 		BF0CF4011B2976F200078084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4001B2976F200078084 /* AppDelegate.m */; };
@@ -15,7 +17,6 @@
 		BF0CF4091B2976F200078084 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF0CF4081B2976F200078084 /* Images.xcassets */; };
 		BF0CF40C1B2976F200078084 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF0CF40A1B2976F200078084 /* LaunchScreen.xib */; };
 		BF0CF4181B2976F200078084 /* sample_messagesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4171B2976F200078084 /* sample_messagesTests.m */; };
-		BF0CF4221B297B7500078084 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; };
 		BF0CF4241B29878400078084 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4231B29878400078084 /* CFNetwork.framework */; };
 		BF0CF4261B29878900078084 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4251B29878900078084 /* SystemConfiguration.framework */; };
 		BF0CF4281B29878E00078084 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4271B29878E00078084 /* MobileCoreServices.framework */; };
@@ -36,6 +37,20 @@
 			remoteInfo = "sample-messages";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		583978B21D48A8E3009E970B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				583978B11D48A8E3009E970B /* Quickblox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		86A716561B9DAA790019C42A /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
@@ -73,6 +88,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0CF4321B2987AB00078084 /* libxml2.2.dylib in Frameworks */,
+				583978B01D48A8E3009E970B /* Quickblox.framework in Frameworks */,
 				BF0CF4301B2987A600078084 /* libresolv.9.dylib in Frameworks */,
 				BF0CF42E1B2987A100078084 /* libz.1.2.5.dylib in Frameworks */,
 				BF0CF42C1B29879D00078084 /* Security.framework in Frameworks */,
@@ -80,7 +96,6 @@
 				BF0CF4281B29878E00078084 /* MobileCoreServices.framework in Frameworks */,
 				BF0CF4261B29878900078084 /* SystemConfiguration.framework in Frameworks */,
 				BF0CF4241B29878400078084 /* CFNetwork.framework in Frameworks */,
-				BF0CF4221B297B7500078084 /* Quickblox.framework in Frameworks */,
 				C4E1C8E6B56A69A00AA536EA /* libPods-sample-push-notifications.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,6 +219,7 @@
 				BF0CF3F51B2976F200078084 /* Frameworks */,
 				BF0CF3F61B2976F200078084 /* Resources */,
 				53F404846E7198ABE57DE378 /* Copy Pods Resources */,
+				583978B21D48A8E3009E970B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -465,7 +481,7 @@
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				INFOPLIST_FILE = "sample-push-notifications/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "sample-push-notifications";
@@ -484,7 +500,7 @@
 					"\"$(SRCROOT)/../Framework\"",
 				);
 				INFOPLIST_FILE = "sample-push-notifications/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "sample-push-notifications";
