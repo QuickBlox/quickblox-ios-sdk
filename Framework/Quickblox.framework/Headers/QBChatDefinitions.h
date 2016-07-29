@@ -8,4 +8,3 @@
 
 #import <Quickblox/ChatEnums.h>
 #import <Quickblox/ChatDelegates.h>
-#import <Quickblox/ChatConsts.h>

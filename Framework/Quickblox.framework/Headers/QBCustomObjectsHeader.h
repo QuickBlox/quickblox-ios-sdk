@@ -13,5 +13,6 @@
 #import <Quickblox/QBCOCustomObject.h>
 #import <Quickblox/QBRequest+QBCustomObjects.h>
 #import <Quickblox/QBCOFile.h>
+#import <Quickblox/QBCOFileUploadInfo.h>
 
 #endif

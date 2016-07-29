@@ -11,6 +11,11 @@
 #import <Quickblox/QBGeneric.h>
 #import "ChatEnums.h"
 
+extern NSString *const kPresenceSubscriptionStateNone;
+extern NSString *const kPresenceSubscriptionStateTo;
+extern NSString *const kPresenceSubscriptionStateFrom;
+extern NSString *const kPresenceSubscriptionStateBoth;
+
 /**
  QBContactListItem structure. Represents user's contact list item
  */

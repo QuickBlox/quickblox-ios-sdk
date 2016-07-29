@@ -8,10 +8,6 @@
 		<data>
 		PZFFZPy1bW3Ithkri6HdvA4VLgM=
 		</data>
-		<key>Headers/ChatConsts.h</key>
-		<data>
-		uqOqlSplspndWVJG4H8OEKX3Fbw=
-		</data>
 		<key>Headers/ChatDelegates.h</key>
 		<data>
 		V6NhJqlMApwStC5MIGLn/j0SSK4=
@@ -52,6 +48,10 @@
 		<data>
 		E52KRU/4JEd21CH6TnW3p2qYBVk=
 		</data>
+		<key>Headers/QBCOFileUploadInfo.h</key>
+		<data>
+		2YvEN7oDkZVfXmhK/ZrFO5THMZQ=
+		</data>
 		<key>Headers/QBCOPermissions.h</key>
 		<data>
 		z9MAOrt9RfdDKTcJzXWxYZWziSU=
@@ -74,7 +74,7 @@
 		</data>
 		<key>Headers/QBChatDefinitions.h</key>
 		<data>
-		9NUcRQaYFuUesi5WkcxGuO6BtxI=
+		I9PtvOjqK3zGjqNrgBFL+77qwT4=
 		</data>
 		<key>Headers/QBChatDialog.h</key>
 		<data>
@@ -98,7 +98,7 @@
 		</data>
 		<key>Headers/QBContactListItem.h</key>
 		<data>
-		BIap6PYkiHQjtc9ezjbXQsr41po=
+		Uycd1++S6j8tOaScCN+yRGYB7pQ=
 		</data>
 		<key>Headers/QBContentEnums.h</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>Headers/QBCustomObjectsHeader.h</key>
 		<data>
-		8cT4/XxGLRa+rXZALNtquof87j0=
+		GzigdAnGiRBpfxadTyJ6pSiphLs=
 		</data>
 		<key>Headers/QBError.h</key>
 		<data>
@@ -294,7 +294,7 @@
 		</data>
 		<key>Headers/Quickblox.h</key>
 		<data>
-		mzawPAQG+KDQB3SKtdaJJYoNcZc=
+		VuaAEOii9qGglyLWW5UbFQDyxIA=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -316,17 +316,6 @@
 			<key>hash2</key>
 			<data>
 			uM/SFNGsryqxoN+O+vSdWdqI94iiLT/3CNmLy/8XYJo=
-			</data>
-		</dict>
-		<key>Headers/ChatConsts.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			uqOqlSplspndWVJG4H8OEKX3Fbw=
-			</data>
-			<key>hash2</key>
-			<data>
-			TzfPNRMjJkQak8AZkbHvNqUAPoxqJQP1oHoYR51rI6c=
 			</data>
 		</dict>
 		<key>Headers/ChatDelegates.h</key>
@@ -439,6 +428,17 @@
 			Y08dKJ1Gdqukg1/qljCDJakk6OIeneNXNwJpOSOTOj8=
 			</data>
 		</dict>
+		<key>Headers/QBCOFileUploadInfo.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2YvEN7oDkZVfXmhK/ZrFO5THMZQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			mqfU+dzMKe7hIIu8jI5vo0/EoSa3tplBdX5tEefcXMA=
+			</data>
+		</dict>
 		<key>Headers/QBCOPermissions.h</key>
 		<dict>
 			<key>hash</key>
@@ -498,11 +498,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9NUcRQaYFuUesi5WkcxGuO6BtxI=
+			I9PtvOjqK3zGjqNrgBFL+77qwT4=
 			</data>
 			<key>hash2</key>
 			<data>
-			JhqTDjUd25ImgCOggQh31wjPIiiQX9rlvADympeXq4o=
+			RHQy2vzFZ3uqf/ma2VFYSAHreYMl6sofiwP1VH74mhc=
 			</data>
 		</dict>
 		<key>Headers/QBChatDialog.h</key>
@@ -564,11 +564,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			BIap6PYkiHQjtc9ezjbXQsr41po=
+			Uycd1++S6j8tOaScCN+yRGYB7pQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			VoshGx8rVf1kEKQb/Kfbd4FfQ4ujGa4olKv0daNZD6g=
+			b7c9m3t1QIdC/Bj8pxgRfS304KJtguowa2ev9LuVJ4w=
 			</data>
 		</dict>
 		<key>Headers/QBContentEnums.h</key>
@@ -652,11 +652,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			8cT4/XxGLRa+rXZALNtquof87j0=
+			GzigdAnGiRBpfxadTyJ6pSiphLs=
 			</data>
 			<key>hash2</key>
 			<data>
-			smhG41O/rhQd6OUe1C3OW7IA4lxP2AuPUSYtdNOBJuU=
+			QBCmGleI455NHzUIUTIqKE4lE/770b/GwOXZSZtikT0=
 			</data>
 		</dict>
 		<key>Headers/QBError.h</key>
@@ -1103,11 +1103,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mzawPAQG+KDQB3SKtdaJJYoNcZc=
+			VuaAEOii9qGglyLWW5UbFQDyxIA=
 			</data>
 			<key>hash2</key>
 			<data>
-			n7/VMKq2yBYB8CphgIF1ziAxzCXSvOz9Wqw4MOT4kL4=
+			KgdnDA5MtXq9tS/r4lj2kVSU3CwYlHxkz8dFLodi2PA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
