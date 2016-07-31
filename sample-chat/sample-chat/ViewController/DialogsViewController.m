@@ -50,7 +50,6 @@ QMChatConnectionDelegate
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
     
-   
 	[self.tableView reloadData];
 }
 
@@ -85,6 +84,8 @@ QMChatConnectionDelegate
         [[QMServicesManager instance] logoutWithCompletion:^{
             
             __typeof(self) strongSelf = weakSelf;
+            
+            [strongSelf.tableView reloadData];
             
             [[NSNotificationCenter defaultCenter] removeObserver:strongSelf.observerDidBecomeActive];
             strongSelf.observerDidBecomeActive = nil;
@@ -141,7 +142,9 @@ QMChatConnectionDelegate
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"];
+    
+    DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"
+                                                                                        forIndexPath:indexPath];
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     
