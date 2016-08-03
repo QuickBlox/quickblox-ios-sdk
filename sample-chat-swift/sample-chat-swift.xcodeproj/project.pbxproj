@@ -13,11 +13,12 @@
 		1493F79A1AEA525F00FA51A4 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1493F7991AEA525F00FA51A4 /* String+Localized.swift */; };
 		14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */; };
 		14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */; };
-		2C2C62FA1BB568AE00ED46DC /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2C62F91BB568AE00ED46DC /* Quickblox.framework */; };
 		2C8BB1701B1346A9004540F8 /* ServicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C293C5C1B0F6BDE00A5E863 /* ServicesManager.swift */; };
 		2CBFAA1C1BA0342900F7065D /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CBFAA1B1BA0342900F7065D /* Launch Screen.xib */; };
 		2CCAD5CE1B1F3328005F57B3 /* UsersListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCAD5CD1B1F3328005F57B3 /* UsersListTableViewController.swift */; };
 		2CEF78981B4581E20094E6BA /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEF78971B4581E20094E6BA /* UIImage+fixOrientation.m */; };
+		583E3A871D5212210038171C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2C62F91BB568AE00ED46DC /* Quickblox.framework */; };
+		583E3A881D5212210038171C /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C2C62F91BB568AE00ED46DC /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		584B33AD1C2AF38B0041B431 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 584B33AC1C2AF38B0041B431 /* Localizable.strings */; };
 		58C1E2721BAFF1D0006DF84F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C1E2711BAFF1D0006DF84F /* NotificationService.swift */; };
 		684400CE32CC2D4D22A5AFD5 /* AlertViewWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684403034A069565608E044A /* AlertViewWithTextField.swift */; };
@@ -38,6 +39,20 @@
 		E06A6BEB1D1182AE00431316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E06A6BEA1D1182AE00431316 /* CoreTelephony.framework */; };
 		E0A42AD91CF7139E002E1683 /* MPGNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A42AD81CF7139E002E1683 /* MPGNotification.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		583E3A891D5212220038171C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				583E3A881D5212210038171C /* Quickblox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1437A78C1AC9948600A39692 /* sample-chat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-chat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,9 +105,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E06A6BEB1D1182AE00431316 /* CoreTelephony.framework in Frameworks */,
+				583E3A871D5212210038171C /* Quickblox.framework in Frameworks */,
 				14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */,
 				14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */,
-				2C2C62FA1BB568AE00ED46DC /* Quickblox.framework in Frameworks */,
 				9456BF7207389FC2B1AD33EC /* libPods-sample-chat-swift.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +298,7 @@
 				E0C4D2941D198D42006BDC6F /* ShellScript */,
 				825097359D63254062952709 /* [CP] Embed Pods Frameworks */,
 				4B81D8C9CDCB1BF82DB02A49 /* [CP] Copy Pods Resources */,
+				583E3A891D5212220038171C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -565,7 +581,7 @@
 					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -610,7 +626,7 @@
 					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -682,7 +698,7 @@
 					"$(SRCROOT)/../services/**",
 				);
 				INFOPLIST_FILE = "sample-chat-swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-swift";
