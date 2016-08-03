@@ -12,6 +12,8 @@
 		2C2B5E4E1B8F098C00F0D31D /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B5E4D1B8F098C00F0D31D /* Storyboard.storyboard */; };
 		2C2B5E511B8F50B500F0D31D /* GeoDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B5E501B8F50B500F0D31D /* GeoDataManager.m */; };
 		2C2B5E531B8F5A1B00F0D31D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B5E521B8F5A1B00F0D31D /* LaunchScreen.xib */; };
+		583E3A901D52130F0038171C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7AE19AE2F2F0065AE21 /* Quickblox.framework */; };
+		583E3A911D52130F0038171C /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7AE19AE2F2F0065AE21 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86C9EFF0194C45270064A91E /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86C9EFEF194C45270064A91E /* images.xcassets */; };
 		8A2F265C14F7F0D300292876 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265B14F7F0D300292876 /* UIKit.framework */; };
 		8A2F265E14F7F0D300292876 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A2F265D14F7F0D300292876 /* Foundation.framework */; };
@@ -28,7 +30,6 @@
 		8AC09DCA14FF710400658181 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AC09DC614FF710400658181 /* main.m */; };
 		BB1234501608829200491A31 /* LatestCheckinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB12344F1608829200491A31 /* LatestCheckinsViewController.m */; };
 		BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFA79ED31843E2120044D9E0 /* Security.framework */; };
-		BFFCF7AF19AE2F2F0065AE21 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFCF7AE19AE2F2F0065AE21 /* Quickblox.framework */; };
 		FA38CC5B1614758600BDD29A /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA38CC5A1614758600BDD29A /* libxml2.2.dylib */; };
 		FA39FB8F15EF7110002F9D26 /* MapPin.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB8E15EF7110002F9D26 /* MapPin.m */; };
 		FA39FBA315EF715A002F9D26 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA39FB9B15EF715A002F9D26 /* MapViewController.m */; };
@@ -39,6 +40,20 @@
 		FAC8B9DF16D2D34B00F03311 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC8B9DE16D2D34B00F03311 /* AudioToolbox.framework */; };
 		FAE86FF215EB705E002E16AA /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE86FF115EB705E002E16AA /* libresolv.dylib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		583E3A921D52130F0038171C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				583E3A911D52130F0038171C /* Quickblox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2C2B5E441B8EFA5800F0D31D /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DataManager.h; path = "sample-location/Objects/DataManager.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -93,7 +108,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFA79ED41843E2120044D9E0 /* Security.framework in Frameworks */,
-				BFFCF7AF19AE2F2F0065AE21 /* Quickblox.framework in Frameworks */,
 				FAC8B9DF16D2D34B00F03311 /* AudioToolbox.framework in Frameworks */,
 				FAC8B9DD16D2D34200F03311 /* CoreMedia.framework in Frameworks */,
 				FAC8B9DB16D2D33D00F03311 /* CoreVideo.framework in Frameworks */,
@@ -111,6 +125,7 @@
 				8A2F268114F7F1E900292876 /* SystemConfiguration.framework in Frameworks */,
 				8A2F267F14F7F1E400292876 /* CFNetwork.framework in Frameworks */,
 				8A2F265E14F7F0D300292876 /* Foundation.framework in Frameworks */,
+				583E3A901D52130F0038171C /* Quickblox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +301,7 @@
 				8A2F265314F7F0D300292876 /* Sources */,
 				8A2F265414F7F0D300292876 /* Frameworks */,
 				8A2F265514F7F0D300292876 /* Resources */,
+				583E3A921D52130F0038171C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -443,7 +459,8 @@
 				GCC_PREFIX_HEADER = "sample-location/Supporting Files/sample-location-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "sample-location/Supporting Files/sample-location-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				"OTHER_LDFLAGS[arch=*]" = (
 					"-lxml2",
@@ -474,7 +491,8 @@
 				GCC_PREFIX_HEADER = "sample-location/Supporting Files/sample-location-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "sample-location/Supporting Files/sample-location-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "sample-location";
 				PROVISIONING_PROFILE = "";

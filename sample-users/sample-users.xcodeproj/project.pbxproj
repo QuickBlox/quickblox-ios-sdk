@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2CED4A7A1B9DAB2A00B6862C /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */; };
 		2CED4A7D1B9DB21400B6862C /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */; };
+		583E3A961D52134D0038171C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4731B2994D600078084 /* Quickblox.framework */; };
+		583E3A971D52134D0038171C /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4731B2994D600078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		67792BFAFC8B2AAA21256FC5 /* libPods-sample-users.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD8943CF5FF77D23DBD01335 /* libPods-sample-users.a */; };
 		86B8BFD21B8F6DF200AA99C4 /* SignInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */; };
 		86B8BFD51B8F6E0100AA99C4 /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD41B8F6E0100AA99C4 /* SignUpTableViewController.m */; };
@@ -26,7 +28,6 @@
 		BF0CF46E1B29948600078084 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF46D1B29948600078084 /* libz.1.2.5.dylib */; };
 		BF0CF4701B29948C00078084 /* libresolv.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF46F1B29948C00078084 /* libresolv.9.dylib */; };
 		BF0CF4721B29949300078084 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4711B29949300078084 /* libxml2.2.dylib */; };
-		BF0CF4741B2994D600078084 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4731B2994D600078084 /* Quickblox.framework */; };
 		BF0CF4781B29BC9200078084 /* Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4771B29BC9200078084 /* Storage.m */; };
 		BF0CF47B1B29BCD500078084 /* UsersPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF47A1B29BCD500078084 /* UsersPaginator.m */; };
 		BF0CF47E1B29BE4F00078084 /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF47D1B29BE4F00078084 /* UserDetailsViewController.m */; };
@@ -41,6 +42,20 @@
 			remoteInfo = "sample-users";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		583E3A981D52134D0038171C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				583E3A971D52134D0038171C /* Quickblox.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2CED4A781B9DAB2900B6862C /* UserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTableViewCell.h; sourceTree = "<group>"; };
@@ -89,11 +104,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0CF4721B29949300078084 /* libxml2.2.dylib in Frameworks */,
-				BF0CF4741B2994D600078084 /* Quickblox.framework in Frameworks */,
 				BF0CF4701B29948C00078084 /* libresolv.9.dylib in Frameworks */,
 				BF0CF46E1B29948600078084 /* libz.1.2.5.dylib in Frameworks */,
 				BF0CF46C1B29948000078084 /* Security.framework in Frameworks */,
 				BF0CF46A1B29947800078084 /* MobileCoreServices.framework in Frameworks */,
+				583E3A961D52134D0038171C /* Quickblox.framework in Frameworks */,
 				BF0CF4681B29947200078084 /* SystemConfiguration.framework in Frameworks */,
 				BF0CF4661B29946D00078084 /* CFNetwork.framework in Frameworks */,
 				67792BFAFC8B2AAA21256FC5 /* libPods-sample-users.a in Frameworks */,
@@ -222,6 +237,7 @@
 				BF0CF4391B2993FD00078084 /* Frameworks */,
 				BF0CF43A1B2993FD00078084 /* Resources */,
 				8420FEA1B7B287672EB851FE /* Copy Pods Resources */,
+				583E3A981D52134D0038171C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -489,7 +505,7 @@
 					"$(SRCROOT)",
 				);
 				INFOPLIST_FILE = "sample-users/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -513,7 +529,7 @@
 					"$(SRCROOT)",
 				);
 				INFOPLIST_FILE = "sample-users/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lxml2",
