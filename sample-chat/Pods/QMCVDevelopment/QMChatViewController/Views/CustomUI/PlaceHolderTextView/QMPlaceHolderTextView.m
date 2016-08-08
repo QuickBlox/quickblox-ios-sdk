@@ -166,7 +166,14 @@
 
 - (void)paste:(id)sender
 {
-    if (!self.pasteDelegate || [self.pasteDelegate placeHolderTextView:self shouldPasteWithSender:sender]) {
+    BOOL shouldPaste = true;
+    
+    if ([self.pasteDelegate respondsToSelector:@selector(placeHolderTextView:shouldPasteWithSender:)]) {
+        shouldPaste = [self.pasteDelegate placeHolderTextView:self shouldPasteWithSender:sender];
+    }
+    
+    if (shouldPaste)
+    {
         [super paste:sender];
     }
 }

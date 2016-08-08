@@ -131,6 +131,7 @@
 		5EEE7857B9E99350D222A2AA531A253C /* CDUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 3159D6B4EEB56FA6F677B6F3D10AB6B9 /* CDUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6097B0EA46C4F15D4EF71760D73B4563 /* QMChatCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1835D6BB1DD60197C5E01518BACD92A2 /* QMChatCache.m */; };
 		6312749119A0C3928A76108F4B78DE09 /* QMMessagesMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 142399EE24B39B6678D12B86EC947EBE /* QMMessagesMemoryStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		634992AD47910FF77F3E23B7F4958091 /* TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C2907A1DBF68CD9F47E712B0D37BABEF /* TTTAttributedLabel-dummy.m */; };
 		638406E833F5BE69B5BAA5586AF85329 /* UIColor+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 655C001E07E89DF55526C9C7673DA94D /* UIColor+QM.m */; };
 		6392D067C53C08231A050B00F23EDA5B /* QMCCModelIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = B3AD7CAA4B78385CB7585429D75388D7 /* QMCCModelIncludes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		64E1CD1E7D257098A54F9A89D7DDD9A2 /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = EAE42445991E65824B70378ACCC0EC8E /* UIView+WebCacheOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -152,7 +153,6 @@
 		7363C3523707F6CB0CE3D60A87D74D13 /* BFMeasurementEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFF7B6A7D181B88310277BAF343A085 /* BFMeasurementEvent.m */; };
 		7427AD394ADD96B202161359F03F030C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18584B11F54F670B129E8A8C9A53AA35 /* CoreText.framework */; };
 		742A8A2AFFC6FE550A53A328BCEF6EA7 /* QMImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7185ED74D4B2FC5540BA652294D8C63B /* QMImageView.m */; };
-		74583326B3D5E9A132868FDF7B59143A /* TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C2907A1DBF68CD9F47E712B0D37BABEF /* TTTAttributedLabel-dummy.m */; };
 		745AF7C5360D0B0654A75B6F112C1819 /* _CDUser.h in Headers */ = {isa = PBXBuildFile; fileRef = EA7243BFEE6FE7D75D7D26C3574B61E1 /* _CDUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7541A63A359AF67CB76B1927C175D7D4 /* NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 308EE9DFB45D8F6FBBAAD7FC6D43ACF3 /* NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.m */; };
 		782803055D8C5C3DCDA3FA3548ACB893 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 68310B9B93D44C235BB14DBD2B6EFD2B /* UIAlertView+Blocks.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -225,7 +225,6 @@
 		A9F49B839826905333C5AAC446B41CF8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF1C691DEC5C983FB0235A76FD32CF00 /* CoreData.framework */; };
 		AAF8B3DCFE11D9704FEC78303E36A6C2 /* QMChatIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75935DD9CA5C02A46FFF8E08F37F179D /* QMChatIncomingCell.m */; };
 		AB5FF4E27C844E664E2A072101C7B6E8 /* BFWebViewAppLinkResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = A8870DB8A8FD76CCF00D3FB30BBC999C /* BFWebViewAppLinkResolver.m */; };
-		ABD237AE36863C5606DE6EAA66DA2680 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3220D054BBC539C1CF0584CC5EF32B /* TTTAttributedLabel.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		ABF9A2026E6E1B93F651B95C3A7B3C37 /* InMemoryQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 858402CA973DBB7630D4E5A926587DF0 /* InMemoryQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC0375833B7814706CBC7C55D967FFCD /* BFAppLinkTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = A570864BC5284255CA5EC5AE368647C5 /* BFAppLinkTarget.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC2BD6F02008D0403BC492C0D8EC120A /* QBChatMessage+QMCustomParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B0E41806773B82E666745799C163590 /* QBChatMessage+QMCustomParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -293,6 +292,7 @@
 		D7697FDD6DD444D906B9B5D9E05E0F42 /* QMChatContactRequestCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E32EDE7328ADA637C1EFFBFBCD9004C /* QMChatContactRequestCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D76CF564908BDC849B62BED0E0968842 /* QMChatActionsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 8EF4859102FAD60F99AE031CBCBF3EFF /* QMChatActionsHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D7A9FAEAAF4E6B67A2D178695C96AF64 /* QMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 588CD2EDA0AD53B2BB4F5F8E95DFDD93 /* QMChatViewController.m */; };
+		D9DFAFDB398FF5BF7DCB8C94353B82A1 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A3220D054BBC539C1CF0584CC5EF32B /* TTTAttributedLabel.m */; };
 		DADFD3CFA9DCA14B745BE72FFC0ED99B /* QMChatAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C649BE21ED9166D41D2B0DACF243925A /* QMChatAttachmentCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB4AA0F982B68285C19CB95CD3D826F1 /* UIColor+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EB7AAEDF4FE91547D0856CC7FFF19DE /* UIColor+QM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB7C665131485A4405D1AC94CAEACB0E /* QMSLog.h in Headers */ = {isa = PBXBuildFile; fileRef = C314836993C05C4842798F67C8C47426 /* QMSLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2077,7 +2077,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD513FE7A4FCA1001952D0D534214A66 /* Build configuration list for PBXNativeTarget "TTTAttributedLabel" */;
 			buildPhases = (
-				7A3113343050BEEFF364EC1392F3954C /* Sources */,
+				B475E8E8F3120574ADBEC3974C25CF9E /* Sources */,
 				E6D266FF8F3EB109723FCD126B1E7802 /* Frameworks */,
 				4D270EF2063C90C073023798C8ED8EB8 /* Headers */,
 			);
@@ -2410,15 +2410,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A3113343050BEEFF364EC1392F3954C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				74583326B3D5E9A132868FDF7B59143A /* TTTAttributedLabel-dummy.m in Sources */,
-				ABD237AE36863C5606DE6EAA66DA2680 /* TTTAttributedLabel.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		90FDF318DCF7144C03B54A8017496232 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2430,6 +2421,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B475E8E8F3120574ADBEC3974C25CF9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				634992AD47910FF77F3E23B7F4958091 /* TTTAttributedLabel-dummy.m in Sources */,
+				D9DFAFDB398FF5BF7DCB8C94353B82A1 /* TTTAttributedLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2535,16 +2535,16 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0CFBD035EF62FA06A5F64DB749A7182D /* Release */ = {
+		031ACDAAA11E59A5729FF2EB32A23C4D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2766105DF916EFF29C3A091FC010CC1 /* QMCVDevelopment.xcconfig */;
+			baseConfigurationReference = 3F948FC47F38806406B2D1BF6555A7F7 /* Bolts.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2556,16 +2556,37 @@
 			};
 			name = Release;
 		};
-		1A7FD496A1E2C36F1DC9FCD7CF7F737E /* Debug */ = {
+		0DC52A8527DED85CFA3CA886BDA510F0 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30AEBC4DB3BA6D891B0A8D73965F6A2F /* UIAlertView+Blocks.xcconfig */;
+			baseConfigurationReference = 0D32EF9AB02B35E738EACD745CBA8A3D /* SearchEmojiOnString.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
+		};
+		170D6842E0FF34236C1CA1E5716A61B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B21603543C7F5FB3BB53BFF6DEEC9C1 /* QMServicesDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2577,16 +2598,16 @@
 			};
 			name = Debug;
 		};
-		270D2EFE9773BAC09ABC84F94708D9E6 /* Release */ = {
+		19B1A3AC61B9FD06BC525F45870C8B11 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94C29FAECB27453E7E5C76EC1F4617FF /* SVProgressHUD.xcconfig */;
+			baseConfigurationReference = 30AEBC4DB3BA6D891B0A8D73965F6A2F /* UIAlertView+Blocks.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2596,7 +2617,28 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = QA;
+		};
+		21DF3F8AF0277D4604259A2EDC3F0D50 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB6D93F794923CA253A29FF38E19C291 /* Pods-samplechat.qa.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
 		};
 		29839B4A598C8DAC69FCD12327F133A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2615,32 +2657,32 @@
 			};
 			name = Debug;
 		};
-		2FCDE347F682C996715695535EB32A70 /* Debug */ = {
+		3027E93E10AE5CA1A355C343BB8A4FE2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B81DBDAFEEFD03ACB6641DC5594AC89 /* Pods-samplechat.debug.xcconfig */;
+			baseConfigurationReference = 94C29FAECB27453E7E5C76EC1F4617FF /* SVProgressHUD.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		312625E52B89D9EF7E653AD5CA3A9F6D /* Release */ = {
+		37BA482E622276ED0B274614DCF9A01B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30AEBC4DB3BA6D891B0A8D73965F6A2F /* UIAlertView+Blocks.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2657,16 +2699,37 @@
 			};
 			name = Release;
 		};
-		3EB7373612F13054E069A39BF8827AB7 /* Release */ = {
+		382D39534F8CCCAF221DA06F6D8715AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB7592D34AD7F9FBAF3B7DDAC691795D /* TTTAttributedLabel.xcconfig */;
+			baseConfigurationReference = 3F948FC47F38806406B2D1BF6555A7F7 /* Bolts.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		40B51A0DD4683DDDB231021506B58885 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0D32EF9AB02B35E738EACD745CBA8A3D /* SearchEmojiOnString.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2677,6 +2740,48 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
+		};
+		47BEF9D903506B003EA5C2B249729489 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
 		};
 		4C1D454B4D1ACD693CA06195C152CA8D /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -2714,6 +2819,27 @@
 			};
 			name = QA;
 		};
+		4F88BB684D0D3BF5B9B196A03524E052 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2766105DF916EFF29C3A091FC010CC1 /* QMCVDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
+		};
 		513555C1A5A6CC8F3DE5723A87436653 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B21603543C7F5FB3BB53BFF6DEEC9C1 /* QMServicesDevelopment.xcconfig */;
@@ -2730,6 +2856,27 @@
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
+		};
+		53250E8F0EFDF8CF48BB4C477B5694AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2766105DF916EFF29C3A091FC010CC1 /* QMCVDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
 		};
 		5654C06C11E72982E9C6A1AB4AF7008C /* QA */ = {
 			isa = XCBuildConfiguration;
@@ -2750,27 +2897,6 @@
 			};
 			name = QA;
 		};
-		58DE77C2348D091F3871D404AC58C70E /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94C29FAECB27453E7E5C76EC1F4617FF /* SVProgressHUD.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
 		5ACD13241E6C825164C8EFDD8449CF15 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B21603543C7F5FB3BB53BFF6DEEC9C1 /* QMServicesDevelopment.xcconfig */;
@@ -2788,16 +2914,16 @@
 			};
 			name = Debug;
 		};
-		64CF64F57843C96911C9D265FE78A2EE /* Debug */ = {
+		5BB61F70DF083851FCB84254736F5895 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B21603543C7F5FB3BB53BFF6DEEC9C1 /* QMServicesDevelopment.xcconfig */;
+			baseConfigurationReference = 30AEBC4DB3BA6D891B0A8D73965F6A2F /* UIAlertView+Blocks.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2809,90 +2935,53 @@
 			};
 			name = Debug;
 		};
-		64E5ED3CFC58D4AD2DE4FA8DD37BBC73 /* QA */ = {
+		65AF10A11B4D0206D2B696929F93118F /* QA */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94C29FAECB27453E7E5C76EC1F4617FF /* SVProgressHUD.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_QA=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				VALIDATE_PRODUCT = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = QA;
 		};
-		79B0C2E66EFA9917ED6EDDB8FC6A7684 /* Release */ = {
+		67F86DDE058886E0522F401165448D83 /* QA */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7159DF5501CD12BE8CCD347547288466 /* SDWebImage.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = QA;
 		};
-		7C221CD14C8DF4BFAFB2FF8AA37C26AD /* Release */ = {
+		6EBCE2F66B9876EC382513CF2BA91992 /* QA */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7B21603543C7F5FB3BB53BFF6DEEC9C1 /* QMServicesDevelopment.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2907,18 +2996,18 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = QA;
 		};
-		7F20AE82F45E7EE291B1EFDBAAFD1A61 /* QA */ = {
+		7E3A93EAB754009AB84E06680298C697 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2766105DF916EFF29C3A091FC010CC1 /* QMCVDevelopment.xcconfig */;
+			baseConfigurationReference = 3F948FC47F38806406B2D1BF6555A7F7 /* Bolts.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2930,11 +3019,32 @@
 			};
 			name = QA;
 		};
-		80A18B57124ECBED9A62B0CBFD635199 /* Debug */ = {
+		8B767EC0087759D7855E4F54CBEDE730 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFB0B550347785A5325A7F8C6C899804 /* Pods-samplechat.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		8C36CF145C91961625A89BCA89EE5089 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7159DF5501CD12BE8CCD347547288466 /* SDWebImage.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -2951,15 +3061,36 @@
 			};
 			name = Debug;
 		};
-		88183AB6A3710311EE7698F890412E5D /* Release */ = {
+		910BFFA360DF7FA2350D74A1738D35CA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D32EF9AB02B35E738EACD745CBA8A3D /* SearchEmojiOnString.xcconfig */;
+			baseConfigurationReference = 7159DF5501CD12BE8CCD347547288466 /* SDWebImage.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		92C00428A4BE47436D46478229C0360A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B21603543C7F5FB3BB53BFF6DEEC9C1 /* QMServicesDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
@@ -2991,133 +3122,7 @@
 			};
 			name = QA;
 		};
-		9505E8B47299AEE561FA1DF552F4E4F2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F948FC47F38806406B2D1BF6555A7F7 /* Bolts.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		A5A89D6AC5055EE6AF65D057F65A58BB /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B21603543C7F5FB3BB53BFF6DEEC9C1 /* QMServicesDevelopment.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		A77628579DB490F3D75A72C62244D54D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D32EF9AB02B35E738EACD745CBA8A3D /* SearchEmojiOnString.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		BBCAF13F409C3F347EC6B460BAB854C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7159DF5501CD12BE8CCD347547288466 /* SDWebImage.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		C301A862BDFF62FFD713BE5BE2728E39 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F948FC47F38806406B2D1BF6555A7F7 /* Bolts.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		CE56FEE7C86D6D31FAA5FD02678DA3BE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2766105DF916EFF29C3A091FC010CC1 /* QMCVDevelopment.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		CF7953F66E785E8876EB4D370D777D50 /* Debug */ = {
+		AAF678CED40D3499169D10F63CA0719E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3135,42 +3140,36 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_TESTABILITY = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_DEBUG=1",
-					"DEBUG=1",
+					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
-		D5A55F57D337460E99BB609F818AAD1A /* Debug */ = {
+		BFEFF6C6817CF9B01499F9C8FB3DC242 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB7592D34AD7F9FBAF3B7DDAC691795D /* TTTAttributedLabel.xcconfig */;
+			baseConfigurationReference = 94C29FAECB27453E7E5C76EC1F4617FF /* SVProgressHUD.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -3182,36 +3181,136 @@
 			};
 			name = Debug;
 		};
-		D80FA08A6C6A4417DE389AFE90C6DC1A /* Release */ = {
+		C0065707CEDF0379BFFF13033A3E54D2 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EFB0B550347785A5325A7F8C6C899804 /* Pods-samplechat.release.xcconfig */;
+			baseConfigurationReference = FB7592D34AD7F9FBAF3B7DDAC691795D /* TTTAttributedLabel.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MACH_O_TYPE = staticlib;
+				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = QA;
+		};
+		C135D371E4B6663F4703F94AF13C3233 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB7592D34AD7F9FBAF3B7DDAC691795D /* TTTAttributedLabel.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
-		E671B7FF5B7CDD5D7C8EE19998658520 /* QA */ = {
+		C48ADB8B0A676F264CD033AAECCA0117 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7159DF5501CD12BE8CCD347547288466 /* SDWebImage.xcconfig */;
+			baseConfigurationReference = 0D32EF9AB02B35E738EACD745CBA8A3D /* SearchEmojiOnString.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CC6CFFE69B25C4B7E033A14EF1D46C60 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_QA=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = QA;
+		};
+		DA380607D483B74D52A76DC38F01A20A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB7592D34AD7F9FBAF3B7DDAC691795D /* TTTAttributedLabel.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ED0C680C4DE8D484CED8A34BDD6B685C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2766105DF916EFF29C3A091FC010CC1 /* QMCVDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
@@ -3222,19 +3321,19 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = QA;
+			name = Release;
 		};
-		E6945439D79C42548C65F9361C1C927D /* QA */ = {
+		F04B793E47BF95F6E5C5A25FD2F258BF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB6D93F794923CA253A29FF38E19C291 /* Pods-samplechat.qa.xcconfig */;
+			baseConfigurationReference = 5B81DBDAFEEFD03ACB6641DC5594AC89 /* Pods-samplechat.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -3243,91 +3342,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = QA;
-		};
-		F1A10CCB0F07676304321082CB48E4D3 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB7592D34AD7F9FBAF3B7DDAC691795D /* TTTAttributedLabel.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		F1B03AD2E1721729ED92EF97F1932C78 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F948FC47F38806406B2D1BF6555A7F7 /* Bolts.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		F2F210D89B72DEE69E1675A730527532 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30AEBC4DB3BA6D891B0A8D73965F6A2F /* UIAlertView+Blocks.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
-		};
-		FB6903D9626693E0B651EE9F05C73CC5 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D32EF9AB02B35E738EACD745CBA8A3D /* SearchEmojiOnString.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = QA;
+			name = Debug;
 		};
 		FCE6EA7677B884CA2A43DD049861B79A /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3363,36 +3378,15 @@
 			};
 			name = Release;
 		};
-		FE06B47E9DB8D9178EEF3E04AC57FAD0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94C29FAECB27453E7E5C76EC1F4617FF /* SVProgressHUD.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		28FEE4E262723C3C25852873B73C7440 /* Build configuration list for PBXNativeTarget "SVProgressHUD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FE06B47E9DB8D9178EEF3E04AC57FAD0 /* Debug */,
-				58DE77C2348D091F3871D404AC58C70E /* QA */,
-				270D2EFE9773BAC09ABC84F94708D9E6 /* Release */,
+				BFEFF6C6817CF9B01499F9C8FB3DC242 /* Debug */,
+				65AF10A11B4D0206D2B696929F93118F /* QA */,
+				3027E93E10AE5CA1A355C343BB8A4FE2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3400,9 +3394,9 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CF7953F66E785E8876EB4D370D777D50 /* Debug */,
-				64E5ED3CFC58D4AD2DE4FA8DD37BBC73 /* QA */,
-				79B0C2E66EFA9917ED6EDDB8FC6A7684 /* Release */,
+				47BEF9D903506B003EA5C2B249729489 /* Debug */,
+				CC6CFFE69B25C4B7E033A14EF1D46C60 /* QA */,
+				AAF678CED40D3499169D10F63CA0719E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3420,9 +3414,9 @@
 		56B61D0327E4DB5C2EA8AAC50056EF46 /* Build configuration list for PBXNativeTarget "Pods-samplechat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2FCDE347F682C996715695535EB32A70 /* Debug */,
-				E6945439D79C42548C65F9361C1C927D /* QA */,
-				D80FA08A6C6A4417DE389AFE90C6DC1A /* Release */,
+				F04B793E47BF95F6E5C5A25FD2F258BF /* Debug */,
+				21DF3F8AF0277D4604259A2EDC3F0D50 /* QA */,
+				8B767EC0087759D7855E4F54CBEDE730 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3430,9 +3424,9 @@
 		59E64BF110DDBDAA81DC60B4A6A349D0 /* Build configuration list for PBXNativeTarget "Bolts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C301A862BDFF62FFD713BE5BE2728E39 /* Debug */,
-				F1B03AD2E1721729ED92EF97F1932C78 /* QA */,
-				9505E8B47299AEE561FA1DF552F4E4F2 /* Release */,
+				382D39534F8CCCAF221DA06F6D8715AD /* Debug */,
+				7E3A93EAB754009AB84E06680298C697 /* QA */,
+				031ACDAAA11E59A5729FF2EB32A23C4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3450,9 +3444,9 @@
 		7DAC94E51391E0B6DF3E4587E5304546 /* Build configuration list for PBXNativeTarget "UIAlertView+Blocks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A7FD496A1E2C36F1DC9FCD7CF7F737E /* Debug */,
-				F2F210D89B72DEE69E1675A730527532 /* QA */,
-				312625E52B89D9EF7E653AD5CA3A9F6D /* Release */,
+				5BB61F70DF083851FCB84254736F5895 /* Debug */,
+				19B1A3AC61B9FD06BC525F45870C8B11 /* QA */,
+				37BA482E622276ED0B274614DCF9A01B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3460,9 +3454,9 @@
 		94438EEB06B67BA6B504C9310386ED4D /* Build configuration list for PBXNativeTarget "SearchEmojiOnString" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A77628579DB490F3D75A72C62244D54D /* Debug */,
-				FB6903D9626693E0B651EE9F05C73CC5 /* QA */,
-				88183AB6A3710311EE7698F890412E5D /* Release */,
+				C48ADB8B0A676F264CD033AAECCA0117 /* Debug */,
+				0DC52A8527DED85CFA3CA886BDA510F0 /* QA */,
+				40B51A0DD4683DDDB231021506B58885 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3470,9 +3464,9 @@
 		95DC9ACE315A1904B870EEAA9C51E27A /* Build configuration list for PBXNativeTarget "QMCVDevelopment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE56FEE7C86D6D31FAA5FD02678DA3BE /* Debug */,
-				7F20AE82F45E7EE291B1EFDBAAFD1A61 /* QA */,
-				0CFBD035EF62FA06A5F64DB749A7182D /* Release */,
+				53250E8F0EFDF8CF48BB4C477B5694AC /* Debug */,
+				4F88BB684D0D3BF5B9B196A03524E052 /* QA */,
+				ED0C680C4DE8D484CED8A34BDD6B685C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3480,9 +3474,9 @@
 		9FD82FFFF014E4376F24415DC5C09B56 /* Build configuration list for PBXNativeTarget "QMServicesDevelopment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				64CF64F57843C96911C9D265FE78A2EE /* Debug */,
-				A5A89D6AC5055EE6AF65D057F65A58BB /* QA */,
-				7C221CD14C8DF4BFAFB2FF8AA37C26AD /* Release */,
+				170D6842E0FF34236C1CA1E5716A61B5 /* Debug */,
+				6EBCE2F66B9876EC382513CF2BA91992 /* QA */,
+				92C00428A4BE47436D46478229C0360A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3490,9 +3484,9 @@
 		A6CD1CE9CAE5FA2ADDD9B1E172978B2C /* Build configuration list for PBXNativeTarget "SDWebImage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				80A18B57124ECBED9A62B0CBFD635199 /* Debug */,
-				E671B7FF5B7CDD5D7C8EE19998658520 /* QA */,
-				BBCAF13F409C3F347EC6B460BAB854C1 /* Release */,
+				8C36CF145C91961625A89BCA89EE5089 /* Debug */,
+				67F86DDE058886E0522F401165448D83 /* QA */,
+				910BFFA360DF7FA2350D74A1738D35CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3510,9 +3504,9 @@
 		BD513FE7A4FCA1001952D0D534214A66 /* Build configuration list for PBXNativeTarget "TTTAttributedLabel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D5A55F57D337460E99BB609F818AAD1A /* Debug */,
-				F1A10CCB0F07676304321082CB48E4D3 /* QA */,
-				3EB7373612F13054E069A39BF8827AB7 /* Release */,
+				DA380607D483B74D52A76DC38F01A20A /* Debug */,
+				C0065707CEDF0379BFFF13033A3E54D2 /* QA */,
+				C135D371E4B6663F4703F94AF13C3233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

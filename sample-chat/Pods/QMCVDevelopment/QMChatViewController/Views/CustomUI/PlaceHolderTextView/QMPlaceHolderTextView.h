@@ -53,6 +53,7 @@
 
 @protocol QMPlaceHolderTextViewPasteDelegate <NSObject>
 
+@optional
 /**
  *  Asks the delegate whether or not the `textView` should use the original implementation of `-[UITextView paste]`.
  *

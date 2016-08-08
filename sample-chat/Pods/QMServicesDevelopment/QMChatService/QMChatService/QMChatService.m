@@ -559,28 +559,29 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         BOOL messageExists = [self.messagesMemoryStorage isMessageExistent:message forDialogID:message.dialogID];
         
-        if (messageExists) {
+        if (!messageExists) {
             
-            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
-                
-                [self.multicastDelegate chatService:self didUpdateMessage:message forDialogID:message.dialogID];
-            }
-        }
-        else {
-            
-             [self.messagesMemoryStorage addMessage:message forDialogID:message.dialogID];
+            [self.messagesMemoryStorage addMessage:message forDialogID:message.dialogID];
             
             if ([self.multicastDelegate respondsToSelector:@selector(chatService:didAddMessageToMemoryStorage:forDialogID:)]) {
                 
                 [self.multicastDelegate chatService:self didAddMessageToMemoryStorage:message forDialogID:message.dialogID];
             }
-            
-            chatDialogToUpdate.updatedAt = message.dateSent;
-            
-            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+        }
+        else {
+            if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
                 
-                [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
+                [self.multicastDelegate chatService:self didUpdateMessage:message forDialogID:message.dialogID];
             }
+        }
+        
+        [self updateLastMessageParamsForChatDialog:chatDialogToUpdate withMessage:message];
+        
+        chatDialogToUpdate.updatedAt = message.dateSent;
+        
+        if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+            
+            [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
         }
     }
     
