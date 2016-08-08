@@ -81,7 +81,7 @@
  *
  *  @return Cancelable request
  */
-- (QB_NONNULL QBRequest *)loginWithTwitterAccessToken:(QB_NONNULL NSString *)accessToken accessTokenSecret:(QB_NONNULL NSString *)accessTokenSecret completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *userProfile))completion;
+- (QB_NONNULL QBRequest *)loginWithTwitterAccessToken:(QB_NONNULL NSString *)accessToken accessTokenSecret:(QB_NONNULL NSString *)accessTokenSecret completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
 /**
  *  Logout
