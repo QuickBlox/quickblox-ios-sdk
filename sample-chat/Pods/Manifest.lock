@@ -71,7 +71,7 @@ CHECKOUT OPTIONS:
     :commit: 7f736eadb3879727f37091677886a62bed62562c
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: c083d3f20e97bec358ee29c8ebd1acfb7c2386c5
+    :commit: a80d6287d1cab99df8a6358ba89e11854c643091
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
@@ -86,6 +86,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-PODFILE CHECKSUM: ac18047369debaee82c42d921db1a98a4b3c3692
+PODFILE CHECKSUM: ce13a024f26622fc65dc412d826ce92e32c3d1ce
 
 COCOAPODS: 1.0.1
