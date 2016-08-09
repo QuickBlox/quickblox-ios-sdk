@@ -60,6 +60,18 @@
     return source.task;
 }
 
+- (BFTask *)loginWithTwitterAccessToken:(QB_NONNULL NSString *)accessToken accessTokenSecret:(QB_NONNULL NSString *)accessTokenSecret {
+    
+    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self loginWithTwitterAccessToken:accessToken accessTokenSecret:accessTokenSecret completion:^(QBResponse *response, QBUUser *userProfile) {
+        
+        response.success ? [source setResult:userProfile] : [source setError:response.error.error];
+    }];
+    
+    return source.task;
+}
+
 - (BFTask *)logout {
     
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];

@@ -1,1 +1,0 @@
-../../../QMCVDevelopment/QMChatViewController/Categories/UIImage+QM.h

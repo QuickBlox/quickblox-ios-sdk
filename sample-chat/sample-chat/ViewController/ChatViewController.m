@@ -17,11 +17,11 @@
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QMMessageNotificationManager.h"
 
-#import <NSString+EMOEmoji.h>
+#import "NSString+EMOEmoji.h"
 
 #import <SafariServices/SFSafariViewController.h>
 
-#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
+#import "UIAlertView+Blocks.h"
 
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>

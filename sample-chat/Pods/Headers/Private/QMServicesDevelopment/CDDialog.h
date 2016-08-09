@@ -1,1 +1,0 @@
-../../../QMServicesDevelopment/QMChatCache/QMChatCache/CoreData/Entries/CDDialog.h

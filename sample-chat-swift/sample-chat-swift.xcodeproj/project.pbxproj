@@ -33,11 +33,11 @@
 		68440EE02D9A7184D21DF0F7 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68440EF02AB27CCF47A87701 /* AlertView.swift */; };
 		864DDA2C1B5FEF3900D4A22F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864DDA2B1B5FEF3900D4A22F /* Constants.swift */; };
 		92B02D141B4C374400752D18 /* DialogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B02D131B4C374400752D18 /* DialogTableViewCell.swift */; };
-		9456BF7207389FC2B1AD33EC /* libPods-sample-chat-swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4005C991981A2EB5383B5B0C /* libPods-sample-chat-swift.a */; };
 		E03A2B6A1CEA0C3A0081660F /* QMMessageNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E03A2B671CEA0C3A0081660F /* QMMessageNotification.m */; };
 		E03A2B6B1CEA0C3A0081660F /* QMMessageNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E03A2B691CEA0C3A0081660F /* QMMessageNotificationManager.m */; };
 		E06A6BEB1D1182AE00431316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E06A6BEA1D1182AE00431316 /* CoreTelephony.framework */; };
 		E0A42AD91CF7139E002E1683 /* MPGNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A42AD81CF7139E002E1683 /* MPGNotification.m */; };
+		F67FB48421F82B0799DDC287 /* Pods_sample_chat_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5442CCAF54E0FC88C128B5C8 /* Pods_sample_chat_swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -74,7 +74,7 @@
 		2CEF78961B4581E20094E6BA /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
 		2CEF78971B4581E20094E6BA /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
 		338BD8D80EC631948C20F3E6 /* Pods-sample-chat-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-chat-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-chat-swift/Pods-sample-chat-swift.debug.xcconfig"; sourceTree = "<group>"; };
-		4005C991981A2EB5383B5B0C /* libPods-sample-chat-swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-chat-swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5442CCAF54E0FC88C128B5C8 /* Pods_sample_chat_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_chat_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		584B33AC1C2AF38B0041B431 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = ../Localizable.strings; sourceTree = "<group>"; };
 		58C1E2711BAFF1D0006DF84F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		68440035DAA846751DEDBE4D /* DialogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DialogsViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -108,7 +108,7 @@
 				583978A21D48A793009E970B /* Quickblox.framework in Frameworks */,
 				14A4DCC61AC9A6030046D45C /* SystemConfiguration.framework in Frameworks */,
 				14A4DCC81AC9A6070046D45C /* MobileCoreServices.framework in Frameworks */,
-				9456BF7207389FC2B1AD33EC /* libPods-sample-chat-swift.a in Frameworks */,
+				F67FB48421F82B0799DDC287 /* Pods_sample_chat_swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,7 +181,7 @@
 				2C2C62F91BB568AE00ED46DC /* Quickblox.framework */,
 				14A4DCC71AC9A6070046D45C /* MobileCoreServices.framework */,
 				14A4DCC51AC9A6030046D45C /* SystemConfiguration.framework */,
-				4005C991981A2EB5383B5B0C /* libPods-sample-chat-swift.a */,
+				5442CCAF54E0FC88C128B5C8 /* Pods_sample_chat_swift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -564,6 +564,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 338BD8D80EC631948C20F3E6 /* Pods-sample-chat-swift.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -609,6 +610,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B58339796F4248B5953934D2 /* Pods-sample-chat-swift.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -681,6 +683,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 20797AD3D974BF7763A8206C /* Pods-sample-chat-swift.qa.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";

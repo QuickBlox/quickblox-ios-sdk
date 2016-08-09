@@ -1,1 +1,0 @@
-../../../QMServicesDevelopment/QMServices/QMSLog.h

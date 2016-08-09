@@ -22,5 +22,10 @@
     return defaultLayoutModel;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.notificationLabel.backgroundColor = [UIColor clearColor];
+}
 
 @end

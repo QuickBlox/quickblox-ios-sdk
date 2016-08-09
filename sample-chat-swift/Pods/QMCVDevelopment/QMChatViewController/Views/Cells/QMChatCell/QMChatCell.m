@@ -9,6 +9,7 @@
 #import "QMChatCell.h"
 #import "QMChatCellLayoutAttributes.h"
 #import "TTTAttributedLabel.h"
+#import "QMImageView.h"
 
 @interface TTTAttributedLabel(PrivateAPI)
     - (TTTAttributedLabelLink *)linkAtPoint:(CGPoint)point;
@@ -20,6 +21,8 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 
 @property (weak, nonatomic) IBOutlet QMChatContainerView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *messageContainer;
+
+@property (weak, nonatomic) IBOutlet QMImageView *avatarView;
 
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *textView;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *topLabel;

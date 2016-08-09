@@ -186,6 +186,21 @@
                       date:(NSDate *)date;
 
 /**
+ *  This method is called when the user taps the send button on the inputToolbar
+ *  after composing a message with the specified data.
+ *
+ *  @param button            The send button that was pressed by the user.
+ *  @param textAttachments   Array of NSTextAttachment.
+ *  @param senderId          The message sender identifier.
+ *  @param senderDisplayName The message sender display name.
+ *  @param date              The message date.
+ */
+- (void)didPressSendButton:(UIButton *)button
+       withTextAttachments:(NSArray *)textAttachments
+                  senderId:(NSUInteger)senderId
+         senderDisplayName:(NSString *)senderDisplayName
+                      date:(NSDate *)date;
+/**
  *  This method is called when the user taps the accessory button on the `inputToolbar`.
  *
  *  @param sender The accessory button that was pressed by the user.

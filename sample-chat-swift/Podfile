@@ -1,5 +1,7 @@
 platform :ios, "8.0"
 
+use_frameworks!
+
 target 'sample-chat-swift' do
 
 pod 'SVProgressHUD', '~> 1.1.3'
@@ -12,6 +14,9 @@ pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-io
 
 #Production pod
 pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :branch => 'development'
+
+#For development pods
+#pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
 
 pod 'SearchEmojiOnString'
 

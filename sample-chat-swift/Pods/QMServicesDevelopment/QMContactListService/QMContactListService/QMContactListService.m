@@ -10,6 +10,11 @@
 
 #import "QMSLog.h"
 
+static inline BOOL isContactListEmpty(QBContactList *contactList) {
+    
+    return (contactList == nil || (contactList.contacts.count == 0 && contactList.pendingApproval.count == 0));
+}
+
 @interface QMContactListService()
 
 <QBChatDelegate>
@@ -93,7 +98,7 @@
 
 - (void)chatContactListDidChange:(QBContactList *)contactList {
     
-    if (contactList == nil
+    if (isContactListEmpty(contactList)
         && ![QBChat instance].isConnected) {
         // no need to erase contact list cache due to chat
         // disconnect triggers nil contact list change

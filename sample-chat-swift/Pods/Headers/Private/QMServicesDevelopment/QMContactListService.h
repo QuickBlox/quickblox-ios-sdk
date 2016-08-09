@@ -1,1 +1,0 @@
-../../../QMServicesDevelopment/QMContactListService/QMContactListService/QMContactListService.h
