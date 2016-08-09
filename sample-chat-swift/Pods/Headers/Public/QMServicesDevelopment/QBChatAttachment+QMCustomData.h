@@ -1,1 +1,0 @@
-../../../QMServicesDevelopment/QMChatService/QMChatService/Categories/QBChatAttachment+QMCustomData.h

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QMChatContainerView.h"
-#import "TTTAttributedLabel.h"
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QMChatCellLayoutAttributes.h"
 #import "QMImageView.h"
 
@@ -125,7 +125,7 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
 /**
  *  Property to set avatar view
  */
-@property (weak, nonatomic) IBOutlet QMImageView *avatarView;
+@property (weak, nonatomic, readonly) QMImageView *avatarView;
 
 /**
  *  Returns chat message attributed label.

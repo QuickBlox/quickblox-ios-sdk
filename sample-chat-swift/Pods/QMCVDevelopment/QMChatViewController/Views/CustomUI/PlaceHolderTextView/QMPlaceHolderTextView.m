@@ -33,11 +33,10 @@
     self.scrollsToTop = NO;
     self.userInteractionEnabled = YES;
     
-    self.font = [UIFont systemFontOfSize:16.0f];
-    self.textColor = [UIColor blackColor];
-    self.textAlignment = NSTextAlignmentNatural;
-    self.placeHolderColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
+    [self setDefaultSettings];
     
+    self.placeHolderColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
+    self.selectable = true;
     self.contentMode = UIViewContentModeRedraw;
     self.dataDetectorTypes = UIDataDetectorTypeNone;
     self.keyboardAppearance = UIKeyboardAppearanceDefault;
@@ -47,6 +46,13 @@
     self.text = nil;
     
     [self addTextViewNotificationObservers];
+}
+
+- (void)setDefaultSettings {
+    
+    self.font = [UIFont systemFontOfSize:16.0f];
+    self.textColor = [UIColor blackColor];
+    self.textAlignment = NSTextAlignmentNatural;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame textContainer:(NSTextContainer *)textContainer {
@@ -74,6 +80,40 @@
 - (BOOL)hasText {
     
     return ([[self.text stringByTrimingWhitespace] length] > 0);
+}
+
+- (BOOL)hasTextAttachment {
+    
+    BOOL __block hasTextAttachment = false;
+    
+    if (self.attributedText.length) {
+        
+        [self.attributedText enumerateAttribute:NSAttachmentAttributeName
+                                        inRange:NSMakeRange(0, [self.attributedText length])
+                                        options:0
+                                     usingBlock:^(id value, NSRange range, BOOL *stop)
+         {
+             if ([value isKindOfClass:[NSTextAttachment class]]) {
+                 NSTextAttachment *attachment = (NSTextAttachment *)value;
+                 UIImage *image = nil;
+                 if ([attachment image]) {
+                     image = [attachment image];
+                 }
+                 else {
+                     image = [attachment imageForBounds:[attachment bounds]
+                                          textContainer:nil
+                                         characterIndex:range.location];
+                 }
+                 
+                 if (image) {
+                     hasTextAttachment = true;
+                     *stop = true;
+                 }
+                 
+             }
+         }];
+    }
+    return hasTextAttachment;
 }
 
 #pragma mark - Setters
@@ -124,13 +164,27 @@
     [self setNeedsDisplay];
 }
 
+- (void)paste:(id)sender
+{
+    BOOL shouldPaste = true;
+    
+    if ([self.pasteDelegate respondsToSelector:@selector(placeHolderTextView:shouldPasteWithSender:)]) {
+        shouldPaste = [self.pasteDelegate placeHolderTextView:self shouldPasteWithSender:sender];
+    }
+    
+    if (shouldPaste)
+    {
+        [super paste:sender];
+    }
+}
+
 #pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect {
     
     [super drawRect:rect];
     
-    if ([self.text length] == 0 && self.placeHolder) {
+    if ([self.text length] == 0 && self.placeHolder && ![self hasTextAttachment]) {
         [self.placeHolderColor set];
         
         [self.placeHolder drawInRect:CGRectInset(rect, 7.0f, 5.0f)
@@ -178,6 +232,15 @@
     [self setNeedsDisplay];
 }
 
+- (BOOL)canPerformAction:(SEL)action
+              withSender:(__unused id)sender
+{
+    if  ([UIPasteboard generalPasteboard].image && action == @selector(paste:)) {
+        return YES;
+    }
+    return [super canPerformAction:action withSender:sender];
+   
+}
 #pragma mark - Utilities
 
 - (NSDictionary *)placeholderTextAttributes {

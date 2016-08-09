@@ -84,14 +84,15 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 - (void)toggleSendButtonEnabled {
     
     BOOL hasText = [self.contentView.textView hasText];
+    BOOL hasTextAttachment = [self.contentView.textView hasTextAttachment];
     
     if (self.sendButtonOnRight) {
         
-        self.contentView.rightBarButtonItem.enabled = hasText;
+        self.contentView.rightBarButtonItem.enabled = hasText || hasTextAttachment;
     }
     else {
         
-        self.contentView.leftBarButtonItem.enabled = hasText;
+        self.contentView.leftBarButtonItem.enabled = hasText || hasTextAttachment;
     }
 }
 

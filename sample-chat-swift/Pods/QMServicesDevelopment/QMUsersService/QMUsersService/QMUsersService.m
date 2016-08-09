@@ -551,8 +551,8 @@
 
 - (BFTask *)searchUsersWithPhoneNumbers:(NSArray *)phoneNumbers {
     
-    [self searchUsersWithPhoneNumbers:phoneNumbers
-                                 page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100]];
+    return [self searchUsersWithPhoneNumbers:phoneNumbers
+										page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100]];
 }
 
 - (BFTask *)searchUsersWithPhoneNumbers:(NSArray *)phoneNumbers page:(QBGeneralResponsePage *)page {

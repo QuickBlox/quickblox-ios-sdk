@@ -1,5 +1,7 @@
 platform :ios, "8.0"
 
+use_frameworks!
+
 target 'sample-chat-swift' do
 
 pod 'SVProgressHUD', '~> 1.1.3'

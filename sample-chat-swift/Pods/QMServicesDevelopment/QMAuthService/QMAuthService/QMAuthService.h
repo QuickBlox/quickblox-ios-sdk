@@ -71,6 +71,18 @@
  */
 - (QB_NONNULL QBRequest *)logInWithFacebookSessionToken:(QB_NONNULL NSString *)sessionToken completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
 
+
+/**
+ *  Login with twitter
+ *
+ *  @param accessToken       Twitter access token
+ *  @param accessTokenSecret Twitter access token secret
+ *  @param completion        completion block
+ *
+ *  @return Cancelable request
+ */
+- (QB_NONNULL QBRequest *)loginWithTwitterAccessToken:(QB_NONNULL NSString *)accessToken accessTokenSecret:(QB_NONNULL NSString *)accessTokenSecret completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, QBUUser *QB_NULLABLE_S userProfile))completion;
+
 /**
  *  Logout
  *
@@ -132,6 +144,16 @@
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
 - (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)loginWithFacebookSessionToken:(QB_NONNULL NSString *)sessionToken;
+
+/**
+ *  Login with twitter using Bolts.
+ *
+ *  @param accessToken       twitter access token
+ *  @param accessTokenSecret twitter access token secret
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (QB_NONNULL BFTask QB_GENERIC(QBUUser *) *)loginWithTwitterAccessToken:(QB_NONNULL NSString *)accessToken accessTokenSecret:(QB_NONNULL NSString *)accessTokenSecret;
 
 /**
  *  Logout current user using Bolts.

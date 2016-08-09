@@ -1,10 +1,12 @@
 # TTTAttributedLabel
 
-[![Circle CI](https://circleci.com/gh/TTTAttributedLabel/TTTAttributedLabel.svg?style=svg)](https://circleci.com/gh/TTTAttributedLabel/TTTAttributedLabel) [![Documentation](http://img.shields.io/cocoapods/v/TTTAttributedLabel.svg?style=flat)](http://cocoadocs.org/docsets/TTTAttributedLabel/) [![Coverage Status](https://coveralls.io/repos/TTTAttributedLabel/TTTAttributedLabel/badge.svg)](https://coveralls.io/r/TTTAttributedLabel/TTTAttributedLabel) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Circle CI](https://circleci.com/gh/TTTAttributedLabel/TTTAttributedLabel.svg?style=svg)](https://circleci.com/gh/TTTAttributedLabel/TTTAttributedLabel) [![Documentation](https://img.shields.io/cocoapods/v/TTTAttributedLabel.svg?style=flat)](http://cocoadocs.org/docsets/TTTAttributedLabel/) [![codecov.io](https://codecov.io/github/TTTAttributedLabel/TTTAttributedLabel/coverage.svg?branch=master)](http://codecov.io/github/TTTAttributedLabel/TTTAttributedLabel?branch=master) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 **A drop-in replacement for `UILabel` that supports attributes, data detectors, links, and more**
 
-`TTTAttributedLabel` is a drop-in replacement for `UILabel` providing a simple way to performantly render [attributed strings](http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSAttributedString_Class/Reference/Reference.html). As a bonus, it also supports link embedding, both automatically with `NSTextCheckingTypes` and manually by specifying a range for a URL, address, phone number, event, or transit information.
+`TTTAttributedLabel` is a drop-in replacement for `UILabel` providing a simple way to performantly render [attributed strings](https://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/Classes/NSAttributedString_Class/Reference/Reference.html). As a bonus, it also supports link embedding, both automatically with `NSTextCheckingTypes` and manually by specifying a range for a URL, address, phone number, event, or transit information.
+
+> Already using this library? Please comment on [this issue](https://github.com/TTTAttributedLabel/TTTAttributedLabel/issues/586) to let us know which versions of iOS your app supports.
 
 Even though `UILabel` received support for `NSAttributedString` in iOS 6, `TTTAttributedLabel` has several unique features:
 
@@ -44,24 +46,46 @@ As of version 1.10.0, `TTTAttributedLabel` supports VoiceOver through the  `UIAc
 
 ## Installation
 
-[CocoaPods](http://cocoapods.org) is the recommended method of installing `TTTAttributedLabel`. Simply add the following line to your `Podfile`:
-
-#### Podfile
+[CocoaPods](https://cocoapods.org/) is the recommended method of installing `TTTAttributedLabel`. Simply add the following line to your `Podfile`:
 
 ```ruby
+# Podfile
+
 pod 'TTTAttributedLabel'
 ```
 
 ## Usage
 
-``` objective-c
+`TTTAttributedLabel` can display both plain and attributed text: just pass an `NSString` or `NSAttributedString` to the `setText:` setter. Never assign to the `attributedText` property.
+
+```objc
+// NSAttributedString
+
+TTTAttributedLabel *attributedLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+
+NSAttributedString *attString = [[NSAttributedString alloc] initWithString:@"Tom Bombadil"
+                                                                attributes:@{
+        (id)kCTForegroundColorAttributeName : (id)[UIColor redColor].CGColor,
+        NSFontAttributeName : [UIFont boldSystemFontOfSize:16],
+        NSKernAttributeName : [NSNull null],
+        (id)kTTTBackgroundFillColorAttributeName : (id)[UIColor greenColor].CGColor
+}];
+
+// The attributed string is directly set, without inheriting any other text
+// properties of the label.
+attributedLabel.text = attString;
+```
+
+```objc
+// NSString
+
 TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
 label.font = [UIFont systemFontOfSize:14];
 label.textColor = [UIColor darkGrayColor];
 label.lineBreakMode = NSLineBreakByWordWrapping;
 label.numberOfLines = 0;
 
-// If you're using a simple `NSString` for your text, 
+// If you're using a simple `NSString` for your text,
 // assign to the `text` property last so it can inherit other label properties.
 NSString *text = @"Lorem ipsum dolor sit amet";
 [label setText:text afterInheritingLabelAttributesAndConfiguringWithBlock:^ NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
@@ -72,7 +96,7 @@ NSString *text = @"Lorem ipsum dolor sit amet";
   UIFont *boldSystemFont = [UIFont boldSystemFontOfSize:14];
   CTFontRef font = CTFontCreateWithName((__bridge CFStringRef)boldSystemFont.fontName, boldSystemFont.pointSize, NULL);
   if (font) {
-    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(id)font range:boldRange];
+    [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:(__bridge id)font range:boldRange];
     [mutableAttributedString addAttribute:kTTTStrikeOutAttributeName value:@YES range:strikeRange];
     CFRelease(font);
   }
@@ -83,7 +107,19 @@ NSString *text = @"Lorem ipsum dolor sit amet";
 
 First, we create and configure the label, the same way you would instantiate `UILabel`. Any text properties that are set on the label are inherited as the base attributes when using the `-setText:afterInheritingLabelAttributesAndConfiguringWithBlock:` method. In this example, the substring "ipsum dolar", would appear in bold, such that the label would read "Lorem **ipsum dolar** sit amet", in size 14 Helvetica, with a dark gray color.
 
-The normal `setText:` setter accepts both `NSString` and `NSAttributedString`; in the latter case, the attributed string is directly set, without inheriting the base style of the label.
+## `IBDesignable`
+
+`TTTAttributedLabel` includes `IBInspectable` and `IB_DESIGNABLE` annotations to enable configuring the label inside Interface Builder. However, if you see these warnings when building...
+
+```
+IB Designables: Failed to update auto layout status: Failed to load designables from path (null)
+IB Designables: Failed to render instance of TTTAttributedLabel: Failed to load designables from path (null)
+```
+
+...then you are likely using `TTTAttributedLabel` as a static library, which does not support IB annotations. Some workarounds include:
+
+- Install `TTTAttributedLabel` as a dynamic framework using CocoaPods with `use_frameworks!` in your `Podfile`, or with Carthage
+- Install `TTTAttributedLabel` by dragging its source files to your project
 
 ### Links and Data Detection
 
@@ -93,7 +129,7 @@ In addition to supporting rich text, `TTTAttributedLabel` can automatically dete
 label.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
 label.delegate = self; // Delegate methods are called when the user taps on a link (see `TTTAttributedLabelDelegate` protocol)
 
-label.text = @"Fork me on GitHub! (http://github.com/mattt/TTTAttributedLabel/)"; // Repository URL will be automatically detected and linked
+label.text = @"Fork me on GitHub! (https://github.com/mattt/TTTAttributedLabel/)"; // Repository URL will be automatically detected and linked
 
 NSRange range = [label.text rangeOfString:@"me"];
 [label addLinkToURL:[NSURL URLWithString:@"http://github.com/mattt/"] withRange:range]; // Embedding a custom link in a substring
@@ -115,8 +151,8 @@ open Espressos.xcworkspace
 
 ## Requirements
 
-- iOS 4.3+ (iOS 6+ Base SDK)
-- Xcode 6
+- iOS 8+ / tvOS 9+
+- Xcode 6+
 
 ## License
 

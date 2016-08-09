@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <inttypes.h>
 
 // NSLog is unavailable for QMServices project
 // Use QMSLog instead.

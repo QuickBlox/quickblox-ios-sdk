@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBMulticastDelegate.h>
+#import <Bolts/Bolts.h>
+
 #import "QMMemoryStorageProtocol.h"
 #import "QMServiceManagerProtocol.h"
 
