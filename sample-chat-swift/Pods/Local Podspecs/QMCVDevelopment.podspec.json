@@ -21,10 +21,12 @@
     "tag": "0.3.9"
   },
   "source_files": "QMChatViewController/QMChatViewController.{h,m}",
-  "resources": [
-    "QMChatViewController/**/*.xib",
-    "QMChatViewController/**/*.xcassets"
-  ],
+  "resource_bundles": {
+    "QMChatViewController": [
+      "QMChatViewController/**/*.xib",
+      "QMChatViewController/**/*.png"
+    ]
+  },
   "requires_arc": true,
   "xcconfig": {
     "FRAMEWORK_SEARCH_PATHS": "$(PODS_ROOT)/../../Framework $(PODS_ROOT)/../External"

@@ -13,6 +13,7 @@
 #import "QMChatSection.h"
 #import "QMChatSectionManager.h"
 #import "QMChatLocationSnapshotter.h"
+#import "QMChatResources.h"
 #import "QMDateUtils.h"
 #import "QMChatAttachmentCell.h"
 #import "QMChatAttachmentIncomingCell.h"

@@ -14,6 +14,7 @@
 #import "QMChatSection.h"
 #import "QMChatSectionManager.h"
 #import "QMDateUtils.h"
+#import "QMChatResources.h"
 
 #import "QMCollectionViewFlowLayoutInvalidationContext.h"
 #import "NSString+QM.h"
@@ -52,12 +53,12 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 + (UINib *)nib {
     
-    return [UINib nibWithNibName:NSStringFromClass([QMChatViewController class]) bundle:[NSBundle bundleForClass:[QMChatViewController class]]];
+    return [QMChatResources nibWithNibName:NSStringFromClass([QMChatViewController class])];
 }
 
 + (instancetype)messagesViewController {
     
-    return [[[self class] alloc] initWithNibName:NSStringFromClass([QMChatViewController class]) bundle:[NSBundle bundleForClass:[QMChatViewController class]]];
+    return [[[self class] alloc] initWithNibName:NSStringFromClass([QMChatViewController class]) bundle:[QMChatResources resourceBundle]];
 }
 
 - (void)dealloc {
@@ -350,7 +351,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (UIButton *)accessoryButtonItem {
     
-    UIImage *accessoryImage = [UIImage imageNamed:@"attachmentBtn"];
+    UIImage *accessoryImage = [QMChatResources imageNamed:@"attachment_ic"];
+    
     UIImage *normalImage = [accessoryImage imageMaskedWithColor:[UIColor lightGrayColor]];
     UIImage *highlightedImage = [accessoryImage imageMaskedWithColor:[UIColor darkGrayColor]];
     

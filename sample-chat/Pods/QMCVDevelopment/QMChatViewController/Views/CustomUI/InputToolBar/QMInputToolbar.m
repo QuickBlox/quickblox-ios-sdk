@@ -9,6 +9,7 @@
 #import "QMInputToolbar.h"
 #import "UIView+QM.h"
 #import "QMToolbarContentView.h"
+#import "QMChatResources.h"
 
 static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValueObservingContext;
 
@@ -47,9 +48,9 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 
 - (QMToolbarContentView *)loadToolbarContentView {
     
-    NSArray *nibViews = [[NSBundle bundleForClass:[QMInputToolbar class]] loadNibNamed:NSStringFromClass([QMToolbarContentView class])
-                                                                                 owner:nil
-                                                                               options:nil];
+    NSArray *nibViews = [[QMChatResources resourceBundle] loadNibNamed:NSStringFromClass([QMToolbarContentView class])
+                                                                 owner:nil
+                                                               options:nil];
     return nibViews.firstObject;
 }
 

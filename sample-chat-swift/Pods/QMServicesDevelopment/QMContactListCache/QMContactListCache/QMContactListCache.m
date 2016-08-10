@@ -64,6 +64,9 @@ static QMContactListCache *_chatCacheInstance = nil;
     
     [self async:^(NSManagedObjectContext *context) {
         
+        // clearing old contact list first
+        [CDContactListItem QM_truncateAllInContext:context];
+        
         NSMutableArray *toInsert = [NSMutableArray array];
         NSMutableArray *toUpdate = [NSMutableArray array];
         
@@ -94,10 +97,7 @@ static QMContactListCache *_chatCacheInstance = nil;
             [weakSelf insertContactListItems:toInsert inContext:context];
         }
         
-        if (toInsert.count + toUpdate.count > 0) {
-            
-            [weakSelf save:completion];
-        }
+        [weakSelf save:completion];
         
         QMSLog(@"[%@] ContactListItems to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
     }];

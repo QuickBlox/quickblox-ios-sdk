@@ -65,17 +65,17 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: 49c6ee7455b3dc5ae677a40536dcd65f6c03b385
+    :commit: 6d992cbe2242aa9d65803e5d6db28e6cab3b2a3d
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 80d686fe8856f33ca079b0896e7f210bc4142393
+    :commit: 7ce4cd8dbc683e8b115b1be821474120392d4592
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
-  QMCVDevelopment: 77001b5c70ba38570c0e2113eaf546fa75d301fd
+  QMCVDevelopment: 4e7ce616307df66e8ff20e4ce093daf4af828716
   QMServicesDevelopment: e1ae5877d90dc5e713be283b788491eb19c93f9e
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7

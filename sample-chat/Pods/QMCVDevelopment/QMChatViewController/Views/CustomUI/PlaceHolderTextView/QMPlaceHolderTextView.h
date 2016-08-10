@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Quickblox/Quickblox.h>
 
 @protocol QMPlaceHolderTextViewPasteDelegate;
 
@@ -23,12 +24,12 @@
 /**
  *  The text to be displayed when the text view is empty. The default value is `nil`.
  */
-@property (copy, nonatomic) IBInspectable NSString *placeHolder;
+@property (copy, nonatomic, QB_NULLABLE) IBInspectable NSString *placeHolder;
 
 /**
  *  The color of the place holder text. The default value is `[UIColor lightGrayColor]`.
  */
-@property (strong, nonatomic) IBInspectable UIColor *placeHolderColor;
+@property (strong, nonatomic, QB_NONNULL) IBInspectable UIColor *placeHolderColor;
 
 /**
  *  Determines whether or not the text view contains text after trimming white space
@@ -61,7 +62,7 @@
  *  You should return `NO` when you want to handle pasting.
  *  Return `YES` to defer functionality to the `textView`.
  */
-- (BOOL)placeHolderTextView:(QMPlaceHolderTextView *)textView shouldPasteWithSender:(id)sender;
+- (BOOL)placeHolderTextView:(QB_NONNULL QMPlaceHolderTextView *)textView shouldPasteWithSender:(QB_NONNULL id)sender;
 
 
 @end

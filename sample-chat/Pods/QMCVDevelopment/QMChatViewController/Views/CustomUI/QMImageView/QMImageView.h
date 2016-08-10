@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SDWebImageManager.h"
+#import <SDWebImage/SDWebImageManager.h>
 IB_DESIGNABLE
 @protocol QMImageViewDelegate ;
 
