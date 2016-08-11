@@ -15,7 +15,7 @@
 /**
  *  Type of attachment.
  *
- *  @discussion Can be any type. For example: audio, video, image, location.
+ *  @discussion Can be any type. For example: audio, video, image, location, any other
  */
 @property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *type;
 
