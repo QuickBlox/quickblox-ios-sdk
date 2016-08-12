@@ -72,7 +72,27 @@
  *
  *  @param attachmentMessage      message with attachment
  *  @param completion             fetched image or error if failed
+ *
+ *  @warning *Deprecated in QMServices 0.4.4:* Use 'imageForAttachmentMessage:completion:' instead.
  */
-- (void)getImageForAttachmentMessage:(QB_NONNULL QBChatMessage *)attachmentMessage completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion;
+- (void)getImageForAttachmentMessage:(QB_NONNULL QBChatMessage *)attachmentMessage completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.4. Use 'imageForAttachmentMessage:completion:' instead.");
+
+
+/**
+ *  Get image by attachment message.
+ *
+ *  @param attachmentMessage message with attachment
+ *  @param completion        fetched image or error if failed
+ */
+- (void)imageForAttachmentMessage:(QB_NONNULL QBChatMessage *)attachmentMessage completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion;
+
+/**
+ *  Get image local image by attachment message.
+ *
+ *  @param attachmentMessage      message with attachment
+ *  @param completion             local image or nil if no image
+ */
+- (void)localImageForAttachmentMessage:(QB_NONNULL QBChatMessage *)attachmentMessage completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion;
+
 
 @end

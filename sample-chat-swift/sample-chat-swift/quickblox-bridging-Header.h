@@ -15,27 +15,14 @@
 @import MobileCoreServices;
 @import Quickblox;
 
-
-#import <QMServices.h>
-#import <SVProgressHUD.h>
-
-#import "QMChatViewController.h"
-#import "QMChatContactRequestCell.h"
-#import "QMChatNotificationCell.h"
-#import "QMChatIncomingCell.h"
-#import "QMChatOutgoingCell.h"
-#import "QMCollectionViewFlowLayoutInvalidationContext.h"
-
-#import "TTTAttributedLabel.h"
+@import SVProgressHUD;
+@import QMServicesDevelopment;
+@import QMCVDevelopment;
 
 #import "QMMessageNotificationManager.h"
 #import "MPGNotification.h"
 
-#import "_CDMessage.h"
-#import "UIImage+QM.h"
-#import "UIColor+QM.h"
 #import "UIImage+fixOrientation.h"
-
-#import "NSString+EMOEmoji.h"
+#import "SearchEmojiOnString/NSString+EMOEmoji.h"
 
 #endif

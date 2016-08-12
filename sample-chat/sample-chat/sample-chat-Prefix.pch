@@ -6,10 +6,6 @@
 
 #import <Availability.h>
 
-#ifndef __IPHONE_5_0
-#warning "This project uses features only available in iOS SDK 5.0 and later."
-#endif
-
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
@@ -17,17 +13,7 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <Quickblox/Quickblox.h>
     #import <Quickblox/QBMulticastDelegate.h>
-    #import <QMServices.h>
-    #import <SVProgressHUD.h>
+    #import "QMServices.h"
+    #import "SVProgressHUD.h"
 	#import "Constants.h"
 #endif
-
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
-#define kShowSplashViewControllerSegue @"ShowSplashViewControllerSegue"
-#define kShowUsersViewControllerSegue @"ShowUsersViewControllerSegue"
-#define kShowChatViewControllerSegue @"ShowChatViewControllerSegue"
-#define kShowNewChatViewControllerSegue @"ShowNewChatViewControllerSegue"
-
-#define kMessage @"message"
-#define kRoomJID @"roomJID"

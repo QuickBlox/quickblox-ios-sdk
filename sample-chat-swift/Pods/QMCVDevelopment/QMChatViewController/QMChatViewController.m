@@ -14,6 +14,7 @@
 #import "QMChatSection.h"
 #import "QMChatSectionManager.h"
 #import "QMDateUtils.h"
+#import "QMChatResources.h"
 
 #import "QMCollectionViewFlowLayoutInvalidationContext.h"
 #import "NSString+QM.h"
@@ -27,7 +28,7 @@ static NSString *const kQMItemsInsertKey    = @"kQMItemsInsertKey";
 
 static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
-@interface QMChatViewController () <QMInputToolbarDelegate, QMKeyboardControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate, QMChatSectionManagerDelegate,UIAlertViewDelegate>
+@interface QMChatViewController () <QMInputToolbarDelegate, QMKeyboardControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate, QMChatSectionManagerDelegate,UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate>
 
 @property (weak, nonatomic) IBOutlet QMChatCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet QMInputToolbar *inputToolbar;
@@ -52,12 +53,12 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 + (UINib *)nib {
     
-    return [UINib nibWithNibName:NSStringFromClass([QMChatViewController class]) bundle:[NSBundle bundleForClass:[QMChatViewController class]]];
+    return [QMChatResources nibWithNibName:NSStringFromClass([QMChatViewController class])];
 }
 
 + (instancetype)messagesViewController {
     
-    return [[[self class] alloc] initWithNibName:NSStringFromClass([QMChatViewController class]) bundle:[NSBundle bundleForClass:[QMChatViewController class]]];
+    return [[[self class] alloc] initWithNibName:NSStringFromClass([QMChatViewController class]) bundle:[QMChatResources resourceBundle]];
 }
 
 - (void)dealloc {
@@ -70,6 +71,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     self.collectionView = nil;
     
     self.inputToolbar.contentView.textView.delegate = nil;
+    self.inputToolbar.contentView.textView.pasteDelegate = nil;
     self.inputToolbar.delegate = nil;
     self.inputToolbar = nil;
     
@@ -97,7 +99,10 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     self.chatSectionManager.delegate = self;
     
     self.inputToolbar.delegate = self;
+    
     self.inputToolbar.contentView.textView.delegate = self;
+    self.inputToolbar.contentView.textView.pasteDelegate = self;
+    
     self.automaticallyScrollsToMostRecentMessage = YES;
     self.topContentAdditionalInset = 0.0f;
     [self updateCollectionViewInsets];
@@ -332,9 +337,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     [super viewWillDisappear:animated];
     
     [self addActionToInteractivePopGestureRecognizer:NO];
-    
-    [self removeObservers];
     [self.keyboardController endListeningForKeyboard];
+    [self removeObservers];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -347,7 +351,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (UIButton *)accessoryButtonItem {
     
-    UIImage *accessoryImage = [UIImage imageNamed:@"attachmentBtn"];
+    UIImage *accessoryImage = [QMChatResources imageNamed:@"attachment_ic"];
+    
     UIImage *normalImage = [accessoryImage imageMaskedWithColor:[UIColor lightGrayColor]];
     UIImage *highlightedImage = [accessoryImage imageMaskedWithColor:[UIColor darkGrayColor]];
     
@@ -419,6 +424,30 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 #pragma mark - Messages view controller
+- (void)didPressSendButton:(UIButton *)button {
+    
+    NSArray * attachmnets = [self currentlyComposedMessageTextAttachments];
+    
+    if (attachmnets.count) {
+        
+        [self didPressSendButton:button
+             withTextAttachments:attachmnets
+                        senderId:self.senderID
+               senderDisplayName:self.senderDisplayName
+                            date:[NSDate date]];
+    }
+    else {
+        
+        if ([self currentlyComposedMessageText].length)
+        {
+            [self didPressSendButton:button
+                     withMessageText:[self currentlyComposedMessageText]
+                            senderId:self.senderID
+                   senderDisplayName:self.senderDisplayName
+                                date:[NSDate date]];
+        }
+    }
+}
 
 - (void)didPressSendButton:(UIButton *)button
            withMessageText:(NSString *)text
@@ -428,6 +457,15 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
 }
+
+- (void)didPressSendButton:(UIButton *)button
+       withTextAttachments:(NSArray *)textAttachments
+                  senderId:(NSUInteger)senderId
+         senderDisplayName:(NSString *)senderDisplayName
+                      date:(NSDate *)date {
+     NSAssert(NO, @"Error! required method not implemented in subclass. Need to implement %s", __PRETTY_FUNCTION__);
+}
+
 
 - (void)didPressAccessoryButton:(UIButton *)sender {
     
@@ -451,8 +489,11 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (void)finishSendingMessageAnimated:(BOOL)animated {
     
-    UITextView *textView = self.inputToolbar.contentView.textView;
+    QMPlaceHolderTextView *textView = self.inputToolbar.contentView.textView;
+    [textView setDefaultSettings];
+    
     textView.text = nil;
+    textView.attributedText = nil;
     [textView.undoManager removeAllActions];
     
     [self.inputToolbar toggleSendButtonEnabled];
@@ -649,12 +690,8 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         [self didPressAccessoryButton:sender];
     }
     else {
-        
-        [self didPressSendButton:sender
-                 withMessageText:[self currentlyComposedMessageText]
-                        senderId:self.senderID
-               senderDisplayName:self.senderDisplayName
-                            date:[NSDate date]];
+    
+        [self didPressSendButton:sender];
     }
 }
 
@@ -662,9 +699,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     
     if (toolbar.sendButtonOnRight) {
         
-        [self didPressSendButton:sender withMessageText:[self currentlyComposedMessageText] senderId:self.senderID
-               senderDisplayName:self.senderDisplayName
-                            date:[NSDate date]];
+        [self didPressSendButton:sender];
     }
     else {
         
@@ -673,11 +708,38 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 }
 
 - (NSString *)currentlyComposedMessageText {
+    
     //  auto-accept any auto-correct suggestions
     [self.inputToolbar.contentView.textView.inputDelegate selectionWillChange:self.inputToolbar.contentView.textView];
     [self.inputToolbar.contentView.textView.inputDelegate selectionDidChange:self.inputToolbar.contentView.textView];
     
     return [self.inputToolbar.contentView.textView.text stringByTrimingWhitespace];
+}
+
+- (NSArray *)currentlyComposedMessageTextAttachments {
+    
+    NSAttributedString * attributedText = self.inputToolbar.contentView.textView.attributedText;
+    
+    if (!attributedText.length) {
+        return nil;
+    }
+    
+    NSMutableArray * __block textAttachments = [NSMutableArray array];
+    
+    [attributedText enumerateAttribute:NSAttachmentAttributeName
+                                    inRange:NSMakeRange(0, [attributedText length])
+                                    options:0
+                                 usingBlock:^(id value, NSRange range, BOOL *stop)
+     {
+         if ([value isKindOfClass:[NSTextAttachment class]]) {
+             
+             NSTextAttachment *attachment = (NSTextAttachment *)value;
+             [textAttachments addObject:attachment];
+             
+         }
+     }];
+
+    return textAttachments;
 }
 
 #pragma mark - Text view delegate

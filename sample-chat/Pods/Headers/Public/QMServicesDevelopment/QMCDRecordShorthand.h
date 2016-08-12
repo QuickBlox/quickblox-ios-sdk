@@ -1,1 +1,0 @@
-../../../QMServicesDevelopment/QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordShorthand.h

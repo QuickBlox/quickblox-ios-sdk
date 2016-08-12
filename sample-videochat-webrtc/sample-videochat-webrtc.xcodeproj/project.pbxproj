@@ -11,8 +11,8 @@
 		55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */; };
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
-		583E3A991D52136D0038171C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905D1BFB95D000A8233D /* Quickblox.framework */; };
-		583E3A9A1D52136D0038171C /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905D1BFB95D000A8233D /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		583978B61D48A9E7009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905D1BFB95D000A8233D /* Quickblox.framework */; };
+		583978B71D48A9E7009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905D1BFB95D000A8233D /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		684408AFA3411084A6DDA4A2 /* QBUUser+IndexAndColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 68440592D8CFE03DDCE13F44 /* QBUUser+IndexAndColor.m */; };
 		FB29BBF81B32BBC0009751A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB29BBA81B32BBC0009751A1 /* AppDelegate.m */; };
 		FB29BBF91B32BBC0009751A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBA91B32BBC0009751A1 /* Main.storyboard */; };
@@ -75,13 +75,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		583E3A9B1D52136E0038171C /* Embed Frameworks */ = {
+		583978B81D48A9E8009E970B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				583E3A9A1D52136D0038171C /* Quickblox.framework in Embed Frameworks */,
+				583978B71D48A9E7009E970B /* Quickblox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,7 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB4490581BFB8B2E00A8233D /* Accelerate.framework in Frameworks */,
-				583E3A991D52136D0038171C /* Quickblox.framework in Frameworks */,
+				583978B61D48A9E7009E970B /* Quickblox.framework in Frameworks */,
 				FB4490521BFB8ADD00A8233D /* libresolv.tbd in Frameworks */,
 				FB4490501BFB8AD000A8233D /* libxml2.2.tbd in Frameworks */,
 				FB5764E01B42A00F00501049 /* VideoToolbox.framework in Frameworks */,
@@ -704,7 +704,7 @@
 				55E076DF1A30817800118D23 /* Sources */,
 				55E076E01A30817800118D23 /* Frameworks */,
 				55E076E11A30817800118D23 /* Resources */,
-				583E3A9B1D52136E0038171C /* Embed Frameworks */,
+				583978B81D48A9E8009E970B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

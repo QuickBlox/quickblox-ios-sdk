@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		583E3A8A1D52123A0038171C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD351B26E2860005B39D /* Quickblox.framework */; };
-		583E3A8B1D52123A0038171C /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD351B26E2860005B39D /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		583978A51D48A80F009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD351B26E2860005B39D /* Quickblox.framework */; };
+		583978A61D48A80F009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF7ECD351B26E2860005B39D /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		860B9F461B9A0B0100BDB01E /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 860B9F451B9A0B0100BDB01E /* ImageCollectionViewCell.m */; };
 		98FDFB40252F006913C009AB /* libPods-sample-content.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF6A11FDEEA897B051BF7F /* libPods-sample-content.a */; };
 		BF7ECD0D1B26D8770005B39D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7ECD0C1B26D8770005B39D /* main.m */; };
@@ -36,13 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		583E3A8C1D52123B0038171C /* Embed Frameworks */ = {
+		583978A71D48A80F009E970B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				583E3A8B1D52123A0038171C /* Quickblox.framework in Embed Frameworks */,
+				583978A61D48A80F009E970B /* Quickblox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,7 +100,7 @@
 				BF7ECD501B26E6FC0005B39D /* CoreVideo.framework in Frameworks */,
 				BF7ECD4E1B26E6F80005B39D /* Accelerate.framework in Frameworks */,
 				BF7ECD4C1B26E6F30005B39D /* CoreMedia.framework in Frameworks */,
-				583E3A8A1D52123A0038171C /* Quickblox.framework in Frameworks */,
+				583978A51D48A80F009E970B /* Quickblox.framework in Frameworks */,
 				BF7ECD4A1B26E6EE0005B39D /* AudioToolbox.framework in Frameworks */,
 				BF7ECD481B26E6E80005B39D /* CoreData.framework in Frameworks */,
 				BF7ECD461B26E6E40005B39D /* CoreLocation.framework in Frameworks */,
@@ -219,13 +219,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF7ECD2A1B26D8770005B39D /* Build configuration list for PBXNativeTarget "sample-content" */;
 			buildPhases = (
-				8E862DEE647D5374867D88B3 /* Check Pods Manifest.lock */,
+				8E862DEE647D5374867D88B3 /* [CP] Check Pods Manifest.lock */,
 				BF7ECD031B26D8770005B39D /* Sources */,
 				BF7ECD041B26D8770005B39D /* Frameworks */,
 				BF7ECD051B26D8770005B39D /* Resources */,
-				8C16FF6406860F5C541D7F9E /* Copy Pods Resources */,
-				9711057DA5E195E961E1022B /* Embed Pods Frameworks */,
-				583E3A8C1D52123B0038171C /* Embed Frameworks */,
+				8C16FF6406860F5C541D7F9E /* [CP] Copy Pods Resources */,
+				9711057DA5E195E961E1022B /* [CP] Embed Pods Frameworks */,
+				583978A71D48A80F009E970B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -247,6 +247,7 @@
 				TargetAttributes = {
 					BF7ECD061B26D8770005B39D = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 8885H5G2YX;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -287,14 +288,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8C16FF6406860F5C541D7F9E /* Copy Pods Resources */ = {
+		8C16FF6406860F5C541D7F9E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,14 +303,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-content/Pods-sample-content-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8E862DEE647D5374867D88B3 /* Check Pods Manifest.lock */ = {
+		8E862DEE647D5374867D88B3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,14 +318,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		9711057DA5E195E961E1022B /* Embed Pods Frameworks */ = {
+		9711057DA5E195E961E1022B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,7 +409,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "d63b78e4-79c9-4872-bbad-0cab86a7cdba";
+				PROVISIONING_PROFILE = "e22045c1-9192-4e33-97b0-46f1f11f4d46";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -445,7 +446,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "69ad5063-7425-498a-b138-954105b48c04";
+				PROVISIONING_PROFILE = "8a77052a-d51f-430b-9880-2c13138ddfdf";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -457,6 +458,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(SRCROOT)",
@@ -473,7 +476,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.samplecontent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d63b78e4-79c9-4872-bbad-0cab86a7cdba";
+				PROVISIONING_PROFILE = "e22045c1-9192-4e33-97b0-46f1f11f4d46";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -484,6 +487,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(SRCROOT)",
@@ -500,7 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.quickblox.samplecontent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "69ad5063-7425-498a-b138-954105b48c04";
+				PROVISIONING_PROFILE = "8a77052a-d51f-430b-9880-2c13138ddfdf";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

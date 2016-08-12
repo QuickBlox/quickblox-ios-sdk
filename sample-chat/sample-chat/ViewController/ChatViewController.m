@@ -17,11 +17,11 @@
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QMMessageNotificationManager.h"
 
-#import <NSString+EMOEmoji.h>
+#import "NSString+EMOEmoji.h"
 
 #import <SafariServices/SFSafariViewController.h>
 
-#import <UIAlertView+Blocks/UIAlertView+Blocks.h>
+#import "UIAlertView+Blocks.h"
 
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
@@ -89,6 +89,7 @@ UIAlertViewDelegate
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.textView.placeHolder = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
+    
     self.attachmentCells = [NSMapTable strongToWeakObjectsMapTable];
     self.stringBuilder = [MessageStatusStringBuilder new];
     self.detailedCells = [NSMutableSet set];
@@ -224,10 +225,9 @@ UIAlertViewDelegate
     
     if (message.senderID != self.senderID && ![message.readIDs containsObject:@(self.senderID)]) {
         [[ServicesManager instance].chatService readMessage:message completion:^(NSError *error) {
-            NSLog(@"Did read message with text:%@",message.text);
             if (error != nil) {
                 NSLog(@"Problems while marking message as read! Error: %@", error);
-				return;
+                return;
             }
         }];
     }
@@ -253,6 +253,42 @@ UIAlertViewDelegate
 }
 
 #pragma mark Tool bar Actions
+
+- (void)didPressSendButton:(UIButton *)button
+       withTextAttachments:(NSArray*)textAttachments
+                  senderId:(NSUInteger)senderId
+         senderDisplayName:(NSString *)senderDisplayName
+                      date:(NSDate *)date {
+    
+    NSTextAttachment * attachment = textAttachments.firstObject;
+    
+    if (attachment.image) {
+        
+        QBChatMessage *message = [QBChatMessage new];
+        message.senderID = self.senderID;
+        message.dialogID = self.dialog.ID;
+        message.dateSent = [NSDate date];
+        
+        [[ServicesManager instance].chatService sendAttachmentMessage:message
+                                                             toDialog:self.dialog
+                                                  withAttachmentImage:attachment.image
+                                                           completion:^(NSError *error) {
+                                                               
+                                                               [self.attachmentCells removeObjectForKey:message.ID];
+                                                               
+                                                               if (error != nil) {
+                                                                   [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                                                                   
+                                                                   // perform local attachment deleting
+                                                                   [[ServicesManager instance].chatService deleteMessageLocally:message];
+                                                                   [self.chatSectionManager deleteMessage:message];
+                                                               }
+                                                           }];
+        [self finishSendingMessageAnimated:YES];
+    }
+    
+}
+
 
 - (void)didPressSendButton:(UIButton *)button
            withMessageText:(NSString *)text
@@ -398,10 +434,14 @@ UIAlertViewDelegate
 - (NSAttributedString *)bottomLabelAttributedStringForItem:(QBChatMessage *)messageItem {
     
     UIColor *textColor = [messageItem senderID] == self.senderID ? [UIColor colorWithWhite:1 alpha:0.7f] : [UIColor colorWithWhite:0.000 alpha:0.7f];
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:13.0f];
+    
+    UIFont *font = [UIFont systemFontOfSize:13.0f];
     
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    paragraphStyle.minimumLineHeight = font.lineHeight;
+    paragraphStyle.maximumLineHeight = font.lineHeight;
     
     NSDictionary *attributes = @{ NSForegroundColorAttributeName:textColor,
                                   NSFontAttributeName:font,
@@ -494,9 +534,7 @@ UIAlertViewDelegate
     QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
     Class viewClass = [self viewClassForItem:item];
     
-    if (viewClass == [QMChatAttachmentIncomingCell class]
-        || viewClass == [QMChatAttachmentOutgoingCell class]
-        || viewClass == [QMChatNotificationCell class]
+    if (viewClass == [QMChatNotificationCell class]
         || viewClass == [QMChatContactRequestCell class]){
         
         return NO;
@@ -510,12 +548,25 @@ UIAlertViewDelegate
  */
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     
-    QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
-    
-    Class viewClass = [self viewClassForItem:message];
-    
-    if (viewClass == [QMChatAttachmentIncomingCell class] || viewClass == [QMChatAttachmentOutgoingCell class]) return;
-    [UIPasteboard generalPasteboard].string = message.text;
+    if (action == @selector(copy:)) {
+        
+        QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
+        
+        if ([message isMediaMessage]) {
+           
+            	[[ServicesManager instance].chatService.chatAttachmentService localImageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
+                    if (image) {
+                        
+                        [[UIPasteboard generalPasteboard] setValue:UIImageJPEGRepresentation(image, 1)
+                                                 forPasteboardType:(NSString *)kUTTypeJPEG];
+                    }
+                }];
+            
+            }
+         else {
+            [[UIPasteboard generalPasteboard] setString:message.text];
+        }
+    }
 }
 
 #pragma mark - Utility
@@ -633,7 +684,7 @@ UIAlertViewDelegate
 	
 	__weak typeof(self)weakSelf = self;
 	// Getting image from chat attachment service.
-	[[ServicesManager instance].chatService.chatAttachmentService getImageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
+	[[ServicesManager instance].chatService.chatAttachmentService imageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
 		//
 		
 		if ([(id<QMChatAttachmentCell>)cell attachmentID] != attachment.ID) return;
@@ -906,6 +957,15 @@ UIAlertViewDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
+    if ([((QMPlaceHolderTextView*)textView) hasTextAttachment]) {
+        if (text.length == 0)
+        {
+            [((QMPlaceHolderTextView*)textView) setDefaultSettings];
+            return YES;
+        }
+        return NO;
+    }
+    
     // Prevent crashing undo bug
     if(range.length + range.location > textView.text.length)
     {
@@ -973,6 +1033,47 @@ UIAlertViewDelegate
     [self fireStopTypingIfNecessary];
 }
 
+- (BOOL)placeHolderTextView:(QMPlaceHolderTextView *)textView shouldPasteWithSender:(id)sender {
+    
+    if ([UIPasteboard generalPasteboard].image) {
+        
+        /* Variant 1*/
+        
+        //        // If there's an image in the pasteboard, construct a message with that image and `send` it.
+        //
+        //        QBChatMessage *message = [QBChatMessage new];
+        //        message.senderID = self.senderID;
+        //        message.dialogID = self.dialog.ID;
+        //        message.dateSent = [NSDate date];
+        //
+        //        [[ServicesManager instance].chatService sendAttachmentMessage:message
+        //                                                             toDialog:self.dialog
+        //                                                  withAttachmentImage:[UIPasteboard generalPasteboard].image
+        //                                                           completion:^(NSError *error) {
+        //
+        //                                                               [self.attachmentCells removeObjectForKey:message.ID];
+        //
+        //                                                               if (error != nil) {
+        //                                                                   [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        //
+        //                                                                   // perform local attachment deleting
+        //                                                                   [[ServicesManager instance].chatService deleteMessageLocally:message];
+        //                                                                   [self.chatSectionManager deleteMessage:message];
+        //                                                               }
+        //                                                           }];
+        
+        /* Variant 2*/
+        NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+        textAttachment.image = [UIPasteboard generalPasteboard].image;
+        textAttachment.bounds = CGRectMake(0, 0, 100, 100);
+        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        [self.inputToolbar.contentView.textView setAttributedText:attrStringWithImage];
+        [self textViewDidChange:self.inputToolbar.contentView.textView];
+        
+        return NO;
+    }
+    return YES;
+}
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)didPickAttachmentImage:(UIImage *)image {

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "QMChatContainerView.h"
-#import "TTTAttributedLabel.h"
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QMChatCellLayoutAttributes.h"
 #import "QMImageView.h"
 

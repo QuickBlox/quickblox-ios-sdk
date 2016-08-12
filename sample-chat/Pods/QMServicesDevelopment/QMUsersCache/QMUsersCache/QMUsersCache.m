@@ -34,7 +34,8 @@ static QMUsersCache *_usersCacheInstance = nil;
 {
     NSManagedObjectModel *model =
     [NSManagedObjectModel QM_newModelNamed:@"QMUsersModel.momd"
-                             inBundleNamed:@"QMUsersCacheModel.bundle"];
+                             inBundleNamed:@"QMUsersCacheModel.bundle"
+                                 fromClass:[self class]];
     _usersCacheInstance = [[QMUsersCache alloc] initWithStoreNamed:storeName
                                                              model:model
                                                         queueLabel:"com.qmservices.QMUsersCacheQueue"];
@@ -100,7 +101,7 @@ static QMUsersCache *_usersCacheInstance = nil;
         }
         
         QMSLog(@"[%@] Users to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
-
+        
         return nil;
     }];
 }
@@ -138,7 +139,7 @@ static QMUsersCache *_usersCacheInstance = nil;
 - (BFTask *)userWithPredicate:(NSPredicate *) predicate
 {
     BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
-
+    
     [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
         
         CDUser *user = [CDUser QM_findFirstWithPredicate:predicate];

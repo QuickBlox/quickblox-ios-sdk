@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		583E3A931D52132F0038171C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; };
-		583E3A941D52132F0038171C /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		583978B01D48A8E3009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; };
+		583978B11D48A8E3009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86A716581B9DAA790019C42A /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A716571B9DAA790019C42A /* SAMTextView.m */; };
 		BF0CF3FE1B2976F200078084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF3FD1B2976F200078084 /* main.m */; };
 		BF0CF4011B2976F200078084 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0CF4001B2976F200078084 /* AppDelegate.m */; };
@@ -39,13 +39,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		583E3A951D52132F0038171C /* Embed Frameworks */ = {
+		583978B21D48A8E3009E970B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				583E3A941D52132F0038171C /* Quickblox.framework in Embed Frameworks */,
+				583978B11D48A8E3009E970B /* Quickblox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,7 +88,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF0CF4321B2987AB00078084 /* libxml2.2.dylib in Frameworks */,
-				583E3A931D52132F0038171C /* Quickblox.framework in Frameworks */,
+				583978B01D48A8E3009E970B /* Quickblox.framework in Frameworks */,
 				BF0CF4301B2987A600078084 /* libresolv.9.dylib in Frameworks */,
 				BF0CF42E1B2987A100078084 /* libz.1.2.5.dylib in Frameworks */,
 				BF0CF42C1B29879D00078084 /* Security.framework in Frameworks */,
@@ -219,7 +219,7 @@
 				BF0CF3F51B2976F200078084 /* Frameworks */,
 				BF0CF3F61B2976F200078084 /* Resources */,
 				53F404846E7198ABE57DE378 /* Copy Pods Resources */,
-				583E3A951D52132F0038171C /* Embed Frameworks */,
+				583978B21D48A8E3009E970B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -259,6 +259,7 @@
 				TargetAttributes = {
 					BF0CF3F71B2976F200078084 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 8885H5G2YX;
 					};
 					BF0CF4101B2976F200078084 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -463,6 +464,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "0e47df62-d0ed-4240-b116-b5a36155bcf4";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -475,6 +477,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -494,6 +497,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -504,6 +509,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "sample-push-notifications";
+				PROVISIONING_PROFILE = "0e47df62-d0ed-4240-b116-b5a36155bcf4";
 			};
 			name = Release;
 		};

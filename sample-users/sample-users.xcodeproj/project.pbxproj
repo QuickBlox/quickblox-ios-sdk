@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		2CED4A7A1B9DAB2A00B6862C /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A791B9DAB2900B6862C /* UserTableViewCell.m */; };
 		2CED4A7D1B9DB21400B6862C /* MenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CED4A7C1B9DB21400B6862C /* MenuTableViewCell.m */; };
-		583E3A961D52134D0038171C /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4731B2994D600078084 /* Quickblox.framework */; };
-		583E3A971D52134D0038171C /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4731B2994D600078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		583978B31D48A9CB009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4731B2994D600078084 /* Quickblox.framework */; };
+		583978B41D48A9CB009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4731B2994D600078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		67792BFAFC8B2AAA21256FC5 /* libPods-sample-users.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD8943CF5FF77D23DBD01335 /* libPods-sample-users.a */; };
 		86B8BFD21B8F6DF200AA99C4 /* SignInTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD11B8F6DF200AA99C4 /* SignInTableViewController.m */; };
 		86B8BFD51B8F6E0100AA99C4 /* SignUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86B8BFD41B8F6E0100AA99C4 /* SignUpTableViewController.m */; };
@@ -44,13 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		583E3A981D52134D0038171C /* Embed Frameworks */ = {
+		583978B51D48A9CB009E970B /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				583E3A971D52134D0038171C /* Quickblox.framework in Embed Frameworks */,
+				583978B41D48A9CB009E970B /* Quickblox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,7 +108,7 @@
 				BF0CF46E1B29948600078084 /* libz.1.2.5.dylib in Frameworks */,
 				BF0CF46C1B29948000078084 /* Security.framework in Frameworks */,
 				BF0CF46A1B29947800078084 /* MobileCoreServices.framework in Frameworks */,
-				583E3A961D52134D0038171C /* Quickblox.framework in Frameworks */,
+				583978B31D48A9CB009E970B /* Quickblox.framework in Frameworks */,
 				BF0CF4681B29947200078084 /* SystemConfiguration.framework in Frameworks */,
 				BF0CF4661B29946D00078084 /* CFNetwork.framework in Frameworks */,
 				67792BFAFC8B2AAA21256FC5 /* libPods-sample-users.a in Frameworks */,
@@ -237,7 +237,7 @@
 				BF0CF4391B2993FD00078084 /* Frameworks */,
 				BF0CF43A1B2993FD00078084 /* Resources */,
 				8420FEA1B7B287672EB851FE /* Copy Pods Resources */,
-				583E3A981D52134D0038171C /* Embed Frameworks */,
+				583978B51D48A9CB009E970B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -278,6 +278,7 @@
 				TargetAttributes = {
 					BF0CF43B1B2993FD00078084 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 8885H5G2YX;
 					};
 					BF0CF4541B2993FD00078084 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -488,6 +489,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "05f996a8-53e4-4dd5-a630-0b1556ba63a8";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -499,6 +501,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",
@@ -523,6 +527,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../Framework\"",
 					"$(inherited)",
@@ -538,6 +544,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "05f996a8-53e4-4dd5-a630-0b1556ba63a8";
 			};
 			name = Release;
 		};

@@ -234,14 +234,18 @@ typedef enum QBConnectionZoneType{
  *  Caches DNS lookup for chat api endpoint.
  *
  *  @param enable YES / NO. Defaults NO
+ *
+ *  @warning *Deprecated in 2.7.6.*
  */
-+ (void)setChatDNSLookupCacheEnabled:(BOOL)enabled;
++ (void)setChatDNSLookupCacheEnabled:(BOOL)enabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
 
 /**
  *  Get Chat DNS lookup cache enabled state
  *
+ *  @warning *Deprecated in 2.7.6.*
+ *
  *  @return YES if cache is enabled, NO if cache is disabled.
  */
-+ (BOOL)isChatDNSLookupCacheEnabled;
++ (BOOL)isChatDNSLookupCacheEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
 
 @end

@@ -1,1 +1,0 @@
-../../../QMServicesDevelopment/QMChatService/QMChatService/QMDialogsMemoryStorage/QMDialogsMemoryStorage.h

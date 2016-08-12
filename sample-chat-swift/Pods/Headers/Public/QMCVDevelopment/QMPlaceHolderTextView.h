@@ -1,1 +1,0 @@
-../../../QMCVDevelopment/QMChatViewController/Views/CustomUI/PlaceHolderTextView/QMPlaceHolderTextView.h

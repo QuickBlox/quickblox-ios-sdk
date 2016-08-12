@@ -8,6 +8,7 @@
 
 #import "QMToolbarContentView.h"
 #import "UIView+QM.h"
+#import "QMChatResources.h"
 
 const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
@@ -32,8 +33,7 @@ const CGFloat kQMToolbarContentViewHorizontalSpacingDefault = 8.0f;
 
 + (UINib *)nib {
     
-    return [UINib nibWithNibName:NSStringFromClass(QMToolbarContentView.class)
-                          bundle:[NSBundle bundleForClass:QMToolbarContentView.class]];
+    return [QMChatResources nibWithNibName:NSStringFromClass([QMToolbarContentView class])];
 }
 
 #pragma mark - Initialization

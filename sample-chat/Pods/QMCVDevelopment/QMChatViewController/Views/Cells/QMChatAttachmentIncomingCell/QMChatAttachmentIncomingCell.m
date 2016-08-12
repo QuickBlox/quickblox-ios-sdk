@@ -28,14 +28,6 @@
     return defaultLayoutModel;
 }
 
-+ (UINib *)nib {
-    return [UINib nibWithNibName:[self cellReuseIdentifier] bundle:[NSBundle bundleForClass:[self class]]];
-}
-
-+ (NSString *)cellReuseIdentifier {
-    return NSStringFromClass([self class]);
-}
-
 - (void)prepareForReuse {
     [super prepareForReuse];
     

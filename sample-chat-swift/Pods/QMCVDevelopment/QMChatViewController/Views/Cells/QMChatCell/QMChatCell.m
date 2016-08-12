@@ -10,6 +10,7 @@
 #import "QMChatCellLayoutAttributes.h"
 #import "TTTAttributedLabel.h"
 #import "QMImageView.h"
+#import "QMChatResources.h"
 
 @interface TTTAttributedLabel(PrivateAPI)
     - (TTTAttributedLabelLink *)linkAtPoint:(CGPoint)point;
@@ -61,7 +62,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 
 + (UINib *)nib {
     
-    return [UINib nibWithNibName:NSStringFromClass([self class]) bundle:[NSBundle bundleForClass:[self class]]];
+    return [QMChatResources nibWithNibName:NSStringFromClass([self class])];
 }
 
 + (NSString *)cellReuseIdentifier {
