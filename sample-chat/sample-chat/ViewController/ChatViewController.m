@@ -128,8 +128,8 @@ QMDeferredQueueManagerDelegate
     [[ServicesManager instance].chatService.deferredQueueManager addDelegate:self];
     
     if ([[self storedMessages] count] > 0 && self.chatDataSource.messagesCount == 0) {
-        // inserting all messages from memory storage
-        [self.chatDataSource addMessages:[self storedMessages]];
+        //inserting all messages from memory storage
+        [self.chatDataSource setDataSourceMessages:[self storedMessages]];
     }
     
     [self refreshMessagesShowingProgress:NO];
@@ -169,6 +169,7 @@ QMDeferredQueueManagerDelegate
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
@@ -327,7 +328,6 @@ QMDeferredQueueManagerDelegate
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
     message.dateSent = date;
-    
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error) {
         
@@ -352,7 +352,8 @@ QMDeferredQueueManagerDelegate
 #pragma mark - Cell classes
 
 - (Class)viewClassForItem:(QBChatMessage *)item {
-    if (item.isNotificatonMessage) {
+    
+    if (item.isNotificatonMessage || item.isDateDividerMessage) {
         
         return [QMChatNotificationCell class];
 	}
@@ -381,7 +382,7 @@ QMDeferredQueueManagerDelegate
 	
     UIColor *textColor;
     
-    if (messageItem.isNotificatonMessage) {
+    if (messageItem.isNotificatonMessage || messageItem.isDateDividerMessage) {
         textColor =  [UIColor blackColor];
     }
     else {
