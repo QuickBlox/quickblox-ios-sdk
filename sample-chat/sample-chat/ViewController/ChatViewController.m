@@ -40,7 +40,8 @@ UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 UIActionSheetDelegate,
 QMChatCellDelegate,
-UIAlertViewDelegate
+UIAlertViewDelegate,
+QMDeferredQueueManagerDelegate
 >
 
 @property (nonatomic, weak) QBUUser *opponentUser;
@@ -124,6 +125,7 @@ UIAlertViewDelegate
     
     [[ServicesManager instance].chatService addDelegate:self];
     [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    [[ServicesManager instance].chatService.deferredQueueManager addDelegate:self];
     
     if ([[self storedMessages] count] > 0 && self.chatSectionManager.totalMessagesCount == 0) {
         // inserting all messages from memory storage
@@ -155,6 +157,10 @@ UIAlertViewDelegate
             NSLog(@"can not refresh messages: %@", response.error.error);
         }
     }];
+}
+
+- (void)deferredQueueManager:(QMDeferredQueueManager*)queueManager didAddMessageLocally:(QBChatMessage*)addedMessage {
+    [self.chatSectionManager addMessage:addedMessage];
 }
 
 - (NSArray *)storedMessages {
@@ -641,7 +647,29 @@ UIAlertViewDelegate
     
     [chatCell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     
-    if ([cell isKindOfClass:[QMChatOutgoingCell class]] || [cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
+    
+    QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[QMChatOutgoingCell class]]) {
+        
+        QMMessageStatus status = [[QMServicesManager instance].chatService.deferredQueueManager statusForMessage:message];
+        
+        switch (status) {
+            case QMMessageStatusSent: {
+                [chatCell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
+                break;
+            }
+            case QMMessageStatusSending: {
+                [chatCell containerView].bgColor = [UIColor colorWithRed:0.761 green:0.772 blue:0.746 alpha:1.000];
+                break;
+            }
+            case QMMessageStatusNotSent: {
+                [chatCell containerView].bgColor = [UIColor colorWithRed:1.000 green:0.190 blue:0.108 alpha:1.000];
+                break;
+            }
+        }
+    }
+    else if ([cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
         [chatCell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
     }
     else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
@@ -657,7 +685,7 @@ UIAlertViewDelegate
 		return;
 	}
 	
-	QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
+	
 	
 	if (message.attachments == nil) {
 		return;
@@ -858,7 +886,13 @@ UIAlertViewDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         // Inserting message received from XMPP or self sent
-        [self.chatSectionManager addMessage:message];
+        if ([self.chatSectionManager.allMessages containsObject:message]) {
+             [self.chatSectionManager updateMessage:message];
+        }
+        else {
+             [self.chatSectionManager addMessage:message];
+        }
+       
     }
 }
 
