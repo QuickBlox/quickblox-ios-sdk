@@ -731,11 +731,9 @@ QMDeferredQueueManagerDelegate
 	}];
 	
 }
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	
-    NSUInteger lastSection = [self.collectionView numberOfSections] - 1;
-    if (indexPath.section == lastSection && indexPath.item == [self.collectionView numberOfItemsInSection:lastSection] - 1) {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)__unused cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.item == [self.collectionView numberOfItemsInSection:0] - 1) {
         // the very first message
         // load more if exists
         __weak typeof(self)weakSelf = self;
@@ -752,10 +750,9 @@ QMDeferredQueueManagerDelegate
     
     // marking message as read if needed
     QBChatMessage *itemMessage = [self.chatDataSource messageForIndexPath:indexPath];
-    [self sendReadStatusForMessage:itemMessage];
-    
-    return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+     [self sendReadStatusForMessage:itemMessage];
 }
+
 
 #pragma mark - QMChatCellDelegate
 
