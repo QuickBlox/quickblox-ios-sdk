@@ -40,7 +40,8 @@ UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
 UIActionSheetDelegate,
 QMChatCellDelegate,
-UIAlertViewDelegate
+UIAlertViewDelegate,
+QMDeferredQueueManagerDelegate
 >
 
 @property (nonatomic, weak) QBUUser *opponentUser;
@@ -124,10 +125,11 @@ UIAlertViewDelegate
     
     [[ServicesManager instance].chatService addDelegate:self];
     [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    [[ServicesManager instance].chatService.deferredQueueManager addDelegate:self];
     
-    if ([[self storedMessages] count] > 0 && self.chatSectionManager.totalMessagesCount == 0) {
-        // inserting all messages from memory storage
-        [self.chatSectionManager addMessages:[self storedMessages]];
+    if ([[self storedMessages] count] > 0 && self.chatDataSource.messagesCount == 0) {
+        //inserting all messages from memory storage
+        [self.chatDataSource setDataSourceMessages:[self storedMessages]];
     }
     
     [self refreshMessagesShowingProgress:NO];
@@ -146,7 +148,7 @@ UIAlertViewDelegate
         if (response.success) {
 			
 			if ([messages count] > 0) {
-				[weakSelf.chatSectionManager addMessages:messages];
+				[weakSelf.chatDataSource addMessages:messages];
 			}
             [SVProgressHUD dismiss];
             
@@ -157,12 +159,17 @@ UIAlertViewDelegate
     }];
 }
 
+- (void)deferredQueueManager:(QMDeferredQueueManager*)queueManager didAddMessageLocally:(QBChatMessage*)addedMessage {
+    [self.chatDataSource addMessage:addedMessage];
+}
+
 - (NSArray *)storedMessages {
     return [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
@@ -281,7 +288,7 @@ UIAlertViewDelegate
                                                                    
                                                                    // perform local attachment deleting
                                                                    [[ServicesManager instance].chatService deleteMessageLocally:message];
-                                                                   [self.chatSectionManager deleteMessage:message];
+                                                                   [self.chatDataSource deleteMessage:message];
                                                                }
                                                            }];
         [self finishSendingMessageAnimated:YES];
@@ -296,19 +303,6 @@ UIAlertViewDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
     
-    BOOL shouldJoin = (self.dialog.type == QBChatDialogTypeGroup ? !self.dialog.isJoined : NO);
-
-    if (![[QBChat instance] isConnected] || shouldJoin) {
-        
-        if (shouldJoin) {
-        [QMMessageNotificationManager showNotificationWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil)
-                                                       subtitle:NSLocalizedString(@"SA_STR_MESSAGE_FAILED_TO_SEND",nil)
-                                                           type:QMMessageNotificationTypeError];
-        }
-        
-        return;
-    }
-    
     if (self.typingTimer != nil) {
         [self fireStopTypingIfNecessary];
     }
@@ -321,7 +315,6 @@ UIAlertViewDelegate
     message.readIDs = @[@(self.senderID)];
     message.dialogID = self.dialog.ID;
     message.dateSent = date;
-    
     // Sending message.
     [[ServicesManager instance].chatService sendMessage:message toDialogID:self.dialog.ID saveToHistory:YES saveToStorage:YES completion:^(NSError *error) {
         
@@ -346,7 +339,8 @@ UIAlertViewDelegate
 #pragma mark - Cell classes
 
 - (Class)viewClassForItem:(QBChatMessage *)item {
-    if (item.isNotificatonMessage) {
+    
+    if (item.isNotificatonMessage || item.isDateDividerMessage) {
         
         return [QMChatNotificationCell class];
 	}
@@ -375,7 +369,7 @@ UIAlertViewDelegate
 	
     UIColor *textColor;
     
-    if (messageItem.isNotificatonMessage) {
+    if (messageItem.isNotificatonMessage || messageItem.isDateDividerMessage) {
         textColor =  [UIColor blackColor];
     }
     else {
@@ -461,7 +455,7 @@ UIAlertViewDelegate
 
 - (CGSize)collectionView:(QMChatCollectionView *)collectionView dynamicSizeAtIndexPath:(NSIndexPath *)indexPath maxWidth:(CGFloat)maxWidth {
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     Class viewClass = [self viewClassForItem:item];
     CGSize size = CGSizeZero;
     
@@ -502,7 +496,7 @@ UIAlertViewDelegate
 
 - (CGFloat)collectionView:(QMChatCollectionView *)collectionView minWidthAtIndexPath:(NSIndexPath *)indexPath {
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     
     CGSize size = CGSizeZero;
     if ([self.detailedCells containsObject:item.ID]) {
@@ -531,7 +525,7 @@ UIAlertViewDelegate
  */
 - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     Class viewClass = [self viewClassForItem:item];
     
     if (viewClass == [QMChatNotificationCell class]
@@ -550,7 +544,7 @@ UIAlertViewDelegate
     
     if (action == @selector(copy:)) {
         
-        QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
+        QBChatMessage *message = [self.chatDataSource messageForIndexPath:indexPath];
         
         if ([message isMediaMessage]) {
            
@@ -595,7 +589,7 @@ UIAlertViewDelegate
     layoutModel.topLabelHeight = 0.0f;
     layoutModel.maxWidthMarginSpace = 20.0f;
     
-    QBChatMessage *item = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *item = [self.chatDataSource messageForIndexPath:indexPath];
     Class class = [self viewClassForItem:item];
     
     if (class == [QMChatAttachmentIncomingCell class] ||
@@ -641,7 +635,29 @@ UIAlertViewDelegate
     
     [chatCell containerView].highlightColor = [UIColor colorWithWhite:0.5 alpha:0.5];
     
-    if ([cell isKindOfClass:[QMChatOutgoingCell class]] || [cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
+    
+    QBChatMessage *message = [self.chatDataSource messageForIndexPath:indexPath];
+    
+    if ([cell isKindOfClass:[QMChatOutgoingCell class]]) {
+        
+        QMMessageStatus status = [[QMServicesManager instance].chatService.deferredQueueManager statusForMessage:message];
+        
+        switch (status) {
+            case QMMessageStatusSent: {
+                [chatCell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
+                break;
+            }
+            case QMMessageStatusSending: {
+                [chatCell containerView].bgColor = [UIColor colorWithRed:0.761 green:0.772 blue:0.746 alpha:1.000];
+                break;
+            }
+            case QMMessageStatusNotSent: {
+                [chatCell containerView].bgColor = [UIColor colorWithRed:1.000 green:0.190 blue:0.108 alpha:1.000];
+                break;
+            }
+        }
+    }
+    else if ([cell isKindOfClass:[QMChatAttachmentOutgoingCell class]]) {
         [chatCell containerView].bgColor = [UIColor colorWithRed:0 green:121.0f/255.0f blue:1 alpha:1.0f];
     }
     else if ([cell isKindOfClass:[QMChatIncomingCell class]] || [cell isKindOfClass:[QMChatAttachmentIncomingCell class]]) {
@@ -657,7 +673,7 @@ UIAlertViewDelegate
 		return;
 	}
 	
-	QBChatMessage *message = [self.chatSectionManager messageForIndexPath:indexPath];
+	
 	
 	if (message.attachments == nil) {
 		return;
@@ -702,11 +718,9 @@ UIAlertViewDelegate
 	}];
 	
 }
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-	
-    NSUInteger lastSection = [self.collectionView numberOfSections] - 1;
-    if (indexPath.section == lastSection && indexPath.item == [self.collectionView numberOfItemsInSection:lastSection] - 1) {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)__unused cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.item == [self.collectionView numberOfItemsInSection:0] - 1) {
         // the very first message
         // load more if exists
         __weak typeof(self)weakSelf = self;
@@ -714,7 +728,7 @@ UIAlertViewDelegate
         [[[ServicesManager instance].chatService loadEarlierMessagesWithChatDialogID:self.dialog.ID] continueWithBlock:^id(BFTask *task) {
             
             if ([task.result count] > 0) {
-                [weakSelf.chatSectionManager addMessages:task.result];
+                [weakSelf.chatDataSource addMessages:task.result];
             }
             
             return nil;
@@ -722,19 +736,28 @@ UIAlertViewDelegate
     }
     
     // marking message as read if needed
-    QBChatMessage *itemMessage = [self.chatSectionManager messageForIndexPath:indexPath];
-    [self sendReadStatusForMessage:itemMessage];
-    
-    return [super collectionView:collectionView cellForItemAtIndexPath:indexPath];
+    QBChatMessage *itemMessage = [self.chatDataSource messageForIndexPath:indexPath];
+     [self sendReadStatusForMessage:itemMessage];
 }
+
 
 #pragma mark - QMChatCellDelegate
 
 - (void)chatCellDidTapContainer:(QMChatCell *)cell {
     
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-    QBChatMessage *currentMessage = [self.chatSectionManager messageForIndexPath:indexPath];
+    QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
     
+    QMMessageStatus  status = [[ServicesManager instance].chatService.deferredQueueManager
+                               statusForMessage:currentMessage];
+    
+    if (status == QMMessageStatusNotSent && currentMessage.senderID == self.senderID)
+    {
+        
+        [self handleNotSentMessage:currentMessage];
+        return;
+    }
+
     if ([self.detailedCells containsObject:currentMessage.ID]) {
         [self.detailedCells removeObject:currentMessage.ID];
     } else {
@@ -850,7 +873,7 @@ UIAlertViewDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         
-        [self.chatSectionManager addMessages:messages];
+        [self.chatDataSource addMessages:messages];
     }
 }
 
@@ -858,7 +881,13 @@ UIAlertViewDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         // Inserting message received from XMPP or self sent
-        [self.chatSectionManager addMessage:message];
+        if ([self.chatDataSource messageExists:message]) {
+             [self.chatDataSource updateMessage:message];
+        }
+        else {
+             [self.chatDataSource addMessage:message];
+        }
+       
     }
 }
 
@@ -874,7 +903,7 @@ UIAlertViewDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID] && message.senderID == self.senderID) {
         
-        [self.chatSectionManager updateMessage:message];
+        [self.chatDataSource updateMessage:message];
     }
 }
 
@@ -882,7 +911,7 @@ UIAlertViewDelegate
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         
-        [self.chatSectionManager updateMessages:messages];
+        [self.chatDataSource updateMessages:messages];
     }
 }
 
@@ -917,7 +946,7 @@ UIAlertViewDelegate
 		
         if ([message.dialogID isEqualToString:self.dialog.ID]) {
             
-            [self.chatSectionManager updateMessage:message];
+            [self.chatDataSource updateMessage:message];
         }
     }
 }
@@ -937,7 +966,7 @@ UIAlertViewDelegate
     
     if (cell == nil && progress < 1.0f) {
         
-        NSIndexPath *indexPath = [self.chatSectionManager indexPathForMessage:message];
+        NSIndexPath *indexPath = [self.chatDataSource indexPathForMessage:message];
         cell = (UICollectionViewCell <QMChatAttachmentCell> *)[self.collectionView cellForItemAtIndexPath:indexPath];
         [self.attachmentCells setObject:cell forKey:message.ID];
     }
@@ -1107,7 +1136,7 @@ UIAlertViewDelegate
                                                                        
                                                                        // perform local attachment deleting
                                                                        [[ServicesManager instance].chatService deleteMessageLocally:message];
-                                                                       [strongSelf.chatSectionManager deleteMessage:message];
+                                                                       [strongSelf.chatDataSource deleteMessage:message];
                                                                    }
                                                                }];
         });
@@ -1159,6 +1188,45 @@ UIAlertViewDelegate
     UIGraphicsEndImageContext();
     
     return resizedImage;
+}
+
+- (void)handleNotSentMessage:(QBChatMessage*)notSentMessage {
+    
+    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Message didn't send"
+                                                                      message:@""
+                                                               preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    UIAlertAction *resend = [UIAlertAction actionWithTitle:@"Try agan"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action)
+                             {
+                                 [[ServicesManager instance].chatService.deferredQueueManager perfromDefferedActionForMessage:notSentMessage];
+                                 [alertVC dismissViewControllerAnimated:YES completion:nil];
+                             }];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete"
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction * action)
+                             {
+                                 [self.chatDataSource deleteMessage:notSentMessage];
+                                 //TODO: delete from deferredQueue
+                                 [alertVC dismissViewControllerAnimated:YES completion:nil];
+                             }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action)
+                             {
+                                 
+                             }];
+    
+    [alertVC addAction:resend];
+    [alertVC addAction:delete];
+    [alertVC addAction:cancel];
+    
+    [self presentViewController:alertVC animated:YES completion:nil];
+    
 }
 
 @end
