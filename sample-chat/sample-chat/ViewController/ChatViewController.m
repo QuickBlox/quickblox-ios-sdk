@@ -760,6 +760,14 @@ QMDeferredQueueManagerDelegate
     
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
+    QMMessageStatus  status = [[ServicesManager instance].chatService.deferredQueueManager
+                                statusForMessage:currentMessage];
+    
+   // if (status == QMMessageStatusNotSent) {
+        
+        [self handleNotSentMessage:currentMessage];
+        return;
+   // }
     
     if ([self.detailedCells containsObject:currentMessage.ID]) {
         [self.detailedCells removeObject:currentMessage.ID];
@@ -1157,7 +1165,9 @@ QMDeferredQueueManagerDelegate
                                                            type:QMMessageNotificationTypeWarning];
 
 }
+
 - (BOOL)canMakeACall {
+    
     BOOL canMakeACall = false;
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]) {
         // Check if iOS Device supports phone calls
@@ -1191,6 +1201,45 @@ QMDeferredQueueManagerDelegate
     UIGraphicsEndImageContext();
     
     return resizedImage;
+}
+
+- (void)handleNotSentMessage:(QBChatMessage*)notSentMessage {
+    
+    UIAlertController *view = [UIAlertController
+                               alertControllerWithTitle:@"My Title"
+                               message:@"Select you Choice"
+                               preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *resend = [UIAlertAction
+                             actionWithTitle:@"OK"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 
+                                 [[ServicesManager instance].chatService.deferredQueueManager perfromDefferedActionForMessage:notSentMessage];
+                                 [view dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    UIAlertAction *delete = [UIAlertAction
+                             actionWithTitle:@"Remove Message"
+                             style:UIAlertActionStyleDestructive
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [self.chatDataSource deleteMessage:notSentMessage];
+                                 [view dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    UIAlertAction *cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleCancel
+                             handler:nil];
+    
+    
+    [view addAction:resend];
+    [view addAction:delete];
+    [view addAction:cancel];
+    [self presentViewController:view animated:YES completion:nil];
+    
 }
 
 @end
