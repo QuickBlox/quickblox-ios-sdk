@@ -1202,6 +1202,7 @@ QMDeferredQueueManagerDelegate
                                                    handler:^(UIAlertAction * action)
                              {
                                  [[ServicesManager instance].chatService.deferredQueueManager perfromDefferedActionForMessage:notSentMessage];
+                                 [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
     
     UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete"
@@ -1210,6 +1211,7 @@ QMDeferredQueueManagerDelegate
                              {
                                  [self.chatDataSource deleteMessage:notSentMessage];
                                  //TODO: delete from deferredQueue
+                                 [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
