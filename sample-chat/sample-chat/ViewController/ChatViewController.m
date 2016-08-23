@@ -303,19 +303,6 @@ QMDeferredQueueManagerDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
     
-    BOOL shouldJoin = (self.dialog.type == QBChatDialogTypeGroup ? !self.dialog.isJoined : NO);
-
-    if (![[QBChat instance] isConnected] || shouldJoin) {
-        
-        if (shouldJoin) {
-        [QMMessageNotificationManager showNotificationWithTitle:NSLocalizedString(@"SA_STR_ERROR", nil)
-                                                       subtitle:NSLocalizedString(@"SA_STR_MESSAGE_FAILED_TO_SEND",nil)
-                                                           type:QMMessageNotificationTypeError];
-        }
-        
-        return;
-    }
-    
     if (self.typingTimer != nil) {
         [self fireStopTypingIfNecessary];
     }
@@ -760,15 +747,17 @@ QMDeferredQueueManagerDelegate
     
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
-    QMMessageStatus  status = [[ServicesManager instance].chatService.deferredQueueManager
-                                statusForMessage:currentMessage];
     
-   // if (status == QMMessageStatusNotSent) {
+    QMMessageStatus  status = [[ServicesManager instance].chatService.deferredQueueManager
+                               statusForMessage:currentMessage];
+    
+    if (status == QMMessageStatusNotSent && currentMessage.senderID == self.senderID)
+    {
         
         [self handleNotSentMessage:currentMessage];
         return;
-   // }
-    
+    }
+
     if ([self.detailedCells containsObject:currentMessage.ID]) {
         [self.detailedCells removeObject:currentMessage.ID];
     } else {
@@ -1165,9 +1154,7 @@ QMDeferredQueueManagerDelegate
                                                            type:QMMessageNotificationTypeWarning];
 
 }
-
 - (BOOL)canMakeACall {
-    
     BOOL canMakeACall = false;
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]]) {
         // Check if iOS Device supports phone calls
@@ -1205,40 +1192,40 @@ QMDeferredQueueManagerDelegate
 
 - (void)handleNotSentMessage:(QBChatMessage*)notSentMessage {
     
-    UIAlertController *view = [UIAlertController
-                               alertControllerWithTitle:@"My Title"
-                               message:@"Select you Choice"
-                               preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Message didn't send"
+                                                                      message:@""
+                                                               preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *resend = [UIAlertAction
-                             actionWithTitle:@"OK"
-                             style:UIAlertActionStyleDefault
-                             handler:^(UIAlertAction * action)
+    
+    UIAlertAction *resend = [UIAlertAction actionWithTitle:@"Try agan"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action)
                              {
-                                 
                                  [[ServicesManager instance].chatService.deferredQueueManager perfromDefferedActionForMessage:notSentMessage];
-                                 [view dismissViewControllerAnimated:YES completion:nil];
-                                 
+                                 [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
-    UIAlertAction *delete = [UIAlertAction
-                             actionWithTitle:@"Remove Message"
-                             style:UIAlertActionStyleDestructive
-                             handler:^(UIAlertAction * action)
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete"
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction * action)
                              {
                                  [self.chatDataSource deleteMessage:notSentMessage];
-                                 [view dismissViewControllerAnimated:YES completion:nil];
+                                 //TODO: delete from deferredQueue
+                                 [alertVC dismissViewControllerAnimated:YES completion:nil];
+                             }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action)
+                             {
                                  
                              }];
-    UIAlertAction *cancel = [UIAlertAction
-                             actionWithTitle:@"Cancel"
-                             style:UIAlertActionStyleCancel
-                             handler:nil];
     
+    [alertVC addAction:resend];
+    [alertVC addAction:delete];
+    [alertVC addAction:cancel];
     
-    [view addAction:resend];
-    [view addAction:delete];
-    [view addAction:cancel];
-    [self presentViewController:view animated:YES completion:nil];
+    [self presentViewController:alertVC animated:YES completion:nil];
     
 }
 
