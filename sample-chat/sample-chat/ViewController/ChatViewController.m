@@ -1190,9 +1190,9 @@ QMDeferredQueueManagerDelegate
     return resizedImage;
 }
 
-- (void)handleNotSentMessage:(QBChatMessage*)notSentMessage {
+- (void)handleNotSentMessage:(QBChatMessage *)notSentMessage {
     
-    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Message didn't send"
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Message didn't send"
                                                                       message:@""
                                                                preferredStyle:UIAlertControllerStyleActionSheet];
     
