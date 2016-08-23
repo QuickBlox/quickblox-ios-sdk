@@ -748,6 +748,16 @@ QMDeferredQueueManagerDelegate
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
     
+    QMMessageStatus  status = [[ServicesManager instance].chatService.deferredQueueManager
+                               statusForMessage:currentMessage];
+    
+    if (status == QMMessageStatusNotSent && currentMessage.senderID == self.senderID)
+    {
+        
+        [self handleNotSentMessage:currentMessage];
+        return;
+    }
+
     if ([self.detailedCells containsObject:currentMessage.ID]) {
         [self.detailedCells removeObject:currentMessage.ID];
     } else {
@@ -1178,6 +1188,43 @@ QMDeferredQueueManagerDelegate
     UIGraphicsEndImageContext();
     
     return resizedImage;
+}
+
+- (void)handleNotSentMessage:(QBChatMessage*)notSentMessage {
+    
+    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Message didn't send"
+                                                                      message:@""
+                                                               preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    UIAlertAction *resend = [UIAlertAction actionWithTitle:@"Try agan"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action)
+                             {
+                                 [[ServicesManager instance].chatService.deferredQueueManager perfromDefferedActionForMessage:notSentMessage];
+                             }];
+    
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete"
+                                                     style:UIAlertActionStyleDestructive
+                                                   handler:^(UIAlertAction * action)
+                             {
+                                 [self.chatDataSource deleteMessage:notSentMessage];
+                                 //TODO: delete from deferredQueue
+                             }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action)
+                             {
+                                 
+                             }];
+    
+    [alertVC addAction:resend];
+    [alertVC addAction:delete];
+    [alertVC addAction:cancel];
+    
+    [self presentViewController:alertVC animated:YES completion:nil];
+    
 }
 
 @end
