@@ -448,7 +448,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         if statusString.isEmpty {
-            statusString = "SA_STR_SENT_STATUS".localized
+            
+            let messageStatus: QMMessageStatus = self.queueManager().statusForMessage(message)
+            
+            switch messageStatus {
+            case .Sent:
+                statusString = "SA_STR_SENT_STATUS".localized
+            case .Sending:
+                statusString = "Sending"
+            case .NotSent:
+                statusString = "Not send"
+            }
+            
         }
         
         return statusString
