@@ -12,6 +12,7 @@ PODS:
     - QMCVDevelopment/Categories (= 0.3.10)
     - QMCVDevelopment/KeyboardViewController (= 0.3.10)
     - QMCVDevelopment/Protocols (= 0.3.10)
+    - QMCVDevelopment/QMChatDataSource (= 0.3.10)
     - QMCVDevelopment/QMChatSection (= 0.3.10)
     - QMCVDevelopment/Utils (= 0.3.10)
     - QMCVDevelopment/Views (= 0.3.10)
@@ -25,6 +26,9 @@ PODS:
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
   - QMCVDevelopment/Protocols (0.3.10):
+    - SDWebImage (~> 3.6)
+    - TTTAttributedLabel (> 1.13)
+  - QMCVDevelopment/QMChatDataSource (0.3.10):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
   - QMCVDevelopment/QMChatSection (0.3.10):
@@ -50,38 +54,38 @@ PODS:
 DEPENDENCIES:
   - Crashlytics
   - Fabric
-  - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, commit `26312c3c486c4c7bfbf2f50bbc46d7ca40b1086e`)
-  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, commit `4fc17078e26f9f3c65ebc2e1ac995b0986937cbc`)
+  - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, branch `development`)
+  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, branch `development`)
   - SearchEmojiOnString
   - SVProgressHUD (~> 1.1.3)
 
 EXTERNAL SOURCES:
   QMCVDevelopment:
-    :commit: 26312c3c486c4c7bfbf2f50bbc46d7ca40b1086e
+    :branch: development
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 4fc17078e26f9f3c65ebc2e1ac995b0986937cbc
+    :branch: development
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: 26312c3c486c4c7bfbf2f50bbc46d7ca40b1086e
+    :commit: f1245546d7bc1d97932596b2f42a26bc2b68e890
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 4fc17078e26f9f3c65ebc2e1ac995b0986937cbc
+    :commit: 6c15a00093fdd6f7e311f5319efe418335495acc
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
-  QMCVDevelopment: 0d6e3a074ccd0c3afe1e4ef4b6565af83bd04d00
+  QMCVDevelopment: 77830b179e3b754f275174c1efc0efc43b94a855
   QMServicesDevelopment: 1eeb4f9aa76b64674f4d47e863f0a23b5bc9f680
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: dc5b51720f68c59b3ce67496048ba73c5bebfd13
+PODFILE CHECKSUM: c24412cefbc7c7e7f37fe8b04cd9ff1248f545bf
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.beta.1

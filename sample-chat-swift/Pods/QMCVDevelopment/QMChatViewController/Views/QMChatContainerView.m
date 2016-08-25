@@ -21,6 +21,13 @@
     [self drawCanvas1WithRect:rect];
 }
 
+- (void)setBgColor:(UIColor *)bgColor {
+    if (_bgColor != bgColor) {
+        _bgColor = bgColor;
+        [self setNeedsDisplay];
+    }
+}
+
 - (void)drawCanvas1WithRect:(CGRect)rect  {
     
     if (self.highlighted) {

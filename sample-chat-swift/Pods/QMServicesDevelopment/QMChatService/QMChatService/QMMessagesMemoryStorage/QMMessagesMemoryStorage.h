@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "QMMemoryStorageProtocol.h"
 
+@protocol QMMemoryTemporaryQueueDelegate;
+
 @interface QMMessagesMemoryStorage : NSObject <QMMemoryStorageProtocol>
+
+@property (QB_NULLABLE, weak, nonatomic) id <QMMemoryTemporaryQueueDelegate> delegate;
 
 /**
  *  Add message to memory storage
@@ -122,5 +126,13 @@
  *  @return QBChatMessage object
  */
 - (QB_NULLABLE QBChatMessage *)oldestMessageForDialogID:(QB_NONNULL NSString *)dialogID;
+
+@end
+
+@protocol QMMemoryTemporaryQueueDelegate <NSObject>
+
+@optional
+
+- (QB_NULLABLE NSArray *)localMessagesForDialogWithID:(QB_NONNULL NSString *)dialogID;
 
 @end
