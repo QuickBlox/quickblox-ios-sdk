@@ -967,7 +967,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func deferredQueueManager(queueManager: QMDeferredQueueManager, didAddMessageLocally addedMessage: QBChatMessage) {
         self.chatDataSource.addMessage(addedMessage)
     }
-    
+    func deferredQueueManager(queueManager: QMDeferredQueueManager, didUpdateMessageLocally addedMessage: QBChatMessage) {
+        self.chatDataSource.updateMessage(addedMessage)
+    }
     // MARK: QMChatServiceDelegate
     
     func chatService(chatService: QMChatService, didLoadMessagesFromCache messages: [QBChatMessage], forDialogID dialogID: String) {

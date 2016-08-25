@@ -163,6 +163,10 @@ QMDeferredQueueManagerDelegate
     [self.chatDataSource addMessage:addedMessage];
 }
 
+- (void)deferredQueueManager:(QMDeferredQueueManager*)queueManager didUpdateMessageLocally:(nonnull QBChatMessage *)addedMessage {
+    [self.chatDataSource updateMessage:addedMessage];
+}
+
 - (NSArray *)storedMessages {
     return [[ServicesManager instance].chatService.messagesMemoryStorage messagesWithDialogID:self.dialog.ID];
 }
