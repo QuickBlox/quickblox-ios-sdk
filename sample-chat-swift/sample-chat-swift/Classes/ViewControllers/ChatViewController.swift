@@ -143,6 +143,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         // clearing typing status blocks
         self.dialog.clearTypingStatusBlocks()
+        
+        self.queueManager().removeDelegate(self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
