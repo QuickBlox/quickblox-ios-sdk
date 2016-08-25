@@ -305,18 +305,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
         
-        let shouldJoin = self.dialog.type == .Group ? !self.dialog.isJoined() : false
-        
-        if !QBChat.instance().isConnected || shouldJoin {
-            
-            if shouldJoin {
-                
-                QMMessageNotificationManager.showNotificationWithTitle("SA_STR_ERROR".localized, subtitle:"SA_STR_MESSAGE_FAILED_TO_SEND".localized, type: QMMessageNotificationType.Error)
-            }
-            
-            return
-        }
-        
         self.fireSendStopTypingIfNecessary()
         
         let message = QBChatMessage()
@@ -873,19 +861,27 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
      Removes size from cache for item to allow cell expand and show read/delivered IDS or unexpand cell
      */
     func chatCellDidTapContainer(cell: QMChatCell!) {
+        
         let indexPath = self.collectionView?.indexPathForCell(cell)
         
-        guard let currentMessageID = self.chatDataSource.messageForIndexPath(indexPath).ID else {
+        guard let currentMessage = self.chatDataSource.messageForIndexPath(indexPath) else {
             return
         }
         
-        if self.detailedCells.contains(currentMessageID) {
-            self.detailedCells.remove(currentMessageID)
-        } else {
-            self.detailedCells.insert(currentMessageID)
+        let messageStatus: QMMessageStatus = self.queueManager().statusForMessage(currentMessage)
+        
+        if messageStatus ==  .NotSent {
+            self.handleNotSentMessage(currentMessage)
+            return
         }
         
-        self.collectionView?.collectionViewLayout.removeSizeFromCacheForItemID(currentMessageID)
+        if self.detailedCells.contains(currentMessage.ID!) {
+            self.detailedCells.remove(currentMessage.ID!)
+        } else {
+            self.detailedCells.insert(currentMessage.ID!)
+        }
+        
+        self.collectionView?.collectionViewLayout.removeSizeFromCacheForItemID(currentMessage.ID)
         self.collectionView?.performBatchUpdates(nil, completion: nil)
         
     }
@@ -1183,5 +1179,29 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func queueManager() -> QMDeferredQueueManager {
         return ServicesManager.instance().chatService.deferredQueueManager
+    }
+    
+    func handleNotSentMessage(message: QBChatMessage) {
+        
+        let alertController = UIAlertController(title: "", message: "Message didn't send", preferredStyle:.ActionSheet)
+        
+        let resend = UIAlertAction(title: "Try agan", style: .Default) { (action) in
+            self.queueManager().perfromDefferedActionForMessage(message)
+        }
+        alertController.addAction(resend)
+        
+        let delete = UIAlertAction(title: "Delete", style: .Destructive) { (action) in
+            self.queueManager().removeMessage(message)
+            self.chatDataSource.deleteMessage(message)
+        }
+        alertController.addAction(delete)
+        
+        let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .Cancel) { (action) in
+            
+        }
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true) {
+        }
     }
 }
