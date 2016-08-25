@@ -20,7 +20,7 @@
  */
 @protocol QMChatSectionManagerDelegate <NSObject>
 
-@required
+@optional
 /**
  *  QMChatSectionManager delegate method about sections and/or items that were inserted to data source.
  *

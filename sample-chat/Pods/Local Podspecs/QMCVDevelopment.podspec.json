@@ -58,6 +58,10 @@
       "source_files": "QMChatViewController/QMChatSection/*.{h,m}"
     },
     {
+      "name": "QMChatDataSource",
+      "source_files": "QMChatViewController/QMChatDataSource/*.{h,m}"
+    },
+    {
       "name": "Protocols",
       "source_files": "QMChatViewController/Protocols/*.{h}"
     },
