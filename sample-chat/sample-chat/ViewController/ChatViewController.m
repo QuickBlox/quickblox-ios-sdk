@@ -125,7 +125,7 @@ QMDeferredQueueManagerDelegate
     
     [[ServicesManager instance].chatService addDelegate:self];
     [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
-    [[ServicesManager instance].chatService.deferredQueueManager addDelegate:self];
+    [[self queueManager] addDelegate:self];
     
     if ([[self storedMessages] count] > 0 && self.chatDataSource.messagesCount == 0) {
         //inserting all messages from memory storage
@@ -161,6 +161,10 @@ QMDeferredQueueManagerDelegate
 
 - (void)deferredQueueManager:(QMDeferredQueueManager*)queueManager didAddMessageLocally:(QBChatMessage*)addedMessage {
     [self.chatDataSource addMessage:addedMessage];
+}
+
+- (void)deferredQueueManager:(QMDeferredQueueManager*)queueManager didUpdateMessageLocally:(nonnull QBChatMessage *)addedMessage {
+    [self.chatDataSource updateMessage:addedMessage];
 }
 
 - (NSArray *)storedMessages {
@@ -640,7 +644,7 @@ QMDeferredQueueManagerDelegate
     
     if ([cell isKindOfClass:[QMChatOutgoingCell class]]) {
         
-        QMMessageStatus status = [[QMServicesManager instance].chatService.deferredQueueManager statusForMessage:message];
+        QMMessageStatus status = [[self queueManager] statusForMessage:message];
         
         switch (status) {
             case QMMessageStatusSent: {
@@ -673,11 +677,10 @@ QMDeferredQueueManagerDelegate
 		return;
 	}
 	
-	
-	
 	if (message.attachments == nil) {
 		return;
 	}
+    
 	QBChatAttachment *attachment = message.attachments.firstObject;
 	
 	NSMutableArray *keysToRemove = [NSMutableArray array];
@@ -748,8 +751,7 @@ QMDeferredQueueManagerDelegate
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
     
-    QMMessageStatus  status = [[ServicesManager instance].chatService.deferredQueueManager
-                               statusForMessage:currentMessage];
+    QMMessageStatus status = [[self queueManager] statusForMessage:currentMessage];
     
     if (status == QMMessageStatusNotSent && currentMessage.senderID == self.senderID)
     {
@@ -1192,8 +1194,8 @@ QMDeferredQueueManagerDelegate
 
 - (void)handleNotSentMessage:(QBChatMessage*)notSentMessage {
     
-    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@"Message didn't send"
-                                                                      message:@""
+    UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@""
+                                                                      message:@"Message didn't send"
                                                                preferredStyle:UIAlertControllerStyleActionSheet];
     
     
@@ -1201,7 +1203,7 @@ QMDeferredQueueManagerDelegate
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action)
                              {
-                                 [[ServicesManager instance].chatService.deferredQueueManager perfromDefferedActionForMessage:notSentMessage];
+                                 [[self queueManager] perfromDefferedActionForMessage:notSentMessage];
                                  [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
     
@@ -1210,7 +1212,8 @@ QMDeferredQueueManagerDelegate
                                                    handler:^(UIAlertAction * action)
                              {
                                  [self.chatDataSource deleteMessage:notSentMessage];
-                                 //TODO: delete from deferredQueue
+                                 [[self queueManager] removeMessage:notSentMessage];
+                                 
                                  [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
     
@@ -1229,4 +1232,7 @@ QMDeferredQueueManagerDelegate
     
 }
 
+- (QMDeferredQueueManager *)queueManager {
+    return [ServicesManager instance].chatService.deferredQueueManager;
+}
 @end
