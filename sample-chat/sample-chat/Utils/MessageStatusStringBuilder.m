@@ -66,7 +66,24 @@
         
         return [statusString copy];
     }
-    return NSLocalizedString(@"SA_STR_SENT_STATUS", nil);
+    
+    QMMessageStatus status = [[ServicesManager instance].chatService.deferredQueueManager statusForMessage:message];
+    NSString * messageStatus;
+    switch (status) {
+        case QMMessageStatusSent: {
+            messageStatus = @"SA_STR_SENT_STATUS";
+            break;
+        }
+        case QMMessageStatusSending: {
+            messageStatus = @"SA_STR_SENDING_STATUS";
+            break;
+        }
+        case QMMessageStatusNotSent: {
+            messageStatus = @"SA_STR_NOT_SENT_STATUS";
+            break;
+        }
+    }
+    return NSLocalizedString(messageStatus, nil);
 }
 
 @end
