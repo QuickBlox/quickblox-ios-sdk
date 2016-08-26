@@ -1195,11 +1195,11 @@ QMDeferredQueueManagerDelegate
 - (void)handleNotSentMessage:(QBChatMessage*)notSentMessage {
     
     UIAlertController * alertVC = [UIAlertController alertControllerWithTitle:@""
-                                                                      message:@"Message didn't send"
+                                                                      message:NSLocalizedString(@"SA_STR_MESSAGE_FAILED_TO_SEND", nil)
                                                                preferredStyle:UIAlertControllerStyleActionSheet];
     
     
-    UIAlertAction *resend = [UIAlertAction actionWithTitle:@"Try agan"
+    UIAlertAction *resend = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_TRY_AGAIN_MESSAGE", nil)
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action)
                              {
@@ -1207,7 +1207,7 @@ QMDeferredQueueManagerDelegate
                                  [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
     
-    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete"
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_DELETE_MESSAGE", nil)
                                                      style:UIAlertActionStyleDestructive
                                                    handler:^(UIAlertAction * action)
                              {
@@ -1217,7 +1217,7 @@ QMDeferredQueueManagerDelegate
                                  [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
     
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
                                                      style:UIAlertActionStyleCancel
                                                    handler:^(UIAlertAction * action)
                              {

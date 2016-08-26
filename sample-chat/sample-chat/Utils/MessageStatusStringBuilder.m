@@ -75,11 +75,11 @@
             break;
         }
         case QMMessageStatusSending: {
-            messageStatus = @"Sending";
+            messageStatus = @"SA_STR_SENDING_STATUS";
             break;
         }
         case QMMessageStatusNotSent: {
-            messageStatus = @"Not sent";
+            messageStatus = @"SA_STR_NOT_SENT_STATUS";
             break;
         }
     }

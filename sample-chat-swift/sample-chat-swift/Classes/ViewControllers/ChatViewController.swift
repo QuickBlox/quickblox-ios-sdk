@@ -455,9 +455,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             case .Sent:
                 statusString = "SA_STR_SENT_STATUS".localized
             case .Sending:
-                statusString = "Sending"
+                statusString = "SA_STR_SENDING_STATUS".localized
             case .NotSent:
-                statusString = "Not send"
+                statusString = "SA_STR_NOT_SENT_STATUS".localized
             }
             
         }
@@ -881,7 +881,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         let messageStatus: QMMessageStatus = self.queueManager().statusForMessage(currentMessage)
         
-        if messageStatus ==  .NotSent {
+        if messageStatus == .NotSent {
             self.handleNotSentMessage(currentMessage)
             return
         }
@@ -1196,14 +1196,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func handleNotSentMessage(message: QBChatMessage) {
         
-        let alertController = UIAlertController(title: "", message: "Message didn't send", preferredStyle:.ActionSheet)
+        let alertController = UIAlertController(title: "", message: "SA_STR_MESSAGE_FAILED_TO_SEND".localized, preferredStyle:.ActionSheet)
         
-        let resend = UIAlertAction(title: "Try agan", style: .Default) { (action) in
+        let resend = UIAlertAction(title: "SA_STR_TRY_AGAIN_MESSAGE".localized, style: .Default) { (action) in
             self.queueManager().perfromDefferedActionForMessage(message)
         }
         alertController.addAction(resend)
         
-        let delete = UIAlertAction(title: "Delete", style: .Destructive) { (action) in
+        let delete = UIAlertAction(title: "SA_STR_DELETE_MESSAGE".localized, style: .Destructive) { (action) in
             self.queueManager().removeMessage(message)
             self.chatDataSource.deleteMessage(message)
         }
@@ -1212,6 +1212,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .Cancel) { (action) in
             
         }
+        
         alertController.addAction(cancelAction)
         
         self.presentViewController(alertController, animated: true) {
