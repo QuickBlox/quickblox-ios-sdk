@@ -37,7 +37,7 @@ QMChatConnectionDelegate
                                                                                      object:nil queue:[NSOperationQueue mainQueue]
                                                                                  usingBlock:^(NSNotification *note) {
                                                                                      if (![[QBChat instance] isConnected]) {
-                                                                                         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_CONNECTING_TO_CHAT", nil) maskType:SVProgressHUDMaskTypeClear];
+                                                                                         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_CONNECTING_TO_CHAT", nil) maskType:SVProgressHUDMaskTypeNone];
                                                                                      }
                                                                                  }];
     

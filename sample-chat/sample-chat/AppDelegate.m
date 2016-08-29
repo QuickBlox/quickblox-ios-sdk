@@ -44,7 +44,7 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
     
     // Enables detailed XMPP logging in console output
     [QBSettings enableXMPPLogging];
-    
+    [ServicesManager enableLogging:NO];
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
         ServicesManager.instance.notificationService.pushDialogID = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][kPushNotificationDialogIdentifierKey];
