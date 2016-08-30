@@ -138,7 +138,7 @@ QMDeferredQueueManagerDelegate
 - (void)refreshMessagesShowingProgress:(BOOL)showingProgress {
     
     if (showingProgress) {
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil) maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil) maskType:SVProgressHUDMaskTypeNone];
     }
     
     __weak __typeof(self)weakSelf = self;
@@ -1203,7 +1203,7 @@ QMDeferredQueueManagerDelegate
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction * action)
                              {
-                                 [[self queueManager] perfromDefferedActionForMessage:notSentMessage];
+                                 [[self queueManager] perfromDefferedActionForMessage:notSentMessage withCompletion:nil];
                                  [alertVC dismissViewControllerAnimated:YES completion:nil];
                              }];
     

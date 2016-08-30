@@ -1199,7 +1199,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         let alertController = UIAlertController(title: "", message: "SA_STR_MESSAGE_FAILED_TO_SEND".localized, preferredStyle:.ActionSheet)
         
         let resend = UIAlertAction(title: "SA_STR_TRY_AGAIN_MESSAGE".localized, style: .Default) { (action) in
-            self.queueManager().perfromDefferedActionForMessage(message)
+            self.queueManager().perfromDefferedActionForMessage(message, withCompletion: nil)
         }
         alertController.addAction(resend)
         
