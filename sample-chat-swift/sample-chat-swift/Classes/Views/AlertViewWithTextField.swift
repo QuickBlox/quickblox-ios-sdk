@@ -29,40 +29,30 @@ class AlertViewWithTextField: NSObject, UIAlertViewDelegate {
         self.closureOk = closureOk
         self.closureCancel = closureCancel
         
-        // ios 8
-        if #available(iOS 8.0, *) {
-            alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "SA_STR_OK".localized, style: .Default, handler: { [weak self] (action) -> Void in
-                if let strongSelf = self {
-                    closureOk(text: strongSelf.alertViewControllerTextField?.text)
-                    strongSelf.unmanaged?.release()
-                }
-                })
-            let cancel = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .Cancel) { (action) -> Void in
-                closureCancel();
+        alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let ok = UIAlertAction(title: "SA_STR_OK".localized, style: .Default, handler: { [weak self] (action) -> Void in
+            if let strongSelf = self {
+                closureOk(text: strongSelf.alertViewControllerTextField?.text)
+                strongSelf.unmanaged?.release()
             }
-            
-            alert!.addAction(ok)
-            alert!.addAction(cancel)
-            
-            alert!.addTextFieldWithConfigurationHandler {[weak self] (textField) -> Void in
-                if let strongSelf = self {
-                    strongSelf.alertViewControllerTextField = textField
-                    strongSelf.unmanaged?.release()
-                }
-            }
-            
-            showOver.presentViewController(alert! as! UIAlertController, animated: true, completion: nil)
-            
-        } else {
-            let alertMessage = message == nil ? "" : message
-            let alertTitle = title == nil ? "" : title
-
-            alertView = UIAlertView(title: alertTitle!, message: alertMessage!, delegate: self, cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitles: "SA_STR_OK".localized)
-            alertView!.alertViewStyle = UIAlertViewStyle.PlainTextInput
-            alertView!.show()
-            
+            })
+        let cancel = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .Cancel) { (action) -> Void in
+            closureCancel();
         }
+        
+        alert!.addAction(ok)
+        alert!.addAction(cancel)
+        
+        alert!.addTextFieldWithConfigurationHandler {[weak self] (textField) -> Void in
+            if let strongSelf = self {
+                strongSelf.alertViewControllerTextField = textField
+                strongSelf.unmanaged?.release()
+            }
+        }
+        
+        showOver.presentViewController(alert! as! UIAlertController, animated: true, completion: nil)
+        
+        
         self.unmanaged = Unmanaged.passRetained(self)
     }
     
