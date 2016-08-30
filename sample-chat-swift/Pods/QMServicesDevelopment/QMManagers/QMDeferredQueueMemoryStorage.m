@@ -41,12 +41,11 @@
     
     QBChatMessage *localMessage = self.messagesInQueue[message.ID];
     
-    if (localMessage != nil) {
-        localMessage = [message copy];
-    }
-    else {
+    if (localMessage == nil) {
+
         self.messagesInQueue[message.ID] = message;
     }
+    
 }
 
 - (void)removeMessage:(QBChatMessage *)message {

@@ -50,11 +50,23 @@
 #pragma mark -
 #pragma mark Messages
 
+- (NSArray *)messagesForDialogWithID:(NSString *)dialogID {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(QBChatMessage * _Nonnull message, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return [message.dialogID isEqualToString:dialogID];
+    }];
+    
+    NSArray *messages = [self.deferredQueueMemoryStorage.messages filteredArrayUsingPredicate:predicate];
+    
+    return messages;
+}
+
 - (void)addOrUpdateMessage:(QBChatMessage *)message {
     
     BOOL messageIsExisted = [self.deferredQueueMemoryStorage containsMessage:message];
     
     [self.deferredQueueMemoryStorage addMessage:message];
+    
     if (!messageIsExisted) {
         
         if ([self.multicastDelegate respondsToSelector:@selector(deferredQueueManager:didAddMessageLocally:)]) {
@@ -73,7 +85,9 @@
 }
 
 - (void)removeMessage:(QBChatMessage *)message {
+    
     [self.deferredQueueMemoryStorage removeMessage:message];
+    
 }
 
 - (QMMessageStatus)statusForMessage:(QBChatMessage *)message {
@@ -87,37 +101,81 @@
 }
 
 #pragma mark -
-#pragma mark Deferred Queue Operations
+#pragma mark Deferred Queue Operations
+
+- (BFTask *)perfromDefferedActionForMessage:(QBChatMessage*)message {
+    
+    BFTaskCompletionSource *successful = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self perfromDefferedActionForMessage:message withCompletion:^(NSError * _Nullable error) {
+        
+        if (error) {
+            [successful setError:error];
+        }
+        else {
+            [successful setResult:message];
+        }
+    }];
+    
+    return successful.task;
+}
+
+- (void)performDeferredActionsForDialogWithID:(NSString *)dialogID {
+    
+    BFTask *task = [BFTask taskWithResult:nil];
+    
+    for (QBChatMessage *message in [self messagesForDialogWithID:dialogID]) {
+        
+        task = [task continueWithBlock:^id(BFTask *task) {
+            return [self perfromDefferedActionForMessage:message];
+        }];
+    }
+    
+    [task continueWithBlock:^id _Nullable(BFTask * _Nonnull task) {
+        
+        return nil;
+    }];
+}
 
 - (void)performDeferredActions {
     
+    BFTask *task = [BFTask taskWithResult:nil];
+    
     for (QBChatMessage *message in self.deferredQueueMemoryStorage.messages) {
-        [self perfromDefferedActionForMessage:message];
+        
+        task = [task continueWithBlock:^id(BFTask *task) {
+            return [self perfromDefferedActionForMessage:message];
+        }];
     }
+    
+    [task continueWithBlock:^id _Nullable(BFTask * _Nonnull task) {
+        
+        return nil;
+    }];
 }
 
-- (void)perfromDefferedActionForMessage:(QBChatMessage *)message {
+
+- (void)perfromDefferedActionForMessage:(QBChatMessage *)message withCompletion:(QBChatCompletionBlock)completion {
     
     BOOL messageIsExisted = [self.deferredQueueMemoryStorage containsMessage:message];
     
-    if (messageIsExisted && [self.multicastDelegate respondsToSelector:@selector(deferredQueueManager:performActionWithMessage:)]) {
+    if (messageIsExisted
+        && [self.multicastDelegate respondsToSelector:@selector(deferredQueueManager:
+                                                                performActionWithMessage:
+                                                                withCompletion:)]) {
+        
         [self.multicastDelegate deferredQueueManager:self
-                            performActionWithMessage:message];
+                            performActionWithMessage:message
+                                      withCompletion:completion];
     }
 }
 
-#pragma mark 
+#pragma mark
 #pragma mark QMMemoryTemporaryQueueDelegate
 
 - (NSArray *)localMessagesForDialogWithID:(NSString *)dialogID {
     
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(QBChatMessage * _Nonnull message, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [message.dialogID isEqualToString:dialogID];
-    }];
-    
-    NSArray *localMessages = [self.deferredQueueMemoryStorage.messages filteredArrayUsingPredicate:predicate];
-    
-    return localMessages;
+    return [self messagesForDialogWithID:dialogID];
 }
 
 @end

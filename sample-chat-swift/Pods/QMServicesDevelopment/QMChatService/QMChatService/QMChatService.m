@@ -583,7 +583,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         chatDialogToUpdate.updatedAt = message.dateSent;
         
-        if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
+        if (chatDialogToUpdate != nil && [self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateChatDialogInMemoryStorage:)]) {
             
             [self.multicastDelegate chatService:self didUpdateChatDialogInMemoryStorage:chatDialogToUpdate];
         }
@@ -1196,6 +1196,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         if (error == nil && saveToStorage) {
             
             [self.deferredQueueManager removeMessage:message];
+            
             // there is a case when message that was returned from server (Group dialogs)
             // will be handled faster then this completion block been fired
             // therefore there is no need to add local message to memory storage, while server
@@ -1242,10 +1243,15 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 #pragma mark -
 #pragma mark QMDeferredQueueManagerDelegate
 
-- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager performActionWithMessage:(QBChatMessage *)message {
+- (void)deferredQueueManager:(QB_NONNULL QMDeferredQueueManager *)queueManager performActionWithMessage:(QB_NONNULL QBChatMessage *)message withCompletion:(QBChatCompletionBlock)completion {
     
     QBChatDialog *dialog = [self.dialogsMemoryStorage chatDialogWithID:message.dialogID];
-    [self sendMessage:message toDialog:dialog saveToHistory:message.saveToHistory saveToStorage:YES completion:nil];
+    
+    [self sendMessage:message
+             toDialog:dialog
+        saveToHistory:message.saveToHistory
+        saveToStorage:YES
+           completion:completion];
 }
 
 - (void)sendMessage:(QBChatMessage *)message
