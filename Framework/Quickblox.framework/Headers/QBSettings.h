@@ -58,13 +58,6 @@ typedef enum QBConnectionZoneType{
  */
 + (void)setCarbonsEnabled:(BOOL)carbonsEnabled;
 
-/**
- *  Enable or disable Stream Resumption (XEP-0198).
- *
- *  @param streamResumptionEnabled BOOL value. The default value is NO
- */
-+ (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled;
-
 /// Set timeout value for Stream Management send a message operation
 + (void)setStreamManagementSendMessageTimeout:(NSUInteger)streamManagementSendMessageTimeout;
 
@@ -228,6 +221,8 @@ typedef enum QBConnectionZoneType{
  */
 + (QB_NULLABLE NSURLSessionConfiguration *)sessionConfiguration;
 
+#pragma mark - DEPRECATED
+
 /**
  *  Enable or Disable chat DNS Lookup cache for current chat endpoint
  *
@@ -247,5 +242,12 @@ typedef enum QBConnectionZoneType{
  *  @return YES if cache is enabled, NO if cache is disabled.
  */
 + (BOOL)isChatDNSLookupCacheEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
+
+/**
+ *  Enable or disable Stream Resumption (XEP-0198).
+ *
+ *  @param streamResumptionEnabled BOOL value. The default value is NO
+ */
++ (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
 
 @end

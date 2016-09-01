@@ -278,7 +278,7 @@
 		</data>
 		<key>Headers/QBSettings.h</key>
 		<data>
-		0J0yVXbhAXBmDG6VJ7nZmMF707M=
+		iW8Lga2nNOTP3eSF5ZJ1v9hDwNg=
 		</data>
 		<key>Headers/QBUUser.h</key>
 		<data>
@@ -294,7 +294,7 @@
 		</data>
 		<key>Headers/Quickblox.h</key>
 		<data>
-		9c1yWvusPxYhe6E2xFqdb0IYLYY=
+		Z4dOWYvnVeCxCDFuINpyG5kcIJs=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -1059,11 +1059,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0J0yVXbhAXBmDG6VJ7nZmMF707M=
+			iW8Lga2nNOTP3eSF5ZJ1v9hDwNg=
 			</data>
 			<key>hash2</key>
 			<data>
-			NepyM/BKasyJsm3Ag4B5Sib7Vxkp7iEKreIZRohr7WM=
+			8uuexIhgiSnbdxQk2Ln4RwGcvJIYo0novSpD3s3Y6qg=
 			</data>
 		</dict>
 		<key>Headers/QBUUser.h</key>
@@ -1103,11 +1103,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9c1yWvusPxYhe6E2xFqdb0IYLYY=
+			Z4dOWYvnVeCxCDFuINpyG5kcIJs=
 			</data>
 			<key>hash2</key>
 			<data>
-			Q3ceo7/jelWPMAFKIBYG7a+nCDzNKb8D3KIpZYXeAmw=
+			Dgn3vaAfVGRY/NVQ4gm+vhmTTUvI2NHlRoOwW5Q678c=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
