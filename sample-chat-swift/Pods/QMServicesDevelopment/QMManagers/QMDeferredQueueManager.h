@@ -20,6 +20,8 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 
 @interface QMDeferredQueueManager : NSObject
 
+@property (nonatomic,assign) NSTimeInterval autoSendTimeInterval;
+
 - (void)addDelegate:(QB_NONNULL id <QMDeferredQueueManagerDelegate>)delegate;
 - (void)removeDelegate:(QB_NONNULL id <QMDeferredQueueManagerDelegate>)delegate;
 
@@ -31,6 +33,7 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 - (void)performDeferredActionsForDialogWithID:(QB_NONNULL NSString *)dialogID;
 
 - (void)perfromDefferedActionForMessage:(QB_NONNULL QBChatMessage *)message withCompletion:(QB_NULLABLE_S QBChatCompletionBlock)completion;
+
 - (QB_NONNULL BFTask *)perfromDefferedActionForMessage:(QB_NONNULL QBChatMessage *)message;
 
 - (QMMessageStatus)statusForMessage:(QB_NONNULL QBChatMessage *)message;
@@ -40,7 +43,6 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 @protocol QMDeferredQueueManagerDelegate <NSObject>
 
 @optional
-
 
 - (void)deferredQueueManager:(QB_NONNULL QMDeferredQueueManager *)queueManager performActionWithMessage:(QB_NONNULL QBChatMessage *)message withCompletion:(QB_NULLABLE_S QBChatCompletionBlock)completion;
 - (void)deferredQueueManager:(QB_NONNULL QMDeferredQueueManager *)queueManager didAddMessageLocally:(QB_NONNULL QBChatMessage *)addedMessage;

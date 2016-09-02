@@ -36,6 +36,19 @@ typedef NS_ENUM(NSUInteger, QMImageViewType) {
                 options:(SDWebImageOptions)options
                progress:(SDWebImageDownloaderProgressBlock)progress
          completedBlock:(SDWebImageCompletionBlock)completedBlock;
+
+/**
+ *  If imageViewType is not none, the original image will also be saved.
+ *
+ *  @return Original image if existent
+ */
+- (UIImage *)originalImage;
+
+/**
+ *  Removing image from cache and display.
+ */
+- (void)removeImage;
+
 @end
 
 @protocol QMImageViewDelegate <NSObject>

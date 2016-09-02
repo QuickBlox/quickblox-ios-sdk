@@ -47,7 +47,7 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
  
     NSDate *endDate =  [[self calendar] dateByAddingComponents:dateComponents
                                                   toDate:[self dateAtStartOfDay]
-                                                 options:NSCalendarWrapComponents];
+                                                 options:0];
     return endDate;
 }
 

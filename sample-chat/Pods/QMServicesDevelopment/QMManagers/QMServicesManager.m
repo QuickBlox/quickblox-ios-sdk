@@ -217,12 +217,21 @@
 
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService {
     
-    [self joinAllGroupDialogsIfNeeded];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    [self joinAllGroupDialogsIfNeededWithCompletion:^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService {
     
-    [self joinAllGroupDialogsIfNeeded];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    [self joinAllGroupDialogsIfNeededWithCompletion:^{
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
 }
 
 #pragma mark QMChatServiceCache delegate
