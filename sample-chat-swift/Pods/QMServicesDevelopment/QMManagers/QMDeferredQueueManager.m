@@ -8,6 +8,7 @@
 
 #import "QMDeferredQueueManager.h"
 #import "QMDeferredQueueMemoryStorage.h"
+#import "QMServices.h"
 
 @interface QMDeferredQueueManager()
 
@@ -27,8 +28,8 @@
     
     if (self) {
         _deferredQueueMemoryStorage = [[QMDeferredQueueMemoryStorage alloc] init];
-        _multicastDelegate = [[QBMulticastDelegate alloc] init];
-        _autoSendTimeInterval = 15;
+        _multicastDelegate = (id <QMDeferredQueueManagerDelegate>)[[QBMulticastDelegate alloc] init];
+        _autoSendTimeInterval = 60;
     }
 
     return self;

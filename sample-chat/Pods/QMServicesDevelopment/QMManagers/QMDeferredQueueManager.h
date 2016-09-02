@@ -10,6 +10,8 @@
 #import <Quickblox/QBMulticastDelegate.h>
 #import <Quickblox/Quickblox.h>
 
+@class BFTask;
+
 @protocol QMDeferredQueueManagerDelegate;
 
 typedef NS_ENUM(NSUInteger, QMMessageStatus) {
