@@ -283,7 +283,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             UIGraphicsEndImageContext()
             
             // Sending attachment.
-                                                    (dispatch_get_main_queue(), {
+            dispatch_async(dispatch_get_main_queue(), {
                 // sendAttachmentMessage method always firstly adds message to memory storage
                 ServicesManager.instance().chatService.sendAttachmentMessage(message, toDialog: self!.dialog, withAttachmentImage: resizedImage, completion: {
                     [weak self] (error: NSError?) -> Void in
@@ -300,7 +300,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     })
             })
             })
-        
     }
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
