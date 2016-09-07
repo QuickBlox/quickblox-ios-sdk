@@ -11,18 +11,22 @@
 
 #import "QBChatMessage+QBDateDivider.h"
 
+typedef NS_ENUM(NSInteger, QMDataSourceUpdateType) {
+    QMDataSourceUpdateTypeAdd = 0,
+    QMDataSourceUpdateTypeUpdate,
+    QMDataSourceUpdateTypeRemove
+};
+
 @class QBChatMessage;
 
 @protocol QMChatDataSourceDelegate;
 
 
-@interface QMChatDataSource : NSObject
+@interface QMChatDataSource : NSObject <NSFastEnumeration>
 
 @property(nonatomic, weak) id <QMChatDataSourceDelegate> delegate;
 
 - (NSArray *)allMessages;
-
-- (void)setDataSourceMessages:(NSArray*)messages;
 
 - (void)addMessage:(QBChatMessage *)message;
 - (void)addMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
@@ -33,6 +37,7 @@
 - (void)updateMessage:(QBChatMessage *)message;
 - (void)updateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
+- (NSArray *)performChangesWithMessages:(NSArray *)messages updateType:(QMDataSourceUpdateType)updateType;
 
 /**
  *  Messages count.
@@ -72,13 +77,7 @@
 
 @protocol QMChatDataSourceDelegate <NSObject>
 
-/**
- *  QMChatDataSource delegate method about items that were set to data source.
- *
- *  @param chatDataSource QMChatDataSource current instance
- *  @param messagesIDs    ids of set messages
- */
-- (void)chatDataSource:(QMChatDataSource *)chatDataSource didSetMessagesAtIndexPaths:(NSArray *)itemsIndexPaths;
+- (void)chatDataSource:(QMChatDataSource *)chatDataSource willBeChangedWithMessageIDs:(NSArray *)messagesIDs;
 
 /**
  *  QMChatDataSource delegate method about items that were inserted to data source.
@@ -105,5 +104,7 @@
  *  @param itemsIndexPaths    array of items index paths
  */
 - (void)chatDataSource:(QMChatDataSource *)chatDataSource didDeleteMessagesAtIndexPaths:(NSArray *)itemsIndexPaths;
+
+- (void)changeDataSource:(QMChatDataSource *)dataSource withMessages:(NSArray *)messages updateType:(QMDataSourceUpdateType)updateType;
 
 @end

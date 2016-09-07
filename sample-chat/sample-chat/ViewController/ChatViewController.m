@@ -129,7 +129,7 @@ QMDeferredQueueManagerDelegate
     
     if ([[self storedMessages] count] > 0 && self.chatDataSource.messagesCount == 0) {
         //inserting all messages from memory storage
-        [self.chatDataSource setDataSourceMessages:[self storedMessages]];
+        [self.chatDataSource addMessages:[self storedMessages]];
     }
     
     [self refreshMessagesShowingProgress:NO];

@@ -100,7 +100,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             // Retrieving messages
             if (self.storedMessages()?.count > 0 && self.chatDataSource.messagesCount() == 0) {
                 
-                self.chatDataSource.setDataSourceMessages(self.storedMessages()!)
+                self.chatDataSource.addMessages(self.storedMessages()!)
             }
             
             self.loadMessages()

@@ -334,12 +334,24 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 - (void)deleteMessagesLocally:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
 
 /**
- *  Fetch messages with chat dialog id.
+ *  Fetch messages with chat dialog id from the latest (newest) message in cache.
  *
  *  @param chatDialogID Chat dialog id.
  *  @param completion   Block with response instance and array of chat messages if request succeded or nil if failed.
  */
-- (void)messagesWithChatDialogID:(QB_NONNULL NSString *)chatDialogID completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, NSArray QB_GENERIC(QBChatMessage *) *QB_NULLABLE_S messages))completion;
+- (void)messagesWithChatDialogID:(QB_NONNULL NSString *)chatDialogID
+                      completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, NSArray QB_GENERIC(QBChatMessage *) *QB_NULLABLE_S messages))completion;
+
+/**
+ *  Fetch messages with chat dialog id using custom extended request.
+ *
+ *  @param chatDialogID     Chat dialog id.
+ *  @param extendedRequest  extended parameters
+ *  @param completion       Block with response instance and array of chat messages if request succeded or nil if failed.
+ */
+- (void)messagesWithChatDialogID:(QB_NONNULL NSString *)chatDialogID
+                 extendedRequest:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedParameters
+                      completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, NSArray QB_GENERIC(QBChatMessage *) *QB_NULLABLE_S messages))completion;
 
 /**
  *  Loads messages that are older than oldest message in cache.
@@ -347,7 +359,8 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  @param chatDialogID Chat dialog identifier
  *  @param completion   Block with response instance and array of chat messages if request succeded or nil if failed
  */
-- (void)earlierMessagesWithChatDialogID:(QB_NONNULL NSString *)chatDialogID completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, NSArray QB_GENERIC(QBChatMessage *) *QB_NULLABLE_S messages))completion;
+- (void)earlierMessagesWithChatDialogID:(QB_NONNULL NSString *)chatDialogID
+                             completion:(void(^QB_NULLABLE_S)(QBResponse *QB_NONNULL_S response, NSArray QB_GENERIC(QBChatMessage *) *QB_NULLABLE_S messages))completion;
 
 #pragma mark - Fetch dialogs
 

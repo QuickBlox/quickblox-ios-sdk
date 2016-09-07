@@ -940,6 +940,23 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (void)messagesWithChatDialogID:(NSString *)chatDialogID completion:(void(^)(QBResponse *response, NSArray *messages))completion {
     
+    NSMutableDictionary *parameters = [@{@"sort_desc" : @"date_sent"} mutableCopy];
+    
+    NSDate *lastMessagesLoadDate = self.lastMessagesLoadDate[chatDialogID];
+    QBChatMessage *lastMessage = [self.messagesMemoryStorage lastMessageFromDialogID:chatDialogID];
+    
+    if (lastMessagesLoadDate == nil && lastMessage != nil) {
+        
+        lastMessagesLoadDate = lastMessage.dateSent;
+    }
+    
+    parameters[@"date_sent[gte]"] = @([lastMessagesLoadDate timeIntervalSince1970]);
+    
+    [self messagesWithChatDialogID:chatDialogID extendedRequest:parameters completion:completion];
+}
+
+- (void)messagesWithChatDialogID:(NSString *)chatDialogID extendedRequest:(NSDictionary *)extendedParameters completion:(void(^)(QBResponse *response, NSArray *messages))completion {
+    
     dispatch_group_t messagesLoadGroup = dispatch_group_create();
     if ([[self.messagesMemoryStorage messagesWithDialogID:chatDialogID] count] == 0) {
         
@@ -956,20 +973,10 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         __typeof(weakSelf)strongSelf = weakSelf;
         
         QBResponsePage *page = [QBResponsePage responsePageWithLimit:strongSelf.chatMessagesPerPage];
-        NSMutableDictionary *parameters = [@{@"sort_desc" : @"date_sent"} mutableCopy];
-        
-        NSDate *lastMessagesLoadDate = self.lastMessagesLoadDate[chatDialogID];
         QBChatMessage *lastMessage = [strongSelf.messagesMemoryStorage lastMessageFromDialogID:chatDialogID];
         
-        if (lastMessagesLoadDate == nil && lastMessage != nil) {
-            
-            lastMessagesLoadDate = lastMessage.dateSent;
-        }
-        
-        parameters[@"date_sent[gte]"] = @([lastMessagesLoadDate timeIntervalSince1970]);
-        
         [QBRequest messagesWithDialogID:chatDialogID
-                        extendedRequest:parameters
+                        extendedRequest:extendedParameters
                                 forPage:page
                            successBlock:^(QBResponse *response, NSArray *messages, QBResponsePage *page) {
                                

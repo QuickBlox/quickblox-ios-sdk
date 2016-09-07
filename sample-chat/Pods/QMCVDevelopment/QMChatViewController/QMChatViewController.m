@@ -39,6 +39,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 @property (assign, nonatomic) BOOL isObserving;
 @property (strong, nonatomic) NSTimer *timer;
+@property (assign, nonatomic) BOOL isViewAppeared;
 
 @property BOOL isScrollingToBottom;
 @property (nonatomic, assign) BOOL isLastCellVisible;
@@ -193,11 +194,55 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     [self updateCollectionViewInsets];
 }
 
+
 #pragma mark -
 #pragma mark QMChatDataSourceDelegate
+- (void)changeDataSource:(QMChatDataSource *)dataSource withMessages:(NSArray *)messages updateType:(QMDataSourceUpdateType)updateType {
+    
+    if (messages.count == 0) {
+        return;
+    }
+    
+    if (self.isViewAppeared) {
+        
+        [self.collectionView performBatchUpdates:^{
+            
+            NSArray *indexPathes = [self.chatDataSource performChangesWithMessages:messages updateType:updateType];
+            
+            switch (updateType) {
+                    
+                case QMDataSourceUpdateTypeAdd:
+                    [self.collectionView insertItemsAtIndexPaths:indexPathes];
+                    break;
+                    
+                case QMDataSourceUpdateTypeUpdate:
+                    [self.collectionView reloadItemsAtIndexPaths:indexPathes];
+                    break;
+                    
+                case QMDataSourceUpdateTypeRemove:
+                    [self.collectionView deleteItemsAtIndexPaths:indexPathes];
+                    break;
+                    
+            }
+        }
+                                      completion:nil];
+    }
+    else {
+        
+        [self.chatDataSource performChangesWithMessages:messages updateType:updateType];
+        [self.collectionView reloadData];
+    }
+}
+
+- (void)chatDataSource:(QMChatDataSource *)chatDataSource willBeChangedWithMessageIDs:(NSArray *)messagesIDs {
+    
+    for (NSString *messageID in messagesIDs) {
+        [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:messageID];
+    }
+}
 
 - (void)chatDataSource:(QMChatDataSource *)chatDataSource didSetMessagesAtIndexPaths:(NSArray *)itemsIndexPaths {
-    
+   
     [self.collectionView reloadData];
 }
 
@@ -218,7 +263,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         if (shouldCancelScrolling) {
             
             bottomOffset = strongSelf.collectionView.contentSize.height - strongSelf.collectionView.contentOffset.y;
-            
+           // if [CATransaction valueForKey:kCATransactionDisableActions])
             [CATransaction begin];
             [CATransaction setDisableActions:YES];
         }
@@ -252,27 +297,13 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 
 - (void)chatDataSource:(QMChatDataSource *)chatDataSource didUpdateMessagesAtIndexPaths:(NSArray *)itemsIndexPaths {
-    
-    for (NSIndexPath *indexPath in itemsIndexPaths) {
-        
-        QBChatMessage *msg = [self.chatDataSource messageForIndexPath:indexPath];
-        [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:msg.ID];
-    }
-    
-   [self.collectionView reloadItemsAtIndexPaths:itemsIndexPaths];
 
+   [self.collectionView reloadItemsAtIndexPaths:itemsIndexPaths];
 }
 
 
 - (void)chatDataSource:(QMChatDataSource *)chatDataSource didDeleteMessagesAtIndexPaths:(NSArray *)itemsIndexPaths {
-    
     BOOL animated = YES;
-    
-    for (NSIndexPath  *indexPath in itemsIndexPaths) {
-        
-        QBChatMessage *msg = [self.chatDataSource messageForIndexPath:indexPath];
-        [self.collectionView.collectionViewLayout removeSizeFromCacheForItemID:msg.ID];
-    }
     
     __weak __typeof(self)weakSelf = self;
     
@@ -281,6 +312,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
         __typeof(weakSelf)strongSelf = weakSelf;
         
         [strongSelf.collectionView performBatchUpdates:^{
+            
             [strongSelf.collectionView deleteItemsAtIndexPaths:itemsIndexPaths];
         } completion:nil];
         
@@ -316,6 +348,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
     self.inputToolbar.contentView.leftBarButtonItem = [self accessoryButtonItem];
     self.inputToolbar.contentView.rightBarButtonItem = [self sendButtonItem];
     self.collectionView.transform = CGAffineTransformMake(1, 0, 0, -1, 0, 0);
+    self.isViewAppeared = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -330,7 +363,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    self.isViewAppeared = YES;
     [self addObservers];
     [self addActionToInteractivePopGestureRecognizer:YES];
     [self.keyboardController beginListeningForKeyboard];
