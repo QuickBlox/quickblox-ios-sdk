@@ -1,8 +1,8 @@
 //
 //  SVRadialGradientLayer.m
-//  SVProgressHUD, https://github.com/TransitApp/SVProgressHUD
+//  SVProgressHUD, https://github.com/SVProgressHUD/SVProgressHUD
 //
-//  Copyright (c) 2014 Tobias Tiemerding. All rights reserved.
+//  Copyright (c) 2014-2016 Tobias Tiemerding. All rights reserved.
 //
 
 #import "SVRadialGradientLayer.h"
@@ -17,7 +17,7 @@
     CGGradientRef gradient = CGGradientCreateWithColorComponents(colorSpace, colors, locations, locationsCount);
     CGColorSpaceRelease(colorSpace);
 
-    float radius = MIN(self.bounds.size.width , self.bounds.size.height) ;
+    float radius = MIN(self.bounds.size.width , self.bounds.size.height);
     CGContextDrawRadialGradient (context, gradient, self.gradientCenter, 0, self.gradientCenter, radius, kCGGradientDrawsAfterEndLocation);
     CGGradientRelease(gradient);
 }

@@ -12,6 +12,7 @@
 
 @interface SessionSettingsViewController()
 
+@property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 @property(strong, nonatomic) Settings *settings;
 
 @end
@@ -20,8 +21,6 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     
     SessionConfigureItemVideo,
     SessionConfigureItemAuido,
-    SessionConfigureItemListOfUsers,
-    SessionConfigureItemStunServer
 };
 
 @implementation SessionSettingsViewController
@@ -30,6 +29,17 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     [super viewDidLoad];
     
     self.settings = Settings.instance;
+    
+    //QuickBlox WebRTC Build 265. Version 1.4
+    NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
+    NSString *appBuild = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
+    NSString *version = [NSString stringWithFormat:
+                         @"Sample version %@ build %@.\n"
+                         "QuickBlox WebRTC SDK: %@ Revision %@",
+                         appVersion, appBuild,
+                         QuickbloxWebRTCFrameworkVersion, QuickbloxWebRTCRevision];
+    
+    self.versionLabel.text = version;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -37,9 +47,6 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     [self.tableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 #pragma mark - Actions
 
@@ -55,6 +62,36 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     cell.detailTextLabel.text = [self detailTextForRowAtIndexPaht:indexPath];
     
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if ([cell.reuseIdentifier isEqualToString:@"LogoutCell"]) {
+        
+        UIAlertController *alertController =
+        [UIAlertController alertControllerWithTitle:nil
+                                            message:NSLocalizedString(@"Logout ?", nil)
+                                     preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action)
+                                    {
+                                        [self.delegate settingsViewController:self didPressLogout:cell];
+                                    }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"NO", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:nil]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (NSString *)detailTextForRowAtIndexPaht:(NSIndexPath *)indexPath {
@@ -80,15 +117,6 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
             return @"iLBC";
         }
         
-    }
-    else if (indexPath.row == SessionConfigureItemListOfUsers) {
-        
-        return [UsersDataSource.instance strWithList:Settings.instance.listType];
-    }
-    else if (indexPath.row == SessionConfigureItemStunServer) {
-        
-        NSString *selected = [NSString stringWithFormat:@"Selected - %lu", (unsigned long)Settings.instance.stunServers.count];
-        return selected;
     }
     
     return @"Unknown";

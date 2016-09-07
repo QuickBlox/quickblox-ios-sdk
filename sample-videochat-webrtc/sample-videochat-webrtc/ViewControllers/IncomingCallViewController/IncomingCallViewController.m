@@ -7,14 +7,12 @@
 //
 
 #import "IncomingCallViewController.h"
-#import "ChatManager.h"
-#import "CornerView.h"
 #import "QBButton.h"
 #import "QMSoundManager.h"
-#import "UsersDataSource.h"
 #import "QBToolBar.h"
 #import "QBButtonsFactory.h"
-#import "QBUUser+IndexAndColor.h"
+#import "CornerView.h"
+#import "UsersDataSource.h"
 
 @interface IncomingCallViewController () <QBRTCClientDelegate>
 
@@ -22,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *callInfoTextView;
 @property (weak, nonatomic) IBOutlet QBToolBar *toolbar;
 @property (weak, nonatomic) IBOutlet CornerView *colorMarker;
+@property (strong, nonatomic) NSArray *users;
 
 @property (weak, nonatomic) NSTimer *dialignTimer;
 
@@ -38,7 +37,21 @@
     [QMSoundManager playRingtoneSound];
     
     [QBRTCClient.instance addDelegate:self];
-    self.users = [UsersDataSource.instance usersWithIDS:self.session.opponentsIDs];
+    NSMutableArray *users = [NSMutableArray array];
+    
+    for (NSNumber *uID in self.session.opponentsIDs) {
+        
+        QBUUser *user = [self.usersDatasource userWithID:uID.integerValue];
+        
+        if (!user) {
+            user = [QBUUser user];
+            user.ID = uID.integerValue;
+        }
+        
+        [users addObject:user];
+    }
+    self.users = [users copy];
+    
     [self confiugreGUI];
     
     self.dialignTimer =
@@ -62,10 +75,8 @@
     [self updateOfferInfo];
     [self updateCallInfo];
     
-    self.title = [NSString stringWithFormat:@"Logged in as %@", UsersDataSource.instance.currentUser.fullName];
-    [self setDefaultBackBarButtonItem:^{
-        
-    }];
+    self.title = [NSString stringWithFormat:@"Logged in as %@", [QBChat instance].currentUser.fullName] ;
+
 }
 
 - (void)defaultToolbarConfiguration {
@@ -91,9 +102,9 @@
 
 - (void)updateOfferInfo {
     
-    QBUUser *caller = [UsersDataSource.instance userWithID:self.session.initiatorID];
+    QBUUser *caller = [self.usersDatasource userWithID:self.session.initiatorID.unsignedIntegerValue];
     
-    self.colorMarker.bgColor = caller.color;
+    self.colorMarker.bgColor = [UIColor grayColor];
     self.colorMarker.title = caller.fullName;
     self.colorMarker.fontSize = 30.f;
 }
@@ -101,7 +112,6 @@
 - (void)updateCallInfo {
     
     NSMutableArray *info = [NSMutableArray array];
-    
     
     for (QBUUser *user in self.users ) {
         
@@ -131,7 +141,9 @@
 
 - (void)sessionDidClose:(QBRTCSession *)session {
     
-      [self cleanUp];
+    if (self.session == session) {
+        [self cleanUp];
+    }
 }
 
 @end

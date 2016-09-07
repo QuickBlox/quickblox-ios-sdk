@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 /**
  *  Class implements screen sharing and converting screenshots to destination format
  *  in order to send frames to your opponents
