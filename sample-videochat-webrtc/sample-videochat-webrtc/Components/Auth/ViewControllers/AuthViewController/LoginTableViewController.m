@@ -237,7 +237,7 @@
     
     NSCharacterSet *characterSet = [NSCharacterSet whitespaceCharacterSet];
     NSString *tag = [self.chatRoomNameTextField.text stringByTrimmingCharactersInSet:characterSet];
-    NSString *tagRegex = @"^[a-zA-Z0-9]{3,15}$";
+    NSString *tagRegex = @"^[a-zA-Z][a-zA-Z0-9\\s]{2,14}$";
     NSPredicate *tagPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", tagRegex];
     BOOL tagIsValid = [tagPredicate evaluateWithObject:tag];
     
