@@ -28,7 +28,7 @@ extension String {
     
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate, QMDeferredQueueManagerDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate, QMDeferredQueueManagerDelegate, QMPlaceHolderTextViewPasteDelegate{
     
     let maxCharactersNumber = 1024 // 0 - unlimited
     
@@ -339,6 +339,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     self?.chatDataSource.deleteMessage(message)
                     
                     })
+                
+                self.finishSendingMessageAnimated(true)
             }
         }
     }
@@ -386,7 +388,25 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         return canMakeACall
         
     }
-
+    
+    func placeHolderTextView(textView: QMPlaceHolderTextView, shouldPasteWithSender sender: AnyObject) -> Bool {
+        
+        if UIPasteboard.generalPasteboard().image != nil {
+            
+            let textAttachment = NSTextAttachment()
+            textAttachment.image = UIPasteboard.generalPasteboard().image!
+            textAttachment.bounds = CGRectMake(0, 0, 100, 100)
+            
+            let attrStringWithImage = NSAttributedString.init(attachment: textAttachment)
+            self.inputToolbar.contentView.textView.attributedText = attrStringWithImage
+            self.textViewDidChange(self.inputToolbar.contentView.textView)
+            
+            return false
+        }
+        
+        return true
+    }
+    
     func showCharactersNumberError() {
         let title  = "SA_STR_ERROR".localized;
         let subtitle = String(format: "The character limit is %lu.", maxCharactersNumber)
