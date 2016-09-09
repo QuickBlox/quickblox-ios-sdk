@@ -317,6 +317,32 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.sendMessage(message)
     }
     
+    override func didPressSendButton(button: UIButton!, withTextAttachments textAttachments: [AnyObject]!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
+     
+        if let attachment = textAttachments.first as? NSTextAttachment {
+            
+            if (attachment.image != nil) {
+                let message = QBChatMessage()
+                message.senderID = self.senderID
+                message.dialogID = self.dialog.ID
+                message.dateSent = NSDate()
+                ServicesManager.instance().chatService.sendAttachmentMessage(message, toDialog: self.dialog, withAttachmentImage: attachment.image!, completion: {
+                    [weak self] (error: NSError?) -> Void in
+                    
+                    self?.attachmentCellsMap.removeObjectForKey(message.ID)
+                    
+                    guard error != nil else { return }
+                    
+                    // perform local attachment message deleting if error
+                    ServicesManager.instance().chatService.deleteMessageLocally(message)
+                    
+                    self?.chatDataSource.deleteMessage(message)
+                    
+                    })
+            }
+        }
+    }
+    
     func sendMessage(message: QBChatMessage) {
         
         // Sending message.
@@ -799,9 +825,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         let viewClass: AnyClass = self.viewClassForItem(item) as AnyClass
         
-        if viewClass === QMChatAttachmentIncomingCell.self ||
-            viewClass === QMChatAttachmentOutgoingCell.self ||
-            viewClass === QMChatNotificationCell.self ||
+        if  viewClass === QMChatNotificationCell.self ||
             viewClass === QMChatContactRequestCell.self {
             return false
         }
@@ -816,19 +840,29 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         let item = self.chatDataSource.messageForIndexPath(indexPath)
-        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
-        
-        if viewClass === QMChatAttachmentIncomingCell.self
-            || viewClass === QMChatAttachmentOutgoingCell.self
-            || viewClass === QMChatNotificationCell.self
-            || viewClass === QMChatContactRequestCell.self {
-            
-            return
+    
+        if item.isMediaMessage() {
+            ServicesManager.instance().chatService.chatAttachmentService.localImageForAttachmentMessage(item, completion: { (error: NSError?,image: UIImage?) in
+                
+                guard error == nil else {
+                    SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
+                    return
+                }
+                
+                if image != nil {
+                    guard let imageData = UIImageJPEGRepresentation(image!, 1) else { return }
+                    
+                    let pasteboard = UIPasteboard.generalPasteboard()
+                    
+                    pasteboard.setValue(imageData, forPasteboardType:kUTTypeJPEG as String)
+                }
+            })
         }
-        
-        UIPasteboard.generalPasteboard().string = item.text
-        
+        else {
+            UIPasteboard.generalPasteboard().string = item.text
+        }
     }
+
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
@@ -881,7 +915,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         let messageStatus: QMMessageStatus = self.queueManager().statusForMessage(currentMessage)
         
         if messageStatus == .NotSent {
-            self.handleNotSentMessage(currentMessage)
+            self.handleNotSentMessage(currentMessage, forCell:cell)
             return
         }
         
@@ -1193,7 +1227,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         return ServicesManager.instance().chatService.deferredQueueManager
     }
     
-    func handleNotSentMessage(message: QBChatMessage) {
+    func handleNotSentMessage(message: QBChatMessage,
+                              forCell cell: QMChatCell!) {
         
         let alertController = UIAlertController(title: "", message: "SA_STR_MESSAGE_FAILED_TO_SEND".localized, preferredStyle:.ActionSheet)
         
@@ -1213,6 +1248,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         alertController.addAction(cancelAction)
+        
+        if alertController.popoverPresentationController != nil {
+            self.view.endEditing(true)
+            alertController.popoverPresentationController!.sourceView = cell.containerView
+            alertController.popoverPresentationController!.sourceRect = cell.containerView.bounds
+        }
         
         self.presentViewController(alertController, animated: true) {
         }
