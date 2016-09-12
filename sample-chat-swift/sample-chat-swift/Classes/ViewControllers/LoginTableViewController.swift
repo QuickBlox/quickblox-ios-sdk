@@ -72,8 +72,12 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         let chatController = self.storyboard?.instantiateViewControllerWithIdentifier("ChatViewController") as! ChatViewController
         chatController.dialog = chatDialog
 
-        self.navigationController?.viewControllers = [dialogsController, chatController]
+        var viewControllers = self.navigationController?.viewControllers
+        viewControllers?.appendContentsOf([dialogsController,chatController])
+        self.navigationController?.viewControllers = viewControllers!
+        
     }
+    
     
     func notificationServiceDidFailFetchingDialog() {
         self.performSegueWithIdentifier("SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
