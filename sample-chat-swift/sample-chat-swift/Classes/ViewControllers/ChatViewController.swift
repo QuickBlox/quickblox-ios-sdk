@@ -214,9 +214,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             return
         }
         
-        let currentUserID = NSNumber(unsignedInteger: QBSession.currentSession().currentUser!.ID)
-        
-        if (message.readIDs == nil || !message.readIDs!.contains(currentUserID)) {
+        if self.messageShouldBeReaded(message) {
             ServicesManager.instance().chatService.readMessage(message, completion: { (error: NSError?) -> Void in
                 
                 guard error == nil else {
@@ -230,6 +228,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
             })
         }
+    }
+    
+    func messageShouldBeReaded(message: QBChatMessage) -> Bool {
+        
+        let currentUserID = NSNumber(unsignedInteger: QBSession.currentSession().currentUser!.ID)
+        
+        return !message.isDateDividerMessage
+            && message.senderID != self.senderID
+            && !message.readIDs!.contains(currentUserID)
     }
     
     func readMessages(messages: [QBChatMessage]) {
@@ -884,18 +891,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
 
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        let lastSection = (self.collectionView?.numberOfSections())! - 1
-        
-        if (indexPath.section == lastSection && indexPath.item == (self.collectionView?.numberOfItemsInSection(lastSection))! - 1) {
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if (indexPath.item == (self.collectionView?.numberOfItemsInSection(0))! - 1) {
             // the very first message
             // load more if exists
             // Getting earlier messages for chat dialog identifier.
             
             guard let dialogID = self.dialog.ID else {
                 print("DialogID is nil")
-                return super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+                return
             }
             
             ServicesManager.instance().chatService.loadEarlierMessagesWithChatDialogID(dialogID).continueWithBlock({
@@ -915,10 +919,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if let message = self.chatDataSource.messageForIndexPath(indexPath) {
             self.sendReadStatusForMessage(message)
         }
-        
-        return super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+
     }
-    
     // MARK: QMChatCellDelegate
     
     /**

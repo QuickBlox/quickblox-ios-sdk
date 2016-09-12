@@ -234,7 +234,7 @@ QMDeferredQueueManagerDelegate
 
 - (void)sendReadStatusForMessage:(QBChatMessage *)message {
     
-    if (message.senderID != self.senderID && ![message.readIDs containsObject:@(self.senderID)]) {
+    if ([self messageShouldBeReaded:message]) {
         [[ServicesManager instance].chatService readMessage:message completion:^(NSError *error) {
             if (error != nil) {
                 NSLog(@"Problems while marking message as read! Error: %@", error);
@@ -242,6 +242,12 @@ QMDeferredQueueManagerDelegate
             }
         }];
     }
+}
+
+- (BOOL)messageShouldBeReaded:(QBChatMessage *)message {
+    return !message.isDateDividerMessage
+    && message.senderID != self.senderID
+    && ![message.readIDs containsObject:@(self.senderID)];
 }
 
 - (void)readMessages:(NSArray *)messages {
@@ -750,7 +756,7 @@ QMDeferredQueueManagerDelegate
     
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
-    
+    NSLog(@"text: %@\nID: %@",currentMessage.text,currentMessage.ID);
     QMMessageStatus status = [[self queueManager] statusForMessage:currentMessage];
     
     if (status == QMMessageStatusNotSent && currentMessage.senderID == self.senderID)
