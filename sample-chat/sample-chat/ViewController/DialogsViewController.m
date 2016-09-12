@@ -57,12 +57,6 @@ QMChatConnectionDelegate
 {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOGOUTING", nil) maskType:SVProgressHUDMaskTypeClear];
     
-    if (![[QBChat instance] isConnected]) {
-        
-        [SVProgressHUD showErrorWithStatus:@"You're not connected to the chat."];
-        return;
-    }
-    
     dispatch_group_t logoutGroup = dispatch_group_create();
     dispatch_group_enter(logoutGroup);
     // unsubscribing from pushes
