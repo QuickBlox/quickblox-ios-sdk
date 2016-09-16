@@ -11,40 +11,53 @@
 #import "QBCEntity.h"
 #import "QBContentEnums.h"
 
-/** QBCBlobObjectAccess class declaration. */
-/** Overview */
-/** This class represents entity that uses for upload file to server. */
-
-@interface QBCBlobObjectAccess : QBCEntity <NSCoding, NSCopying> {
-	NSUInteger blobID;
-	enum QBCBlobObjectAccessType type;
-	NSDate *expires;
-	NSString *urlWithParams;
-	NSDictionary *params;
-	NSURL *url;
-}
-
-/** Blob ID */
-@property (nonatomic) NSUInteger blobID;
-
-/** Link access type */
-@property (nonatomic) enum QBCBlobObjectAccessType type;
-
-/** Reference expiration time */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSDate* expires;
-
-/** Url with params. Use it for upload file */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString* urlWithParams;
-
-/** Params. Use them for upload file */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSDictionary* params;
-
-/** Url with params. Use it for upload file */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSURL* url;
-
-/** Check link expiration date
- @return YES if link is expired, otherwise NO
+/**
+ *  QBCBlobObjectAccess class interface.
+ *  This class represents entity that uses for upload file to server.
  */
-@property (nonatomic,readonly) BOOL expired;
+@interface QBCBlobObjectAccess : QBCEntity <NSCoding, NSCopying>
+
+/**
+ *  Blob ID.
+ */
+@property (nonatomic, assign) NSUInteger blobID;
+
+/** 
+ *  Link access type.
+ */
+@property (nonatomic, assign) QBCBlobObjectAccessType type;
+
+/** 
+ *  Reference expiration time.
+ */
+@property (nonatomic, strong, nullable) NSDate *expires;
+
+/** 
+ *  Url with params.
+ *
+ *  @discussion Use it for upload file.
+ */
+@property (nonatomic, copy, nullable) NSString *urlWithParams;
+
+/**
+ *  Params. 
+ *
+ *  @discussion Use them for upload file.
+ */
+@property (nonatomic, copy, nullable) NSDictionary *params;
+
+/** 
+ *  Url with params.
+ *
+ *  @discussion Use it for upload file.
+ */
+@property (nonatomic, strong, nullable) NSURL *url;
+
+/** 
+ *  Check link expiration date.
+ *
+ *  @return YES if link is expired, otherwise NO
+ */
+@property (nonatomic, readonly) BOOL expired;
 
 @end

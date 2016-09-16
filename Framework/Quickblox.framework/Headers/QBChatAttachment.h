@@ -17,21 +17,21 @@
  *
  *  @discussion Can be any type. For example: audio, video, image, location, any other
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *type;
+@property (nonatomic, copy, nullable) NSString *type;
 
 /**
  *  Content URL.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *url;
+@property (nonatomic, copy, nullable) NSString *url;
 
 /**
  *  ID of attached element.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *ID;
+@property (nonatomic, copy, nullable) NSString *ID;
 
 /**
  *  Any addictional data.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *data;
+@property (nonatomic, copy, nullable) NSString *data;
 
 @end

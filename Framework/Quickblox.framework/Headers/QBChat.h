@@ -18,31 +18,35 @@
 @class QBChatMessage;
 @class QBPrivacyList;
 
-/** QBChat class declaration. */
-/** Overview */
-/** This class is the main entry point to work with Quickblox Chat API. */
+NS_ASSUME_NONNULL_BEGIN
 
+/** 
+ *  QBChat class interface.
+ *  This class is the main entry point to work with Quickblox Chat API. 
+ */
 @interface QBChat : NSObject
 
 /**
- * Returns YES if the connection is open, and the stream has been properly established.
- * If the stream is neither disconnected, nor connected, then a connection is currently being established.
- *
- * If this method returns YES, then it is ready for you to start sending and receiving elements.
- **/
+ *  Determines whether chat is connected. Returns YES if the connection is open, 
+ *  and the stream has been properly established.
+ *  
+ *  @discussion If the stream is neither disconnected, nor connected, 
+ *  then a connection is currently being established.
+ *  If this method returns YES, then it is ready for you to start sending and receiving elements.
+ */
 @property (assign, nonatomic, readonly) BOOL isConnected;
 
 /**
- * Returns YES is the connection is currently connecting
- **/
+ *  Returns YES is the connection is currently connecting
+ */
 @property (assign, nonatomic, readonly) BOOL isConnecting;
 
 /** 
  *  Contact list
  */
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBContactList *contactList;
+@property (nonatomic, readonly, nullable) QBContactList *contactList;
 
-- (QB_NONNULL id)init NS_UNAVAILABLE;
+- (id)init NS_UNAVAILABLE;
 
 #pragma mark -
 #pragma mark Multicast Delegate
@@ -52,14 +56,14 @@
  *
  *  @param delegate The delegate to add
  */
-- (void)addDelegate:(QB_NONNULL id<QBChatDelegate>)delegate;
+- (void)addDelegate:(id<QBChatDelegate>)delegate;
 
 /**
  *  Removes the given delegate implementation from the list of observers
  *
  *  @param delegate The delegate to remove
  */
-- (void)removeDelegate:(QB_NONNULL id<QBChatDelegate>)delegate;
+- (void)removeDelegate:(id<QBChatDelegate>)delegate;
 
 /** 
  * Removes all delegates
@@ -69,7 +73,7 @@
 /** 
  *  Array of all delegates
  */
-- (QB_NULLABLE NSArray QB_GENERIC(id<QBChatDelegate>) *)delegates;
+- (nullable NSArray QB_GENERIC(id<QBChatDelegate>) *)delegates;
 
 #pragma mark -
 #pragma mark Reconnection
@@ -88,7 +92,7 @@
  *
  *  @return QBChat Chat service singleton
  */
-+ (QB_NONNULL instancetype)instance;
++ (instancetype)instance;
 
 /**
  *  Connect to QuickBlox Chat with completion.
@@ -96,7 +100,7 @@
  *  @param user       QBUUser structure represents user's login. Required user's fields: ID, password.
  *  @param completion Completion block with failure error.
  */
-- (void)connectWithUser:(QB_NONNULL QBUUser *)user completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)connectWithUser:(QBUUser *)user completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Connect to QuickBlox Chat.
@@ -105,14 +109,14 @@
  *  @param resource   The resource identifier of user.
  *  @param completion Completion block with failure error.
  */
-- (void)connectWithUser:(QB_NONNULL QBUUser *)user resource:(nullable NSString *)resource completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)connectWithUser:(QBUUser *)user resource:(nullable NSString *)resource completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Disconnect current user from Chat and leave all rooms
  *
  *  @param completion  Completion block with failure error.
  */
-- (void)disconnectWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)disconnectWithCompletionBlock:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Send "read" status for message and update "read" status on a server
@@ -120,7 +124,7 @@
  *  @param message      QBChatMessage message to mark as read.
  *  @param completion   Completion block with failure error.
  */
-- (void)readMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)readMessage:(QBChatMessage *)message completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Send "delivered" status for message.
@@ -128,14 +132,7 @@
  *  @param message      QBChatMessage message to mark as delivered.
  *  @param completion   Completion block with failure error.
  */
-- (void)markAsDelivered:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
-
-/**
- *  Send presence message. Session will be closed in 90 seconds since last activity.
- *  @warning *Deprecated in 2.7.0.:*
- *  @return YES if the request was sent successfully. If not - see log.
- */
-- (BOOL)sendPresence DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.0.");
+- (void)markAsDelivered:(QBChatMessage *)message completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Send presence message with status. Session will be closed in 90 seconds since last activity.
@@ -144,14 +141,14 @@
  *
  *  @return YES if the request was sent successfully. If not - see log.
  */
-- (BOOL)sendPresenceWithStatus:(QB_NONNULL NSString *)status;
+- (BOOL)sendPresenceWithStatus:(NSString *)status;
 
 /**
  *  Get current chat user
  *
  *  @return An instance of QBUUser
  */
-- (QB_NULLABLE QBUUser *)currentUser;
+- (nullable QBUUser *)currentUser;
 
 #pragma mark -
 #pragma mark Contact list
@@ -162,7 +159,7 @@
  *  @param userID       ID of user which you would like to add to contact list
  *  @param completion   Completion block with failure error.
  */
-- (void)addUserToContactListRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)addUserToContactListRequest:(NSUInteger)userID completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Remove user from contact list
@@ -170,7 +167,7 @@
  *  @param userID     ID of user which you would like to remove from contact list
  *  @param completion Completion block with failure error.
  */
-- (void)removeUserFromContactList:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)removeUserFromContactList:(NSUInteger)userID completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Confirm add to contact list request
@@ -178,7 +175,7 @@
  *  @param userID       ID of user from which you would like to confirm add to contact request
  *  @param completion   The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  */
-- (void)confirmAddContactRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)confirmAddContactRequest:(NSUInteger)userID completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Reject add to contact list request or cancel previously-granted subscription request
@@ -186,7 +183,7 @@
  *  @param userID       ID of user from which you would like to reject add to contact request
  *  @param completion   The block which informs whether a request was delivered to server or not. If request succeded error is nil.
  */
-- (void)rejectAddContactRequest:(NSUInteger)userID completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)rejectAddContactRequest:(NSUInteger)userID completion:(nullable QBChatCompletionBlock)completion;
 
 #pragma mark -
 #pragma mark Privacy
@@ -195,7 +192,7 @@
  *  Retrieve a privacy list by name. QBChatDelegate's method 'didReceivePrivacyList:' will be called if success or 'didNotReceivePrivacyListWithName:error:' if there is an error
  *  @param privacyListName name of privacy list
  */
-- (void)retrievePrivacyListWithName:(QB_NONNULL NSString *)privacyListName;
+- (void)retrievePrivacyListWithName:(NSString *)privacyListName;
 
 /**
  *  Retrieve privacy list names. QBChatDelegate's method 'didReceivePrivacyListNames:' will be called if success or 'didNotReceivePrivacyListNamesDueToError:' if there is an error
@@ -207,28 +204,28 @@
  *
  *  @param privacyList instance of QBPrivacyList
  */
-- (void)setPrivacyList:(QB_NULLABLE QBPrivacyList *)privacyList;
+- (void)setPrivacyList:(nullable QBPrivacyList *)privacyList;
 
 /**
  *  Set an active privacy list. QBChatDelegate's method 'didSetActivePrivacyListWithName:' will be called if success or 'didNotSetActivePrivacyListWithName:error:' if there is an error
  *
  *  @param privacyListName name of privacy list
  */
-- (void)setActivePrivacyListWithName:(QB_NULLABLE NSString *)privacyListName;
+- (void)setActivePrivacyListWithName:(nullable NSString *)privacyListName;
 
 /**
  *  Set a default privacy list. QBChatDelegate's method 'didSetDefaultPrivacyListWithName:' will be called if success or 'didNotSetDefaultPrivacyListWithName:error:' if there is an error
  *
  *  @param privacyListName name of privacy list
  */
-- (void)setDefaultPrivacyListWithName:(QB_NULLABLE NSString *)privacyListName;
+- (void)setDefaultPrivacyListWithName:(nullable NSString *)privacyListName;
 
 /**
  *  Remove a privacy list. QBChatDelegate's method 'didRemovedPrivacyListWithName:' will be called if success or 'didNotSetPrivacyListWithName:error:' if there is an error
  *
  *  @param privacyListName name of privacy list
  */
-- (void)removePrivacyListWithName:(QB_NONNULL NSString *)privacyListName;
+- (void)removePrivacyListWithName:(NSString *)privacyListName;
 
 #pragma mark -
 #pragma mark System Messages
@@ -239,7 +236,7 @@
  *  @param message      QBChatMessage instance of message to send.
  *  @param completion   Completion block with failure error.
  */
-- (void)sendSystemMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)sendSystemMessage:(QBChatMessage *)message completion:(nullable QBChatCompletionBlock)completion;
 
 #pragma mark - Send pings to the server or a userID
 
@@ -248,7 +245,7 @@
  *
  *  @param completion  completion block with ping time interval and success flag
  */
-- (void)pingServer:(QB_NONNULL QBPingCompleitonBlock)completion;
+- (void)pingServer:(QBPingCompleitonBlock)completion;
 
 /**
  *  Send ping to server with timeout
@@ -256,7 +253,7 @@
  *  @param timeout    timout
  *  @param completion completion block with ping time interval and success flag
  */
-- (void)pingServerWithTimeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+- (void)pingServerWithTimeout:(NSTimeInterval)timeout completion:(QBPingCompleitonBlock)completion;
 
 /**
  *  Send ping to user
@@ -266,7 +263,7 @@
  *
  *  @note You must be subscribed to user in contact list in order to successfully ping him
  */
-- (void)pingUserWithID:(NSUInteger )userID completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+- (void)pingUserWithID:(NSUInteger )userID completion:(QBPingCompleitonBlock)completion;
 
 /**
  *  Send ping to user with timeout
@@ -277,6 +274,8 @@
  *
  *  @note You must be subscribed to user in contact list in order to successfully ping him
  */
-- (void)pingUserWithID:(NSUInteger)userID timeout:(NSTimeInterval)timeout completion:(QB_NONNULL QBPingCompleitonBlock)completion;
+- (void)pingUserWithID:(NSUInteger)userID timeout:(NSTimeInterval)timeout completion:(QBPingCompleitonBlock)completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -11,17 +11,20 @@
 #import <Quickblox/QBGeneric.h>
 #import "QBLogger.h"
 
-typedef enum QBConnectionZoneType{
-	QBConnectionZoneTypeAutomatic = 1, //Default. Endpoints are loaded from QuickBlox
-	QBConnectionZoneTypeProduction      = 2,
-	QBConnectionZoneTypeDevelopment     = 3,
-	QBConnectionZoneTypeStage           = 4
-} QBConnectionZoneType;
+NS_ASSUME_NONNULL_BEGIN
 
-/** QBSettings class declaration */
-/** Overview */
-/** Class for setup framework */
+typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
+    
+    QBConnectionZoneTypeAutomatic       = 1, //Default. Endpoints are loaded from QuickBlox
+    QBConnectionZoneTypeProduction      = 2,
+    QBConnectionZoneTypeDevelopment     = 3,
+    QBConnectionZoneTypeStage           = 4
+};
 
+/** 
+ *  QBSettings class interface.
+ *  Class for framework setup.
+ */
 @interface QBSettings : NSObject
 
 /**
@@ -38,7 +41,7 @@ typedef enum QBConnectionZoneType{
  *  @param chatEndpoint chat endpoint
  *  @param zone         QBConnectionZoneType - service zone
  */
-+ (void)setApiEndpoint:(QB_NULLABLE NSString *)apiEndpoint chatEndpoint:(QB_NULLABLE NSString *)chatEndpoint forServiceZone:(QBConnectionZoneType)zone;
++ (void)setApiEndpoint:(nullable NSString *)apiEndpoint chatEndpoint:(nullable NSString *)chatEndpoint forServiceZone:(QBConnectionZoneType)zone;
 
 #pragma mark -
 #pragma mark Chat settings
@@ -57,13 +60,6 @@ typedef enum QBConnectionZoneType{
  *  @param carbonsEnabled BOOL value
  */
 + (void)setCarbonsEnabled:(BOOL)carbonsEnabled;
-
-/**
- *  Enable or disable Stream Resumption (XEP-0198).
- *
- *  @param streamResumptionEnabled BOOL value. The default value is NO
- */
-+ (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled;
 
 /// Set timeout value for Stream Management send a message operation
 + (void)setStreamManagementSendMessageTimeout:(NSUInteger)streamManagementSendMessageTimeout;
@@ -102,21 +98,21 @@ typedef enum QBConnectionZoneType{
  
  @param accountKey Account key - from admin.quickblox.com
  */
-+ (void)setAccountKey:(QB_NONNULL NSString *)accountKey;
++ (void)setAccountKey:(NSString *)accountKey;
 
 /**
  * Setting API Key for Quickblox API
  *
  * @param authKey - NSString value of API Key.
  */
-+ (void)setAuthKey:(QB_NONNULL NSString *)authKey;
++ (void)setAuthKey:(NSString *)authKey;
 
 /**
  * Setting API Secret for Quickblox API
  *
  * @param authSecret - NSString value of API Secret.
  */
-+ (void)setAuthSecret:(QB_NONNULL NSString *)authSecret;
++ (void)setAuthSecret:(NSString *)authSecret;
 
 #pragma mark -
 #pragma mark Endpoints
@@ -140,7 +136,7 @@ typedef enum QBConnectionZoneType{
  *
  *  @return NSString value of Api Endpoint
  */
-+ (QB_NULLABLE NSString *)apiEndpoint;
++ (nullable NSString *)apiEndpoint;
 
 #pragma mark -
 #pragma mark Chat Endpoints
@@ -151,7 +147,7 @@ typedef enum QBConnectionZoneType{
  @note you have to prepend http or https prefix
  @return Current server's Chat endpoint
  */
-+ (QB_NONNULL NSString *)chatEndpoint;
++ (NSString *)chatEndpoint;
 
 #pragma mark -
 #pragma mark Network Indicator
@@ -204,7 +200,8 @@ typedef enum QBConnectionZoneType{
  *
  *  @return Array of log file paths or nil if logging to file is disabled
  */
-+ (QB_NULLABLE NSArray QB_GENERIC(NSString *) *)logFilePaths;
++ (nullable NSArray QB_GENERIC(NSString *) *)logFilePaths;
+
 /**
  *   Disable full XMPP Framework logging to console.
  */
@@ -219,14 +216,16 @@ typedef enum QBConnectionZoneType{
  *
  *  @param configuration Your NSURLSessionConfiguration object.
  */
-+ (void)setSessionConfiguration:(QB_NULLABLE NSURLSessionConfiguration *)configuration;
++ (void)setSessionConfiguration:(nullable NSURLSessionConfiguration *)configuration;
 
 /**
  *  Get custom session configuration.
  *
  *  @return Your NSURLSessionConfiguration object.
  */
-+ (QB_NULLABLE NSURLSessionConfiguration *)sessionConfiguration;
++ (nullable NSURLSessionConfiguration *)sessionConfiguration;
+
+#pragma mark - DEPRECATED
 
 /**
  *  Enable or Disable chat DNS Lookup cache for current chat endpoint
@@ -248,4 +247,13 @@ typedef enum QBConnectionZoneType{
  */
 + (BOOL)isChatDNSLookupCacheEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
 
+/**
+ *  Enable or disable Stream Resumption (XEP-0198).
+ *
+ *  @param streamResumptionEnabled BOOL value. The default value is NO
+ */
++ (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
+
 @end
+
+NS_ASSUME_NONNULL_END

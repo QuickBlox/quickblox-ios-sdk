@@ -14,56 +14,71 @@
 @class QBLGeoDataSearchRequest;
 @class QBUUser;
 
-/** QBLGeoData class declaration  */
-/** Overview:*/
-/** This class represents geo data - location point. You can store user locations on server, and then retrieve them using filters and search. See QBLocationService  */
+NS_ASSUME_NONNULL_BEGIN
 
-@interface QBLGeoData : QBCEntity <NSCoding, NSCopying> {
-@private
-	CLLocationDegrees latitude;
-	CLLocationDegrees longitude;
-    NSString *status;
-    
-    NSUInteger userID;
-	QBUUser *user;
-    NSUInteger applicationID;
-    
-    NSUInteger createdAtTimestamp;
-}
-/** Latitude */
-@property (nonatomic) CLLocationDegrees latitude;
+/** 
+ *  QBLGeoData class interface.
+ *  This class represents geo data - location point. You can store user locations on server, 
+ *  and then retrieve them using filters and search. See QBLocationService.
+ */
+@interface QBLGeoData : QBCEntity <NSCoding, NSCopying>
 
-/** Longitude */
-@property (nonatomic) CLLocationDegrees longitude;
+/** 
+ *  Latitude.
+ */
+@property (nonatomic, assign) CLLocationDegrees latitude;
 
-/** Status message */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *status;
+/** 
+ *  Longitude.
+ */
+@property (nonatomic, assign) CLLocationDegrees longitude;
 
-/** User ID */
+/** 
+ *  Status message.
+ */
+@property (nonatomic, copy, nullable) NSString *status;
+
+/** 
+ *  User ID.
+ */
 @property (nonatomic, assign) NSUInteger userID;
 
-/** User */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) QBUUser *user;
+/** 
+ *  User.
+ */
+@property (nonatomic, copy, nullable) QBUUser *user;
 
-/** Application identitider */
+/** 
+ *  Application identitider.
+ */
 @property (nonatomic, assign) NSUInteger applicationID;
 
-/** Timestamp of create geodata */
-@property (nonatomic) NSUInteger createdAtTimestamp;
-
-/** Create new GeoData
- @return New instance of QBLGeoData
+/** 
+ *  Timestamp of create geodata.
  */
-+ (QB_NONNULL QBLGeoData *)geoData;
+@property (nonatomic, assign) NSUInteger createdAtTimestamp;
 
-/** Obtain current geo data
- @return QBLGeoData initialized with current location
+/** 
+ *  Create new GeoData.
+ *
+ *  @return New instance of QBLGeoData
  */
-+ (QB_NONNULL QBLGeoData *)currentGeoData;
++ (QBLGeoData *)geoData;
 
-/** Obtain current geo data location
- @return CLLocation initialized with current geo data latitude & longitude
+/** 
+ *  Obtain current geo data.
+ *
+ *  @return QBLGeoData initialized with current location
  */
-- (QB_NONNULL CLLocation *) location;
++ (QBLGeoData *)currentGeoData;
+
+/**
+ *  Obtain current geo data location.
+ *
+ *  @return CLLocation initialized with current geo data latitude & longitude
+ */
+- (CLLocation *)location;
 
 @end
+
+NS_ASSUME_NONNULL_END

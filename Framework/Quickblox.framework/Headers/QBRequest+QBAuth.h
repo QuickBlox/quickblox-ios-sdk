@@ -13,6 +13,8 @@
 @class QBSessionParameters;
 @class QBUUser;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBRequest (QBAuth)
 
 #pragma mark - App authorization
@@ -24,15 +26,15 @@
  @param errorBlock Block with response instance if request failed
  
  @return An instance of QBRequest for cancel operation mainly.
-*/
-+ (QB_NONNULL QBRequest *)destroySessionWithSuccessBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
-                                              errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
+ */
++ (QBRequest *)destroySessionWithSuccessBlock:(nullable void (^)(QBResponse *response))successBlock
+                                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - LogIn
 
 /**
  User LogIn with login
-
+ 
  @param login Login of QBUUser which authenticates.
  @param password Password of QBUUser which authenticates.
  @param successBlock Block with response and user instances if request succeded
@@ -40,14 +42,14 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)logInWithUserLogin:(QB_NONNULL NSString *)login
-                                    password:(QB_NONNULL NSString *)password
-                                successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
-                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)logInWithUserLogin:(NSString *)login
+                         password:(NSString *)password
+                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  User LogIn with email
-
+ 
  @param email Email of QBUUser which authenticates.
  @param password Password of QBUUser which authenticates.
  @param successBlock Block with response and user instances if request succeded
@@ -55,14 +57,14 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)logInWithUserEmail:(QB_NONNULL NSString *)email
-                                    password:(QB_NONNULL NSString *)password
-                                successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
-                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)logInWithUserEmail:(NSString *)email
+                         password:(NSString *)password
+                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  User LogIn with social provider's token
-
+ 
  @param provider Social provider. Posible values: facebook, twitter.
  @param accessToken Social provider access token.
  @param accessTokenSecret Social provider access token secret.
@@ -71,11 +73,11 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)logInWithSocialProvider:(QB_NONNULL NSString *)provider
-                           accessToken:(QB_NULLABLE NSString *)accessToken
-                     accessTokenSecret:(QB_NULLABLE NSString *)accessTokenSecret
-                          successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
-                            errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)logInWithSocialProvider:(NSString *)provider
+                           accessToken:(nullable NSString *)accessToken
+                     accessTokenSecret:(nullable NSString *)accessTokenSecret
+                          successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  *  User login using Twitter Digits.
@@ -86,23 +88,23 @@
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)logInWithTwitterDigitsAuthHeaders:(QB_NONNULL NSDictionary *)headers
-                                               successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
-                                                 errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)logInWithTwitterDigitsAuthHeaders:(NSDictionary *)headers
+                                    successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                                      errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -  LogOut
 
 /**
  LogOut current user
-
+ 
  @param successBlock Block with response instance if request succeded
  @param errorBlock Block with response instance if request failed
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)logOutWithSuccessBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
-                                      errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)logOutWithSuccessBlock:(nullable void (^)(QBResponse *response))successBlock
+                           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Create User
 
@@ -115,8 +117,10 @@
  
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
-+ (QB_NONNULL QBRequest *)signUp:(QB_NONNULL QBUUser *)user
-                    successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBUUser * QB_NULLABLE_S user))successBlock
-                      errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)signUp:(QBUUser *)user
+         successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END

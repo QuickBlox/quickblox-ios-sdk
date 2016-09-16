@@ -11,68 +11,78 @@
 #import <Quickblox/QBGeneric.h>
 #import "QBCustomObjectsEnums.h"
 
-/** QBCOPermissions class declaration. */
-/** Overview */
-/** This class represents QuickBlox custom object permissions. */
+NS_ASSUME_NONNULL_BEGIN
 
-@interface QBCOPermissions : NSObject <NSCoding, NSCopying>{
-@private
-    NSString *recordID;
-    enum QBCOPermissionsAccess readAccess;
-    enum QBCOPermissionsAccess updateAccess;
-    enum QBCOPermissionsAccess deleteAccess;
-    
-    NSMutableArray *usersIDsForReadAccess;
-    NSMutableArray *usersGroupsForReadAccess;
-    
-    NSMutableArray *usersIDsForUpdateAccess;
-    NSMutableArray *usersGroupsForUpdateAccess;
-    
-    NSMutableArray *usersIDsForDeleteAccess;
-    NSMutableArray *usersGroupsForDeleteAccess;
-}
+/** 
+ *  QBCOPermissions class interface.
+ *  This class represents QuickBlox custom object permissions. 
+ */
+@interface QBCOPermissions : NSObject <NSCoding, NSCopying>
 
-/** Record ID */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *recordID;
+/** 
+ *  Record ID.
+ */
+@property (nonatomic, copy, nullable) NSString *recordID;
 
-/** Read access */
+/** 
+ *  Read access.
+ */
 @property (nonatomic, assign) QBCOPermissionsAccess readAccess;
 
-/** Update access */
+/** 
+ *  Update access.
+ */
 @property (nonatomic, assign) QBCOPermissionsAccess updateAccess;
 
-/** Delete access */
+/** 
+ *  Delete access.
+ */
 @property (nonatomic, assign) QBCOPermissionsAccess deleteAccess;
 
-/** Users IDs  for read access */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersIDsForReadAccess;
-
-/** Users groups for read access */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForReadAccess;
-
-/** Users IDs  for update access */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersIDsForUpdateAccess;
-
-/** Users groups for update access */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForUpdateAccess;
-
-/** Users IDs  for delete access */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersIDsForDeleteAccess;
-
-/** Users groups for delete access */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForDeleteAccess;
-
-
-/** Create permissions object
- @return New instance of QBCOPermissions
+/** 
+ *  Users IDs  for read access.
  */
-+ (QB_NONNULL instancetype)permissions;
+@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersIDsForReadAccess;
 
+/** 
+ *  Users groups for read access.
+ */
+@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForReadAccess;
+
+/** 
+ *  Users IDs  for update access.
+ */
+@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersIDsForUpdateAccess;
+
+/** 
+ *  Users groups for update access.
+ */
+@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForUpdateAccess;
+
+/** 
+ *  Users IDs for delete access.
+ */
+@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersIDsForDeleteAccess;
+
+/**
+ *  Users groups for delete access.
+ */
+@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForDeleteAccess;
+
+
+/** 
+ *  Create permissions object
+ *
+ *  @return New instance of QBCOPermissions
+ */
++ (instancetype)permissions;
 
 #pragma mark -
 #pragma mark Converters
 
-+ (enum QBCOPermissionsAccess)permissionsAccessFromString:(QB_NONNULL NSString *)permissionsAccess;
-+ (QB_NULLABLE NSString *)permissionsAccessToString:(enum QBCOPermissionsAccess)permissionsAccess;
++ (enum QBCOPermissionsAccess)permissionsAccessFromString:(NSString *)permissionsAccess;
++ (nullable NSString *)permissionsAccessToString:(enum QBCOPermissionsAccess)permissionsAccess;
 
 @end
+
+NS_ASSUME_NONNULL_END

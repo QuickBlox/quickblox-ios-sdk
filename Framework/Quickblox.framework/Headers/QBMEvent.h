@@ -11,110 +11,132 @@
 #import "QBCEntity.h"
 #import "QBPushNotificationsEnums.h"
 
-/** QBMEvent class declaration. */
-/** Overview */
-/** Event representation. If you want to send Apple push - use the QBMApplePushEvent subclass. */
+NS_ASSUME_NONNULL_BEGIN
 
-@interface QBMEvent : QBCEntity <NSCoding, NSCopying>{
-    BOOL active;
-    enum QBMNotificationType notificationType;
-    
-    enum QBMPushType pushType;
-    
-    NSString *usersIDs;
-    NSString *usersTagsAny;
-    NSString *usersTagsAll;
-    NSString *usersTagsExclude;
-    
-    NSString *name;
-    
-    id message;
-    enum QBMEventType type;
-    
-    NSDate *date;
-    NSDate *endDate;
-    NSUInteger period;
-    
-    NSUInteger occuredCount;
-}
+/** 
+ *  QBMEvent class interface.
+ *  Event representation. If you want to send Apple push - use the QBMApplePushEvent subclass. 
+ */
+@interface QBMEvent : QBCEntity <NSCoding, NSCopying>
 
-/** Event state. If you want to send specific notification more than once - just edit Event & set this field to 'YES', Then push will be send immediately, without creating a new one Event. */
-@property (nonatomic) BOOL active;
+/** 
+ *  Event state. 
+ *
+ *  @discussion If you want to send specific notification more than once - just edit Event & set this field to 'YES', Then push will be send immediately, without creating a new one Event. */
+@property (nonatomic, assign) BOOL active;
 
-/** Notification type*/
-@property (nonatomic) QBMNotificationType notificationType;
+/** 
+ *  Notification type.
+ */
+@property (nonatomic, assign) QBMNotificationType notificationType;
 
-/** Push type */
-@property (nonatomic) QBMPushType pushType;
+/** 
+ *  Push type.
+ */
+@property (nonatomic, assign) QBMPushType pushType;
 
-/** Recipients - should contain a string of user ids divided by comas.*/
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersIDs;
+/** 
+ *  Recipients - should contain a string of user ids divided by comas.
+ */
+@property (nonatomic, copy, nullable) NSString *usersIDs;
 
-/** Recipients - should contain a string of user external ids divided by comas.*/
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersExternalIDs;
+/** 
+ *  Recipients - should contain a string of user external ids divided by comas.
+ */
+@property (nonatomic, copy, nullable) NSString *usersExternalIDs;
 
-/** Recipients tags - should contain a string of user tags divided by comas. Recipients (users) must have at LEAST ONE tag that specified in list.*/
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersTagsAny;
+/** 
+ *  Recipients tags - should contain a string of user tags divided by comas. 
+ *  Recipients (users) must have at LEAST ONE tag that specified in list.
+ */
+@property (nonatomic, copy, nullable) NSString *usersTagsAny;
 
-/** Recipients tags - should contain a string of user tags divided by comas. Recipients (users) must exactly have ONLY ALL tags that specified in list. */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersTagsAll;
+/** 
+ *  Recipients tags - should contain a string of user tags divided by comas.
+ *  Recipients (users) must exactly have ONLY ALL tags that specified in list. 
+ */
+@property (nonatomic, copy, nullable) NSString *usersTagsAll;
 
-/** Recipients tags - should contain a string of user tags divided by comas. Recipients (users) mustn't have tags that specified in list. */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *usersTagsExclude;
+/** 
+ *  Recipients tags - should contain a string of user tags divided by comas. 
+ *  Recipients (users) mustn't have tags that specified in list. 
+ */
+@property (nonatomic, copy, nullable) NSString *usersTagsExclude;
 
-/** The name of the event. Service information. Only for the user..*/
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSString *name;
+/** 
+ *  The name of the event. Service information. Only for the user.
+ */
+@property (nonatomic, copy, nullable) NSString *name;
 
-/** Event message */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) id message;
+/** 
+ *  Event message.
+ */
+@property (nonatomic, strong, nullable) id message;
 
-/** Event type */
-@property (nonatomic) QBMEventType type;
+/** 
+ *  Event type.
+ */
+@property (nonatomic, assign) QBMEventType type;
 
-/** The date of the event when it'll fire. Required: No, if the envent's 'type' = QBMEventTypeOneShot or QBMEventTypeMultiShot. Yes, if the envent's 'type' = QBMEventTypeFixedDate or QBMEventTypePeriodDate. */
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSDate *date;
+/** 
+ *  The date of the event when it'll fire. 
+ *
+ *  @note Required: No, if the envent's 'type' = QBMEventTypeOneShot or QBMEventTypeMultiShot. Yes, if the envent's 'type' = QBMEventTypeFixedDate or QBMEventTypePeriodDate. 
+ */
+@property (nonatomic, strong, nullable) NSDate *date;
 
-/** Date of completion of the event. Can't be less than the 'date'. Required: Yes, if the envent's  'type' = QBMEventTypeMultiShot and 'notificationType' = QBMNotificationTypePull **/
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSDate *endDate;
+/** 
+ *  Date of completion of the event. 
+ *
+ *  @note Can't be less than the 'date'. Required: Yes, if the envent's  'type' = QBMEventTypeMultiShot and 'notificationType' = QBMNotificationTypePull 
+ */
+@property (nonatomic, strong, nullable) NSDate *endDate;
 
 /** The period of the event in seconds.
- Possible values:
- 86400 (1 day)
- 604800 (1 week)
- 2592000 (1 month)
- 31557600 (1 year).
- Required: No, if the envent's 'type' = QBMEventTypeOneShot, QBMEventTypeMultiShot or QBMEventTypeFixedDate
- Yes, if the envent's 'type' = QBMEventTypePeriodDate */
-@property (nonatomic) NSUInteger period;
-
-/** Event's occured count */
-@property (nonatomic) NSUInteger occuredCount;
-
-/** Event's sender ID */
-@property (nonatomic) NSUInteger senderID;
-
-/** Create new event
- @return New instance of QBMEvent
+ *  Possible values:
+ *  86400 (1 day)
+ *  604800 (1 week)
+ *  2592000 (1 month)
+ *  31557600 (1 year).
+ *  Required: No, if the envent's 'type' = QBMEventTypeOneShot, QBMEventTypeMultiShot or QBMEventTypeFixedDate
+ *  Yes, if the envent's 'type' = QBMEventTypePeriodDate
  */
-+ (QB_NONNULL QBMEvent *)event;
+@property (nonatomic, assign) NSUInteger period;
 
+/** 
+ *  Event's occured count.
+ */
+@property (nonatomic, assign) NSUInteger occuredCount;
+
+/** 
+ *  Event's sender ID.
+ */
+@property (nonatomic, assign) NSUInteger senderID;
+
+/** 
+ *  Create new event.
+ *
+ *  @return New instance of QBMEvent
+ */
++ (QBMEvent *)event;
 
 - (void)prepareMessage;
-
 
 #pragma mark -
 #pragma mark Converters
 
-+ (enum QBMEventType)eventTypeFromString:(QB_NULLABLE NSString *)eventType;
-+ (QB_NULLABLE NSString *)eventTypeToString:(enum QBMEventType)eventType;
++ (QBMEventType)eventTypeFromString:(nullable NSString *)eventType;
++ (nullable NSString *)eventTypeToString:(QBMEventType)eventType;
 
-+ (enum QBMNotificationType)notificationTypeFromString:(QB_NULLABLE NSString *)notificationType;
-+ (QB_NULLABLE NSString*)notificationTypeToString:(enum QBMNotificationType)notificationType;
++ (QBMNotificationType)notificationTypeFromString:(nullable NSString *)notificationType;
++ (nullable NSString*)notificationTypeToString:(QBMNotificationType)notificationType;
 
-+ (enum QBMPushType)pushTypeFromString:(QB_NULLABLE NSString *)pushType;
-+ (QB_NULLABLE NSString *)pushTypeToString:(enum QBMPushType)pushType;
++ (QBMPushType)pushTypeFromString:(nullable NSString *)pushType;
++ (nullable NSString *)pushTypeToString:(QBMPushType)pushType;
 
-+ (QB_NONNULL NSString *)messageToString:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)message;
-+ (QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)messageFromString:(QB_NULLABLE NSString *)message;
++ (NSString *)messageToString:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)message;
++ (nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)messageFromString:(nullable NSString *)message;
 
 @end
+
+NS_ASSUME_NONNULL_END

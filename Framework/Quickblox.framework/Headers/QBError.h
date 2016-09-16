@@ -10,11 +10,15 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBError : NSObject
 
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDictionary QB_GENERIC(NSString *, NSString *) * reasons;
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSError* error;
+@property (nonatomic, readonly, nullable) NSDictionary QB_GENERIC(NSString *, NSString *) * reasons;
+@property (nonatomic, readonly, nullable) NSError *error;
 
-+ (QB_NONNULL instancetype)errorWithError:(QB_NULLABLE NSError *)error;
++ (instancetype)errorWithError:(nullable NSError *)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

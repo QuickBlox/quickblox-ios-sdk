@@ -12,11 +12,13 @@
 #define dataElement @"data"
 #define permissionsElement @"permissions"
 
+NS_ASSUME_NONNULL_BEGIN
+
 // Permissions access types
-extern NSString *const QB_NONNULL_S kQBCOPermissionsAccessOpen;
-extern NSString *const QB_NONNULL_S kQBCOPermissionsAccessOwner;
-extern NSString *const QB_NONNULL_S kQBCOPermissionsAccessOpenForUsersIDs;
-extern NSString *const QB_NONNULL_S kQBCOPermissionsAccessOpenForGroups;
+extern NSString *const kQBCOPermissionsAccessOpen;
+extern NSString *const kQBCOPermissionsAccessOwner;
+extern NSString *const kQBCOPermissionsAccessOpenForUsersIDs;
+extern NSString *const kQBCOPermissionsAccessOpenForGroups;
 
 typedef NS_ENUM(NSUInteger, QBCOAggregationOperator) {
     QBCOAggregationOperatorNone,
@@ -25,3 +27,5 @@ typedef NS_ENUM(NSUInteger, QBCOAggregationOperator) {
     QBCOAggregationOperatorMaximum,
     QBCOAggregationOperatorSummary
 };
+
+NS_ASSUME_NONNULL_END

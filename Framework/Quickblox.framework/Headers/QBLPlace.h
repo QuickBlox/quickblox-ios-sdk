@@ -12,45 +12,57 @@
 #import <CoreLocation/CoreLocation.h>
 #import "QBCEntity.h"
 
-/** QBLPlace class declaration  */
-/** Overview:*/
-/** This class represents place information. You can store places on server, and then retrieve them using search. See QBLocationService  */
+NS_ASSUME_NONNULL_BEGIN
 
-@interface QBLPlace : QBCEntity <NSCoding, NSCopying> {
-@private
-	CLLocationDegrees latitude;
-	CLLocationDegrees longitude;
-	NSString *address;
-    NSString *placeDescription;
-    NSString *title;
-    NSUInteger geoDataID;
-    NSUInteger photoID;
-}
+/** 
+ *  QBLPlace class interface.
+ *  This class represents place information. 
+ *  You can store places on server, and then retrieve them using search.
+ */
+@interface QBLPlace : QBCEntity <NSCoding, NSCopying>
 
-/** Latitude */
-@property (nonatomic) CLLocationDegrees latitude;
+/** 
+ *  Latitude.
+ */
+@property (nonatomic, assign) CLLocationDegrees latitude;
 
-/** Longitude */
-@property (nonatomic) CLLocationDegrees longitude;
+/** 
+ *  Longitude.
+ */
+@property (nonatomic, assign) CLLocationDegrees longitude;
 
-/** Address */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *address;
+/**
+ *  Address.
+ */
+@property (nonatomic, copy, nullable) NSString *address;
 
-/** Place description */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *placeDescription;
+/** 
+ *  Place description.
+ */
+@property (nonatomic, copy, nullable) NSString *placeDescription;
 
-/** Title */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *title;
+/** 
+ *  Title.
+ */
+@property (nonatomic, copy, nullable) NSString *title;
 
-/** Geo data identitider */
+/** 
+ *  Geo data identitider.
+ */
 @property (nonatomic, assign) NSUInteger geoDataID;
 
-/** Photo identifier */
+/** 
+ *  Photo identifier.
+ */
 @property (nonatomic, assign) NSUInteger photoID;
 
-/** Create new QBLPlace
- @return New instance of QBLPlace
+/** 
+ *  Create new QBLPlace.
+ *
+ *  @return New instance of QBLPlace
  */
-+ (QB_NONNULL QBLPlace *)place;
++ (QBLPlace *)place;
 
 @end
+
+NS_ASSUME_NONNULL_END

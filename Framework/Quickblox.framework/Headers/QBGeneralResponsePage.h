@@ -10,15 +10,19 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBGeneralResponsePage : NSObject
 
-@property (nonatomic, readonly) NSUInteger totalEntries;
-@property (nonatomic) NSUInteger currentPage;
-@property (nonatomic) NSUInteger perPage;
+@property (nonatomic, assign, readonly) NSUInteger totalEntries;
+@property (nonatomic, assign) NSUInteger currentPage;
+@property (nonatomic, assign) NSUInteger perPage;
 
-+ (QB_NONNULL instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage
++ (instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage
                                     perPage:(NSUInteger)perPage
                                totalEntries:(NSUInteger)totalEntries;
-+ (QB_NONNULL instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage perPage:(NSUInteger)perPage;
++ (instancetype)responsePageWithCurrentPage:(NSUInteger)currentPage perPage:(NSUInteger)perPage;
 
 @end
+
+NS_ASSUME_NONNULL_END

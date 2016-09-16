@@ -15,6 +15,8 @@
 @class QBLGeoDataFilter;
 @class QBLPlace;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBRequest (QBLocation)
 
 #pragma mark -
@@ -30,9 +32,9 @@
  @return An instance of QBRequest for cancel operation mainly.
 */
 
-+ (QB_NONNULL QBRequest *)createGeoData:(QB_NONNULL QBLGeoData *)geoData
-                           successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLGeoData * QB_NULLABLE_S geoData))successBlock
-                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)createGeoData:(QBLGeoData *)geoData
+                           successBlock:(nullable void (^)(QBResponse *response, QBLGeoData * _Nullable geoData))successBlock
+                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -48,9 +50,9 @@
  @return An instance of QBRequest for cancel operation mainly.
 */
 
-+ (QB_NONNULL QBRequest *)geoDataWithId:(NSUInteger)geoDataId
-                           successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLGeoData * QB_NULLABLE_S geoData))successBlock
-                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)geoDataWithId:(NSUInteger)geoDataId
+                           successBlock:(nullable void (^)(QBResponse *response, QBLGeoData * _Nullable geoData))successBlock
+                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -65,9 +67,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)updateGeoData:(QB_NONNULL QBLGeoData *)geodata
-                           successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBLGeoData * QB_NULLABLE_S geoData))successBlock
-                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)updateGeoData:(QBLGeoData *)geodata
+                           successBlock:(nullable void (^)(QBResponse *response, QBLGeoData * _Nullable geoData))successBlock
+                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -82,9 +84,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)deleteGeoDataWithID:(NSUInteger)geodataID
-                                 successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
-                                   errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteGeoDataWithID:(NSUInteger)geodataID
+                                 successBlock:(nullable void (^)(QBResponse *response))successBlock
+                                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -99,9 +101,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)deleteGeoDataWithRemainingDays:(NSUInteger)days
-                                            successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response))successBlock
-                                              errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteGeoDataWithRemainingDays:(NSUInteger)days
+                                            successBlock:(nullable void (^)(QBResponse *response))successBlock
+                                              errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -117,9 +119,11 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)geoDataWithFilter:(QB_NONNULL QBLGeoDataFilter *)filter
-                                       page:(QB_NULLABLE QBGeneralResponsePage *)page
-                               successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBLGeoData *) * QB_NULLABLE_S objects, QBGeneralResponsePage * QB_NULLABLE_S page))successBlock
-                                 errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)geoDataWithFilter:(QBLGeoDataFilter *)filter
+                                       page:(nullable QBGeneralResponsePage *)page
+                               successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBLGeoData *) * _Nullable objects, QBGeneralResponsePage * _Nullable page))successBlock
+                                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END

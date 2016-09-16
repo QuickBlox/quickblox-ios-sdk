@@ -10,10 +10,12 @@
 @class QBUUser;
 @class QBASession;
 
-/** QBSession class declaration. */
-/** Overview */
-/** This class represents session information. */
+NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  QBSession class interface.
+ *  This class represents session information.
+ */
 @interface QBSession : NSObject <NSCoding>
 
 /**
@@ -21,7 +23,7 @@
  *
  *  @return QBSession instance.
  */
-+ (QB_NONNULL QBSession *)currentSession;
++ (QBSession *)currentSession;
 
 /**
  *  Start session with details
@@ -29,22 +31,22 @@
  *  @param session     QBASession instance, token, applicationID, userID are required fields
  *  @param sessionDate expiration date
  */
-- (void)startSessionWithDetails:(QB_NONNULL QBASession *)session expirationDate:(QB_NONNULL NSDate *)sessionDate;
+- (void)startSessionWithDetails:(QBASession *)session expirationDate:(NSDate *)sessionDate;
 
 /**
  *  Session user
  */
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBUUser *currentUser;
+@property (nonatomic, readonly, nullable) QBUUser *currentUser;
 
 /**
  *  Session details
  */
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBASession *sessionDetails;
+@property (nonatomic, readonly, nullable) QBASession *sessionDetails;
 
 /**
  *  Session expiration date
  */
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDate *sessionExpirationDate;
+@property (nonatomic, readonly, nullable) NSDate *sessionExpirationDate;
 
 /**
  *  Token valid state
@@ -64,7 +66,7 @@
  *  @param session            QBAsession instance
  *  @param updateSessionBlock updateSessionBlock before the end of this block you should call startSessionWithDetails:
  */
-- (void)startSessionWithDetails:(QB_NONNULL QBASession *)session updateSessionBlock:(QB_NONNULL dispatch_block_t)updateSessionBlock;
+- (void)startSessionWithDetails:(QBASession *)session updateSessionBlock:(dispatch_block_t)updateSessionBlock;
 
 /**
  *  Start updated session with details
@@ -78,6 +80,8 @@
  *
  *  @param session QBAsession instance with updated credentials
  */
-- (void)startSessionWithDetails:(QB_NONNULL QBASession *)session;
+- (void)startSessionWithDetails:(QBASession *)session;
 
 @end
+
+NS_ASSUME_NONNULL_END

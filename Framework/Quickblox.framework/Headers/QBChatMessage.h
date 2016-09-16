@@ -11,6 +11,8 @@
 
 @class QBChatAttachment;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  QBChatMessage structure. Represents message object for peer-to-peer chat.
  *  Please set only text, recipientID & senderID values since ID is setted automatically by QBChat
@@ -18,14 +20,14 @@
 @interface QBChatMessage : NSObject <NSCoding, NSCopying>
 
 /**
- *  Unique identifier of message (sequential number)
+ *  Unique identifier of message (sequential number).
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *ID;
+@property (nonatomic, copy, nullable) NSString *ID;
 
 /**
- *  Message text
+ *  Message text.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *text;
+@property (nonatomic, copy, nullable) NSString *text;
 
 /**
  *  Message receiver ID
@@ -33,84 +35,81 @@
 @property (nonatomic, assign) NSUInteger recipientID;
 
 /**
- *  Message sender ID, use only for 1-1 Chat
+ *  Message sender ID.
+ *  
+ *  @discussion Use only for 1-1 Chat.
  */
 @property (nonatomic, assign) NSUInteger senderID;
 
 /**
- *  Message date sent
+ *  Message date sent.
  */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate *dateSent;
+@property (nonatomic, strong, nullable) NSDate *dateSent;
 
 /**
  *  Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.
  */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSMutableDictionary QB_GENERIC(NSString *, NSString *) *customParameters;
+@property (nonatomic, strong, null_resettable) NSMutableDictionary QB_GENERIC(NSString *, NSString *) *customParameters;
 
 /**
  *  Array of attachments. Array of QBChatAttachment instances.
  */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(QBChatAttachment *) *attachments;
+@property (nonatomic, strong, nullable) NSArray QB_GENERIC(QBChatAttachment *) *attachments;
 
 /**
- *  Message sender nick, use only for group Chat
- *
- *  @warning *Deprecated in Quickblox iOS SDK 2.7.1:* Sender nick is sender ID according to Quickblox specification. Use customParameters in order to send your own sender name.
- */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *senderNick DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.1. Use customParameters in order to send your own sender name.");
-
-/**
- *  Determines whether message was delayed
+ *  Determines whether message was delayed.
  */
 @property (nonatomic, assign) BOOL delayed;
 
 /**
- *  Determines whether message is markable
+ *  Determines whether message is markable.
  */
 @property (nonatomic, assign) BOOL markable;
 
 /**
- *  Unique identifier of chat dialog
+ *  Unique identifier of chat dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) NSString *dialogID;
+@property (nonatomic, copy, nullable) NSString *dialogID;
 
 /**
- *  Created date
+ *  Created date.
  */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate *createdAt;
+@property (nonatomic, strong, nullable) NSDate *createdAt;
 
 /**
- *  Updated date
+ *  Updated date.
  */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSDate *updatedAt;
+@property (nonatomic, strong, nullable) NSDate *updatedAt;
 
 /**
- *  'Read' status of a message
+ *  'Read' status of a message.
  */
 @property (nonatomic, getter = isRead) BOOL read;
 
 /**
- *  The array of user's ids who read this message
+ *  The array of user's ids who read this message.
  */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSNumber *) *readIDs;
+@property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSNumber *) *readIDs;
 
 /**
- *  The array of user's ids who received this message
+ *  The array of user's ids who received this message.
  */
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSNumber *) *deliveredIDs;
+@property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSNumber *) *deliveredIDs;
 
 /**
- *  Create new message
+ *  Create new message.
  *
  *  @return new QBChatMessage instance
  */
-+ (QB_NONNULL instancetype)message;
++ (instancetype)message;
 
 /**
- *  Create new markable message
+ *  Create new markable message.
  *
  *  @return new markable QBChatMessage instance
  */
-+ (QB_NONNULL instancetype)markableMessage;
++ (instancetype)markableMessage;
 
 @end
+
+NS_ASSUME_NONNULL_END

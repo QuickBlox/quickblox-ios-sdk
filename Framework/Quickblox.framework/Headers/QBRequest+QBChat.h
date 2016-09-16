@@ -15,6 +15,8 @@
 @class QBChatMessage;
 @class QBChatDialog;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBRequest (QBChat)
 
 /**
@@ -25,8 +27,8 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)dialogsWithSuccessBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatDialog *) * QB_NULLABLE_S dialogObjects, NSSet QB_GENERIC(NSNumber *) * QB_NULLABLE_S dialogsUsersIDs))successBlock
-                                       errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)dialogsWithSuccessBlock:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBChatDialog *) * _Nullable dialogObjects, NSSet QB_GENERIC(NSNumber *) * _Nullable dialogsUsersIDs))successBlock
+                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Retrieve chat dialogs for page
@@ -38,10 +40,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)dialogsForPage:(QB_NULLABLE QBResponsePage *)page
-                         extendedRequest:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedRequest
-                            successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatDialog *) * QB_NULLABLE_S dialogObjects,NSSet QB_GENERIC(NSNumber *) * QB_NULLABLE_S dialogsUsersIDs, QBResponsePage * QB_NULLABLE_S page))successBlock
-                              errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)dialogsForPage:(QBResponsePage *)page
+              extendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedRequest
+                 successBlock:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBChatDialog *) * _Nullable dialogObjects, NSSet QB_GENERIC(NSNumber *) * _Nullable dialogsUsersIDs, QBResponsePage * _Nullable page))successBlock
+                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Create chat dialog
@@ -52,9 +54,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)createDialog:(QB_NONNULL QBChatDialog *)dialog
-                          successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBChatDialog * QB_NULLABLE_S createdDialog))successBlock
-                            errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)createDialog:(QBChatDialog *)dialog
+               successBlock:(nullable void(^)(QBResponse *response, QBChatDialog * _Nullable createdDialog))successBlock
+                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Update existing chat dialog
@@ -65,9 +67,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)updateDialog:(QB_NONNULL QBChatDialog *)dialog
-                          successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, QBChatDialog * QB_NULLABLE_S chatDialog))successBlock
-                            errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)updateDialog:(QBChatDialog *)dialog
+               successBlock:(nullable void (^)(QBResponse *response, QBChatDialog * _Nullable chatDialog))successBlock
+                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Delete dialogs
@@ -81,10 +83,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)deleteDialogsWithIDs:(QB_NONNULL NSSet QB_GENERIC(NSString *) *)dialogIDs
-                                   forAllUsers:(BOOL)forAllUsers
-                                  successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(NSString *) * QB_NULLABLE_S deletedObjectsIDs, NSArray QB_GENERIC(NSString *) * QB_NULLABLE_S notFoundObjectsIDs, NSArray QB_GENERIC(NSString *) * QB_NULLABLE_S wrongPermissionsObjectsIDs))successBlock
-                                    errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteDialogsWithIDs:(NSSet QB_GENERIC(NSString *) *)dialogIDs
+                        forAllUsers:(BOOL)forAllUsers
+                       successBlock:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(NSString *) * _Nullable deletedObjectsIDs, NSArray QB_GENERIC(NSString *) * _Nullable notFoundObjectsIDs, NSArray QB_GENERIC(NSString *) * _Nullable wrongPermissionsObjectsIDs))successBlock
+                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Retrieve first 100 chat messages within particular dialog
@@ -95,9 +97,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)messagesWithDialogID:(QB_NONNULL NSString *)dialogID
-                                  successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatMessage *) * QB_NULLABLE_S messages))successBlock
-                                    errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)messagesWithDialogID:(NSString *)dialogID
+                       successBlock:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages))successBlock
+                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Retrieve chat messages within particular dialog for page.
@@ -116,11 +118,11 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)messagesWithDialogID:(QB_NONNULL NSString *)dialogID
-                               extendedRequest:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *) extendedParameters
-                                       forPage:(QB_NULLABLE QBResponsePage *)page
-                                  successBlock:(QB_NULLABLE void (^)(QBResponse * QB_NONNULL_S response, NSArray QB_GENERIC(QBChatMessage *) * QB_NULLABLE_S messages, QBResponsePage * QB_NULLABLE_S page))successBlock
-                                    errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)messagesWithDialogID:(NSString *)dialogID
+                    extendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *) extendedParameters
+                            forPage:(nullable QBResponsePage *)page
+                       successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages, QBResponsePage * _Nullable page))successBlock
+                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 /**
  Create chat message.
  
@@ -130,9 +132,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)createMessage:(QB_NONNULL QBChatMessage *)message
-                           successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBChatMessage * QB_NONNULL_S createdMessage))successBlock
-                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)createMessage:(QBChatMessage *)message
+                successBlock:(nullable void(^)(QBResponse *response, QBChatMessage *createdMessage))successBlock
+                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Update existing chat message - mark it as read.
@@ -145,9 +147,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)updateMessage:(QB_NONNULL QBChatMessage *)message
-                           successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                             errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)updateMessage:(QBChatMessage *)message
+                successBlock:(nullable void(^)(QBResponse *response))successBlock
+                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Mark messages as read.
@@ -160,10 +162,10 @@
  @param errorBlock Block with response instance if request failed.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
-+ (QB_NONNULL QBRequest *)markMessagesAsRead:(QB_NULLABLE NSSet QB_GENERIC(NSString *) *)messagesIDs
-                                    dialogID:(QB_NONNULL NSString *)dialogID
-                                successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                                  errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)markMessagesAsRead:(nullable NSSet QB_GENERIC(NSString *) *)messagesIDs
+                         dialogID:(NSString *)dialogID
+                     successBlock:(nullable void(^)(QBResponse *response))successBlock
+                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Delete existent chat messages completely for all users
@@ -176,10 +178,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)deleteMessagesWithIDs:(QB_NONNULL NSSet QB_GENERIC(NSString *) *)messageIDs
-                                    forAllUsers:(BOOL)forAllUsers
-                                   successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                                     errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteMessagesWithIDs:(NSSet QB_GENERIC(NSString *) *)messageIDs
+                         forAllUsers:(BOOL)forAllUsers
+                        successBlock:(nullable void(^)(QBResponse *response))successBlock
+                          errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Returns count of dialogs.
@@ -190,9 +192,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)countOfDialogsWithExtendedRequest:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)parameters
-                                               successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSUInteger count)) successBlock
-                                                 errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)countOfDialogsWithExtendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)parameters
+                                    successBlock:(nullable void(^)(QBResponse *response, NSUInteger count)) successBlock
+                                      errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Returns count of messages for dialog.
@@ -204,10 +206,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)countOfMessagesForDialogID:(QB_NONNULL NSString *)dialogID
-                                     extendedRequest:(QB_NULLABLE NSDictionary QB_GENERIC(NSString *, NSString *) *)parameters
-                                        successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSUInteger count)) successBlock
-                                          errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)countOfMessagesForDialogID:(NSString *)dialogID
+                          extendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)parameters
+                             successBlock:(nullable void(^)(QBResponse *response, NSUInteger count)) successBlock
+                               errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  *  Returns unread message count for dialogs with ids. Includes total count for all dialogs for user also.
@@ -218,8 +220,10 @@
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)totalUnreadMessageCountForDialogsWithIDs:(QB_NONNULL NSSet QB_GENERIC(NSString *) *)dialogIDs
-                                                      successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSUInteger count, NSDictionary QB_GENERIC(NSString *, id) * QB_NULLABLE_S dialogs))successBlock
-                                                        errorBlock:(QB_NULLABLE QBRequestErrorBlock)errorBlock;
++ (QBRequest *)totalUnreadMessageCountForDialogsWithIDs:(NSSet QB_GENERIC(NSString *) *)dialogIDs
+                                           successBlock:(nullable void(^)(QBResponse *response, NSUInteger count, NSDictionary QB_GENERIC(NSString *, id) * _Nullable dialogs))successBlock
+                                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END

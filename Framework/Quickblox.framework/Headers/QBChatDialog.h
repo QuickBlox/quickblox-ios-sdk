@@ -11,121 +11,172 @@
 #import <Quickblox/QBGeneric.h>
 #import "ChatEnums.h"
 
-typedef void(^QBChatDialogStatusBlock)() DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatCompletionBlock instead.");
-typedef void(^QBChatDialogRequestOnlineUsersBlock)(NSMutableArray QB_GENERIC(NSNumber *) * QB_NULLABLE_S onlineUsers) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogRequestOnlineUsersCompletionBlock instead.");
-typedef void(^QBChatDialogJoinFailedBlock)(NSError * QB_NULLABLE_S error) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatCompletionBlock instead.");
-typedef void(^QBChatDialogIsTypingBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
-typedef void(^QBChatDialogStoppedTypingBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
-typedef void(^QBChatDialogOccupantJoinBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
-typedef void(^QBChatDialogOccupantLeaveBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
-typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID) DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.2. Use QBChatDialogUserBlock instead.");
-
 @class QBChatMessage;
 
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ *  QBChatDialog class interface.
+ *  This class represents chat dialog model from server.
+ *
+ *  @see http://quickblox.com/developers/Chat#Dialog_model
+ */
 @interface QBChatDialog : NSObject <NSCoding, NSCopying>
 
-/** Object ID */
-@property (nonatomic, retain, readonly, QB_NULLABLE_PROPERTY) NSString *ID;
+/**
+ *  Chat dialog ID.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *ID;
 
-/** Created date */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *createdAt;
+/**
+ *  Chat dialog creation date.
+ */
+@property (nonatomic, strong, nullable) NSDate *createdAt;
 
-/** Updated date */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *updatedAt;
+/**
+ *  Chat dialog update date.
+ */
+@property (nonatomic, strong, nullable) NSDate *updatedAt;
 
-/** Room JID. If private chat, room JID will be nil */
-@property (nonatomic, retain, readonly, QB_NULLABLE_PROPERTY) NSString *roomJID;
+/**
+ *  Room JID. 
+ *
+ *  @note If chat dialog is private, room JID will be nil.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *roomJID;
 
-/** Chat type: Private/Group/PublicGroup */
+/**
+ *  Chat dialog type.
+ *
+ *  @see QBChatDialogType
+ */
 @property (nonatomic, readonly) QBChatDialogType type;
 
-/** Group chat name. If chat type is private, name will be nil */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *name;
+/**
+ *  Group chat dialog name.
+ *
+ *  @note If chat type is private, name will be nil.
+ */
+@property (nonatomic, copy, nullable) NSString *name;
 
-/** Group chat photo. Can contain a link to a file in Content module, Custom Objects module or just a web link. */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *photo;
+/**
+ *  Group chat photo.
+ *
+ *  @discussion Can contain a link to a file in Content module, Custom Objects module or just a web link.
+ */
+@property (nonatomic, copy, nullable) NSString *photo;
 
-/** Last message text in private or group chat */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *lastMessageText;
+/**
+ *  Last message text for current chat dialog.
+ */
+@property (nonatomic, copy, nullable) NSString *lastMessageText;
 
-/** Date of last message in private or group chat */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDate *lastMessageDate;
+/**
+ *  Date of last message in current chat dialog.
+ */
+@property (nonatomic, strong, nullable) NSDate *lastMessageDate;
 
-/** User ID of last opponent in private or group chat */
+/**
+ *  Sender user ID of last message in current chat dialog.
+ */
 @property (nonatomic, assign) NSUInteger lastMessageUserID;
 
-/** Number of unread messages in this dialog */
+/**
+ *  Number of unread messages in current chat dialog.
+ */
 @property (nonatomic, assign) NSUInteger unreadMessagesCount;
 
-/** Array of user ids in chat. For private chat count = 2 */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSNumber *) *occupantIDs;
+/**
+ *  Array of user ids in chat.
+ *
+ *  @note For private chat dialog count is 2.
+ */
+@property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSNumber *) *occupantIDs;
 
-/** The dictionary with data */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSDictionary QB_GENERIC(NSString *, id) *data;
+/**
+ *  The dictionary with custom data.
+ *
+ *  @see https://quickblox.com/developers/SimpleSample-chat_users-ios#Custom_parameters
+ */
+@property (nonatomic, copy, nullable) NSDictionary QB_GENERIC(NSString *, id) *data;
 
-/** 
- * Dialog owner
+/**
+ *  Chat dialog owner user ID.
  */
 @property (nonatomic, assign) NSUInteger userID;
 
-/** 
- * ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise. Will always return -1 if QBSession currentUser is nil.  
- * Will be retrieved from [[QBSession currentSession] currentUser] by subtracting currentUser.ID from occupantsIDs.
+/**
+ *  Recipient ID for private chat dialog.
+ *
+ *  @note ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise.
+ *  Will always return -1 if QBSession currentUser is nil.
+ *
+ *  @discussion Will be retrieved from '[QBSession currentSession].currentUser'
+ *  by subtracting currentUser.ID from occupantsIDs.
  */
 @property (nonatomic, readonly) NSInteger recipientID;
 
 /**
- * Occupants ids to push. Use this method to add occupants to the dialog
+ *  Occupants ids to push.
+ *
+ *  @discussion Use this method to add occupants to the dialog.
  */
-@property (strong, nonatomic, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSString *) *pushOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSString *) *pushOccupantsIDs;
 
 /**
- * Occupants ids to pull. Use this method to delete occupants from the dialog
+ *  Occupants ids to pull.
+ *
+ *  @discussion Use this method to delete occupants from the chat dialog.
  */
-@property (strong, nonatomic, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(NSString *) *pullOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSString *) *pullOccupantsIDs;
 
 /**
- *  Fired when sent message was blocked on server.
+ *  Called whenever sent message was blocked on server.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatCompletionBlock onBlockedMessage;
+@property (nonatomic, copy, nullable) QBChatCompletionBlock onBlockedMessage;
 
 /**
- *  Fired when user is typing in dialog.
+ *  Called whenever user is typing in current chat dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onUserIsTyping;
+@property (nonatomic, copy, nullable) QBChatDialogUserBlock onUserIsTyping;
 
 /**
- *  Fired when user has stopped typing in dialog.
+ *  Called whenever user has stopped typing in current chat dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onUserStoppedTyping;
+@property (nonatomic, copy, nullable) QBChatDialogUserBlock onUserStoppedTyping;
 
 /**
- *  Fired when occupant has joined to Group or Public group dialog.
+ *  Called whenever occupant has joined to the current Group or Public group chat dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onJoinOccupant;
+@property (nonatomic, copy, nullable) QBChatDialogUserBlock onJoinOccupant;
 
 /**
- *  Fired when occupant has left the Group or Public group dialog.
+ *  Called whenever occupant has left the current Group or Public group chat dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onLeaveOccupant;
+@property (nonatomic, copy, nullable) QBChatDialogUserBlock onLeaveOccupant;
 
 /**
- *  Fired when occupant has updated his presence status in the Group or Public group dialog.
+ *  Called whenever occupant has updated his presence status in the current Group or Public group chat dialog.
  */
-@property (nonatomic, copy, QB_NULLABLE_PROPERTY) QBChatDialogUserBlock onUpdateOccupant;
+@property (nonatomic, copy, nullable) QBChatDialogUserBlock onUpdateOccupant;
 
-/**  Constructor */
-- (QB_NONNULL instancetype)initWithDialogID:(QB_NULLABLE NSString *)dialogID type:(enum QBChatDialogType)type;
-
-/**
- *  'init' is not a supported initializer for this class.
- */
-- (QB_NONNULL id)init NS_UNAVAILABLE;
+// Unavailable initializers
+- (id)init NS_UNAVAILABLE;
++ (id)new NS_UNAVAILABLE;
 
 /**
- *  'new' is not a supported initializer for this class.
+ *  Init with dialog ID and type.
+ *
+ *  @param dialogID dialog ID string
+ *  @param type     dialog type
+ *
+ *  @see QBChatDialogType
+ *
+ *  @discussion Pass nil for dialogID if you are creating a new dialog.
+ *
+ *  @return QBChatDialog instance.
  */
-+ (QB_NONNULL id)new NS_UNAVAILABLE;
+- (instancetype)initWithDialogID:(nullable NSString *)dialogID type:(QBChatDialogType)type;
 
 #pragma mark - Send message
 
@@ -135,15 +186,19 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID) DEPRECATED_MSG
  *  @param message    Chat message to send.
  *  @param completion Completion block with failure error.
  */
-- (void)sendMessage:(QB_NONNULL QBChatMessage *)message completionBlock:(QB_NULLABLE_S QBChatCompletionBlock)completion;
+- (void)sendMessage:(QBChatMessage *)message completionBlock:(nullable QBChatCompletionBlock)completion;
 
 /**
- *  Available only for 'Enterprise' clients.* Send group chat message to room, without room join
+ *  Send group chat message to room, without room join.
  *
  *  @param message      Chat message to send
  *  @param completion   Completion block with failure error.
+ *
+ *  @note Available only for 'Enterprise' clients.
+ *
+ *  @see http://quickblox.com/enterprise/
  */
-- (void)sendGroupChatMessageWithoutJoin:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)sendGroupChatMessageWithoutJoin:(QBChatMessage *)message completion:(nullable QBChatCompletionBlock)completion;
 
 #pragma mark - Join/leave
 
@@ -159,35 +214,39 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID) DEPRECATED_MSG
  *
  *  @param completion  Completion block with failure error.
  */
-- (void)joinWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)joinWithCompletionBlock:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Leave joined room.
  *
  *  @param completion  Completion block with failure error.
  */
-- (void)leaveWithCompletionBlock:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)leaveWithCompletionBlock:(nullable QBChatCompletionBlock)completion;
 
 /**
- *  Clears dialog occupants status blocks. Call this method if you don't want to recieve join/leave/update for this dialog.
+ *  Clears dialog occupants status blocks.
+ *
+ *  @discussion Call this method if you don't want to recieve join/leave/update for this dialog.
  */
 - (void)clearDialogOccupantsStatusBlock;
 
 #pragma mark - Users status
 
 /**
- *  Requests users who are joined to room. 'onReceiveListOfOnlineUsers' block will be called.
+ *  Requests users who are joined to room.
  *
  *  @param completion  Completion block with failure error and array of user ids.
  */
-- (void)requestOnlineUsersWithCompletionBlock:(QB_NULLABLE QBChatDialogRequestOnlineUsersCompletionBlock)completion;
+- (void)requestOnlineUsersWithCompletionBlock:(nullable QBChatDialogRequestOnlineUsersCompletionBlock)completion;
 
 #pragma mark - Now typing
 
 /**
- *  Available only for 'Enterprise' clients.*
- *  
  *  Send is typing message to occupants.
+ *
+ *  @note Available only for 'Enterprise' clients.
+ *
+ *  @see http://quickblox.com/enterprise/
  */
 - (void)sendUserIsTypingWithoutJoin;
 
@@ -202,15 +261,21 @@ typedef void(^QBChatDialogOccupantUpdateBlock)(NSUInteger userID) DEPRECATED_MSG
 - (void)sendUserStoppedTyping;
 
 /**
- *  Available only for 'Enterprise' clients.*
- *
  *  Send stopped typing message to occupants.
+ *
+ *  @note Available only for 'Enterprise' clients.
+ *
+ *  @see http://quickblox.com/enterprise/
  */
 - (void)sendUserStoppedTypingWithoutJoin;
 
 /**
- *  Clears typing status blocks. Call this method if you don't want to recieve typing statuses for this dialog.
+ *  Clears typing status blocks.
+ *
+ *  @discussion Call this method if you don't want to recieve typing statuses for this dialog.
  */
 - (void)clearTypingStatusBlocks;
 
 @end
+
+NS_ASSUME_NONNULL_END
