@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  property to YES. After that the user, who is blocking, will receive errors
  *  when will try to communicate with blocked user.
  */
-@property (assign, nonatomic, readonly) BOOL mutualBlock;
+@property (assign, nonatomic) BOOL mutualBlock;
 
 // unavailable initializers
 - (instancetype)init NS_UNAVAILABLE;
