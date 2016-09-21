@@ -313,6 +313,10 @@ QMDeferredQueueManagerDelegate
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date {
     
+    if (![[self queueManager] shouldSendMessagesInDialogWithID:self.dialog.ID]) {
+        return;
+    }
+    
     if (self.typingTimer != nil) {
         [self fireStopTypingIfNecessary];
     }
@@ -756,7 +760,6 @@ QMDeferredQueueManagerDelegate
     
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
-    NSLog(@"text: %@\nID: %@",currentMessage.text,currentMessage.ID);
     QMMessageStatus status = [[self queueManager] statusForMessage:currentMessage];
     
     if (status == QMMessageStatusNotSent && currentMessage.senderID == self.senderID)

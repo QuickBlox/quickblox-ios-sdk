@@ -22,7 +22,8 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 
 @interface QMDeferredQueueManager : NSObject
 
-@property (nonatomic,assign) NSTimeInterval autoSendTimeInterval;
+@property (nonatomic, assign) NSTimeInterval autoSendTimeInterval;
+@property (nonatomic, assign) NSUInteger maxDeferredActionsCount;
 
 - (void)addDelegate:(QB_NONNULL id <QMDeferredQueueManagerDelegate>)delegate;
 - (void)removeDelegate:(QB_NONNULL id <QMDeferredQueueManagerDelegate>)delegate;
@@ -39,6 +40,8 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 - (QB_NONNULL BFTask *)perfromDefferedActionForMessage:(QB_NONNULL QBChatMessage *)message;
 
 - (QMMessageStatus)statusForMessage:(QB_NONNULL QBChatMessage *)message;
+
+- (BOOL)shouldSendMessagesInDialogWithID:(NSString *)dialogID;
 
 @end
 

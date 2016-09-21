@@ -5,7 +5,7 @@ PODS:
   - Bolts/AppLinks (1.5.1):
     - Bolts/Tasks
   - Bolts/Tasks (1.5.1)
-  - Crashlytics (3.8.0):
+  - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.8)
   - QMCVDevelopment (0.3.10):
@@ -72,15 +72,15 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: fb91417cd9f6fe3f55ac55ca7fdbeccb3ffb7435
+    :commit: 35886098a211d32f532462df622abdfd9ac016f7
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 29f21371abf74a12b1bbcf54b6adde5101318e82
+    :commit: c299398bdef6221620600ef19bf2091897ba6400
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
-  Crashlytics: 8601d9c74a4c4d28f3e7f408bf4c0e490c70e8b4
+  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   QMCVDevelopment: 77830b179e3b754f275174c1efc0efc43b94a855
   QMServicesDevelopment: 1eeb4f9aa76b64674f4d47e863f0a23b5bc9f680

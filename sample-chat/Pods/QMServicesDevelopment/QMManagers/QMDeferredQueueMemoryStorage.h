@@ -12,14 +12,14 @@
 
 @interface QMDeferredQueueMemoryStorage : NSObject <QMMemoryStorageProtocol>
 
-- (void)addMessage:(QBChatMessage *)message;
+- (void)addMessage:(QB_NONNULL QBChatMessage *)message;
 
-- (void)removeMessage:(QBChatMessage *)message;
+- (void)removeMessage:(QB_NONNULL QBChatMessage *)message;
 
 - (void)addMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 - (void)removeMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
-- (BOOL)containsMessage:(QBChatMessage *)message;
+- (BOOL)containsMessage:(QB_NONNULL QBChatMessage *)message;
 
 - (QB_NULLABLE NSArray QB_GENERIC(QBChatMessage *) *)messages;
 - (QB_NULLABLE NSArray QB_GENERIC(QBChatMessage *) *)messagesSortedWithDescriptors:(QB_NONNULL NSArray QB_GENERIC(NSSortDescriptor*) *)descriptors;

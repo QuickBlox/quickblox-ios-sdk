@@ -39,11 +39,18 @@
 
 - (void)addMessage:(QBChatMessage *)message {
     
+    NSAssert(message != nil, @"Message is nil!");
+    NSAssert(message.ID != nil, @"Messagewithout identifier!");
+    NSAssert(message.dateSent != nil, @"Message without dateSent!");
+    
     QBChatMessage *localMessage = self.messagesInQueue[message.ID];
     
     if (localMessage == nil) {
 
         self.messagesInQueue[message.ID] = message;
+    }
+    else {
+        localMessage.dateSent = message.dateSent;
     }
     
 }
@@ -56,7 +63,7 @@
     return [self.messagesInQueue.allKeys containsObject:message.ID];
 }
 
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatMessage *) *)messages {
+- (NSArray *)messages {
     
     NSSortDescriptor *dateSentDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"dateSent" ascending:YES];
     NSSortDescriptor *idDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"ID" ascending:YES];
@@ -64,7 +71,7 @@
     return [self messagesSortedWithDescriptors:@[dateSentDescriptor,idDescriptor]];
 }
 
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatMessage *) *)messagesSortedWithDescriptors:(QB_NONNULL NSArray QB_GENERIC(NSSortDescriptor*) *)descriptors {
+- (NSArray *)messagesSortedWithDescriptors:(QB_NONNULL NSArray QB_GENERIC(NSSortDescriptor*) *)descriptors {
     
     NSArray *sortedMessages = [self.messagesInQueue.allValues sortedArrayUsingDescriptors:descriptors];
     

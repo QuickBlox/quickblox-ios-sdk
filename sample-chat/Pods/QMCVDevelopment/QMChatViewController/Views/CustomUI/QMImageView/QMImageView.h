@@ -38,16 +38,9 @@ typedef NS_ENUM(NSUInteger, QMImageViewType) {
          completedBlock:(SDWebImageCompletionBlock)completedBlock;
 
 /**
- *  If imageViewType is not none, the original image will also be saved.
- *
- *  @return Original image if existent
+ *  Clear current image view instance from image.
  */
-- (UIImage *)originalImage;
-
-/**
- *  Removing image from cache and display.
- */
-- (void)removeImage;
+- (void)clearImage;
 
 @end
 
