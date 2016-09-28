@@ -4,8 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 
 typedef NS_ENUM(NSUInteger, QBLogLevel) {
     QBLogLevelNothing   =      0,  //  0 - Nothing in Log

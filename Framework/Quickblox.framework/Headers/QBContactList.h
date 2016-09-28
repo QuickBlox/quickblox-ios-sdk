@@ -9,22 +9,22 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
-/**
- QBContactList structure. Represents user's contact list
- */
-
 @class QBContactListItem;
 
+/**
+ *  QBContactList class interface.
+ *  Represents user's contact list.
+ */
 @interface QBContactList : NSObject
 
 /**
- Current contacts
+ *  Current contacts.
  */
-@property (atomic, readonly, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(QBContactListItem *) * contacts;
+@property (nonatomic, readonly, nullable) NSArray QB_GENERIC(QBContactListItem *) *contacts;
 
 /**
- Your requests which pending approval
+ *  Your requests which pending approval.
  */
-@property (atomic, readonly, QB_NULLABLE_PROPERTY) NSArray QB_GENERIC(QBContactListItem *) * pendingApproval;
+@property (nonatomic, readonly, nullable) NSArray QB_GENERIC(QBContactListItem *) *pendingApproval;
 
 @end

@@ -12,13 +12,12 @@ typedef NS_ENUM(NSUInteger, QBRTCSoundRoute) {
     
     QBRTCSoundRouteNotDefined,
     QBRTCSoundRouteSpeaker,
-	/// Internal receiver, Headset and Heaphones are classified as receiver
     QBRTCSoundRouteReceiver
 };
 
 /**
- * QuickBlox WebRTC sound router
- * Allows to manage audio routes with currentSoundRoute property
+ * Class used to manage audio routes
+ * To change output from speaker to receiver(headset) use currentSoundRoute property
  */
 @interface QBRTCSoundRouter : NSObject
 
@@ -28,45 +27,30 @@ typedef NS_ENUM(NSUInteger, QBRTCSoundRoute) {
 + (instancetype)instance;
 
 /**
- *  Shows whether the router is initialized or not
+ *  Shows if we have saved current audio router settings with -initialize method
  *
- *  @return YES if the router is active
+ *  @return YES if we successfully called -initialize method before, NO otherwise
  */
 - (BOOL)isActive;
 
 /**
- *  Initializes sound router
- *
- * @return YES if success, NO if router has already been initialized
+ *  Call this method when you want to start a call and you want to save current audio router settings
+ * 
+ * @return YES if success, NO if router failed to save current audio settings
  */
 - (BOOL)initialize;
 
 /**
- *  Call this method when you want to deinitialize sound router
+ *  call this method when you want to restore previously saved audio router settings saved with "-initialize" method
  *
- *  @return YES if success, NO if router was not initialized
+ *  @return YES if audio router settings is successfully restored to initial state, NO if router can not restore
  */
 - (BOOL)deinitialize;
 
 /// @return YES if headset or headphones are plugged in
 @property (assign, nonatomic, readonly) BOOL isHeadsetPluggedIn;
 
-/// @return YES if bluetooth device is plugged in
-@property (assign, nonatomic, readonly) BOOL isBluetoothPluggedIn;
-
-/**
- *  Sets current sound route
- *
- *  @param currentSoundRoute QBRTCSoundRouteSpeaker and QBRTCSoundRouteReceiver are allowed values
- *
- *  @return YES if success, NO if error or currentSoundRoute already set
- */
-- (BOOL)setCurrentSoundRoute:(QBRTCSoundRoute)currentSoundRoute;
-
-/**
- *  KVO - observable
- *  @return QBRTCSoundRouteReceiver, QBRTCSoundRouteSpeaker, or QBRTCSoundRouteNotDefined if there is a problem
- */
-@property(nonatomic, assign, readonly) QBRTCSoundRoute currentSoundRoute;
+/// @return QBRTCSoundRouteReceiver, QBRTCSoundRouteSpeaker, or QBRTCSoundRouteNotDefined if there is a problem
+@property (assign, nonatomic) QBRTCSoundRoute currentSoundRoute;
 
 @end

@@ -6,12 +6,14 @@
 //  Copyright (c) 2014 QuickBlox Team. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 
 @class QBRTCSession;
+@class UsersDataSource;
 
-@interface CallViewController : BaseViewController
+@interface CallViewController : UIViewController
 
 @property (strong, nonatomic) QBRTCSession *session;
+@property (weak, nonatomic) UsersDataSource *usersDatasource;
 
 @end

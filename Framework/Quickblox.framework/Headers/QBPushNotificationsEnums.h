@@ -8,32 +8,36 @@
  */
 
 // Event types
-typedef enum QBMEventType{
-	QBMEventTypeOneShot,
+typedef NS_ENUM(NSUInteger, QBMEventType) {
+    
+    QBMEventTypeOneShot,
     QBMEventTypeFixedDate,
-    QBMEventTypePeriodDate,
-} QBMEventType;
+    QBMEventTypePeriodDate
+};
 
 // Event notification types
-typedef enum QBMNotificationType{
-	QBMNotificationTypePush,
-    QBMNotificationTypeEmail,
-} QBMNotificationType;
+typedef NS_ENUM(NSUInteger, QBMNotificationType) {
+    
+    QBMNotificationTypePush,
+    QBMNotificationTypeEmail
+};
 
 // Event push types
-typedef enum QBMPushType{
-    QBMPushTypeUndefined = 0,
-    QBMPushTypeAPNS = 1,
-    QBMPushTypeGCM = 2,
-    QBMPushTypeMPNS = 3,
-    QBMPushTypeBBPS = 4
-} QBMPushType;
+typedef NS_ENUM(NSUInteger, QBMPushType) {
+    
+    QBMPushTypeUndefined,
+    QBMPushTypeAPNS,
+    QBMPushTypeGCM,
+    QBMPushTypeMPNS,
+    QBMPushTypeBBPS
+};
 
 // Notification channels
-typedef enum QBMNotificationChannel{
+typedef NS_ENUM(NSUInteger, QBMNotificationChannel) {
+    
     QBMNotificationChannelEmail,
     QBMNotificationChannelAPNS,
     QBMNotificationChannelGCM,
     QBMNotificationChannelMPNS,
-    QBMNotificationChannelBBPS,
-} QBMNotificationChannel;
+    QBMNotificationChannelBBPS
+};

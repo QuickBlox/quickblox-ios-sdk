@@ -36,7 +36,7 @@
 #import <QuickbloxWebRTC/QBRTCBitrateTracker.h>
 #import <QuickbloxWebRTC/QBRTCStatsReport.h>
 
-//2.2
+//2.1.1
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCFrameworkVersion;
-//11951
+//10677
 FOUNDATION_EXPORT NSString *const QuickbloxWebRTCRevision;

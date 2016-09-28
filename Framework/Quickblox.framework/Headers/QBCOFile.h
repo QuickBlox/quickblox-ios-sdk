@@ -10,25 +10,32 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
-@interface QBCOFile : NSObject <NSCoding, NSCopying>{
-@private
-    NSString *name;
-    NSString *contentType;
-    NSData *data;
-}
+NS_ASSUME_NONNULL_BEGIN
 
-/** File name */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *name;
+@interface QBCOFile : NSObject <NSCoding, NSCopying>
 
-/** File content type */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSString *contentType;
-
-/** File data */
-@property (nonatomic, retain, QB_NULLABLE_PROPERTY) NSData *data;
-
-/** Create file object
- @return New instance of QBCOFile
+/** 
+ *  File name.
  */
-+ (QB_NONNULL instancetype)file;
+@property (nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  File content type.
+ */
+@property (nonatomic, copy, nullable) NSString *contentType;
+
+/**
+ *  File data.
+ */
+@property (nonatomic, strong, nullable) NSData *data;
+
+/** 
+ *  Create file object.
+ *
+ *  @return New instance of QBCOFile
+ */
++ (instancetype)file;
 
 @end
+
+NS_ASSUME_NONNULL_END

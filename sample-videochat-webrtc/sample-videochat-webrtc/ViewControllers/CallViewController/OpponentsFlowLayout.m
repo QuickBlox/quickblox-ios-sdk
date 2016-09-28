@@ -10,7 +10,7 @@
 
 @interface OpponentsFlowLayout()
 
-@property (assign, nonatomic) BOOL isActvive;
+@property (strong, nonatomic) NSMutableArray *data;
 
 @end
 
@@ -25,12 +25,30 @@
     
     self.minimumInteritemSpacing = 2;
     self.minimumLineSpacing = 2;
-}
-
-- (void)invalidateLayout {
     
-    [super invalidateLayout];
-    self.isActvive = NO;
+    if (!_data) {
+        _data = [NSMutableArray array];
+    }
+    else {
+        return;
+    }
+    
+    NSInteger items = [self.collectionView.dataSource collectionView:self.collectionView
+                                              numberOfItemsInSection:0];
+    
+    for (NSUInteger itemIndex = 0; itemIndex < items; itemIndex++) {
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:itemIndex inSection:0];
+        
+        UICollectionViewLayoutAttributes *itemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+        
+        CGRect frame  = [OpponentsFlowLayout frameForWithNumberOfItems:items
+                                                                   row:itemIndex
+                                                           contentSize:self.collectionView.frame.size];
+        itemAttributes.frame = frame;
+        
+        [self.data addObject:itemAttributes];
+    }
 }
 
 + (NSUInteger )columnsWithWithNumberOfItems:(NSUInteger )numbers isPortrait:(BOOL)isPortrait{
@@ -113,24 +131,32 @@
     return result;
 }
 
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
+//- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
+//    
+//    return YES;
+//}
+
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)targetRect {
     
-    NSArray *attributes = [super layoutAttributesForElementsInRect:rect];
+    NSMutableArray *matchingLayoutAttributes = [NSMutableArray new];
+    
     
     NSInteger items = [self.collectionView.dataSource collectionView:self.collectionView
                                               numberOfItemsInSection:0];
     
-    [attributes enumerateObjectsUsingBlock:^(UICollectionViewLayoutAttributes * attribute,
-                                             NSUInteger idx,
-                                             BOOL * stop) {
+    for (UICollectionViewLayoutAttributes *cellAttributes in self.data) {
         
+        NSUInteger index = [self.data indexOfObject:cellAttributes];
         CGRect frame  = [OpponentsFlowLayout frameForWithNumberOfItems:items
-                                                                   row:idx
-                                                           contentSize:self.collectionView.frame.size];
-        attribute.frame = frame;
-    }];
+                                                                   row:index
+                                                           contentSize:self.collectionView.bounds.size];
+        cellAttributes.frame = frame;
+        UICollectionViewLayoutAttributes *copy = [cellAttributes copy];
+        [matchingLayoutAttributes addObject:copy];
+    }
     
-    return attributes;
+    
+    return matchingLayoutAttributes;
 }
 
 // center last row elements by collectionView center
@@ -148,7 +174,6 @@
                                             currentAttribute.frame.origin.y,
                                             currentAttribute.frame.size.width,
                                             currentAttribute.frame.size.height);
-        
         offsetByX += attributeWidth;
     }
 }

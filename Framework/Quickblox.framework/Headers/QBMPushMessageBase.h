@@ -10,13 +10,15 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
-@interface QBMPushMessageBase : NSObject <NSCoding, NSCopying>{
-	NSMutableDictionary *payloadDict;
-}
-@property (nonatomic,retain, QB_NULLABLE_PROPERTY) NSMutableDictionary QB_GENERIC(NSString *, id) *payloadDict;
+@interface QBMPushMessageBase : NSObject <NSCoding, NSCopying>
 
-- (QB_NONNULL instancetype)initWithPayload:(QB_NONNULL NSDictionary QB_GENERIC(NSString *, NSString *) *)payload;
-- (QB_NULLABLE NSString *)json;
+@property (nonatomic, strong, nullable) NSMutableDictionary QB_GENERIC(NSString *, id) *payloadDict;
+
+- (instancetype)initWithPayload:(NSDictionary QB_GENERIC(NSString *, NSString *) *)payload;
+- (nullable NSString *)json;
 
 @end
+
+NS_ASSUME_NONNULL_END

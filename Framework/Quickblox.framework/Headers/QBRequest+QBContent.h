@@ -11,6 +11,9 @@
 @class QBCBlob;
 @class QBCBlobObjectAccess;
 @class QBGeneralResponsePage;
+
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBRequest (QBContent)
 
 #pragma mark -
@@ -25,9 +28,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)createBlob:(QB_NONNULL QBCBlob *)blob
-                        successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBCBlob * QB_NULLABLE_S blob))successBlock
-                          errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)createBlob:(QBCBlob *)blob
+                        successBlock:(nullable void(^)(QBResponse *response, QBCBlob * _Nullable blob))successBlock
+                          errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Get Blob with ID
@@ -41,9 +44,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)blobWithID:(NSUInteger)blobID
-                        successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBCBlob * QB_NULLABLE_S blob))successBlock
-                          errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)blobWithID:(NSUInteger)blobID
+                        successBlock:(nullable void(^)(QBResponse *response, QBCBlob * _Nullable blob))successBlock
+                          errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Get list of blobs for the current user
@@ -56,8 +59,8 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)blobsWithSuccessBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBGeneralResponsePage * QB_NULLABLE_S page, NSArray QB_GENERIC(QBCBlob *) * QB_NULLABLE_S blobs))successBlock
-                                     errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)blobsWithSuccessBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray QB_GENERIC(QBCBlob *) * _Nullable blobs))successBlock
+                                     errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 /**
  Get list of blob for the current User (with extended set of pagination parameters)
@@ -68,9 +71,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)blobsForPage:(QB_NULLABLE QBGeneralResponsePage *)page
-                          successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBGeneralResponsePage * QB_NONNULL_S page, NSArray QB_GENERIC(QBCBlob *) * QB_NULLABLE_S blobs))successBlock
-                            errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)blobsForPage:(nullable QBGeneralResponsePage *)page
+                          successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray QB_GENERIC(QBCBlob *) * _Nullable blobs))successBlock
+                            errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Get list of tagged blobs for the current user
@@ -83,8 +86,8 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)taggedBlobsWithSuccessBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBGeneralResponsePage * QB_NONNULL_S page, NSArray QB_GENERIC(QBCBlob *) * QB_NULLABLE_S blobs))successBlock
-                                           errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)taggedBlobsWithSuccessBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray QB_GENERIC(QBCBlob *) * _Nullable blobs))successBlock
+                                           errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 /**
  Get list of tagged blobs for the current User (with extended set of pagination parameters)
  
@@ -94,9 +97,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)taggedBlobsForPage:(QB_NULLABLE QBGeneralResponsePage *)page
-                                successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBGeneralResponsePage * QB_NONNULL_S page, NSArray QB_GENERIC(QBCBlob *) * QB_NULLABLE_S blobs))successBlock
-                                  errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)taggedBlobsForPage:(nullable QBGeneralResponsePage *)page
+                                successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray QB_GENERIC(QBCBlob *) * _Nullable blobs))successBlock
+                                  errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Update Blob
@@ -110,9 +113,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)updateBlob:(QB_NONNULL QBCBlob *)blob
-                        successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBCBlob * QB_NONNULL_S blob))successBlock
-                          errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)updateBlob:(QBCBlob *)blob
+                        successBlock:(nullable void(^)(QBResponse *response, QBCBlob *blob))successBlock
+                          errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Delete Blob with ID
@@ -126,9 +129,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)deleteBlobWithID:(NSUInteger)blobID
-                              successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                                errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)deleteBlobWithID:(NSUInteger)blobID
+                              successBlock:(nullable void(^)(QBResponse *response))successBlock
+                                errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Declaring Blob uploaded with ID
@@ -143,10 +146,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)completeBlobWithID:(NSUInteger)blobID
++ (QBRequest *)completeBlobWithID:(NSUInteger)blobID
                                         size:(NSUInteger)size
-                                successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                                  errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
+                                successBlock:(nullable void(^)(QBResponse *response))successBlock
+                                  errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Get File by ID as BlobObjectAccess
@@ -160,9 +163,9 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)blobObjectAccessWithBlobID:(NSUInteger)blobID
-                                        successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBCBlobObjectAccess * QB_NULLABLE_S objectAccess))successBlock
-                                          errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)blobObjectAccessWithBlobID:(NSUInteger)blobID
+                                        successBlock:(nullable void(^)(QBResponse *response, QBCBlobObjectAccess * _Nullable objectAccess))successBlock
+                                          errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Upload file using BlobObjectAccess
@@ -178,11 +181,11 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)uploadFile:(QB_NULLABLE NSData *)data
-                 blobWithWriteAccess:(QB_NONNULL QBCBlob *)blobWithWriteAccess
-                        successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                         statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                          errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)uploadFile:(nullable NSData *)data
+                 blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess
+                        successBlock:(nullable void(^)(QBResponse *response))successBlock
+                         statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                          errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Download file
@@ -197,10 +200,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)downloadFileWithUID:(QB_NONNULL NSString *)UID
-                                 successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSData * QB_NONNULL_S fileData))successBlock
-                                  statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                                   errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)downloadFileWithUID:(NSString *)UID
+                                 successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
+                                  statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                                   errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 /**
  Download file using background NSURLSession.
@@ -214,10 +217,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)backgroundDownloadFileWithUID:(QB_NONNULL NSString *)UID
-                                           successBlock:(QB_NULLABLE void(^)(QBResponse *QB_NONNULL_S response, NSData *QB_NONNULL_S fileData))successBlock
-                                            statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                                             errorBlock:(QB_NULLABLE void(^)(QBResponse *QB_NONNULL_S response))errorBlock;
++ (QBRequest *)backgroundDownloadFileWithUID:(NSString *)UID
+                                           successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
+                                            statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                                             errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 /**
  Download File by file identifier.
  
@@ -228,10 +231,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)downloadFileWithID:(NSUInteger)fileID
-                                successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, NSData * QB_NONNULL_S fileData))successBlock
-                                 statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                                  errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)downloadFileWithID:(NSUInteger)fileID
+                                successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
+                                 statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                                  errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 /**
  Download File by file identifier using background NSURLSession.
@@ -245,10 +248,10 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)backgroundDownloadFileWithID:(NSUInteger)fileID
-                                          successBlock:(QB_NULLABLE void(^)(QBResponse *QB_NONNULL_S response, NSData *QB_NONNULL_S fileData))successBlock
-                                           statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                                            errorBlock:(QB_NULLABLE void(^)(QBResponse *QB_NONNULL_S response))errorBlock;
++ (QBRequest *)backgroundDownloadFileWithID:(NSUInteger)fileID
+                                          successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
+                                           statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                                            errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 #pragma mark -
 #pragma mark Tasks
@@ -266,13 +269,13 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)TUploadFile:(QB_NONNULL NSData *)data
-                             fileName:(QB_NONNULL NSString *)fileName
-                          contentType:(QB_NONNULL NSString *)contentType
++ (QBRequest *)TUploadFile:(NSData *)data
+                             fileName:(NSString *)fileName
+                          contentType:(NSString *)contentType
                              isPublic:(BOOL)isPublic
-                         successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response, QBCBlob * QB_NONNULL_S blob))successBlock
-                          statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                           errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
+                         successBlock:(nullable void(^)(QBResponse *response, QBCBlob *blob))successBlock
+                          statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                           errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 /**
  Update File task. Contains 3 quieries: Update Blob, Upload file, Declaring file uploaded
@@ -285,10 +288,12 @@
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QB_NONNULL QBRequest *)TUpdateFileWithData:(QB_NULLABLE NSData *)data
-                                         file:(QB_NONNULL QBCBlob *)file
-                                 successBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))successBlock
-                                  statusBlock:(QB_NULLABLE QBRequestStatusUpdateBlock)statusBlock
-                                   errorBlock:(QB_NULLABLE void(^)(QBResponse * QB_NONNULL_S response))errorBlock;
++ (QBRequest *)TUpdateFileWithData:(nullable NSData *)data
+                                         file:(QBCBlob *)file
+                                 successBlock:(nullable void(^)(QBResponse *response))successBlock
+                                  statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                                   errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END

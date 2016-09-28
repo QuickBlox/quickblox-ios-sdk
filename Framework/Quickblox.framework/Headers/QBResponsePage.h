@@ -7,6 +7,7 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface QBResponsePage : NSObject
 
@@ -14,10 +15,12 @@
 @property (nonatomic) NSInteger limit;
 @property (nonatomic, readonly) NSUInteger totalEntries;
 
-+ (QB_NONNULL QBResponsePage *)responsePageWithLimit:(NSInteger)limit;
-+ (QB_NONNULL QBResponsePage *)responsePageWithLimit:(NSInteger)limit skip:(NSInteger)skip;
-+ (QB_NONNULL QBResponsePage *)responsePageForLastRecord;
++ (QBResponsePage *)responsePageWithLimit:(NSInteger)limit;
++ (QBResponsePage *)responsePageWithLimit:(NSInteger)limit skip:(NSInteger)skip;
++ (QBResponsePage *)responsePageForLastRecord;
 
-+ (QB_NONNULL QBResponsePage *)responsePageWithLimit:(NSInteger)limit skip:(NSInteger)skip totalEntries:(NSUInteger)totalEntries;
++ (QBResponsePage *)responsePageWithLimit:(NSInteger)limit skip:(NSInteger)skip totalEntries:(NSUInteger)totalEntries;
 
 @end
+
+NS_ASSUME_NONNULL_END

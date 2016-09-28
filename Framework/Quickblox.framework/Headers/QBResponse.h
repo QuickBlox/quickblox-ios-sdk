@@ -23,14 +23,15 @@ typedef NS_ENUM(NSInteger, QBResponseStatusCode){
 };
 
 @class QBError;
+
 @interface QBResponse : NSObject
 
 @property (nonatomic, getter = isSuccess, readonly) BOOL success;
 
 @property (nonatomic, readonly) QBResponseStatusCode status;
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSDictionary QB_GENERIC(NSString *, NSString *) *headers;
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSData *data;
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) QBError *error;
-@property (nonatomic, readonly, QB_NULLABLE_PROPERTY) NSURL *requestUrl;
+@property (nonatomic, readonly, nullable) NSDictionary QB_GENERIC(NSString *, NSString *) *headers;
+@property (nonatomic, readonly, nullable) NSData *data;
+@property (nonatomic, readonly, nullable) QBError *error;
+@property (nonatomic, readonly, nullable) NSURL *requestUrl;
 
 @end

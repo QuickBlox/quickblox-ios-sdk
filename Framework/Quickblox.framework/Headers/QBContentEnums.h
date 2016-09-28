@@ -4,13 +4,15 @@
 //
 //  Copyright 2010 QuickBlox team. All rights reserved.
 
-typedef enum QBCBlobStatus{
-	QBCBlobStatusNew,
-	QBCBlobStatusLocked,
-	QBCBlobStatusCompleted
-} QBCBlobStatus;
+typedef NS_ENUM(NSUInteger, QBCBlobStatus) {
+    
+    QBCBlobStatusNew,
+    QBCBlobStatusLocked,
+    QBCBlobStatusCompleted
+};
 
-typedef enum QBCBlobObjectAccessType{
-	QBCBlobObjectAccessTypeRead,
-	QBCBlobObjectAccessTypeWrite
-} QBCBlobObjectAccessType;
+typedef NS_ENUM(NSUInteger, QBCBlobObjectAccessType) {
+    
+    QBCBlobObjectAccessTypeRead,
+    QBCBlobObjectAccessTypeWrite
+};

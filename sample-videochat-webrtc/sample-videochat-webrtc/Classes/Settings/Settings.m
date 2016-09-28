@@ -10,8 +10,6 @@
 
 #pragma mark - keys
 
-NSString *const kListOfUsersKey = @"listOfUsers";
-NSString *const kStunServerListKey = @"stunServerList";
 NSString *const kVideoFormatKey = @"videoFormat";
 NSString *const kPreferredCameraPosition = @"cameraPosition";
 NSString *const kVideoRendererType = @"videoRendererType";
@@ -48,10 +46,8 @@ NSString *const kMediaConfigKey = @"mediaConfig";
     NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration];
     
     [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
-    [defaults setInteger:self.listType forKey:kListOfUsersKey];
     [defaults setInteger:self.remoteVideoViewRendererType forKey:kVideoRendererType];
     
-    [defaults setObject:self.stunServers forKey:kStunServerListKey];
     [defaults setObject:videFormatData forKey:kVideoFormatKey];
     [defaults setObject:mediaConfig forKey:kMediaConfigKey];
     
@@ -62,14 +58,11 @@ NSString *const kMediaConfigKey = @"mediaConfig";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    self.listType = [defaults integerForKey:kListOfUsersKey];
-    self.stunServers = [defaults arrayForKey:kStunServerListKey];
-    
     AVCaptureDevicePosition postion = [defaults integerForKey:kPreferredCameraPosition];
     
     if (postion == AVCaptureDevicePositionUnspecified) {
         //First launch
-        postion = AVCaptureDevicePositionBack;
+        postion = AVCaptureDevicePositionFront;
     }
     
     self.preferredCameraPostion = postion;
@@ -86,10 +79,9 @@ NSString *const kMediaConfigKey = @"mediaConfig";
     }
     
     NSData *mediaConfigData = [defaults objectForKey:kMediaConfigKey];
+    
     if (mediaConfigData) {
-
         self.mediaConfiguration = [NSKeyedUnarchiver unarchiveObjectWithData:mediaConfigData];
-        
     }
     else {
         
@@ -98,33 +90,6 @@ NSString *const kMediaConfigKey = @"mediaConfig";
     
     QBRendererType type = [defaults integerForKey:kVideoRendererType];
     self.remoteVideoViewRendererType = type;
-}
-
-- (void)setListType:(ListOfUsers)listType {
-
-    _listType = listType;
-    
-    switch (self.listType) {
-            
-        case ListOfUsersPROD:
-        case ListOfUsersQA:
-        case ListOfUsersDEV: {
-            //Quickblox preferences
-            [QBSettings setApplicationID:92];
-            [QBSettings setAuthKey:@"wJHdOcQSxXQGWx5"];
-            [QBSettings setAuthSecret:@"BTFsj7Rtt27DAmT"];
-            
-            break;
-        }
-        case ListOfUsersWEB: {
-            
-            [QBSettings setApplicationID:28287];
-            [QBSettings setAuthKey:@"XydaWcf8OO9xhGT"];
-            [QBSettings setAuthSecret:@"JZfqTspCvELAmnW"];
-            
-            break;
-        }
-    }
 }
 
 @end

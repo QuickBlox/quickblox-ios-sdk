@@ -12,9 +12,24 @@
 
 @interface QBCOFileUploadInfo : NSObject<NSCoding, NSCopying>
 
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *fileIdentifier;
+/**
+ *  Unique file ID.
+ */
+@property (nonatomic, copy, nullable) NSString *fileIdentifier;
+
+/**
+ *  Size of uploaded file, in bytes.
+ */
 @property (nonatomic, assign) NSUInteger size;
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *name;
-@property (nonatomic, strong, QB_NULLABLE_PROPERTY) NSString *contentType;
+
+/**
+ *  File name (min 1 chars. max 100 chars)
+ */
+@property (nonatomic, copy, nullable) NSString *name;
+
+/**
+ *  Portable Network Graphics; mime content type (max 50 chars).
+ */
+@property (nonatomic, copy, nullable) NSString *contentType;
 
 @end

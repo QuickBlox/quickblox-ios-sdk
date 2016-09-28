@@ -12,16 +12,9 @@
 @interface Settings : NSObject
 
 @property (strong, nonatomic) QBRTCVideoFormat *videoFormat;
-
 @property (strong, nonatomic) QBRTCMediaStreamConfiguration *mediaConfiguration;
-
 @property (assign, nonatomic) QBRendererType remoteVideoViewRendererType;
-
 @property (assign, nonatomic) AVCaptureDevicePosition preferredCameraPostion;
-
-@property (assign, nonatomic) ListOfUsers listType;
-
-@property (strong, nonatomic) NSArray *stunServers;
 
 + (instancetype)instance;
 
