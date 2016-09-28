@@ -9,7 +9,7 @@
 
 import Foundation
 
-let kChatPresenceTimeInterval:NSTimeInterval = 45
+let kChatPresenceTimeInterval:TimeInterval = 45
 let kDialogsPageLimit:UInt = 100
 let kMessageContainerWidthPadding:CGFloat = 40.0
 

@@ -14,7 +14,7 @@ protocol NotificationServiceDelegate {
     *
     *  @param chatDialog QBChatDialog instance. Successfully fetched dialog
     */
-    func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!)
+    func notificationServiceDidSucceedFetchingDialog(_ chatDialog: QBChatDialog!)
     
     /**
     *  Is called when dialog was not found nor in memory storage nor in cache
@@ -42,7 +42,7 @@ class NotificationService {
     var delegate: NotificationServiceDelegate?
     var pushDialogID: String?
     
-    func handlePushNotificationWithDelegate(delegate: NotificationServiceDelegate!) {
+    func handlePushNotificationWithDelegate(_ delegate: NotificationServiceDelegate!) {
         guard let dialogID = self.pushDialogID else {
             return
         }
@@ -54,7 +54,7 @@ class NotificationService {
         self.delegate = delegate;
 
 		
-        ServicesManager.instance().chatService.fetchDialogWithID(dialogID, completion: {
+        ServicesManager.instance().chatService.fetchDialog(withID: dialogID, completion: {
             [weak self] (chatDialog: QBChatDialog?) -> Void in
 			guard let strongSelf = self else { return }
                 //
@@ -65,7 +65,7 @@ class NotificationService {
 			else {
 				//
 				strongSelf.delegate?.notificationServiceDidStartLoadingDialogFromServer()
-				ServicesManager.instance().chatService.loadDialogWithID(dialogID, completion: { (loadedDialog: QBChatDialog?) -> Void in
+				ServicesManager.instance().chatService.loadDialog(withID: dialogID, completion: { (loadedDialog: QBChatDialog?) -> Void in
 					
 					guard let unwrappedDialog = loadedDialog else {
 						strongSelf.delegate?.notificationServiceDidFailFetchingDialog()

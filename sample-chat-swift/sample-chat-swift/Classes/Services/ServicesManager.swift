@@ -7,6 +7,17 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 /**
 *  Implements user's memory/cache storing, error handling, show top bar notifications.
@@ -23,12 +34,12 @@ class ServicesManager: QMServicesManager {
         UIColor(red: 0.580, green:0.012, blue:0.580, alpha:1.000),
         UIColor(red: 0.396, green:0.580, blue:0.773, alpha:1.000),
         UIColor(red: 0.765, green:0.000, blue:0.086, alpha:1.000),
-        UIColor.redColor(),
+        UIColor.red,
         UIColor(red: 0.786, green:0.706, blue:0.000, alpha:1.000),
         UIColor(red: 0.740, green:0.624, blue:0.797, alpha:1.000)
     ]
     
-    private var contactListService : QMContactListService!
+    fileprivate var contactListService : QMContactListService!
     var notificationService: NotificationService!
     
     //var lastActivityDate: NSDate!
@@ -39,28 +50,28 @@ class ServicesManager: QMServicesManager {
         self.isProcessingLogOut = false
     }
     
-    private func setupContactServices() {
+    fileprivate func setupContactServices() {
         self.notificationService = NotificationService()
     }
     
-    func handleNewMessage(message: QBChatMessage, dialogID: String) {
+    func handleNewMessage(_ message: QBChatMessage, dialogID: String) {
         
         guard self.currentDialogID != dialogID else {
             return
         }
         
-        guard message.senderID != self.currentUser()?.ID else {
+        guard message.senderID != self.currentUser()?.id else {
             return
         }
 		
-		guard let dialog = self.chatService.dialogsMemoryStorage.chatDialogWithID(dialogID) else {
+		guard let dialog = self.chatService.dialogsMemoryStorage.chatDialog(withID: dialogID) else {
 			print("chat dialog not found")
 			return
 		}
 		
         var dialogName = "SA_STR_NEW_MESSAGE".localized
         
-        if dialog.type != QBChatDialogType.Private {
+        if dialog.type != QBChatDialogType.private {
             
             if dialog.name != nil {
                 dialogName = dialog.name!
@@ -68,30 +79,30 @@ class ServicesManager: QMServicesManager {
     
         } else {
             
-            if let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(dialog.recipientID)) {
+            if let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(dialog.recipientID)) {
                 dialogName = user.login!
             }
         }
-               QMMessageNotificationManager.showNotificationWithTitle(dialogName, subtitle: message.text, type: QMMessageNotificationType.Info)
+               QMMessageNotificationManager.showNotification(withTitle: dialogName, subtitle: message.text, type: QMMessageNotificationType.info)
     }
     
     // MARK: Last activity date
     
-    var lastActivityDate: NSDate? {
+    var lastActivityDate: Date? {
         get {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            return defaults.valueForKey("SA_STR_LAST_ACTIVITY_DATE".localized) as! NSDate?
+            let defaults = UserDefaults.standard
+            return defaults.value(forKey: "SA_STR_LAST_ACTIVITY_DATE".localized) as! Date?
         }
         set {
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(newValue, forKey: "SA_STR_LAST_ACTIVITY_DATE".localized)
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: "SA_STR_LAST_ACTIVITY_DATE".localized)
             defaults.synchronize()
         }
     }
 
     // MARK: QMServiceManagerProtocol
     
-    override func handleErrorResponse(response: QBResponse) {
+    override func handleErrorResponse(_ response: QBResponse) {
         super.handleErrorResponse(response)
         
         guard self.isAuthorized() else {
@@ -105,12 +116,12 @@ class ServicesManager: QMServicesManager {
         } else if response.status.rawValue == 0 {
             errorMessage = "SA_STR_NETWORK_ERROR".localized
         } else {
-            errorMessage = (response.error?.error?.localizedDescription.stringByReplacingOccurrencesOfString("(", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).stringByReplacingOccurrencesOfString(")", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))!
+            errorMessage = (response.error?.error?.localizedDescription.replacingOccurrences(of: "(", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil).replacingOccurrences(of: ")", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil))!
         }
 
-        QMMessageNotificationManager.showNotificationWithTitle("SA_STR_ERROR".localized,
+        QMMessageNotificationManager.showNotification(withTitle: "SA_STR_ERROR".localized,
                                                                subtitle: errorMessage,
-                                                               type: QMMessageNotificationType.Warning)
+                                                               type: QMMessageNotificationType.warning)
         
     }
 	
@@ -120,11 +131,11 @@ class ServicesManager: QMServicesManager {
 	- parameter successBlock: successBlock with sorted [QBUUser] if success
 	- parameter errorBlock:   errorBlock with error if request is failed
 	*/
-    func downloadCurrentEnvironmentUsers(successBlock:(([QBUUser]?) -> Void)?, errorBlock:((NSError) -> Void)?) {
+    func downloadCurrentEnvironmentUsers(_ successBlock:(([QBUUser]?) -> Void)?, errorBlock:((Error) -> Void)?) {
 
         let enviroment = Constants.QB_USERS_ENVIROMENT
         
-        self.usersService.searchUsersWithTags([enviroment]).continueWithBlock {
+        self.usersService.searchUsers(withTags: [enviroment]).continue ({
             [weak self] (task : BFTask!) -> AnyObject! in
 			
             if let error = task.error {
@@ -135,20 +146,20 @@ class ServicesManager: QMServicesManager {
             successBlock?(self?.sortedUsers())
             
             return nil
-        }
+        })
     }
     
     func color(forUser user:QBUUser) -> UIColor {
 		
-		let defaultColor = UIColor.blackColor()
+		let defaultColor = UIColor.black
 		
 		let users = self.usersService.usersMemoryStorage.unsortedUsers()
 		
-		guard let givenUser = self.usersService.usersMemoryStorage.userWithID(user.ID) else {
+		guard let givenUser = self.usersService.usersMemoryStorage.user(withID: user.id) else {
 			return defaultColor
 		}
 		
-		let indexOfGivenUser = users.indexOf(givenUser)
+		let indexOfGivenUser = users.index(of: givenUser)
 			
         if indexOfGivenUser < self.colors.count {
             return self.colors[indexOfGivenUser!]
@@ -166,8 +177,8 @@ class ServicesManager: QMServicesManager {
 		
 		let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers()
 
-        let sortedUsers = unsortedUsers.sort({ (user1, user2) -> Bool in
-            return user1.login!.compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
+        let sortedUsers = unsortedUsers.sorted(by: { (user1, user2) -> Bool in
+            return user1.login!.compare(user2.login!, options:NSString.CompareOptions.numeric) == ComparisonResult.orderedAscending
         })
         
         return sortedUsers
@@ -184,14 +195,14 @@ class ServicesManager: QMServicesManager {
 			return nil
 		}
 		
-		let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.ID != self.currentUser()?.ID})
+		let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.id != self.currentUser()?.id})
 		
 		return sortedUsersWithoutCurrentUser
 	}
 	
     // MARK: QMChatServiceDelegate
     
-    override func chatService(chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String) {
+    override func chatService(_ chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String) {
         
         super.chatService(chatService, didAddMessageToMemoryStorage: message, forDialogID: dialogID)
         
@@ -200,43 +211,43 @@ class ServicesManager: QMServicesManager {
         }
     }
     
-    func logoutUserWithCompletion(completion: (result: Bool)->()) {
+    func logoutUserWithCompletion(_ completion: @escaping (_ result: Bool)->()) {
         
         if self.isProcessingLogOut! {
             
-            completion(result: false)
+            completion(false)
             return
         }
         
         self.isProcessingLogOut = true
         
-        let logoutGroup = dispatch_group_create()
+        let logoutGroup = DispatchGroup()
         
-        dispatch_group_enter(logoutGroup)
+        logoutGroup.enter()
         
-        let deviceIdentifier = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        let deviceIdentifier = UIDevice.current.identifierForVendor!.uuidString
         
-        QBRequest.unregisterSubscriptionForUniqueDeviceIdentifier(deviceIdentifier, successBlock: { (response: QBResponse!) -> Void in
+        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: deviceIdentifier, successBlock: { (response: QBResponse!) -> Void in
             //
             print("Successfuly unsubscribed from push notifications")
-            dispatch_group_leave(logoutGroup)
+            logoutGroup.leave()
             
         }) { (error: QBError?) -> Void in
             //
             print("Push notifications unsubscribe failed")
-            dispatch_group_leave(logoutGroup)
+            logoutGroup.leave()
         }
         
-        dispatch_group_notify(logoutGroup, dispatch_get_main_queue()) {
+        logoutGroup.notify(queue: DispatchQueue.main) {
             [weak self] () -> Void in
             // Logouts from Quickblox, clears cache.
             guard let strongSelf = self else { return }
             
-            strongSelf.logoutWithCompletion {
+            strongSelf.logout {
                 
                 strongSelf.isProcessingLogOut = false
                 
-                completion(result: true)
+                completion(true)
                 
             }
         }
