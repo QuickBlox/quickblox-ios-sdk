@@ -417,7 +417,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
     }
     
-    func placeHolderTextView(_ textView: QMPlaceHolderTextView, shouldPasteWithSender sender: AnyObject) -> Bool {
+    func placeHolderTextView(_ textView: QMPlaceHolderTextView, shouldPasteWithSender sender: Any) -> Bool {
         
         if UIPasteboard.general.image != nil {
             
@@ -971,7 +971,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func chatCell(_ cell: QMChatCell!, didTapAtPosition position: CGPoint) {}
     
-    func chatCell(_ cell: QMChatCell!, didPerformAction action: Selector, withSender sender: AnyObject!) {}
+    func chatCell(_ cell: QMChatCell!, didPerformAction action: Selector, withSender sender: Any!) {}
     
     func chatCell(_ cell: QMChatCell!, didTapOn result: NSTextCheckingResult) {
         

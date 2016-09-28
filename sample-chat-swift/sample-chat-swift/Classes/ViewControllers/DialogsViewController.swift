@@ -176,7 +176,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 
                 ServicesManager.instance().lastActivityDate = nil;
                 
-                strongSelf.navigationController?.popToRootViewController(animated: true)
+                _ = strongSelf.navigationController?.popToRootViewController(animated: true)
                 
                 SVProgressHUD.showSuccess(withStatus: "SA_STR_COMPLETED".localized)
                 
