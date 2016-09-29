@@ -123,10 +123,6 @@ QMDeferredQueueManagerDelegate
         }];
     }
     
-    [[ServicesManager instance].chatService addDelegate:self];
-    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
-    [[self queueManager] addDelegate:self];
-    
     if ([[self storedMessages] count] > 0 && self.chatDataSource.messagesCount == 0) {
         //inserting all messages from memory storage
         [self.chatDataSource addMessages:[self storedMessages]];
@@ -174,6 +170,9 @@ QMDeferredQueueManagerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [[ServicesManager instance].chatService addDelegate:self];
+    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    [[self queueManager] addDelegate:self];
     
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
@@ -189,6 +188,10 @@ QMDeferredQueueManagerDelegate
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [[ServicesManager instance].chatService removeDelegate:self];
+    [ServicesManager instance].chatService.chatAttachmentService.delegate = nil;
+    [[self queueManager] removeDelegate:self];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerWillResignActive];
