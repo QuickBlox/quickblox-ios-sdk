@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>Messaging pictures</string>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>Taking pictures</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
