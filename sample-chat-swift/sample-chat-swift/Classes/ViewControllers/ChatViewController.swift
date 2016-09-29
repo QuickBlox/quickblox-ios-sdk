@@ -113,10 +113,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
             }
             
-            ServicesManager.instance().chatService.addDelegate(self)
-            ServicesManager.instance().chatService.chatAttachmentService.delegate = self
-            self.queueManager().add(self)
-            
             // Retrieving messages
             if (self.storedMessages()?.count > 0 && self.chatDataSource.messagesCount() == 0) {
                 
@@ -131,6 +127,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        ServicesManager.instance().chatService.addDelegate(self)
+        ServicesManager.instance().chatService.chatAttachmentService.delegate = self
+        self.queueManager().add(self)
         
         self.willResignActiveBlock = NotificationCenter.default.addObserver(
             forName: NSNotification.Name.UIApplicationWillResignActive,
@@ -163,7 +163,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         // clearing typing status blocks
         self.dialog.clearTypingStatusBlocks()
-        
+        ServicesManager.instance().chatService.removeDelegate(self)
+        ServicesManager.instance().chatService.chatAttachmentService.delegate = nil
+        self.queueManager().add(self)
         self.queueManager().remove(self)
     }
     
@@ -256,7 +258,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         return !message.isDateDividerMessage
             && message.senderID != self.senderID
-            && !message.readIDs!.contains(currentUserID)
+            && !(message.readIDs?.contains(currentUserID))!
     }
     
     func readMessages(_ messages: [QBChatMessage]) {
@@ -418,7 +420,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     func placeHolderTextView(_ textView: QMPlaceHolderTextView, shouldPasteWithSender sender: Any) -> Bool {
-        
+    
         if UIPasteboard.general.image != nil {
             
             let textAttachment = NSTextAttachment()
@@ -1053,6 +1055,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func deferredQueueManager(_ queueManager: QMDeferredQueueManager, didUpdateMessageLocally addedMessage: QBChatMessage) {
         self.chatDataSource.update(addedMessage)
     }
+ 
     // MARK: QMChatServiceDelegate
     
     func chatService(_ chatService: QMChatService, didLoadMessagesFromCache messages: [QBChatMessage], forDialogID dialogID: String) {
