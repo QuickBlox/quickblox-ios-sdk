@@ -324,6 +324,14 @@
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = 8885H5G2YX;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
