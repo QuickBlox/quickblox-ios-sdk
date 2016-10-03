@@ -253,6 +253,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "dialogcell", for: indexPath) as! DialogTableViewCell
         
         if (self.dialogs()?.count < (indexPath as NSIndexPath).row) {

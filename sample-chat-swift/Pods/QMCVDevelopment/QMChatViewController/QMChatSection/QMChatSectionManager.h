@@ -13,6 +13,7 @@
 @class QBChatMessage;
 @class QMChatSectionManager;
 @class QMChatSection;
+@class QMChatDataSource;
 
 /**
  *  QMChatSectionManagerDelegate protocol.
@@ -88,6 +89,9 @@
  *  @see QMChatSectionManagerDelegate protocol declaration.
  */
 @property (weak, nonatomic) id <QMChatSectionManagerDelegate> delegate;
+
+#pragma mark - Initialization
+- (instancetype)initWithChatDataSource:(QMChatDataSource *)dataSource;
 
 #pragma mark - Add messages
 

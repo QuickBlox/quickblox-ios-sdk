@@ -5,9 +5,9 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - Crashlytics (3.8.0):
+  - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
-  - Fabric (1.6.8)
+  - Fabric (1.6.9)
   - QMCVDevelopment (0.3.10):
     - QMCVDevelopment/Categories (= 0.3.10)
     - QMCVDevelopment/KeyboardViewController (= 0.3.10)
@@ -69,17 +69,17 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: fb91417cd9f6fe3f55ac55ca7fdbeccb3ffb7435
+    :commit: ed759111dc8b4f9068910c2bd5ea56e7854af7b7
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 29f21371abf74a12b1bbcf54b6adde5101318e82
+    :commit: 274cd828288511e01f49cd6e729b2f38d31769e8
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  Crashlytics: 8601d9c74a4c4d28f3e7f408bf4c0e490c70e8b4
-  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
-  QMCVDevelopment: 77830b179e3b754f275174c1efc0efc43b94a855
+  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
+  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
+  QMCVDevelopment: d70afb4eef2c8bcc50cbf55f075766cf8526bb29
   QMServicesDevelopment: 1eeb4f9aa76b64674f4d47e863f0a23b5bc9f680
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7
@@ -88,4 +88,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c24412cefbc7c7e7f37fe8b04cd9ff1248f545bf
 
-COCOAPODS: 1.1.0.beta.1
+COCOAPODS: 1.0.1

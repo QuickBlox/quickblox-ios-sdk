@@ -19,6 +19,7 @@ let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
 class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelegate {
 	
 	var window: UIWindow?
+    
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -36,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         QBSettings.setCarbonsEnabled(true)
         
         // Enables Quickblox REST API calls debug console output.
-		QBSettings.setLogLevel(QBLogLevel.nothing)
+		QBSettings.setLogLevel(QBLogLevel.debug)
         
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()

@@ -18,6 +18,7 @@
 #import "QMChatLocationSnapshotter.h"
 #import "QMChatResources.h"
 #import "QMDateUtils.h"
+#import "QMImageLoader.h"
 #import "QMChatAttachmentCell.h"
 #import "QMChatAttachmentIncomingCell.h"
 #import "QMChatAttachmentOutgoingCell.h"

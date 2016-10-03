@@ -922,7 +922,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             }
             
             ServicesManager.instance().chatService.loadEarlierMessages(withChatDialogID: dialogID).continue({
-                [weak self] (task: BFTask!) -> AnyObject! in
+                [weak self] (task: BFTask) -> Any! in
                 
                 guard let strongSelf = self else { return nil }
                 

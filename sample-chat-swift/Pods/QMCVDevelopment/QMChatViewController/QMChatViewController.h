@@ -49,7 +49,7 @@
  *  Returns the input toolbar view object managed by this view controller.
  *  This view controller is the toolbar's delegate.
  */
-@property (strong, nonatomic, readonly) QMInputToolbar *inputToolbar;
+@property (weak, nonatomic, readonly) QMInputToolbar *inputToolbar;
 
 /**
  *  The display name of the current user who is sending messages.
@@ -138,15 +138,15 @@
  *  Collection view reusable section header.
  *
  *  @param collectionView   collection view to dequeue reusable header
- *  @param indexPath        index path of section header
- *
+ *  @param indexPath        index path of section header.
+ *  @warning *Deprecated in 0.4.0:*.
  *  @discussion Override this method if you want to use custom reusable view as section header.
  *  Keep in mind that due to collection view being reversed, section header is actually footer.
  *
  *  @return collection view reusable view to use as section header.
  */
 - (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
-                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath;
+                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.0.");
 
 #pragma mark - Class methods
 

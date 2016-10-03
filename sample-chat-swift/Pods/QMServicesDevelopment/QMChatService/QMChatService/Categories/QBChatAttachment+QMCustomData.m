@@ -34,7 +34,7 @@
     
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.context
-                                                       options:NSJSONWritingPrettyPrinted
+                                                       options:nil
                                                          error:&error];
     
     self.data = [[NSString alloc] initWithData:jsonData

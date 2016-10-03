@@ -133,10 +133,17 @@ class ServicesManager: QMServicesManager {
 	*/
     func downloadCurrentEnvironmentUsers(_ successBlock:(([QBUUser]?) -> Void)?, errorBlock:((Error) -> Void)?) {
 
-        let enviroment = Constants.QB_USERS_ENVIROMENT
-        
+        let enviroment = "dev"
+        #if DEBUG
+             enviroment = "dev"
+        #elseif QA
+             enviroment = "qbqa"
+        #else
+            
+        #endif
+    
         self.usersService.searchUsers(withTags: [enviroment]).continue ({
-            [weak self] (task : BFTask!) -> AnyObject! in
+            [weak self] (task : BFTask) -> Any! in
 			
             if let error = task.error {
                 errorBlock?(error)

@@ -35,9 +35,9 @@ class UsersListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-
         // Fetching users from cache.
-        ServicesManager.instance().usersService.loadFromCache().continue ({ [weak self] (task : BFTask!) -> AnyObject! in
+        ServicesManager.instance().usersService.loadFromCache().continue({ [weak self] (task : BFTask) -> Any! in
+            
             if task.result?.count > 0 {
 				guard let users = ServicesManager.instance().sortedUsers() else {
 					print("No cached users")

@@ -59,7 +59,7 @@
         self.navigationItem.rightBarButtonItem?.isEnabled = tableView.indexPathsForSelectedRows?.count != nil
     }
     
-    @IBAction func createChatButtonPressed(_ sender: AnyObject) {
+    @IBAction func createChatButtonPressed(_ sender: Any) {
         
         let selectedIndexes = self.tableView.indexPathsForSelectedRows
         

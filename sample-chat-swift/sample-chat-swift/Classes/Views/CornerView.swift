@@ -33,7 +33,7 @@ class CornerView: UIView {
 			return
 		}
 			
-		let rectangleFontAttributes: [String: AnyObject] = [NSFontAttributeName: fontAttributeName,
+		let rectangleFontAttributes: [String: Any] = [NSFontAttributeName: fontAttributeName,
 			NSForegroundColorAttributeName: UIColor.white,
 			NSParagraphStyleAttributeName: style]
 		
