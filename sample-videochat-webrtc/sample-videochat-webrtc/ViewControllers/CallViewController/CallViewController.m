@@ -70,9 +70,11 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
         
         Settings *settings = Settings.instance;
+#if !(TARGET_OS_SIMULATOR)
         self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
                                                                     position:settings.preferredCameraPostion];
         [self.cameraCapture startSession];
+#endif
     }
     
     self.view.backgroundColor = self.opponentsCollectionView.backgroundColor =
