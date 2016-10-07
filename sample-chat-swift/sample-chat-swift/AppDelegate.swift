@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         let deviceIdentifier: String = UIDevice.currentDevice().identifierForVendor!.UUIDString
         let subscription: QBMSubscription! = QBMSubscription()
         
-        subscription.notificationChannel = QBMNotificationChannelAPNS
+        subscription.notificationChannel = QBMNotificationChannel.APNS
         subscription.deviceUDID = deviceIdentifier
         subscription.deviceToken = deviceToken
         QBRequest.createSubscription(subscription, successBlock: { (response: QBResponse!, objects: [QBMSubscription]?) -> Void in
