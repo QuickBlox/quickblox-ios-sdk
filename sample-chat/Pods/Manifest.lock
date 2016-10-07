@@ -8,6 +8,7 @@ PODS:
   - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.8)
+  - MPGNotification (1.2.4)
   - QMCVDevelopment (0.3.10):
     - QMCVDevelopment/Categories (= 0.3.10)
     - QMCVDevelopment/KeyboardViewController (= 0.3.10)
@@ -56,6 +57,7 @@ DEPENDENCIES:
   - Bolts (~> 1.5.0)
   - Crashlytics
   - Fabric
+  - MPGNotification
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, branch `development`)
   - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, branch `development`)
   - SearchEmojiOnString
@@ -82,6 +84,7 @@ SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
+  MPGNotification: f0e3924087afa9b3eccd5ce624e03965ae31ae61
   QMCVDevelopment: 77830b179e3b754f275174c1efc0efc43b94a855
   QMServicesDevelopment: 1eeb4f9aa76b64674f4d47e863f0a23b5bc9f680
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
@@ -90,6 +93,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-PODFILE CHECKSUM: ce13a024f26622fc65dc412d826ce92e32c3d1ce
+PODFILE CHECKSUM: 85fdab762fcf9d1dad759d82baeb6d5c527ef4a8
 
 COCOAPODS: 1.1.0.beta.1

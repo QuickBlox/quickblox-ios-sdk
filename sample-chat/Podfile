@@ -28,5 +28,5 @@ pod 'UIAlertView+Blocks'
 pod 'Fabric'
 
 pod 'Crashlytics'
-
+pod 'MPGNotification'
 end

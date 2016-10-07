@@ -42,9 +42,14 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
     notification.duration = kQMMessageNotificationDuration;
     notification.swipeToDismissEnabled = NO;
     [notification setAnimationType:MPGNotificationAnimationTypeLinear];
+
+
+    UIViewController *rootController = [[UIApplication sharedApplication].delegate.window rootViewController];
+    if (rootController) {
+        notification.hostViewController = rootController;
+    }
     
     [self showNotification:notification usingOneByOneMode:self.isOneByOneMode];
-    
 }
 
 - (void)showNotification:(MPGNotification*)notification usingOneByOneMode:(BOOL)isOneByOneMode {
@@ -80,6 +85,7 @@ static const NSTimeInterval kQMMessageNotificationDuration = 2.0f;
     }
     
     self.messageNotification = notification;
+    
     [self.messageNotification show];
 }
 
