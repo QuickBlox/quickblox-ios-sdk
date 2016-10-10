@@ -7,11 +7,10 @@ PODS:
   - Bolts/Tasks (1.5.1)
   - Crashlytics (3.8.2):
     - Fabric (~> 1.6.3)
-  - Fabric (1.6.8)
+  - Fabric (1.6.9)
   - MPGNotification (1.2.4)
   - QMCVDevelopment (0.3.10):
     - QMCVDevelopment/Categories (= 0.3.10)
-    - QMCVDevelopment/KeyboardViewController (= 0.3.10)
     - QMCVDevelopment/Protocols (= 0.3.10)
     - QMCVDevelopment/QMChatDataSource (= 0.3.10)
     - QMCVDevelopment/QMChatSection (= 0.3.10)
@@ -21,9 +20,6 @@ PODS:
     - TTTAttributedLabel (> 1.13)
   - QMCVDevelopment/Categories (0.3.10):
     - QMCVDevelopment/Utils
-    - SDWebImage (~> 3.6)
-    - TTTAttributedLabel (> 1.13)
-  - QMCVDevelopment/KeyboardViewController (0.3.10):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
   - QMCVDevelopment/Protocols (0.3.10):
@@ -74,18 +70,18 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: 35886098a211d32f532462df622abdfd9ac016f7
+    :commit: f0f75a93381a6e46d1c8ce63bf2a08441fa63779
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: c299398bdef6221620600ef19bf2091897ba6400
+    :commit: a24260e66b013301cf6186ed34089a49a41a014d
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
   Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
-  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
+  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
   MPGNotification: f0e3924087afa9b3eccd5ce624e03965ae31ae61
-  QMCVDevelopment: 77830b179e3b754f275174c1efc0efc43b94a855
+  QMCVDevelopment: 25fe59541e4ebbd43c9a23347de361bc3a63dbc4
   QMServicesDevelopment: 1eeb4f9aa76b64674f4d47e863f0a23b5bc9f680
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7

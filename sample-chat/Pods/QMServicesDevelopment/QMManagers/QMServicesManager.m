@@ -334,11 +334,6 @@
                                                                           }];
 }
 
-- (void)cachedUsers:(void (^)(NSArray * ))block {
-    
-    [self cachedUsersWithCompletion:block];
-}
-
 #pragma mark - QMUsersServiceDelegate
 
 - (void)usersService:(QMUsersService *)usersService didAddUsers:(NSArray *)users {

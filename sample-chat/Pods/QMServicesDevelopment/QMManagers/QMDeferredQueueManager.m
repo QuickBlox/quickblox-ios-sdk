@@ -209,14 +209,15 @@
 
 - (BOOL)shouldSendMessagesInDialogWithID:(NSString *)dialogID {
     
-    NSUInteger messagesCount = [self numberOfNotSentMessagesForDialogWithID:dialogID];
-    
-    if (self.maxDeferredActionsCount > 0 && self.maxDeferredActionsCount <= messagesCount) {
-        return NO;
+    if ([[QBChat instance] isConnected] || self.maxDeferredActionsCount == 0) {
+        return YES;
     }
     
-    return YES;
+    NSUInteger messagesCount = [self numberOfNotSentMessagesForDialogWithID:dialogID];
+    return self.maxDeferredActionsCount > messagesCount;
+    
 }
+
 #pragma mark -
 #pragma mark QMMemoryTemporaryQueueDelegate
 

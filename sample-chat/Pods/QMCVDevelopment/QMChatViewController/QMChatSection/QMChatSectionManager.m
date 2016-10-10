@@ -8,16 +8,28 @@
 
 #import "QMChatSectionManager.h"
 #import "QMChatSection.h"
+#import "QMChatDataSource.h"
 
 @interface QMChatSectionManager ()
 
 @property (strong, nonatomic) NSArray *chatSections;
 @property (strong, nonatomic) NSMutableArray *editableSections;
 @property (nonatomic) dispatch_queue_t serialQueue;
-
+@property (strong, nonatomic) QMChatDataSource *chatDataSource;
 @end
 
 @implementation QMChatSectionManager
+
+- (instancetype)initWithChatDataSource:(QMChatDataSource *)chatDataSource {
+    
+    self  = [super init];
+    
+    if (self) {
+        _chatDataSource = chatDataSource;
+    }
+    
+    return self;
+}
 
 - (instancetype)init {
     
@@ -38,206 +50,52 @@
 
 - (void)addMessage:(QBChatMessage *)message {
     
-    [self addMessages:@[message] animated:self.animationEnabled];
+    [self.chatDataSource addMessage:message];
 }
 
 - (void)addMessages:(NSArray *)messages {
     
-    [self addMessages:messages animated:self.animationEnabled];
+    [self.chatDataSource addMessages:messages];
 }
 
 - (void)addMessage:(QBChatMessage *)message animated:(BOOL)animated {
     
-    [self addMessages:@[message] animated:animated];
+    [self.chatDataSource addMessage:message];
 }
 
 - (void)addMessages:(NSArray *)messages animated:(BOOL)animated {
-    
-    dispatch_async(_serialQueue, ^{
-        
-        self.editableSections = self.chatSections.mutableCopy;
-        
-        NSMutableArray *itemsIndexPaths = [NSMutableArray arrayWithCapacity:messages.count];
-        NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];
-        
-        for (QBChatMessage *message in messages) {
-            NSAssert(message.dateSent != nil, @"Message must have dateSent!");
-            
-            if ([self messageExists:message]) {
-                // message already exists
-                continue;
-            }
-            
-            QMChatSection *correspondingSection = [self sectionThatCorrespondsToMessage:message];
-            NSInteger sectionIndex = NSNotFound;
-            NSInteger messageIndex = NSNotFound;
-            
-            if (correspondingSection != nil) {
-                // section already exists or was created as older/newer one
-                sectionIndex = [self.editableSections indexOfObject:correspondingSection];
-                
-                if (correspondingSection.isEmpty) {
-                    // section was newly created, need to add its index to sections index set
-                    if ([sectionsIndexSet containsIndex:sectionIndex]) {
-                        
-                        sectionsIndexSet = incrementAllIndexesForIndexSet(sectionsIndexSet, sectionIndex);
-                    }
-                    
-                    // move previous sections
-                    itemsIndexPaths = incrementAllSectionsForIndexPaths(itemsIndexPaths, sectionIndex);
-                    
-                    [sectionsIndexSet addIndex:sectionIndex];
-                }
-                
-                messageIndex = [correspondingSection insertMessage:message];
-            }
-            else {
-                // need to create new section for message
-                correspondingSection = [self createSectionWithMessage:message];
-                
-                sectionIndex = [self.editableSections indexOfObject:correspondingSection];
-                messageIndex = [correspondingSection insertMessage:message];
-                
-                if ([sectionsIndexSet containsIndex:sectionIndex]) {
-                    
-                    sectionsIndexSet = incrementAllIndexesForIndexSet(sectionsIndexSet, sectionIndex);
-                }
-                
-                // move previous sections
-                itemsIndexPaths = incrementAllSectionsForIndexPaths(itemsIndexPaths, sectionIndex);
-                
-                [sectionsIndexSet addIndex:sectionIndex];
-            }
-            
-            [itemsIndexPaths addObject:[NSIndexPath indexPathForItem:messageIndex
-                                                           inSection:sectionIndex]];
-        }
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            self.chatSections = self.editableSections.copy;
-            self.editableSections = nil;
-            
-            if ([self.delegate respondsToSelector:@selector(chatSectionManager:didInsertSections:andItems:animated:)]) {
-                
-                [self.delegate chatSectionManager:self didInsertSections:sectionsIndexSet.copy andItems:itemsIndexPaths.copy animated:animated];
-            }
-        });
-    });
+    [self.chatDataSource addMessages:messages];
 }
 
 #pragma mark - Update messages
 
 - (void)updateMessage:(QBChatMessage *)message {
     
-    [self updateMessages:@[message]];
+    [self.chatDataSource updateMessage:message];
 }
 
 - (void)updateMessages:(NSArray *)messages {
     
-    dispatch_async(_serialQueue, ^{
-        NSUInteger numberOfMessages = messages.count;
-        
-        NSMutableArray *messagesIDs = [NSMutableArray arrayWithCapacity:numberOfMessages];
-        NSMutableArray *itemsIndexPaths = [NSMutableArray arrayWithCapacity:numberOfMessages];
-        
-        for (QBChatMessage *message in messages) {
-            NSIndexPath *indexPath = [self indexPathForMessage:message];
-            if (indexPath == nil) continue; // message doesn't exists
-            
-            QMChatSection *chatSection = self.chatSections[indexPath.section];
-            NSUInteger updatedMessageIndex = [chatSection indexThatConformsToMessage:message];
-            if (updatedMessageIndex != indexPath.item) {
-                
-                // message will have new indexPath due to date changes
-                [self deleteMessages:@[message] animated:YES];
-                [self addMessages:@[message] animated:YES];
-            }
-            else {
-                
-                [itemsIndexPaths addObject:indexPath];
-                [messagesIDs addObject:message.ID];
-                [chatSection.messages replaceObjectAtIndex:indexPath.item withObject:message];
-            }
-        }
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            if (messagesIDs.count > 0) {
-                
-                if ([self.delegate respondsToSelector:@selector(chatSectionManager:didUpdateMessagesWithIDs:atIndexPaths:)]) {
-                    
-                    [self.delegate chatSectionManager:self didUpdateMessagesWithIDs:messagesIDs.copy atIndexPaths:itemsIndexPaths.copy];
-                }
-            }
-        });
-    });
+    [self.chatDataSource updateMessages:messages];
 }
 
 #pragma mark - Delete messages
 
 - (void)deleteMessage:(QBChatMessage *)message {
-    
-    [self deleteMessages:@[message] animated:self.animationEnabled];
+    [self.chatDataSource deleteMessage:message];
 }
 
 - (void)deleteMessages:(NSArray *)messages {
-    
-    [self deleteMessages:messages animated:self.animationEnabled];
+    [self.chatDataSource deleteMessages:messages];
 }
 
 - (void)deleteMessage:(QBChatMessage *)message animated:(BOOL)animated {
-    
-    [self deleteMessages:@[message] animated:animated];
+    [self.chatDataSource deleteMessage:message];
 }
 
 - (void)deleteMessages:(NSArray *)messages animated:(BOOL)animated {
-    
-    dispatch_async(_serialQueue, ^{
-        NSUInteger numberOfMessages = messages.count;
-        
-        NSMutableArray *messagesIDs = [NSMutableArray arrayWithCapacity:numberOfMessages];
-        NSMutableArray *itemsIndexPaths = [NSMutableArray arrayWithCapacity:numberOfMessages];
-        NSMutableIndexSet *sectionsIndexSet = [NSMutableIndexSet indexSet];
-        
-        self.editableSections = self.chatSections.mutableCopy;
-        
-        for (QBChatMessage *message in messages) {
-            NSIndexPath *indexPath = [self indexPathForMessage:message];
-            if (indexPath == nil) continue;
-            
-            QMChatSection *chatSection = self.chatSections[indexPath.section];
-            [chatSection.messages removeObjectAtIndex:indexPath.item];
-            
-            if (chatSection.isEmpty) {
-                [sectionsIndexSet addIndex:indexPath.section];
-                [self.editableSections removeObjectAtIndex:indexPath.section];
-                
-                // no need to remove elements whose section will be removed
-                NSArray *items = [itemsIndexPaths copy];
-                for (NSIndexPath *index in items) {
-                    if (index.section == indexPath.section) {
-                        [itemsIndexPaths removeObject:index];
-                    }
-                }
-            } else {
-                
-                [itemsIndexPaths addObject:indexPath];
-            }
-        }
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            self.chatSections = self.editableSections.copy;
-            self.editableSections = nil;
-            
-            if ([self.delegate respondsToSelector:@selector(chatSectionManager:didDeleteMessagesWithIDs:atIndexPaths:withSectionsIndexSet:animated:)]) {
-                
-                [self.delegate chatSectionManager:self didDeleteMessagesWithIDs:messagesIDs atIndexPaths:itemsIndexPaths withSectionsIndexSet:sectionsIndexSet animated:animated];
-            }
-        });
-    });
-}
+    [self.chatDataSource deleteMessages:messages];
+ }
 
 #pragma mark - Helpers
 
@@ -385,70 +243,27 @@ static inline NSMutableArray *incrementAllSectionsForIndexPaths(NSMutableArray *
 
 - (NSUInteger)totalMessagesCount {
     
-    NSUInteger totalMessagesCount = 0;
-    NSArray *chatSections = self.chatSections.copy;
-    
-    for (QMChatSection *chatSection in chatSections) {
-        
-        totalMessagesCount += [chatSection.messages count];
-    }
-    
-    return totalMessagesCount;
+    return self.chatDataSource.messagesCount;
 }
 
 - (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.item == NSNotFound) {
-        // If the update item's index path has an "item" value of NSNotFound, it means it was a section update, not an individual item.
-        return nil;
-    }
-    
-    QMChatSection *currentSection = self.chatSections[indexPath.section];
-    return currentSection.messages[indexPath.item];
+    return [self.chatDataSource messageForIndexPath:indexPath];
 }
 
 - (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message {
     
-    NSIndexPath *indexPath = nil;
-    
-    for (QMChatSection *chatSection in self.chatSections) {
-        
-        if ([chatSection.messages containsObject:message]) {
-            
-            indexPath = [NSIndexPath indexPathForItem:[chatSection.messages indexOfObject:message] inSection:[self.chatSections indexOfObject:chatSection]];
-            break;
-        }
-    }
-    
-    return indexPath;
+    return [self.chatDataSource indexPathForMessage:message];
 }
 
 - (NSArray *)allMessages {
     
-    NSMutableArray *mutableItems = [NSMutableArray array];
-    
-    for (QMChatSection *chatSection in self.chatSections) {
-        
-        [mutableItems addObjectsFromArray:chatSection.messages];
-    }
-    
-    return mutableItems.copy;
+    return  self.chatDataSource.allMessages;
 }
 
 - (BOOL)messageExists:(QBChatMessage *)message {
     
-    BOOL messageExists = NO;
-    
-    for (QMChatSection *chatSection in self.chatSections) {
-        
-        messageExists = [chatSection.messages containsObject:message];
-        if (messageExists) {
-            
-            break;
-        }
-    }
-    
-    return messageExists;
+    return [self.chatDataSource messageExists:message];
 }
 
 @end

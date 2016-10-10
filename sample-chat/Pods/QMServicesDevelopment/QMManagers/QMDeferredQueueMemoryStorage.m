@@ -71,7 +71,7 @@
     return [self messagesSortedWithDescriptors:@[dateSentDescriptor,idDescriptor]];
 }
 
-- (NSArray *)messagesSortedWithDescriptors:(QB_NONNULL NSArray QB_GENERIC(NSSortDescriptor*) *)descriptors {
+- (NSArray *)messagesSortedWithDescriptors:(NSArray *)descriptors {
     
     NSArray *sortedMessages = [self.messagesInQueue.allValues sortedArrayUsingDescriptors:descriptors];
     

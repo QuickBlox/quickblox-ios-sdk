@@ -8,7 +8,7 @@
 
 #import "NSDate+ChatDataSource.h"
 
-static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay |  NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond);
+const NSCalendarUnit componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay |  NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond);
 
 @implementation NSDate (ChatDataSource)
 
@@ -18,7 +18,7 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        sharedCalendar = [NSCalendar autoupdatingCurrentCalendar];
+        sharedCalendar = [NSCalendar currentCalendar];
     });
     
     return sharedCalendar;
@@ -26,12 +26,18 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 
 - (NSComparisonResult)compareWithDate:(NSDate *)dateToCompareWith {
 
-    NSDateComponents *date1Components = [[self calendar] components:componentFlags fromDate:self];
-    NSDateComponents *date2Components = [[self calendar] components:componentFlags fromDate:dateToCompareWith];
+    NSUInteger date1 = (NSUInteger)[self timeIntervalSince1970];
+    NSUInteger date2 = (NSUInteger)[dateToCompareWith timeIntervalSince1970];
     
-    NSComparisonResult comparison = [[[self calendar] dateFromComponents:date1Components] compare:[[self calendar] dateFromComponents:date2Components]];
-    
-    return comparison;
+    if (date1 > date2) {
+        return NSOrderedDescending;
+    }
+    else if (date2 > date1) {
+        return NSOrderedAscending;
+    }
+    else {
+        return NSOrderedSame;
+    }
 }
 
 - (NSDate *)dateAtStartOfDay {
@@ -53,7 +59,7 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
 
 - (NSString *)stringDate {
     
-    return [self stringDateWithFormat:nil];
+    return [self formattedStringFromDate];
 }
 
 - (BOOL)isBetweenStartDate:(NSDate *)startDate andEndDate:(NSDate *)endDate {
@@ -78,6 +84,99 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
     }
     
     return [dateFormatter stringFromDate:self];
+}
+
+- (NSString *)formattedStringFromDate
+{
+    NSString *formattedString = nil;
+    NSDateComponents *components = [[self calendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:self];
+    NSDateComponents *currentComponents = [[self calendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    if (components.day == currentComponents.day && components.month == currentComponents.month && components.year == currentComponents.year) {
+        
+        formattedString = [self formatDateForDayRange];
+    }
+    else if (components.day == currentComponents.day - 1 && components.month == currentComponents.month && components.year == currentComponents.year) {
+        
+        formattedString = [self formatDateForDayRange];
+    }
+    else if (components.weekOfMonth == currentComponents.weekOfMonth && components.month == currentComponents.month && components.year == currentComponents.year) {
+        
+        formattedString = [self formatDateForWeekRange];
+    }
+    else if (components.year == currentComponents.year) {
+        
+        formattedString = [self formatDateForMonthRange];
+    }
+    else {
+        
+        formattedString = [self formatDateForYearRange];
+    }
+    
+    return formattedString;
+}
+
+- (NSString *)formatDateForTimeRange:(NSDate *)date
+{
+    static NSDateFormatter* formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [NSDateFormatter new];
+        formatter.dateStyle = NSDateFormatterNoStyle;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+    });
+    
+    return [formatter stringFromDate:date];
+}
+
+- (NSString *)formatDateForDayRange
+{
+    static NSDateFormatter* formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [NSDateFormatter new];
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+        formatter.timeStyle = NSDateFormatterNoStyle;
+        formatter.doesRelativeDateFormatting = YES;
+    });
+    
+    return [formatter stringFromDate:self];
+}
+
+- (NSString *)formatDateForWeekRange
+{
+    static NSDateFormatter* formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [NSDateFormatter new];
+        formatter.dateFormat = @"EEEE";
+    });
+    
+    return [formatter stringFromDate:self];
+}
+
+- (NSString *)formatDateForMonthRange
+{
+    static NSDateFormatter* formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [NSDateFormatter new];
+        formatter.dateFormat = @"LLLL d";
+    });
+    
+    return [formatter stringFromDate:self];
+}
+
+- (NSString *)formatDateForYearRange
+{
+    static NSDateFormatter* formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [NSDateFormatter new];
+        formatter.dateFormat = @"LLLL d y";
+    });
+    
+    return [formatter stringFromDate:self];
 }
 
 @end

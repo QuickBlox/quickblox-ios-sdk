@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "QMMemoryStorageProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Contact list memory storage
  */
@@ -19,14 +21,14 @@
  *
  *  @param contactList QBContactList instance
  */
-- (void)updateWithContactList:(QB_NONNULL QBContactList *)contactList;
+- (void)updateWithContactList:(QBContactList *)contactList;
 
 /**
  *  Update memory storage with QBContactLists items.
  *
  *  @param contactLists QBContactList items
  */
-- (void)updateWithContactListItems:(QB_NONNULL NSArray QB_GENERIC(QBContactListItem *) *)contactListItems;
+- (void)updateWithContactListItems:(NSArray QB_GENERIC(QBContactListItem *) *)contactListItems;
 
 /**
  *  Find QBContactListItem by user ID.
@@ -35,20 +37,22 @@
  *
  *  @return finded QBContactListItem instance
  */
-- (QB_NULLABLE QBContactListItem *)contactListItemWithUserID:(NSUInteger)userID;
+- (nullable QBContactListItem *)contactListItemWithUserID:(NSUInteger)userID;
 
 /**
  *  Get all stored User IDs.
  *
  *  @return array of user IDs
  */
-- (QB_NONNULL NSArray QB_GENERIC(NSNumber *) *)userIDsFromContactList;
+- (NSArray QB_GENERIC(NSNumber *) *)userIDsFromContactList;
 
 /**
  *  Get all stored contact list items.
  *
  *  @return array of contact list items.
  */
-- (QB_NONNULL NSArray QB_GENERIC(QBContactListItem *) *)allContactListItems;
+- (NSArray QB_GENERIC(QBContactListItem *) *)allContactListItems;
 
 @end
+
+NS_ASSUME_NONNULL_END

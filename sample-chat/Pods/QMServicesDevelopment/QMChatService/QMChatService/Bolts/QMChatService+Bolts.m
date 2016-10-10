@@ -11,6 +11,7 @@
 #import "QMSLog.h"
 
 #define kQMLoadedAllMessages @1
+
 static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 @interface QMChatService()
@@ -28,7 +29,7 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (BFTask *)connect {
     
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
     
     if ([QBChat instance].isConnected) {
         [source setResult:nil];
@@ -405,25 +406,6 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 }
 
 #pragma mark - notifications
-
-- (BFTask *)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog toUsersIDs:(NSArray *)usersIDs {
-    
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
-    
-    [self sendSystemMessageAboutAddingToDialog:chatDialog toUsersIDs:usersIDs completion:^(NSError *error) {
-        
-        if (error != nil) {
-            
-            [source setError:error];
-        }
-        else {
-            
-            [source setResult:nil];
-        }
-    }];
-    
-    return source.task;
-}
 
 - (BFTask *)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog toUsersIDs:(NSArray *)usersIDs withText:(NSString *)text {
     

@@ -16,6 +16,7 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 @interface QMInputToolbar()
 
 @property (assign, nonatomic) BOOL isObserving;
+@property (nonatomic, assign, getter=isObserverAdded) BOOL observerAdded;
 
 @end
 
@@ -69,7 +70,21 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 }
 
 #pragma mark - Actions
-
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    
+    
+    if(self.isObserverAdded) {
+        
+        [self.superview removeObserver:self forKeyPath:@"frame" context:kQMInputToolbarKeyValueObservingContext];
+        [self.superview removeObserver:self forKeyPath:@"center" context:kQMInputToolbarKeyValueObservingContext];
+    }
+    
+    [newSuperview addObserver:self forKeyPath:@"frame" options:0 context:kQMInputToolbarKeyValueObservingContext];
+    [newSuperview addObserver:self forKeyPath:@"center" options:0 context:kQMInputToolbarKeyValueObservingContext];
+    self.observerAdded = YES;
+    
+    [super willMoveToSuperview:newSuperview];
+}
 - (void)leftBarButtonPressed:(UIButton *)sender {
     
     [self.delegate messagesInputToolbar:self didPressLeftBarButton:sender];
@@ -128,6 +143,14 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
             
             [self toggleSendButtonEnabled];
         }
+        else if (object == self.superview && ([keyPath isEqualToString:@"frame"] ||
+                                              [keyPath isEqualToString:@"center"])) {
+            
+            if  (self.inputToolbarFrameChangedBlock) {
+                CGRect frame = self.superview.frame;
+                self.inputToolbarFrameChangedBlock(frame);
+            }
+        }
     }
 }
 
@@ -152,6 +175,12 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 
 - (void)removeObservers {
     
+    if(_observerAdded) {
+        
+        [self.superview removeObserver:self forKeyPath:@"frame" context:kQMInputToolbarKeyValueObservingContext];
+        [self.superview removeObserver:self forKeyPath:@"center" context:kQMInputToolbarKeyValueObservingContext];
+    }
+    
     if (!self.isObserving) {
         return;
     }
@@ -170,5 +199,14 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
     self.isObserving = NO;
 }
 
+- (void)layoutSubviews {
+    
+    [super layoutSubviews];
+    
+    if (self.inputToolbarFrameChangedBlock) {
+        CGRect frame = self.superview.frame;
+        self.inputToolbarFrameChangedBlock(frame);
+    }
+}
 
 @end

@@ -11,10 +11,11 @@
 
 #import "QBChatMessage+QBDateDivider.h"
 
-typedef NS_ENUM(NSInteger, QMDataSourceUpdateType) {
-    QMDataSourceUpdateTypeAdd = 0,
-    QMDataSourceUpdateTypeUpdate,
-    QMDataSourceUpdateTypeRemove
+typedef NS_ENUM(NSInteger, QMDataSourceActionType) {
+
+    QMDataSourceActionTypeAdd = 0,
+    QMDataSourceActionTypeUpdate,
+    QMDataSourceActionTypeRemove
 };
 
 @class QBChatMessage;
@@ -37,7 +38,7 @@ typedef NS_ENUM(NSInteger, QMDataSourceUpdateType) {
 - (void)updateMessage:(QBChatMessage *)message;
 - (void)updateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
-- (NSArray *)performChangesWithMessages:(NSArray *)messages updateType:(QMDataSourceUpdateType)updateType;
+- (NSArray *)performChangesWithMessages:(NSArray *)messages updateType:(QMDataSourceActionType)updateType;
 
 /**
  *  Messages count.
@@ -79,32 +80,6 @@ typedef NS_ENUM(NSInteger, QMDataSourceUpdateType) {
 
 - (void)chatDataSource:(QMChatDataSource *)chatDataSource willBeChangedWithMessageIDs:(NSArray *)messagesIDs;
 
-/**
- *  QMChatDataSource delegate method about items that were inserted to data source.
- *
- *  @param chatDataSource     QMChatDataSource current instance
- *  @param itemsIndexPaths    array of items index paths
- */
-- (void)chatDataSource:(QMChatDataSource *)chatDataSource didInsertMessagesAtIndexPaths:(NSArray *)itemsIndexPaths;
-
-/**
- *  QMChatDataSource delegate method about items were updated in data source.
- *
- *  @param chatDataSource     QMChatDataSource current instance
- *  @param messagesIDs        ids of updated messages
- *  @param itemsIndexPaths    array of items index paths
- */
-- (void)chatDataSource:(QMChatDataSource *)chatDataSource didUpdateMessagesAtIndexPaths:(NSArray *)itemsIndexPaths;
-
-/**
- *  QMChatDataSource delegate method about items were deleted from data source.
- *
- *  @param chatDataSource     QMChatDataSource current instance
- *  @param messagesIDs        ids of deleted messages
- *  @param itemsIndexPaths    array of items index paths
- */
-- (void)chatDataSource:(QMChatDataSource *)chatDataSource didDeleteMessagesAtIndexPaths:(NSArray *)itemsIndexPaths;
-
-- (void)changeDataSource:(QMChatDataSource *)dataSource withMessages:(NSArray *)messages updateType:(QMDataSourceUpdateType)updateType;
+- (void)changeDataSource:(QMChatDataSource *)dataSource withMessages:(NSArray *)messages updateType:(QMDataSourceActionType)updateType;
 
 @end

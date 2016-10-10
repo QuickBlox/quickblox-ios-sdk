@@ -11,7 +11,6 @@
 
 @class QMChatCollectionView;
 @class QMChatCollectionViewFlowLayout;
-@class QMChatCollectionViewCell;
 @class QMChatCellLayoutAttributes;
 
 typedef struct QMChatLayoutModel QMChatCellLayoutModel;

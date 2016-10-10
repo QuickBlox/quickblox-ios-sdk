@@ -7,7 +7,6 @@
 #import "UIImage+QM.h"
 #import "UIImageView+QMLocationSnapshot.h"
 #import "UIView+QM.h"
-#import "QMKeyboardController.h"
 #import "QMChatCollectionViewDataSource.h"
 #import "QMChatCollectionViewDelegateFlowLayout.h"
 #import "NSDate+ChatDataSource.h"

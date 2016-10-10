@@ -10,7 +10,7 @@
 
 @interface NSDate (ChatDataSource)
 
-@property (nonatomic,readonly) NSString * stringDate;
+@property (nonatomic, readonly) NSString *stringDate;
 
 - (NSComparisonResult)compareWithDate:(NSDate*)dateToCompareWith;
 

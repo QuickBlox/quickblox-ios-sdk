@@ -162,14 +162,10 @@
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     
     CGRect oldBounds = self.collectionView.bounds;
-    
-    if (CGRectGetWidth(newBounds) > CGRectGetWidth(oldBounds) ||
-        CGRectGetWidth(newBounds) < CGRectGetWidth(oldBounds)) {
-        
-        return YES;
-    }
-    
-    return NO;
+
+    return CGRectGetWidth(newBounds) > CGRectGetWidth(oldBounds) ||
+    CGRectGetWidth(newBounds) < CGRectGetWidth(oldBounds);
+
 }
 
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
@@ -229,7 +225,7 @@
     [self.chatCollectionView.delegate collectionView:self.chatCollectionView
                      layoutModelAtIndexPath:indexPath];
     
-    CGSize finalSize = CGSizeZero;
+    CGSize finalSize;
     
     if (CGSizeEqualToSize(layoutModel.staticContainerSize, CGSizeZero)) {
         

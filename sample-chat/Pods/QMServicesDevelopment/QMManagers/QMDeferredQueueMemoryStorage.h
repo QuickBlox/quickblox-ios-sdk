@@ -10,18 +10,22 @@
 #import "QMMemoryStorageProtocol.h"
 #import <Quickblox/Quickblox.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QMDeferredQueueMemoryStorage : NSObject <QMMemoryStorageProtocol>
 
-- (void)addMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)addMessage:(QBChatMessage *)message;
 
-- (void)removeMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)removeMessage:(QBChatMessage *)message;
 
 - (void)addMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 - (void)removeMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
 
-- (BOOL)containsMessage:(QB_NONNULL QBChatMessage *)message;
+- (BOOL)containsMessage:(QBChatMessage *)message;
 
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatMessage *) *)messages;
-- (QB_NULLABLE NSArray QB_GENERIC(QBChatMessage *) *)messagesSortedWithDescriptors:(QB_NONNULL NSArray QB_GENERIC(NSSortDescriptor*) *)descriptors;
+- (NSArray QB_GENERIC(QBChatMessage *) *)messages;
+- (NSArray QB_GENERIC(QBChatMessage *) *)messagesSortedWithDescriptors:(NSArray QB_GENERIC(NSSortDescriptor*) *)descriptors;
 
 @end
+
+NS_ASSUME_NONNULL_END

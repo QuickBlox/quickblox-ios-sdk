@@ -10,6 +10,6 @@
 
 @interface QBChatMessage (QBDateDivider)
 
-@property (assign,nonatomic) BOOL isDateDividerMessage;
+@property (assign, nonatomic) BOOL isDateDividerMessage;
 
 @end

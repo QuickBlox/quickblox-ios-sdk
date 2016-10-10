@@ -9,7 +9,27 @@
 #import <UIKit/UIKit.h>
 #import <Quickblox/Quickblox.h>
 
+@class QMPlaceHolderTextView;
+
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol QMPlaceHolderTextViewPasteDelegate;
+
+/**
+ *  A delegate object used to notify the receiver of paste events from a `QMPlaceHolderTextView`.
+ */
+@protocol QMPlaceHolderTextViewPasteDelegate <NSObject>
+
+/**
+ *  Asks the delegate whether or not the `textView` should use the original implementation of `-[UITextView paste]`.
+ *
+ *  @discussion Use this delegate method to implement custom pasting behavior.
+ *  You should return `NO` when you want to handle pasting.
+ *  Return `YES` to defer functionality to the `textView`.
+ */
+- (BOOL)placeHolderTextView:(QMPlaceHolderTextView *)textView shouldPasteWithSender:(id)sender;
+
+@end
 
 /**
  *  Input field with placeholder.
@@ -52,17 +72,4 @@
 
 @end
 
-@protocol QMPlaceHolderTextViewPasteDelegate <NSObject>
-
-@optional
-/**
- *  Asks the delegate whether or not the `textView` should use the original implementation of `-[UITextView paste]`.
- *
- *  @discussion Use this delegate method to implement custom pasting behavior.
- *  You should return `NO` when you want to handle pasting.
- *  Return `YES` to defer functionality to the `textView`.
- */
-- (BOOL)placeHolderTextView:(QB_NONNULL QMPlaceHolderTextView *)textView shouldPasteWithSender:(QB_NONNULL id)sender;
-
-
-@end
+NS_ASSUME_NONNULL_END
