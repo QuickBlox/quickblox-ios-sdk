@@ -34,7 +34,6 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (weak, nonatomic) IBOutlet QBToolBar *toolbar;
 
 @property (strong, nonatomic) NSMutableArray *users;
-
 @property (strong, nonatomic) NSIndexPath *selectedItemIndexPath;
 
 @property (assign, nonatomic) NSTimeInterval timeDuration;
@@ -42,10 +41,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (assign, nonatomic) NSTimer *beepTimer;
 
 @property (strong, nonatomic) QBRTCCameraCapture *cameraCapture;
-
 @property (strong, nonatomic) NSMutableDictionary *videoViews;
-
-@property (assign, nonatomic, readonly) BOOL isOffer;
 @property (weak, nonatomic) UIView *zoomedView;
 
 @property (strong, nonatomic) QBButton *videoEnabled;
@@ -69,10 +65,12 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
         
+#if !(TARGET_IPHONE_SIMULATOR)
         Settings *settings = Settings.instance;
         self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
                                                                     position:settings.preferredCameraPostion];
         [self.cameraCapture startSession];
+#endif
     }
     
     self.view.backgroundColor = self.opponentsCollectionView.backgroundColor =
@@ -109,8 +107,10 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     self.users = users;
     
     [QBRTCSoundRouter.instance initialize];
+
+    BOOL isInitiator = (Core.currentUser.ID == self.session.initiatorID.unsignedIntegerValue);
+    isInitiator ? [self startCall] : [self acceptCall];
     
-    self.isOffer ? [self startCall] : [self acceptCall];
     self.title = @"Connecting...";
     
     if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
@@ -172,7 +172,10 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
                                                      repeats:YES];
     [self playCallingSound:nil];
     //Start call
-    NSDictionary *userInfo = @{@"startCall" : @"userInfo"};
+    NSDictionary *userInfo = @{@"name" : @"Test",
+                               @"url" : @"http.quickblox.com",
+                               @"param" : @"\"1,2,3,4\""};
+    
     [self.session startCall:userInfo];
 }
 
@@ -366,6 +369,16 @@ NSInteger QBRTCGetCpuUsagePercentage() {
     [result appendString:[NSString stringWithFormat:audioReceiveFormat,
                           report.audioReceivedBitrate, report.audioReceivedCodec, report.audioReceivedCurrentDelay,
                           report.audioReceivedExpandRate]];
+    
+    /* Example output
+     2016-10-10 15:13:18.718 sample-videochat-webrtc[18260:3097814] (cpu)59%
+     CN 41ms | local->local/udp | (s)5Kbps | (r)1.54Mbps
+     VS (input) 0x0@0fps | (sent) 0x0@0fps
+     VS (enc) 0bps/0bps | (sent) 0bps/300Kbps | 5ms | VP8
+     VR (recv) 480x640@30fps | (decoded)31 | (output)31fps | 1.49Mbps/1.68Mbps | 16ms
+     AS 0bps | opus
+     AR 31Kbps | opus | 782ms | (expandrate)0.0278931
+     */
     
     NSLog(@"%@", result);
 }

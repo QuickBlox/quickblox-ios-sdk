@@ -31,6 +31,7 @@ const NSTimeInterval kQBDialingTimeInterval = 5.f;
     [QBRTCConfig setDisconnectTimeInterval:kQBRTCDisconnectTimeInterval];
     [QBRTCConfig setDialingTimeInterval:kQBDialingTimeInterval];
     
+    [QBRTCConfig setStatsReportTimeInterval:1.f];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     
     [QBRTCClient initializeRTC];

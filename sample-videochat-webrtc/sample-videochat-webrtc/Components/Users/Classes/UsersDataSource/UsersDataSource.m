@@ -42,6 +42,10 @@
     
     NSSet *usersSet = [NSSet setWithArray:users];
     
+    for (QBUUser *user in users) {
+        user.fullName = user.fullName ?: [NSString stringWithFormat:@"User id: %tu (no full name)", user.ID];
+    }
+    
     if (![_usersSet isEqualToSet:usersSet]) {
         
         [_usersSet removeAllObjects];

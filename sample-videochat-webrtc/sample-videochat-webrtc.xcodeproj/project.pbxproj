@@ -206,6 +206,7 @@
 		FBE175271BE10B3A00A2A88A /* QBRTCScreenCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBRTCScreenCapture.h; sourceTree = "<group>"; };
 		FBE175281BE10B3A00A2A88A /* QBRTCScreenCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBRTCScreenCapture.m; sourceTree = "<group>"; };
 		FBE5B67D1B3D6D130035863B /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		FBE62BF21DABBCF700583F88 /* sample-videochat-webrtc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-videochat-webrtc.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -435,6 +436,7 @@
 		FB29BBA61B32BBC0009751A1 /* sample-videochat-webrtc */ = {
 			isa = PBXGroup;
 			children = (
+				FBE62BF21DABBCF700583F88 /* sample-videochat-webrtc.entitlements */,
 				FB29BC1A1B32BBF3009751A1 /* App */,
 				FB1457BD1D7588CC0053CC3A /* Components */,
 				FB29BC1B1B32BC16009751A1 /* Storyboartd & xibs */,
@@ -805,6 +807,12 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -1007,6 +1015,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc/sample-videochat-webrtc.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1048,6 +1057,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc/sample-videochat-webrtc.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				ENABLE_BITCODE = NO;
