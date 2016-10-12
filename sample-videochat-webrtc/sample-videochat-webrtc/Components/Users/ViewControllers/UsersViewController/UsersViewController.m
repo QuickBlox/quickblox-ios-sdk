@@ -136,7 +136,7 @@ const NSUInteger kQBPageSize = 50;
     void(^request) (QBGeneralResponsePage *, NSMutableArray *) =
     ^(QBGeneralResponsePage *page, NSMutableArray *allUsers) {
         
-        [QBRequest usersWithTags:@[@"chatRoom", @"chats"]
+        [QBRequest usersWithTags:Core.currentUser.tags
                             page:page
                     successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBUUser *> *users)
          {
