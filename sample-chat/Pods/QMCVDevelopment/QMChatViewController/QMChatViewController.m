@@ -20,6 +20,9 @@
 #import "QMHeaderCollectionReusableView.h"
 #import "QMCollectionViewFlowLayoutInvalidationContext.h"
 #import <Photos/Photos.h>
+#import "QMKVOView.h"
+
+static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 @interface QMChatViewController () <QMInputToolbarDelegate, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate,
@@ -41,8 +44,10 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 @property (assign, nonatomic) BOOL isViewAppeared;
 @property (assign, nonatomic) BOOL isLastCellVisible;
 @property (assign, nonatomic) BOOL isScrollingToBottom;
-@property (assign, nonatomic) BOOL isPerformingAppereanceTransition;
 
+@property (assign, nonatomic) BOOL isObserving;
+@property (nonatomic) CGFloat keyboardHeight;
+@property (strong, nonatomic) QMKVOView *systemInputToolbar;
 @end
 
 @implementation QMChatViewController
@@ -75,6 +80,37 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 }
 
 #pragma mark - Initialization
+- (void)addObservers {
+    return;
+    if (self.isObserving) {
+        return;
+    }
+    
+    [self.inputToolbar.contentView.textView addObserver:self
+                                             forKeyPath:NSStringFromSelector(@selector(contentSize))
+                                                options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
+                                                context:kChatKeyValueObservingContext];
+    
+    self.isObserving = YES;
+}
+
+- (void)removeObservers {
+    
+    if (!self.isObserving) {
+        return;
+    }
+    
+    @try {
+        [_inputToolbar.contentView.textView removeObserver:self
+                                                forKeyPath:NSStringFromSelector(@selector(contentSize))
+                                                   context:kChatKeyValueObservingContext];
+    }
+    @catch (NSException * __unused exception) {
+        
+    }
+    
+    self.isObserving = NO;
+}
 
 - (void)configureMessagesViewController {
     
@@ -92,14 +128,34 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     
     self.inputToolbar.contentView.textView.delegate = self;
     
-    [self.inputToolbar removeFromSuperview];
-    
     self.automaticallyScrollsToMostRecentMessage = YES;
     self.topContentAdditionalInset = 0.0f;
-    
+    [self addObservers];
     [self registerCells];
     
     self.isLastCellVisible = YES;
+    
+    self.systemInputToolbar = [[QMKVOView alloc] init];
+    self.systemInputToolbar.frame = CGRectMake(0, -1, 0.1, 0);
+    
+    __weak typeof(self) weakSelf = self;
+
+    [self.systemInputToolbar setFrameChangedBlock:^(CGRect rect) {
+        
+        typeof(weakSelf) strongSelf = weakSelf;
+        
+        if (![strongSelf.navigationController.viewControllers containsObject:strongSelf]) {
+            return;
+        }
+        
+        CGRect convertedRect = [strongSelf.view convertRect:rect fromView:nil];
+        NSUInteger value = CGRectGetHeight(self.view.frame) - CGRectGetMinY(convertedRect);
+        
+        strongSelf.toolbarBottomLayoutGuide.constant = value;
+        [strongSelf.view updateConstraintsIfNeeded];
+        [strongSelf.view layoutIfNeeded];
+        [self updateCollectionViewInsets];
+    }];
 }
 
 - (void)registerCells {
@@ -139,11 +195,12 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     UINib *locIncomingNib = [QMChatLocationIncomingCell nib];
     NSString *locIncomingIdentifier = [QMChatLocationIncomingCell cellReuseIdentifier];
     [self.collectionView registerNib:locIncomingNib forCellWithReuseIdentifier:locIncomingIdentifier];
+    
 }
 
 - (UIView *)inputAccessoryView {
     
-    return self.inputToolbar;
+    return self.systemInputToolbar;
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -224,10 +281,17 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 }
 
 #pragma mark - View lifecycle
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    if (!self.presentedViewController && self.navigationController && !self.systemInputToolbar.superview) {
+        [self becomeFirstResponder];
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [[[self class] nib] instantiateWithOwner:self options:nil];
     
     [self configureMessagesViewController];
@@ -239,25 +303,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     self.collectionView.transform = CGAffineTransformMake(1, 0, 0, -1, 0, 0);
     
     self.isViewAppeared = NO;
-    
-    __weak typeof(self)weakSelf = self;
-    
-    [self.inputToolbar setInputToolbarFrameChangedBlock:^(CGRect rect) {
-        
-        typeof(weakSelf) strongSelf = weakSelf;
-        if (strongSelf.isPerformingAppereanceTransition) {
-            return;
-        }
-        CGRect convertedRect = [strongSelf.view convertRect:rect fromView:nil];
-        CGFloat value = CGRectGetHeight(strongSelf.view.frame) - CGRectGetMinY(convertedRect);
-        
-        if (value < strongSelf.inputToolbar.preferredDefaultHeight) {
-            value =  strongSelf.inputToolbar.preferredDefaultHeight;
-        }
-        
-        [strongSelf setCollectionViewInsetsTopValue:strongSelf.collectionView.contentInset.bottom
-                                        bottomValue:value];
-    }];
 
 }
 
@@ -270,9 +315,15 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     
     [super viewWillAppear:animated];
     
+    // Workaround for a modal dismissal causing the message toolbar to remain offscreen on iOS 8.
+    if (self.presentedViewController) {
+        [self.view becomeFirstResponder];
+    }
+    
     self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
     [self.view layoutIfNeeded];
-
+    [self updateCollectionViewInsets];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -280,16 +331,11 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 
     self.isViewAppeared = YES;
     
-    self.isPerformingAppereanceTransition = NO;
-    
     [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-
-    self.isPerformingAppereanceTransition = NO;
-    [self updateCollectionViewInsets];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -393,9 +439,11 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 
 - (void)didPressAccessoryButton:(UIButton *)sender {
     
-    [self becomeFirstResponder];
-    [self.inputToolbar.contentView.textView resignFirstResponder];
-    
+    if ([self.inputToolbar.contentView.textView isFirstResponder]) {
+        [self becomeFirstResponder];
+        [self.inputToolbar.contentView.textView resignFirstResponder];
+    }
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     __weak __typeof(self) weakSelf = self;
@@ -488,17 +536,21 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 }
 
 - (void)scrollToBottomAnimated:(BOOL)animated {
-    
+
     if ([self.collectionView numberOfItemsInSection:0] > 0) {
-        
         NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.collectionView scrollToItemAtIndexPath:topIndexPath atScrollPosition:UICollectionViewScrollPositionTop animated:animated];
+        [self.collectionView scrollToItemAtIndexPath:topIndexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:animated];
         _isLastCellVisible = YES;
     }
 }
 
 #pragma mark - UIScrollViewDelegate
-
+- (BOOL)shouldScrollToBottom {
+    return self.isLastCellVisible
+    && !self.collectionView.isTracking
+    && !self.collectionView.isDragging
+    && !self.collectionView.isDecelerating;
+}
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
     // disabling scroll to bottom when tapping status bar
     return NO;
@@ -693,8 +745,8 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     if (textView != self.inputToolbar.contentView.textView) {
         return;
     }
-    
-    [textView becomeFirstResponder];
+    [self resignFirstResponder];
+    [self.systemInputToolbar becomeFirstResponder];
     
     if (self.automaticallyScrollsToMostRecentMessage) {
         [self scrollToBottomAnimated:YES];
@@ -790,74 +842,18 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     return CGRectGetMinY(self.inputToolbar.frame) == (self.topLayoutGuide.length + self.topContentAdditionalInset);
 }
 
-- (void)adjustInputToolbarForComposerTextViewContentSizeChange:(CGFloat)dy {
-    
-    BOOL contentSizeIsIncreasing = (dy > 0);
-    
-    if ([self inputToolbarHasReachedMaximumHeight]) {
-        
-        BOOL contentOffsetIsPositive = (self.inputToolbar.contentView.textView.contentOffset.y > 0);
-        
-        if (contentSizeIsIncreasing || contentOffsetIsPositive) {
-            [self scrollComposerTextViewToBottomAnimated:YES];
-            
-            return;
-        }
-    }
-    
-    CGFloat toolbarOriginY = CGRectGetMinY(self.inputToolbar.frame);
-    CGFloat newToolbarOriginY = toolbarOriginY - dy;
-    
-    //  attempted to increase origin.Y above topLayoutGuide
-    if (newToolbarOriginY <= self.topLayoutGuide.length + self.topContentAdditionalInset) {
-        
-        dy = toolbarOriginY - (self.topLayoutGuide.length + self.topContentAdditionalInset);
-        [self scrollComposerTextViewToBottomAnimated:YES];
-    }
-    
-    [self adjustInputToolbarHeightConstraintByDelta:dy];
-    
-    if (dy < 0) {
-        
-        [self scrollComposerTextViewToBottomAnimated:NO];
-    }
-}
-
-- (void)adjustInputToolbarHeightConstraintByDelta:(CGFloat)dy {
-    
-    self.toolbarHeightConstraint.constant += dy;
-    
-    if (self.toolbarHeightConstraint.constant < self.inputToolbar.preferredDefaultHeight) {
-        self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
-    }
-    
-    [self.view setNeedsUpdateConstraints];
-    [self.view layoutIfNeeded];
-}
-
-- (void)scrollComposerTextViewToBottomAnimated:(BOOL)animated {
-    
-    UITextView *textView = self.inputToolbar.contentView.textView;
-    CGPoint contentOffsetToShowLastLine = CGPointMake(0.0f, textView.contentSize.height - CGRectGetHeight(textView.bounds));
-    
-    if (!animated) {
-        textView.contentOffset = contentOffsetToShowLastLine;
-        return;
-    }
-    
-    [UIView animateWithDuration:0.01 delay:0.01 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        textView.contentOffset = contentOffsetToShowLastLine;
-    }
-                     completion:nil];
-}
 
 #pragma mark - Collection view utilities
 
 - (void)updateCollectionViewInsets {
     
-    [self setCollectionViewInsetsTopValue:self.topLayoutGuide.length + self.topContentAdditionalInset
-                              bottomValue:CGRectGetHeight(self.inputToolbar.frame)];
+    [self setCollectionViewInsetsTopValue:self.topContentAdditionalInset
+                              bottomValue:CGRectGetHeight(self.view.frame) - CGRectGetMinY(self.inputToolbar.frame)];
+
+    if ([self shouldScrollToBottom]) {
+        [self scrollToBottomAnimated:NO];
+    }
+
 }
 
 - (void)setCollectionViewInsetsTopValue:(CGFloat)top bottomValue:(CGFloat)bottom {
@@ -867,13 +863,8 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     if (UIEdgeInsetsEqualToEdgeInsets(self.collectionView.contentInset, insets)) {
         return;
     }
-    
     self.collectionView.contentInset = insets;
     self.collectionView.scrollIndicatorInsets = insets;
-
-    if (self.isLastCellVisible) {
-        [self scrollToBottomAnimated:YES];
-    }
 }
 
 - (BOOL)isMenuVisible {
@@ -908,6 +899,12 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     
     if (registerForNotifications) {
+        
+        [defaultCenter addObserver:self
+                          selector:@selector(inputToolbarDidChangeHeight:)
+                              name:QMPlaceholderDidChangeHeight
+                            object:nil];
+
         
         [defaultCenter addObserver:self
                           selector:@selector(didReceiveMenuWillShowNotification:)
@@ -1072,7 +1069,7 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     if (![scrollView isKindOfClass:[QMChatCollectionView class]]) {
         return;
     }
-    
+
     [self checkDirectionForScrollView:scrollView];
     
     if (!self.isLastCellVisible && self.isScrollingToBottom) {
@@ -1084,14 +1081,7 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 
 - (void)checkDirectionForScrollView:(UIScrollView *)scrollView {
     
-    if (self.lastContentOffset > scrollView.contentOffset.y)
-    {
-        self.isScrollingToBottom = NO;
-    }
-    else if (self.lastContentOffset < scrollView.contentOffset.y)
-    {
-        self.isScrollingToBottom = YES;
-    }
+    self.isScrollingToBottom = self.lastContentOffset < scrollView.contentOffset.y;
     
     self.lastContentOffset = scrollView.contentOffset.y;
 }
@@ -1134,12 +1124,14 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     }
 }
 
-- (void)beginAppearanceTransition:(BOOL)isAppearing animated:(BOOL)animated {
-    
-    [super beginAppearanceTransition:isAppearing animated:animated];
-    
-    self.isPerformingAppereanceTransition = YES;
+#pragma mark - Notification Handlers
+
+- (void)textViewTextDidBeginEditing:(NSNotification *)notification {
+    [self scrollToBottomAnimated:YES];
 }
 
+- (void)inputToolbarDidChangeHeight:(NSNotification *)notification {
+    [self updateCollectionViewInsets];
+}
 
 @end

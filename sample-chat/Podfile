@@ -10,7 +10,7 @@ pod 'SVProgressHUD', '~> 1.1.3'
 pod 'Bolts', '~> 1.5.0'
 
 #Production pod
-pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :branch => 'development'
+pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :branch => 'feature/keyboardController'
 
 #For development pods
 #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'

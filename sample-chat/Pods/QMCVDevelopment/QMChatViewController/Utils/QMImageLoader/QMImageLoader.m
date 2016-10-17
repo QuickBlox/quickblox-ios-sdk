@@ -96,9 +96,34 @@ static NSString * const kQMImageViewTransformedKey = @"%@/original";
                                     }];
 }
 
-+ (void)cachedImageForKey:(NSString *)key completion:(SDWebImageQueryCompletedBlock)completion {
++ (void)cachedImageForKey:(NSString *)key completion:(void(^)(UIImage *image, SDImageCacheType cacheType))completion {
     
-    [webManager().imageCache queryDiskCacheForKey:key done:completion];
+    UIImage *cachedImage = [webManager().imageCache imageFromMemoryCacheForKey:key];
+    if (cachedImage != nil) {
+        
+        if (completion != nil) {
+            
+            completion(cachedImage, SDImageCacheTypeMemory);
+        }
+        
+        return;
+    }
+    
+    cachedImage = [webManager().imageCache imageFromDiskCacheForKey:key];
+    if (cachedImage != nil) {
+        
+        if (completion != nil) {
+            
+            completion(cachedImage, SDImageCacheTypeDisk);
+        }
+        
+        return;
+    }
+    
+    if (completion != nil) {
+        
+        completion(nil, SDImageCacheTypeNone);
+    }
 }
 
 + (void)storeImage:(UIImage *)image forKey:(NSString *)key {

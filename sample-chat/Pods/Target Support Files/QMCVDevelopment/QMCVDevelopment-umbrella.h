@@ -41,6 +41,7 @@
 #import "QMImageView.h"
 #import "QMChatActionsHandler.h"
 #import "QMChatContainerView.h"
+#import "QMKVOView.h"
 
 FOUNDATION_EXPORT double QMCVDevelopmentVersionNumber;
 FOUNDATION_EXPORT const unsigned char QMCVDevelopmentVersionString[];

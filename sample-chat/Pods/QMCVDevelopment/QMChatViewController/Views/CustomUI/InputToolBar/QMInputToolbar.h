@@ -57,9 +57,6 @@
  */
 @property (weak, nonatomic, readonly) QMToolbarContentView *contentView;
 
-
-@property (nonatomic, copy) void (^inputToolbarFrameChangedBlock)(CGRect frame);
-
 /**
  *  A boolean value indicating whether the send button is on the right side of the toolbar or not.
  *
