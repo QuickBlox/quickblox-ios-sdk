@@ -673,8 +673,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "506608d8-7062-46d2-b246-58ec3835d719";
-				PROVISIONING_PROFILE_SPECIFIER = SampleChatObjC_AdHoc;
+				PROVISIONING_PROFILE = "24e26099-665c-4e31-80ba-d1b02f712dad";
+				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_objc_AdHoc;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -696,8 +696,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khomenko Igor (67859YS754)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
@@ -770,7 +770,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Khomenko Igor (67859YS754)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				DEVELOPMENT_TEAM = 8885H5G2YX;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -790,7 +790,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "57e28f44-9edf-49d5-ae50-f73039c5cb4b";
+				PROVISIONING_PROFILE = "e0a9dc4e-7ff9-476a-a3dd-0572c292ea35";
 				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_objc_dev;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -824,8 +824,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "506608d8-7062-46d2-b246-58ec3835d719";
-				PROVISIONING_PROFILE_SPECIFIER = SampleChatObjC_AdHoc;
+				PROVISIONING_PROFILE = "24e26099-665c-4e31-80ba-d1b02f712dad";
+				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_objc_AdHoc;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

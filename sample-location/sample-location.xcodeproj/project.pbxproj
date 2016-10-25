@@ -298,6 +298,7 @@
 				TargetAttributes = {
 					8A2F265614F7F0D300292876 = {
 						DevelopmentTeam = 8885H5G2YX;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -464,6 +465,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -479,7 +481,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-location";
 				PRODUCT_NAME = "sample-location";
-				PROVISIONING_PROFILE = "6022c728-3c41-4a63-88f8-462c90559213";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
