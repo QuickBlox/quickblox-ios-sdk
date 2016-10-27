@@ -413,8 +413,9 @@ QMDeferredQueueManagerDelegate
     if ([messageItem senderID] == self.senderID || self.dialog.type == QBChatDialogTypePrivate) {
         return nil;
     }
-	
-    NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
+    
+
+    NSString *topLabelText = self.opponentUser.fullName ?: self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
         QBUUser *messageSender = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:messageItem.senderID];

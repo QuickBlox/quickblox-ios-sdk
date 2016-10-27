@@ -68,8 +68,6 @@
     
     __weak __typeof(self)weakSelf = self;
     
-    [weakSelf updateSaveButtonState];
-    
     if (self.dialog.type == QBChatDialogTypePrivate) {
         // Retrieving users with identifiers.
         [[[ServicesManager instance].usersService getUsersWithIDs:self.dialog.occupantIDs] continueWithBlock:^id(BFTask *task) {
@@ -188,6 +186,9 @@
                     [strongSelf navigateToChatViewControllerWithDialog:updatedDialog];
                     [SVProgressHUD dismiss];
                 }];
+            }
+            else {
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
             }
         }];
         
