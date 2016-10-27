@@ -137,8 +137,11 @@ QMChatConnectionDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
     DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"
-                                                                                        forIndexPath:indexPath];
+                                                                                    forIndexPath:indexPath];
+
+    if (indexPath.row + 1 > self.dialogs.count) return cell;
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     

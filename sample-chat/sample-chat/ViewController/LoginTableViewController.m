@@ -34,7 +34,7 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.tintColor = [UIApplication sharedApplication].keyWindow.tintColor;
     [self.refreshControl addTarget:self
-                            action:@selector(retrieveUsers)
+                            action:@selector(downloadCurrentEnvironmentUsers)
                   forControlEvents:UIControlEventValueChanged];
     
     NSString *versionString = [NSString stringWithFormat:@"%@", [self versionBuild]];
@@ -94,7 +94,11 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)downloadCurrentEnvironmentUsers {
-	if (self.isUsersAreDownloading) return;
+    
+    if (self.isUsersAreDownloading) {
+        [self.refreshControl endRefreshing];
+        return;
+    }
     
 	self.usersAreDownloading = YES;
 	
@@ -121,7 +125,6 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     self.dataSource.addStringLoginAsBeforeUserFullname = YES;
 	self.tableView.dataSource = self.dataSource;
 	[self.tableView reloadData];
-    [self.refreshControl endRefreshing];
 }
 
 #pragma mark - NotificationServiceDelegate protocol
