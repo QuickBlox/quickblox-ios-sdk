@@ -824,7 +824,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "24e26099-665c-4e31-80ba-d1b02f712dad";
+				PROVISIONING_PROFILE = "1e223d63-a2a5-432b-ad1a-295b73fab39b";
 				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_objc_AdHoc;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
