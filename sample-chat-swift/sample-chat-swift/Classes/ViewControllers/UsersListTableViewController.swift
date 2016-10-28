@@ -17,57 +17,61 @@ class UsersListTableViewController: UITableViewController {
 		
 
         // Fetching users from cache.
-        ServicesManager.instance().usersService.loadFromCache().continueWithBlock { [weak self] (task : BFTask!) -> AnyObject! in
-            if task.result?.count > 0 {
-				guard let users = ServicesManager.instance().sortedUsers() else {
-					print("No cached users")
-					return nil
-				}
-                self?.setupUsers(users)
+        ServicesManager.instance().usersService.loadFromCache().continue ({ (task) -> Any? in
+            
+            if (task.result?.count)! > 0 {
+                guard let users = ServicesManager.instance().sortedUsers() else {
+                    print("No cached users")
+                    return nil
+                }
+                self.setupUsers(users: users)
                 
             } else {
                 
-                SVProgressHUD.showWithStatus("SA_STR_LOADING_USERS".localized, maskType: SVProgressHUDMaskType.Clear)
+                SVProgressHUD.show(withStatus: "SA_STR_LOADING_USERS".localized, maskType: SVProgressHUDMaskType.clear)
                 
                 // Downloading users from Quickblox.
-				
-                ServicesManager.instance().downloadCurrentEnvironmentUsers({ (users: [QBUUser]?) -> Void in
-					
-					guard let unwrappedUsers = users else {
-						SVProgressHUD.showErrorWithStatus("No users downloaded")
-						return
-					}
-					
-                    SVProgressHUD.showSuccessWithStatus("SA_STR_COMPLETED".localized)
-					
-                    self?.setupUsers(unwrappedUsers)
+                
+                ServicesManager.instance().downloadCurrentEnvironmentUsers(successBlock: { (users: [QBUUser]?) -> Void in
+                    
+                    guard let unwrappedUsers = users else {
+                        SVProgressHUD.showError(withStatus: "No users downloaded")
+                        return
+                    }
+                    
+                    SVProgressHUD.showSuccess(withStatus: "SA_STR_COMPLETED".localized)
+                    
+                    self.setupUsers(users: unwrappedUsers)
                     
                     }, errorBlock: { (error: NSError!) -> Void in
                         
-                        SVProgressHUD.showErrorWithStatus(error.localizedDescription)
+                        SVProgressHUD.showError(withStatus: error.localizedDescription)
                 })
             }
             
-            return nil;
-        }
+            return nil
+        })
     }
     
     // MARK: UITableViewDataSource
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
 		return users.count;
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SA_STR_CELL_USER".localized, forIndexPath: indexPath) as! UserTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SA_STR_CELL_USER".localized, for: indexPath) as! UserTableViewCell
         
         let user = self.users[indexPath.row]
         
-        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
+        cell.setColorMarkerText(text: String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
         cell.userDescription = user.fullName
         cell.tag = indexPath.row
         

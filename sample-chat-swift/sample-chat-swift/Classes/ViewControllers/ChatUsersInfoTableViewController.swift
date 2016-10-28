@@ -15,60 +15,63 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
         self.updateUsers()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.dialog.occupantIDs?.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
-            self.navigationItem.rightBarButtonItem?.enabled = false
+        if (self.dialog.occupantIDs?.count)! >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
         ServicesManager.instance().chatService.addDelegate(self)
     }
 	
     func updateUsers() {
-        ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!) .continueWithBlock { (task :BFTask) -> AnyObject? in
+        
+        ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!).continue ({ (task) -> Any? in
             
-            if task.result?.count >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
-                self.navigationItem.rightBarButtonItem?.enabled = false
+            if (task.result?.count)! >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
             }
             else {
-                self.navigationItem.rightBarButtonItem?.enabled = true
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
             
-            if task.result?.count > 0 {
-                self.setupUsers(task.result! as! [QBUUser])
+            if (task.result?.count)! > 0 {
+                self.setupUsers(users: task.result! as! [QBUUser])
             }
             
             return nil
-        }
+        })
     }
 	
     override func setupUsers(users: [QBUUser]) {
         
         
-        let filteredUsers = users.filter({self.dialog.occupantIDs!.contains(NSNumber(unsignedInteger: $0.ID))})
+        let filteredUsers = users.filter({self.dialog.occupantIDs!.contains(NSNumber(value: $0.id))})
         
-        let sortedUsers = filteredUsers.sort({ (user1, user2) -> Bool in
-            return user1.login!.compare(user2.login!, options:NSStringCompareOptions.NumericSearch) == NSComparisonResult.OrderedAscending
+        let sortedUsers = filteredUsers.sorted(by: { (user1, user2) -> Bool in
+            return user1.login!.compare(user2.login!, options:String.CompareOptions.numeric) == ComparisonResult.orderedAscending
         })
-        super.setupUsers(sortedUsers)
+        super.setupUsers(users: sortedUsers)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS".localized {
-            if let newDialogViewController = segue.destinationViewController as? NewDialogViewController {
+            if let newDialogViewController = segue.destination as? NewDialogViewController {
                 newDialogViewController.dialog = self.dialog
             }
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
-    func chatService(chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
+    func chatService(_ chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
         
-        if (chatDialog.ID == self.dialog!.ID) {
+        if (chatDialog.id == self.dialog!.id) {
             self.dialog = chatDialog
             self.updateUsers()
             self.tableView.reloadData()

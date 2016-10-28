@@ -11,8 +11,8 @@ import Foundation
 class ReplaceSegue : UIStoryboardSegue {
 	
 	override func perform() {
-		let sourceViewController = self.sourceViewController
-		let destinationViewController = self.destinationViewController
+		let sourceViewController = self.source
+		let destinationViewController = self.destination
 		
 		let navigationController = sourceViewController.navigationController
 		
@@ -23,12 +23,12 @@ class ReplaceSegue : UIStoryboardSegue {
 			return
 		}
 		
-		guard let sourceViewControllerIndex = mutableVC.indexOf(sourceViewController) else {
+		guard let sourceViewControllerIndex = mutableVC.index(of: sourceViewController) else {
 			print("Error: no index for source view controller")
 			return
 		}
 
-		mutableVC.removeAtIndex(sourceViewControllerIndex)
+		mutableVC.remove(at: sourceViewControllerIndex)
 		
 		navigationController?.setViewControllers(mutableVC, animated: true)
 	}
