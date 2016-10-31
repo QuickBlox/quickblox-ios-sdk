@@ -51,8 +51,6 @@ QMDeferredQueueManagerDelegate
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
 
-@property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
-
 @property (nonatomic, strong) NSMutableSet *detailedCells;
 
 @end
@@ -251,18 +249,6 @@ QMDeferredQueueManagerDelegate
     return !message.isDateDividerMessage
     && message.senderID != self.senderID
     && ![message.readIDs containsObject:@(self.senderID)];
-}
-
-- (void)readMessages:(NSArray *)messages {
-    
-    if ([ServicesManager instance].isAuthorized) {
-        
-        [[ServicesManager instance].chatService readMessages:messages forDialogID:self.dialog.ID completion:nil];
-    }
-    else {
-        
-        self.unreadMessages = messages;
-    }
 }
 
 - (void)fireStopTypingIfNecessary {
@@ -932,25 +918,14 @@ QMDeferredQueueManagerDelegate
 
 #pragma mark - QMChatConnectionDelegate
 
-- (void)refreshAndReadMessages; {
-    
-    [self refreshMessagesShowingProgress:YES];
-    
-    if (self.unreadMessages.count > 0) {
-        [self readMessages:self.unreadMessages];
-    }
-    
-    self.unreadMessages = nil;
-}
-
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService {
     
-    [self refreshAndReadMessages];
+     [self refreshMessagesShowingProgress:YES];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService {
     
-    [self refreshAndReadMessages];
+      [self refreshMessagesShowingProgress:YES];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate
@@ -979,17 +954,18 @@ QMDeferredQueueManagerDelegate
     
     id<QMChatAttachmentCell> cell = [self.attachmentCells objectForKey:message.ID];
     
-    if (cell == nil && progress < 1.0f) {
+    if (cell != nil) {
+        
+        [cell updateLoadingProgress:progress];
+    }
+    else if (progress < 1.0f) {
         
         NSIndexPath *indexPath = [self.chatDataSource indexPathForMessage:message];
         cell = (UICollectionViewCell <QMChatAttachmentCell> *)[self.collectionView cellForItemAtIndexPath:indexPath];
         [self.attachmentCells setObject:cell forKey:message.ID];
     }
     
-    if (cell != nil) {
-        
-        [cell updateLoadingProgress:progress];
-    }
+
 }
 
 #pragma mark - UITextViewDelegate
