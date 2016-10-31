@@ -8,7 +8,7 @@ WebRTC SDK:
 [![CocoaPods](https://img.shields.io/cocoapods/dm/Quickblox-WebRTC.svg)](https://cocoapods.org/pods/Quickblox-WebRTC)
 
 <br>
-QuickBlox - Communication & cloud backend (BaaS) platform which brings superpowers to your mobile apps.
+QuickBlox - Communication & cloud backend platform which brings superpowers to your mobile apps.
 
 QuickBlox is a suite of communication features & data services (APIs, SDKs, code samples, admin panel, tutorials) which help digital agencies, mobile developers and publishers to add great functionality to smartphone applications. 
 Please read full iOS SDK documentation on the [QuickBlox website, iOS section](http://quickblox.com/developers/IOS).
