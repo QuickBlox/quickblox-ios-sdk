@@ -1,4 +1,8 @@
 # QuickBlox 
+
+[![CocoaPods](https://img.shields.io/cocoapods/v/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
+[![CocoaPods](https://img.shields.io/cocoapods/dm/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
+
 QuickBlox - Communication & cloud backend (BaaS) platform which brings superpowers to your mobile apps.
 
 QuickBlox is a suite of communication features & data services (APIs, SDKs, code samples, admin panel, tutorials) which help digital agencies, mobile developers and publishers to add great functionality to smartphone applications. 
