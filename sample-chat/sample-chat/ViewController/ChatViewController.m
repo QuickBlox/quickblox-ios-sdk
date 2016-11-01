@@ -275,19 +275,19 @@ QMDeferredQueueManagerDelegate
         message.dialogID = self.dialog.ID;
         message.dateSent = [NSDate date];
         
+        [self.chatDataSource addMessage:message];
+        
         [[ServicesManager instance].chatService sendAttachmentMessage:message
                                                              toDialog:self.dialog
                                                   withAttachmentImage:attachment.image
                                                            completion:^(NSError *error) {
                                                                
                                                                [self.attachmentCells removeObjectForKey:message.ID];
+                                                               // perform local attachment deleting
+                                                               [self.chatDataSource deleteMessage:message];
                                                                
                                                                if (error != nil) {
                                                                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                                                                   
-                                                                   // perform local attachment deleting
-                                                                   [[ServicesManager instance].chatService deleteMessageLocally:message];
-                                                                   [self.chatDataSource deleteMessage:message];
                                                                }
                                                            }];
         [self finishSendingMessageAnimated:YES];
@@ -1114,20 +1114,21 @@ QMDeferredQueueManagerDelegate
         UIImage *resizedImage = [strongSelf resizedImageFromImage:newImage];
         
         // Sending attachment to the dialog.
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+             [self.chatDataSource addMessage:message];
+            
             [[ServicesManager instance].chatService sendAttachmentMessage:message
                                                                  toDialog:strongSelf.dialog
                                                       withAttachmentImage:resizedImage
                                                                completion:^(NSError *error) {
                                                                    
                                                                    [strongSelf.attachmentCells removeObjectForKey:message.ID];
+                                                                   [strongSelf.chatDataSource deleteMessage:message];
                                                                    
                                                                    if (error != nil) {
                                                                        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                                                                       
-                                                                       // perform local attachment deleting
-                                                                       [[ServicesManager instance].chatService deleteMessageLocally:message];
-                                                                       [strongSelf.chatDataSource deleteMessage:message];
                                                                    }
                                                                }];
         });
