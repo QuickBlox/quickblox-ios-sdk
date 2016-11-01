@@ -283,10 +283,10 @@ QMDeferredQueueManagerDelegate
                                                            completion:^(NSError *error) {
                                                                
                                                                [self.attachmentCells removeObjectForKey:message.ID];
-                                                               // perform local attachment deleting
-                                                               [self.chatDataSource deleteMessage:message];
-                                                               
+                                                              
                                                                if (error != nil) {
+                                                                   // perform local attachment deleting
+                                                                   [self.chatDataSource deleteMessage:message];
                                                                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                }
                                                            }];
@@ -1125,9 +1125,9 @@ QMDeferredQueueManagerDelegate
                                                                completion:^(NSError *error) {
                                                                    
                                                                    [strongSelf.attachmentCells removeObjectForKey:message.ID];
-                                                                   [strongSelf.chatDataSource deleteMessage:message];
                                                                    
                                                                    if (error != nil) {
+                                                                       [strongSelf.chatDataSource deleteMessage:message];
                                                                        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                    }
                                                                }];
