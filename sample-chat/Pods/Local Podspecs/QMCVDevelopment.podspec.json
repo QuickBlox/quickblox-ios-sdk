@@ -14,7 +14,7 @@
     "Vitaliy Gurkovsky": "vitaliy.gurkovsky@injoit.com"
   },
   "platforms": {
-    "ios": "7.0"
+    "ios": "8.0"
   },
   "source": {
     "git": "https://github.com/QuickBlox/QMChatViewController-ios.git",
@@ -50,12 +50,12 @@
       "source_files": "QMChatViewController/Categories/*.{h,m}"
     },
     {
-      "name": "KeyboardViewController",
-      "source_files": "QMChatViewController/KeyboardViewController/*.{h,m}"
-    },
-    {
       "name": "QMChatSection",
       "source_files": "QMChatViewController/QMChatSection/*.{h,m}"
+    },
+    {
+      "name": "QMChatDataSource",
+      "source_files": "QMChatViewController/QMChatDataSource/*.{h,m}"
     },
     {
       "name": "Protocols",

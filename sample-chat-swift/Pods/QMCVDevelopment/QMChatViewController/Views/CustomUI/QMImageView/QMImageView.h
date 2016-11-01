@@ -1,6 +1,6 @@
 //
 //  QMImageView.h
-//  Q-municate
+//  QMChatViewController
 //
 //  Created by Andrey Ivanov on 27.06.14.
 //  Copyright (c) 2014 Quickblox. All rights reserved.
@@ -36,6 +36,12 @@ typedef NS_ENUM(NSUInteger, QMImageViewType) {
                 options:(SDWebImageOptions)options
                progress:(SDWebImageDownloaderProgressBlock)progress
          completedBlock:(SDWebImageCompletionBlock)completedBlock;
+
+/**
+ *  Clear current image view instance from image.
+ */
+- (void)clearImage;
+
 @end
 
 @protocol QMImageViewDelegate <NSObject>

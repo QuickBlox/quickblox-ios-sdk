@@ -8,16 +8,28 @@
 
 #import "QMChatSectionManager.h"
 #import "QMChatSection.h"
+#import "QMChatDataSource.h"
 
 @interface QMChatSectionManager ()
 
 @property (strong, nonatomic) NSArray *chatSections;
 @property (strong, nonatomic) NSMutableArray *editableSections;
 @property (nonatomic) dispatch_queue_t serialQueue;
-
+@property (strong, nonatomic) QMChatDataSource *chatDataSource;
 @end
 
 @implementation QMChatSectionManager
+
+- (instancetype)initWithChatDataSource:(QMChatDataSource *)chatDataSource {
+    
+    self  = [super init];
+    
+    if (self) {
+        _chatDataSource = chatDataSource;
+    }
+    
+    return self;
+}
 
 - (instancetype)init {
     
@@ -38,17 +50,17 @@
 
 - (void)addMessage:(QBChatMessage *)message {
     
-    [self addMessages:@[message] animated:self.animationEnabled];
+    [self.chatDataSource addMessage:message];
 }
 
 - (void)addMessages:(NSArray *)messages {
     
-    [self addMessages:messages animated:self.animationEnabled];
+    [self.chatDataSource addMessages:messages];
 }
 
 - (void)addMessage:(QBChatMessage *)message animated:(BOOL)animated {
     
-    [self addMessages:@[message] animated:animated];
+    [self.chatDataSource addMessage:message];
 }
 
 - (void)addMessages:(NSArray *)messages animated:(BOOL)animated {
@@ -130,7 +142,7 @@
 
 - (void)updateMessage:(QBChatMessage *)message {
     
-    [self updateMessages:@[message]];
+    [self.chatDataSource updateMessage:message];
 }
 
 - (void)updateMessages:(NSArray *)messages {
@@ -177,18 +189,15 @@
 #pragma mark - Delete messages
 
 - (void)deleteMessage:(QBChatMessage *)message {
-    
-    [self deleteMessages:@[message] animated:self.animationEnabled];
+    [self.chatDataSource deleteMessage:message];
 }
 
 - (void)deleteMessages:(NSArray *)messages {
-    
-    [self deleteMessages:messages animated:self.animationEnabled];
+    [self.chatDataSource deleteMessages:messages];
 }
 
 - (void)deleteMessage:(QBChatMessage *)message animated:(BOOL)animated {
-    
-    [self deleteMessages:@[message] animated:animated];
+    [self.chatDataSource deleteMessage:message];
 }
 
 - (void)deleteMessages:(NSArray *)messages animated:(BOOL)animated {
@@ -385,70 +394,27 @@ static inline NSMutableArray *incrementAllSectionsForIndexPaths(NSMutableArray *
 
 - (NSUInteger)totalMessagesCount {
     
-    NSUInteger totalMessagesCount = 0;
-    NSArray *chatSections = self.chatSections.copy;
-    
-    for (QMChatSection *chatSection in chatSections) {
-        
-        totalMessagesCount += [chatSection.messages count];
-    }
-    
-    return totalMessagesCount;
+    return self.chatDataSource.messagesCount;
 }
 
 - (QBChatMessage *)messageForIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.item == NSNotFound) {
-        // If the update item's index path has an "item" value of NSNotFound, it means it was a section update, not an individual item.
-        return nil;
-    }
-    
-    QMChatSection *currentSection = self.chatSections[indexPath.section];
-    return currentSection.messages[indexPath.item];
+    return [self.chatDataSource messageForIndexPath:indexPath];
 }
 
 - (NSIndexPath *)indexPathForMessage:(QBChatMessage *)message {
     
-    NSIndexPath *indexPath = nil;
-    
-    for (QMChatSection *chatSection in self.chatSections) {
-        
-        if ([chatSection.messages containsObject:message]) {
-            
-            indexPath = [NSIndexPath indexPathForItem:[chatSection.messages indexOfObject:message] inSection:[self.chatSections indexOfObject:chatSection]];
-            break;
-        }
-    }
-    
-    return indexPath;
+    return [self.chatDataSource indexPathForMessage:message];
 }
 
 - (NSArray *)allMessages {
     
-    NSMutableArray *mutableItems = [NSMutableArray array];
-    
-    for (QMChatSection *chatSection in self.chatSections) {
-        
-        [mutableItems addObjectsFromArray:chatSection.messages];
-    }
-    
-    return mutableItems.copy;
+    return  self.chatDataSource.allMessages;
 }
 
 - (BOOL)messageExists:(QBChatMessage *)message {
     
-    BOOL messageExists = NO;
-    
-    for (QMChatSection *chatSection in self.chatSections) {
-        
-        messageExists = [chatSection.messages containsObject:message];
-        if (messageExists) {
-            
-            break;
-        }
-    }
-    
-    return messageExists;
+    return [self.chatDataSource messageExists:message];
 }
 
 @end

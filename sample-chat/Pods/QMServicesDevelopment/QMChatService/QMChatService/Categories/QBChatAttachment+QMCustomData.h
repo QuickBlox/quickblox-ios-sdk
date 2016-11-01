@@ -8,6 +8,8 @@
 
 #import <Quickblox/Quickblox.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBChatAttachment (QMCustomData)
 
 /**
@@ -17,7 +19,7 @@
  *  
  *  @note You should always call 'synchronize' method after context change.
  */
-@property (strong, nonatomic, readonly, QB_NONNULL) NSMutableDictionary *context;
+@property (strong, nonatomic, readonly) NSMutableDictionary *context;
 
 /**
  *  Synchronize context into attachment custom data field.
@@ -29,3 +31,5 @@
 - (void)synchronize;
 
 @end
+
+NS_ASSUME_NONNULL_END

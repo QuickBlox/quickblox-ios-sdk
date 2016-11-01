@@ -67,6 +67,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         
 #if !(TARGET_IPHONE_SIMULATOR)
         Settings *settings = Settings.instance;
+#if !(TARGET_OS_SIMULATOR)
         self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
                                                                     position:settings.preferredCameraPostion];
         [self.cameraCapture startSession];

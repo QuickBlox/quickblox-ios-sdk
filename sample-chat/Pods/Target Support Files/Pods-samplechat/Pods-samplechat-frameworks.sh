@@ -85,6 +85,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MPGNotification/MPGNotification.framework"
   install_framework "$BUILT_PRODUCTS_DIR/QMCVDevelopment/QMCVDevelopment.framework"
   install_framework "$BUILT_PRODUCTS_DIR/QMServicesDevelopment/QMServicesDevelopment.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
@@ -95,6 +96,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MPGNotification/MPGNotification.framework"
   install_framework "$BUILT_PRODUCTS_DIR/QMCVDevelopment/QMCVDevelopment.framework"
   install_framework "$BUILT_PRODUCTS_DIR/QMServicesDevelopment/QMServicesDevelopment.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"
@@ -105,6 +107,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
 fi
 if [[ "$CONFIGURATION" == "QA" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/MPGNotification/MPGNotification.framework"
   install_framework "$BUILT_PRODUCTS_DIR/QMCVDevelopment/QMCVDevelopment.framework"
   install_framework "$BUILT_PRODUCTS_DIR/QMServicesDevelopment/QMServicesDevelopment.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SDWebImage/SDWebImage.framework"

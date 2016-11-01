@@ -22,6 +22,8 @@
  */
 @property (nonatomic, strong) dispatch_group_t logoutGroup;
 
+@property (nonatomic, strong) dispatch_group_t joinGroup;
+
 @end
 
 @implementation QMServicesManager
@@ -58,6 +60,7 @@
         [_usersService addDelegate:self];
         
         _logoutGroup = dispatch_group_create();
+        _joinGroup = dispatch_group_create();
     }
     
     return self;
@@ -164,38 +167,71 @@
 }
 
 - (void)joinAllGroupDialogsIfNeeded {
+    [self joinAllGroupDialogsIfNeededWithCompletion:nil];
+}
+
+- (void)joinAllGroupDialogsIfNeededWithCompletion:(dispatch_block_t)completion {
     
     if (!self.chatService.isAutoJoinEnabled) {
         // if auto join is not enabled QMServices will not join group chat dialogs automatically.
+        if (completion) {
+            completion();
+        }
         return;
     }
     
-    NSArray *dialogObjects = [self.chatService.dialogsMemoryStorage unsortedDialogs];
-    for (QBChatDialog* dialog in dialogObjects) {
+    NSArray *dialogObjects = [self.chatService.dialogsMemoryStorage dialogsSortByUpdatedAtWithAscending:NO];
+    
+    for (QBChatDialog *dialog in dialogObjects) {
         
         if (dialog.type != QBChatDialogTypePrivate) {
+            
             // Joining to group chat dialogs.
+            dispatch_group_enter(self.joinGroup);
+            
             [self.chatService joinToGroupDialog:dialog completion:^(NSError *error) {
                 
                 if (error != nil) {
-                    
                     QMSLog(@"Failed to join room with error: %@", error.localizedDescription);
                 }
+                else {
+                    [self.chatService.deferredQueueManager performDeferredActionsForDialogWithID:dialog.ID];
+                }
+                
+                dispatch_group_leave(self.joinGroup);
             }];
         }
+        else {
+            [self.chatService.deferredQueueManager performDeferredActionsForDialogWithID:dialog.ID];
+        }
     }
+    dispatch_group_notify(self.joinGroup, dispatch_get_main_queue(), ^{
+        if (completion) {
+            completion();
+        }
+        
+    });
 }
 
 #pragma mark - QMChatServiceDelegate
 
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService {
     
-    [self joinAllGroupDialogsIfNeeded];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    [self joinAllGroupDialogsIfNeededWithCompletion:^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService {
     
-    [self joinAllGroupDialogsIfNeeded];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    [self joinAllGroupDialogsIfNeededWithCompletion:^{
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }];
 }
 
 #pragma mark QMChatServiceCache delegate

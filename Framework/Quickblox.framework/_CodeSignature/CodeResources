@@ -10,11 +10,11 @@
 		</data>
 		<key>Headers/ChatDelegates.h</key>
 		<data>
-		kK+ufuyD8TbkRd4aEKM3Gk3Legc=
+		V6NhJqlMApwStC5MIGLn/j0SSK4=
 		</data>
 		<key>Headers/ChatEnums.h</key>
 		<data>
-		btiYAMcn4CuOe8z6UemjnCul9O0=
+		cBuZ6ZA6u+BB9Zu0Ugp+vRSpD5o=
 		</data>
 		<key>Headers/ChatServiceFramework.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/QBASession.h</key>
 		<data>
-		wdQ4Mw89lPmUrg65Z+J+0IuzjtE=
+		qLGAm/aqwRimW5DXV5mFMOJxuPc=
 		</data>
 		<key>Headers/QBAuthHeader.h</key>
 		<data>
@@ -30,39 +30,39 @@
 		</data>
 		<key>Headers/QBCBlob.h</key>
 		<data>
-		Ro2nw01IavdebAjzcO35akcVD80=
+		St8hKW5gFwMk63YSaOQuYDvKMb4=
 		</data>
 		<key>Headers/QBCBlobObjectAccess.h</key>
 		<data>
-		pw9WT06HtfrDdu36Q8M6havb8yU=
+		q0VRT8oQNi6m5EyWn3/9+V6ISNM=
 		</data>
 		<key>Headers/QBCEntity.h</key>
 		<data>
-		Tk5G21CeBe/ZK78t9qbj6UNYJAA=
+		TZti/wGGuCH3AHI5f0+mobXy/vc=
 		</data>
 		<key>Headers/QBCOCustomObject.h</key>
 		<data>
-		8pDDstnuh5CHEobFua5mBMu6Jh0=
+		20UJnEGPxM19n5KsUVFzkC7OJ8k=
 		</data>
 		<key>Headers/QBCOFile.h</key>
 		<data>
-		ERAuS0YpXVqcQ8wwledqjII/Rwo=
+		E52KRU/4JEd21CH6TnW3p2qYBVk=
 		</data>
 		<key>Headers/QBCOFileUploadInfo.h</key>
 		<data>
-		+FZw9Scyq2QOBgQYKz1wCi80akw=
+		2YvEN7oDkZVfXmhK/ZrFO5THMZQ=
 		</data>
 		<key>Headers/QBCOPermissions.h</key>
 		<data>
-		XuH49vPRE89DrCiPn3vYeIdT420=
+		z9MAOrt9RfdDKTcJzXWxYZWziSU=
 		</data>
 		<key>Headers/QBChat.h</key>
 		<data>
-		bmF8GiXugz8miTUBwuEeJ2GxS/8=
+		Bs3G0wZsSbR7MRSlXlP7Or/rD58=
 		</data>
 		<key>Headers/QBChatAttachment.h</key>
 		<data>
-		K/+uYtuPJAmGE3B4tf9TSR5h8aM=
+		LJCBzN8gVXWMBL31ypwhYYQc8VA=
 		</data>
 		<key>Headers/QBChatBusiness.h</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Headers/QBChatDialog.h</key>
 		<data>
-		BDXj+9rDTmlcbGXaJf15WnK8Tik=
+		C8+3QTykXMZLP3FMcvqPxOXHA6k=
 		</data>
 		<key>Headers/QBChatHeader.h</key>
 		<data>
@@ -86,23 +86,23 @@
 		</data>
 		<key>Headers/QBChatMessage.h</key>
 		<data>
-		Lmq81IlCzFbNk+JBq7aF/fNQFcg=
+		GFn6FuhabGe5eqYeQP7OPlddJwQ=
 		</data>
 		<key>Headers/QBConnection.h</key>
 		<data>
-		MQRl73B8xpkbaLUmWZsEesxzkJE=
+		PclOTaWuxz2G1c3CJ1v1xhdKfPk=
 		</data>
 		<key>Headers/QBContactList.h</key>
 		<data>
-		dGytC+/X7HstmAA6sO6HP7RsSYo=
+		xWGKDD8W4NcYevnGo34xtegEvIs=
 		</data>
 		<key>Headers/QBContactListItem.h</key>
 		<data>
-		D4FtItzvaTx0RnTXZtm1YpgA5Qs=
+		IJTOQw1ZokNTq2v3+24Ke8uY1L0=
 		</data>
 		<key>Headers/QBContentEnums.h</key>
 		<data>
-		DzCvR17xHrOV4zRu0NPQsGAt4eI=
+		n4PMBRDXynS5+LBq0RogwsTn6Kk=
 		</data>
 		<key>Headers/QBContentHeader.h</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Headers/QBCustomObjectsConsts.h</key>
 		<data>
-		6Dxdv2AFiuK4luZ144GPVau4GwQ=
+		H8/4Voc80mvXrF9USmdVuy+yKt0=
 		</data>
 		<key>Headers/QBCustomObjectsEnums.h</key>
 		<data>
@@ -134,11 +134,11 @@
 		</data>
 		<key>Headers/QBError.h</key>
 		<data>
-		w218e7KnGdStk2QB01F3xkIuW+8=
+		o98WCkTBCvXSowZefIiJcTveaHU=
 		</data>
 		<key>Headers/QBGeneralResponsePage.h</key>
 		<data>
-		+RJfeibjHxTIEyV8Sv6ooXjjMxQ=
+		8h/lqWg6KgR1OhfptkHVkCHdt5s=
 		</data>
 		<key>Headers/QBGeneric.h</key>
 		<data>
@@ -146,15 +146,15 @@
 		</data>
 		<key>Headers/QBLGeoData.h</key>
 		<data>
-		NC8dX5/lN0+eA5J9C/8Lj7Y34CQ=
+		b2qmJZ/sb+4DmGefyDHWe1B5nOc=
 		</data>
 		<key>Headers/QBLGeoDataFilter.h</key>
 		<data>
-		fOSFRlz5ptoxaEKnLPBwwtjRp28=
+		boLAqqx1MHee9SuR3KrWDmXyPK8=
 		</data>
 		<key>Headers/QBLPlace.h</key>
 		<data>
-		V/WySY2uwrJcPUgKSR1PL9uCgh0=
+		pWGxmbQppBqI4miTCoVIJpqwK9s=
 		</data>
 		<key>Headers/QBLocationDefinitions.h</key>
 		<data>
@@ -174,47 +174,47 @@
 		</data>
 		<key>Headers/QBLogger.h</key>
 		<data>
-		c5Gpsd94Fc3X6iyycmvbqcqbny8=
+		ZFuivpyLj17zwCYrTaXGlvHMBbY=
 		</data>
 		<key>Headers/QBMEvent.h</key>
 		<data>
-		nUGLmaAlhlrvBuaui7sLSr37Ahk=
+		L8J2DpckujRoAx0xFMEmLNfEpjc=
 		</data>
 		<key>Headers/QBMPushMessage.h</key>
 		<data>
-		AL6tEZxv9mKn+MhcumX36Fpr5SY=
+		LW3f9EJjqV68Gt1gJ8iE270Nr5Q=
 		</data>
 		<key>Headers/QBMPushMessageBase.h</key>
 		<data>
-		tjjFCabYFQJ6hfJu+RnGHeLOaKs=
+		vAiLqHFzDSE+DxvpquKxKXCTkaY=
 		</data>
 		<key>Headers/QBMPushToken.h</key>
 		<data>
-		Qq607bx/oN4LPRrsTgucYddilGA=
+		/0PlBWR1+EKfoG8K6c4Jp2bc+X8=
 		</data>
 		<key>Headers/QBMSubscription.h</key>
 		<data>
-		Q15/ou0ScGGMkaujsm0c2qe7m7s=
+		HWRrNGG/wkmRf44qhX6ESGNDRlY=
 		</data>
 		<key>Headers/QBMulticastDelegate.h</key>
 		<data>
-		mlLQPWh6wpxlM9NSSsI/rCcIqlI=
+		YiF8/YGVt2yXcqGLTQ89FTA1O2s=
 		</data>
 		<key>Headers/QBNullability.h</key>
 		<data>
-		tw6OOYmORZnwtdbCYWWEX94v/Sk=
+		rS1i4Tsr21uEpvZWsSFLyLRDBhQ=
 		</data>
 		<key>Headers/QBPrivacyItem.h</key>
 		<data>
-		kIcJeFvB+BvyKeidcLpOnjs4OJk=
+		98tNWYjkPP9ijxhOPImaXfSCPPQ=
 		</data>
 		<key>Headers/QBPrivacyList.h</key>
 		<data>
-		jxoJ3b6FSWF285rNOCY+tVIxpw0=
+		FGQOcq+movgJqId1JzCBxV78o40=
 		</data>
 		<key>Headers/QBPushNotificationsConsts.h</key>
 		<data>
-		FbF0UNJeULwP9gdih/m/GQowh9s=
+		BucqYVHJreWikgZYgmSG9m0HtkQ=
 		</data>
 		<key>Headers/QBPushNotificationsDefinitions.h</key>
 		<data>
@@ -222,7 +222,7 @@
 		</data>
 		<key>Headers/QBPushNotificationsEnums.h</key>
 		<data>
-		cShy2jBPa8cKghsAN+oTiJoBeL0=
+		GhZW89wMKB9GoqssOv5ObpMYQsU=
 		</data>
 		<key>Headers/QBPushNotificationsHeader.h</key>
 		<data>
@@ -230,63 +230,63 @@
 		</data>
 		<key>Headers/QBRequest+QBAuth.h</key>
 		<data>
-		lLACfMErFqR32yzdLfIfahN2raM=
+		rHqy+7VGuUwyfnQYTOfwB2htpyU=
 		</data>
 		<key>Headers/QBRequest+QBChat.h</key>
 		<data>
-		tL6To0sM31zdkHaogzkmaCFVkgc=
+		6mhckE2ie7gmYEISfyipIqVOhIo=
 		</data>
 		<key>Headers/QBRequest+QBContent.h</key>
 		<data>
-		nJX4UFyayDZkAPVvhZnaddrNBzo=
+		f15lZ44HnYCfcw3tUALv9mGQDVA=
 		</data>
 		<key>Headers/QBRequest+QBCustomObjects.h</key>
 		<data>
-		EUJXxUAeWF/6XWqVkgjTEzJP28o=
+		Db7+enrPZwTq5Qx3rZJ4M0OxYjQ=
 		</data>
 		<key>Headers/QBRequest+QBLocation.h</key>
 		<data>
-		n+ydTdkH4Gub1hz3cVUjOF+2mdY=
+		wuPZPiBvJSCnR2k9GYk5h9vnWHQ=
 		</data>
 		<key>Headers/QBRequest+QBPushNotifications.h</key>
 		<data>
-		YeRYSSXqNXDO+kE200Z2gjxeUo8=
+		r+MB/ElHlY2Cqb++4FaT3rUUC+U=
 		</data>
 		<key>Headers/QBRequest+QBUsers.h</key>
 		<data>
-		3jRJhY+bH/+VbgPwkS0ieBqjdJ4=
+		MIPjWuKd0tnVynGo9a3rrSityt8=
 		</data>
 		<key>Headers/QBRequest.h</key>
 		<data>
-		mBwr9PVkLywboxDO78Ibm1UOz/E=
+		T+0uIPYjR1zjBo+dZkuP07xGzI4=
 		</data>
 		<key>Headers/QBRequestStatus.h</key>
 		<data>
-		TtqEiscH4lj9Gj2YwwUPKzOS+Mc=
+		w1YAIQ7a2Wxuo6es6kLIIF5f9ZA=
 		</data>
 		<key>Headers/QBResponse.h</key>
 		<data>
-		jLxuid2WoOpnbaN9A7Bss8z3IDc=
+		Tvk5BxwyLE19pHUExJrB+lRsC6Q=
 		</data>
 		<key>Headers/QBResponsePage.h</key>
 		<data>
-		pVN+pnY6wGXGDjMl9OyYHvgZoQk=
+		mxXo0U1LwX+AE/Fww/A/ggCokQg=
 		</data>
 		<key>Headers/QBSession.h</key>
 		<data>
-		UpLoQutzlnCnbmEphZWHx6U9SGI=
+		oVre8TcDCirjA7I2NCyusjrKZys=
 		</data>
 		<key>Headers/QBSettings.h</key>
 		<data>
-		LwXYHaGYo3vjpu6tH81lWJKPA80=
+		iW8Lga2nNOTP3eSF5ZJ1v9hDwNg=
 		</data>
 		<key>Headers/QBUUser.h</key>
 		<data>
-		fTWCspcy7mPvCgNwHV0WCG3OR2U=
+		H99Mz5KsXtNgcDaEtsO7Hoov+RI=
 		</data>
 		<key>Headers/QBUpdateUserParameters.h</key>
 		<data>
-		ZSOAevjsSWXLZtQHlxK1+QjRQdY=
+		ir0Nn4F1B9sntK8Ei4BHPUbpRiY=
 		</data>
 		<key>Headers/QBUsersHeader.h</key>
 		<data>
@@ -294,11 +294,11 @@
 		</data>
 		<key>Headers/Quickblox.h</key>
 		<data>
-		Pir6wJyAQV1pui5mZ1n7GYWLxtQ=
+		xX3KmmMdqmaYvQB6Orj/js7J4Hc=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		0bz+QI2TXdx+qo++SqYRZObxg70=
+		tMWl/PMHkfEx36wStmiZanKZx8I=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -322,22 +322,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kK+ufuyD8TbkRd4aEKM3Gk3Legc=
+			V6NhJqlMApwStC5MIGLn/j0SSK4=
 			</data>
 			<key>hash2</key>
 			<data>
-			7S/Y28Bh/H/YtQMWz9VDq1BAh/0s+gjBqx+wp6UmG7c=
+			NVnFEc+EVoxjkpOgNzUWLxkX755w7XExRhtARFZk4lk=
 			</data>
 		</dict>
 		<key>Headers/ChatEnums.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			btiYAMcn4CuOe8z6UemjnCul9O0=
+			cBuZ6ZA6u+BB9Zu0Ugp+vRSpD5o=
 			</data>
 			<key>hash2</key>
 			<data>
-			rMgMnHMpa/YTX0U2Cjhbm/IJ6fDiuQGll8871ETpcjk=
+			pHGdFvQoBjich2vLz3UwvgmU+b5AaSuCvBClXyD3mp8=
 			</data>
 		</dict>
 		<key>Headers/ChatServiceFramework.h</key>
@@ -355,11 +355,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wdQ4Mw89lPmUrg65Z+J+0IuzjtE=
+			qLGAm/aqwRimW5DXV5mFMOJxuPc=
 			</data>
 			<key>hash2</key>
 			<data>
-			oxSh1o0mtK9PkFf5HWrVyk5FlbfSlzuci2KXk/3oTm8=
+			1oHJ0Wyy0r5HhyKZYI11PE9eZo75G8zqPWWkbaa7jpE=
 			</data>
 		</dict>
 		<key>Headers/QBAuthHeader.h</key>
@@ -377,99 +377,99 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Ro2nw01IavdebAjzcO35akcVD80=
+			St8hKW5gFwMk63YSaOQuYDvKMb4=
 			</data>
 			<key>hash2</key>
 			<data>
-			fYT0ZB2S1nDD7Rc70Ui+cWvpW9pBnT8xKmmkfyMagxg=
+			sdU8usGJoWOAOQMGkH0IOV1YTapNwkYaKYnXJ0SQzCc=
 			</data>
 		</dict>
 		<key>Headers/QBCBlobObjectAccess.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pw9WT06HtfrDdu36Q8M6havb8yU=
+			q0VRT8oQNi6m5EyWn3/9+V6ISNM=
 			</data>
 			<key>hash2</key>
 			<data>
-			0mydMVBvPWsYydERlrf9RfV3KzyzSe/otDDngNMJ1Iw=
+			zhCT9Ktc66QWJBctLXMbsxlw18jD0TjZnxRgKZeX3K8=
 			</data>
 		</dict>
 		<key>Headers/QBCEntity.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Tk5G21CeBe/ZK78t9qbj6UNYJAA=
+			TZti/wGGuCH3AHI5f0+mobXy/vc=
 			</data>
 			<key>hash2</key>
 			<data>
-			tobhsVuGpV6NqZvh7QPDJeEzin6CDDcYLMo4MRFiWhc=
+			uCaMQ85ujEVH5+WFY8YLaTN6HnC+lQukFcYlQNAeg7Q=
 			</data>
 		</dict>
 		<key>Headers/QBCOCustomObject.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8pDDstnuh5CHEobFua5mBMu6Jh0=
+			20UJnEGPxM19n5KsUVFzkC7OJ8k=
 			</data>
 			<key>hash2</key>
 			<data>
-			7SbxSGG/WPIL0Fqt+qj2L5R1suLtxWVFofWC5Rwb1ns=
+			C9jJ4V951qidJwHWh4GjZN/k3TukleVSrmmvcS3dpwo=
 			</data>
 		</dict>
 		<key>Headers/QBCOFile.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ERAuS0YpXVqcQ8wwledqjII/Rwo=
+			E52KRU/4JEd21CH6TnW3p2qYBVk=
 			</data>
 			<key>hash2</key>
 			<data>
-			npIFQcuBa1MNUmQ/Jogcd13zDHzEFSSNgJi4yHLWQzU=
+			Y08dKJ1Gdqukg1/qljCDJakk6OIeneNXNwJpOSOTOj8=
 			</data>
 		</dict>
 		<key>Headers/QBCOFileUploadInfo.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+FZw9Scyq2QOBgQYKz1wCi80akw=
+			2YvEN7oDkZVfXmhK/ZrFO5THMZQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			IZvo7d0tD6kfaYYnzycl649VC4FezVqzTTk4dFeORRY=
+			mqfU+dzMKe7hIIu8jI5vo0/EoSa3tplBdX5tEefcXMA=
 			</data>
 		</dict>
 		<key>Headers/QBCOPermissions.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XuH49vPRE89DrCiPn3vYeIdT420=
+			z9MAOrt9RfdDKTcJzXWxYZWziSU=
 			</data>
 			<key>hash2</key>
 			<data>
-			fLsfbTPPjBmDjiI+w4SnK+N+HBYmujpOott5B2lFdKc=
+			rt46NQytO+To3jSD/A2v+cVxdZVYMMw80njxuJHJOLY=
 			</data>
 		</dict>
 		<key>Headers/QBChat.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bmF8GiXugz8miTUBwuEeJ2GxS/8=
+			Bs3G0wZsSbR7MRSlXlP7Or/rD58=
 			</data>
 			<key>hash2</key>
 			<data>
-			223HOWb4yOrfawF/xAP+TuzD88vKfumOK9LDilUiYQY=
+			aIgITo7GyVw2Ol8nWr8bgsJ+7nreoSm/zwM/Km1/g5o=
 			</data>
 		</dict>
 		<key>Headers/QBChatAttachment.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			K/+uYtuPJAmGE3B4tf9TSR5h8aM=
+			LJCBzN8gVXWMBL31ypwhYYQc8VA=
 			</data>
 			<key>hash2</key>
 			<data>
-			g4FUUfdwDFfYWbRPW4PFtgyfQj5jUY931xKBG05kpxc=
+			ZuxYZImW8IQ+aho4kI0CCvqT9BQ/y85aGvKJsIusbVg=
 			</data>
 		</dict>
 		<key>Headers/QBChatBusiness.h</key>
@@ -509,11 +509,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			BDXj+9rDTmlcbGXaJf15WnK8Tik=
+			C8+3QTykXMZLP3FMcvqPxOXHA6k=
 			</data>
 			<key>hash2</key>
 			<data>
-			FWES7xA9UXwEdF/eUcIDseQ7fGDfIH+XUcxpb5gibzw=
+			I4O0I1qjyHn7tZFb7AUhzNNwIa+uUBZMn9LMGxmrHjU=
 			</data>
 		</dict>
 		<key>Headers/QBChatHeader.h</key>
@@ -531,55 +531,55 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Lmq81IlCzFbNk+JBq7aF/fNQFcg=
+			GFn6FuhabGe5eqYeQP7OPlddJwQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			gA4RRYtZ5ynbhi5pmHj+VNWBOvDSAtvg7CyDk1RdrA8=
+			QjnlWA8gt2Z5m3epVgfQICrNhCLDo+R4wAI1Pv6xZ1A=
 			</data>
 		</dict>
 		<key>Headers/QBConnection.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			MQRl73B8xpkbaLUmWZsEesxzkJE=
+			PclOTaWuxz2G1c3CJ1v1xhdKfPk=
 			</data>
 			<key>hash2</key>
 			<data>
-			UAXHBzr1wHmB7U7Qxx8itKXuurNuQ4SZI2RpDTqpt8I=
+			xnJUa3nztg2GEoM5NbkKI/YG68uAiHR+j5ghOYKgDk8=
 			</data>
 		</dict>
 		<key>Headers/QBContactList.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			dGytC+/X7HstmAA6sO6HP7RsSYo=
+			xWGKDD8W4NcYevnGo34xtegEvIs=
 			</data>
 			<key>hash2</key>
 			<data>
-			UVoY81S2THnpf0UNn3lxa2DjFCMMpYTJLf/1/kVU2cQ=
+			aD3TW5sn2HnGBSGlgE6tO0w8PUFK/OgX+lnv6ADcVjM=
 			</data>
 		</dict>
 		<key>Headers/QBContactListItem.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			D4FtItzvaTx0RnTXZtm1YpgA5Qs=
+			IJTOQw1ZokNTq2v3+24Ke8uY1L0=
 			</data>
 			<key>hash2</key>
 			<data>
-			RppRbq1KgYyNgMFp0k4Aomw/JYPcJBVEb1TWCmTaIbc=
+			+G9d4KBdTs2+Y6bLpjhWv+GxMpflTIJ+W9L8R1uh57Y=
 			</data>
 		</dict>
 		<key>Headers/QBContentEnums.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			DzCvR17xHrOV4zRu0NPQsGAt4eI=
+			n4PMBRDXynS5+LBq0RogwsTn6Kk=
 			</data>
 			<key>hash2</key>
 			<data>
-			694ZNO3ityaMt8qF2IXMp+FB/CIQ9G8J87wJmg289l0=
+			mZef9DvLeJ+T7u3ZJ7nvpoDHugm+cmtfHzEHt51ddgo=
 			</data>
 		</dict>
 		<key>Headers/QBContentHeader.h</key>
@@ -630,11 +630,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6Dxdv2AFiuK4luZ144GPVau4GwQ=
+			H8/4Voc80mvXrF9USmdVuy+yKt0=
 			</data>
 			<key>hash2</key>
 			<data>
-			6oVW1XiEuRAdaIyZpptUAunrsWFoeIgTlqS0MaRBXRc=
+			xTYXg7lewh+N9vQeIPvrtb4mqCMIi4K9hQGIHVjqk94=
 			</data>
 		</dict>
 		<key>Headers/QBCustomObjectsEnums.h</key>
@@ -663,22 +663,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			w218e7KnGdStk2QB01F3xkIuW+8=
+			o98WCkTBCvXSowZefIiJcTveaHU=
 			</data>
 			<key>hash2</key>
 			<data>
-			9TeVCPpjy+L8ZM0MVS7WsvRmIzF/XFgjGo5REWMGKxA=
+			RSAbc1yBrNXe7WlDQs0GoY3Cdnw8DFJOLu9A9W6MH+I=
 			</data>
 		</dict>
 		<key>Headers/QBGeneralResponsePage.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+RJfeibjHxTIEyV8Sv6ooXjjMxQ=
+			8h/lqWg6KgR1OhfptkHVkCHdt5s=
 			</data>
 			<key>hash2</key>
 			<data>
-			XOF57lrDAlcaScfejyWZhIwNMyF0gCgldrQZi7PGSpM=
+			PlBX+h6C+N0mYFKwklOZhtRsO8lJaEpqqBwBIJzfUfs=
 			</data>
 		</dict>
 		<key>Headers/QBGeneric.h</key>
@@ -696,33 +696,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			NC8dX5/lN0+eA5J9C/8Lj7Y34CQ=
+			b2qmJZ/sb+4DmGefyDHWe1B5nOc=
 			</data>
 			<key>hash2</key>
 			<data>
-			7cEPEXxMOuUsKZjbL+NKKa4InBYlaCelocZ5BDuQMfA=
+			FTpTXR4BBT6dDXoQg5RTxF7MxjxsGWz0L74XeU6bbDg=
 			</data>
 		</dict>
 		<key>Headers/QBLGeoDataFilter.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			fOSFRlz5ptoxaEKnLPBwwtjRp28=
+			boLAqqx1MHee9SuR3KrWDmXyPK8=
 			</data>
 			<key>hash2</key>
 			<data>
-			gbQhNSlstx/ztQzsQ+nNjODiQj9/YL/12xXKG9Ag3ww=
+			MqxrBmumYtuLYnz5eo73pZwAgSqcJa7ciaKTq0SiLUY=
 			</data>
 		</dict>
 		<key>Headers/QBLPlace.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			V/WySY2uwrJcPUgKSR1PL9uCgh0=
+			pWGxmbQppBqI4miTCoVIJpqwK9s=
 			</data>
 			<key>hash2</key>
 			<data>
-			02msUH4JEdP214xhFhDAkOtbcYriAhJWbdvN8UA5OM0=
+			g1f/ic7SOksN0/pq27idNh3fNToOkLKGuA5GbJjeCjY=
 			</data>
 		</dict>
 		<key>Headers/QBLocationDefinitions.h</key>
@@ -773,121 +773,121 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			c5Gpsd94Fc3X6iyycmvbqcqbny8=
+			ZFuivpyLj17zwCYrTaXGlvHMBbY=
 			</data>
 			<key>hash2</key>
 			<data>
-			YhSoqft8oyUzPUJoSATeMwpLiApHN9PNdLe/uviDRCg=
+			uqlYN07PNeyUpVKFVaaGClJKiXDBIAV6ZjMEgMUYBT4=
 			</data>
 		</dict>
 		<key>Headers/QBMEvent.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nUGLmaAlhlrvBuaui7sLSr37Ahk=
+			L8J2DpckujRoAx0xFMEmLNfEpjc=
 			</data>
 			<key>hash2</key>
 			<data>
-			3DG9A9j01dEMJ5qbsIkWzabsA/WaOR0a6XIze3TkIFs=
+			89f6lzoTyZdEf98Bw/JFCglS9Sy15xBBkqB37prIoSQ=
 			</data>
 		</dict>
 		<key>Headers/QBMPushMessage.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			AL6tEZxv9mKn+MhcumX36Fpr5SY=
+			LW3f9EJjqV68Gt1gJ8iE270Nr5Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			YcP+M53mfMnPNHUAGl4T97OsEjdcT4+2SvaL/wp9l94=
+			sQJLf7IGw8BnXi/pF7vQ2aETrmm33JSwN0kh6m4o7/s=
 			</data>
 		</dict>
 		<key>Headers/QBMPushMessageBase.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tjjFCabYFQJ6hfJu+RnGHeLOaKs=
+			vAiLqHFzDSE+DxvpquKxKXCTkaY=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZdWZabuC/Q/tG+fBASQ3htZWYOZVcnsnopFeGvpFe6I=
+			kVTtvutLPE34EUkaBGjkNC33UMfAMJH10v9xnOLvUZw=
 			</data>
 		</dict>
 		<key>Headers/QBMPushToken.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Qq607bx/oN4LPRrsTgucYddilGA=
+			/0PlBWR1+EKfoG8K6c4Jp2bc+X8=
 			</data>
 			<key>hash2</key>
 			<data>
-			oZPl84fi51CmS0NuDhBzEx42mvRx6n/QtC93xpigpIQ=
+			3bmCk7rf7R0oaElQvTW7ddk4HjVeYsh9ZGGTumB1EKI=
 			</data>
 		</dict>
 		<key>Headers/QBMSubscription.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Q15/ou0ScGGMkaujsm0c2qe7m7s=
+			HWRrNGG/wkmRf44qhX6ESGNDRlY=
 			</data>
 			<key>hash2</key>
 			<data>
-			KD3uKj9+axl8E9JzOyfiNJPCL0ZcmdV6lN466IbdY18=
+			zFRpcvoNpNWVcYGETRG3HYHRcCfcztN4xlwJ2AFQOqc=
 			</data>
 		</dict>
 		<key>Headers/QBMulticastDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mlLQPWh6wpxlM9NSSsI/rCcIqlI=
+			YiF8/YGVt2yXcqGLTQ89FTA1O2s=
 			</data>
 			<key>hash2</key>
 			<data>
-			jWZmzrAZ8FxExx03F+uaVgUFckMhq/E+WzLZA3lMw/0=
+			ULRZoVKsm+psSEaxReXRrHCVSW5dCQYyT/3Vdn7z4rw=
 			</data>
 		</dict>
 		<key>Headers/QBNullability.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tw6OOYmORZnwtdbCYWWEX94v/Sk=
+			rS1i4Tsr21uEpvZWsSFLyLRDBhQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			LDu9WFyxJwlRGqQVVGs0MzZs/01cgJ51BLfa63ODeds=
+			ae/tpGml4WCb9TcsH6QS3T3BL+/+hpz1FPtxaT0652Q=
 			</data>
 		</dict>
 		<key>Headers/QBPrivacyItem.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			kIcJeFvB+BvyKeidcLpOnjs4OJk=
+			98tNWYjkPP9ijxhOPImaXfSCPPQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			byZZ70Qunu80W4xTyQDRJov3Zlt2z2Xp9lJxvvgUVsU=
+			5f2MQDhVb7ib45S8eb2+bn7jTVIwTahkbSGmjqes6Po=
 			</data>
 		</dict>
 		<key>Headers/QBPrivacyList.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jxoJ3b6FSWF285rNOCY+tVIxpw0=
+			FGQOcq+movgJqId1JzCBxV78o40=
 			</data>
 			<key>hash2</key>
 			<data>
-			tYUX8F6zfIFjXql+KUFcyyjmAMBiR7R5Tfw6mzUm+Yo=
+			/eB7FCbk8FmmrRjHg037ydvkWCo1ox4c4rkRa1C+KCk=
 			</data>
 		</dict>
 		<key>Headers/QBPushNotificationsConsts.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			FbF0UNJeULwP9gdih/m/GQowh9s=
+			BucqYVHJreWikgZYgmSG9m0HtkQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			ApHK1tG3HI3a59h6PGNfClpoKDE90+PFd5l8fHyFOsw=
+			V2guRqCoyuazWdANtc7+gK0Dn/tsgfdQz3DDMIMJDQU=
 			</data>
 		</dict>
 		<key>Headers/QBPushNotificationsDefinitions.h</key>
@@ -905,11 +905,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			cShy2jBPa8cKghsAN+oTiJoBeL0=
+			GhZW89wMKB9GoqssOv5ObpMYQsU=
 			</data>
 			<key>hash2</key>
 			<data>
-			DIf6+/wZQVJ36MwE7q6YsrhPQz1GbDM/oakDaBGO/D0=
+			xzkWlUIJuehDbjDprV//9+24oMnl946qggzfiRZZVnA=
 			</data>
 		</dict>
 		<key>Headers/QBPushNotificationsHeader.h</key>
@@ -927,165 +927,165 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			lLACfMErFqR32yzdLfIfahN2raM=
+			rHqy+7VGuUwyfnQYTOfwB2htpyU=
 			</data>
 			<key>hash2</key>
 			<data>
-			uUJYEjaxoC1apBPxgCM6rfB9KGEd96FPErrAJB8MdnY=
+			w9gG20FY9iEoqPmorBE7tkbWzOUeDwL1ZohKCNR+/sU=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBChat.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			tL6To0sM31zdkHaogzkmaCFVkgc=
+			6mhckE2ie7gmYEISfyipIqVOhIo=
 			</data>
 			<key>hash2</key>
 			<data>
-			OsHdOnETg0NvyrCYylRk4Q1JIHcygdRCxHYaAwGP228=
+			qkMNUiAQytZHR+NmrQCIx6Gk18AteMVbFDIoaabjIew=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBContent.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nJX4UFyayDZkAPVvhZnaddrNBzo=
+			f15lZ44HnYCfcw3tUALv9mGQDVA=
 			</data>
 			<key>hash2</key>
 			<data>
-			9VQq+LTbCgOp1Ff4NzRRjUlkRERJe8aZKkMr+tCTMms=
+			b2wwjnNB5x3IEQxz+PXfIx0r0enH9eo0iHzq4U23HMQ=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBCustomObjects.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			EUJXxUAeWF/6XWqVkgjTEzJP28o=
+			Db7+enrPZwTq5Qx3rZJ4M0OxYjQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			1Qi0Jt+/JDdK5FvwA6GBuDbySU2ze5cRimY/Rub+SJE=
+			zYjVq0xD7elgzwG1Kby8AYPtJad5+PXNv9RuN+7CcL0=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBLocation.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			n+ydTdkH4Gub1hz3cVUjOF+2mdY=
+			wuPZPiBvJSCnR2k9GYk5h9vnWHQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZJHu34sAqGdCfkmxQPcn/4o6Y8S90Uurzwwx6Up25QE=
+			fUHNh6s5ZZmYlwyGWmR4fyLmw/cYIBG2fDZzFHRGoLI=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBPushNotifications.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			YeRYSSXqNXDO+kE200Z2gjxeUo8=
+			r+MB/ElHlY2Cqb++4FaT3rUUC+U=
 			</data>
 			<key>hash2</key>
 			<data>
-			7iPltxKI8oKW7Ap4H0JTzN1PbDqOoFWfct96w1zT8y4=
+			mpDp6RR42oVmr7gU58C7BJJDL6Jt74ZurlK56X/hrLM=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBUsers.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3jRJhY+bH/+VbgPwkS0ieBqjdJ4=
+			MIPjWuKd0tnVynGo9a3rrSityt8=
 			</data>
 			<key>hash2</key>
 			<data>
-			4wsh9qNL63UQ9gxf31ezM8pNOlHHO63P4xxPlcpyllc=
+			PBSfCBTX3EtlJDxXSMUfbtPsz0e0ZohyXvFsWbMFQEU=
 			</data>
 		</dict>
 		<key>Headers/QBRequest.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mBwr9PVkLywboxDO78Ibm1UOz/E=
+			T+0uIPYjR1zjBo+dZkuP07xGzI4=
 			</data>
 			<key>hash2</key>
 			<data>
-			3N1yJuL9DlT23mfQRpULdr7b3xvhdSEag/SD/J4DODw=
+			CVkxD3QGUG5KJmp2RlMs/NCv53zveP5lQrwlLSck3rE=
 			</data>
 		</dict>
 		<key>Headers/QBRequestStatus.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			TtqEiscH4lj9Gj2YwwUPKzOS+Mc=
+			w1YAIQ7a2Wxuo6es6kLIIF5f9ZA=
 			</data>
 			<key>hash2</key>
 			<data>
-			kIZJkgbAApp5EbNRb6Np/Od6IEj7bMWUx9xHlXcEFKQ=
+			pUwQsUU+VvjEy3euutzTcGlhQ0EpHY7uLSthWAqp69w=
 			</data>
 		</dict>
 		<key>Headers/QBResponse.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jLxuid2WoOpnbaN9A7Bss8z3IDc=
+			Tvk5BxwyLE19pHUExJrB+lRsC6Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			RyXNUQi1XR7Rl0q29kuVxv3faL5Zig0G4TN3pvnqvmU=
+			DT474cBOsZwhURiP/xJYoEwJxD56j3YYsd5NtpnPEYc=
 			</data>
 		</dict>
 		<key>Headers/QBResponsePage.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pVN+pnY6wGXGDjMl9OyYHvgZoQk=
+			mxXo0U1LwX+AE/Fww/A/ggCokQg=
 			</data>
 			<key>hash2</key>
 			<data>
-			HkUBe7f74VhDY3AUrVbPBCMLAqSHPED02l9fW3ja9wA=
+			XhpjBpP7pNQE++Mst1jehf4P07NEpRXv67iWW7dm9BQ=
 			</data>
 		</dict>
 		<key>Headers/QBSession.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			UpLoQutzlnCnbmEphZWHx6U9SGI=
+			oVre8TcDCirjA7I2NCyusjrKZys=
 			</data>
 			<key>hash2</key>
 			<data>
-			NK1ydwfDYmF66Ed6nHDgQkOKStPateMseQDCSZAmXXY=
+			gWVdNjn1rZxvrozdkwC0daq5Kj0nSPFh3y+L1HoYdJQ=
 			</data>
 		</dict>
 		<key>Headers/QBSettings.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			LwXYHaGYo3vjpu6tH81lWJKPA80=
+			iW8Lga2nNOTP3eSF5ZJ1v9hDwNg=
 			</data>
 			<key>hash2</key>
 			<data>
-			lX0YdMSfwW5o7U3DiJQTvxkb6PwUBf8SD3TnLbMnEp0=
+			8uuexIhgiSnbdxQk2Ln4RwGcvJIYo0novSpD3s3Y6qg=
 			</data>
 		</dict>
 		<key>Headers/QBUUser.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			fTWCspcy7mPvCgNwHV0WCG3OR2U=
+			H99Mz5KsXtNgcDaEtsO7Hoov+RI=
 			</data>
 			<key>hash2</key>
 			<data>
-			3zxte/nWUXPJky1MgFbRvIo7nPzcEyeRGCjDADRwDdE=
+			RADBuXeYifXeq2RENoW0t/2tCjVQy7EFXTKneh65YV0=
 			</data>
 		</dict>
 		<key>Headers/QBUpdateUserParameters.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ZSOAevjsSWXLZtQHlxK1+QjRQdY=
+			ir0Nn4F1B9sntK8Ei4BHPUbpRiY=
 			</data>
 			<key>hash2</key>
 			<data>
-			chCt8zTWZ4++5JAM/2dYWgj9zWJh680zVfHwO0iloOE=
+			hoc9V4Q/mNicBrKMzrlQMzEhAVNHC5eUCAMAKfdeLW4=
 			</data>
 		</dict>
 		<key>Headers/QBUsersHeader.h</key>
@@ -1103,11 +1103,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Pir6wJyAQV1pui5mZ1n7GYWLxtQ=
+			xX3KmmMdqmaYvQB6Orj/js7J4Hc=
 			</data>
 			<key>hash2</key>
 			<data>
-			8LaOh7HYCNB3HhjzlhHpQdoxjHZJ3dVmxzXdWREpVQE=
+			dCMihb8C3QdDJ30G+HaQjk/Dq4n+cWcbEDTANBJ98wI=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

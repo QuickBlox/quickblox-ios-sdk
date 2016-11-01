@@ -51,7 +51,6 @@
 		E03A2B631CEA096E0081660F /* QMMessageNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E03A2B601CEA096E0081660F /* QMMessageNotification.m */; };
 		E03A2B641CEA096E0081660F /* QMMessageNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E03A2B621CEA096E0081660F /* QMMessageNotificationManager.m */; };
 		E06A6BE91D11550800431316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E06A6BE81D11550800431316 /* CoreTelephony.framework */; };
-		E0A42AD51CF71211002E1683 /* MPGNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A42AD41CF71211002E1683 /* MPGNotification.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,6 +87,7 @@
 		32B5BD50720EF7D29B556D82 /* Pods-samplechat.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.qa.xcconfig"; path = "Pods/Target Support Files/Pods-samplechat/Pods-samplechat.qa.xcconfig"; sourceTree = "<group>"; };
 		584B33AE1C2AF4490041B431 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = ../Localizable.strings; sourceTree = "<group>"; };
 		5857DCD01BD91F3700AB2D53 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quickblox.framework; path = ../Framework/Quickblox.framework; sourceTree = "<group>"; };
+		586DC8F81D9E59C3002A9D4A /* samplechat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = samplechat.entitlements; path = ../samplechat.entitlements; sourceTree = "<group>"; };
 		659C1F912103D6EC94092E8F /* Pods-samplechat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-samplechat/Pods-samplechat.debug.xcconfig"; sourceTree = "<group>"; };
 		86104A1C1B0B5E1900464D52 /* ServicesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServicesManager.h; sourceTree = "<group>"; };
 		86104A1D1B0B5E1900464D52 /* ServicesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServicesManager.m; sourceTree = "<group>"; };
@@ -136,8 +136,6 @@
 		E03A2B611CEA096E0081660F /* QMMessageNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMMessageNotificationManager.h; sourceTree = "<group>"; };
 		E03A2B621CEA096E0081660F /* QMMessageNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMMessageNotificationManager.m; sourceTree = "<group>"; };
 		E06A6BE81D11550800431316 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		E0A42AD31CF71211002E1683 /* MPGNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGNotification.h; sourceTree = "<group>"; };
-		E0A42AD41CF71211002E1683 /* MPGNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGNotification.m; sourceTree = "<group>"; };
 		F58E9E6BDE929843B8C70318 /* Pods-samplechat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.release.xcconfig"; path = "Pods/Target Support Files/Pods-samplechat/Pods-samplechat.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,7 +187,6 @@
 		8614B8DF1B82060000DBB753 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				E0A42AD21CF71211002E1683 /* MPGNotification */,
 				E03A2B5E1CEA096E0081660F /* QMMessageNotificationManager */,
 				8614B8E01B82060000DBB753 /* UIAlertDialog.h */,
 				8614B8E11B82060000DBB753 /* UIAlertDialog.m */,
@@ -284,6 +281,7 @@
 		BFE6FB7C180E8EF100E64AC4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				586DC8F81D9E59C3002A9D4A /* samplechat.entitlements */,
 				BFE6FB7D180E8EF100E64AC4 /* sample-chat-Info.plist */,
 				86A716651B9EF0820019C42A /* InfoPlist.strings */,
 				BFE6FB81180E8EF100E64AC4 /* main.m */,
@@ -347,15 +345,6 @@
 			path = QMMessageNotificationManager;
 			sourceTree = "<group>";
 		};
-		E0A42AD21CF71211002E1683 /* MPGNotification */ = {
-			isa = PBXGroup;
-			children = (
-				E0A42AD31CF71211002E1683 /* MPGNotification.h */,
-				E0A42AD41CF71211002E1683 /* MPGNotification.m */,
-			);
-			path = MPGNotification;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -396,6 +385,14 @@
 				TargetAttributes = {
 					BFE6FB71180E8EF100E64AC4 = {
 						DevelopmentTeam = 8885H5G2YX;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -568,7 +565,6 @@
 				1402B6A81B14C7340069E3A4 /* LoginTableViewController.m in Sources */,
 				8614B8E51B82060000DBB753 /* UIImage+fixOrientation.m in Sources */,
 				86104A1E1B0B5E1900464D52 /* ServicesManager.m in Sources */,
-				E0A42AD51CF71211002E1683 /* MPGNotification.m in Sources */,
 				86EE31B31B26EB6700B8A383 /* ChatViewController.m in Sources */,
 				BFE6FB82180E8EF100E64AC4 /* main.m in Sources */,
 				86872E831BAF55A300BE9F23 /* NotificationService.m in Sources */,
@@ -656,8 +652,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				DEVELOPMENT_TEAM = 8885H5G2YX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
@@ -675,7 +673,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "024f30fe-d849-4dd9-8458-2f50e715555a";
+				PROVISIONING_PROFILE = "24e26099-665c-4e31-80ba-d1b02f712dad";
+				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_objc_AdHoc;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -721,7 +720,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = "$(inherited)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "57e28f44-9edf-49d5-ae50-f73039c5cb4b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -770,8 +769,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				DEVELOPMENT_TEAM = 8885H5G2YX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
@@ -789,7 +790,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e0a9dc4e-7ff9-476a-a3dd-0572c292ea35";
+				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_objc_dev;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -801,8 +803,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = samplechat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
+				DEVELOPMENT_TEAM = 8885H5G2YX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					../Framework,
@@ -820,7 +824,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.test-samplechat-objc";
 				PRODUCT_NAME = samplechat;
-				PROVISIONING_PROFILE = "024f30fe-d849-4dd9-8458-2f50e715555a";
+				PROVISIONING_PROFILE = "1e223d63-a2a5-432b-ad1a-295b73fab39b";
+				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_objc_AdHoc;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

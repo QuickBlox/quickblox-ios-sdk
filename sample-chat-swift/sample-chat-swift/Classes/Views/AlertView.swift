@@ -10,8 +10,8 @@ import UIKit
 
 class AlertView: NSObject, UIAlertViewDelegate {
     
-    private var callBack : ((Int) -> (Void))?
-    private var unmanaged : Unmanaged<NSObject>?
+    fileprivate var callBack : ((Int) -> (Void))?
+    fileprivate var unmanaged : Unmanaged<NSObject>?
     var alert: UIAlertView
     
     /**

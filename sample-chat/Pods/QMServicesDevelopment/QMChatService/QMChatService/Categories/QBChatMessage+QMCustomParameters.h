@@ -9,14 +9,16 @@
 #import <Quickblox/QBChatMessage.h>
 #import "QMChatTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QBChatMessage (QMCustomParameters)
 
 /**
  *  Message
  */
-@property (strong, nonatomic, QB_NULLABLE) NSString *saveToHistory;
+@property (strong, nonatomic, nullable) NSString *saveToHistory;
 @property (assign, nonatomic) QMMessageType messageType;
-@property (strong, nonatomic, QB_NULLABLE) NSString *chatMessageID;
+@property (strong, nonatomic, nullable) NSString *chatMessageID;
 @property (assign, nonatomic) BOOL messageDeliveryStatus;
 @property (assign, nonatomic) QMMessageAttachmentStatus attachmentStatus;
 @property (assign, nonatomic) CLLocationCoordinate2D locationCoordinate;
@@ -24,21 +26,21 @@
 /**
  *  Dialog
  */
-@property (strong, nonatomic, readonly, QB_NULLABLE) QBChatDialog *dialog;
+@property (strong, nonatomic, readonly, nullable) QBChatDialog *dialog;
 @property (assign, nonatomic) QMDialogUpdateType dialogUpdateType;
-@property (strong, nonatomic, QB_NULLABLE) NSArray QB_GENERIC(NSNumber *) *currentOccupantsIDs;
-@property (strong, nonatomic, QB_NULLABLE) NSArray QB_GENERIC(NSNumber *) *addedOccupantsIDs;
-@property (strong, nonatomic, QB_NULLABLE) NSArray QB_GENERIC(NSNumber *) *deletedOccupantsIDs;
-@property (strong, nonatomic, QB_NULLABLE) NSString *dialogName;
-@property (strong, nonatomic, QB_NULLABLE) NSString *dialogPhoto;
-@property (strong, nonatomic, QB_NULLABLE) NSDate *dialogUpdatedAt;
+@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSNumber *) *currentOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSNumber *) *addedOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSNumber *) *deletedOccupantsIDs;
+@property (strong, nonatomic, nullable) NSString *dialogName;
+@property (strong, nonatomic, nullable) NSString *dialogPhoto;
+@property (strong, nonatomic, nullable) NSDate *dialogUpdatedAt;
 
 /**
  *  Save values from QBChatDialog to message custom parameters
  *
  *  @param dialog QBChatDialog that will be saved
  */
-- (void)updateCustomParametersWithDialog:(QB_NONNULL QBChatDialog *)dialog;
+- (void)updateCustomParametersWithDialog:(QBChatDialog *)dialog;
 
 /**
  *  This method is used to determine if the message data item contains text or media.
@@ -71,3 +73,5 @@
 - (BOOL)isLocationMessage;
 
 @end
+
+NS_ASSUME_NONNULL_END

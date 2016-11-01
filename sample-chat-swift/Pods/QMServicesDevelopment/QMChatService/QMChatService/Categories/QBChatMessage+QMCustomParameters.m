@@ -17,6 +17,7 @@
 NSString const *kQMCustomParameterSaveToHistory = @"save_to_history";
 NSString const *kQMCustomParameterMessageType = @"notification_type";
 NSString const *kQMCustomParameterChatMessageID = @"chat_message_id";
+NSString const *kQMCustomParameterMessageStatus = @"chat_message_status";
 
 static NSString * const kQMChatLocationMessageTypeName = @"location";
 static NSString * const kQMLocationLatitudeKey = @"lat";

@@ -35,14 +35,18 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     self.buildNumberLabel.text = versionString;
     
 	ServicesManager *servicesManager = [ServicesManager instance];
-	
-    if (servicesManager.currentUser != nil) {
+    QBUUser *currentUser = servicesManager.currentUser;
+    
+    if (currentUser != nil) {
         // loggin in with previous user
-        servicesManager.currentUser.password = kTestUsersDefaultPassword;
-        [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:servicesManager.currentUser.login] maskType:SVProgressHUDMaskTypeClear];
+        currentUser.password = kTestUsersDefaultPassword;
+        
+        NSString *userName = currentUser.login.length ? currentUser.login : @"user";
+        
+        [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:userName] maskType:SVProgressHUDMaskTypeClear];
         
         __weak __typeof(self)weakSelf = self;
-        [servicesManager logInWithUser:servicesManager.currentUser completion:^(BOOL success, NSString *errorMessage) {
+        [servicesManager logInWithUser:currentUser completion:^(BOOL success, NSString *errorMessage) {
             if (success) {
                 __typeof(self) strongSelf = weakSelf;
                 [strongSelf registerForRemoteNotifications];
@@ -121,11 +125,16 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)notificationServiceDidSucceedFetchingDialog:(QBChatDialog *)chatDialog {
+
     DialogsViewController *dialogsController = (DialogsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DialogsViewController"];
     ChatViewController *chatController = (ChatViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
     chatController.dialog = chatDialog;
     
-    self.navigationController.viewControllers = @[dialogsController, chatController];
+    NSMutableArray * viewControllers = self.navigationController.viewControllers.mutableCopy;
+    [viewControllers addObjectsFromArray:@[dialogsController,chatController]];
+    
+    self.navigationController.viewControllers = viewControllers;
+    
 }
 
 - (void)notificationServiceDidFailFetchingDialog {

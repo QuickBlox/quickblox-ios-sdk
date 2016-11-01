@@ -9,8 +9,8 @@
 import UIKit
 
 class UserTableViewCell: UITableViewCell {
-    @IBOutlet private weak var colorMarker: CornerView!
-    @IBOutlet private weak var userDescriptionLabel: UILabel!
+    @IBOutlet fileprivate weak var colorMarker: CornerView!
+    @IBOutlet fileprivate weak var userDescriptionLabel: UILabel!
     
     var user: QBUUser?
     var dialogID = ""
@@ -21,7 +21,7 @@ class UserTableViewCell: UITableViewCell {
         }
     }
     
-    func setColorMarkerText(text: String, color: UIColor){
+    func setColorMarkerText(_ text: String, color: UIColor){
         self.colorMarker.backgroundColor = color
         self.colorMarker.title = text
     }

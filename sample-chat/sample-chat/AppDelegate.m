@@ -24,6 +24,12 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 @implementation AppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Preloads keyboard so there's no lag on initial keyboard appearance.
+    UITextField *lagFreeField = [[UITextField alloc] init];
+    [self.window addSubview:lagFreeField];
+    [lagFreeField becomeFirstResponder];
+    [lagFreeField resignFirstResponder];
+    [lagFreeField removeFromSuperview];
     
     application.applicationIconBadgeNumber = 0;
     
@@ -34,7 +40,6 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
     [QBSettings setAuthKey:kAuthKey];
     [QBSettings setAuthSecret:kAuthSecret];
     [QBSettings setAccountKey:kAccountKey];
-    [QBSettings setChatDNSLookupCacheEnabled:YES];
     
     // enabling carbons for chat
     [QBSettings setCarbonsEnabled:YES];
@@ -44,7 +49,7 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
     
     // Enables detailed XMPP logging in console output
     [QBSettings enableXMPPLogging];
-    
+    [ServicesManager enableLogging:NO];
     // app was launched from push notification, handling it
     if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
         ServicesManager.instance.notificationService.pushDialogID = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][kPushNotificationDialogIdentifierKey];

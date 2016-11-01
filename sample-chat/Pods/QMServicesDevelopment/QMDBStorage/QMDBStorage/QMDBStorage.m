@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) dispatch_queue_t queue;
 @property (strong, nonatomic) QMCDRecordStack *stack;
-@property (strong, nonatomic) NSManagedObjectContext *bgContex;
+@property (strong, nonatomic) NSManagedObjectContext *bgContext;
 
 @end
 
@@ -60,26 +60,26 @@
     }
 }
 
-- (NSManagedObjectContext *)bgContex {
+- (NSManagedObjectContext *)bgContext {
     
-    if (!_bgContex) {
-        _bgContex = [NSManagedObjectContext QM_confinementContextWithParent:self.stack.context];
+    if (!_bgContext) {
+        _bgContext = [NSManagedObjectContext QM_confinementContextWithParent:self.stack.context];
     }
     
-    return _bgContex;
+    return _bgContext;
 }
 
 - (void)async:(void(^)(NSManagedObjectContext *context))block {
     
     dispatch_async(self.queue, ^{
-        block(self.bgContex);
+        block(self.bgContext);
     });
 }
 
 - (void)sync:(void(^)(NSManagedObjectContext *context))block {
     
     dispatch_sync(self.queue, ^{
-        block(self.bgContex);
+        block(self.bgContext);
     });
 }
 
