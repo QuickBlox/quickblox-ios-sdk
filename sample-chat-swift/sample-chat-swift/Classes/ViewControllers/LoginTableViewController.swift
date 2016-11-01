@@ -34,9 +34,11 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
 		
 		// Logging to Quickblox REST API and chat.
 		ServicesManager.instance().logIn(with: currentUser, completion: {
-			[weak self] (success:Bool,  errorMessage: String?) -> Void in
+			[weak self] (success,  errorMessage) -> Void in
 			
-			guard let strongSelf = self else { return }
+			guard let strongSelf = self else {
+                return
+            }
 			
 			guard success else {
 				SVProgressHUD.showError(withStatus: errorMessage)
@@ -68,6 +70,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     }
     
     func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!) {
+        
         let dialogsController = self.storyboard?.instantiateViewController(withIdentifier: "DialogsViewController") as! DialogsViewController
         let chatController = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         chatController.dialog = chatDialog
@@ -92,7 +95,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
 
         // Logging to Quickblox REST API and chat.
         ServicesManager.instance().logIn(with: user, completion:{
-            [unowned self] (success:Bool, errorMessage: String?) -> Void in
+            [unowned self] (success, errorMessage) -> Void in
 
 			guard success else {
 				SVProgressHUD.showError(withStatus: errorMessage)
@@ -114,7 +117,8 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
             let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
             UIApplication.shared.registerUserNotificationSettings(settings)
             UIApplication.shared.registerForRemoteNotifications()
-        } else {
+        }
+        else {
             // Register for push in iOS 7
             UIApplication.shared.registerForRemoteNotifications(matching: [UIRemoteNotificationType.badge, UIRemoteNotificationType.sound, UIRemoteNotificationType.alert])
         }
@@ -160,6 +164,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     }
 
     func versionBuild() -> String {
+        
         let version = self.appVersion()
         let build = self.build()
         var versionBuild = String(format:"v%@",version)

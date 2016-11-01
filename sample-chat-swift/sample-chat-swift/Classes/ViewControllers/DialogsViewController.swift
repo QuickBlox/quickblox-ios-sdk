@@ -61,7 +61,8 @@ class DialogTableViewCellModel: NSObject {
             self.unreadMessagesCounterLabelText = trimmedUnreadMessageCount
             self.unreadMessagesCounterHiden = false
             
-        } else {
+        }
+        else {
             
             self.unreadMessagesCounterLabelText = nil
             self.unreadMessagesCounterHiden = true
@@ -71,12 +72,11 @@ class DialogTableViewCellModel: NSObject {
         
         if dialog.type == .private {
             self.dialogIcon = UIImage(named: "user")
-        } else {
+        }
+        else {
             self.dialogIcon = UIImage(named: "group")
         }
     }
-    
-    
 }
 
 class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMChatConnectionDelegate, QMAuthServiceDelegate {
@@ -309,7 +309,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
             let deleteDialogBlock = { (dialog: QBChatDialog!) -> Void in
                 
                 // Deletes dialog from server and cache.
-                ServicesManager.instance().chatService.deleteDialog(withID: dialog.id!, completion: { (response: QBResponse!) -> Void in
+                ServicesManager.instance().chatService.deleteDialog(withID: dialog.id!, completion: { (response) -> Void in
                     
                     guard response.isSuccess else {
                         SVProgressHUD.showError(withStatus: "SA_STR_ERROR_DELETING".localized)
@@ -325,10 +325,9 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 
                 deleteDialogBlock(dialog)
                 
-            } else {
-                
+            }
+            else {
                 // group
-                
                 let occupantIDs = dialog.occupantIDs!.filter({ (number) -> Bool in
                     
                     return number.uintValue != ServicesManager.instance().currentUser()?.id
@@ -391,7 +390,6 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     func chatServiceChatDidFail(withStreamError error: Error) {
         SVProgressHUD.showError(withStatus: error.localizedDescription)
-        
     }
     
     func chatServiceChatDidAccidentallyDisconnect(_ chatService: QMChatService) {

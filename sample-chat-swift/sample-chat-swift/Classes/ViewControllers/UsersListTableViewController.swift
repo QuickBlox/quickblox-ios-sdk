@@ -15,26 +15,31 @@ class UsersListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		
-
         // Fetching users from cache.
         ServicesManager.instance().usersService.loadFromCache().continue ({ (task) -> Any? in
             
-            if (task.result?.count)! > 0 {
+            
+            if task.result?.count ?? 0 > 0 {
+                
                 guard let users = ServicesManager.instance().sortedUsers() else {
+                    
                     print("No cached users")
                     return nil
                 }
+                
                 self.setupUsers(users: users)
                 
-            } else {
+            }
+            else {
                 
                 SVProgressHUD.show(withStatus: "SA_STR_LOADING_USERS".localized, maskType: SVProgressHUDMaskType.clear)
                 
                 // Downloading users from Quickblox.
                 
-                ServicesManager.instance().downloadCurrentEnvironmentUsers(successBlock: { (users: [QBUUser]?) -> Void in
+                ServicesManager.instance().downloadCurrentEnvironmentUsers(successBlock: { (users) -> Void in
                     
                     guard let unwrappedUsers = users else {
+                        
                         SVProgressHUD.showError(withStatus: "No users downloaded")
                         return
                     }
@@ -43,7 +48,7 @@ class UsersListTableViewController: UITableViewController {
                     
                     self.setupUsers(users: unwrappedUsers)
                     
-                    }, errorBlock: { (error: NSError!) -> Void in
+                    }, errorBlock: { (error) -> Void in
                         
                         SVProgressHUD.showError(withStatus: error.localizedDescription)
                 })
@@ -79,6 +84,7 @@ class UsersListTableViewController: UITableViewController {
     }
     
     func setupUsers(users: [QBUUser]) {
+        
         self.users = users
         self.tableView.reloadData()
     }

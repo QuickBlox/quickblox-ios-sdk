@@ -14,7 +14,7 @@
 "SA_STR_SENDING" = "Sending";
 "SA_STR_COMPLETED" = "Completed";
 "SA_STR_DELETE" = "Leave";
-"SA_STR_DELETED" = "Leaved";
+"SA_STR_DELETED" = "Left";
 "SA_STR_DELETING" = "Leaving...";
 "SA_STR_WARNING" = "Warning";
 "SA_STR_BLOCK" = "Block";

@@ -83,5 +83,4 @@ class AlertViewWithTextField: NSObject, UIAlertViewDelegate {
         
         self.unmanaged?.release()
     }
-    
 }

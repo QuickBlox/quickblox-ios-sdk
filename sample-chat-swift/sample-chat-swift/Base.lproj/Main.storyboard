@@ -174,7 +174,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="UserTableViewCellIdentifier" id="BYb-5H-JmT" customClass="UserTableViewCell" customModule="sample_chat_swift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="110" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BYb-5H-JmT" id="VtI-2y-0es">
                                     <frame key="frameInset" width="375" height="44"/>
@@ -233,7 +233,7 @@
                     <navigationItem key="navigationItem" title="Select opponents" id="Iav-xC-5Zn">
                         <barButtonItem key="rightBarButtonItem" title="join chat" style="done" id="8DF-TW-lQY">
                             <connections>
-                                <action selector="createChatButtonPressedWithSender:" destination="3ff-8d-9pb" id="07Q-Ce-JOC"/>
+                                <action selector="createChatButtonPressed:" destination="3ff-8d-9pb" id="kZB-nq-oBo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -97,7 +97,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             ServicesManager.instance().chatService.chatAttachmentService.delegate = self
             
             // Retrieving messages
-            if ((self.storedMessages()?.count)! > 0 && self.chatSectionManager.totalMessagesCount == 0) {
+            if (self.storedMessages()?.count ?? 0 > 0 && self.chatSectionManager.totalMessagesCount == 0) {
                 
                 self.chatSectionManager.add(self.storedMessages()!)
             }
@@ -180,7 +180,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         ServicesManager.instance().chatService.messages(withChatDialogID: currentDialogID, completion: {
-            [weak self] (response: QBResponse, messages: [QBChatMessage]?) -> Void in
+            [weak self] (response, messages) -> Void in
             
             guard let strongSelf = self else { return }
             
@@ -189,11 +189,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 return
             }
             
-            if (messages?.count)! > 0 {
+            if messages?.count ?? 0 > 0 {
                 strongSelf.chatSectionManager.add(messages)
             }
-            SVProgressHUD.dismiss()
             
+            SVProgressHUD.dismiss()
             })
     }
     
@@ -276,7 +276,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             // Sending attachment.
             DispatchQueue.main.async(execute: {
                 
-                
                 // sendAttachmentMessage method always firstly adds message to memory storage
                 ServicesManager.instance().chatService.sendAttachmentMessage(message, to: self!.dialog, withAttachmentImage: resizedImage!, completion: {
                     [weak self] (error) -> Void in
@@ -289,7 +288,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     ServicesManager.instance().chatService.deleteMessageLocally(message)
                     
                     self?.chatSectionManager.delete(message)
-                    
                     })
             })
         }
@@ -392,7 +390,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         var readLogins: [String] = []
         
         if message.readIDs != nil {
-            let messageReadIDs = message.readIDs!.filter { (element : NSNumber) -> Bool in
+            
+            let messageReadIDs = message.readIDs!.filter { (element) -> Bool in
+                
                 return !element.isEqual(to: currentUserID)
             }
             
@@ -418,7 +418,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if message.deliveredIDs != nil {
             var deliveredLogins: [String] = []
             
-            let messageDeliveredIDs = message.deliveredIDs!.filter { (element : NSNumber) -> Bool in
+            let messageDeliveredIDs = message.deliveredIDs!.filter { (element) -> Bool in
                 return !element.isEqual(to: currentUserID)
             }
             
@@ -596,18 +596,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         
         if messageCellClass === QMChatAttachmentIncomingCell.self {
+            
             size = CGSize(width: min(200, maxWidth), height: 200)
         }
         else if messageCellClass === QMChatAttachmentOutgoingCell.self {
+            
             let attributedString = self.bottomLabelAttributedString(forItem: message)
             
             let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines: 0)
             size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
         }
         else if messageCellClass === QMChatNotificationCell.self {
+            
             let attributedString = self.attributedString(forItem: message)
             size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines: 0)
-            
         }
         else {
             
@@ -624,6 +626,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         var size = CGSize.zero
         
         guard let item = self.chatSectionManager.message(for: indexPath) else {
+            
             return 0
         }
         
@@ -730,8 +733,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 // Getting image from chat attachment cache.
                 
-                ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message!, completion: {
-                    [weak self] (error, image) -> Void in
+                ServicesManager.instance().chatService.chatAttachmentService.image(forAttachmentMessage: message!, completion: { [weak self] (error, image) in
                     
                     guard attachmentCell.attachmentID == attachment.id else {
                         return
@@ -751,8 +753,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     
                     attachmentCell.setAttachmentImage(image)
                     cell.updateConstraints()
-                    
-                    })
+                })
             }
             
         }
@@ -814,7 +815,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let lastSection = (self.collectionView?.numberOfSections)! - 1
+        let lastSection = self.collectionView!.numberOfSections - 1
         
         if (indexPath.section == lastSection && indexPath.item == (self.collectionView?.numberOfItems(inSection: lastSection))! - 1) {
             // the very first message
@@ -830,7 +831,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 guard let strongSelf = self else { return nil }
                 
-                if ((task.result?.count)! > 0) {
+                if (task.result?.count ?? 0 > 0) {
+                    
                     strongSelf.chatSectionManager.add(task.result as! [QBChatMessage]!)
                 }
                 
@@ -955,7 +957,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
         default:
             break
-            
         }
     }
     
@@ -993,7 +994,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if self.dialog.id == dialogID {
             self.chatSectionManager.update(message)
         }
-        
     }
     
     func chatService(_ chatService: QMChatService, didUpdate messages: [QBChatMessage], forDialogID dialogID: String) {
@@ -1001,7 +1001,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         if self.dialog.id == dialogID {
             self.chatSectionManager.update(messages)
         }
-        
     }
     
     // MARK: UITextViewDelegate
@@ -1136,7 +1135,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         cell?.updateLoadingProgress(progress)
-        
     }
     
     // MARK : QMChatConnectionDelegate

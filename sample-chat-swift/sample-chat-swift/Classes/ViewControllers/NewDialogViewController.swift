@@ -23,7 +23,8 @@
         if let _ = self.dialog {
             self.navigationItem.rightBarButtonItem?.title = "SA_STR_DONE".localized
             self.title = "SA_STR_ADD_OCCUPANTS".localized
-        } else {
+        }
+        else {
             self.navigationItem.rightBarButtonItem?.title = "SA_STR_CREATE".localized
             self.title = "SA_STR_NEW_CHAT".localized
         }
@@ -59,7 +60,7 @@
         self.navigationItem.rightBarButtonItem?.isEnabled = tableView.indexPathsForSelectedRows?.count != nil
     }
     
-    @IBAction func createChatButtonPressed(sender: AnyObject) {
+    @IBAction func createChatButtonPressed(_ sender: AnyObject) {
         
         let selectedIndexes = self.tableView.indexPathsForSelectedRows
         
@@ -115,11 +116,12 @@
                         self?.tableView.deselectRow(at: indexPath, animated: false)
                     }
                     self?.checkCreateChatButtonState()
-
+                    
                     self?.openNewDialog(dialog: dialog)
                     })
                 
-            } else {
+            }
+            else {
                 
                 guard let usersWithoutCurrentUser = ServicesManager.instance().sortedUsersWithoutCurrentUser() else {
                     print("No users found")
@@ -145,18 +147,20 @@
                 self.createChat(name: chatName, users: users, completion: completion)
             }
             
-        } else {
+        }
+        else {
             
             if users.count == 1 {
                 
                 self.createChat(name: nil, users: users, completion: completion)
                 
-            } else {
+            }
+            else {
                 
                 _ = AlertViewWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { (text) -> Void in
                     
                     var chatName = text!.trimmingCharacters(in: CharacterSet.whitespaces)
-
+                    
                     
                     if chatName.isEmpty {
                         chatName = self.nameForGroupChatWithUsers(users: users)
@@ -176,7 +180,7 @@
         let usersIDs = users.map{ NSNumber(value: $0.id) }
         
         // Updates dialog with new occupants.
-        ServicesManager.instance().chatService.joinOccupants(withIDs: usersIDs, to: dialog) { [weak self] (response: QBResponse, dialog: QBChatDialog?) -> Void in
+        ServicesManager.instance().chatService.joinOccupants(withIDs: usersIDs, to: dialog) { [weak self] (response, dialog) -> Void in
             
             guard response.error == nil else {
                 SVProgressHUD.showError(withStatus: response.error?.error?.localizedDescription)
@@ -246,13 +250,13 @@
             
             ServicesManager.instance().chatService.createGroupChatDialog(withName: name, photo: nil, occupants: users) { [weak self] (response, chatDialog) -> Void in
                 
-            
+                
                 guard response.error == nil else {
                     
                     SVProgressHUD.showError(withStatus: response.error?.error?.localizedDescription)
                     return
                 }
-
+                
                 guard let unwrappedDialog = chatDialog else {
                     return
                 }
@@ -268,7 +272,7 @@
                 
                 ServicesManager.instance().chatService.sendSystemMessageAboutAdding(to: unwrappedDialog, toUsersIDs: dialogOccupants, withText:notificationText, completion: { (error) -> Void in
                     
-                     ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(dialogOccupants, to: unwrappedDialog, withNotificationText: notificationText)
+                    ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(dialogOccupants, to: unwrappedDialog, withNotificationText: notificationText)
                     
                     completion?(response, unwrappedDialog)
                 })
@@ -294,7 +298,7 @@
                 return;
             }
         }
-
+        
         //else perform segue
         self.performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_CHAT".localized, sender: nil)
     }
@@ -344,7 +348,5 @@
             self.updateUsers()
             self.tableView.reloadData()
         }
-        
     }
-    
  }

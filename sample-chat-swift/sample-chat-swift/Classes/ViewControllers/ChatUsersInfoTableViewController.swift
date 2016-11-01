@@ -36,7 +36,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
             
-            if (task.result?.count)! > 0 {
+            if task.result?.count ?? 0 > 0 {
                 self.setupUsers(users: task.result! as! [QBUUser])
             }
             
@@ -72,11 +72,10 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     func chatService(_ chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
         
         if (chatDialog.id == self.dialog!.id) {
+            
             self.dialog = chatDialog
             self.updateUsers()
             self.tableView.reloadData()
         }
-		
     }
-    
 }
