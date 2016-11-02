@@ -24,7 +24,7 @@ class CornerView: UIView {
         self.contentMode = UIViewContentMode.redraw
     }
     
-    func drawWithRect(_ rect: CGRect, text:String, fontSize:Float){
+    func drawWithRect(rect: CGRect, text:String, fontSize:Float){
 
         let style = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         style.alignment = NSTextAlignment.center
@@ -43,6 +43,6 @@ class CornerView: UIView {
     }
 	
     override func draw(_ rect: CGRect) {
-        self.drawWithRect(self.bounds, text: self.title, fontSize: self.fontSize)
+        self.drawWithRect(rect: self.bounds, text: self.title, fontSize: self.fontSize)
     }
 }

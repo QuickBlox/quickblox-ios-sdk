@@ -7,21 +7,10 @@
 //
 
 import Foundation
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
 
 /**
-*  Implements user's memory/cache storing, error handling, show top bar notifications.
-*/
+ *  Implements user's memory/cache storing, error handling, show top bar notifications.
+ */
 class ServicesManager: QMServicesManager {
     
     var currentDialogID = ""
@@ -39,7 +28,7 @@ class ServicesManager: QMServicesManager {
         UIColor(red: 0.740, green:0.624, blue:0.797, alpha:1.000)
     ]
     
-    fileprivate var contactListService : QMContactListService!
+    private var contactListService : QMContactListService!
     var notificationService: NotificationService!
     
     //var lastActivityDate: NSDate!
@@ -50,11 +39,11 @@ class ServicesManager: QMServicesManager {
         self.isProcessingLogOut = false
     }
     
-    fileprivate func setupContactServices() {
+    private func setupContactServices() {
         self.notificationService = NotificationService()
     }
     
-    func handleNewMessage(_ message: QBChatMessage, dialogID: String) {
+    func handleNewMessage(message: QBChatMessage, dialogID: String) {
         
         guard self.currentDialogID != dialogID else {
             return
@@ -63,12 +52,12 @@ class ServicesManager: QMServicesManager {
         guard message.senderID != self.currentUser()?.id else {
             return
         }
-		
-		guard let dialog = self.chatService.dialogsMemoryStorage.chatDialog(withID: dialogID) else {
-			print("chat dialog not found")
-			return
-		}
-		
+        
+        guard let dialog = self.chatService.dialogsMemoryStorage.chatDialog(withID: dialogID) else {
+            print("chat dialog not found")
+            return
+        }
+        
         var dialogName = "SA_STR_NEW_MESSAGE".localized
         
         if dialog.type != QBChatDialogType.private {
@@ -76,22 +65,22 @@ class ServicesManager: QMServicesManager {
             if dialog.name != nil {
                 dialogName = dialog.name!
             }
-    
+            
         } else {
             
             if let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(dialog.recipientID)) {
                 dialogName = user.login!
             }
         }
-               QMMessageNotificationManager.showNotification(withTitle: dialogName, subtitle: message.text, type: QMMessageNotificationType.info)
+        QMMessageNotificationManager.showNotification(withTitle: dialogName, subtitle: message.text, type: QMMessageNotificationType.info)
     }
     
     // MARK: Last activity date
     
-    var lastActivityDate: Date? {
+    var lastActivityDate: NSDate? {
         get {
             let defaults = UserDefaults.standard
-            return defaults.value(forKey: "SA_STR_LAST_ACTIVITY_DATE".localized) as! Date?
+            return defaults.value(forKey: "SA_STR_LAST_ACTIVITY_DATE".localized) as! NSDate?
         }
         set {
             let defaults = UserDefaults.standard
@@ -99,7 +88,7 @@ class ServicesManager: QMServicesManager {
             defaults.synchronize()
         }
     }
-
+    
     // MARK: QMServiceManagerProtocol
     
     override func handleErrorResponse(_ response: QBResponse) {
@@ -116,97 +105,90 @@ class ServicesManager: QMServicesManager {
         } else if response.status.rawValue == 0 {
             errorMessage = "SA_STR_NETWORK_ERROR".localized
         } else {
-            errorMessage = (response.error?.error?.localizedDescription.replacingOccurrences(of: "(", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil).replacingOccurrences(of: ")", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil))!
+            
+            errorMessage = (response.error?.error?.localizedDescription.replacingOccurrences(of: "(", with: "", options: String.CompareOptions.caseInsensitive, range: nil).replacingOccurrences(of: ")", with: "", options: String.CompareOptions.caseInsensitive, range: nil))!
         }
-
+        
         QMMessageNotificationManager.showNotification(withTitle: "SA_STR_ERROR".localized,
-                                                               subtitle: errorMessage,
-                                                               type: QMMessageNotificationType.warning)
+                                                      subtitle: errorMessage,
+                                                      type: QMMessageNotificationType.warning)
         
     }
-	
-	/**
-	Download users accordingly to Constants.QB_USERS_ENVIROMENT
-	
-	- parameter successBlock: successBlock with sorted [QBUUser] if success
-	- parameter errorBlock:   errorBlock with error if request is failed
-	*/
-    func downloadCurrentEnvironmentUsers(_ successBlock:(([QBUUser]?) -> Void)?, errorBlock:((Error) -> Void)?) {
-
-        let enviroment = "dev"
-        #if DEBUG
-             enviroment = "dev"
-        #elseif QA
-             enviroment = "qbqa"
-        #else
-            
-        #endif
     
-        self.usersService.searchUsers(withTags: [enviroment]).continue ({
-            [weak self] (task : BFTask) -> Any! in
-			
+    /**
+     Download users accordingly to Constants.QB_USERS_ENVIROMENT
+     
+     - parameter successBlock: successBlock with sorted [QBUUser] if success
+     - parameter errorBlock:   errorBlock with error if request is failed
+     */
+    func downloadCurrentEnvironmentUsers(successBlock:(([QBUUser]?) -> Void)?, errorBlock:((NSError) -> Void)?) {
+        
+        let enviroment = Constants.QB_USERS_ENVIROMENT
+        
+        self.usersService.searchUsers(withTags: [enviroment]).continue ({ [weak self] (task) -> Any? in
+            
             if let error = task.error {
-                errorBlock?(error)
+                errorBlock?(error as NSError)
                 return nil
             }
-			
+            
             successBlock?(self?.sortedUsers())
             
             return nil
-        })
+            })
     }
     
     func color(forUser user:QBUUser) -> UIColor {
-		
-		let defaultColor = UIColor.black
-		
-		let users = self.usersService.usersMemoryStorage.unsortedUsers()
-		
-		guard let givenUser = self.usersService.usersMemoryStorage.user(withID: user.id) else {
-			return defaultColor
-		}
-		
-		let indexOfGivenUser = users.index(of: givenUser)
-			
-        if indexOfGivenUser < self.colors.count {
+        
+        let defaultColor = UIColor.black
+        
+        let users = self.usersService.usersMemoryStorage.unsortedUsers()
+        
+        guard let givenUser = self.usersService.usersMemoryStorage.user(withID: user.id) else {
+            return defaultColor
+        }
+        
+        let indexOfGivenUser = users.index(of: givenUser)
+        
+        if indexOfGivenUser! < self.colors.count {
             return self.colors[indexOfGivenUser!]
         } else {
             return defaultColor
         }
     }
-	
-	/**
-	Sorted users
-	
-	- returns: sorted [QBUUser] from usersService.usersMemoryStorage.unsortedUsers()
-	*/
+    
+    /**
+     Sorted users
+     
+     - returns: sorted [QBUUser] from usersService.usersMemoryStorage.unsortedUsers()
+     */
     func sortedUsers() -> [QBUUser]? {
-		
-		let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers()
-
+        
+        let unsortedUsers = self.usersService.usersMemoryStorage.unsortedUsers()
+        
         let sortedUsers = unsortedUsers.sorted(by: { (user1, user2) -> Bool in
             return user1.login!.compare(user2.login!, options:NSString.CompareOptions.numeric) == ComparisonResult.orderedAscending
         })
         
         return sortedUsers
     }
-	
-	/**
-	Sorted users without current user
-	
-	- returns: [QBUUser]
-	*/
-	func sortedUsersWithoutCurrentUser() -> [QBUUser]? {
-		
-		guard let sortedUsers = self.sortedUsers() else {
-			return nil
-		}
-		
-		let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.id != self.currentUser()?.id})
-		
-		return sortedUsersWithoutCurrentUser
-	}
-	
+    
+    /**
+     Sorted users without current user
+     
+     - returns: [QBUUser]
+     */
+    func sortedUsersWithoutCurrentUser() -> [QBUUser]? {
+        
+        guard let sortedUsers = self.sortedUsers() else {
+            return nil
+        }
+        
+        let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.id != self.currentUser()?.id})
+        
+        return sortedUsersWithoutCurrentUser
+    }
+    
     // MARK: QMChatServiceDelegate
     
     override func chatService(_ chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String) {
@@ -214,11 +196,11 @@ class ServicesManager: QMServicesManager {
         super.chatService(chatService, didAddMessageToMemoryStorage: message, forDialogID: dialogID)
         
         if self.authService.isAuthorized {
-            self.handleNewMessage(message, dialogID: dialogID)
+            self.handleNewMessage(message: message, dialogID: dialogID)
         }
     }
     
-    func logoutUserWithCompletion(_ completion: @escaping (_ result: Bool)->()) {
+    func logoutUserWithCompletion(completion: @escaping (_ result: Bool)->()) {
         
         if self.isProcessingLogOut! {
             
@@ -234,19 +216,19 @@ class ServicesManager: QMServicesManager {
         
         let deviceIdentifier = UIDevice.current.identifierForVendor!.uuidString
         
-        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: deviceIdentifier, successBlock: { (response: QBResponse!) -> Void in
-            //
+        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: deviceIdentifier, successBlock: { (response) -> Void in
+            
             print("Successfuly unsubscribed from push notifications")
             logoutGroup.leave()
             
-        }) { (error: QBError?) -> Void in
-            //
+        }) { (error) -> Void in
+            
             print("Push notifications unsubscribe failed")
             logoutGroup.leave()
         }
         
-        logoutGroup.notify(queue: DispatchQueue.main) {
-            [weak self] () -> Void in
+        logoutGroup.notify(queue: DispatchQueue.main) { [weak self] () -> Void in
+            
             // Logouts from Quickblox, clears cache.
             guard let strongSelf = self else { return }
             
@@ -255,7 +237,6 @@ class ServicesManager: QMServicesManager {
                 strongSelf.isProcessingLogOut = false
                 
                 completion(true)
-                
             }
         }
     }

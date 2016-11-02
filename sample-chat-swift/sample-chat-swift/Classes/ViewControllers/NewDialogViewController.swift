@@ -23,7 +23,8 @@
         if let _ = self.dialog {
             self.navigationItem.rightBarButtonItem?.title = "SA_STR_DONE".localized
             self.title = "SA_STR_ADD_OCCUPANTS".localized
-        } else {
+        }
+        else {
             self.navigationItem.rightBarButtonItem?.title = "SA_STR_CREATE".localized
             self.title = "SA_STR_NEW_CHAT".localized
         }
@@ -37,12 +38,12 @@
     func updateUsers() {
         if let users = ServicesManager.instance().sortedUsers() {
             
-            self.setupUsers(users)
+            self.setupUsers(users: users)
             self.checkCreateChatButtonState()
         }
     }
     
-    override func setupUsers(_ users: [QBUUser]) {
+    override func setupUsers(users: [QBUUser]) {
         
         var filteredUsers = users.filter({($0 as QBUUser).id != ServicesManager.instance().currentUser()?.id})
         
@@ -51,7 +52,7 @@
             filteredUsers = filteredUsers.filter({!(self.dialog!.occupantIDs as! [UInt]).contains(($0 as QBUUser).id)})
         }
         
-        super.setupUsers(filteredUsers)
+        super.setupUsers(users: filteredUsers)
         
     }
     
@@ -59,14 +60,14 @@
         self.navigationItem.rightBarButtonItem?.isEnabled = tableView.indexPathsForSelectedRows?.count != nil
     }
     
-    @IBAction func createChatButtonPressed(_ sender: Any) {
+    @IBAction func createChatButtonPressed(_ sender: AnyObject) {
         
         let selectedIndexes = self.tableView.indexPathsForSelectedRows
         
         var users: [QBUUser] = []
         
         for indexPath in selectedIndexes! {
-            let user = self.users[(indexPath as NSIndexPath).row]
+            let user = self.users[indexPath.row]
             users.append(user)
         }
         
@@ -79,7 +80,7 @@
                 self?.checkCreateChatButtonState()
                 
                 print(createdDialog)
-                self?.openNewDialog(createdDialog)
+                self?.openNewDialog(dialog: createdDialog)
             }
             
             guard let unwrappedResponse = response else {
@@ -102,7 +103,7 @@
                 
                 SVProgressHUD.show(withStatus: "SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.clear)
                 
-                self.updateDialog(self.dialog!, newUsers:users, completion: {[weak self] (response, dialog) -> Void in
+                self.updateDialog(dialog: self.dialog!, newUsers:users, completion: {[weak self] (response, dialog) -> Void in
                     
                     guard response?.error == nil else {
                         SVProgressHUD.showError(withStatus: response?.error?.error?.localizedDescription)
@@ -115,11 +116,12 @@
                         self?.tableView.deselectRow(at: indexPath, animated: false)
                     }
                     self?.checkCreateChatButtonState()
-
-                    self?.openNewDialog(dialog)
+                    
+                    self?.openNewDialog(dialog: dialog)
                     })
                 
-            } else {
+            }
+            else {
                 
                 guard let usersWithoutCurrentUser = ServicesManager.instance().sortedUsersWithoutCurrentUser() else {
                     print("No users found")
@@ -131,34 +133,40 @@
                     return
                 }
                 
-                let usersInDialogs = usersWithoutCurrentUser.filter({dialogOccupants.contains(($0 as QBUUser).id as NSNumber) })
+                let usersInDialogs = usersWithoutCurrentUser.filter({ (user) -> Bool in
+                    
+                    return dialogOccupants.contains(NSNumber(value: user.id))
+                })
                 
                 if usersInDialogs.count > 0 {
                     users.append(contentsOf: usersInDialogs)
                 }
                 
-                let chatName = self.nameForGroupChatWithUsers(users)
+                let chatName = self.nameForGroupChatWithUsers(users: users)
                 
-                self.createChat(chatName, users: users, completion: completion)
+                self.createChat(name: chatName, users: users, completion: completion)
             }
             
-        } else {
+        }
+        else {
             
             if users.count == 1 {
                 
-                self.createChat(nil, users: users, completion: completion)
+                self.createChat(name: nil, users: users, completion: completion)
                 
-            } else {
+            }
+            else {
                 
                 _ = AlertViewWithTextField(title: "SA_STR_ENTER_CHAT_NAME".localized, message: nil, showOver:self, didClickOk: { (text) -> Void in
                     
                     var chatName = text!.trimmingCharacters(in: CharacterSet.whitespaces)
                     
+                    
                     if chatName.isEmpty {
-                        chatName = self.nameForGroupChatWithUsers(users)
+                        chatName = self.nameForGroupChatWithUsers(users: users)
                     }
                     
-                    self.createChat(chatName, users: users, completion: completion)
+                    self.createChat(name: chatName, users: users, completion: completion)
                     
                 }) { () -> Void in
                     self.checkCreateChatButtonState()
@@ -167,12 +175,12 @@
         }
     }
     
-    func updateDialog(_ dialog:QBChatDialog, newUsers users:[QBUUser], completion: ((_ response: QBResponse?, _ dialog: QBChatDialog?) -> Void)?) {
+    func updateDialog(dialog:QBChatDialog, newUsers users:[QBUUser], completion: ((_ response: QBResponse?, _ dialog: QBChatDialog?) -> Void)?) {
         
-        let usersIDs = users.map{ NSNumber(value: $0.id as UInt) }
+        let usersIDs = users.map{ NSNumber(value: $0.id) }
         
         // Updates dialog with new occupants.
-        ServicesManager.instance().chatService.joinOccupants(withIDs: usersIDs, to: dialog) { [weak self] (response: QBResponse, dialog: QBChatDialog?) -> Void in
+        ServicesManager.instance().chatService.joinOccupants(withIDs: usersIDs, to: dialog) { [weak self] (response, dialog) -> Void in
             
             guard response.error == nil else {
                 SVProgressHUD.showError(withStatus: response.error?.error?.localizedDescription)
@@ -186,13 +194,10 @@
                 return
             }
             guard let strongSelf = self else { return }
-            let notificationText = strongSelf.updatedMessageWithUsers(users,isNewDialog: false)
+            let notificationText = strongSelf.updatedMessageWithUsers(users: users,isNewDialog: false)
             
             // Notifies users about new dialog with them.
-            ServicesManager.instance().chatService.sendSystemMessageAboutAdding(to: unwrappedDialog, toUsersIDs: usersIDs, withText:notificationText, completion: { (error: Error?) -> Void in
-                
-                // Notifies existing dialog occupants about new users.
-                
+            ServicesManager.instance().chatService.sendSystemMessageAboutAdding(to: unwrappedDialog, toUsersIDs: usersIDs, withText: notificationText, completion: { (error) in
                 
                 ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(usersIDs, to: unwrappedDialog, withNotificationText: notificationText)
                 
@@ -210,7 +215,7 @@
      
      - returns: String instance
      */
-    func updatedMessageWithUsers(_ users: [QBUUser],isNewDialog:Bool) -> String {
+    func updatedMessageWithUsers(users: [QBUUser],isNewDialog:Bool) -> String {
         
         let dialogMessage = isNewDialog ? "SA_STR_CREATE_NEW".localized : "SA_STR_ADDED".localized
         
@@ -218,25 +223,24 @@
         for user: QBUUser in users {
             message = "\(message)\(user.login!),"
         }
-        message = message.substring(to: message.characters.index(before: message.endIndex))
+        message.remove(at: message.index(before: message.endIndex))
         return message
     }
     
-    func nameForGroupChatWithUsers(_ users:[QBUUser]) -> String {
+    func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
         
-        let chatName = ServicesManager.instance().currentUser()!.login! + "_" + users.map({ $0.login ?? $0.email! }).joined(separator: ", ").replacingOccurrences(of: "@", with: "", options: NSString.CompareOptions.literal, range: nil)
+        let chatName = ServicesManager.instance().currentUser()!.login! + "_" + users.map({ $0.login ?? $0.email! }).joined(separator: ", ").replacingOccurrences(of: "@", with: "", options: String.CompareOptions.literal, range: nil)
         
         return chatName
     }
     
-    func createChat(_ name: String?, users:[QBUUser], completion: ((_ response: QBResponse?, _ createdDialog: QBChatDialog?) -> Void)?) {
+    func createChat(name: String?, users:[QBUUser], completion: ((_ response: QBResponse?, _ createdDialog: QBChatDialog?) -> Void)?) {
         
         SVProgressHUD.show(withStatus: "SA_STR_LOADING".localized, maskType: SVProgressHUDMaskType.clear)
         
         if users.count == 1 {
             // Creating private chat.
-            
-            ServicesManager.instance().chatService.createPrivateChatDialog(withOpponent: users.first!, completion: { (response: QBResponse?, chatDialog: QBChatDialog?) -> Void in
+            ServicesManager.instance().chatService.createPrivateChatDialog(withOpponent: users.first!, completion: { (response, chatDialog) in
                 
                 completion?(response, chatDialog)
             })
@@ -244,15 +248,15 @@
         } else {
             // Creating group chat.
             
-            ServicesManager.instance().chatService.createGroupChatDialog(withName: name, photo: nil, occupants: users) { [weak self] (response: QBResponse, chatDialog: QBChatDialog?) -> Void in
+            ServicesManager.instance().chatService.createGroupChatDialog(withName: name, photo: nil, occupants: users) { [weak self] (response, chatDialog) -> Void in
                 
-            
+                
                 guard response.error == nil else {
                     
                     SVProgressHUD.showError(withStatus: response.error?.error?.localizedDescription)
                     return
                 }
-
+                
                 guard let unwrappedDialog = chatDialog else {
                     return
                 }
@@ -264,11 +268,11 @@
                 
                 guard let strongSelf = self else { return }
                 
-                let notificationText = strongSelf.updatedMessageWithUsers(users, isNewDialog: true)
+                let notificationText = strongSelf.updatedMessageWithUsers(users: users, isNewDialog: true)
                 
-                ServicesManager.instance().chatService.sendSystemMessageAboutAdding(to: unwrappedDialog, toUsersIDs: dialogOccupants, withText:notificationText, completion: { (error: Error?) -> Void in
+                ServicesManager.instance().chatService.sendSystemMessageAboutAdding(to: unwrappedDialog, toUsersIDs: dialogOccupants, withText:notificationText, completion: { (error) -> Void in
                     
-                     ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(dialogOccupants, to: unwrappedDialog, withNotificationText: notificationText)
+                    ServicesManager.instance().chatService.sendNotificationMessageAboutAddingOccupants(dialogOccupants, to: unwrappedDialog, withNotificationText: notificationText)
                     
                     completion?(response, unwrappedDialog)
                 })
@@ -276,7 +280,7 @@
         }
     }
     
-    func openNewDialog(_ dialog: QBChatDialog!) {
+    func openNewDialog(dialog: QBChatDialog!) {
         self.dialog = dialog
         
         let navigationArray = self.navigationController?.viewControllers
@@ -294,12 +298,13 @@
                 return;
             }
         }
-
+        
         //else perform segue
         self.performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_CHAT".localized, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "SA_STR_SEGUE_GO_TO_CHAT".localized {
             if let chatVC = segue.destination as? ChatViewController {
                 chatVC.dialog = self.dialog
@@ -310,13 +315,14 @@
     // MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SA_STR_CELL_USER".localized, for: indexPath) as! UserTableViewCell
         
-        let user = self.users[(indexPath as NSIndexPath).row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SA_STR_CELL_USER".localized, for: indexPath as IndexPath) as! UserTableViewCell
         
-        cell.setColorMarkerText(String((indexPath as NSIndexPath).row + 1), color: ServicesManager.instance().color(forUser: user))
+        let user = self.users[indexPath.row]
+        
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
         cell.userDescription = user.fullName
-        cell.tag = (indexPath as NSIndexPath).row
+        cell.tag = indexPath.row
         
         return cell
     }
@@ -324,10 +330,12 @@
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         self.checkCreateChatButtonState()
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
         self.checkCreateChatButtonState()
     }
     
@@ -340,7 +348,5 @@
             self.updateUsers()
             self.tableView.reloadData()
         }
-        
     }
-    
  }

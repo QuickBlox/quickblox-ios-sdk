@@ -21,15 +21,16 @@ const NSTimeInterval kQBDialingTimeInterval = 5.f;
 
     self.window.backgroundColor = [UIColor whiteColor];
     [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
-    [QBSettings setApplicationID:39854];
-    [QBSettings setAuthKey:@"JtensAa9y4AM5Yk"];
-    [QBSettings setAuthSecret:@"AsDFwwwxpr3LN5w"];
+    [QBSettings setApplicationID:40718];
+    [QBSettings setAuthKey:@"AnB-JpA6r4y6RmS"];
+    [QBSettings setAuthSecret:@"3O7Sr5Pg4Qjexwn"];
     [QBSettings setLogLevel:QBLogLevelDebug];
     [QBSettings enableXMPPLogging];
     
     [QBRTCConfig setAnswerTimeInterval:kQBAnswerTimeInterval];
     [QBRTCConfig setDisconnectTimeInterval:kQBRTCDisconnectTimeInterval];
     [QBRTCConfig setDialingTimeInterval:kQBDialingTimeInterval];
+    [QBRTCConfig setStatsReportTimeInterval:1.f];
     
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     

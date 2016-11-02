@@ -26,7 +26,8 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     }
 	
     func updateUsers() {
-        ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!) .continue ({ (task :BFTask) -> AnyObject? in
+        
+        ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!).continue ({ (task) -> Any? in
             
             if (task.result?.count)! >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
                 self.navigationItem.rightBarButtonItem?.isEnabled = false
@@ -35,26 +36,27 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
             
-            if (task.result?.count)! > 0 {
-                self.setupUsers(task.result! as! [QBUUser])
+            if task.result?.count ?? 0 > 0 {
+                self.setupUsers(users: task.result! as! [QBUUser])
             }
             
             return nil
         })
     }
 	
-    override func setupUsers(_ users: [QBUUser]) {
+    override func setupUsers(users: [QBUUser]) {
         
         
-        let filteredUsers = users.filter({self.dialog.occupantIDs!.contains(NSNumber(value: $0.id as UInt))})
+        let filteredUsers = users.filter({self.dialog.occupantIDs!.contains(NSNumber(value: $0.id))})
         
         let sortedUsers = filteredUsers.sorted(by: { (user1, user2) -> Bool in
-            return user1.login!.compare(user2.login!, options:NSString.CompareOptions.numeric) == ComparisonResult.orderedAscending
+            return user1.login!.compare(user2.login!, options:String.CompareOptions.numeric) == ComparisonResult.orderedAscending
         })
-        super.setupUsers(sortedUsers)
+        super.setupUsers(users: sortedUsers)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "SA_STR_SEGUE_GO_TO_SELECT_OPPONENTS".localized {
             if let newDialogViewController = segue.destination as? NewDialogViewController {
                 newDialogViewController.dialog = self.dialog
@@ -63,17 +65,17 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
     }
     
     func chatService(_ chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
         
         if (chatDialog.id == self.dialog!.id) {
+            
             self.dialog = chatDialog
             self.updateUsers()
             self.tableView.reloadData()
         }
-		
     }
-    
 }

@@ -34,9 +34,11 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
 		
 		// Logging to Quickblox REST API and chat.
 		ServicesManager.instance().logIn(with: currentUser, completion: {
-			[weak self] (success:Bool,  errorMessage: String?) -> Void in
+			[weak self] (success,  errorMessage) -> Void in
 			
-			guard let strongSelf = self else { return }
+			guard let strongSelf = self else {
+                return
+            }
 			
 			guard success else {
 				SVProgressHUD.showError(withStatus: errorMessage)
@@ -47,7 +49,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
 			SVProgressHUD.showSuccess(withStatus: "SA_STR_LOGGED_IN".localized)
 			
 			if (ServicesManager.instance().notificationService.pushDialogID != nil) {
-				ServicesManager.instance().notificationService.handlePushNotificationWithDelegate(strongSelf)
+				ServicesManager.instance().notificationService.handlePushNotificationWithDelegate(delegate: strongSelf)
 			}
 			else {
 				strongSelf.performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
@@ -67,17 +69,14 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
         SVProgressHUD.dismiss()
     }
     
-    func notificationServiceDidSucceedFetchingDialog(_ chatDialog: QBChatDialog!) {
+    func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!) {
+        
         let dialogsController = self.storyboard?.instantiateViewController(withIdentifier: "DialogsViewController") as! DialogsViewController
         let chatController = self.storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
         chatController.dialog = chatDialog
 
-        var viewControllers = self.navigationController?.viewControllers
-        viewControllers?.append(contentsOf: [dialogsController,chatController])
-        self.navigationController?.viewControllers = viewControllers!
-        
+        self.navigationController?.viewControllers = [dialogsController, chatController]
     }
-    
     
     func notificationServiceDidFailFetchingDialog() {
         self.performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_DIALOGS".localized, sender: nil)
@@ -90,13 +89,13 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
 	
 	- parameter user: QBUUser instance
 	*/
-    func logInChatWithUser(_ user: QBUUser) {
+    func logInChatWithUser(user: QBUUser) {
         
         SVProgressHUD.show(withStatus: "SA_STR_LOGGING_IN_AS".localized + user.login!, maskType: SVProgressHUDMaskType.clear)
 
         // Logging to Quickblox REST API and chat.
         ServicesManager.instance().logIn(with: user, completion:{
-            [unowned self] (success:Bool, errorMessage: String?) -> Void in
+            [unowned self] (success, errorMessage) -> Void in
 
 			guard success else {
 				SVProgressHUD.showError(withStatus: errorMessage)
@@ -113,24 +112,31 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     // MARK: Remote notifications
     
     func registerForRemoteNotification() {
-        
-        let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
-        UIApplication.shared.registerUserNotificationSettings(settings)
-        UIApplication.shared.registerForRemoteNotifications()
+        // Register for push in iOS 8
+        if #available(iOS 8.0, *) {
+            let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        else {
+            // Register for push in iOS 7
+            UIApplication.shared.registerForRemoteNotifications(matching: [UIRemoteNotificationType.badge, UIRemoteNotificationType.sound, UIRemoteNotificationType.alert])
+        }
     }
     
     // MARK: UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "SA_STR_CELL_USER".localized, for: indexPath) as! UserTableViewCell
         cell.isExclusiveTouch = true
         cell.contentView.isExclusiveTouch = true
         
-        let user = self.users[(indexPath as NSIndexPath).row]
+        let user = self.users[indexPath.row]
         
-        cell.setColorMarkerText(String((indexPath as NSIndexPath).row + 1), color: ServicesManager.instance().color(forUser: user))
+        cell.setColorMarkerText(String(indexPath.row + 1), color: ServicesManager.instance().color(forUser: user))
         cell.userDescription = "SA_STR_LOGIN_AS".localized + " " + user.fullName!
-        cell.tag = (indexPath as NSIndexPath).row
+        cell.tag = indexPath.row
         
         return cell
     }
@@ -138,12 +144,13 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     // MARK: UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated:true)
         
-        let user = self.users[(indexPath as NSIndexPath).row]
+        let user = self.users[indexPath.row]
         user.password = kTestUsersDefaultPassword
         
-        self.logInChatWithUser(user)
+        self.logInChatWithUser(user: user)
     }
     
     //MARK: Helpers
@@ -157,6 +164,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
     }
 
     func versionBuild() -> String {
+        
         let version = self.appVersion()
         let build = self.build()
         var versionBuild = String(format:"v%@",version)

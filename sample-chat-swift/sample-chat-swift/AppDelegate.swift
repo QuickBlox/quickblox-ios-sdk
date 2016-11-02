@@ -19,9 +19,8 @@ let kQBAccountKey = "7yvNe17TnjNUqDoPwfqp"
 class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelegate {
 	
 	var window: UIWindow?
-    
 	
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         Fabric.with([Crashlytics.self])
         
@@ -37,30 +36,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         QBSettings.setCarbonsEnabled(true)
         
         // Enables Quickblox REST API calls debug console output.
-		QBSettings.setLogLevel(QBLogLevel.debug)
+        QBSettings.setLogLevel(QBLogLevel.nothing)
         
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
- 
+        
         // app was launched from push notification, handling it
         let remoteNotification: NSDictionary! = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary
         if (remoteNotification != nil) {
             ServicesManager.instance().notificationService.pushDialogID = remoteNotification["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
         }
-		
-		return true
-	}
+        
+        return true
+    }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
         let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
         let subscription: QBMSubscription! = QBMSubscription()
         
-        subscription.notificationChannel = .APNS
+        subscription.notificationChannel = QBMNotificationChannel.APNS
         subscription.deviceUDID = deviceIdentifier
         subscription.deviceToken = deviceToken
         QBRequest.createSubscription(subscription, successBlock: { (response: QBResponse!, objects: [QBMSubscription]?) -> Void in
             //
-            }) { (response: QBResponse!) -> Void in
+        }) { (response: QBResponse!) -> Void in
             //
         }
     }
@@ -69,32 +69,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         print("Push failed to register with error: %@", error)
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        NSLog("my push is: %@", userInfo)
-		guard application.applicationState == UIApplicationState.inactive else {
-			return
-		}
-		
-		guard let dialogID = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String else {
-			return
-		}
-		
-		guard !dialogID.isEmpty else {
-			return
-		}
-		
-			
-		let dialogWithIDWasEntered: String? = ServicesManager.instance().currentDialogID
-		if dialogWithIDWasEntered == dialogID {
-			return
-		}
-		
-		ServicesManager.instance().notificationService.pushDialogID = dialogID
-		
-		// calling dispatch async for push notification handling to have priority in main queue
-		DispatchQueue.main.async(execute: {
-			ServicesManager.instance().notificationService.handlePushNotificationWithDelegate(self)
-		});
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+        print("my push is: %@", userInfo)
+        guard application.applicationState == UIApplicationState.inactive else {
+            return
+        }
+        
+        guard let dialogID = userInfo["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String else {
+            return
+        }
+        
+        guard !dialogID.isEmpty else {
+            return
+        }
+        
+        
+        let dialogWithIDWasEntered: String? = ServicesManager.instance().currentDialogID
+        if dialogWithIDWasEntered == dialogID {
+            return
+        }
+        
+        ServicesManager.instance().notificationService.pushDialogID = dialogID
+        
+        // calling dispatch async for push notification handling to have priority in main queue
+        DispatchQueue.main.async { 
+            
+            ServicesManager.instance().notificationService.handlePushNotificationWithDelegate(delegate: self)
+        }
     }
 	
     func applicationWillResignActive(_ application: UIApplication) {
@@ -129,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     func notificationServiceDidFinishLoadingDialogFromServer() {
     }
     
-    func notificationServiceDidSucceedFetchingDialog(_ chatDialog: QBChatDialog!) {
+    func notificationServiceDidSucceedFetchingDialog(chatDialog: QBChatDialog!) {
         let navigatonController: UINavigationController! = self.window?.rootViewController as! UINavigationController
         
         let chatController: ChatViewController = UIStoryboard(name:"Main", bundle: nil).instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController

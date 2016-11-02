@@ -7,17 +7,6 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
 
 class DialogTableViewCellModel: NSObject {
     
@@ -72,7 +61,8 @@ class DialogTableViewCellModel: NSObject {
             self.unreadMessagesCounterLabelText = trimmedUnreadMessageCount
             self.unreadMessagesCounterHiden = false
             
-        } else {
+        }
+        else {
             
             self.unreadMessagesCounterLabelText = nil
             self.unreadMessagesCounterHiden = true
@@ -82,17 +72,16 @@ class DialogTableViewCellModel: NSObject {
         
         if dialog.type == .private {
             self.dialogIcon = UIImage(named: "user")
-        } else {
+        }
+        else {
             self.dialogIcon = UIImage(named: "group")
         }
     }
-    
-    
 }
 
 class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMChatConnectionDelegate, QMAuthServiceDelegate {
-    fileprivate var didEnterBackgroundDate: Date?
-    fileprivate var observer: NSObjectProtocol?
+    private var didEnterBackgroundDate: NSDate?
+    private var observer: NSObjectProtocol?
     // MARK: - ViewController overrides
     
     override func awakeFromNib() {
@@ -107,10 +96,10 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         ServicesManager.instance().authService.add(self)
         
-        self.observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { (notification: Notification) -> Void in
+        self.observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { (notification) -> Void in
             
             if !QBChat.instance().isConnected {
-                SVProgressHUD.show(withStatus: "SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.none)
+                SVProgressHUD.show(withStatus: "SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.clear)
             }
         }
         
@@ -129,6 +118,8 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
         if segue.identifier == "SA_STR_SEGUE_GO_TO_CHAT".localized {
             if let chatVC = segue.destination as? ChatViewController {
                 chatVC.dialog = sender as? QBChatDialog
@@ -139,7 +130,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     // MARK: - Notification handling
     
     func didEnterBackgroundNotification() {
-        self.didEnterBackgroundDate = Date()
+        self.didEnterBackgroundDate = NSDate()
     }
     
     // MARK: - Actions
@@ -176,10 +167,9 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 
                 ServicesManager.instance().lastActivityDate = nil;
                 
-                _ = strongSelf.navigationController?.popToRootViewController(animated: true)
+                let _ = strongSelf.navigationController?.popToRootViewController(animated: true)
                 
                 SVProgressHUD.showSuccess(withStatus: "SA_STR_COMPLETED".localized)
-                
             }
         }
     }
@@ -190,24 +180,18 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 		
         if let lastActivityDate = ServicesManager.instance().lastActivityDate {
 			
-			ServicesManager.instance().chatService.fetchDialogsUpdated(from: lastActivityDate as Date, andPageLimit: kDialogsPageLimit, iterationBlock: { (response: QBResponse?, dialogObjects: [QBChatDialog]?, dialogsUsersIDs: Set<NSNumber>?, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+			ServicesManager.instance().chatService.fetchDialogsUpdated(from: lastActivityDate as Date, andPageLimit: kDialogsPageLimit, iterationBlock: { (response, dialogObjects, dialogsUsersIDs, stop) -> Void in
 				
-				}, completionBlock: { (response: QBResponse?) -> Void in
+				}, completionBlock: { (response) -> Void in
 					
-					guard let unwrappedResponse = response else {
-						print("fetchDialogsUpdatedFromDate error")
-						return
-					}
-					
-					guard unwrappedResponse.isSuccess else {
-						print("fetchDialogsUpdatedFromDate error \(response)")
-						return
-					}
-					
-					ServicesManager.instance().lastActivityDate = Date()
+                    if (response.isSuccess) {
+                        
+                        ServicesManager.instance().lastActivityDate = NSDate()
+                    }
 			})
         }
         else {
+            
             SVProgressHUD.show(withStatus: "SA_STR_LOADING_DIALOGS".localized, maskType: SVProgressHUDMaskType.clear)
 			
 			ServicesManager.instance().chatService.allDialogs(withPageLimit: kDialogsPageLimit, extendedRequest: nil, iterationBlock: { (response: QBResponse?, dialogObjects: [QBChatDialog]?, dialogsUsersIDS: Set<NSNumber>?, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
@@ -220,10 +204,8 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
 					}
 					
 					SVProgressHUD.showSuccess(withStatus: "SA_STR_COMPLETED".localized)
-					ServicesManager.instance().lastActivityDate = Date()
-					
+					ServicesManager.instance().lastActivityDate = NSDate()
 			})
-			
         }
     }
 
@@ -238,6 +220,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 1
     }
     
@@ -249,6 +232,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return 64.0
     }
     
@@ -256,18 +240,18 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "dialogcell", for: indexPath) as! DialogTableViewCell
         
-        if (self.dialogs()?.count < (indexPath as NSIndexPath).row) {
+        if ((self.dialogs()?.count)! < indexPath.row) {
             return cell
         }
         
-		guard let chatDialog = self.dialogs()?[(indexPath as NSIndexPath).row] else {
-			return cell
-		}
-		
+        guard let chatDialog = self.dialogs()?[indexPath.row] else {
+            return cell
+        }
+        
         cell.isExclusiveTouch = true
         cell.contentView.isExclusiveTouch = true
         
-        cell.tag = (indexPath as NSIndexPath).row
+        cell.tag = indexPath.row
         cell.dialogID = chatDialog.id!
         
         let cellModel = DialogTableViewCellModel(dialog: chatDialog)
@@ -291,77 +275,80 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
             return
         }
         
-		guard let dialog = self.dialogs()?[(indexPath as NSIndexPath).row] else {
-			return
-		}
+        guard let dialog = self.dialogs()?[indexPath.row] else {
+            return
+        }
         
         self.performSegue(withIdentifier: "SA_STR_SEGUE_GO_TO_CHAT".localized , sender: dialog)
     }
-    
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
         return true
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-		
-		guard editingStyle == UITableViewCellEditingStyle.delete else {
-			return
-		}
-		
-		
-		guard let dialog = self.dialogs()?[(indexPath as NSIndexPath).row] else {
-			return
-		}
-		
-		_ = AlertView(title:"SA_STR_WARNING".localized , message:"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG".localized , cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitle: ["SA_STR_DELETE".localized], didClick:{ (buttonIndex) -> Void in
-			
-			guard buttonIndex == 1 else {
-				return
-			}
-			
-			SVProgressHUD.show(withStatus: "SA_STR_DELETING".localized, maskType: SVProgressHUDMaskType.clear)
-			
-			let deleteDialogBlock = { (dialog: QBChatDialog!) -> Void in
-				
-				// Deletes dialog from server and cache.
-				ServicesManager.instance().chatService.deleteDialog(withID: dialog.id!, completion: { (response: QBResponse!) -> Void in
-					
-					guard response.isSuccess else {
-						SVProgressHUD.showError(withStatus: "SA_STR_ERROR_DELETING".localized)
-						print(response.error?.error)
-						return
-					}
-					
-					SVProgressHUD.showSuccess(withStatus: "SA_STR_DELETED".localized)
-				})
-			}
-			
-			if dialog.type == QBChatDialogType.private {
-				
-				deleteDialogBlock(dialog)
-				
-			} else {
-				
-				// group
-				
-				let occupantIDs = dialog.occupantIDs!.filter( {$0 as UInt != ServicesManager.instance().currentUser()?.id} )
-				
-				dialog.occupantIDs = occupantIDs
-				let userLogin = ServicesManager.instance().currentUser()?.login ?? ""
-				let notificationMessage = "User \(userLogin) " + "SA_STR_USER_HAS_LEFT".localized
-				// Notifies occupants that user left the dialog.
-				ServicesManager.instance().chatService.sendNotificationMessageAboutLeaving(dialog, withNotificationText: notificationMessage, completion: { (error : Error?) -> Void in
-					deleteDialogBlock(dialog)
-				})
-			}
-		})
-		
+        
+        guard editingStyle == UITableViewCellEditingStyle.delete else {
+            return
+        }
+        
+        
+        guard let dialog = self.dialogs()?[indexPath.row] else {
+            return
+        }
+        
+        _ = AlertView(title:"SA_STR_WARNING".localized , message:"SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG".localized , cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitle: ["SA_STR_DELETE".localized], didClick:{ (buttonIndex) -> Void in
+            
+            guard buttonIndex == 1 else {
+                return
+            }
+            
+            SVProgressHUD.show(withStatus: "SA_STR_DELETING".localized, maskType: SVProgressHUDMaskType.clear)
+            
+            let deleteDialogBlock = { (dialog: QBChatDialog!) -> Void in
+                
+                // Deletes dialog from server and cache.
+                ServicesManager.instance().chatService.deleteDialog(withID: dialog.id!, completion: { (response) -> Void in
+                    
+                    guard response.isSuccess else {
+                        SVProgressHUD.showError(withStatus: "SA_STR_ERROR_DELETING".localized)
+                        print(response.error?.error)
+                        return
+                    }
+                    
+                    SVProgressHUD.showSuccess(withStatus: "SA_STR_DELETED".localized)
+                })
+            }
+            
+            if dialog.type == QBChatDialogType.private {
+                
+                deleteDialogBlock(dialog)
+                
+            }
+            else {
+                // group
+                let occupantIDs = dialog.occupantIDs!.filter({ (number) -> Bool in
+                    
+                    return number.uintValue != ServicesManager.instance().currentUser()?.id
+                })
+                
+                dialog.occupantIDs = occupantIDs
+                let userLogin = ServicesManager.instance().currentUser()?.login ?? ""
+                let notificationMessage = "User \(userLogin) " + "SA_STR_USER_HAS_LEFT".localized
+                // Notifies occupants that user left the dialog.
+                ServicesManager.instance().chatService.sendNotificationMessageAboutLeaving(dialog, withNotificationText: notificationMessage, completion: { (error) -> Void in
+                    deleteDialogBlock(dialog)
+                })
+            }
+        })
     }
 	
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        
         return "SA_STR_DELETE".localized
     }
-	
+    
     // MARK: - QMChatServiceDelegate
 	
     func chatService(_ chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
@@ -403,7 +390,6 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     func chatServiceChatDidFail(withStreamError error: Error) {
         SVProgressHUD.showError(withStatus: error.localizedDescription)
-        
     }
     
     func chatServiceChatDidAccidentallyDisconnect(_ chatService: QMChatService) {
@@ -429,7 +415,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         }
     }
     
-// MARK: - Helpers 
+    // MARK: - Helpers
     func reloadTableViewIfNeeded() {
         if !ServicesManager.instance().isProcessingLogOut! {
             self.tableView.reloadData()

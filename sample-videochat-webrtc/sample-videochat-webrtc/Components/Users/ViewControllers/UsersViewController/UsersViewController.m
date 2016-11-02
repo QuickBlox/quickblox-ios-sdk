@@ -18,7 +18,7 @@
 #import "CallViewController.h"
 #import "IncomingCallViewController.h"
 
-const NSUInteger kQBPageSize = 100;
+const NSUInteger kQBPageSize = 50;
 
 @interface UsersViewController () <QBCoreDelegate, QBRTCClientDelegate, SettingsViewControllerDelegate, IncomingCallViewControllerDelegate>
 
@@ -130,43 +130,52 @@ const NSUInteger kQBPageSize = 100;
  */
 - (void)loadUsers {
     
-    QBGeneralResponsePage *responsePage = [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:kQBPageSize];
-    
-    __block BOOL cancel = NO;
-    __block dispatch_block_t t_request;
+    __block void(^t_request) (QBGeneralResponsePage *, NSMutableArray *);
     __weak __typeof(self)weakSelf = self;
     
-    NSMutableArray *allUsers = [NSMutableArray array];
-    
-    dispatch_block_t request = [^{
+    void(^request) (QBGeneralResponsePage *, NSMutableArray *) =
+    ^(QBGeneralResponsePage *page, NSMutableArray *allUsers) {
         
         [QBRequest usersWithTags:Core.currentUser.tags
-                            page:responsePage
-                    successBlock:^(QBResponse * _Nonnull response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users)
+                            page:page
+                    successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBUUser *> *users)
          {
-             responsePage.currentPage++;
+             page.currentPage++;
              [allUsers addObjectsFromArray:users];
-             if (responsePage.currentPage * responsePage.perPage >= page.totalEntries) {
+             
+             BOOL cancel;
+             if (page.currentPage * page.perPage >= page.totalEntries) {
                  cancel = YES;
              }
+             
              if (!cancel) {
-                 t_request();
+                 t_request(page, allUsers);
+                 
              }
              else {
+                 
                  [weakSelf.refreshControl endRefreshing];
                  BOOL isUpdated = [weakSelf.dataSource setUsers:allUsers];
                  if (isUpdated) {
                      [weakSelf.tableView reloadData];
                  }
+                 t_request = nil;
              }
-         } errorBlock:^(QBResponse * _Nonnull response) {
+             
+         } errorBlock:^(QBResponse *response) {
+             
              [weakSelf.refreshControl endRefreshing];
+             t_request = nil;
          }];
-        
-    } copy];
+    } ;
     
-    t_request = request;
-    request();
+    t_request = [request copy];
+    
+    QBGeneralResponsePage *responsePage =
+    [QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:kQBPageSize];
+    NSMutableArray *allUsers = [NSMutableArray array];
+    
+    request(responsePage, allUsers);
 }
 
 #pragma mark - Actions
