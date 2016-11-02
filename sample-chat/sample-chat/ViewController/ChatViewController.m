@@ -870,6 +870,26 @@ QMDeferredQueueManagerDelegate
 
 #pragma mark - QMChatServiceDelegate
 
+- (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
+    
+    if ([self.dialog.ID isEqualToString:chatDialogID]) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+                                                                                 message:@"You have left this dialog"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              [self.navigationController popViewControllerAnimated:YES];
+                                                          }]];
+        
+        [self presentViewController:alertController
+                           animated:YES
+                         completion:NULL];
+        
+    }
+}
 - (void)chatService:(QMChatService *)chatService didLoadMessagesFromCache:(NSArray *)messages forDialogID:(NSString *)dialogID {
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
