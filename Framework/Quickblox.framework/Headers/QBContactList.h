@@ -8,6 +8,9 @@
 
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
+#import "ChatEnums.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class QBContactListItem;
 
@@ -27,4 +30,25 @@
  */
 @property (nonatomic, readonly, nullable) NSArray QB_GENERIC(QBContactListItem *) *pendingApproval;
 
+/**
+ *  Get last activity
+ *
+ *  @param item     QBContactListItem
+ *  @param completion completion block with last activity in seconds and error
+ */
+- (void)lastActivityForContactListItem:(QBContactListItem *)item
+                        withCompletion:(QBUserLastActivityCompletionBlock)completion;
+/**
+ *  Get last activity
+ *
+ *  @param item       QBContactListItem
+ *  @param timeout    timeout
+ *  @param completion completion block with last activity in seconds and error
+ */
+- (void)lastActivityForContactListItem:(QBContactListItem *)item
+                           withTimeout:(NSTimeInterval)timeOut
+                            completion:(QBUserLastActivityCompletionBlock)completion;
+
 @end
+
+NS_ASSUME_NONNULL_END

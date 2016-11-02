@@ -11,11 +11,11 @@
 #import <Quickblox/QBGeneric.h>
 #import "QBRequest.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class QBResponsePage;
 @class QBChatMessage;
 @class QBChatDialog;
-
-NS_ASSUME_NONNULL_BEGIN
 
 @interface QBRequest (QBChat)
 
@@ -137,6 +137,19 @@ NS_ASSUME_NONNULL_BEGIN
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
+ Create and send message to chat.
+ 
+ @param message Сhat message instance to create.
+ @param successBlock Block with response and chat message instance if request succeded.
+ @param errorBlock Block with response instance if request failed.
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)sendMessage:(QBChatMessage *)message
+              successBlock:(nullable void(^)(QBResponse *response, QBChatMessage *createdMessage))successBlock
+                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+
+/**
  Update existing chat message - mark it as read.
  
  @note Updates message "read" status only on server.
@@ -156,8 +169,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @note Updates message "read" status only on server.
  
- @param dialogID dialog ID.
  @param messagesIDs Set of chat message IDs to mark as read. If messageIDs is nil then all messages in dialog will be marked as read.
+ @param dialogID dialog ID.
  @param successBlock Block with response instance if request succeded.
  @param errorBlock Block with response instance if request failed.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
@@ -166,6 +179,22 @@ NS_ASSUME_NONNULL_BEGIN
                          dialogID:(NSString *)dialogID
                      successBlock:(nullable void(^)(QBResponse *response))successBlock
                        errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+
+/**
+ Mark messages as Delivered.
+ 
+ @note Updates message "delivered" status only on server.
+ 
+ @param messagesIDs Set of chat message IDs to mark as delivered. If messageIDs is nil then all messages in dialog will be marked as delivered.
+ @param dialogID dialog ID.
+ @param successBlock Block with response instance if request succeded.
+ @param errorBlock Block with response instance if request failed.
+ @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
+ */
++ (QBRequest *)markMessagesAsDelivered:(nullable NSSet QB_GENERIC(NSString *) *)messagesIDs
+                              dialogID:(NSString *)dialogID
+                          successBlock:(nullable void(^)(QBResponse *response))successBlock
+                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Delete existent chat messages completely for all users

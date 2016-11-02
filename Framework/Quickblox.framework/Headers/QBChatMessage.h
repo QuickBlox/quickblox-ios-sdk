@@ -82,11 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSDate *updatedAt;
 
 /**
- *  'Read' status of a message.
- */
-@property (nonatomic, getter = isRead) BOOL read;
-
-/**
  *  The array of user's ids who read this message.
  */
 @property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSNumber *) *readIDs;
@@ -109,6 +104,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return new markable QBChatMessage instance
  */
 + (instancetype)markableMessage;
+
+//MARK: DEPRECATED
+
+/**
+ *  'Read' status of a message.
+ */
+@property (nonatomic, getter = isRead) BOOL read DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.8.0.1 Use 'readIDs' instead.");
 
 @end
 

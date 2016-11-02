@@ -13,6 +13,14 @@
 
 @class QBChatMessage;
 
+typedef NS_ENUM(NSUInteger, QBChatDialogType) {
+    
+    QBChatDialogTypePublicGroup = 1,
+    QBChatDialogTypeGroup = 2,
+    QBChatDialogTypePrivate = 3,
+};
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**

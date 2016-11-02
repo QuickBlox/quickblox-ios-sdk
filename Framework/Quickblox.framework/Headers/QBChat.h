@@ -250,7 +250,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Send ping to server with timeout
  *
- *  @param timeout    timout
+ *  @param timeout    timeout
  *  @param completion completion block with ping time interval and success flag
  */
 - (void)pingServerWithTimeout:(NSTimeInterval)timeout completion:(QBPingCompleitonBlock)completion;

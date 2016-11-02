@@ -19,9 +19,13 @@
     #define nonnull
     #define null_unspecified
     #define null_resettable
+    #define _Nullable
+    #define _Nonnull
     #define __nullable
     #define __nonnull
     #define __null_unspecified
+    #define _Nullable
+    #define _Nonnull
 #endif
 
 // Old nullability logic

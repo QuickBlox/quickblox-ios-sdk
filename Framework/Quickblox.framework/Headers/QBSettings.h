@@ -227,8 +227,6 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
 
 #pragma mark - DEPRECATED
 
-#pragma mark - DEPRECATED
-
 /**
  *  Enable or Disable chat DNS Lookup cache for current chat endpoint
  *
