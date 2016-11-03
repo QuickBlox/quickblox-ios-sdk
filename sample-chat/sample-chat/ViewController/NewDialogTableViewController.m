@@ -153,7 +153,9 @@
 						completion(createdDialog);
 					}
                 }];
-			} else {
+			}
+            else {
+                [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"SA_STR_ERROR", nil)];
 				if (completion) {
 					completion(nil);
 				}

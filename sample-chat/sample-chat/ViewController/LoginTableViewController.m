@@ -31,9 +31,15 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.tintColor = [UIApplication sharedApplication].keyWindow.tintColor;
+    [self.refreshControl addTarget:self
+                            action:@selector(downloadCurrentEnvironmentUsers)
+                  forControlEvents:UIControlEventValueChanged];
+    
     NSString *versionString = [NSString stringWithFormat:@"%@", [self versionBuild]];
     self.buildNumberLabel.text = versionString;
-    
+
 	ServicesManager *servicesManager = [ServicesManager instance];
     QBUUser *currentUser = servicesManager.currentUser;
     
@@ -88,7 +94,11 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)downloadCurrentEnvironmentUsers {
-	if (self.isUsersAreDownloading) return;
+    
+    if (self.isUsersAreDownloading) {
+        [self.refreshControl endRefreshing];
+        return;
+    }
     
 	self.usersAreDownloading = YES;
 	
@@ -100,9 +110,12 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
+        [weakSelf.refreshControl endRefreshing];
+        
 	} errorBlock:^(NSError *error) {
 		[SVProgressHUD showErrorWithStatus:error.localizedDescription];
 		weakSelf.usersAreDownloading = NO;
+        [weakSelf.refreshControl endRefreshing];
 	}];
 }
 

@@ -51,8 +51,6 @@ QMDeferredQueueManagerDelegate
 @property (nonatomic, strong) NSTimer *typingTimer;
 @property (nonatomic, strong) id observerWillResignActive;
 
-@property (nonatomic, strong) NSArray QB_GENERIC(QBChatMessage *) *unreadMessages;
-
 @property (nonatomic, strong) NSMutableSet *detailedCells;
 
 @end
@@ -123,10 +121,6 @@ QMDeferredQueueManagerDelegate
         }];
     }
     
-    [[ServicesManager instance].chatService addDelegate:self];
-    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
-    [[self queueManager] addDelegate:self];
-    
     if ([[self storedMessages] count] > 0 && self.chatDataSource.messagesCount == 0) {
         //inserting all messages from memory storage
         [self.chatDataSource addMessages:[self storedMessages]];
@@ -174,6 +168,9 @@ QMDeferredQueueManagerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [[ServicesManager instance].chatService addDelegate:self];
+    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    [[self queueManager] addDelegate:self];
     
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
@@ -189,6 +186,10 @@ QMDeferredQueueManagerDelegate
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [[ServicesManager instance].chatService removeDelegate:self];
+    [ServicesManager instance].chatService.chatAttachmentService.delegate = nil;
+    [[self queueManager] removeDelegate:self];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self.observerWillResignActive];
@@ -250,18 +251,6 @@ QMDeferredQueueManagerDelegate
     && ![message.readIDs containsObject:@(self.senderID)];
 }
 
-- (void)readMessages:(NSArray *)messages {
-    
-    if ([ServicesManager instance].isAuthorized) {
-        
-        [[ServicesManager instance].chatService readMessages:messages forDialogID:self.dialog.ID completion:nil];
-    }
-    else {
-        
-        self.unreadMessages = messages;
-    }
-}
-
 - (void)fireStopTypingIfNecessary {
     
     [self.typingTimer invalidate];
@@ -286,19 +275,19 @@ QMDeferredQueueManagerDelegate
         message.dialogID = self.dialog.ID;
         message.dateSent = [NSDate date];
         
+        [self.chatDataSource addMessage:message];
+        
         [[ServicesManager instance].chatService sendAttachmentMessage:message
                                                              toDialog:self.dialog
                                                   withAttachmentImage:attachment.image
                                                            completion:^(NSError *error) {
                                                                
                                                                [self.attachmentCells removeObjectForKey:message.ID];
-                                                               
+                                                              
                                                                if (error != nil) {
-                                                                   [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                                                                   
                                                                    // perform local attachment deleting
-                                                                   [[ServicesManager instance].chatService deleteMessageLocally:message];
                                                                    [self.chatDataSource deleteMessage:message];
+                                                                   [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                }
                                                            }];
         [self finishSendingMessageAnimated:YES];
@@ -413,8 +402,9 @@ QMDeferredQueueManagerDelegate
     if ([messageItem senderID] == self.senderID || self.dialog.type == QBChatDialogTypePrivate) {
         return nil;
     }
-	
-    NSString *topLabelText = self.opponentUser.fullName != nil ? self.opponentUser.fullName : self.opponentUser.login;
+    
+
+    NSString *topLabelText = self.opponentUser.fullName ?: self.opponentUser.login;
     
     if (self.dialog.type != QBChatDialogTypePrivate) {
         QBUUser *messageSender = [[ServicesManager instance].usersService.usersMemoryStorage userWithID:messageItem.senderID];
@@ -848,7 +838,7 @@ QMDeferredQueueManagerDelegate
                 
                 [UIAlertView showWithTitle:@""
                                    message:textCheckingResult.phoneNumber
-                         cancelButtonTitle:@"SA_STR_CANCEL"
+                         cancelButtonTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
                          otherButtonTitles:@[NSLocalizedString(@"SA_STR_CALL", nil)]
                                   tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                                       if (buttonIndex == 0) {
@@ -880,6 +870,26 @@ QMDeferredQueueManagerDelegate
 
 #pragma mark - QMChatServiceDelegate
 
+- (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID {
+    
+    if ([self.dialog.ID isEqualToString:chatDialogID]) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+                                                                                 message:@"You have left this dialog"
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
+                                                              [self.navigationController popViewControllerAnimated:YES];
+                                                          }]];
+        
+        [self presentViewController:alertController
+                           animated:YES
+                         completion:NULL];
+        
+    }
+}
 - (void)chatService:(QMChatService *)chatService didLoadMessagesFromCache:(NSArray *)messages forDialogID:(NSString *)dialogID {
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
@@ -928,25 +938,14 @@ QMDeferredQueueManagerDelegate
 
 #pragma mark - QMChatConnectionDelegate
 
-- (void)refreshAndReadMessages; {
-    
-    [self refreshMessagesShowingProgress:YES];
-    
-    if (self.unreadMessages.count > 0) {
-        [self readMessages:self.unreadMessages];
-    }
-    
-    self.unreadMessages = nil;
-}
-
 - (void)chatServiceChatDidConnect:(QMChatService *)chatService {
     
-    [self refreshAndReadMessages];
+     [self refreshMessagesShowingProgress:YES];
 }
 
 - (void)chatServiceChatDidReconnect:(QMChatService *)chatService {
     
-    [self refreshAndReadMessages];
+      [self refreshMessagesShowingProgress:YES];
 }
 
 #pragma mark - QMChatAttachmentServiceDelegate
@@ -976,16 +975,13 @@ QMDeferredQueueManagerDelegate
     id<QMChatAttachmentCell> cell = [self.attachmentCells objectForKey:message.ID];
     
     if (cell == nil && progress < 1.0f) {
-        
+    
         NSIndexPath *indexPath = [self.chatDataSource indexPathForMessage:message];
         cell = (UICollectionViewCell <QMChatAttachmentCell> *)[self.collectionView cellForItemAtIndexPath:indexPath];
         [self.attachmentCells setObject:cell forKey:message.ID];
     }
     
-    if (cell != nil) {
-        
-        [cell updateLoadingProgress:progress];
-    }
+     [cell updateLoadingProgress:progress];
 }
 
 #pragma mark - UITextViewDelegate
@@ -1134,7 +1130,11 @@ QMDeferredQueueManagerDelegate
         UIImage *resizedImage = [strongSelf resizedImageFromImage:newImage];
         
         // Sending attachment to the dialog.
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+             [self.chatDataSource addMessage:message];
+            
             [[ServicesManager instance].chatService sendAttachmentMessage:message
                                                                  toDialog:strongSelf.dialog
                                                       withAttachmentImage:resizedImage
@@ -1143,11 +1143,8 @@ QMDeferredQueueManagerDelegate
                                                                    [strongSelf.attachmentCells removeObjectForKey:message.ID];
                                                                    
                                                                    if (error != nil) {
-                                                                       [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-                                                                       
-                                                                       // perform local attachment deleting
-                                                                       [[ServicesManager instance].chatService deleteMessageLocally:message];
                                                                        [strongSelf.chatDataSource deleteMessage:message];
+                                                                       [SVProgressHUD showErrorWithStatus:error.localizedDescription];
                                                                    }
                                                                }];
         });
