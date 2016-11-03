@@ -110,6 +110,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         ServicesManager.instance().chatService.addDelegate(self)
         ServicesManager.instance().chatService.chatAttachmentService.delegate = self
         
+        self.queueManager().add(self)
+        
         self.willResignActiveBlock = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: nil, queue: nil) { [weak self] (notification) in
             
             self?.fireSendStopTypingIfNecessary()
@@ -138,7 +140,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.dialog.clearTypingStatusBlocks()
         ServicesManager.instance().chatService.removeDelegate(self)
         ServicesManager.instance().chatService.chatAttachmentService.delegate = nil
-        self.queueManager().add(self)
+      
         self.queueManager().remove(self)
     }
     
@@ -1038,7 +1040,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     // MARK: QMDeferredQueueManager
-    
+
     func deferredQueueManager(_ queueManager: QMDeferredQueueManager, didAddMessageLocally addedMessage: QBChatMessage) {
         self.chatDataSource.add(addedMessage)
     }
