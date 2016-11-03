@@ -287,7 +287,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             // Sending attachment.
             DispatchQueue.main.async(execute: {
-                
+                self?.chatDataSource.add(message)
                 // sendAttachmentMessage method always firstly adds message to memory storage
                 ServicesManager.instance().chatService.sendAttachmentMessage(message, to: self!.dialog, withAttachmentImage: resizedImage!, completion: {
                     [weak self] (error) -> Void in
@@ -295,9 +295,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     self?.attachmentCellsMap.removeObject(forKey: message.id as AnyObject?)
                     
                     guard error != nil else { return }
-                    
-                    // perform local attachment message deleting if error
-                    ServicesManager.instance().chatService.deleteMessageLocally(message)
                     
                     self?.chatDataSource.delete(message)
                     })
