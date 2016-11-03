@@ -306,19 +306,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: Date!) {
-        
-        let shouldJoin = self.dialog.type == .group ? !self.dialog.isJoined() : false
-        
-        if !QBChat.instance().isConnected || shouldJoin {
-            
-            if shouldJoin {
-                
-                QMMessageNotificationManager.showNotification(withTitle: "SA_STR_ERROR".localized, subtitle:"SA_STR_MESSAGE_FAILED_TO_SEND".localized, type: QMMessageNotificationType.error)
-            }
-            
+
+        if !self.queueManager().shouldSendMessagesInDialog(withID: self.dialog.id!) {
             return
         }
-        
         self.fireSendStopTypingIfNecessary()
         
         let message = QBChatMessage()
