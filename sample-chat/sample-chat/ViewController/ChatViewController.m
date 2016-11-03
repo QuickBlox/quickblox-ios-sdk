@@ -838,7 +838,7 @@ QMDeferredQueueManagerDelegate
                 
                 [UIAlertView showWithTitle:@""
                                    message:textCheckingResult.phoneNumber
-                         cancelButtonTitle:@"SA_STR_CANCEL"
+                         cancelButtonTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
                          otherButtonTitles:@[NSLocalizedString(@"SA_STR_CALL", nil)]
                                   tapBlock:^(UIAlertView *alertView, NSInteger buttonIndex) {
                                       if (buttonIndex == 0) {
@@ -974,18 +974,14 @@ QMDeferredQueueManagerDelegate
     
     id<QMChatAttachmentCell> cell = [self.attachmentCells objectForKey:message.ID];
     
-    if (cell != nil) {
-        
-        [cell updateLoadingProgress:progress];
-    }
-    else if (progress < 1.0f) {
-        
+    if (cell == nil && progress < 1.0f) {
+    
         NSIndexPath *indexPath = [self.chatDataSource indexPathForMessage:message];
         cell = (UICollectionViewCell <QMChatAttachmentCell> *)[self.collectionView cellForItemAtIndexPath:indexPath];
         [self.attachmentCells setObject:cell forKey:message.ID];
     }
     
-
+     [cell updateLoadingProgress:progress];
 }
 
 #pragma mark - UITextViewDelegate
