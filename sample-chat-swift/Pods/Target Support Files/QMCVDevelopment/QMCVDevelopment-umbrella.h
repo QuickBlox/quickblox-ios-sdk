@@ -1,4 +1,6 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#endif
 
 #import "QMChatViewController.h"
 #import "NSString+QM.h"
@@ -7,7 +9,6 @@
 #import "UIImage+QM.h"
 #import "UIImageView+QMLocationSnapshot.h"
 #import "UIView+QM.h"
-#import "QMKeyboardController.h"
 #import "QMChatCollectionViewDataSource.h"
 #import "QMChatCollectionViewDelegateFlowLayout.h"
 #import "NSDate+ChatDataSource.h"
@@ -42,6 +43,7 @@
 #import "QMImageView.h"
 #import "QMChatActionsHandler.h"
 #import "QMChatContainerView.h"
+#import "QMKVOView.h"
 
 FOUNDATION_EXPORT double QMCVDevelopmentVersionNumber;
 FOUNDATION_EXPORT const unsigned char QMCVDevelopmentVersionString[];

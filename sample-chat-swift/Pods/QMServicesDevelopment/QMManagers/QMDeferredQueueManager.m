@@ -104,7 +104,6 @@
     
     [self.deferredQueueMemoryStorage removeMessage:message];
     [self.performingMessages removeObject:message.ID];
-
 }
 
 - (QMMessageStatus)statusForMessage:(QBChatMessage *)message {

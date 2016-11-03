@@ -11,9 +11,11 @@
 
 @protocol QMMemoryTemporaryQueueDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QMMessagesMemoryStorage : NSObject <QMMemoryStorageProtocol>
 
-@property (QB_NULLABLE, weak, nonatomic) id <QMMemoryTemporaryQueueDelegate> delegate;
+@property (weak, nonatomic, nullable) id <QMMemoryTemporaryQueueDelegate> delegate;
 
 /**
  *  Add message to memory storage
@@ -21,7 +23,7 @@
  *  @param message  QBChatMessage instnace
  *  @param dialogID Chat dialog identifier
  */
-- (void)addMessage:(QB_NONNULL QBChatMessage *)message forDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)addMessage:(QBChatMessage *)message forDialogID:(NSString *)dialogID;
 
 /**
  *  Add messages to memory storage
@@ -29,7 +31,7 @@
  *  @param messages Array of QBChatMessage items
  *  @param dialogID Chat dialog identifier
  */
-- (void)addMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)addMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Replace messages in memory storage for dialog identifier
@@ -37,14 +39,14 @@
  *  @param messages Array of QBChatMessage instances to replace
  *  @param dialogID Chat dialog identifier
  */
-- (void)replaceMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)replaceMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Updates message in memory storage. Dialog ID is taken from message.
  *
  *  @param message Updated message.
  */
-- (void)updateMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)updateMessage:(QBChatMessage *)message;
 
 #pragma mark - Getters
 
@@ -55,14 +57,14 @@
  *
  *  @return return array of QBChatMessage instances
  */
-- (QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messagesWithDialogID:(QB_NONNULL NSString *)dialogID;
+- (NSArray QB_GENERIC(QBChatMessage *) *)messagesWithDialogID:(NSString *)dialogID;
 
 /**
  *  Delete message from memory storage.
  *
  *  @param message message to delete.
  */
-- (void)deleteMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)deleteMessage:(QBChatMessage *)message;
 
 /**
  *  Delete messages from memory storage.
@@ -70,14 +72,14 @@
  *  @param messages messages to delete
  *  @param dialogID chat dialog identifier
  */
-- (void)deleteMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Delete messages with dialog indetifier
  *
  *  @param dialogID Chat dialog identifier
  */
-- (void)deleteMessagesWithDialogID:(QB_NONNULL NSString *)dialogID;
+- (void)deleteMessagesWithDialogID:(NSString *)dialogID;
 
 /**
  *  Message with ID
@@ -86,7 +88,7 @@
  *
  *  @return QBChatMessage object
  */
-- (QB_NULLABLE QBChatMessage *)messageWithID:(QB_NONNULL NSString *)messageID fromDialogID:(QB_NONNULL NSString *)dialogID;
+- (nullable QBChatMessage *)messageWithID:(NSString *)messageID fromDialogID:(NSString *)dialogID;
 
 /**
  *  Get last message in memory storage from dialog by ID
@@ -95,7 +97,7 @@
  *
  *  @return QBChatMessage object
  */
-- (QB_NULLABLE QBChatMessage *)lastMessageFromDialogID:(QB_NONNULL NSString *)dialogID;
+- (nullable QBChatMessage *)lastMessageFromDialogID:(NSString *)dialogID;
 
 /**
  *  Is message existent for dialog.
@@ -105,7 +107,7 @@
  *
  *  @return whether message existent for a specific dialog
  */
-- (BOOL)isMessageExistent:(QB_NONNULL QBChatMessage *)message forDialogID:(QB_NONNULL NSString *)dialogID;
+- (BOOL)isMessageExistent:(QBChatMessage *)message forDialogID:(NSString *)dialogID;
 
 #pragma mark - Helpers
 
@@ -116,7 +118,7 @@
  *
  *  @return YES if dialog empty
  */
-- (BOOL)isEmptyForDialogID:(QB_NONNULL NSString *)dialogID;
+- (BOOL)isEmptyForDialogID:(NSString *)dialogID;
 
 /**
  *  Get first message in memory storage from dialog by ID
@@ -125,7 +127,7 @@
  *
  *  @return QBChatMessage object
  */
-- (QB_NULLABLE QBChatMessage *)oldestMessageForDialogID:(QB_NONNULL NSString *)dialogID;
+- (nullable QBChatMessage *)oldestMessageForDialogID:(NSString *)dialogID;
 
 @end
 
@@ -133,6 +135,8 @@
 
 @optional
 
-- (QB_NULLABLE NSArray *)localMessagesForDialogWithID:(QB_NONNULL NSString *)dialogID;
+- (nullable NSArray *)localMessagesForDialogWithID:(NSString *)dialogID;
 
 @end
+
+NS_ASSUME_NONNULL_END

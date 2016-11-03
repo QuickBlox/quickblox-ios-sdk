@@ -37,8 +37,8 @@
 }
 
 - (QMDeferredQueueManager *)deferredQueueManager {
-    static QMDeferredQueueManager *manager = nil;
     
+    static QMDeferredQueueManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         

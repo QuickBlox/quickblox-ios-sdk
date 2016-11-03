@@ -7,8 +7,8 @@
 //
 
 #import "QBChatAttachment+QMCustomData.h"
-
 #import <objc/runtime.h>
+#import "QMSLog.h"
 
 @implementation QBChatAttachment (QMCustomData)
 
@@ -34,11 +34,17 @@
     
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.context
-                                                       options:nil
+                                                       options:0
                                                          error:&error];
     
+    if (error != nil) {
+        
+        QMSLog(@"Error serializing data to JSON: %@", error);
+        return;
+    }
+    
     self.data = [[NSString alloc] initWithData:jsonData
-                                            encoding:NSUTF8StringEncoding];
+                                      encoding:NSUTF8StringEncoding];
 }
 
 #pragma mark - Private
@@ -51,9 +57,27 @@
     if (jsonData) {
         
         NSDictionary *representationObject = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                             options:NSJSONReadingMutableContainers
+                                                                             options:0
                                                                                error:&error];
-        return [representationObject mutableCopy];
+        
+        if (error != nil) {
+            
+            QMSLog(@"Error serializing JSON to data: %@", error);
+            return [[NSMutableDictionary alloc] init];
+        }
+        
+        NSMutableDictionary *mutableObject = [representationObject mutableCopy];
+        
+        // removing possible null values
+        [representationObject enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL * __unused stop) {
+            
+            if (obj == [NSNull null]) {
+                
+                [mutableObject removeObjectForKey:key];
+            }
+        }];
+        
+        return mutableObject;
     }
     else {
         

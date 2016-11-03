@@ -50,10 +50,6 @@
       "source_files": "QMChatViewController/Categories/*.{h,m}"
     },
     {
-      "name": "KeyboardViewController",
-      "source_files": "QMChatViewController/KeyboardViewController/*.{h,m}"
-    },
-    {
       "name": "QMChatSection",
       "source_files": "QMChatViewController/QMChatSection/*.{h,m}"
     },

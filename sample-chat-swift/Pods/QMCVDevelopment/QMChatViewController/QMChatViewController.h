@@ -49,7 +49,7 @@
  *  Returns the input toolbar view object managed by this view controller.
  *  This view controller is the toolbar's delegate.
  */
-@property (weak, nonatomic, readonly) QMInputToolbar *inputToolbar;
+@property (strong, nonatomic, readonly) QMInputToolbar *inputToolbar;
 
 /**
  *  The display name of the current user who is sending messages.
@@ -266,4 +266,19 @@
  */
 - (void)scrollToBottomAnimated:(BOOL)animated;
 
+/**
+ *  Hides keyboard
+ *
+ *  @param animated Pass `YES` if you want to animate hiding, `NO` if it should be immediate.
+ */
+- (void)hideKeyboard:(BOOL)animated;
+
+#pragma mark - Methods requiring super
+
+- (void)viewDidLoad NS_REQUIRES_SUPER;
+- (void)viewWillAppear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewDidAppear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewWillDisappear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewDidDisappear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewDidLayoutSubviews NS_REQUIRES_SUPER;;
 @end

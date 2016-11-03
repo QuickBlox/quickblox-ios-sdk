@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "QMDBStorage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface QMChatCache : QMDBStorage
 
 /**
  *  Messages limit in storage per dialog
  */
-
 @property (nonatomic, assign) NSUInteger messagesLimitPerDialog; // default - NSNotFound (infinity)
 
 #pragma mark - Singleton
@@ -24,7 +25,7 @@
  *
  *  @return QMChatCache instance
  */
-+ (QB_NULLABLE QMChatCache *)instance;
++ (nullable QMChatCache *)instance;
 
 #pragma mark - Configure store
 
@@ -33,14 +34,14 @@
  *
  *  @param storeName Store name
  */
-+ (void)setupDBWithStoreNamed:(QB_NONNULL NSString *)storeName;
++ (void)setupDBWithStoreNamed:(NSString *)storeName;
 
 /**
  *  Clean clean chat cache with store name
  *
  *  @param name Store name
  */
-+ (void)cleanDBWithStoreName:(QB_NONNULL NSString *)name;
++ (void)cleanDBWithStoreName:(NSString *)name;
 
 #pragma mark -
 #pragma mark Dialogs
@@ -53,7 +54,7 @@
  *  @param dialog QBChatDialog instance
  *  @param completion Completion block is called after update or insert operation is completed
  */
-- (void)insertOrUpdateDialog:(QB_NONNULL QBChatDialog *)dialog completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)insertOrUpdateDialog:(QBChatDialog *)dialog completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Insert/Update dialogs
@@ -61,7 +62,7 @@
  *  @param dialogs    Array of QBChatDialog instances
  *  @param completion Completion block is called after update or insert operation is completed
  */
-- (void)insertOrUpdateDialogs:(QB_NONNULL NSArray QB_GENERIC(QBChatDialog *) *)dialogs completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)insertOrUpdateDialogs:(NSArray QB_GENERIC(QBChatDialog *) *)dialogs completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Delete dialog from cache
@@ -69,22 +70,14 @@
  *  @param dialog
  *  @param completion Completion block is called after delete operation is completed
  */
-- (void)deleteDialogWithID:(QB_NONNULL NSString *)dialog completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)deleteDialogWithID:(NSString *)dialog completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Delete all dialogs
  *
  *  @param completion Completion block is called after delete all dialogs operation is completed
  */
-- (void)deleteAllDialogsWithCompletion:(QB_NULLABLE dispatch_block_t)completion;
-
-/**
- *  Delete all dialogs
- *
- *  @param completion Completion block is called after delete all dialogs operation is completed
- *  @warning *Deprecated in 0.3.8:* Use 'deleteAllDialogsWithCompletion:' instead.
- */
-- (void)deleteAllDialogs:(QB_NULLABLE dispatch_block_t)completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.8. Use 'deleteAllDialogsWithCompletion:' instead.");
+- (void)deleteAllDialogsWithCompletion:(nullable dispatch_block_t)completion;
 
 #pragma mark Fetch dialog operations
 
@@ -95,7 +88,7 @@
  *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBChatDialog instances
  */
-- (void)dialogsSortedBy:(QB_NONNULL NSString *)sortTerm ascending:(BOOL)ascending completion:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBChatDialog *) *QB_NULLABLE_S dialogs))completion;
+- (void)dialogsSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending completion:(nullable void(^)(NSArray QB_GENERIC(QBChatDialog *) * _Nullable dialogs))completion;
 
 /**
  *  Fetch dialog by specific ID
@@ -103,7 +96,7 @@
  *  @param dialogID   dialog identificator
  *  @param completion Completion block that is called after the fetch has completed. Returns requested dialog or nil if not found
  */
-- (void)dialogByID:(QB_NONNULL NSString *)dialogID completion:(void(^QB_NULLABLE_S)(QBChatDialog *QB_NULLABLE_S cachedDialog))completion;
+- (void)dialogByID:(NSString *)dialogID completion:(nullable void(^)(QBChatDialog * _Nullable cachedDialog))completion;
 
 /**
  *  Fetch cached dialogs with predicate
@@ -128,7 +121,7 @@
  *  @param predicate  Predicate to evaluate objects against
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBChatDialog instances
  */
-- (void)dialogsSortedBy:(QB_NONNULL NSString *)sortTerm ascending:(BOOL)ascending withPredicate:(QB_NULLABLE NSPredicate *)predicate completion:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBChatDialog *) *QB_NULLABLE_S dialogs))completion;
+- (void)dialogsSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending withPredicate:(nullable NSPredicate *)predicate completion:(nullable void(^)(NSArray QB_GENERIC(QBChatDialog *) * _Nullable dialogs))completion;
 
 #pragma mark -
 #pragma mark  Messages
@@ -141,7 +134,7 @@
  *  @param dialogId   Dialog identifier
  *  @param completion Completion block is called after update or insert operation is completed
  */
-- (void)insertOrUpdateMessage:(QB_NONNULL QBChatMessage *)message withDialogId:(QB_NONNULL NSString *)dialogID completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)insertOrUpdateMessage:(QBChatMessage *)message withDialogId:(NSString *)dialogID completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Add message to cache
@@ -151,7 +144,7 @@
  *  @param isRead     mark read
  *  @param completion Completion block is called after update or insert operation is completed
  */
-- (void)insertOrUpdateMessage:(QB_NONNULL QBChatMessage *)message withDialogId:(QB_NONNULL NSString *)dialogID read:(BOOL)isRead completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)insertOrUpdateMessage:(QBChatMessage *)message withDialogId:(NSString *)dialogID read:(BOOL)isRead completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Update or insert messages
@@ -160,7 +153,7 @@
  *  @param dialogID   Dialog identifier
  *  @param completion Completion block is called after update or insert operation is completed
  */
-- (void)insertOrUpdateMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages withDialogId:(QB_NONNULL NSString *)dialogID completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)insertOrUpdateMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages withDialogId:(NSString *)dialogID completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Delete message
@@ -168,7 +161,7 @@
  *  @param message    QBChatMessage instance
  *  @param completion Completion block that is called after the delete operation has completed.
  */
-- (void)deleteMessage:(QB_NONNULL QBChatMessage *)message completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)deleteMessage:(QBChatMessage *)message completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Delete messages
@@ -176,7 +169,7 @@
  *  @param messages   messages to delete
  *  @param completion Completion block that is called after the delete operation has completed.
  */
-- (void)deleteMessages:(QB_NONNULL NSArray QB_GENERIC(QBChatMessage *) *)messages completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Delete messages for dialog ID
@@ -184,23 +177,14 @@
  *  @param dialogID   dialog identifier
  *  @param completion Completion block that is called after the delete operation has completed.
  */
-- (void)deleteMessageWithDialogID:(QB_NONNULL NSString *)dialogID completion:(QB_NULLABLE dispatch_block_t)completion;
+- (void)deleteMessageWithDialogID:(NSString *)dialogID completion:(nullable dispatch_block_t)completion;
 
 /**
  *  Delete all messages
  *
  *  @param completion Completion block that is called after the delete all messages operation  has completed.
  */
-- (void)deleteAllMessagesWithCompletion:(QB_NULLABLE dispatch_block_t)completion;
-
-/**
- *  Delete all messages
- *
- *  @param completion Completion block that is called after the delete all messages operation  has completed.
- *  @warning *Deprecated in 0.3.8:* Use 'deleteAllMessagesWithCompletion:' instead.
- */
-- (void)deleteAllMessages:(QB_NULLABLE dispatch_block_t)completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.3.8:* Use 'deleteAllMessagesWithCompletion:' instead.");
-
+- (void)deleteAllMessagesWithCompletion:(nullable dispatch_block_t)completion;
 
 #pragma mark Fetch Messages operations
 
@@ -212,7 +196,7 @@
  *  @param completion returns an array of QBChatMessages instances
  */
 
-- (void)messagesWithDialogId:(QB_NONNULL NSString *)dialogId sortedBy:(QB_NONNULL NSString *)sortTerm ascending:(BOOL)ascending completion:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBChatMessage *) *QB_NULLABLE_S messages))completion;
+- (void)messagesWithDialogId:(NSString *)dialogId sortedBy:(NSString *)sortTerm ascending:(BOOL)ascending completion:(nullable void(^)(NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages))completion;
 
 /**
  *  Fetch messages
@@ -222,6 +206,8 @@
  *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBChatMessage instances
  */
-- (void)messagesWithPredicate:(QB_NONNULL NSPredicate *)predicate sortedBy:(QB_NONNULL NSString *)sortTerm ascending:(BOOL)ascending completion:(void(^QB_NULLABLE_S)(NSArray QB_GENERIC(QBChatMessage *) *QB_NULLABLE_S messages))completion;
+- (void)messagesWithPredicate:(NSPredicate *)predicate sortedBy:(NSString *)sortTerm ascending:(BOOL)ascending completion:(nullable void(^)(NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

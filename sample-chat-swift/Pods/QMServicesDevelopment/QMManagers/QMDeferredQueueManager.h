@@ -10,6 +10,8 @@
 #import <Quickblox/QBMulticastDelegate.h>
 #import <Quickblox/Quickblox.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class BFTask;
 
 @protocol QMDeferredQueueManagerDelegate;
@@ -25,21 +27,21 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 @property (nonatomic, assign) NSTimeInterval autoSendTimeInterval;
 @property (nonatomic, assign) NSUInteger maxDeferredActionsCount;
 
-- (void)addDelegate:(QB_NONNULL id <QMDeferredQueueManagerDelegate>)delegate;
-- (void)removeDelegate:(QB_NONNULL id <QMDeferredQueueManagerDelegate>)delegate;
+- (void)addDelegate:(id <QMDeferredQueueManagerDelegate>)delegate;
+- (void)removeDelegate:(id <QMDeferredQueueManagerDelegate>)delegate;
 
 
-- (void)addOrUpdateMessage:(QB_NONNULL QBChatMessage *)message;
-- (void)removeMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)addOrUpdateMessage:(QBChatMessage *)message;
+- (void)removeMessage:(QBChatMessage *)message;
 
 - (void)performDeferredActions;
-- (void)performDeferredActionsForDialogWithID:(QB_NONNULL NSString *)dialogID;
+- (void)performDeferredActionsForDialogWithID:(NSString *)dialogID;
 
-- (void)perfromDefferedActionForMessage:(QB_NONNULL QBChatMessage *)message withCompletion:(QB_NULLABLE_S QBChatCompletionBlock)completion;
+- (void)perfromDefferedActionForMessage:(QBChatMessage *)message withCompletion:(nullable QBChatCompletionBlock)completion;
 
-- (QB_NONNULL BFTask *)perfromDefferedActionForMessage:(QB_NONNULL QBChatMessage *)message;
+- (BFTask *)perfromDefferedActionForMessage:(QBChatMessage *)message;
 
-- (QMMessageStatus)statusForMessage:(QB_NONNULL QBChatMessage *)message;
+- (QMMessageStatus)statusForMessage:(QBChatMessage *)message;
 
 - (BOOL)shouldSendMessagesInDialogWithID:(NSString *)dialogID;
 
@@ -49,9 +51,10 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 
 @optional
 
-- (void)deferredQueueManager:(QB_NONNULL QMDeferredQueueManager *)queueManager performActionWithMessage:(QB_NONNULL QBChatMessage *)message withCompletion:(QB_NULLABLE_S QBChatCompletionBlock)completion;
-- (void)deferredQueueManager:(QB_NONNULL QMDeferredQueueManager *)queueManager didAddMessageLocally:(QB_NONNULL QBChatMessage *)addedMessage;
-- (void)deferredQueueManager:(QB_NONNULL QMDeferredQueueManager *)queueManager didUpdateMessageLocally:(QB_NONNULL QBChatMessage *)addedMessage;
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager performActionWithMessage:(QBChatMessage *)message withCompletion:(nullable QBChatCompletionBlock)completion;
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager didAddMessageLocally:(QBChatMessage *)addedMessage;
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager didUpdateMessageLocally:(QBChatMessage *)addedMessage;
 
 @end
 
+NS_ASSUME_NONNULL_END
