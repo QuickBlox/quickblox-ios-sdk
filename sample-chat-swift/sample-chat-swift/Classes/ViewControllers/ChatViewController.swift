@@ -1209,10 +1209,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         if cell == nil && progress < 1.0 {
             
-            let indexPath = self.chatDataSource.indexPath(for: message)
-            
-            cell = self.collectionView?.cellForItem(at: indexPath!) as? QMChatAttachmentCell
-            self.attachmentCellsMap.setObject(cell, forKey: message.id as AnyObject?)
+            if let indexPath = self.chatDataSource.indexPath(for: message) {
+                cell = self.collectionView?.cellForItem(at: indexPath) as? QMChatAttachmentCell
+                self.attachmentCellsMap.setObject(cell, forKey: message.id as AnyObject?)
+            }
         }
         
         cell?.updateLoadingProgress(progress)
