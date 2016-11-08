@@ -262,9 +262,66 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID {
     
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
     
     [self messagesWithChatDialogID:chatDialogID completion:^(QBResponse *response, NSArray *messages) {
+        
+        if (response.success) {
+            
+            [source setResult:messages];
+        }
+        else {
+            
+            [source setError:response.error.error];
+        }
+    }];
+    
+    return source.task;
+}
+
+- (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID extendedRequest:(NSDictionary *)extendedParameters {
+    
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self messagesWithChatDialogID:chatDialogID extendedRequest:extendedParameters completion:^(QBResponse *response, NSArray *messages) {
+        
+        if (response.success) {
+            
+            [source setResult:messages];
+        }
+        else {
+            
+            [source setError:response.error.error];
+        }
+    }];
+    
+    return source.task;
+}
+
+- (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID iterationBlock:(void (^)(QBResponse *response, NSArray *messages, BOOL *stop))iterationBlock {
+    
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self messagesWithChatDialogID:chatDialogID iterationBlock:iterationBlock completion:^(QBResponse *response, NSArray *messages) {
+        
+        if (response.success) {
+            
+            [source setResult:messages];
+        }
+        else {
+            
+            [source setError:response.error.error];
+        }
+    }];
+    
+    return source.task;
+}
+
+- (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID extendedRequest:(NSDictionary *)extendedParameters iterationBlock:(void (^)(QBResponse *response, NSArray *messages, BOOL *stop))iterationBlock {
+    
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self messagesWithChatDialogID:chatDialogID extendedRequest:extendedParameters iterationBlock:iterationBlock completion:^(QBResponse *response, NSArray *messages) {
         
         if (response.success) {
             

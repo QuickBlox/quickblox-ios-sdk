@@ -57,8 +57,8 @@
             
             __weak __typeof(self)weakSelf = self;
             [self.cacheDataSource cachedUsersWithCompletion:^(NSArray *collection) {
-                
                 __typeof(weakSelf)strongSelf = weakSelf;
+                
                 if (collection.count > 0) {
                     
                     [strongSelf.usersMemoryStorage addUsers:collection];
@@ -142,6 +142,7 @@
     NSParameterAssert(page);
     
     __weak __typeof(self)weakSelf = self;
+    
     return [[self loadFromCache] continueWithBlock:^id(BFTask *task) {
         
         __typeof(weakSelf)strongSelf = weakSelf;
@@ -552,7 +553,7 @@
 - (BFTask *)searchUsersWithPhoneNumbers:(NSArray *)phoneNumbers {
     
     return [self searchUsersWithPhoneNumbers:phoneNumbers
-										page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100]];
+                                        page:[QBGeneralResponsePage responsePageWithCurrentPage:1 perPage:100]];
 }
 
 - (BFTask *)searchUsersWithPhoneNumbers:(NSArray *)phoneNumbers page:(QBGeneralResponsePage *)page {

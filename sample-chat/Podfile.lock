@@ -7,7 +7,7 @@ PODS:
   - Bolts/Tasks (1.5.1)
   - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
-  - Fabric (1.6.10)
+  - Fabric (1.6.11)
   - MPGNotification (1.2.4)
   - QMCVDevelopment (0.3.10):
     - QMCVDevelopment/Categories (= 0.3.10)
@@ -55,7 +55,7 @@ DEPENDENCIES:
   - Fabric
   - MPGNotification
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, branch `feature/keyboardController`)
-  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, branch `development`)
+  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, commit `998c444f2ccacdaa7eb6a7a923e4a0d841aabd9c`)
   - SearchEmojiOnString
   - SVProgressHUD (~> 1.1.3)
   - UIAlertView+Blocks
@@ -65,21 +65,21 @@ EXTERNAL SOURCES:
     :branch: feature/keyboardController
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :branch: development
+    :commit: 998c444f2ccacdaa7eb6a7a923e4a0d841aabd9c
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: faea800ec13d119736d37bfba34a9b9a22f1b382
+    :commit: a9ed585f22fb92c58ece43c5000e372f37a7b620
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: a24260e66b013301cf6186ed34089a49a41a014d
+    :commit: 998c444f2ccacdaa7eb6a7a923e4a0d841aabd9c
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
   Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
-  Fabric: c73f371ee543e3f0b80608f2674750e4910d1669
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   MPGNotification: f0e3924087afa9b3eccd5ce624e03965ae31ae61
   QMCVDevelopment: 25fe59541e4ebbd43c9a23347de361bc3a63dbc4
   QMServicesDevelopment: 1eeb4f9aa76b64674f4d47e863f0a23b5bc9f680
@@ -89,6 +89,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-PODFILE CHECKSUM: ff59c86f51fce4404cc1bdfe9c35790462b0e926
+PODFILE CHECKSUM: 81c1c9a7159b121d10b4a2790e1e3de8f0210fea
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1

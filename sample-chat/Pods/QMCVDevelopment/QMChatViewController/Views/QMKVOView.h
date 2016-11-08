@@ -1,6 +1,6 @@
 //
 //  QMKVOView.h
-//  Pods
+//  
 //
 //  Created by Vitaliy Gurkovsky on 10/12/16.
 //
@@ -10,6 +10,7 @@
 
 @interface QMKVOView : UIView
 
-@property (nonatomic, copy) void (^frameChangedBlock)(CGRect frame);
+@property (nonatomic, copy, nullable) void (^superFrameDidChangeBlock)(CGRect superViewFrame);
 
 @end
+       

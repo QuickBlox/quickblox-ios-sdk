@@ -313,8 +313,8 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 /**
  *  Fetch messages with chat dialog id from the latest (newest) message in cache.
  *
- *  @param chatDialogID Chat dialog id.
- *  @param completion   Block with response instance and array of chat messages if request succeded or nil if failed.
+ *  @param chatDialogID Chat dialog id
+ *  @param completion   Block with response instance and array of chat messages if request succeded or nil if failed
  */
 - (void)messagesWithChatDialogID:(NSString *)chatDialogID
                       completion:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages))completion;
@@ -322,14 +322,41 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 /**
  *  Fetch messages with chat dialog id using custom extended request.
  *
- *  @param chatDialogID     Chat dialog id.
+ *  @param chatDialogID     Chat dialog id
  *  @param extendedRequest  extended parameters
- *  @param completion       Block with response instance and array of chat messages if request succeded or nil if failed.
+ *  @param completion       Block with response instance and array of chat messages if request succeded or nil if failed
+ *
+ *  @discussion Pass nil or empty dictionary into extendedRequest to load only newest messages from latest message in cache.
  */
 - (void)messagesWithChatDialogID:(NSString *)chatDialogID
                  extendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedParameters
                       completion:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages))completion;
 
+/**
+ *  Fetch messages with chat dialog id using custom extended request.
+ *
+ *  @param chatDialogID     Chat dialog id
+ *  @param iterationBlock   iteration block (pagination handling)
+ *  @param completion       Block with response instance and array of chat messages that were already iterated in iteration block
+ */
+- (void)messagesWithChatDialogID:(NSString *)chatDialogID
+                  iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock
+                      completion:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages))completion;
+
+/**
+ *  Fetch messages with chat dialog id using custom extended request.
+ *
+ *  @param chatDialogID     Chat dialog id
+ *  @param extendedRequest  extended parameters
+ *  @param iterationBlock   iteration block (pagination handling)
+ *  @param completion       Block with response instance and array of chat messages that were already iterated in iteration block
+ * 
+ *  @discussion Pass nil or empty dictionary into extendedRequest to load only newest messages from latest message in cache.
+ */
+- (void)messagesWithChatDialogID:(NSString *)chatDialogID
+                 extendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedParameters
+                  iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock
+                      completion:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBChatMessage *) * _Nullable messages))completion;
 /**
  *  Loads messages that are older than oldest message in cache.
  *
@@ -616,6 +643,44 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
 - (BFTask QB_GENERIC(NSArray QB_GENERIC(QBChatMessage *) *) *)messagesWithChatDialogID:(NSString *)chatDialogID;
+
+/**
+ *  Fetch messages with chat dialog id using Bolts.
+ *
+ *  @param chatDialogID     chat dialog identifier to fetch messages from
+ *  @param extendedRequest  extended parameters
+ *
+ *  @return BFTask with NSArray of QBChatMessage instances
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBChatMessage *) *) *)messagesWithChatDialogID:(NSString *)chatDialogID extendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedParameters;
+
+/**
+ *  Fetch messages with chat dialog id using custom extended request using Bolts.
+ *
+ *  @param chatDialogID     Chat dialog id
+ *  @param iterationBlock   iteration block (pagination handling)
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBChatMessage *) *) *)messagesWithChatDialogID:(NSString *)chatDialogID
+                                                                        iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock;
+
+/**
+ *  Fetch messages with chat dialog id using custom extended request using Bolts.
+ *
+ *  @param chatDialogID     Chat dialog id
+ *  @param extendedRequest  extended parameters
+ *  @param iterationBlock   iteration block (pagination handling)
+ *
+ *  @discussion Pass nil or empty dictionary into extendedRequest to load only newest messages from latest message in cache.
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask QB_GENERIC(NSArray QB_GENERIC(QBChatMessage *) *) *)messagesWithChatDialogID:(NSString *)chatDialogID
+                                                                       extendedRequest:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)extendedParameters
+                                                                        iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock;
 
 /**
  *  Loads messages that are older than oldest message in cache.

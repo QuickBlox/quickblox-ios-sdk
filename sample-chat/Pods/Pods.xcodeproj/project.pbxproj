@@ -13,18 +13,18 @@
 		056DCF396F006BD7142F80EFCB12E7A6 /* QMChatLocationOutgoingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 062958965990F798F14FD04AC0AB45A2 /* QMChatLocationOutgoingCell.m */; };
 		05776C37EBA4F08BC799B581B5E5CB0C /* NSEntityDescription+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 80C50327CE8C83556EEC3C5D045B1F35 /* NSEntityDescription+QMCDDataImport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0582CD0571D4F47AED5B95A89F59CB2D /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC0C90623B4E8EE3FF2957420AFF16D6 /* SDWebImage.framework */; };
+		05FAC4ED6E25B679B1DA910DF02EA93C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
+		070D39B4C641501EE705F098BC8A6AC0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E41BF68036D30F958780989F3DC580D /* CoreLocation.framework */; };
 		0747F0183A7638C6B45C9365E59468E5 /* BFTaskCompletionSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 915EBDFAE9E4B375D239E8DDA9B01B9B /* BFTaskCompletionSource.m */; };
 		07C0401244DD8BBC9FC71EC9692D901A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE9F06DDDF54203A68332C223865C42 /* SDImageCache.m */; };
-		0869E5FB81F462B534B5A28DE65B9017 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		08731DD9376DBCC3145E1EE73A880B80 /* BFAppLinkResolving.h in Headers */ = {isa = PBXBuildFile; fileRef = 98162D4578121495F254793450E70664 /* BFAppLinkResolving.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08B31D3BB3A3C9F3DF747B6D72911D44 /* TTTAttributedLabel-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 20AD6DAACA04F7753C8128B5C1E7873C /* TTTAttributedLabel-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		095BED2594E50E7AAAEA1D965AD45DA7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		0A3638B96D239BB281D7DB1D87B5B7E6 /* Pods-samplechat-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D43816FF2E02F8072ACB4FF93FD395B3 /* Pods-samplechat-dummy.m */; };
 		0A766B892F390277FC856472DE355EF9 /* BFAppLink_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 27934EC74DE91A98BC54A2F7B5D9CA93 /* BFAppLink_Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0AFB3725750F20DB1D147EC5D5358788 /* UIImage+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = 116CBAED7EFD74A99FF972218B95EAD7 /* UIImage+QM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B3D87666F2F24CEA773DA7F3F649F48 /* NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = E91B4116547BBA348FDDC6E9DA5E86F6 /* NSPersistentStoreCoordinator+QMCDInMemoryStoreAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B4823C69D389E3A93F02505299FD0FA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F67A8E340B3D427749677CD1D65E47F /* AudioToolbox.framework */; };
 		0BC8C103F8D7E58A87BC156B05B1821D /* QMChatLocationCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B6E49C02B71E1374AA2E558A165A623 /* QMChatLocationCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0BC924783EE0D07CDE84ADFE966F78A7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276A3961CF7B730F3EAAD34C3FDB9EEB /* CoreGraphics.framework */; };
 		0C5A5B0CD1E0C6B4A84937B5D87F917B /* CDMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 97F82E31F2A02AE1D31872A51D166D99 /* CDMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0CDB26753FCB3ED591DD8BA0893ED0BC /* NSPersistentStore+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2C03F960A9FB68F44D4EE9B4950334 /* NSPersistentStore+QMCDRecord.m */; };
 		0D2A2431F5952CA99ACCFAAEF74295CC /* QMCDRecordInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = D05FAFB525D67E87B1325EA9A31F6124 /* QMCDRecordInternal.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,7 +56,6 @@
 		1D468EF58C650599AD39616AF182BD22 /* NSManagedObject+QMCDFinders.h in Headers */ = {isa = PBXBuildFile; fileRef = CAD22225F36A9B2930A4ABBFCFBBE834 /* NSManagedObject+QMCDFinders.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1DE2B0A926D92D7B809404513DE3E6DF /* QMUsersCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE12FD5FCFFC41BF9CC0AADDD47B6EC2 /* QMUsersCacheModel.bundle */; };
 		1EF2180174DEE932E9E2633324268990 /* QMChatCollectionViewDelegateFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 362EE7C3373C4A420097DA52C4089F71 /* QMChatCollectionViewDelegateFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1F0114824652B1BFB719097CDB5B210A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 241018220B9464E601E7983FD2A1316E /* SystemConfiguration.framework */; };
 		1F0F0384496E943E79D5254B710349A2 /* NSError+QMCDRecordErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = 55B6C2734C2712C66B6EFC5612654BF3 /* NSError+QMCDRecordErrorHandling.m */; };
 		1F4AC0B9BAA9953D354C3A848B3F8C48 /* NSString+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = A3D34B4373860583C2E54D7E305F41AA /* NSString+QMCDDataImport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2142A7B8E97EDDE5CF77054EFD729CB8 /* Bolts.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FD08D00C26141692CE8FD9CA3E10A5 /* Bolts.m */; };
@@ -64,6 +63,7 @@
 		2423B307D6642CF8A2BC325929248F4C /* NSEntityDescription+QMCDDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = 095EDF28336FCDF47AF45A06A569530D /* NSEntityDescription+QMCDDataImport.m */; };
 		24400DAC48662401FF77F55A81DD1B68 /* NSManagedObject+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = D71E6AF00A9B8087C471FA9B1262B047 /* NSManagedObject+QMCDDataImport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24FB91BAD98F2735B692EFF855EABDFC /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B2A1ED628C9A59B9F90E393AA514378 /* SDWebImageDownloaderOperation.m */; };
+		2507CF2ECB9DF262135A95C2E26D519B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1004D1FA5C06427B214E7A93E191E9F6 /* SystemConfiguration.framework */; };
 		2548AF7FC2F5A4BFC4C5379C43BB60CE /* QMChatAttachmentService.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A89D3B8F722608652B1803F1C7A1E6 /* QMChatAttachmentService.m */; };
 		259270F0639A3FD48236E0A0731B1520 /* QMToolbarContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4576EF66A92D30607A831FC07279D2A /* QMToolbarContentView.xib */; };
 		25F2EAE38937BBA0932C32E8442B7588 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE124D5E841769C24C3D0FAFCF0C4CF /* NSData+ImageContentType.m */; };
@@ -73,8 +73,6 @@
 		27E05826F9D4A9D20BA2CD5D6F853F2A /* SQLiteQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E30B3338D733147DD7E85653306E207 /* SQLiteQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		284626904760662E06363A54CF8B1D5B /* BFTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 6146E53031BAEE7224FE326DB28060FD /* BFTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28DA7989CAB39FE69A6877FD61E7425C /* CDUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 587EFDD17860C64CAB1C84E15BA8B2FA /* CDUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2973731B4B843EFFAD86F55642321BC3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D668D73838E7421AB2489F5A6C24A638 /* CoreData.framework */; };
-		29FEE520472C8B0123C537DC16C24671 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A82CE176EF16B853D4FA4DDA6CE9E7 /* CoreMedia.framework */; };
 		2A1C2503F8284803F4A90F685F4478A7 /* BFAppLinkReturnToRefererController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7569DB48384FC4A75D7995208AD938 /* BFAppLinkReturnToRefererController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A7886DCBC2D085B3149DD849C6FA798 /* QMToolbarContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B14E4C8B1A001B95804035AA030A42 /* QMToolbarContentView.m */; };
 		2A791CB3BC0B7A61F4C998A804E65786 /* QMCLModelIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = ED351CA1F762A5DD09EEFCE2D827A8D7 /* QMCLModelIncludes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,17 +80,17 @@
 		2AEA6489F7365FBC3376DFCEF7FD440D /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BC559051AB0FA7F7429BB2C73F51FD /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.m */; };
 		2BC08133B82E939BEE3864C3E63A024A /* _CDMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 94BB70000F962E038B9A25C156A2E3CF /* _CDMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2BCAAA682898EF0227FE1AB800F80CE8 /* BFAppLinkReturnToRefererView_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = FF8BCA15DC145CA9B6F024A511FDA2DA /* BFAppLinkReturnToRefererView_Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CAE4E27BF52D0E21899759C87B18C9E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC3F3E8A077ADC53B1C85171D5CF252 /* QuartzCore.framework */; };
 		2DC770F081E6D47ACF50F901E5B9F266 /* QBChatMessage+QMCustomParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = D03AFCEA99E11773A977EE915238B316 /* QBChatMessage+QMCustomParameters.m */; };
+		2E1A3419AE5754BBE326638D9CBCF5F6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E893B0DC8BEC551D6999C0A2A2D47E5 /* MobileCoreServices.framework */; };
 		2F579328547434F73465BDD94C43A194 /* BFAppLink.h in Headers */ = {isa = PBXBuildFile; fileRef = AF0C8B7E98B43E21CFA48C0B816251E2 /* BFAppLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2FD192F7867E60B811D1F45DDD3E6390 /* NSManagedObjectContext+QMCDSaves.h in Headers */ = {isa = PBXBuildFile; fileRef = 1020F8E7E243AEF9A436564E8D339395 /* NSManagedObjectContext+QMCDSaves.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30ABA48B42260CC2FFD3F06473EAE193 /* QMChatAttachmentIncomingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E68C4D0E38359BF748B6CECD41458234 /* QMChatAttachmentIncomingCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30BA9CCB433E5048D9E59977AB3A5427 /* UIImage+Cropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4825A4EAC01FB1AF9EC1EC0C3982A99C /* UIImage+Cropper.m */; };
-		32164D83AE983C3C75E69F2798B17D94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		328FF10D2E35769EF76F73678BEF52C0 /* MPGNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = A6C3FB26C4BB3759AC6B5596237F1AAD /* MPGNotification.m */; };
 		33F49EEDD2935F6722CA75828E246DBC /* QMDeferredAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E0F33EBE5865C797D9015C156D93E12C /* QMDeferredAction.m */; };
 		344971DAF72CF7674E77E226027CC5F5 /* QMMemoryStorageProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C6434E649BC188823E7A86508334D5AF /* QMMemoryStorageProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		35308B6EA980540BD9133700387F2C8A /* NSPersistentStoreCoordinator+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = E3C35DAFE03FC668F4AFCA7FC551CB56 /* NSPersistentStoreCoordinator+QMCDRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		38C38BCEDE448D0EB8575D7CF05C61E5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB9B25EB092208A3CE34375BD8A19C9 /* QuartzCore.framework */; };
 		38DDC3920ADBA5BC935D0527FD06A2FB /* NSFetchedResultsController+QMCDFetching.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C879B33C26EB8D6FA00D419A1CFF4C /* NSFetchedResultsController+QMCDFetching.m */; };
 		38DF8BB5125F92081FD224669C8D989D /* QMChatResources.m in Sources */ = {isa = PBXBuildFile; fileRef = 69CCEEF387B3DC16D9F9C42D4FCE9A8F /* QMChatResources.m */; };
 		3A1716CD7519D14AF96D9890AF126505 /* QMChatAttachmentIncomingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95836A9B9CDB675C815460C00DB07B35 /* QMChatAttachmentIncomingCell.xib */; };
@@ -101,20 +99,16 @@
 		3DB4A9CC3A90CF9C49A71286A55C29B1 /* NSString+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = F919DE59461CE7CC248EDB7CC320B249 /* NSString+QM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DE8B8574C1CB9262B9EC6215E634823 /* MPGNotification-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 63871AD760169480C81D35417E725741 /* MPGNotification-dummy.m */; };
 		401AB91095822FB3B51AA869000D2EDF /* NSObject+QMCDDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = CA9106CB4B5C5CC02D6EC50E8AE9853A /* NSObject+QMCDDataImport.m */; };
-		406B81295EB0A7CD010A8F254D246AA9 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6EDD0CB9AC639665901847D258DA360 /* Accelerate.framework */; };
 		40F74B899B7E45870AD85E019C2B6E55 /* QMContactListMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 77682CDBC9414A991ED968A4811CEC98 /* QMContactListMemoryStorage.m */; };
 		418BF6F9AC915835D8D3528A9A2FECC6 /* QMCollectionViewFlowLayoutInvalidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AD3E47F8A171448F07B47C6A294DE0 /* QMCollectionViewFlowLayoutInvalidationContext.m */; };
-		4190E9D2CE038CCA834FD9B5B8083C62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		41D10A2524B5AA62F5136CAD7AB4DDEB /* QMChatOutgoingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0DF3AA40566FBCACCA867D83ABCE94 /* QMChatOutgoingCell.xib */; };
 		4222AC44007F7EDA4A962FB48B9E779C /* QMCDRecord+VersionInformation.h in Headers */ = {isa = PBXBuildFile; fileRef = E57FF79FB91F1E99E4FB522D95142C09 /* QMCDRecord+VersionInformation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		443C0CC3FB4CF2F72C64E4ECD9DB9376 /* NSArray+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BECF637C20AC4A1E34EBDB981AA2BC4 /* NSArray+QMCDRecord.m */; };
 		445236ACD28BD012F82BB372D0DE90A4 /* NSPersistentStore+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = E6F22A2AD06231DBE2A57011430FC6F8 /* NSPersistentStore+QMCDRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4457AE71615136E0BA8DDCC48115AE24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		452E83B28961A609E9C5F56527E762C4 /* NSManagedObjectContext+QMCDSaves.m in Sources */ = {isa = PBXBuildFile; fileRef = 5335F2D7FDA502A2E5030B7056B6EF62 /* NSManagedObjectContext+QMCDSaves.m */; };
 		453A60428D4E6C6D00230D6604E1850C /* _CDDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = D817DA9D5FC48818CCC6E3E22D2BE5CD /* _CDDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46EF3A8B93CFA02FB55DC2857D7C3BE2 /* QMChatLocationSnapshotter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDFDFDB856BA5276BFDEF17F1C8556F /* QMChatLocationSnapshotter.m */; };
 		476B8D03CDFBA5827AE6BF62CA99E530 /* QMContactListMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A7B064F74F1FBEA397BDE4DD11B5629 /* QMContactListMemoryStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4A3E3A61617DE8B3E82235C9E7689DC6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A175B6767603732FA6C071582482986 /* CFNetwork.framework */; };
 		4A9282E06FAD34F9DB23C4D5CA44585B /* CDAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C2DCC49386C63FD50543E1491D5620C /* CDAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B08728D9B6A1BA6B2165480B8B188E6 /* QMChatOutgoingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 289AEA601316F598AFF9F16B8E1B538E /* QMChatOutgoingCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4B4B729713DC38257BDD10E1E45D9044 /* CDDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7693D43E7DA771793063C74D47C58039 /* CDDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,20 +116,18 @@
 		4D810C9A78BB8C0120B9E8983AAC1C64 /* QBChatAttachment+QMCustomData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F6C2FA54904A78B52289953E2E99 /* QBChatAttachment+QMCustomData.m */; };
 		4DD33ADFE989968685AEF37688EFDFE3 /* NSPersistentStoreCoordinator+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = AD341506A883461B23FD9D57ACE5165C /* NSPersistentStoreCoordinator+QMCDRecord.m */; };
 		4EC61D1C91E9F9021C69F4AD0735A052 /* NSManagedObject+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 4866A97BCD751EF1C0F8569F7F9358C7 /* NSManagedObject+QMCDRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5061002D03BF78DB0486EDF56A56CFF7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E318E2B44824046CD8B64594057F4F4 /* CoreLocation.framework */; };
 		516469C263F283E5C57B714BA52BB1D1 /* QMChatViewController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8ECB1A548E3F07D22B0561E6EAE1E1DD /* QMChatViewController.bundle */; };
 		517A98A9967B554FD867198A6174B07E /* Bolts.h in Headers */ = {isa = PBXBuildFile; fileRef = B519250B97C1CD6806661795C1EF4CB1 /* Bolts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		51D24398A9810360CBA787EEBCE2AE33 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = F133775B1CCE9A7FEDE0A440001307FC /* SDWebImageDownloader.m */; };
-		51D41561E8B36CF2B1051EF7EFAC92EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		5216A107565BC43F772866BCD1068148 /* QMChatCellLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA5BC43F549A057222B48A85130B71A /* QMChatCellLayoutAttributes.m */; };
 		52255FAB18B6999E1AFC5473EA864683 /* QMChatLocationIncomingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E91A2A05D0629BCE31DA69740D968191 /* QMChatLocationIncomingCell.m */; };
 		53B00E757F17CA1BE472661E773C5DAD /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C0E952927A38966F62DF5409D7A0E31F /* SVProgressHUD.bundle */; };
 		53B675506EBB0D77BADC7A4C396B6B24 /* QMPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = ECBED70CBD3BCF9546CD0198C52E4F9F /* QMPlaceHolderTextView.m */; };
 		547A1A748CDE5F178BBBDF94EB55BEC9 /* UIImage+MultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E59F0B54CAD4066365B06D0AAE0B83 /* UIImage+MultiFormat.m */; };
 		54ED228A0478DF7945150186C7AC2509 /* QMCCModelIncludes.h in Headers */ = {isa = PBXBuildFile; fileRef = 67322652DFB4523DC2B7F2BC71418222 /* QMCCModelIncludes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		54FAEC0ADCC461EC78A5DCF57B6F45D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		5540DEFD1ECE141D0CD0959310E8C57E /* QMHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EBA3011F05F524716A572E7F548BA56 /* QMHeaderCollectionReusableView.xib */; };
 		564A0522E980DA73D96C30AC02E34C56 /* QMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 123D34E698DFA1C99995978708288755 /* QMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		56C05B8ED3CFC4604AA84D23C8E2D9F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0898DB7F0E4FD33F576ED3DA79E3A0 /* UIKit.framework */; };
 		57C2B192F47ED7D27D38259BA85CA7A6 /* BFAppLinkReturnToRefererController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0897D2D0C4B1D25844BBB8DE7C9AE28 /* BFAppLinkReturnToRefererController.m */; };
 		5840828DBE9FB17FF1F1B3377931A0A6 /* QMContactListService.h in Headers */ = {isa = PBXBuildFile; fileRef = 59B7F21CE4B3DDEAE6F0BB808689D6F6 /* QMContactListService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59936994FD80AF710BF99C74B2EB56D5 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB25D7AAA55D588E479F11499A9CCB0 /* SVProgressHUD-dummy.m */; };
@@ -146,6 +138,7 @@
 		5DB2E20A0329375F60715B1A8599A03B /* QMImageLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = D85EAE30B2C0B9DF6BAC3C6FD4C6F4F7 /* QMImageLoader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E6982AD01C8B65A040EDC57C64DA06A /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E7364BABB090096BEF71E97494421E /* UIButton+WebCache.m */; };
 		5F22A74100BD5A8A189ABB9162EF5F7B /* QMChatCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7FF03AF29F3C3588EA082F04F6B6242 /* QMChatCollectionView.m */; };
+		6029D82FF605B8B79549E8D574E4D4A0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC3F3E8A077ADC53B1C85171D5CF252 /* QuartzCore.framework */; };
 		6103BD58BF99F0AB97A61D8618AFCFE0 /* QMContactListCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9C04FAD31BD9D9715971DA1C364C11A9 /* QMContactListCacheModel.bundle */; };
 		6148B40AC3B6C218C5BF47EECB67A5BA /* QMCDMigrationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F263EB28EB3397F9BB38C9388B738A23 /* QMCDMigrationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		61B962DE82EE7821FA86703E44FBA5A4 /* QMChatSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FE6685C64F60F77D4A92C23FAB1FD83 /* QMChatSection.m */; };
@@ -157,11 +150,11 @@
 		63D95856D6F09B093FF16C9390BDFF31 /* BFMeasurementEvent_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 242D3CFBD4ABE31D0E72E008116D34EB /* BFMeasurementEvent_Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		644C49FCD78C09BA63F071E87EA60FC3 /* NSManagedObjectModel+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 277C1DA54ADD7B2EF478077A8365C179 /* NSManagedObjectModel+QMCDRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		649C5851ED0C09570097F2C9D9510510 /* QMChatResources.h in Headers */ = {isa = PBXBuildFile; fileRef = 67F71E8448A8282BDF24440118F8A005 /* QMChatResources.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		658765CFB1D8BB213C3B3373351895CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		65B4706D1D65B33DAF378CB621D102D2 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = CAAAE807EFC77B0B3535B47267CE2495 /* UIAlertView+Blocks.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		65C5781E89D3258CAE21F6FC73403D9B /* QMCDRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE3471DD1B065A33B2C27223D0B8CD4 /* QMCDRecord+Setup.m */; };
 		65F4C8F9A39BF221016FE6F045E25D57 /* ManuallyMigratingQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 5034D9E0D4045FFBB400AFE26E9ECFAA /* ManuallyMigratingQMCDRecordStack.m */; };
 		663AACBC85DF160FE7F5DFD5373E0A25 /* QMKVOView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B5B8D05C23800D5DAF053DD40BE2527 /* QMKVOView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66A20249E3CC13CDF6E29EC699677EAD /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D553229E4C2405BBB965559C13096B8 /* ImageIO.framework */; };
 		6702B02B7422A8DD38E1F670214FD90D /* QMAuthService+Bolts.m in Sources */ = {isa = PBXBuildFile; fileRef = B4BEDE3ABE110F7A8F3C9A37D028A7F1 /* QMAuthService+Bolts.m */; };
 		671239B4B897651C5DF639D1997AD28B /* QBChatMessage+QBDateDivider.h in Headers */ = {isa = PBXBuildFile; fileRef = E3F87F98481F2845A35D83295CBB84FA /* QBChatMessage+QBDateDivider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		67D0B7A34C16755A84797A8D179AD664 /* QMUsersCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 76BC6109477819275C19348497B21D16 /* QMUsersCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -182,8 +175,8 @@
 		741FD749F5EAF14B27F95E570C6CC7D6 /* BFCancellationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F34C3477F7515567A0E9C9661E6A27B /* BFCancellationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		748F9F8F0D6CD17A1FA7330C9F94C5C4 /* UIView+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = D69FBC02E3ADDDD831E8DCF39A39D46B /* UIView+QM.m */; };
 		75C58E93DA12D3052EF2022310A8BFD2 /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = B81E55D96862F7D48F52792DE3EED1CC /* ClassicWithBackgroundCoordinatorSQLiteQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7604F203B037B44848473F4A0194C694 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A80A9F8EADC2986676CD7D9F7A71B3 /* AVFoundation.framework */; };
 		763DB08A79C54970BA6083FB4FCBCB79 /* CDContactListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BBBB35E40315C2173A1B6942377F589 /* CDContactListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		77160553766E1DD14D62F81194E53436 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA66A726626F6F01E451FCC3670E814E /* CoreText.framework */; };
 		7717C147300B69B1C5FCBB230F78FB32 /* QMCollectionViewFlowLayoutInvalidationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 493008C14104E7956297B01AAC263158 /* QMCollectionViewFlowLayoutInvalidationContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7757C99A48AC541F0F6B2C977AB38C91 /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B1B8BB3A38CDB2BB828C2A81B2CE2F9 /* UIView+WebCacheOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		776E8FE6747E910D0745E4FBB8B554E4 /* QMChatOutgoingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6849EE0D2E57AC8F2B3B61A93D4448FE /* QMChatOutgoingCell.m */; };
@@ -193,6 +186,7 @@
 		788163E86235C249FCD2BD2DE87528F2 /* BFAppLinkReturnToRefererView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF0432A337081EDDAA3ABFA6BB4A5F0 /* BFAppLinkReturnToRefererView.m */; };
 		7965951786FDA15EE96809F867DC91F8 /* QMCDRecordStack+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EDF66CD5E220D4D3DF049DC6BBCD23A /* QMCDRecordStack+Actions.m */; };
 		799B81E3F20D9AC270C60DB2B2EA8585 /* QMChatContactRequestCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F4640C43DE4F6A3147E270870081A8A /* QMChatContactRequestCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A3B64CB63B442CAB3A4AA943B1C6B51 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2252067EE315C72215288DB34D8B64 /* UIKit.framework */; };
 		7AAE62701A5C7D55D49AE8A00CF8AB45 /* NSPersistentStoreCoordinator+QMCDAutoMigrations.m in Sources */ = {isa = PBXBuildFile; fileRef = 36BDB08C64AF80415721D7985D29CD47 /* NSPersistentStoreCoordinator+QMCDAutoMigrations.m */; };
 		7AB7A9BF00636F28847A3565654EE654 /* SQLiteQMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = E86E16BB53E2642DEE796E0274ECC3BC /* SQLiteQMCDRecordStack.m */; };
 		7E237A1DB92C1835EC0693ED1260BE49 /* TTTAttributedLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC7108A778E179A25FDE49EC695F1ADE /* TTTAttributedLabel.framework */; };
@@ -219,6 +213,7 @@
 		8D2F398E7ABF11AA7BE03436FB478047 /* QMCDRecord+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = 82D11D6596497ACDC09139CDCB428844 /* QMCDRecord+Options.m */; };
 		8D5DF496F066326174EF3D6A948538C5 /* QMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A9F2640B771C28B0770BBFBBEB2461 /* QMChatViewController.m */; };
 		8D9949772D3EB0D29012C30934BF9DFF /* QMCDRecordShorthand.h in Headers */ = {isa = PBXBuildFile; fileRef = D61E4488384D4B0F3B679A180B1375C0 /* QMCDRecordShorthand.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8E2384793A5FF088EF5EDCFF8DFD5AB2 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC176A4279AA13D9B84BC0A934BA51B8 /* ImageIO.framework */; };
 		90191D9FC099615857191000331DE779 /* UIImage+GIF.h in Headers */ = {isa = PBXBuildFile; fileRef = C39D82CA05B627FA59E44B7CD0779B89 /* UIImage+GIF.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		904B11AE2D3D0BC4C98897D4CC2A1510 /* NSString+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D081F9D68CA54EB012E9B2DE5EB2DE /* NSString+QM.m */; };
 		91162EA9A27C2F82FB7E51BB4613F994 /* BFURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 19979042755B84A2D1EF38FC436974B1 /* BFURL.m */; };
@@ -230,7 +225,7 @@
 		9333D7AD0A68C67300C0AE221F5CC04C /* NSData+ImageContentType.h in Headers */ = {isa = PBXBuildFile; fileRef = 23014FA389C5D270A6E012F32F4936C9 /* NSData+ImageContentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94334598771B1E9DBB2D3CF16A80A6A8 /* NSManagedObject+QMCDFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = E62B5ABD20B835B8AC6850B6E665BB26 /* NSManagedObject+QMCDFetching.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		952D61CB4532E9A054DE3C4E3972B37B /* MPGNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 834C384CB7ABE0746524950F8FEDEAB4 /* MPGNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		974D10522CAAC968EC98FE0CC9F3D139 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
+		963E1F47383D0055B61ABD164C528221 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383D7662B4652E7B6F5D36AE141668AD /* CoreGraphics.framework */; };
 		97A04316ABEB8F225E87831CC075F90A /* NSFetchedResultsController+QMCDFetching.h in Headers */ = {isa = PBXBuildFile; fileRef = 02F96D4ABEAD19E0905AB8D3833682D8 /* NSFetchedResultsController+QMCDFetching.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98A757F73A342B17947EFC2D615DF96C /* QMDeferredQueueMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 85A93AC7E9809833A21F42F72FB40544 /* QMDeferredQueueMemoryStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98A7B9B441B4F2553EB4A2CEB742658E /* QBChatMessage+QBDateDivider.m in Sources */ = {isa = PBXBuildFile; fileRef = B551828301F3198E177A7909189A65D3 /* QBChatMessage+QBDateDivider.m */; };
@@ -247,8 +242,6 @@
 		9ED66DD7E925AB7A1CFFA4A95F965A46 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E4620C37B0A1C862A361887A793812 /* UIView+WebCacheOperation.m */; };
 		9EEBE4D99DFE3BF500DFB2CA41939DD5 /* QMCDRecord+VersionInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A7FCEA8830E74F224DC8352295F5B26 /* QMCDRecord+VersionInformation.m */; };
 		9F0B5B146392383F7F98FCE7C6B43BC4 /* BoltsVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FCAE9280D694297E14CD024E7964F64 /* BoltsVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9F8BFCEA2C84B88A6364398B5C90D172 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03F44AFFC76EC9A344C23DE6AEA7F737 /* MobileCoreServices.framework */; };
-		A093E1C7B72AAFD83FF5AE78539EF826 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EFE4D8721255DEDA6B940496D33556 /* AudioToolbox.framework */; };
 		A098643324EECA96A7B650194ADC87C8 /* QMImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF7C3996A5C2BF8C28740A6D13C0E27 /* QMImageLoader.m */; };
 		A1060F53B3E7408586F92680E8A0191C /* QMDateUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 14AAA19CC50B2FA27AE3B4C960C040D3 /* QMDateUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3AFAFC02DCEF8780FE1AB4945A5B979 /* QMChatCacheModel.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 46D0CA2E5C2A2499A7C1FE2051508689 /* QMChatCacheModel.bundle */; };
@@ -261,18 +254,23 @@
 		A6C4369CF960ACAE4B2C658A34FB996E /* QMImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D31F27AFCA407C8F783976DB2968CD4 /* QMImageView.m */; };
 		A7B5DAB304EEF92E422350FA460BB299 /* _CDDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 77581B508C78D110DAB9B85A144E6C88 /* _CDDialog.m */; };
 		A7E6F5C05F3CFDBE93D22D5021AF4606 /* NSManagedObject+QMCDAggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D21AD85B36BB6664B88DD4A46B7E994 /* NSManagedObject+QMCDAggregation.m */; };
+		A7F000F8382B51FB4E1A2FE9FF0C1D9E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A61CB0EDA865F48038D62BCF9137D248 /* CoreMedia.framework */; };
 		A80652ABA37FB6679C314AB889265352 /* QMCDRecordLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EF7C089D92E84F4407D0829CF3C1457 /* QMCDRecordLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA9FC8D7FAE2E5AC0EEF6ACE16EDACA5 /* QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = D29492DF693E8E1C1411F4C2607032AA /* QMCDRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AAA4986242E6B19055D625B60012EAD1 /* BFAppLinkNavigation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F71BA8D9CE85D1512EAF239FC866FEC /* BFAppLinkNavigation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB856C8317096C8543A012BB7A2AD22F /* UIImageView+QMLocationSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = DCB9E4E92DE71812035637D88BAFF306 /* UIImageView+QMLocationSnapshot.m */; };
+		ACD80EFB9424BE5BE2EC3FD72F01DBBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		AD52941409314FABA79BE996868A4A8A /* QMChatDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 1149B475DF9F4869AEA1DAE62EA1D598 /* QMChatDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE431718F0D9C611D232F10662A9990C /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E3CE17F58A7A11B3CC46D9076A79721 /* CoreVideo.framework */; };
 		AEAE89FC9AF7C406599B94447F2F0ABA /* ClassicSQLiteQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 08BD4971259B1B731AE0B00CD8CD84E0 /* ClassicSQLiteQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AF06ADC869329AC5136821F027206DB9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881EB7B63CC8E3165D2D6312C8EB208D /* CFNetwork.framework */; };
 		AF2066387620289AA26549EF40069D8F /* QMChatIncomingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F6285350DE0CA6ED53F365E9BBB8F7F /* QMChatIncomingCell.xib */; };
 		AF2FD3B729CEC9AEFE863D5653EB92F2 /* QMCVDevelopment-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DEF52F471BF45BEABEE241D441536F8 /* QMCVDevelopment-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AF9A2B9C7FDC22F218DCEFED08682897 /* UIImage+Cropper.h in Headers */ = {isa = PBXBuildFile; fileRef = BFFB18E88B526ADF615C0E0CE6BFCCD9 /* UIImage+Cropper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0B54C2942883EA63684959AD38C00C9 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 94203373AE2E8F7D73F4729BD8BFF7AA /* TTTAttributedLabel.m */; };
 		B0ECE92EDA265897D02B9B3B3EC67ABB /* BFTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 811519A4FEE7E0B28B6DED1A4890454D /* BFTask.m */; };
 		B14B2727B911E62261A3EBB84DEA1F74 /* QMCVDevelopment-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB8CD7BCA4696C8384C1CCB2C632428 /* QMCVDevelopment-dummy.m */; };
+		B32F79ED260069D25359EC7C5793BC75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		B3FE224AB37189D325ECEA9F4B0EF2CF /* NSArray+QMCDRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 81BE53D67B5234C7BE9D00D7A7E3134B /* NSArray+QMCDRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B52BB5DBB621200B60D837870EBFEAB7 /* QMChatAttachmentOutgoingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B66E4C8C8732E8824BB718F24AD04FD /* QMChatAttachmentOutgoingCell.xib */; };
 		B53CBD0CDCF93D9F1C76962337C3368A /* QMDialogsMemoryStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 27E8A6FC6F160F68E44A7058FA3AEB25 /* QMDialogsMemoryStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -287,7 +285,6 @@
 		BB4BC62FEC7C52CA61B8A7B6A52DB210 /* CDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 114D529D617D15D50B62C62DC8CBDBBA /* CDMessage.m */; };
 		BBA98AFB059992DE317AD7EABDD9E1C6 /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = 42E18F627FF7A31475510198618BF3F8 /* AutoMigratingWithSourceAndTargetModelQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BCF648608C0B0A45D09F9AE8E666C7CA /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B2715338E92D381A4754E103F2D5BF3 /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BD6FAC95896F6FDB6E0C151FC6F1F248 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F653BEC7405873345D621559A002339 /* CoreText.framework */; };
 		BE1E9753915CE7CB6B151AC54D10DC92 /* NSDate+ChatDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 094D1349F213D626E31A0FAA7962B4D6 /* NSDate+ChatDataSource.m */; };
 		BE92BB98D1B9DA713FC2DAE93C35E16D /* BFURL_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = D83864CED739B65B88E2A22AB0066C11 /* BFURL_Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF45461637837D41425DCEA39D298A93 /* ManuallyMigratingQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = D46519F27B70B0179AE90F5870D98AC7 /* ManuallyMigratingQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -301,6 +298,7 @@
 		C557C1B25B4FA206FB9EB2AB43042F91 /* BFWebViewAppLinkResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = E49255E0CDC4A562A76AD7EBCE5C7848 /* BFWebViewAppLinkResolver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C60B65015C32D8E7806A01196D3CC8DF /* BFCancellationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 991E8582CD6B7A3CA6F04AB0DA19FF89 /* BFCancellationToken.m */; };
 		C67268073ED06E0A2EE952074B5AF8F0 /* SQLiteWithSavingContextQMCDRecordStack.h in Headers */ = {isa = PBXBuildFile; fileRef = F0AF664A3EE13443BD18B2BEC4FE173C /* SQLiteWithSavingContextQMCDRecordStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C744E47AC2FA038EBC0F24E33172931D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		C897B17A76FE7D541D8897F0A1B7C804 /* QMChatDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7ED8ACDC34645FD8B04C239B18B213 /* QMChatDataSource.m */; };
 		C8E2DEF30EA90D23A5044EA66AADE10F /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = B776C53CCDB3AEF9D72601C4AAC118E1 /* SVIndefiniteAnimatedView.m */; };
 		C9BCE1AD3368C8F3932A0C50072DB895 /* SDWebImageCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = 3091ED55B87356B6FF1D9C5A1BB7BEE7 /* SDWebImageCompat.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -308,7 +306,6 @@
 		CB0AEADACE058BD4A2DA0F207A61506C /* QMUsersMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBE4D37070860C34CEF1350B2490D9B /* QMUsersMemoryStorage.m */; };
 		CB0DB2787766897549530915AB6A62B0 /* QMChatConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = B38EE54286A557C3A09C7A41BAFC02E3 /* QMChatConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CB5BABCAE72D1308554EF20D3BE08FC5 /* _CDUser.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7D02B6DC2295192098BE08B9FB596C /* _CDUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDFCF13AFA83ABBB89EBC01B3A8F6AA7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		CE2111FC92380B6871ECB57EC4C6EA6F /* QMServices.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E588F6C21F6D667FDFCF62FD5DCC220 /* QMServices.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE80D3DA2F7E4B99C2034D1A1A4DA6D9 /* QMBaseService.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A96DD48E2CA17CEF4E9F3EDA24A5AB2 /* QMBaseService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CEC2FDE31AB64B2438F945A7D240F116 /* QMPlaceHolderTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C60AAB19F257EE4D12D2EE2DF480286 /* QMPlaceHolderTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -326,6 +323,7 @@
 		D326A8A978D517FDDD120AD5EFDC1686 /* QMChatAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 062372BC6A2816AEDB76737E038C33B8 /* QMChatAttachmentCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5D7B416F4AA70105191838FD4603319 /* QMCDMigrationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28CF79111B55C407DF18CE6B596D6ED5 /* QMCDMigrationManager.m */; };
 		D622F66886320650C3A5EAC947423E80 /* UIAlertView+Blocks-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5235EB11AF7598E94BBACB498CC58526 /* UIAlertView+Blocks-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D7D88BDD00CD85ED2425CA431C35A46E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		D8086544A491A0D66685D8E0E5D1A0E1 /* QMChatIncomingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E9BA669D13215171A5B7200F73DF72F /* QMChatIncomingCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8FA81EE5BA4EE5039307CA5EEC6F8C8 /* QMUsersService.h in Headers */ = {isa = PBXBuildFile; fileRef = 78D22B552ECAF155D76294471F4E6AF1 /* QMUsersService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D976BF981BFBA550A33AC66197B5F71E /* QBChatMessage+QMCustomParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F394FA7C8E6E0AF01E4818D18D67A1A /* QBChatMessage+QMCustomParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -336,6 +334,7 @@
 		DA4F5FF8D196C075A723300A2CC88B79 /* NSPersistentStore+QMCDRecordPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 0BED72B03B7D418A722A2A123CADC6DD /* NSPersistentStore+QMCDRecordPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA60B97347EDA540A18628C465CE328C /* SDWebImageOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = A6EFFC715A1ACE2EBE6254FAFBDB55C8 /* SDWebImageOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB557022931A5484600456C9EF9546AE /* QMCDRecordDeprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D39F48B024455BD1F9C929179BE418D /* QMCDRecordDeprecated.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DB8E3580546898A50B332CA2A2DA187E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		DC48559B4EB7B2736929A517CCCF5F0C /* QMChatSectionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 3273E4FA748AE4B9695A92078E99BA37 /* QMChatSectionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC77BC73F771B9ADE81DC5EEEFB91261 /* QMCDRecordStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A4EBAEB9C79CC0A469E2FDEE12C26F /* QMCDRecordStack.m */; };
 		DD80626D7A124B648DCF6F4B9290C2C8 /* UIAlertView+Blocks.h in Headers */ = {isa = PBXBuildFile; fileRef = EAEE3BD29A9E0638851C42C6B73720EF /* UIAlertView+Blocks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -347,40 +346,40 @@
 		E17133955EFD585666A7FCB539E027DF /* BFWebViewAppLinkResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF26EEF1B6F0916FCB430DD854D42F9 /* BFWebViewAppLinkResolver.m */; };
 		E1A099698809E6C893DC3CD191965BA9 /* QMDeferredAction.h in Headers */ = {isa = PBXBuildFile; fileRef = D4FD6FAA30EDDCC2DBB4F662C9048A18 /* QMDeferredAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1BE763AB070EADE9AA94804DB8B8C4C /* BFCancellationTokenSource.m in Sources */ = {isa = PBXBuildFile; fileRef = CB7531BCC84E9EB230F52743988A09A6 /* BFCancellationTokenSource.m */; };
+		E1E207C17C461E82DD155C5AFF9AE821 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383D7662B4652E7B6F5D36AE141668AD /* CoreGraphics.framework */; };
 		E1EFA0CFED3B9A6D5F44D89A5E7F47F6 /* QMContactListModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = E115E6B18AE6594A20BF1FBB1E3A2E66 /* QMContactListModel.xcdatamodeld */; };
 		E2265031562BC6D34FA9D5DB67091039 /* QMChatNotificationCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A55DA03AEBD2DA33DDC557B620BD6A6 /* QMChatNotificationCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E26EC04F2C631A7B41B60E91A3C56B96 /* UIColor+QM.m in Sources */ = {isa = PBXBuildFile; fileRef = 21D31E0AF11D032A5A0C67D7E8B07146 /* UIColor+QM.m */; };
 		E42160C8C39279A5027AB3FE0ABDBDBD /* QMServicesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC9EB3640C53A9A12929295DAAA162A /* QMServicesManager.m */; };
 		E492E29686F642A93B5675D01ECA5E72 /* _CDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 83136841FFBEF1C0BD5B57341E8E30AA /* _CDUser.m */; };
-		E564F3F331F466AB50E6F8997E7806DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		E696578B235DD73FCBA1176C7A562B57 /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = B5C946B50BF687DEA3E428DE251E4537 /* UIImage+GIF.m */; };
-		E6FA48A02616C09B4A48300AA70E6861 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3DFB2878157AE131D02C131E00FDA55 /* CoreVideo.framework */; };
 		E708C84A8BB16208D74C67DD5506F1F6 /* NSDictionary+QMCDRecordAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 75662076F0565D8D1D9E42C86363AB68 /* NSDictionary+QMCDRecordAdditions.m */; };
 		E70DE17B26A9E0A2E05DA1E7869E88F3 /* NSAttributeDescription+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA1A5D4A21C6DBD2C9D47F3F01D98D2 /* NSAttributeDescription+QMCDDataImport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E78979C6B9AFE300CACB08F6CB11F33F /* QMChatViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AD4903BE0F75BE79531C304FAD0AACC /* QMChatViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E90F2A9A7B766D1262D3898E73DC147F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 276A3961CF7B730F3EAAD34C3FDB9EEB /* CoreGraphics.framework */; };
 		E928C7024E160E9739BF54F69D10EA01 /* NSPersistentStoreCoordinator+QMCDManualMigrations.m in Sources */ = {isa = PBXBuildFile; fileRef = B216449F9E93B70B9B91715574B7427F /* NSPersistentStoreCoordinator+QMCDManualMigrations.m */; };
 		E96AD11678943614938A49DD158AC08A /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D4781ADCFF6DAC70B617CE53A4A176B /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA0A313D13832FBB9103FF363F237769 /* QMKVOView.m in Sources */ = {isa = PBXBuildFile; fileRef = 206B99A4F8428D2BADD15EE6A63BE3C3 /* QMKVOView.m */; };
 		EA207638C3D73FCD20FB487CAB6665A4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA8D0D8D7059D1D5FB0FB8B00558D53 /* Bolts.framework */; };
 		EA6832A06AE9E644AF8CD677124DE06A /* QMChatNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CBB3CD3D2F2A7EADB1B8399BCC8331C /* QMChatNotificationCell.xib */; };
+		EA9050F3EDE8E2A58D462FDDF9727317 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E446B90161B5F8345C373030F0CD0CD2 /* CoreData.framework */; };
 		EC12476C53D6A725A1104BBE8803892C /* QMChatLocationSnapshotter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4485DF7892946F4FC85A48A7F78B5937 /* QMChatLocationSnapshotter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC21258CA372365200FAEC0FDAAE2196 /* QMInputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C81AA43BF2A720A56C1ED1FCA56F27 /* QMInputToolbar.m */; };
+		ECB7A506360048EC9D6A0E502CF12EF3 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6777C42D010DF7B32CCF9B05AD7CD884 /* Accelerate.framework */; };
 		ECD27ED7541E43E437313F8545B1C7BB /* QMHeaderCollectionReusableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 572CCBEFEAABDCBF0E28078427EF44AC /* QMHeaderCollectionReusableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED6FC5DEAD491211C643ED2CB2A513B8 /* QMBaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9D32AC8B418C2DA212153D0A27B65F /* QMBaseService.m */; };
 		EE1C403DB6C4483B1319F13672B28D4D /* QMServicesManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A893217A5417FD82DF6A2C4924A999 /* QMServicesManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE1F373DF4DBC3246C7F165210383B0F /* QMChatAttachmentOutgoingCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AE4D7D442C928D7B40FD5DC20E884B1 /* QMChatAttachmentOutgoingCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE4150A129429F084FF92EF5AB917F93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */; };
 		EE7C5B323A90D89BB481FE9D09A47F4B /* NSPersistentStoreCoordinator+QMCDAutoMigrations.h in Headers */ = {isa = PBXBuildFile; fileRef = E53116094B630C6F330A64506530F5DC /* NSPersistentStoreCoordinator+QMCDAutoMigrations.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EF7BBD0C9BA90B25887AFAFAE105AB6D /* QMChatContactRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7436C9CE34B06F9B125FAEB190D0697A /* QMChatContactRequestCell.m */; };
 		EFE225E64A920F130B8547B5A7B9BBF3 /* QMChatNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18287CC738A7FFFD34D403413061DAE2 /* QMChatNotificationCell.m */; };
 		F012214C30F1AA83BF85704D9BB4123B /* QMChatCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 165E2FBE848113D6ACF1F4BE484329E7 /* QMChatCollectionViewFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F1526049343326E04DF8D715515DBBF4 /* NSRelationshipDescription+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = CFFD103334B78CE4430C3AD79DB9AAB3 /* NSRelationshipDescription+QMCDDataImport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F15EEA5CECB4A19207E654B10D38E698 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F0E51C00F938059E7BF29BC4A97B3D /* AVFoundation.framework */; };
 		F223B5F46AC0BBE7E6DA7817243921E5 /* NSError+QMCDRecordErrorHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = 212BB660B9A127107AD2C9C0D801FA6A /* NSError+QMCDRecordErrorHandling.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F27651C85AC880418227F9B4A5906373 /* NSManagedObject+QMCDRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = F3942D89E90FCEAF788651EB71E1787C /* NSManagedObject+QMCDRequests.m */; };
 		F36D008FFC2249E397670CC803B98808 /* SDWebImageDownloaderOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = DC2C0C0078F6E024CFEDCC1562B83F9D /* SDWebImageDownloaderOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F39030572509D106080E151DF49CFB13 /* NSManagedObjectContext+QMCDRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = BF46DC127A05115FA35F5DC7E0EFD20E /* NSManagedObjectContext+QMCDRecord.m */; };
-		F3D77296D2839BDA4DFEE77EDE44CBB7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB9B25EB092208A3CE34375BD8A19C9 /* QuartzCore.framework */; };
+		F53014B28F96FB6F4A65C9B4C196FA04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		F550CEC71A2487C0C188D25B251E13B2 /* BFCancellationTokenRegistration.h in Headers */ = {isa = PBXBuildFile; fileRef = 6787E83462E5273A3E5D28C5B99A0F74 /* BFCancellationTokenRegistration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F56A2B6EAB6ED314BEAFE08166B3789A /* NSNumber+QMCDDataImport.h in Headers */ = {isa = PBXBuildFile; fileRef = 52D24A42C0BEB880C972FFB1980F1F4A /* NSNumber+QMCDDataImport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F58BF11C2ED35ABEFE9C4B5DCD0F0969 /* QMContactListService.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0E3B6318BC493815EC74A8A126E672 /* QMContactListService.m */; };
@@ -391,6 +390,8 @@
 		F6E210E502A7D397C2B3103401C65F03 /* Bolts-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D168842F51397399E2A7A22A03174732 /* Bolts-dummy.m */; };
 		F788512A60D6D7C8266254CDCEE8B58A /* TTTAttributedLabel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1926B06C8BCC60B095EF90B1D0935C00 /* TTTAttributedLabel-dummy.m */; };
 		F7BE0DDE928BFB20D7F1DD4D5EBE15BC /* SDWebImage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5702C3BE33934E2282465741DA723BD9 /* SDWebImage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F8082E9039E928F338CA7601CAE8B5C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2252067EE315C72215288DB34D8B64 /* UIKit.framework */; };
+		F86F6CF9D771CD2E92542B6AD4010F36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */; };
 		F9A31B7090D0B2C87D072F656FFD5EEA /* QMSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = B5260DF1B7D2643B3C806FE018563155 /* QMSLog.m */; };
 		FB15C8DB5CA5E6F60B7A01C945B7E5F0 /* BFCancellationTokenRegistration.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E87DDA7D22E747A5D413B0895E980 /* BFCancellationTokenRegistration.m */; };
 		FB795D3205D16321A756C7F5960CF6CB /* QMCDRecordStack+Actions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A1B0CB208D099416A1EF16FE67DC313 /* QMCDRecordStack+Actions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -401,7 +402,6 @@
 		FDB67469A794B3E72C01D9AEF34EC625 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FD8772DA3C087C2DD52B0ABAF585E2 /* SDWebImageDecoder.m */; };
 		FE991034D4EA128A657C6B837035D67B /* QMDBStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CB7347301EF7C4AA17387BE29EC2F4 /* QMDBStorage.m */; };
 		FEB764E857139F712F9F7A90F7296C78 /* SDWebImageDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9191EDF7902AE390AFBCC488362F55B8 /* SDWebImageDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FF10BA1C73A760212856BF64C75281FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0898DB7F0E4FD33F576ED3DA79E3A0 /* UIKit.framework */; };
 		FF4BEBC05ABA6D7E48D555F4CD09B6A1 /* BFMeasurementEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C231F7D57A0D3693E2D4DC7449B377C /* BFMeasurementEvent.m */; };
 		FF874AA5CAEE6F9E99509F0DD3D031E5 /* NSString+EMOEmoji.h in Headers */ = {isa = PBXBuildFile; fileRef = 5977A43897F69CBF7E4692B3C5C27825 /* NSString+EMOEmoji.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FFDE0FF9D2061601A57EB1495C6B7835 /* UIView+QM.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C8107070CC8918701310C6704CB8AE3 /* UIView+QM.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -530,7 +530,6 @@
 		011D25A042173589A2A0A72FD12F2DFC /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
 		02F96D4ABEAD19E0905AB8D3833682D8 /* NSFetchedResultsController+QMCDFetching.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSFetchedResultsController+QMCDFetching.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSFetchedResultsController+QMCDFetching.h"; sourceTree = "<group>"; };
 		03EA690BB637997BC9AEA9AA63A3FCF7 /* NSDictionary+QMCDRecordAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+QMCDRecordAdditions.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/Foundation/NSDictionary+QMCDRecordAdditions.h"; sourceTree = "<group>"; };
-		03F44AFFC76EC9A344C23DE6AEA7F737 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
 		062372BC6A2816AEDB76737E038C33B8 /* QMChatAttachmentCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatAttachmentCell.h; path = QMChatViewController/Views/Cells/QMChatAttachmentCell/QMChatAttachmentCell.h; sourceTree = "<group>"; };
 		062958965990F798F14FD04AC0AB45A2 /* QMChatLocationOutgoingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatLocationOutgoingCell.m; path = QMChatViewController/Views/Cells/QMChatLocationOutgoingCell/QMChatLocationOutgoingCell.m; sourceTree = "<group>"; };
 		06738099E416378D61F3EB714E029F73 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -548,6 +547,7 @@
 		0E9BA669D13215171A5B7200F73DF72F /* QMChatIncomingCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatIncomingCell.h; path = QMChatViewController/Views/Cells/QMChatIncomingCell/QMChatIncomingCell.h; sourceTree = "<group>"; };
 		0EE124D5E841769C24C3D0FAFCF0C4CF /* NSData+ImageContentType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+ImageContentType.m"; path = "SDWebImage/NSData+ImageContentType.m"; sourceTree = "<group>"; };
 		0F3C04973B8B780CDA414776765728A2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1004D1FA5C06427B214E7A93E191E9F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		101764A5F4FA277343ADFAECC7F22632 /* QMChatService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatService.m; path = QMChatService/QMChatService/QMChatService.m; sourceTree = "<group>"; };
 		1020F8E7E243AEF9A436564E8D339395 /* NSManagedObjectContext+QMCDSaves.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectContext+QMCDSaves.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectContext/NSManagedObjectContext+QMCDSaves.h"; sourceTree = "<group>"; };
 		1149B475DF9F4869AEA1DAE62EA1D598 /* QMChatDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatDataSource.h; path = QMChatViewController/QMChatDataSource/QMChatDataSource.h; sourceTree = "<group>"; };
@@ -569,10 +569,8 @@
 		1926B06C8BCC60B095EF90B1D0935C00 /* TTTAttributedLabel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "TTTAttributedLabel-dummy.m"; sourceTree = "<group>"; };
 		19979042755B84A2D1EF38FC436974B1 /* BFURL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFURL.m; path = Bolts/iOS/BFURL.m; sourceTree = "<group>"; };
 		19A63004E6ED4EB1ED407D1EAB50FE46 /* SDImageCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageCache.h; path = SDWebImage/SDImageCache.h; sourceTree = "<group>"; };
-		19A82CE176EF16B853D4FA4DDA6CE9E7 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		19CBC66AC9BDC95F508922A597A0343A /* UIImage+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+QM.m"; path = "QMChatViewController/Categories/UIImage+QM.m"; sourceTree = "<group>"; };
 		1AA3A41EFC9C5F465F875A915AFF3697 /* TTTAttributedLabel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "TTTAttributedLabel-prefix.pch"; sourceTree = "<group>"; };
-		1B0898DB7F0E4FD33F576ED3DA79E3A0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		1B1B8BB3A38CDB2BB828C2A81B2CE2F9 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "SDWebImage/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		1B98C34931FC75F54C5EA68BCBABF21F /* QMUsersService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMUsersService.m; path = QMUsersService/QMUsersService/QMUsersService.m; sourceTree = "<group>"; };
 		1C2E8B65D543B9C8AE7EFBC2DA5095D4 /* Pods-samplechat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-samplechat.release.xcconfig"; sourceTree = "<group>"; };
@@ -593,10 +591,8 @@
 		2378F4D04668603CFD7285F09FA5A8D5 /* SearchEmojiOnString-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SearchEmojiOnString-dummy.m"; sourceTree = "<group>"; };
 		23EFA0C64F9705F503CB30D1BF9B5F48 /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
 		2402A6462CC87D888010084EDEDF65BF /* TTTAttributedLabel.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = TTTAttributedLabel.modulemap; sourceTree = "<group>"; };
-		241018220B9464E601E7983FD2A1316E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		242D3CFBD4ABE31D0E72E008116D34EB /* BFMeasurementEvent_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFMeasurementEvent_Internal.h; path = Bolts/iOS/BFMeasurementEvent_Internal.h; sourceTree = "<group>"; };
 		26C879B33C26EB8D6FA00D419A1CFF4C /* NSFetchedResultsController+QMCDFetching.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSFetchedResultsController+QMCDFetching.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSFetchedResultsController+QMCDFetching.m"; sourceTree = "<group>"; };
-		276A3961CF7B730F3EAAD34C3FDB9EEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		277C1DA54ADD7B2EF478077A8365C179 /* NSManagedObjectModel+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObjectModel+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectModel+QMCDRecord.h"; sourceTree = "<group>"; };
 		27934EC74DE91A98BC54A2F7B5D9CA93 /* BFAppLink_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLink_Internal.h; path = Bolts/iOS/BFAppLink_Internal.h; sourceTree = "<group>"; };
 		27CAFAD4A1934DB8FF7ACCCF2B9BCF9C /* QMServicesDevelopment-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QMServicesDevelopment-prefix.pch"; sourceTree = "<group>"; };
@@ -626,6 +622,7 @@
 		36BDB08C64AF80415721D7985D29CD47 /* NSPersistentStoreCoordinator+QMCDAutoMigrations.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSPersistentStoreCoordinator+QMCDAutoMigrations.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDAutoMigrations.m"; sourceTree = "<group>"; };
 		376606CC8A606745AA696D7EFE1DDFD9 /* QMCDImportFunctions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMCDImportFunctions.m; path = QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/QMCDImportFunctions.m; sourceTree = "<group>"; };
 		382EC6D66346821198CE60BDCD1E1782 /* Bolts.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Bolts.modulemap; sourceTree = "<group>"; };
+		383D7662B4652E7B6F5D36AE141668AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		3930CF81D98FAFE03032018536663298 /* NSManagedObjectModel+QMCDRecord.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObjectModel+QMCDRecord.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObjectModel+QMCDRecord.m"; sourceTree = "<group>"; };
 		3C8107070CC8918701310C6704CB8AE3 /* UIView+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+QM.h"; path = "QMChatViewController/Categories/UIView+QM.h"; sourceTree = "<group>"; };
 		3CBB3CD3D2F2A7EADB1B8399BCC8331C /* QMChatNotificationCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatNotificationCell.xib; path = QMChatViewController/Views/Cells/QMChatNotificationCell/QMChatNotificationCell.xib; sourceTree = "<group>"; };
@@ -634,9 +631,8 @@
 		3D3E5BFB779A36DDC058D85706EDCC72 /* Crashlytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Crashlytics.h; path = iOS/Crashlytics.framework/Headers/Crashlytics.h; sourceTree = "<group>"; };
 		3D4616B3D751A86BEE2E8DA2BA640A14 /* UIAlertView+Blocks-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks-prefix.pch"; sourceTree = "<group>"; };
 		3D4781ADCFF6DAC70B617CE53A4A176B /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
-		3D553229E4C2405BBB965559C13096B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		3D56F6C2FA54904A78B52289953E2E99 /* QBChatAttachment+QMCustomData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QBChatAttachment+QMCustomData.m"; path = "QMChatService/QMChatService/Categories/QBChatAttachment+QMCustomData.m"; sourceTree = "<group>"; };
-		3E318E2B44824046CD8B64594057F4F4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		3E3CE17F58A7A11B3CC46D9076A79721 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QMCVDevelopment.xcconfig; sourceTree = "<group>"; };
 		3F6285350DE0CA6ED53F365E9BBB8F7F /* QMChatIncomingCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatIncomingCell.xib; path = QMChatViewController/Views/Cells/QMChatIncomingCell/QMChatIncomingCell.xib; sourceTree = "<group>"; };
 		40649D13A837C52D252ABC8384F84F91 /* QMCVDevelopment-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QMCVDevelopment-prefix.pch"; sourceTree = "<group>"; };
@@ -651,7 +647,6 @@
 		465263C2E40DE8768E2FA929AA0179F0 /* ResourceBundle-QMContactListCacheModel-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-QMContactListCacheModel-Info.plist"; sourceTree = "<group>"; };
 		46A5C24EEEA77205083BA28FBCBE1FD7 /* QMServicesDevelopment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QMServicesDevelopment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46D0CA2E5C2A2499A7C1FE2051508689 /* QMChatCacheModel.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QMChatCacheModel.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		46EFE4D8721255DEDA6B940496D33556 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		4825A4EAC01FB1AF9EC1EC0C3982A99C /* UIImage+Cropper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Cropper.m"; path = "QMChatViewController/Categories/UIImage+Cropper.m"; sourceTree = "<group>"; };
 		4866A97BCD751EF1C0F8569F7F9358C7 /* NSManagedObject+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDRecord.h"; sourceTree = "<group>"; };
 		493008C14104E7956297B01AAC263158 /* QMCollectionViewFlowLayoutInvalidationContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCollectionViewFlowLayoutInvalidationContext.h; path = QMChatViewController/Views/CollectionView/Layout/QMCollectionViewFlowLayoutInvalidationContext.h; sourceTree = "<group>"; };
@@ -662,6 +657,7 @@
 		4BD21A0B93375A75415A967DC5E30AE8 /* UIButton+WebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIButton+WebCache.h"; path = "SDWebImage/UIButton+WebCache.h"; sourceTree = "<group>"; };
 		4EE7E0E9AA5626257D8D9EB5DEF878B9 /* QMUsersModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMUsersModel.xcdatamodel; sourceTree = "<group>"; };
 		4F34C3477F7515567A0E9C9661E6A27B /* BFCancellationToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationToken.h; path = Bolts/Common/BFCancellationToken.h; sourceTree = "<group>"; };
+		4F67A8E340B3D427749677CD1D65E47F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
 		50032032C451E83FC3BD6B3AA3DAD498 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
 		5034D9E0D4045FFBB400AFE26E9ECFAA /* ManuallyMigratingQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ManuallyMigratingQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/ManuallyMigratingQMCDRecordStack.m; sourceTree = "<group>"; };
 		513E0DCE7C40400F264A51E14EE59B93 /* NSObject+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSObject+QMCDDataImport.h"; sourceTree = "<group>"; };
@@ -686,7 +682,9 @@
 		5B4A7E0BCE5B12A1A72C4E9B7FEC8E5A /* BFAppLinkTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFAppLinkTarget.h; path = Bolts/iOS/BFAppLinkTarget.h; sourceTree = "<group>"; };
 		5BA8D0D8D7059D1D5FB0FB8B00558D53 /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BBBB35E40315C2173A1B6942377F589 /* CDContactListItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CDContactListItem.h; path = QMContactListCache/QMContactListCache/CoreData/Entries/CDContactListItem.h; sourceTree = "<group>"; };
+		5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5D39F35755D1BE77D5BEBC7A7B2E9F25 /* CDAttachment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CDAttachment.m; path = QMChatCache/QMChatCache/CoreData/Entries/CDAttachment.m; sourceTree = "<group>"; };
+		5E41BF68036D30F958780989F3DC580D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		5F4640C43DE4F6A3147E270870081A8A /* QMChatContactRequestCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatContactRequestCell.h; path = QMChatViewController/Views/Cells/QMChatContactRequestCell/QMChatContactRequestCell.h; sourceTree = "<group>"; };
 		5FAB585819FD1E02F6B9A484C4DFB7E9 /* Pods-samplechat-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-samplechat-frameworks.sh"; sourceTree = "<group>"; };
 		60D0F51381D609526673CA9B252567CC /* BFAppLinkTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFAppLinkTarget.m; path = Bolts/iOS/BFAppLinkTarget.m; sourceTree = "<group>"; };
@@ -699,14 +697,15 @@
 		667B7F50F7B90FCE291DBACD59C6B5E9 /* QMServicesDevelopment-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QMServicesDevelopment-dummy.m"; sourceTree = "<group>"; };
 		6718FC57CE5DCBD3EDCBE5536426D8DD /* NSDate+ChatDataSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate+ChatDataSource.h"; path = "QMChatViewController/QMChatDataSource/NSDate+ChatDataSource.h"; sourceTree = "<group>"; };
 		67322652DFB4523DC2B7F2BC71418222 /* QMCCModelIncludes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCCModelIncludes.h; path = QMChatCache/QMChatCache/CoreData/QMCCModelIncludes.h; sourceTree = "<group>"; };
+		6777C42D010DF7B32CCF9B05AD7CD884 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		6787E83462E5273A3E5D28C5B99A0F74 /* BFCancellationTokenRegistration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFCancellationTokenRegistration.h; path = Bolts/Common/BFCancellationTokenRegistration.h; sourceTree = "<group>"; };
 		67F71E8448A8282BDF24440118F8A005 /* QMChatResources.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatResources.h; path = QMChatViewController/Utils/QMChatResources/QMChatResources.h; sourceTree = "<group>"; };
 		6849EE0D2E57AC8F2B3B61A93D4448FE /* QMChatOutgoingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatOutgoingCell.m; path = QMChatViewController/Views/Cells/QMChatOutgoingCell/QMChatOutgoingCell.m; sourceTree = "<group>"; };
 		685E87DDA7D22E747A5D413B0895E980 /* BFCancellationTokenRegistration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationTokenRegistration.m; path = Bolts/Common/BFCancellationTokenRegistration.m; sourceTree = "<group>"; };
 		6971766A090F1EE687B9B62613652C36 /* ResourceBundle-QMUsersCacheModel-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-QMUsersCacheModel-Info.plist"; sourceTree = "<group>"; };
 		69CCEEF387B3DC16D9F9C42D4FCE9A8F /* QMChatResources.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatResources.m; path = QMChatViewController/Utils/QMChatResources/QMChatResources.m; sourceTree = "<group>"; };
-		6A175B6767603732FA6C071582482986 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		6AC2A5850AE512A884EAFF18A1DA06C4 /* QMModel2.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel2.xcdatamodel; sourceTree = "<group>"; };
+		6B2252067EE315C72215288DB34D8B64 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		6C231F7D57A0D3693E2D4DC7449B377C /* BFMeasurementEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFMeasurementEvent.m; path = Bolts/iOS/BFMeasurementEvent.m; sourceTree = "<group>"; };
 		6D39F48B024455BD1F9C929179BE418D /* QMCDRecordDeprecated.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordDeprecated.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordDeprecated.h; sourceTree = "<group>"; };
 		6D4F442DF5462D76E2157876D42D1044 /* SearchEmojiOnString.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SearchEmojiOnString.xcconfig; sourceTree = "<group>"; };
@@ -757,6 +756,7 @@
 		85A93AC7E9809833A21F42F72FB40544 /* QMDeferredQueueMemoryStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMDeferredQueueMemoryStorage.h; path = QMManagers/QMDeferredQueueMemoryStorage.h; sourceTree = "<group>"; };
 		876D956532F5BCAD8B90A493A994ECE5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87A9F2640B771C28B0770BBFBBEB2461 /* QMChatViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatViewController.m; path = QMChatViewController/QMChatViewController.m; sourceTree = "<group>"; };
+		881EB7B63CC8E3165D2D6312C8EB208D /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		886012E2C45C54C0FEAE2DA67A0E52F8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8949BF3C24BEFD86D7F6B8D93E4A635D /* SDWebImage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SDWebImage.modulemap; sourceTree = "<group>"; };
 		89BF37F0C694CB9EE79B9856DBA75E4C /* UIImageView+HighlightedWebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+HighlightedWebCache.h"; path = "SDWebImage/UIImageView+HighlightedWebCache.h"; sourceTree = "<group>"; };
@@ -767,9 +767,10 @@
 		8C9D32AC8B418C2DA212153D0A27B65F /* QMBaseService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMBaseService.m; path = QMBaseService/QMBaseService/QMBaseService.m; sourceTree = "<group>"; };
 		8D21AD85B36BB6664B88DD4A46B7E994 /* NSManagedObject+QMCDAggregation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDAggregation.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDAggregation.m"; sourceTree = "<group>"; };
 		8D5D1E750E4DFA218ECCD322611D1BC7 /* _CDContactListItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = _CDContactListItem.h; path = QMContactListCache/QMContactListCache/CoreData/EntriesMachine/_CDContactListItem.h; sourceTree = "<group>"; };
+		8E893B0DC8BEC551D6999C0A2A2D47E5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		8EC3F3E8A077ADC53B1C85171D5CF252 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		8ECB1A548E3F07D22B0561E6EAE1E1DD /* QMChatViewController.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QMChatViewController.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F560EC90054CE76703B790A37238ACA /* _CDContactListItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = _CDContactListItem.m; path = QMContactListCache/QMContactListCache/CoreData/EntriesMachine/_CDContactListItem.m; sourceTree = "<group>"; };
-		8F653BEC7405873345D621559A002339 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		8FCAE9280D694297E14CD024E7964F64 /* BoltsVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BoltsVersion.h; path = Bolts/Common/BoltsVersion.h; sourceTree = "<group>"; };
 		90291D96E31A8F3341534918BA8DAE10 /* NSManagedObject+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDDataImport.m"; sourceTree = "<group>"; };
 		915EBDFAE9E4B375D239E8DDA9B01B9B /* BFTaskCompletionSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFTaskCompletionSource.m; path = Bolts/Common/BFTaskCompletionSource.m; sourceTree = "<group>"; };
@@ -813,6 +814,7 @@
 		A3D34B4373860583C2E54D7E305F41AA /* NSString+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSString+QMCDDataImport.h"; sourceTree = "<group>"; };
 		A44913990001C7CCDCECEE2E95750511 /* UIColor+QM.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+QM.h"; path = "QMChatViewController/Categories/UIColor+QM.h"; sourceTree = "<group>"; };
 		A5C9252C60A8E4310894F140F573F64B /* QMChatActionsHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatActionsHandler.h; path = QMChatViewController/Views/QMChatActionsHandler.h; sourceTree = "<group>"; };
+		A61CB0EDA865F48038D62BCF9137D248 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		A6C3FB26C4BB3759AC6B5596237F1AAD /* MPGNotification.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPGNotification.m; path = "Objective-C/MPGNotification/MPGNotification.m"; sourceTree = "<group>"; };
 		A6D4BB29BF9C56664AE954CE420C35D4 /* QMDBStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMDBStorage.h; path = QMDBStorage/QMDBStorage/QMDBStorage.h; sourceTree = "<group>"; };
 		A6EFFC715A1ACE2EBE6254FAFBDB55C8 /* SDWebImageOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageOperation.h; path = SDWebImage/SDWebImageOperation.h; sourceTree = "<group>"; };
@@ -820,6 +822,7 @@
 		A972CE6AE5929024D65F4C1F4951A0BD /* QMChatCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatCache.h; path = QMChatCache/QMChatCache/QMChatCache.h; sourceTree = "<group>"; };
 		A999DBD009AC217B4D897F5B66C0ECAF /* UIImageView+WebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+WebCache.h"; path = "SDWebImage/UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		A9DBED2680AB20651493FEB5BD07C54A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
+		AA66A726626F6F01E451FCC3670E814E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		AB0E3B6318BC493815EC74A8A126E672 /* QMContactListService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMContactListService.m; path = QMContactListService/QMContactListService/QMContactListService.m; sourceTree = "<group>"; };
 		ABCC3575C84AB06D5DF0A39A74F6E46E /* QMChatContainerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatContainerView.h; path = QMChatViewController/Views/QMChatContainerView.h; sourceTree = "<group>"; };
 		AC87F6A553C7C0CB4DD377056BC83013 /* QMCVDevelopment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QMCVDevelopment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -833,7 +836,6 @@
 		B17F1D9E6FEE6931C455207E5A2A35E5 /* MPGNotification.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MPGNotification.modulemap; sourceTree = "<group>"; };
 		B1C81AA43BF2A720A56C1ED1FCA56F27 /* QMInputToolbar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMInputToolbar.m; path = QMChatViewController/Views/CustomUI/InputToolBar/QMInputToolbar.m; sourceTree = "<group>"; };
 		B216449F9E93B70B9B91715574B7427F /* NSPersistentStoreCoordinator+QMCDManualMigrations.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSPersistentStoreCoordinator+QMCDManualMigrations.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDManualMigrations.m"; sourceTree = "<group>"; };
-		B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		B38EE54286A557C3A09C7A41BAFC02E3 /* QMChatConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatConstants.h; path = QMChatService/QMChatService/QMChatConstants.h; sourceTree = "<group>"; };
 		B3F70EBD08B8504FB84C5CF447462AB5 /* QMModel3.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel3.xcdatamodel; sourceTree = "<group>"; };
 		B3FD8772DA3C087C2DD52B0ABAF585E2 /* SDWebImageDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageDecoder.m; path = SDWebImage/SDWebImageDecoder.m; sourceTree = "<group>"; };
@@ -881,6 +883,7 @@
 		CAD22225F36A9B2930A4ABBFCFBBE834 /* NSManagedObject+QMCDFinders.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDFinders.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDFinders.h"; sourceTree = "<group>"; };
 		CB7531BCC84E9EB230F52743988A09A6 /* BFCancellationTokenSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = BFCancellationTokenSource.m; path = Bolts/Common/BFCancellationTokenSource.m; sourceTree = "<group>"; };
 		CBA7BDAA5D796BFD60D142D077530CF0 /* NSManagedObject+QMCDFinders.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+QMCDFinders.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDFinders.m"; sourceTree = "<group>"; };
+		CC176A4279AA13D9B84BC0A934BA51B8 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		CC6AF8138A10F43B37EB95132A3EEB47 /* QMChatService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatService.h; path = QMChatService/QMChatService/QMChatService.h; sourceTree = "<group>"; };
 		CCB7F2E7BAFF0FA9F9ECE5655F4B2467 /* SVProgressHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SVProgressHUD.modulemap; sourceTree = "<group>"; };
 		CD34D440F501E7A23E923C9F43E06AFC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -907,9 +910,7 @@
 		D4FD6FAA30EDDCC2DBB4F662C9048A18 /* QMDeferredAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMDeferredAction.h; path = QMManagers/QMDeferredAction.h; sourceTree = "<group>"; };
 		D604E00B356FB80D78CB421A612F54CF /* MPGNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MPGNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D61E4488384D4B0F3B679A180B1375C0 /* QMCDRecordShorthand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordShorthand.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordShorthand.h; sourceTree = "<group>"; };
-		D668D73838E7421AB2489F5A6C24A638 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		D69FBC02E3ADDDD831E8DCF39A39D46B /* UIView+QM.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+QM.m"; path = "QMChatViewController/Categories/UIView+QM.m"; sourceTree = "<group>"; };
-		D6EDD0CB9AC639665901847D258DA360 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		D71E6AF00A9B8087C471FA9B1262B047 /* NSManagedObject+QMCDDataImport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDDataImport.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDDataImport.h"; sourceTree = "<group>"; };
 		D7651BF8F900C27F85768CACFAF56FB1 /* SDWebImageManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageManager.m; path = SDWebImage/SDWebImageManager.m; sourceTree = "<group>"; };
 		D7871A252315E07B41DE4C0FC1C87A9C /* QMModel.xcdatamodel */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcdatamodel; path = QMModel.xcdatamodel; sourceTree = "<group>"; };
@@ -927,14 +928,13 @@
 		DCC1C219B5F18AA8B5C296BC804FFB2C /* QMChatCollectionViewFlowLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatCollectionViewFlowLayout.m; path = QMChatViewController/Views/CollectionView/Layout/QMChatCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		DE1D0A98ECC64DF6EF43671765B3EFF2 /* QMContactListService+Bolts.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QMContactListService+Bolts.m"; path = "QMContactListService/QMContactListService/Bolts/QMContactListService+Bolts.m"; sourceTree = "<group>"; };
 		DF8C1733070D23CF7601A765B67D1BF7 /* QMChatViewController.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = QMChatViewController.xib; path = en.lproj/QMChatViewController.xib; sourceTree = "<group>"; };
-		E0A80A9F8EADC2986676CD7D9F7A71B3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		E0F33EBE5865C797D9015C156D93E12C /* QMDeferredAction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMDeferredAction.m; path = QMManagers/QMDeferredAction.m; sourceTree = "<group>"; };
 		E145FE4AC914573026B375569DA09D7B /* QMCDRecordMOGeneratorProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDRecordMOGeneratorProtocol.h; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecordMOGeneratorProtocol.h; sourceTree = "<group>"; };
 		E215D4E921D7731D1A6BEC7581F214E3 /* QMCDImportFunctions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMCDImportFunctions.h; path = QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/QMCDImportFunctions.h; sourceTree = "<group>"; };
 		E2EB24108E9600C43452AD02D19B1AF4 /* QMDeferredQueueManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMDeferredQueueManager.m; path = QMManagers/QMDeferredQueueManager.m; sourceTree = "<group>"; };
 		E3C35DAFE03FC668F4AFCA7FC551CB56 /* NSPersistentStoreCoordinator+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStoreCoordinator+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDRecord.h"; sourceTree = "<group>"; };
-		E3DFB2878157AE131D02C131E00FDA55 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
 		E3F87F98481F2845A35D83295CBB84FA /* QBChatMessage+QBDateDivider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "QBChatMessage+QBDateDivider.h"; path = "QMChatViewController/QMChatDataSource/QBChatMessage+QBDateDivider.h"; sourceTree = "<group>"; };
+		E446B90161B5F8345C373030F0CD0CD2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		E49255E0CDC4A562A76AD7EBCE5C7848 /* BFWebViewAppLinkResolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFWebViewAppLinkResolver.h; path = Bolts/iOS/BFWebViewAppLinkResolver.h; sourceTree = "<group>"; };
 		E514F938A10BF2C2DB7DE3F54C35551C /* SDWebImageManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageManager.h; path = SDWebImage/SDWebImageManager.h; sourceTree = "<group>"; };
 		E53116094B630C6F330A64506530F5DC /* NSPersistentStoreCoordinator+QMCDAutoMigrations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStoreCoordinator+QMCDAutoMigrations.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStoreCoordinator/NSPersistentStoreCoordinator+QMCDAutoMigrations.h"; sourceTree = "<group>"; };
@@ -945,6 +945,7 @@
 		E6F22A2AD06231DBE2A57011430FC6F8 /* NSPersistentStore+QMCDRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSPersistentStore+QMCDRecord.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSPersistentStore+QMCDRecord.h"; sourceTree = "<group>"; };
 		E74E76D5C08E68C6F7E9001423835DD5 /* NSRelationshipDescription+QMCDDataImport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSRelationshipDescription+QMCDDataImport.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/Import/NSRelationshipDescription+QMCDDataImport.m"; sourceTree = "<group>"; };
 		E7AE4121E079F0796DE4114AAA6ABF8C /* Bolts.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Bolts.xcconfig; sourceTree = "<group>"; };
+		E7F0E51C00F938059E7BF29BC4A97B3D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		E7FC4ECA5EB3630495BA5E6AB105B1DA /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86E16BB53E2642DEE796E0274ECC3BC /* SQLiteQMCDRecordStack.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SQLiteQMCDRecordStack.m; path = QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecordStack/SQLiteQMCDRecordStack.m; sourceTree = "<group>"; };
 		E91A2A05D0629BCE31DA69740D968191 /* QMChatLocationIncomingCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QMChatLocationIncomingCell.m; path = QMChatViewController/Views/Cells/QMChatLocationIncomingCell/QMChatLocationIncomingCell.m; sourceTree = "<group>"; };
@@ -978,7 +979,6 @@
 		FAAC0F43886243591735742B800FCF28 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImagePrefetcher.h; path = SDWebImage/SDWebImagePrefetcher.h; sourceTree = "<group>"; };
 		FAE3471DD1B065A33B2C27223D0B8CD4 /* QMCDRecord+Setup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "QMCDRecord+Setup.m"; path = "QMDBStorage/QMDBStorage/QMCDRecord/QMCDRecord/QMCDRecord+Setup.m"; sourceTree = "<group>"; };
 		FB8E45ABD659576D4BABC1BA5FA8F9E8 /* QMChatAttachmentService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QMChatAttachmentService.h; path = QMChatService/QMChatService/QMChatAttachmentService.h; sourceTree = "<group>"; };
-		FCB9B25EB092208A3CE34375BD8A19C9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		FCE38A9483D47F647BF61EB93EFC1084 /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
 		FD5F38F92941177C15B76156C3A01351 /* attachment_ic@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "attachment_ic@2x.png"; path = "QMChatViewController/Icons/attachment_ic@2x.png"; sourceTree = "<group>"; };
 		FE730F408D1361671124BA9E33E6FE55 /* NSManagedObject+QMCDAggregation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+QMCDAggregation.h"; path = "QMDBStorage/QMDBStorage/QMCDRecord/Categories/CoreData/NSManagedObject/NSManagedObject+QMCDAggregation.h"; sourceTree = "<group>"; };
@@ -991,20 +991,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				406B81295EB0A7CD010A8F254D246AA9 /* Accelerate.framework in Frameworks */,
-				A093E1C7B72AAFD83FF5AE78539EF826 /* AudioToolbox.framework in Frameworks */,
-				7604F203B037B44848473F4A0194C694 /* AVFoundation.framework in Frameworks */,
+				ECB7A506360048EC9D6A0E502CF12EF3 /* Accelerate.framework in Frameworks */,
+				0B4823C69D389E3A93F02505299FD0FA /* AudioToolbox.framework in Frameworks */,
+				F15EEA5CECB4A19207E654B10D38E698 /* AVFoundation.framework in Frameworks */,
 				EA207638C3D73FCD20FB487CAB6665A4 /* Bolts.framework in Frameworks */,
-				4A3E3A61617DE8B3E82235C9E7689DC6 /* CFNetwork.framework in Frameworks */,
-				2973731B4B843EFFAD86F55642321BC3 /* CoreData.framework in Frameworks */,
-				0BC924783EE0D07CDE84ADFE966F78A7 /* CoreGraphics.framework in Frameworks */,
-				5061002D03BF78DB0486EDF56A56CFF7 /* CoreLocation.framework in Frameworks */,
-				29FEE520472C8B0123C537DC16C24671 /* CoreMedia.framework in Frameworks */,
-				E6FA48A02616C09B4A48300AA70E6861 /* CoreVideo.framework in Frameworks */,
-				E564F3F331F466AB50E6F8997E7806DF /* Foundation.framework in Frameworks */,
-				9F8BFCEA2C84B88A6364398B5C90D172 /* MobileCoreServices.framework in Frameworks */,
-				1F0114824652B1BFB719097CDB5B210A /* SystemConfiguration.framework in Frameworks */,
-				FF10BA1C73A760212856BF64C75281FA /* UIKit.framework in Frameworks */,
+				AF06ADC869329AC5136821F027206DB9 /* CFNetwork.framework in Frameworks */,
+				EA9050F3EDE8E2A58D462FDDF9727317 /* CoreData.framework in Frameworks */,
+				963E1F47383D0055B61ABD164C528221 /* CoreGraphics.framework in Frameworks */,
+				070D39B4C641501EE705F098BC8A6AC0 /* CoreLocation.framework in Frameworks */,
+				A7F000F8382B51FB4E1A2FE9FF0C1D9E /* CoreMedia.framework in Frameworks */,
+				AE431718F0D9C611D232F10662A9990C /* CoreVideo.framework in Frameworks */,
+				ACD80EFB9424BE5BE2EC3FD72F01DBBE /* Foundation.framework in Frameworks */,
+				2E1A3419AE5754BBE326638D9CBCF5F6 /* MobileCoreServices.framework in Frameworks */,
+				2507CF2ECB9DF262135A95C2E26D519B /* SystemConfiguration.framework in Frameworks */,
+				7A3B64CB63B442CAB3A4AA943B1C6B51 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1012,8 +1012,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51D41561E8B36CF2B1051EF7EFAC92EE /* Foundation.framework in Frameworks */,
-				66A20249E3CC13CDF6E29EC699677EAD /* ImageIO.framework in Frameworks */,
+				B32F79ED260069D25359EC7C5793BC75 /* Foundation.framework in Frameworks */,
+				8E2384793A5FF088EF5EDCFF8DFD5AB2 /* ImageIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,11 +1021,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E90F2A9A7B766D1262D3898E73DC147F /* CoreGraphics.framework in Frameworks */,
-				BD6FAC95896F6FDB6E0C151FC6F1F248 /* CoreText.framework in Frameworks */,
-				EE4150A129429F084FF92EF5AB917F93 /* Foundation.framework in Frameworks */,
-				38C38BCEDE448D0EB8575D7CF05C61E5 /* QuartzCore.framework in Frameworks */,
-				56C05B8ED3CFC4604AA84D23C8E2D9F8 /* UIKit.framework in Frameworks */,
+				E1E207C17C461E82DD155C5AFF9AE821 /* CoreGraphics.framework in Frameworks */,
+				77160553766E1DD14D62F81194E53436 /* CoreText.framework in Frameworks */,
+				DB8E3580546898A50B332CA2A2DA187E /* Foundation.framework in Frameworks */,
+				6029D82FF605B8B79549E8D574E4D4A0 /* QuartzCore.framework in Frameworks */,
+				F8082E9039E928F338CA7601CAE8B5C0 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1040,7 +1040,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4190E9D2CE038CCA834FD9B5B8083C62 /* Foundation.framework in Frameworks */,
+				658765CFB1D8BB213C3B3373351895CC /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1048,8 +1048,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4457AE71615136E0BA8DDCC48115AE24 /* Foundation.framework in Frameworks */,
-				F3D77296D2839BDA4DFEE77EDE44CBB7 /* QuartzCore.framework in Frameworks */,
+				F86F6CF9D771CD2E92542B6AD4010F36 /* Foundation.framework in Frameworks */,
+				2CAE4E27BF52D0E21899759C87B18C9E /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1064,7 +1064,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32164D83AE983C3C75E69F2798B17D94 /* Foundation.framework in Frameworks */,
+				54FAEC0ADCC461EC78A5DCF57B6F45D9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1079,7 +1079,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				974D10522CAAC968EC98FE0CC9F3D139 /* Foundation.framework in Frameworks */,
+				C744E47AC2FA038EBC0F24E33172931D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1087,7 +1087,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				095BED2594E50E7AAAEA1D965AD45DA7 /* Foundation.framework in Frameworks */,
+				D7D88BDD00CD85ED2425CA431C35A46E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1095,7 +1095,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0869E5FB81F462B534B5A28DE65B9017 /* Foundation.framework in Frameworks */,
+				05FAC4ED6E25B679B1DA910DF02EA93C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1110,7 +1110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDFCF13AFA83ABBB89EBC01B3A8F6AA7 /* Foundation.framework in Frameworks */,
+				F53014B28F96FB6F4A65C9B4C196FA04 /* Foundation.framework in Frameworks */,
 				0582CD0571D4F47AED5B95A89F59CB2D /* SDWebImage.framework in Frameworks */,
 				7E237A1DB92C1835EC0693ED1260BE49 /* TTTAttributedLabel.framework in Frameworks */,
 			);
@@ -1276,29 +1276,6 @@
 				346F7B1480AE6A467397F68E05B50827 /* QMUsersModel.xcdatamodeld */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		3EDA49D4C75EE62CB5FC11E98FD7E5B2 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				D6EDD0CB9AC639665901847D258DA360 /* Accelerate.framework */,
-				46EFE4D8721255DEDA6B940496D33556 /* AudioToolbox.framework */,
-				E0A80A9F8EADC2986676CD7D9F7A71B3 /* AVFoundation.framework */,
-				6A175B6767603732FA6C071582482986 /* CFNetwork.framework */,
-				D668D73838E7421AB2489F5A6C24A638 /* CoreData.framework */,
-				276A3961CF7B730F3EAAD34C3FDB9EEB /* CoreGraphics.framework */,
-				3E318E2B44824046CD8B64594057F4F4 /* CoreLocation.framework */,
-				19A82CE176EF16B853D4FA4DDA6CE9E7 /* CoreMedia.framework */,
-				8F653BEC7405873345D621559A002339 /* CoreText.framework */,
-				E3DFB2878157AE131D02C131E00FDA55 /* CoreVideo.framework */,
-				B348AA374124C472FE4A36902DEDDFA1 /* Foundation.framework */,
-				3D553229E4C2405BBB965559C13096B8 /* ImageIO.framework */,
-				03F44AFFC76EC9A344C23DE6AEA7F737 /* MobileCoreServices.framework */,
-				FCB9B25EB092208A3CE34375BD8A19C9 /* QuartzCore.framework */,
-				241018220B9464E601E7983FD2A1316E /* SystemConfiguration.framework */,
-				1B0898DB7F0E4FD33F576ED3DA79E3A0 /* UIKit.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		4A61FD7A2F5CD742698A911E0915C929 /* Protocols */ = {
@@ -1841,7 +1818,7 @@
 				5BA8D0D8D7059D1D5FB0FB8B00558D53 /* Bolts.framework */,
 				DC0C90623B4E8EE3FF2957420AFF16D6 /* SDWebImage.framework */,
 				DC7108A778E179A25FDE49EC695F1ADE /* TTTAttributedLabel.framework */,
-				3EDA49D4C75EE62CB5FC11E98FD7E5B2 /* iOS */,
+				EF52636AB39EF5B5D1F6FB146CEE33A6 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1890,6 +1867,29 @@
 				63E5A836C83BFFAC30D58E1153E18057 /* Support Files */,
 			);
 			path = MPGNotification;
+			sourceTree = "<group>";
+		};
+		EF52636AB39EF5B5D1F6FB146CEE33A6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6777C42D010DF7B32CCF9B05AD7CD884 /* Accelerate.framework */,
+				4F67A8E340B3D427749677CD1D65E47F /* AudioToolbox.framework */,
+				E7F0E51C00F938059E7BF29BC4A97B3D /* AVFoundation.framework */,
+				881EB7B63CC8E3165D2D6312C8EB208D /* CFNetwork.framework */,
+				E446B90161B5F8345C373030F0CD0CD2 /* CoreData.framework */,
+				383D7662B4652E7B6F5D36AE141668AD /* CoreGraphics.framework */,
+				5E41BF68036D30F958780989F3DC580D /* CoreLocation.framework */,
+				A61CB0EDA865F48038D62BCF9137D248 /* CoreMedia.framework */,
+				AA66A726626F6F01E451FCC3670E814E /* CoreText.framework */,
+				3E3CE17F58A7A11B3CC46D9076A79721 /* CoreVideo.framework */,
+				5BBCA034C69A08854FEB952215EDFD30 /* Foundation.framework */,
+				CC176A4279AA13D9B84BC0A934BA51B8 /* ImageIO.framework */,
+				8E893B0DC8BEC551D6999C0A2A2D47E5 /* MobileCoreServices.framework */,
+				8EC3F3E8A077ADC53B1C85171D5CF252 /* QuartzCore.framework */,
+				1004D1FA5C06427B214E7A93E191E9F6 /* SystemConfiguration.framework */,
+				6B2252067EE315C72215288DB34D8B64 /* UIKit.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		F61647D41234409B1460DE672A8C57E5 /* UIAlertView+Blocks */ = {
@@ -2916,11 +2916,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		02A54476F273C6537DB0EA7003C11C62 /* QA */ = {
+		015A368F878AC3E2CEAE21DDE8026304 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E7AE4121E079F0796DE4114AAA6ABF8C /* Bolts.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		060818CB7F049C384E3B16199558CB32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3626F32B80E47785EF2619799E22665 /* UIAlertView+Blocks.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -2929,27 +2975,60 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Bolts/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UIAlertView+Blocks/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Bolts/Bolts.modulemap";
+				MODULEMAP_FILE = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Bolts;
+				PRODUCT_NAME = UIAlertView_Blocks;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = QA;
+			name = Release;
 		};
-		0B571858E8E19008ACEFC24F8083AC7A /* QA */ = {
+		09082EF16737C8655F706799B96B5107 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 011D25A042173589A2A0A72FD12F2DFC /* SVProgressHUD.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SVProgressHUD;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0C77412A95F8D36B0898136BAFD9DD84 /* QA */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7040AD25E391D9AE101188E2F6B46CA6 /* SDWebImage.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -2966,6 +3045,37 @@
 				MODULEMAP_FILE = "Target Support Files/SDWebImage/SDWebImage.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = SDWebImage;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = QA;
+		};
+		0D11ACFD55A4862F70DD8321C562B3F9 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3626F32B80E47785EF2619799E22665 /* UIAlertView+Blocks.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UIAlertView+Blocks/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = UIAlertView_Blocks;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2991,11 +3101,48 @@
 			};
 			name = Debug;
 		};
-		10E7D42FB3E2A50023F1EDB5170F57B5 /* Debug */ = {
+		11F5BDEAEFFC178F38A64D936E594E46 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D4F442DF5462D76E2157876D42D1044 /* SearchEmojiOnString.xcconfig */;
+			baseConfigurationReference = 1C2E8B65D543B9C8AE7EFBC2DA5095D4 /* Pods-samplechat.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-samplechat/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-samplechat/Pods-samplechat.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_samplechat;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1325209E99AA65C98E9A80C58C61C156 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3626F32B80E47785EF2619799E22665 /* UIAlertView+Blocks.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -3004,14 +3151,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SearchEmojiOnString/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UIAlertView+Blocks/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString.modulemap";
+				MODULEMAP_FILE = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SearchEmojiOnString;
+				PRODUCT_NAME = UIAlertView_Blocks;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3020,11 +3167,75 @@
 			};
 			name = Debug;
 		};
-		13E372BFAC3A3B064E19FB8E5D3B3BF2 /* Release */ = {
+		132CB22F4845FCA9E24630B4C3205632 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0CCCF17AC02D99C743696633E884048 /* TTTAttributedLabel.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TTTAttributedLabel/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = TTTAttributedLabel;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		17324DE4666C151AC0BBA17F895A8709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/QMCVDevelopment/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/QMCVDevelopment/QMCVDevelopment.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = QMCVDevelopment;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2287A6B21105A5B4075726ADDEFEC152 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 011D25A042173589A2A0A72FD12F2DFC /* SVProgressHUD.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -3049,34 +3260,36 @@
 			};
 			name = Release;
 		};
-		15B2428ED320494D57C195B23296FB1C /* Debug */ = {
+		29615E4C8E93833900220684D9244E14 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
+			baseConfigurationReference = E7AE4121E079F0796DE4114AAA6ABF8C /* Bolts.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/QMServicesDevelopment/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/Bolts/Bolts-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Bolts/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = QMServicesDevelopment;
+				MODULEMAP_FILE = "Target Support Files/Bolts/Bolts.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Bolts;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = QA;
 		};
 		29CE51D3DF8D5EFF228C00DFFB2F750B /* QA */ = {
 			isa = XCBuildConfiguration;
@@ -3097,13 +3310,85 @@
 			};
 			name = QA;
 		};
-		33F7C101D3F3BF8B6314E7DEC63A3A77 /* Debug */ = {
+		2C58E0B875EBA212B431591B0C6123F7 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_QA=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = QA;
+		};
+		2E8E2B20B849353BFEFCC554FFF4A02A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0CCCF17AC02D99C743696633E884048 /* TTTAttributedLabel.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TTTAttributedLabel/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = TTTAttributedLabel;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2F1CF62342484D656FC75F6BEE4971A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D319A3E401C4B70EECC902477BA1EA93 /* MPGNotification.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3116,7 +3401,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/MPGNotification/MPGNotification.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = MPGNotification;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -3124,7 +3409,7 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		34275AD7AB877A69BACE73C570B80211 /* QA */ = {
 			isa = XCBuildConfiguration;
@@ -3145,11 +3430,13 @@
 			};
 			name = QA;
 		};
-		3A6798CCAB0043D027339655B54ABF09 /* QA */ = {
+		34A7EF252623B7892B5B0A8F40D24B2E /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0CCCF17AC02D99C743696633E884048 /* TTTAttributedLabel.xcconfig */;
+			baseConfigurationReference = A3349BAE1A01E7CA7EA2816CB22A0F2F /* Pods-samplechat.qa.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -3158,14 +3445,18 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TTTAttributedLabel/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-samplechat/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel.modulemap";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-samplechat/Pods-samplechat.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = TTTAttributedLabel;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_samplechat;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3174,13 +3465,15 @@
 			};
 			name = QA;
 		};
-		450793AB46368AABE2F8AA45E5C7146A /* Release */ = {
+		3BE82F78226C730F1FF0C92D87FF979F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7040AD25E391D9AE101188E2F6B46CA6 /* SDWebImage.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3193,13 +3486,53 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SDWebImage/SDWebImage.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = SDWebImage;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		44CDBB6D11DE06DB64D6268622BDC47E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -3220,53 +3553,13 @@
 			};
 			name = Debug;
 		};
-		47BEF9D903506B003EA5C2B249729489 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_DEBUG=1",
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = YES;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Debug;
-		};
-		545711B724E5CF184BEF73F205C3F2E8 /* Debug */ = {
+		58B139385BFAF1F0CF60DBC26C0C61F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E7AE4121E079F0796DE4114AAA6ABF8C /* Bolts.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -3310,97 +3603,6 @@
 			};
 			name = QA;
 		};
-		61E5DE026ED7D93DC2877CF921A87447 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D319A3E401C4B70EECC902477BA1EA93 /* MPGNotification.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MPGNotification/MPGNotification-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MPGNotification/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MPGNotification/MPGNotification.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = MPGNotification;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		667B7653688967FB48F3A8714BD404C1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/QMServicesDevelopment/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = QMServicesDevelopment;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		679475C34A7598F626F7769525C234DE /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3349BAE1A01E7CA7EA2816CB22A0F2F /* Pods-samplechat.qa.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-samplechat/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-samplechat/Pods-samplechat.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_samplechat;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = QA;
-		};
 		67BFE0E44C710ED1E1B2377F3A8C13BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
@@ -3418,11 +3620,75 @@
 			};
 			name = Release;
 		};
-		6D35B3D3E1305B6EC6C52F7F513A8C02 /* QA */ = {
+		6F982CC3D83C4FDC8630B6FA64970D37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7040AD25E391D9AE101188E2F6B46CA6 /* SDWebImage.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SDWebImage/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SDWebImage/SDWebImage.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SDWebImage;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		719F3A8FA0DAD18A51CB77E351BE7222 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0CCCF17AC02D99C743696633E884048 /* TTTAttributedLabel.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TTTAttributedLabel/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = TTTAttributedLabel;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = QA;
+		};
+		7B8AC302144A7C10816FEA5A2E82FA90 /* QA */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6D4F442DF5462D76E2157876D42D1044 /* SearchEmojiOnString.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -3447,71 +3713,15 @@
 			};
 			name = QA;
 		};
-		71DFA1C12850B215C778322131983E4F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/QMCVDevelopment/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/QMCVDevelopment/QMCVDevelopment.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = QMCVDevelopment;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		7684AE8CE4F753D71B0B20D8AAEA88F0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0CCCF17AC02D99C743696633E884048 /* TTTAttributedLabel.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TTTAttributedLabel/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = TTTAttributedLabel;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		7E487451A9A0B733C62C8CBE92A3FC04 /* QA */ = {
+		7EEF0A3AE0CB5A9C4A3DD44A2D353BBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -3524,7 +3734,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = QMServicesDevelopment;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -3532,7 +3742,7 @@
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = QA;
+			name = Debug;
 		};
 		80FA131D187BDE52C63480759C53D546 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3551,35 +3761,6 @@
 			};
 			name = Debug;
 		};
-		87AB42AB04C2FFE5F5FF4567011C006A /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/QMCVDevelopment/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/QMCVDevelopment/QMCVDevelopment.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = QMCVDevelopment;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = QA;
-		};
 		8D7017A5488E6F67DDFC24F647828615 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */;
@@ -3597,69 +3778,13 @@
 			};
 			name = Release;
 		};
-		962DE9F2B7529B4A6DD13AAB8ADF5F8E /* Debug */ = {
+		8E7A4E467857D7D82F59C85470D980A4 /* QA */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 011D25A042173589A2A0A72FD12F2DFC /* SVProgressHUD.xcconfig */;
+			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SVProgressHUD;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		9E3A9044C1B9A659C622398CF3CE98F3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3626F32B80E47785EF2619799E22665 /* UIAlertView+Blocks.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/UIAlertView+Blocks/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = UIAlertView_Blocks;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		A0CB80C11855B8124FA94B9DD672AE87 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3626F32B80E47785EF2619799E22665 /* UIAlertView+Blocks.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -3668,14 +3793,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/UIAlertView+Blocks/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/QMServicesDevelopment/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks.modulemap";
+				MODULEMAP_FILE = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = UIAlertView_Blocks;
+				PRODUCT_NAME = QMServicesDevelopment;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3684,227 +3809,13 @@
 			};
 			name = QA;
 		};
-		A256700A981DFF7B58BF8AC47671C2E8 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D319A3E401C4B70EECC902477BA1EA93 /* MPGNotification.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/MPGNotification/MPGNotification-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/MPGNotification/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/MPGNotification/MPGNotification.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = MPGNotification;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = QA;
-		};
-		A83C8728974BF7848941F00034BC2DDB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6D4F442DF5462D76E2157876D42D1044 /* SearchEmojiOnString.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SearchEmojiOnString/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SearchEmojiOnString;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		AAF678CED40D3499169D10F63CA0719E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		AD76237D2A47119FCC44DDAF2DF8354C /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3626F32B80E47785EF2619799E22665 /* UIAlertView+Blocks.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/UIAlertView+Blocks/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/UIAlertView+Blocks/UIAlertView+Blocks.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = UIAlertView_Blocks;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		B202B660B8AD3E3C646E7535DF60D7CC /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 011D25A042173589A2A0A72FD12F2DFC /* SVProgressHUD.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SVProgressHUD;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = QA;
-		};
-		B3E8F2B53770C381628C7404DE5B3F60 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0CCCF17AC02D99C743696633E884048 /* TTTAttributedLabel.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TTTAttributedLabel/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TTTAttributedLabel/TTTAttributedLabel.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = TTTAttributedLabel;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		B412817B687A5963DAA9EC070737FF10 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C2E8B65D543B9C8AE7EFBC2DA5095D4 /* Pods-samplechat.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-samplechat/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-samplechat/Pods-samplechat.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_samplechat;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		B4E0BF68175D39BEC4751850BAA5D613 /* Release */ = {
+		9DFD712102ADA526FD98B3A719744B42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E7AE4121E079F0796DE4114AAA6ABF8C /* Bolts.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
@@ -3929,11 +3840,154 @@
 			};
 			name = Release;
 		};
-		BFCCD61DDA93C533347393CD21E4CDFC /* Debug */ = {
+		B8AF278A2C8B8A43B0AD37163E3129C6 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/QMCVDevelopment/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/QMCVDevelopment/QMCVDevelopment.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = QMCVDevelopment;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = QA;
+		};
+		BA92BC30F99F75FEB4C6E52D30D6DC69 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D319A3E401C4B70EECC902477BA1EA93 /* MPGNotification.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/MPGNotification/MPGNotification-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MPGNotification/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/MPGNotification/MPGNotification.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = MPGNotification;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = QA;
+		};
+		C587B0773EB8458D807E26B95A4458E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D4F442DF5462D76E2157876D42D1044 /* SearchEmojiOnString.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SearchEmojiOnString/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SearchEmojiOnString;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CD1D857F0CEC46E7F232223E1C46D736 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/QMServicesDevelopment";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/QMServicesDevelopment/ResourceBundle-QMChatCacheModel-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = QMChatCacheModel;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		CED6E0F1B21E993EC5313F2B5DD41E97 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 011D25A042173589A2A0A72FD12F2DFC /* SVProgressHUD.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SVProgressHUD;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = QA;
+		};
+		CFD3ACD78BE8763FA7A3F61ED9F3C129 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 998A87009E5000144096BA4C95387C25 /* Pods-samplechat.debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -3962,65 +4016,13 @@
 			};
 			name = Debug;
 		};
-		CC6CFFE69B25C4B7E033A14EF1D46C60 /* QA */ = {
+		DB85D93F55FC14314655CFD5FEB43423 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D319A3E401C4B70EECC902477BA1EA93 /* MPGNotification.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_QA=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				STRIP_INSTALLED_PRODUCT = NO;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = QA;
-		};
-		CD1D857F0CEC46E7F232223E1C46D736 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/QMServicesDevelopment";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/QMServicesDevelopment/ResourceBundle-QMChatCacheModel-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = QMChatCacheModel;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		D27063C7DC97CB8599D2D2C21616B319 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -4029,14 +4031,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/QMCVDevelopment/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/MPGNotification/MPGNotification-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/MPGNotification/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/QMCVDevelopment/QMCVDevelopment.modulemap";
+				MODULEMAP_FILE = "Target Support Files/MPGNotification/MPGNotification.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = QMCVDevelopment;
+				PRODUCT_NAME = MPGNotification;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4062,6 +4064,37 @@
 			};
 			name = Release;
 		};
+		E73C5127D1D5793BF4F89C7A8FE33EAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D4F442DF5462D76E2157876D42D1044 /* SearchEmojiOnString.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SearchEmojiOnString/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SearchEmojiOnString/SearchEmojiOnString.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = SearchEmojiOnString;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		E9094F82BBE5EA8EBB7514B8C4344BEC /* QA */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
@@ -4081,34 +4114,36 @@
 			};
 			name = QA;
 		};
-		F0BAE092A8C0BDC1EEB21C52CAEC66F1 /* Debug */ = {
+		F1158049B7DEB69AC26C5A3ED92D0C03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7040AD25E391D9AE101188E2F6B46CA6 /* SDWebImage.xcconfig */;
+			baseConfigurationReference = 7AD4067A962FE4E4AC76629071BD04BB /* QMServicesDevelopment.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SDWebImage/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/QMServicesDevelopment/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SDWebImage/SDWebImage.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SDWebImage;
+				MODULEMAP_FILE = "Target Support Files/QMServicesDevelopment/QMServicesDevelopment.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = QMServicesDevelopment;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		F3D966898F8E0FAB619AF79D4B171ECE /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -4127,15 +4162,46 @@
 			};
 			name = Release;
 		};
+		FCE811DE3B24B9B427C2E9777DDE1C40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F4E4DACF012E9C5082CAF89E1109566 /* QMCVDevelopment.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/QMCVDevelopment/QMCVDevelopment-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/QMCVDevelopment/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/QMCVDevelopment/QMCVDevelopment.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = QMCVDevelopment;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		161E426BE0E7338143725B72ECA9CBA0 /* Build configuration list for PBXNativeTarget "SearchEmojiOnString" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				10E7D42FB3E2A50023F1EDB5170F57B5 /* Debug */,
-				6D35B3D3E1305B6EC6C52F7F513A8C02 /* QA */,
-				A83C8728974BF7848941F00034BC2DDB /* Release */,
+				E73C5127D1D5793BF4F89C7A8FE33EAB /* Debug */,
+				7B8AC302144A7C10816FEA5A2E82FA90 /* QA */,
+				C587B0773EB8458D807E26B95A4458E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4143,9 +4209,9 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				47BEF9D903506B003EA5C2B249729489 /* Debug */,
-				CC6CFFE69B25C4B7E033A14EF1D46C60 /* QA */,
-				AAF678CED40D3499169D10F63CA0719E /* Release */,
+				015A368F878AC3E2CEAE21DDE8026304 /* Debug */,
+				2C58E0B875EBA212B431591B0C6123F7 /* QA */,
+				44CDBB6D11DE06DB64D6268622BDC47E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4153,9 +4219,9 @@
 		2F2627B28991112EA6562961932ACD8B /* Build configuration list for PBXNativeTarget "MPGNotification" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				33F7C101D3F3BF8B6314E7DEC63A3A77 /* Debug */,
-				A256700A981DFF7B58BF8AC47671C2E8 /* QA */,
-				61E5DE026ED7D93DC2877CF921A87447 /* Release */,
+				DB85D93F55FC14314655CFD5FEB43423 /* Debug */,
+				BA92BC30F99F75FEB4C6E52D30D6DC69 /* QA */,
+				2F1CF62342484D656FC75F6BEE4971A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4183,9 +4249,9 @@
 		4A02D676595D784BF401B2E9CC3F3E71 /* Build configuration list for PBXNativeTarget "QMServicesDevelopment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				15B2428ED320494D57C195B23296FB1C /* Debug */,
-				7E487451A9A0B733C62C8CBE92A3FC04 /* QA */,
-				667B7653688967FB48F3A8714BD404C1 /* Release */,
+				7EEF0A3AE0CB5A9C4A3DD44A2D353BBA /* Debug */,
+				8E7A4E467857D7D82F59C85470D980A4 /* QA */,
+				F1158049B7DEB69AC26C5A3ED92D0C03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4203,9 +4269,9 @@
 		632E37C94F531D090B7DE0C171B6C5FF /* Build configuration list for PBXNativeTarget "TTTAttributedLabel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7684AE8CE4F753D71B0B20D8AAEA88F0 /* Debug */,
-				3A6798CCAB0043D027339655B54ABF09 /* QA */,
-				B3E8F2B53770C381628C7404DE5B3F60 /* Release */,
+				2E8E2B20B849353BFEFCC554FFF4A02A /* Debug */,
+				719F3A8FA0DAD18A51CB77E351BE7222 /* QA */,
+				132CB22F4845FCA9E24630B4C3205632 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4213,9 +4279,9 @@
 		799D888336A2BC2F680F16B8C5D5CEFF /* Build configuration list for PBXNativeTarget "SDWebImage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F0BAE092A8C0BDC1EEB21C52CAEC66F1 /* Debug */,
-				0B571858E8E19008ACEFC24F8083AC7A /* QA */,
-				450793AB46368AABE2F8AA45E5C7146A /* Release */,
+				3BE82F78226C730F1FF0C92D87FF979F /* Debug */,
+				0C77412A95F8D36B0898136BAFD9DD84 /* QA */,
+				6F982CC3D83C4FDC8630B6FA64970D37 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4223,9 +4289,9 @@
 		98457EDEF5E7BB4AB5BAD692CCE4F9D4 /* Build configuration list for PBXNativeTarget "Pods-samplechat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BFCCD61DDA93C533347393CD21E4CDFC /* Debug */,
-				679475C34A7598F626F7769525C234DE /* QA */,
-				B412817B687A5963DAA9EC070737FF10 /* Release */,
+				CFD3ACD78BE8763FA7A3F61ED9F3C129 /* Debug */,
+				34A7EF252623B7892B5B0A8F40D24B2E /* QA */,
+				11F5BDEAEFFC178F38A64D936E594E46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4233,9 +4299,9 @@
 		9A6F78340ECEB39DB148866554E9239A /* Build configuration list for PBXNativeTarget "Bolts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				545711B724E5CF184BEF73F205C3F2E8 /* Debug */,
-				02A54476F273C6537DB0EA7003C11C62 /* QA */,
-				B4E0BF68175D39BEC4751850BAA5D613 /* Release */,
+				58B139385BFAF1F0CF60DBC26C0C61F1 /* Debug */,
+				29615E4C8E93833900220684D9244E14 /* QA */,
+				9DFD712102ADA526FD98B3A719744B42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4253,9 +4319,9 @@
 		D6F8D7F2477BC9E85675710F55A790D6 /* Build configuration list for PBXNativeTarget "QMCVDevelopment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D27063C7DC97CB8599D2D2C21616B319 /* Debug */,
-				87AB42AB04C2FFE5F5FF4567011C006A /* QA */,
-				71DFA1C12850B215C778322131983E4F /* Release */,
+				FCE811DE3B24B9B427C2E9777DDE1C40 /* Debug */,
+				B8AF278A2C8B8A43B0AD37163E3129C6 /* QA */,
+				17324DE4666C151AC0BBA17F895A8709 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4263,9 +4329,9 @@
 		D8ED00573BF2B60CAA185818FE5BE546 /* Build configuration list for PBXNativeTarget "SVProgressHUD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				962DE9F2B7529B4A6DD13AAB8ADF5F8E /* Debug */,
-				B202B660B8AD3E3C646E7535DF60D7CC /* QA */,
-				13E372BFAC3A3B064E19FB8E5D3B3BF2 /* Release */,
+				09082EF16737C8655F706799B96B5107 /* Debug */,
+				CED6E0F1B21E993EC5313F2B5DD41E97 /* QA */,
+				2287A6B21105A5B4075726ADDEFEC152 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4273,9 +4339,9 @@
 		FD76BB98A38CB9F6F1C5E385179ABB11 /* Build configuration list for PBXNativeTarget "UIAlertView+Blocks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				9E3A9044C1B9A659C622398CF3CE98F3 /* Debug */,
-				A0CB80C11855B8124FA94B9DD672AE87 /* QA */,
-				AD76237D2A47119FCC44DDAF2DF8354C /* Release */,
+				1325209E99AA65C98E9A80C58C61C156 /* Debug */,
+				0D11ACFD55A4862F70DD8321C562B3F9 /* QA */,
+				060818CB7F049C384E3B16199558CB32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

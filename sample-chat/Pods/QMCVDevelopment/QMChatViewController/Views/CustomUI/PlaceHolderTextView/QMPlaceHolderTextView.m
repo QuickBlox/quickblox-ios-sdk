@@ -141,10 +141,6 @@ NSString *const QMPlaceholderDidChangeHeight = @"com.quickblox.qmunicate.QMPlace
     // update the height constraint
     
     self.heightConstraint.constant = newHeight;
-    
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:QMPlaceholderDidChangeHeight
-     object:nil];
 }
 
 #pragma mark - Composer text view

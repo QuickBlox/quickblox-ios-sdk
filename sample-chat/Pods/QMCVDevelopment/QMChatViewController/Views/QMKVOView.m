@@ -1,6 +1,6 @@
 //
 //  QMKVOView.m
-//  Pods
+//  
 //
 //  Created by Vitaliy Gurkovsky on 10/12/16.
 //
@@ -15,10 +15,13 @@ static void * kQMFrameKeyValueObservingContext = &kQMFrameKeyValueObservingConte
 @end
 
 @implementation QMKVOView
-
+#pragma mark - Life cycle
+- (void)dealloc {
+    //ILog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+}
 #pragma mark - Actions
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
-    
     
     if (self.isObserverAdded) {
         
@@ -51,9 +54,8 @@ static void * kQMFrameKeyValueObservingContext = &kQMFrameKeyValueObservingConte
     
     [super layoutSubviews];
     
-    if (self.frameChangedBlock) {
-        CGRect frame = self.superview.frame;
-        self.frameChangedBlock(frame);
+    if (self.superFrameDidChangeBlock) {
+        self.superFrameDidChangeBlock(self.superview.frame);
     }
 }
 
@@ -62,12 +64,10 @@ static void * kQMFrameKeyValueObservingContext = &kQMFrameKeyValueObservingConte
     if (object == self.superview && ([keyPath isEqualToString:@"frame"] ||
                                      [keyPath isEqualToString:@"center"])) {
         
-        if  (self.frameChangedBlock) {
-            CGRect frame = self.superview.frame;
-            self.frameChangedBlock(frame);
+        if  (self.superFrameDidChangeBlock) {
+            self.superFrameDidChangeBlock(self.superview.frame);
         }
     }
-    
 }
 
 @end
