@@ -298,7 +298,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		sli2mVXt/Htreaq3DiZSbPLZRPc=
+		y3tREzfv/QJvBK9X7JJYFRJJIT8=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -1140,11 +1140,6 @@
 			<key>weight</key>
 			<real>1100</real>
 		</dict>
-		<key>^Base\.lproj/</key>
-		<dict>
-			<key>weight</key>
-			<real>1010</real>
-		</dict>
 		<key>^version.plist$</key>
 		<true/>
 	</dict>
@@ -1189,11 +1184,6 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
-		</dict>
-		<key>^Base\.lproj/</key>
-		<dict>
-			<key>weight</key>
-			<real>1010</real>
 		</dict>
 		<key>^Info\.plist$</key>
 		<dict>
