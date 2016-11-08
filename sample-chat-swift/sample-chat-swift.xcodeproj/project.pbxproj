@@ -596,7 +596,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_swift_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Wdeprecated-implementations",
@@ -645,7 +645,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_swift_AdHoc;
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -721,7 +721,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = test_samplechat_swift_AdHoc;
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/quickblox-bridging-Header.h";
 				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = QA;
 		};
