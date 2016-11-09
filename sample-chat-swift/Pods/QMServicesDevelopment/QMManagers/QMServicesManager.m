@@ -109,15 +109,6 @@
             dispatch_group_leave(strongSelf.logoutGroup);
         }];
         
-        dispatch_group_enter(self.logoutGroup);
-        [[[QMUsersCache instance] deleteAllUsers] continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
-            
-            __typeof(self) strongSelf = weakSelf;
-            dispatch_group_leave(strongSelf.logoutGroup);
-            
-            return nil;
-        }];
-        
         dispatch_group_notify(self.logoutGroup, dispatch_get_main_queue(), ^{
             
             if (completion) {

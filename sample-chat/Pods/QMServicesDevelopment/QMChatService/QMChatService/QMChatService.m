@@ -1046,7 +1046,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
                      }
                  }
                  
-                 BOOL cancel;
+                 BOOL cancel = NO;
                  NSUInteger numberOfMessages = messages.count;
                  page.skip += numberOfMessages;
                  

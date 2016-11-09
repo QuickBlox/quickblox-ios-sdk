@@ -22,21 +22,6 @@
 #import <Photos/Photos.h>
 #import "QMKVOView.h"
 
-#define QM_CHAT_DEBUG_ENABLED 0
-
-#if  QM_CHAT_DEBUG_ENABLED == 1
-#define QM_CHAT_SCROLL_LOGS 1
-#define QM_CHAT_PAN_LOGS_ALL 1
-#define QM_CHAT_PAN_LOGS_STATE_CHANGED 1
-
-#else
-
-#define QM_CHAT_SCROLL_LOGS 0
-#define QM_CHAT_PAN_LOGS_ALL 0
-#define QM_CHAT_PAN_LOGS_STATE_CHANGED 0
-
-#endif
-
 static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 
 const NSUInteger kQMSystemInputToolbarDebugHeight = 0;
@@ -62,7 +47,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 //Keyboard observing
 @property (strong, nonatomic) QMKVOView *systemInputToolbar;
 @property (assign, nonatomic) CGFloat keyboardDismissAnimationDuration;
-@property (assign, nonatomic, getter=isTransitioning) BOOL transitioning;
 @property (nonatomic, assign, getter=isMovingKeyboard) BOOL movingKeyboard;
 
 @end
@@ -614,17 +598,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     
     if (!self.isMovingKeyboard || [self scrollIsAtTop]) {
         self.lastContentOffset = scrollView.contentOffset.y;
-    }
-    
-    if (QM_CHAT_SCROLL_LOGS) {
-        
-        BOOL scrollIsAtTop = [self scrollIsAtTop];
-        
-        NSLog(@"_____________QM_CHAT_SCROLL_LOGS___________________");
-        NSLog(@"isMovingKeyboard = %d" ,self.isMovingKeyboard);
-        NSLog(@"lastContentOffset = %f",self.lastContentOffset);
-        NSLog(@"scrollIsAtTop = %d",scrollIsAtTop);
-        NSLog(@"___________________________________________________");
     }
 }
 
@@ -1179,27 +1152,24 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     
-    self.transitioning = YES;
-    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
         [self.view layoutIfNeeded];
         [self resetLayoutAndCaches];
-        self.transitioning = NO;
     }];
     
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    
     [super traitCollectionDidChange:previousTraitCollection];
     [self resetLayoutAndCaches];
 }
 
-- (void)resetLayoutAndCaches
-{
+- (void)resetLayoutAndCaches {
+    
     QMCollectionViewFlowLayoutInvalidationContext *context = [QMCollectionViewFlowLayoutInvalidationContext context];
     context.invalidateFlowLayoutMessagesCache = YES;
     [self.collectionView.collectionViewLayout invalidateLayoutWithContext:context];
@@ -1225,15 +1195,18 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 
 - (CGRect)scrollVisibleRect {
     
-    CGRect visibleRect;
+    CGRect visibleRect = CGRectZero;
     visibleRect.origin = self.collectionView.contentOffset;
     visibleRect.size = self.collectionView.frame.size;
     return visibleRect;
 }
-
+    
 - (CGRect)scrollTopRect {
     
-    return CGRectMake(0.0, self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds), CGRectGetWidth(self.collectionView.bounds), CGRectGetHeight(self.collectionView.bounds));
+    return CGRectMake(0.0,
+                      self.collectionView.contentSize.height - CGRectGetHeight(self.collectionView.bounds),
+                      CGRectGetWidth(self.collectionView.bounds),
+                      CGRectGetHeight(self.collectionView.bounds));
 }
 
 #pragma mark - Notification Handlers
@@ -1265,8 +1238,8 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     });
 }
 
-- (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)gesture
-{
+- (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)gesture {
+    
     if (self.systemInputToolbar.superview == nil) {
         return;
     }
@@ -1275,32 +1248,15 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     CGRect hostViewRect = [self.view.window convertRect:self.systemInputToolbar.superview.frame toView:nil];
     CGFloat toolbarMinY = CGRectGetMinY(hostViewRect) - CGRectGetHeight(self.inputToolbar.frame);
     
-    if (QM_CHAT_PAN_LOGS_ALL == 1) {
-
-        NSLog(@"_____________QM_CHAT_PAN_LOGS_ALL_________________");
-        NSLog(@"panPoint.y = %f", panPoint.y);
-        NSLog(@"toolbarMinY = %f", toolbarMinY);
-        NSLog(@"__________________________________________________");
-    }
-    
     switch (gesture.state) {
-            
+        
         case UIGestureRecognizerStateChanged: {
             
             if ([self.inputToolbar.contentView.textView isFirstResponder]) {
                 
                 self.movingKeyboard = panPoint.y > toolbarMinY;
                 
-                if (QM_CHAT_PAN_LOGS_STATE_CHANGED == 1) {
-                    
-                    NSLog(@"__________QM_CHAT_PAN_LOGS_STATE_CHANGED__________");
-                    NSLog(@"panPoint.y = %f", panPoint.y);
-                    NSLog(@"toolbarMinY = %f", toolbarMinY);
-                    NSLog(@"__________________________________________________");
-                }
-                
                 if (self.isMovingKeyboard && ![self scrollIsAtTop]) {
-                    
                     [self.view layoutIfNeeded];
                     self.collectionView.contentOffset = CGPointMake(self.collectionView.contentOffset.x, self.lastContentOffset);
                 }
@@ -1318,15 +1274,19 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     }
 }
 
-- (void)didTapOnCollectionView:(UIGestureRecognizer *)gesture {
-    
-    [self hideKeyboard:YES];
-}
-
 - (void)hideKeyboard:(BOOL)animated {
-
-    if (self.inputToolbar.contentView.textView.isFirstResponder) {
-        [self.inputToolbar.contentView resignFirstResponder];
+    
+    dispatch_block_t hideKeyboardBlock = ^{
+        if (self.inputToolbar.contentView.textView.isFirstResponder) {
+            [self.inputToolbar.contentView resignFirstResponder];
+        }
+    };
+    
+    if (!animated) {
+        [UIView performWithoutAnimation:hideKeyboardBlock];
+    }
+    else {
+        hideKeyboardBlock();
     }
 }
 

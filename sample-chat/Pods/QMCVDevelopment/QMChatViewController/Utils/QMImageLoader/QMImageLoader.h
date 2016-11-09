@@ -46,7 +46,7 @@ typedef UIImage *(^QMImageLoaderTransformBlock)(UIImage *image, CGRect frame);
  *  @param key          image key
  *  @param completion   completion block with cached image (if existent) and cache type
  */
-+ (void)cachedImageForKey:(NSString *)key completion:(void(^)(UIImage *image, SDImageCacheType cacheType))completion;
++ (void)cachedImageForKey:(NSString *)key completion:(SDWebImageQueryCompletedBlock)completion;
 
 /**
  *  Store image in memory and disk cache for a specific key.
