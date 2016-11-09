@@ -5,44 +5,45 @@ PODS:
   - Bolts/AppLinks (1.5.1):
     - Bolts/Tasks
   - Bolts/Tasks (1.5.1)
-  - Crashlytics (3.7.3):
+  - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
-  - Fabric (1.6.8)
-  - QMCVDevelopment (0.3.10):
-    - QMCVDevelopment/Categories (= 0.3.10)
-    - QMCVDevelopment/KeyboardViewController (= 0.3.10)
-    - QMCVDevelopment/Protocols (= 0.3.10)
-    - QMCVDevelopment/QMChatSection (= 0.3.10)
-    - QMCVDevelopment/Utils (= 0.3.10)
-    - QMCVDevelopment/Views (= 0.3.10)
+  - Fabric (1.6.11)
+  - MPGNotification (1.2.4)
+  - QMCVDevelopment (0.4):
+    - QMCVDevelopment/Categories (= 0.4)
+    - QMCVDevelopment/Protocols (= 0.4)
+    - QMCVDevelopment/QMChatDataSource (= 0.4)
+    - QMCVDevelopment/QMChatSection (= 0.4)
+    - QMCVDevelopment/Utils (= 0.4)
+    - QMCVDevelopment/Views (= 0.4)
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
-  - QMCVDevelopment/Categories (0.3.10):
+  - QMCVDevelopment/Categories (0.4):
     - QMCVDevelopment/Utils
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
-  - QMCVDevelopment/KeyboardViewController (0.3.10):
+  - QMCVDevelopment/Protocols (0.4):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
-  - QMCVDevelopment/Protocols (0.3.10):
+  - QMCVDevelopment/QMChatDataSource (0.4):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
-  - QMCVDevelopment/QMChatSection (0.3.10):
+  - QMCVDevelopment/QMChatSection (0.4):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
-  - QMCVDevelopment/Utils (0.3.10):
+  - QMCVDevelopment/Utils (0.4):
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
-  - QMCVDevelopment/Views (0.3.10):
+  - QMCVDevelopment/Views (0.4):
     - QMCVDevelopment/Categories
     - QMCVDevelopment/Protocols
     - SDWebImage (~> 3.6)
     - TTTAttributedLabel (> 1.13)
-  - QMServicesDevelopment (0.4.4):
+  - QMServicesDevelopment (0.4.5):
     - Bolts (>= 1.5.0)
-  - SDWebImage (3.8.1):
-    - SDWebImage/Core (= 3.8.1)
-  - SDWebImage/Core (3.8.1)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SearchEmojiOnString (1.1.0)
   - SVProgressHUD (1.1.3)
   - TTTAttributedLabel (2.0.0)
@@ -52,40 +53,42 @@ DEPENDENCIES:
   - Bolts (~> 1.5.0)
   - Crashlytics
   - Fabric
-  - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, commit `26312c3c486c4c7bfbf2f50bbc46d7ca40b1086e`)
-  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, commit `4fc17078e26f9f3c65ebc2e1ac995b0986937cbc`)
+  - MPGNotification
+  - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, commit `e74d174a2a8fe3a411c23747216a43c86384562f`)
+  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, commit `2c038f614c1816a67d3ec4598fabab79259b0777`)
   - SearchEmojiOnString
   - SVProgressHUD (~> 1.1.3)
   - UIAlertView+Blocks
 
 EXTERNAL SOURCES:
   QMCVDevelopment:
-    :commit: 26312c3c486c4c7bfbf2f50bbc46d7ca40b1086e
+    :commit: e74d174a2a8fe3a411c23747216a43c86384562f
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 4fc17078e26f9f3c65ebc2e1ac995b0986937cbc
+    :commit: 2c038f614c1816a67d3ec4598fabab79259b0777
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
-    :commit: 26312c3c486c4c7bfbf2f50bbc46d7ca40b1086e
+    :commit: e74d174a2a8fe3a411c23747216a43c86384562f
     :git: git@github.com:QuickBlox/QMChatViewController-ios.git
   QMServicesDevelopment:
-    :commit: 4fc17078e26f9f3c65ebc2e1ac995b0986937cbc
+    :commit: 2c038f614c1816a67d3ec4598fabab79259b0777
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
 
 SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
-  Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
-  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
-  QMCVDevelopment: 0d6e3a074ccd0c3afe1e4ef4b6565af83bd04d00
-  QMServicesDevelopment: 1eeb4f9aa76b64674f4d47e863f0a23b5bc9f680
-  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  MPGNotification: f0e3924087afa9b3eccd5ce624e03965ae31ae61
+  QMCVDevelopment: 212a2a5db8fc22a992daab126289e6a58baf1f75
+  QMServicesDevelopment: 8cb68aafe07046e9d36f74fd04b5e5aa1642b182
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIAlertView+Blocks: a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-PODFILE CHECKSUM: 033d8edd79d379d9352f30e95bc5ff57a289e64d
+PODFILE CHECKSUM: 8beabc978aac97305ba54bf51c81b189b89d9ca9
 
 COCOAPODS: 1.0.1

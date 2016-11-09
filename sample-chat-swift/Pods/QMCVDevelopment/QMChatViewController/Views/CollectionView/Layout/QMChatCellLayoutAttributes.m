@@ -54,7 +54,7 @@
     _avatarSize = [self correctedSizeFromSize:avatarSize];
 }
 
-#pragma  mark - Utilites
+#pragma  mark - Utilities
 
 - (CGSize)correctedSizeFromSize:(CGSize)size {
     

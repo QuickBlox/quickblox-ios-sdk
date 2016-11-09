@@ -12,6 +12,8 @@
 @class QMChatService;
 @class QMChatAttachmentService;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol QMChatAttachmentServiceDelegate <NSObject>
 
 /**
@@ -22,7 +24,7 @@
  *  @param status new status
  *  @param message new status owner QBChatMessage
  */
-- (void)chatAttachmentService:(QB_NONNULL QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message;
 
 /**
  *  Is called when chat attachment service did change loading progress for some attachment.
@@ -32,7 +34,7 @@
  *  @param progress changed value of progress min 0.0, max 1.0
  *  @param attachment loaded QBChatAttachment
  */
-- (void)chatAttachmentService:(QB_NONNULL QMChatAttachmentService *)chatAttachmentService didChangeLoadingProgress:(CGFloat)progress forChatAttachment:(QB_NONNULL QBChatAttachment *)attachment;
+- (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeLoadingProgress:(CGFloat)progress forChatAttachment:(QBChatAttachment *)attachment;
 
 /**
  *  Is called when chat attachment service did change Uploading progress for attachment in message.
@@ -42,7 +44,7 @@
  *  @param progress              changed value of progress min 0.0, max 1.0
  *  @param messageID             ID of message that contains attachment
  */
-- (void)chatAttachmentService:(QB_NONNULL QMChatAttachmentService *)chatAttachmentService didChangeUploadingProgress:(CGFloat)progress forMessage:(QB_NONNULL QBChatMessage *)message;
+- (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeUploadingProgress:(CGFloat)progress forMessage:(QBChatMessage *)message;
 
 @end
 
@@ -54,7 +56,7 @@
 /**
  *  Chat attachment service delegate
  */
-@property (nonatomic, weak, QB_NULLABLE) id<QMChatAttachmentServiceDelegate> delegate;
+@property (nonatomic, weak, nullable) id<QMChatAttachmentServiceDelegate> delegate;
 
 /**
  *  Upload and send attachment message to dialog.
@@ -65,7 +67,7 @@
  *  @param image        Attachment image
  *  @param completion   Send message result
  */
-- (void)uploadAndSendAttachmentMessage:(QB_NONNULL QBChatMessage *)message toDialog:(QB_NONNULL QBChatDialog *)dialog withChatService:(QB_NONNULL QMChatService *)chatService withAttachedImage:(QB_NONNULL UIImage *)image completion:(QB_NULLABLE QBChatCompletionBlock)completion;
+- (void)uploadAndSendAttachmentMessage:(QBChatMessage *)message toDialog:(QBChatDialog *)dialog withChatService:(QMChatService *)chatService withAttachedImage:(UIImage *)image completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  *  Get image by attachment message.
@@ -75,7 +77,7 @@
  *
  *  @warning *Deprecated in QMServices 0.4.4:* Use 'imageForAttachmentMessage:completion:' instead.
  */
-- (void)getImageForAttachmentMessage:(QB_NONNULL QBChatMessage *)attachmentMessage completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.4. Use 'imageForAttachmentMessage:completion:' instead.");
+- (void)getImageForAttachmentMessage:(QBChatMessage *)attachmentMessage completion:(nullable void(^)(NSError * _Nullable error, UIImage * _Nullable image))completion DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.4. Use 'imageForAttachmentMessage:completion:' instead.");
 
 
 /**
@@ -84,7 +86,7 @@
  *  @param attachmentMessage message with attachment
  *  @param completion        fetched image or error if failed
  */
-- (void)imageForAttachmentMessage:(QB_NONNULL QBChatMessage *)attachmentMessage completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion;
+- (void)imageForAttachmentMessage:(QBChatMessage *)attachmentMessage completion:(nullable void(^)(NSError * _Nullable error, UIImage * _Nullable image))completion;
 
 /**
  *  Get image local image by attachment message.
@@ -92,7 +94,8 @@
  *  @param attachmentMessage      message with attachment
  *  @param completion             local image or nil if no image
  */
-- (void)localImageForAttachmentMessage:(QB_NONNULL QBChatMessage *)attachmentMessage completion:(void(^QB_NULLABLE_S)(NSError *QB_NULLABLE_S error, UIImage *QB_NULLABLE_S image))completion;
-
+- (void)localImageForAttachmentMessage:(QBChatMessage *)attachmentMessage completion:(nullable void(^)(NSError * _Nullable error, UIImage * _Nullable image))completion;
 
 @end
+
+NS_ASSUME_NONNULL_END

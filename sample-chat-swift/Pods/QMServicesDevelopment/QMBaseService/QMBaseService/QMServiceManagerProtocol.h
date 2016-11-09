@@ -13,6 +13,8 @@
  *  Main QMServices protocol.
  */
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol QMServiceManagerProtocol <NSObject>
 @required
 
@@ -21,7 +23,7 @@
  *
  *  @return QBUUser instance
  */
-- (QB_NULLABLE QBUUser *)currentUser;
+- (nullable QBUUser *)currentUser;
 
 /**
  *  Check is current session is authorized
@@ -35,6 +37,8 @@
  *  
  *  @param QBResponse instance. See response.error for falling inforamtion.
  */
-- (void)handleErrorResponse:(QB_NONNULL QBResponse *)response;
+- (void)handleErrorResponse:(QBResponse *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END

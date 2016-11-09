@@ -14,7 +14,7 @@
 "SA_STR_SENDING" = "Sending";
 "SA_STR_COMPLETED" = "Completed";
 "SA_STR_DELETE" = "Leave";
-"SA_STR_DELETED" = "Leaved";
+"SA_STR_DELETED" = "Left";
 "SA_STR_DELETING" = "Leaving...";
 "SA_STR_WARNING" = "Warning";
 "SA_STR_BLOCK" = "Block";
@@ -61,7 +61,11 @@
 "SA_STR_READ_STATUS" = "Read";
 "SA_STR_DELIVERED_STATUS" = "Delivered";
 "SA_STR_SEEN_STATUS" = "Seen";
+
 "SA_STR_SENT_STATUS" = "Sent";
+"SA_STR_NOT_SENT_STATUS" = "Didn't send";
+"SA_STR_SENDING_STATUS" = "Sending";
+
 "SA_STR_UNKNOWN_USER" = "Unknown";
 
 // TableViewCell identifiers
@@ -85,9 +89,10 @@
 "SA_STR_DO_YOU_REALLY_WANT_TO_DELETE_SELECTED_DIALOG" = "Do you really want to leave selected dialog?";
 "SA_STR_UNBLOCK_USER_P2P_CHAT" = "Unblock user in 1-1 chat";
 "SA_STR_BLOCK_USER_P2P_CHAT" = "Block user in 1-1 chat";
-
 "SA_STR_UNBLOCK_USER_GROUP_CHATS" = "Unblock user in all group chats";
 "SA_STR_BLOCK_USER_GROUP_CHATS" = "Block user in all group chats";
+"SA_STR_TRY_AGAIN_MESSAGE" = "Try again";
+"SA_STR_DELETE_MESSAGE" = "Delete";
 
 // Errors
 "SA_STR_ERROR" = "Error";

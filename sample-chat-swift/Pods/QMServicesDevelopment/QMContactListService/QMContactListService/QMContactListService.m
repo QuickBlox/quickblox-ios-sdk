@@ -76,7 +76,6 @@ static inline BOOL isContactListEmpty(QBContactList *contactList) {
         
         __typeof(weakSelf)strongSelf = weakSelf;
         if ([strongSelf.multicastDelegate respondsToSelector:@selector(contactListServiceDidLoadCache)]) {
-            
             [strongSelf.multicastDelegate contactListServiceDidLoadCache];
         }
     });
@@ -155,7 +154,6 @@ static inline BOOL isContactListEmpty(QBContactList *contactList) {
     [[QBChat instance] removeUserFromContactList:userID completion:^(NSError *error) {
         
         if (completion) {
-            
             completion(error == nil);
         }
     }];
@@ -166,7 +164,6 @@ static inline BOOL isContactListEmpty(QBContactList *contactList) {
     [[QBChat instance] confirmAddContactRequest:userID completion:^(NSError *error) {
         
         if (completion) {
-            
             completion(error == nil);
         }
     }];
@@ -177,7 +174,6 @@ static inline BOOL isContactListEmpty(QBContactList *contactList) {
     [[QBChat instance] rejectAddContactRequest:userID completion:^(NSError *error) {
         
         if (completion) {
-            
             completion(error == nil);
         }
     }];

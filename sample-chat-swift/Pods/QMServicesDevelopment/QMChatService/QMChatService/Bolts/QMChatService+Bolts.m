@@ -11,6 +11,7 @@
 #import "QMSLog.h"
 
 #define kQMLoadedAllMessages @1
+
 static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 @interface QMChatService()
@@ -28,7 +29,7 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (BFTask *)connect {
     
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
     
     if ([QBChat instance].isConnected) {
         [source setResult:nil];
@@ -261,9 +262,66 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID {
     
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
     
     [self messagesWithChatDialogID:chatDialogID completion:^(QBResponse *response, NSArray *messages) {
+        
+        if (response.success) {
+            
+            [source setResult:messages];
+        }
+        else {
+            
+            [source setError:response.error.error];
+        }
+    }];
+    
+    return source.task;
+}
+
+- (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID extendedRequest:(NSDictionary *)extendedParameters {
+    
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self messagesWithChatDialogID:chatDialogID extendedRequest:extendedParameters completion:^(QBResponse *response, NSArray *messages) {
+        
+        if (response.success) {
+            
+            [source setResult:messages];
+        }
+        else {
+            
+            [source setError:response.error.error];
+        }
+    }];
+    
+    return source.task;
+}
+
+- (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID iterationBlock:(void (^)(QBResponse *response, NSArray *messages, BOOL *stop))iterationBlock {
+    
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self messagesWithChatDialogID:chatDialogID iterationBlock:iterationBlock completion:^(QBResponse *response, NSArray *messages) {
+        
+        if (response.success) {
+            
+            [source setResult:messages];
+        }
+        else {
+            
+            [source setError:response.error.error];
+        }
+    }];
+    
+    return source.task;
+}
+
+- (BFTask *)messagesWithChatDialogID:(NSString *)chatDialogID extendedRequest:(NSDictionary *)extendedParameters iterationBlock:(void (^)(QBResponse *response, NSArray *messages, BOOL *stop))iterationBlock {
+    
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self messagesWithChatDialogID:chatDialogID extendedRequest:extendedParameters iterationBlock:iterationBlock completion:^(QBResponse *response, NSArray *messages) {
         
         if (response.success) {
             
@@ -405,25 +463,6 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 }
 
 #pragma mark - notifications
-
-- (BFTask *)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog toUsersIDs:(NSArray *)usersIDs {
-    
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
-    
-    [self sendSystemMessageAboutAddingToDialog:chatDialog toUsersIDs:usersIDs completion:^(NSError *error) {
-        
-        if (error != nil) {
-            
-            [source setError:error];
-        }
-        else {
-            
-            [source setResult:nil];
-        }
-    }];
-    
-    return source.task;
-}
 
 - (BFTask *)sendSystemMessageAboutAddingToDialog:(QBChatDialog *)chatDialog toUsersIDs:(NSArray *)usersIDs withText:(NSString *)text {
     

@@ -59,6 +59,7 @@ static QMUsersCache *_usersCacheInstance = nil;
 - (BFTask *)insertOrUpdateUsers:(NSArray *)users
 {
     __weak __typeof(self)weakSelf = self;
+    
     return [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
         __typeof(self) strongSelf = weakSelf;
         
@@ -100,7 +101,7 @@ static QMUsersCache *_usersCacheInstance = nil;
             [context QM_saveToPersistentStoreAndWait];
         }
         
-        QMSLog(@"[%@] Users to insert %tu, update %tu", NSStringFromClass([self class]), toInsert.count, toUpdate.count);
+        QMSLog(@"[%@] Users to insert %tu, update %tu", NSStringFromClass([weakSelf class]), toInsert.count, toUpdate.count);
         
         return nil;
     }];
@@ -116,7 +117,7 @@ static QMUsersCache *_usersCacheInstance = nil;
         CDUser *cachedUser = [CDUser QM_findFirstWithPredicate:IS(@"id", @(user.ID)) inContext:context];
         [cachedUser QM_deleteEntityInContext:context];
         
-        [context saveToPersistentStoreAndWait];
+        [context QM_saveToPersistentStoreAndWait];
         
         return nil;
     }];
@@ -131,7 +132,7 @@ static QMUsersCache *_usersCacheInstance = nil;
         
         [CDUser QM_truncateAllInContext:context];
         
-        [context saveToPersistentStoreAndWait];
+        [context QM_saveToPersistentStoreAndWait];
         return nil;
     }];
 }

@@ -37,7 +37,7 @@ QMChatConnectionDelegate
                                                                                      object:nil queue:[NSOperationQueue mainQueue]
                                                                                  usingBlock:^(NSNotification *note) {
                                                                                      if (![[QBChat instance] isConnected]) {
-                                                                                         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_CONNECTING_TO_CHAT", nil) maskType:SVProgressHUDMaskTypeClear];
+                                                                                         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_CONNECTING_TO_CHAT", nil) maskType:SVProgressHUDMaskTypeNone];
                                                                                      }
                                                                                  }];
     
@@ -56,12 +56,6 @@ QMChatConnectionDelegate
 - (IBAction)logoutButtonPressed:(UIButton *)sender
 {
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOGOUTING", nil) maskType:SVProgressHUDMaskTypeClear];
-    
-    if (![[QBChat instance] isConnected]) {
-        
-        [SVProgressHUD showErrorWithStatus:@"You're not connected to the chat."];
-        return;
-    }
     
     dispatch_group_t logoutGroup = dispatch_group_create();
     dispatch_group_enter(logoutGroup);
@@ -143,8 +137,11 @@ QMChatConnectionDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    
     DialogTableViewCell *cell = (DialogTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ChatRoomCellIdentifier"
-                                                                                        forIndexPath:indexPath];
+                                                                                    forIndexPath:indexPath];
+
+    if (indexPath.row + 1 > self.dialogs.count) return cell;
     
     QBChatDialog *chatDialog = self.dialogs[indexPath.row];
     

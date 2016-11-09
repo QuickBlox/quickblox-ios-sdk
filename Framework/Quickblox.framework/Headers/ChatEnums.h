@@ -16,12 +16,7 @@ typedef NS_ENUM(NSUInteger, QBPresenseSubscriptionState) {
     QBPresenceSubscriptionStateBoth = 4, //  both the user and the contact have subscriptions to each other's presence information
 };
 
-typedef NS_ENUM(NSUInteger, QBChatDialogType) {
-    QBChatDialogTypePublicGroup = 1,
-    QBChatDialogTypeGroup = 2,
-    QBChatDialogTypePrivate = 3,
-};
-
+typedef void(^QBUserLastActivityCompletionBlock)(NSUInteger seconds, NSError * QB_NULLABLE_S error);
 typedef void(^QBPingCompleitonBlock)(NSTimeInterval timeInterval, BOOL success);
 typedef void(^QBChatCompletionBlock)(NSError * _Nullable error);
 typedef void(^QBChatDialogRequestOnlineUsersCompletionBlock)(NSMutableArray QB_GENERIC(NSNumber *) * _Nullable onlineUsers, NSError * _Nullable error);

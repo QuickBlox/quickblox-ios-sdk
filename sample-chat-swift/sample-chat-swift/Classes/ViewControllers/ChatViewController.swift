@@ -9,10 +9,10 @@
 import CoreTelephony
 import SafariServices
 
-var messageTimeDateFormatter: NSDateFormatter {
+var messageTimeDateFormatter: DateFormatter {
     struct Static {
-        static let instance : NSDateFormatter = {
-            let formatter = NSDateFormatter()
+        static let instance : DateFormatter = {
+            let formatter = DateFormatter()
             formatter.dateFormat = "HH:mm"
             return formatter
         }()
@@ -25,20 +25,19 @@ extension String {
     var length: Int {
         return (self as NSString).length
     }
-    
 }
 
-class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate {
+class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, QMChatAttachmentServiceDelegate, QMChatConnectionDelegate, QMChatCellDelegate, QMDeferredQueueManagerDelegate, QMPlaceHolderTextViewPasteDelegate {
     
     let maxCharactersNumber = 1024 // 0 - unlimited
     
     
     var dialog: QBChatDialog!
     var willResignActiveBlock: AnyObject?
-    var attachmentCellsMap: NSMapTable!
+    var attachmentCellsMap: NSMapTable<AnyObject, AnyObject>!
     var detailedCells: Set<String> = []
     
-    var typingTimer: NSTimer?
+    var typingTimer: Timer?
     var popoverController: UIPopoverController?
     
     lazy var imagePickerViewController : UIImagePickerController = {
@@ -54,28 +53,28 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         super.viewDidLoad()
         
         // top layout inset for collectionView
-        self.topContentAdditionalInset = self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height;
+        self.topContentAdditionalInset = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
         
         if let currentUser = ServicesManager.instance().currentUser() {
-            self.senderID = currentUser.ID
+            self.senderID = currentUser.id
             self.senderDisplayName = currentUser.login
             
             self.heightForSectionHeader = 40.0
             
             self.updateTitle()
             
-            self.collectionView?.backgroundColor = UIColor.whiteColor()
-            self.inputToolbar?.contentView?.backgroundColor = UIColor.whiteColor()
+            self.collectionView?.backgroundColor = UIColor.white
+            self.inputToolbar?.contentView?.backgroundColor = UIColor.white
             self.inputToolbar?.contentView?.textView?.placeHolder = "SA_STR_MESSAGE_PLACEHOLDER".localized
             
-            self.attachmentCellsMap = NSMapTable(keyOptions: NSPointerFunctionsOptions.StrongMemory, valueOptions: NSPointerFunctionsOptions.WeakMemory)
+            self.attachmentCellsMap = NSMapTable(keyOptions: NSPointerFunctions.Options.strongMemory, valueOptions: NSPointerFunctions.Options.weakMemory)
             
-            if self.dialog.type == QBChatDialogType.Private {
+            if self.dialog.type == QBChatDialogType.private {
                 
                 self.dialog.onUserIsTyping = {
                     [weak self] (userID)-> Void in
                     
-                    if ServicesManager.instance().currentUser()?.ID == userID {
+                    if ServicesManager.instance().currentUser()?.id == userID {
                         return
                     }
                     
@@ -85,7 +84,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 self.dialog.onUserStoppedTyping = {
                     [weak self] (userID)-> Void in
                     
-                    if ServicesManager.instance().currentUser()?.ID == userID {
+                    if ServicesManager.instance().currentUser()?.id == userID {
                         return
                     }
                     
@@ -93,13 +92,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
             }
             
-            ServicesManager.instance().chatService.addDelegate(self)
-            ServicesManager.instance().chatService.chatAttachmentService.delegate = self
-            
             // Retrieving messages
-            if (self.storedMessages()?.count > 0 && self.chatSectionManager.totalMessagesCount == 0) {
+            if (self.storedMessages()?.count ?? 0 > 0 && self.chatDataSource.messagesCount() == 0) {
                 
-                self.chatSectionManager.addMessages(self.storedMessages()!)
+                self.chatDataSource.add(self.storedMessages()!)
             }
             
             self.loadMessages()
@@ -108,33 +104,33 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.willResignActiveBlock = NSNotificationCenter.defaultCenter().addObserverForName(
-            UIApplicationWillResignActiveNotification,
-            object: nil,
-            queue: nil,
-            usingBlock: {
-                [weak self] (notification: NSNotification!) -> Void in
-                
-                self?.fireSendStopTypingIfNecessary()
-            })
+        ServicesManager.instance().chatService.addDelegate(self)
+        ServicesManager.instance().chatService.chatAttachmentService.delegate = self
+        
+        self.queueManager().add(self)
+        
+        self.willResignActiveBlock = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: nil, queue: nil) { [weak self] (notification) in
+            
+            self?.fireSendStopTypingIfNecessary()
+        }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Saving current dialog ID.
-        ServicesManager.instance().currentDialogID = self.dialog.ID!
+        ServicesManager.instance().currentDialogID = self.dialog.id!
         
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         if let willResignActive = self.willResignActiveBlock {
-            NSNotificationCenter.defaultCenter().removeObserver(willResignActive)
+            NotificationCenter.default.removeObserver(willResignActive)
         }
         
         // Resetting current dialog ID.
@@ -142,31 +138,35 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         // clearing typing status blocks
         self.dialog.clearTypingStatusBlocks()
+        ServicesManager.instance().chatService.removeDelegate(self)
+        ServicesManager.instance().chatService.chatAttachmentService.delegate = nil
+      
+        self.queueManager().remove(self)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let chatInfoViewController = segue.destinationViewController as? ChatUsersInfoTableViewController {
+        if let chatInfoViewController = segue.destination as? ChatUsersInfoTableViewController {
             chatInfoViewController.dialog = self.dialog
         }
     }
     
     deinit {
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: Update
     
     func updateTitle() {
         
-        if self.dialog.type != QBChatDialogType.Private {
+        if self.dialog.type != QBChatDialogType.private {
             
             self.title = self.dialog.name
         }
         else {
             
-            if let recipient = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(self.dialog!.recipientID)) {
+            if let recipient = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(self.dialog!.recipientID)) {
                 
                 self.title = recipient.login
             }
@@ -174,66 +174,73 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     func storedMessages() -> [QBChatMessage]? {
-        return ServicesManager.instance().chatService.messagesMemoryStorage.messagesWithDialogID(self.dialog.ID!)
+        return ServicesManager.instance().chatService.messagesMemoryStorage.messages(withDialogID: self.dialog.id!)
     }
     
     func loadMessages() {
         // Retrieving messages for chat dialog ID.
-        guard let currentDialogID = self.dialog.ID else {
+        guard let currentDialogID = self.dialog.id else {
             print ("Current chat dialog is nil")
             return
         }
         
-        ServicesManager.instance().chatService.messagesWithChatDialogID(currentDialogID, completion: {
-            [weak self] (response: QBResponse, messages: [QBChatMessage]?) -> Void in
+        ServicesManager.instance().chatService.messages(withChatDialogID: currentDialogID, completion: {
+            [weak self] (response, messages) -> Void in
             
             guard let strongSelf = self else { return }
             
             guard response.error == nil else {
-                SVProgressHUD.showErrorWithStatus(response.error?.error?.localizedDescription)
+                SVProgressHUD.showError(withStatus: response.error?.error?.localizedDescription)
                 return
             }
             
-            if messages?.count > 0 {
-                strongSelf.chatSectionManager.addMessages(messages)
+            if messages?.count ?? 0 > 0 {
+                strongSelf.chatDataSource.add(messages)
             }
-            SVProgressHUD.dismiss()
             
+            SVProgressHUD.dismiss()
             })
     }
     
     func sendReadStatusForMessage(message: QBChatMessage) {
         
-        guard QBSession.currentSession().currentUser != nil else {
+        guard QBSession.current().currentUser != nil else {
             return
         }
-        guard message.senderID != QBSession.currentSession().currentUser?.ID else {
+        guard message.senderID != QBSession.current().currentUser?.id else {
             return
         }
         
-        let currentUserID = NSNumber(unsignedInteger: QBSession.currentSession().currentUser!.ID)
-        
-        if (message.readIDs == nil || !message.readIDs!.contains(currentUserID)) {
-            ServicesManager.instance().chatService.readMessage(message, completion: { (error: NSError?) -> Void in
+        if self.messageShouldBeRead(message: message) {
+            ServicesManager.instance().chatService.read(message, completion: { (error) -> Void in
                 
                 guard error == nil else {
-                    NSLog("Problems while marking message as read! Error: %@", error!)
+                    print("Problems while marking message as read! Error: %@", error!)
                     return
                 }
                 
-                if UIApplication.sharedApplication().applicationIconBadgeNumber > 0 {
-                    let badgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber
-                    UIApplication.sharedApplication().applicationIconBadgeNumber = badgeNumber - 1
+                if UIApplication.shared.applicationIconBadgeNumber > 0 {
+                    let badgeNumber = UIApplication.shared.applicationIconBadgeNumber
+                    UIApplication.shared.applicationIconBadgeNumber = badgeNumber - 1
                 }
             })
         }
+    }
+    
+    func messageShouldBeRead(message: QBChatMessage) -> Bool {
+        
+        let currentUserID = NSNumber(value: QBSession.current().currentUser!.id as UInt)
+        
+        return !message.isDateDividerMessage
+            && message.senderID != self.senderID
+            && !(message.readIDs?.contains(currentUserID))!
     }
     
     func readMessages(messages: [QBChatMessage]) {
         
         if QBChat.instance().isConnected {
             
-            ServicesManager.instance().chatService.readMessages(messages, forDialogID: self.dialog.ID!, completion: nil)
+            ServicesManager.instance().chatService.read(messages, forDialogID: self.dialog.id!, completion: nil)
         }
         else {
             
@@ -243,26 +250,25 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         var messageIDs = [String]()
         
         for message in messages {
-            messageIDs.append(message.ID!)
+            messageIDs.append(message.id!)
         }
     }
     
     // MARK: Actions
     
-    override func didPickAttachmentImage(image: UIImage!) {
+    override func didPickAttachmentImage(_ image: UIImage!) {
         
         let message = QBChatMessage()
         message.senderID = self.senderID
-        message.dialogID = self.dialog.ID
-        message.dateSent = NSDate()
+        message.dialogID = self.dialog.id
+        message.dateSent = Date()
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            [weak self] () -> Void in
+        DispatchQueue.global().async { [weak self] () -> Void in
             
             guard let strongSelf = self else { return }
             
             var newImage : UIImage! = image
-            if strongSelf.imagePickerViewController.sourceType == UIImagePickerControllerSourceType.Camera {
+            if strongSelf.imagePickerViewController.sourceType == UIImagePickerControllerSourceType.camera {
                 newImage = newImage.fixOrientation()
             }
             
@@ -274,71 +280,87 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             UIGraphicsBeginImageContext(newSize)
             
-            newImage.drawInRect(CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+            newImage.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
             
             UIGraphicsEndImageContext()
             
             // Sending attachment.
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
+                self?.chatDataSource.add(message)
                 // sendAttachmentMessage method always firstly adds message to memory storage
-                ServicesManager.instance().chatService.sendAttachmentMessage(message, toDialog: self!.dialog, withAttachmentImage: resizedImage, completion: {
-                    [weak self] (error: NSError?) -> Void in
+                ServicesManager.instance().chatService.sendAttachmentMessage(message, to: self!.dialog, withAttachmentImage: resizedImage!, completion: {
+                    [weak self] (error) -> Void in
                     
-                    self?.attachmentCellsMap.removeObjectForKey(message.ID)
+                    self?.attachmentCellsMap.removeObject(forKey: message.id as AnyObject?)
+                    
+                    guard error != nil else { return }
+                    
+                    self?.chatDataSource.delete(message)
+                    })
+            })
+        }
+    }
+    
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: Date!) {
+
+        if !self.queueManager().shouldSendMessagesInDialog(withID: self.dialog.id!) {
+            return
+        }
+        self.fireSendStopTypingIfNecessary()
+        
+        let message = QBChatMessage()
+        message.text = text
+        message.senderID = self.senderID
+        message.deliveredIDs = [(NSNumber(value: self.senderID))]
+        message.readIDs = [(NSNumber(value: self.senderID))]
+        message.markable = true
+        message.dateSent = date
+        
+        self.sendMessage(message: message)
+    }
+    
+    override func didPressSend(_ button: UIButton!, withTextAttachments textAttachments: [Any]!, senderId: UInt, senderDisplayName: String!, date: Date!) {
+        
+        if let attachment = textAttachments.first as? NSTextAttachment {
+            
+            if (attachment.image != nil) {
+                let message = QBChatMessage()
+                message.senderID = self.senderID
+                message.dialogID = self.dialog.id
+                message.dateSent = Date()
+                ServicesManager.instance().chatService.sendAttachmentMessage(message, to: self.dialog, withAttachmentImage: attachment.image!, completion: {
+                    [weak self] (error: Error?) -> Void in
+                    
+                    self?.attachmentCellsMap.removeObject(forKey: message.id as AnyObject?)
                     
                     guard error != nil else { return }
                     
                     // perform local attachment message deleting if error
                     ServicesManager.instance().chatService.deleteMessageLocally(message)
                     
-                    self?.chatSectionManager.deleteMessage(message)
+                    self?.chatDataSource.delete(message)
                     
                     })
-            })
-            })
-        
-    }
-    
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: NSDate!) {
-        
-        let shouldJoin = self.dialog.type == .Group ? !self.dialog.isJoined() : false
-        
-        if !QBChat.instance().isConnected || shouldJoin {
-            
-            if shouldJoin {
                 
-                QMMessageNotificationManager.showNotificationWithTitle("SA_STR_ERROR".localized, subtitle:"SA_STR_MESSAGE_FAILED_TO_SEND".localized, type: QMMessageNotificationType.Error)
+                self.finishSendingMessage(animated: true)
             }
-            
-            return
         }
-        
-        self.fireSendStopTypingIfNecessary()
-        
-        let message = QBChatMessage()
-        message.text = text
-        message.senderID = self.senderID
-        message.deliveredIDs = [(self.senderID)]
-        message.readIDs = [(self.senderID)]
-        message.markable = true
-        message.dateSent = date
-        
-        self.sendMessage(message)
     }
     
     func sendMessage(message: QBChatMessage) {
         
         // Sending message.
-        ServicesManager.instance().chatService.sendMessage(message, toDialogID: self.dialog.ID!, saveToHistory: true, saveToStorage: true) { (error: NSError?) -> Void in
+        ServicesManager.instance().chatService.send(message, toDialogID: self.dialog.id!, saveToHistory: true, saveToStorage: true) { (error) ->
+            Void in
             
             if error != nil {
                 
-                QMMessageNotificationManager.showNotificationWithTitle("SA_STR_ERROR".localized, subtitle: error?.localizedDescription, type: QMMessageNotificationType.Warning)
+                QMMessageNotificationManager.showNotification(withTitle: "SA_STR_ERROR".localized, subtitle: error?.localizedDescription, type: QMMessageNotificationType.warning)
             }
         }
         
-        self.finishSendingMessageAnimated(true)
+        self.finishSendingMessage(animated: true)
     }
     
     // MARK: Helper
@@ -346,7 +368,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         var canMakeACall = false
         
-        if (UIApplication.sharedApplication().canOpenURL(NSURL.init(string: "tel://")!)) {
+        if (UIApplication.shared.canOpenURL(URL.init(string: "tel://")!)) {
             
             // Check if iOS Device supports phone calls
             let networkInfo = CTTelephonyNetworkInfo()
@@ -368,13 +390,30 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         return canMakeACall
-        
     }
-
+    
+    func placeHolderTextView(_ textView: QMPlaceHolderTextView, shouldPasteWithSender sender: Any) -> Bool {
+        
+        if UIPasteboard.general.image != nil {
+            
+            let textAttachment = NSTextAttachment()
+            textAttachment.image = UIPasteboard.general.image!
+            textAttachment.bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
+            
+            let attrStringWithImage = NSAttributedString.init(attachment: textAttachment)
+            self.inputToolbar.contentView.textView.attributedText = attrStringWithImage
+            self.textViewDidChange(self.inputToolbar.contentView.textView)
+            
+            return false
+        }
+        
+        return true
+    }
+    
     func showCharactersNumberError() {
         let title  = "SA_STR_ERROR".localized;
         let subtitle = String(format: "The character limit is %lu.", maxCharactersNumber)
-        QMMessageNotificationManager.showNotificationWithTitle(title, subtitle: subtitle, type: .Error)
+        QMMessageNotificationManager.showNotification(withTitle: title, subtitle: subtitle, type: .error)
     }
     
     /**
@@ -392,18 +431,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         var statusString = ""
         
-        let currentUserID = NSNumber(unsignedInteger:self.senderID)
+        let currentUserID = NSNumber(value:self.senderID)
         
         var readLogins: [String] = []
         
         if message.readIDs != nil {
-            let messageReadIDs = message.readIDs!.filter { (element : NSNumber) -> Bool in
-                return !element.isEqualToNumber(currentUserID)
+            
+            let messageReadIDs = message.readIDs!.filter { (element) -> Bool in
+                
+                return !element.isEqual(to: currentUserID)
             }
             
             if !messageReadIDs.isEmpty {
                 for readID in messageReadIDs {
-                    let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(readID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(readID))
                     
                     guard let unwrappedUser = user else {
                         let unknownUserLogin = "@\(readID)"
@@ -416,20 +457,20 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
                 
                 statusString += message.isMediaMessage() ? "SA_STR_SEEN_STATUS".localized : "SA_STR_READ_STATUS".localized;
-                statusString += ": " + readLogins.joinWithSeparator(", ")
+                statusString += ": " + readLogins.joined(separator: ", ")
             }
         }
         
         if message.deliveredIDs != nil {
             var deliveredLogins: [String] = []
             
-            let messageDeliveredIDs = message.deliveredIDs!.filter { (element : NSNumber) -> Bool in
-                return !element.isEqualToNumber(currentUserID)
+            let messageDeliveredIDs = message.deliveredIDs!.filter { (element) -> Bool in
+                return !element.isEqual(to: currentUserID)
             }
             
             if !messageDeliveredIDs.isEmpty {
                 for deliveredID in messageDeliveredIDs {
-                    let user = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(UInt(deliveredID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(deliveredID))
                     
                     guard let unwrappedUser = user else {
                         let unknownUserLogin = "@\(deliveredID)"
@@ -451,13 +492,24 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
                 
                 if deliveredLogins.count > 0 {
-                    statusString += "SA_STR_DELIVERED_STATUS".localized + ": " + deliveredLogins.joinWithSeparator(", ")
+                    statusString += "SA_STR_DELIVERED_STATUS".localized + ": " + deliveredLogins.joined(separator: ", ")
                 }
             }
         }
         
         if statusString.isEmpty {
-            statusString = "SA_STR_SENT_STATUS".localized
+            
+            let messageStatus: QMMessageStatus = self.queueManager().status(for: message)
+            
+            switch messageStatus {
+            case .sent:
+                statusString = "SA_STR_SENT_STATUS".localized
+            case .sending:
+                statusString = "SA_STR_SENDING_STATUS".localized
+            case .notSent:
+                statusString = "SA_STR_NOT_SENT_STATUS".localized
+            }
+            
         }
         
         return statusString
@@ -465,16 +517,16 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: Override
     
-    override func viewClassForItem(item: QBChatMessage) -> AnyClass! {
+    override func viewClass(forItem item: QBChatMessage) -> AnyClass? {
         // TODO: check and add QMMessageType.AcceptContactRequest, QMMessageType.RejectContactRequest, QMMessageType.ContactRequest
         
-        if item.isNotificatonMessage() {
+        if item.isNotificatonMessage() || item.isDateDividerMessage {
             return QMChatNotificationCell.self
         }
         
         if (item.senderID != self.senderID) {
             
-            if (item.isMediaMessage() && item.attachmentStatus != QMMessageAttachmentStatus.Error) {
+            if (item.isMediaMessage() && item.attachmentStatus != QMMessageAttachmentStatus.error) {
                 
                 return QMChatAttachmentIncomingCell.self
                 
@@ -487,7 +539,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         else {
             
-            if (item.isMediaMessage() && item.attachmentStatus != QMMessageAttachmentStatus.Error) {
+            if (item.isMediaMessage() && item.attachmentStatus != QMMessageAttachmentStatus.error) {
                 
                 return QMChatAttachmentOutgoingCell.self
                 
@@ -501,15 +553,15 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: Strings builder
     
-    override func attributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString? {
+    override func attributedString(forItem messageItem: QBChatMessage!) -> NSAttributedString? {
         
         guard messageItem.text != nil else {
             return nil
         }
         
-        var textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
-        if messageItem.isNotificatonMessage() {
-            textColor = UIColor.blackColor()
+        var textColor = messageItem.senderID == self.senderID ? UIColor.white : UIColor.black
+        if messageItem.isNotificatonMessage() || messageItem.isDateDividerMessage {
+            textColor = UIColor.black
         }
         
         var attributes = Dictionary<String, AnyObject>()
@@ -529,18 +581,18 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
      
      - returns: login string, example: @SwiftTestDevUser1
      */
-    override func topLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString? {
+    override func topLabelAttributedString(forItem messageItem: QBChatMessage!) -> NSAttributedString? {
         
         guard messageItem.senderID != self.senderID else {
             return nil
         }
         
-        guard self.dialog.type != QBChatDialogType.Private else {
+        guard self.dialog.type != QBChatDialogType.private else {
             return nil
         }
         
         let paragrpahStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragrpahStyle.lineBreakMode = NSLineBreakMode.ByTruncatingTail
+        paragrpahStyle.lineBreakMode = NSLineBreakMode.byTruncatingTail
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = UIColor(red: 11.0/255.0, green: 96.0/255.0, blue: 255.0/255.0, alpha: 1.0)
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
@@ -548,7 +600,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         var topLabelAttributedString : NSAttributedString?
         
-        if let topLabelText = ServicesManager.instance().usersService.usersMemoryStorage.userWithID(messageItem.senderID)?.login {
+        if let topLabelText = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: messageItem.senderID)?.login {
             topLabelAttributedString = NSAttributedString(string: topLabelText, attributes: attributes)
         } else { // no user in memory storage
             topLabelAttributedString = NSAttributedString(string: "@\(messageItem.senderID)", attributes: attributes)
@@ -564,22 +616,22 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
      
      - returns: bottom label status string
      */
-    override func bottomLabelAttributedStringForItem(messageItem: QBChatMessage!) -> NSAttributedString! {
+    override func bottomLabelAttributedString(forItem messageItem: QBChatMessage!) -> NSAttributedString! {
         
-        let textColor = messageItem.senderID == self.senderID ? UIColor.whiteColor() : UIColor.blackColor()
+        let textColor = messageItem.senderID == self.senderID ? UIColor.white : UIColor.black
         
         let paragrpahStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
-        paragrpahStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragrpahStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         var attributes = Dictionary<String, AnyObject>()
         attributes[NSForegroundColorAttributeName] = textColor
         attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 13)
         attributes[NSParagraphStyleAttributeName] = paragrpahStyle
         
-        var text = messageItem.dateSent != nil ? messageTimeDateFormatter.stringFromDate(messageItem.dateSent!) : ""
+        var text = messageItem.dateSent != nil ? messageTimeDateFormatter.string(from: messageItem.dateSent!) : ""
         
         if messageItem.senderID == self.senderID {
-            text = text + "\n" + self.statusStringFromMessage(messageItem)
+            text = text + "\n" + self.statusStringFromMessage(message: messageItem)
         }
         
         let bottomLabelAttributedString = NSAttributedString(string: text, attributes: attributes)
@@ -589,61 +641,63 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: Collection View Datasource
     
-    override func collectionView(collectionView: QMChatCollectionView!, dynamicSizeAtIndexPath indexPath: NSIndexPath!, maxWidth: CGFloat) -> CGSize {
+    override func collectionView(_ collectionView: QMChatCollectionView!, dynamicSizeAt indexPath: IndexPath!, maxWidth: CGFloat) -> CGSize {
         
-        var size = CGSizeZero
+        var size = CGSize.zero
         
-        guard let message = self.chatSectionManager.messageForIndexPath(indexPath) else {
+        guard let message = self.chatDataSource.message(for: indexPath) else {
             return size
         }
         
-        let messageCellClass: AnyClass! = self.viewClassForItem(message)
+        let messageCellClass: AnyClass! = self.viewClass(forItem: message)
         
         
         if messageCellClass === QMChatAttachmentIncomingCell.self {
+            
             size = CGSize(width: min(200, maxWidth), height: 200)
         }
         else if messageCellClass === QMChatAttachmentOutgoingCell.self {
-            let attributedString = self.bottomLabelAttributedStringForItem(message)
             
-            let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.max), limitedToNumberOfLines: 0)
+            let attributedString = self.bottomLabelAttributedString(forItem: message)
+            
+            let bottomLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: min(200, maxWidth), height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines: 0)
             size = CGSize(width: min(200, maxWidth), height: 200 + ceil(bottomLabelSize.height))
         }
         else if messageCellClass === QMChatNotificationCell.self {
-            let attributedString = self.attributedStringForItem(message)
-            size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
             
+            let attributedString = self.attributedString(forItem: message)
+            size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines: 0)
         }
         else {
             
-            let attributedString = self.attributedStringForItem(message)
+            let attributedString = self.attributedString(forItem: message)
             
-            size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.max), limitedToNumberOfLines: 0)
+            size = TTTAttributedLabel.sizeThatFitsAttributedString(attributedString, withConstraints: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines: 0)
         }
         
         return size
     }
     
-    override func collectionView(collectionView: QMChatCollectionView!, minWidthAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    override func collectionView(_ collectionView: QMChatCollectionView!, minWidthAt indexPath: IndexPath!) -> CGFloat {
         
-        var size = CGSizeZero
+        var size = CGSize.zero
         
-        guard let item = self.chatSectionManager.messageForIndexPath(indexPath) else {
+        guard let item = self.chatDataSource.message(for: indexPath) else {
             return 0
         }
         
-        if self.detailedCells.contains(item.ID!) {
+        if self.detailedCells.contains(item.id!) {
             
-            let str = self.bottomLabelAttributedStringForItem(item)
-            let frameWidth = CGRectGetWidth(collectionView.frame)
-            let maxHeight = CGFloat.max
+            let str = self.bottomLabelAttributedString(forItem: item)
+            let frameWidth = collectionView.frame.width
+            let maxHeight = CGFloat.greatestFiniteMagnitude
             
             size = TTTAttributedLabel.sizeThatFitsAttributedString(str, withConstraints: CGSize(width:frameWidth - kMessageContainerWidthPadding, height: maxHeight), limitedToNumberOfLines:0)
         }
         
-        if self.dialog.type != QBChatDialogType.Private {
+        if self.dialog.type != QBChatDialogType.private {
             
-            let topLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(self.topLabelAttributedStringForItem(item), withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+            let topLabelSize = TTTAttributedLabel.sizeThatFitsAttributedString(self.topLabelAttributedString(forItem: item), withConstraints: CGSize(width: collectionView.frame.width - kMessageContainerWidthPadding, height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines:0)
             
             if topLabelSize.width > size.width {
                 size = topLabelSize
@@ -653,37 +707,38 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         return size.width
     }
     
-    override func collectionView(collectionView: QMChatCollectionView!, layoutModelAtIndexPath indexPath: NSIndexPath!) -> QMChatCellLayoutModel {
-        var layoutModel: QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAtIndexPath: indexPath)
+    override func collectionView(_ collectionView: QMChatCollectionView!, layoutModelAt indexPath: IndexPath!) -> QMChatCellLayoutModel {
+        
+        var layoutModel: QMChatCellLayoutModel = super.collectionView(collectionView, layoutModelAt: indexPath)
         
         layoutModel.avatarSize = CGSize(width: 0, height: 0)
         layoutModel.topLabelHeight = 0.0
         layoutModel.spaceBetweenTextViewAndBottomLabel = 5
         layoutModel.maxWidthMarginSpace = 20.0
         
-        guard let item = self.chatSectionManager.messageForIndexPath(indexPath) else {
+        guard let item = self.chatDataSource.message(for: indexPath) else {
             return layoutModel
         }
         
-        let viewClass: AnyClass = self.viewClassForItem(item) as AnyClass
+        let viewClass: AnyClass = self.viewClass(forItem: item)! as AnyClass
         
         if viewClass === QMChatIncomingCell.self || viewClass === QMChatAttachmentIncomingCell.self {
             
-            if self.dialog.type != QBChatDialogType.Private {
-                let topAttributedString = self.topLabelAttributedStringForItem(item)
-                let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:1)
+            if self.dialog.type != QBChatDialogType.private {
+                let topAttributedString = self.topLabelAttributedString(forItem: item)
+                let size = TTTAttributedLabel.sizeThatFitsAttributedString(topAttributedString, withConstraints: CGSize(width: collectionView.frame.width - kMessageContainerWidthPadding, height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines:1)
                 layoutModel.topLabelHeight = size.height
             }
             
             layoutModel.spaceBetweenTopLabelAndTextView = 5
         }
         
-        var size = CGSizeZero
+        var size = CGSize.zero
         
-        if self.detailedCells.contains(item.ID!) {
+        if self.detailedCells.contains(item.id!) {
             
-            let bottomAttributedString = self.bottomLabelAttributedStringForItem(item)
-            size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: CGRectGetWidth(collectionView.frame) - kMessageContainerWidthPadding, height: CGFloat.max), limitedToNumberOfLines:0)
+            let bottomAttributedString = self.bottomLabelAttributedString(forItem: item)
+            size = TTTAttributedLabel.sizeThatFitsAttributedString(bottomAttributedString, withConstraints: CGSize(width: collectionView.frame.width - kMessageContainerWidthPadding, height: CGFloat.greatestFiniteMagnitude), limitedToNumberOfLines:0)
         }
         
         layoutModel.bottomLabelHeight = floor(size.height)
@@ -692,59 +747,59 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         return layoutModel
     }
     
-    override func collectionView(collectionView: QMChatCollectionView!, configureCell cell: UICollectionViewCell!, forIndexPath indexPath: NSIndexPath!) {
+    override func collectionView(_ collectionView: QMChatCollectionView!, configureCell cell: UICollectionViewCell!, for indexPath: IndexPath!) {
         
-        super.collectionView(collectionView, configureCell: cell, forIndexPath: indexPath)
+        super.collectionView(collectionView, configureCell: cell, for: indexPath)
         
         // subscribing to cell delegate
         let chatCell = cell as! QMChatCell
         
         chatCell.delegate = self
         
+        let message = self.chatDataSource.message(for: indexPath)
+        
         if let attachmentCell = cell as? QMChatAttachmentCell {
             
             if attachmentCell is QMChatAttachmentIncomingCell {
                 chatCell.containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
-            } else if attachmentCell is QMChatAttachmentOutgoingCell {
+            }
+            else if attachmentCell is QMChatAttachmentOutgoingCell {
                 chatCell.containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
             }
             
-            let message = self.chatSectionManager.messageForIndexPath(indexPath)
-            
-            if let attachment = message.attachments?.first {
+            if let attachment = message?.attachments?.first {
                 
                 var keysToRemove: [String] = []
                 
                 let enumerator = self.attachmentCellsMap.keyEnumerator()
                 
                 while let existingAttachmentID = enumerator.nextObject() as? String {
-                    let cachedCell = self.attachmentCellsMap.objectForKey(existingAttachmentID)
+                    let cachedCell = self.attachmentCellsMap.object(forKey: existingAttachmentID as AnyObject?)
                     if cachedCell === cell {
                         keysToRemove.append(existingAttachmentID)
                     }
                 }
                 
                 for key in keysToRemove {
-                    self.attachmentCellsMap.removeObjectForKey(key)
+                    self.attachmentCellsMap.removeObject(forKey: key as AnyObject?)
                 }
                 
-                self.attachmentCellsMap.setObject(attachmentCell, forKey: attachment.ID)
+                self.attachmentCellsMap.setObject(attachmentCell, forKey: attachment.id as AnyObject?)
                 
-                attachmentCell.attachmentID = attachment.ID
+                attachmentCell.attachmentID = attachment.id
                 
                 // Getting image from chat attachment cache.
                 
-                ServicesManager.instance().chatService.chatAttachmentService.getImageForAttachmentMessage(message, completion: {
-                    [weak self] (error: NSError?, image: UIImage?) -> Void in
+                ServicesManager.instance().chatService.chatAttachmentService.image(forAttachmentMessage: message!, completion: { [weak self] (error, image) in
                     
-                    guard attachmentCell.attachmentID == attachment.ID else {
+                    guard attachmentCell.attachmentID == attachment.id else {
                         return
                     }
                     
-                    self?.attachmentCellsMap.removeObjectForKey(attachment.ID)
+                    self?.attachmentCellsMap.removeObject(forKey: attachment.id as AnyObject?)
                     
                     guard error == nil else {
-                        SVProgressHUD.showErrorWithStatus(error!.localizedDescription)
+                        SVProgressHUD.showError(withStatus: error!.localizedDescription)
                         print("Error downloading image from server: \(error).localizedDescription")
                         return
                     }
@@ -755,16 +810,33 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     
                     attachmentCell.setAttachmentImage(image)
                     cell.updateConstraints()
-                    
                     })
             }
             
-        } else if cell is QMChatIncomingCell || cell is QMChatAttachmentIncomingCell {
+        }
+        else if cell is QMChatIncomingCell || cell is QMChatAttachmentIncomingCell {
+            
             chatCell.containerView?.bgColor = UIColor(red: 226.0/255.0, green: 226.0/255.0, blue: 226.0/255.0, alpha: 1.0)
-        } else if cell is QMChatOutgoingCell || cell is QMChatAttachmentOutgoingCell {
+        }
+        else if cell is QMChatOutgoingCell {
+            
+            let status: QMMessageStatus = self.queueManager().status(for: message!)
+            
+            switch status {
+            case .sent:
+                chatCell.containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+            case .sending:
+                chatCell.containerView?.bgColor = UIColor(red: 166.3/255.0, green: 171.5/255.0, blue: 171.8/255.0, alpha: 1.0)
+            case .notSent:
+                chatCell.containerView?.bgColor = UIColor(red: 254.6/255.0, green: 30.3/255.0, blue: 12.5/255.0, alpha: 1.0)
+            }
+            
+        }
+        else if cell is QMChatAttachmentOutgoingCell {
             chatCell.containerView?.bgColor = UIColor(red: 10.0/255.0, green: 95.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        } else if cell is QMChatNotificationCell {
-            cell.userInteractionEnabled = false
+        }
+        else if cell is QMChatNotificationCell {
+            cell.isUserInteractionEnabled = false
             chatCell.containerView?.bgColor = self.collectionView?.backgroundColor
         }
     }
@@ -772,66 +844,70 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     /**
      Allows to copy text from QMChatIncomingCell and QMChatOutgoingCell
      */
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool {
+    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         
-        guard let item = self.chatSectionManager.messageForIndexPath(indexPath) else {
+        guard let item = self.chatDataSource.message(for: indexPath) else {
             return false
         }
         
-        let viewClass: AnyClass = self.viewClassForItem(item) as AnyClass
+        let viewClass: AnyClass = self.viewClass(forItem: item)! as AnyClass
         
-        if viewClass === QMChatAttachmentIncomingCell.self ||
-            viewClass === QMChatAttachmentOutgoingCell.self ||
-            viewClass === QMChatNotificationCell.self ||
+        if  viewClass === QMChatNotificationCell.self ||
             viewClass === QMChatContactRequestCell.self {
             return false
         }
         
-        return super.collectionView(collectionView, canPerformAction: action, forItemAtIndexPath: indexPath, withSender: sender)
+        return super.collectionView(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender)
     }
     
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) {
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         
-        guard action == #selector(NSObject.copy(_:)) else {
-            return
+        let item = self.chatDataSource.message(for: indexPath)
+        
+        if (item?.isMediaMessage())! {
+            ServicesManager.instance().chatService.chatAttachmentService.localImage(forAttachmentMessage: item!, completion: { (error: Error?,image: UIImage?) in
+                
+                guard error == nil else {
+                    SVProgressHUD.showError(withStatus: error!.localizedDescription)
+                    return
+                }
+                
+                if image != nil {
+                    guard let imageData = UIImageJPEGRepresentation(image!, 1) else { return }
+                    
+                    let pasteboard = UIPasteboard.general
+                    
+                    pasteboard.setValue(imageData, forPasteboardType:kUTTypeJPEG as String)
+                }
+            })
         }
-        
-        let item = self.chatSectionManager.messageForIndexPath(indexPath)
-        let viewClass : AnyClass = self.viewClassForItem(item) as AnyClass
-        
-        if viewClass === QMChatAttachmentIncomingCell.self
-            || viewClass === QMChatAttachmentOutgoingCell.self
-            || viewClass === QMChatNotificationCell.self
-            || viewClass === QMChatContactRequestCell.self {
-            
-            return
+        else {
+            UIPasteboard.general.string = item?.text
         }
-        
-        UIPasteboard.generalPasteboard().string = item.text
-        
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let lastSection = (self.collectionView?.numberOfSections())! - 1
+        let lastSection = self.collectionView!.numberOfSections - 1
         
-        if (indexPath.section == lastSection && indexPath.item == (self.collectionView?.numberOfItemsInSection(lastSection))! - 1) {
+        if (indexPath.section == lastSection && indexPath.item == (self.collectionView?.numberOfItems(inSection: lastSection))! - 1) {
             // the very first message
             // load more if exists
             // Getting earlier messages for chat dialog identifier.
             
-            guard let dialogID = self.dialog.ID else {
+            guard let dialogID = self.dialog.id else {
                 print("DialogID is nil")
-                return super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+                return super.collectionView(collectionView, cellForItemAt: indexPath)
             }
             
-            ServicesManager.instance().chatService.loadEarlierMessagesWithChatDialogID(dialogID).continueWithBlock({
-                [weak self] (task: BFTask!) -> AnyObject! in
+            ServicesManager.instance().chatService.loadEarlierMessages(withChatDialogID: dialogID).continue({ [weak self] (task) -> Any? in
                 
                 guard let strongSelf = self else { return nil }
                 
-                if (task.result?.count > 0) {
-                    strongSelf.chatSectionManager.addMessages(task.result as! [QBChatMessage]!)
+                if (task.result?.count ?? 0 > 0) {
+                    
+                    strongSelf.chatDataSource.add(task.result as! [QBChatMessage]!)
                 }
                 
                 return nil
@@ -839,11 +915,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         // marking message as read if needed
-        if let message = self.chatSectionManager.messageForIndexPath(indexPath) {
-            self.sendReadStatusForMessage(message)
+        if let message = self.chatDataSource.message(for: indexPath) {
+            self.sendReadStatusForMessage(message: message)
         }
         
-        return super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        return super.collectionView(collectionView, cellForItemAt
+            : indexPath)
     }
     
     // MARK: QMChatCellDelegate
@@ -851,43 +928,50 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     /**
      Removes size from cache for item to allow cell expand and show read/delivered IDS or unexpand cell
      */
-    func chatCellDidTapContainer(cell: QMChatCell!) {
-        let indexPath = self.collectionView?.indexPathForCell(cell)
+    func chatCellDidTapContainer(_ cell: QMChatCell!) {
+        let indexPath = self.collectionView?.indexPath(for: cell)
         
-        guard let currentMessageID = self.chatSectionManager.messageForIndexPath(indexPath).ID else {
+        guard let currentMessage = self.chatDataSource.message(for: indexPath) else {
             return
         }
         
-        if self.detailedCells.contains(currentMessageID) {
-            self.detailedCells.remove(currentMessageID)
-        } else {
-            self.detailedCells.insert(currentMessageID)
+        let messageStatus: QMMessageStatus = self.queueManager().status(for: currentMessage)
+        
+        if messageStatus == .notSent {
+            self.handleNotSentMessage(currentMessage, forCell:cell)
+            return
         }
         
-        self.collectionView?.collectionViewLayout.removeSizeFromCacheForItemID(currentMessageID)
+        if self.detailedCells.contains(currentMessage.id!) {
+            self.detailedCells.remove(currentMessage.id!)
+        } else {
+            self.detailedCells.insert(currentMessage.id!)
+        }
+        
+        self.collectionView?.collectionViewLayout.removeSizeFromCache(forItemID: currentMessage.id)
         self.collectionView?.performBatchUpdates(nil, completion: nil)
         
     }
     
-    func chatCell(cell: QMChatCell!, didTapAtPosition position: CGPoint) {}
+    func chatCell(_ cell: QMChatCell!, didTapAtPosition position: CGPoint) {}
     
-    func chatCell(cell: QMChatCell!, didPerformAction action: Selector, withSender sender: AnyObject!) {}
+    func chatCell(_ cell: QMChatCell!, didPerformAction action: Selector!, withSender sender: Any!) {}
     
-    func chatCell(cell: QMChatCell!, didTapOnTextCheckingResult result: NSTextCheckingResult) {
+    func chatCell(_ cell: QMChatCell!, didTapOn result: NSTextCheckingResult) {
         
         switch result.resultType {
             
-        case NSTextCheckingType.Link:
+        case NSTextCheckingResult.CheckingType.link:
             
-            var strUrl : String = (result.URL?.absoluteString)!
+            let strUrl : String = (result.url?.absoluteString)!
             
-            var hasPrefix = strUrl.lowercaseString.hasPrefix("https://") || strUrl.lowercaseString.hasPrefix("http://")
+            let hasPrefix = strUrl.lowercased().hasPrefix("https://") || strUrl.lowercased().hasPrefix("http://")
             
             if #available(iOS 9.0, *) {
                 if hasPrefix {
                     
-                    let controller = SFSafariViewController(URL: NSURL(string: strUrl)!)
-                    self.presentViewController(controller, animated: true, completion: nil)
+                    let controller = SFSafariViewController(url: URL(string: strUrl)!)
+                    self.present(controller, animated: true, completion: nil)
                     
                     break
                 }
@@ -895,122 +979,118 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             }
             // Fallback on earlier versions
             
-            if UIApplication.sharedApplication().canOpenURL(NSURL(string: strUrl)!) {
+            if UIApplication.shared.canOpenURL(URL(string: strUrl)!) {
                 
-                UIApplication.sharedApplication().openURL(NSURL(string: strUrl)!)
-                
+                UIApplication.shared.openURL(URL(string: strUrl)!)
             }
             
             break
             
-        case NSTextCheckingType.PhoneNumber:
+        case NSTextCheckingResult.CheckingType.phoneNumber:
             
             if !self.canMakeACall() {
                 
-                SVProgressHUD.showInfoWithStatus("Your Device can't make a phone call".localized, maskType: .None)
+                SVProgressHUD.showInfo(withStatus: "Your Device can't make a phone call".localized, maskType: .none)
                 break
             }
             
             let urlString = String(format: "tel:%@",result.phoneNumber!)
-            let url = NSURL(string: urlString)
+            let url = URL(string: urlString)
             
             self.view.endEditing(true)
             
-            if #available(iOS 8.0, *) {
-                
-                let alertController = UIAlertController(title: "",
-                                                        message: result.phoneNumber,
-                                                        preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .Cancel) { (action) in
-                    
-                }
-                alertController.addAction(cancelAction)
-                
-                let openAction = UIAlertAction(title: "SA_STR_CALL".localized, style: .Destructive) { (action) in
-                    UIApplication.sharedApplication().openURL(url!)
-                }
-                alertController.addAction(openAction)
-                
-                self.presentViewController(alertController, animated: true) {
-                    
-                }
+            let alertController = UIAlertController(title: "",
+                                                    message: result.phoneNumber,
+                                                    preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel) { (action) in
                 
             }
-            else {
-                
-                // Fallback on earlier versions
-                
-                _ = AlertView(title:"" , message:result.phoneNumber , cancelButtonTitle: "SA_STR_CANCEL".localized, otherButtonTitle: ["SA_STR_CALL".localized,], didClick:{ (buttonIndex) -> Void in
-                    
-                    guard buttonIndex == 1 else {
-                        return
-                    }
-                    UIApplication.sharedApplication().openURL(url!)
-                })
+            
+            alertController.addAction(cancelAction)
+            
+            let openAction = UIAlertAction(title: "SA_STR_CALL".localized, style: .destructive) { (action) in
+                UIApplication.shared.openURL(url!)
+            }
+            alertController.addAction(openAction)
+            
+            self.present(alertController, animated: true) {
             }
             
             break
             
         default:
             break
-            
         }
     }
     
-    func chatCellDidTapAvatar(cell: QMChatCell!) {
+    func chatCellDidTapAvatar(_ cell: QMChatCell!) {
+    }
+    
+    // MARK: QMDeferredQueueManager
+
+    func deferredQueueManager(_ queueManager: QMDeferredQueueManager, didAddMessageLocally addedMessage: QBChatMessage) {
+        self.chatDataSource.add(addedMessage)
+    }
+    
+    func deferredQueueManager(_ queueManager: QMDeferredQueueManager, didUpdateMessageLocally addedMessage: QBChatMessage) {
+        self.chatDataSource.update(addedMessage)
     }
     
     // MARK: QMChatServiceDelegate
     
-    func chatService(chatService: QMChatService, didLoadMessagesFromCache messages: [QBChatMessage], forDialogID dialogID: String) {
+    func chatService(_ chatService: QMChatService, didLoadMessagesFromCache messages: [QBChatMessage], forDialogID dialogID: String) {
         
-        if self.dialog.ID == dialogID {
+        if self.dialog.id == dialogID {
             
-            self.chatSectionManager.addMessages(messages)
+            self.chatDataSource.add(messages)
         }
     }
     
-    func chatService(chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String) {
+    func chatService(_ chatService: QMChatService, didAddMessageToMemoryStorage message: QBChatMessage, forDialogID dialogID: String) {
         
-        if self.dialog.ID == dialogID {
+        if self.dialog.id == dialogID {
             // Insert message received from XMPP or self sent
-            self.chatSectionManager.addMessage(message)
+            if self.chatDataSource.messageExists(message) {
+                
+                self.chatDataSource.update(message)
+            }
+            else {
+                
+                self.chatDataSource.add(message)
+            }
         }
     }
     
-    func chatService(chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
+    func chatService(_ chatService: QMChatService, didUpdateChatDialogInMemoryStorage chatDialog: QBChatDialog) {
         
-        if self.dialog.type != QBChatDialogType.Private && self.dialog.ID == chatDialog.ID {
+        if self.dialog.type != QBChatDialogType.private && self.dialog.id == chatDialog.id {
             self.dialog = chatDialog
             self.title = self.dialog.name
         }
     }
     
-    func chatService(chatService: QMChatService, didUpdateMessage message: QBChatMessage, forDialogID dialogID: String) {
+    func chatService(_ chatService: QMChatService, didUpdate message: QBChatMessage, forDialogID dialogID: String) {
         
-        if self.dialog.ID == dialogID {
-            self.chatSectionManager.updateMessage(message)
+        if self.dialog.id == dialogID {
+            self.chatDataSource.update(message)
         }
-        
     }
     
-    func chatService(chatService: QMChatService, didUpdateMessages messages: [QBChatMessage], forDialogID dialogID: String) {
+    func chatService(_ chatService: QMChatService, didUpdate messages: [QBChatMessage], forDialogID dialogID: String) {
         
-        if self.dialog.ID == dialogID {
-            self.chatSectionManager.updateMessages(messages)
+        if self.dialog.id == dialogID {
+            self.chatDataSource.update(messages)
         }
-        
     }
     
     // MARK: UITextViewDelegate
     
-    override func textViewDidChange(textView: UITextView) {
+    override func textViewDidChange(_ textView: UITextView) {
         super.textViewDidChange(textView)
     }
     
-    override func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        
+    override func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         // Prevent crashing undo bug
         let currentCharacterCount = textView.text?.length ?? 0
@@ -1030,7 +1110,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             self.sendBeginTyping()
         }
         
-        self.typingTimer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: #selector(ChatViewController.fireSendStopTypingIfNecessary), userInfo: nil, repeats: false)
+        self.typingTimer = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ChatViewController.fireSendStopTypingIfNecessary), userInfo: nil, repeats: false)
         
         if maxCharactersNumber > 0 {
             
@@ -1054,14 +1134,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             
             // adjust the range to include dependent chars
-            stringRange = (text as NSString).rangeOfComposedCharacterSequencesForRange(stringRange)
+            stringRange = (text as NSString).rangeOfComposedCharacterSequences(for: stringRange)
             
             // Now you can create the short string
-            let shortString = (text as NSString).substringWithRange(stringRange)
+            let shortString = (text as NSString).substring(with: stringRange)
             
             let newText = NSMutableString()
-            newText.appendString(oldString)
-            newText.insertString(shortString, atIndex: range.location)
+            newText.append(oldString)
+            newText.insert(shortString, at: range.location)
             textView.text = newText as String
             
             self.showCharactersNumberError()
@@ -1074,7 +1154,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         return true
     }
     
-    override func textViewDidEndEditing(textView: UITextView) {
+    override func textViewDidEndEditing(_ textView: UITextView) {
         
         super.textViewDidEndEditing(textView)
         
@@ -1103,63 +1183,98 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: QMChatAttachmentServiceDelegate
     
-    func chatAttachmentService(chatAttachmentService: QMChatAttachmentService, didChangeAttachmentStatus status: QMMessageAttachmentStatus, forMessage message: QBChatMessage) {
+    func chatAttachmentService(_ chatAttachmentService: QMChatAttachmentService, didChange status: QMMessageAttachmentStatus, for message: QBChatMessage) {
         
-        if status != QMMessageAttachmentStatus.NotLoaded {
+        if status != QMMessageAttachmentStatus.notLoaded {
             
-            if message.dialogID == self.dialog.ID {
-                self.chatSectionManager.updateMessage(message)
+            if message.dialogID == self.dialog.id {
+                self.chatDataSource.update(message)
             }
         }
     }
     
-    func chatAttachmentService(chatAttachmentService: QMChatAttachmentService, didChangeLoadingProgress progress: CGFloat, forChatAttachment attachment: QBChatAttachment) {
+    func chatAttachmentService(_ chatAttachmentService: QMChatAttachmentService, didChangeLoadingProgress progress: CGFloat, for attachment: QBChatAttachment) {
         
-        if let attachmentCell = self.attachmentCellsMap.objectForKey(attachment.ID!) {
+        if let attachmentCell = self.attachmentCellsMap.object(forKey: attachment.id! as AnyObject?) {
             attachmentCell.updateLoadingProgress(progress)
         }
     }
     
-    func chatAttachmentService(chatAttachmentService: QMChatAttachmentService, didChangeUploadingProgress progress: CGFloat, forMessage message: QBChatMessage) {
+    func chatAttachmentService(_ chatAttachmentService: QMChatAttachmentService, didChangeUploadingProgress progress: CGFloat, for message: QBChatMessage) {
         
-          guard message.dialogID == self.dialog.ID else {
+        guard message.dialogID == self.dialog.id else {
             return
         }
-        var cell = self.attachmentCellsMap.objectForKey(message.ID)
+        var cell = self.attachmentCellsMap.object(forKey: message.id as AnyObject?)
         
         if cell == nil && progress < 1.0 {
             
-            let indexPath = self.chatSectionManager.indexPathForMessage(message)
-
-            cell = self.collectionView?.cellForItemAtIndexPath(indexPath) as? QMChatAttachmentCell
-            self.attachmentCellsMap.setObject(cell, forKey: message.ID)
+            if let indexPath = self.chatDataSource.indexPath(for: message) {
+                cell = self.collectionView?.cellForItem(at: indexPath) as? QMChatAttachmentCell
+                self.attachmentCellsMap.setObject(cell, forKey: message.id as AnyObject?)
+            }
         }
         
         cell?.updateLoadingProgress(progress)
-        
     }
     
     // MARK : QMChatConnectionDelegate
     
     func refreshAndReadMessages() {
         
-        SVProgressHUD.showWithStatus("SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.Clear)
+        SVProgressHUD.show(withStatus: "SA_STR_LOADING_MESSAGES".localized, maskType: SVProgressHUDMaskType.clear)
         self.loadMessages()
         
         if let messagesToRead = self.unreadMessages {
-            self.readMessages(messagesToRead)
+            self.readMessages(messages: messagesToRead)
         }
         
         self.unreadMessages = nil
     }
     
-    func chatServiceChatDidConnect(chatService: QMChatService) {
+    func chatServiceChatDidConnect(_ chatService: QMChatService) {
         
         self.refreshAndReadMessages()
     }
     
-    func chatServiceChatDidReconnect(chatService: QMChatService) {
+    func chatServiceChatDidReconnect(_ chatService: QMChatService) {
         
         self.refreshAndReadMessages()
+    }
+    
+    func queueManager() -> QMDeferredQueueManager {
+        return ServicesManager.instance().chatService.deferredQueueManager
+    }
+    
+    func handleNotSentMessage(_ message: QBChatMessage,
+                              forCell cell: QMChatCell!) {
+        
+        let alertController = UIAlertController(title: "", message: "SA_STR_MESSAGE_FAILED_TO_SEND".localized, preferredStyle:.actionSheet)
+        
+        let resend = UIAlertAction(title: "SA_STR_TRY_AGAIN_MESSAGE".localized, style: .default) { (action) in
+            self.queueManager().perfromDefferedAction(for: message, withCompletion: nil)
+        }
+        alertController.addAction(resend)
+        
+        let delete = UIAlertAction(title: "SA_STR_DELETE_MESSAGE".localized, style: .destructive) { (action) in
+            self.queueManager().remove(message)
+            self.chatDataSource.delete(message)
+        }
+        alertController.addAction(delete)
+        
+        let cancelAction = UIAlertAction(title: "SA_STR_CANCEL".localized, style: .cancel) { (action) in
+            
+        }
+        
+        alertController.addAction(cancelAction)
+        
+        if alertController.popoverPresentationController != nil {
+            self.view.endEditing(true)
+            alertController.popoverPresentationController!.sourceView = cell.containerView
+            alertController.popoverPresentationController!.sourceRect = cell.containerView.bounds
+        }
+        
+        self.present(alertController, animated: true) {
+        }
     }
 }

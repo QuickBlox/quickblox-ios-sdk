@@ -62,5 +62,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Uploading pictures</string>
 </dict>
 </plist>

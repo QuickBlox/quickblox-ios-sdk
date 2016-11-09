@@ -27,6 +27,19 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 - (void)awakeFromNib {
     
     [super awakeFromNib];
+    [self commonInit];
+
+}
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit {
+    
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     self.isObserving = NO;
@@ -35,10 +48,11 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
     self.preferredDefaultHeight = 44.0f;
     
     QMToolbarContentView *toolbarContentView = [self loadToolbarContentView];
-    toolbarContentView.frame = self.frame;
+    
     [self addSubview:toolbarContentView];
     [self pinAllEdgesOfSubview:toolbarContentView];
     [self setNeedsUpdateConstraints];
+    
     _contentView = toolbarContentView;
     
     [self addObservers];
@@ -151,7 +165,7 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 }
 
 - (void)removeObservers {
-    
+
     if (!self.isObserving) {
         return;
     }
@@ -169,6 +183,5 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
     
     self.isObserving = NO;
 }
-
 
 @end

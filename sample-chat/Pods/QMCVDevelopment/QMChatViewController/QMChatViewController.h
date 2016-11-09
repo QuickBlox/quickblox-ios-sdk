@@ -24,12 +24,16 @@
 #import "QMChatAttachmentOutgoingCell.h"
 #import "QMChatLocationIncomingCell.h"
 #import "QMChatLocationOutgoingCell.h"
+#import "QMChatDataSource.h"
 
 @interface QMChatViewController : UIViewController <QMChatCollectionViewDataSource, QMChatCollectionViewDelegateFlowLayout, UITextViewDelegate>
 
+/**
+ *  @warning *Deprecated in 0.4.0:* Use 'chatDataSource:' instead.
+ */
+@property (strong, nonatomic) QMChatSectionManager *chatSectionManager DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.0. Use 'chatDataSource:' instead");
 
-@property (strong, nonatomic) QMChatSectionManager *chatSectionManager;
-
+@property (strong, nonatomic) QMChatDataSource *chatDataSource;
 /**
  *  Cell's contact request delegate.
  */
@@ -45,7 +49,7 @@
  *  Returns the input toolbar view object managed by this view controller.
  *  This view controller is the toolbar's delegate.
  */
-@property (weak, nonatomic, readonly) QMInputToolbar *inputToolbar;
+@property (strong, nonatomic, readonly) QMInputToolbar *inputToolbar;
 
 /**
  *  The display name of the current user who is sending messages.
@@ -134,15 +138,15 @@
  *  Collection view reusable section header.
  *
  *  @param collectionView   collection view to dequeue reusable header
- *  @param indexPath        index path of section header
- *
+ *  @param indexPath        index path of section header.
+ *  @warning *Deprecated in 0.4.0:*.
  *  @discussion Override this method if you want to use custom reusable view as section header.
  *  Keep in mind that due to collection view being reversed, section header is actually footer.
  *
  *  @return collection view reusable view to use as section header.
  */
 - (UICollectionReusableView *)collectionView:(QMChatCollectionView *)collectionView
-                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath;
+                    sectionHeaderAtIndexPath:(NSIndexPath *)indexPath DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.0.");
 
 #pragma mark - Class methods
 
@@ -262,15 +266,19 @@
  */
 - (void)scrollToBottomAnimated:(BOOL)animated;
 
-#pragma mark - Helpers
-
 /**
- *  Generating name for section with date.
+ *  Hides keyboard
  *
- *  @param date Date of section
- *
- *  @discussion override this method if you want to generate custom name for section with it's date.
+ *  @param animated Pass `YES` if you want to animate hiding, `NO` if it should be immediate.
  */
-- (NSString *)nameForSectionWithDate:(NSDate *)date;
+- (void)hideKeyboard:(BOOL)animated;
 
+#pragma mark - Methods requiring super
+
+- (void)viewDidLoad NS_REQUIRES_SUPER;
+- (void)viewWillAppear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewDidAppear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewWillDisappear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewDidDisappear:(BOOL)animated NS_REQUIRES_SUPER;
+- (void)viewDidLayoutSubviews NS_REQUIRES_SUPER;;
 @end

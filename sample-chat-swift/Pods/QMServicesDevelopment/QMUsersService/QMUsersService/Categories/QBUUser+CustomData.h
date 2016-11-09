@@ -8,6 +8,8 @@
 
 #import <Quickblox/Quickblox.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  QBUUser+QMAssociatedObject class interface.
  *  Used to store and synchronize custom data of QBUUser.
@@ -21,7 +23,7 @@
  *  
  *  @note You should always call 'synchronize' method after context change.
  */
-@property (strong, nonatomic, readonly, QB_NONNULL) NSMutableDictionary *context;
+@property (strong, nonatomic, readonly) NSMutableDictionary *context;
 
 /**
  *  Synchronize context into user custom data field.
@@ -36,8 +38,10 @@
 
 @interface QBUUser (CustomData)
 
-@property (copy, nonatomic, QB_NULLABLE) NSString *avatarUrl;
-@property (copy, nonatomic, QB_NULLABLE) NSString *status;
+@property (copy, nonatomic, nullable) NSString *avatarUrl;
+@property (copy, nonatomic, nullable) NSString *status;
 @property (assign, nonatomic) BOOL isImport;
 
 @end
+
+NS_ASSUME_NONNULL_END

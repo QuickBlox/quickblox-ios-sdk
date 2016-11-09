@@ -153,6 +153,7 @@
     QBUUser *user = self.usersSortedByLastSeen[indexPath.row];
     BOOL selected = [_selectedUsers containsObject:user];
     UIImage *userImage = [PlaceholderGenerator placeholderWithSize:CGSizeMake(32, 32)  title:user.fullName];
+    
     [cell setFullName:user.fullName];
     [cell setCheck:selected];
     [cell setUserImage:userImage];

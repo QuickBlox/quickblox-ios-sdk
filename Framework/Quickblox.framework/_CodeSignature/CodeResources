@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/ChatEnums.h</key>
 		<data>
-		btiYAMcn4CuOe8z6UemjnCul9O0=
+		TFR9bVlUOQuntXnizuKMUzXjrUU=
 		</data>
 		<key>Headers/ChatServiceFramework.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Headers/QBChat.h</key>
 		<data>
-		bmF8GiXugz8miTUBwuEeJ2GxS/8=
+		ZIxYjmdAQyUNTN39ddOuOpQicUI=
 		</data>
 		<key>Headers/QBChatAttachment.h</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Headers/QBChatDialog.h</key>
 		<data>
-		BDXj+9rDTmlcbGXaJf15WnK8Tik=
+		3FXMWIAU/7+pnqUgqnED54AyXOA=
 		</data>
 		<key>Headers/QBChatHeader.h</key>
 		<data>
@@ -86,7 +86,7 @@
 		</data>
 		<key>Headers/QBChatMessage.h</key>
 		<data>
-		Lmq81IlCzFbNk+JBq7aF/fNQFcg=
+		eewriKhHt4cEL1xL7PBg3BM6UN4=
 		</data>
 		<key>Headers/QBConnection.h</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>Headers/QBContactList.h</key>
 		<data>
-		dGytC+/X7HstmAA6sO6HP7RsSYo=
+		kWcMsihOoVUY2HLT3Y+wJojChuU=
 		</data>
 		<key>Headers/QBContactListItem.h</key>
 		<data>
@@ -202,7 +202,7 @@
 		</data>
 		<key>Headers/QBNullability.h</key>
 		<data>
-		tw6OOYmORZnwtdbCYWWEX94v/Sk=
+		J+9YGWvAFw1ub07PWfBl0cl142Q=
 		</data>
 		<key>Headers/QBPrivacyItem.h</key>
 		<data>
@@ -234,7 +234,7 @@
 		</data>
 		<key>Headers/QBRequest+QBChat.h</key>
 		<data>
-		tL6To0sM31zdkHaogzkmaCFVkgc=
+		N094bLiah/43dkEnzlBKtwi7MjQ=
 		</data>
 		<key>Headers/QBRequest+QBContent.h</key>
 		<data>
@@ -254,7 +254,7 @@
 		</data>
 		<key>Headers/QBRequest+QBUsers.h</key>
 		<data>
-		3jRJhY+bH/+VbgPwkS0ieBqjdJ4=
+		tjqxLQNqmmwA+NGMG63mtGnSEZE=
 		</data>
 		<key>Headers/QBRequest.h</key>
 		<data>
@@ -294,11 +294,11 @@
 		</data>
 		<key>Headers/Quickblox.h</key>
 		<data>
-		Pir6wJyAQV1pui5mZ1n7GYWLxtQ=
+		Jz026iagK/T2I7IuIEi/pR+2DBQ=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		0bz+QI2TXdx+qo++SqYRZObxg70=
+		y3tREzfv/QJvBK9X7JJYFRJJIT8=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -333,11 +333,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			btiYAMcn4CuOe8z6UemjnCul9O0=
+			TFR9bVlUOQuntXnizuKMUzXjrUU=
 			</data>
 			<key>hash2</key>
 			<data>
-			rMgMnHMpa/YTX0U2Cjhbm/IJ6fDiuQGll8871ETpcjk=
+			orQ/YOhIKt46PDg6J3AkMwdTb/pnza1hOQOX7PDAo24=
 			</data>
 		</dict>
 		<key>Headers/ChatServiceFramework.h</key>
@@ -454,11 +454,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			bmF8GiXugz8miTUBwuEeJ2GxS/8=
+			ZIxYjmdAQyUNTN39ddOuOpQicUI=
 			</data>
 			<key>hash2</key>
 			<data>
-			223HOWb4yOrfawF/xAP+TuzD88vKfumOK9LDilUiYQY=
+			PIez0J3SE4JdjzlyDrHv0Xbw66tvO43mGgiAFe9vr8E=
 			</data>
 		</dict>
 		<key>Headers/QBChatAttachment.h</key>
@@ -509,11 +509,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			BDXj+9rDTmlcbGXaJf15WnK8Tik=
+			3FXMWIAU/7+pnqUgqnED54AyXOA=
 			</data>
 			<key>hash2</key>
 			<data>
-			FWES7xA9UXwEdF/eUcIDseQ7fGDfIH+XUcxpb5gibzw=
+			U1SwM7VqAx/M906Ik0aCVijiOORo3OAMqH9Ueu/ImhU=
 			</data>
 		</dict>
 		<key>Headers/QBChatHeader.h</key>
@@ -531,11 +531,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Lmq81IlCzFbNk+JBq7aF/fNQFcg=
+			eewriKhHt4cEL1xL7PBg3BM6UN4=
 			</data>
 			<key>hash2</key>
 			<data>
-			gA4RRYtZ5ynbhi5pmHj+VNWBOvDSAtvg7CyDk1RdrA8=
+			7dLt0JORSS1x4cCJeWCoJDl6zlbw7JhoPQt2yfSw4io=
 			</data>
 		</dict>
 		<key>Headers/QBConnection.h</key>
@@ -553,11 +553,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dGytC+/X7HstmAA6sO6HP7RsSYo=
+			kWcMsihOoVUY2HLT3Y+wJojChuU=
 			</data>
 			<key>hash2</key>
 			<data>
-			UVoY81S2THnpf0UNn3lxa2DjFCMMpYTJLf/1/kVU2cQ=
+			xsnqtGK9wUL/wVVmYLUlHE6n/d8dvRGZhF93YoGHBs4=
 			</data>
 		</dict>
 		<key>Headers/QBContactListItem.h</key>
@@ -850,11 +850,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tw6OOYmORZnwtdbCYWWEX94v/Sk=
+			J+9YGWvAFw1ub07PWfBl0cl142Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			LDu9WFyxJwlRGqQVVGs0MzZs/01cgJ51BLfa63ODeds=
+			MVN/bfNNRLBhY2Lj0CDyEPy4PmMKv7IcmxPG67JRavc=
 			</data>
 		</dict>
 		<key>Headers/QBPrivacyItem.h</key>
@@ -938,11 +938,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tL6To0sM31zdkHaogzkmaCFVkgc=
+			N094bLiah/43dkEnzlBKtwi7MjQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			OsHdOnETg0NvyrCYylRk4Q1JIHcygdRCxHYaAwGP228=
+			4gqkQYjxcfi8En+cBGdXF1CGCimkyXiqiiDG2lB/Q4M=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBContent.h</key>
@@ -993,11 +993,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			3jRJhY+bH/+VbgPwkS0ieBqjdJ4=
+			tjqxLQNqmmwA+NGMG63mtGnSEZE=
 			</data>
 			<key>hash2</key>
 			<data>
-			4wsh9qNL63UQ9gxf31ezM8pNOlHHO63P4xxPlcpyllc=
+			IDZv67ctK1b9KimCJdE17GytqtpwIE9xKyywK7Akcsc=
 			</data>
 		</dict>
 		<key>Headers/QBRequest.h</key>
@@ -1103,11 +1103,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Pir6wJyAQV1pui5mZ1n7GYWLxtQ=
+			Jz026iagK/T2I7IuIEi/pR+2DBQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			8LaOh7HYCNB3HhjzlhHpQdoxjHZJ3dVmxzXdWREpVQE=
+			P+ivillNLF7eWXklNAX0PXzhZfUvYbA2rCKbxM2+9d0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
