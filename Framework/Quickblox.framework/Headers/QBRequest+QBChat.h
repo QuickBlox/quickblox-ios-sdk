@@ -137,19 +137,6 @@ NS_ASSUME_NONNULL_BEGIN
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
- Create and send message to chat.
- 
- @param message Сhat message instance to create.
- @param successBlock Block with response and chat message instance if request succeded.
- @param errorBlock Block with response instance if request failed.
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)sendMessage:(QBChatMessage *)message
-              successBlock:(nullable void(^)(QBResponse *response, QBChatMessage *createdMessage))successBlock
-                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
-
-/**
  Update existing chat message - mark it as read.
  
  @note Updates message "read" status only on server.

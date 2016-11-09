@@ -234,7 +234,7 @@
 		</data>
 		<key>Headers/QBRequest+QBChat.h</key>
 		<data>
-		O20GzBZF8q3lg20fpZ4qynK0JEM=
+		N094bLiah/43dkEnzlBKtwi7MjQ=
 		</data>
 		<key>Headers/QBRequest+QBContent.h</key>
 		<data>
@@ -294,7 +294,7 @@
 		</data>
 		<key>Headers/Quickblox.h</key>
 		<data>
-		97R/ALEc5jEZI+QNcqoM65h0iFo=
+		Jz026iagK/T2I7IuIEi/pR+2DBQ=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -938,11 +938,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			O20GzBZF8q3lg20fpZ4qynK0JEM=
+			N094bLiah/43dkEnzlBKtwi7MjQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			3weENbmrcUMB0D6lO1ao0I0RkP3ZIVLxsBph9XoZWXA=
+			4gqkQYjxcfi8En+cBGdXF1CGCimkyXiqiiDG2lB/Q4M=
 			</data>
 		</dict>
 		<key>Headers/QBRequest+QBContent.h</key>
@@ -1103,11 +1103,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			97R/ALEc5jEZI+QNcqoM65h0iFo=
+			Jz026iagK/T2I7IuIEi/pR+2DBQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			qpZTBE2EJk3vDbJVhIpc22lMe406zuVuVeSWYH0uzKE=
+			P+ivillNLF7eWXklNAX0PXzhZfUvYbA2rCKbxM2+9d0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
