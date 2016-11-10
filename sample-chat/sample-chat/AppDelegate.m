@@ -24,12 +24,6 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 @implementation AppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Preloads keyboard so there's no lag on initial keyboard appearance.
-    UITextField *lagFreeField = [[UITextField alloc] init];
-    [self.window addSubview:lagFreeField];
-    [lagFreeField becomeFirstResponder];
-    [lagFreeField resignFirstResponder];
-    [lagFreeField removeFromSuperview];
     
     application.applicationIconBadgeNumber = 0;
     
