@@ -153,12 +153,17 @@ QMDeferredQueueManagerDelegate
     }];
 }
 
-- (void)deferredQueueManager:(QMDeferredQueueManager*)queueManager didAddMessageLocally:(QBChatMessage*)addedMessage {
-    [self.chatDataSource addMessage:addedMessage];
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager didAddMessageLocally:(QBChatMessage *)addedMessage {
+    
+    if ([self.dialog.ID isEqualToString:addedMessage.dialogID]) {
+        [self.chatDataSource addMessage:addedMessage];
+    }
 }
 
-- (void)deferredQueueManager:(QMDeferredQueueManager*)queueManager didUpdateMessageLocally:(nonnull QBChatMessage *)addedMessage {
-    [self.chatDataSource updateMessage:addedMessage];
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager didUpdateMessageLocally:(nonnull QBChatMessage *)updatedMessage {
+    if ([self.dialog.ID isEqualToString:updatedMessage.dialogID]) {
+        [self.chatDataSource updateMessage:updatedMessage];
+    }
 }
 
 - (NSArray *)storedMessages {
@@ -903,12 +908,11 @@ QMDeferredQueueManagerDelegate
     if ([self.dialog.ID isEqualToString:dialogID]) {
         // Inserting message received from XMPP or self sent
         if ([self.chatDataSource messageExists:message]) {
-             [self.chatDataSource updateMessage:message];
+            [self.chatDataSource updateMessage:message];
         }
         else {
-             [self.chatDataSource addMessage:message];
+            [self.chatDataSource addMessage:message];
         }
-       
     }
 }
 

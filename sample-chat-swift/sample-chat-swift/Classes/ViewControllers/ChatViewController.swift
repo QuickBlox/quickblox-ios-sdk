@@ -1030,11 +1030,17 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     // MARK: QMDeferredQueueManager
 
     func deferredQueueManager(_ queueManager: QMDeferredQueueManager, didAddMessageLocally addedMessage: QBChatMessage) {
-        self.chatDataSource.add(addedMessage)
+        
+        if addedMessage.dialogID == self.dialog.id {
+            self.chatDataSource.add(addedMessage)
+        }
     }
     
     func deferredQueueManager(_ queueManager: QMDeferredQueueManager, didUpdateMessageLocally addedMessage: QBChatMessage) {
-        self.chatDataSource.update(addedMessage)
+        
+        if addedMessage.dialogID == self.dialog.id {
+            self.chatDataSource.update(addedMessage)
+        }
     }
     
     // MARK: QMChatServiceDelegate
