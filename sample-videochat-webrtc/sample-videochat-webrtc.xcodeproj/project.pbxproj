@@ -1117,7 +1117,7 @@
 					"-ObjC",
 				);
 				OTHER_LIBTOOLFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-videochat-webrtc";
 				PRODUCT_NAME = "sample-videochat-webrtc";
 				PROVISIONING_PROFILE = "3dc52ffd-2a6b-4451-a075-274af5251dd0";
 				PROVISIONING_PROFILE_SPECIFIER = "XC: *";
@@ -1160,7 +1160,7 @@
 					"-ObjC",
 				);
 				OTHER_LIBTOOLFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-videochat-webrtc";
 				PRODUCT_NAME = "sample-videochat-webrtc";
 				PROVISIONING_PROFILE = "9dd3baf5-497e-483a-8829-0603812b451f";
 				PROVISIONING_PROFILE_SPECIFIER = "XC Ad Hoc: *";
