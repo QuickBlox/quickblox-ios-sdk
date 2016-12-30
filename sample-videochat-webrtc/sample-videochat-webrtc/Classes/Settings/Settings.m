@@ -10,10 +10,9 @@
 
 #pragma mark - keys
 
-NSString *const kVideoFormatKey = @"videoFormat";
-NSString *const kPreferredCameraPosition = @"cameraPosition";
-NSString *const kVideoRendererType = @"videoRendererType";
-NSString *const kMediaConfigKey = @"mediaConfig";
+static NSString * const kVideoFormatKey = @"videoFormat";
+static NSString * const kPreferredCameraPosition = @"cameraPosition";
+static NSString * const kMediaConfigKey = @"mediaConfig";
 
 @implementation Settings
 
@@ -40,18 +39,24 @@ NSString *const kMediaConfigKey = @"mediaConfig";
 }
 
 - (void)saveToDisk {
-    
+
+    // saving to disk
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *videFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat];
     NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration];
     
     [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
-    [defaults setInteger:self.remoteVideoViewRendererType forKey:kVideoRendererType];
     
     [defaults setObject:videFormatData forKey:kVideoFormatKey];
     [defaults setObject:mediaConfig forKey:kMediaConfigKey];
     
     [defaults synchronize];
+}
+
+- (void)applyConfig {
+    
+    // saving to config
+    [QBRTCConfig setMediaStreamConfiguration:self.mediaConfiguration];
 }
 
 - (void)load {
@@ -82,14 +87,12 @@ NSString *const kMediaConfigKey = @"mediaConfig";
     
     if (mediaConfigData) {
         self.mediaConfiguration = [NSKeyedUnarchiver unarchiveObjectWithData:mediaConfigData];
+        [self applyConfig];
     }
     else {
         
         self.mediaConfiguration = [QBRTCMediaStreamConfiguration defaultConfiguration];
     }
-    
-    QBRendererType type = [defaults integerForKey:kVideoRendererType];
-    self.remoteVideoViewRendererType = type;
 }
 
 @end

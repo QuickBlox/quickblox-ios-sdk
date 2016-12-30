@@ -8,17 +8,19 @@
 
 #import "QMSoundManager.h"
 
-NSString * const kSystemSoundTypeCAF = @"caf";
-NSString * const kSystemSoundTypeAIF = @"aif";
-NSString * const kSystemSoundTypeAIFF = @"aiff";
-NSString * const kystemSoundTypeWAV = @"wav";
+static NSString * const kSystemSoundTypeCAF = @"caf";
+static NSString * const kSystemSoundTypeAIF = @"aif";
+static NSString * const kSystemSoundTypeAIFF = @"aiff";
+static NSString * const kystemSoundTypeWAV = @"wav";
 
 static NSString * const kQMSoundManagerSettingKey = @"kQMSoundManagerSettingKey";
 
-@interface QMSoundManager()
-
-@property (strong, nonatomic) NSMutableDictionary *sounds;
-@property (strong, nonatomic) NSMutableDictionary *completionBlocks;
+@interface QMSoundManager() {
+    
+    NSMutableDictionary *_sounds;
+    NSMutableDictionary *_completionBlocks;
+    BOOL _audioDeviceChanged;
+}
 
 @end
 
@@ -106,7 +108,7 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
         return;
     }
     
-    if (!self.sounds[filename]) {
+    if (!_sounds[filename]) {
         
         [self addSoundIDForAudioFileWithName:filename
                                    extension:extension];
@@ -137,6 +139,14 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
         }
         
         if (isAlert) {
+            
+            // setting sounds to speaker if needed
+            // to make sure that alert is played from it
+            QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+            if (audioSession.isInitialized && audioSession.currentAudioDevice != QBRTCAudioDeviceSpeaker) {
+                _audioDeviceChanged = YES;
+                audioSession.currentAudioDevice = QBRTCAudioDeviceSpeaker;
+            }
             
             AudioServicesPlayAlertSound(soundID);
         }
@@ -193,6 +203,13 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
 - (void)stopAllSounds {
     
     [self unloadSoundIDs];
+    
+    // restoring previous sound route if needed
+    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+    if (audioSession.isInitialized && _audioDeviceChanged) {
+        _audioDeviceChanged = NO;
+        audioSession.currentAudioDevice = QBRTCAudioDeviceReceiver;
+    }
 }
 
 - (void)stopSoundWithFilename:(NSString *)filename {
@@ -202,14 +219,14 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
     
     [self unloadSoundIDForFileNamed:filename];
     
-    [self.sounds removeObjectForKey:filename];
-    [self.completionBlocks removeObjectForKey:data];
+    [_sounds removeObjectForKey:filename];
+    [_completionBlocks removeObjectForKey:data];
 }
 
 - (void)preloadSoundWithFilename:(NSString *)filename
                        extension:(NSString *)extension {
     
-    if (!self.sounds[filename]) {
+    if (!_sounds[filename]) {
         [self addSoundIDForAudioFileWithName:filename
                                    extension:extension];
     }
@@ -239,7 +256,7 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
 
 - (SystemSoundID)soundIDForFilename:(NSString *)filenameKey {
     
-    NSData *soundData = self.sounds[filenameKey];
+    NSData *soundData = _sounds[filenameKey];
     return [self soundIDFromData:soundData];
 }
 
@@ -251,7 +268,7 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
     if (soundID) {
         
         NSData *data = [self dataWithSoundID:soundID];
-        self.sounds[filename] = data;
+        _sounds[filename] = data;
     }
 }
 
@@ -260,20 +277,20 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
 - (void(^)(void))completionBlockForSoundID:(SystemSoundID)soundID {
     
     NSData *data = [self dataWithSoundID:soundID];
-    return self.completionBlocks[data];
+    return _completionBlocks[data];
 }
 
 - (void)addCompletionBlock:(void(^)(void))block
                  toSoundID:(SystemSoundID)soundID {
     
     NSData *data = [self dataWithSoundID:soundID];
-    self.completionBlocks[data] = [block copy];
+    _completionBlocks[data] = [block copy];
 }
 
 - (void)removeCompletionBlockForSoundID:(SystemSoundID)soundID {
     
     NSData *key = [self dataWithSoundID:soundID];
-    [self.completionBlocks removeObjectForKey:key];
+    [_completionBlocks removeObjectForKey:key];
     AudioServicesRemoveSystemSoundCompletion(soundID);
 }
 
@@ -310,8 +327,8 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
         [self unloadSoundIDForFileNamed:eachFilename];
     }
     
-    [self.sounds removeAllObjects];
-    [self.completionBlocks removeAllObjects];
+    [_sounds removeAllObjects];
+    [_completionBlocks removeAllObjects];
 }
 
 - (void)unloadSoundIDForFileNamed:(NSString *)filename {
@@ -362,26 +379,26 @@ NSString *const kQMRingtoneSoundName = @"ringtone";
 
 + (void)playCallingSound {
     
-    [QMSysPlayer playSoundWithName:kQMCallingSoundName
-                         extension:kystemSoundTypeWAV];
+    [[QMSoundManager instance] playSoundWithName:kQMCallingSoundName
+                                       extension:kystemSoundTypeWAV];
 }
 
 + (void)playBusySound {
     
-    [QMSysPlayer playSoundWithName:kQMBusySoundName
-                         extension:kystemSoundTypeWAV];
+    [[QMSoundManager instance] playSoundWithName:kQMBusySoundName
+                                       extension:kystemSoundTypeWAV];
 }
 
 + (void)playEndOfCallSound {
     
-    [QMSysPlayer playSoundWithName:kQMEndOfCallSoundName
-                         extension:kystemSoundTypeWAV];
+    [[QMSoundManager instance] playSoundWithName:kQMEndOfCallSoundName
+                                       extension:kystemSoundTypeWAV];
 }
 
 + (void)playRingtoneSound {
     
-    [QMSysPlayer playAlertSoundWithName:kQMRingtoneSoundName
-                              extension:kystemSoundTypeWAV];
+    [[QMSoundManager instance] playAlertSoundWithName:kQMRingtoneSoundName
+                                            extension:kystemSoundTypeWAV];
 }
 
 @end

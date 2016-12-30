@@ -2,14 +2,15 @@
 //  QBLocalMediaStream.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 15.07.15.
-//  Copyright (c) 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@class QBRTCLocalVideoTrack;
 @class QBRTCLocalAudioTrack;
+@class QBRTCLocalVideoTrack;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Media stream class holds media information such as video and audio tracks
@@ -23,6 +24,10 @@
 /// Video track, can be enabled or disabled
 @property (strong, nonatomic, readonly) QBRTCLocalVideoTrack *videoTrack;
 
-- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+// Unavailable initializers
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

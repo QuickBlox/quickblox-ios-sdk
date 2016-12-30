@@ -2,23 +2,25 @@
 //  QBRTCCameraCapture.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 02.07.15.
-//  Copyright (c) 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
+
+#import "QBRTCVideoCapture.h"
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-#import "QBRTCVideoCapture.h"
 
 @class QBRTCVideoFormat;
 
-// This class used to capture frames using AVFoundation APIs
-@interface QBRTCCameraCapture : QBRTCVideoCapture
+NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  A CoreAnimation layer subclass for previewing the visual output of an AVCaptureSession.
+ *  QBRTCCameraCapture class interface.
+ *  This class represent native camera capture based on QBRTCVideoCapture rtc capture.
+ *
+ *  @see QBRTCVideoCapture
  */
-@property (nonatomic, strong, readonly) AVCaptureVideoPreviewLayer *previewLayer;
+@interface QBRTCCameraCapture : QBRTCVideoCapture
 
 /**
  *   AVCaptureSession is the central hub of the AVFoundation capture classes.
@@ -26,19 +28,35 @@
 @property (nonatomic, strong, readonly) AVCaptureSession *captureSession;
 
 /**
- *  Initialize video capture with specific capture position
+ *  A CoreAnimation layer subclass for previewing the visual output of an AVCaptureSession.
+ */
+@property (nonatomic, strong, readonly) AVCaptureVideoPreviewLayer *previewLayer;
+
+/**
+ *  Current camera position.
+ */
+@property (nonatomic, assign) AVCaptureDevicePosition position;
+
+/**
+ *  Determines whether camera capture has started, but is not running yet (in set-up state).
+ */
+@property (nonatomic, readonly) BOOL hasStarted;
+
+/**
+ *  Determines whether capture session is running.
+ */
+@property (nonatomic, readonly) BOOL isRunning;
+
+/**
+ *  Initialize video capture with specific capture position.
  *
- *  @param videoFormat QBRTCVideoFormat instance
+ *  @param videoFormat QBRTCVideoFormat video format
  *  @param position    AVCaptureDevicePosition, must be back or front
  *
  *  @return QBRTCVideoCapture instance
  */
 - (instancetype)initWithVideoFormat:(QBRTCVideoFormat *)videoFormat
                            position:(AVCaptureDevicePosition)position NS_DESIGNATED_INITIALIZER;
-
-// retrieve available array of QBRTCVideoFormat instances for given camera position
-+ (NSArray *)formatsWithPosition:(AVCaptureDevicePosition)position;
-
 
 /**
  *  Allows you to batch configuration changes to the session. Works while the session is stopped or running.
@@ -51,39 +69,100 @@
 - (void)configureSession:(dispatch_block_t)configureBlock;
 
 /**
- *  Start the capture session.
- */
-- (void)startSession;
-
-/**
- *  Stop the capture session asynchronously.
- */
-- (void)stopSession;
-
-/**
- * Stop the capture session and close video output
- */
-- (void)stopSessionAndTeardownOutputs:(BOOL)teardownOutputs;
-
-/**
- *  Selects a new camera position.
+ *  Start the capture session asynchronously with completion block.
  *
- *  @param currentPosition The camera position to select.
+ *  @param completion   operation completion block
  */
-- (AVCaptureDevicePosition)currentPosition;
+- (void)startSession:(nullable dispatch_block_t)completion;
 
 /**
- *  Select back or front camera position
+ *  Stop the capture session asynchronously with completion block.
  *
- *  @param cameraPosition AVCaptureDevicePosition
+ *  @param completion   operation completion block
  */
-- (void)selectCameraPosition:(AVCaptureDevicePosition)cameraPosition;
+- (void)stopSession:(nullable dispatch_block_t)completion;
+
+// MARK: Video format management
 
 /**
- *  Check if device has back or front camera
+ *  Current video format that is in use for requested camera position.
+ *
+ *  @param position requested camera position
+ *
+ *  @return QBRTCVideoFormat video format
+ */
+- (QBRTCVideoFormat *)videoFormatForPosition:(AVCaptureDevicePosition)position;
+
+/**
+ *  Set a specific video format for a requested camera position.
+ *
+ *  @param videoFormat QBRTCVideoFormat wanted video format
+ *  @param position requested camera position
+ */
+- (void)setVideoFormat:(QBRTCVideoFormat *)videoFormat forPosition:(AVCaptureDevicePosition)position;
+
+// MARK: Helpers
+
+/**
+ *  Retrieve available array of QBRTCVideoFormat instances for given camera position.
+ *
+ *  @param position requested camera position
+ *
+ *  @return Array of possible QBRTCVideoFormat video formats for requested position
+ */
++ (NSArray <QBRTCVideoFormat *> *)formatsWithPosition:(AVCaptureDevicePosition)position;
+
+/**
+ *  Check if device has back or front camera.
  *
  *  @param cameraPosition AVCaptureDevicePosition
  */
 - (BOOL)hasCameraForPosition:(AVCaptureDevicePosition)cameraPosition;
 
 @end
+
+@interface QBRTCCameraCapture (Deprecated)
+
+/**
+ *  Start the capture session.
+ *
+ *  @warning *Deprecated in 2.3.* Use 'startSession:' with nil param instead.
+ */
+- (void)startSession DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'startSession:' with nil param instead.");
+
+/**
+ *  Stop the capture session asynchronously.
+ *
+ *  @warning *Deprecated in 2.3.* Use 'stopSession:' with nil param instead.
+ */
+- (void)stopSession DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'stopSession:' with nil param instead.");
+
+
+/**
+ *  Stop the capture session and close video output.
+ *
+ *  @warning *Deprecated in 2.3.* Use 'stopSession:' instead.
+ */
+- (void)stopSessionAndTeardownOutputs:(BOOL)teardownOutputs DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'stopSession:' instead.");
+
+/**
+ *  Select back or front camera position.
+ *
+ *  @param cameraPosition AVCaptureDevicePosition
+ *
+ *  @warning *Deprecated in 2.3.* Use 'setPosition:' instead.
+ */
+- (void)selectCameraPosition:(AVCaptureDevicePosition)cameraPosition DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'setPosition:' instead.");
+
+/**
+ *  Selects a new camera position.
+ *
+ *  @param currentPosition The camera position to select
+ *
+ *  @warning *Deprecated in 2.3.* Use 'position' instead.
+ */
+- (AVCaptureDevicePosition)currentPosition DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'position' instead.");
+
+@end
+
+NS_ASSUME_NONNULL_END

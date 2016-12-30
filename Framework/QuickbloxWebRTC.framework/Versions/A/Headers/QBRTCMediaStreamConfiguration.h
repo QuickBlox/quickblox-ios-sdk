@@ -1,9 +1,8 @@
 //
 //  QBRTCMediaStreamConfiguration.h
-//  sample-videochat-webrtc
+//  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 04/11/15.
-//  Copyright © 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -17,9 +16,11 @@ typedef NS_ENUM(NSUInteger, QBRTCAudioCodec) {
 
 typedef NS_ENUM(NSUInteger, QBRTCVideoCodec) {
     
-    QBRTCVideoCodecVP8,  //  VP8 video codec, supported from iOS 7+
-    QBRTCVideoCodecH264, // H264 video codec, supported from iOS 8+
+    QBRTCVideoCodecVP8,  // VP8 video codec, software
+    QBRTCVideoCodecH264, // H264 video codec, hardware, preferred
 };
+
+NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Codecs
 
@@ -61,10 +62,12 @@ typedef NS_ENUM(NSUInteger, QBRTCVideoCodec) {
 @property (nonatomic, assign) NSInteger videoBandwidth;
 
 /**
- *  Default media stream configuration with VP8 video codec and Opus audio codec
+ *  Default media stream configuration with H264 video codec and Opus audio codec
  *
  *  @return QBRTCMediaStreamConfiguration instance
  */
 + (instancetype)defaultConfiguration;
 
 @end
+
+NS_ASSUME_NONNULL_END

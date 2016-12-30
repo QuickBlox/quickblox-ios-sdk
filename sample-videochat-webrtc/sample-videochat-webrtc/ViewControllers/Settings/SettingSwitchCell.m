@@ -1,21 +1,21 @@
 //
-//  SettingSwichCell.m
+//  SettingSwitchCell.m
 //  sample-videochat-webrtc
 //
 //  Created by Andrey Ivanov on 30/09/15.
 //  Copyright © 2015 QuickBlox Team. All rights reserved.
 //
 
-#import "SettingSwichCell.h"
+#import "SettingSwitchCell.h"
 #import "SwitchItemModel.h"
 
-@interface SettingSwichCell()
+@interface SettingSwitchCell()
 
 @property (weak, nonatomic) IBOutlet UISwitch *switchCtrl;
 
 @end
 
-@implementation SettingSwichCell
+@implementation SettingSwitchCell
 
 - (void)setModel:(SwitchItemModel *)model {
     

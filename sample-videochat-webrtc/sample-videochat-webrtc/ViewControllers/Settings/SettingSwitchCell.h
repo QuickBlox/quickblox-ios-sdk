@@ -1,5 +1,5 @@
 //
-//  SettingSwichCell.h
+//  SettingSwitchCell.h
 //  sample-videochat-webrtc
 //
 //  Created by Andrey Ivanov on 30/09/15.
@@ -8,6 +8,6 @@
 
 #import "BaseSettingsCell.h"
 
-@interface SettingSwichCell : BaseSettingsCell
+@interface SettingSwitchCell : BaseSettingsCell
 
 @end

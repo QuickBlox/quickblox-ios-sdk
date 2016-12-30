@@ -52,7 +52,8 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 
 - (IBAction)pressDoneBtn:(id)sender {
     
-    [Settings.instance saveToDisk];
+    [[Settings instance] saveToDisk];
+    [[Settings instance] applyConfig];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

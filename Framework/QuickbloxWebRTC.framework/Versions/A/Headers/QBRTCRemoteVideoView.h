@@ -2,28 +2,51 @@
 //  QBRTCRemoteVideoView.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 13/08/15.
-//  Copyright (c) 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "QBRTCTypes.h"
+#import <AVFoundation/AVFoundation.h>
+#import "RTCVideoRenderer.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+@class QBRTCRemoteVideoView;
 @class QBRTCVideoTrack;
 
-@protocol QBRTCRemoteVideoViewDelegate;
+@protocol QBRTCRemoteVideoViewDelegate
 
-typedef NS_ENUM(NSUInteger, QBRendererType) {
-    
-    QBRendererTypeSampleBuffer = 0, // Native renderer, supports acceleration on iOS 8+
-    QBRendererTypeEAGL = 1 // OpenGL renderer
-};
+/**
+ *  Called when video view size was changed.
+ *
+ *  @param videoView QBRTCRemoteVideoView instance
+ *  @param size new size
+ */
+- (void)videoView:(QBRTCRemoteVideoView *)videoView didChangeVideoSize:(CGSize)size;
 
-/// Class used to display remote video track from opponent
-@interface QBRTCRemoteVideoView : UIView
+@end
 
-//Default QBRendererType QBRendererTypeSampleBuffer;
-@property (assign, nonatomic, readonly) QBRendererType rendererType;
+/**
+ *  QBRTCRemoteVideoView is an RTCVideoRenderer which renders video frames in its
+ *  bounds using OpenGLES 2.0.
+ */
+@interface QBRTCRemoteVideoView : UIView <RTCVideoRenderer>
+
+/**
+ *  Delegate that conforms to QBRTCRemoteVideoViewDelegate protocol.
+ *
+ *  @see QBRTCRemoteVideoViewDelegate
+ */
+@property (nonatomic, weak) id<QBRTCRemoteVideoViewDelegate> delegate;
+
+/**
+ *	Options are AVLayerVideoGravityResizeAspect, AVLayerVideoGravityResizeAspectFill
+ *  and AVLayerVideoGravityResize. AVLayerVideoGravityResizeAspect is default.
+ *  See <AVFoundation/AVAnimation.h> for a description of these options.
+ *
+ *  Default value: AVLayerVideoGravityResize
+ */
+@property (nonatomic, copy) NSString *videoGravity;
 
 /**
  *  Set video track
@@ -33,3 +56,5 @@ typedef NS_ENUM(NSUInteger, QBRendererType) {
 - (void)setVideoTrack:(QBRTCVideoTrack *)videoTrack;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -10,6 +10,14 @@
 
 @implementation BaseSettingsCell
 
++ (NSString *)identifier {
+    return NSStringFromClass([self class]);
+}
+
++ (UINib *)nib {
+    return [UINib nibWithNibName:[self identifier] bundle:nil];
+}
+
 - (void)setModel:(BaseItemModel *)model {
     
     _model = model;

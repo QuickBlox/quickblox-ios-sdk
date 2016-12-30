@@ -1,9 +1,8 @@
 //
 //  QBRTCVideoCapture.h
-//  sample-videochat-webrtc
+//  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 28/10/15.
-//  Copyright © 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,7 +15,8 @@
  */
 @interface QBRTCVideoCapture : NSObject
 
-/** Serial queue to process video frames
+/**
+ *  Serial queue to process video frames
  *  For example AVCaptureVideoDataOutput needs a queue, so you can call
  *  AVCaptureVideoDataOutput instance setSampleBufferDelegate:self queue:self.videoQueue
  */

@@ -2,8 +2,7 @@
 //  QBRTCClient.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 01.12.14.
-//  Copyright (c) 2014 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,12 +12,14 @@
 
 @protocol QBRTCClientDelegate;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  Client to initialize call session and notify about call's state
  */
 @interface QBRTCClient : NSObject
 
-- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  * Initialize QuickbloxWebRTC and configure signaling
@@ -57,6 +58,9 @@
  *
  *  @return New QBRTCSession instance
  */
-- (QBRTCSession *)createNewSessionWithOpponents:(NSArray *)opponents withConferenceType:(QBRTCConferenceType)conferenceType;
+- (QBRTCSession *)createNewSessionWithOpponents:(NSArray <NSNumber *>*)opponents
+                             withConferenceType:(QBRTCConferenceType)conferenceType;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -2,11 +2,12 @@
 //  QBRTCMediaStreamTrack.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 20/10/15.
-//  Copyright © 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Base class to describe class with media information
@@ -16,6 +17,8 @@
 /// Enable or disable track for a stream
 @property (assign, nonatomic, getter=isEnabled) BOOL enabled;
 
-- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -2,29 +2,39 @@
 //  QBRTCVideoFormat.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 05/10/15.
-//  Copyright © 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "QBRTCTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
- *  Class describes video format
+ *  QBRTCVideoFormat class interface.
+ *  This class represents format management
  */
 @interface QBRTCVideoFormat : NSObject <NSCoding>
 
-/// Pixel format
-@property (nonatomic, assign) QBRTCPixelFormat pixelFormat;
-
-/// frame width
+/**
+ *  Frame width.
+ */
 @property (nonatomic, assign) NSUInteger width;
 
-/// Frame height
+/**
+ *  Frame height.
+ */
 @property (nonatomic, assign) NSUInteger height;
 
-/// Frames per second
+/**
+ *  Frames per second.
+ */
 @property (nonatomic, assign) NSUInteger frameRate;
+
+/**
+ *  Pixel format.
+ */
+@property (nonatomic, assign) QBRTCPixelFormat pixelFormat;
 
 /**
  *  Initialize video format with all settings
@@ -42,14 +52,18 @@
                          pixelFormat:(QBRTCPixelFormat)pixelFormat;
 
 /**
- *  Default video format
- *  width: 640
- *  height: 480
- *  framerate: 30
- *  pixel format: QBRTCPixelFormat420f
+ *  Default video format.
+ *
+ *  @remark width: 640
+ *          height: 480
+ *          framerate: 30
+ *          pixelFormat: QBRTCPixelFormat420f
+ *
  *  @return QBRTCVideoFormat instance
  */
 + (instancetype)defaultFormat;
 - (instancetype)init;
 
 @end
+
+NS_ASSUME_NONNULL_END

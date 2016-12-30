@@ -2,20 +2,22 @@
 //  QBRTCConfig.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 13.01.15.
-//  Copyright (c) 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 #import "QBRTCTypes.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class QBRTCMediaStreamConfiguration;
+@class QBRTCICEServer;
 
 /// Main class to configure QuickbloxWebRTC settings
 @interface QBRTCConfig : NSObject
 
-- (instancetype)init __attribute__((unavailable("init is not a supported initializer for this class.")));
+- (instancetype)init NS_UNAVAILABLE;
 
 #pragma mark - ICE configuration
 
@@ -25,27 +27,28 @@
  *
     For example:
 
-    NSURL *stunUrl = [NSURL URLWithString:@"stun:turn.quickblox.com"];
-    QBRTCICEServer *stunServer = [QBRTCICEServer serverWithURL:stunUrl username:@"quickblox" password:@"baccb97ba2d92d71e26eb9886da5f1e0"];
+    NSString *userName = @"quickblox";
+    NSString *password = @"baccb97ba2d92d71e26eb9886da5f1e0";
+
+    NSArray *urls = @[
+         @"stun:turn.quickblox.com",
+         @"turn:turn.quickblox.com:3478?transport=udp",
+         @"turn:turn.quickblox.com:3478?transport=tcp"
+    ];
  
-    NSURL *turnUDPUrl = [NSURL URLWithString:@"turn:turn.quickblox.com:3478?transport=udp"];
-    QBRTCICEServer *turnUDPServer = [QBRTCICEServer serverWithURL:turnUDPUrl username:@"quickblox" password:@"baccb97ba2d92d71e26eb9886da5f1e0"];
- 
-    NSURL *turnTCPUrl = [NSURL URLWithString:@"turn:turn.quickblox.com:3478?transport=tcp"];
-    QBRTCICEServer* turnTCPServer = [QBRTCICEServer serverWithURL:turnTCPUrl username:@"quickblox" password:@"baccb97ba2d92d71e26eb9886da5f1e0"];
- 
-    [QBRTCConfig setICEServers:@[stunServer, turnUDPServer, turnTCPServer]];
+    QBRTCICEServer *server = [QBRTCICEServer serverWithURLs:urls username:userName password:password];
+    [QBRTCConfig setICEServers:@[server]];
  *
  * @param iceServers array of QBRTCICEServer instances
  */
-+ (void)setICEServers:(NSArray *)iceServers;
++ (void)setICEServers:(NSArray <QBRTCICEServer *>*)iceServers;
 
 /**
  *  Get custom ICE servers
  *
  *  @return array of QBRTCICEServer instances
  */
-+ (NSArray *)iceServers;
++ (NSArray <QBRTCICEServer *> *)iceServers;
 
 #pragma mark - Time interval
 
@@ -78,10 +81,12 @@
  *  After a disconnect from an opponent happend we are starting timer and waiting for a given time interval
  *  in case connection establishing/reconnecting again
  *
- *  Default value: 30 seconds
+ *  Default value: 30 seconds, cannot be lower than 10
  *  @param disconnectTimeInterval time interval in seconds
+ *
+ *  @warning *Deprecated in 2.3.* No longer in use due to updated webrtc specification.
  */
-+ (void)setDisconnectTimeInterval:(NSTimeInterval)disconnectTimeInterval;
++ (void)setDisconnectTimeInterval:(NSTimeInterval)disconnectTimeInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. No longer in use due to updated webrtc specification.");
 
 /**
  *  Dialing time interval
@@ -101,8 +106,10 @@
  * Disconnect time interval
  *
  *  @return current value
+ *
+ *  @warning *Deprecated in 2.3.* No longer in use due to updated webrtc specification.
  */
-+ (NSTimeInterval)disconnectTimeInterval;
++ (NSTimeInterval)disconnectTimeInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. No longer in use due to updated webrtc specification.");
 
 #pragma mark - Media stream configuration
 
@@ -152,4 +159,29 @@
  */
 + (NSTimeInterval)statsReportTimeInterval;
 
+/**
+ * Set QuickbloxWebRTC SDK log level (by default: QBRTCLogLevelDebug).
+ *
+ * Possible values:
+ * QBRTCLogLevelNothing:			Nothing in Log
+ * QBRTCLogLevelErrors:				Can see Errors
+ * QBRTCLogLevelWarnings:			Can see Warnings
+ * QBRTCLogLevelInfo:				Some Information Logs
+ * QBRTCLogLevelVerbose:			Full QuickbloxWebRTC Log
+ * QBRTCLogLevelVerboseWithWebRTC:	Full QuickbloxWebRTC and WebRTC native Log
+ *
+ *
+ * @param logLevel New log level
+ */
++ (void)setLogLevel:(QBRTCLogLevel)logLevel;
+
+/**
+ *  Get QuickbloxWebRTC SDK log level (by default: QBRTCLogLevelDebug).
+ *
+ *  @return QBRTCLogLevel current log level
+ */
++ (QBRTCLogLevel)logLevel;
+
 @end
+
+NS_ASSUME_NONNULL_END
