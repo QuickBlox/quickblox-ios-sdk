@@ -18,6 +18,11 @@
 
 @implementation LocalVideoView
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (instancetype)initWithPreviewlayer:(AVCaptureVideoPreviewLayer *)layer {
     
     self = [super initWithFrame:CGRectZero];
@@ -48,15 +53,20 @@
     return self;
 }
 
-- (void)didPressSwitchCamera:(UIButton *)sender {
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    [self updateOrientationIfNeeded];
+}
 
+- (void)didPressSwitchCamera:(UIButton *)sender {
+    
     [self.delegate localVideoView:self pressedSwitchButton:sender];
 }
 
 - (void)setFrame:(CGRect)frame {
     
     [super setFrame:frame];
-
+    
     self.containerView.frame = self.bounds;
     self.videoLayer.frame = self.bounds;
     
@@ -65,6 +75,19 @@
                                             self.bounds.size.height - buttonSize.height - 30,
                                             buttonSize.width,
                                             buttonSize.height);
+}
+
+- (void)updateOrientationIfNeeded {
+    
+    AVCaptureConnection *previewLayerConnection = self.videoLayer.connection;
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    AVCaptureVideoOrientation videoOrientation = (AVCaptureVideoOrientation)interfaceOrientation;
+    
+    BOOL isVideoOrientationSupported = [previewLayerConnection isVideoOrientationSupported];
+    if (isVideoOrientationSupported
+        && previewLayerConnection.videoOrientation != videoOrientation) {
+        [previewLayerConnection setVideoOrientation:videoOrientation];
+    }
 }
 
 @end

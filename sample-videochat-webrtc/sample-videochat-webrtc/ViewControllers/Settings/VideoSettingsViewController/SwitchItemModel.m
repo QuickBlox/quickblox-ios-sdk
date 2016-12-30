@@ -7,13 +7,13 @@
 //
 
 #import "SwitchItemModel.h"
-#import "SettingSwichCell.h"
+#import "SettingSwitchCell.h"
 
 @implementation SwitchItemModel
 
 - (Class)viewClass {
     
-    return [SettingSwichCell class];
+    return [SettingSwitchCell class];
 }
 
 @end

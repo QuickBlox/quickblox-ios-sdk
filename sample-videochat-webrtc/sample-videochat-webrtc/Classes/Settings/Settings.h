@@ -13,11 +13,11 @@
 
 @property (strong, nonatomic) QBRTCVideoFormat *videoFormat;
 @property (strong, nonatomic) QBRTCMediaStreamConfiguration *mediaConfiguration;
-@property (assign, nonatomic) QBRendererType remoteVideoViewRendererType;
 @property (assign, nonatomic) AVCaptureDevicePosition preferredCameraPostion;
 
 + (instancetype)instance;
 
 - (void)saveToDisk;
+- (void)applyConfig;
 
 @end

@@ -18,17 +18,20 @@
 #import "SharingViewController.h"
 #import "SVProgressHUD.h"
 #import "UsersDataSource.h"
-#import <mach/mach.h>
 #import "QBCore.h"
+#import "StatsView.h"
+#import "PlaceholderGenerator.h"
 
-NSString *const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
-NSString *const kSharingViewControllerIdentifier = @"SharingViewController";
+static NSString * const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
+static NSString * const kSharingViewControllerIdentifier = @"SharingViewController";
 
-const NSTimeInterval kRefreshTimeInterval = 1.f;
+static const NSTimeInterval kRefreshTimeInterval = 1.f;
+
+static NSString * const kUnknownUserLabel = @"?";
 
 @interface CallViewController ()
 
-<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCClientDelegate, LocalVideoViewDelegate>
+<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCClientDelegate, QBRTCAudioSessionDelegate, LocalVideoViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *opponentsCollectionView;
 @property (weak, nonatomic) IBOutlet QBToolBar *toolbar;
@@ -44,8 +47,12 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 @property (strong, nonatomic) NSMutableDictionary *videoViews;
 @property (weak, nonatomic) UIView *zoomedView;
 
+@property (strong, nonatomic) QBButton *dynamicEnable;
 @property (strong, nonatomic) QBButton *videoEnabled;
 @property (weak, nonatomic) LocalVideoView *localVideoView;
+
+@property (strong, nonatomic) StatsView *statsView;
+@property (assign, nonatomic) BOOL shouldGetStats;
 
 @end
 
@@ -53,13 +60,19 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 - (void)dealloc {
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [[QBRTCClient instance] addDelegate:self];
+    [[QBRTCAudioSession instance] addDelegate:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [QBRTCClient.instance addDelegate:self];
     
     [self configureGUI];
     
@@ -67,10 +80,10 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         
 #if !(TARGET_IPHONE_SIMULATOR)
         Settings *settings = Settings.instance;
-#if !(TARGET_OS_SIMULATOR)
         self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
                                                                     position:settings.preferredCameraPostion];
-        [self.cameraCapture startSession];
+        [self.cameraCapture startSession:nil];
+        self.session.localMediaStream.videoTrack.videoCapture = self.cameraCapture;
 #endif
     }
     
@@ -107,16 +120,24 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     
     self.users = users;
     
-    [QBRTCSoundRouter.instance initialize];
-
+    [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+        // adding blutetooth support
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+        
+        // adding airplay support
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+        
+        if (_session.conferenceType == QBRTCConferenceTypeVideo) {
+            // setting mode to video chat to enable airplay audio and speaker only
+            configuration.mode = AVAudioSessionModeVideoChat;
+        }
+    }];
+    
     BOOL isInitiator = (Core.currentUser.ID == self.session.initiatorID.unsignedIntegerValue);
     isInitiator ? [self startCall] : [self acceptCall];
     
     self.title = @"Connecting...";
-    
-    if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
-        [QBRTCSoundRouter instance].currentSoundRoute = QBRTCSoundRouteReceiver;
-    }
 }
 
 - (UIView *)videoViewWithOpponentID:(NSNumber *)opponentID {
@@ -147,16 +168,17 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         
         QBRTCRemoteVideoView *remoteVideoView = nil;
         
-        QBRTCVideoTrack *remoteVideoTrak = [self.session remoteVideoTrackWithUserID:opponentID];
+        QBRTCVideoTrack *remoteVideoTraсk = [self.session remoteVideoTrackWithUserID:opponentID];
         
-        if (!result && remoteVideoTrak) {
+        if (!result && remoteVideoTraсk) {
             
             remoteVideoView = [[QBRTCRemoteVideoView alloc] initWithFrame:CGRectMake(2, 2, 2, 2)];
+            remoteVideoView.videoGravity = AVLayerVideoGravityResizeAspectFill;
             self.videoViews[opponentID] = remoteVideoView;
             result = remoteVideoView;
         }
         
-        [remoteVideoView setVideoTrack:remoteVideoTrak];
+        [remoteVideoView setVideoTrack:remoteVideoTraсk];
         
         return result;
     }
@@ -182,7 +204,7 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 - (void)acceptCall {
     
-    [QMSysPlayer stopAllSounds];
+    [[QMSoundManager instance] stopAllSounds];
     //Accept call
     NSDictionary *userInfo = @{@"acceptCall" : @"userInfo"};
     [self.session acceptCall:userInfo];
@@ -207,13 +229,17 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
         weakSelf.session.localMediaStream.audioTrack.enabled ^=1;
     }];
     
-    [self.toolbar addButton:[QBButtonsFactory dynamicEnable] action:^(UIButton *sender) {
+    if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
         
-        QBRTCSoundRoute route = [QBRTCSoundRouter instance].currentSoundRoute;
-        
-        [QBRTCSoundRouter instance].currentSoundRoute =
-        route == QBRTCSoundRouteSpeaker ? QBRTCSoundRouteReceiver : QBRTCSoundRouteSpeaker;
-    }];
+        self.dynamicEnable = [QBButtonsFactory dynamicEnable];
+        [self.toolbar addButton:self.dynamicEnable action:^(UIButton *sender) {
+            
+            QBRTCAudioDevice device = [QBRTCAudioSession instance].currentAudioDevice;
+            
+            [QBRTCAudioSession instance].currentAudioDevice =
+            device == QBRTCAudioDeviceSpeaker ? QBRTCAudioDeviceReceiver : QBRTCAudioDeviceSpeaker;
+        }];
+    }
     
     if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
         
@@ -222,6 +248,9 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
             SharingViewController *sharingVC =
             [weakSelf.storyboard instantiateViewControllerWithIdentifier:kSharingViewControllerIdentifier];
             sharingVC.session = weakSelf.session;
+            
+            // put camera capture on pause
+            [weakSelf.cameraCapture stopSession:nil];
             
             [weakSelf.navigationController pushViewController:sharingVC animated:YES];
         }];
@@ -236,10 +265,33 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     }];
     
     [self.toolbar updateItems];
+    
+    // stats reports view
+    _statsView = [[StatsView alloc] initWithFrame:self.view.bounds];
+    _statsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _statsView.hidden = YES;
+    [self.view addSubview:_statsView];
+    
+    // add button to enable stats view
+    UIBarButtonItem *statsButton = [[UIBarButtonItem alloc] initWithTitle:@"Stats" style:UIBarButtonItemStylePlain target:self action:@selector(updateStatsView)];
+    self.navigationItem.rightBarButtonItem = statsButton;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self refreshVideoViews];
+    
+    if (self.cameraCapture != nil
+        && !self.cameraCapture.hasStarted) {
+        // ideally you should always stop capture session
+        // when you are leaving controller in any way
+        // here we should get its running state back
+        [self.cameraCapture startSession:nil];
+    }
+}
+
+- (void)refreshVideoViews {
     
     for (OpponentCollectionViewCell *viewToRefresh  in self.opponentsCollectionView.visibleCells) {
         id v = viewToRefresh.videoView;
@@ -257,16 +309,40 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    OpponentCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kOpponentCollectionViewCellIdentifier
-                                                                                 forIndexPath:indexPath];
+    OpponentCollectionViewCell *reusableCell = [collectionView
+                                                dequeueReusableCellWithReuseIdentifier:kOpponentCollectionViewCellIdentifier
+                                                forIndexPath:indexPath];
     QBUUser *user = self.users[indexPath.row];
     
-    [cell setVideoView:[self videoViewWithOpponentID:@(user.ID)]];
+    __weak __typeof(self)weakSelf = self;
+    [reusableCell setDidPressMuteButton:^(BOOL isMuted) {
+        
+        QBRTCAudioTrack *audioTrack = [weakSelf.session remoteAudioTrackWithUserID:@(user.ID)];
+        audioTrack.enabled = !isMuted;
+    }];
     
-    return cell;
+    [reusableCell setVideoView:[self videoViewWithOpponentID:@(user.ID)]];
+    
+    if (user.ID != [QBSession currentSession].currentUser.ID) {
+        
+        NSString *title = user.fullName ?: kUnknownUserLabel;
+        reusableCell.placeholderImageView.image = [PlaceholderGenerator placeholderWithSize:reusableCell.placeholderImageView.bounds.size title:title];
+    }
+    
+    return reusableCell;
 }
 
 #pragma mark - Transition to size
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        
+        [self refreshVideoViews];
+        
+    } completion:nil];
+}
 
 - (NSIndexPath *)indexPathAtUserID:(NSNumber *)userID {
     
@@ -289,105 +365,27 @@ const NSTimeInterval kRefreshTimeInterval = 1.f;
     block(cell);
 }
 
-#pragma Statistic
+#pragma mark - Statistic
 
-NSInteger QBRTCGetCpuUsagePercentage() {
-    // Create an array of thread ports for the current task.
-    const task_t task = mach_task_self();
-    thread_act_array_t thread_array;
-    mach_msg_type_number_t thread_count;
-    if (task_threads(task, &thread_array, &thread_count) != KERN_SUCCESS) {
-        return -1;
-    }
-    
-    // Sum cpu usage from all threads.
-    float cpu_usage_percentage = 0;
-    thread_basic_info_data_t thread_info_data = {};
-    mach_msg_type_number_t thread_info_count;
-    for (size_t i = 0; i < thread_count; ++i) {
-        thread_info_count = THREAD_BASIC_INFO_COUNT;
-        kern_return_t ret = thread_info(thread_array[i],
-                                        THREAD_BASIC_INFO,
-                                        (thread_info_t)&thread_info_data,
-                                        &thread_info_count);
-        if (ret == KERN_SUCCESS) {
-            cpu_usage_percentage +=
-            100.f * (float)thread_info_data.cpu_usage / TH_USAGE_SCALE;
-        }
-    }
-    
-    // Dealloc the created array.
-    vm_deallocate(task, (vm_address_t)thread_array, sizeof(thread_act_t) * thread_count);
-    return lroundf(cpu_usage_percentage);
+- (void)updateStatsView {
+    self.shouldGetStats ^= 1;
+    self.statsView.hidden ^= 1;
 }
 
 #pragma mark - QBRTCClientDelegate
 
 - (void)session:(QBRTCSession *)session updatedStatsReport:(QBRTCStatsReport *)report forUserID:(NSNumber *)userID {
     
-    NSMutableString *result = [NSMutableString string];
-    NSString *systemStatsFormat = @"(cpu)%ld%%\n";
-    [result appendString:[NSString stringWithFormat:systemStatsFormat,
-                          (long)QBRTCGetCpuUsagePercentage()]];
-    
-    // Connection stats.
-    NSString *connStatsFormat = @"CN %@ms | %@->%@/%@ | (s)%@ | (r)%@\n";
-    [result appendString:[NSString stringWithFormat:connStatsFormat,
-                          report.connectionRoundTripTime,
-                          report.localCandidateType, report.remoteCandidateType, report.transportType,
-                          report.connectionSendBitrate, report.connectionReceivedBitrate]];
-    
-    if (session.conferenceType == QBRTCConferenceTypeVideo) {
-        
-        // Video send stats.
-        NSString *videoSendFormat = @"VS (input) %@x%@@%@fps | (sent) %@x%@@%@fps\n"
-        "VS (enc) %@/%@ | (sent) %@/%@ | %@ms | %@\n";
-        [result appendString:[NSString stringWithFormat:videoSendFormat,
-                              report.videoSendInputWidth, report.videoSendInputHeight, report.videoSendInputFps,
-                              report.videoSendWidth, report.videoSendHeight, report.videoSendFps,
-                              report.actualEncodingBitrate, report.targetEncodingBitrate,
-                              report.videoSendBitrate, report.availableSendBandwidth,
-                              report.videoSendEncodeMs,
-                              report.videoSendCodec]];
-        
-        // Video receive stats.
-        NSString *videoReceiveFormat =
-        @"VR (recv) %@x%@@%@fps | (decoded)%@ | (output)%@fps | %@/%@ | %@ms\n";
-        [result appendString:[NSString stringWithFormat:videoReceiveFormat,
-                              report.videoReceivedWidth, report.videoReceivedHeight, report.videoReceivedFps,
-                              report.videoReceivedDecodedFps,
-                              report.videoReceivedOutputFps,
-                              report.videoReceivedBitrate, report.availableReceiveBandwidth,
-                              report.videoReceivedDecodeMs]];
-    }
-    // Audio send stats.
-    NSString *audioSendFormat = @"AS %@ | %@\n";
-    [result appendString:[NSString stringWithFormat:audioSendFormat,
-                          report.audioSendBitrate, report.audioSendCodec]];
-    
-    // Audio receive stats.
-    NSString *audioReceiveFormat = @"AR %@ | %@ | %@ms | (expandrate)%@";
-    [result appendString:[NSString stringWithFormat:audioReceiveFormat,
-                          report.audioReceivedBitrate, report.audioReceivedCodec, report.audioReceivedCurrentDelay,
-                          report.audioReceivedExpandRate]];
-    
-    /* Example output
-     2016-10-10 15:13:18.718 sample-videochat-webrtc[18260:3097814] (cpu)59%
-     CN 41ms | local->local/udp | (s)5Kbps | (r)1.54Mbps
-     VS (input) 0x0@0fps | (sent) 0x0@0fps
-     VS (enc) 0bps/0bps | (sent) 0bps/300Kbps | 5ms | VP8
-     VR (recv) 480x640@30fps | (decoded)31 | (output)31fps | 1.49Mbps/1.68Mbps | 16ms
-     AS 0bps | opus
-     AR 31Kbps | opus | 782ms | (expandrate)0.0278931
-     */
-    
+    NSString *result = [report statsString];
     NSLog(@"%@", result);
+    
+    // send stats to stats view if needed
+    if (_shouldGetStats) {
+        [_statsView setStats:result];
+        [self.view setNeedsLayout];
+    }
 }
 
-- (void)session:(QBRTCSession *)session initializedLocalMediaStream:(QBRTCMediaStream *)mediaStream {
-    
-    session.localMediaStream.videoTrack.videoCapture = self.cameraCapture;
-}
 /**
  * Called in case when you are calling to user, but he hasn't answered
  */
@@ -479,7 +477,7 @@ NSInteger QBRTCGetCpuUsagePercentage() {
         
         [self.beepTimer invalidate];
         self.beepTimer = nil;
-        [QMSysPlayer stopAllSounds];
+        [[QMSoundManager instance] stopAllSounds];
     }
     
     if (!self.callTimer) {
@@ -557,20 +555,21 @@ NSInteger QBRTCGetCpuUsagePercentage() {
     
     if (session == self.session) {
         
-        [QBRTCSoundRouter.instance deinitialize];
+        [self.cameraCapture stopSession:nil];
+        
+        [[QBRTCAudioSession instance] deinitialize];
         
         if (self.beepTimer) {
             
             [self.beepTimer invalidate];
             self.beepTimer = nil;
-            [QMSysPlayer stopAllSounds];
+            [[QMSoundManager instance] stopAllSounds];
         }
         
         [self.callTimer invalidate];
         self.callTimer = nil;
         
         self.toolbar.userInteractionEnabled = NO;
-        //        self.localVideoView.hidden = YES;
         [UIView animateWithDuration:0.5 animations:^{
             
             self.toolbar.alpha = 0.4;
@@ -580,11 +579,22 @@ NSInteger QBRTCGetCpuUsagePercentage() {
     }
 }
 
+#pragma mark - QBRTCAudioSessionDelegate
+
+- (void)audioSession:(QBRTCAudioSession *)audioSession didChangeCurrentAudioDevice:(QBRTCAudioDevice)updatedAudioDevice {
+    
+    BOOL isSpeaker = updatedAudioDevice == QBRTCAudioDeviceSpeaker;
+    if (self.dynamicEnable.pressed != isSpeaker) {
+        
+        self.dynamicEnable.pressed = isSpeaker;
+    }
+}
+
 #pragma mark - Timers actions
 
 - (void)playCallingSound:(id)sender {
     
-    //    [QMSoundManager playCallingSound];
+    [QMSoundManager playCallingSound];
 }
 
 - (void)refreshCallTime:(NSTimer *)sender {
@@ -605,13 +615,13 @@ NSInteger QBRTCGetCpuUsagePercentage() {
 
 - (void)localVideoView:(LocalVideoView *)localVideoView pressedSwitchButton:(UIButton *)sender {
     
-    AVCaptureDevicePosition position = [self.cameraCapture currentPosition];
+    AVCaptureDevicePosition position = self.cameraCapture.position;
     AVCaptureDevicePosition newPosition = position == AVCaptureDevicePositionBack ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
     
     if ([self.cameraCapture hasCameraForPosition:newPosition]) {
         
         CATransition *animation = [CATransition animation];
-        animation.duration = .5f;
+        animation.duration = .75f;
         animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         animation.type = @"oglFlip";
         
@@ -625,8 +635,7 @@ NSInteger QBRTCGetCpuUsagePercentage() {
         }
         
         [localVideoView.superview.layer addAnimation:animation forKey:nil];
-        
-        [self.cameraCapture selectCameraPosition:newPosition];
+        self.cameraCapture.position = newPosition;
     }
 }
 

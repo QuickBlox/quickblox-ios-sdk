@@ -32,13 +32,17 @@
     NSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
 }
 
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [[QBRTCClient instance] addDelegate:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [QMSoundManager playRingtoneSound];
     
-    [QBRTCClient.instance addDelegate:self];
     NSMutableArray *users = [NSMutableArray array];
-    
     for (NSNumber *uID in self.session.opponentsIDs) {
         
         QBUUser *user = [self.usersDatasource userWithID:uID.integerValue];
@@ -135,14 +139,14 @@
     self.dialignTimer = nil;
     
     [QBRTCClient.instance removeDelegate:self];
-	[QBRTCSoundRouter.instance deinitialize];
-    [QMSysPlayer stopAllSounds];
+    [[QMSoundManager instance] stopAllSounds];
 }
 
 - (void)sessionDidClose:(QBRTCSession *)session {
     
     if (self.session == session) {
         [self cleanUp];
+        [[QBRTCAudioSession instance] deinitialize];
     }
 }
 

@@ -6,14 +6,13 @@
 //  Copyright (c) 2014 Quickblox. All rights reserved.
 //
 
-#define QMSysPlayer [QMSoundManager instance]
-
 #import <Foundation/Foundation.h>
 
 @interface QMSoundManager : NSObject
 
 @property (assign, nonatomic) BOOL on;
 
+// MARK: Initializers
 + (instancetype)instance;
 
 /**
@@ -121,7 +120,8 @@
 - (void)preloadSoundWithFilename:(NSString *)filename
                        extension:(NSString *)extension;
 
-/*Sounds*/
+// MARK: Preset sounds
+
 + (void)playCallingSound;
 + (void)playBusySound;
 + (void)playEndOfCallSound;

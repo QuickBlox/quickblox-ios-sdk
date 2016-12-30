@@ -9,62 +9,191 @@
 #import "AudioSettingsViewController.h"
 #import "Settings.h"
 
-@interface AudioSettingsViewController ()
+#import "SettingCell.h"
+#import "SettingSliderCell.h"
+#import "SettingSwitchCell.h"
 
-@property (copy, nonatomic) NSIndexPath *audioCodecIndexPath;
-@property (strong, nonatomic) Settings *settings;
+#import "SwitchItemModel.h"
+#import "SliderItemModel.h"
+#import "SettingsSectionModel.h"
 
-@end
+typedef NS_ENUM(NSUInteger, AudioSettingsSectionType) {
+    
+    AudioSettingsSectionAudioCodec = 0,
+    AudioSettingsSectionBandwidth = 1
+};
+
+typedef NS_ENUM(NSUInteger, AudioBandwidthSection) {
+    
+    AudioBandwidthSectionEnable = 0,
+    AudioBandwidthSectionBandwidth
+};
+
+struct AudioCodecBandWidthRange {
+    NSUInteger minValue;
+    NSUInteger maxValue;
+} AudioCodecBandWidthRange;
+
+static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudioCodec codec) {
+    
+    struct AudioCodecBandWidthRange range;
+    switch (codec) {
+        case QBRTCAudioCodecOpus:
+            range.minValue = 6;
+            range.maxValue = 510;
+            break;
+        case QBRTCAudioCodecISAC:
+            range.minValue = 10;
+            range.maxValue = 32;
+            break;
+        case QBRTCAudioCodeciLBC:
+            range.minValue = 15;
+            range.maxValue = 32;
+            break;
+    }
+    
+    return range;
+}
 
 @implementation AudioSettingsViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (NSString *)titleForSection:(NSUInteger)section {
     
-    self.settings = [Settings instance];
-    self.audioCodecIndexPath = [NSIndexPath indexPathForRow:self.settings.mediaConfiguration.audioCodec inSection:0];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell =  [super tableView:tableView cellForRowAtIndexPath:indexPath];
-    
-    void (^checkmakr)(BOOL) = ^(BOOL isCheckmark){
-        
-        if (isCheckmark) {
-            
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        else {
-            
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-    };
-    
-    if (indexPath.section == 0) {
-        
-        checkmakr([indexPath compare:self.audioCodecIndexPath] == NSOrderedSame);
+    switch (section) {
+        case AudioSettingsSectionAudioCodec:
+            return @"Codecs";
+        case AudioSettingsSectionBandwidth:
+            return @"Bandwidth";
     }
     
-    return cell;
+    return nil;
 }
+
+- (void)configure {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    //Audio codecs
+    [self addSectionWith:AudioSettingsSectionAudioCodec items:^NSArray *(NSString *sectionTitle) {
+        
+        BaseItemModel *opusModel = [[BaseItemModel alloc] init];
+        opusModel.title = @"Opus";
+        opusModel.data = @(QBRTCAudioCodecOpus);
+        
+        BaseItemModel *isacModel = [[BaseItemModel alloc] init];
+        isacModel.title = @"ISAC";
+        isacModel.data = @(QBRTCAudioCodecISAC);
+        
+        BaseItemModel *iLBCModel = [[BaseItemModel alloc] init];
+        iLBCModel.title = @"iLBC";
+        iLBCModel.data = @(QBRTCAudioCodeciLBC);
+        
+        [weakSelf selectSection:AudioSettingsSectionAudioCodec index:(NSUInteger)weakSelf.settings.mediaConfiguration.audioCodec];
+        
+        return @[opusModel, isacModel, iLBCModel];
+    }];
+    //Bandwidth
+    [self addSectionWith:AudioSettingsSectionBandwidth items:^NSArray *(NSString *sectionTitle) {
+        
+        //Camera position section
+        SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
+        switchItem.title = @"Enable";
+        
+        BOOL isEnabled = (weakSelf.settings.mediaConfiguration.audioBandwidth > 0);
+        switchItem.on = isEnabled;
+        
+        SliderItemModel *bandwidthSlider = [[SliderItemModel alloc] init];
+        bandwidthSlider.title = @"30";
+        [weakSelf updateBandwidthSliderModelRange:bandwidthSlider usingCodec:weakSelf.settings.mediaConfiguration.audioCodec];
+        bandwidthSlider.currentValue = weakSelf.settings.mediaConfiguration.audioBandwidth < bandwidthSlider.minValue ? bandwidthSlider.minValue : weakSelf.settings.mediaConfiguration.audioBandwidth;
+        
+        bandwidthSlider.disable = !isEnabled;
+        
+        return @[switchItem, bandwidthSlider];
+    }];
+}
+
+#pragma mark - UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0) {
-        
-        self.audioCodecIndexPath = indexPath;
-        
-        self.settings.mediaConfiguration.audioCodec = indexPath.row;
+    switch (indexPath.section) {
+        case AudioSettingsSectionAudioCodec:
+            [self updateSelectionAtIndexPath:indexPath];
+            [self updateBandwidthValueForIndexPath:indexPath];
+            break;
     }
+}
+
+#pragma mark - SettingsCellDelegate
+
+- (void)cell:(BaseSettingsCell *)cell didChageModel:(BaseItemModel *)model {
     
-    [tableView reloadData];
+    if ([model isKindOfClass:[SwitchItemModel class]]) {
+        
+        SettingsSectionModel *bandwidth = [self sectionWith:AudioSettingsSectionBandwidth];
+        SwitchItemModel *switchItem = bandwidth.items[AudioBandwidthSectionEnable];
+        BOOL isEnabled = switchItem.on;
+        SliderItemModel *bandwidthSlider = bandwidth.items[AudioBandwidthSectionBandwidth];
+        bandwidthSlider.disable = !isEnabled;
+        if (!isEnabled) {
+            bandwidthSlider.currentValue = bandwidthSlider.minValue;
+        }
+        
+        NSIndexSet *sectionToReload = [NSIndexSet indexSetWithIndex:AudioSettingsSectionBandwidth];
+        [self.tableView reloadSections:sectionToReload withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+#pragma mark - Helpers
+
+- (void)updateBandwidthSliderModelRange:(SliderItemModel *)sliderModel
+                             usingCodec:(QBRTCAudioCodec)codec {
+    
+    struct AudioCodecBandWidthRange range = audioCodecRangeForCodec(codec);
+    sliderModel.currentValue = range.minValue;
+    sliderModel.minValue = range.minValue;
+    sliderModel.maxValue = range.maxValue;
+}
+
+- (void)updateBandwidthValueForIndexPath:(NSIndexPath *)indexPath {
+    
+    SettingsSectionModel *bandwidth = [self sectionWith:AudioSettingsSectionBandwidth];
+    SwitchItemModel *switchItem = bandwidth.items[AudioBandwidthSectionEnable];
+    SliderItemModel *bandwidthSlider = bandwidth.items[AudioBandwidthSectionBandwidth];
+    BaseItemModel *audioCodec = [self modelWithIndex:indexPath.row section:indexPath.section];
+    [self updateBandwidthSliderModelRange:bandwidthSlider usingCodec:(QBRTCAudioCodec)[(NSNumber *)audioCodec.data integerValue]];
+    
+    bandwidthSlider.disable = YES;
+    switchItem.on = NO;
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:AudioSettingsSectionBandwidth]
+                  withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)applySettings {
+    
+    //APPLY SETTINGS
+    
+    //Video codec
+    NSIndexPath *audioCodecIndexPath = [self indexPathAtSection:AudioSettingsSectionAudioCodec];
+    BaseItemModel *audioCodec = [self modelWithIndex:audioCodecIndexPath.row section:audioCodecIndexPath.section];
+    self.settings.mediaConfiguration.audioCodec = (QBRTCAudioCodec)[(NSNumber *)audioCodec.data integerValue];
+    
+    //bandwidth
+    SettingsSectionModel *bandwidth = [self sectionWith:AudioSettingsSectionBandwidth];
+    SwitchItemModel *switchItem = bandwidth.items[AudioBandwidthSectionEnable];
+    BOOL isEnabled = switchItem.on;
+    if (isEnabled) {
+        
+        SliderItemModel *bandwidthSlider = bandwidth.items[AudioBandwidthSectionBandwidth];
+        self.settings.mediaConfiguration.audioBandwidth = bandwidthSlider.currentValue;
+    }
+    else {
+        self.settings.mediaConfiguration.audioBandwidth = 0;
+    }
 }
 
 @end

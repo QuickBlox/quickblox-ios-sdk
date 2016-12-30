@@ -17,4 +17,6 @@
 @property (assign, nonatomic) NSUInteger currentValue;
 @property (assign, nonatomic) NSUInteger minValue;
 
+@property (assign, nonatomic, getter=isDisabled) BOOL disable;
+
 @end

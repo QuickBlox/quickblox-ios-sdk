@@ -21,7 +21,7 @@
     
     self = [super init];
     if (self) {
-
+        
         _view = view;
     }
     
@@ -40,7 +40,7 @@
     self.displayLink.paused = YES;
 }
 
-#pragma mark - 
+#pragma mark -
 
 - (UIImage *)screenshot {
     
@@ -53,8 +53,6 @@
 }
 
 - (void)sendPixelBuffer:(CADisplayLink *)sender {
-    //Convert to unix nanosec
-    int64_t timeStamp = sender.timestamp * NSEC_PER_SEC;
     
     dispatch_async(self.videoQueue, ^{
         
@@ -80,7 +78,6 @@
             
             if(status == kCVReturnSuccess && pixelBuffer != NULL) {
                 
-      
                 CVPixelBufferLockBaseAddress(pixelBuffer, 0);
                 void *pxdata = CVPixelBufferGetBaseAddress(pixelBuffer);
                 
@@ -94,16 +91,14 @@
                 CGColorSpaceRelease(rgbColorSpace);
                 CGContextRelease(context);
                 
-                QBRTCVideoFrame *videoFrame = [[QBRTCVideoFrame alloc] initWithPixelBuffer:pixelBuffer];
-                videoFrame.timestamp = timeStamp;
-                
-                [super sendVideoFrame:videoFrame];
+                QBRTCVideoFrame *videoFrame = [[QBRTCVideoFrame alloc] initWithPixelBuffer:pixelBuffer videoRotation:QBRTCVideoRotation_0];
                 
                 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
                 
+                [super sendVideoFrame:videoFrame];
             }
             
-            CVPixelBufferRelease(pixelBuffer);   
+            CVPixelBufferRelease(pixelBuffer);
         }
     });
 }
