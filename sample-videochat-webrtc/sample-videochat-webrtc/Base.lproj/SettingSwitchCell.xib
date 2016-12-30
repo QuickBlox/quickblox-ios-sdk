@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingSwitchCell" id="Lur-uF-hGd" customClass="SettingSwitchCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lur-uF-hGd" id="dM6-3W-gn3">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="53.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZY-uT-occ">
+                        <rect key="frame" x="17" y="11" width="278" height="31"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjc-Kn-EsJ">
+                        <rect key="frame" x="309" y="10" width="51" height="31"/>
+                        <connections>
+                            <action selector="valueChanged:" destination="Lur-uF-hGd" eventType="valueChanged" id="vk1-8K-pPa"/>
+                        </connections>
+                    </switch>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Sjc-Kn-EsJ" firstAttribute="top" secondItem="dM6-3W-gn3" secondAttribute="topMargin" constant="2" id="4fi-wH-0mm"/>
+                    <constraint firstItem="SZY-uT-occ" firstAttribute="top" secondItem="dM6-3W-gn3" secondAttribute="topMargin" constant="3" id="4va-PD-VZI"/>
+                    <constraint firstItem="SZY-uT-occ" firstAttribute="leading" secondItem="dM6-3W-gn3" secondAttribute="leadingMargin" constant="9" id="BXT-nF-upW"/>
+                    <constraint firstItem="Sjc-Kn-EsJ" firstAttribute="leading" secondItem="SZY-uT-occ" secondAttribute="trailing" constant="14" id="KXa-QL-oCD"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Sjc-Kn-EsJ" secondAttribute="trailing" constant="9" id="bMr-Ga-FtV"/>
+                    <constraint firstItem="SZY-uT-occ" firstAttribute="centerY" secondItem="dM6-3W-gn3" secondAttribute="centerY" id="eO8-sd-Err"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="label" destination="SZY-uT-occ" id="j2f-AS-9ZN"/>
+                <outlet property="switchCtrl" destination="Sjc-Kn-EsJ" id="ttY-Lb-O1G"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

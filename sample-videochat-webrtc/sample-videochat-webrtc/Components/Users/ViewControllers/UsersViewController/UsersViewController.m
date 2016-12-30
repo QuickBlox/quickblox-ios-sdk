@@ -346,7 +346,18 @@ const NSUInteger kMaxUsersToCall = 5;
     
     self.session = session;
     
-    [QBRTCSoundRouter.instance initialize];
+    [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+        
+        // adding bluetooth and airplay support
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+        
+        if (session.conferenceType == QBRTCConferenceTypeVideo) {
+            // setting mode to video chat to enable airplay audio and speaker only
+            configuration.mode = AVAudioSessionModeVideoChat;
+        }
+    }];
     
     NSParameterAssert(!self.nav);
     

@@ -14,9 +14,13 @@
 
 @property (weak, nonatomic) UIView *videoView;
 
+/**
+ *  Mute user block action.
+ */
+@property (copy, nonatomic) void (^didPressMuteButton)(BOOL isMuted);
+
 @property (assign, nonatomic) QBRTCConnectionState connectionState;
 
-- (void)setColorMarkerText:(NSString *)text andColor:(UIColor *)color;
+@property (weak, nonatomic, readonly) UIImageView *placeholderImageView;
 
 @end
-

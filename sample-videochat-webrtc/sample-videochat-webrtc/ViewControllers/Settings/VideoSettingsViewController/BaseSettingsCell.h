@@ -18,6 +18,9 @@
 
 @property (weak, nonatomic) id <SettingsCellDelegate> delegate;
 
++ (NSString *)identifier;
++ (UINib *)nib;
+
 @end
 
 @protocol SettingsCellDelegate <NSObject>

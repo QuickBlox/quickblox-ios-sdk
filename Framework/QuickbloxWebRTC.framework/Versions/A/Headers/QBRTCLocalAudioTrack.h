@@ -2,13 +2,15 @@
 //  QBRTCLocalAudioTrack.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 20/10/15.
-//  Copyright © 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
-#import "QBRTCMediaStreamTrack.h"
+#import "QBRTCAudioTrack.h"
 
+NS_ASSUME_NONNULL_BEGIN
 /// Entity to describe remote audio track
-@interface QBRTCLocalAudioTrack : QBRTCMediaStreamTrack
+@interface QBRTCLocalAudioTrack : QBRTCAudioTrack
 
 @end
+
+NS_ASSUME_NONNULL_END

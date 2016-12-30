@@ -25,10 +25,6 @@ static NSString * const reuseIdentifier = @"SharingCell";
 
 @implementation SharingViewController
 
-- (void)dealloc {
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -53,7 +49,7 @@ static NSString * const reuseIdentifier = @"SharingCell";
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     if ([self isMovingFromParentViewController]) {
@@ -96,12 +92,12 @@ static NSString * const reuseIdentifier = @"SharingCell";
     
     self.indexPath =  [self.collectionView.indexPathsForVisibleItems firstObject];
     [self.collectionView.collectionViewLayout invalidateLayout];
-    self.collectionView.alpha = 0;
+//    self.collectionView.alpha = 0;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
-    self.collectionView.alpha = 1;
+//    self.collectionView.alpha = 1;
     
     [self.collectionView scrollToItemAtIndexPath:self.indexPath
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally

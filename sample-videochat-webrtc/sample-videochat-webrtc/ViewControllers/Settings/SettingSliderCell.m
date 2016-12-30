@@ -31,6 +31,11 @@
     self.slider.minimumValue = model.minValue;
     self.slider.maximumValue = model.maxValue;
     self.slider.value = model.currentValue;
+    
+    BOOL isEnabled = !model.isDisabled;
+    self.slider.enabled = isEnabled;
+    self.maxLabel.enabled = isEnabled;
+    self.minLabel.enabled = isEnabled;
 }
 
 - (IBAction)valueChanged:(UISlider *)sender {

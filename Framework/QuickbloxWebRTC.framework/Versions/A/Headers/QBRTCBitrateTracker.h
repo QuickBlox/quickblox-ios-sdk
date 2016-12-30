@@ -2,13 +2,15 @@
 //  QBRTCBitrateTracker.h
 //  QuickbloxWebRTC
 //
-//  Created by Andrey Ivanov on 10/11/15.
-//  Copyright © 2015 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-/** Class used to estimate bitrate based on byte count. It is expected that
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ *  Class used to estimate bitrate based on byte count. It is expected that
  *  byte count is monotonocially increasing. This class tracks the times that
  *  byte count is updated, and measures the bitrate based on the byte difference
  *  over the interval between updates.
@@ -26,3 +28,5 @@
 - (void)updateBitrateWithCurrentByteCount:(NSInteger)byteCount;
 
 @end
+
+NS_ASSUME_NONNULL_END
