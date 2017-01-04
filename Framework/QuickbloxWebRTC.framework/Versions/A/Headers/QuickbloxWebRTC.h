@@ -33,8 +33,9 @@
 #import <QuickbloxWebRTC/QBRTCFrameConverter.h>
 #import <QuickbloxWebRTC/QBRTCRemoteVideoView.h>
 #import <QuickbloxWebRTC/RTCVideoRenderer.h>
+#import <QuickbloxWebRTC/RTCVideoFrame.h>
 
-//! Framework version 2.3
+//! Framework version 2.3.1
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCFrameworkVersion;
 
 //! WebRTC revision 15791
