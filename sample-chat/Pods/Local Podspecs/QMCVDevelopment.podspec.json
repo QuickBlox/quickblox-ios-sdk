@@ -1,6 +1,6 @@
 {
   "name": "QMCVDevelopment",
-  "version": "0.4",
+  "version": "0.4.1",
   "summary": "An elegant ready-to-go chat view controller for iOS chat applications that use Quickblox communication backend.",
   "description": "* Ready-to-go chat view controller with a set of cells.\n* Automatic cell size calculation.\n* UI customisation for chat cells.\n* Flexibility in improving and extending functionality.\n* Easy to connect with Quickblox.\n* Optimised and performant.\n* Supports portrait and landscape orientations.\n* Auto Layout inside.",
   "homepage": "https://github.com/QuickBlox/QMChatViewController-ios",
@@ -18,7 +18,7 @@
   },
   "source": {
     "git": "https://github.com/QuickBlox/QMChatViewController-ios.git",
-    "tag": "0.4"
+    "tag": "0.4.1"
   },
   "source_files": "QMChatViewController/QMChatViewController.{h,m}",
   "resource_bundles": {
@@ -41,16 +41,34 @@
   },
   "subspecs": [
     {
+      "name": "QMChatLocationSnapshotter",
+      "source_files": "QMChatViewController/QMChatLocationSnapshotter/*.{h,m}"
+    },
+    {
       "name": "Categories",
       "dependencies": {
-        "QMCVDevelopment/Utils": [
+        "QMCVDevelopment/QMChatLocationSnapshotter": [
 
         ]
       },
       "source_files": "QMChatViewController/Categories/*.{h,m}"
     },
     {
-      "name": "QMChatSection",
+      "name": "Utils",
+      "dependencies": {
+        "QMCVDevelopment/Categories": [
+
+        ]
+      },
+      "source_files": "QMChatViewController/Utils/**/*.{h,m}"
+    },
+    {
+      "name": "Sections",
+      "dependencies": {
+        "QMCVDevelopment/QMChatDataSource": [
+
+        ]
+      },
       "source_files": "QMChatViewController/QMChatSection/*.{h,m}"
     },
     {
@@ -62,16 +80,15 @@
       "source_files": "QMChatViewController/Protocols/*.{h}"
     },
     {
-      "name": "Utils",
-      "source_files": "QMChatViewController/Utils/**/*.{h,m}"
-    },
-    {
       "name": "Views",
       "dependencies": {
+        "QMCVDevelopment/Categories": [
+
+        ],
         "QMCVDevelopment/Protocols": [
 
         ],
-        "QMCVDevelopment/Categories": [
+        "QMCVDevelopment/Utils": [
 
         ]
       },

@@ -2,8 +2,8 @@
 //  QBCOCustomObject
 //  Quickblox
 //
-//  Created by IgorKh on 8/14/12.
-//  Copyright (c) 2012 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 8/14/12.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Quickblox/QBNullability.h>
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 
  *  Custom object's fields.
  */
-@property (nonatomic, strong, null_resettable) NSMutableDictionary QB_GENERIC(NSString *, id) *fields;
+@property (nonatomic, strong, null_resettable) NSMutableDictionary <NSString *, id> *fields;
 
 /** 
  *  Object permissions.

@@ -1,6 +1,6 @@
 //
-// Created by Andrey Kozlov on 01/12/2013.
-// Copyright (c) 2013 QuickBlox. All rights reserved.
+// Created by QuickBlox team on 01/12/2013.
+// Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 
@@ -8,7 +8,7 @@
 #import <Quickblox/QBNullability.h>
 #import <Quickblox/QBGeneric.h>
 
-typedef NS_ENUM(NSInteger, QBResponseStatusCode){
+typedef NS_ENUM(NSInteger, QBResponseStatusCode) {
     QBResponseStatusCodeCancelled           = NSURLErrorCancelled,
     QBResponseStatusCodeUnknown             = -1,
     QBResponseStatusCodeAccepted            = 202,
@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, QBResponseStatusCode){
 @property (nonatomic, getter = isSuccess, readonly) BOOL success;
 
 @property (nonatomic, readonly) QBResponseStatusCode status;
-@property (nonatomic, readonly, nullable) NSDictionary QB_GENERIC(NSString *, NSString *) *headers;
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSString *> *headers;
 @property (nonatomic, readonly, nullable) NSData *data;
 @property (nonatomic, readonly, nullable) QBError *error;
 @property (nonatomic, readonly, nullable) NSURL *requestUrl;

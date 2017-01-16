@@ -2,8 +2,8 @@
 //  QBCOFileUploadInfo.h
 //  Quickblox
 //
-//  Created by Andrey Moskvin on 8/7/14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 8/7/14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

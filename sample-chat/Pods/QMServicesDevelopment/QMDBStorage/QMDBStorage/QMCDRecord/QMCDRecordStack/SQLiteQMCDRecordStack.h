@@ -22,6 +22,8 @@
 @property (nonatomic, copy, readonly) NSURL *storeURL;
 
 + (instancetype) stackWithStoreNamed:(NSString *)name model:(NSManagedObjectModel *)model;
++ (instancetype) stackWithStoreNamed:(NSString *)name model:(NSManagedObjectModel *)model applicationGroupIdentifier:(NSString *)appGroupIdentifier;
+
 + (instancetype) stackWithStoreAtURL:(NSURL *)url model:(NSManagedObjectModel *)model;
 + (instancetype) stackWithStoreAtPath:(NSString *)path model:(NSManagedObjectModel *)model;
 

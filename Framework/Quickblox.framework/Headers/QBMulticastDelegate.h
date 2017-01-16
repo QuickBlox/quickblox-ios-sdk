@@ -2,8 +2,8 @@
 //  QBMulticastDelegate.h
 //  Quickblox
 //
-//  Created by Andrey on 01.10.14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 01.10.14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Hashtable of all delegates.
  */
-- (NSHashTable QB_GENERIC(id) *)delegates;
+- (NSHashTable <id> *)delegates;
 
 @end
 

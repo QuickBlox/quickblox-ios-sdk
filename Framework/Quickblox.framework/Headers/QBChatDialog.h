@@ -2,8 +2,8 @@
 //  QBChatDialog.h
 //  Quickblox
 //
-//  Created by Igor Alefirenko on 23/04/2014.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 23/04/2014.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -99,14 +99,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @note For private chat dialog count is 2.
  */
-@property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSNumber *) *occupantIDs;
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *occupantIDs;
 
 /**
  *  The dictionary with custom data.
  *
  *  @see https://quickblox.com/developers/SimpleSample-chat_users-ios#Custom_parameters
  */
-@property (nonatomic, copy, nullable) NSDictionary QB_GENERIC(NSString *, id) *data;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, id> *data;
 
 /**
  *  Chat dialog owner user ID.
@@ -129,14 +129,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @discussion Use this method to add occupants to the dialog.
  */
-@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSString *) *pushOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray<NSString *> *pushOccupantsIDs;
 
 /**
  *  Occupants ids to pull.
  *
  *  @discussion Use this method to delete occupants from the chat dialog.
  */
-@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSString *) *pullOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray<NSString *> *pullOccupantsIDs;
 
 /**
  *  Called whenever sent message was blocked on server.

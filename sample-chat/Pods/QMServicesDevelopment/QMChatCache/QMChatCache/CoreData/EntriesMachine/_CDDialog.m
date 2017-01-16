@@ -3,32 +3,12 @@
 
 #import "_CDDialog.h"
 
-const struct CDDialogAttributes CDDialogAttributes = {
-	.data = @"data",
-	.dialogID = @"dialogID",
-	.dialogType = @"dialogType",
-	.lastMessageDate = @"lastMessageDate",
-	.lastMessageText = @"lastMessageText",
-	.lastMessageUserID = @"lastMessageUserID",
-	.name = @"name",
-	.occupantsIDs = @"occupantsIDs",
-	.photo = @"photo",
-	.recipientID = @"recipientID",
-	.unreadMessagesCount = @"unreadMessagesCount",
-	.updatedAt = @"updatedAt",
-	.userID = @"userID",
-};
-
-const struct CDDialogRelationships CDDialogRelationships = {
-	.messages = @"messages",
-};
-
 @implementation CDDialogID
 @end
 
 @implementation _CDDialog
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"CDDialog" inManagedObjectContext:moc_];
 }
@@ -78,6 +58,8 @@ const struct CDDialogRelationships CDDialogRelationships = {
 	return keyPaths;
 }
 
+@dynamic createdAt;
+
 @dynamic data;
 
 @dynamic dialogID;
@@ -90,7 +72,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setDialogTypeValue:(int16_t)value_ {
-	[self setDialogType:[NSNumber numberWithShort:value_]];
+	[self setDialogType:@(value_)];
 }
 
 - (int16_t)primitiveDialogTypeValue {
@@ -99,7 +81,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setPrimitiveDialogTypeValue:(int16_t)value_ {
-	[self setPrimitiveDialogType:[NSNumber numberWithShort:value_]];
+	[self setPrimitiveDialogType:@(value_)];
 }
 
 @dynamic lastMessageDate;
@@ -114,7 +96,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setLastMessageUserIDValue:(int32_t)value_ {
-	[self setLastMessageUserID:[NSNumber numberWithInt:value_]];
+	[self setLastMessageUserID:@(value_)];
 }
 
 - (int32_t)primitiveLastMessageUserIDValue {
@@ -123,7 +105,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setPrimitiveLastMessageUserIDValue:(int32_t)value_ {
-	[self setPrimitiveLastMessageUserID:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveLastMessageUserID:@(value_)];
 }
 
 @dynamic name;
@@ -140,7 +122,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setRecipientIDValue:(int32_t)value_ {
-	[self setRecipientID:[NSNumber numberWithInt:value_]];
+	[self setRecipientID:@(value_)];
 }
 
 - (int32_t)primitiveRecipientIDValue {
@@ -149,7 +131,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setPrimitiveRecipientIDValue:(int32_t)value_ {
-	[self setPrimitiveRecipientID:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveRecipientID:@(value_)];
 }
 
 @dynamic unreadMessagesCount;
@@ -160,7 +142,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setUnreadMessagesCountValue:(int32_t)value_ {
-	[self setUnreadMessagesCount:[NSNumber numberWithInt:value_]];
+	[self setUnreadMessagesCount:@(value_)];
 }
 
 - (int32_t)primitiveUnreadMessagesCountValue {
@@ -169,7 +151,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setPrimitiveUnreadMessagesCountValue:(int32_t)value_ {
-	[self setPrimitiveUnreadMessagesCount:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveUnreadMessagesCount:@(value_)];
 }
 
 @dynamic updatedAt;
@@ -182,7 +164,7 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setUserIDValue:(int32_t)value_ {
-	[self setUserID:[NSNumber numberWithInt:value_]];
+	[self setUserID:@(value_)];
 }
 
 - (int32_t)primitiveUserIDValue {
@@ -191,19 +173,70 @@ const struct CDDialogRelationships CDDialogRelationships = {
 }
 
 - (void)setPrimitiveUserIDValue:(int32_t)value_ {
-	[self setPrimitiveUserID:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveUserID:@(value_)];
 }
 
 @dynamic messages;
 
-- (NSMutableSet*)messagesSet {
+- (NSMutableSet<CDMessage*>*)messagesSet {
 	[self willAccessValueForKey:@"messages"];
 
-	NSMutableSet *result = (NSMutableSet*)[self mutableSetValueForKey:@"messages"];
+	NSMutableSet<CDMessage*> *result = (NSMutableSet<CDMessage*>*)[self mutableSetValueForKey:@"messages"];
 
 	[self didAccessValueForKey:@"messages"];
 	return result;
 }
 
+@end
+
+@implementation CDDialogAttributes 
++ (NSString *)createdAt {
+	return @"createdAt";
+}
++ (NSString *)data {
+	return @"data";
+}
++ (NSString *)dialogID {
+	return @"dialogID";
+}
++ (NSString *)dialogType {
+	return @"dialogType";
+}
++ (NSString *)lastMessageDate {
+	return @"lastMessageDate";
+}
++ (NSString *)lastMessageText {
+	return @"lastMessageText";
+}
++ (NSString *)lastMessageUserID {
+	return @"lastMessageUserID";
+}
++ (NSString *)name {
+	return @"name";
+}
++ (NSString *)occupantsIDs {
+	return @"occupantsIDs";
+}
++ (NSString *)photo {
+	return @"photo";
+}
++ (NSString *)recipientID {
+	return @"recipientID";
+}
++ (NSString *)unreadMessagesCount {
+	return @"unreadMessagesCount";
+}
++ (NSString *)updatedAt {
+	return @"updatedAt";
+}
++ (NSString *)userID {
+	return @"userID";
+}
+@end
+
+@implementation CDDialogRelationships 
++ (NSString *)messages {
+	return @"messages";
+}
 @end
 

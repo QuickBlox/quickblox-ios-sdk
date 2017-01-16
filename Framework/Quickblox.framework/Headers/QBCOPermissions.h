@@ -2,8 +2,8 @@
 //  QBCOPermissions.h
 //  Quickblox
 //
-//  Created by Igor Khomenko on 7/5/13.
-//  Copyright (c) 2013 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 7/5/13.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -42,32 +42,32 @@ NS_ASSUME_NONNULL_BEGIN
 /** 
  *  Users IDs  for read access.
  */
-@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersIDsForReadAccess;
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *usersIDsForReadAccess;
 
 /** 
  *  Users groups for read access.
  */
-@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForReadAccess;
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *usersGroupsForReadAccess;
 
 /** 
  *  Users IDs  for update access.
  */
-@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersIDsForUpdateAccess;
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *usersIDsForUpdateAccess;
 
 /** 
  *  Users groups for update access.
  */
-@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForUpdateAccess;
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *usersGroupsForUpdateAccess;
 
 /** 
  *  Users IDs for delete access.
  */
-@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersIDsForDeleteAccess;
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *usersIDsForDeleteAccess;
 
 /**
  *  Users groups for delete access.
  */
-@property (nonatomic, strong, nullable) NSMutableArray QB_GENERIC(NSString *) *usersGroupsForDeleteAccess;
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *usersGroupsForDeleteAccess;
 
 
 /** 

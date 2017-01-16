@@ -2,8 +2,8 @@
 //  Definitions.h
 //  Chat
 //
-//  Created by IgorKh on 9/12/12.
-//  Copyright (c) 2012 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 9/12/12.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Quickblox/ChatEnums.h>

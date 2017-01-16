@@ -29,6 +29,11 @@ static QMContactListCache *_chatCacheInstance = nil;
 
 + (void)setupDBWithStoreNamed:(NSString *)storeName {
     
+    [self setupDBWithStoreNamed:storeName applicationGroupIdentifier:nil];
+}
+
++ (void)setupDBWithStoreNamed:(NSString *)storeName applicationGroupIdentifier:(NSString *)appGroupIdentifier {
+    
     NSManagedObjectModel *model =
     [NSManagedObjectModel QM_newModelNamed:@"QMContactListModel.momd"
                              inBundleNamed:@"QMContactListCacheModel.bundle"
@@ -37,7 +42,8 @@ static QMContactListCache *_chatCacheInstance = nil;
     _chatCacheInstance =
     [[QMContactListCache alloc] initWithStoreNamed:storeName
                                              model:model
-                                        queueLabel:"com.qmunicate.QMContactListCacheBackgroundQueue"];
+                                        queueLabel:"com.qmunicate.QMContactListCacheBackgroundQueue"
+                        applicationGroupIdentifier:appGroupIdentifier];
 }
 
 + (void)cleanDBWithStoreName:(NSString *)name {

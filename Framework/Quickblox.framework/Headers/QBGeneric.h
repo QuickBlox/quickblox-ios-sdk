@@ -2,8 +2,8 @@
 //  QBGeneric.h
 //  Quickblox
 //
-//  Created by Injoit on 9/29/15.
-//  Copyright © 2015 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 9/29/15.
+//  Copyright © 2016 QuickBlox. All rights reserved.
 //
 
 #ifndef Quickblox_QBGeneric_h

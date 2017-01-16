@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 
  *  Dictionary of additional information.
  */
-@property (nonatomic, copy, nullable) NSDictionary QB_GENERIC(NSString *, NSString *) *additionalInfo;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *additionalInfo;
 
 /** 
  *  Create new push message.

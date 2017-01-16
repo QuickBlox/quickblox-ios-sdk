@@ -2,8 +2,8 @@
 //  QBContactListItem.h
 //  Quickblox
 //
-//  Created by IgorKh on 3/18/13.
-//  Copyright (c) 2013 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 3/18/13.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

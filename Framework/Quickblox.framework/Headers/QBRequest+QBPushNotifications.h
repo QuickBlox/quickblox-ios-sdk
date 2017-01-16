@@ -2,8 +2,8 @@
 //  QBRequest+QBPushNotifications.h
 //  Quickblox
 //
-//  Created by Andrey Moskvin on 4/29/14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 4/29/14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import "QBRequest.h"
@@ -20,17 +20,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QBRequest (QBPushNotifications)
 
 /**
-*  Create subscription.
-*
-*  @param subscription An instance of QBMSubscription
-*  @param successBlock Block with response and subscriber instances if request succeded
-*  @param errorBlock   Block with response instance if request failed
-*
-*  @return An instance of QBRequest for cancel operation mainly.
-*/
+ *  Create subscription.
+ *
+ *  @param subscription An instance of QBMSubscription
+ *  @param successBlock Block with response and subscriber instances if request succeded
+ *  @param errorBlock   Block with response instance if request failed
+ *
+ *  @return An instance of QBRequest for cancel operation mainly.
+ */
 + (QBRequest *)createSubscription:(QBMSubscription *)subscription
-                                successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBMSubscription *) * _Nullable objects))successBlock
-                                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                     successBlock:(nullable void (^)(QBResponse *response, NSArray<QBMSubscription *> * _Nullable objects))successBlock
+                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark -
 #pragma mark Get Subscriptions
@@ -43,8 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)subscriptionsWithSuccessBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBMSubscription *) * _Nullable objects))successBlock
-                                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
++ (QBRequest *)subscriptionsWithSuccessBlock:(nullable void (^)(QBResponse *response, NSArray<QBMSubscription *> * _Nullable objects))successBlock
+                                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -60,8 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)deleteSubscriptionWithID:(NSUInteger)ID
-                                      successBlock:(nullable void (^)(QBResponse *response))successBlock
-                                        errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                           successBlock:(nullable void (^)(QBResponse *response))successBlock
+                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -77,8 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)createEvent:(QBMEvent *)event
-                         successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBMEvent *) * _Nullable events))successBlock
-                           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+              successBlock:(nullable void (^)(QBResponse *response, NSArray<QBMEvent *> * _Nullable events))successBlock
+                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  *  Retrieve all events which were created by current user (with extended set of pagination parameters).
@@ -90,8 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)eventsForPage:(nullable QBGeneralResponsePage *)page
-                           successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray QB_GENERIC(QBMEvent *) * _Nullable events))successBlock
-                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBMEvent *> * _Nullable events))successBlock
+                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -107,8 +107,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)eventWithID:(NSUInteger)ID
-                         successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-                           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+              successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
+                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -124,8 +124,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)updateEvent:(QBMEvent *)event
-                         successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-                           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+              successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
+                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -141,8 +141,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)deleteEventWithID:(NSUInteger)ID
-                               successBlock:(nullable void (^)(QBResponse *response))successBlock
-                                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                    successBlock:(nullable void (^)(QBResponse *response))successBlock
+                      errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 #pragma mark -
@@ -159,9 +159,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)sendPush:(QBMPushMessage *)pushMessage
-                           toUsers:(NSString *)usersIDs
-                      successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-                        errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+                toUsers:(NSString *)usersIDs
+           successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
+             errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
 
 /**
  *  Send simple push notification to users.
@@ -174,9 +174,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)sendPushWithText:(NSString *)text
-                                   toUsers:(NSString *)usersIDs
-                              successBlock:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBMEvent *) * _Nullable events))successBlock
-                                errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+                        toUsers:(NSString *)usersIDs
+                   successBlock:(nullable void(^)(QBResponse *response, NSArray<QBMEvent *> * _Nullable events))successBlock
+                     errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
 
 /**
  *  Send Apple based push notification to users with tags.
@@ -189,9 +189,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)sendPush:(QBMPushMessage *)pushMessage
-         toUsersWithAnyOfTheseTags:(NSString *)usersTags
-                      successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-                        errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+toUsersWithAnyOfTheseTags:(NSString *)usersTags
+           successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
+             errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
 
 /**
  *  Send simple push notification to users with tags.
@@ -204,9 +204,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)sendPushWithText:(NSString *)text
-                 toUsersWithAnyOfTheseTags:(NSString *)usersTags
-                              successBlock:(nullable void(^)(QBResponse *response, NSArray QB_GENERIC(QBMEvent *) * _Nullable events))successBlock
-                                errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+      toUsersWithAnyOfTheseTags:(NSString *)usersTags
+                   successBlock:(nullable void(^)(QBResponse *response, NSArray<QBMEvent *> * _Nullable events))successBlock
+                     errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
 
 
 #pragma mark -
@@ -222,8 +222,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)unregisterSubscriptionForUniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier
-                                                             successBlock:(nullable void (^)(QBResponse *response))successBlock
-                                                               errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+                                                  successBlock:(nullable void (^)(QBResponse *response))successBlock
+                                                    errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
 
 @end
 

@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param listNames array with privacy list names
  */
-- (void)chatDidReceivePrivacyListNames:(NSArray QB_GENERIC(NSString *) *)listNames;
+- (void)chatDidReceivePrivacyListNames:(NSArray<NSString *> *)listNames;
 
 /**
  *  Called in case of receiving privacy list.

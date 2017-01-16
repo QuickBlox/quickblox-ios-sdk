@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 
  *  User's tags. 
  */
-@property (nonatomic, strong, null_resettable) NSMutableArray QB_GENERIC(NSString *) *tags;
+@property (nonatomic, strong, null_resettable) NSMutableArray<NSString *> *tags;
 
 /** 
  *  User's password. 

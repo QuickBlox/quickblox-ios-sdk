@@ -2,8 +2,8 @@
 //  QBContentHeader.h
 //  Quickblox
 //
-//  Created by Andrey Moskvin on 7/30/14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 7/30/14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #ifndef Quickblox_QBContentHeader_h

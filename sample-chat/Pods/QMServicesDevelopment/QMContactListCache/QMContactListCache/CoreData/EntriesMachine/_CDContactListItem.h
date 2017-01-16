@@ -1,37 +1,36 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to CDContactListItem.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct CDContactListItemAttributes {
-	__unsafe_unretained NSString *subscriptionState;
-	__unsafe_unretained NSString *userID;
-} CDContactListItemAttributes;
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CDContactListItemID : NSManagedObjectID {}
 @end
 
-@interface _CDContactListItem : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _CDContactListItem : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) CDContactListItemID* objectID;
+@property (nonatomic, readonly, strong) CDContactListItemID *objectID;
 
-@property (nonatomic, strong) NSNumber* subscriptionState;
+@property (nonatomic, strong, nullable) NSNumber* subscriptionState;
 
 @property (atomic) int16_t subscriptionStateValue;
 - (int16_t)subscriptionStateValue;
 - (void)setSubscriptionStateValue:(int16_t)value_;
 
-//- (BOOL)validateSubscriptionState:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* userID;
+@property (nonatomic, strong, nullable) NSNumber* userID;
 
 @property (atomic) int32_t userIDValue;
 - (int32_t)userIDValue;
 - (void)setUserIDValue:(int32_t)value_;
-
-//- (BOOL)validateUserID:(id*)value_ error:(NSError**)error_;
 
 @end
 
@@ -50,3 +49,10 @@ extern const struct CDContactListItemAttributes {
 - (void)setPrimitiveUserIDValue:(int32_t)value_;
 
 @end
+
+@interface CDContactListItemAttributes: NSObject 
++ (NSString *)subscriptionState;
++ (NSString *)userID;
+@end
+
+NS_ASSUME_NONNULL_END
