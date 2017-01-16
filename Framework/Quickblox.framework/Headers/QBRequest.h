@@ -1,6 +1,6 @@
 //
-// Created by Andrey Kozlov on 01/12/2013.
-// Copyright (c) 2013 QuickBlox. All rights reserved.
+// Created by QuickBlox team on 01/12/2013.
+// Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSUInteger, QBRequestTaskType) {
 
 /** Blocks typedef */
 typedef void (^QBRequestStatusUpdateBlock)(QBRequest *request, QBRequestStatus * _Nullable status);
-typedef void (^QBRequestCompletionBlock)(QBRequest *request, QBResponse *response, NSDictionary QB_GENERIC(NSString *, id) * _Nullable objects);
+typedef void (^QBRequestCompletionBlock)(QBRequest *request, QBResponse *response, NSDictionary<NSString *, id> * _Nullable objects);
 
 typedef void (^QBRequestErrorBlock)(QBResponse *response);
 
@@ -77,12 +77,12 @@ typedef void (^QBRequestErrorBlock)(QBResponse *response);
 /** 
  *  Response serialiser (QBHTTPResponseSerializer<QBResponseSerializationProtocol>).
  */
-@property (nonatomic, strong, nullable) NSArray QB_GENERIC(__kindof id<QBResponseSerializationProtocol>) *responseSerialisators;
+@property (nonatomic, strong, nullable) NSArray <__kindof id<QBResponseSerializationProtocol>> *responseSerialisators;
 
 /** 
  *  Request headers.
  */
-@property (nonatomic, copy, nullable) NSDictionary QB_GENERIC(NSString *, NSString *) *headers;
+@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *headers;
 
 /** 
  *  Request body.
@@ -97,13 +97,13 @@ typedef void (^QBRequestErrorBlock)(QBResponse *response);
 /** 
  *  Request parameters.
  */
-@property (nonatomic, copy, readonly, nullable) NSDictionary QB_GENERIC(NSString *, NSString *) *parameters;
+@property (nonatomic, copy, readonly, nullable) NSDictionary<NSString *, NSString *> *parameters;
 
 /** Parameters methods */
-- (void)addParametersFromDictionary:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)otherDictionary;
+- (void)addParametersFromDictionary:(nullable NSDictionary<NSString *, NSString *> *)otherDictionary;
 - (void)addParameter:(id)obj forKey:(NSString *)key;
 - (void)removeParameterForKey:(nullable NSString *)key;
-- (void)extractParametersFromDictionary:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)parameters;
+- (void)extractParametersFromDictionary:(nullable NSDictionary<NSString *, NSString *> *)parameters;
 
 /** Constructors */
 + (instancetype)new NS_UNAVAILABLE;

@@ -134,8 +134,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBMPushType)pushTypeFromString:(nullable NSString *)pushType;
 + (nullable NSString *)pushTypeToString:(QBMPushType)pushType;
 
-+ (NSString *)messageToString:(nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)message;
-+ (nullable NSDictionary QB_GENERIC(NSString *, NSString *) *)messageFromString:(nullable NSString *)message;
++ (NSString *)messageToString:(nullable NSDictionary<NSString *, NSString *> *)message;
++ (nullable NSDictionary<NSString *, NSString *> *)messageFromString:(nullable NSString *)message;
 
 @end
 

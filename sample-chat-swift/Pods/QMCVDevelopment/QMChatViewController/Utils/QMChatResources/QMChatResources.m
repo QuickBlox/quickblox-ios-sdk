@@ -17,6 +17,12 @@ static inline NSBundle *bundle() {
         
         NSString *path = [[NSBundle bundleForClass:[QMChatResources class]] pathForResource:@"QMChatViewController" ofType:@"bundle"];
         bundle = [NSBundle bundleWithPath:path];
+        
+        if (bundle == nil) {
+            // if bundle with path is not existent that means that chat controller
+            // was installed as a source from github, using main bundle instead
+            bundle = [NSBundle mainBundle];
+        }
     });
     
     return bundle;

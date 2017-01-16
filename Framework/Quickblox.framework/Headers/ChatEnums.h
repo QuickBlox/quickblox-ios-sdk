@@ -2,8 +2,8 @@
 //  Enums.h
 //  Quickblox
 //
-//  Created by IgorKh on 1/11/13.
-//  Copyright (c) 2013 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 1/11/13.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import "QBNullability.h"
@@ -19,5 +19,5 @@ typedef NS_ENUM(NSUInteger, QBPresenseSubscriptionState) {
 typedef void(^QBUserLastActivityCompletionBlock)(NSUInteger seconds, NSError * QB_NULLABLE_S error);
 typedef void(^QBPingCompleitonBlock)(NSTimeInterval timeInterval, BOOL success);
 typedef void(^QBChatCompletionBlock)(NSError * _Nullable error);
-typedef void(^QBChatDialogRequestOnlineUsersCompletionBlock)(NSMutableArray QB_GENERIC(NSNumber *) * _Nullable onlineUsers, NSError * _Nullable error);
+typedef void(^QBChatDialogRequestOnlineUsersCompletionBlock)(NSMutableArray <NSNumber *> * _Nullable onlineUsers, NSError * _Nullable error);
 typedef void(^QBChatDialogUserBlock)(NSUInteger userID);

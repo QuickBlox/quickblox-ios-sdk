@@ -34,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param storeName Store name
  */
-+ (void)setupDBWithStoreNamed:(NSString *)storeName;
-
++ (void)setupDBWithStoreNamed:(NSString *)storeName ;
++ (void)setupDBWithStoreNamed:(NSString *)storeName applicationGroupIdentifier:(NSString *)appGroupIdentifier;
 /**
  *  Clean clean chat cache with store name
  *
@@ -81,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Fetch dialog operations
 
+
+- (void)allDialogsWithCompletion:(nullable void(^)(NSArray QB_GENERIC(QBChatDialog *) * _Nullable dialogs))completion;
 /**
  *   Fetch all cached dialogs
  *

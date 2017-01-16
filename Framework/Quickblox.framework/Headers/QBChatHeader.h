@@ -2,8 +2,8 @@
 //  QBChatHeader.h
 //  Quickblox
 //
-//  Created by Anton Sokolchenko on 9/1/14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 9/1/14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #ifndef Quickblox_QBChatHeader_h

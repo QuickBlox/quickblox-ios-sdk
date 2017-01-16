@@ -1,6 +1,6 @@
 //
-// Created by Andrey Kozlov on 24/02/2014.
-// Copyright (c) 2014 QuickBlox. All rights reserved.
+// Created by QuickBlox team on 24/02/2014.
+// Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Retrieve object with ID
-
+ 
  @param className Name of class
  @param ID Identifier of object to be retrieved
  @param successBlock Block with response instance and QBCOCustomObject instance if request succeded
@@ -33,13 +33,13 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)objectWithClassName:(NSString *)className
-                                           ID:(NSString *)ID
-                                 successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
-                                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                                ID:(NSString *)ID
+                      successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
+                        errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Retrieve objects with IDs
-
+ 
  @param className Name of class
  @param IDs Identifiers of objects to be retrieved
  @param successBlock Block with response instance, NSArray of found objects if request succeded
@@ -48,13 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)objectsWithClassName:(NSString *)className
-                                           IDs:(NSArray QB_GENERIC(NSString *) *)IDs
-                                  successBlock:(nullable void (^)(QBResponse *response, NSArray * _Nullable objects))successBlock
-                                    errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                                IDs:(NSArray<NSString *> *)IDs
+                       successBlock:(nullable void (^)(QBResponse *response, NSArray * _Nullable objects))successBlock
+                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Retrieve objects
-
+ 
  @param className Name of class
  @param successBlock Block with response instance, NSArray of found objects, NSArray of not found objects Ids and QBResponsePage if request succeded
  @param errorBlock Block with response instance if request failed
@@ -62,12 +62,12 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)objectsWithClassName:(NSString *)className
-                                  successBlock:(nullable void (^)(QBResponse *response, NSArray * _Nullable objects))successBlock
-                                    errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                       successBlock:(nullable void (^)(QBResponse *response, NSArray * _Nullable objects))successBlock
+                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Retrieve objects with extended Request
-
+ 
  @param className Name of class
  @param extendedRequest Extended set of request parameters. `count` parameter is ignored. To receive count use `countObjectsWithClassName:extendedRequest:successBlock:errorBlock:`
  @param successBlock Block with response instance, NSArray of found objects, NSArray of not found objects Ids and QBResponsePage if request succeded
@@ -76,9 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)objectsWithClassName:(NSString *)className
-                               extendedRequest:(nullable NSMutableDictionary QB_GENERIC(NSString *, NSString *) *)extendedRequest
-                                  successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBCOCustomObject *) * _Nullable objects, QBResponsePage * _Nullable page))successBlock
-                                    errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                    extendedRequest:(nullable NSMutableDictionary <NSString *, NSString *> *)extendedRequest
+                       successBlock:(nullable void (^)(QBResponse *response, NSArray <QBCOCustomObject *> * _Nullable objects, QBResponsePage * _Nullable page))successBlock
+                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Objects aggregated by operator
 
@@ -99,8 +99,8 @@ NS_ASSUME_NONNULL_BEGIN
                 aggregationOperator:(QBCOAggregationOperator)aggregationOperator
                        forFieldName:(NSString *)fieldName
                    groupByFieldName:(NSString *)groupFieldName
-                    extendedRequest:(nullable NSMutableDictionary QB_GENERIC(NSString *, NSString *) *)extendedRequest
-                       successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBCOCustomObject *) * _Nullable objects, QBResponsePage * _Nullable responsePage))successBlock
+                    extendedRequest:(nullable NSMutableDictionary<NSString *, NSString *> *)extendedRequest
+                       successBlock:(nullable void (^)(QBResponse *response, NSArray<QBCOCustomObject *> * _Nullable objects, QBResponsePage * _Nullable responsePage))successBlock
                          errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Count of objects
@@ -117,15 +117,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 + (QBRequest *)countObjectsWithClassName:(NSString *)className
-                                    extendedRequest:(nullable NSMutableDictionary QB_GENERIC(NSString *, NSString *) *)extendedRequest
-                                       successBlock:(nullable void (^)(QBResponse *response, NSUInteger count))successBlock
-                                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                         extendedRequest:(nullable NSMutableDictionary<NSString *, NSString *> *)extendedRequest
+                            successBlock:(nullable void (^)(QBResponse *response, NSUInteger count))successBlock
+                              errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Create Object
 
 /**
  Create record
-
+ 
  @param object An instance of object that will be created
  @param successBlock Block with response instance and created object if request succeded
  @param errorBlock Block with response instance if request failed
@@ -133,14 +133,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)createObject:(QBCOCustomObject *)object
-                          successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
-                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+               successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
+                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Multi Create
 
 /**
  Create records
-
+ 
  @param objects An array of instances of objects that will be created
  @param className Name of class
  @param successBlock Block with response instance, NSArray of created objects if request succeded
@@ -148,16 +148,16 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)createObjects:(NSArray QB_GENERIC(QBCOCustomObject *) *)objects
-                              className:(NSString *)className
-                           successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBCOCustomObject *) * _Nullable objects))successBlock
-                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
++ (QBRequest *)createObjects:(NSArray<QBCOCustomObject *> *)objects
+                   className:(NSString *)className
+                successBlock:(nullable void (^)(QBResponse *response, NSArray<QBCOCustomObject *> * _Nullable objects))successBlock
+                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Update Object
 
 /**
  Update record
-
+ 
  @param object An instance of object that will be updated
  @param successBlock Block with response instance and updated object if request succeded
  @param errorBlock Block with response instance if request failed
@@ -165,12 +165,12 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)updateObject:(QBCOCustomObject *)object
-                          successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
-                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+               successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
+                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Update record with Special update operators
-
+ 
  @param object An instance of object that will be updated
  @param specialUpdateOperators Special update operators http://quickblox.com/developers/SimpleSample-customObjects-ios#Special_update_oparators
  @param successBlock Block with response instance and updated object if request succeded
@@ -179,15 +179,15 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)updateObject:(QBCOCustomObject *)object
-                specialUpdateOperators:(NSMutableDictionary QB_GENERIC(NSString *, NSString *) *)specialUpdateOperators
-                          successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
-                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+     specialUpdateOperators:(NSMutableDictionary<NSString *, NSString *> *)specialUpdateOperators
+               successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
+                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Multi Update
 
 /**
  Update records
-
+ 
  @param objects An array of instances of objects that will be updated
  @param className Name of class
  @param successBlock Block with response instance, updated objects and not found objects Ids if request succeded
@@ -195,16 +195,16 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)updateObjects:(NSArray QB_GENERIC(QBCOCustomObject *) *)objects
-                              className:(NSString *)className
-                           successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBCOCustomObject *) * _Nullable objects, NSArray QB_GENERIC(NSString *) * _Nullable notFoundObjectsIds))successBlock
-                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
++ (QBRequest *)updateObjects:(NSArray<QBCOCustomObject *> *)objects
+                   className:(NSString *)className
+                successBlock:(nullable void (^)(QBResponse *response, NSArray<QBCOCustomObject *> * _Nullable objects, NSArray<NSString *> * _Nullable notFoundObjectsIds))successBlock
+                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Delete Object
 
 /**
  Delete object by identifier
-
+ 
  @param objectID ID of object to be removed.
  @param successBlock Block with response instance if request succeded
  @param errorBlock Block with response instance if request failed
@@ -212,29 +212,29 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)deleteObjectWithID:(NSString *)objectID
-                                   className:(NSString *)className
-                                successBlock:(nullable void (^)(QBResponse *response))successBlock
-                                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                        className:(NSString *)className
+                     successBlock:(nullable void (^)(QBResponse *response))successBlock
+                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Delete objects by IDs
-
+ 
  @param objectsIDs Array of IDs of objects to be removed.
  @param successBlock Block with response instance, NSArray of deleted objects Ids and NSArray of not found objects Ids if request succeded
  @param errorBlock Block with response instance if request failed
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)deleteObjectsWithIDs:(NSArray QB_GENERIC(NSString *) *)objectsIDs
-                                     className:(NSString *)className
-                                  successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(NSString *) * _Nullable deletedObjectsIDs, NSArray QB_GENERIC(NSString *) * _Nullable notFoundObjectsIDs, NSArray QB_GENERIC(NSString *) * _Nullable wrongPermissionsObjectsIDs))successBlock
-                                    errorBlock:(nullable QBRequestErrorBlock)errorBlock;
++ (QBRequest *)deleteObjectsWithIDs:(NSArray<NSString *> *)objectsIDs
+                          className:(NSString *)className
+                       successBlock:(nullable void (^)(QBResponse *response, NSArray<NSString *> * _Nullable deletedObjectsIDs, NSArray<NSString *> * _Nullable notFoundObjectsIDs, NSArray<NSString *> * _Nullable wrongPermissionsObjectsIDs))successBlock
+                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Permissions
 
 /**
  Retrieve permissions for object with ID
-
+ 
  @param className Name of class
  @param ID Identifier of object which permissions will be retrieved
  @param successBlock Block with response instance and QBCOPermissions instance if request succeded
@@ -243,15 +243,15 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)permissionsForObjectWithClassName:(NSString *)className
-                                                         ID:(NSString *)ID
-                                               successBlock:(nullable void (^)(QBResponse *response, QBCOPermissions * _Nullable permissions))successBlock
-                                                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                                              ID:(NSString *)ID
+                                    successBlock:(nullable void (^)(QBResponse *response, QBCOPermissions * _Nullable permissions))successBlock
+                                      errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 #pragma mark - Files
 
 /**
  Upload file
-
+ 
  @param file File
  @param className Name of class
  @param objectID Identifier of object to which file will be uploaded
@@ -263,16 +263,16 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)uploadFile:(QBCOFile *)file
-                           className:(NSString *)className
-                            objectID:(NSString *)objectID
-                       fileFieldName:(NSString *)fileFieldName
-                        successBlock:(nullable void (^)(QBResponse *response, QBCOFileUploadInfo * _Nullable info))successBlock
-                         statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
-                          errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                className:(NSString *)className
+                 objectID:(NSString *)objectID
+            fileFieldName:(NSString *)fileFieldName
+             successBlock:(nullable void (^)(QBResponse *response, QBCOFileUploadInfo * _Nullable info))successBlock
+              statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+               errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Download file
-
+ 
  @param className Name of class
  @param objectID Identifier of object which file will be downloaded
  @param fileFieldName Name of file field
@@ -283,11 +283,11 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)downloadFileFromClassName:(NSString *)className
-                                           objectID:(NSString *)objectID
-                                      fileFieldName:(NSString *)fileFieldName
-                                       successBlock:(nullable void (^)(QBResponse *response, NSData * _Nullable loadedData))successBlock
-                                        statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
-                                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                                objectID:(NSString *)objectID
+                           fileFieldName:(NSString *)fileFieldName
+                            successBlock:(nullable void (^)(QBResponse *response, NSData * _Nullable loadedData))successBlock
+                             statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                              errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  Download file using background NSURLSession.
@@ -304,16 +304,16 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)backgroundDownloadFileFromClassName:(NSString *)className
-                                                     objectID:(NSString *)objectID
-                                                fileFieldName:(NSString *)fileFieldName
-                                                 successBlock:(nullable void (^)(QBResponse *response, NSData * _Nullable loadedData))successBlock
-                                                  statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
-                                                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                                          objectID:(NSString *)objectID
+                                     fileFieldName:(NSString *)fileFieldName
+                                      successBlock:(nullable void (^)(QBResponse *response, NSData * _Nullable loadedData))successBlock
+                                       statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
+                                        errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 
 /**
  Delete file
-
+ 
  @param className Name of class
  @param objectID Identifier of object form which file will be deleted
  @param fileFieldName Name of file field
@@ -323,10 +323,10 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)deleteFileFromClassName:(NSString *)className
-                                         objectID:(NSString *)objectID
-                                    fileFieldName:(NSString *)fileFieldName
-                                     successBlock:(nullable void (^)(QBResponse *response))successBlock
-                                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                              objectID:(NSString *)objectID
+                         fileFieldName:(NSString *)fileFieldName
+                          successBlock:(nullable void (^)(QBResponse *response))successBlock
+                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 @end
 

@@ -1,6 +1,6 @@
 //
-// Created by Andrey Kozlov on 13/03/2014.
-// Copyright (c) 2014 QuickBlox. All rights reserved.
+// Created by QuickBlox team on 13/03/2014.
+// Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

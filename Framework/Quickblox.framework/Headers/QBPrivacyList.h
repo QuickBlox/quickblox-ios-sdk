@@ -2,8 +2,8 @@
 //  QBPrivacyList.h
 //  Quickblox
 //
-//  Created by Anton Sokolchenko on 8/19/14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 8/19/14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return QBPrivacyList instance
  */
-- (instancetype)initWithName:(NSString *)name items:(nullable NSArray QB_GENERIC(QBPrivacyItem *) *)items NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithName:(NSString *)name items:(nullable NSArray<QBPrivacyItem *> *)items NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Add privacy item object.
@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Privacy items array.
  */
-@property (nonatomic, copy) NSArray QB_GENERIC(QBPrivacyItem *) *privacyItems;
+@property (nonatomic, copy) NSArray<QBPrivacyItem *> *privacyItems;
 
 @end
 

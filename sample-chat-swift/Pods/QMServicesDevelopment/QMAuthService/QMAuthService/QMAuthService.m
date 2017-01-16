@@ -36,7 +36,7 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
 
 - (void)removeDelegate:(id <QMAuthServiceDelegate>)delegate {
     
-    [self.multicastDelegate addDelegate:delegate];
+    [self.multicastDelegate removeDelegate:delegate];
 }
 
 #pragma mark - Will Start

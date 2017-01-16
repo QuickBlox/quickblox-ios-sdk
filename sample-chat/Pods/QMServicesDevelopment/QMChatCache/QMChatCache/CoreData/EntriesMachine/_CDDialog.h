@@ -1,27 +1,15 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to CDDialog.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct CDDialogAttributes {
-	__unsafe_unretained NSString *data;
-	__unsafe_unretained NSString *dialogID;
-	__unsafe_unretained NSString *dialogType;
-	__unsafe_unretained NSString *lastMessageDate;
-	__unsafe_unretained NSString *lastMessageText;
-	__unsafe_unretained NSString *lastMessageUserID;
-	__unsafe_unretained NSString *name;
-	__unsafe_unretained NSString *occupantsIDs;
-	__unsafe_unretained NSString *photo;
-	__unsafe_unretained NSString *recipientID;
-	__unsafe_unretained NSString *unreadMessagesCount;
-	__unsafe_unretained NSString *updatedAt;
-	__unsafe_unretained NSString *userID;
-} CDDialogAttributes;
-
-extern const struct CDDialogRelationships {
-	__unsafe_unretained NSString *messages;
-} CDDialogRelationships;
+NS_ASSUME_NONNULL_BEGIN
 
 @class CDMessage;
 
@@ -32,99 +20,77 @@ extern const struct CDDialogRelationships {
 @interface CDDialogID : NSManagedObjectID {}
 @end
 
-@interface _CDDialog : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _CDDialog : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) CDDialogID* objectID;
+@property (nonatomic, readonly, strong) CDDialogID *objectID;
 
-@property (nonatomic, strong) id data;
+@property (nonatomic, strong, nullable) NSDate* createdAt;
 
-//- (BOOL)validateData:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) id data;
 
-@property (nonatomic, strong) NSString* dialogID;
+@property (nonatomic, strong, nullable) NSString* dialogID;
 
-//- (BOOL)validateDialogID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* dialogType;
+@property (nonatomic, strong, nullable) NSNumber* dialogType;
 
 @property (atomic) int16_t dialogTypeValue;
 - (int16_t)dialogTypeValue;
 - (void)setDialogTypeValue:(int16_t)value_;
 
-//- (BOOL)validateDialogType:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSDate* lastMessageDate;
 
-@property (nonatomic, strong) NSDate* lastMessageDate;
+@property (nonatomic, strong, nullable) NSString* lastMessageText;
 
-//- (BOOL)validateLastMessageDate:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* lastMessageText;
-
-//- (BOOL)validateLastMessageText:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* lastMessageUserID;
+@property (nonatomic, strong, nullable) NSNumber* lastMessageUserID;
 
 @property (atomic) int32_t lastMessageUserIDValue;
 - (int32_t)lastMessageUserIDValue;
 - (void)setLastMessageUserIDValue:(int32_t)value_;
 
-//- (BOOL)validateLastMessageUserID:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* name;
 
-@property (nonatomic, strong) NSString* name;
+@property (nonatomic, strong, nullable) id occupantsIDs;
 
-//- (BOOL)validateName:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* photo;
 
-@property (nonatomic, strong) id occupantsIDs;
-
-//- (BOOL)validateOccupantsIDs:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* photo;
-
-//- (BOOL)validatePhoto:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* recipientID;
+@property (nonatomic, strong, nullable) NSNumber* recipientID;
 
 @property (atomic) int32_t recipientIDValue;
 - (int32_t)recipientIDValue;
 - (void)setRecipientIDValue:(int32_t)value_;
 
-//- (BOOL)validateRecipientID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* unreadMessagesCount;
+@property (nonatomic, strong, nullable) NSNumber* unreadMessagesCount;
 
 @property (atomic) int32_t unreadMessagesCountValue;
 - (int32_t)unreadMessagesCountValue;
 - (void)setUnreadMessagesCountValue:(int32_t)value_;
 
-//- (BOOL)validateUnreadMessagesCount:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSDate* updatedAt;
 
-@property (nonatomic, strong) NSDate* updatedAt;
-
-//- (BOOL)validateUpdatedAt:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* userID;
+@property (nonatomic, strong, nullable) NSNumber* userID;
 
 @property (atomic) int32_t userIDValue;
 - (int32_t)userIDValue;
 - (void)setUserIDValue:(int32_t)value_;
 
-//- (BOOL)validateUserID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSSet *messages;
-
-- (NSMutableSet*)messagesSet;
+@property (nonatomic, strong, nullable) NSSet<CDMessage*> *messages;
+- (nullable NSMutableSet<CDMessage*>*)messagesSet;
 
 @end
 
 @interface _CDDialog (MessagesCoreDataGeneratedAccessors)
-- (void)addMessages:(NSSet*)value_;
-- (void)removeMessages:(NSSet*)value_;
+- (void)addMessages:(NSSet<CDMessage*>*)value_;
+- (void)removeMessages:(NSSet<CDMessage*>*)value_;
 - (void)addMessagesObject:(CDMessage*)value_;
 - (void)removeMessagesObject:(CDMessage*)value_;
 
 @end
 
 @interface _CDDialog (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(NSDate*)value;
 
 - (id)primitiveData;
 - (void)setPrimitiveData:(id)value;
@@ -180,7 +146,30 @@ extern const struct CDDialogRelationships {
 - (int32_t)primitiveUserIDValue;
 - (void)setPrimitiveUserIDValue:(int32_t)value_;
 
-- (NSMutableSet*)primitiveMessages;
-- (void)setPrimitiveMessages:(NSMutableSet*)value;
+- (NSMutableSet<CDMessage*>*)primitiveMessages;
+- (void)setPrimitiveMessages:(NSMutableSet<CDMessage*>*)value;
 
 @end
+
+@interface CDDialogAttributes: NSObject 
++ (NSString *)createdAt;
++ (NSString *)data;
++ (NSString *)dialogID;
++ (NSString *)dialogType;
++ (NSString *)lastMessageDate;
++ (NSString *)lastMessageText;
++ (NSString *)lastMessageUserID;
++ (NSString *)name;
++ (NSString *)occupantsIDs;
++ (NSString *)photo;
++ (NSString *)recipientID;
++ (NSString *)unreadMessagesCount;
++ (NSString *)updatedAt;
++ (NSString *)userID;
+@end
+
+@interface CDDialogRelationships: NSObject
++ (NSString *)messages;
+@end
+
+NS_ASSUME_NONNULL_END

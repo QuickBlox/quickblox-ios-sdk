@@ -2,8 +2,8 @@
 //  QBContactList.h
 //  Quickblox
 //
-//  Created by IgorKh on 3/18/13.
-//  Copyright (c) 2013 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 3/18/13.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Quickblox/QBNullability.h>
@@ -23,12 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Current contacts.
  */
-@property (nonatomic, readonly, nullable) NSArray QB_GENERIC(QBContactListItem *) *contacts;
+@property (nonatomic, readonly, nullable) NSArray<QBContactListItem *> *contacts;
 
 /**
  *  Your requests which pending approval.
  */
-@property (nonatomic, readonly, nullable) NSArray QB_GENERIC(QBContactListItem *) *pendingApproval;
+@property (nonatomic, readonly, nullable) NSArray<QBContactListItem *> *pendingApproval;
 
 /**
  *  Get last activity

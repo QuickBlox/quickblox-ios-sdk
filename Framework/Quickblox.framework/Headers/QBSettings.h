@@ -114,6 +114,14 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (void)setAuthSecret:(NSString *)authSecret;
 
+/**
+ * Setting application group identifier
+ *
+ * @param appGroupIdentifier - NSString value of identifier.
+ */
+
++ (void)setApplicationGroupIdentifier:(NSString *)appGroupIdentifier;
+
 #pragma mark -
 #pragma mark Endpoints
 
@@ -200,7 +208,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  *
  *  @return Array of log file paths or nil if logging to file is disabled
  */
-+ (nullable NSArray QB_GENERIC(NSString *) *)logFilePaths;
++ (nullable NSArray<NSString *> *)logFilePaths;
 
 /**
  *   Disable full XMPP Framework logging to console.

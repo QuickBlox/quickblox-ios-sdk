@@ -7,3 +7,4 @@
 
 NSString *QM_defaultApplicationStorePath(void);
 NSString *QM_userDocumentsPath(void);
+NSString *QM_storePathForApplicationGroupIdentifier(NSString *groupidentifier);

@@ -3,17 +3,12 @@
 
 #import "_CDContactListItem.h"
 
-const struct CDContactListItemAttributes CDContactListItemAttributes = {
-	.subscriptionState = @"subscriptionState",
-	.userID = @"userID",
-};
-
 @implementation CDContactListItemID
 @end
 
 @implementation _CDContactListItem
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"CDContactListItem" inManagedObjectContext:moc_];
 }
@@ -56,7 +51,7 @@ const struct CDContactListItemAttributes CDContactListItemAttributes = {
 }
 
 - (void)setSubscriptionStateValue:(int16_t)value_ {
-	[self setSubscriptionState:[NSNumber numberWithShort:value_]];
+	[self setSubscriptionState:@(value_)];
 }
 
 - (int16_t)primitiveSubscriptionStateValue {
@@ -65,7 +60,7 @@ const struct CDContactListItemAttributes CDContactListItemAttributes = {
 }
 
 - (void)setPrimitiveSubscriptionStateValue:(int16_t)value_ {
-	[self setPrimitiveSubscriptionState:[NSNumber numberWithShort:value_]];
+	[self setPrimitiveSubscriptionState:@(value_)];
 }
 
 @dynamic userID;
@@ -76,7 +71,7 @@ const struct CDContactListItemAttributes CDContactListItemAttributes = {
 }
 
 - (void)setUserIDValue:(int32_t)value_ {
-	[self setUserID:[NSNumber numberWithInt:value_]];
+	[self setUserID:@(value_)];
 }
 
 - (int32_t)primitiveUserIDValue {
@@ -85,8 +80,17 @@ const struct CDContactListItemAttributes CDContactListItemAttributes = {
 }
 
 - (void)setPrimitiveUserIDValue:(int32_t)value_ {
-	[self setPrimitiveUserID:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveUserID:@(value_)];
 }
 
+@end
+
+@implementation CDContactListItemAttributes 
++ (NSString *)subscriptionState {
+	return @"subscriptionState";
+}
++ (NSString *)userID {
+	return @"userID";
+}
 @end
 

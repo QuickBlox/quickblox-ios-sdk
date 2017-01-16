@@ -2,8 +2,8 @@
 //  QBLGeoDataFilter.h
 //  Quickblox
 //
-//  Created by Andrey Moskvin on 4/28/14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 4/28/14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @discussion When specified, it will return only the instances created by QBUUsers with ids = userIDs.
  */
-@property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSString *) *userIDs;
+@property (nonatomic, copy, nullable) NSArray<NSString *> *userIDs;
 
 /** 
  *  Substring. Search for API Users full_name and login fields. 

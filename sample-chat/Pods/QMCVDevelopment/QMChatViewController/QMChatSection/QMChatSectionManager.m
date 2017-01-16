@@ -180,33 +180,6 @@
     return newSection;
 }
 
-static inline NSMutableIndexSet *incrementAllIndexesForIndexSet(NSMutableIndexSet *indexSet, NSInteger index) {
-    
-    NSMutableIndexSet *newIndexSet = [NSMutableIndexSet indexSet];
-    
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        
-        [newIndexSet addIndex:idx >= index ? idx + 1 : idx];
-    }];
-    
-    return newIndexSet;
-}
-
-static inline NSMutableArray *incrementAllSectionsForIndexPaths(NSMutableArray *indexPaths, NSInteger sectionIndex) {
-    
-    NSArray *enumerateIndexPaths = indexPaths.copy;
-    for (NSIndexPath *indexPath in enumerateIndexPaths) {
-        
-        if (indexPath.section >= sectionIndex) {
-            
-            NSIndexPath *updatedIndexPath = [NSIndexPath indexPathForRow:indexPath.item inSection:indexPath.section + 1];
-            [indexPaths replaceObjectAtIndex:[indexPaths indexOfObject:indexPath] withObject:updatedIndexPath];
-        }
-    }
-    
-    return indexPaths;
-}
-
 #pragma mark - Getters
 
 - (BOOL)isEmpty {

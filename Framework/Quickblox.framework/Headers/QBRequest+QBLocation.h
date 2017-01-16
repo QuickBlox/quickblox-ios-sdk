@@ -2,8 +2,8 @@
 //  QBRequest+QBLocation.h
 //  Quickblox
 //
-//  Created by Andrey Moskvin on 12/22/13.
-//  Copyright (c) 2013 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 12/22/13.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import "QBRequest.h"
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)geoDataWithFilter:(QBLGeoDataFilter *)filter
                                        page:(nullable QBGeneralResponsePage *)page
-                               successBlock:(nullable void (^)(QBResponse *response, NSArray QB_GENERIC(QBLGeoData *) * _Nullable objects, QBGeneralResponsePage * _Nullable page))successBlock
+                               successBlock:(nullable void (^)(QBResponse *response, NSArray<QBLGeoData *> * _Nullable objects, QBGeneralResponsePage * _Nullable page))successBlock
                                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 @end

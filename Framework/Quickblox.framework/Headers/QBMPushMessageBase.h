@@ -14,9 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QBMPushMessageBase : NSObject <NSCoding, NSCopying>
 
-@property (nonatomic, strong, nullable) NSMutableDictionary QB_GENERIC(NSString *, id) *payloadDict;
+@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *payloadDict;
 
-- (instancetype)initWithPayload:(NSDictionary QB_GENERIC(NSString *, NSString *) *)payload;
+- (instancetype)initWithPayload:(NSDictionary<NSString *, NSString *> *)payload;
 - (nullable NSString *)json;
 
 @end

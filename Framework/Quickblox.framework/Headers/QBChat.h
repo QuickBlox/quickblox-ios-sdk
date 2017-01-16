@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 
  *  Array of all delegates
  */
-- (nullable NSArray QB_GENERIC(id<QBChatDelegate>) *)delegates;
+- (nullable NSArray<id <QBChatDelegate>> *)delegates;
 
 #pragma mark -
 #pragma mark Reconnection

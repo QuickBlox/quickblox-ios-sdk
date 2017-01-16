@@ -2,8 +2,8 @@
 //  QBChatAttachment.h
 //  Quickblox
 //
-//  Created by Igor Alefirenko on 08/05/2014.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 08/05/2014.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

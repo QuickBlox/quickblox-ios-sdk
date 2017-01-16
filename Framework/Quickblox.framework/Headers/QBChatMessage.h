@@ -49,12 +49,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.
  */
-@property (nonatomic, strong, null_resettable) NSMutableDictionary QB_GENERIC(NSString *, NSString *) *customParameters;
+@property (nonatomic, strong, null_resettable) NSMutableDictionary<NSString *, NSString *> *customParameters;
 
 /**
  *  Array of attachments. Array of QBChatAttachment instances.
  */
-@property (nonatomic, strong, nullable) NSArray QB_GENERIC(QBChatAttachment *) *attachments;
+@property (nonatomic, strong, nullable) NSArray <QBChatAttachment *> *attachments;
 
 /**
  *  Determines whether message was delayed.
@@ -84,12 +84,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The array of user's ids who read this message.
  */
-@property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSNumber *) *readIDs;
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *readIDs;
 
 /**
  *  The array of user's ids who received this message.
  */
-@property (nonatomic, copy, nullable) NSArray QB_GENERIC(NSNumber *) *deliveredIDs;
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *deliveredIDs;
 
 /**
  *  Create new message.

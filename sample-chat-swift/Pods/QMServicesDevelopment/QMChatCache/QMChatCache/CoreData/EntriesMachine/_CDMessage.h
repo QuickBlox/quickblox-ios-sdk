@@ -1,29 +1,15 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to CDMessage.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct CDMessageAttributes {
-	__unsafe_unretained NSString *createAt;
-	__unsafe_unretained NSString *customParameters;
-	__unsafe_unretained NSString *dateSend;
-	__unsafe_unretained NSString *delayed;
-	__unsafe_unretained NSString *deliveredIDs;
-	__unsafe_unretained NSString *dialogID;
-	__unsafe_unretained NSString *isRead;
-	__unsafe_unretained NSString *messageID;
-	__unsafe_unretained NSString *readIDs;
-	__unsafe_unretained NSString *recipientID;
-	__unsafe_unretained NSString *senderID;
-	__unsafe_unretained NSString *senderNick;
-	__unsafe_unretained NSString *text;
-	__unsafe_unretained NSString *updateAt;
-} CDMessageAttributes;
-
-extern const struct CDMessageRelationships {
-	__unsafe_unretained NSString *attachments;
-	__unsafe_unretained NSString *dialog;
-} CDMessageRelationships;
+NS_ASSUME_NONNULL_BEGIN
 
 @class CDAttachment;
 @class CDDialog;
@@ -31,97 +17,66 @@ extern const struct CDMessageRelationships {
 @interface CDMessageID : NSManagedObjectID {}
 @end
 
-@interface _CDMessage : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _CDMessage : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) CDMessageID* objectID;
+@property (nonatomic, readonly, strong) CDMessageID *objectID;
 
-@property (nonatomic, strong) NSDate* createAt;
+@property (nonatomic, strong, nullable) NSDate* createAt;
 
-//- (BOOL)validateCreateAt:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSData* customParameters;
 
-@property (nonatomic, strong) NSData* customParameters;
+@property (nonatomic, strong, nullable) NSDate* dateSend;
 
-//- (BOOL)validateCustomParameters:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSDate* dateSend;
-
-//- (BOOL)validateDateSend:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* delayed;
+@property (nonatomic, strong, nullable) NSNumber* delayed;
 
 @property (atomic) BOOL delayedValue;
 - (BOOL)delayedValue;
 - (void)setDelayedValue:(BOOL)value_;
 
-//- (BOOL)validateDelayed:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSData* deliveredIDs;
 
-@property (nonatomic, strong) NSData* deliveredIDs;
+@property (nonatomic, strong, nullable) NSString* dialogID;
 
-//- (BOOL)validateDeliveredIDs:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* dialogID;
-
-//- (BOOL)validateDialogID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* isRead;
+@property (nonatomic, strong, nullable) NSNumber* isRead;
 
 @property (atomic) BOOL isReadValue;
 - (BOOL)isReadValue;
 - (void)setIsReadValue:(BOOL)value_;
 
-//- (BOOL)validateIsRead:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* messageID;
 
-@property (nonatomic, strong) NSString* messageID;
+@property (nonatomic, strong, nullable) NSData* readIDs;
 
-//- (BOOL)validateMessageID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSData* readIDs;
-
-//- (BOOL)validateReadIDs:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* recipientID;
+@property (nonatomic, strong, nullable) NSNumber* recipientID;
 
 @property (atomic) int32_t recipientIDValue;
 - (int32_t)recipientIDValue;
 - (void)setRecipientIDValue:(int32_t)value_;
 
-//- (BOOL)validateRecipientID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* senderID;
+@property (nonatomic, strong, nullable) NSNumber* senderID;
 
 @property (atomic) int32_t senderIDValue;
 - (int32_t)senderIDValue;
 - (void)setSenderIDValue:(int32_t)value_;
 
-//- (BOOL)validateSenderID:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* senderNick;
 
-@property (nonatomic, strong) NSString* senderNick;
+@property (nonatomic, strong, nullable) NSString* text;
 
-//- (BOOL)validateSenderNick:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSDate* updateAt;
 
-@property (nonatomic, strong) NSString* text;
+@property (nonatomic, strong, nullable) NSSet<CDAttachment*> *attachments;
+- (nullable NSMutableSet<CDAttachment*>*)attachmentsSet;
 
-//- (BOOL)validateText:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSDate* updateAt;
-
-//- (BOOL)validateUpdateAt:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSSet *attachments;
-
-- (NSMutableSet*)attachmentsSet;
-
-@property (nonatomic, strong) CDDialog *dialog;
-
-//- (BOOL)validateDialog:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) CDDialog *dialog;
 
 @end
 
 @interface _CDMessage (AttachmentsCoreDataGeneratedAccessors)
-- (void)addAttachments:(NSSet*)value_;
-- (void)removeAttachments:(NSSet*)value_;
+- (void)addAttachments:(NSSet<CDAttachment*>*)value_;
+- (void)removeAttachments:(NSSet<CDAttachment*>*)value_;
 - (void)addAttachmentsObject:(CDAttachment*)value_;
 - (void)removeAttachmentsObject:(CDAttachment*)value_;
 
@@ -183,10 +138,34 @@ extern const struct CDMessageRelationships {
 - (NSDate*)primitiveUpdateAt;
 - (void)setPrimitiveUpdateAt:(NSDate*)value;
 
-- (NSMutableSet*)primitiveAttachments;
-- (void)setPrimitiveAttachments:(NSMutableSet*)value;
+- (NSMutableSet<CDAttachment*>*)primitiveAttachments;
+- (void)setPrimitiveAttachments:(NSMutableSet<CDAttachment*>*)value;
 
 - (CDDialog*)primitiveDialog;
 - (void)setPrimitiveDialog:(CDDialog*)value;
 
 @end
+
+@interface CDMessageAttributes: NSObject 
++ (NSString *)createAt;
++ (NSString *)customParameters;
++ (NSString *)dateSend;
++ (NSString *)delayed;
++ (NSString *)deliveredIDs;
++ (NSString *)dialogID;
++ (NSString *)isRead;
++ (NSString *)messageID;
++ (NSString *)readIDs;
++ (NSString *)recipientID;
++ (NSString *)senderID;
++ (NSString *)senderNick;
++ (NSString *)text;
++ (NSString *)updateAt;
+@end
+
+@interface CDMessageRelationships: NSObject
++ (NSString *)attachments;
++ (NSString *)dialog;
+@end
+
+NS_ASSUME_NONNULL_END

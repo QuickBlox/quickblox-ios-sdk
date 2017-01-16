@@ -25,6 +25,10 @@
 @property (strong, nonatomic, readonly) dispatch_queue_t queue;
 @property (strong, nonatomic, readonly) QMCDRecordStack *stack;
 
+- (instancetype)initWithStoreNamed:(NSString *)storeName
+                             model:(NSManagedObjectModel *)model
+                        queueLabel:(const char *)queueLabel
+        applicationGroupIdentifier:(NSString *)appGroupIdentifier;
 
 - (instancetype)initWithStoreNamed:(NSString *)storeName
                              model:(NSManagedObjectModel *)model

@@ -1,4 +1,14 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif
 
 #import "QMChatViewController.h"
 #import "NSString+QM.h"
@@ -12,9 +22,9 @@
 #import "NSDate+ChatDataSource.h"
 #import "QBChatMessage+QBDateDivider.h"
 #import "QMChatDataSource.h"
+#import "QMChatLocationSnapshotter.h"
 #import "QMChatSection.h"
 #import "QMChatSectionManager.h"
-#import "QMChatLocationSnapshotter.h"
 #import "QMChatResources.h"
 #import "QMDateUtils.h"
 #import "QMImageLoader.h"

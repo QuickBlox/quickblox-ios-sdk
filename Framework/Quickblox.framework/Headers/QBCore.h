@@ -2,8 +2,8 @@
 //  QBCore.h
 //  Quickblox
 //
-//  Created by Andrey Moskvin on 6/13/14.
-//  Copyright (c) 2014 QuickBlox. All rights reserved.
+//  Created by QuickBlox team on 6/13/14.
+//  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
 #ifndef Quickblox_QBCore_h
