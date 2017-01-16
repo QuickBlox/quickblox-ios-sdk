@@ -26,10 +26,17 @@ static QMChatCache *_chatCacheInstance = nil;
 #pragma mark - Configure store
 
 + (void)setupDBWithStoreNamed:(NSString *)storeName {
+    
+    [self setupDBWithStoreNamed:storeName applicationGroupIdentifier:nil];
+}
 
++ (void)setupDBWithStoreNamed:(NSString *)storeName applicationGroupIdentifier:(NSString *)appGroupIdentifier {
     NSManagedObjectModel *model = [NSManagedObjectModel QM_newModelNamed:@"QMChatServiceModel.momd" inBundleNamed:@"QMChatCacheModel.bundle" fromClass:[self class]];
     
-    _chatCacheInstance = [[QMChatCache alloc] initWithStoreNamed:storeName model:model queueLabel:"com.qmunicate.QMChatCacheBackgroundQueue"];
+    _chatCacheInstance = [[QMChatCache alloc] initWithStoreNamed:storeName
+                                                           model:model
+                                                      queueLabel:"com.qmunicate.QMChatCacheBackgroundQueue"
+                                      applicationGroupIdentifier:appGroupIdentifier];
 }
 
 + (void)cleanDBWithStoreName:(NSString *)name {
@@ -73,6 +80,17 @@ static QMChatCache *_chatCacheInstance = nil;
 
 #pragma mark Fetch Dialogs
 
+- (void)allDialogsWithCompletion:(nullable void(^)(NSArray QB_GENERIC(QBChatDialog *) * _Nullable dialogs))completion {
+    __weak __typeof(self)weakSelf = self;
+    
+    [self async:^(NSManagedObjectContext *context) {
+        NSArray *cdChatDialogs = [CDDialog QM_findAllInContext:context];
+        NSArray *allDialogs = [weakSelf convertCDDialogsTOQBChatDialogs:cdChatDialogs];
+        
+        DO_AT_MAIN(completion(allDialogs));
+
+    }];
+}
 - (void)dialogsSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending completion:(void(^)(NSArray *dialogs))completion {
     
     [self dialogsSortedBy:sortTerm ascending:ascending withPredicate:nil completion:completion];
@@ -81,7 +99,7 @@ static QMChatCache *_chatCacheInstance = nil;
 - (void)dialogByID:(NSString *)dialogID completion:(void (^)(QBChatDialog *cachedDialog))completion {
     __weak __typeof(self)weakSelf = self;
     [self async:^(NSManagedObjectContext *context) {
-        NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(self.dialogID ==[cd] %@)",dialogID];
+        NSPredicate *fetchPredicate = [NSPredicate predicateWithFormat:@"(self.dialogID == [cd] %@)",dialogID];
         
         CDDialog *cdChatDialog = [CDDialog QM_findFirstWithPredicate:fetchPredicate inContext:context];
         if (cdChatDialog != nil) {

@@ -37,9 +37,12 @@
 
 + (instancetype) stackWithStoreNamed:(NSString *)name model:(NSManagedObjectModel *)model
 {
-    return [[self alloc] initWithStoreNamed:name model:model];
+    return [self stackWithStoreNamed:name model:model applicationGroupIdentifier:nil];
 }
-
++ (instancetype) stackWithStoreNamed:(NSString *)name model:(NSManagedObjectModel *)model applicationGroupIdentifier:(NSString *)appGroupIdentifier
+{
+    return [[self alloc] initWithStoreNamed:name model:model applicationGroupIdentifier:appGroupIdentifier];
+}
 + (instancetype) stackWithStoreAtURL:(NSURL *)url model:(NSManagedObjectModel *)model
 {
     return [[self alloc] initWithStoreAtURL:url model:model];
@@ -80,17 +83,33 @@
 
 - (instancetype) initWithStoreNamed:(NSString *)name model:(NSManagedObjectModel *)model
 {
-    NSURL *storeURL = [NSPersistentStore QM_fileURLForStoreName:name];
-    return [self initWithStoreAtURL:storeURL model:model];
+    return [self initWithStoreNamed:name model:model applicationGroupIdentifier:nil];
+}
+
+- (instancetype) initWithStoreNamed:(NSString *)name model:(NSManagedObjectModel *)model applicationGroupIdentifier:(NSString *)appGroupIdentifier
+{
+    NSDictionary *options = [NSPersistentStore QM_migrationOptionsForStoreName:name
+                                                    applicationGroupIdentifier:appGroupIdentifier];
+    return [self initWithStoreAtURL:options[QMCDRecordTargetURLKey] model:model options:options];
 }
 
 - (instancetype) initWithStoreAtURL:(NSURL *)url model:(NSManagedObjectModel *)model
 {
-    NSParameterAssert(url);
+    return [self initWithStoreAtURL:url
+                              model:model
+                            options:nil];
+}
 
+- (instancetype) initWithStoreAtURL:(NSURL *)url model:(NSManagedObjectModel *)model options:(NSDictionary *)options
+{
+    NSParameterAssert(url);
+    
     self = [super init];
-    if (self)
-    {
+    
+    if (self) {
+        if (options != nil) {
+            _storeOptions = options;
+        }
         _storeURL = url;
         self.model = model;
     }

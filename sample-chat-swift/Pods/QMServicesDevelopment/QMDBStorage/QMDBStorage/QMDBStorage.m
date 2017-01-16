@@ -22,18 +22,26 @@
 
 @implementation QMDBStorage
 
-- (instancetype)initWithStoreNamed:(NSString *)storeName model:(NSManagedObjectModel *)model queueLabel:(const char *)queueLabel {
+- (instancetype)initWithStoreNamed:(NSString *)storeName model:(NSManagedObjectModel *)model queueLabel:(const char *)queueLabel applicationGroupIdentifier:(NSString *)appGroupIdentifier {
     
-    self = [self init];
+    self = [super init];
+    
     if (self) {
         
         self.queue = dispatch_queue_create(queueLabel, DISPATCH_QUEUE_SERIAL);
         //Create Chat coredata stack
-		self.stack = [AutoMigratingQMCDRecordStack stackWithStoreNamed:storeName model:model];
-		[QMCDRecordStack setDefaultStack:self.stack];
+        self.stack = [AutoMigratingQMCDRecordStack stackWithStoreNamed:storeName model:model applicationGroupIdentifier:appGroupIdentifier];
     }
-    
+
     return self;
+}
+
+- (instancetype)initWithStoreNamed:(NSString *)storeName model:(NSManagedObjectModel *)model queueLabel:(const char *)queueLabel {
+    
+    return [self initWithStoreNamed:storeName
+                              model:model
+                         queueLabel:queueLabel
+         applicationGroupIdentifier:nil];
 }
 
 + (void)setupDBWithStoreNamed:(NSString *)storeName {
@@ -43,7 +51,12 @@
 
 + (void)cleanDBWithStoreName:(NSString *)name {
     
-    NSURL *storeUrl = [NSPersistentStore QM_fileURLForStoreName:name];
+    [self cleanDBWithStoreName:name applicationGroupIdentifier:nil];
+}
+
++ (void)cleanDBWithStoreName:(NSString *)name applicationGroupIdentifier:(NSString *)appGroupIdentifier {
+    
+    NSURL *storeUrl = [NSPersistentStore QM_fileURLForStoreNameIfExistsOnDisk:name applicationGroupIdentifier:appGroupIdentifier];
     
     if (storeUrl) {
         
@@ -63,7 +76,10 @@
 - (NSManagedObjectContext *)bgContext {
     
     if (!_bgContext) {
-        _bgContext = [NSManagedObjectContext QM_confinementContextWithParent:self.stack.context];
+        NSManagedObjectContext *context = [NSManagedObjectContext QM_context];
+        [context setParentContext:self.stack.context];
+        
+        _bgContext = context;
     }
     
     return _bgContext;

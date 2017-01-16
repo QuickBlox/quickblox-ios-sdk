@@ -1,106 +1,66 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
 // Make changes to CDUser.h instead.
 
-#import <CoreData/CoreData.h>
+#if __has_feature(modules)
+    @import Foundation;
+    @import CoreData;
+#else
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+#endif
 
-extern const struct CDUserAttributes {
-	__unsafe_unretained NSString *blobID;
-	__unsafe_unretained NSString *createdAt;
-	__unsafe_unretained NSString *customData;
-	__unsafe_unretained NSString *email;
-	__unsafe_unretained NSString *externalUserID;
-	__unsafe_unretained NSString *facebookID;
-	__unsafe_unretained NSString *fullName;
-	__unsafe_unretained NSString *id;
-	__unsafe_unretained NSString *lastRequestAt;
-	__unsafe_unretained NSString *login;
-	__unsafe_unretained NSString *phone;
-	__unsafe_unretained NSString *tags;
-	__unsafe_unretained NSString *twitterID;
-	__unsafe_unretained NSString *updatedAt;
-	__unsafe_unretained NSString *website;
-} CDUserAttributes;
+NS_ASSUME_NONNULL_BEGIN
 
 @interface CDUserID : NSManagedObjectID {}
 @end
 
-@interface _CDUser : NSManagedObject {}
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
+@interface _CDUser : NSManagedObject
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-@property (nonatomic, readonly, strong) CDUserID* objectID;
+@property (nonatomic, readonly, strong) CDUserID *objectID;
 
-@property (nonatomic, strong) NSNumber* blobID;
+@property (nonatomic, strong, nullable) NSNumber* blobID;
 
 @property (atomic) int32_t blobIDValue;
 - (int32_t)blobIDValue;
 - (void)setBlobIDValue:(int32_t)value_;
 
-//- (BOOL)validateBlobID:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSDate* createdAt;
 
-@property (nonatomic, strong) NSDate* createdAt;
+@property (nonatomic, strong, nullable) NSString* customData;
 
-//- (BOOL)validateCreatedAt:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* email;
 
-@property (nonatomic, strong) NSString* customData;
-
-//- (BOOL)validateCustomData:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* email;
-
-//- (BOOL)validateEmail:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* externalUserID;
+@property (nonatomic, strong, nullable) NSNumber* externalUserID;
 
 @property (atomic) int32_t externalUserIDValue;
 - (int32_t)externalUserIDValue;
 - (void)setExternalUserIDValue:(int32_t)value_;
 
-//- (BOOL)validateExternalUserID:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* facebookID;
 
-@property (nonatomic, strong) NSString* facebookID;
+@property (nonatomic, strong, nullable) NSString* fullName;
 
-//- (BOOL)validateFacebookID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* fullName;
-
-//- (BOOL)validateFullName:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSNumber* id;
+@property (nonatomic, strong, nullable) NSNumber* id;
 
 @property (atomic) int32_t idValue;
 - (int32_t)idValue;
 - (void)setIdValue:(int32_t)value_;
 
-//- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSDate* lastRequestAt;
 
-@property (nonatomic, strong) NSDate* lastRequestAt;
+@property (nonatomic, strong, nullable) NSString* login;
 
-//- (BOOL)validateLastRequestAt:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* phone;
 
-@property (nonatomic, strong) NSString* login;
+@property (nonatomic, strong, nullable) NSString* tags;
 
-//- (BOOL)validateLogin:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* twitterID;
 
-@property (nonatomic, strong) NSString* phone;
+@property (nonatomic, strong, nullable) NSDate* updatedAt;
 
-//- (BOOL)validatePhone:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* tags;
-
-//- (BOOL)validateTags:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* twitterID;
-
-//- (BOOL)validateTwitterID:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSDate* updatedAt;
-
-//- (BOOL)validateUpdatedAt:(id*)value_ error:(NSError**)error_;
-
-@property (nonatomic, strong) NSString* website;
-
-//- (BOOL)validateWebsite:(id*)value_ error:(NSError**)error_;
+@property (nonatomic, strong, nullable) NSString* website;
 
 @end
 
@@ -161,3 +121,23 @@ extern const struct CDUserAttributes {
 - (void)setPrimitiveWebsite:(NSString*)value;
 
 @end
+
+@interface CDUserAttributes: NSObject 
++ (NSString *)blobID;
++ (NSString *)createdAt;
++ (NSString *)customData;
++ (NSString *)email;
++ (NSString *)externalUserID;
++ (NSString *)facebookID;
++ (NSString *)fullName;
++ (NSString *)id;
++ (NSString *)lastRequestAt;
++ (NSString *)login;
++ (NSString *)phone;
++ (NSString *)tags;
++ (NSString *)twitterID;
++ (NSString *)updatedAt;
++ (NSString *)website;
+@end
+
+NS_ASSUME_NONNULL_END

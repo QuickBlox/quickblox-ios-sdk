@@ -42,8 +42,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 
 @property (nonatomic, assign) CGFloat lastContentOffset;
 
-@property (assign, nonatomic) BOOL isObserving;
-
 //Keyboard observing
 @property (strong, nonatomic) QMKVOView *systemInputToolbar;
 @property (assign, nonatomic) CGFloat keyboardDismissAnimationDuration;
@@ -83,39 +81,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
 
 #pragma mark - Initialization
 
-- (void)addObservers {
-    return;
-    if (self.isObserving) {
-        return;
-    }
-    
-    [self.inputToolbar.contentView.textView addObserver:self
-                                             forKeyPath:NSStringFromSelector(@selector(contentSize))
-                                                options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
-                                                context:kChatKeyValueObservingContext];
-    
-    self.isObserving = YES;
-}
-
-- (void)removeObservers {
-    
-    if (!self.isObserving) {
-        return;
-    }
-    
-    @try {
-        [_inputToolbar.contentView.textView removeObserver:self
-                                                forKeyPath:NSStringFromSelector(@selector(contentSize))
-                                                   context:kChatKeyValueObservingContext];
-    }
-    @catch (NSException * __unused exception) {
-        
-    }
-    
-    self.isObserving = NO;
-}
-
-
 - (void)configureMessagesViewController {
     
     self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
@@ -135,7 +100,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     self.automaticallyScrollsToMostRecentMessage = YES;
     self.topContentAdditionalInset = 0.0f;
     
-    [self addObservers];
     [self registerCells];
     
     self.systemInputToolbar = [[QMKVOView alloc] init];
@@ -336,8 +300,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     if (![self.navigationController.viewControllers containsObject:self]) {
         [self becomeFirstResponder];
     }
-    
-    [self removeObservers];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -482,7 +444,6 @@ UIAlertViewDelegate,QMPlaceHolderTextViewPasteDelegate, QMChatDataSourceDelegate
     
     dispatch_block_t handler = ^{
         
-        __weak typeof(self) weakSelf = self;
         [self checkAuthorizationStatusWithCompletion:^(BOOL granted) {
             
             typeof(weakSelf) strongSelf = weakSelf;

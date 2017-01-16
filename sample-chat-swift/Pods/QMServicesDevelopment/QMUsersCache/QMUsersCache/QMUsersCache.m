@@ -30,15 +30,22 @@ static QMUsersCache *_usersCacheInstance = nil;
 
 #pragma mark - Configure store
 
-+ (void)setupDBWithStoreNamed:(NSString *)storeName
-{
++ (void)setupDBWithStoreNamed:(NSString *)storeName applicationGroupIdentifier:(NSString *)appGroupIdentifier {
+    
     NSManagedObjectModel *model =
     [NSManagedObjectModel QM_newModelNamed:@"QMUsersModel.momd"
                              inBundleNamed:@"QMUsersCacheModel.bundle"
                                  fromClass:[self class]];
+    
     _usersCacheInstance = [[QMUsersCache alloc] initWithStoreNamed:storeName
                                                              model:model
-                                                        queueLabel:"com.qmservices.QMUsersCacheQueue"];
+                                                        queueLabel:"com.qmservices.QMUsersCacheQueue"
+                                        applicationGroupIdentifier:appGroupIdentifier];
+}
+
++ (void)setupDBWithStoreNamed:(NSString *)storeName
+{
+    return [self setupDBWithStoreNamed:storeName applicationGroupIdentifier:nil];
 }
 
 + (void)cleanDBWithStoreName:(NSString *)name

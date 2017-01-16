@@ -39,6 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)handleErrorResponse:(QBResponse *)response;
 
+@optional
+
+- (NSString *)appGroupIdentifier;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -3,30 +3,12 @@
 
 #import "_CDUser.h"
 
-const struct CDUserAttributes CDUserAttributes = {
-	.blobID = @"blobID",
-	.createdAt = @"createdAt",
-	.customData = @"customData",
-	.email = @"email",
-	.externalUserID = @"externalUserID",
-	.facebookID = @"facebookID",
-	.fullName = @"fullName",
-	.id = @"id",
-	.lastRequestAt = @"lastRequestAt",
-	.login = @"login",
-	.phone = @"phone",
-	.tags = @"tags",
-	.twitterID = @"twitterID",
-	.updatedAt = @"updatedAt",
-	.website = @"website",
-};
-
 @implementation CDUserID
 @end
 
 @implementation _CDUser
 
-+ (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
++ (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_ {
 	NSParameterAssert(moc_);
 	return [NSEntityDescription insertNewObjectForEntityForName:@"CDUser" inManagedObjectContext:moc_];
 }
@@ -74,7 +56,7 @@ const struct CDUserAttributes CDUserAttributes = {
 }
 
 - (void)setBlobIDValue:(int32_t)value_ {
-	[self setBlobID:[NSNumber numberWithInt:value_]];
+	[self setBlobID:@(value_)];
 }
 
 - (int32_t)primitiveBlobIDValue {
@@ -83,7 +65,7 @@ const struct CDUserAttributes CDUserAttributes = {
 }
 
 - (void)setPrimitiveBlobIDValue:(int32_t)value_ {
-	[self setPrimitiveBlobID:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveBlobID:@(value_)];
 }
 
 @dynamic createdAt;
@@ -100,7 +82,7 @@ const struct CDUserAttributes CDUserAttributes = {
 }
 
 - (void)setExternalUserIDValue:(int32_t)value_ {
-	[self setExternalUserID:[NSNumber numberWithInt:value_]];
+	[self setExternalUserID:@(value_)];
 }
 
 - (int32_t)primitiveExternalUserIDValue {
@@ -109,7 +91,7 @@ const struct CDUserAttributes CDUserAttributes = {
 }
 
 - (void)setPrimitiveExternalUserIDValue:(int32_t)value_ {
-	[self setPrimitiveExternalUserID:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveExternalUserID:@(value_)];
 }
 
 @dynamic facebookID;
@@ -124,7 +106,7 @@ const struct CDUserAttributes CDUserAttributes = {
 }
 
 - (void)setIdValue:(int32_t)value_ {
-	[self setId:[NSNumber numberWithInt:value_]];
+	[self setId:@(value_)];
 }
 
 - (int32_t)primitiveIdValue {
@@ -133,7 +115,7 @@ const struct CDUserAttributes CDUserAttributes = {
 }
 
 - (void)setPrimitiveIdValue:(int32_t)value_ {
-	[self setPrimitiveId:[NSNumber numberWithInt:value_]];
+	[self setPrimitiveId:@(value_)];
 }
 
 @dynamic lastRequestAt;
@@ -150,5 +132,53 @@ const struct CDUserAttributes CDUserAttributes = {
 
 @dynamic website;
 
+@end
+
+@implementation CDUserAttributes 
++ (NSString *)blobID {
+	return @"blobID";
+}
++ (NSString *)createdAt {
+	return @"createdAt";
+}
++ (NSString *)customData {
+	return @"customData";
+}
++ (NSString *)email {
+	return @"email";
+}
++ (NSString *)externalUserID {
+	return @"externalUserID";
+}
++ (NSString *)facebookID {
+	return @"facebookID";
+}
++ (NSString *)fullName {
+	return @"fullName";
+}
++ (NSString *)id {
+	return @"id";
+}
++ (NSString *)lastRequestAt {
+	return @"lastRequestAt";
+}
++ (NSString *)login {
+	return @"login";
+}
++ (NSString *)phone {
+	return @"phone";
+}
++ (NSString *)tags {
+	return @"tags";
+}
++ (NSString *)twitterID {
+	return @"twitterID";
+}
++ (NSString *)updatedAt {
+	return @"updatedAt";
+}
++ (NSString *)website {
+	return @"website";
+}
 @end
 
