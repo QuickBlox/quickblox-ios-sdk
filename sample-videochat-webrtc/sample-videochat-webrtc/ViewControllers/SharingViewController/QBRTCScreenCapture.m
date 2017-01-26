@@ -8,9 +8,15 @@
 
 #import "QBRTCScreenCapture.h"
 
+/**
+ *  By default sending frames in screen share using BiPlanarFullRange pixel format type.
+ *  You can also send them using ARGB by setting this constant to NO.
+ */
+static const BOOL kQBRTCUseBiPlanarFormatTypeForShare = YES;
+
 @interface QBRTCScreenCapture()
 
-@property (nonatomic, weak) UIView * view;
+@property (weak, nonatomic) UIView * view;
 @property (strong, nonatomic) CADisplayLink *displayLink;
 
 @end
@@ -44,12 +50,24 @@
 
 - (UIImage *)screenshot {
     
-    UIGraphicsBeginImageContextWithOptions(_view.frame.size, NO, 1);
+    UIGraphicsBeginImageContextWithOptions(_view.frame.size, YES, 1);
     [_view drawViewHierarchyInRect:_view.bounds afterScreenUpdates:NO];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
     return image;
+}
+
+- (CIContext *)qb_sharedGPUContext {
+    static CIContext *sharedContext;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSDictionary *options = @{
+                                  kCIContextPriorityRequestLow: @YES
+                                  };
+        sharedContext = [CIContext contextWithOptions:options];
+    });
+    return sharedContext;
 }
 
 - (void)sendPixelBuffer:(CADisplayLink *)sender {
@@ -60,45 +78,72 @@
             
             UIImage *image = [self screenshot];
             
-            int w = image.size.width;
-            int h = image.size.height;
+            int renderWidth = image.size.width;
+            int renderHeight = image.size.height;
             
-            NSDictionary *options = @{
-                                      (NSString *)kCVPixelBufferCGImageCompatibilityKey : @NO,
-                                      (NSString *)kCVPixelBufferCGBitmapContextCompatibilityKey : @NO
-                                      };
+            CVPixelBufferRef buffer = NULL;
             
-            CVPixelBufferRef pixelBuffer = nil;
+            OSType pixelFormatType;
+            CFDictionaryRef pixelBufferAttributes = NULL;
+            if (kQBRTCUseBiPlanarFormatTypeForShare) {
+                
+                pixelFormatType = kCVPixelFormatType_420YpCbCr8BiPlanarFullRange;
+                pixelBufferAttributes = (__bridge CFDictionaryRef) @
+                {
+                    (__bridge NSString *)kCVPixelBufferIOSurfacePropertiesKey: @{},
+                };
+            }
+            else {
+                
+                pixelFormatType = kCVPixelFormatType_32ARGB;
+                pixelBufferAttributes = (__bridge CFDictionaryRef) @
+                {
+                    (NSString *)kCVPixelBufferCGImageCompatibilityKey : @NO,
+                    (NSString *)kCVPixelBufferCGBitmapContextCompatibilityKey : @NO
+                };
+                
+            }
+            
             CVReturn status = CVPixelBufferCreate(kCFAllocatorDefault,
-                                                  w,
-                                                  h,
-                                                  kCVPixelFormatType_32ARGB,
-                                                  (__bridge CFDictionaryRef)(options),
-                                                  &pixelBuffer);
+                                                  renderWidth,
+                                                  renderHeight,
+                                                  pixelFormatType,
+                                                  pixelBufferAttributes,
+                                                  &buffer);
             
-            if(status == kCVReturnSuccess && pixelBuffer != NULL) {
+            if (status == kCVReturnSuccess && buffer != NULL) {
                 
-                CVPixelBufferLockBaseAddress(pixelBuffer, 0);
-                void *pxdata = CVPixelBufferGetBaseAddress(pixelBuffer);
+                CVPixelBufferLockBaseAddress(buffer, 0);
                 
-                CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
+                if (kQBRTCUseBiPlanarFormatTypeForShare) {
+                    
+                    CIImage *rImage = [[CIImage alloc] initWithImage:image];
+                    [self.qb_sharedGPUContext render:rImage toCVPixelBuffer:buffer];
+                }
+                else {
+                    
+                    void *pxdata = CVPixelBufferGetBaseAddress(buffer);
+                    
+                    CGColorSpaceRef rgbColorSpace = CGColorSpaceCreateDeviceRGB();
+                    
+                    uint32_t bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst;
+                    
+                    CGContextRef context =
+                    CGBitmapContextCreate(pxdata, renderWidth, renderHeight, 8, renderWidth * 4, rgbColorSpace, bitmapInfo);
+                    CGContextDrawImage(context, CGRectMake(0, 0, renderWidth, renderHeight), [image CGImage]);
+                    CGColorSpaceRelease(rgbColorSpace);
+                    CGContextRelease(context);
+                }
                 
-                uint32_t bitmapInfo = kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst;
+                CVPixelBufferUnlockBaseAddress(buffer, 0);
                 
-                CGContextRef context =
-                CGBitmapContextCreate(pxdata, w, h, 8, w * 4, rgbColorSpace, bitmapInfo);
-                CGContextDrawImage(context, CGRectMake(0, 0, w, h), [image CGImage]);
-                CGColorSpaceRelease(rgbColorSpace);
-                CGContextRelease(context);
-                
-                QBRTCVideoFrame *videoFrame = [[QBRTCVideoFrame alloc] initWithPixelBuffer:pixelBuffer videoRotation:QBRTCVideoRotation_0];
-                
-                CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
+                QBRTCVideoFrame *videoFrame = [[QBRTCVideoFrame alloc] initWithPixelBuffer:buffer
+                                                                             videoRotation:QBRTCVideoRotation_0];
                 
                 [super sendVideoFrame:videoFrame];
             }
             
-            CVPixelBufferRelease(pixelBuffer);
+            CVPixelBufferRelease(buffer);
         }
     });
 }
