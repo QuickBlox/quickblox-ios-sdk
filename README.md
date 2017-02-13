@@ -51,7 +51,7 @@ Choose sample you want to try, open it, launch. That's all.
 ## Documentation
 
 * [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
-* [Framework reference in AppleDoc format](http://sdk.quickblox.com/ios/documentation)
+* [Framework reference in AppleDoc format](http://cocoadocs.org/docsets/QuickBlox/2.9.1/)
 
 Detailed information for each sample is also available in *README.md* of each sample folder.
 
