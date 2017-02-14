@@ -69,7 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) NSMutableArray<NSString *> *usersGroupsForDeleteAccess;
 
-
 /** 
  *  Create permissions object
  *
@@ -77,8 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)permissions;
 
-#pragma mark -
-#pragma mark Converters
+//MARK: - Converters
 
 + (enum QBCOPermissionsAccess)permissionsAccessFromString:(NSString *)permissionsAccess;
 + (nullable NSString *)permissionsAccessToString:(enum QBCOPermissionsAccess)permissionsAccess;

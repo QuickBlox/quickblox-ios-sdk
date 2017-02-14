@@ -21,8 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol QBChatDelegate <NSObject>
 @optional
 
-#pragma mark -
-#pragma mark Base IM
+//MARK: - Base IM
 
 /**
  *  Called whenever new private message was received from QBChat.
@@ -71,9 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)chatDidReconnect;
 
-
-#pragma mark -
-#pragma mark Contact list
+//MARK: - Contact list
 
 /**
  *  Called in case contact request was received.
@@ -110,8 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)chatDidReceiveRejectContactRequestFromUser:(NSUInteger)userID;
 
-#pragma mark -
-#pragma mark Presence
+//MARK: - Presence
 
 /**
  *  Called in case of receiving presence with status.
@@ -121,8 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)chatDidReceivePresenceWithStatus:(NSString *)status fromUser:(NSInteger)userID;
 
-#pragma mark -
-#pragma mark Rooms
+//MARK: - Rooms
 
 /**
  *  Called whenever group chat dialog did receive a message.
@@ -134,8 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)chatRoomDidReceiveMessage:(QBChatMessage *)message fromDialogID:(NSString *)dialogID;
 
-#pragma mark -
-#pragma mark Privacy
+//MARK: - Privacy
 
 /**
  *  Called in case of receiving privacy list names.
@@ -218,8 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)chatDidRemovedPrivacyListWithName:(NSString *)name;
 
-#pragma mark -
-#pragma mark Delivered status
+//MARK: - Delivered status
 
 /**
  *  Called whenever message was delivered to user.
@@ -230,8 +223,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)chatDidDeliverMessageWithID:(NSString *)messageID dialogID:(NSString *)dialogID toUserID:(NSUInteger)userID;
 
-#pragma mark -
-#pragma mark Read status
+//MARK: - Read status
 
 /**
  *  Called whenever message was read by opponent user.

@@ -2,7 +2,6 @@
  *  Enums.h
  *  MessagesService
  *
-
  *  Copyright 2011 QuickBlox team. All rights reserved.
  *
  */
@@ -27,6 +26,7 @@ typedef NS_ENUM(NSUInteger, QBMPushType) {
     
     QBMPushTypeUndefined,
     QBMPushTypeAPNS,
+    QBMPushTypeAPNSVOIP,
     QBMPushTypeGCM,
     QBMPushTypeMPNS,
     QBMPushTypeBBPS
@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, QBMNotificationChannel) {
     
     QBMNotificationChannelEmail,
     QBMNotificationChannelAPNS,
+    QBMNotificationChannelAPNSVOIP,
     QBMNotificationChannelGCM,
     QBMNotificationChannelMPNS,
     QBMNotificationChannelBBPS

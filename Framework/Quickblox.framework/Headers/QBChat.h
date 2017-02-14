@@ -48,8 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)init NS_UNAVAILABLE;
 
-#pragma mark -
-#pragma mark Multicast Delegate
+//MARK: - Multicast Delegate
 
 /**
  *  Adds the given delegate implementation to the list of observers
@@ -75,8 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable NSArray<id <QBChatDelegate>> *)delegates;
 
-#pragma mark -
-#pragma mark Reconnection
+//MARK: - Reconnection
 
 /**
  *  Run force reconnect. This method disconnects from chat and runs reconnection logic.
@@ -84,8 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)forceReconnect;
 
-#pragma mark -
-#pragma mark Base Messaging
+//MARK: - Base Messaging
 
 /**
  *  Get QBChat singleton
@@ -150,8 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable QBUUser *)currentUser;
 
-#pragma mark -
-#pragma mark Contact list
+//MARK: - Contact list
 
 /**
  *  Add user to contact list request
@@ -185,8 +181,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)rejectAddContactRequest:(NSUInteger)userID completion:(nullable QBChatCompletionBlock)completion;
 
-#pragma mark -
-#pragma mark Privacy
+//MARK: - Privacy
 
 /**
  *  Retrieve a privacy list by name. QBChatDelegate's method 'didReceivePrivacyList:' will be called if success or 'didNotReceivePrivacyListWithName:error:' if there is an error
@@ -227,8 +222,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)removePrivacyListWithName:(NSString *)privacyListName;
 
-#pragma mark -
-#pragma mark System Messages
+//MARK: - System Messages
 
 /**
  *  Send system message to dialog.
@@ -238,7 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)sendSystemMessage:(QBChatMessage *)message completion:(nullable QBChatCompletionBlock)completion;
 
-#pragma mark - Send pings to the server or a userID
+//MARK: - Send pings to the server or a userID
 
 /**
  *  Send ping to server

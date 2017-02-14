@@ -68,8 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
                                       userID:(NSUInteger)userID
                                        allow:(BOOL)allow;
 
-#pragma mark -
-#pragma mark - DEPRECATED
+//MARK: - DEPRECATED
 
 /**
  *  @warning Deprecated in 2.7.6. Use 'allow' instead.

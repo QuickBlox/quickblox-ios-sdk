@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QBRequest (QBCustomObjects)
 
-#pragma mark - Get Objects
+//MARK: - Get Objects
 
 /**
  Retrieve object with ID
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
                        successBlock:(nullable void (^)(QBResponse *response, NSArray <QBCOCustomObject *> * _Nullable objects, QBResponsePage * _Nullable page))successBlock
                          errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Objects aggregated by operator
+//MARK: - Objects aggregated by operator
 
 /**
  *  Returns calculated data for specified objects
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
                        successBlock:(nullable void (^)(QBResponse *response, NSArray<QBCOCustomObject *> * _Nullable objects, QBResponsePage * _Nullable responsePage))successBlock
                          errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Count of objects
+//MARK: - Count of objects
 
 /**
  Count of objects with extended Request
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
                             successBlock:(nullable void (^)(QBResponse *response, NSUInteger count))successBlock
                               errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Create Object
+//MARK: - Create Object
 
 /**
  Create record
@@ -136,7 +136,7 @@ NS_ASSUME_NONNULL_BEGIN
                successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Multi Create
+//MARK: - Multi Create
 
 /**
  Create records
@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
                 successBlock:(nullable void (^)(QBResponse *response, NSArray<QBCOCustomObject *> * _Nullable objects))successBlock
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Update Object
+//MARK: - Update Object
 
 /**
  Update record
@@ -183,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
                successBlock:(nullable void (^)(QBResponse *response, QBCOCustomObject * _Nullable object))successBlock
                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Multi Update
+//MARK: - Multi Update
 
 /**
  Update records
@@ -200,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
                 successBlock:(nullable void (^)(QBResponse *response, NSArray<QBCOCustomObject *> * _Nullable objects, NSArray<NSString *> * _Nullable notFoundObjectsIds))successBlock
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Delete Object
+//MARK: - Delete Object
 
 /**
  Delete object by identifier
@@ -230,7 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
                        successBlock:(nullable void (^)(QBResponse *response, NSArray<NSString *> * _Nullable deletedObjectsIDs, NSArray<NSString *> * _Nullable notFoundObjectsIDs, NSArray<NSString *> * _Nullable wrongPermissionsObjectsIDs))successBlock
                          errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Permissions
+//MARK: - Permissions
 
 /**
  Retrieve permissions for object with ID
@@ -247,7 +247,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     successBlock:(nullable void (^)(QBResponse *response, QBCOPermissions * _Nullable permissions))successBlock
                                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Files
+//MARK: - Files
 
 /**
  Upload file

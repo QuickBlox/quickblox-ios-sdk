@@ -32,8 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
                      successBlock:(nullable void (^)(QBResponse *response, NSArray<QBMSubscription *> * _Nullable objects))successBlock
                        errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark -
-#pragma mark Get Subscriptions
+//MARK: - Get Subscriptions
 
 /**
  *  Retrieve all subscriptions.
@@ -46,9 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)subscriptionsWithSuccessBlock:(nullable void (^)(QBResponse *response, NSArray<QBMSubscription *> * _Nullable objects))successBlock
                                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-
-#pragma mark -
-#pragma mark Delete Subscription with ID
+//MARK: - Delete Subscription with ID
 
 /**
  *  Delete subscription with ID.
@@ -62,10 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)deleteSubscriptionWithID:(NSUInteger)ID
                            successBlock:(nullable void (^)(QBResponse *response))successBlock
                              errorBlock:(nullable QBRequestErrorBlock)errorBlock;
-
-
-#pragma mark -
-#pragma mark Create Event
+//MARK: - Create Event
 
 /**
  *  Create an event.
@@ -93,9 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
                 successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBMEvent *> * _Nullable events))successBlock
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-
-#pragma mark -
-#pragma mark Get Event with ID
+//MARK: - Get Event with ID
 
 /**
  *  Get an event with ID.
@@ -110,9 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
               successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-
-#pragma mark -
-#pragma mark Update Event
+//MARK: - Update Event
 
 /**
  *  Update an event.
@@ -127,9 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
               successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
                 errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-
-#pragma mark -
-#pragma mark Delete Event with ID
+//MARK: - Delete Event with ID
 
 /**
  *  Get an event with ID.
@@ -144,9 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
                     successBlock:(nullable void (^)(QBResponse *response))successBlock
                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-
-#pragma mark -
-#pragma mark Send push Tasks
+//MARK: - Send push Tasks
 
 /**
  *  Send Apple based push notification to users.
@@ -161,8 +147,22 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)sendPush:(QBMPushMessage *)pushMessage
                 toUsers:(NSString *)usersIDs
            successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-             errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+             errorBlock:(nullable QBErrorBlock)errorBlock;
 
+/**
+ *  Send apns-voip push notification to users.
+ *
+ *  @param pushMessage  Composed push message to send
+ *  @param usersIDs     Users identifiers who will get the message. Contain a string of users ids divided by comas
+ *  @param successBlock Block with response and event instances if request succeded
+ *  @param errorBlock   Block with error if request failed
+ *
+ *  @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)sendVoipPush:(QBMPushMessage *)pushMessage
+                    toUsers:(NSString *)usersIDs
+               successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
+                 errorBlock:(nullable QBErrorBlock)errorBlock;
 /**
  *  Send simple push notification to users.
  *
@@ -176,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)sendPushWithText:(NSString *)text
                         toUsers:(NSString *)usersIDs
                    successBlock:(nullable void(^)(QBResponse *response, NSArray<QBMEvent *> * _Nullable events))successBlock
-                     errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+                     errorBlock:(nullable QBErrorBlock)errorBlock;
 
 /**
  *  Send Apple based push notification to users with tags.
@@ -191,7 +191,22 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)sendPush:(QBMPushMessage *)pushMessage
 toUsersWithAnyOfTheseTags:(NSString *)usersTags
            successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-             errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+             errorBlock:(nullable QBErrorBlock)errorBlock;
+
+/**
+ *  Send apns-voip push notification to users with tags.
+ *
+ *  @param pushMessage  composed push message to send
+ *  @param usersTags    users tags who will get the message. Contain a string of users tags divided by comas
+ *  @param successBlock Block with response and event instances if request succeded
+ *  @param errorBlock   Block with error if request failed
+ *
+ *  @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)sendVoipPush:(QBMPushMessage *)pushMessage
+  toUsersWithAnyOfTheseTags:(NSString *)usersTags
+               successBlock:(nullable void(^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
+                 errorBlock:(nullable QBErrorBlock)errorBlock;
 
 /**
  *  Send simple push notification to users with tags.
@@ -206,11 +221,9 @@ toUsersWithAnyOfTheseTags:(NSString *)usersTags
 + (QBRequest *)sendPushWithText:(NSString *)text
       toUsersWithAnyOfTheseTags:(NSString *)usersTags
                    successBlock:(nullable void(^)(QBResponse *response, NSArray<QBMEvent *> * _Nullable events))successBlock
-                     errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
+                     errorBlock:(nullable QBErrorBlock)errorBlock;
 
-
-#pragma mark -
-#pragma mark Unregister and Register Subscription Tasks
+//MARK: - Unregister and Register Subscription Tasks
 
 /**
  *  Remove subscription for a specific device. This method remove subscription for a specific device.
@@ -223,8 +236,7 @@ toUsersWithAnyOfTheseTags:(NSString *)usersTags
  */
 + (QBRequest *)unregisterSubscriptionForUniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier
                                                   successBlock:(nullable void (^)(QBResponse *response))successBlock
-                                                    errorBlock:(nullable void (^)(QBError * _Nullable error))errorBlock;
-
+                                                    errorBlock:(nullable QBErrorBlock)errorBlock;
 @end
 
 NS_ASSUME_NONNULL_END
