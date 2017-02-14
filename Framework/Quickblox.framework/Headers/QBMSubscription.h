@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *devicePlatform;
 
 /** 
- *  Identifies client device in 3-rd party service like APNS, C2DM, MPNS, BBPS.
+ *  Identifies client device in 3-rd party service like APNS, APNSVOIP C2DM, MPNS, BBPS.
  */
 @property(nonatomic, strong, nullable) NSData *deviceToken;
 
@@ -43,8 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBMSubscription *)subscription;
 
-#pragma mark -
-#pragma mark Converters
+//MARK: - Converters
 
 + (QBMNotificationChannel)notificationChannelFromString:(nullable NSString *)notificationChannel;
 + (nullable NSString *)notificationChannelToString:(QBMNotificationChannel)notificationChannel;

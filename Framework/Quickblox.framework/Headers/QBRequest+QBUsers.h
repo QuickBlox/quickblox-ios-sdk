@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QBRequest (QBUsers)
 
-#pragma mark - Get all Users for current account
+//MARK: - Get all Users for current account
 
 /**
  Retrieve all Users for current account (with extended set of pagination parameters)
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
                            successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                              errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get User with ID
+//MARK: - Get User with ID
 
 /**
  Retrieve User by identifier
@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
              successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get Users with IDs
+//MARK: - Get Users with IDs
 
 /**
  Retrieve users with ids (with extended set of pagination parameters)
@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
                successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get User with login
+//MARK: - Get User with login
 
 /**
  Retrieve User by login
@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
                 successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get Users with Logins
+//MARK: - Get Users with Logins
 
 /**
  Retrieve users with logins (with extended set of pagination parameters)
@@ -111,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
                   successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                     errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get Users with full name
+//MARK: - Get Users with full name
 
 /**
  Retrieve Users by full name for current account (with extended set of pagination parameters)
@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
                     successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get Users with tags
+//MARK: - Get Users with tags
 
 /**
  Retrieve Users by tags for current account (with extended set of pagination parameters)
@@ -144,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
                         page:(nullable QBGeneralResponsePage *)page
                 successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
-#pragma mark - Get Users with phone numbers
+//MARK: - Get Users with phone numbers
 
 /**
  Retrieve users with phone numbers (with extended set of pagination parameters)
@@ -161,7 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
                         successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get User with Facebook ID
+//MARK: - Get User with Facebook ID
 
 /**
  Retrieve User by Facebook ID
@@ -176,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
                      successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
                        errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get Users Facebook IDs
+//MARK: - Get Users Facebook IDs
 
 /**
  Retrieve users with facebook ids (with extended set of pagination parameters)
@@ -193,7 +193,7 @@ NS_ASSUME_NONNULL_BEGIN
                        successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                          errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get User with Twitter ID
+//MARK: - Get User with Twitter ID
 
 /**
  Retrieve User by Twitter ID
@@ -208,7 +208,7 @@ NS_ASSUME_NONNULL_BEGIN
                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get Users Twitter IDs
+//MARK: - Get Users Twitter IDs
 
 /**
  Retrieve users with twitter ids (with extended set of pagination parameters)
@@ -225,7 +225,7 @@ NS_ASSUME_NONNULL_BEGIN
                       successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                         errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get User with email
+//MARK: - Get User with email
 
 /**
  Retrieve User by Email
@@ -240,7 +240,7 @@ NS_ASSUME_NONNULL_BEGIN
                 successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get Users with emails
+//MARK: - Get Users with emails
 
 /**
  Retrieve users with email (with extended set of pagination parameters)
@@ -257,7 +257,7 @@ NS_ASSUME_NONNULL_BEGIN
                   successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBUUser *> * _Nullable users))successBlock
                     errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Get User with external ID
+//MARK: - Get User with external ID
 
 /**
  Retrieve User by External identifier
@@ -272,7 +272,7 @@ NS_ASSUME_NONNULL_BEGIN
                      successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
                        errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Update User
+//MARK: - Update User
 
 /**
  Update current session user.
@@ -287,7 +287,7 @@ NS_ASSUME_NONNULL_BEGIN
                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Delete Current User
+//MARK: - Delete Current User
 
 /**
  Delete Current User
@@ -302,7 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)deleteCurrentUserWithSuccessBlock:(nullable void (^)(QBResponse *response))successBlock
                                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - Reset password
+//MARK: - Reset password
 
 /**
  Reset user's password. User with this email will retrieve an email instruction for reset password.
@@ -317,7 +317,7 @@ NS_ASSUME_NONNULL_BEGIN
                              successBlock:(nullable void (^)(QBResponse *response))successBlock
                                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
-#pragma mark - DEPRECATE
+//MARK: - DEPRECATE
 /**
  Retrieve all Users for current account (last 10 users)
  

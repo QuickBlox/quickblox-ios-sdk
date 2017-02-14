@@ -16,8 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QBRequest (QBContent)
 
-#pragma mark -
-#pragma mark Create Blob
+//MARK: - Create Blob
 
 /**
  Create blob.
@@ -32,8 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
              successBlock:(nullable void(^)(QBResponse *response, QBCBlob * _Nullable blob))successBlock
                errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Get Blob with ID
+//MARK: - Get Blob with ID
 
 /**
  Retrieve blob with ID.
@@ -48,8 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
              successBlock:(nullable void(^)(QBResponse *response, QBCBlob * _Nullable blob))successBlock
                errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Get list of blobs for the current user
+//MARK: - Get list of blobs for the current user
 
 /**
  Get list of blob for the current User (last 10 files)
@@ -75,8 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
                successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> * _Nullable blobs))successBlock
                  errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Get list of tagged blobs for the current user
+//MARK: - Get list of tagged blobs for the current user
 
 /**
  Get list of tagged blobs for the current User (last 10 files)
@@ -101,8 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
                      successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> * _Nullable blobs))successBlock
                        errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Update Blob
+//MARK: - Update Blob
 
 /**
  Update Blob
@@ -117,8 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
              successBlock:(nullable void(^)(QBResponse *response, QBCBlob *blob))successBlock
                errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Delete Blob with ID
+//MARK: - Delete Blob with ID
 
 /**
  Delete Blob
@@ -133,8 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
                    successBlock:(nullable void(^)(QBResponse *response))successBlock
                      errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Declaring Blob uploaded with ID
+//MARK: - Declaring Blob uploaded with ID
 
 /**
  Declaring Blob uploaded with ID
@@ -151,8 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
                      successBlock:(nullable void(^)(QBResponse *response))successBlock
                        errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Get File by ID as BlobObjectAccess
+//MARK: - Get File by ID as BlobObjectAccess
 
 /**
  Get File by ID as BlobObjectAccess with read access
@@ -167,8 +159,7 @@ NS_ASSUME_NONNULL_BEGIN
                              successBlock:(nullable void(^)(QBResponse *response, QBCBlobObjectAccess * _Nullable objectAccess))successBlock
                                errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Upload file using BlobObjectAccess
+//MARK: - Upload file using BlobObjectAccess
 
 /**
  Upload file using BlobObjectAccess
@@ -187,8 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
               statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
                errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
 
-#pragma mark -
-#pragma mark Download file
+//MARK: -  Download file
 
 /**
  Download file
@@ -252,9 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
                                successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
                                 statusBlock:(nullable QBRequestStatusUpdateBlock)statusBlock
                                  errorBlock:(nullable void(^)(QBResponse *response))errorBlock;
-
-#pragma mark -
-#pragma mark Tasks
+//MARK: - Tasks
 
 /**
  Upload File task. Contains 3 requests: Create Blob, upload file, declaring file uploaded

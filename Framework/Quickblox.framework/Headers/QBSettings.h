@@ -43,8 +43,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (void)setApiEndpoint:(nullable NSString *)apiEndpoint chatEndpoint:(nullable NSString *)chatEndpoint forServiceZone:(QBConnectionZoneType)zone;
 
-#pragma mark -
-#pragma mark Chat settings
+//MARK: - Chat settings
 
 /**
  *  Enable or disable chat auto reconnect
@@ -87,8 +86,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (void)setKeepAliveInterval:(NSTimeInterval)keepAliveInterval;
 
-#pragma mark -
-#pragma mark Credentials
+//MARK: - Credentials
 
 /// Storing Application ID
 + (void)setApplicationID:(NSUInteger)applicationID;
@@ -122,8 +120,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
 
 + (void)setApplicationGroupIdentifier:(NSString *)appGroupIdentifier;
 
-#pragma mark -
-#pragma mark Endpoints
+//MARK: - Endpoints
 
 /**
  * Allows to change Services Zone to work with Production, Development and Staging environments
@@ -146,8 +143,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (nullable NSString *)apiEndpoint;
 
-#pragma mark -
-#pragma mark Chat Endpoints
+//MARK: - Chat Endpoints
 
 /**
  Get server's Chat endpoint
@@ -157,8 +153,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (NSString *)chatEndpoint;
 
-#pragma mark -
-#pragma mark Network Indicator
+//MARK: - Network Indicator
 
 /**
  * A Boolean value indicating whether the manager is enabled.
@@ -173,8 +168,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (BOOL)isNetworkIndicatorVisible;
 
-#pragma mark -
-#pragma mark Logging
+//MARK: - Logging
 
 /**
  Set SDK log level (by default: QBLogLevelDebug). Possible values: QBLogLevelDebug, QBLogLevelNothing.
@@ -215,8 +209,7 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (void)disableXMPPLogging;
 
-#pragma mark - 
-#pragma mark NSURLSessionConfiguration
+//MARK: - NSURLSessionConfiguration
 
 /**
  *  Set custom session configuration that will be used for REST API requests.

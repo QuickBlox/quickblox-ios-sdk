@@ -122,8 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)prepareMessage;
 
-#pragma mark -
-#pragma mark Converters
+//MARK: - Converters
 
 + (QBMEventType)eventTypeFromString:(nullable NSString *)eventType;
 + (nullable NSString *)eventTypeToString:(QBMEventType)eventType;
