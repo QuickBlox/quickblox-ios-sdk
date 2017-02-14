@@ -74,21 +74,15 @@
     [self.tableView reloadData];
 }
 
-- (void)registerForRemoteNotifications
-{
+- (void)registerForRemoteNotifications {
     
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-    }
-    else{
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
-    }
-#else
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
-#endif
+    UIUserNotificationSettings *settings =
+    [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |
+                                                  UIUserNotificationTypeAlert |
+                                                  UIUserNotificationTypeBadge)
+                                      categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 - (void)sendPushWithMessage:(NSString *)message

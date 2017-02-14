@@ -80,12 +80,11 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"kPushDidReceive" object:nil userInfo:pushInfo];
 }
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
     NSString *deviceIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     
     //  New way, only for updated backends
-    //
     QBMSubscription *subscription = [QBMSubscription subscription];
     subscription.notificationChannel = QBMNotificationChannelAPNS;
     subscription.deviceUDID = deviceIdentifier;
@@ -102,17 +101,6 @@ NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
         
         [SVProgressHUD dismiss];
     }];
-
-//    // Old way
-//    //
-//    [QBRequest registerSubscriptionForDeviceToken:deviceToken uniqueDeviceIdentifier:deviceIdentifier
-//                                     successBlock:^(QBResponse *response, NSArray *subscriptions) {
-//                                         NSLog(@"Successfull response!");
-//                                     } errorBlock:^(QBError *error) {
-//                                         NSLog(@"Response error:%@", error);
-//                                         
-//                                         
-//                                     }];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
