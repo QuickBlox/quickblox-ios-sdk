@@ -62,7 +62,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     if ([QBSession currentSession].currentUser == nil) {
         __weak typeof(self)weakSelf = self;
         [SVProgressHUD showWithStatus:@"Logging in..."];
-        [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
+        [QBRequest logInWithUserLogin:@"democontentuser" password:@"democontentuser" successBlock:^(QBResponse *response, QBUUser *user) {
             [SVProgressHUD dismiss];
             __typeof(self) strongSelf = weakSelf;
             
@@ -98,7 +98,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
 {
     self.page.currentPage += 1;
     __weak typeof(self)weakSelf = self;
-    [SVProgressHUD showWithStatus:@"Loading next page..." maskType:SVProgressHUDMaskTypeNone];
+    [SVProgressHUD showWithStatus:@"Loading next page..."];
     [QBRequest blobsForPage:self.page successBlock:^(QBResponse *response, QBGeneralResponsePage *page, NSArray *blobs) {
         [SVProgressHUD dismiss];
         __typeof(self) strongSelf = weakSelf;
