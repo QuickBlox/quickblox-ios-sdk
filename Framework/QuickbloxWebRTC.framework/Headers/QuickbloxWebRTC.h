@@ -35,7 +35,7 @@
 #import <QuickbloxWebRTC/RTCVideoRenderer.h>
 #import <QuickbloxWebRTC/RTCVideoFrame.h>
 
-//! Framework version 2.4.1
+//! Framework version 2.4.2
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCFrameworkVersion;
 
 //! WebRTC revision 16262
