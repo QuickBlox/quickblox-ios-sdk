@@ -2,7 +2,7 @@
 //  QBRTCCameraCapture.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import "QBRTCVideoCapture.h"
@@ -118,50 +118,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param cameraPosition AVCaptureDevicePosition
  */
 - (BOOL)hasCameraForPosition:(AVCaptureDevicePosition)cameraPosition;
-
-@end
-
-@interface QBRTCCameraCapture (Deprecated)
-
-/**
- *  Start the capture session.
- *
- *  @warning *Deprecated in 2.3.* Use 'startSession:' with nil param instead.
- */
-- (void)startSession DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'startSession:' with nil param instead.");
-
-/**
- *  Stop the capture session asynchronously.
- *
- *  @warning *Deprecated in 2.3.* Use 'stopSession:' with nil param instead.
- */
-- (void)stopSession DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'stopSession:' with nil param instead.");
-
-
-/**
- *  Stop the capture session and close video output.
- *
- *  @warning *Deprecated in 2.3.* Use 'stopSession:' instead.
- */
-- (void)stopSessionAndTeardownOutputs:(BOOL)teardownOutputs DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'stopSession:' instead.");
-
-/**
- *  Select back or front camera position.
- *
- *  @param cameraPosition AVCaptureDevicePosition
- *
- *  @warning *Deprecated in 2.3.* Use 'setPosition:' instead.
- */
-- (void)selectCameraPosition:(AVCaptureDevicePosition)cameraPosition DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'setPosition:' instead.");
-
-/**
- *  Selects a new camera position.
- *
- *  @param currentPosition The camera position to select
- *
- *  @warning *Deprecated in 2.3.* Use 'position' instead.
- */
-- (AVCaptureDevicePosition)currentPosition DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. Use 'position' instead.");
 
 @end
 

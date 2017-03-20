@@ -2,7 +2,7 @@
 //  QBRTCConfig.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 
-#pragma mark - ICE configuration
+// MARK: ICE configuration
 
 /**
  * Set custom ICE servers
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSArray <QBRTCICEServer *> *)iceServers;
 
-#pragma mark - Time interval
+// MARK: Time interval
 
 /**
  *  Set dialing time interval
@@ -76,19 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setAnswerTimeInterval:(NSTimeInterval)answerTimeInterval;
 
 /**
- *  Set disconnect time interval
- *
- *  After a disconnect from an opponent happend we are starting timer and waiting for a given time interval
- *  in case connection establishing/reconnecting again
- *
- *  Default value: 30 seconds, cannot be lower than 10
- *  @param disconnectTimeInterval time interval in seconds
- *
- *  @warning *Deprecated in 2.3.* No longer in use due to updated webrtc specification.
- */
-+ (void)setDisconnectTimeInterval:(NSTimeInterval)disconnectTimeInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. No longer in use due to updated webrtc specification.");
-
-/**
  *  Dialing time interval
  *
  *  @return current dialing time interval
@@ -102,18 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSTimeInterval)answerTimeInterval;
 
-/**
- * Disconnect time interval
- *
- *  @return current value
- *
- *  @warning *Deprecated in 2.3.* No longer in use due to updated webrtc specification.
- */
-+ (NSTimeInterval)disconnectTimeInterval DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. No longer in use due to updated webrtc specification.");
-
-#pragma mark - Media stream configuration
-
-#pragma mark Datagram Transport Layer Security
+// MARK: Datagram Transport Layer Security
 
 /**
  *  Enable / Disable Datagram Transport Layer Security
@@ -128,6 +104,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return current value (default YES)
  */
 + (BOOL)DTLSEnabled;
+
+// MARK: Media stream configuration
 
 /**
  *  Setter for media stream configuration
@@ -144,6 +122,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRTCMediaStreamConfiguration *)mediaStreamConfiguration;
 
+// MARK: Stats reports
+
 /**
  *  Set Stats report time interval. Default 0 which means you never receive stats
  *
@@ -158,6 +138,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return current value
  */
 + (NSTimeInterval)statsReportTimeInterval;
+
+// MARK: Logging
 
 /**
  * Set QuickbloxWebRTC SDK log level (by default: QBRTCLogLevelDebug).
@@ -181,6 +163,30 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return QBRTCLogLevel current log level
  */
 + (QBRTCLogLevel)logLevel;
+
+// MARK: Conference
+
+/**
+ *  Set conference server endpoint.
+ *
+ *  @param conferenceEndpoint Quickblox conference server endpoint
+ *
+ *  @note Enterprise-only feature
+ *
+ *  @see https://quickblox.com/plans/
+ */
++ (void)setConferenceEndpoint:(NSString *)conferenceEndpoint;
+
+/**
+ *  Current Quickblox conference server endpoint
+ *
+ *  @note Enterprise-only feature, might be nil
+ *
+ *  @see https://quickblox.com/plans/
+ *
+ *  @return Current conference server endpoint
+ */
++ (nullable NSString *)conferenceEndpoint;
 
 @end
 

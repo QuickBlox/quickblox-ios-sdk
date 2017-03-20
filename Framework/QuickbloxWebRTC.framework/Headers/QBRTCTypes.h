@@ -44,22 +44,7 @@ typedef NS_ENUM(NSUInteger, QBRTCConnectionState) {
     QBRTCConnectionStateNoAnswer,
     QBRTCConnectionStateRejected,
     QBRTCConnectionStateHangUp,
-    QBRTCConnectionStateFailed,
-    
-    QBRTCConnectionUnknown __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateUnknown instead.") = QBRTCConnectionStateUnknown,
-    QBRTCConnectionNew __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateNew instead.") = QBRTCConnectionStateNew,
-    QBRTCConnectionPending __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStatePending instead.") = QBRTCConnectionStatePending,
-    QBRTCConnectionConnecting __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateConnecting instead.") = QBRTCConnectionStateConnecting,
-    QBRTCConnectionChecking __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateChecking instead.") = QBRTCConnectionStateChecking,
-    QBRTCConnectionConnected __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateConnected instead.") = QBRTCConnectionStateConnected,
-    QBRTCConnectionDisconnected __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateDisconnected instead.") = QBRTCConnectionStateDisconnected,
-    QBRTCConnectionClosed __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateClosed instead.") = QBRTCConnectionStateClosed,
-    QBRTCConnectionCount __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateCount instead.") = QBRTCConnectionStateCount,
-    QBRTCConnectionDisconnectTimeout __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateDisconnectTimeout instead.") = QBRTCConnectionStateDisconnectTimeout,
-    QBRTCConnectionNoAnswer __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateNoAnswer instead.") = QBRTCConnectionStateNoAnswer,
-    QBRTCConnectionRejected __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateRejected instead.") = QBRTCConnectionStateRejected,
-    QBRTCConnectionHangUp __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateHangUp instead.") = QBRTCConnectionStateHangUp,
-    QBRTCConnectionFailed __deprecated_enum_msg("Deprecated in 2.3. Use QBRTCConnectionStateFailed instead.") = QBRTCConnectionStateFailed
+    QBRTCConnectionStateFailed
 };
 
 /**
@@ -92,31 +77,16 @@ typedef NS_ENUM (NSUInteger, QBRTCConferenceType) {
     QBRTCConferenceTypeAudio = 2,
 };
 
+/**
+ *  Available pixel formats.
+ *
+ *  - QBRTCPixelFormat420f: Bi-Planar Component Y'CbCr 8-bit 4:2:0, full-range (luma=[0,255] chroma=[1,255]).  baseAddr points to a big-endian CVPlanarPixelBufferInfo_YCbCrBiPlanar struct
+ *  -  QBRTCPixelFormatARGB: 32 bit ARGB
+ */
 typedef NS_ENUM(OSType, QBRTCPixelFormat) {
     
-    /**
-     *   Bi-Planar Component Y'CbCr 8-bit 4:2:0, full-range (luma=[0,255] chroma=[1,255]).  baseAddr points to a big-endian CVPlanarPixelBufferInfo_YCbCrBiPlanar struct
-     */
     QBRTCPixelFormat420f = kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
-    
-    /**
-     *  Bi-Planar Component Y'CbCr 8-bit 4:2:0, full-range (luma=[0,255] chroma=[1,255]).  baseAddr points to a big-endian CVPlanarPixelBufferInfo_YCbCrBiPlanar struct
-     *
-     *  @warning *Deprecated in 2.3.* Not implemented by SDK.
-     */
-    QBRTCPixelFormat420v __deprecated_enum_msg("Deprecated in 2.3. Not implemented by SDK.") = kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
-    
-    /**
-     *  32 bit BGRA
-     *
-     *  @warning *Deprecated in 2.3.* Not implemented by SDK.
-     */
-    QBRTCPixelFormatBGRA __deprecated_enum_msg("Deprecated in 2.3. Not implemented by SDK.") = kCVPixelFormatType_32BGRA,
-    
-    /**
-     *  32 bit ARGB
-     */
-    QBRTCPixelFormatARGB = kCVPixelFormatType_32ARGB,
+    QBRTCPixelFormatARGB = kCVPixelFormatType_32ARGB
 };
 
 /**
@@ -153,6 +123,19 @@ typedef NS_ENUM(NSUInteger, QBRTCVideoRotation) {
     QBRTCVideoRotation_90 = 90,
     QBRTCVideoRotation_180 = 180,
     QBRTCVideoRotation_270 = 270
+};
+
+/**
+ *  Conference media type.
+ *
+ *  - QBRTCConferenceMediaTypeUnknown: Unknown / not supported media type
+ *  - QBRTCConferenceMediaTypeAudio: media type audio
+ *  - QBRTCConferenceMediaTypeVideo: media type video
+ */
+typedef NS_ENUM(NSUInteger, QBRTCConferenceMediaType) {
+    QBRTCConferenceMediaTypeUnknown,
+    QBRTCConferenceMediaTypeAudio,
+    QBRTCConferenceMediaTypeVideo
 };
 
 #endif
