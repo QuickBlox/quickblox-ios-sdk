@@ -1,35 +1,37 @@
-/*
- *  Copyright 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree. An additional intellectual property rights grant can be found
- *  in the file PATENTS.  All contributing project authors may
- *  be found in the AUTHORS file in the root of the source tree.
- */
+//
+//  RTCVideoTrack.h
+//  QuickbloxWebRTC
+//
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//
 
+#import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
-#import <CoreVideo/CoreVideo.h>
+
+#import "QBRTCTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+// RTCVideoFrame is an ObjectiveC version of webrtc::VideoFrame.
+__attribute__((visibility("default")))
 @interface RTCVideoFrame : NSObject
 
 /** Width without rotation applied. */
-@property(nonatomic, readonly) size_t width;
+@property(nonatomic, readonly) int width;
 
 /** Height without rotation applied. */
-@property(nonatomic, readonly) size_t height;
-@property(nonatomic, readonly) int rotation;
-@property(nonatomic, readonly) size_t chromaWidth;
-@property(nonatomic, readonly) size_t chromaHeight;
-// These can return NULL if the object is not backed by a buffer.
-@property(nonatomic, readonly, nullable) const uint8_t *yPlane;
-@property(nonatomic, readonly, nullable) const uint8_t *uPlane;
-@property(nonatomic, readonly, nullable) const uint8_t *vPlane;
-@property(nonatomic, readonly) int32_t yPitch;
-@property(nonatomic, readonly) int32_t uPitch;
-@property(nonatomic, readonly) int32_t vPitch;
+@property(nonatomic, readonly) int height;
+@property(nonatomic, readonly) QBRTCVideoRotation rotation;
+/** Accessing YUV data should only be done for I420 frames, i.e. if nativeHandle
+ *  is null. It is always possible to get such a frame by calling
+ *  newI420VideoFrame.
+ */
+@property(nonatomic, readonly, nullable) const uint8_t *dataY;
+@property(nonatomic, readonly, nullable) const uint8_t *dataU;
+@property(nonatomic, readonly, nullable) const uint8_t *dataV;
+@property(nonatomic, readonly) int strideY;
+@property(nonatomic, readonly) int strideU;
+@property(nonatomic, readonly) int strideV;
 
 /** Timestamp in nanoseconds. */
 @property(nonatomic, readonly) int64_t timeStampNs;
@@ -38,11 +40,33 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, readonly) CVPixelBufferRef nativeHandle;
 
 - (instancetype)init NS_UNAVAILABLE;
+- (instancetype)new NS_UNAVAILABLE;
 
-/** If the frame is backed by a CVPixelBuffer, creates a backing i420 frame.
- *  Calling the yuv plane properties will call this method if needed.
+/** Initialize an RTCVideoFrame from a pixel buffer, rotation, and timestamp.
  */
-- (void)convertBufferIfNeeded;
+- (instancetype)initWithPixelBuffer:(CVPixelBufferRef)pixelBuffer
+                           rotation:(QBRTCVideoRotation)rotation
+                        timeStampNs:(int64_t)timeStampNs;
+
+/** Initialize an RTCVideoFrame from a pixel buffer combined with cropping and
+ *  scaling. Cropping will be applied first on the pixel buffer, followed by
+ *  scaling to the final resolution of scaledWidth x scaledHeight.
+ */
+- (instancetype)initWithPixelBuffer:(CVPixelBufferRef)pixelBuffer
+                        scaledWidth:(int)scaledWidth
+                       scaledHeight:(int)scaledHeight
+                          cropWidth:(int)cropWidth
+                         cropHeight:(int)cropHeight
+                              cropX:(int)cropX
+                              cropY:(int)cropY
+                           rotation:(QBRTCVideoRotation)rotation
+                        timeStampNs:(int64_t)timeStampNs;
+
+/** Return a frame that is guaranteed to be I420, i.e. it is possible to access
+ *  the YUV data on it.
+ */
+- (RTCVideoFrame *)newI420VideoFrame;
 
 @end
+
 NS_ASSUME_NONNULL_END

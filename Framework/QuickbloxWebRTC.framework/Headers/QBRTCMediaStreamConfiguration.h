@@ -2,7 +2,7 @@
 //  QBRTCMediaStreamConfiguration.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -60,6 +60,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  When set to 0 it is skipped in session description
  */
 @property (nonatomic, assign) NSInteger videoBandwidth;
+
+/**
+ *  Audio level control.
+ *
+ *  @discussion Determines whether webrtc audio level control is enabled. Rough example: slightly reducing
+ *  audio volume for all tracks while you are talking (local audio track receiving sound).
+ *
+ *  @remark Default value: NO
+ */
+@property (nonatomic, assign, getter=isAudioLevelControlEnabled) BOOL audioLevelControlEnabled;
 
 /**
  *  Default media stream configuration with H264 video codec and Opus audio codec

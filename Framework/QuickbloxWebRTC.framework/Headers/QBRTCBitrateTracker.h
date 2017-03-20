@@ -2,7 +2,7 @@
 //  QBRTCBitrateTracker.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

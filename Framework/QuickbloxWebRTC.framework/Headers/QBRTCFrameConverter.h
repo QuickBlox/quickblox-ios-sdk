@@ -2,7 +2,7 @@
 //  QBRTCFrameConverter.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * QBRTCFrameConverter class used to convert RTCI420Frame into desired format
  */
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.3. This class is no longer in use by Quickblox WebRTC video frames and will be removed in a future releases.")
 @interface QBRTCFrameConverter : NSObject
 
 /**

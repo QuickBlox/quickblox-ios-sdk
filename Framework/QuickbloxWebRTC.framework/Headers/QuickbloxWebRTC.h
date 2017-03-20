@@ -2,7 +2,7 @@
 //  QuickbloxWebRTC.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import <QuickbloxWebRTC/QBRTCTypes.h>
@@ -20,7 +20,9 @@
 #import <QuickbloxWebRTC/QBRTCVideoFormat.h>
 #import <QuickbloxWebRTC/QBRTCLocalVideoTrack.h>
 #import <QuickbloxWebRTC/QBRTCVideoTrack.h>
+#import <QuickbloxWebRTC/QBRTCBaseClient.h>
 #import <QuickbloxWebRTC/QBRTCClient.h>
+#import <QuickbloxWebRTC/QBRTCBaseClientDelegate.h>
 #import <QuickbloxWebRTC/QBRTCClientDelegate.h>
 #import <QuickbloxWebRTC/QBRTCSession.h>
 #import <QuickbloxWebRTC/QBRTCBitrateTracker.h>
@@ -28,15 +30,23 @@
 #import <QuickbloxWebRTC/QBRTCAudioSession.h>
 #import <QuickbloxWebRTC/QBRTCAudioSessionConfiguration.h>
 #import <QuickbloxWebRTC/UIDevice+QBPerformance.h>
-#import <QuickbloxWebRTC/QBRTCSoundRouter.h>
 #import <QuickbloxWebRTC/QBRTCTimer.h>
 #import <QuickbloxWebRTC/QBRTCFrameConverter.h>
 #import <QuickbloxWebRTC/QBRTCRemoteVideoView.h>
 #import <QuickbloxWebRTC/RTCVideoRenderer.h>
 #import <QuickbloxWebRTC/RTCVideoFrame.h>
 
-//! Framework version 2.4.2
+/*
+ *  Enterprise-only
+ *
+ *  @see https://quickblox.com/plans/
+ */
+#import <QuickbloxWebRTC/QBRTCConferenceClient.h>
+#import <QuickbloxWebRTC/QBRTCConferenceSession.h>
+#import <QuickbloxWebRTC/QBRTCConferenceClientDelegate.h>
+
+//! Framework version 2.5
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCFrameworkVersion;
 
-//! WebRTC revision 16262
+//! WebRTC revision 17226
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCRevision;
