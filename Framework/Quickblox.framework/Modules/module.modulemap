@@ -1,4 +1,5 @@
 framework module Quickblox {
+    
     umbrella header "Quickblox.h"
     
     export *

@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 #import "QBLogger.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -225,35 +223,6 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  *  @return Your NSURLSessionConfiguration object.
  */
 + (nullable NSURLSessionConfiguration *)sessionConfiguration;
-
-#pragma mark - DEPRECATED
-
-/**
- *  Enable or Disable chat DNS Lookup cache for current chat endpoint
- *
- *  Caches DNS lookup for chat api endpoint.
- *
- *  @param enable YES / NO. Defaults NO
- *
- *  @warning *Deprecated in 2.7.6.*
- */
-+ (void)setChatDNSLookupCacheEnabled:(BOOL)enabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
-
-/**
- *  Get Chat DNS lookup cache enabled state
- *
- *  @warning *Deprecated in 2.7.6.*
- *
- *  @return YES if cache is enabled, NO if cache is disabled.
- */
-+ (BOOL)isChatDNSLookupCacheEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
-
-/**
- *  Enable or disable Stream Resumption (XEP-0198).
- *
- *  @param streamResumptionEnabled BOOL value. The default value is NO
- */
-+ (void)setStreamResumptionEnabled:(BOOL)streamResumptionEnabled DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. This feature was removed.");
 
 @end
 

@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 
 @interface QBCOFileUploadInfo : NSObject<NSCoding, NSCopying>
 

@@ -4,8 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 #import "QBRequest.h"
 
 @class QBResponse;
@@ -14,6 +12,8 @@
 @class QBUUser;
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
 
 @interface QBRequest (QBAuth)
 
@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)destroySessionWithSuccessBlock:(nullable void (^)(QBResponse *response))successBlock
-                                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
++ (QBRequest *)destroySessionWithSuccessBlock:(nullable qb_response_block_t)successBlock
+                                   errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - LogIn
 
@@ -44,8 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)logInWithUserLogin:(NSString *)login
                          password:(NSString *)password
-                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
-                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                     successBlock:(nullable qb_response_user_block_t)successBlock
+                       errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
  User LogIn with email
@@ -59,8 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)logInWithUserEmail:(NSString *)email
                          password:(NSString *)password
-                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
-                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                     successBlock:(nullable qb_response_user_block_t)successBlock
+                       errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
  User LogIn with social provider's token
@@ -76,8 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)logInWithSocialProvider:(NSString *)provider
                            accessToken:(nullable NSString *)accessToken
                      accessTokenSecret:(nullable NSString *)accessTokenSecret
-                          successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
-                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                          successBlock:(nullable qb_response_user_block_t)successBlock
+                            errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
  *  User login using Twitter Digits.
@@ -89,8 +89,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)logInWithTwitterDigitsAuthHeaders:(NSDictionary *)headers
-                                    successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
-                                      errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                                    successBlock:(nullable qb_response_user_block_t)successBlock
+                                      errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - LogOut
 
@@ -102,8 +102,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logOutWithSuccessBlock:(nullable void (^)(QBResponse *response))successBlock
-                           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
++ (QBRequest *)logOutWithSuccessBlock:(nullable qb_response_block_t)successBlock
+                           errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Create User
 
@@ -117,8 +117,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 + (QBRequest *)signUp:(QBUUser *)user
-         successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
-           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+         successBlock:(nullable qb_response_user_block_t)successBlock
+           errorBlock:(nullable qb_response_block_t)errorBlock;
 
 @end
 

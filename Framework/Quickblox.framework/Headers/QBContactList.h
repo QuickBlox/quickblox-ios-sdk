@@ -6,11 +6,11 @@
 //  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
-#import "ChatEnums.h"
+#import "QBChatTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^QBUserLastActivityCompletionBlock)(NSUInteger seconds, NSError * _Nullable error);
 
 @class QBContactListItem;
 

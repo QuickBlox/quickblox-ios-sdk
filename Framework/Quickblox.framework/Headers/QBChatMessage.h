@@ -6,40 +6,49 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 
 @class QBChatAttachment;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  QBChatMessage structure. Represents message object for peer-to-peer chat.
- *  Please set only text, recipientID & senderID values since ID is setted automatically by QBChat
+ QBChatMessage structure. Represents message object for peer-to-peer chat.
+ Please set only text, recipientID & senderID values since ID is setted 
+ automatically by QBChat
  */
 @interface QBChatMessage : NSObject <NSCoding, NSCopying>
 
 /**
- *  Unique identifier of message (sequential number).
+ Unique identifier of message (sequential number).
  */
 @property (nonatomic, copy, nullable) NSString *ID;
 
 /**
- *  Message text.
+ Message text.
  */
 @property (nonatomic, copy, nullable) NSString *text;
 
 /**
- *  Message receiver ID
+ Message receiver ID
  */
 @property (nonatomic, assign) NSUInteger recipientID;
 
 /**
- *  Message sender ID.
- *  
- *  @discussion Use only for 1-1 Chat.
+ Message sender ID.
+ 
+ @discussion Use only for 1-1 Chat.
  */
 @property (nonatomic, assign) NSUInteger senderID;
+
+/**
+ Sender resource
+ */
+@property (nonatomic, copy, nullable) NSString *senderResource;
+
+/**
+ Is message carbon
+ */
+@property (nonatomic, assign, readonly) BOOL carbon;
 
 /**
  *  Message date sent.
@@ -47,70 +56,62 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSDate *dateSent;
 
 /**
- *  Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.
+ Message custom parameters. Don't use 'body' & 'delay' as keys for parameters.
  */
 @property (nonatomic, strong, null_resettable) NSMutableDictionary<NSString *, NSString *> *customParameters;
 
 /**
- *  Array of attachments. Array of QBChatAttachment instances.
+ Array of attachments. Array of QBChatAttachment instances.
  */
 @property (nonatomic, strong, nullable) NSArray <QBChatAttachment *> *attachments;
 
 /**
- *  Determines whether message was delayed.
+ Determines whether message was delayed.
  */
 @property (nonatomic, assign) BOOL delayed;
 
 /**
- *  Determines whether message is markable.
+ Determines whether message is markable.
  */
 @property (nonatomic, assign) BOOL markable;
 
 /**
- *  Unique identifier of chat dialog.
+ Unique identifier of chat dialog.
  */
 @property (nonatomic, copy, nullable) NSString *dialogID;
 
 /**
- *  Created date.
+ Created date.
  */
 @property (nonatomic, strong, nullable) NSDate *createdAt;
 
 /**
- *  Updated date.
+ Updated date.
  */
 @property (nonatomic, strong, nullable) NSDate *updatedAt;
 
 /**
- *  The array of user's ids who read this message.
+ The array of user's ids who read this message.
  */
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *readIDs;
 
 /**
- *  The array of user's ids who received this message.
+ The array of user's ids who received this message.
  */
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *deliveredIDs;
 
 /**
- *  Create new message.
- *
- *  @return new QBChatMessage instance
+ Create new message.
+ 
+ @return new QBChatMessage instance
  */
 + (instancetype)message;
 
 /**
- *  Create new markable message.
- *
- *  @return new markable QBChatMessage instance
+ Create new markable message.
+ @return new markable QBChatMessage instance
  */
 + (instancetype)markableMessage;
-
-//MARK: DEPRECATED
-
-/**
- *  'Read' status of a message.
- */
-@property (nonatomic, getter = isRead) BOOL read DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.8.0.1 Use 'readIDs' instead.");
 
 @end
 

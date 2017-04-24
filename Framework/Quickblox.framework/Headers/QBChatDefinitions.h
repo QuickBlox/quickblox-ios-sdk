@@ -6,5 +6,5 @@
 //  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
-#import <Quickblox/ChatEnums.h>
+#import <Quickblox/QBChatTypes.h>
 #import <Quickblox/ChatDelegates.h>

@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 #import <CoreLocation/CoreLocation.h>
 #import "QBCEntity.h"
 
@@ -19,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  This class represents place information. 
  *  You can store places on server, and then retrieve them using search.
  */
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Please note: the Location API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects API.")
 @interface QBLPlace : QBCEntity <NSCoding, NSCopying>
 
 /** 

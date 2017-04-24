@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
-#import "ChatEnums.h"
+#import "QBChatTypes.h"
 
 @class QBChatMessage;
 
@@ -30,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @see http://quickblox.com/developers/Chat#Dialog_model
  */
 @interface QBChatDialog : NSObject <NSCoding, NSCopying>
+
 
 /**
  *  Chat dialog ID.

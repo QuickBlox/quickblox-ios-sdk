@@ -6,9 +6,6 @@
  *
  */
 
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const QBMEventMessagePayloadKey;

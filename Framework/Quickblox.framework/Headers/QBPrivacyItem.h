@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 
 typedef NS_ENUM(NSUInteger, QBPrivacyType) {
     
@@ -67,93 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithPrivacyType:(QBPrivacyType)privacyType
                                       userID:(NSUInteger)userID
                                        allow:(BOOL)allow;
-
-//MARK: - DEPRECATED
-
-/**
- *  @warning Deprecated in 2.7.6. Use 'allow' instead.
- */
-typedef NS_ENUM(NSUInteger, QBPrivacyAction) {
-    
-    QBPrivacyActionAllow,
-    QBPrivacyActionDeny
-} DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. Use 'allow' instead.");
-
-/**
- *  @warning Deprecated in 2.7.4. Use QBPrivacyType instead.
- */
-typedef enum QBPrivacyItemType {
-    USER_ID = 1,
-    GROUP_USER_ID,
-    GROUP, // unsupported
-    SUBSCRIPTION // unsupported
-} QBPrivacyItemType DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.4. Use QBPrivacyType instead.");
-
-/**
- *  @warning Deprecated in 2.7.4. Use QBPrivacyAction instead.
- */
-typedef enum QBPrivacyItemAction {
-    ALLOW,
-    DENY,
-} QBPrivacyItemAction DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.4. Use QBPrivacyAction instead.");
-
-/**
- *  Action value to perform.
- *
- *  @see QBPrivacyAction.
- *
- *  @warning Deprecated in 2.7.6. Use 'allow' instead.
- */
-@property (assign, nonatomic, readonly) QBPrivacyAction privacyAction DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. Use 'allow' instead.");
-
-/**
- *  QBPrivacyItemType type value.
- *
- *  @warning Deprecated in 2.7.4. Use 'privacyType' instead.
- */
-@property (assign, nonatomic, readonly) QBPrivacyItemType type DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.4. Use 'privacyType' instead.");
-
-/**
- *  Action value to perform.
- *
- *  @warning Deprecated in 2.7.4. Use 'privacyAction' instead.
- */
-@property (assign, nonatomic, readonly) QBPrivacyItemAction action DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.4. Use 'privacyAction' instead.");
-
-/**
- *  Value for selected type.
- *
- *  @warning Deprecated in 2.7.6. Use 'userID' instead.
- */
-@property (assign, nonatomic, readonly) NSUInteger valueForType DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. Use 'userID' instead.");
-
-/**
- *  Init with type, value and action.
- *
- *  @param type         QBPrivacyItemType type value
- *  @param valueForType value for selected type
- *  @param action       QBPrivacyItemAction action value to perform
- *
- *  @warning Deprecated in 2.7.4. Use 'initWithPrivacyType:value:privacyAction:' instead.
- *
- *  @return QBPrivacyItem instance
- */
-- (instancetype)initWithType:(QBPrivacyItemType)type valueForType:(NSUInteger)valueForType action:(QBPrivacyItemAction)action DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.4. Use 'initWithPrivacyType:value:privacyAction' instead.");
-
-/**
- *  Init with privacy type, value and privacy action.
- *
- *  @param privacyType   QBPrivacyType privacy type value
- *  @param value         value for selected privacy type
- *  @param privacyAction QBPrivacyAction privacy action value
- *
- *  @warning Deprecated in 2.7.6. Use 'initWithPrivacyType:userID:privacyAction:mutualBlock:' instead.
- *
- *  @return QBPrivacyItem instance
- */
-- (instancetype)initWithPrivacyType:(QBPrivacyType)privacyType
-                       valueForType:(NSUInteger)valueForType
-                      privacyAction:(QBPrivacyAction)privacyAction DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.7.6. Use 'initWithPrivacyType:userID:privacyAction:mutualBlock:' instead.");;
 
 @end
 

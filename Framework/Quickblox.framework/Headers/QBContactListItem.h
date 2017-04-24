@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
-#import "ChatEnums.h"
+
+#import "QBChatTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +16,14 @@ extern NSString * const kPresenceSubscriptionStateNone;
 extern NSString * const kPresenceSubscriptionStateTo;
 extern NSString * const kPresenceSubscriptionStateFrom;
 extern NSString * const kPresenceSubscriptionStateBoth;
+
+typedef NS_ENUM(NSUInteger, QBPresenseSubscriptionState) {
+    
+    QBPresenceSubscriptionStateNone = 1, // the user does not have a subscription to the contact's presence information, and the contact does not have a subscription to the user's presence information
+    QBPresenceSubscriptionStateTo = 2, // the user has a subscription to the contact's presence information, but the contact does not have a subscription to the user's presence information
+    QBPresenceSubscriptionStateFrom = 3, // the contact has a subscription to the user's presence information, but the user does not have a subscription to the contact's presence information
+    QBPresenceSubscriptionStateBoth = 4, //  both the user and the contact have subscriptions to each other's presence information
+};
 
 /**
  *  QBContactListItem class interface.

@@ -6,8 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 #import "QBCEntity.h"
 #import "QBContentEnums.h"
 
@@ -15,7 +13,7 @@
  *  QBCBlobObjectAccess class interface.
  *  This class represents entity that uses for upload file to server.
  */
-@interface QBCBlobObjectAccess : QBCEntity <NSCoding, NSCopying>
+@interface QBCBlobObjectAccess : NSObject <NSCoding, NSCopying>
 
 /**
  *  Blob ID.

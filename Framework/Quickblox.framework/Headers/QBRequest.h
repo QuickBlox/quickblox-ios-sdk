@@ -4,40 +4,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
 
-@class QBRequest;
 @class QBResponse;
+@class QBRequest;
 @class QBRequestStatus;
 @class QBError;
 
-@protocol QBResponseSerializationProtocol;
-@protocol QBRequestSerialisationProtocol;
-@class QBHTTPRequestSerializer;
-
 NS_ASSUME_NONNULL_BEGIN
 
-extern const struct QBRequestMethod {
-    __unsafe_unretained NSString *POST;
-    __unsafe_unretained NSString *GET;
-    __unsafe_unretained NSString *HEAD;
-    __unsafe_unretained NSString *PUT;
-    __unsafe_unretained NSString *DELETE;
-} QBRequestMethod;
-
-typedef NS_ENUM(NSUInteger, QBRequestTaskType) {
-    QBRequestTaskTypeNotSet,
-    QBRequestTaskTypeData,
-    QBRequestTaskTypeUpload,
-    QBRequestTaskTypeDownload
-};
-
 /** Blocks typedef */
-typedef void (^QBRequestStatusUpdateBlock)(QBRequest *request, QBRequestStatus * _Nullable status);
-typedef void (^QBRequestCompletionBlock)(QBRequest *request, QBResponse *response, NSDictionary<NSString *, id> * _Nullable objects);
-typedef void (^QBErrorBlock)(QBError *error);
-typedef void (^QBRequestErrorBlock)(QBResponse *response);
+typedef void(^QBErrorBlock)(QBError *error);
+typedef void(^qb_status_update_block_t)(QBRequest *request, QBRequestStatus *status);
+typedef void(^qb_response_block_t)(QBResponse *response);
 
 /** 
  *  QBRequest class interface.
@@ -50,67 +28,9 @@ typedef void (^QBRequestErrorBlock)(QBResponse *response);
  */
 @property (nonatomic, getter=isCancelled, readonly) BOOL canceled;
 
-/** 
- *  Formed NSURLSessionTask with request information.
- */
-@property (nonatomic, weak, nullable) NSURLSessionTask* task;
-
-/** 
- *  Formed task type.
- */
-@property (nonatomic, assign, readonly) QBRequestTaskType taskType;
-
-/** 
- *  Request completion block.
- */
-@property (nonatomic, copy, nullable) QBRequestCompletionBlock completionBlock;
-
-/** 
- *  Request update block.
- */
-@property (nonatomic, copy, nullable) QBRequestStatusUpdateBlock updateBlock;
-
-/** 
- *  Request serialiser.
- */
-@property (nonatomic, strong, nullable) QBHTTPRequestSerializer <QBRequestSerialisationProtocol> *requestSerialisator;
-
-/** 
- *  Response serialiser (QBHTTPResponseSerializer<QBResponseSerializationProtocol>).
- */
-@property (nonatomic, strong, nullable) NSArray <__kindof id<QBResponseSerializationProtocol>> *responseSerialisators;
-
-/** 
- *  Request headers.
- */
-@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *headers;
-
-/** 
- *  Request body.
- */
-@property (nonatomic, copy, nullable) NSData *body;
-
-/** 
- *  Request encoding.
- */
-@property (nonatomic) NSStringEncoding encoding;
-
-/** 
- *  Request parameters.
- */
-@property (nonatomic, copy, readonly, nullable) NSDictionary<NSString *, NSString *> *parameters;
-
-/** Parameters methods */
-- (void)addParametersFromDictionary:(nullable NSDictionary<NSString *, NSString *> *)otherDictionary;
-- (void)addParameter:(id)obj forKey:(NSString *)key;
-- (void)removeParameterForKey:(nullable NSString *)key;
-- (void)extractParametersFromDictionary:(nullable NSDictionary<NSString *, NSString *> *)parameters;
-
 /** Constructors */
 + (instancetype)new NS_UNAVAILABLE;
-
-- (nullable instancetype)initWithType:(QBRequestTaskType)type completionBlock:(nullable QBRequestCompletionBlock)completionBlock;
-- (nullable instancetype)initWithType:(QBRequestTaskType)type updateBlock:(nullable QBRequestStatusUpdateBlock)updateBlock completionBlock:(nullable QBRequestCompletionBlock)completionBlock;
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  *  Cancels NSURLSessionTask associated with request.

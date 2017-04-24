@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)createSubscription:(QBMSubscription *)subscription
                      successBlock:(nullable void (^)(QBResponse *response, NSArray<QBMSubscription *> * _Nullable objects))successBlock
-                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                       errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Get Subscriptions
 
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)subscriptionsWithSuccessBlock:(nullable void (^)(QBResponse *response, NSArray<QBMSubscription *> * _Nullable objects))successBlock
-                                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                                  errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Delete Subscription with ID
 
@@ -57,8 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)deleteSubscriptionWithID:(NSUInteger)ID
-                           successBlock:(nullable void (^)(QBResponse *response))successBlock
-                             errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                           successBlock:(nullable qb_response_block_t)successBlock
+                             errorBlock:(nullable qb_response_block_t)errorBlock;
 //MARK: - Create Event
 
 /**
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)createEvent:(QBMEvent *)event
               successBlock:(nullable void (^)(QBResponse *response, NSArray<QBMEvent *> * _Nullable events))successBlock
-                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
  *  Retrieve all events which were created by current user (with extended set of pagination parameters).
@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)eventsForPage:(nullable QBGeneralResponsePage *)page
                 successBlock:(nullable void (^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBMEvent *> * _Nullable events))successBlock
-                  errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                  errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Get Event with ID
 
@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)eventWithID:(NSUInteger)ID
               successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Update Event
 
@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)updateEvent:(QBMEvent *)event
               successBlock:(nullable void (^)(QBResponse *response, QBMEvent * _Nullable event))successBlock
-                errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Delete Event with ID
 
@@ -129,8 +129,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)deleteEventWithID:(NSUInteger)ID
-                    successBlock:(nullable void (^)(QBResponse *response))successBlock
-                      errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+                    successBlock:(nullable qb_response_block_t)successBlock
+                      errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Send push Tasks
 
@@ -235,7 +235,7 @@ toUsersWithAnyOfTheseTags:(NSString *)usersTags
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)unregisterSubscriptionForUniqueDeviceIdentifier:(NSString *)uniqueDeviceIdentifier
-                                                  successBlock:(nullable void (^)(QBResponse *response))successBlock
+                                                  successBlock:(nullable qb_response_block_t)successBlock
                                                     errorBlock:(nullable QBErrorBlock)errorBlock;
 @end
 

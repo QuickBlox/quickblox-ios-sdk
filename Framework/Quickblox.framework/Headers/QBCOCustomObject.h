@@ -6,9 +6,6 @@
 //  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
-#import <Quickblox/QBNullability.h>
-#import <Quickblox/QBGeneric.h>
-
 @class QBCOPermissions;
 
 NS_ASSUME_NONNULL_BEGIN
