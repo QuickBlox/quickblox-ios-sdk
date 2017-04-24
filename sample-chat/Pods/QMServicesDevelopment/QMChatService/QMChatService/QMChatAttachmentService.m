@@ -49,7 +49,7 @@ static NSString* attachmentPath(QBChatAttachment *attachment) {
 - (instancetype)init {
     
     if (self = [super init]) {
-        self.attachmentsStorage = [NSMutableDictionary dictionary];
+        _attachmentsStorage = [NSMutableDictionary dictionary];
     }
     
     return self;

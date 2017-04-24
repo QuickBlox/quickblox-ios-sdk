@@ -14,12 +14,12 @@
 	
 	QBUUser *qbUser = [QBUUser user];
 	
-	qbUser.ID = self.id.integerValue;
+	qbUser.ID = self.idValue;
 	qbUser.updatedAt = self.updatedAt;
 	qbUser.createdAt = self.createdAt;
 	
-	qbUser.externalUserID = self.externalUserID.integerValue;
-	qbUser.blobID = self.blobID.integerValue;
+    qbUser.externalUserID = self.externalUserIDValue;
+    qbUser.blobID = self.blobIDValue;
 	qbUser.facebookID = self.facebookID;
 	qbUser.twitterID = self.twitterID;
 	qbUser.fullName = self.fullName;
@@ -36,12 +36,11 @@
 
 - (void)updateWithQBUser:(QBUUser *)user {
 	
-	self.id = @(user.ID);
+    self.idValue = (int32_t)user.ID;
 	self.updatedAt = user.updatedAt;
 	self.createdAt = user.createdAt;
-	self.externalUserID = @(user.externalUserID);
-	self.blobID = @(user.blobID);
-	
+	self.externalUserIDValue = (int32_t)user.externalUserID;
+	self.blobIDValue = (int32_t)user.blobID;
 	self.facebookID = user.facebookID;
 	self.twitterID = user.twitterID;
 	self.fullName = user.fullName;
@@ -54,5 +53,22 @@
 	self.lastRequestAt = user.lastRequestAt;
 }
 
+@end
+
+@implementation NSArray(CDUser)
+
+- (NSArray<QBUUser *> *)toQBUUsers {
+    
+    NSMutableArray<QBUUser *> *result =
+    [NSMutableArray arrayWithCapacity:self.count];
+    
+    for (CDUser *cache in self) {
+        
+        QBUUser *user = [cache toQBUUser];
+        [result addObject:user];
+    }
+    
+    return [result copy];
+}
 
 @end

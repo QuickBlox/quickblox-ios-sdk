@@ -11,31 +11,31 @@
 
 @implementation NSDictionary (QMCDRecordAdditions)
 
-- (NSMutableDictionary *) QM_dictionaryByMergingDictionary:(NSDictionary *)dictionary
+- (NSMutableDictionary *)QM_dictionaryByMergingDictionary:(NSDictionary *)dictionary
 {
     NSMutableDictionary *mutDict = [self mutableCopy];
     [mutDict addEntriesFromDictionary:dictionary];
     return mutDict;
 }
 
-+ (NSDictionary *) QM_defaultSqliteStoreOptions
++ (NSDictionary *)QM_defaultSqliteStoreOptions
 {
     return @{ @"journal_mode" : @"WAL" };
 }
 
-+ (NSDictionary *) QM_autoMigrationOptions
++ (NSDictionary *)QM_autoMigrationOptions
 {
     return @{ NSMigratePersistentStoresAutomaticallyOption : @YES,
               NSInferMappingModelAutomaticallyOption : @YES };
 }
 
-+ (NSDictionary *) QM_manualMigrationOptions
++ (NSDictionary *)QM_manualMigrationOptions
 {
     return @{ NSMigratePersistentStoresAutomaticallyOption : @YES,
               NSInferMappingModelAutomaticallyOption : @NO };
 }
 
-- (BOOL) QM_shouldDeletePersistentStoreOnModelMismatch
+- (BOOL)QM_shouldDeletePersistentStoreOnModelMismatch
 {
     id value = [self valueForKey:QMCDRecordShouldDeletePersistentStoreOnModelMismatchKey];
     return [value boolValue];

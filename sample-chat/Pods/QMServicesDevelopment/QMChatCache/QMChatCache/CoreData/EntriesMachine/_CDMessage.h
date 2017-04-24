@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface _CDMessage : NSManagedObject
 + (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) CDMessageID *objectID;
 
 @property (nonatomic, strong, nullable) NSDate* createAt;
@@ -38,12 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSData* deliveredIDs;
 
 @property (nonatomic, strong, nullable) NSString* dialogID;
-
-@property (nonatomic, strong, nullable) NSNumber* isRead;
-
-@property (atomic) BOOL isReadValue;
-- (BOOL)isReadValue;
-- (void)setIsReadValue:(BOOL)value_;
 
 @property (nonatomic, strong, nullable) NSString* messageID;
 
@@ -84,59 +78,53 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface _CDMessage (CoreDataGeneratedPrimitiveAccessors)
 
-- (NSDate*)primitiveCreateAt;
-- (void)setPrimitiveCreateAt:(NSDate*)value;
+- (nullable NSDate*)primitiveCreateAt;
+- (void)setPrimitiveCreateAt:(nullable NSDate*)value;
 
-- (NSData*)primitiveCustomParameters;
-- (void)setPrimitiveCustomParameters:(NSData*)value;
+- (nullable NSData*)primitiveCustomParameters;
+- (void)setPrimitiveCustomParameters:(nullable NSData*)value;
 
-- (NSDate*)primitiveDateSend;
-- (void)setPrimitiveDateSend:(NSDate*)value;
+- (nullable NSDate*)primitiveDateSend;
+- (void)setPrimitiveDateSend:(nullable NSDate*)value;
 
-- (NSNumber*)primitiveDelayed;
-- (void)setPrimitiveDelayed:(NSNumber*)value;
+- (nullable NSNumber*)primitiveDelayed;
+- (void)setPrimitiveDelayed:(nullable NSNumber*)value;
 
 - (BOOL)primitiveDelayedValue;
 - (void)setPrimitiveDelayedValue:(BOOL)value_;
 
-- (NSData*)primitiveDeliveredIDs;
-- (void)setPrimitiveDeliveredIDs:(NSData*)value;
+- (nullable NSData*)primitiveDeliveredIDs;
+- (void)setPrimitiveDeliveredIDs:(nullable NSData*)value;
 
-- (NSString*)primitiveDialogID;
-- (void)setPrimitiveDialogID:(NSString*)value;
+- (nullable NSString*)primitiveDialogID;
+- (void)setPrimitiveDialogID:(nullable NSString*)value;
 
-- (NSNumber*)primitiveIsRead;
-- (void)setPrimitiveIsRead:(NSNumber*)value;
+- (nullable NSString*)primitiveMessageID;
+- (void)setPrimitiveMessageID:(nullable NSString*)value;
 
-- (BOOL)primitiveIsReadValue;
-- (void)setPrimitiveIsReadValue:(BOOL)value_;
+- (nullable NSData*)primitiveReadIDs;
+- (void)setPrimitiveReadIDs:(nullable NSData*)value;
 
-- (NSString*)primitiveMessageID;
-- (void)setPrimitiveMessageID:(NSString*)value;
-
-- (NSData*)primitiveReadIDs;
-- (void)setPrimitiveReadIDs:(NSData*)value;
-
-- (NSNumber*)primitiveRecipientID;
-- (void)setPrimitiveRecipientID:(NSNumber*)value;
+- (nullable NSNumber*)primitiveRecipientID;
+- (void)setPrimitiveRecipientID:(nullable NSNumber*)value;
 
 - (int32_t)primitiveRecipientIDValue;
 - (void)setPrimitiveRecipientIDValue:(int32_t)value_;
 
-- (NSNumber*)primitiveSenderID;
-- (void)setPrimitiveSenderID:(NSNumber*)value;
+- (nullable NSNumber*)primitiveSenderID;
+- (void)setPrimitiveSenderID:(nullable NSNumber*)value;
 
 - (int32_t)primitiveSenderIDValue;
 - (void)setPrimitiveSenderIDValue:(int32_t)value_;
 
-- (NSString*)primitiveSenderNick;
-- (void)setPrimitiveSenderNick:(NSString*)value;
+- (nullable NSString*)primitiveSenderNick;
+- (void)setPrimitiveSenderNick:(nullable NSString*)value;
 
-- (NSString*)primitiveText;
-- (void)setPrimitiveText:(NSString*)value;
+- (nullable NSString*)primitiveText;
+- (void)setPrimitiveText:(nullable NSString*)value;
 
-- (NSDate*)primitiveUpdateAt;
-- (void)setPrimitiveUpdateAt:(NSDate*)value;
+- (nullable NSDate*)primitiveUpdateAt;
+- (void)setPrimitiveUpdateAt:(nullable NSDate*)value;
 
 - (NSMutableSet<CDAttachment*>*)primitiveAttachments;
 - (void)setPrimitiveAttachments:(NSMutableSet<CDAttachment*>*)value;
@@ -153,7 +141,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)delayed;
 + (NSString *)deliveredIDs;
 + (NSString *)dialogID;
-+ (NSString *)isRead;
 + (NSString *)messageID;
 + (NSString *)readIDs;
 + (NSString *)recipientID;

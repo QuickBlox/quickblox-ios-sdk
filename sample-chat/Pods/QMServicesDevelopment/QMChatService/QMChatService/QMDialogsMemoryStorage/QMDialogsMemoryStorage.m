@@ -28,14 +28,33 @@
     self = [super init];
     if (self) {
         
-        self.dialogs = [NSMutableDictionary dictionary];
+        _dialogs = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-#pragma mark - Add / Join / Remove
+//MARK: - Add / Join / Remove
 
-- (void)addChatDialog:(QBChatDialog *)chatDialog andJoin:(BOOL)join completion:(void(^)(QBChatDialog *dialog, NSError *error))completion {
+static inline void
+updateDialog(QBChatDialog *src, QBChatDialog *res) {
+    
+    src.createdAt = res.createdAt;
+    src.updatedAt = res.updatedAt;
+    src.name = res.name;
+    src.photo = res.photo;
+    src.lastMessageDate = res.lastMessageDate;
+    src.lastMessageUserID = res.lastMessageUserID;
+    src.lastMessageText = res.lastMessageText;
+    src.unreadMessagesCount = res.unreadMessagesCount;
+    src.occupantIDs = res.occupantIDs;
+    src.data = res.data;
+    src.userID = res.userID;
+}
+
+- (void)addChatDialog:(QBChatDialog *)chatDialog
+              andJoin:(BOOL)join
+           completion:(void(^)(QBChatDialog *dialog, NSError *error))completion {
+    
     NSAssert(chatDialog != nil, @"Chat dialog is nil!");
     NSAssert(chatDialog.ID != nil, @"Chat dialog without identifier!");
     
@@ -43,16 +62,7 @@
     
     if (dialog != nil) {
         
-        dialog.createdAt = chatDialog.createdAt;
-        dialog.updatedAt = chatDialog.updatedAt;
-        dialog.name = chatDialog.name;
-        dialog.photo = chatDialog.photo;
-        dialog.lastMessageDate = chatDialog.lastMessageDate;
-        dialog.lastMessageUserID = chatDialog.lastMessageUserID;
-        dialog.lastMessageText = chatDialog.lastMessageText;
-        dialog.unreadMessagesCount = chatDialog.unreadMessagesCount;
-        dialog.occupantIDs = chatDialog.occupantIDs;
-        dialog.data = chatDialog.data;
+        updateDialog(dialog, chatDialog);
     }
     else {
         
@@ -72,7 +82,9 @@
     }
     else {
         
-        if (completion) completion(chatDialog, nil);
+        if (completion) {
+            completion(chatDialog, nil);
+        }
     }
 }
 
@@ -84,8 +96,8 @@
     }
 }
 
-- (void)deleteChatDialogWithID:(NSString *)chatDialogID
-{
+- (void)deleteChatDialogWithID:(NSString *)chatDialogID {
+    
     [self.dialogs removeObjectForKey:chatDialogID];
 }
 
@@ -99,7 +111,8 @@
     NSArray *allDialogs = [self unsortedDialogs];
     
     NSPredicate *predicate =
-    [NSPredicate predicateWithFormat:@"SELF.type == %d AND SUBQUERY(SELF.occupantIDs, $userID, $userID == %@).@count > 0", QBChatDialogTypePrivate, @(opponentID)];
+    [NSPredicate predicateWithFormat:@"SELF.type == %d AND SUBQUERY(SELF.occupantIDs, $userID, $userID == %@).@count > 0",
+     QBChatDialogTypePrivate, @(opponentID)];
     
     NSArray *result = [allDialogs filteredArrayUsingPredicate:predicate];
     QBChatDialog *dialog = result.firstObject;
@@ -133,7 +146,7 @@
     return dialogs;
 }
 
-#pragma mark - Dialogs toos
+//MARK: - Dialogs toos
 
 - (NSArray *)unreadDialogs {
     
@@ -159,16 +172,22 @@
 
 - (NSArray *)dialogsWithSortDescriptors:(NSArray *)descriptors {
     
-    NSArray *sortedDialogs =  [self.dialogs.allValues sortedArrayUsingDescriptors:descriptors];
+    NSArray *sortedDialogs = [self.dialogs.allValues sortedArrayUsingDescriptors:descriptors];
     
     return sortedDialogs;
 }
 
-#pragma mark - QMMemoryStorageProtocol
+//MARK: - QMMemoryStorageProtocol
 
 - (void)free {
     
     [self.dialogs removeAllObjects];
+}
+
+- (NSString *)description {
+    
+    return [NSString stringWithFormat:@"<%@ %p> dialogs: %tu",
+            NSStringFromClass(self.class), self, _dialogs.count];
 }
 
 @end

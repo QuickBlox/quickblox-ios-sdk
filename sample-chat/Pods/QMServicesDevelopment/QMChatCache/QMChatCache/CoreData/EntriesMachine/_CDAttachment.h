@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface _CDAttachment : NSManagedObject
 + (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) CDAttachmentID *objectID;
 
 @property (nonatomic, strong, nullable) NSString* data;
@@ -36,17 +36,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface _CDAttachment (CoreDataGeneratedPrimitiveAccessors)
 
-- (NSString*)primitiveData;
-- (void)setPrimitiveData:(NSString*)value;
+- (nullable NSString*)primitiveData;
+- (void)setPrimitiveData:(nullable NSString*)value;
 
-- (NSString*)primitiveId;
-- (void)setPrimitiveId:(NSString*)value;
+- (nullable NSString*)primitiveId;
+- (void)setPrimitiveId:(nullable NSString*)value;
 
-- (NSString*)primitiveMimeType;
-- (void)setPrimitiveMimeType:(NSString*)value;
+- (nullable NSString*)primitiveMimeType;
+- (void)setPrimitiveMimeType:(nullable NSString*)value;
 
-- (NSString*)primitiveUrl;
-- (void)setPrimitiveUrl:(NSString*)value;
+- (nullable NSString*)primitiveUrl;
+- (void)setPrimitiveUrl:(nullable NSString*)value;
 
 - (CDMessage*)primitiveMessage;
 - (void)setPrimitiveMessage:(CDMessage*)value;

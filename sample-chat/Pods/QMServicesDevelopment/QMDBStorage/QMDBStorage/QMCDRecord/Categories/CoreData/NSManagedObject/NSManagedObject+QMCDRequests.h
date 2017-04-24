@@ -28,7 +28,7 @@
 
  @since Available in v2.3 and later.
  */
-+ (NSUInteger) QM_defaultBatchSize;
++ (NSUInteger)QM_defaultBatchSize;
 
 /**
  Sets the number of items to fetch by default.
@@ -37,7 +37,7 @@
 
  @since Available in v2.3 and later.
  */
-+ (void) QM_setDefaultBatchSize:(NSUInteger)newBatchSize;
++ (void)QM_setDefaultBatchSize:(NSUInteger)newBatchSize;
 
 /**
  @name Fetch Request Creation
@@ -50,7 +50,7 @@
 
  @since Available in v1.8 and later.
  */
-+ (NSFetchRequest *) QM_requestAll;
++ (NSFetchRequest *)QM_requestAll;
 
 /**
  Initializes a fetch request that queries a context for all entities of the current type that match the supplied predicate.
@@ -61,7 +61,7 @@
 
  @since Available in v1.8 and later.
  */
-+ (NSFetchRequest *) QM_requestAllWithPredicate:(NSPredicate *)predicate;
++ (NSFetchRequest *)QM_requestAllWithPredicate:(NSPredicate *)predicate;
 
 /**
  Initializes a fetch request that queries a context for all entities of the current type where the supplied property has the supplied value.
@@ -73,7 +73,7 @@
 
  @since Available in v1.8 and later.
  */
-+ (NSFetchRequest *) QM_requestAllWhere:(NSString *)attributeName isEqualTo:(id)value;
++ (NSFetchRequest *)QM_requestAllWhere:(NSString *)attributeName isEqualTo:(id)value;
 
 /**
  Initializes a fetch request that queries a context for the first entity of the current type that matches the supplied predicate.
@@ -84,7 +84,7 @@
 
  @since Available in v1.8 and later.
  */
-+ (NSFetchRequest *) QM_requestFirstWithPredicate:(NSPredicate *)predicate;
++ (NSFetchRequest *)QM_requestFirstWithPredicate:(NSPredicate *)predicate;
 
 /**
  Initializes a fetch request that queries a context for the first entity of the current type where the supplied property has the supplied value.
@@ -96,7 +96,7 @@
 
  @since Available in v1.8 and later.
  */
-+ (NSFetchRequest *) QM_requestFirstByAttribute:(NSString *)attributeName withValue:(id)value;
++ (NSFetchRequest *)QM_requestFirstByAttribute:(NSString *)attributeName withValue:(id)value;
 
 /**
  Initializes a fetch request that queries a context for all entities of the current type, sorted by the supplied sort term in the supplied order.
@@ -108,7 +108,7 @@
 
  @since Available in v1.8 and later.
  */
-+ (NSFetchRequest *) QM_requestAllSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending;
++ (NSFetchRequest *)QM_requestAllSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending;
 
 /**
  Initializes a fetch request that queries a context for all entities of the current type, sorted by the supplied sort term in the supplied order that match the supplied predicate.
@@ -121,6 +121,6 @@
 
  @since Available in v1.8 and later.
  */
-+ (NSFetchRequest *) QM_requestAllSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending withPredicate:(NSPredicate *)predicate;
++ (NSFetchRequest *)QM_requestAllSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending withPredicate:(NSPredicate *)predicate;
 
 @end

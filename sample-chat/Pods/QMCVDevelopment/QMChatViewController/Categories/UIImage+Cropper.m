@@ -69,28 +69,70 @@
 
 - (UIImage *)imageByCircularScaleAndCrop:(CGSize)targetSize {
     
-    //Create the bitmap graphics context
-    UIGraphicsBeginImageContextWithOptions(targetSize, NO, 0.0);
+    //bitmap context properties
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    // Create and CLIP to a CIRCULAR Path
-    // (This could be replaced with any closed path if you want a different shaped clip)
-    CGContextBeginPath (context);
-    CGContextAddArc(context, targetSize.width / 2, targetSize.height / 2, targetSize.width / 2, 0, 2 * M_PI, 0);
-    CGContextClosePath (context);
+    float scaleFactor = [[UIScreen mainScreen] scale];
+    
+    CGColorSpaceRef colorSpace =
+    CGColorSpaceCreateDeviceRGB();
+    CGContextRef context =
+    CGBitmapContextCreate(NULL,
+                          targetSize.width * scaleFactor,
+                          targetSize.height * scaleFactor,
+                          8,
+                          targetSize.width * scaleFactor * 4,
+                          colorSpace,
+                          kCGImageAlphaPremultipliedFirst);
+    
+    CGContextScaleCTM(context,
+                      scaleFactor,
+                      scaleFactor);
+    
+    CGContextBeginPath(context);
+    
+    CGContextAddArc(context,
+                    targetSize.width / 2,
+                    targetSize.height / 2,
+                    targetSize.width / 2,
+                    0,
+                    2 * M_PI,
+                    0);
+    
+    CGContextClosePath(context);
+    
+    CGFloat widthFactor = targetSize.width / self.size.width;
+    CGFloat heightFactor = targetSize.height  / self.size.height;
+    
+    if (widthFactor > heightFactor) {
+        scaleFactor = widthFactor;
+    }
+    else {
+        
+        scaleFactor = heightFactor;
+    }
+    
+    float w = self.size.width * scaleFactor;
+    float h = self.size.height * scaleFactor;
+    
     CGContextClip(context);
-    //Set the SCALE factor for the graphics context
-    //All future draw calls will be scaled by this factor
-    CGContextScaleCTM (context, targetSize.width / self.size.width, targetSize.height / self.size.height);
-    // Draw the IMAGE
-    CGRect myRect = CGRectMake(0, 0, self.size.width, self.size.height);
-    [self drawInRect:myRect];
+    //draw image into bitmap context
+    CGContextDrawImage(context,
+                       CGRectMake(0,0, w, h),
+                       self.CGImage);
     
-    UIImage *circularImage = UIGraphicsGetImageFromCurrentImageContext();
+    CGImageRef renderedImage =
+    CGBitmapContextCreateImage(context);
     
-    UIGraphicsEndImageContext();
+    //tidy up
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
     
-    return circularImage;
+    UIImage *image =
+    [UIImage imageWithCGImage:renderedImage
+                        scale:scaleFactor
+                  orientation:self.imageOrientation];
+    
+    return image;
 }
 
 @end

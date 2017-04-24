@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,17 +19,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRY-Lm-qaj" customClass="QMChatContainerView">
+                        <rect key="frame" x="39" y="0.0" width="239" height="51"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAp-ve-ejs" userLabel="Message Container">
+                                <rect key="frame" x="0.0" y="0.0" width="239" height="51"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User 1 would like to chat with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N2F-nz-UcD">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User 1 would like to chat with you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N2F-nz-UcD">
+                                        <rect key="frame" x="0.0" y="0.0" width="239" height="51"/>
                                         <color key="backgroundColor" red="0.0" green="0.77721782169999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.46666666670000001" green="0.52156862749999999" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.79795612969999996" blue="0.18798932830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="N2F-nz-UcD" secondAttribute="trailing" id="GZ9-ck-DeW"/>
                                     <constraint firstItem="N2F-nz-UcD" firstAttribute="leading" secondItem="BAp-ve-ejs" secondAttribute="leading" id="R5a-u2-gtf"/>
@@ -37,19 +43,20 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="BAp-ve-ejs" firstAttribute="leading" secondItem="gRY-Lm-qaj" secondAttribute="leading" constant="4" id="3nP-o9-Czm" userLabel="left"/>
+                            <constraint firstItem="BAp-ve-ejs" firstAttribute="leading" secondItem="gRY-Lm-qaj" secondAttribute="leading" id="3nP-o9-Czm" userLabel="left"/>
                             <constraint firstAttribute="width" constant="239" id="JOe-Lx-Yyr"/>
-                            <constraint firstItem="BAp-ve-ejs" firstAttribute="top" secondItem="gRY-Lm-qaj" secondAttribute="top" constant="4" id="Qap-Xw-uUp" userLabel="top"/>
-                            <constraint firstAttribute="trailing" secondItem="BAp-ve-ejs" secondAttribute="trailing" constant="4" id="d4k-hl-cKF" userLabel="right"/>
-                            <constraint firstAttribute="bottom" secondItem="BAp-ve-ejs" secondAttribute="bottom" constant="4" id="sBB-GW-xI6" userLabel="bottom"/>
+                            <constraint firstItem="BAp-ve-ejs" firstAttribute="top" secondItem="gRY-Lm-qaj" secondAttribute="top" id="Qap-Xw-uUp" userLabel="top"/>
+                            <constraint firstAttribute="trailing" secondItem="BAp-ve-ejs" secondAttribute="trailing" id="d4k-hl-cKF" userLabel="right"/>
+                            <constraint firstAttribute="bottom" secondItem="BAp-ve-ejs" secondAttribute="bottom" id="sBB-GW-xI6" userLabel="bottom"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="4"/>
+                                <integer key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                <color key="value" red="0.25201231060000001" green="0.25201231060000001" blue="0.25201231060000001" alpha="0.41999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="value" red="0.73725490196078436" green="0.72549019607843135" blue="0.6588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="arrow" value="NO"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
@@ -70,7 +77,7 @@
                 <outlet property="messageContainerTopInsetConstraint" destination="Qap-Xw-uUp" id="quL-8X-N2d"/>
                 <outlet property="notificationLabel" destination="N2F-nz-UcD" id="BAR-Ca-pTH"/>
             </connections>
-            <point key="canvasLocation" x="-396.5" y="28.5"/>
+            <point key="canvasLocation" x="-598.5" y="8.5"/>
         </collectionViewCell>
     </objects>
 </document>

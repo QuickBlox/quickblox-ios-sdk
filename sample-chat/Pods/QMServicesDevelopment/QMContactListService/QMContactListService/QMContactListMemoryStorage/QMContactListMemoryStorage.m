@@ -63,7 +63,7 @@
     return self.contactList.allValues;
 }
 
-#pragma mark - QMMemoryStorageProtocol
+//MARK: - QMMemoryStorageProtocol
 
 - (void)free {
     

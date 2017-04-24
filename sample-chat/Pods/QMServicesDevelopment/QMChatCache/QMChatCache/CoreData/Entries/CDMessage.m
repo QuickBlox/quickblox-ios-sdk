@@ -19,7 +19,6 @@
     message.dateSent = self.dateSend;
     message.dialogID = self.dialogID;
     message.customParameters = [[self objectsWithBinaryData:self.customParameters] mutableCopy];
-    message.read = self.isRead.boolValue;
     message.updatedAt = self.updateAt;
     message.createdAt = self.createAt;
     message.delayed = self.delayed.boolValue;
@@ -42,6 +41,7 @@
 - (void)updateWithQBChatMessage:(QBChatMessage *)message {
     
     self.messageID = message.ID;
+    
     self.createAt = message.createdAt;
     self.updateAt = message.updatedAt;
     self.delayed = @(message.delayed);
@@ -51,7 +51,6 @@
     self.senderID = @(message.senderID);
     self.dialogID = message.dialogID;
     self.customParameters = [self binaryDataWithObject:message.customParameters];
-    self.isRead = @(message.isRead);
     self.readIDs = [self binaryDataWithObject:message.readIDs];
     self.deliveredIDs = [self binaryDataWithObject:message.deliveredIDs];
 
@@ -84,6 +83,24 @@
 - (id)objectsWithBinaryData:(NSData *)data {
     
     return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+}
+
+@end
+
+@implementation NSArray(CDMessage)
+
+- (NSArray<QBChatMessage *> *)toQBChatMessages {
+    
+    NSMutableArray<QBChatMessage *> *result =
+    [NSMutableArray arrayWithCapacity:self.count];
+    
+    for (CDMessage *cache in self) {
+        
+        QBChatMessage *message = [cache toQBChatMessage];
+        [result addObject:message];
+    }
+    
+    return [result copy];
 }
 
 @end

@@ -24,7 +24,6 @@
 #import "QMChatDataSource.h"
 #import "QMChatLocationSnapshotter.h"
 #import "QMChatSection.h"
-#import "QMChatSectionManager.h"
 #import "QMChatResources.h"
 #import "QMDateUtils.h"
 #import "QMImageLoader.h"

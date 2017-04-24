@@ -41,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Cancelable request
  */
-- (QBRequest *)signUpAndLoginWithUser:(QBUUser *)user completion:(nullable void(^)(QBResponse *response, QBUUser * _Nullable userProfile))completion;
+- (QBRequest *)signUpAndLoginWithUser:(QBUUser *)user
+                           completion:(nullable void(^)(QBResponse *response, QBUUser * _Nullable userProfile))completion;
 
 /**
  *  User login
@@ -51,7 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Cancelable request
  */
-- (QBRequest *)logInWithUser:(QBUUser *)user completion:(nullable void(^)(QBResponse *response, QBUUser * _Nullable userProfile))completion;
+- (QBRequest *)logInWithUser:(QBUUser *)user
+                  completion:(nullable void(^)(QBResponse *response, QBUUser * _Nullable userProfile))completion;
 
 /**
  *  Login with twitter digits auth headers
@@ -61,7 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Cancelable request
  */
-- (QBRequest *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders completion:(nullable void(^)(QBResponse *response, QBUUser * _Nullable userProfile))completion;
+- (QBRequest *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders
+                                      completion:(nullable void(^)(QBResponse *response, QBUUser * _Nullable userProfile))completion;
 
 /**
  *  Login with facebook
@@ -96,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - Bolts
+//MARK: - Bolts
 
 /**
  *  Bolts methods for QMAuthService
@@ -112,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)signUpAndLoginWithUser:(QBUUser *)user;
+- (BFTask<QBUUser *> *)signUpAndLoginWithUser:(QBUUser *)user;
 
 /**
  *  Login with user using Bolts.
@@ -123,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)loginWithUser:(QBUUser *)user;
+- (BFTask<QBUUser *> *)loginWithUser:(QBUUser *)user;
 
 /**
  *  Login with twitter digits using Bolts.
@@ -134,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders;
+- (BFTask<QBUUser *> *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders;
 
 /**
  *  Login with facebook session token using Bolts.
@@ -145,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)loginWithFacebookSessionToken:(NSString *)sessionToken;
+- (BFTask<QBUUser *> *)loginWithFacebookSessionToken:(NSString *)sessionToken;
 
 /**
  *  Login with twitter using Bolts.
@@ -155,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask QB_GENERIC(QBUUser *) *)loginWithTwitterAccessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret;
+- (BFTask<QBUUser *> *)loginWithTwitterAccessToken:(NSString *)accessToken accessTokenSecret:(NSString *)accessTokenSecret;
 
 /**
  *  Logout current user using Bolts.

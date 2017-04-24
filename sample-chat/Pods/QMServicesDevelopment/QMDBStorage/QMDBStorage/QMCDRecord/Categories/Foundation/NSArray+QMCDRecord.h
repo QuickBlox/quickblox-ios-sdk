@@ -12,10 +12,6 @@
  */
 @interface NSArray (QMCDRecord)
 
-///------------------------
-/// @name Entity Retrieval
-///------------------------
-
 /**
  Enumerates an array of NSManagedObjects and retrieves them from the specified context if possible. 
  If it's not possible to retrieve any of the managed objects from the specified context, they will not be included in the result.
@@ -25,18 +21,7 @@
  
  @since Available in v2.3 and later.
  */
-- (NSArray *) QM_entitiesInContext:(NSManagedObjectContext *)context;
-
-///-----------------------
-/// @name Entity Deletion
-///-----------------------
-
-/**
- Deletes any managed objects in the array instance from the default context.
- 
- @since Available in v2.3 and later.
- */
-- (void) QM_deleteEntities;
+- (NSArray *)QM_entitiesInContext:(NSManagedObjectContext *)context;
 
 /**
  Deletes any managed objects in the array instance from the specified context.
@@ -44,6 +29,6 @@
  
  @since Available in v2.3 and later.
  */
-- (void) QM_deleteEntitiesInContext:(NSManagedObjectContext *)context;
+- (void)QM_deleteEntitiesInContext:(NSManagedObjectContext *)context;
 
 @end

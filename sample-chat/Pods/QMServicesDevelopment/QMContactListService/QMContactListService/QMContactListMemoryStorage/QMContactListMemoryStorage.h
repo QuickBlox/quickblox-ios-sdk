@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param contactLists QBContactList items
  */
-- (void)updateWithContactListItems:(NSArray QB_GENERIC(QBContactListItem *) *)contactListItems;
+- (void)updateWithContactListItems:(NSArray<QBContactListItem *> *)contactListItems;
 
 /**
  *  Find QBContactListItem by user ID.
@@ -44,14 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return array of user IDs
  */
-- (NSArray QB_GENERIC(NSNumber *) *)userIDsFromContactList;
+- (NSArray<NSNumber *> *)userIDsFromContactList;
 
 /**
  *  Get all stored contact list items.
  *
  *  @return array of contact list items.
  */
-- (NSArray QB_GENERIC(QBContactListItem *) *)allContactListItems;
+- (NSArray<QBContactListItem *> *)allContactListItems;
 
 @end
 

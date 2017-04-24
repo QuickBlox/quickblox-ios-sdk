@@ -41,7 +41,7 @@ typedef void (^MRSaveCompletionHandler)(BOOL success, NSError *error);
  
  @since Available in 2.1 and later.
  */
-- (void) QM_saveOnlySelfWithCompletion:(MRSaveCompletionHandler)completion;
+- (void)QM_saveOnlySelfWithCompletion:(MRSaveCompletionHandler)completion;
 
 /**
  Asynchronously save changes in the current context all the way back to the persistent store.
@@ -51,7 +51,7 @@ typedef void (^MRSaveCompletionHandler)(BOOL success, NSError *error);
  
  @since Available in 2.1 and later.
  */
-- (void) QM_saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
+- (void)QM_saveToPersistentStoreWithCompletion:(MRSaveCompletionHandler)completion;
 
 /**
  Synchronously save changes in the current context and it's parent.
@@ -61,7 +61,7 @@ typedef void (^MRSaveCompletionHandler)(BOOL success, NSError *error);
  
  @since Available in 2.1 and later.
  */
-- (BOOL) QM_saveOnlySelfAndWait;
+- (BOOL)QM_saveOnlySelfAndWait;
 
 /**
  Synchronously save changes in the current context and merge changes to it's parent.
@@ -72,7 +72,7 @@ typedef void (^MRSaveCompletionHandler)(BOOL success, NSError *error);
  
  @since Available in 2.1 and later.
  */
-- (BOOL) QM_saveOnlySelfAndWaitWithError:(NSError **)error;
+- (BOOL)QM_saveOnlySelfAndWaitWithError:(NSError **)error;
 
 /**
  Synchronously save changes in the current context all the way back to the persistent store.
@@ -82,7 +82,7 @@ typedef void (^MRSaveCompletionHandler)(BOOL success, NSError *error);
  
  @since Available in 2.1 and later.
  */
-- (BOOL) QM_saveToPersistentStoreAndWait;
+- (BOOL)QM_saveToPersistentStoreAndWait;
 
 /**
  Synchronously save changes in the current context all the way back to the persistent store.
@@ -93,7 +93,7 @@ typedef void (^MRSaveCompletionHandler)(BOOL success, NSError *error);
  
  @since Available in 2.1 and later.
  */
-- (BOOL) QM_saveToPersistentStoreAndWaitWithError:(NSError **)error;
+- (BOOL)QM_saveToPersistentStoreAndWaitWithError:(NSError **)error;
 
 /**
  Save the current context with options. All other save methods are convenience wrappers around this method.
@@ -103,6 +103,6 @@ typedef void (^MRSaveCompletionHandler)(BOOL success, NSError *error);
  
  @since Available in 2.1 and later.
  */
- - (void) QM_saveWithOptions:(MRContextSaveOptions)saveOptions completion:(MRSaveCompletionHandler)completion;
+ - (void)QM_saveWithOptions:(MRContextSaveOptions)saveOptions completion:(MRSaveCompletionHandler)completion;
 
 @end

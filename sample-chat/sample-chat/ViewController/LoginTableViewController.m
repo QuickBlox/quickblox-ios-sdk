@@ -29,7 +29,7 @@
 static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
+    [super viewDidLoad];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.tintColor = [UIApplication sharedApplication].keyWindow.tintColor;
@@ -39,8 +39,8 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     
     NSString *versionString = [NSString stringWithFormat:@"%@", [self versionBuild]];
     self.buildNumberLabel.text = versionString;
-
-	ServicesManager *servicesManager = [ServicesManager instance];
+    
+    ServicesManager *servicesManager = [ServicesManager instance];
     QBUUser *currentUser = servicesManager.currentUser;
     
     if (currentUser != nil) {
@@ -70,7 +70,7 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
             }
         }];
     }
-
+    
     [self retrieveUsers];
 }
 
@@ -78,19 +78,12 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
  *  Retrieve users from cache or download them from REST
  */
 - (void)retrieveUsers {
-	__weak __typeof(self)weakSelf = self;
     
-    // Retrieving users from cache.
-    [[[ServicesManager instance].usersService loadFromCache] continueWithBlock:^id(BFTask *task) {
-        //
-        if ([task.result count] > 0) {
-            [weakSelf loadDataSourceWithUsers:[[ServicesManager instance] sortedUsers]];
-        } else {
-            [weakSelf downloadCurrentEnvironmentUsers];
-        }
-        
-        return nil;
-    }];
+    if ([ServicesManager instance].usersService.usersMemoryStorage.unsortedUsers.count > 0) {
+        [self loadDataSourceWithUsers:[[ServicesManager instance] sortedUsers]];
+    } else {
+        [self downloadCurrentEnvironmentUsers];
+    }
 }
 
 - (void)downloadCurrentEnvironmentUsers {
@@ -100,31 +93,31 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
         return;
     }
     
-	self.usersAreDownloading = YES;
-	
-	__weak __typeof(self)weakSelf = self;
+    self.usersAreDownloading = YES;
+    
+    __weak __typeof(self)weakSelf = self;
     [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_USERS", nil) maskType:SVProgressHUDMaskTypeClear];
-	
+    
     // Downloading latest users.
-	[[ServicesManager instance] downloadCurrentEnvironmentUsersWithSuccessBlock:^(NSArray *latestUsers) {
+    [[ServicesManager instance] downloadCurrentEnvironmentUsersWithSuccessBlock:^(NSArray *latestUsers) {
         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_COMPLETED", nil)];
         [weakSelf loadDataSourceWithUsers:latestUsers];
         weakSelf.usersAreDownloading = NO;
         [weakSelf.refreshControl endRefreshing];
         
-	} errorBlock:^(NSError *error) {
-		[SVProgressHUD showErrorWithStatus:error.localizedDescription];
-		weakSelf.usersAreDownloading = NO;
+    } errorBlock:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        weakSelf.usersAreDownloading = NO;
         [weakSelf.refreshControl endRefreshing];
-	}];
+    }];
 }
 
 - (void)loadDataSourceWithUsers:(NSArray *)users {
     
-	self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
+    self.dataSource = [[UsersDataSource alloc] initWithUsers:users];
     self.dataSource.addStringLoginAsBeforeUserFullname = YES;
-	self.tableView.dataSource = self.dataSource;
-	[self.tableView reloadData];
+    self.tableView.dataSource = self.dataSource;
+    [self.tableView reloadData];
 }
 
 #pragma mark - NotificationServiceDelegate protocol
@@ -138,7 +131,7 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)notificationServiceDidSucceedFetchingDialog:(QBChatDialog *)chatDialog {
-
+    
     DialogsViewController *dialogsController = (DialogsViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"DialogsViewController"];
     ChatViewController *chatController = (ChatViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ChatViewController"];
     chatController.dialog = chatDialog;
@@ -151,7 +144,7 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 }
 
 - (void)notificationServiceDidFailFetchingDialog {
-	// TODO: maybe segue class should be ReplaceSegue?
+    // TODO: maybe segue class should be ReplaceSegue?
     [self performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
 }
 
@@ -176,18 +169,18 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 #pragma mark - Table view data source
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	QBUUser *selectedUser = self.dataSource.users[indexPath.row];
-	selectedUser.password = kTestUsersDefaultPassword;
-	
+    
+    QBUUser *selectedUser = self.dataSource.users[indexPath.row];
+    selectedUser.password = kTestUsersDefaultPassword;
+    
     [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:selectedUser.login] maskType:SVProgressHUDMaskTypeClear];
-	
-	__weak __typeof(self)weakSelf = self;
+    
+    __weak __typeof(self)weakSelf = self;
     // Logging in to Quickblox REST API and chat.
     [ServicesManager.instance logInWithUser:selectedUser completion:^(BOOL success, NSString *errorMessage) {
         if (success) {
-			__typeof(self) strongSelf = weakSelf;
-			
+            __typeof(self) strongSelf = weakSelf;
+            
             [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"SA_STR_LOGGED_IN", nil)];
             [strongSelf registerForRemoteNotifications];
             [strongSelf performSegueWithIdentifier:kGoToDialogsSegueIdentifier sender:nil];
@@ -195,12 +188,12 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
             [SVProgressHUD showErrorWithStatus:errorMessage];
         }
     }];
-	
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (IBAction)backToLoginViewController:(UIStoryboardSegue *)segue {
-
+    
 }
 
 #pragma mark - Private

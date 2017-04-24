@@ -10,7 +10,7 @@
 
 @interface UIColor (QM)
 
-#pragma mark - Message bubble colors
+//MARK: - Message bubble colors
 
 /**
  *  @return A color object containing HSB values similar to the iOS 7 messages app green bubble color.

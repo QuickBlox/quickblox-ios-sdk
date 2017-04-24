@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,8 +19,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7u5-rz-uqE" userLabel="Avatar Container">
+                        <rect key="frame" x="209" y="29" width="44" height="45"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Ef-cm-mUT" userLabel="Avatar Image View" customClass="QMImageView"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Ef-cm-mUT" userLabel="Avatar Image View" customClass="QMImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="44" height="45"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -30,10 +36,13 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IHn-aU-joG" userLabel="ContainerView" customClass="QMChatContainerView">
+                        <rect key="frame" x="26" y="0.0" width="181" height="74"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGA-Lo-mbI" userLabel="Message Container">
+                                <rect key="frame" x="0.0" y="0.0" width="166" height="74"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8u-4h-IEt" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="95" y="0.0" width="71" height="21"/>
                                         <color key="backgroundColor" red="0.5758987968" green="0.63260070530000001" blue="0.69994870580000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" identifier="outgCellTopLabelHeight" id="VYw-Ld-ar1"/>
@@ -43,12 +52,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message Text" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwl-pf-rea" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="0.0" y="21" width="166" height="32"/>
                                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:44" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KM3-Oj-tba" customClass="TTTAttributedLabel">
+                                        <rect key="frame" x="0.0" y="53" width="166" height="21"/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" identifier="outgCellBottomLabelHeight" id="WU0-tf-mgf"/>
@@ -60,7 +71,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="h8u-4h-IEt" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" priority="750" identifier="outgCellTopLabelLeading" id="2hL-wa-XL0"/>
+                                    <constraint firstItem="h8u-4h-IEt" firstAttribute="leading" secondItem="UGA-Lo-mbI" secondAttribute="leading" priority="100" identifier="outgCellTopLabelLeading" id="2hL-wa-XL0"/>
                                     <constraint firstItem="KM3-Oj-tba" firstAttribute="top" secondItem="gwl-pf-rea" secondAttribute="bottom" id="BQZ-mi-zJi"/>
                                     <constraint firstAttribute="trailing" secondItem="gwl-pf-rea" secondAttribute="trailing" identifier="outgCellMessageTextLabelTrailing" id="C4J-58-vtD"/>
                                     <constraint firstAttribute="trailing" secondItem="KM3-Oj-tba" secondAttribute="trailing" id="Cnr-Ch-k1c"/>
@@ -76,20 +87,20 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="181" identifier="outgCellContainerWidth" id="D1r-Pq-zcf"/>
-                            <constraint firstItem="UGA-Lo-mbI" firstAttribute="top" secondItem="IHn-aU-joG" secondAttribute="top" constant="4" identifier="outgCellMessageContainerTopInset" id="Oep-MV-D9j"/>
+                            <constraint firstItem="UGA-Lo-mbI" firstAttribute="top" secondItem="IHn-aU-joG" secondAttribute="top" identifier="outgCellMessageContainerTopInset" id="Oep-MV-D9j"/>
                             <constraint firstAttribute="trailing" secondItem="UGA-Lo-mbI" secondAttribute="trailing" constant="15" identifier="outgCellMessageContainerTrailingInset" id="UcN-qd-Nxu"/>
-                            <constraint firstAttribute="bottom" secondItem="UGA-Lo-mbI" secondAttribute="bottom" priority="750" constant="4" identifier="outgCellMessageContainerBottomInset" id="XFF-Rw-dM5"/>
-                            <constraint firstItem="UGA-Lo-mbI" firstAttribute="leading" secondItem="IHn-aU-joG" secondAttribute="leading" constant="4" identifier="outgCellMessageContainerLeadingInset" id="mRm-gl-BUZ"/>
+                            <constraint firstAttribute="bottom" secondItem="UGA-Lo-mbI" secondAttribute="bottom" identifier="outgCellMessageContainerBottomInset" id="XFF-Rw-dM5"/>
+                            <constraint firstItem="UGA-Lo-mbI" firstAttribute="leading" secondItem="IHn-aU-joG" secondAttribute="leading" identifier="outgCellMessageContainerLeadingInset" id="mRm-gl-BUZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="bgColor">
-                                <color key="value" red="0.02106698613" green="0.74387138850000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="value" red="0.090196078430000007" green="0.81568627449999997" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
                                 <color key="value" red="0.26072915170897643" green="0.56321022727272729" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="4"/>
+                                <integer key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="arrow" value="YES"/>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="leftArrow" value="NO"/>

@@ -38,7 +38,7 @@
     self.image = nil;
     [self qm_cancelPreviousSnapshotCreation];
     
-    NSString *key = [NSString stringWithFormat:@"%lf/%lf",locationCoordinate.latitude, locationCoordinate.longitude];
+    NSString *key = [NSString stringWithFormat:@"%lf/%lf", locationCoordinate.latitude, locationCoordinate.longitude];
     
     self.qm_snapshotKey = key;
     
@@ -48,10 +48,8 @@
                                                          key:key
                                                   completion:^(UIImage *snapshot) {
                                                       
-                                                      __typeof(weakSelf)strongSelf = weakSelf;
-                                                      if ([strongSelf.qm_snapshotKey isEqualToString:key]) {
-                                                          
-                                                          strongSelf.image = snapshot;
+                                                      if ([weakSelf.qm_snapshotKey isEqualToString:key]) {
+                                                          weakSelf.image = snapshot;
                                                       }
                                                   }];
 }

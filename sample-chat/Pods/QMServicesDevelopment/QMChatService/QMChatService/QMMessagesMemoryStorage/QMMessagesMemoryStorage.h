@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param messages Array of QBChatMessage items
  *  @param dialogID Chat dialog identifier
  */
-- (void)addMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID;
+- (void)addMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Replace messages in memory storage for dialog identifier
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param messages Array of QBChatMessage instances to replace
  *  @param dialogID Chat dialog identifier
  */
-- (void)replaceMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID;
+- (void)replaceMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Updates message in memory storage. Dialog ID is taken from message.
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)updateMessage:(QBChatMessage *)message;
 
-#pragma mark - Getters
+//MARK: - Getters
 
 /**
  *  Messages with chat dialog identifier
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return return array of QBChatMessage instances
  */
-- (NSArray QB_GENERIC(QBChatMessage *) *)messagesWithDialogID:(NSString *)dialogID;
+- (NSArray<QBChatMessage *> *)messagesWithDialogID:(NSString *)dialogID;
 
 /**
  *  Delete message from memory storage.
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param messages messages to delete
  *  @param dialogID chat dialog identifier
  */
-- (void)deleteMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages forDialogID:(NSString *)dialogID;
+- (void)deleteMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID;
 
 /**
  *  Delete messages with dialog indetifier
@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)isMessageExistent:(QBChatMessage *)message forDialogID:(NSString *)dialogID;
 
-#pragma mark - Helpers
+//MARK: - Helpers
 
 /**
  *  Checks if dialog doesn't have messages

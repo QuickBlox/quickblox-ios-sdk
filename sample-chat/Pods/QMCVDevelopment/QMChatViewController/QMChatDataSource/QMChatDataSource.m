@@ -98,7 +98,7 @@ static dispatch_queue_t _serialQueue = nil;
 
 - (void)changeDataSourceWithMessages:(NSArray*)messages forUpdateType:(QMDataSourceActionType)updateType {
     
-    dispatch_async(_serialQueue, ^{
+   // dispatch_async(_serialQueue, ^{
         
         NSMutableArray *messageIDs = [NSMutableArray arrayWithCapacity:messages.count];
         NSMutableArray *messagesArray = [NSMutableArray arrayWithCapacity:messages.count];
@@ -141,7 +141,7 @@ static dispatch_queue_t _serialQueue = nil;
             [messageIDs addObject:message.ID];
         }
         
-        dispatch_sync(dispatch_get_main_queue(), ^{
+      //  dispatch_sync(dispatch_get_main_queue(), ^{
             
             if (messageIDs.count && updateType != QMDataSourceActionTypeAdd) {
                 
@@ -153,8 +153,8 @@ static dispatch_queue_t _serialQueue = nil;
                 [self.delegate changeDataSource:self withMessages:messagesArray updateType:updateType];
             }
             
-        });
-    });
+    //    });
+    //});
 }
 
 - (NSArray *)performChangesWithMessages:(NSArray *)messages updateType:(QMDataSourceActionType)updateType {
@@ -223,7 +223,7 @@ static dispatch_queue_t _serialQueue = nil;
 
 - (NSInteger)messagesCount {
     
-    return self.allMessages.count;
+    return _messages.count;
 }
 
 - (NSUInteger)insertMessage:(QBChatMessage *)message {
@@ -240,13 +240,12 @@ static dispatch_queue_t _serialQueue = nil;
         return nil;
     }
     
-    return self.allMessages[indexPath.item];
+    return _messages[indexPath.item];
 }
-
 
 - (BOOL)messageExists:(QBChatMessage *)message {
     
-    return [self.allMessages containsObject:message];
+    return [_messages containsObject:message];
 }
 
 - (NSUInteger)indexThatConformsToMessage:(QBChatMessage *)message {
@@ -287,6 +286,7 @@ static dispatch_queue_t _serialQueue = nil;
     NSPredicate *predicate;
     
     if (updateType == QMDataSourceActionTypeRemove) {
+        
         predicate = [NSPredicate predicateWithBlock:^BOOL(QBChatMessage*  _Nonnull message, NSDictionary<NSString *,id> * _Nullable bindings) {
             return !message.isDateDividerMessage && [message.dateSent isBetweenStartDate:startDate andEndDate:endDate] && message.ID != messageToUpdate.ID;
         }];
@@ -301,7 +301,6 @@ static dispatch_queue_t _serialQueue = nil;
     NSArray *messages = [self.allMessages filteredArrayUsingPredicate:predicate];
     
     return messages.count > 0;
-    
 }
 
 #pragma mark -

@@ -14,7 +14,7 @@
 		1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */; };
 		1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */; };
 		14B088D91CA2D9700035E29D /* ReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B088D81CA2D9700035E29D /* ReplaceSegue.m */; };
-		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		2CC758A51B0F0EB300999187 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		5839789F1D48A6D4009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; };
 		583978A01D48A6D4009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		584B33AF1C2AF4490041B431 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 584B33AE1C2AF4490041B431 /* Localizable.strings */; };
@@ -519,7 +519,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E06A6BED1D11A8CB00431316 /* ShellScript */ = {
@@ -574,7 +574,7 @@
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */,
 				1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */,
-				2CC758A51B0F0EB300999187 /* (null) in Sources */,
+				2CC758A51B0F0EB300999187 /* BuildFile in Sources */,
 				86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

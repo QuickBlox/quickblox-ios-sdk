@@ -9,12 +9,12 @@
 
 @implementation NSArray (QMCDRecord)
 
-- (NSArray *) QM_entitiesInContext:(NSManagedObjectContext *)context
-{
+- (NSArray *)QM_entitiesInContext:(NSManagedObjectContext *)context {
+    
     NSMutableArray *objectsInContext = [NSMutableArray new];
 
-    for (id object in self)
-    {
+    for (id object in self) {
+        
         NSAssert([object isKindOfClass:[NSManagedObject class]], @"Expected NSManagedObject or subclass in array, received %@", NSStringFromClass([object class]));
 
         NSManagedObject *managedObjectInContext = [object QM_inContext:context];
@@ -27,18 +27,12 @@
     return objectsInContext;
 }
 
-- (void) QM_deleteEntities
-{
-    [self QM_deleteEntitiesInContext:[[QMCDRecordStack defaultStack] context]];
-}
-
-- (void) QM_deleteEntitiesInContext:(NSManagedObjectContext *)otherContext
-{
-    for (id object in self)
-    {
+- (void)QM_deleteEntitiesInContext:(NSManagedObjectContext *)otherContext {
+    
+    for (id object in self) {
+        
         NSAssert([object isKindOfClass:[NSManagedObject class]], @"Expected NSManagedObject or subclass in array, received %@", NSStringFromClass([object class]));
-
-        [object QM_deleteInContext:otherContext];
+        [object QM_deleteEntitiesInContext:otherContext];
     }
 }
 

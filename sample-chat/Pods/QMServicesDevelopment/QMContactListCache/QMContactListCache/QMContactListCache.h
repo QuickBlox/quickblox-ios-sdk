@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QMContactListCache : QMDBStorage
 
-#pragma mark - Singleton
+//MARK: - Singleton
 
 /**
  *  Chat cache singleton
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable QMContactListCache *)instance;
 
-#pragma mark - Configure store
+//MARK: - Configure store
 
 /**
  *  Setup QMContactListCache stake wit store name
@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param storeName Store name
  */
 + (void)setupDBWithStoreNamed:(NSString *)storeName;
-+ (void)setupDBWithStoreNamed:(NSString *)storeName applicationGroupIdentifier:(NSString *)appGroupIdentifier;
 /**
  *  Clean clean chat cache with store name
  *
@@ -38,10 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)cleanDBWithStoreName:(NSString *)name;
 
-#pragma mark -
-#pragma mark Dialogs
-#pragma mark -
-#pragma mark Insert / Update / Delete contact items
+//MARK: -
+//MARK: Dialogs
+//MARK: -
+//MARK: Insert / Update / Delete contact items
 
 /**
  *  Insert/Update QBContactListItem in cache
@@ -57,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param contactListItems Array of QBContactListItem instances
  *  @param completion       Completion block is called after update or insert operation is completed
  */
-- (void)insertOrUpdateContactListWithItems:(NSArray QB_GENERIC(QBContactListItem *) *)contactListItems
+- (void)insertOrUpdateContactListWithItems:(NSArray<QBContactListItem *> *)contactListItems
                                 completion:(nullable dispatch_block_t)completion;
 
 /**
@@ -84,14 +83,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)deleteContactList:(nullable dispatch_block_t)completion;
 
-#pragma mark Fetch ContactList operations
+//MARK: Fetch ContactList operations
 
 /**
  *  Fetch all contact list items
  *
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBContactListItem instances
  */
-- (void)contactListItems:(nullable void(^)(NSArray QB_GENERIC(QBContactListItem *) *contactListItems))completion;
+- (void)contactListItems:(nullable void(^)(NSArray<QBContactListItem *> *contactListItems))completion;
 
 /**
  *  Fetch contact list item wiht user ID

@@ -71,19 +71,18 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 @dynamic dialogName;
 @dynamic dialogPhoto;
 
-#pragma mark - Context
+//MARK: - Context
 
 - (NSMutableDictionary *)context {
     
     if (!self.customParameters) {
-        
         self.customParameters = [NSMutableDictionary dictionary];
     }
     
     return self.customParameters;
 }
 
-#pragma mark - Full QBChatDialog instance
+//MARK: - Full QBChatDialog instance
 
 - (QBChatDialog *)dialog {
     
@@ -107,13 +106,16 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
         
         if (updatedAtTimeInterval) {
             
-            self.tDialog.updatedAt = [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval integerValue]];
+            self.tDialog.updatedAt =
+            [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval integerValue]];
         }
         
-        NSString *lastMessageDateTimeInterval = self.context[kQMCustomParameterDialogRoomLastMessageDate];
+        NSString *lastMessageDateTimeInterval =
+        self.context[kQMCustomParameterDialogRoomLastMessageDate];
         
         if (lastMessageDateTimeInterval) {
-            self.tDialog.lastMessageDate = [NSDate dateWithTimeIntervalSince1970:[lastMessageDateTimeInterval integerValue]];
+            self.tDialog.lastMessageDate =
+            [NSDate dateWithTimeIntervalSince1970:[lastMessageDateTimeInterval integerValue]];
         }
         
         NSString * strIDs = self.context[kQMCustomParameterDialogCurrentOccupantsIDs];
@@ -134,15 +136,18 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 
 - (QBChatDialog *)tDialog {
     
-    return objc_getAssociatedObject(self, @selector(tDialog));
+    return objc_getAssociatedObject(self,
+                                    @selector(tDialog));
 }
 
 - (void)setTDialog:(QBChatDialog *)tDialog {
     
-    objc_setAssociatedObject(self, @selector(tDialog), tDialog, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(tDialog),
+                             tDialog,
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-#pragma mark - Utils
+//MARK: - Utils
 
 - (void)updateCustomParametersWithDialog:(QBChatDialog *)dialog {
     
@@ -191,7 +196,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     return result;
 }
 
-#pragma mark Message attachment status
+//MARK: - Message attachment status
 
 - (QMMessageAttachmentStatus)attachmentStatus {
     
@@ -210,10 +215,13 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 
 - (void)setTAttachmentStatus:(NSNumber *)attachmentStatusNumber {
     
-    objc_setAssociatedObject(self, @selector(tAttachmentStatus), attachmentStatusNumber, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self,
+                             @selector(tAttachmentStatus),
+                             attachmentStatusNumber,
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-#pragma mark - Dialog occupants IDs
+//MARK: - Dialog occupants IDs
 
 - (void)setCurrentOccupantsIDs:(NSArray *)currentOccupantsIDs {
     
@@ -223,7 +231,8 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 
 - (NSArray *)currentOccupantsIDs {
     
-    NSString *occupantsIDsString = self.context[kQMCustomParameterDialogCurrentOccupantsIDs];
+    NSString *occupantsIDsString =
+    self.context[kQMCustomParameterDialogCurrentOccupantsIDs];
     return [self arrayOfUserIDsWithString:occupantsIDsString];
 }
 
@@ -235,37 +244,42 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 
 - (NSArray *)addedOccupantsIDs {
     
-    NSString *occupantsIDsString = self.context[kQMCustomParameterDialogAddedOccupantsIDs];
+    NSString *occupantsIDsString =
+    self.context[kQMCustomParameterDialogAddedOccupantsIDs];
     return [self arrayOfUserIDsWithString:occupantsIDsString];
 }
 
 - (void)setDeletedOccupantsIDs:(NSArray *)deletedOccupantsIDs {
     
-    NSString *strIDs = [deletedOccupantsIDs componentsJoinedByString:@","];
+    NSString *strIDs =
+    [deletedOccupantsIDs componentsJoinedByString:@","];
     self.context[kQMCustomParameterDialogDeletedOccupantsIDs] = strIDs;
 }
 
 - (NSArray *)deletedOccupantsIDs {
     
-    NSString *occupantsIDsString = self.context[kQMCustomParameterDialogDeletedOccupantsIDs];
+    NSString *occupantsIDsString =
+    self.context[kQMCustomParameterDialogDeletedOccupantsIDs];
     return [self arrayOfUserIDsWithString:occupantsIDsString];
 }
 
-#pragma mark - Room updated at
+//MARK: - Room updated at
 
 - (void)setDialogUpdatedAt:(NSDate *)dialogUpdatedAt {
     
-    NSNumber *updatedAt = @((NSUInteger)[dialogUpdatedAt timeIntervalSince1970]);
+    NSNumber *updatedAt =
+    @((NSUInteger)[dialogUpdatedAt timeIntervalSince1970]);
     self.context[kQMCustomParameterDialogRoomUpdatedDate] = [updatedAt stringValue];
 }
 
 - (NSDate *)dialogUpdatedAt {
     
-    NSString *updatedAtTimeInterval = self.context[kQMCustomParameterDialogRoomUpdatedDate];
+    NSString *updatedAtTimeInterval =
+    self.context[kQMCustomParameterDialogRoomUpdatedDate];
     return [NSDate dateWithTimeIntervalSince1970:[updatedAtTimeInterval doubleValue]];
 }
 
-#pragma mark - Room name
+//MARK: - Room name
 
 - (void)setDialogName:(NSString *)dialogName {
     
@@ -277,7 +291,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     return self.context[kQMCustomParameterDialogRoomName];
 }
 
-#pragma mark - Dialog photo
+//MARK: - Dialog photo
 
 - (void)setDialogPhoto:(NSString *)dialogPhoto {
     
@@ -289,7 +303,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     return self.context[kQMCustomParameterDialogRoomPhoto];
 }
 
-#pragma mark - cParamChatMessageID
+//MARK:- cParamChatMessageID
 
 - (void)setChatMessageID:(NSString *)chatMessageID {
     
@@ -301,7 +315,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     return self.context[kQMCustomParameterChatMessageID];
 }
 
-#pragma mark - cParamSaveToHistory
+//MARK: - cParamSaveToHistory
 
 - (void)setSaveToHistory:(NSString *)saveToHistory {
     
@@ -313,7 +327,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     return self.context[kQMCustomParameterSaveToHistory];
 }
 
-#pragma mark - messageType
+//MARK: - messageType
 
 - (void)setMessageType:(QMMessageType)messageType {
     
@@ -328,7 +342,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     return [self.context[kQMCustomParameterMessageType] integerValue];
 }
 
-#pragma mark - dialogUpdateType
+//MARK: - dialogUpdateType
 
 - (void)setDialogUpdateType:(QMDialogUpdateType)dialogUpdateType {
     
@@ -340,7 +354,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     return [self.context[kQMCustomParameterDialogUpdateInfo] integerValue];
 }
 
-#pragma mark - extra params
+//MARK: - extra params
 
 - (BOOL)isNotificatonMessage {
     
@@ -349,10 +363,12 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 
 - (BOOL)isMediaMessage {
     
-    return self.attachments.count > 0 || self.attachmentStatus == QMMessageAttachmentStatusLoading;
+    return
+    self.attachments.count > 0 ||
+    self.attachmentStatus == QMMessageAttachmentStatusLoading;
 }
 
-#pragma mark - Location
+//MARK: - Location
 
 - (CLLocationCoordinate2D)locationCoordinate {
     
@@ -363,8 +379,10 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
         return kCLLocationCoordinate2DInvalid;
     }
     
-    CLLocationDegrees lat = [[locationAttachment.context objectForKey:kQMLocationLatitudeKey] doubleValue];
-    CLLocationDegrees lng = [[locationAttachment.context objectForKey:kQMLocationLongitudeKey] doubleValue];
+    CLLocationDegrees lat =
+    [locationAttachment.context[kQMLocationLatitudeKey] doubleValue];
+    CLLocationDegrees lng =
+    [locationAttachment.context[kQMLocationLongitudeKey] doubleValue];
     
     return CLLocationCoordinate2DMake(lat, lng);
 }
@@ -374,8 +392,10 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     QBChatAttachment *locationAttachment = [[QBChatAttachment alloc] init];
     
     locationAttachment.type = kQMChatLocationMessageTypeName;
-    [locationAttachment.context setObject:[NSString stringWithFormat:@"%lf", locationCoordinate.latitude] forKey:kQMLocationLatitudeKey];
-    [locationAttachment.context setObject:[NSString stringWithFormat:@"%lf", locationCoordinate.longitude] forKey:kQMLocationLongitudeKey];
+    locationAttachment.context[kQMLocationLatitudeKey] =
+    [NSString stringWithFormat:@"%lf", locationCoordinate.latitude];
+    locationAttachment.context[kQMLocationLongitudeKey] =
+    [NSString stringWithFormat:@"%lf", locationCoordinate.longitude];
     [locationAttachment synchronize];
     
     self.attachments = @[locationAttachment];
@@ -385,7 +405,9 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     
     __block BOOL isLocationMessage = NO;
     
-    [self.attachments enumerateObjectsUsingBlock:^(QBChatAttachment * _Nonnull obj, NSUInteger __unused idx, BOOL * _Nonnull stop) {
+    [self.attachments enumerateObjectsUsingBlock:^(QBChatAttachment * _Nonnull obj,
+                                                   NSUInteger __unused idx,
+                                                   BOOL * _Nonnull stop) {
         
         if ([obj.type isEqualToString:kQMChatLocationMessageTypeName]) {
             
@@ -401,7 +423,9 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
     
     __block QBChatAttachment *locationAttachment = nil;
     
-    [self.attachments enumerateObjectsUsingBlock:^(QBChatAttachment * _Nonnull obj, NSUInteger __unused idx, BOOL * _Nonnull stop) {
+    [self.attachments enumerateObjectsUsingBlock:^(QBChatAttachment * _Nonnull obj,
+                                                   NSUInteger __unused idx,
+                                                   BOOL * _Nonnull stop) {
         
         if ([obj.type isEqualToString:kQMChatLocationMessageTypeName]) {
             

@@ -91,7 +91,7 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
 
 @end
 
-#pragma mark - Bolts
+//MARK: - Bolts
 
 /**
  *  Bolts methods for QMContactListService
@@ -144,7 +144,7 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
 
 @end
 
-#pragma mark - Protocols
+//MARK: - Protocols
 
 /**
  *  Data source for QMContactList Service

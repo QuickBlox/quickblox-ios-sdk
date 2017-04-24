@@ -113,7 +113,7 @@
     return mappingModel;
 }
 
-- (BOOL) QMCDMigrationManager_progressivelyMigrateStoreAtURL:(NSURL *)sourceStoreURL toStoreAtURL:(NSURL *)targetStoreURL ofType:(NSString *)type error:(NSError **)error;
+- (BOOL)QMCDMigrationManager_progressivelyMigrateStoreAtURL:(NSURL *)sourceStoreURL toStoreAtURL:(NSURL *)targetStoreURL ofType:(NSString *)type error:(NSError **)error;
 {
     NSManagedObjectModel *targetModel = [self targetModel];
     NSDictionary *sourceMetadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type
@@ -182,7 +182,7 @@
                                                                   error:error];
 }
 
-- (NSArray *) QMCDMigrationManager_modelPaths;
+- (NSArray *)QMCDMigrationManager_modelPaths;
 {
     //Find all of the mom and momd files in the Resources directory
     NSMutableArray *modelPaths = [NSMutableArray array];
@@ -201,7 +201,7 @@
     return modelPaths;
 }
 
-- (BOOL) QMCDMigrationManager_getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel;
+- (BOOL)QMCDMigrationManager_getDestinationModel:(NSManagedObjectModel **)destinationModel mappingModel:(NSMappingModel **)mappingModel modelName:(NSString **)modelName forSourceModel:(NSManagedObjectModel *)sourceModel;
 {
     NSArray *modelPaths = [self QMCDMigrationManager_modelPaths];
     if ([modelPaths count] == 0)
@@ -243,7 +243,7 @@
     return YES;
 }
 
-- (BOOL) QMCDMigrationManager_backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error;
+- (BOOL)QMCDMigrationManager_backupSourceStoreAtURL:(NSURL *)sourceStoreURL movingDestinationStoreAtURL:(NSURL *)destinationStoreURL error:(NSError **)error;
 {
     NSString *guid = [[NSProcessInfo processInfo] globallyUniqueString];
     NSString *backupPath = [NSTemporaryDirectory() stringByAppendingPathComponent:guid];

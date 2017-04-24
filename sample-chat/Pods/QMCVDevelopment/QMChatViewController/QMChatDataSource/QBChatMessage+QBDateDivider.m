@@ -19,8 +19,7 @@ NSString const *kQBDateDividerCustomParameterKey = @"kQBDateDividerCustomParamet
 @implementation QBChatMessage (QBDateDivider)
 @dynamic isDateDividerMessage;
 
-
-#pragma mark - Context
+//MARK: - Context
 
 - (NSMutableDictionary *)context {
     

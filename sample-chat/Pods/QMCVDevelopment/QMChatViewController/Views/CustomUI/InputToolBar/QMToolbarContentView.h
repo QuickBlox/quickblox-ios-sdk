@@ -100,7 +100,7 @@ FOUNDATION_EXPORT const CGFloat kQMToolbarContentViewHorizontalSpacingDefault;
  */
 @property (weak, nonatomic, readonly) UIView *rightBarButtonContainerView;
 
-#pragma mark - Class methods
+//MARK: - Class methods
 
 /**
  *  Returns the `UINib` object initialized for a `QMToolbarContentView`.

@@ -6,3 +6,9 @@
 - (void)updateWithQBChatDialog:(QBChatDialog *)dialog;
 
 @end
+
+@interface NSArray(CDDialog)
+
+- (NSArray<QBChatDialog *> *)toQBChatDialogs;
+
+@end
