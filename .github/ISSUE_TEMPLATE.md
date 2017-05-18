@@ -25,8 +25,16 @@ Repro with our demo sample     | e.g. does it happen with our demo sample?   |
 
 **Logs**
 
-*Attach full logs that will describe your problem (please, use github [gist](https://gist.github.com/))*
+*Please use the following template for logs:*
 
+```
+<details>
+<summary>Title for logs </summary>
+// Your logs here
+</details>
+```
+
+To enable full logs use the following code:
 ```
 [QBSettings setLogLevel:QBLogLevelDebug];
 [QBSettings enableXMPPLogging];
