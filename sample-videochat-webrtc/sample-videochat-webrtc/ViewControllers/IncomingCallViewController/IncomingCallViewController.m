@@ -146,7 +146,6 @@
     
     if (self.session == session) {
         [self cleanUp];
-        [[QBRTCAudioSession instance] deinitialize];
     }
 }
 

@@ -59,6 +59,34 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)audioSession:(QBRTCAudioSession *)audioSession didFailToChangeAudioDeviceWithError:(NSError *)error;
 
+/**
+ *  Called when the audio device is notified to begin playback or recording.
+ *
+ *  @param audioSession QBRTCAudioSesson instance.
+ */
+- (void)audioSessionDidStartPlayOrRecord:(QBRTCAudioSession *)audioSession;
+
+/**
+ *  Called when the audio device is notified to stop playback or recording.
+ *
+ *  @param audioSession QBRTCAudioSesson instance.
+ */
+- (void)audioSessionDidStopPlayOrRecord:(QBRTCAudioSession *)audioSession;
+
+/**
+ *  Called when AVAudioSession starts an interruption event.
+ *
+ *  @param session QBRTCAudioSession instance
+ */
+- (void)audioSessionDidBeginInterruption:(QBRTCAudioSession *)session;
+
+/**
+ *  Called when AVAudioSession ends an interruption event.
+ *
+ *  @param session QBRTCAudioSession instance
+ */
+- (void)audioSessionDidEndInterruption:(QBRTCAudioSession *)session shouldResumeSession:(BOOL)shouldResumeSession;
+
 @end
 
 /**
@@ -151,19 +179,19 @@ NS_ASSUME_NONNULL_BEGIN
  *  'deinitialize' method.
  *
  *  @code
-    [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
-        // adding blutetooth support
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+ [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+ // adding blutetooth support
+ configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+ configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
  
-        // adding airplay support
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+ // adding airplay support
+ configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
  
-        if (_session.conferenceType == QBRTCConferenceTypeVideo) {
-            // setting mode to video chat to enable airplay audio and speaker only
-            configuration.mode = AVAudioSessionModeVideoChat;
-        }
-    }];
+ if (_session.conferenceType == QBRTCConferenceTypeVideo) {
+ // setting mode to video chat to enable airplay audio and speaker only
+ configuration.mode = AVAudioSessionModeVideoChat;
+ }
+ }];
  *  @endcode
  *
  *  @return Boolean value of whether operation was successful

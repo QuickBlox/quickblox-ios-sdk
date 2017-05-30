@@ -21,6 +21,7 @@
 #import "QBCore.h"
 #import "StatsView.h"
 #import "PlaceholderGenerator.h"
+#import "RecordSettings.h"
 
 static NSString * const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
 static NSString * const kSharingViewControllerIdentifier = @"SharingViewController";
@@ -28,6 +29,7 @@ static NSString * const kSharingViewControllerIdentifier = @"SharingViewControll
 static const NSTimeInterval kRefreshTimeInterval = 1.f;
 
 static NSString * const kUnknownUserLabel = @"?";
+static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
 
 @interface CallViewController ()
 
@@ -74,12 +76,44 @@ static NSString * const kUnknownUserLabel = @"?";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+        // adding blutetooth support
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+        
+        // adding airplay support
+        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+        
+        if (_session.conferenceType == QBRTCConferenceTypeVideo) {
+            // setting mode to video chat to enable airplay audio and speaker only
+            configuration.mode = AVAudioSessionModeVideoChat;
+        }
+    }];
+    
     [self configureGUI];
+    
+    Settings *settings = [Settings instance];
+    
+    if (self.session.opponentsIDs.count == 1
+        && settings.recordSettings.isEnabled) {
+        // recording calls for p2p 1 to 1
+        if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
+            
+            [self.session.recorder setVideoRecordingRotation:settings.recordSettings.videoRotation];
+            [self.session.recorder setVideoRecordingWidth:settings.recordSettings.width
+                                                   height:settings.recordSettings.height
+                                                  bitrate:[settings.recordSettings estimatedBitrate]
+                                                      fps:settings.recordSettings.fps];
+        }
+        NSArray *searchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [searchPaths firstObject];
+        NSString *filePath = [NSString stringWithFormat:@"%@/file_%f.mp4", documentPath, [NSDate date].timeIntervalSince1970];
+        [self.session.recorder startRecordWithFileURL:[NSURL fileURLWithPath:filePath]];
+    }
     
     if (self.session.conferenceType == QBRTCConferenceTypeVideo) {
         
 #if !(TARGET_IPHONE_SIMULATOR)
-        Settings *settings = Settings.instance;
         self.cameraCapture = [[QBRTCCameraCapture alloc] initWithVideoFormat:settings.videoFormat
                                                                     position:settings.preferredCameraPostion];
         [self.cameraCapture startSession:nil];
@@ -119,20 +153,6 @@ static NSString * const kUnknownUserLabel = @"?";
     }
     
     self.users = users;
-    
-    [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
-        // adding blutetooth support
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
-        
-        // adding airplay support
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-        
-        if (_session.conferenceType == QBRTCConferenceTypeVideo) {
-            // setting mode to video chat to enable airplay audio and speaker only
-            configuration.mode = AVAudioSessionModeVideoChat;
-        }
-    }];
     
     BOOL isInitiator = (Core.currentUser.ID == self.session.initiatorID.unsignedIntegerValue);
     isInitiator ? [self startCall] : [self acceptCall];
@@ -227,6 +247,7 @@ static NSString * const kUnknownUserLabel = @"?";
     [self.toolbar addButton:[QBButtonsFactory auidoEnable] action: ^(UIButton *sender) {
         
         weakSelf.session.localMediaStream.audioTrack.enabled ^=1;
+        weakSelf.session.recorder.microphoneMuted = !weakSelf.session.localMediaStream.audioTrack.enabled;
     }];
     
     if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
@@ -261,6 +282,12 @@ static NSString * const kUnknownUserLabel = @"?";
         [weakSelf.callTimer invalidate];
         weakSelf.callTimer = nil;
         
+        if (weakSelf.session.recorder.state == QBRTCRecorderStateActive) {
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"Saving record", nil)];
+            [weakSelf.session.recorder stopRecord:^(NSURL *file) {
+                [SVProgressHUD dismiss];
+            }];
+        }
         [weakSelf.session hangUp:@{@"hangup" : @"hang up"}];
     }];
     
@@ -444,7 +471,6 @@ static NSString * const kUnknownUserLabel = @"?";
     
     if (session == self.session) {
         
-        
         [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
             
             QBRTCRemoteVideoView *opponentVideoView = (id)[self videoViewWithOpponentID:userID];
@@ -454,44 +480,31 @@ static NSString * const kUnknownUserLabel = @"?";
 }
 
 /**
- *  Called in case when connection initiated
+ *  Called in case when connection is established with opponent
  */
-- (void)session:(QBRTCSession *)session startedConnectionToUser:(NSNumber *)userID {
+- (void)session:(QBRTCSession *)session connectedToUser:(NSNumber *)userID {
     
     if (session == self.session) {
+        if (self.beepTimer) {
+            
+            [self.beepTimer invalidate];
+            self.beepTimer = nil;
+            [[QMSoundManager instance] stopAllSounds];
+        }
+        
+        if (!self.callTimer) {
+            
+            self.callTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshTimeInterval
+                                                              target:self
+                                                            selector:@selector(refreshCallTime:)
+                                                            userInfo:nil
+                                                             repeats:YES];
+        }
         
         [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
             cell.connectionState = [self.session connectionStateForUser:userID];
         }];
     }
-}
-
-/**
- *  Called in case when connection is established with opponent
- */
-- (void)session:(QBRTCSession *)session connectedToUser:(NSNumber *)userID {
-    
-    NSParameterAssert(self.session == session);
-    
-    if (self.beepTimer) {
-        
-        [self.beepTimer invalidate];
-        self.beepTimer = nil;
-        [[QMSoundManager instance] stopAllSounds];
-    }
-    
-    if (!self.callTimer) {
-        
-        self.callTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshTimeInterval
-                                                          target:self
-                                                        selector:@selector(refreshCallTime:)
-                                                        userInfo:nil
-                                                         repeats:YES];
-    }
-    
-    [self performUpdateUserID:userID block:^(OpponentCollectionViewCell *cell) {
-        cell.connectionState = [self.session connectionStateForUser:userID];
-    }];
 }
 
 /**
@@ -555,6 +568,13 @@ static NSString * const kUnknownUserLabel = @"?";
     
     if (session == self.session) {
         
+        if (self.session.recorder.state == QBRTCRecorderStateActive) {
+            [SVProgressHUD showWithStatus:NSLocalizedString(@"Saving record", nil)];
+            [self.session.recorder stopRecord:^(NSURL *file) {
+                [SVProgressHUD dismiss];
+            }];
+        }
+        
         [self.cameraCapture stopSession:nil];
         
         [[QBRTCAudioSession instance] deinitialize];
@@ -600,7 +620,11 @@ static NSString * const kUnknownUserLabel = @"?";
 - (void)refreshCallTime:(NSTimer *)sender {
     
     self.timeDuration += kRefreshTimeInterval;
-    self.title = [NSString stringWithFormat:@"Call time - %@", [self stringWithTimeDuration:self.timeDuration]];
+    NSString *extraTitle = @"";
+    if (self.session.recorder.state == QBRTCRecorderStateActive) {
+        extraTitle = kQBRTCRecordingTitle;
+    }
+    self.title = [NSString stringWithFormat:@"%@Call time - %@", extraTitle, [self stringWithTimeDuration:self.timeDuration]];
 }
 
 - (NSString *)stringWithTimeDuration:(NSTimeInterval )timeDuration {

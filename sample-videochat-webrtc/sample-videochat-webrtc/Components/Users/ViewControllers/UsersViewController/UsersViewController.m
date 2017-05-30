@@ -17,6 +17,7 @@
 #import "SVProgressHUD.h"
 #import "CallViewController.h"
 #import "IncomingCallViewController.h"
+#import "RecordsViewController.h"
 
 const NSUInteger kQBPageSize = 50;
 
@@ -28,6 +29,7 @@ const NSUInteger kQBPageSize = 50;
 @property (strong, nonatomic) UsersDataSource *dataSource;
 @property (strong, nonatomic) UINavigationController *nav;
 @property (weak, nonatomic) QBRTCSession *session;
+@property (weak, nonatomic) RecordsViewController *recordsViewController;
 
 @end
 
@@ -124,6 +126,14 @@ const NSUInteger kQBPageSize = 50;
     for (UIView *subview in self.navigationController.toolbar.subviews) {
         [subview setExclusiveTouch:YES];
     }
+    
+    UIBarButtonItem *recordsButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Records"
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(didPressRecordsButton:)];
+    
+    self.navigationItem.rightBarButtonItem = recordsButtonItem;
 }
 /**
  *  Load all (Recursive) users for current room (tag)
@@ -179,6 +189,11 @@ const NSUInteger kQBPageSize = 50;
 }
 
 #pragma mark - Actions
+
+- (void)didPressRecordsButton:(UIBarButtonItem *)item {
+    
+    [self performSegueWithIdentifier:@"PresentRecordsViewController" sender:item];
+}
 
 - (IBAction)refresh:(UIRefreshControl *)sender {
     
@@ -271,6 +286,9 @@ const NSUInteger kQBPageSize = 50;
         (id)((UINavigationController *)segue.destinationViewController).topViewController;
         settingsViewController.delegate = self;
     }
+    else if ([segue.identifier isEqualToString:@"PresentRecordsViewController"]) {
+        self.recordsViewController = segue.destinationViewController;
+    }
 }
 
 #pragma mark - SettingsViewControllerDelegate
@@ -282,8 +300,6 @@ const NSUInteger kQBPageSize = 50;
 }
 
 #pragma mark - UITableViewDelegate
-
-const NSUInteger kMaxUsersToCall = 5;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -338,26 +354,14 @@ const NSUInteger kMaxUsersToCall = 5;
 
 - (void)didReceiveNewSession:(QBRTCSession *)session userInfo:(NSDictionary *)userInfo {
     
-    if (self.session ) {
+    if (self.session != nil
+        || self.recordsViewController.playerPresented) {
         
         [session rejectCall:@{@"reject" : @"busy"}];
         return;
     }
     
     self.session = session;
-    
-    [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
-        
-        // adding bluetooth and airplay support
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-        
-        if (session.conferenceType == QBRTCConferenceTypeVideo) {
-            // setting mode to video chat to enable airplay audio and speaker only
-            configuration.mode = AVAudioSessionModeVideoChat;
-        }
-    }];
     
     NSParameterAssert(!self.nav);
     
@@ -373,7 +377,7 @@ const NSUInteger kMaxUsersToCall = 5;
 
 - (void)sessionDidClose:(QBRTCSession *)session {
     
-    if (session == self.session ) {
+    if (session == self.session) {
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             

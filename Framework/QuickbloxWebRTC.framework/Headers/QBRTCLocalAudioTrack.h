@@ -5,15 +5,12 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import "QBRTCAudioTrack.h"
+#import "QBRTCMediaStreamTrack.h"
 
-NS_ASSUME_NONNULL_BEGIN
-/// Entity to describe remote audio track
-@interface QBRTCLocalAudioTrack : QBRTCAudioTrack
-
-// cannot set volume for local audio track
-@property (nonatomic, assign) double volume NS_UNAVAILABLE;
+/**
+ *  QBRTCLocalAudioTrack class interface.
+ *  This class represents local audio track.
+ */
+@interface QBRTCLocalAudioTrack : QBRTCMediaStreamTrack
 
 @end
-
-NS_ASSUME_NONNULL_END

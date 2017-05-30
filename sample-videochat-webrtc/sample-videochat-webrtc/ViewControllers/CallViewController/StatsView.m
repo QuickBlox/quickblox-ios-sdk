@@ -2,8 +2,7 @@
 //  StatsView.m
 //  sample-videochat-webrtc-old
 //
-//  Created by Vitaliy Gorbachov on 12/15/16.
-//  Copyright © 2016 QuickBlox Team. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import "StatsView.h"

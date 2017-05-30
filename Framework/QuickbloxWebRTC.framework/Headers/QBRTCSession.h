@@ -9,6 +9,8 @@
 
 #import "QBRTCTypes.h"
 
+@class QBRTCRecorder;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -18,6 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
  *  @see QBRTCBaseSession
  */
 @interface QBRTCSession : QBRTCBaseSession
+
+/**
+ *  Calls recorder.
+ *
+ *  @discussion Class instance for calls record. Recording remote video and audio track plus local microphone.
+ *
+ *  @note Available only for 1 to 1 audio and video calls, nil otherwise. Not available for low performance devices,
+ *  such as iPod1,1, iPod2,1, iPod3,1, iPod4,1, iPod5,1, iPhone1,1, iPhone1,2, iPhone2,1, iPhone3,1, iPhone4,1, iPad1,1, 
+ *  iPad2,1, iPad2,2, iPad2,3, iPad2,4, iPad2,5, iPad2,6, iPad2,7.
+ *  Will become nil if record was finished and finalized AND session was closed.
+ *
+ *  @see UIDevice+QBPerformance, qbrtc_lowPerformanceDevices
+ */
+@property (strong, nonatomic, nullable) QBRTCRecorder *recorder;
 
 /**
  *  Unique session identifier.

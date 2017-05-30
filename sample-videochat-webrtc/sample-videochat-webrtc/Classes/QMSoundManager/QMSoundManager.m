@@ -139,19 +139,9 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
         }
         
         if (isAlert) {
-            
-            // setting sounds to speaker if needed
-            // to make sure that alert is played from it
-            QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
-            if (audioSession.isInitialized && audioSession.currentAudioDevice != QBRTCAudioDeviceSpeaker) {
-                _audioDeviceChanged = YES;
-                audioSession.currentAudioDevice = QBRTCAudioDeviceSpeaker;
-            }
-            
             AudioServicesPlayAlertSound(soundID);
         }
         else {
-            
             AudioServicesPlaySystemSound(soundID);
         }
     }
@@ -201,15 +191,7 @@ void systemServicesSoundCompletion(SystemSoundID  soundID, void *data) {
 }
 
 - (void)stopAllSounds {
-    
     [self unloadSoundIDs];
-    
-    // restoring previous sound route if needed
-    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
-    if (audioSession.isInitialized && _audioDeviceChanged) {
-        _audioDeviceChanged = NO;
-        audioSession.currentAudioDevice = QBRTCAudioDeviceReceiver;
-    }
 }
 
 - (void)stopSoundWithFilename:(NSString *)filename {

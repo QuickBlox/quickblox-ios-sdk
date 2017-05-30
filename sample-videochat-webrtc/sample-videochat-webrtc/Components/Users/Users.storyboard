@@ -19,10 +19,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="44" id="yzQ-dc-YKg" customClass="UserTableViewCell">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yzQ-dc-YKg" id="fdP-w9-aCL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEm-dw-IrD" customClass="CheckView">
@@ -40,8 +40,8 @@
                                                 <constraint firstAttribute="height" constant="32" id="xdg-8r-orp"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FullName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjG-50-ipV">
-                                            <rect key="frame" x="78" y="12" width="289" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FullName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjG-50-ipV">
+                                            <rect key="frame" x="78" y="12" width="514" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="S8R-Ko-XiR"/>
                                                 <constraint firstAttribute="height" constant="21" id="pgy-YG-zeh"/>
@@ -101,6 +101,7 @@
                         <outlet property="videoCallButton" destination="uFn-sx-h1D" id="1QH-i1-BRJ"/>
                         <segue destination="MJL-K9-GZh" kind="presentation" identifier="PresentSettingsViewController" id="muR-nh-XnT"/>
                         <segue destination="2v9-Nr-3SC" kind="show" id="aQd-I2-Vb8"/>
+                        <segue destination="vTV-qm-f5k" kind="show" identifier="PresentRecordsViewController" id="num-3x-oEx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKA-Gp-ZJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -113,7 +114,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="SettingsNaviationViewController" storyboardName="Settings" referencedIdentifier="SettingsNaviationViewController" id="MJL-K9-GZh" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wA1-v1-xdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1959" y="361"/>
+            <point key="canvasLocation" x="1248" y="804"/>
         </scene>
         <!--CallViewController-->
         <scene sceneID="3xy-Yw-uAU">
@@ -121,7 +122,35 @@
                 <viewControllerPlaceholder storyboardIdentifier="CallViewController" storyboardName="Call" referencedIdentifier="CallViewController" id="2v9-Nr-3SC" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hbf-ft-dG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1938" y="233"/>
+            <point key="canvasLocation" x="1619" y="804"/>
+        </scene>
+        <!--Records View Controller-->
+        <scene sceneID="aeb-7f-KBx">
+            <objects>
+                <tableViewController id="vTV-qm-f5k" customClass="RecordsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="hPb-6I-sFl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecordItemIdentifier" id="Eez-Gn-GqY">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eez-Gn-GqY" id="1Jw-ha-gMh">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="vTV-qm-f5k" id="flI-KM-z7m"/>
+                            <outlet property="delegate" destination="vTV-qm-f5k" id="RTP-C7-Qvl"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9xu-Xo-o4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2426" y="360"/>
         </scene>
     </scenes>
 </document>

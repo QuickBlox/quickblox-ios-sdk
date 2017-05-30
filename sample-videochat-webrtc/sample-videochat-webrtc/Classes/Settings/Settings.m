@@ -7,12 +7,14 @@
 //
 
 #import "Settings.h"
+#import "RecordSettings.h"
 
 #pragma mark - keys
 
 static NSString * const kVideoFormatKey = @"videoFormat";
 static NSString * const kPreferredCameraPosition = @"cameraPosition";
 static NSString * const kMediaConfigKey = @"mediaConfig";
+static NSString * const kRecordSettingsKey = @"recordSettings";
 
 @implementation Settings
 
@@ -28,10 +30,8 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
 }
 
 - (instancetype)init {
-    
     self = [super init];
-    
-    if (self) {
+    if (self != nil) {
         [self load];
     }
     
@@ -44,11 +44,12 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSData *videFormatData = [NSKeyedArchiver archivedDataWithRootObject:self.videoFormat];
     NSData *mediaConfig = [NSKeyedArchiver archivedDataWithRootObject:self.mediaConfiguration];
+    NSData *recordSettingsData = [NSKeyedArchiver archivedDataWithRootObject:self.recordSettings];
     
     [defaults setInteger:self.preferredCameraPostion forKey:kPreferredCameraPosition];
-    
     [defaults setObject:videFormatData forKey:kVideoFormatKey];
     [defaults setObject:mediaConfig forKey:kMediaConfigKey];
+    [defaults setObject:recordSettingsData forKey:kRecordSettingsKey];
     
     [defaults synchronize];
 }
@@ -92,6 +93,14 @@ static NSString * const kMediaConfigKey = @"mediaConfig";
     else {
         
         self.mediaConfiguration = [QBRTCMediaStreamConfiguration defaultConfiguration];
+    }
+    
+    NSData *recordSettingsData = [defaults objectForKey:kRecordSettingsKey];
+    if (recordSettingsData != nil) {
+        self.recordSettings = [NSKeyedUnarchiver unarchiveObjectWithData:recordSettingsData];
+    }
+    else {
+        self.recordSettings = [[RecordSettings alloc] init];
     }
 }
 

@@ -13,6 +13,10 @@
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
 		E329E0791E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */; };
 		E329E07A1E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E332B21C1EDD7E3700FFF7EE /* RecordSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B21B1EDD7E3700FFF7EE /* RecordSettingsViewController.m */; };
+		E332B2221EDD7E6500FFF7EE /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B2211EDD7E6500FFF7EE /* RecordsViewController.m */; };
+		E332B2261EDD7E7D00FFF7EE /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B2251EDD7E7D00FFF7EE /* FileManager.m */; };
+		E332B2291EDD7E9900FFF7EE /* RecordSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B2281EDD7E9900FFF7EE /* RecordSettings.m */; };
 		E3B0B1F01E1576EC00BE5FBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1551E1576EC00BE5FBD /* AppDelegate.m */; };
 		E3B0B1F11E1576EC00BE5FBD /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1561E1576EC00BE5FBD /* Call.storyboard */; };
 		E3B0B1F21E1576EC00BE5FBD /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1581E1576EC00BE5FBD /* SettingCell.xib */; };
@@ -116,6 +120,14 @@
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		55F6BDC91A3F21CC0080C326 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		E332B21A1EDD7E3700FFF7EE /* RecordSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecordSettingsViewController.h; path = RecordSettingsViewController/RecordSettingsViewController.h; sourceTree = "<group>"; };
+		E332B21B1EDD7E3700FFF7EE /* RecordSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecordSettingsViewController.m; path = RecordSettingsViewController/RecordSettingsViewController.m; sourceTree = "<group>"; };
+		E332B2201EDD7E6500FFF7EE /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
+		E332B2211EDD7E6500FFF7EE /* RecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordsViewController.m; sourceTree = "<group>"; };
+		E332B2241EDD7E7D00FFF7EE /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
+		E332B2251EDD7E7D00FFF7EE /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
+		E332B2271EDD7E9900FFF7EE /* RecordSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordSettings.h; sourceTree = "<group>"; };
+		E332B2281EDD7E9900FFF7EE /* RecordSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordSettings.m; sourceTree = "<group>"; };
 		E3B0B1541E1576EC00BE5FBD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E3B0B1551E1576EC00BE5FBD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E3B0B1571E1576EC00BE5FBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Call.storyboard; sourceTree = "<group>"; };
@@ -307,6 +319,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E332B2191EDD7E2000FFF7EE /* RecordSettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E332B21A1EDD7E3700FFF7EE /* RecordSettingsViewController.h */,
+				E332B21B1EDD7E3700FFF7EE /* RecordSettingsViewController.m */,
+			);
+			name = RecordSettingsViewController;
+			sourceTree = "<group>";
+		};
+		E332B21F1EDD7E6500FFF7EE /* RecordsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E332B2201EDD7E6500FFF7EE /* RecordsViewController.h */,
+				E332B2211EDD7E6500FFF7EE /* RecordsViewController.m */,
+			);
+			path = RecordsViewController;
+			sourceTree = "<group>";
+		};
+		E332B2231EDD7E7D00FFF7EE /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				E332B2241EDD7E7D00FFF7EE /* FileManager.h */,
+				E332B2251EDD7E7D00FFF7EE /* FileManager.m */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
 		E3B0B1531E1576EC00BE5FBD /* sample-videochat-webrtc */ = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +411,8 @@
 		E3B0B16A1E1576EC00BE5FBD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E332B2271EDD7E9900FFF7EE /* RecordSettings.h */,
+				E332B2281EDD7E9900FFF7EE /* RecordSettings.m */,
 				E3B0B16B1E1576EC00BE5FBD /* Settings.h */,
 				E3B0B16C1E1576EC00BE5FBD /* Settings.m */,
 			);
@@ -475,6 +516,7 @@
 		E3B0B1831E1576EC00BE5FBD /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E332B2231EDD7E7D00FFF7EE /* FileManager */,
 				E3B0B1841E1576EC00BE5FBD /* PlaceholderGenerator */,
 				E3B0B1871E1576EC00BE5FBD /* UsersDataSource */,
 			);
@@ -502,6 +544,7 @@
 		E3B0B18B1E1576EC00BE5FBD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E332B21F1EDD7E6500FFF7EE /* RecordsViewController */,
 				E3B0B18C1E1576EC00BE5FBD /* UsersViewController */,
 			);
 			path = ViewControllers;
@@ -630,6 +673,7 @@
 		E3B0B1B61E1576EC00BE5FBD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E332B2191EDD7E2000FFF7EE /* RecordSettingsViewController */,
 				E3B0B1B71E1576EC00BE5FBD /* AudioSettingsViewController */,
 				E3B0B1BA1E1576EC00BE5FBD /* BaseSettingsViewController */,
 				E3B0B1BD1E1576EC00BE5FBD /* SessionSettingsViewController */,
@@ -956,7 +1000,9 @@
 				E3B0B21A1E1576EC00BE5FBD /* SessionSettingsViewController.m in Sources */,
 				E3B0B1F81E1576EC00BE5FBD /* QMSoundManager.m in Sources */,
 				E3B0B21B1E1576EC00BE5FBD /* SettingCell.m in Sources */,
+				E332B21C1EDD7E3700FFF7EE /* RecordSettingsViewController.m in Sources */,
 				E3B0B22E1E1576EC00BE5FBD /* SVProgressHUD.m in Sources */,
+				E332B2261EDD7E7D00FFF7EE /* FileManager.m in Sources */,
 				E3B0B2081E1576EC00BE5FBD /* main.m in Sources */,
 				E3B0B21F1E1576EC00BE5FBD /* SliderItemModel.m in Sources */,
 				E3B0B2011E1576EC00BE5FBD /* UsersDataSource.m in Sources */,
@@ -970,11 +1016,13 @@
 				E3B0B1F91E1576EC00BE5FBD /* Settings.m in Sources */,
 				E3B0B21D1E1576EC00BE5FBD /* SettingsSectionModel.m in Sources */,
 				E3B0B1FF1E1576EC00BE5FBD /* QBProfile.m in Sources */,
+				E332B2291EDD7E9900FFF7EE /* RecordSettings.m in Sources */,
 				E3B0B2271E1576EC00BE5FBD /* CornerView.m in Sources */,
 				E3B0B2131E1576EC00BE5FBD /* CallViewController.m in Sources */,
 				E3B0B21E1E1576EC00BE5FBD /* SettingSwitchCell.m in Sources */,
 				E3B0B2041E1576EC00BE5FBD /* CheckView.m in Sources */,
 				E3B0B2001E1576EC00BE5FBD /* PlaceholderGenerator.m in Sources */,
+				E332B2221EDD7E6500FFF7EE /* RecordsViewController.m in Sources */,
 				E3B0B2211E1576EC00BE5FBD /* BaseSettingsCell.m in Sources */,
 				E3B0B21C1E1576EC00BE5FBD /* SettingSliderCell.m in Sources */,
 				E3B0B2191E1576EC00BE5FBD /* BaseSettingsViewController.m in Sources */,
