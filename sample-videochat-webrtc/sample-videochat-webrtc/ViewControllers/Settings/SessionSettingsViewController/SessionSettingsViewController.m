@@ -9,18 +9,20 @@
 #import "SessionSettingsViewController.h"
 #import "UsersDataSource.h"
 #import "Settings.h"
+#import "RecordSettings.h"
 
 @interface SessionSettingsViewController()
 
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
-@property(strong, nonatomic) Settings *settings;
+@property (weak, nonatomic) Settings *settings;
 
 @end
 
 typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     
     SessionConfigureItemVideo,
-    SessionConfigureItemAuido,
+    SessionConfigureItemAudio,
+    SessionConfigureItemRecord
 };
 
 @implementation SessionSettingsViewController
@@ -28,9 +30,8 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.settings = Settings.instance;
+    self.settings = [Settings instance];
     
-    //QuickBlox WebRTC Build 265. Version 1.4
     NSString *appVersion = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     NSString *appBuild = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
     NSString *version = [NSString stringWithFormat:
@@ -47,13 +48,12 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     [self.tableView reloadData];
 }
 
-
 #pragma mark - Actions
 
 - (IBAction)pressDoneBtn:(id)sender {
     
-    [[Settings instance] saveToDisk];
-    [[Settings instance] applyConfig];
+    [self.settings saveToDisk];
+    [self.settings applyConfig];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -61,6 +61,20 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     cell.detailTextLabel.text = [self detailTextForRowAtIndexPaht:indexPath];
+    
+#if (TARGET_IPHONE_SIMULATOR)
+    // make video setting cell unavailable for sims
+    if (indexPath.row == SessionConfigureItemVideo
+        && indexPath.section == 0) {
+        cell.userInteractionEnabled = NO;
+    }
+#endif
+    
+    if ([UIDevice currentDevice].qbrtc_lowPerformance
+        && indexPath.row == SessionConfigureItemRecord
+        && indexPath.section == 0) {
+        cell.userInteractionEnabled = NO;
+    }
     
     return cell;
 }
@@ -72,7 +86,6 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
     if ([cell.reuseIdentifier isEqualToString:@"LogoutCell"]) {
         
         UIAlertController *alertController =
@@ -96,14 +109,25 @@ typedef NS_ENUM(NSUInteger, SessionConfigureItem) {
 }
 
 - (NSString *)detailTextForRowAtIndexPaht:(NSIndexPath *)indexPath {
-
     
-    if (indexPath.row == SessionConfigureItemVideo) {
+    if (indexPath.row == SessionConfigureItemRecord) {
+        if ([UIDevice currentDevice].qbrtc_lowPerformance) {
+            return @"unavailable";
+        }
+        else {
+            return self.settings.recordSettings.isEnabled ? @"On" : @"Off";
+        }
+    }
+    else if (indexPath.row == SessionConfigureItemVideo) {
         
+#if !(TARGET_IPHONE_SIMULATOR)
         return [NSString stringWithFormat:@"%tux%tu", self.settings.videoFormat.width, self.settings.videoFormat.height];
+#else
+        return @"unavailable";
+#endif
         
     }
-    else if (indexPath.row == SessionConfigureItemAuido) {
+    else if (indexPath.row == SessionConfigureItemAudio) {
         
         if (self.settings.mediaConfiguration.audioCodec == QBRTCAudioCodecOpus ) {
             

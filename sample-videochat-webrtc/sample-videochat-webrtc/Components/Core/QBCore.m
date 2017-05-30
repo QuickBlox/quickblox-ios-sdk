@@ -138,7 +138,7 @@ NSString *const QB_DEFAULT_PASSOWORD = @"x6Bt0VDy5";
         return;
     }
     
-    [self setLoginStatus:@"Login with curretn user ..."];
+    [self setLoginStatus:@"Login with current user ..."];
     [QBRequest logInWithUserLogin:self.currentUser.login
                          password:QB_DEFAULT_PASSOWORD
                      successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nullable user)

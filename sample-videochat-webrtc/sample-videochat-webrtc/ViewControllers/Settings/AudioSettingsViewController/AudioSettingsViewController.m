@@ -19,8 +19,9 @@
 
 typedef NS_ENUM(NSUInteger, AudioSettingsSectionType) {
     
-    AudioSettingsSectionAudioCodec = 0,
-    AudioSettingsSectionBandwidth = 1
+    AudioSettingsSectionConstraints = 0,
+    AudioSettingsSectionAudioCodec = 1,
+    AudioSettingsSectionBandwidth = 2
 };
 
 typedef NS_ENUM(NSUInteger, AudioBandwidthSection) {
@@ -60,6 +61,8 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
 - (NSString *)titleForSection:(NSUInteger)section {
     
     switch (section) {
+        case AudioSettingsSectionConstraints:
+            return @"Constraints";
         case AudioSettingsSectionAudioCodec:
             return @"Codecs";
         case AudioSettingsSectionBandwidth:
@@ -72,6 +75,17 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
 - (void)configure {
     
     __weak __typeof(self)weakSelf = self;
+    
+    //Constraints
+    [self addSectionWith:AudioSettingsSectionConstraints items:^NSArray * _Nonnull(NSString * _Nonnull sectionTitle) {
+        
+        //audio level control
+        SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
+        switchItem.title = @"Audio level control";
+        switchItem.on = weakSelf.settings.mediaConfiguration.audioLevelControlEnabled;
+        
+        return @[switchItem];
+    }];
     
     //Audio codecs
     [self addSectionWith:AudioSettingsSectionAudioCodec items:^NSArray *(NSString *sectionTitle) {
@@ -131,7 +145,9 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
 
 - (void)cell:(BaseSettingsCell *)cell didChageModel:(BaseItemModel *)model {
     
-    if ([model isKindOfClass:[SwitchItemModel class]]) {
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    if (indexPath.section == AudioSettingsSectionBandwidth
+        && [model isKindOfClass:[SwitchItemModel class]]) {
         
         SettingsSectionModel *bandwidth = [self sectionWith:AudioSettingsSectionBandwidth];
         SwitchItemModel *switchItem = bandwidth.items[AudioBandwidthSectionEnable];
@@ -176,6 +192,11 @@ static inline struct AudioCodecBandWidthRange audioCodecRangeForCodec(QBRTCAudio
 - (void)applySettings {
     
     //APPLY SETTINGS
+    
+    //constraints
+    SettingsSectionModel *constraints = [self sectionWith:AudioSettingsSectionConstraints];
+    SwitchItemModel *levelControlSwitch = constraints.items.firstObject;
+    self.settings.mediaConfiguration.audioLevelControlEnabled = levelControlSwitch.on;
     
     //Video codec
     NSIndexPath *audioCodecIndexPath = [self indexPathAtSection:AudioSettingsSectionAudioCodec];
