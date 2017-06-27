@@ -7,8 +7,6 @@
 
 #import "QBRTCBaseSession.h"
 
-#import "QBRTCTypes.h"
-
 @class QBRTCRecorder;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -54,17 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  IDs of opponents in current session.
  */
 @property (strong, nonatomic, readonly) NSArray <NSNumber *> *opponentsIDs;
-
-/**
- *  Conference type.
- *  
- *  @remark
- QBRTCConferenceTypeAudio - audio conference
- QBRTCConferenceTypeVideo - video conference.
- *
- *  @see QBRTCConferenceType
- */
-@property (assign, nonatomic, readonly) QBRTCConferenceType conferenceType;
 
 /**
  *  Start call. Opponent will receive new session signal in QBRTCClientDelegate method 'didReceiveNewSession:userInfo:

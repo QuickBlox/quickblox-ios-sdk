@@ -22,6 +22,17 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QBRTCBaseSession : NSObject
 
 /**
+ *  Conference type.
+ *
+ *  @remark
+ QBRTCConferenceTypeVideo - video conference
+ QBRTCConferenceTypeAudio - audio conference
+ *
+ *  @see QBRTCConferenceType
+ */
+@property (assign, nonatomic, readonly) QBRTCConferenceType conferenceType;
+
+/**
  *  Session state.
  *
  *  @see QBRTCSessionState
