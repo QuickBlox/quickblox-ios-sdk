@@ -9,8 +9,8 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "95C928AC-2FEA-4BD0-AD72-E2C3D86E0F7D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "B415C5F5923FD1699E46B5668327F083B9C32C51" : "SDK-ios-WebRTC",
-    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk"
+    "B415C5F5923FD1699E46B5668327F083B9C32C51" : "SDK-ios-WebRTC\/",
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "sample-videochat-webrtc",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,

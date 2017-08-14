@@ -10,14 +10,26 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- *  Base class to describe class with media information
+ *  QBRTCMediaStreamTrack class interface.
+ *  Base class to describe class with media information.
  */
 @interface QBRTCMediaStreamTrack : NSObject
 
-/// Enable or disable track for a stream
+/**
+ *  Media track user ID.
+ *
+ *  @note nil for local
+ */
+@property (strong, nonatomic, readonly, nullable) NSNumber *userID;
+
+/**
+ *  Determines whether track is enabled or disabled for stream.
+ */
 @property (assign, nonatomic, getter=isEnabled) BOOL enabled;
 
+// unavailable initializers
 - (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
 @end
 

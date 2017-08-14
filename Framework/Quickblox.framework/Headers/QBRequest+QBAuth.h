@@ -4,6 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Quickblox/QBNullability.h>
+#import <Quickblox/QBGeneric.h>
 #import "QBRequest.h"
 
 @class QBResponse;
@@ -12,8 +14,6 @@
 @class QBUUser;
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
 
 @interface QBRequest (QBAuth)
 
@@ -27,8 +27,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)destroySessionWithSuccessBlock:(nullable qb_response_block_t)successBlock
-                                   errorBlock:(nullable qb_response_block_t)errorBlock;
++ (QBRequest *)destroySessionWithSuccessBlock:(nullable void (^)(QBResponse *response))successBlock
+                                   errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 //MARK: - LogIn
 
@@ -44,8 +44,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
  */
 + (QBRequest *)logInWithUserLogin:(NSString *)login
                          password:(NSString *)password
-                     successBlock:(nullable qb_response_user_block_t)successBlock
-                       errorBlock:(nullable qb_response_block_t)errorBlock;
+                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  User LogIn with email
@@ -59,8 +59,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
  */
 + (QBRequest *)logInWithUserEmail:(NSString *)email
                          password:(NSString *)password
-                     successBlock:(nullable qb_response_user_block_t)successBlock
-                       errorBlock:(nullable qb_response_block_t)errorBlock;
+                     successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                       errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
  User LogIn with social provider's token
@@ -76,21 +76,23 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
 + (QBRequest *)logInWithSocialProvider:(NSString *)provider
                            accessToken:(nullable NSString *)accessToken
                      accessTokenSecret:(nullable NSString *)accessTokenSecret
-                          successBlock:(nullable qb_response_user_block_t)successBlock
-                            errorBlock:(nullable qb_response_block_t)errorBlock;
+                          successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                            errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 /**
- *  User login using Twitter Digits.
- *
- *  @param headers      Taken from '-[DGTOAuthSigning OAuthEchoHeadersToVerifyCredentials]'.
- *  @param successBlock Block with response and user instances if request succeded.
- *  @param errorBlock   Block with response instance if request failed.
- *
- *  @return An instance of QBRequest for cancel operation mainly.
+ User login using Firebase (only phone number. See https://firebase.google.com/docs/auth/ios/phone-auth).
+ 
+ @param projectID Firebase project ID
+ @param accessToken Access token
+ @param successBlock Block with response and user instances if request succeded.
+ @param errorBlock Block with response instance if request failed.
+ @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logInWithTwitterDigitsAuthHeaders:(NSDictionary *)headers
-                                    successBlock:(nullable qb_response_user_block_t)successBlock
-                                      errorBlock:(nullable qb_response_block_t)errorBlock;
++ (QBRequest *)logInWithFirebaseProjectID:(NSString *)projectID
+                              accessToken:(NSString *)accessToken
+                             successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                               errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+
 
 //MARK: - LogOut
 
@@ -102,8 +104,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)logOutWithSuccessBlock:(nullable qb_response_block_t)successBlock
-                           errorBlock:(nullable qb_response_block_t)errorBlock;
++ (QBRequest *)logOutWithSuccessBlock:(nullable void (^)(QBResponse *response))successBlock
+                           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
 
 //MARK: - Create User
 
@@ -117,8 +119,24 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
 + (QBRequest *)signUp:(QBUUser *)user
-         successBlock:(nullable qb_response_user_block_t)successBlock
-           errorBlock:(nullable qb_response_block_t)errorBlock;
+         successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+           errorBlock:(nullable QBRequestErrorBlock)errorBlock;
+
+// MARK: - DEPRECATED
+
+/**
+ *  User login using Twitter Digits.
+ *
+ *  @param headers      Taken from '-[DGTOAuthSigning OAuthEchoHeadersToVerifyCredentials]'.
+ *  @param successBlock Block with response and user instances if request succeded.
+ *  @param errorBlock   Block with response instance if request failed.
+ *  @warning Deprecated in 2.9.3 Use 'logInWithFirebaseProjectID:accessToken:successBlock:errorBlock:'.
+ *  @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)logInWithTwitterDigitsAuthHeaders:(NSDictionary *)headers
+                                    successBlock:(nullable void (^)(QBResponse *response, QBUUser * _Nullable user))successBlock
+                                      errorBlock:(nullable QBRequestErrorBlock)errorBlock
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'logInWithFirebaseProjectID:accessToken:successBlock:errorBlock:'.");
 
 @end
 

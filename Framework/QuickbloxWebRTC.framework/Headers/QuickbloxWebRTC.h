@@ -24,6 +24,7 @@
 #import <QuickbloxWebRTC/QBRTCClient.h>
 #import <QuickbloxWebRTC/QBRTCBaseClientDelegate.h>
 #import <QuickbloxWebRTC/QBRTCClientDelegate.h>
+#import <QuickbloxWebRTC/QBRTCBaseSession.h>
 #import <QuickbloxWebRTC/QBRTCSession.h>
 #import <QuickbloxWebRTC/QBRTCBitrateTracker.h>
 #import <QuickbloxWebRTC/QBRTCStatsReport.h>
@@ -31,8 +32,8 @@
 #import <QuickbloxWebRTC/QBRTCAudioSessionConfiguration.h>
 #import <QuickbloxWebRTC/UIDevice+QBPerformance.h>
 #import <QuickbloxWebRTC/QBRTCTimer.h>
-#import <QuickbloxWebRTC/QBRTCFrameConverter.h>
 #import <QuickbloxWebRTC/QBRTCRemoteVideoView.h>
+#import <QuickbloxWebRTC/QBRTCRecorder.h>
 #import <QuickbloxWebRTC/RTCVideoRenderer.h>
 #import <QuickbloxWebRTC/RTCVideoFrame.h>
 
@@ -45,8 +46,8 @@
 #import <QuickbloxWebRTC/QBRTCConferenceSession.h>
 #import <QuickbloxWebRTC/QBRTCConferenceClientDelegate.h>
 
-//! Framework version 2.5
+//! Framework version 2.6.1
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCFrameworkVersion;
 
-//! WebRTC revision 17226
+//! WebRTC revision 18213
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCRevision;

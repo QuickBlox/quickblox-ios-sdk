@@ -1,5 +1,16 @@
 # QuickBlox 
-QuickBlox - Communication & cloud backend (BaaS) platform which brings superpowers to your mobile apps.
+Core SDK:
+[![CocoaPods](https://img.shields.io/cocoapods/v/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
+[![CocoaPods](https://img.shields.io/cocoapods/dm/QuickBlox.svg)](https://cocoapods.org/pods/QuickBlox)
+
+WebRTC SDK:
+[![CocoaPods](https://img.shields.io/cocoapods/v/Quickblox-WebRTC.svg)](https://cocoapods.org/pods/Quickblox-WebRTC)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/Quickblox-WebRTC.svg)](https://cocoapods.org/pods/Quickblox-WebRTC)
+[![CocoaPods](https://img.shields.io/cocoapods/dm/Quickblox-WebRTC.svg)](https://cocoapods.org/pods/Quickblox-WebRTC)
+
+<br>
+QuickBlox - Communication & cloud backend platform which brings superpowers to your mobile apps.
 
 QuickBlox is a suite of communication features & data services (APIs, SDKs, code samples, admin panel, tutorials) which help digital agencies, mobile developers and publishers to add great functionality to smartphone applications. 
 Please read full iOS SDK documentation on the [QuickBlox website, iOS section](http://quickblox.com/developers/IOS).
@@ -51,7 +62,7 @@ Choose sample you want to try, open it, launch. That's all.
 ## Documentation
 
 * [Project page on QuickBlox developers section](http://quickblox.com/developers/IOS)
-* [Framework reference in AppleDoc format](http://cocoadocs.org/docsets/QuickBlox/2.9.1/)
+* [Framework reference in AppleDoc format](http://cocoadocs.org/docsets/QuickBlox/)
 
 Detailed information for each sample is also available in *README.md* of each sample folder.
 

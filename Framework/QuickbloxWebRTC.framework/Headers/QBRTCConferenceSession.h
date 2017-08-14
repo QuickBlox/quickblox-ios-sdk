@@ -25,17 +25,17 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @see QBRTCConferenceClientDelegate
  */
-@property (nonatomic, strong, readonly, nullable) NSNumber *ID;
+@property (strong, nonatomic, readonly, nullable) NSNumber *ID;
 
 /**
  *  Session chat dialog ID.
  */
-@property (nonatomic, strong, readonly) NSString *chatDialogID;
+@property (strong, nonatomic, readonly) NSString *chatDialogID;
 
 /**
  *  Session current active publishers list.
  */
-@property (nonatomic, strong, readonly) NSArray <NSNumber *> *publishersList;
+@property (strong, nonatomic, readonly) NSArray <NSNumber *> *publishersList;
 
 /**
  *  Perform join room as publisher.
