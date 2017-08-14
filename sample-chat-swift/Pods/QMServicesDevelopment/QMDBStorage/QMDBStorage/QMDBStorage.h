@@ -7,56 +7,46 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QMCDRecord.h"
 
-#define CONTAINS(attrName, attrVal) [NSPredicate predicateWithFormat:@"self.%K CONTAINS %@", attrName, attrVal]
-#define LIKE(attrName, attrVal) [NSPredicate predicateWithFormat:@"%K like %@", attrName, attrVal]
-#define LIKE_C(attrName, attrVal) [NSPredicate predicateWithFormat:@"%K like[c] %@", attrName, attrVal]
 #define IS(attrName, attrVal) [NSPredicate predicateWithFormat:@"%K == %@", attrName, attrVal]
 
-#define START_LOG_TIME double startTime = CFAbsoluteTimeGetCurrent();
-#define END_LOG_TIME NSLog(@"%s %f", __PRETTY_FUNCTION__, CFAbsoluteTimeGetCurrent()-startTime);
+#define cd_dispatch_main_async_safe(block)\
+    if ([NSThread isMainThread]) {\
+        block();\
+    } else {\
+        dispatch_async(dispatch_get_main_queue(), block);\
+    }
 
-#define DO_AT_MAIN(x) dispatch_async(dispatch_get_main_queue(), ^{ x; });
-
-#import "QMCDRecord.h"
+NS_ASSUME_NONNULL_BEGIN
 
 @interface QMDBStorage : NSObject
 
-@property (strong, nonatomic, readonly) dispatch_queue_t queue;
-@property (strong, nonatomic, readonly) QMCDRecordStack *stack;
+@property (strong, nonatomic) QMCDRecordStack *stack;
 
 - (instancetype)initWithStoreNamed:(NSString *)storeName
                              model:(NSManagedObjectModel *)model
-                        queueLabel:(const char *)queueLabel
-        applicationGroupIdentifier:(NSString *)appGroupIdentifier;
+        applicationGroupIdentifier:(nullable NSString *)appGroupIdentifier;
 
-- (instancetype)initWithStoreNamed:(NSString *)storeName
-                             model:(NSManagedObjectModel *)model
-                        queueLabel:(const char *)queueLabel;
 /**
  * @brief Load CoreData(Sqlite) file
  * @param name - filename
  */
-
 + (void)setupDBWithStoreNamed:(NSString *)storeName;
+
++ (void)setupDBWithStoreNamed:(NSString *)storeName
+   applicationGroupIdentifier:(nullable NSString *)appGroupIdentifier;
 
 /**
  * @brief Clean data base with store name
  */
-
 + (void)cleanDBWithStoreName:(NSString *)name;
 
-/**
- * @brief Perform operation in CoreData thread
- */
-
-- (void)async:(void(^)(NSManagedObjectContext *context))block;
-- (void)sync:(void(^)(NSManagedObjectContext *context))block;
-
-/**
- * @brief Save to persistent store (async)
- */
-
-- (void)save:(dispatch_block_t)completion;
+- (void)performBackgroundQueue:(void (^)(NSManagedObjectContext *ctx))block;
+- (void)performMainQueue:(void (^)(NSManagedObjectContext *ctx))block;
+- (void)save:(void (^)(NSManagedObjectContext *ctx))block
+      finish:(dispatch_block_t)finish;
 
 @end
+
+NS_ASSUME_NONNULL_END

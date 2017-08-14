@@ -28,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (strong, nonatomic, readonly, nullable) QBChatDialog *dialog;
 @property (assign, nonatomic) QMDialogUpdateType dialogUpdateType;
-@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSNumber *) *currentOccupantsIDs;
-@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSNumber *) *addedOccupantsIDs;
-@property (strong, nonatomic, nullable) NSArray QB_GENERIC(NSNumber *) *deletedOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray<NSNumber *> *currentOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray<NSNumber *> *addedOccupantsIDs;
+@property (strong, nonatomic, nullable) NSArray<NSNumber *> *deletedOccupantsIDs;
 @property (strong, nonatomic, nullable) NSString *dialogName;
 @property (strong, nonatomic, nullable) NSString *dialogPhoto;
 @property (strong, nonatomic, nullable) NSDate *dialogUpdatedAt;

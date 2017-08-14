@@ -98,14 +98,14 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         
         self.observer = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { (notification) -> Void in
             
-            if !QBChat.instance().isConnected {
+            if !QBChat.instance.isConnected {
                 SVProgressHUD.show(withStatus: "SA_STR_CONNECTING_TO_CHAT".localized, maskType: SVProgressHUDMaskType.clear)
             }
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(DialogsViewController.didEnterBackgroundNotification), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         
-        if (QBChat.instance().isConnected) {
+        if (QBChat.instance.isConnected) {
             self.getDialogs()
         }
      
@@ -143,7 +143,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     @IBAction func logoutAction() {
         
-        if !QBChat.instance().isConnected {
+        if !QBChat.instance.isConnected {
 
             SVProgressHUD.showError(withStatus: "Error")
             return

@@ -14,20 +14,33 @@
 
 - (void)updateWithQBContactListItem:(QBContactListItem *)contactListItem {
     
-    self.userID = @(contactListItem.userID);
-    self.subscriptionState = @(contactListItem.subscriptionState);
+    if (self.subscriptionStateValue != contactListItem.subscriptionState) {
+        self.subscriptionStateValue = contactListItem.subscriptionState;
+    }
+    
+    if (self.userIDValue != contactListItem.userID) {
+        self.userIDValue = contactListItem.userID;
+    }
 }
 
-- (BOOL)isEqualQBContactListItem:(QBContactListItem *)other {
+@end
+
+@implementation NSArray(CDContactListItemConverter)
+
+- (NSArray<QBContactListItem *> *)toQBContactListItems {
     
-    if (self.userID.integerValue != other.userID) {
-        return NO;
+    NSMutableArray<QBContactListItem *> *contactListItems =
+    [NSMutableArray arrayWithCapacity:self.count];
+    
+    for (CDContactListItem *item in self) {
+        
+        QBContactListItem *result = [item toQBContactListItem];
+        [contactListItems addObject:result];
     }
-    else if (self.subscriptionState.integerValue != other.subscriptionState) {
-        return NO;
-    }else {
-        return YES;
-    }
+    
+    return [contactListItems copy];
+    
 }
+
 
 @end

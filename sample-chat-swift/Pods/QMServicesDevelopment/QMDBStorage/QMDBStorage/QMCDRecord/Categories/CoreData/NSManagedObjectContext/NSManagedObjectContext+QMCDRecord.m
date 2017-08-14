@@ -15,7 +15,6 @@ NSString * QM_concurrencyStringFromType(NSManagedObjectContextConcurrencyType ty
 {
     if (type == NSPrivateQueueConcurrencyType) { return @"Private Queue"; }
     if (type == NSMainQueueConcurrencyType) { return @"Main Queue"; }
-    if (type == NSConfinementConcurrencyType) {return @"Confinement"; }
 
     return @"Unknown Concurrency";
 }
@@ -26,19 +25,19 @@ static NSString * const kQMCDRecordNSManagedObjectContextWorkingName = @"kNSMana
 
 @implementation NSManagedObjectContext (QMCDRecord)
 
-- (NSString *) QM_description;
+- (NSString *)QM_description;
 {
     NSString *onMainThread = [NSThread isMainThread] ? @"*** MAIN THREAD ***" : @"*** BACKGROUND THREAD ***";
 
     return [NSString stringWithFormat:@"%@ on %@", [self QM_workingName], onMainThread];
 }
 
-- (NSString *) QM_debugDescription;
+- (NSString *)QM_debugDescription;
 {
     return [NSString stringWithFormat:@"<%@ (%p)> %@ (%@ Concurrency)", NSStringFromClass([self class]), self, [self QM_description], QM_concurrencyStringFromType([self concurrencyType])];
 }
 
-- (NSString *) QM_parentChain;
+- (NSString *)QM_parentChain;
 {
     NSMutableString *familyTree = [@"\n" mutableCopy];
     NSManagedObjectContext *currentContext = self;
@@ -51,7 +50,7 @@ static NSString * const kQMCDRecordNSManagedObjectContextWorkingName = @"kNSMana
     return [NSString stringWithString:familyTree];
 }
 
-- (void) QM_obtainPermanentIDsForObjects:(NSArray *)objects;
+- (void)QM_obtainPermanentIDsForObjects:(NSArray *)objects;
 {
     NSError *error = nil;
     BOOL success = [self obtainPermanentIDsForObjects:objects error:&error];
@@ -61,40 +60,26 @@ static NSString * const kQMCDRecordNSManagedObjectContextWorkingName = @"kNSMana
     }
 }
 
-+ (NSManagedObjectContext *) QM_context;
++ (NSManagedObjectContext *)QM_context;
 {
     return [self QM_privateQueueContext];
 }
 
-+ (NSManagedObjectContext *) QM_confinementContext;
-{
-    NSManagedObjectContext *context = [[self alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
-    [context QM_setWorkingName:@"Confinement"];
-    return context;
-}
-
-+ (NSManagedObjectContext *) QM_confinementContextWithParent:(NSManagedObjectContext *)parentContext;
-{
-    NSManagedObjectContext *context = [self QM_confinementContext];
-    [context setParentContext:parentContext];
-    return context;
-}
-
-+ (NSManagedObjectContext *) QM_mainQueueContext;
++ (NSManagedObjectContext *)QM_mainQueueContext;
 {
     NSManagedObjectContext *context = [[self alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [context QM_setWorkingName:@"Main Queue"];
     return context;
 }
 
-+ (NSManagedObjectContext *) QM_privateQueueContext;
++ (NSManagedObjectContext *)QM_privateQueueContext;
 {
     NSManagedObjectContext *context = [[self alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [context QM_setWorkingName:@"Private Queue"];
     return context;
 }
 
-+ (NSManagedObjectContext *) QM_privateQueueContextWithStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator;
++ (NSManagedObjectContext *)QM_privateQueueContextWithStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator;
 {
 	NSManagedObjectContext *context = nil;
     if (coordinator != nil)
@@ -110,12 +95,12 @@ static NSString * const kQMCDRecordNSManagedObjectContextWorkingName = @"kNSMana
     return context;
 }
 
-- (void) QM_setWorkingName:(NSString *)workingName;
+- (void)QM_setWorkingName:(NSString *)workingName;
 {
     [[self userInfo] setObject:workingName forKey:kQMCDRecordNSManagedObjectContextWorkingName];
 }
 
-- (NSString *) QM_workingName;
+- (NSString *)QM_workingName;
 {
     NSString *workingName = [[self userInfo] objectForKey:kQMCDRecordNSManagedObjectContextWorkingName];
     if ([workingName length] == 0)

@@ -22,34 +22,34 @@
 
  @return Dictionary containing entries from both dictionaries.
  */
-- (NSMutableDictionary *) QM_dictionaryByMergingDictionary:(NSDictionary *)dictionary;
+- (NSMutableDictionary *)QM_dictionaryByMergingDictionary:(NSDictionary *)dictionary;
 
 /**
  Default SQLite store options for setting up a persistent store.
 
  @return Dictionary containing default options for a SQLite-based store.
  */
-+ (NSDictionary *) QM_defaultSqliteStoreOptions;
++ (NSDictionary *)QM_defaultSqliteStoreOptions;
 
 /**
  Setup options for a persistent store that specify that the store should be automatically migrated if possible.
 
  @return Dictionary containing options for a persistent store.
  */
-+ (NSDictionary *) QM_autoMigrationOptions;
++ (NSDictionary *)QM_autoMigrationOptions;
 
 /**
  Setup options for a persistent store that specify that the store should not be automatically migrated.
 
  @return Dictionary containing options for a persistent store.
  */
-+ (NSDictionary *) QM_manualMigrationOptions;
++ (NSDictionary *)QM_manualMigrationOptions;
 
 /**
  Convenience method to read the value for the `QMCDRecordShouldDeletePersistentStoreOnModelMismatchKey` key from self and return the value as a BOOL.
 
  @return BOOL value for key.
  */
-- (BOOL) QM_shouldDeletePersistentStoreOnModelMismatch;
+- (BOOL)QM_shouldDeletePersistentStoreOnModelMismatch;
 
 @end

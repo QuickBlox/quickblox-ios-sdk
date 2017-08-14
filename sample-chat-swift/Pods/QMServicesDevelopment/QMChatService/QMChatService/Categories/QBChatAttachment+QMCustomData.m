@@ -14,7 +14,8 @@
 
 - (NSMutableDictionary *)context {
     
-    NSMutableDictionary *context = objc_getAssociatedObject(self, @selector(context));
+    NSMutableDictionary *context =
+    objc_getAssociatedObject(self, @selector(context));
     
     if (!context) {
         
@@ -27,7 +28,8 @@
 
 - (void)setContext:(NSMutableDictionary *)context {
     
-    objc_setAssociatedObject(self, @selector(context), context, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(context),
+                             context, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)synchronize {
@@ -47,7 +49,7 @@
                                       encoding:NSUTF8StringEncoding];
 }
 
-#pragma mark - Private
+//MARK: - Private
 
 - (NSMutableDictionary *)_jsonObject {
     
@@ -56,10 +58,10 @@
     
     if (jsonData) {
         
-        NSDictionary *representationObject = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                             options:0
-                                                                               error:&error];
-        
+        NSDictionary *representationObject =
+        [NSJSONSerialization JSONObjectWithData:jsonData
+                                        options:0
+                                          error:&error];
         if (error != nil) {
             
             QMSLog(@"Error serializing JSON to data: %@", error);
@@ -67,10 +69,10 @@
         }
         
         NSMutableDictionary *mutableObject = [representationObject mutableCopy];
-        
         // removing possible null values
-        [representationObject enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL * __unused stop) {
-            
+        [representationObject enumerateKeysAndObjectsUsingBlock:^(id key,
+                                                                  id obj,
+                                                                  BOOL * __unused stop) {
             if (obj == [NSNull null]) {
                 
                 [mutableObject removeObjectForKey:key];
@@ -81,7 +83,7 @@
     }
     else {
         
-        return [[NSMutableDictionary alloc] init];
+        return [NSMutableDictionary dictionary];
     }
 }
 

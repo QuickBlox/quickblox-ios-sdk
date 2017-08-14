@@ -32,11 +32,11 @@
     return mom;
 }
 
-+ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName inBundleNamed:(NSString *)bundleName fromClass:(Class)class
++ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName inBundleNamed:(NSString *)bundleName fromClass:(Class)aClass
 {
-    NSString *path = [[NSBundle bundleForClass:class] pathForResource:[modelName stringByDeletingPathExtension]
-                                                               ofType:[modelName pathExtension]
-                                                          inDirectory:bundleName];
+    NSString *path = [[NSBundle bundleForClass:aClass] pathForResource:[modelName stringByDeletingPathExtension]
+                                                                ofType:[modelName pathExtension]
+                                                           inDirectory:bundleName];
     
     NSURL *modelUrl = [NSURL fileURLWithPath:path];
     

@@ -16,15 +16,15 @@ class UsersListTableViewController: UITableViewController {
         super.viewDidLoad()
 		
         // Fetching users from cache.
-        ServicesManager.instance().usersService.loadFromCache().continue ({ (task) -> Any? in
+        
+        let users = ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers()
             
             
-            if task.result?.count ?? 0 > 0 {
+            if users.count > 0 {
                 
                 guard let users = ServicesManager.instance().sortedUsers() else {
-                    
                     print("No cached users")
-                    return nil
+                    return
                 }
                 
                 self.setupUsers(users: users)
@@ -53,9 +53,7 @@ class UsersListTableViewController: UITableViewController {
                         SVProgressHUD.showError(withStatus: error.localizedDescription)
                 })
             }
-            
-            return nil
-        })
+        
     }
     
     // MARK: UITableViewDataSource

@@ -14,7 +14,7 @@
 
 @interface QMChatCollectionViewFlowLayout()
 
-@property (strong, nonatomic) NSCache *cache;
+@property (strong, nonatomic) NSMutableDictionary *cache;
 
 @end
 
@@ -27,7 +27,7 @@
     return (id)self.collectionView;
 }
 
-#pragma mark - Initialization
+//MARK: - Initialization
 
 - (void)configureFlowLayout {
     
@@ -48,9 +48,7 @@
     /**
      *  Init cache
      */
-    self.cache = [[NSCache alloc] init];
-    self.cache.countLimit = 300;
-    self.cache.name = @"com.qm.chat.sizes";
+    self.cache = [[NSMutableDictionary alloc] init];
 }
 
 - (instancetype)init {
@@ -91,17 +89,7 @@
     return CGRectGetWidth(self.collectionView.frame) - self.sectionInset.left - self.sectionInset.right;
 }
 
-- (void)setCacheLimit:(NSUInteger)cacheLimit {
-
-    self.cache.countLimit = cacheLimit;
-}
-
-- (NSUInteger)cacheLimit {
-
-    return self.cache.countLimit;
-}
-
-#pragma mark - Notifications
+//MARK: - Notifications
 
 - (void)didReceiveApplicationMemoryWarningNotification:(NSNotification *)notification {
     
@@ -114,7 +102,7 @@
     [self invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
 }
 
-#pragma mark - Collection view flow layout
+//MARK: - Collection view flow layout
 
 - (void)invalidateLayoutWithContext:(QMCollectionViewFlowLayoutInvalidationContext *)context {
     
@@ -165,7 +153,6 @@
 
     return CGRectGetWidth(newBounds) > CGRectGetWidth(oldBounds) ||
     CGRectGetWidth(newBounds) < CGRectGetWidth(oldBounds);
-
 }
 
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
@@ -195,13 +182,13 @@
     }];
 }
 
-#pragma mark - Invalidation utilities
+//MARK:- Invalidation utilities
 
 - (void)resetLayout {
     [self.cache removeAllObjects];
 }
 
-#pragma mark - Message cell layout utilities
+//MARK: - Message cell layout utilities
 
 - (void)removeSizeFromCacheForItemID:(NSString *)itemID {
     [self.cache removeObjectForKey:itemID];
@@ -248,7 +235,7 @@
         
         CGFloat additionalSpace = layoutModel.spaceBetweenTextViewAndBottomLabel + layoutModel.spaceBetweenTopLabelAndTextView;
         
-        CGFloat finalWidth = dynamicSize.width + horizontalInsetsTotal;
+        CGFloat finalWidth = dynamicSize.width + horizontalContainerInsets;
         
         CGFloat cellHeight = dynamicSize.height + verticalContainerInsets + additionalSpace;
         CGFloat finalCellHeight = MAX(cellHeight, layoutModel.avatarSize.height);

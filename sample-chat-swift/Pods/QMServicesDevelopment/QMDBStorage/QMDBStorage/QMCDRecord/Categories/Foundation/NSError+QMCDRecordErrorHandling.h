@@ -20,7 +20,7 @@
 
  @since Available in v3.0 and later.
  */
-- (void) QM_logToConsole;
+- (void)QM_logToConsole;
 
 @end
 
@@ -38,7 +38,7 @@
 
  @since Available in v3.0 and later.
  */
-- (NSString *) QM_coreDataDescription;
+- (NSString *)QM_coreDataDescription;
 
 @end
 

@@ -219,7 +219,7 @@
         
         let dialogMessage = isNewDialog ? "SA_STR_CREATE_NEW".localized : "SA_STR_ADDED".localized
         
-        var message: String = "\(QBSession.current().currentUser!.login!) " + dialogMessage + " "
+        var message: String = "\(QBSession.current.currentUser!.login!) " + dialogMessage + " "
         for user: QBUUser in users {
             message = "\(message)\(user.login!),"
         }

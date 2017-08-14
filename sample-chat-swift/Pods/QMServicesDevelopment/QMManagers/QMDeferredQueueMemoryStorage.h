@@ -14,17 +14,45 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QMDeferredQueueMemoryStorage : NSObject <QMMemoryStorageProtocol>
 
+/**
+ Add message to memory storage
+
+ @param message QBChatMessage instance
+ */
 - (void)addMessage:(QBChatMessage *)message;
 
+/**
+ Remove message from memory storage
+ 
+ @param message QBChatMessage instance
+ */
 - (void)removeMessage:(QBChatMessage *)message;
 
-- (void)addMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
-- (void)removeMessages:(NSArray QB_GENERIC(QBChatMessage *) *)messages;
+/**
+ Check message is contains in memory storage
 
+ @param message QBChatMessage instance
+ @return return YES if message containts in memory storage
+ */
 - (BOOL)containsMessage:(QBChatMessage *)message;
 
-- (NSArray QB_GENERIC(QBChatMessage *) *)messages;
-- (NSArray QB_GENERIC(QBChatMessage *) *)messagesSortedWithDescriptors:(NSArray QB_GENERIC(NSSortDescriptor*) *)descriptors;
+//MARK: Filters
+
+/**
+ Get messages sorted by dateSent
+
+ @return Array of QBChatMessage's
+ */
+- (NSArray<QBChatMessage *> *)messages;
+
+
+/**
+ Get sorted messages using descriptors
+
+ @param descriptors Array of NSSortDescriptor
+ @return Array of QBChatMessage's
+ */
+- (NSArray<QBChatMessage *> *)sortedMessagesUsingDescriptors:(NSArray <NSSortDescriptor *> *)descriptors;
 
 @end
 

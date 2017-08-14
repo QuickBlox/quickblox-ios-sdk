@@ -204,10 +204,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func sendReadStatusForMessage(message: QBChatMessage) {
         
-        guard QBSession.current().currentUser != nil else {
+        guard QBSession.current.currentUser != nil else {
             return
         }
-        guard message.senderID != QBSession.current().currentUser?.id else {
+        guard message.senderID != QBSession.current.currentUser?.id else {
             return
         }
         
@@ -229,7 +229,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func messageShouldBeRead(message: QBChatMessage) -> Bool {
         
-        let currentUserID = NSNumber(value: QBSession.current().currentUser!.id as UInt)
+        let currentUserID = NSNumber(value: QBSession.current.currentUser!.id as UInt)
         
         return !message.isDateDividerMessage
             && message.senderID != self.senderID
@@ -238,7 +238,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     func readMessages(messages: [QBChatMessage]) {
         
-        if QBChat.instance().isConnected {
+        if QBChat.instance.isConnected {
             
             ServicesManager.instance().chatService.read(messages, forDialogID: self.dialog.id!, completion: nil)
         }
@@ -1105,7 +1105,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             return false
         }
         
-        if !QBChat.instance().isConnected { return true }
+        if !QBChat.instance.isConnected { return true }
         
         if let timer = self.typingTimer {
             timer.invalidate()

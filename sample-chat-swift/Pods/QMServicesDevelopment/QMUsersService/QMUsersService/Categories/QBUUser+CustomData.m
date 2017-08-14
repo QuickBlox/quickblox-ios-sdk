@@ -14,15 +14,7 @@ NSString *const kQMAvatarUrlKey = @"avatar_url";
 NSString *const kQMStatusKey = @"status";
 NSString *const kQMIsImportKey = @"is_import";
 
-@interface QBUUser (QMAssociatedObject)
-
-@property (strong, nonatomic, readwrite) NSMutableDictionary *context;
-
-@end
-
 @implementation QBUUser (QMAssociatedObject)
-
-@dynamic context;
 
 - (NSMutableDictionary *)context {
     
@@ -31,15 +23,10 @@ NSString *const kQMIsImportKey = @"is_import";
     if (!context) {
         
         context = self.jsonObject;
-        [self setContext:context];
+        objc_setAssociatedObject(self, @selector(context), context, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     return context;
-}
-
-- (void)setContext:(NSMutableDictionary *)context {
-    
-    objc_setAssociatedObject(self, @selector(context), context, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSMutableDictionary *)jsonObject {
@@ -103,7 +90,7 @@ NSString *const kQMIsImportKey = @"is_import";
 @dynamic status;
 @dynamic isImport;
 
-#pragma mark - Is import
+//MARK: - Is import
 
 - (void)setIsImport:(BOOL)isImport {
     
@@ -117,7 +104,7 @@ NSString *const kQMIsImportKey = @"is_import";
     return isImprot.boolValue;
 }
 
-#pragma mark - Status
+//MARK: - Status
 
 - (void)setStatus:(NSString *)status {
     
@@ -130,7 +117,7 @@ NSString *const kQMIsImportKey = @"is_import";
     return self.context[kQMStatusKey];
 }
 
-#pragma mark - Avatar url
+//MARK: - Avatar url
 
 - (void)setAvatarUrl:(NSString *)avatarUrl {
     

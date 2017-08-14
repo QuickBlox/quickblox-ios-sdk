@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface _CDUser : NSManagedObject
 + (instancetype)insertInManagedObjectContext:(NSManagedObjectContext *)moc_;
 + (NSString*)entityName;
-+ (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
++ (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) CDUserID *objectID;
 
 @property (nonatomic, strong, nullable) NSNumber* blobID;
@@ -66,59 +66,59 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface _CDUser (CoreDataGeneratedPrimitiveAccessors)
 
-- (NSNumber*)primitiveBlobID;
-- (void)setPrimitiveBlobID:(NSNumber*)value;
+- (nullable NSNumber*)primitiveBlobID;
+- (void)setPrimitiveBlobID:(nullable NSNumber*)value;
 
 - (int32_t)primitiveBlobIDValue;
 - (void)setPrimitiveBlobIDValue:(int32_t)value_;
 
-- (NSDate*)primitiveCreatedAt;
-- (void)setPrimitiveCreatedAt:(NSDate*)value;
+- (nullable NSDate*)primitiveCreatedAt;
+- (void)setPrimitiveCreatedAt:(nullable NSDate*)value;
 
-- (NSString*)primitiveCustomData;
-- (void)setPrimitiveCustomData:(NSString*)value;
+- (nullable NSString*)primitiveCustomData;
+- (void)setPrimitiveCustomData:(nullable NSString*)value;
 
-- (NSString*)primitiveEmail;
-- (void)setPrimitiveEmail:(NSString*)value;
+- (nullable NSString*)primitiveEmail;
+- (void)setPrimitiveEmail:(nullable NSString*)value;
 
-- (NSNumber*)primitiveExternalUserID;
-- (void)setPrimitiveExternalUserID:(NSNumber*)value;
+- (nullable NSNumber*)primitiveExternalUserID;
+- (void)setPrimitiveExternalUserID:(nullable NSNumber*)value;
 
 - (int32_t)primitiveExternalUserIDValue;
 - (void)setPrimitiveExternalUserIDValue:(int32_t)value_;
 
-- (NSString*)primitiveFacebookID;
-- (void)setPrimitiveFacebookID:(NSString*)value;
+- (nullable NSString*)primitiveFacebookID;
+- (void)setPrimitiveFacebookID:(nullable NSString*)value;
 
-- (NSString*)primitiveFullName;
-- (void)setPrimitiveFullName:(NSString*)value;
+- (nullable NSString*)primitiveFullName;
+- (void)setPrimitiveFullName:(nullable NSString*)value;
 
-- (NSNumber*)primitiveId;
-- (void)setPrimitiveId:(NSNumber*)value;
+- (nullable NSNumber*)primitiveId;
+- (void)setPrimitiveId:(nullable NSNumber*)value;
 
 - (int32_t)primitiveIdValue;
 - (void)setPrimitiveIdValue:(int32_t)value_;
 
-- (NSDate*)primitiveLastRequestAt;
-- (void)setPrimitiveLastRequestAt:(NSDate*)value;
+- (nullable NSDate*)primitiveLastRequestAt;
+- (void)setPrimitiveLastRequestAt:(nullable NSDate*)value;
 
-- (NSString*)primitiveLogin;
-- (void)setPrimitiveLogin:(NSString*)value;
+- (nullable NSString*)primitiveLogin;
+- (void)setPrimitiveLogin:(nullable NSString*)value;
 
-- (NSString*)primitivePhone;
-- (void)setPrimitivePhone:(NSString*)value;
+- (nullable NSString*)primitivePhone;
+- (void)setPrimitivePhone:(nullable NSString*)value;
 
-- (NSString*)primitiveTags;
-- (void)setPrimitiveTags:(NSString*)value;
+- (nullable NSString*)primitiveTags;
+- (void)setPrimitiveTags:(nullable NSString*)value;
 
-- (NSString*)primitiveTwitterID;
-- (void)setPrimitiveTwitterID:(NSString*)value;
+- (nullable NSString*)primitiveTwitterID;
+- (void)setPrimitiveTwitterID:(nullable NSString*)value;
 
-- (NSDate*)primitiveUpdatedAt;
-- (void)setPrimitiveUpdatedAt:(NSDate*)value;
+- (nullable NSDate*)primitiveUpdatedAt;
+- (void)setPrimitiveUpdatedAt:(nullable NSDate*)value;
 
-- (NSString*)primitiveWebsite;
-- (void)setPrimitiveWebsite:(NSString*)value;
+- (nullable NSString*)primitiveWebsite;
+- (void)setPrimitiveWebsite:(nullable NSString*)value;
 
 @end
 

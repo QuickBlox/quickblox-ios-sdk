@@ -50,7 +50,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 
 @implementation QMChatCell
 
-#pragma mark - Class methods
+//MARK: - Class methods
 
 + (void)initialize {
     
@@ -79,22 +79,23 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     [super awakeFromNib];
     
     self.avatarView.delegate = self;
+    self.contentView.opaque = YES;
     
     self.translatesAutoresizingMaskIntoConstraints = NO;
 	
-    self.messageContainerTopInsetConstraint.constant = 0;
-    self.messageContainerLeftInsetConstraint.constant = 0;
-    self.messageContainerBottomInsetConstraint.constant = 0;
-    self.messageContainerRightInsetConstraint.constant = 0;
+    _messageContainerTopInsetConstraint.constant = 0;
+    _messageContainerLeftInsetConstraint.constant = 0;
+    _messageContainerBottomInsetConstraint.constant = 0;
+    _messageContainerRightInsetConstraint.constant = 0;
     
-    self.avatarContainerViewWidthConstraint.constant = 0;
-    self.avatarContainerViewHeightConstraint.constant = 0;
+    _avatarContainerViewWidthConstraint.constant = 0;
+    _avatarContainerViewHeightConstraint.constant = 0;
     
-    self.topLabelHeightConstraint.constant = 0;
-    self.bottomLabelHeightConstraint.constant = 0;
+    _topLabelHeightConstraint.constant = 0;
+    _bottomLabelHeightConstraint.constant = 0;
     
-    self.topLabelTextViewVerticalSpaceConstraint.constant = 0;
-    self.textViewBottomLabelVerticalSpaceConstraint.constant = 0;
+    _topLabelTextViewVerticalSpaceConstraint.constant = 0;
+    _textViewBottomLabelVerticalSpaceConstraint.constant = 0;
     
 #if Q_DEBUG_COLORS == 0
     self.backgroundColor = [UIColor clearColor];
@@ -105,6 +106,10 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     self.containerView.backgroundColor = [UIColor clearColor];
     self.avatarView.backgroundColor = [UIColor clearColor];
 #endif
+    [_topLabel.layer setDrawsAsynchronously:YES];
+    [_textView.layer setDrawsAsynchronously:YES];
+    [_bottomLabel.layer setDrawsAsynchronously:YES];
+    [self.layer setDrawsAsynchronously:YES];
     
     UITapGestureRecognizer *tap =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -113,38 +118,47 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     self.tapGestureRecognizer = tap;
 }
 
-- (void)prepareForReuse {
-    
-    [super prepareForReuse];
-}
-
 - (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
     return layoutAttributes;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
 
-    [super applyLayoutAttributes:layoutAttributes];
-
     QMChatCellLayoutAttributes *customAttributes = (id)layoutAttributes;
     
-    [self updateConstraint:self.avatarContainerViewHeightConstraint withConstant:customAttributes.avatarSize.height];
-    [self updateConstraint:self.avatarContainerViewWidthConstraint withConstant:customAttributes.avatarSize.width];
-    [self.avatarView layoutIfNeeded];
+    [self updateConstraint:self.avatarContainerViewHeightConstraint
+              withConstant:customAttributes.avatarSize.height];
+    
+    [self updateConstraint:self.avatarContainerViewWidthConstraint
+              withConstant:customAttributes.avatarSize.width];
 
-    [self updateConstraint:self.topLabelHeightConstraint withConstant:customAttributes.topLabelHeight];
-    [self updateConstraint:self.bottomLabelHeightConstraint withConstant:customAttributes.bottomLabelHeight];
+    [self updateConstraint:self.topLabelHeightConstraint
+              withConstant:customAttributes.topLabelHeight];
     
-    [self updateConstraint:self.messageContainerTopInsetConstraint withConstant:customAttributes.containerInsets.top];
-    [self updateConstraint:self.messageContainerLeftInsetConstraint withConstant:customAttributes.containerInsets.left];
-    [self updateConstraint:self.messageContainerBottomInsetConstraint withConstant:customAttributes.containerInsets.bottom];
-    [self updateConstraint:self.messageContainerRightInsetConstraint withConstant:customAttributes.containerInsets.right];
+    [self updateConstraint:self.bottomLabelHeightConstraint
+              withConstant:customAttributes.bottomLabelHeight];
     
-    [self updateConstraint:self.topLabelTextViewVerticalSpaceConstraint withConstant:customAttributes.spaceBetweenTopLabelAndTextView];
-    [self updateConstraint:self.textViewBottomLabelVerticalSpaceConstraint withConstant:customAttributes.spaceBetweenTextViewAndBottomLabel];
+    [self updateConstraint:self.messageContainerTopInsetConstraint
+              withConstant:customAttributes.containerInsets.top];
+    
+    [self updateConstraint:self.messageContainerLeftInsetConstraint
+              withConstant:customAttributes.containerInsets.left];
+    
+    [self updateConstraint:self.messageContainerBottomInsetConstraint
+              withConstant:customAttributes.containerInsets.bottom];
+    
+    [self updateConstraint:self.messageContainerRightInsetConstraint
+              withConstant:customAttributes.containerInsets.right];
+    
+    [self updateConstraint:self.topLabelTextViewVerticalSpaceConstraint
+              withConstant:customAttributes.spaceBetweenTopLabelAndTextView];
+    
+    [self updateConstraint:self.textViewBottomLabelVerticalSpaceConstraint
+              withConstant:customAttributes.spaceBetweenTextViewAndBottomLabel];
 	
-    [self updateConstraint:self.containerWidthConstraint withConstant:customAttributes.containerSize.width];
-	
+    [self updateConstraint:self.containerWidthConstraint
+              withConstant:customAttributes.containerSize.width];
+    
     [self layoutIfNeeded];
 }
 
@@ -166,12 +180,6 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     }
 }
 
-- (void)setHighlighted:(BOOL)highlighted {
-    
-    [super setHighlighted:highlighted];
-    self.containerView.highlighted = highlighted;
-}
-
 - (void)setSelected:(BOOL)selected {
     
     [super setSelected:selected];
@@ -179,7 +187,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 }
 
 
-#pragma mark - Menu actions
+//MARK: - Menu actions
 
 - (BOOL)respondsToSelector:(SEL)aSelector {
     
@@ -218,7 +226,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     return [super methodSignatureForSelector:aSelector];
 }
 
-#pragma mark - Gesture recognizers
+//MARK: - Gesture recognizers
 
 - (void)imageViewDidTap:(QMImageView *)imageView {
     
@@ -284,14 +292,14 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     return YES;
 }
 
-#pragma mark - Layout model
+//MARK: - Layout model
 
 + (QMChatCellLayoutModel)layoutModel {
     
     QMChatCellLayoutModel defaultLayoutModel = {
 
         .avatarSize = CGSizeMake(30, 30),
-        .containerInsets = UIEdgeInsetsMake(4, 5, 4, 5),
+        .containerInsets = UIEdgeInsetsMake(4, 0, 4, 5),
         .containerSize = CGSizeZero,
         .topLabelHeight = 17,
         .bottomLabelHeight = 14,

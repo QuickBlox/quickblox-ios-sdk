@@ -34,11 +34,6 @@
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 		return keyPaths;
 	}
-	if ([key isEqualToString:@"isReadValue"]) {
-		NSSet *affectingKey = [NSSet setWithObject:@"isRead"];
-		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
-		return keyPaths;
-	}
 	if ([key isEqualToString:@"recipientIDValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"recipientID"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -82,26 +77,6 @@
 @dynamic deliveredIDs;
 
 @dynamic dialogID;
-
-@dynamic isRead;
-
-- (BOOL)isReadValue {
-	NSNumber *result = [self isRead];
-	return [result boolValue];
-}
-
-- (void)setIsReadValue:(BOOL)value_ {
-	[self setIsRead:@(value_)];
-}
-
-- (BOOL)primitiveIsReadValue {
-	NSNumber *result = [self primitiveIsRead];
-	return [result boolValue];
-}
-
-- (void)setPrimitiveIsReadValue:(BOOL)value_ {
-	[self setPrimitiveIsRead:@(value_)];
-}
 
 @dynamic messageID;
 
@@ -186,9 +161,6 @@
 }
 + (NSString *)dialogID {
 	return @"dialogID";
-}
-+ (NSString *)isRead {
-	return @"isRead";
 }
 + (NSString *)messageID {
 	return @"messageID";

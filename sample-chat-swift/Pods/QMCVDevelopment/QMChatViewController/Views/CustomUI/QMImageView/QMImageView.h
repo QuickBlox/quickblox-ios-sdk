@@ -29,18 +29,15 @@ typedef NS_ENUM(NSUInteger, QMImageViewType) {
 
 - (void)setImage:(UIImage *)image withKey:(NSString *)key;
 
-- (void)applyImage:(UIImage *)image;
-
 - (void)setImageWithURL:(NSURL *)url
             placeholder:(UIImage *)placehoder
                 options:(SDWebImageOptions)options
                progress:(SDWebImageDownloaderProgressBlock)progress
          completedBlock:(SDWebImageCompletionBlock)completedBlock;
 
-/**
- *  Clear current image view instance from image.
- */
-- (void)clearImage;
+- (void)setImageWithURL:(NSURL *)url
+                  title:(NSString *)title
+         completedBlock:(SDWebImageCompletionBlock)completedBlock;
 
 @end
 

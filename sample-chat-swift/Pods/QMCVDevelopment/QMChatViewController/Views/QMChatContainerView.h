@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-IB_DESIGNABLE
 /**
  *  Customisable chat container view.
  */

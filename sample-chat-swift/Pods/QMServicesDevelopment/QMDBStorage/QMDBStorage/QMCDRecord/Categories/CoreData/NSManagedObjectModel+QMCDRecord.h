@@ -13,6 +13,6 @@
 + (NSManagedObjectModel *)QM_mergedObjectModelFromMainBundle;
 + (NSManagedObjectModel *)QM_managedObjectModelNamed:(NSString *)modelFileName;
 + (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName inBundleNamed:(NSString *)bundleName NS_RETURNS_RETAINED;
-+ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName inBundleNamed:(NSString *)bundleName fromClass:(Class)class NS_RETURNS_RETAINED;
++ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName inBundleNamed:(NSString *)bundleName fromClass:(Class)aClass NS_RETURNS_RETAINED;
 
 @end

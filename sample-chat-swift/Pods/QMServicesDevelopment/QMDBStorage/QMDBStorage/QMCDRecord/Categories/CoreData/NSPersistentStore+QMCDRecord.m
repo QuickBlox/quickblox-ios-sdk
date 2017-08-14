@@ -13,16 +13,16 @@
 
 @implementation NSPersistentStore (QMCDRecord)
 
-+ (NSURL *) QM_defaultLocalStoreUrl;
++ (NSURL *)QM_defaultLocalStoreUrl;
 {
     return [self QM_fileURLForStoreName:[QMCDRecord defaultStoreName]];
 }
 
-+ (NSURL *) QM_fileURLForStoreName:(NSString *)storeFileName {
++ (NSURL *)QM_fileURLForStoreName:(NSString *)storeFileName {
     return [self QM_fileURLForStoreName:storeFileName applicationGroupIdentifier:nil];
 }
 
-+ (NSURL *) QM_fileURLForStoreName:(NSString *)storeFileName applicationGroupIdentifier:(NSString *)appGroupIdentifier
++ (NSURL *)QM_fileURLForStoreName:(NSString *)storeFileName applicationGroupIdentifier:(NSString *)appGroupIdentifier
 {
     NSURL *storeURL = [self QM_fileURLForStoreNameIfExistsOnDisk:storeFileName applicationGroupIdentifier:appGroupIdentifier];
     
@@ -42,7 +42,7 @@
     return storeURL;
 }
 
-+ (NSURL *) QM_fileURLForStoreNameIfExistsOnDisk:(NSString *)storeFileName applicationGroupIdentifier:(NSString *)appGroupIdentifier
++ (NSURL *)QM_fileURLForStoreNameIfExistsOnDisk:(NSString *)storeFileName applicationGroupIdentifier:(NSString *)appGroupIdentifier
 {
     NSFileManager *fm = [[NSFileManager alloc] init];
     
@@ -69,7 +69,7 @@
     return nil;
 }
 
-+ (NSURL *) QM_cloudURLForUbiqutiousContainer:(NSString *)bucketName;
++ (NSURL *)QM_cloudURLForUbiqutiousContainer:(NSString *)bucketName;
 {
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     NSURL *cloudURL = nil;
@@ -81,12 +81,12 @@
     return cloudURL;
 }
 
-- (BOOL) QM_isSqliteStore;
+- (BOOL)QM_isSqliteStore;
 {
     return [[self type] isEqualToString:NSSQLiteStoreType];
 }
 
-- (BOOL) QM_copyToURL:(NSURL *)destinationUrl error:(NSError **)error;
+- (BOOL)QM_copyToURL:(NSURL *)destinationUrl error:(NSError **)error;
 {
     if (![self QM_isSqliteStore])
     {
@@ -108,7 +108,7 @@
     return success;
 }
 
-- (NSArray *) QM_sqliteURLs;
+- (NSArray *)QM_sqliteURLs;
 {
     if (![self QM_isSqliteStore])
     {
@@ -138,14 +138,15 @@
     return [NSArray arrayWithArray:storeURLs];
 }
 
-#pragma mark - Remove Store File(s)
+//MARK: - Remove Store File(s)
 
-- (BOOL) QM_removePersistentStoreFiles;
+- (BOOL)QM_removePersistentStoreFiles;
 {
     return [[self class] QM_removePersistentStoreFilesAtURL:self.URL];
 }
 
-+ (NSDictionary *)QM_migrationOptionsForStoreName:(NSString *)storeFileName applicationGroupIdentifier:(NSString *)appGroupIdentifier
++ (NSDictionary *)QM_migrationOptionsForStoreName:(NSString *)storeFileName
+                       applicationGroupIdentifier:(NSString *)appGroupIdentifier
 {
 
     NSURL *sourceURL = [self QM_fileURLForStoreName:storeFileName];
@@ -199,7 +200,7 @@
     return options.copy;
 }
 
-+ (BOOL) QM_removePersistentStoreFilesAtURL:(NSURL*)url;
++ (BOOL)QM_removePersistentStoreFilesAtURL:(NSURL*)url;
 {
     NSCAssert([url isFileURL], @"URL must be a file URL");
 
@@ -230,20 +231,6 @@
 
 @end
 
-#pragma mark - Deprecated Methods
-@implementation NSPersistentStore (QMCDRecordDeprecated)
-
-+ (NSURL *) QM_defaultURLForStoreName:(NSString *)storeFileName;
-{
-    return [self QM_fileURLForStoreName:storeFileName];
-}
-
-+ (NSURL *) QM_urlForStoreName:(NSString *)storeFileName;
-{
-    return [self QM_fileURLForStoreNameIfExistsOnDisk:storeFileName];
-}
-
-@end
 
 NSString *QM_storePathForApplicationGroupIdentifier(NSString *groupidentifier)
 {

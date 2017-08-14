@@ -6,5 +6,5 @@
 //  Copyright (c) 2015 Quickblox Team. All rights reserved.
 //
 
-static const NSUInteger kQMMessagesLimitPerDialog = 10;
-static const NSUInteger kQMChatMessagesPerPage = 10;
+static const NSUInteger kQMMessagesLimitPerDialog = 100;
+static const NSUInteger kQMChatMessagesPerPage = 100;

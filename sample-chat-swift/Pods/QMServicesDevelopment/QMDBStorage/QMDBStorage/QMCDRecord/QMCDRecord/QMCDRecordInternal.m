@@ -8,11 +8,6 @@
 
 @implementation QMCDRecord
 
-+ (void) cleanUp
-{
-    [QMCDRecordStack setDefaultStack:nil];
-}
-
 + (NSString *) defaultStoreName;
 {
     NSString *defaultName = [[[NSBundle mainBundle] infoDictionary] valueForKey:(id)kCFBundleNameKey];

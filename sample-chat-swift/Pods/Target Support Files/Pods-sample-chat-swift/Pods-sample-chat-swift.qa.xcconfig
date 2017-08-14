@@ -6,4 +6,5 @@ OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Bolts/Bolts.f
 OTHER_LDFLAGS = $(inherited) -ObjC -l"c++" -l"z" -framework "Bolts" -framework "Crashlytics" -framework "Fabric" -framework "QMCVDevelopment" -framework "QMServicesDevelopment" -framework "SDWebImage" -framework "SVProgressHUD" -framework "SearchEmojiOnString" -framework "Security" -framework "SystemConfiguration" -framework "TTTAttributedLabel" -framework "UIKit"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods

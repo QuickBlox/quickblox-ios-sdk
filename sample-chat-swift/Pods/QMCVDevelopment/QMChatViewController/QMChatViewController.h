@@ -14,7 +14,6 @@
 #import "QMChatActionsHandler.h"
 #import "QMInputToolbar.h"
 #import <Quickblox/Quickblox.h>
-#import "QMChatSectionManager.h"
 
 #import "QMChatContactRequestCell.h"
 #import "QMChatIncomingCell.h"
@@ -28,10 +27,6 @@
 
 @interface QMChatViewController : UIViewController <QMChatCollectionViewDataSource, QMChatCollectionViewDelegateFlowLayout, UITextViewDelegate>
 
-/**
- *  @warning *Deprecated in 0.4.0:* Use 'chatDataSource:' instead.
- */
-@property (strong, nonatomic) QMChatSectionManager *chatSectionManager DEPRECATED_MSG_ATTRIBUTE("Deprecated in 0.4.0. Use 'chatDataSource:' instead");
 
 @property (strong, nonatomic) QMChatDataSource *chatDataSource;
 /**

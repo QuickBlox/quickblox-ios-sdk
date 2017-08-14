@@ -15,210 +15,168 @@
 
 static QMUsersCache *_usersCacheInstance = nil;
 
-- (NSManagedObjectContext *)backgroundContext
-{
-    return self.stack.context;
-}
+//MARK: - Singleton
 
-#pragma mark - Singleton
-
-+ (QMUsersCache *)instance
-{
++ (QMUsersCache *)instance {
+    
     NSAssert(_usersCacheInstance, @"You must first perform @selector(setupDBWithStoreNamed:)");
     return _usersCacheInstance;
 }
 
-#pragma mark - Configure store
+//MARK: - Configure store
 
-+ (void)setupDBWithStoreNamed:(NSString *)storeName applicationGroupIdentifier:(NSString *)appGroupIdentifier {
++ (void)setupDBWithStoreNamed:(NSString *)storeName
+   applicationGroupIdentifier:(NSString *)appGroupIdentifier {
     
     NSManagedObjectModel *model =
     [NSManagedObjectModel QM_newModelNamed:@"QMUsersModel.momd"
                              inBundleNamed:@"QMUsersCacheModel.bundle"
                                  fromClass:[self class]];
     
-    _usersCacheInstance = [[QMUsersCache alloc] initWithStoreNamed:storeName
-                                                             model:model
-                                                        queueLabel:"com.qmservices.QMUsersCacheQueue"
-                                        applicationGroupIdentifier:appGroupIdentifier];
+    NSParameterAssert(!_usersCacheInstance);
+    _usersCacheInstance =
+    [[QMUsersCache alloc] initWithStoreNamed:storeName
+                                       model:model
+                  applicationGroupIdentifier:appGroupIdentifier];
 }
 
-+ (void)setupDBWithStoreNamed:(NSString *)storeName
-{
-    return [self setupDBWithStoreNamed:storeName applicationGroupIdentifier:nil];
++ (void)setupDBWithStoreNamed:(NSString *)storeName {
+    
+    return [self setupDBWithStoreNamed:storeName
+            applicationGroupIdentifier:nil];
 }
 
-+ (void)cleanDBWithStoreName:(NSString *)name
-{
++ (void)cleanDBWithStoreName:(NSString *)name {
+    
     if (_usersCacheInstance) {
         _usersCacheInstance = nil;
     }
     [super cleanDBWithStoreName:name];
 }
 
-#pragma mark - Users
+//MARK: - Users
 
-- (BFTask *)insertOrUpdateUser:(QBUUser *)user
-{
+- (BFTask *)insertOrUpdateUser:(QBUUser *)user {
+    
     return [self insertOrUpdateUsers:@[user]];
 }
 
-- (BFTask *)insertOrUpdateUsers:(NSArray *)users
-{
-    __weak __typeof(self)weakSelf = self;
+- (BFTask *)insertOrUpdateUsers:(NSArray<QBUUser *> *)users {
     
-    return [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
-        __typeof(self) strongSelf = weakSelf;
-        
-        NSManagedObjectContext* context = [strongSelf backgroundContext];
-        
-        NSMutableArray *toInsert = [NSMutableArray array];
-        NSMutableArray *toUpdate = [NSMutableArray array];
-        
+    BFTaskCompletionSource *source =
+    [BFTaskCompletionSource taskCompletionSource];
+    
+    [self save:^(NSManagedObjectContext *ctx) {
         //To Insert / Update
         for (QBUUser *user in users) {
             
-            CDUser *cachedUser = [CDUser QM_findFirstWithPredicate:IS(@"id", @(user.ID)) inContext:context];
+            CDUser *cachedUser =
+            [CDUser QM_findFirstOrCreateByAttribute:@"id"
+                                          withValue:@(user.ID)
+                                          inContext:ctx];
             
-            if (cachedUser) {
-                
-                QBUUser *qbCachedUser = [cachedUser toQBUUser];
-                
-                if (![user.updatedAt isEqualToDate:qbCachedUser.updatedAt]) {
-                    [toUpdate addObject:user];
-                }
-            }
-            else {
-                
-                [toInsert addObject:user];
-            }
+            [cachedUser updateWithQBUser:user];
         }
         
-        if (toUpdate.count > 0) {
-            
-            [strongSelf updateUsers:toUpdate inContext:context];
-        }
+        QMSLog(@"[%@] Users to insert %tu, update %tu",
+               NSStringFromClass([QMUsersCache class]),
+               ctx.insertedObjects.count,
+               ctx.updatedObjects.count);
         
-        if (toInsert.count > 0) {
-            
-            [strongSelf insertUsers:toInsert inContext:context];
-        }
-        
-        if (toInsert.count + toUpdate.count > 0) {
-            [context QM_saveToPersistentStoreAndWait];
-        }
-        
-        QMSLog(@"[%@] Users to insert %tu, update %tu", NSStringFromClass([weakSelf class]), toInsert.count, toUpdate.count);
-        
-        return nil;
-    }];
-}
-
-- (BFTask *)deleteUser:(QBUUser *)user
-{
-    __weak __typeof(self)weakSelf = self;
-    return [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
-        __typeof(self) strongSelf = weakSelf;
-        NSManagedObjectContext* context = [strongSelf backgroundContext];
-        
-        CDUser *cachedUser = [CDUser QM_findFirstWithPredicate:IS(@"id", @(user.ID)) inContext:context];
-        [cachedUser QM_deleteEntityInContext:context];
-        
-        [context QM_saveToPersistentStoreAndWait];
-        
-        return nil;
-    }];
-}
-
-- (BFTask *)deleteAllUsers
-{
-    __weak __typeof(self)weakSelf = self;
-    return [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
-        __typeof(self) strongSelf = weakSelf;
-        NSManagedObjectContext* context = [strongSelf backgroundContext];
-        
-        [CDUser QM_truncateAllInContext:context];
-        
-        [context QM_saveToPersistentStoreAndWait];
-        return nil;
-    }];
-}
-
-- (BFTask *)userWithPredicate:(NSPredicate *) predicate
-{
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
-    
-    [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
-        
-        CDUser *user = [CDUser QM_findFirstWithPredicate:predicate];
-        QBUUser *result = [user toQBUUser];
-        
-        [source setResult:result];
-        
-        return nil;
+    } finish:^{
+        [source setResult:nil];
     }];
     
     return source.task;
 }
 
-- (BFTask *)usersSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending
-{
-    return [self usersWithPredicate:nil sortedBy:sortTerm ascending:ascending];
-}
-
-- (BFTask *)usersWithPredicate:(NSPredicate *)predicate sortedBy:(NSString *)sortTerm ascending:(BOOL)ascending
-{
-    __weak __typeof(self)weakSelf = self;
-    BFTaskCompletionSource* source = [BFTaskCompletionSource taskCompletionSource];
+- (BFTask *)deleteUser:(QBUUser *)user {
     
-    [BFTask taskFromExecutor:[BFExecutor executorWithDispatchQueue:self.queue] withBlock:^id{
-        __typeof(self) strongSelf = weakSelf;
+    BFTaskCompletionSource *source = [BFTaskCompletionSource taskCompletionSource];
+    
+    [self save:^(NSManagedObjectContext *ctx) {
         
-        NSManagedObjectContext* context = [strongSelf backgroundContext];
+        [CDUser QM_deleteAllMatchingPredicate:IS(@"id", @(user.ID))
+                                    inContext:ctx];
+    } finish:^{
         
-        NSArray *users = [CDUser QM_findAllSortedBy:sortTerm ascending:ascending withPredicate:predicate inContext:context];
-        NSArray *result = [weakSelf convertCDUsertsToQBUsers:users];
-        
-        [source setResult:result];
-        
-        return nil;
+        [source setResult:nil];
     }];
     
     return source.task;
 }
 
-#pragma mark - Private
-
-- (void)insertUsers:(NSArray *)users inContext:(NSManagedObjectContext *)context {
+- (BFTask *)deleteAllUsers {
     
-    for (QBUUser *user in users) {
+    BFTaskCompletionSource *source =
+    [BFTaskCompletionSource taskCompletionSource];
+    
+    [self save:^(NSManagedObjectContext *ctx) {
         
-        CDUser *newUser = [CDUser QM_createEntityInContext:context];
-        [newUser updateWithQBUser:user];
-    }
+        [CDUser QM_truncateAllInContext:ctx];
+        
+    } finish:^{
+        
+        [source setResult:nil];
+    }];
+    
+    return source.task;
 }
 
-- (void)updateUsers:(NSArray *)qbUsers inContext:(NSManagedObjectContext *)context {
+- (BFTask<QBUUser *> *)userWithPredicate:(NSPredicate *)predicate {
     
-    for (QBUUser *qbUser in qbUsers) {
+    BFTaskCompletionSource *source =
+    [BFTaskCompletionSource taskCompletionSource];
+    
+    [self performMainQueue:^(NSManagedObjectContext *ctx) {
         
-        CDUser *userToUpdate = [CDUser QM_findFirstWithPredicate:IS(@"id", @(qbUser.ID)) inContext:context];
-        [userToUpdate updateWithQBUser:qbUser];
-    }
+        QBUUser *user =
+        [[CDUser QM_findFirstWithPredicate:predicate
+                                 inContext:ctx] toQBUUser];
+        [source setResult:user];
+    }];
+    
+    return source.task;
 }
 
-- (NSArray *)convertCDUsertsToQBUsers:(NSArray *)cdUsers {
+- (BFTask <NSArray<QBUUser *> *> *)usersSortedBy:(NSString *)sortTerm
+                                       ascending:(BOOL)ascending {
     
-    NSMutableArray *users =
-    [NSMutableArray arrayWithCapacity:cdUsers.count];
+    return [self usersWithPredicate:nil
+                           sortedBy:sortTerm
+                          ascending:ascending];
+}
+
+- (NSArray <QBUUser*> *)allUsers {
     
-    for (CDUser *user in cdUsers) {
+    __block NSArray<QBUUser *> *result = nil;
+    [self performMainQueue:^(NSManagedObjectContext *ctx) {
+        result = [[CDUser QM_findAllInContext:ctx] toQBUUsers];
+    }];
+    
+    return result;
+}
+
+- (BFTask <NSArray<QBUUser *> *> *)usersWithPredicate:(NSPredicate *)predicate
+                                             sortedBy:(NSString *)sortTerm
+                                            ascending:(BOOL)ascending {
+    BFTaskCompletionSource *source =
+    [BFTaskCompletionSource taskCompletionSource];
+    
+    [self performBackgroundQueue:^(NSManagedObjectContext *ctx) {
         
-        QBUUser *qbUser = [user toQBUUser];
-        [users addObject:qbUser];
-    }
+        NSArray<QBUUser *> *result =
+        [[CDUser QM_findAllSortedBy:sortTerm
+                          ascending:ascending
+                      withPredicate:predicate
+                          inContext:ctx] toQBUUsers];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [source setResult:result];
+        });
+    }];
     
-    return users;
+    return source.task;
 }
 
 @end

@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol QMMemoryStorageProtocol <NSObject>
-
 /**
  *  This method used for clean all storage data in memory
  */

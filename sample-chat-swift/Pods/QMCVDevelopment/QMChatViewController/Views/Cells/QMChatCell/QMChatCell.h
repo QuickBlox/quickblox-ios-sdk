@@ -165,7 +165,7 @@ typedef struct QMChatLayoutModel QMChatCellLayoutModel;
  */
 @property (weak, nonatomic) id <QMChatCellDelegate> delegate;
 
-#pragma mark - Class methods
+//MARK: - Class methods
 
 /**
  *  Returns the `UINib` object initialized for the cell.

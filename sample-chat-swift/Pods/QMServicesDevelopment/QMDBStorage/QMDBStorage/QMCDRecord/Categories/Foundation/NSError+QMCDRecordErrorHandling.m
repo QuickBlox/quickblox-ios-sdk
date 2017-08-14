@@ -34,7 +34,7 @@ NSString *QM_errorSummaryFromErrorCode(NSInteger errorCode)
 
 @implementation NSString (QMCDRecordLogging)
 
-- (void) QM_logToConsole;
+- (void)QM_logToConsole;
 {
     QMCDLogVerbose(@"*** %@ ***", self);
 }
@@ -44,12 +44,12 @@ NSString *QM_errorSummaryFromErrorCode(NSInteger errorCode)
 
 @implementation NSError (QMCDRecordErrorHandling)
 
-- (NSArray *) QM_errorCollection;
+- (NSArray *)QM_errorCollection;
 {
     return [self code] == NSValidationMultipleErrorsError ? [[self userInfo] valueForKey:NSDetailedErrorsKey] : @[self];
 }
 
-- (NSDictionary *) QM_errorCollectionGroupedByObject;
+- (NSDictionary *)QM_errorCollectionGroupedByObject;
 {
     NSMutableDictionary *collatedObjects = [NSMutableDictionary dictionary];
     [[self QM_errorCollection] enumerateObjectsUsingBlock:^(NSError *error, NSUInteger idx, BOOL *stop) {
@@ -68,7 +68,7 @@ NSString *QM_errorSummaryFromErrorCode(NSInteger errorCode)
     return [NSDictionary dictionaryWithDictionary:collatedObjects];
 }
 
-- (NSString *) QM_summaryDescription;
+- (NSString *)QM_summaryDescription;
 {
     NSInteger errorCode = [self code];
     if (QM_errorCodeIsValidationErrorCode(errorCode))
@@ -85,7 +85,7 @@ NSString *QM_errorSummaryFromErrorCode(NSInteger errorCode)
     return [NSString stringWithFormat:@"(%zd) %@ [%@]", errorCode, QM_errorSummaryFromErrorCode(errorCode), [self QM_validationErrorObject] ?: [[self userInfo] valueForKey:@"reason"]];
 }
 
-- (NSString *) QM_coreDataDescription;
+- (NSString *)QM_coreDataDescription;
 {
     NSMutableString *descriptionBuffer = [NSMutableString string];
     
@@ -114,12 +114,12 @@ NSString *QM_errorSummaryFromErrorCode(NSInteger errorCode)
     return [NSString stringWithString:descriptionBuffer];
 }
 
-- (id) QM_validationError;
+- (id)QM_validationError;
 {
     return [[self userInfo] valueForKey:NSValidationKeyErrorKey];
 }
 
-- (NSManagedObject *) QM_validationErrorObject;
+- (NSManagedObject *)QM_validationErrorObject;
 {
     return [[self userInfo] objectForKey:NSValidationObjectErrorKey];
 }
