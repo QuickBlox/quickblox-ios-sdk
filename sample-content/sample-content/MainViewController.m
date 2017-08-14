@@ -13,6 +13,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVProgressHUD.h>
 
+@import Quickblox;
+
 static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifier";
 
 @interface MainViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>

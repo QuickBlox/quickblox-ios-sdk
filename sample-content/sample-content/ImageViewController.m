@@ -9,6 +9,8 @@
 #import "ImageViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
+@import Quickblox;
+
 @interface ImageViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;

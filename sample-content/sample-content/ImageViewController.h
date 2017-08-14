@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuickBlox/QuickBlox.h>
+
+@class QBCBlob;
 
 @interface ImageViewController : UIViewController
 
