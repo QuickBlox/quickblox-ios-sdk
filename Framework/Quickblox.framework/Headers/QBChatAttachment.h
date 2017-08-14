@@ -46,14 +46,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Any addictional data.
- @warning Deprecated in 2.9.3. Use object subscripting instead.
+ @warning Deprecated in 2.10. Use object subscripting instead.
  @code
  QBChatAttachment *attachment = [QBChatAttachment new];
  attachment[@"duration"] = @"45";
  @endcode
  */
 @property (nonatomic, copy, nullable) NSString *data
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. Use object subscripting instead.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. Use object subscripting instead.");
 
 @end
 NS_ASSUME_NONNULL_END

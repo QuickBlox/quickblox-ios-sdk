@@ -45,7 +45,7 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *user);
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)usersWithExtendedRequest:(NSDictionary<NSString *, NSString *> *)extendedRequest
++ (QBRequest *)usersWithExtendedRequest:(NSDictionary<NSString *, id> *)extendedRequest
                                    page:(nullable QBGeneralResponsePage *)responsePage
                            successBlock:(nullable qb_response_users_block_t)successBlock
                              errorBlock:(nullable qb_response_block_t)errorBlock;

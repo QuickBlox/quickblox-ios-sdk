@@ -252,7 +252,7 @@ NS_ASSUME_NONNULL_BEGIN
                  objectID:(NSString *)objectID
             fileFieldName:(NSString *)fileFieldName
              successBlock:(nullable void (^)(QBResponse *response, QBCOFileUploadInfo * _Nullable info))successBlock
-              statusBlock:(nullable qb_status_update_block_t)statusBlock
+              statusBlock:(nullable qb_response_status_block_t)statusBlock
                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -271,7 +271,7 @@ NS_ASSUME_NONNULL_BEGIN
                                 objectID:(NSString *)objectID
                            fileFieldName:(NSString *)fileFieldName
                             successBlock:(nullable void (^)(QBResponse *response, NSData * _Nullable loadedData))successBlock
-                             statusBlock:(nullable qb_status_update_block_t)statusBlock
+                             statusBlock:(nullable qb_response_status_block_t)statusBlock
                               errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -292,7 +292,7 @@ NS_ASSUME_NONNULL_BEGIN
                                           objectID:(NSString *)objectID
                                      fileFieldName:(NSString *)fileFieldName
                                       successBlock:(nullable void (^)(QBResponse *response, NSData * _Nullable loadedData))successBlock
-                                       statusBlock:(nullable qb_status_update_block_t)statusBlock
+                                       statusBlock:(nullable qb_response_status_block_t)statusBlock
                                         errorBlock:(nullable qb_response_block_t)errorBlock;
 
 
@@ -327,7 +327,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)objectsWithClassName:(NSString *)className
                        successBlock:(nullable void (^)(QBResponse *response, NSArray * _Nullable objects))successBlock
                          errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'objectsWithClassName:extendedRequest:successBlock:errorBlock:'.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'objectsWithClassName:extendedRequest:successBlock:errorBlock:'.");
 
 @end
 

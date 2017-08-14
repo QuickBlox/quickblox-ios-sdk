@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)dialogsForPage:(QBResponsePage *)page
               extendedRequest:(nullable NSDictionary<NSString *, NSString *> *)extendedRequest
-                 successBlock:(nullable qb_dialogs_block_t)successBlock
+                 successBlock:(nullable qb_response_dialogs_block_t)successBlock
                    errorBlock:(nullable qb_response_block_t)errorBlock;
 /**
  Create chat dialog
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)createDialog:(QBChatDialog *)dialog
-               successBlock:(nullable qb_dialog_block_t)successBlock
+               successBlock:(nullable qb_response_dialog_block_t)successBlock
                  errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)updateDialog:(QBChatDialog *)dialog
-               successBlock:(nullable qb_dialog_block_t)successBlock
+               successBlock:(nullable qb_response_dialog_block_t)successBlock
                  errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)deleteDialogsWithIDs:(NSSet<NSString *> *)dialogIDs
                         forAllUsers:(BOOL)forAllUsers
-                       successBlock:(nullable qb_delete_dialog_block_t)successBlock
+                       successBlock:(nullable qb_response_delete_dialog_block_t)successBlock
                          errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)messagesWithDialogID:(NSString *)dialogID
                     extendedRequest:(nullable NSDictionary<NSString *, NSString *> *) extendedParameters
                             forPage:(nullable QBResponsePage *)page
-                       successBlock:(nullable qb_messages_block_t)successBlock
+                       successBlock:(nullable qb_response_messages_block_t)successBlock
                          errorBlock:(nullable qb_response_block_t)errorBlock;
 /**
  Create chat message.
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)createMessage:(QBChatMessage *)message
-                successBlock:(nullable qb_message_block_t)successBlock
+                successBlock:(nullable qb_response_message_block_t)successBlock
                   errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)sendMessage:(QBChatMessage *)message
-              successBlock:(nullable qb_message_block_t)successBlock
+              successBlock:(nullable qb_response_message_block_t)successBlock
                 errorBlock:(nullable qb_response_block_t)errorBlock;
 /**
  Mark messages as read.
@@ -152,12 +152,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Delete existent chat messages completely for all users
- @param messageIDs The IDs of a messages to delete.
- @param forAllUsers Delete message for current user or remove it for all users.
- @param successBlock Block with response instance if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param messageIDs The IDs of messages to delete.
+ @param forAllUsers Delete message for the current user or remove it for all users.
+ @param successBlock Block with response instance if the request succeeded.
+ @param errorBlock Block with response instance if the request failed.
  
- @discussion Passing YES to 'forAllUsers' requires current user to be owner of the message! If current user is not the owner - request fails.
+ @discussion Passing YES to 'forAllUsers' requires current user to be the owner of the message! If the current user is not the owner - request fails.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -176,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)countOfDialogsWithExtendedRequest:(nullable NSDictionary<NSString *, NSString *> *)parameters
-                                    successBlock:(nullable qb_count_block_t) successBlock
+                                    successBlock:(nullable qb_response_count_block_t) successBlock
                                       errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -191,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)countOfMessagesForDialogID:(NSString *)dialogID
                           extendedRequest:(nullable NSDictionary<NSString *, NSString *> *)parameters
-                             successBlock:(nullable qb_count_block_t) successBlock
+                             successBlock:(nullable qb_response_count_block_t) successBlock
                                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -204,8 +204,37 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)totalUnreadMessageCountForDialogsWithIDs:(NSSet <NSString *> *)dialogIDs
-                                           successBlock:(nullable qb_unread_messages_block_t)successBlock
+                                           successBlock:(nullable qb_response_unread_messages_block_t)successBlock
                                              errorBlock:(nullable qb_response_block_t)errorBlock;
+//MARK: Notifications settings
+
+/**
+ Get the notifications settings status.
+ 
+ @param dialogID Dialog ID
+ @param successBlock Block with current status of notifications settings.
+ @param errorBlock errorBlock Block with response instance if request failed.
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)notificationsSettingsForDialogID:(NSString *)dialogID
+                                   successBlock:(nullable void(^)(BOOL enabled))successBlock
+                                     errorBlock:(nullable qb_response_block_t)errorBlock;
+
+/**
+ User can turn YES/NO push notifications for offline messages in a dialog. Default value is YES.
+ By default when a user is offline and other user sent a message to him then he will receive a push
+ notification. It is possible to disable this feature.
+ 
+ @param dialogID Dialog ID
+ @param enable YES / NO
+ @param successBlock Block with current status of notifications settings.
+ @param errorBlock errorBlock Block with response instance if request failed.
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)updateNotificationsSettingsForDialogID:(NSString *)dialogID
+                                               enable:(BOOL)enable
+                                         successBlock:(nullable void(^)(BOOL enabled))successBlock
+                                           errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: DEPRECATED
 
@@ -217,13 +246,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param message Сhat message to update.
  @param successBlock Block with response instance if request succeded.
  @param errorBlock Block with response instance if request failed.
- @warning Deprecated in 2.9.3 Use 'markMessagesAsRead:dialogID:successBlock:errorBlock:'.
+ @warning Deprecated in 2.10 Use 'markMessagesAsRead:dialogID:successBlock:errorBlock:'.
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)updateMessage:(QBChatMessage *)message
                 successBlock:(nullable qb_response_block_t)successBlock
                   errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'markMessagesAsRead:dialogID:successBlock:errorBlock:'.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'markMessagesAsRead:dialogID:successBlock:errorBlock:'.");
 
 /**
  Retrieve chat dialogs
@@ -235,7 +264,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'markMessagesAsRead:dialogID:s
  */
 + (QBRequest *)dialogsWithSuccessBlock:(nullable void(^)(QBResponse *response, NSArray<QBChatDialog *> *dialogObjects, NSSet<NSNumber *> *dialogsUsersIDs))successBlock
                             errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'dialogsForPage:dialogID:extendedRequest:successBlock:errorBlock:'.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'dialogsForPage:dialogID:extendedRequest:successBlock:errorBlock:'.");
 
 /**
  Retrieve first 100 chat messages within particular dialog
@@ -249,7 +278,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'dialogsForPage:dialogID:exten
 + (QBRequest *)messagesWithDialogID:(NSString *)dialogID
                        successBlock:(nullable void(^)(QBResponse *response, NSArray<QBChatMessage *> *messages))successBlock
                          errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'messagesWithDialogID:extendedRequest:successBlock:errorBlock:'.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'messagesWithDialogID:extendedRequest:successBlock:errorBlock:'.");
 
 @end
 

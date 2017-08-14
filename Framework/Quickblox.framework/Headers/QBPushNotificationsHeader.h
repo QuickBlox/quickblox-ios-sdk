@@ -14,6 +14,6 @@
 #import <Quickblox/QBMPushMessage.h>
 #import <Quickblox/QBMEvent.h>
 #import <Quickblox/QBMSubscription.h>
-#import <QuickBlox/QBRequest+QBPushNotifications.h>
+#import <Quickblox/QBRequest+QBPushNotifications.h>
 
 #endif

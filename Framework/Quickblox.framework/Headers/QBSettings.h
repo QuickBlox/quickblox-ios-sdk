@@ -159,12 +159,15 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  * If YES, the manager will change status bar network activity indicator according to network operation notifications it receives.
  * The default value is NO.
  */
+#if TARGET_OS_IOS
 + (void)setNetworkIndicatorManagerEnabled:(BOOL)enabled;
 
 /**
  A Boolean value indicating whether the network activity indicator is currently displayed in the status bar.
  */
 + (BOOL)isNetworkIndicatorVisible;
+
+#endif
 
 //MARK: - Logging
 

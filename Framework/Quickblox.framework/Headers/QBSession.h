@@ -18,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Current session instance.
- *
- *  @return QBSession instance.
  */
-+ (QBSession *)currentSession;
+@property (nonatomic, strong, readonly, class) QBSession *currentSession;
+
+@property (assign, nonatomic, readonly) BOOL tokenHasExpired;
 
 /**
  *  Start session with details
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Session user
  */
-@property (nonatomic, readonly, nullable) QBUUser *currentUser;
+@property (nonatomic, readonly, copy, nullable) QBUUser *currentUser;
 
 /**
  *  Session details

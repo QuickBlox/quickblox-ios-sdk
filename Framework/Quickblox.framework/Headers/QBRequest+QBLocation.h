@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)createGeoData:(QBLGeoData *)geoData
                 successBlock:(nullable void (^)(QBResponse *response, QBLGeoData * _Nullable geoData))successBlock
                   errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
 
 //MARK: - GeoData with ID
 
@@ -51,7 +51,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achie
 + (QBRequest *)geoDataWithId:(NSUInteger)geoDataId
                 successBlock:(nullable void (^)(QBResponse *response, QBLGeoData * _Nullable geoData))successBlock
                   errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
 
 //MARK: - Update GeoData
 
@@ -67,7 +67,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achie
 + (QBRequest *)updateGeoData:(QBLGeoData *)geodata
                 successBlock:(nullable void (^)(QBResponse *response, QBLGeoData * _Nullable geoData))successBlock
                   errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
 
 //MARK: - Delete GeoData with ID
 
@@ -83,7 +83,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achie
 + (QBRequest *)deleteGeoDataWithID:(NSUInteger)geodataID
                       successBlock:(nullable qb_response_block_t)successBlock
                         errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
 
 //MARK: - Delete GeoData
 
@@ -99,7 +99,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achie
 + (QBRequest *)deleteGeoDataWithRemainingDays:(NSUInteger)days
                                  successBlock:(nullable qb_response_block_t)successBlock
                                    errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
 
 //MARK: - Get multiple GeoData
 
@@ -117,7 +117,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achie
                             page:(nullable QBGeneralResponsePage *)page
                     successBlock:(nullable void (^)(QBResponse *response, NSArray<QBLGeoData *> * _Nullable objects, QBGeneralResponsePage * _Nullable page))successBlock
                       errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. We suggest that in order to achieve similar functionality, you use the Custom Objects API.");
 
 @end
 

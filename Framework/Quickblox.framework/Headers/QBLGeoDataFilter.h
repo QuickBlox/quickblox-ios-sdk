@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Please note: the Location API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects API.")
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Please note: the Location API along with associated documentation and code samples has been deprecated and is no longer maintained. We no longer provide support for this module, nor do we encourage its use in your project. We suggest that in order to achieve similar functionality, you use the Custom Objects API.")
 @interface QBLGeoDataFilter : NSObject
 
 //MARK: - Filters

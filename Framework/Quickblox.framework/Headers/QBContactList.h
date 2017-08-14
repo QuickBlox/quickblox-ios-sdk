@@ -10,8 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^QBUserLastActivityCompletionBlock)(NSUInteger seconds, NSError * _Nullable error);
-
 @class QBContactListItem;
 
 /**
@@ -35,19 +33,23 @@ typedef void(^QBUserLastActivityCompletionBlock)(NSUInteger seconds, NSError * _
  *
  *  @param item     QBContactListItem
  *  @param completion completion block with last activity in seconds and error
+ *  @warning Deprecated in 2.10.
  */
 - (void)lastActivityForContactListItem:(QBContactListItem *)item
                         withCompletion:(QBUserLastActivityCompletionBlock)completion;
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. Use - [QBChat lastActivityForUserID:completion:]");
 /**
  *  Get last activity
  *
  *  @param item       QBContactListItem
  *  @param timeout    timeout
  *  @param completion completion block with last activity in seconds and error
+ *  @warning Deprecated in 2.10.
  */
 - (void)lastActivityForContactListItem:(QBContactListItem *)item
-                           withTimeout:(NSTimeInterval)timeOut
-                            completion:(QBUserLastActivityCompletionBlock)completion;
+                           withTimeout:(NSTimeInterval)timeout
+                            completion:(QBUserLastActivityCompletionBlock)completion
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10. Use - [QBChat lastActivityForUserID:withTimeout:completion:]");
 
 @end
 

@@ -18,6 +18,7 @@
 #import <Quickblox/QBConnection.h>
 #import <Quickblox/QBRequest.h>
 #import <Quickblox/QBRequestStatus.h>
+#import <Quickblox/QBHTTPClient.h>
 #import <Quickblox/QBResponse.h>
 #import <Quickblox/QBRequestStatus.h>
 #import <Quickblox/QBError.h>

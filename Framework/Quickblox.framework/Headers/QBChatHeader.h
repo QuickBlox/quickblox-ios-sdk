@@ -8,4 +8,4 @@
 
 #import <Quickblox/QBChat.h>
 #import <Quickblox/QBRequest+QBChat.h>
-
+#import <Quickblox/QBCompletionTypes.h>

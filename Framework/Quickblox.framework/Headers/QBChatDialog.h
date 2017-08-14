@@ -118,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @note ID of a recipient if type = QBChatDialogTypePrivate. -1 otherwise.
  *  Will always return -1 if QBSession currentUser is nil.
  *
- *  @discussion Will be retrieved from '[QBSession currentSession].currentUser'
+ *  @discussion Will be retrieved from 'QBSession.currentSession.currentUser'
  *  by subtracting currentUser.ID from occupantsIDs.
  */
 @property (nonatomic, readonly) NSInteger recipientID;

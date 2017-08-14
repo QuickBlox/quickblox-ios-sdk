@@ -14,22 +14,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
+
 @interface QBRequest (QBContent)
 
-//MARK: - Create Blob
-
-/**
- Create blob.
- 
- @param blob An instance of QBCBlob, describing the file to be uploaded.
- @param successBlock Block with response and blob instances if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)createBlob:(QBCBlob *)blob
-             successBlock:(nullable void(^)(QBResponse *response, QBCBlob *blob))successBlock
-               errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Get Blob with ID
 
@@ -43,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)blobWithID:(NSUInteger)blobID
-             successBlock:(nullable void(^)(QBResponse *response, QBCBlob *blob))successBlock
+             successBlock:(nullable qb_response_blob_block_t)successBlock
                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Get list of blobs for the current user
@@ -61,21 +49,6 @@ NS_ASSUME_NONNULL_BEGIN
                successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> * blobs))successBlock
                  errorBlock:(nullable qb_response_block_t)errorBlock;
 
-//MARK: - Get list of tagged blobs for the current user
-
-/**
- Get list of tagged blobs for the current User (with extended set of pagination parameters)
- 
- @param page Page information
- @param successBlock Block with response, page and blob instances if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)taggedBlobsForPage:(nullable QBGeneralResponsePage *)page
-                     successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> *blobs))successBlock
-                       errorBlock:(nullable qb_response_block_t)errorBlock;
-
 //MARK: - Update Blob
 
 /**
@@ -88,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)updateBlob:(QBCBlob *)blob
-             successBlock:(nullable void(^)(QBResponse *response, QBCBlob *blob))successBlock
+             successBlock:(nullable qb_response_blob_block_t)successBlock
                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Delete Blob with ID
@@ -105,23 +78,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)deleteBlobWithID:(NSUInteger)blobID
                    successBlock:(nullable qb_response_block_t)successBlock
                      errorBlock:(nullable qb_response_block_t)errorBlock;
-
-//MARK: - Declaring Blob uploaded with ID
-
-/**
- Declaring Blob uploaded with ID
- 
- @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
- @param size Size of uploaded file, in bytes
- @param successBlock Block with response and blob instances if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)completeBlobWithID:(NSUInteger)blobID
-                             size:(NSUInteger)size
-                     successBlock:(nullable qb_response_block_t)successBlock
-                       errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: - Get File by ID as BlobObjectAccess
 
@@ -154,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (QBRequest *)uploadFile:(nullable NSData *)data
       blobWithWriteAccess:(QBCBlob *)blobWithWriteAccess
              successBlock:(nullable qb_response_block_t)successBlock
-              statusBlock:(nullable qb_status_update_block_t)statusBlock
+              statusBlock:(nullable qb_response_status_block_t)statusBlock
                errorBlock:(nullable qb_response_block_t)errorBlock;
 
 //MARK: -  Download file
@@ -171,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)downloadFileWithUID:(NSString *)UID
                       successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
-                       statusBlock:(nullable qb_status_update_block_t)statusBlock
+                       statusBlock:(nullable qb_response_status_block_t)statusBlock
                         errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -188,7 +144,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)backgroundDownloadFileWithUID:(NSString *)UID
                                 successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
-                                 statusBlock:(nullable qb_status_update_block_t)statusBlock
+                                 statusBlock:(nullable qb_response_status_block_t)statusBlock
                                   errorBlock:(nullable qb_response_block_t)errorBlock;
 /**
  Download File by file identifier.
@@ -202,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)downloadFileWithID:(NSUInteger)fileID
                      successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
-                      statusBlock:(nullable qb_status_update_block_t)statusBlock
+                      statusBlock:(nullable qb_response_status_block_t)statusBlock
                        errorBlock:(nullable qb_response_block_t)errorBlock;
 
 /**
@@ -219,7 +175,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)backgroundDownloadFileWithID:(NSUInteger)fileID
                                successBlock:(nullable void(^)(QBResponse *response, NSData *fileData))successBlock
-                                statusBlock:(nullable qb_status_update_block_t)statusBlock
+                                statusBlock:(nullable qb_response_status_block_t)statusBlock
                                  errorBlock:(nullable qb_response_block_t)errorBlock;
 //MARK: - Tasks
 
@@ -240,10 +196,30 @@ NS_ASSUME_NONNULL_BEGIN
                   fileName:(NSString *)fileName
                contentType:(NSString *)contentType
                   isPublic:(BOOL)isPublic
-              successBlock:(nullable void(^)(QBResponse *response, QBCBlob *blob))successBlock
-               statusBlock:(nullable qb_status_update_block_t)statusBlock
+              successBlock:(nullable qb_response_blob_block_t)successBlock
+               statusBlock:(nullable qb_response_status_block_t)statusBlock
                 errorBlock:(nullable qb_response_block_t)errorBlock;
 
+/**
+ Upload File task. Contains 3 requests: Create Blob, upload file, declaring file uploaded
+ 
+ @param url File url to be uploaded
+ @param fileName Name of the file
+ @param contentType Type of the content in mime format
+ @param isPublic Blob's visibility
+ @param successBlock Block with response if request succeded
+ @param statusBlock Block with upload/download progress
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)uploadFileWithUrl:(NSURL *)url
+                        fileName:(NSString *)fileName
+                     contentType:(NSString *)contentType
+                        isPublic:(BOOL)isPublic
+                    successBlock:(nullable qb_response_blob_block_t)successBlock
+                     statusBlock:(nullable qb_response_status_block_t)statusBlock
+                      errorBlock:(nullable qb_response_block_t)errorBlock;
 /**
  Update File task. Contains 3 quieries: Update Blob, Upload file, Declaring file uploaded
  
@@ -255,13 +231,13 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return An instance of QBRequest for cancel operation mainly.
  */
-+ (QBRequest *)TUpdateFileWithData:(nullable NSData *)data
++ (QBRequest *)TUpdateFileWithData:(NSData *)data
                               file:(QBCBlob *)file
                       successBlock:(nullable qb_response_block_t)successBlock
-                       statusBlock:(nullable qb_status_update_block_t)statusBlock
+                       statusBlock:(nullable qb_response_status_block_t)statusBlock
                         errorBlock:(nullable qb_response_block_t)errorBlock;
 
-//MARK: Deprecated
+//MARK: DEPRECATED
 
 /**
  Get list of blob for the current User (last 10 files)
@@ -273,7 +249,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (QBRequest *)blobsWithSuccessBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBCBlob *> * _Nullable blobs))successBlock
                           errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'blobsForPage:successBlock:errorBlock:'.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'blobsForPage:successBlock:errorBlock:'.");
 
 
 /**
@@ -286,7 +262,55 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'blobsForPage:successBlock:err
  */
 + (QBRequest *)taggedBlobsWithSuccessBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> * _Nullable blobs))successBlock
                                 errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.9.3 Use 'taggedBlobsForPage:successBlock:errorBlock:'.");
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'taggedBlobsForPage:successBlock:errorBlock:'.");
+
+//MARK: - Get list of tagged blobs for the current user
+
+/**
+ Get list of tagged blobs for the current User (with extended set of pagination parameters)
+ 
+ @param page Page information
+ @param successBlock Block with response, page and blob instances if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)taggedBlobsForPage:(nullable QBGeneralResponsePage *)page
+                     successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> *blobs))successBlock
+                       errorBlock:(nullable qb_response_block_t)errorBlock DEPRECATED_ATTRIBUTE;
+
+
+//MARK: - Create Blob
+
+/**
+ Create blob.
+ 
+ @param blob An instance of QBCBlob, describing the file to be uploaded.
+ @param successBlock Block with response and blob instances if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)createBlob:(QBCBlob *)blob
+             successBlock:(nullable qb_response_blob_block_t)successBlock
+               errorBlock:(nullable qb_response_block_t)errorBlock DEPRECATED_ATTRIBUTE;
+
+//MARK: - Declaring Blob uploaded with ID
+
+/**
+ Declaring Blob uploaded with ID
+ 
+ @param blobID Unique blob identifier, value of ID property of the QBCBlob instance.
+ @param size Size of uploaded file, in bytes
+ @param successBlock Block with response and blob instances if request succeded
+ @param errorBlock Block with response instance if request failed
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)completeBlobWithID:(NSUInteger)blobID
+                             size:(NSUInteger)size
+                     successBlock:(nullable qb_response_block_t)successBlock
+                       errorBlock:(nullable qb_response_block_t)errorBlock DEPRECATED_ATTRIBUTE;
 
 @end
 

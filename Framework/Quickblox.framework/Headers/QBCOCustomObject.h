@@ -65,6 +65,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)customObject;
 
+//MARK: Keyed subscription
+
+- (nullable id)objectForKeyedSubscript:(NSString *)key;
+- (void)setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;
+
 @end
 
 NS_ASSUME_NONNULL_END
