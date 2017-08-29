@@ -151,6 +151,15 @@ typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
  */
 + (NSString *)chatEndpoint;
 
+/**
+ The port the xmpp server is running on.
+ If you do not explicitly set the port, the default port will be used.
+ If you set the port to zero, the default port will be used.
+ 
+ The default port is 5223.
+ **/
+@property (assign, nonatomic, class) NSUInteger chatEndpointPort;
+
 //MARK: - Network Indicator
 
 /**
