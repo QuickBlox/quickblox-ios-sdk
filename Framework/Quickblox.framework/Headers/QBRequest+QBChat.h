@@ -236,50 +236,6 @@ NS_ASSUME_NONNULL_BEGIN
                                          successBlock:(nullable void(^)(BOOL enabled))successBlock
                                            errorBlock:(nullable qb_response_block_t)errorBlock;
 
-//MARK: DEPRECATED
-
-/**
- Update existing chat message - mark it as read.
- 
- @note Updates message "read" status only on server.
- 
- @param message Сhat message to update.
- @param successBlock Block with response instance if request succeded.
- @param errorBlock Block with response instance if request failed.
- @warning Deprecated in 2.10 Use 'markMessagesAsRead:dialogID:successBlock:errorBlock:'.
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)updateMessage:(QBChatMessage *)message
-                successBlock:(nullable qb_response_block_t)successBlock
-                  errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'markMessagesAsRead:dialogID:successBlock:errorBlock:'.");
-
-/**
- Retrieve chat dialogs
- 
- @param successBlock Block with response instance and arrays of chat dialogs and chat dialogs users IDs if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)dialogsWithSuccessBlock:(nullable void(^)(QBResponse *response, NSArray<QBChatDialog *> *dialogObjects, NSSet<NSNumber *> *dialogsUsersIDs))successBlock
-                            errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'dialogsForPage:dialogID:extendedRequest:successBlock:errorBlock:'.");
-
-/**
- Retrieve first 100 chat messages within particular dialog
- 
- @param dialogID ID of a dialog
- @param successBlock Block with response instance and array of chat messages if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)messagesWithDialogID:(NSString *)dialogID
-                       successBlock:(nullable void(^)(QBResponse *response, NSArray<QBChatMessage *> *messages))successBlock
-                         errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'messagesWithDialogID:extendedRequest:successBlock:errorBlock:'.");
-
 @end
 
 NS_ASSUME_NONNULL_END

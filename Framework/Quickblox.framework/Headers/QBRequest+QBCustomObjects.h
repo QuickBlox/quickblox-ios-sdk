@@ -313,22 +313,6 @@ NS_ASSUME_NONNULL_BEGIN
                           successBlock:(nullable qb_response_block_t)successBlock
                             errorBlock:(nullable qb_response_block_t)errorBlock;
 
-//MARK: DEPRECATED
-
-/**
- Retrieve objects
- 
- @param className Name of class
- @param successBlock Block with response instance, NSArray of found objects, NSArray of not found objects Ids and QBResponsePage if request succeded
- @param errorBlock Block with response instance if request failed
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)objectsWithClassName:(NSString *)className
-                       successBlock:(nullable void (^)(QBResponse *response, NSArray * _Nullable objects))successBlock
-                         errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'objectsWithClassName:extendedRequest:successBlock:errorBlock:'.");
-
 @end
 
 NS_ASSUME_NONNULL_END

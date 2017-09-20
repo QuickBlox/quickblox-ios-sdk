@@ -1,5 +1,5 @@
 //
-//  QBLGeoDataResponsePage.h
+//  QBGeneralResponsePage.h
 //  Quickblox
 //
 //  Created by QuickBlox team on 4/28/14.
