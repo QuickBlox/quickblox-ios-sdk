@@ -8,6 +8,7 @@
 
 #import <Quickblox/QBChatMessage.h>
 #import "QMChatTypes.h"
+#import <CoreLocation/CoreLocation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
