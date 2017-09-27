@@ -67,11 +67,11 @@ NSString *const QB_DEFAULT_PASSOWORD = @"x6Bt0VDy5";
 
 #pragma mark - QBChatDelegate
 
-- (void)chatDidNotConnectWithError:(QB_NULLABLE NSError *)error {
+- (void)chatDidNotConnectWithError:(NSError *)error {
     
 }
 
-- (void)chatDidFailWithStreamError:(QB_NULLABLE NSError *)error {
+- (void)chatDidFailWithStreamError:(NSError *)error {
     
 }
 
