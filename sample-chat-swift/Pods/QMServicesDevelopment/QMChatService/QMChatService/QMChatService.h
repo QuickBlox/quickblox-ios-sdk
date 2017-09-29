@@ -22,25 +22,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
-
-/**
- *  QBChat connection state.
- */
-typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
-    /**
-     *  Not connected.
-     */
-    QMChatConnectionStateDisconnected,
-    /**
-     *  Connection in progress.
-     */
-    QMChatConnectionStateConnecting,
-    /**
-     *  Connected.
-     */
-    QMChatConnectionStateConnected
-};
-
 /**
  *  Chat dialog service
  */
@@ -63,11 +44,6 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 @property (assign, nonatomic) NSUInteger chatMessagesPerPage;
 
 /**
- *  Chat connection state
- */
-@property (assign, nonatomic, readonly) QMChatConnectionState chatConnectionState;
-
-/**
  *  Dialogs datasoruce
  */
 @property (strong, nonatomic, readonly) QMDialogsMemoryStorage *dialogsMemoryStorage;
@@ -81,6 +57,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  Attachment Service
  */
 @property (strong, nonatomic, readonly) QMChatAttachmentService *chatAttachmentService;
+
 
 @property (strong, nonatomic, readonly) QMDeferredQueueManager *deferredQueueManager;
 
@@ -243,7 +220,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  Send message about accepting or rejecting contact requst.
  *
  *  @param accept     YES - accept, NO reject
- *  @param opponent   opponent ID
+ *  @param opponentID   opponent ID
  *  @param completion completion block with failure error
  */
 - (void)sendMessageAboutAcceptingContactRequest:(BOOL)accept
@@ -299,6 +276,13 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 //MARK: - Fetch messages
 
 /**
+ *  Updating message in cache and memory storage.
+ *
+ *  @param message message to update
+ */
+- (void)updateMessageLocally:(QBChatMessage *)message;
+
+/**
  *  Deleting message from cache and memory storage.
  *
  *  @param message message to delete
@@ -332,7 +316,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  @discussion Pass nil or empty dictionary into extendedRequest to load only newest messages from latest message in cache.
  */
 - (void)messagesWithChatDialogID:(NSString *)chatDialogID
-                 extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedParameters
+                 extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedRequest
                       completion:(nullable void(^)(QBResponse *response, NSArray<QBChatMessage *> * _Nullable messages))completion;
 
 /**
@@ -353,11 +337,11 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  @param extendedRequest  extended parameters
  *  @param iterationBlock   iteration block (pagination handling)
  *  @param completion       Block with response instance and array of chat messages that were already iterated in iteration block
- * 
+ *
  *  @discussion Pass nil or empty dictionary into extendedRequest to load only newest messages from latest message in cache.
  */
 - (void)messagesWithChatDialogID:(NSString *)chatDialogID
-                 extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedParameters
+                 extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedRequest
                   iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock
                       completion:(nullable void(^)(QBResponse *response, NSArray<QBChatMessage *> * _Nullable messages))completion;
 /**
@@ -464,6 +448,18 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
                      toDialog:(QBChatDialog *)dialog
           withAttachmentImage:(UIImage *)image
                    completion:(nullable QBChatCompletionBlock)completion;
+/**
+ *  Send attachment message to dialog.
+ *
+ *  @param attachmentMessage    QBChatMessage instance with attachment
+ *  @param dialog               dialog instance to send message to
+ *  @param attachment           QBChatAttachment instance to upload
+ *  @param completion           completion block with failure error
+ */
+- (void)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
+                     toDialog:(QBChatDialog *)dialog
+               withAttachment:(QBChatAttachment *)attachment
+                   completion:(nullable QBChatCompletionBlock)completion;
 
 //MARK: - mark as delivered
 
@@ -478,7 +474,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 /**
  *  Mark messages as delivered.
  *
- *  @param message      array of QBChatMessage instances to mark as delivered
+ *  @param messages      array of QBChatMessage instances to mark as delivered
  *  @param completion   completion block with failure error
  */
 - (void)markMessagesAsDelivered:(NSArray<QBChatMessage *> *)messages completion:(nullable QBChatCompletionBlock)completion;
@@ -502,6 +498,12 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  */
 - (void)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID completion:(nullable QBChatCompletionBlock)completion;
 
+//MARK:- QMLinkPreview
+
+//- (void)getLinkPreviewForMessage:(QBChatMessage *)message withCompletion:(QMLinkPreviewCompletionBlock)completion;
+//
+//- (QMLinkPreview *)linkPreviewForMessage:(QBChatMessage *)message;
+
 @end
 
 //MARK: - Bolts
@@ -518,7 +520,16 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask *)connect;
+- (BFTask *)connect DEPRECATED_ATTRIBUTE;
+
+/**
+ *  Connect to the chat using Bolts.
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask *)connectWithUserID:(NSUInteger)userID password:(NSString *)password;
 
 /**
  *  Disconnect from the chat using Bolts.
@@ -657,7 +668,8 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
-- (BFTask <NSArray<QBChatMessage *> *> *)messagesWithChatDialogID:(NSString *)chatDialogID extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedParameters;
+- (BFTask <NSArray<QBChatMessage *> *> *)messagesWithChatDialogID:(NSString *)chatDialogID
+                                                  extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedRequest;
 
 /**
  *  Fetch messages with chat dialog id using custom extended request using Bolts.
@@ -668,7 +680,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
 - (BFTask <NSArray<QBChatMessage *> *> *)messagesWithChatDialogID:(NSString *)chatDialogID
-                                                                        iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock;
+                                                   iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock;
 
 /**
  *  Fetch messages with chat dialog id using custom extended request using Bolts.
@@ -682,8 +694,8 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
  */
 - (BFTask <NSArray<QBChatMessage *> *> *)messagesWithChatDialogID:(NSString *)chatDialogID
-                                                                       extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedParameters
-                                                                        iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock;
+                                                  extendedRequest:(nullable NSDictionary <NSString *, NSString *> *)extendedRequest
+                                                   iterationBlock:(nullable void(^)(QBResponse *response, NSArray * _Nullable messages, BOOL *stop))iterationBlock;
 
 /**
  *  Loads messages that are older than oldest message in cache.
@@ -723,7 +735,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *
  *  @param date         date to fetch dialogs from
  *  @param limit        page limit
- *  @param iteration    iteration block with dialogs for pages
+ *  @param iterationBlock    iteration block with dialogs for pages
  *
  *  @return BFTask with chat dialog
  *
@@ -752,7 +764,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  Send message about accepting or rejecting contact requst using Bolts.
  *
  *  @param accept     YES - accept, NO reject
- *  @param opponent   opponent ID
+ *  @param opponentID   opponent ID
  *
  *  @return BFTask with failure error
  *
@@ -823,7 +835,6 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  @param dialog        QBChatDialog instance
  *  @param saveToHistory if YES - saves message to chat history
  *  @param saveToStorage if YES - saves to local storage
- *  @param completion    completion block with failure error
  *
  *  @discussion The purpose of this method is to have a proper way of sending messages
  *  with a different message type, which does not have their own methods (e.g. contact request).
@@ -901,7 +912,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 /**
  *  Mark messages as delivered.
  *
- *  @param message      array of QBChatMessage instances to mark as delivered
+ *  @param messages      array of QBChatMessage instances to mark as delivered
  *
  *  @return BFTask with failure error
  *
@@ -948,7 +959,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  Will return dialog with specific identificator from cache or nil if dialog doesn't exist
  *
  *  @param dialogID   dialog identificator
- *  @param complition completion block with dialog
+ *  @param completion completion block with dialog
  */
 - (void)cachedDialogWithID:(NSString *)dialogID completion:(nullable void (^)(QBChatDialog * _Nullable dialog))completion;
 
@@ -965,7 +976,6 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
 
 @protocol QMChatServiceDelegate <NSObject>
 @optional
-
 /**
  *  Is called when ChatDialogs did load from cache.
  *
@@ -1020,7 +1030,7 @@ typedef NS_ENUM(NSUInteger, QMChatConnectionState) {
  *  Is called when some dialog did delete from memory storage
  *
  *  @param chatService instance
- *  @param chatDialog deleted QBChatDialog
+ *  @param chatDialogID deleted QBChatDialog
  */
 - (void)chatService:(QMChatService *)chatService didDeleteChatDialogWithIDFromMemoryStorage:(NSString *)chatDialogID;
 

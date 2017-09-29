@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6S5-ka-IgZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6S5-ka-IgZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,11 +15,11 @@
             <objects>
                 <tableViewController id="cFd-TC-mYp" customClass="LoginTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PgB-wC-IcO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="u3o-yE-Fi9">
-                            <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select User for Login to Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34y-R9-ydM">
@@ -39,14 +39,15 @@
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="centerY" secondItem="34y-R9-ydM" secondAttribute="centerY" id="14Q-ov-afk"/>
+                                <constraint firstAttribute="trailing" secondItem="34y-R9-ydM" secondAttribute="trailing" constant="180" id="5d8-4p-eVU"/>
                                 <constraint firstAttribute="trailing" secondItem="rmV-6w-hyT" secondAttribute="trailing" id="gHk-dA-NmI"/>
                                 <constraint firstItem="rmV-6w-hyT" firstAttribute="leading" secondItem="u3o-yE-Fi9" secondAttribute="leading" id="j2W-MG-Nhf"/>
                                 <constraint firstAttribute="bottom" secondItem="rmV-6w-hyT" secondAttribute="bottom" id="pwB-TG-spo"/>
-                                <constraint firstItem="34y-R9-ydM" firstAttribute="leading" secondItem="u3o-yE-Fi9" secondAttribute="leading" constant="8" id="v7z-SP-boS"/>
+                                <constraint firstItem="34y-R9-ydM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u3o-yE-Fi9" secondAttribute="leading" id="v7z-SP-boS"/>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="npw-H2-208">
-                            <rect key="frame" x="0.0" y="174" width="375" height="100"/>
+                            <rect key="frame" x="0.0" y="110" width="375" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eI6-1f-SFj">
@@ -82,7 +83,7 @@
                                 <rect key="frame" x="0.0" y="66" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGR-A0-T7A" id="H5W-gB-D6d">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3F-oh-jvS">
@@ -143,11 +144,11 @@
             <objects>
                 <tableViewController title="Select opponents" id="3ff-8d-9pb" customClass="NewDialogViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Sln-qn-yLM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="xDY-Jn-VPt">
-                            <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Users You Want to Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3q-JU-fNp">
@@ -167,6 +168,7 @@
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="Fzt-nv-TWj" firstAttribute="leading" secondItem="xDY-Jn-VPt" secondAttribute="leading" id="9F2-uZ-WQb"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="V3q-JU-fNp" secondAttribute="trailing" constant="20" symbolic="YES" id="CO7-gg-6iB"/>
                                 <constraint firstAttribute="trailing" secondItem="Fzt-nv-TWj" secondAttribute="trailing" id="DM5-Pi-9aH"/>
                                 <constraint firstAttribute="centerY" secondItem="V3q-JU-fNp" secondAttribute="centerY" id="M5n-Rd-mNI"/>
                                 <constraint firstItem="V3q-JU-fNp" firstAttribute="leading" secondItem="xDY-Jn-VPt" secondAttribute="leading" constant="8" id="hGL-Mi-Quc"/>
@@ -174,7 +176,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="cVE-Kh-tSy">
-                            <rect key="frame" x="0.0" y="174" width="375" height="1"/>
+                            <rect key="frame" x="0.0" y="110" width="375" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -183,7 +185,7 @@
                                 <rect key="frame" x="0.0" y="66" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BYb-5H-JmT" id="VtI-2y-0es">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkbox" highlightedImage="checkbox_a" translatesAutoresizingMaskIntoConstraints="NO" id="U3M-iV-wmX">
@@ -264,7 +266,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="mu4-9j-JuV">
-                            <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Dialog to Chat" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJg-vn-DI4">
@@ -287,11 +289,12 @@
                                 <constraint firstAttribute="trailing" secondItem="Gvj-uj-T9o" secondAttribute="trailing" id="AEl-nV-wid"/>
                                 <constraint firstItem="Gvj-uj-T9o" firstAttribute="leading" secondItem="mu4-9j-JuV" secondAttribute="leading" id="LQR-1Z-iAP"/>
                                 <constraint firstAttribute="bottom" secondItem="Gvj-uj-T9o" secondAttribute="bottom" id="VT3-sV-4tc"/>
-                                <constraint firstItem="sJg-vn-DI4" firstAttribute="leading" secondItem="mu4-9j-JuV" secondAttribute="leading" constant="8" id="qeM-D0-QgV"/>
+                                <constraint firstAttribute="trailing" secondItem="sJg-vn-DI4" secondAttribute="trailing" constant="219" id="Zpt-L4-eP8"/>
+                                <constraint firstItem="sJg-vn-DI4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mu4-9j-JuV" secondAttribute="leading" id="qeM-D0-QgV"/>
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="QiN-0q-edI">
-                            <rect key="frame" x="0.0" y="194" width="375" height="1"/>
+                            <rect key="frame" x="0.0" y="130" width="375" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -300,7 +303,7 @@
                                 <rect key="frame" x="0.0" y="66" width="375" height="64"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K1o-fi-ORk" id="CKE-Rg-xJI">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="64"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="63.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="5PE-o2-OPe">
@@ -419,7 +422,7 @@
             <objects>
                 <navigationController id="6S5-ka-IgZ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="G9g-Xq-NgR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -461,11 +464,11 @@
             <objects>
                 <tableViewController id="0FA-X7-tAD" customClass="ChatUsersInfoTableViewController" customModule="sample_chat_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hH2-0M-Sec">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92549019607843142" green="0.92156862745098034" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="oSa-ob-GPD">
-                            <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLe-WX-4Ml">
@@ -484,7 +487,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="yef-iV-XZh">
-                            <rect key="frame" x="0.0" y="174" width="375" height="1"/>
+                            <rect key="frame" x="0.0" y="110" width="375" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.74117647058823533" green="0.73725490196078436" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -493,7 +496,7 @@
                                 <rect key="frame" x="0.0" y="66" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7q2-An-7NX" id="wfN-pM-lov">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login as User 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I95-6P-mOh">
@@ -542,7 +545,7 @@
                     <navigationItem key="navigationItem" title="Chat Info" id="A4A-Dp-q1R">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Oqi-5W-1Ip">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="X0s-1A-m4j">
-                                <rect key="frame" x="447" y="7" width="133" height="30"/>
+                                <rect key="frame" x="226" y="7" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add occupants">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -566,7 +569,7 @@
         <image name="user" width="49" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="P2j-TU-AWx"/>
         <segue reference="zt6-Oe-FDk"/>
+        <segue reference="Mia-Tg-jSJ"/>
     </inferredMetricsTieBreakers>
 </document>

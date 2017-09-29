@@ -75,6 +75,11 @@ static QMUsersCache *_usersCacheInstance = nil;
                                           withValue:@(user.ID)
                                           inContext:ctx];
             
+            QBUUser *cachedQBUser = [cachedUser toQBUUser];
+            if ([cachedQBUser.lastRequestAt compare:user.lastRequestAt] == NSOrderedDescending) {
+                // always should have newest date
+                user.lastRequestAt = cachedQBUser.lastRequestAt;
+            }
             [cachedUser updateWithQBUser:user];
         }
         

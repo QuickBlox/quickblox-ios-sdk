@@ -19,7 +19,7 @@
     }
     
     if (self.userIDValue != contactListItem.userID) {
-        self.userIDValue = contactListItem.userID;
+        self.userIDValue = (int32_t)contactListItem.userID;
     }
 }
 

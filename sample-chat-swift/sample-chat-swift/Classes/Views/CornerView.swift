@@ -33,9 +33,9 @@ class CornerView: UIView {
 			return
 		}
 			
-		let rectangleFontAttributes: [String: Any] = [NSFontAttributeName: fontAttributeName,
-			NSForegroundColorAttributeName: UIColor.white,
-			NSParagraphStyleAttributeName: style]
+		let rectangleFontAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: fontAttributeName,
+			NSAttributedStringKey.foregroundColor: UIColor.white,
+			NSAttributedStringKey.paragraphStyle: style]
 		
 		let rectOffset = rect.offsetBy(dx: 0, dy: ((rect.height - text.boundingRect(with: rect.size, options:.usesLineFragmentOrigin, attributes:rectangleFontAttributes, context: nil).size.height)/2))
 		

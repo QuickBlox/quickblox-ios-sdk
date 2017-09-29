@@ -7,7 +7,7 @@
 //
 
 #import "QMChatCache.h"
-#import "QMCCModelIncludes.h"
+#import "QMChatServiceModelIncludes.h"
 
 #import "QMSLog.h"
 
@@ -174,8 +174,6 @@ static QMChatCache *_chatCacheInstance = nil;
     }];
 }
 
-//MARK: - Insert / Update
-
 - (void)insertOrUpdateDialog:(QBChatDialog *)dialog
                   completion:(dispatch_block_t)completion {
     
@@ -284,18 +282,6 @@ static QMChatCache *_chatCacheInstance = nil;
 
 - (void)insertOrUpdateMessage:(QBChatMessage *)message
                  withDialogId:(NSString *)dialogID
-                         read:(BOOL)isRead
-                   completion:(dispatch_block_t)completion {
-    
-    message.dialogID = dialogID;
-    
-    [self insertOrUpdateMessage:message
-                   withDialogId:dialogID
-                     completion:completion];
-}
-
-- (void)insertOrUpdateMessage:(QBChatMessage *)message
-                 withDialogId:(NSString *)dialogID
                    completion:(dispatch_block_t)completion {
     
     [self insertOrUpdateMessages:@[message]
@@ -309,14 +295,17 @@ static QMChatCache *_chatCacheInstance = nil;
     
     [self save:^(NSManagedObjectContext *ctx) {
         
+        CDDialog *cachedDialog =
+        [CDDialog QM_findFirstByAttribute:@"dialogID" withValue:dialogID inContext:ctx];
+        
         for (QBChatMessage *message in messages) {
             
             CDMessage *procMessage =
             [CDMessage QM_findFirstOrCreateByAttribute:@"messageID"
                                              withValue:message.ID
                                              inContext:ctx];
-            
             [procMessage updateWithQBChatMessage:message];
+            [cachedDialog addMessagesObject:procMessage];
         }
         
         QMSLog(@"[%@] Messages to insert %tu, update %tu",
@@ -331,6 +320,7 @@ static QMChatCache *_chatCacheInstance = nil;
            completion:(dispatch_block_t)completion {
     
     [self save:^(NSManagedObjectContext *ctx) {
+        
         [CDMessage QM_deleteAllMatchingPredicate:IS(@"messageID", message.ID)
                                        inContext:ctx];
     } finish:completion];
@@ -367,6 +357,17 @@ static QMChatCache *_chatCacheInstance = nil;
     
     [self save:^(NSManagedObjectContext *ctx) {
         [CDMessage QM_truncateAllInContext:ctx];
+    } finish:completion];
+}
+
+- (void)truncateAll:(nullable dispatch_block_t)completion {
+    
+    [self save:^(NSManagedObjectContext *ctx) {
+        
+        [CDDialog QM_truncateAllInContext:ctx];
+        [CDMessage QM_truncateAllInContext:ctx];
+        [CDAttachment QM_truncateAllInContext:ctx];
+        
     } finish:completion];
 }
 

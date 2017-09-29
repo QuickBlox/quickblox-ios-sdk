@@ -1,6 +1,6 @@
 //
 //  QMKVOView.m
-//  
+//
 //
 //  Created by Vitaliy Gurkovsky on 10/12/16.
 //
@@ -11,36 +11,46 @@
 static void * kQMFrameKeyValueObservingContext = &kQMFrameKeyValueObservingContext;
 
 @interface QMKVOView()
+
 @property (assign, nonatomic, getter=isObserverAdded) BOOL observerAdded;
+
 @end
 
 @implementation QMKVOView
-#pragma mark - Life cycle
+
 - (void)dealloc {
-    //ILog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
+    
+    NSLog(@"QMKVOView dealloc");
 }
+
 #pragma mark - Actions
+
+- (void)setCollectionView:(UICollectionView *)collectionView {
+    
+    _collectionView = collectionView;
+    
+    if (floor(NSFoundationVersionNumber) >= NSFoundationVersionNumber_iOS_9_0) {
+        [_collectionView.panGestureRecognizer addTarget:self
+                                                 action:@selector(handlePanGestureRecognizer:)];
+    }
+}
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     
     if (self.isObserverAdded) {
         
-        [self.superview removeObserver:self
-                            forKeyPath:@"frame"
-                               context:kQMFrameKeyValueObservingContext];
+        if (self.hostViewFrameChangeBlock) {
+            self.hostViewFrameChangeBlock(newSuperview, NO);
+        }
+        
         [self.superview removeObserver:self
                             forKeyPath:@"center"
                                context:kQMFrameKeyValueObservingContext];
     }
     
     [newSuperview addObserver:self
-                   forKeyPath:@"frame"
-                      options:0
-                      context:kQMFrameKeyValueObservingContext];
-    
-    [newSuperview addObserver:self
                    forKeyPath:@"center"
-                      options:0
+                      options:NSKeyValueObservingOptionNew
                       context:kQMFrameKeyValueObservingContext];
     
     self.observerAdded = YES;
@@ -50,22 +60,37 @@ static void * kQMFrameKeyValueObservingContext = &kQMFrameKeyValueObservingConte
 
 #pragma mark - Key-value observing
 
-- (void)layoutSubviews {
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
     
-    [super layoutSubviews];
-    
-    if (self.superFrameDidChangeBlock) {
-        self.superFrameDidChangeBlock(self.superview.frame);
+    if ([keyPath isEqualToString:@"center"] ) {
+        if (self.hostViewFrameChangeBlock) {
+            self.hostViewFrameChangeBlock(self.superview,
+                                          _collectionView.panGestureRecognizer.state != UIGestureRecognizerStateChanged);
+        }
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)handlePanGestureRecognizer:(UIPanGestureRecognizer *)gesture {
     
-    if (object == self.superview && ([keyPath isEqualToString:@"frame"] ||
-                                     [keyPath isEqualToString:@"center"])) {
+    if (self.superview == nil) {
+        return;
+    }
+    
+    if (gesture.state == UIGestureRecognizerStateChanged) {
         
-        if  (self.superFrameDidChangeBlock) {
-            self.superFrameDidChangeBlock(self.superview.frame);
+        UIView *host = self.superview;
+        UIView *input = self.inputView;
+        
+        CGRect frame = host.frame;
+        const CGPoint panPoint = [gesture locationInView:input.window];
+        const CGRect hostViewRect = [input convertRect:frame toView:host];
+        
+        if (panPoint.y >= hostViewRect.origin.y) {
+            frame.origin.y += hostViewRect.origin.y - panPoint.y;
+            host.frame = frame;
         }
     }
 }

@@ -20,6 +20,7 @@ NSString *const QMPlaceholderDidChangeHeight = @"com.quickblox.qmunicate.QMPlace
 @end
 
 @implementation QMPlaceHolderTextView
+@synthesize pasteDelegate;
 
 #pragma mark - Initialization
 
@@ -336,6 +337,5 @@ NSString *const QMPlaceholderDidChangeHeight = @"com.quickblox.qmunicate.QMPlace
     
     return [super becomeFirstResponder];
 }
-
 
 @end

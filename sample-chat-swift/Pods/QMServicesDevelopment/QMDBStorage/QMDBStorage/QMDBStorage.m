@@ -42,8 +42,7 @@
 
 - (void)performBackgroundQueue:(void (^)(NSManagedObjectContext *ctx))block {
     
-    NSManagedObjectContext *backgroundContext =
-    [NSManagedObjectContext QM_privateQueueContext];
+    NSManagedObjectContext *backgroundContext = [NSManagedObjectContext QM_privateQueueContext];
     [backgroundContext setParentContext:self.stack.privateWriterContext];
     [backgroundContext performBlock:^{
         block(backgroundContext);
@@ -52,8 +51,7 @@
 
 - (void)performMainQueue:(void (^)(NSManagedObjectContext *ctx))block {
     
-    NSManagedObjectContext *mainContext =
-    [NSManagedObjectContext QM_mainQueueContext];
+    NSManagedObjectContext *mainContext = [NSManagedObjectContext QM_mainQueueContext];
     [mainContext setParentContext:self.stack.privateWriterContext];
     [mainContext performBlockAndWait:^{
         block(mainContext);
@@ -64,13 +62,10 @@
       finish:(dispatch_block_t)finish {
     
     NSManagedObjectContext *ctx = _stack.privateWriterContext;
-    
     [_stack.privateWriterContext performBlock:^{
         
         block(ctx);
-        
         [ctx QM_saveToPersistentStoreAndWait];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (finish) {

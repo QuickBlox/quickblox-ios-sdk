@@ -45,7 +45,7 @@
     
     override func setupUsers(users: [QBUUser]) {
         
-        var filteredUsers = users.filter({($0 as QBUUser).id != ServicesManager.instance().currentUser()?.id})
+        var filteredUsers = users.filter({($0 as QBUUser).id != ServicesManager.instance().currentUser.id})
         
         if let _ = self.dialog  {
             
@@ -79,7 +79,7 @@
                 }
                 self?.checkCreateChatButtonState()
                 
-                print(createdDialog)
+                print(createdDialog as Any)
                 self?.openNewDialog(dialog: createdDialog)
             }
             
@@ -89,7 +89,7 @@
             }
             
             if let error = unwrappedResponse.error {
-                print(error.error)
+                print(error.error as Any)
                 SVProgressHUD.showError(withStatus: error.error?.localizedDescription)
             }
             else {
@@ -229,7 +229,7 @@
     
     func nameForGroupChatWithUsers(users:[QBUUser]) -> String {
         
-        let chatName = ServicesManager.instance().currentUser()!.login! + "_" + users.map({ $0.login ?? $0.email! }).joined(separator: ", ").replacingOccurrences(of: "@", with: "", options: String.CompareOptions.literal, range: nil)
+        let chatName = ServicesManager.instance().currentUser.login! + "_" + users.map({ $0.login ?? $0.email! }).joined(separator: ", ").replacingOccurrences(of: "@", with: "", options: String.CompareOptions.literal, range: nil)
         
         return chatName
     }

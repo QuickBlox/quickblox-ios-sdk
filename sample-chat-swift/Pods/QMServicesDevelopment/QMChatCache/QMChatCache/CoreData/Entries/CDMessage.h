@@ -1,4 +1,5 @@
 #import "_CDMessage.h"
+#import <Quickblox/QBChatMessage.h>
 
 @interface CDMessage : _CDMessage
 

@@ -10,7 +10,6 @@
 #import "QMDBStorage.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 @interface QMChatCache : QMDBStorage
 
 /**
@@ -25,7 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return QMChatCache instance
  */
-+ (nullable QMChatCache *)instance;
+
+@property (nonatomic, readonly, class) QMChatCache *instance;
 
 //MARK: - Configure store
 
@@ -66,10 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Delete dialog from cache
  *
- *  @param dialog
+ *  @param dialogID Dialog Identifier
  *  @param completion Completion block is called after delete operation is completed
  */
-- (void)deleteDialogWithID:(NSString *)dialog
+- (void)deleteDialogWithID:(NSString *)dialogID
                 completion:(nullable dispatch_block_t)completion;
 
 /**
@@ -139,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)allDialogsWithCompletion:(nullable void(^)(NSArray<QBChatDialog *> * _Nullable dialogs))completion;
 /**
- *   Fetch all cached dialogs
+ *   Asynchronous fetches all cached dialogs
  *
  *  @param sortTerm   Attribute name to sort by.
  *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
@@ -180,10 +180,10 @@ NS_ASSUME_NONNULL_BEGIN
 //MARK: -
 
 /**
- *  Add message to cache
+ *  Asynchronous insert or update message in to persistent store
  *
  *  @param message    QBChatMessage instance
- *  @param dialogId   Dialog identifier
+ *  @param dialogID   Dialog identifier
  *  @param completion Completion block is called after update or insert operation is completed
  */
 - (void)insertOrUpdateMessage:(QBChatMessage *)message
@@ -191,20 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
                    completion:(nullable dispatch_block_t)completion;
 
 /**
- *  Add message to cache
- *
- *  @param message    QBChatMessage instance
- *  @param dialogId   Dialog identifier
- *  @param isRead     mark read
- *  @param completion Completion block is called after update or insert operation is completed
- */
-- (void)insertOrUpdateMessage:(QBChatMessage *)message
-                 withDialogId:(NSString *)dialogID
-                         read:(BOOL)isRead
-                   completion:(nullable dispatch_block_t)completion DEPRECATED_ATTRIBUTE;
-
-/**
- *  Update or insert messages
+ *  Asynchronous insert or update messages in to persistent store
  *
  *  @param messages   Array of QBChatMessage instances
  *  @param dialogID   Dialog identifier
@@ -215,7 +202,7 @@ NS_ASSUME_NONNULL_BEGIN
                     completion:(nullable dispatch_block_t)completion;
 
 /**
- *  Delete message
+ *  Asynchronously deletes message
  *
  *  @param message    QBChatMessage instance
  *  @param completion Completion block that is called after the delete operation has completed.
@@ -224,60 +211,69 @@ NS_ASSUME_NONNULL_BEGIN
            completion:(nullable dispatch_block_t)completion;
 
 /**
- *  Delete messages
- *
- *  @param messages   messages to delete
- *  @param completion Completion block that is called after the delete operation has completed.
+ Asynchronously deletes messages
+ 
+ @param messages   messages to delete
+ @param completion Completion block that is called after the delete operation has completed.
  */
 - (void)deleteMessages:(NSArray<QBChatMessage *> *)messages
             completion:(nullable dispatch_block_t)completion;
 
 /**
- *  Delete messages for dialog ID
- *
- *  @param dialogID   dialog identifier
- *  @param completion Completion block that is called after the delete operation has completed.
+ Asynchronously deletes messages for dialog ID
+ 
+ @param dialogID   dialog identifier
+ @param completion Completion block that is called after the delete operation has completed.
  */
 - (void)deleteMessageWithDialogID:(NSString *)dialogID
                        completion:(nullable dispatch_block_t)completion;
 
 /**
- *  Delete all messages
- *
- *  @param completion Completion block that is called after the delete all messages operation  has completed.
+ Asynchronously deletes all messages
+ 
+ @param completion Completion block that is called after the delete all messages operation  has completed.
  */
 - (void)deleteAllMessagesWithCompletion:(nullable dispatch_block_t)completion;
 
 //MARK: Fetch Messages operations
 
+/**
+ Synchronously fetches cached messages with dialog id and filtering with predicate
+ @param dialogId Dialog identifier
+ @param sortTerm Attribute name to sort by.
+ @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
+ @return returns an array of QBChatMessages instances
+ */
 - (NSArray<QBChatMessage *> *)messagesWithDialogId:(NSString *)dialogId
                                           sortedBy:(NSString *)sortTerm
                                          ascending:(BOOL)ascending;
 
 /**
- *  Fetch cached messages with dialog id and filtering with predicate
- *
- *  @param dialogId   Dialog identifier
- *  @param predicate  Predicate to evaluate objects against
- *  @param completion returns an array of QBChatMessages instances
+ Asynchronously fetches cached messages with dialog id and filtering with predicate
+ 
+ @param dialogId  Dialog identifier
+ @param sortTerm  Attribute name to sort by.
+ @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
+ @param completion returns an array of QBChatMessages instances
  */
 - (void)messagesWithDialogId:(NSString *)dialogId
                     sortedBy:(NSString *)sortTerm
                    ascending:(BOOL)ascending
                   completion:(void(^)(NSArray<QBChatMessage *> *messages))completion;
-
 /**
- *  Fetch messages
- *
- *  @param predicate  Predicate to evaluate objects against
- *  @param sortTerm   Attribute name to sort by.
- *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
- *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBChatMessage instances
+ Asynchronously fetches messages filtering with predicate
+ 
+ @param predicate  Predicate to evaluate objects against
+ @param sortTerm   Attribute name to sort by.
+ @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
+ @param completion Completion block that is called after the fetch has completed. Returns an array of QBChatMessage instances
  */
 - (void)messagesWithPredicate:(NSPredicate *)predicate
                      sortedBy:(NSString *)sortTerm
                     ascending:(BOOL)ascending
                    completion:(void(^)(NSArray<QBChatMessage *> *messages))completion;
+
+- (void)truncateAll:(nullable dispatch_block_t)completion;
 
 @end
 

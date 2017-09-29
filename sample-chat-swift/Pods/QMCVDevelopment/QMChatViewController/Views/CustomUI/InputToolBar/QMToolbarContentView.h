@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "QMPlaceHolderTextView.h"
 
+typedef NS_ENUM(NSUInteger, QMToolbarPosition) {
+    QMToolbarPositionRight,
+    QMToolbarPositionLeft,
+    QMToolbarPositionBottom
+};
+
+
+
+
 /**
  *  A constant value representing the default spacing to use for the left and right edges
  *  of the toolbar content view.

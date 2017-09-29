@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <SDWebImage/SDWebImageManager.h>
-IB_DESIGNABLE
+#import "QMImageLoader.h"
+
 @protocol QMImageViewDelegate ;
 
 typedef NS_ENUM(NSUInteger, QMImageViewType) {
@@ -21,23 +21,24 @@ typedef NS_ENUM(NSUInteger, QMImageViewType) {
 /**
  Default QMUserImageViewType QMUserImageViewTypeNone
  */
-@property (nonatomic) IBInspectable CGFloat borderWidth;
 @property (assign, nonatomic) QMImageViewType imageViewType;
 @property (strong, nonatomic, readonly) NSURL *url;
 
 @property (weak, nonatomic) id <QMImageViewDelegate> delegate;
 
-- (void)setImage:(UIImage *)image withKey:(NSString *)key;
+- (void)setImageWithURL:(NSURL *)url;
 
 - (void)setImageWithURL:(NSURL *)url
             placeholder:(UIImage *)placehoder
                 options:(SDWebImageOptions)options
                progress:(SDWebImageDownloaderProgressBlock)progress
-         completedBlock:(SDWebImageCompletionBlock)completedBlock;
+         completedBlock:(SDExternalCompletionBlock)completedBlock;
 
 - (void)setImageWithURL:(NSURL *)url
                   title:(NSString *)title
-         completedBlock:(SDWebImageCompletionBlock)completedBlock;
+         completedBlock:(SDExternalCompletionBlock)completedBlock;
+
+- (UIImage *)originalImage;
 
 @end
 

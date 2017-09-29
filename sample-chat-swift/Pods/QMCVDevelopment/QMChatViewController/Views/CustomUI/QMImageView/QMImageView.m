@@ -9,37 +9,9 @@
 #import "QMImageView.h"
 #import "UIView+WebCacheOperation.h"
 #import "UIImageView+WebCache.h"
+#import "UIImage+Cropper.h"
 #import "objc/runtime.h"
 #import "QMImageLoader.h"
-#import "UIImage+Cropper.h"
-
-@interface QMImageProcessor : NSObject <SDWebImageManagerDelegate>
-
-+ (instancetype)instance;
-
-@end
-
-@implementation QMImageProcessor
-
-+ (instancetype)instance {
-    
-    static dispatch_once_t onceToken;
-    static QMImageProcessor *_imageProcessor = nil;
-    dispatch_once(&onceToken, ^{
-        _imageProcessor = [[QMImageProcessor alloc] init];
-    });
-    
-    return _imageProcessor;
-}
-
-- (UIImage *)imageManager:(SDWebImageManager *)imageManager
- transformDownloadedImage:(UIImage *)image
-                  withURL:(NSURL *)imageURL {
-    
-    return [image imageByCircularScaleAndCrop:CGSizeMake(59, 59)];
-}
-
-@end
 
 @interface QMTextLayer : CALayer
 
@@ -47,33 +19,16 @@
 
 @end
 
-
 @implementation QMTextLayer {
     
     UIColor *_fillColor;
     NSString *_string;
 }
 
-static NSDictionary *_defaultStyle;
-
-- (instancetype)init
-{
+- (instancetype)init {
+    
     self = [super init];
     if (self) {
-        
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            
-            UIColor *color = [UIColor colorWithWhite:1 alpha:0.8];
-            UIFont *font = [UIFont systemFontOfSize:24];
-            NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-            style.alignment = NSTextAlignmentCenter;
-            style.lineBreakMode = NSLineBreakByTruncatingTail;
-            
-            _defaultStyle = @{NSParagraphStyleAttributeName:style,
-                              NSForegroundColorAttributeName:color,
-                              NSFontAttributeName:font};
-        });
         
         self.shouldRasterize = YES;
         self.rasterizationScale = [UIScreen mainScreen].scale;
@@ -86,12 +41,22 @@ static NSDictionary *_defaultStyle;
 
 - (void)drawInContext:(CGContextRef)ctx {
     
+    CGRect rect = self.bounds;
+    
+    UIColor *color = [UIColor colorWithWhite:1 alpha:0.8];
+    UIFont *font = [UIFont systemFontOfSize:rect.size.height * 0.4];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.alignment = NSTextAlignmentCenter;
+    style.lineBreakMode = NSLineBreakByTruncatingTail;
+    
+    NSDictionary *defaultStyle = @{NSParagraphStyleAttributeName:style,
+                                   NSForegroundColorAttributeName:color,
+                                   NSFontAttributeName:font};
+    
     UIGraphicsPushContext(ctx);
     
-    UIFont *font = _defaultStyle[NSFontAttributeName];
     CGSize size = CGSizeMake(self.bounds.size.width,
                              font.lineHeight);
-    CGRect rect = self.bounds;
     rect.origin.y = (rect.size.height - size.height) / 2.f;
     
     CGContextSetFillColorWithColor(ctx, _fillColor.CGColor);
@@ -99,7 +64,7 @@ static NSDictionary *_defaultStyle;
     
     NSRange r = [_string rangeOfComposedCharacterSequenceAtIndex:0];
     NSString *firstCharacter = [[_string substringWithRange:r] capitalizedString];
-    [firstCharacter drawInRect:rect withAttributes:_defaultStyle];
+    [firstCharacter drawInRect:rect withAttributes:defaultStyle];
     
     UIGraphicsPopContext();
 }
@@ -127,6 +92,8 @@ static NSDictionary *_defaultStyle;
 
 static NSArray *qm_colors = nil;
 
+//MARK: Initialization
+
 + (void)initialize {
     
     static dispatch_once_t onceToken;
@@ -145,27 +112,6 @@ static NSArray *qm_colors = nil;
           [UIColor colorWithRed:0.122f green:0.737f blue:0.823f alpha:1.0f],
           [UIColor colorWithRed:0.251f green:0.329f blue:0.698f alpha:1.0f]];
     });
-}
-
-unsigned long stringToLong(unsigned char* str) {
-    
-    unsigned long hash = 5381;
-    int c;
-    while ((c = *str++)) {
-        hash = ((hash << 5) + hash) + c;
-    }
-    return hash;
-}
-
-- (UIColor *)colorForString:(NSString*)string {
-    
-    if (!string) {
-        string = @"";
-    }
-    
-    unsigned long hashNumber = stringToLong((unsigned char*)[string UTF8String]);
-    
-    return qm_colors[hashNumber % 10];
 }
 
 - (instancetype)init {
@@ -223,37 +169,30 @@ unsigned long stringToLong(unsigned char* str) {
     return self;
 }
 
+//MARK: - NSObject
+
 - (void)dealloc {
-    
-    [self sd_cancelCurrentImageLoad];
+    [self sd_cancelCurrentAnimationImagesLoad];
 }
 
-- (void)configure {
-    
-    self.backgroundColor = [UIColor clearColor];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(handleTapGesture:)];
-    
-    [self addGestureRecognizer:tap];
-    self.tapGestureRecognizer = tap;
-    self.userInteractionEnabled = YES;
-    
-    _textLayer = [[QMTextLayer alloc] init];
-    _textLayer.frame = self.bounds;
-    _textLayer.hidden = YES;
-    
-    [self.layer addSublayer:_textLayer];
+//MARK: - Public interface
+
+- (UIImage *)originalImage {
+    return self.image;
 }
 
-- (void)setImage:(UIImage *)image withKey:(NSString *)key {
-    [[QMImageLoader instance].imageCache storeImage:image forKey:key];
+- (void)setImageWithURL:(NSURL *)url {
+    
+    [self setImageWithURL:url
+              placeholder:nil
+                  options:(SDWebImageHighPriority | SDWebImageContinueInBackground | SDWebImageAllowInvalidSSLCertificates)
+                 progress:nil
+           completedBlock:nil];
 }
 
 - (void)setImageWithURL:(NSURL *)url
                   title:(NSString *)title
-         completedBlock:(SDWebImageCompletionBlock)completedBlock {
+         completedBlock:(SDExternalCompletionBlock)completedBlock {
     
     BOOL urlIsValid = url &&url.scheme && url.host;
     
@@ -262,12 +201,8 @@ unsigned long stringToLong(unsigned char* str) {
         [_textLayer setString:title color:[self colorForString:title]];
         _textLayer.hidden = NO;
         
-        CGRect bounds = CGRectMake(0,
-                                   0,
-                                   (int)self.bounds.size.width,
-                                   (int)self.bounds.size.height);
-        if (!CGRectEqualToRect(_textLayer.frame, bounds)) {
-            _textLayer.frame = bounds;
+        if (!CGRectEqualToRect(_textLayer.frame, self.bounds)) {
+            _textLayer.frame = self.bounds;
         }
     };
     
@@ -277,16 +212,25 @@ unsigned long stringToLong(unsigned char* str) {
     }
     
     _url = url;
-    [self sd_cancelCurrentImageLoad];
     
-    UIImage *image =
-    [[QMImageLoader instance].imageCache imageFromMemoryCacheForKey:url.absoluteString];
+    [self sd_cancelCurrentAnimationImagesLoad];
     
-    if (image) {
-        self.image = image;
-        _textLayer.hidden = YES;
-        return;
+    CGSize targetSize = self.bounds.size;
+    QMImageTransformType type = self.imageViewType == QMImageViewTypeCircle ?  QMImageTransformTypeCircle : QMImageTransformTypeCustom;
+    QMImageTransform *transform;
+    if (type == QMImageTransformTypeCircle)
+    transform =
+    [QMImageTransform transformWithType:type size:targetSize];
+    
+    else if (type == QMImageTransformTypeCustom) {
+        
+    transform =
+        [QMImageTransform transformWithSize:targetSize
+                       customTransformBlock:^UIImage *(NSURL *imageURL, UIImage *originalImage) {
+            return [originalImage imageWithCornerRadius:4.0 targetSize:targetSize];
+        }];
     }
+    
     self.image = nil;
     showPlaceholder();
     
@@ -297,28 +241,22 @@ unsigned long stringToLong(unsigned char* str) {
         id <SDWebImageOperation> operation =
         [[QMImageLoader instance]
          downloadImageWithURL:url
-         transform:[QMImageProcessor instance]
-         options:SDWebImageLowPriority
+         transform:transform
+         options:(SDWebImageHighPriority | SDWebImageContinueInBackground | SDWebImageAllowInvalidSSLCertificates)
          progress:nil
          completed:
-         ^(UIImage *image,
-           NSError *error,
-           SDImageCacheType cacheType,
-           BOOL finished,
-           NSURL *imageURL) {
-             
+         ^(UIImage *image, UIImage *transfomedImage,
+           NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
+         {
              if (!weakSelf) return;
              
              if (!error) {
                  
-                 if (image) {
+                 if (transfomedImage) {
                      weakSelf.textLayer.hidden = YES;
-                     weakSelf.image = image;
+                     weakSelf.image = transfomedImage;
                      [weakSelf setNeedsLayout];
                  }
-             }
-             else {
-                 NSLog(@"downloadImageWithURL %@", error.localizedDescription);
              }
              
              if (completedBlock) {
@@ -326,7 +264,7 @@ unsigned long stringToLong(unsigned char* str) {
              }
          }];
         
-        [self sd_setImageLoadOperation:operation forKey:@"UIImageViewImageLoad"];
+        [self sd_setImageLoadOperation:operation forKey:@"UIImageViewAnimationImages"];
     }
     else {
         
@@ -349,21 +287,14 @@ unsigned long stringToLong(unsigned char* str) {
             placeholder:(UIImage *)placehoder
                 options:(SDWebImageOptions)options
                progress:(SDWebImageDownloaderProgressBlock)progress
-         completedBlock:(SDWebImageCompletionBlock)completedBlock  {
+         completedBlock:(SDExternalCompletionBlock)completedBlock  {
     
     BOOL urlIsValid = url &&url.scheme && url.host;
     
     _url = url;
-    [self sd_cancelCurrentImageLoad];
     
-    UIImage *image =
-    [[QMImageLoader instance].imageCache imageFromMemoryCacheForKey:url.absoluteString];
+    [self sd_cancelCurrentAnimationImagesLoad];
     
-    if (image) {
-        self.image = image;
-        _textLayer.hidden = YES;
-        return;
-    }
     self.image = placehoder;
     
     if (urlIsValid) {
@@ -374,34 +305,27 @@ unsigned long stringToLong(unsigned char* str) {
         [[QMImageLoader instance]
          downloadImageWithURL:url
          transform:nil
-         options:SDWebImageLowPriority
+         options:options
          progress:nil
          completed:
-         ^(UIImage *image,
-           NSError *error,
-           SDImageCacheType cacheType,
-           BOOL finished,
-           NSURL *imageURL) {
-             
+         ^(UIImage *image, UIImage *transfomedImage,
+           NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
+         {
              if (!weakSelf) return;
              
              if (!error) {
                  
                  if (image) {
-                     weakSelf.textLayer.hidden = YES;
                      weakSelf.image = image;
                      [weakSelf setNeedsLayout];
                  }
-             }
-             else {
-                 NSLog(@"downloadImageWithURL %@", error.localizedDescription);
              }
              
              if (completedBlock) {
                  completedBlock(image, error, cacheType, imageURL);
              }
          }];
-        
+    
         [self sd_setImageLoadOperation:operation forKey:@"UIImageViewImageLoad"];
     }
     else {
@@ -421,9 +345,15 @@ unsigned long stringToLong(unsigned char* str) {
     }
 }
 
-- (void)clearImage {
+//MARK: - UIView
+
+- (CGSize)intrinsicContentSize {
     
-    self.image = nil;
+    if (self.image) {
+        return [super intrinsicContentSize];
+    }
+    
+    return CGSizeZero;
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
@@ -441,6 +371,54 @@ unsigned long stringToLong(unsigned char* str) {
             [self.delegate imageViewDidTap:self];
         }];
     }
+}
+
+//MARK: - Helpers
+
+- (void)configure {
+    
+    self.backgroundColor = [UIColor clearColor];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(handleTapGesture:)];
+    
+    [self addGestureRecognizer:tap];
+    self.tapGestureRecognizer = tap;
+    self.userInteractionEnabled = YES;
+    
+    _textLayer = [[QMTextLayer alloc] init];
+    _textLayer.frame = self.bounds;
+    _textLayer.hidden = YES;
+    
+    [self.layer addSublayer:_textLayer];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    _textLayer.frame = self.bounds;
+}
+
+- (UIColor *)colorForString:(NSString*)string {
+    
+    if (!string) {
+        string = @"";
+    }
+    
+    unsigned long hashNumber = stringToLong((unsigned char*)[string UTF8String]);
+    
+    return qm_colors[hashNumber % qm_colors.count];
+}
+
+unsigned long stringToLong(unsigned char* str) {
+    
+    unsigned long hash = 5381;
+    int c;
+    while ((c = *str++)) {
+        hash = ((hash << 5) + hash) + c;
+    }
+    return hash;
 }
 
 @end

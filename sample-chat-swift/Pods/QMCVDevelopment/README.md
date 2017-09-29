@@ -2,6 +2,7 @@
 
 [![CocoaPods](https://img.shields.io/cocoapods/v/QMChatViewController.svg)](https://cocoapods.org/pods/QMChatViewController)
 [![CocoaPods](https://img.shields.io/cocoapods/dt/QMChatViewController.svg)](https://cocoapods.org/pods/QMChatViewController)
+[![CocoaPods](https://img.shields.io/cocoapods/dm/QMChatViewController.svg)](https://cocoapods.org/pods/QMChatViewController)
 
 An elegant ready-to-go chat view controller for `iOS` chat applications that use `Quickblox communication backend`.
 

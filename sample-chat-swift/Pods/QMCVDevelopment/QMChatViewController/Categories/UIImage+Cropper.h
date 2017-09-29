@@ -10,6 +10,8 @@
 
 @interface UIImage (Cropper)
 
+- (UIImage *)imageWithCornerRadius:(CGFloat)cornerRadius
+                        targetSize:(CGSize)targetSize;
 - (UIImage *)imageByScaleAndCrop:(CGSize)targetSize;
 - (UIImage *)imageByCircularScaleAndCrop:(CGSize)targetSize;
 
