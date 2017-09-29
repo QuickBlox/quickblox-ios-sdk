@@ -13,7 +13,7 @@
 #import "QMChatResources.h"
 
 @interface TTTAttributedLabel(PrivateAPI)
-    - (TTTAttributedLabelLink *)linkAtPoint:(CGPoint)point;
+- (TTTAttributedLabelLink *)linkAtPoint:(CGPoint)point;
 @end
 
 static NSMutableSet *_qmChatCellMenuActions = nil;
@@ -51,13 +51,33 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 @implementation QMChatCell
 
 //MARK: - Class methods
-
 + (void)initialize {
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _qmChatCellMenuActions = [NSMutableSet new];
     });
+}
+
++ (void)registerForReuseInView:(id)dataView {
+    
+    NSString *cellIdentifier = [self cellReuseIdentifier];
+    NSParameterAssert(cellIdentifier);
+    
+    UINib *nib = [self nib];
+    NSParameterAssert(nib);
+    
+    if ([dataView isKindOfClass:[UITableView class]]) {
+
+        [(UITableView *)dataView registerNib:nib forCellReuseIdentifier:cellIdentifier];
+    }
+    else if ([dataView isKindOfClass:[UICollectionView class]]) {
+        
+        [(UICollectionView *)dataView registerNib:nib forCellWithReuseIdentifier:cellIdentifier];
+    }
+    else {
+        NSAssert(NO, @"Trying to register cell for unsupported dataView");
+    }
 }
 
 + (UINib *)nib {
@@ -80,9 +100,8 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     
     self.avatarView.delegate = self;
     self.contentView.opaque = YES;
-    
     self.translatesAutoresizingMaskIntoConstraints = NO;
-	
+    
     _messageContainerTopInsetConstraint.constant = 0;
     _messageContainerLeftInsetConstraint.constant = 0;
     _messageContainerBottomInsetConstraint.constant = 0;
@@ -106,10 +125,10 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     self.containerView.backgroundColor = [UIColor clearColor];
     self.avatarView.backgroundColor = [UIColor clearColor];
 #endif
-    [_topLabel.layer setDrawsAsynchronously:YES];
-    [_textView.layer setDrawsAsynchronously:YES];
-    [_bottomLabel.layer setDrawsAsynchronously:YES];
+    
     [self.layer setDrawsAsynchronously:YES];
+    
+    self.avatarView.imageViewType = QMImageViewTypeCircle;
     
     UITapGestureRecognizer *tap =
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -123,7 +142,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
-
+    
     QMChatCellLayoutAttributes *customAttributes = (id)layoutAttributes;
     
     [self updateConstraint:self.avatarContainerViewHeightConstraint
@@ -131,7 +150,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     
     [self updateConstraint:self.avatarContainerViewWidthConstraint
               withConstant:customAttributes.avatarSize.width];
-
+    
     [self updateConstraint:self.topLabelHeightConstraint
               withConstant:customAttributes.topLabelHeight];
     
@@ -155,15 +174,16 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     
     [self updateConstraint:self.textViewBottomLabelVerticalSpaceConstraint
               withConstant:customAttributes.spaceBetweenTextViewAndBottomLabel];
-	
+    
     [self updateConstraint:self.containerWidthConstraint
               withConstant:customAttributes.containerSize.width];
     
     [self layoutIfNeeded];
+    
 }
 
 - (void)updateConstraint:(NSLayoutConstraint *)constraint withConstant:(CGFloat)constant {
-
+    
     if ((int)constraint.constant == (int)constant) {
         return;
     }
@@ -175,7 +195,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     [super setBounds:bounds];
     
     if ([[UIDevice currentDevice].systemVersion compare:@"8.0" options:NSNumericSearch] == NSOrderedAscending) {
-		[self layoutIfNeeded];
+        [self layoutIfNeeded];
         self.contentView.frame = bounds;
     }
 }
@@ -297,13 +317,14 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
 + (QMChatCellLayoutModel)layoutModel {
     
     QMChatCellLayoutModel defaultLayoutModel = {
-
+        
         .avatarSize = CGSizeMake(30, 30),
         .containerInsets = UIEdgeInsetsMake(4, 0, 4, 5),
         .containerSize = CGSizeZero,
         .topLabelHeight = 17,
         .bottomLabelHeight = 14,
-        .maxWidthMarginSpace = 20
+        .maxWidthMarginSpace = 20,
+        .maxWidth = 0
     };
     
     return defaultLayoutModel;

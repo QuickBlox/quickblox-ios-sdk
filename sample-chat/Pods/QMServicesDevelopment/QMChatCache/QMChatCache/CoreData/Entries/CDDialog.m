@@ -19,7 +19,7 @@
     dialog.occupantIDs = self.occupantsIDs;
     dialog.userID = self.userIDValue;
     dialog.data = self.data;
-    
+
     return dialog;
 }
 

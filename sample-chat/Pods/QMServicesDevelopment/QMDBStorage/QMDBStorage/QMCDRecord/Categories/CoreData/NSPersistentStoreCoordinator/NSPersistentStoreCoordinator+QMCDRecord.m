@@ -116,7 +116,7 @@ NSString * const QMCDRecordGroupURLKey = @"QMCDRecordGroupURLKey";
             
             NSError *error = nil;
             NSURL *migrationURL = options[QMCDRecordGroupURLKey];
-            [self migratePersistentStore:store
+           store = [self migratePersistentStore:store
                                    toURL:migrationURL
                                  options:[NSDictionary QM_autoMigrationOptions]
                                 withType:NSSQLiteStoreType

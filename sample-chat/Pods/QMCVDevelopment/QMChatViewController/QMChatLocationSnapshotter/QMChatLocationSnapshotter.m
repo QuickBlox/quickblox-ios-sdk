@@ -9,10 +9,10 @@
 #import "QMChatLocationSnapshotter.h"
 
 #import <MapKit/MapKit.h>
+#import "QMImageLoader.h"
 
 static const CLLocationDegrees kQMMKCoordinateSpanDefaultValue = 250;
 
-static const NSUInteger kQMChatLocationSnapshotCacheCountLimit = 200;
 static NSString * const kQMChatLocationSnapshotCacheName = @"com.q-municate.chat.location.snapshot";
 
 @implementation QMChatLocationSnapshotter
@@ -20,9 +20,8 @@ static NSString * const kQMChatLocationSnapshotCacheName = @"com.q-municate.chat
 + (void)snapshotForLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate withSize:(CGSize)size key:(NSString *)key completion:(QMChatLocationSnapshotBlock)completion {
     NSParameterAssert(key);
     
-    NSCache *cache = [[self class] _cache];
+    UIImage *locationSnapshot = [QMImageLoader.instance.imageCache imageFromCacheForKey:key];
     
-    UIImage *locationSnapshot = [cache objectForKey:key];
     if (locationSnapshot != nil) {
         
         completion(locationSnapshot);
@@ -65,7 +64,10 @@ static NSString * const kQMChatLocationSnapshotCacheName = @"com.q-municate.chat
                   }
                   UIGraphicsEndImageContext();
                   
-                  [cache setObject:finalImage forKey:key];
+                  [QMImageLoader.instance.imageCache storeImage:finalImage
+                                                         forKey:key
+                                                         toDisk:YES
+                                                     completion:nil];
                   
                   dispatch_async(dispatch_get_main_queue(), ^{
                       
@@ -81,21 +83,6 @@ static NSString * const kQMChatLocationSnapshotCacheName = @"com.q-municate.chat
 }
 
 #pragma mark - Private
-
-+ (NSCache *)_cache {
-    
-    static NSCache *cache = nil;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        cache = [[NSCache alloc] init];
-        cache.countLimit = kQMChatLocationSnapshotCacheCountLimit;
-        cache.name = kQMChatLocationSnapshotCacheName;
-    });
-    
-    return cache;
-}
 
 + (NSMapTable *)_snapshotOperations {
     

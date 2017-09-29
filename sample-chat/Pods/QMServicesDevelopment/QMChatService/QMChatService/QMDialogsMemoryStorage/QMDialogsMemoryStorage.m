@@ -38,14 +38,19 @@
 static inline void
 updateDialog(QBChatDialog *src, QBChatDialog *res) {
     
+    //'updatedAt' and 'unreadMessagesCount' values stored in
+    //the 'src' dialog should be updated only with later actual values
+    if ([src.updatedAt compare:res.updatedAt] == NSOrderedAscending) {
+        src.updatedAt = res.updatedAt;
+        src.unreadMessagesCount = res.unreadMessagesCount;
+    }
+    
     src.createdAt = res.createdAt;
-    src.updatedAt = res.updatedAt;
     src.name = res.name;
     src.photo = res.photo;
     src.lastMessageDate = res.lastMessageDate;
     src.lastMessageUserID = res.lastMessageUserID;
     src.lastMessageText = res.lastMessageText;
-    src.unreadMessagesCount = res.unreadMessagesCount;
     src.occupantIDs = res.occupantIDs;
     src.data = res.data;
     src.userID = res.userID;
@@ -58,14 +63,12 @@ updateDialog(QBChatDialog *src, QBChatDialog *res) {
     NSAssert(chatDialog != nil, @"Chat dialog is nil!");
     NSAssert(chatDialog.ID != nil, @"Chat dialog without identifier!");
     
-    QBChatDialog *dialog = self.dialogs[chatDialog.ID];
+    QBChatDialog *localDialog = self.dialogs[chatDialog.ID];
     
-    if (dialog != nil) {
-        
-        updateDialog(dialog, chatDialog);
+    if (localDialog != nil) {
+        updateDialog(localDialog, chatDialog);
     }
     else {
-        
         self.dialogs[chatDialog.ID] = chatDialog;
     }
     

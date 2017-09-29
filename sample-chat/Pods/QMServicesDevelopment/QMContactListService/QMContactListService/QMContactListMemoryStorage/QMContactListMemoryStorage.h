@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Update memory storage with QBContactLists items.
  *
- *  @param contactLists QBContactList items
+ *  @param contactListItems QBContactList items
  */
 - (void)updateWithContactListItems:(NSArray<QBContactListItem *> *)contactListItems;
 

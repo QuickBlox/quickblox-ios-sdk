@@ -26,15 +26,9 @@ void QMSLog(NSString *format, ...)
     {
         va_list L;
         va_start(L, format);
-        QMSLogv(format, L);
+        @autoreleasepool {
+            NSLogv(format, L);
+        }
         va_end(L);
-    }
-}
-
-void QMSLogv(NSString *format, va_list args)
-{
-    if (logEnabled)
-    {
-        NSLogv(format, args);
     }
 }

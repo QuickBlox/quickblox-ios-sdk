@@ -35,7 +35,7 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
 /**
  *  Init with service data delegate and contact list cache protocol.
  *
- *  @param serviceDataDelegate instance confirmed id<QMServiceDataDelegate> protocol
+ *  @param serviceManager instance confirmed id<QMServiceDataDelegate> protocol
  *  @param cacheDataSource       instance confirmed id<QMContactListServiceCacheDataSource> protocol
  *
  *  @return QMContactListService instance
