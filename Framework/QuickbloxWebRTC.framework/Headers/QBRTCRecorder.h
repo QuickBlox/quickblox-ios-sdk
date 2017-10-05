@@ -119,7 +119,7 @@ typedef NS_ENUM(NSUInteger, QBRTCRecorderState) {
  
  @param completion completion block with file url if record was successful
  
- @discussion Async operation that might take some time until record is finaized.
+ @discussion Async operation that might take some time until record is finalized.
  
  @note File url will be nil if record failed, didn't start or there was nothing to record.
  */

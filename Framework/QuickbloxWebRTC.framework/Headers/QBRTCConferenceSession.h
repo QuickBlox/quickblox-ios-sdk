@@ -38,6 +38,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic, readonly) NSArray <NSNumber *> *publishersList;
 
 /**
+ *  Request list of online participants in current room.
+ *
+ *  @note Session must receive session created callback first from server.
+ *
+ *  @param completionBlock completion block with publishers and listeners list
+ */
+- (void)listOnlineParticipantsWithCompletionBlock:(void(^)(NSArray <NSNumber *> *publishers, NSArray <NSNumber *> *listeners))completionBlock;
+
+/**
  *  Perform join room as publisher.
  *
  *  @discussion 'session:didJoinChatDialogWithID:publishersList:' will be called upon successful join.
