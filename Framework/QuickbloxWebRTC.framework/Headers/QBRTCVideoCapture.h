@@ -29,7 +29,6 @@
  */
 - (void)didSetToVideoTrack:(QBRTCLocalVideoTrack *)videoTrack;
 
-
 /**
  *  Called when video track was removed.
  *
