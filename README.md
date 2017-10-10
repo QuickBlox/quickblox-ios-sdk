@@ -35,8 +35,8 @@ This project contains QuickBlox iOS Samples and latest version of SDK, that incl
 
 ## Requirements
 
-* Xcode 7+
-* iOS SDK 7+
+* Xcode 9+
+* iOS SDK 8+
 
 ## How to start
 
