@@ -94,13 +94,4 @@
  */
 + (NSString *)formatDateForString:(NSDate *)date;
 
-/**
- *  Formatted string for short date.
- *
- *  @param date         date to make formatted string from
- *
- *  @return string with base date format (e.g. 11.08.11)
- */
-+ (NSString *)formatShortDateForString:(NSDate *)date;
-
 @end

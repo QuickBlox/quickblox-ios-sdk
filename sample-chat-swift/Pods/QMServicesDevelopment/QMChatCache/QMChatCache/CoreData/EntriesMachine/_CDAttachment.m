@@ -32,11 +32,15 @@
 	return keyPaths;
 }
 
+@dynamic customParameters;
+
 @dynamic data;
 
 @dynamic id;
 
 @dynamic mimeType;
+
+@dynamic name;
 
 @dynamic url;
 
@@ -45,6 +49,9 @@
 @end
 
 @implementation CDAttachmentAttributes 
++ (NSString *)customParameters {
+	return @"customParameters";
+}
 + (NSString *)data {
 	return @"data";
 }
@@ -53,6 +60,9 @@
 }
 + (NSString *)mimeType {
 	return @"mimeType";
+}
++ (NSString *)name {
+	return @"name";
 }
 + (NSString *)url {
 	return @"url";

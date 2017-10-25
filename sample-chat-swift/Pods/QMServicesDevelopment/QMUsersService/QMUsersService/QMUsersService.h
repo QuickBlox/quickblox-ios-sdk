@@ -12,6 +12,7 @@
 
 @protocol QMUsersServiceDelegate;
 @protocol QMUsersServiceCacheDataSource;
+@protocol QMUsersServiceListenerProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Init with service data delegate and users cache protocol.
  *
- *  @param serviceDataDelegate   instance confirmed id<QMServiceDataDelegate> protocol
+ *  @param serviceManager        instance confirmed id<QMServiceDataDelegate> protocol
  *  @param cacheDataSource       instance confirmed id<QMUsersServiceCacheDataSource> protocol
  *
  *  @return QMUsersService instance
@@ -47,13 +48,27 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)removeDelegate:(id <QMUsersServiceDelegate>)delegate;
 
-//MARK: - Tasks
+/**
+ *  Start listen for user updates.
+ *
+ *  @param listener class that conforms to QMUsersServiceListenerProtocol protocol
+ *  @param user user instance to subscribe for
+ *
+ *  @see QMUsersServiceListenerProtocol
+ */
+- (void)addListener:(id<QMUsersServiceListenerProtocol>)listener forUser:(QBUUser *)user;
 
 /**
- *  Load users to memory storage from disc cache.
+ *  Stop listen for user updates.
+ *
+ *  @param listener class that conforms to QMUsersServiceListenerProtocol protocol
+ *  @param user user instance to subscribe for
+ *
+ *  @see QMUsersServiceListenerProtocol
  */
-//- (BFTask <NSArray<QBUUser *> *> *)loadFromCache;
+- (void)removeListener:(id<QMUsersServiceListenerProtocol>)listener forUser:(QBUUser *)user;
 
+//MARK: - Tasks
 //MARK: - Intelligent fetch
 
 /**
@@ -80,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Get users by ids.
  *
- *  @param userIDs  array of user ids
+ *  @param usersIDs  array of user ids
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
@@ -89,29 +104,31 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Get users by ids.
  *
- *  @param userIDs      array of user ids
+ *  @param usersIDs      array of user ids
  *  @param forceLoad    whether users should be loaded from server even when they are already existing in cache
  *
  *  @discussion Use forceLoad flag if you want to update users in cache by loading them from server.
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs
+                                         forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by ids with extended pagination parameters.
  *
- *  @param userIDs  array of user ids
+ *  @param usersIDs  array of user ids
  *  @param page     QBGeneralResponsePage instance with extended pagination parameters
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs
+                                              page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by ids with extended pagination parameters.
  *
- *  @param userIDs      array of user ids
+ *  @param usersIDs      array of user ids
  *  @param page         QBGeneralResponsePage instance with extended pagination parameters
  *  @param forceLoad    whether users should be loaded from server even when they are already existing in cache
  *
@@ -119,7 +136,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs page:(QBGeneralResponsePage *)page forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithIDs:(NSArray<NSNumber *> *)usersIDs
+                                              page:(QBGeneralResponsePage *)page
+                                         forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get user with
@@ -140,7 +159,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with user as a result.
  */
-- (BFTask<QBUUser *> *)getUserWithExternalID:(NSUInteger)externalUserID forceLoad:(BOOL)forceLoad;
+- (BFTask<QBUUser *> *)getUserWithExternalID:(NSUInteger)externalUserID
+                                   forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by emails.
@@ -161,7 +181,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails
+                                            forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by emails with extended pagination parameters.
@@ -171,7 +192,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails
+                                                 page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by emails with extended pagination parameters.
@@ -184,7 +206,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails page:(QBGeneralResponsePage *)page forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithEmails:(NSArray<NSString *> *)emails
+                                                 page:(QBGeneralResponsePage *)page
+                                            forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by facebook ids.
@@ -205,7 +229,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs
+                                                 forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by facebook ids with extended pagination parameters.
@@ -215,7 +240,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs
+                                                      page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by facebook ids with extended pagination parameters.
@@ -228,8 +254,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs page:(QBGeneralResponsePage *)page forceLoad:(BOOL)forceLoad;
-
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithFacebookIDs:(NSArray<NSString *> *)facebookIDs
+                                                      page:(QBGeneralResponsePage *)page
+                                                 forceLoad:(BOOL)forceLoad;
 /**
  *  Get users by twitter ids.
  *
@@ -247,7 +274,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithTwitterIDs:(NSArray<NSString *> *)twitterIDs forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithTwitterIDs:(NSArray<NSString *> *)twitterIDs
+                                                forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by twitter ids with extended pagination parameters.
@@ -257,7 +285,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithTwitterIDs:(NSArray<NSString *> *)twitterIDs page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithTwitterIDs:(NSArray<NSString *> *)twitterIDs
+                                                     page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by twitter ids with extended pagination parameters.
@@ -266,8 +295,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param page       QBGeneralResponsePage instance with extended pagination parameters
  *  @param forceLoad  whether users should be loaded from server even when they are already existing in cache
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithTwitterIDs:(NSArray<NSString *> *)twitterIDs page:(QBGeneralResponsePage *)page forceLoad:(BOOL)forceLoad;
-
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithTwitterIDs:(NSArray<NSString *> *)twitterIDs
+                                                     page:(QBGeneralResponsePage *)page
+                                                forceLoad:(BOOL)forceLoad;
 /**
  *  Get users by logins.
  *
@@ -287,7 +317,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins
+                                            forceLoad:(BOOL)forceLoad;
 
 /**
  *  Get users by logins with extended pagination parameters.
@@ -297,7 +328,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins
+                                                 page:(QBGeneralResponsePage *)page;
 
 /**
  *  Get users by logins with extended pagination parameters.
@@ -310,7 +342,9 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins page:(QBGeneralResponsePage *)page forceLoad:(BOOL)forceLoad;
+- (BFTask <NSArray<QBUUser *> *> *)getUsersWithLogins:(NSArray<NSString *> *)logins
+                                                 page:(QBGeneralResponsePage *)page
+                                            forceLoad:(BOOL)forceLoad;
 
 
 //MARK: - Search
@@ -332,7 +366,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)searchUsersWithFullName:(NSString *)searchText
+                                                      page:(QBGeneralResponsePage *)page;
 
 /**
  *  Search for users by tags.
@@ -351,7 +386,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)searchUsersWithTags:(NSArray<NSString *> *)tags
+                                                  page:(QBGeneralResponsePage *)page;
 
 /**
  *  Search for users by phone numbers.
@@ -370,7 +406,37 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return BFTask with NSArray of QBUUser instances as a result
  */
-- (BFTask <NSArray<QBUUser *> *> *)searchUsersWithPhoneNumbers:(NSArray<NSString *> *)phoneNumbers page:(QBGeneralResponsePage *)page;
+- (BFTask <NSArray<QBUUser *> *> *)searchUsersWithPhoneNumbers:(NSArray<NSString *> *)phoneNumbers
+                                                          page:(QBGeneralResponsePage *)page;
+
+/**
+ *  Search for users by extended request.
+ *
+ *  @param extendedRequest extended request
+ *
+ *  @return BFTask with NSArray of QBUUser instances as a result
+ */
+- (BFTask *)searchUsersWithExtendedRequest:(NSDictionary *)extendedRequest;
+
+/**
+ *  Search for users by extended request with extended pagination parameters.
+ *
+ *  @param extendedRequest extended request
+ *  @param page pagination params
+ *
+ *  @return BFTask with NSArray of QBUUser instances as a result
+ */
+- (BFTask *)searchUsersWithExtendedRequest:(NSDictionary *)extendedRequest
+                                      page:(QBGeneralResponsePage *)page;
+
+// MARK: Public users management
+
+/**
+ *  Update users in memory storage and cache.
+ *
+ *  @param users array of users
+ */
+- (void)updateUsers:(NSArray *)users;
 
 @end
 
@@ -419,6 +485,24 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param users            NSArray of QBUUser instances as users
  */
 - (void)usersService:(QMUsersService *)usersService didUpdateUsers:(NSArray<QBUUser *> *)users;
+
+@end
+
+/**
+ *  QMUsersServiceListenerProtocol protocol interface.
+ *  This protocol allows to receive updates only for a specific user.
+ */
+@protocol QMUsersServiceListenerProtocol <NSObject>
+
+@required
+
+/**
+ *  Called when specific user you subscribed for was updaed.
+ *
+ *  @param usersService QMUsersService instance
+ *  @param user user instance that was updated
+ */
+- (void)usersService:(QMUsersService *)usersService didUpdateUser:(QBUUser *)user;
 
 @end
 

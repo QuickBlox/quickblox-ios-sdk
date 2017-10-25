@@ -12,6 +12,7 @@
 
 #import "QMMemoryStorageProtocol.h"
 #import "QMServiceManagerProtocol.h"
+#import "QMCancellableService.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -11,6 +11,7 @@
 @interface QMChatContainerView()
 
 @property (strong, nonatomic) UIImageView *preview;
+@property (readwrite, strong, nonatomic) UIBezierPath *maskPath;
 
 @end
 
@@ -97,6 +98,7 @@ static NSMutableDictionary *_imaages = nil;
     
 
     img = UIGraphicsGetImageFromCurrentImageContext();
+
     UIGraphicsEndImageContext();
     
     img = [img stretchableImageWithLeftCapWidth:leftCap
@@ -112,6 +114,7 @@ static NSMutableDictionary *_imaages = nil;
     self.opaque = YES;
     _preview =
     [[UIImageView alloc] initWithFrame:self.bounds];
+    _preview.userInteractionEnabled = YES;
     _preview.autoresizingMask =
     UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     UIImage *bubleImg =
@@ -119,10 +122,16 @@ static NSMutableDictionary *_imaages = nil;
                                        fillColor:self.bgColor
                                     cornerRadius:self.cornerRadius
                                        leftArrow:self.leftArrow];
+    
     _preview.image = bubleImg;
+    
     _preview.highlightedImage = bubleImg;
     
     [self insertSubview:_preview atIndex:0];
+}
+
+- (UIImage *)backgroundImage {
+    return _preview.image;
 }
 
 - (void)setBgColor:(UIColor *)bgColor {
@@ -142,6 +151,25 @@ static NSMutableDictionary *_imaages = nil;
         
         _bgColor = bgColor;
     }
+}
+
+- (void)setHighlightColor:(UIColor *)highlightColor {
+    
+    if (![_highlightColor isEqual:highlightColor]) {
+        
+        if (_highlightColor) {
+            
+            UIImage *bubleImg =
+            [QMChatContainerView bubleImageWithArrowSize:self.arrowSize
+                                               fillColor:highlightColor
+                                            cornerRadius:self.cornerRadius
+                                               leftArrow:self.leftArrow];
+            _preview.highlightedImage = bubleImg;
+        }
+        
+        _highlightColor = highlightColor;
+    }
+
 }
 
 - (void)setHighlighted:(BOOL)highlighted {

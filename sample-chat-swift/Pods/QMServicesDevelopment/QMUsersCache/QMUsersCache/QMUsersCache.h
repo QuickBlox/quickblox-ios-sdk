@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QMUsersCache : QMDBStorage
 
+@property (readonly, class) QMUsersCache *instance;
+
 + (nullable QMUsersCache *)instance;
 
 //MARK: - Insert/Update/Delete users in cache
@@ -23,30 +25,25 @@ NS_ASSUME_NONNULL_BEGIN
  *  Insert/Update user in cache
  *
  *  @param user       QBUUser instance
- *  @param completion Completion block is called after update or insert operation is completed
  */
 - (BFTask *)insertOrUpdateUser:(QBUUser *)user;
 
 /**
  *  Insert/Update users in cache
  *
- *  @param users      Array of QBUUser instances
- *  @param completion Completion block is called after update or insert operation is completed
+ *  @param users Array of QBUUser instances
  */
 - (BFTask *)insertOrUpdateUsers:(NSArray<QBUUser *> *)users;
 
 /**
  *  Delete user from cahce
  *
- *  @param user        QBUUser instance
- *  @param completion  Completion block that is called after the delete operation has completed.
+ *  @param user QBUUser instance
  */
 - (BFTask *)deleteUser:(QBUUser *)user;
 
 /**
  *  Delete all users
- *
- *  @param completion Completion block that is called after the delete operation has completed.
  */
 - (BFTask *)deleteAllUsers;
 
@@ -58,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Fetch user with predicate
  *
  *  @param predicate  Predicate to evaluate objects against
- *  @param completion Completion block that is called after the fetch has completed. Returns an instance of QBUUser
  */
 - (BFTask<QBUUser *> *)userWithPredicate:(NSPredicate *) predicate;
 
@@ -67,7 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param sortTerm   Attribute name to sort by.
  *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
- *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBUUser instances
  */
 - (BFTask <NSArray<QBUUser *> *> *)usersSortedBy:(NSString *)sortTerm ascending:(BOOL)ascending;
 
@@ -77,7 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param predicate  Predicate to evaluate objects against
  *  @param sortTerm   Attribute name to sort by.
  *  @param ascending  `YES` if the attribute should be sorted ascending, `NO` for descending.
- *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBUUser instances
  */
 - (BFTask <NSArray<QBUUser *> *> *)usersWithPredicate:(nullable NSPredicate *)predicate
                                               sortedBy:(NSString *)sortTerm

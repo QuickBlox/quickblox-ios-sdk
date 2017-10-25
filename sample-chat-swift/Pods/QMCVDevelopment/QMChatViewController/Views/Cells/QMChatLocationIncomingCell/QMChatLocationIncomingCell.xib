@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -126,6 +126,9 @@
                 <outlet property="imageView" destination="gU8-Rn-Gvp" id="gyR-AR-ncu"/>
                 <outlet property="messageContainer" destination="1rv-oZ-ov9" id="RQK-Dd-jIf"/>
                 <outlet property="messageContainerBottomInsetConstraint" destination="uq1-a3-hdy" id="M9y-ZL-Eba"/>
+                <outlet property="messageContainerLeftInsetConstraint" destination="gxE-or-oXB" id="s3R-c0-NIK"/>
+                <outlet property="messageContainerRightInsetConstraint" destination="tJS-yu-Sgw" id="6cf-tQ-QKM"/>
+                <outlet property="messageContainerTopInsetConstraint" destination="JYn-ad-AzN" id="odE-xr-x4w"/>
                 <outlet property="textViewBottomLabelVerticalSpaceConstraint" destination="xon-f9-Ve3" id="HPf-Ul-UiG"/>
                 <outlet property="topLabel" destination="pgQ-H7-Y5u" id="56f-VT-nrf"/>
                 <outlet property="topLabelHeightConstraint" destination="9mx-bN-is7" id="gRI-ev-FiX"/>

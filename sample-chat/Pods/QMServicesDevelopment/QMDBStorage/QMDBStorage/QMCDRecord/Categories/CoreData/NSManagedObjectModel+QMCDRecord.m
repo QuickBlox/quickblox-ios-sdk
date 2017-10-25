@@ -9,21 +9,23 @@
 
 @implementation NSManagedObjectModel (QMCDRecord)
 
-+ (NSManagedObjectModel *)QM_managedObjectModelAtURL:(NSURL *)url
-{
++ (NSManagedObjectModel *)QM_managedObjectModelAtURL:(NSURL *)url {
+    
     return [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
 }
 
-+ (NSManagedObjectModel *)QM_mergedObjectModelFromMainBundle
-{
++ (NSManagedObjectModel *)QM_mergedObjectModelFromMainBundle {
+    
     return [self mergedModelFromBundles:nil];
 }
 
-+ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName inBundleNamed:(NSString *)bundleName
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:[modelName stringByDeletingPathExtension]
-                                                     ofType:[modelName pathExtension]
-                                                inDirectory:bundleName];
++ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName
+                             inBundleNamed:(NSString *)bundleName {
+    
+    NSString *path =
+    [[NSBundle mainBundle] pathForResource:[modelName stringByDeletingPathExtension]
+                                    ofType:[modelName pathExtension]
+                               inDirectory:bundleName];
     
     NSURL *modelUrl = [NSURL fileURLWithPath:path];
     
@@ -32,11 +34,14 @@
     return mom;
 }
 
-+ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName inBundleNamed:(NSString *)bundleName fromClass:(Class)aClass
-{
-    NSString *path = [[NSBundle bundleForClass:aClass] pathForResource:[modelName stringByDeletingPathExtension]
-                                                                ofType:[modelName pathExtension]
-                                                           inDirectory:bundleName];
++ (NSManagedObjectModel *)QM_newModelNamed:(NSString *)modelName
+                             inBundleNamed:(NSString *)bundleName
+                                 fromClass:(Class)aClass {
+    
+    NSString *path =
+    [[NSBundle bundleForClass:aClass] pathForResource:[modelName stringByDeletingPathExtension]
+                                               ofType:[modelName pathExtension]
+                                          inDirectory:bundleName];
     
     NSURL *modelUrl = [NSURL fileURLWithPath:path];
     
@@ -45,13 +50,16 @@
     return mom;
 }
 
-+ (NSManagedObjectModel *)QM_managedObjectModelNamed:(NSString *)modelFileName
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:[modelFileName stringByDeletingPathExtension]
-                                                     ofType:[modelFileName pathExtension]];
++ (NSManagedObjectModel *)QM_managedObjectModelNamed:(NSString *)modelFileName {
+    
+    NSString *path =
+    [[NSBundle mainBundle] pathForResource:[modelFileName stringByDeletingPathExtension]
+                                    ofType:[modelFileName pathExtension]];
+    
     NSURL *momURL = [NSURL fileURLWithPath:path];
     
     NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:momURL];
+    
     return model;
 }
 

@@ -35,4 +35,32 @@
     return newImage;
 }
 
++ (UIImage *)resizableImageWithColor:(UIColor *)color
+                        cornerRadius:(CGFloat)cornerRadius {
+    
+    CGFloat scale = UIScreen.mainScreen.scale;
+    CGFloat size = 1.0 + 2 * cornerRadius;
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(size, size), NO, scale);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, color.CGColor);
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, cornerRadius + 1.0, 0.0);
+    CGPathAddArcToPoint(path, NULL, size, 0.0, size, cornerRadius, cornerRadius);
+    CGPathAddLineToPoint(path, NULL, size, cornerRadius + 1.0);
+    CGPathAddArcToPoint(path, NULL, size, size, cornerRadius + 1.0, size, cornerRadius);
+    CGPathAddLineToPoint(path, NULL, cornerRadius, size);
+    CGPathAddArcToPoint(path, NULL, 0.0, size, 0.0, cornerRadius + 1.0, cornerRadius);
+    CGPathAddLineToPoint(path, NULL, 0.0, cornerRadius);
+    CGPathAddArcToPoint(path, NULL, 0.0, 0.0, cornerRadius, 0.0, cornerRadius);
+    CGPathCloseSubpath(path);
+    CGContextAddPath(context, path);
+    CGPathRelease(path);
+    CGContextFillPath(context);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return [image resizableImageWithCapInsets:UIEdgeInsetsMake(cornerRadius, cornerRadius, cornerRadius, cornerRadius)
+                                 resizingMode:UIImageResizingModeStretch];
+}
+
 @end

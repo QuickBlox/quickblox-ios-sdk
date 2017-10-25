@@ -88,7 +88,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
         super.awakeFromNib()
         
         // calling awakeFromNib due to viewDidLoad not being called by instantiateViewControllerWithIdentifier
-        self.navigationItem.title = ServicesManager.instance().currentUser()?.login!
+        self.navigationItem.title = ServicesManager.instance().currentUser.login!
         
         self.navigationItem.leftBarButtonItem = self.createLogoutButton()
         
@@ -129,7 +129,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
     
     // MARK: - Notification handling
     
-    func didEnterBackgroundNotification() {
+    @objc func didEnterBackgroundNotification() {
         self.didEnterBackgroundDate = NSDate()
     }
     
@@ -330,11 +330,11 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                 // group
                 let occupantIDs = dialog.occupantIDs!.filter({ (number) -> Bool in
                     
-                    return number.uintValue != ServicesManager.instance().currentUser()?.id
+                    return number.uintValue != ServicesManager.instance().currentUser.id
                 })
                 
                 dialog.occupantIDs = occupantIDs
-                let userLogin = ServicesManager.instance().currentUser()?.login ?? ""
+                let userLogin = ServicesManager.instance().currentUser.login ?? ""
                 let notificationMessage = "User \(userLogin) " + "SA_STR_USER_HAS_LEFT".localized
                 // Notifies occupants that user left the dialog.
                 ServicesManager.instance().chatService.sendNotificationMessageAboutLeaving(dialog, withNotificationText: notificationMessage, completion: { (error) -> Void in

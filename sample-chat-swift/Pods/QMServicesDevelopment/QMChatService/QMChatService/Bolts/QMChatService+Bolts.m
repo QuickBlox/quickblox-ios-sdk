@@ -16,7 +16,7 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 @interface QMChatService()
 
-@property (assign, nonatomic, readwrite) QMChatConnectionState chatConnectionState;
+//@property (assign, nonatomic, readwrite) QMChatConnectionState chatConnectionState;
 @property (strong, nonatomic) QBMulticastDelegate <QMChatServiceDelegate, QMChatConnectionDelegate> *multicastDelegate;
 @property (weak, nonatomic) BFTask* loadEarlierMessagesTask;
 @property (strong, nonatomic) NSMutableDictionary *loadedAllMessages;
@@ -27,22 +27,33 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 //MARK: - Chat connection
 
-- (BFTask *)connect {
+- (BFTask *)connectWithUserID:(NSUInteger)userID password:(NSString *)password {
     
     if ([QBChat instance].isConnected) {
-        return [BFTask taskWithResult:nil];;
+        return [BFTask taskWithResult:nil];
     }
     
-    QBUUser *user = self.serviceManager.currentUser;
-    if (user.password == nil) {
+    if (password == nil) {
+        
+        NSError *error =
+        [NSError errorWithDomain:kQMChatServiceDomain
+                            code:-10000
+                        userInfo:
+         @{
+           NSLocalizedRecoverySuggestionErrorKey : @"connectWithUserID:password - password == nil"
+           }];
+        
+        return [BFTask taskWithError:error];
+    }
+    
+    if (userID == 0) {
         
         NSError *error =
         [NSError errorWithDomain:kQMChatServiceDomain
                             code:-10000
                         userInfo:@
          {
-             NSLocalizedRecoverySuggestionErrorKey :
-             @"QBSession currentUser should have password in order to connect in chat."
+             NSLocalizedRecoverySuggestionErrorKey : @"connectWithUserID:password - userID == 0"
          }];
         
         return [BFTask taskWithError:error];
@@ -52,27 +63,31 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
     
     return make_task(^(BFTaskCompletionSource *source) {
         
-        self.chatConnectionState = QMChatConnectionStateConnecting;
-        
         if ([self.multicastDelegate
              respondsToSelector:@selector(chatServiceChatHasStartedConnecting:)]) {
             
             [self.multicastDelegate chatServiceChatHasStartedConnecting:self];
         }
+        QBUUser *user = [QBUUser user];
+        user.ID = userID;
+        user.password = password;
         
         [[QBChat instance] connectWithUser:user
-                                completion:^(NSError *error)
-         {
-             if (error != nil) {
-                 
-                 [source setError:error];
-             }
-             else {
-                 
-                 [source setResult:nil];
-             }
-         }];
+                                completion:^(NSError *error) {
+                                    if (error) {
+                                        [source setError:error];
+                                    }
+                                    else {
+                                        [source setResult:nil];
+                                    }
+                                }];
     });
+}
+
+- (BFTask *)connect {
+    
+    QBUUser *user = self.serviceManager.currentUser;
+    return [self connectWithUserID:user.ID password:user.password];
 }
 
 - (BFTask *)disconnect {
@@ -450,6 +465,7 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
     });
 }
 
+
 - (BFTask *)loadDialogWithID:(NSString *)dialogID {
     
     QBResponsePage *responsePage = [QBResponsePage responsePageWithLimit:1 skip:0];
@@ -465,22 +481,28 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
                                     NSSet *dialogsUsersIDs,
                                     QBResponsePage *page)
          {
-             QBChatDialog *dialog = [dialogObjects firstObject];
+             QBChatDialog *dialog = dialogObjects.firstObject;
              
              if (dialog) {
                  
+                 __weak __typeof(self)weakSelf = self;
                  [self.dialogsMemoryStorage addChatDialog:dialog
                                                   andJoin:YES
-                                               completion:nil];
-                 if ([self.multicastDelegate
-                      respondsToSelector:@selector(chatService:
-                                                   didAddChatDialogToMemoryStorage:)]) {
-                          [self.multicastDelegate chatService:self
-                              didAddChatDialogToMemoryStorage:dialog];
-                      }
+                                               completion:^(QBChatDialog *addedDialog,
+                                                            NSError *error)
+                  {
+                      
+                      if ([weakSelf.multicastDelegate
+                           respondsToSelector:@selector(chatService:
+                                                        didAddChatDialogToMemoryStorage:)]) {
+                               
+                               [weakSelf.multicastDelegate chatService:weakSelf
+                                       didAddChatDialogToMemoryStorage:addedDialog];
+                           }
+                      
+                      [source setResult:addedDialog];
+                  }];
              }
-             
-             [source setResult:dialog];
              
          } errorBlock:^(QBResponse *response) {
              
@@ -698,14 +720,14 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
             saveToHistory:saveToHistory
             saveToStorage:saveToStorage
                completion:^(NSError *error)
-        {
-            if (error != nil) {
-                [source setError:error];
-            }
-            else {
-                [source setResult:nil];
-            }
-        }];
+         {
+             if (error != nil) {
+                 [source setError:error];
+             }
+             else {
+                 [source setResult:nil];
+             }
+         }];
     });
 }
 
@@ -719,14 +741,14 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
                            toDialog:dialog
                 withAttachmentImage:image
                          completion:^(NSError *error) {
-            
-            if (error != nil) {
-                [source setError:error];
-            }
-            else {
-                [source setResult:nil];
-            }
-        }];
+                             
+                             if (error != nil) {
+                                 [source setError:error];
+                             }
+                             else {
+                                 [source setResult:nil];
+                             }
+                         }];
     });
 }
 
@@ -786,14 +808,14 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         [self readMessages:messages forDialogID:dialogID
                 completion:^(NSError *error)
-        {
-            if (error != nil) {
-                [source setError:error];
-            }
-            else {
-                [source setResult:nil];
-            }
-        }];
+         {
+             if (error != nil) {
+                 [source setError:error];
+             }
+             else {
+                 [source setResult:nil];
+             }
+         }];
     });
 }
 

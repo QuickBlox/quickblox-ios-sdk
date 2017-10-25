@@ -12,7 +12,7 @@
 #import "QBChatMessage+QBDateDivider.h"
 
 typedef NS_ENUM(NSInteger, QMDataSourceActionType) {
-
+    
     QMDataSourceActionTypeAdd = 0,
     QMDataSourceActionTypeUpdate,
     QMDataSourceActionTypeRemove
@@ -22,10 +22,21 @@ typedef NS_ENUM(NSInteger, QMDataSourceActionType) {
 
 @protocol QMChatDataSourceDelegate;
 
-
 @interface QMChatDataSource : NSObject <NSFastEnumeration>
 
 @property(nonatomic, weak) id <QMChatDataSourceDelegate> delegate;
+
+/**
+ *  Custom messages date divider interval.
+ *
+ *  @discussion By default date divider divides messages by days (e.g. Today, Yesterday, etc.).
+ *  Set custom time interval (in seconds) here to make date divider divide messages every N seconds.
+ *
+ *  @note Should be changed before adding any data do data source, otherwise will require reload of data.
+ *
+ *  @remark Default value: 0.
+ */
+@property (nonatomic, assign) NSTimeInterval customDividerInterval;
 
 - (NSArray *)allMessages;
 
@@ -78,8 +89,11 @@ typedef NS_ENUM(NSInteger, QMDataSourceActionType) {
 
 @protocol QMChatDataSourceDelegate <NSObject>
 
-- (void)chatDataSource:(QMChatDataSource *)chatDataSource willBeChangedWithMessageIDs:(NSArray *)messagesIDs;
+- (void)chatDataSource:(QMChatDataSource *)chatDataSource
+willBeChangedWithMessageIDs:(NSArray *)messagesIDs;
 
-- (void)changeDataSource:(QMChatDataSource *)dataSource withMessages:(NSArray *)messages updateType:(QMDataSourceActionType)updateType;
+- (void)changeDataSource:(QMChatDataSource *)dataSource
+            withMessages:(NSArray *)messages
+              updateType:(QMDataSourceActionType)updateType;
 
 @end

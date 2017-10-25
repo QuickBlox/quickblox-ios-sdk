@@ -16,5 +16,5 @@
 #import <Quickblox/QBChatHeader.h>
 #import <Quickblox/QBAddressBookHeader.h>
 
-//! Framework version 2.12
+//! Framework version 2.13
 FOUNDATION_EXPORT NSString * const QuickbloxFrameworkVersion;

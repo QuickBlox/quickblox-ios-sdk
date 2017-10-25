@@ -40,8 +40,8 @@ static inline NSBundle *bundle() {
     UIImage *image = nil;
     
     NSString *path = [bundle() pathForResource:name ofType:@"png"];
+    
     if (path != nil) {
-        
         image = [UIImage imageWithContentsOfFile:path];
     }
     

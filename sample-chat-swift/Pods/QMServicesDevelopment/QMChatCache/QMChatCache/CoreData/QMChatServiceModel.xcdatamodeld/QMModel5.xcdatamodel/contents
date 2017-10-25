@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16D32" minimumToolsVersion="Xcode 8.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="CDAttachment" representedClassName="CDAttachment" syncable="YES">
         <attribute name="data" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
@@ -43,8 +43,8 @@
         <relationship name="dialog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDialog" inverseName="messages" inverseEntity="CDDialog" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CDAttachment" positionX="-333" positionY="-96" width="128" height="120"/>
-        <element name="CDDialog" positionX="-713" positionY="-217" width="128" height="270"/>
-        <element name="CDMessage" positionX="-567" positionY="-216" width="128" height="285"/>
+        <element name="CDAttachment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDDialog" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CDMessage" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

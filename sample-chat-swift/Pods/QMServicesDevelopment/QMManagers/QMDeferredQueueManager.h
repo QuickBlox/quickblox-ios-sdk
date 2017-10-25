@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "QMBaseService.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @protocol QMDeferredQueueManagerDelegate;
 @protocol QMMemoryTemporaryQueueDelegate;
+
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, QMMessageStatus) {
     QMMessageStatusSent = 0,
@@ -20,7 +21,7 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
     QMMessageStatusNotSent
 };
 
-@interface QMDeferredQueueManager : QMBaseService
+@interface QMDeferredQueueManager : QMBaseService <QMCancellableService>
 
 @property (nonatomic, assign) NSTimeInterval autoSendTimeInterval;
 @property (nonatomic, assign) NSUInteger maxDeferredActionsCount;
@@ -36,8 +37,6 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 
 - (void)perfromDefferedActionForMessage:(QBChatMessage *)message
                          withCompletion:(nullable QBChatCompletionBlock)completion;
-
-- (BFTask *)perfromDefferedActionForMessage:(QBChatMessage *)message;
 
 - (QMMessageStatus)statusForMessage:(QBChatMessage *)message;
 
@@ -59,6 +58,9 @@ typedef NS_ENUM(NSUInteger, QMMessageStatus) {
 - (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager
      didUpdateMessageLocally:(QBChatMessage *)addedMessage;
 
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager
+      didUpdateMessageStatus:(QMMessageStatus)status
+                     message:(QBChatMessage *)message;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -3,24 +3,10 @@ platform :ios, "8.0"
 use_frameworks!
 
 target 'sample-chat-swift' do
-    
+    pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :tag => '0.5.1'
+    pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :tag => '0.5.5'
     pod 'SVProgressHUD', '~> 1.1.3'
-    
-    #Production pod
-    pod 'QMCVDevelopment', :git => 'git@github.com:QuickBlox/QMChatViewController-ios.git', :commit => '4c77424951ec73d34eb11180f9fa12df2b30be64'
-    
-    #For development pods
-    #pod 'QMCVDevelopment', :path => '../../QMChatViewController-ios/'
-    
-    #Production pod
-    pod 'QMServicesDevelopment', :git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :commit => 'f9a02c19f38803778aeaa696e50ae1193f7cf82c'
-    
-    #For development pods
-    #pod 'QMServicesDevelopment', :path => '../../q-municate-services-ios/'
-    
     pod 'SearchEmojiOnString'
-    
     pod 'Fabric'
     pod 'Crashlytics'
-    
 end

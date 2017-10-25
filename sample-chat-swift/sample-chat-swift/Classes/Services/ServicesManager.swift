@@ -49,7 +49,7 @@ class ServicesManager: QMServicesManager {
             return
         }
         
-        guard message.senderID != self.currentUser()?.id else {
+        guard message.senderID != self.currentUser.id else {
             return
         }
         
@@ -94,7 +94,7 @@ class ServicesManager: QMServicesManager {
     override func handleErrorResponse(_ response: QBResponse) {
         super.handleErrorResponse(response)
         
-        guard self.isAuthorized() else {
+        guard self.isAuthorized else {
             return
         }
         
@@ -184,7 +184,7 @@ class ServicesManager: QMServicesManager {
             return nil
         }
         
-        let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.id != self.currentUser()?.id})
+        let sortedUsersWithoutCurrentUser = sortedUsers.filter({ $0.id != self.currentUser.id})
         
         return sortedUsersWithoutCurrentUser
     }

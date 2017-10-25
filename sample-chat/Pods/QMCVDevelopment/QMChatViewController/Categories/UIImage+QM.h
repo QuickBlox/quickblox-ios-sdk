@@ -19,4 +19,14 @@
  */
 - (UIImage *)imageMaskedWithColor:(UIColor *)maskColor;
 
+/**
+ *  Creates a resizable image with specified color and corner radius
+ *
+ *  @param color color for mask
+ *
+ *  @return masked image
+ */
++ (UIImage *)resizableImageWithColor:(UIColor *)color
+                        cornerRadius:(CGFloat)cornerRadius;
+
 @end

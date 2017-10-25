@@ -22,11 +22,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
 @property (nonatomic, readonly, strong) CDAttachmentID *objectID;
 
+@property (nonatomic, strong, nullable) NSData* customParameters;
+
 @property (nonatomic, strong, nullable) NSString* data;
 
 @property (nonatomic, strong, nullable) NSString* id;
 
 @property (nonatomic, strong, nullable) NSString* mimeType;
+
+@property (nonatomic, strong, nullable) NSString* name;
 
 @property (nonatomic, strong, nullable) NSString* url;
 
@@ -35,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface _CDAttachment (CoreDataGeneratedPrimitiveAccessors)
+
+- (nullable NSData*)primitiveCustomParameters;
+- (void)setPrimitiveCustomParameters:(nullable NSData*)value;
 
 - (nullable NSString*)primitiveData;
 - (void)setPrimitiveData:(nullable NSString*)value;
@@ -45,6 +52,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString*)primitiveMimeType;
 - (void)setPrimitiveMimeType:(nullable NSString*)value;
 
+- (nullable NSString*)primitiveName;
+- (void)setPrimitiveName:(nullable NSString*)value;
+
 - (nullable NSString*)primitiveUrl;
 - (void)setPrimitiveUrl:(nullable NSString*)value;
 
@@ -54,9 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface CDAttachmentAttributes: NSObject 
++ (NSString *)customParameters;
 + (NSString *)data;
 + (NSString *)id;
 + (NSString *)mimeType;
++ (NSString *)name;
 + (NSString *)url;
 @end
 

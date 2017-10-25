@@ -8,164 +8,57 @@
 
 #import "QMDateUtils.h"
 
+static BOOL value_dateHas12hFormat = NO;
+static BOOL value_monthFirst = NO;
+static BOOL isArabic = NO;
+static BOOL isKorean = NO;
+static NSString *value_date_separator = @".";
+
 @implementation QMDateUtils
-
-static NSArray <NSString *> *_shortWeekdaySymbols = nil;
-static NSArray <NSString *> *_shortMonthSymbols = nil;
-static BOOL qm_dateHas12hFormat = NO;
-static BOOL qm_monthFirst = NO;
-
-static NSString *qm_dateSeparator = @".";
 
 + (void)initialize {
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.locale = [NSLocale currentLocale];
-        dateFormatter.timeZone = [NSTimeZone localTimeZone];
-        dateFormatter.dateStyle = NSDateFormatterNoStyle;
-        dateFormatter.timeStyle = NSDateFormatterMediumStyle;
-        
-        _shortWeekdaySymbols = dateFormatter.shortWeekdaySymbols;
-        _shortMonthSymbols = dateFormatter.shortMonthSymbols;
-        
-        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-        NSRange amRange = [dateString rangeOfString:[dateFormatter AMSymbol]];
-        NSRange pmRange = [dateString rangeOfString:[dateFormatter PMSymbol]];
-        qm_dateHas12hFormat = !(amRange.location == NSNotFound &&
-                                pmRange.location == NSNotFound);
-        
-        dateString =
-        [NSDateFormatter dateFormatFromTemplate:@"MdY" options:0
-                                         locale:[NSLocale currentLocale]];
-        if ([dateString rangeOfString:@"."].location != NSNotFound) {
-            qm_dateSeparator = @".";
-        }
-        else if ([dateString rangeOfString:@"/"].location != NSNotFound) {
-            qm_dateSeparator = @"/";
-        }
-        else if ([dateString rangeOfString:@"-"].location != NSNotFound) {
-            qm_dateSeparator = @"-";
-        }
-        
-        NSRange range = [dateString rangeOfString:[NSString stringWithFormat:@"M%@d", qm_dateSeparator]];
-        
-        if (range.location != NSNotFound) {
-            qm_monthFirst = YES;
-        }
-        
-    });
-}
-
-+ (NSString *)formattedStringFromDate:(NSDate *)date
-{
-    NSString *formattedString = nil;
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSDateComponents *currentComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.locale = [NSLocale currentLocale];
+    dateFormatter.dateStyle = NSDateFormatterNoStyle;
+    dateFormatter.timeStyle = NSDateFormatterMediumStyle;
     
-    NSString *sectionDate = [self formatDateForTimeRange:date];
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    dateFormatter.timeZone = timeZone;
     
-    if (components.day == currentComponents.day && components.month == currentComponents.month && components.year == currentComponents.year) {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@", [self formatDateForDayRange:date], sectionDate];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    NSRange amRange = [dateString rangeOfString:[dateFormatter AMSymbol]];
+    NSRange pmRange = [dateString rangeOfString:[dateFormatter PMSymbol]];
+    value_dateHas12hFormat = !(amRange.location == NSNotFound && pmRange.location == NSNotFound);
+    
+    dateString = [NSDateFormatter dateFormatFromTemplate:@"MdY" options:0 locale:[NSLocale currentLocale]];
+    if ([dateString rangeOfString:@"."].location != NSNotFound) {
+        value_date_separator = @".";
     }
-    else if (components.day == currentComponents.day - 1 && components.month == currentComponents.month && components.year == currentComponents.year) {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@", [self formatDateForDayRange:date], sectionDate];
+    else if ([dateString rangeOfString:@"/"].location != NSNotFound) {
+        value_date_separator = @"/";
     }
-    else if (components.weekOfMonth == currentComponents.weekOfMonth && components.month == currentComponents.month && components.year == currentComponents.year) {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@", [self formatDateForWeekRange:date], sectionDate];
-    }
-    else if (components.year == currentComponents.year) {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@", [self formatDateForMonthRange:date], sectionDate];
-    }
-    else {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@", [self formatDateForYearRange:date], sectionDate];
+    else if ([dateString rangeOfString:@"-"].location != NSNotFound) {
+        value_date_separator = @"-";
     }
     
-    return formattedString;
-}
-
-+ (NSString *)formattedLastSeenString:(NSDate *)date withTimePrefix:(NSString *)timePrefix
-{
-    NSString *formattedString = nil;
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:date];
-    NSDateComponents *currentComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitWeekOfMonth | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-    
-    if (components.day == currentComponents.day && components.month == currentComponents.month && components.year == currentComponents.year) {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@ %@", [self formatDateForDayRange:date], timePrefix, [self formatDateForTimeRange:date]];
-    }
-    else if (components.day == currentComponents.day - 1 && components.month == currentComponents.month && components.year == currentComponents.year) {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@ %@", [self formatDateForDayRange:date], timePrefix, [self formatDateForTimeRange:date]];
-    }
-    else if (components.weekOfMonth == currentComponents.weekOfMonth && components.month == currentComponents.month && components.year == currentComponents.year) {
-        
-        formattedString = [NSString stringWithFormat:@"%@ %@ %@", [self formatDateForTimeRange:date], timePrefix, [self formatDateForTimeRange:date]];
-    }
-    else {
-        
-        formattedString = [NSString stringWithFormat:@"%@", [self formatDateForString:date]];
+    if ([dateString rangeOfString:[NSString stringWithFormat:@"M%@d", value_date_separator]].location != NSNotFound) {
+        value_monthFirst = YES;
     }
     
-    return formattedString;
-}
-
-+ (NSString *)stringForShortTimeWithHours:(int)hours
-                                  minutes:(int)minutes {
-    
-    if (qm_dateHas12hFormat) {
-        
-        if (hours < 12) {
-            return [[NSString alloc] initWithFormat:@"%d:%02d AM",
-                    hours == 0 ? 12 : hours, minutes];
-        }
-        else {
-            
-            return [[NSString alloc] initWithFormat:@"%d:%02d PM",
-                    (hours - 12 == 0) ? 12 : (hours - 12), minutes];
-        }
+    NSString *identifier = [[NSLocale currentLocale] localeIdentifier];
+    if ([identifier isEqualToString:@"ar"] || [identifier hasPrefix:@"ar_"]) {
+        isArabic = YES;
+        value_date_separator = @"\u060d";
     }
-    else {
-        
-        return [[NSString alloc] initWithFormat:@"%02d:%02d",
-                hours, minutes];
+    else if ([identifier isEqualToString:@"ko"] || [identifier hasPrefix:@"ko-"]) {
+        isKorean = YES;
     }
 }
 
-+ (NSString *)stringForFullDateWithDay:(int)day
-                                 month:(int)month
-                                  year:(int)year {
++ (NSString *)formattedStringFromDate:(NSDate *)date {
     
-    if (qm_monthFirst) {
-        
-        return [NSString stringWithFormat:@"%d%@%d%@%02d",
-                month,
-                qm_dateSeparator,
-                day,
-                qm_dateSeparator,
-                year - 100];
-    }
-    else {
-        
-        return [NSString stringWithFormat:@"%d%@%02d%@%02d",
-                day,
-                qm_dateSeparator,
-                month,
-                qm_dateSeparator,
-                year - 100];
-    }
-}
-
-+ (NSString *)formattedShortDateString:(NSDate *)date {
-    
-    time_t t = date.timeIntervalSince1970;
+    time_t t = [date timeIntervalSince1970];
     struct tm timeinfo;
     localtime_r(&t, &timeinfo);
     
@@ -174,69 +67,147 @@ static NSString *qm_dateSeparator = @".";
     struct tm timeinfo_now;
     localtime_r(&t_now, &timeinfo_now);
     
-    if (timeinfo_now.tm_year != timeinfo.tm_year) {
-        
-        return [self stringForFullDateWithDay:timeinfo.tm_mday
-                                        month:timeinfo.tm_mon + 1
-                                         year:timeinfo.tm_year];
+    if (timeinfo.tm_year != timeinfo_now.tm_year) {
+        if (value_monthFirst) {
+            return [[NSString alloc] initWithFormat:@"%@ %d %04d", [self formatDateForMonthRange:date], timeinfo.tm_mday, timeinfo.tm_year - 100 + 2000];
+        }
+        else {
+            return [[NSString alloc] initWithFormat:@"%d %@ %04d", timeinfo.tm_mday, [self formatDateForMonthRange:date], timeinfo.tm_year - 100 + 2000];
+        }
     }
     else {
         
         int dayDiff = timeinfo.tm_yday - timeinfo_now.tm_yday;
+        BOOL currentWeek = timeinfo.tm_yday >= (timeinfo_now.tm_yday - timeinfo_now.tm_wday);
         
-        if (dayDiff == 0) {
+        if (dayDiff == 0
+            || dayDiff == -1) {
             
-            return [self stringForShortTimeWithHours:timeinfo.tm_hour
-                                             minutes:timeinfo.tm_min];
+            return [self formatDateForDayRange:date];
         }
-        else if (dayDiff > -7 && dayDiff <= -1) {
+        else if (currentWeek) {
             
-            return _shortWeekdaySymbols[timeinfo.tm_wday];
+            return [self formatDateForWeekRange:date];
         }
         else {
-            
-            return [self stringForFullDateWithDay:timeinfo.tm_mday
-                                            month:timeinfo.tm_mon + 1
-                                             year:timeinfo.tm_year];
+            if (value_monthFirst) {
+                return [[NSString alloc] initWithFormat:@"%@ %d", [self formatDateForMonthRange:date], timeinfo.tm_mday];
+            }
+            else {
+                return [[NSString alloc] initWithFormat:@"%d %@", timeinfo.tm_mday, [self formatDateForMonthRange:date]];
+            }
         }
     }
-    //    else if (timeinfo_now.tm_mon != timeinfo.tm_mon) {
-    //        return _shortMonthSymbols[timeinfo.tm_mon];
-    //    }
-    //    else if (timeinfo_now.tm_yday != timeinfo.tm_yday) {
-    //        return _shortWeekdaySymbols[timeinfo.tm_wday];
-    //    }
-    //    else {
-    //
-//            if (qm_dateHas12hFormat) {
-//    
-//                if (timeinfo.tm_hour < 12) {
-//                    return [[NSString alloc] initWithFormat:@"%d:%02d AM",
-//                            timeinfo.tm_hour == 0 ? 12 : timeinfo.tm_hour, timeinfo.tm_min];
-//                }
-//                else {
-//                    return [[NSString alloc] initWithFormat:@"%d:%02d PM",
-//                            (timeinfo.tm_hour - 12 == 0) ? 12 : (timeinfo.tm_hour - 12), timeinfo.tm_min];
-//                }
-//            }
-//            else {
-//                return [[NSString alloc] initWithFormat:@"%02d:%02d",
-//                        timeinfo.tm_hour, timeinfo.tm_min];
-//            }
-    //    }
+}
+
++ (NSString *)formattedLastSeenString:(NSDate *)date withTimePrefix:(NSString *)timePrefix {
+    
+    time_t t = [date timeIntervalSince1970];
+    struct tm timeinfo;
+    localtime_r(&t, &timeinfo);
+    
+    time_t t_now;
+    time(&t_now);
+    struct tm timeinfo_now;
+    localtime_r(&t_now, &timeinfo_now);
+    
+    if (timeinfo.tm_year != timeinfo_now.tm_year) {
+        return [self formatDateForString:date];
+    }
+    else {
+        
+        int dayDiff = timeinfo.tm_yday - timeinfo_now.tm_yday;
+        BOOL currentWeek = timeinfo.tm_yday >= (timeinfo_now.tm_yday - timeinfo_now.tm_wday);
+        
+        NSString *prefix = nil;
+        if (dayDiff == 0
+            || dayDiff == -1
+            || !currentWeek) {
+            prefix = [self formatDateForDayRange:date];
+        }
+        else {
+            prefix = [self formatDateForWeekRange:date];
+        }
+        
+        if (timePrefix.length > 0) {
+            return [[NSString alloc] initWithFormat:@"%@ %@ %@", prefix, timePrefix, [self formatDateForTimeRange:date]];
+        }
+        else {
+            return [[NSString alloc] initWithFormat:@"%@ %@", prefix, [self formatDateForTimeRange:date]];
+        }
+    }
+}
+
++ (NSString *)formattedShortDateString:(NSDate *)date {
+    
+    time_t t = [date timeIntervalSince1970];
+    struct tm timeinfo;
+    localtime_r(&t, &timeinfo);
+    
+    time_t t_now;
+    time(&t_now);
+    struct tm timeinfo_now;
+    localtime_r(&t_now, &timeinfo_now);
+    
+    if (timeinfo.tm_year != timeinfo_now.tm_year) {
+        return [self formatDateForString:date];
+    }
+    else {
+        
+        int dayDiff = timeinfo.tm_yday - timeinfo_now.tm_yday;
+        BOOL currentWeek = timeinfo.tm_yday >= (timeinfo_now.tm_yday - timeinfo_now.tm_wday);
+        
+        if (dayDiff == 0) {
+            return [self formatDateForTimeRange:date];
+        }
+        else if (dayDiff == -1
+                 || !currentWeek) {
+            return [self formatDateForDayRange:date];
+        }
+        else {
+            return [self formatDateForWeekRange:date];
+        }
+    }
 }
 
 + (NSString *)formatDateForTimeRange:(NSDate *)date {
     
-    static NSDateFormatter* formatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = [NSDateFormatter new];
-        formatter.dateStyle = NSDateFormatterNoStyle;
-        formatter.timeStyle = NSDateFormatterShortStyle;
-    });
+    time_t t = [date timeIntervalSince1970];
+    struct tm timeinfo;
+    localtime_r(&t, &timeinfo);
     
-    return [formatter stringFromDate:date];
+    int hours = timeinfo.tm_hour;
+    int minutes = timeinfo.tm_min;
+    
+    if (isArabic) {
+        if (value_dateHas12hFormat) {
+            if (hours < 12) {
+                return [[NSString alloc] initWithFormat:@"%d:%02d ص", hours == 0 ? 12 : hours, minutes];
+            }
+            else {
+                return [[NSString alloc] initWithFormat:@"%d:%02d م", (hours - 12 == 0) ? 12 : (hours - 12), minutes];
+            }
+        }
+        else {
+            return [[NSString alloc] initWithFormat:@"%02d:%02d", hours, minutes];
+        }
+    }
+    else if (isKorean) {
+        return [[NSString alloc] initWithFormat:@"%02d:%02d", hours, minutes];
+    }
+    else {
+        if (value_dateHas12hFormat) {
+            if (hours < 12) {
+                return [[NSString alloc] initWithFormat:@"%d:%02d AM", hours == 0 ? 12 : hours, minutes];
+            }
+            else {
+                return [[NSString alloc] initWithFormat:@"%d:%02d PM", (hours - 12 == 0) ? 12 : (hours - 12), minutes];
+            }
+        }
+        else {
+            return [[NSString alloc] initWithFormat:@"%02d:%02d", hours, minutes];
+        }
+    }
 }
 
 + (NSString *)formatDateForDayRange:(NSDate *)date {
@@ -253,13 +224,25 @@ static NSString *qm_dateSeparator = @".";
     return [formatter stringFromDate:date];
 }
 
++ (NSString *)formatDateForWeekRange:(NSDate *)date {
+    
+    static NSDateFormatter* formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [NSDateFormatter new];
+        formatter.dateFormat = @"EEEE";
+    });
+    
+    return [formatter stringFromDate:date];
+}
+
 + (NSString *)formatDateForMonthRange:(NSDate *)date {
     
     static NSDateFormatter* formatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         formatter = [NSDateFormatter new];
-        formatter.dateFormat = @"LLLL d";
+        formatter.dateFormat = @"LLLL";
     });
     
     return [formatter stringFromDate:date];
@@ -267,38 +250,37 @@ static NSString *qm_dateSeparator = @".";
 
 + (NSString *)formatDateForYearRange:(NSDate *)date {
     
-    static NSDateFormatter* formatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = [NSDateFormatter new];
-        formatter.dateFormat = @"LLLL d y";
-    });
+    time_t t = [date timeIntervalSince1970];
+    struct tm timeinfo;
+    localtime_r(&t, &timeinfo);
     
-    return [formatter stringFromDate:date];
+    return [[NSString alloc] initWithFormat:@"%04d", timeinfo.tm_year - 100 + 2000];
 }
 
-+ (NSString *)formatDateForString:(NSDate *)date
-{
-    static NSDateFormatter* formatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = [NSDateFormatter new];
-        formatter.dateFormat = @"d/MM/y";
-    });
++ (NSString *)formatDateForString:(NSDate *)date {
     
-    return [formatter stringFromDate:date];
-}
-
-+ (NSString *)formatShortDateForString:(NSDate *)date
-{
-    static NSDateFormatter* formatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = [NSDateFormatter new];
-        formatter.dateFormat = @"d.MM.yy";
-    });
+    time_t t = [date timeIntervalSince1970];
+    struct tm timeinfo;
+    localtime_r(&t, &timeinfo);
     
-    return [formatter stringFromDate:date];
+    int day = timeinfo.tm_mday;
+    int month = timeinfo.tm_mon + 1;
+    int year = timeinfo.tm_year;
+    
+    if (isArabic) {
+        return [[NSString alloc] initWithFormat:@"%d%@%d%@%02d", day, value_date_separator, month, value_date_separator, year - 100];
+    }
+    else if (isKorean) {
+        return [[NSString alloc] initWithFormat:@"%04d년 %d월 %d일", year - 100 + 2000, month, day];
+    }
+    else {
+        if (value_monthFirst) {
+            return [[NSString alloc] initWithFormat:@"%d%@%d%@%02d", month, value_date_separator, day, value_date_separator, year - 100];
+        }
+        else {
+            return [[NSString alloc] initWithFormat:@"%d%@%02d%@%02d", day, value_date_separator, month, value_date_separator, year - 100];
+        }
+    }
 }
 
 @end

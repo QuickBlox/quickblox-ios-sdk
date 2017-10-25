@@ -34,6 +34,8 @@
  */
 @property (readonly, nonatomic) CGFloat itemWidth;
 
+- (CGSize)containerViewSizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+
 /**
  *  Size for item and index path.
  *

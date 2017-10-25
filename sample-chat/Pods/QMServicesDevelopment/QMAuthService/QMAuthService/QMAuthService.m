@@ -15,7 +15,6 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
 @interface QMAuthService()
 
 @property (strong, nonatomic) QBMulticastDelegate <QMAuthServiceDelegate> *multicastDelegate;
-@property (assign, nonatomic) BOOL isAuthorized;
 
 @end
 
@@ -45,11 +44,15 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
     _multicastDelegate = (id<QMAuthServiceDelegate>)[[QBMulticastDelegate alloc] init];
 }
 
+- (BOOL)isAuthorized {
+    
+    return !QBSession.currentSession.tokenHasExpired;
+}
+
 - (QBRequest *)logOut:(void(^)(QBResponse *response))completion {
     
     __weak __typeof(self)weakSelf = self;
     
-    weakSelf.isAuthorized = NO;
     QBRequest *request = [QBRequest logOutWithSuccessBlock:^(QBResponse *response) {
         //Notify subscribes about logout
         if ([weakSelf.multicastDelegate respondsToSelector:@selector(authServiceDidLogOut:)]) {
@@ -111,7 +114,6 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
     
     void (^successBlock)(id, id) = ^(QBResponse *response, QBUUser *userProfile){
         
-        weakSelf.isAuthorized = YES;
         userProfile.password = user.password;
         
         if ([weakSelf.multicastDelegate respondsToSelector:@selector(authService:didLoginWithUser:)]) {
@@ -146,31 +148,59 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
 - (QBRequest *)loginWithTwitterDigitsAuthHeaders:(NSDictionary *)authHeaders
                                       completion:(void(^)(QBResponse *response, QBUUser *userProfile))completion {
     
-    __weak __typeof(self)weakSelf = self;
-    QBRequest *request = [QBRequest logInWithTwitterDigitsAuthHeaders:authHeaders
-                                                         successBlock:^(QBResponse *response, QBUUser *user) {
-                                                             __typeof(weakSelf)strongSelf = weakSelf;
-                                                             user.password = [QBSession currentSession].sessionDetails.token;
-                                                             strongSelf.isAuthorized = YES;
-                                                             
-                                                             if ([strongSelf.multicastDelegate respondsToSelector:@selector(authService:didLoginWithUser:)]) {
-                                                                 [strongSelf.multicastDelegate authService:strongSelf didLoginWithUser:user];
-                                                             }
-                                                             
-                                                             if (completion) {
-                                                                 completion(response, user);
-                                                             }
-                                                             
-                                                         } errorBlock:^(QBResponse *response) {
-                                                             
-                                                             [weakSelf.serviceManager handleErrorResponse:response];
-                                                             
-                                                             if (completion) {
-                                                                 completion(response, nil);
-                                                             }
-                                                         }];
+    QBRequest *request =
+    [QBRequest logInWithTwitterDigitsAuthHeaders:authHeaders
+                                    successBlock:^(QBResponse *response, QBUUser *user)
+     {
+         
+         user.password = QBSession.currentSession.sessionDetails.token;
+         
+         if ([self.multicastDelegate respondsToSelector:@selector(authService:didLoginWithUser:)]) {
+             [self.multicastDelegate authService:self didLoginWithUser:user];
+         }
+         
+         if (completion) {
+             completion(response, user);
+         }
+         
+     } errorBlock:^(QBResponse *response) {
+         
+         [self.serviceManager handleErrorResponse:response];
+         
+         if (completion) {
+             completion(response, nil);
+         }
+     }];
     
     return request;
+}
+
+- (QBRequest *)logInWithFirebaseProjectID:(NSString *)projectID
+                              accessToken:(NSString *)accessToken
+                                      completion:(void(^)(QBResponse *response,
+                                                          QBUUser *userProfile))completion {
+    
+    return [QBRequest logInWithFirebaseProjectID:projectID
+                              accessToken:accessToken
+                             successBlock:^(QBResponse *response, QBUUser *tUser)
+    {
+        tUser.password = QBSession.currentSession.sessionDetails.token;
+        
+        if ([self.multicastDelegate respondsToSelector:@selector(authService:didLoginWithUser:)]) {
+            [self.multicastDelegate authService:self didLoginWithUser:tUser];
+        }
+        
+        if (completion) {
+            completion(response, tUser);
+        }
+    } errorBlock:^(QBResponse * _Nonnull response) {
+        
+        [self.serviceManager handleErrorResponse:response];
+        
+        if (completion) {
+            completion(response, nil);
+        }
+    }];
 }
 
 //MARK: - Social auth
@@ -188,8 +218,6 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
      {
          //set password
          tUser.password = [QBSession currentSession].sessionDetails.token;
-         
-         weakSelf.isAuthorized = YES;
          
          if ([weakSelf.multicastDelegate respondsToSelector:@selector(authService:didLoginWithUser:)]) {
              [weakSelf.multicastDelegate authService:weakSelf didLoginWithUser:tUser];
@@ -221,8 +249,6 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
                      accessTokenSecret:nil successBlock:^(QBResponse *response, QBUUser *tUser) {
                          //set password
                          tUser.password = [QBSession currentSession].sessionDetails.token;
-                         
-                         weakSelf.isAuthorized = YES;
                          
                          if ([weakSelf.multicastDelegate respondsToSelector:@selector(authService:didLoginWithUser:)]) {
                              [weakSelf.multicastDelegate authService:weakSelf didLoginWithUser:tUser];

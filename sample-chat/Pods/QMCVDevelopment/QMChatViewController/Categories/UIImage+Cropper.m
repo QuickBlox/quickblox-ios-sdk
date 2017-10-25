@@ -7,9 +7,41 @@
 //
 
 #import "UIImage+Cropper.h"
-#include <math.h>
 
 @implementation UIImage (Cropper)
+
+- (UIImage *)imageWithCornerRadius:(CGFloat)cornerRadius
+                        targetSize:(CGSize)targetSize {
+    
+    UIImage *scaledImage = [self imageByScaleAndCrop:targetSize];
+    
+    float scaleFactor = [[UIScreen mainScreen] scale];
+    UIGraphicsBeginImageContextWithOptions(scaledImage.size, NO, scaleFactor);
+    
+    // Build a context that's the same dimensions as the new size
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0, scaledImage.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    // Create a clipping path with rounded corners
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, scaledImage.size.width, scaledImage.size.height)
+                                               byRoundingCorners:UIRectCornerAllCorners
+                                                     cornerRadii:CGSizeMake(cornerRadius, cornerRadius)];
+    
+    CGContextAddPath(context, path.CGPath);
+    CGContextClip(context);
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, scaledImage.size.width, scaledImage.size.height), scaledImage.CGImage);
+    // Draw the image to the context; the clipping path will make anything outside the rounded rect transparent
+    
+    // Create a CGImage from the context
+    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return roundedImage;
+}
 
 - (UIImage *)imageByScaleAndCrop:(CGSize)targetSize {
     
@@ -46,7 +78,7 @@
             
             thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
             
-        } else if (widthFactor < heightFactor) {
+        } else {
             
             thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
         }
@@ -68,10 +100,12 @@
 }
 
 - (UIImage *)imageByCircularScaleAndCrop:(CGSize)targetSize {
-    
     //bitmap context properties
-    
     float scaleFactor = [[UIScreen mainScreen] scale];
+    
+    if (CGSizeEqualToSize(targetSize, CGSizeZero)) {
+        targetSize = self.size;
+    }
     
     CGColorSpaceRef colorSpace =
     CGColorSpaceCreateDeviceRGB();
@@ -122,15 +156,14 @@
     
     CGImageRef renderedImage =
     CGBitmapContextCreateImage(context);
-    
-    //tidy up
     CGColorSpaceRelease(colorSpace);
     CGContextRelease(context);
     
     UIImage *image =
     [UIImage imageWithCGImage:renderedImage
-                        scale:scaleFactor
+                        scale:0
                   orientation:self.imageOrientation];
+    CGImageRelease(renderedImage);
     
     return image;
 }

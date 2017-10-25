@@ -24,7 +24,7 @@ class LoginTableViewController: UsersListTableViewController, NotificationServic
 		
 		self.buildNumberLabel.text = self.versionBuild();
         
-		guard let currentUser = ServicesManager.instance().currentUser() else {
+        guard let currentUser:QBUUser = ServicesManager.instance().currentUser  else {
 			return
 		}
         

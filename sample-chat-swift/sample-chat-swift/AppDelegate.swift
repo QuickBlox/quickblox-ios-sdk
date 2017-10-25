@@ -27,16 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         application.applicationIconBadgeNumber = 0
         
         // Set QuickBlox credentials (You must create application in admin.quickblox.com).
-        QBSettings.setApplicationID(kQBApplicationID)
-        QBSettings.setAuthKey(kQBAuthKey)
-        QBSettings.setAuthSecret(kQBAuthSecret)
-        QBSettings.setAccountKey(kQBAccountKey)
-        
+        QBSettings.applicationID = kQBApplicationID;
+        QBSettings.authKey = kQBAuthKey
+        QBSettings.authSecret = kQBAuthSecret
+        QBSettings.accountKey = kQBAccountKey
         // enabling carbons for chat
-        QBSettings.setCarbonsEnabled(true)
-        
+        QBSettings.carbonsEnabled = true
         // Enables Quickblox REST API calls debug console output.
-        QBSettings.setLogLevel(QBLogLevel.nothing)
+        QBSettings.logLevel = .nothing
         
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()

@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+@import QMServicesDevelopment;
 #import "NotificationService.h"
+
 
 /**
  *  Implements logic connected with user's memory/disc storage, error handling, top bar notifications.

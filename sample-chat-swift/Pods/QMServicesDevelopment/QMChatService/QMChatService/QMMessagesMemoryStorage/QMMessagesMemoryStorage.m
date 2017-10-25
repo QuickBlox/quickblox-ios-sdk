@@ -178,7 +178,7 @@
     return [messages containsObject:message];
 }
 
-//MARK: - QMMemeoryStorageProtocol
+//MARK: - QMMemoryStorageProtocol
 
 - (void)free {
     

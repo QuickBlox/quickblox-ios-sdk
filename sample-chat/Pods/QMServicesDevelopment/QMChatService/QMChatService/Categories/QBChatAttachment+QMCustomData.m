@@ -45,8 +45,8 @@
         return;
     }
     
-    self.data = [[NSString alloc] initWithData:jsonData
-                                      encoding:NSUTF8StringEncoding];
+    self[@"data"] = [[NSString alloc] initWithData:jsonData
+                                          encoding:NSUTF8StringEncoding];
 }
 
 //MARK: - Private
@@ -54,7 +54,7 @@
 - (NSMutableDictionary *)_jsonObject {
     
     NSError *error = nil;
-    NSData *jsonData = [self.data dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *jsonData = [self[@"data"] dataUsingEncoding:NSUTF8StringEncoding];
     
     if (jsonData) {
         

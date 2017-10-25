@@ -13,9 +13,7 @@
 #import "QMChatCollectionView.h"
 
 @interface QMChatCollectionViewFlowLayout()
-
 @property (strong, nonatomic) NSMutableDictionary *cache;
-
 @end
 
 @implementation QMChatCollectionViewFlowLayout
@@ -39,12 +37,6 @@
                                              selector:@selector(didReceiveApplicationMemoryWarningNotification:)
                                                  name:UIApplicationDidReceiveMemoryWarningNotification
                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceiveDeviceOrientationDidChangeNotification:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
-    
     /**
      *  Init cache
      */
@@ -96,18 +88,22 @@
     [self resetLayout];
 }
 
-- (void)didReceiveDeviceOrientationDidChangeNotification:(NSNotification *)notification {
-    
-    [self resetLayout];
-    [self invalidateLayoutWithContext:[QMCollectionViewFlowLayoutInvalidationContext context]];
-}
-
 //MARK: - Collection view flow layout
+
+- (UICollectionViewLayoutInvalidationContext *)invalidationContextForBoundsChange:(CGRect)newBounds {
+    
+    QMCollectionViewFlowLayoutInvalidationContext *context = [QMCollectionViewFlowLayoutInvalidationContext context];
+    
+    if (self.collectionView.bounds.size.width != newBounds.size.width) {
+        context.invalidateFlowLayoutMessagesCache = YES;
+    }
+    
+    return context;
+}
 
 - (void)invalidateLayoutWithContext:(QMCollectionViewFlowLayoutInvalidationContext *)context {
     
     if (context.invalidateDataSourceCounts) {
-        
         context.invalidateFlowLayoutAttributes = YES;
         context.invalidateFlowLayoutDelegateMetrics = YES;
     }
@@ -122,14 +118,13 @@
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
     
-    NSArray *attributesInRect = [super layoutAttributesForElementsInRect:rect];
+    NSArray *attributesInRect = [[NSArray alloc] initWithArray:[super layoutAttributesForElementsInRect:rect]
+                                                     copyItems:YES];
 
-	__weak __typeof(self)weakSelf = self;
     [attributesInRect enumerateObjectsUsingBlock:^(QMChatCellLayoutAttributes *attributesItem, NSUInteger idx, BOOL *stop) {
         
         if (attributesItem.representedElementCategory == UICollectionElementCategoryCell) {
-			__typeof(self)strongSelf = weakSelf;
-            [strongSelf configureCellLayoutAttributes:attributesItem];
+            [self configureCellLayoutAttributes:attributesItem];
         }
     }];
     
@@ -150,28 +145,24 @@
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     
     CGRect oldBounds = self.collectionView.bounds;
-
-    return CGRectGetWidth(newBounds) > CGRectGetWidth(oldBounds) ||
-    CGRectGetWidth(newBounds) < CGRectGetWidth(oldBounds);
+    return !CGSizeEqualToSize(oldBounds.size, newBounds.size) ? YES : NO;
 }
 
 - (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
     
     [super prepareForCollectionViewUpdates:updateItems];
-	
-	
-	__weak __typeof(self)weakSelf = self;
+    
     [updateItems enumerateObjectsUsingBlock:^(UICollectionViewUpdateItem *updateItem, NSUInteger index, BOOL *stop) {
-        __typeof(self)strongSelf = weakSelf;
+    
         if (updateItem.updateAction == UICollectionUpdateActionInsert) {
             
-            CGFloat collectionViewHeight = CGRectGetHeight(strongSelf.collectionView.bounds);
+            CGFloat collectionViewHeight = CGRectGetHeight(self.collectionView.bounds);
             
             QMChatCellLayoutAttributes *attributes =
             [QMChatCellLayoutAttributes layoutAttributesForCellWithIndexPath:updateItem.indexPathAfterUpdate];
             
             if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
-                [strongSelf configureCellLayoutAttributes:attributes];
+                [self configureCellLayoutAttributes:attributes];
             }
             
             attributes.frame = CGRectMake(0.0f,
@@ -206,8 +197,7 @@
         
         return [cachedSize CGSizeValue];
     }
-    
-    
+
     QMChatCellLayoutModel layoutModel =
     [self.chatCollectionView.delegate collectionView:self.chatCollectionView
                      layoutModelAtIndexPath:indexPath];
@@ -218,12 +208,13 @@
         
         //  from the cell xibs, there is a 2 point space between avatar and bubble
         CGFloat spacingBetweenAvatarAndBubble = 2.0f;
-        
         CGFloat horizontalContainerInsets = layoutModel.containerInsets.left + layoutModel.containerInsets.right;
-        
         CGFloat horizontalInsetsTotal = horizontalContainerInsets + spacingBetweenAvatarAndBubble;
-        
         CGFloat maximumWidth = self.itemWidth - layoutModel.avatarSize.width - layoutModel.maxWidthMarginSpace;
+        
+        if (layoutModel.maxWidth > 0) {
+            maximumWidth = MIN(maximumWidth, layoutModel.maxWidth - layoutModel.avatarSize.width - layoutModel.maxWidthMarginSpace);
+        }
         NSAssert(maximumWidth >= 0, @"Maximum width cannot be a negative nuber. Please check your maxWidthMarginSpace value.");
         
         CGSize dynamicSize = [self.chatCollectionView.delegate collectionView:self.chatCollectionView
@@ -233,14 +224,16 @@
         layoutModel.containerInsets.top + layoutModel.containerInsets.bottom +
         layoutModel.topLabelHeight + layoutModel.bottomLabelHeight;
         
-        CGFloat additionalSpace = layoutModel.spaceBetweenTextViewAndBottomLabel + layoutModel.spaceBetweenTopLabelAndTextView;
+        CGFloat additionalSpace =
+        layoutModel.spaceBetweenTextViewAndBottomLabel + layoutModel.spaceBetweenTopLabelAndTextView;
         
         CGFloat finalWidth = dynamicSize.width + horizontalContainerInsets;
         
         CGFloat cellHeight = dynamicSize.height + verticalContainerInsets + additionalSpace;
         CGFloat finalCellHeight = MAX(cellHeight, layoutModel.avatarSize.height);
         
-        CGFloat minWidth = [self.chatCollectionView.delegate collectionView:self.chatCollectionView minWidthAtIndexPath:indexPath];
+        CGFloat minWidth = [self.chatCollectionView.delegate collectionView:self.chatCollectionView
+                                                        minWidthAtIndexPath:indexPath];
         minWidth += horizontalContainerInsets;
         
         finalSize = CGSizeMake(MIN(MAX(finalWidth, minWidth), maximumWidth), finalCellHeight);

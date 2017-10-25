@@ -55,9 +55,12 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         // top layout inset for collectionView
         self.topContentAdditionalInset = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
         
-        if let currentUser = ServicesManager.instance().currentUser() {
+        if let currentUser:QBUUser = ServicesManager.instance().currentUser {
             self.senderID = currentUser.id
             self.senderDisplayName = currentUser.login
+            
+            ServicesManager.instance().chatService.addDelegate(self)
+            ServicesManager.instance().chatService.chatAttachmentService.delegate = self
             
             self.heightForSectionHeader = 40.0
             
@@ -74,7 +77,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 self.dialog.onUserIsTyping = {
                     [weak self] (userID)-> Void in
                     
-                    if ServicesManager.instance().currentUser()?.id == userID {
+                    if ServicesManager.instance().currentUser.id == userID {
                         return
                     }
                     
@@ -84,7 +87,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 self.dialog.onUserStoppedTyping = {
                     [weak self] (userID)-> Void in
                     
-                    if ServicesManager.instance().currentUser()?.id == userID {
+                    if ServicesManager.instance().currentUser.id == userID {
                         return
                     }
                     
@@ -97,7 +100,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 self.chatDataSource.add(self.storedMessages()!)
             }
-            
+
             self.loadMessages()
             
             self.enableTextCheckingTypes = NSTextCheckingAllTypes
@@ -106,9 +109,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        ServicesManager.instance().chatService.addDelegate(self)
-        ServicesManager.instance().chatService.chatAttachmentService.delegate = self
         
         self.queueManager().add(self)
         
@@ -138,8 +138,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         // clearing typing status blocks
         self.dialog.clearTypingStatusBlocks()
-        ServicesManager.instance().chatService.removeDelegate(self)
-        ServicesManager.instance().chatService.chatAttachmentService.delegate = nil
       
         self.queueManager().remove(self)
     }
@@ -444,7 +442,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if !messageReadIDs.isEmpty {
                 for readID in messageReadIDs {
-                    let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(readID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(truncating: readID))
                     
                     guard let unwrappedUser = user else {
                         let unknownUserLogin = "@\(readID)"
@@ -470,7 +468,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             if !messageDeliveredIDs.isEmpty {
                 for deliveredID in messageDeliveredIDs {
-                    let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(deliveredID))
+                    let user = ServicesManager.instance().usersService.usersMemoryStorage.user(withID: UInt(truncating: deliveredID))
                     
                     guard let unwrappedUser = user else {
                         let unknownUserLogin = "@\(deliveredID)"
@@ -520,7 +518,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     override func viewClass(forItem item: QBChatMessage) -> AnyClass? {
         // TODO: check and add QMMessageType.AcceptContactRequest, QMMessageType.RejectContactRequest, QMMessageType.ContactRequest
         
-        if item.isNotificatonMessage() || item.isDateDividerMessage {
+        if item.isNotificationMessage() || item.isDateDividerMessage {
             return QMChatNotificationCell.self
         }
         
@@ -560,13 +558,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         }
         
         var textColor = messageItem.senderID == self.senderID ? UIColor.white : UIColor.black
-        if messageItem.isNotificatonMessage() || messageItem.isDateDividerMessage {
+        if messageItem.isNotificationMessage() || messageItem.isDateDividerMessage {
             textColor = UIColor.black
         }
         
-        var attributes = Dictionary<String, AnyObject>()
-        attributes[NSForegroundColorAttributeName] = textColor
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
+        var attributes = Dictionary<NSAttributedStringKey, AnyObject>()
+        attributes[NSAttributedStringKey.foregroundColor] = textColor
+        attributes[NSAttributedStringKey.font] = UIFont(name: "Helvetica", size: 17)
         
         let attributedString = NSAttributedString(string: messageItem.text!, attributes: attributes)
         
@@ -593,10 +591,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         let paragrpahStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         paragrpahStyle.lineBreakMode = NSLineBreakMode.byTruncatingTail
-        var attributes = Dictionary<String, AnyObject>()
-        attributes[NSForegroundColorAttributeName] = UIColor(red: 11.0/255.0, green: 96.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 17)
-        attributes[NSParagraphStyleAttributeName] = paragrpahStyle
+        var attributes = Dictionary<NSAttributedStringKey, AnyObject>()
+        attributes[NSAttributedStringKey.foregroundColor] = UIColor(red: 11.0/255.0, green: 96.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+        attributes[NSAttributedStringKey.font] = UIFont(name: "Helvetica", size: 17)
+        attributes[NSAttributedStringKey.paragraphStyle] = paragrpahStyle
         
         var topLabelAttributedString : NSAttributedString?
         
@@ -623,10 +621,10 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         let paragrpahStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
         paragrpahStyle.lineBreakMode = NSLineBreakMode.byWordWrapping
         
-        var attributes = Dictionary<String, AnyObject>()
-        attributes[NSForegroundColorAttributeName] = textColor
-        attributes[NSFontAttributeName] = UIFont(name: "Helvetica", size: 13)
-        attributes[NSParagraphStyleAttributeName] = paragrpahStyle
+        var attributes = Dictionary<NSAttributedStringKey, AnyObject>()
+        attributes[NSAttributedStringKey.foregroundColor] = textColor
+        attributes[NSAttributedStringKey.font] = UIFont(name: "Helvetica", size: 13)
+        attributes[NSAttributedStringKey.paragraphStyle] = paragrpahStyle
         
         var text = messageItem.dateSent != nil ? messageTimeDateFormatter.string(from: messageItem.dateSent!) : ""
         
@@ -865,12 +863,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         let item = self.chatDataSource.message(for: indexPath)
         
         if (item?.isMediaMessage())! {
-            ServicesManager.instance().chatService.chatAttachmentService.localImage(forAttachmentMessage: item!, completion: { (error: Error?,image: UIImage?) in
-                
-                guard error == nil else {
-                    SVProgressHUD.showError(withStatus: error!.localizedDescription)
-                    return
-                }
+            ServicesManager.instance().chatService.chatAttachmentService.localImage(forAttachmentMessage: item!, completion: { (image) in
                 
                 if image != nil {
                     guard let imageData = UIImageJPEGRepresentation(image!, 1) else { return }
@@ -1167,7 +1160,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.fireSendStopTypingIfNecessary()
     }
     
-    func fireSendStopTypingIfNecessary() -> Void {
+    @objc func fireSendStopTypingIfNecessary() -> Void {
         
         if let timer = self.typingTimer {
             

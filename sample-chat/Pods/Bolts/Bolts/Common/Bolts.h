@@ -8,13 +8,12 @@
  *
  */
 
-#import <Bolts/BoltsVersion.h>
 #import <Bolts/BFCancellationToken.h>
 #import <Bolts/BFCancellationTokenRegistration.h>
 #import <Bolts/BFCancellationTokenSource.h>
-#import <Bolts/BFDefines.h>
 #import <Bolts/BFExecutor.h>
 #import <Bolts/BFTask.h>
+#import <Bolts/BFTask+Exceptions.h>
 #import <Bolts/BFTaskCompletionSource.h>
 
 #if __has_include(<Bolts/BFAppLink.h>) && TARGET_OS_IPHONE && !TARGET_OS_WATCH && !TARGET_OS_TV
@@ -29,19 +28,12 @@
 #import <Bolts/BFWebViewAppLinkResolver.h>
 #endif
 
+
 NS_ASSUME_NONNULL_BEGIN
 
-/*! @abstract 80175001: There were multiple errors. */
-extern NSInteger const kBFMultipleErrorsError;
-
-@interface Bolts : NSObject
-
-/*!
- Returns the version of the Bolts Framework as an NSString.
- @returns The NSString representation of the current version.
+/**
+ A string containing the version of the Bolts Framework used by the current application.
  */
-+ (NSString *)version;
-
-@end
+extern NSString *const BoltsFrameworkVersionString;
 
 NS_ASSUME_NONNULL_END
