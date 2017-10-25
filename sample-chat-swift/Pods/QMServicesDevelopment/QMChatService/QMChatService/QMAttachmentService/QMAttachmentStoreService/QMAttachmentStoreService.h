@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QMAttachmentStoreService : NSObject <QMCancellableService>
 
 /**
+ The quality of the resulting JPEG image, expressed as a value from 0.0 to 1.0. The value 0.0 represents the maximum compression (or lowest quality) while the value 1.0 represents the least compression (or best quality). Default value - 1.0.
+ */
+@property (nonatomic) CGFloat jpegCompressionQuality;
+
+/**
  Memory storage for attachments.
  */
 @property (strong, nonatomic, readonly) QMAttachmentsMemoryStorage *attachmentsMemoryStorage;

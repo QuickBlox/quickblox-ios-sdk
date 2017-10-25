@@ -5,9 +5,9 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - Crashlytics (3.8.6):
-    - Fabric (~> 1.6.3)
-  - Fabric (1.6.13)
+  - Crashlytics (3.9.0):
+    - Fabric (~> 1.7.0)
+  - Fabric (1.7.0)
   - FFCircularProgressView (0.5)
   - QMCVDevelopment (0.5.1):
     - FFCircularProgressView
@@ -60,7 +60,7 @@ PODS:
     - QMCVDevelopment/Utils
     - SDWebImage (~> 4.0.0)
     - TTTAttributedLabel (> 1.13)
-  - QMServicesDevelopment (0.5.3):
+  - QMServicesDevelopment (0.5.5):
     - Bolts (>= 1.8.4)
     - QuickBlox (>= 2.10)
   - QuickBlox (2.12)
@@ -75,7 +75,7 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, tag `0.5.1`)
-  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, tag `0.5.3`)
+  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, tag `0.5.5`)
   - SearchEmojiOnString
   - SVProgressHUD (~> 1.1.3)
 
@@ -85,7 +85,7 @@ EXTERNAL SOURCES:
     :tag: 0.5.1
   QMServicesDevelopment:
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
-    :tag: 0.5.3
+    :tag: 0.5.5
 
 CHECKOUT OPTIONS:
   QMCVDevelopment:
@@ -93,21 +93,21 @@ CHECKOUT OPTIONS:
     :tag: 0.5.1
   QMServicesDevelopment:
     :git: git@github.com:QuickBlox/q-municate-services-ios.git
-    :tag: 0.5.3
+    :tag: 0.5.5
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  Crashlytics: 95d05f4e4c19a771250c4bd9ce344d996de32bbf
-  Fabric: 2fb5676bc811af011a04513451f463dac6803206
+  Crashlytics: 64aad5dd97249dd3ff94b979fea140144590cdd3
+  Fabric: e6be012366472553807dada21243c5ab8d904151
   FFCircularProgressView: 683a4ab1e1bd613246a3dffa61503ffdebcde8d8
   QMCVDevelopment: e5fd01fced818ca2e386c86bc954b2c69f91ca5d
-  QMServicesDevelopment: 05d9ca5b5a1e1688b2c3dab8f87c9fa9568cddd4
+  QMServicesDevelopment: 282320032eebef34ad1021c52e22318121732f0a
   QuickBlox: 5c0b21dc44a94e4ffb2e8b8eb2db606a635d1931
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 398a890ca7188dbc29a1d12c3e85a1ff494134e8
+PODFILE CHECKSUM: 322f33f7735d41d97c44205388c56aa3332562f5
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0.beta.1

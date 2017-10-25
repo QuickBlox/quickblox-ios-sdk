@@ -31,7 +31,7 @@
     self = [super init];
     
     if (self) {
-        
+        _jpegCompressionQuality = 1.0;
         _storeDelegate = delegate;
         _imagesMemoryStorage = [NSMutableDictionary dictionary];
         _attachmentsMemoryStorage = [[QMAttachmentsMemoryStorage alloc] init];
@@ -133,7 +133,18 @@
 }
 
 - (NSData *)dataForImage:(UIImage*)image {
-    return imageData(image);
+    
+    int alphaInfo = CGImageGetAlphaInfo(image.CGImage);
+    BOOL hasAlpha = !(alphaInfo == kCGImageAlphaNone ||
+                      alphaInfo == kCGImageAlphaNoneSkipFirst ||
+                      alphaInfo == kCGImageAlphaNoneSkipLast);
+    
+    if (hasAlpha) {
+        return UIImagePNGRepresentation(image);
+    }
+    else {
+        return UIImageJPEGRepresentation(image, self.jpegCompressionQuality);
+    }
 }
 
 - (void)storeAttachment:(QBChatAttachment *)attachment
@@ -150,7 +161,7 @@
     if (!data) {
         if (attachment.image) {
             self.imagesMemoryStorage[messageID] = attachment.image;
-            data = imageData(attachment.image);
+            data = [self dataForImage:attachment.image];
         }
         else if (attachment.localFileURL) {
             data = [NSData dataWithContentsOfURL:attachment.localFileURL];
@@ -476,21 +487,5 @@ static NSString* mediaPath(NSString *dialogID, NSString *messsageID, QBChatAttac
     
     return [mediaPatch stringByAppendingPathComponent:filePath];
 }
-
-static inline NSData * __nullable imageData(UIImage * __nonnull image) {
-    
-    int alphaInfo = CGImageGetAlphaInfo(image.CGImage);
-    BOOL hasAlpha = !(alphaInfo == kCGImageAlphaNone ||
-                      alphaInfo == kCGImageAlphaNoneSkipFirst ||
-                      alphaInfo == kCGImageAlphaNoneSkipLast);
-    
-    if (hasAlpha) {
-        return UIImagePNGRepresentation(image);
-    }
-    else {
-        return UIImageJPEGRepresentation(image, 1.0f);
-    }
-}
-
 
 @end

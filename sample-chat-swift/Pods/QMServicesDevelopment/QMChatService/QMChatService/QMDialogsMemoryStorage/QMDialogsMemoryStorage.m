@@ -79,7 +79,7 @@ updateDialog(QBChatDialog *src, QBChatDialog *res) {
         [chatDialog joinWithCompletionBlock:^(NSError *error) {
             
             if (completion) {
-                completion(chatDialog,error);
+                completion(chatDialog, error);
             }
         }];
     }

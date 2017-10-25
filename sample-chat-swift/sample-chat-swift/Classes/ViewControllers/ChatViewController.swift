@@ -59,6 +59,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             self.senderID = currentUser.id
             self.senderDisplayName = currentUser.login
             
+            ServicesManager.instance().chatService.addDelegate(self)
+            ServicesManager.instance().chatService.chatAttachmentService.delegate = self
+            
             self.heightForSectionHeader = 40.0
             
             self.updateTitle()
@@ -97,7 +100,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 self.chatDataSource.add(self.storedMessages()!)
             }
-            
+
             self.loadMessages()
             
             self.enableTextCheckingTypes = NSTextCheckingAllTypes
@@ -106,9 +109,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        ServicesManager.instance().chatService.addDelegate(self)
-        ServicesManager.instance().chatService.chatAttachmentService.delegate = self
         
         self.queueManager().add(self)
         
@@ -138,8 +138,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         // clearing typing status blocks
         self.dialog.clearTypingStatusBlocks()
-        ServicesManager.instance().chatService.removeDelegate(self)
-        ServicesManager.instance().chatService.chatAttachmentService.delegate = nil
       
         self.queueManager().remove(self)
     }
