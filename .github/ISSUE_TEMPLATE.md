@@ -27,18 +27,23 @@ Repro with our demo sample     | e.g. does it happen with our demo sample?   |
 
 *Please use the following template for logs:*
 
-```
-<details>
-<summary>Title for logs </summary>
-// Your logs here
-</details>
-```
-
 To enable full logs use the following code:
-```
+```objc
 [QBSettings setLogLevel:QBLogLevelDebug];
 [QBSettings enableXMPPLogging];
 ```
+
+<details>
+<summary>Title for logs </summary>
+
+```logos
+
+// Your logs here
+
+```
+
+</details>
+
 
 **Steps to reproduce the behavior**
 
