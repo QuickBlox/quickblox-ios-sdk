@@ -187,8 +187,11 @@
 #pragma mark - QBCoreDelegate
 
 - (void)coreDidLogin:(QBCore *)core {
-    
-    [self performSegueWithIdentifier:@"ShowUsersViewController" sender:nil];
+    if (self.isViewLoaded && self.view.window != nil) {
+        // only perform segue if login view controller is visible, otherwise we are already
+        // on users view controller screan and this was just a chat connect
+        [self performSegueWithIdentifier:@"ShowUsersViewController" sender:nil];
+    }
 }
 
 - (void)coreDidLogout:(QBCore *)core {

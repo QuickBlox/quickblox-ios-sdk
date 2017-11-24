@@ -21,7 +21,21 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>296</string>
+	<string>335</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>e891b111ac39ff4757fefec8e8cdbb5ddf19be6b</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
@@ -30,7 +44,9 @@
 	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>voip</string>
 		<string>audio</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>

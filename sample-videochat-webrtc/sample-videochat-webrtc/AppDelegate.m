@@ -43,7 +43,16 @@ const NSTimeInterval kQBDialingTimeInterval = 5.f;
     return YES;
 }
 
-#pragma mark - Remote Notifictions
+// MARK: - Application states
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    if (![QBChat instance].isConnected
+        && [QBCore instance].isAuthorized) {
+        [[QBCore instance] loginWithCurrentUser];
+    }
+}
+
+// MARK: - Remote Notifictions
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
     

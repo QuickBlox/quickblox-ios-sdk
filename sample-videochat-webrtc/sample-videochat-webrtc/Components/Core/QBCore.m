@@ -25,7 +25,7 @@ NSString *const QB_DEFAULT_PASSOWORD = @"x6Bt0VDy5";
 @property (nonatomic, assign) SCNetworkReachabilityRef reachabilityRef;
 @property (nonatomic, strong) dispatch_queue_t reachabilitySerialQueue;
 
-@property (assign, nonatomic) BOOL isAutorized;
+@property (assign, nonatomic, readwrite) BOOL isAuthorized;
 
 @end
 
@@ -98,43 +98,52 @@ NSString *const QB_DEFAULT_PASSOWORD = @"x6Bt0VDy5";
 
 - (void)loginWithCurrentUser {
     
-    dispatch_block_t connectToChat = ^{
+    if (self.currentUser == nil) {
+        // there is no current user
+        return;
+    }
+    
+    __weak __typeof(self)weakSelf = self;
+    __block dispatch_block_t connectToChat = ^{
         
-        self.currentUser.password = QB_DEFAULT_PASSOWORD;
-        QBUUser *user = self.currentUser;
+        QBChat *chat = [QBChat instance];
+        if (chat.isConnected || chat.isConnecting) {
+            return;
+        }
         
-        [self setLoginStatus:@"Login into chat ..."];
+        __typeof(weakSelf)strongSelf = weakSelf;
+        strongSelf.currentUser.password = QB_DEFAULT_PASSOWORD;
+        QBUUser *user = strongSelf.currentUser;
         
-        [[QBChat instance] connectWithUser:user completion:^(NSError * _Nullable error) {
+        [strongSelf setLoginStatus:@"Login into chat ..."];
+        
+        [chat connectWithUser:user completion:^(NSError * _Nullable error) {
             
-            if (error) {
-                
+            if (error != nil) {
                 if (error.code == 401) {
-                    
-                    self.isAutorized = NO;
+                    strongSelf.isAuthorized = NO;
                     // Clean profile
-                    [self.profile clearProfile];
+                    [strongSelf.profile clearProfile];
                     // Notify about logout
-                    if ([self.multicastDelegate respondsToSelector:@selector(coreDidLogout:)]) {
-                        [self.multicastDelegate coreDidLogout:self];
+                    if ([strongSelf.multicastDelegate respondsToSelector:@selector(coreDidLogout:)]) {
+                        [strongSelf.multicastDelegate coreDidLogout:strongSelf];
                     }
                 }
                 else {
-                    [self handleError:error domain:ErrorDomainLogIn];
+                    [strongSelf handleError:error domain:ErrorDomainLogIn];
                 }
             }
             else {
-                
-                if ([self.multicastDelegate respondsToSelector:@selector(coreDidLogin:)]) {
-                    [self.multicastDelegate coreDidLogin:self];
+                if ([strongSelf.multicastDelegate respondsToSelector:@selector(coreDidLogin:)]) {
+                    [strongSelf.multicastDelegate coreDidLogin:strongSelf];
                 }
             }
         }];
     };
     
-    if (self.isAutorized) {
-        
+    if (self.isAuthorized) {
         connectToChat();
+        connectToChat = nil;
         return;
     }
     
@@ -143,9 +152,10 @@ NSString *const QB_DEFAULT_PASSOWORD = @"x6Bt0VDy5";
                          password:QB_DEFAULT_PASSOWORD
                      successBlock:^(QBResponse * _Nonnull response, QBUUser * _Nullable user)
      {
-         self.isAutorized = YES;
+         self.isAuthorized = YES;
          
          connectToChat();
+         connectToChat = nil;
          
          [self registerForRemoteNotifications];
          
@@ -204,7 +214,7 @@ NSString *const QB_DEFAULT_PASSOWORD = @"x6Bt0VDy5";
         // Delete user from server
         [QBRequest deleteCurrentUserWithSuccessBlock:^(QBResponse * _Nonnull response) {
             
-            self.isAutorized = NO;
+            self.isAuthorized = NO;
             // Clean profile
             [self.profile clearProfile];
             // Notify about logout
