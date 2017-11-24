@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QBCore : NSObject
 
 @property (strong, nonatomic, readonly) QBUUser *currentUser;
+@property (assign, nonatomic, readonly) BOOL isAuthorized;
 
 @property (copy, nonatomic, nullable)  QBNetworkStatusBlock networkStatusBlock;
 

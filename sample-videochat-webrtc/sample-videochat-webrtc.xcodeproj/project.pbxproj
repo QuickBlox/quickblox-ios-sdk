@@ -81,6 +81,7 @@
 		E3B0B22D1E1576EC00BE5FBD /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1EB1E1576EC00BE5FBD /* SVProgressHUD.bundle */; };
 		E3B0B22E1E1576EC00BE5FBD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1ED1E1576EC00BE5FBD /* SVProgressHUD.m */; };
 		E3B0B22F1E1576EC00BE5FBD /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1EF1E1576EC00BE5FBD /* SVRadialGradientLayer.m */; };
+		E3B50D9A1FC8763500796F0D /* CallKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B50D981FC8763500796F0D /* CallKitManager.m */; };
 		FB29BC041B32BBC0009751A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBC61B32BBC0009751A1 /* Images.xcassets */; };
 		FB29BC0A1B32BBC0009751A1 /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBCE1B32BBC0009751A1 /* busy.wav */; };
 		FB29BC0B1B32BBC0009751A1 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBCF1B32BBC0009751A1 /* calling.wav */; };
@@ -240,6 +241,8 @@
 		E3B0B1EF1E1576EC00BE5FBD /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		E3B0B2301E15798400BE5FBD /* sample-videochat-webrtc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sample-videochat-webrtc-Prefix.pch"; sourceTree = "<group>"; };
 		E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickbloxWebRTC.framework; path = ../Framework/QuickbloxWebRTC.framework; sourceTree = "<group>"; };
+		E3B50D981FC8763500796F0D /* CallKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallKitManager.m; sourceTree = "<group>"; };
+		E3B50D991FC8763500796F0D /* CallKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallKitManager.h; sourceTree = "<group>"; };
 		FB29BBC21B32BBC0009751A1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		FB29BBC61B32BBC0009751A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FB29BBCE1B32BBC0009751A1 /* busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busy.wav; sourceTree = "<group>"; };
@@ -422,6 +425,7 @@
 		E3B0B16E1E1576EC00BE5FBD /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E3B50D971FC8763500796F0D /* CallKitManager */,
 				E3B0B16F1E1576EC00BE5FBD /* Auth */,
 				E3B0B1791E1576EC00BE5FBD /* AVPermisions */,
 				E3B0B17C1E1576EC00BE5FBD /* Core */,
@@ -796,6 +800,15 @@
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
+		E3B50D971FC8763500796F0D /* CallKitManager */ = {
+			isa = PBXGroup;
+			children = (
+				E3B50D981FC8763500796F0D /* CallKitManager.m */,
+				E3B50D991FC8763500796F0D /* CallKitManager.h */,
+			);
+			path = CallKitManager;
+			sourceTree = "<group>";
+		};
 		FB29BBC51B32BBC0009751A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1022,6 +1035,7 @@
 				E3B0B21E1E1576EC00BE5FBD /* SettingSwitchCell.m in Sources */,
 				E3B0B2041E1576EC00BE5FBD /* CheckView.m in Sources */,
 				E3B0B2001E1576EC00BE5FBD /* PlaceholderGenerator.m in Sources */,
+				E3B50D9A1FC8763500796F0D /* CallKitManager.m in Sources */,
 				E332B2221EDD7E6500FFF7EE /* RecordsViewController.m in Sources */,
 				E3B0B2211E1576EC00BE5FBD /* BaseSettingsCell.m in Sources */,
 				E3B0B21C1E1576EC00BE5FBD /* SettingSliderCell.m in Sources */,

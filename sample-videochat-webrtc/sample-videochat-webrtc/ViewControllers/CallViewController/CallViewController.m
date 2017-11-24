@@ -22,6 +22,7 @@
 #import "StatsView.h"
 #import "PlaceholderGenerator.h"
 #import "RecordSettings.h"
+#import "CallKitManager.h"
 
 static NSString * const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
 static NSString * const kSharingViewControllerIdentifier = @"SharingViewController";
@@ -51,6 +52,7 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
 
 @property (strong, nonatomic) QBButton *dynamicEnable;
 @property (strong, nonatomic) QBButton *videoEnabled;
+@property (strong, nonatomic) QBButton *audioEnabled;
 @property (weak, nonatomic) LocalVideoView *localVideoView;
 
 @property (strong, nonatomic) StatsView *statsView;
@@ -76,19 +78,22 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[QBRTCAudioSession instance] initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
-        // adding blutetooth support
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
-        
-        // adding airplay support
-        configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
-        
-        if (_session.conferenceType == QBRTCConferenceTypeVideo) {
-            // setting mode to video chat to enable airplay audio and speaker only
-            configuration.mode = AVAudioSessionModeVideoChat;
-        }
-    }];
+    QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+    if (!audioSession.isInitialized) {
+        [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
+            // adding blutetooth support
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth;
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP;
+            
+            // adding airplay support
+            configuration.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay;
+            
+            if (_session.conferenceType == QBRTCConferenceTypeVideo) {
+                // setting mode to video chat to enable airplay audio and speaker only
+                configuration.mode = AVAudioSessionModeVideoChat;
+            }
+        }];
+    }
     
     [self configureGUI];
     
@@ -158,6 +163,11 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
     isInitiator ? [self startCall] : [self acceptCall];
     
     self.title = @"Connecting...";
+    
+    if (CallKitManager.isCallKitAvailable
+        && [self.session.initiatorID integerValue] == Core.currentUser.ID) {
+        [CallKitManager.instance updateCallWithUUID:_callUUID connectingAtDate:[NSDate date]];
+    }
 }
 
 - (UIView *)videoViewWithOpponentID:(NSNumber *)opponentID {
@@ -244,10 +254,15 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
         }];
     }
     
-    [self.toolbar addButton:[QBButtonsFactory auidoEnable] action: ^(UIButton *sender) {
+    self.audioEnabled = [QBButtonsFactory auidoEnable];
+    [self.toolbar addButton:self.audioEnabled action: ^(UIButton *sender) {
         
         weakSelf.session.localMediaStream.audioTrack.enabled ^=1;
         weakSelf.session.recorder.microphoneMuted = !weakSelf.session.localMediaStream.audioTrack.enabled;
+    }];
+    
+    [CallKitManager.instance setOnMicrophoneMuteAction:^{
+        weakSelf.audioEnabled.pressed ^= 1;
     }];
     
     if (self.session.conferenceType == QBRTCConferenceTypeAudio) {
@@ -340,15 +355,17 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
                                                 dequeueReusableCellWithReuseIdentifier:kOpponentCollectionViewCellIdentifier
                                                 forIndexPath:indexPath];
     QBUUser *user = self.users[indexPath.row];
+    NSNumber *userID = @(user.ID);
     
     __weak __typeof(self)weakSelf = self;
     [reusableCell setDidPressMuteButton:^(BOOL isMuted) {
         
-        QBRTCAudioTrack *audioTrack = [weakSelf.session remoteAudioTrackWithUserID:@(user.ID)];
+        QBRTCAudioTrack *audioTrack = [weakSelf.session remoteAudioTrackWithUserID:userID];
         audioTrack.enabled = !isMuted;
     }];
     
-    [reusableCell setVideoView:[self videoViewWithOpponentID:@(user.ID)]];
+    [reusableCell setVideoView:[self videoViewWithOpponentID:userID]];
+    reusableCell.connectionState = [self.session connectionStateForUser:userID];
     
     if (user.ID != [QBSession currentSession].currentUser.ID) {
         
@@ -485,6 +502,7 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
 - (void)session:(QBRTCSession *)session connectedToUser:(NSNumber *)userID {
     
     if (session == self.session) {
+        
         if (self.beepTimer) {
             
             [self.beepTimer invalidate];
@@ -493,6 +511,11 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
         }
         
         if (!self.callTimer) {
+            
+            if (CallKitManager.isCallKitAvailable
+                && [self.session.initiatorID integerValue] == Core.currentUser.ID) {
+                [CallKitManager.instance updateCallWithUUID:_callUUID connectedAtDate:[NSDate date]];
+            }
             
             self.callTimer = [NSTimer scheduledTimerWithTimeInterval:kRefreshTimeInterval
                                                               target:self
@@ -568,6 +591,10 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
     
     if (session == self.session) {
         
+        if (CallKitManager.isCallKitAvailable) {
+            [CallKitManager.instance endCallWithUUID:_callUUID completion:nil];
+        }
+        
         if (self.session.recorder.state == QBRTCRecorderStateActive) {
             [SVProgressHUD showWithStatus:NSLocalizedString(@"Saving record", nil)];
             [self.session.recorder stopRecord:^(NSURL *file) {
@@ -577,7 +604,12 @@ static NSString * const kQBRTCRecordingTitle = @"[Recording] ";
         
         [self.cameraCapture stopSession:nil];
         
-        [[QBRTCAudioSession instance] deinitialize];
+        QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
+        if (audioSession.isInitialized
+            && ![audioSession audioSessionIsActivatedOutside:[AVAudioSession sharedInstance]]) {
+            NSLog(@"Deinitializing QBRTCAudioSession in CallViewController.");
+            [audioSession deinitialize];
+        }
         
         if (self.beepTimer) {
             

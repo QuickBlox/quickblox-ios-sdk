@@ -15,5 +15,6 @@
 
 @property (strong, nonatomic) QBRTCSession *session;
 @property (weak, nonatomic) UsersDataSource *usersDatasource;
+@property (strong, nonatomic) NSUUID *callUUID;
 
 @end
