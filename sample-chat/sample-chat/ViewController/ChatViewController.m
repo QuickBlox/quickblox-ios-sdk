@@ -52,7 +52,7 @@ QMDeferredQueueManagerDelegate
 @property (nonatomic, strong) id observerWillResignActive;
 
 @property (nonatomic, strong) NSMutableSet *detailedCells;
-
+@property (nonatomic, strong) NSMutableSet *failedDownloads;
 @end
 
 @implementation ChatViewController
@@ -84,6 +84,8 @@ QMDeferredQueueManagerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.failedDownloads = [NSMutableSet set];
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
@@ -704,11 +706,19 @@ QMDeferredQueueManagerDelegate
         [self.attachmentCells removeObjectForKey:key];
     }
     
+    
+    if ([self.failedDownloads containsObject:attachment.ID]) {
+        [(id<QMChatAttachmentCell>)cell setAttachmentImage:errorImage()];
+        [cell updateConstraints];
+        return;
+    }
+    
     [self.attachmentCells setObject:cell forKey:attachment.ID];
     [(id<QMChatAttachmentCell>)cell setAttachmentID:attachment.ID];
     
     __weak typeof(self)weakSelf = self;
     // Getting image from chat attachment service.
+    
     [[ServicesManager instance].chatService.chatAttachmentService imageForAttachmentMessage:message completion:^(NSError *error, UIImage *image) {
         //
         
@@ -717,7 +727,11 @@ QMDeferredQueueManagerDelegate
         [weakSelf.attachmentCells removeObjectForKey:attachment.ID];
         
         if (error != nil) {
-            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+            if (error.code == 404) {
+                [self.failedDownloads addObject:attachment.ID];
+            }
+            [(id<QMChatAttachmentCell>)cell setAttachmentImage:errorImage()];
+            [cell updateConstraints];
         } else {
             if (image != nil) {
                 [(id<QMChatAttachmentCell>)cell setAttachmentImage:image];
@@ -758,9 +772,9 @@ QMDeferredQueueManagerDelegate
     QBChatMessage *currentMessage = [self.chatDataSource messageForIndexPath:indexPath];
     QMMessageStatus status = [[self queueManager] statusForMessage:currentMessage];
     
-    if (status == QMMessageStatusNotSent && currentMessage.senderID == self.senderID)
+    if (status == QMMessageStatusNotSent &&
+        currentMessage.senderID == self.senderID)
     {
-        
         [self handleNotSentMessage:currentMessage];
         return;
     }
@@ -957,10 +971,9 @@ QMDeferredQueueManagerDelegate
 
 - (void)chatAttachmentService:(QMChatAttachmentService *)chatAttachmentService didChangeAttachmentStatus:(QMMessageAttachmentStatus)status forMessage:(QBChatMessage *)message {
     
-    if (status != QMMessageAttachmentStatusNotLoaded) {
-        
+    if (status == QMMessageAttachmentStatusLoaded) {
+    
         if ([message.dialogID isEqualToString:self.dialog.ID]) {
-            
             [self.chatDataSource updateMessage:message];
         }
     }
@@ -1246,4 +1259,15 @@ QMDeferredQueueManagerDelegate
 - (QMDeferredQueueManager *)queueManager {
     return [ServicesManager instance].chatService.deferredQueueManager;
 }
+
+UIImage *errorImage() {
+    static UIImage *errorImage = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        errorImage = [UIImage imageNamed:@"error_image.png"];
+    });
+    
+    return errorImage;
+}
+
 @end
