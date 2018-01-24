@@ -29,4 +29,6 @@
 + (UIImage *)resizableImageWithColor:(UIColor *)color
                         cornerRadius:(CGFloat)cornerRadius;
 
+@property (nonatomic, strong, readonly) NSData *dataRepresentation;
+
 @end

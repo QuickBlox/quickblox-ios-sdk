@@ -20,7 +20,6 @@
     
     self = [super init];
     if (self) {
-        
         _datasources = [NSMutableDictionary dictionary];
     }
     return self;
@@ -183,6 +182,10 @@
 - (void)free {
     
     [self.datasources removeAllObjects];
+}
+
+- (BOOL)isEmpty {
+    return self.datasources.count == 0;
 }
 
 @end

@@ -83,11 +83,6 @@ static QMUsersCache *_usersCacheInstance = nil;
             [cachedUser updateWithQBUser:user];
         }
         
-        QMSLog(@"[%@] Users to insert %tu, update %tu",
-               NSStringFromClass([QMUsersCache class]),
-               ctx.insertedObjects.count,
-               ctx.updatedObjects.count);
-        
     } finish:^{
         [source setResult:nil];
     }];
@@ -109,6 +104,14 @@ static QMUsersCache *_usersCacheInstance = nil;
     }];
     
     return source.task;
+}
+
+- (BFTask *)truncateAll {
+    [self performMainQueue:^(NSManagedObjectContext *ctx) {
+        [CDUser QM_truncateAllInContext:ctx];
+        [ctx QM_saveToPersistentStoreAndWait];
+    }];
+    return [BFTask taskWithResult:nil];
 }
 
 - (BFTask *)deleteAllUsers {

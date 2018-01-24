@@ -1,10 +1,5 @@
 #import "CDOpenGraphModel.h"
-
-@interface CDOpenGraphModel ()
-
-// Private interface goes here.
-
-@end
+#import "QMSLog.h"
 
 @implementation CDOpenGraphModel
 
@@ -34,6 +29,13 @@
     self.imageURL = og.imageURL;
     self.heightValue = og.imageHeight;
     self.widthValue = og.imageWidth;
+    
+    if (!self.changedValues.count) {
+        [self.managedObjectContext refreshObject:self mergeChanges:NO];
+    }
+    else if (!self.isInserted){
+        QMSLog(@"Cache > %@ > %@: %@", self.class, self.id ,self.changedValues);
+    }
 }
 
 @end

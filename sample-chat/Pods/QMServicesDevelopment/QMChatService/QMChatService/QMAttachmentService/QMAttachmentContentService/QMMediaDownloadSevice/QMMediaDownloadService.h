@@ -14,7 +14,7 @@
 #import "QMAsynchronousOperation.h"
 
 
-@interface QMDownloadOperation : QMAsynchronousOperation
+@interface QMDownloadOperation : QMAsynchronousBlockOperation
 
 @property (nonatomic, strong) QBRequest *request;
 @property (nonatomic, strong) NSError *error;

@@ -352,7 +352,6 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
  */
 - (void)earlierMessagesWithChatDialogID:(NSString *)chatDialogID
                              completion:(nullable void(^)(QBResponse *response, NSArray<QBChatMessage *> * _Nullable messages))completion;
-
 //MARK: - Fetch dialogs
 
 /**
@@ -453,7 +452,7 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
  *
  *  @param attachmentMessage    QBChatMessage instance with attachment
  *  @param dialog               dialog instance to send message to
- *  @param attachment           QBChatAttachment instance to upload
+ *  @param attachment           QBChatAttachment instance to upload and send
  *  @param completion           completion block with failure error
  */
 - (void)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
@@ -899,6 +898,21 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
               withAttachmentImage:(UIImage *)image;
 
 /**
+ *  Send attachment message to dialog using Bolts.
+ *
+ *  @param attachmentMessage    QBChatMessage instance with attachment
+ *  @param dialog               dialog instance to send message to
+ *  @param attachment           QBChatAttachment instance to upload and send
+ *
+ *  @return BFTask with failure error
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask *)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
+                         toDialog:(QBChatDialog *)dialog
+                   withAttachment:(QBChatAttachment *)attachment;
+
+/**
  *  Mark message as delivered.
  *
  *  @param message      QBChatMessage instance to mark as delivered
@@ -943,6 +957,29 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
  */
 - (BFTask *)readMessages:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID;
 
+
+/**
+ * Loads the later messages which were added to the cache after the last message in the memory storage and saves them to the memory storage.
+ *
+ * @param dialogID      ID of dialog to update
+ *
+ * @return BFTask with 'NSArray' instance.
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask<NSArray<QBChatMessage *>*> *)syncMessagesWithCacheForDialogID:(NSString *)dialogID;
+
+/**
+ * Loads the later dialogs which were added to the cache after the last message in the memory storage and saves them to the memory storage.
+ *
+ * @param date 'NSDate' instance to sync dialogs from
+ *
+ * @return BFTask with 'NSArray' instance.
+ *
+ *  @see In order to know how to work with BFTask's see documentation https://github.com/BoltsFramework/Bolts-iOS#bolts
+ */
+- (BFTask<NSArray<QBChatDialog *>*> *)syncLaterDialogsWithCacheFromDate:(NSDate *)date;
+
 @end
 
 @protocol QMChatServiceCacheDataSource <NSObject>
@@ -971,6 +1008,28 @@ typedef void(^QMCacheCollection)(NSArray * _Nullable collection);
  *  @param block    Block for provide QBChatMessages collection
  */
 - (void)cachedMessagesWithDialogID:(NSString *)dialogID block:(nullable QMCacheCollection)block;
+
+@optional
+
+/**
+ *  Is called when begin fetch messages with predicate.
+ *  Need to use for inserting to 'QMMessagesMemoryStorage' instance
+ *
+ *  @param predicate NSPredicate instance
+ *  @param block    Block for providing QBChatMessages collection
+ */
+- (void)cachedMessagesWithPredicate:(NSPredicate *)predicate
+                              block:(nullable QMCacheCollection)block;
+
+/**
+ *  Is called when begin fetch dialogs with predicate.
+ *  Need to use for inserting to 'QMDialogsMemoryStorage' instance
+ *
+ *  @param predicate NSPredicate instance
+ *  @param block    Block for providing QBChatDialog collection
+ */
+- (void)cachedDialogsWithPredicate:(NSPredicate *)predicate
+                             block:(nullable QMCacheCollection)block;
 
 @end
 

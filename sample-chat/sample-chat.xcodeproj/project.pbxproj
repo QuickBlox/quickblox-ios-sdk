@@ -14,7 +14,7 @@
 		1480E08F1B25DB6600DD6B7C /* DialogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1480E08E1B25DB6600DD6B7C /* DialogTableViewCell.m */; };
 		1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1485D5FC1B25E60A00D26B2A /* EditDialogTableViewController.m */; };
 		14B088D91CA2D9700035E29D /* ReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B088D81CA2D9700035E29D /* ReplaceSegue.m */; };
-		2CC758A51B0F0EB300999187 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		2CC758A51B0F0EB300999187 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		5839789F1D48A6D4009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; };
 		583978A01D48A6D4009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5857DCD01BD91F3700AB2D53 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		584B33AF1C2AF4490041B431 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 584B33AE1C2AF4490041B431 /* Localizable.strings */; };
@@ -459,7 +459,6 @@
 				"${BUILT_PRODUCTS_DIR}/MPGNotification/MPGNotification.framework",
 				"${BUILT_PRODUCTS_DIR}/QMCVDevelopment/QMCVDevelopment.framework",
 				"${BUILT_PRODUCTS_DIR}/QMServicesDevelopment/QMServicesDevelopment.framework",
-				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SearchEmojiOnString/SearchEmojiOnString.framework",
@@ -473,7 +472,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MPGNotification.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QMCVDevelopment.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QMServicesDevelopment.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchEmojiOnString.framework",
@@ -600,7 +598,7 @@
 				BFE6FBCE180EA2F300E64AC4 /* DialogsViewController.m in Sources */,
 				143181791B1882EC001A933D /* NewDialogTableViewController.m in Sources */,
 				1485D5FD1B25E60A00D26B2A /* EditDialogTableViewController.m in Sources */,
-				2CC758A51B0F0EB300999187 /* (null) in Sources */,
+				2CC758A51B0F0EB300999187 /* BuildFile in Sources */,
 				86401C0D1B428CEA00D45A05 /* MessageStatusStringBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

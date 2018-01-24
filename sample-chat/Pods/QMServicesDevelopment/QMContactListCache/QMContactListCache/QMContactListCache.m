@@ -15,14 +15,14 @@
 
 @implementation QMContactListCache
 
-static QMContactListCache *_chatCacheInstance = nil;
+static QMContactListCache *_contactListcCacheInstance = nil;
 
 //MARK: - Singleton
 
 + (QMContactListCache *)instance {
     
-    NSAssert(_chatCacheInstance, @"You must first perform @selector(setupDBWithStoreNamed:)");
-    return _chatCacheInstance;
+    NSAssert(_contactListcCacheInstance, @"You must first perform @selector(setupDBWithStoreNamed:)");
+    return _contactListcCacheInstance;
 }
 
 //MARK: - Configure store
@@ -41,7 +41,7 @@ static QMContactListCache *_chatCacheInstance = nil;
                              inBundleNamed:@"QMContactListCacheModel.bundle"
                                  fromClass:[self class]];
     
-    _chatCacheInstance =
+    _contactListcCacheInstance =
     [[QMContactListCache alloc] initWithStoreNamed:storeName
                                              model:model
                         applicationGroupIdentifier:appGroupIdentifier];
@@ -49,8 +49,8 @@ static QMContactListCache *_chatCacheInstance = nil;
 
 + (void)cleanDBWithStoreName:(NSString *)name {
     
-    if (_chatCacheInstance) {
-        _chatCacheInstance = nil;
+    if (_contactListcCacheInstance) {
+        _contactListcCacheInstance = nil;
     }
     
     [super cleanDBWithStoreName:name];
@@ -70,17 +70,24 @@ static QMContactListCache *_chatCacheInstance = nil;
                                                  inContext:ctx];
         [item updateWithQBContactListItem:contactListItem];
         
-        QMSLog(@"[%@] ContactListItems to insert %tu, update %tu", NSStringFromClass([self class]),
-               ctx.insertedObjects.count,
-               ctx.updatedObjects.count);
-        
     } finish:completion];
 }
 
 - (void)insertOrUpdateContactListWithItems:(NSArray<QBContactListItem *> *)contactListItems
                                 completion:(dispatch_block_t)completion {
+
+    [self insertOrUpdateContactListWithItems:contactListItems completion:completion force:NO];
+}
+
+- (void)insertOrUpdateContactListWithItems:(NSArray<QBContactListItem *> *)contactListItems
+                                completion:(dispatch_block_t)completion
+                                     force:(BOOL)force {
     
     [self save:^(NSManagedObjectContext *ctx) {
+        
+        if (force) {
+            [CDContactListItem QM_truncateAllInContext:ctx];
+        }
         
         for (QBContactListItem *contactListItem in contactListItems) {
             
@@ -91,15 +98,12 @@ static QMContactListCache *_chatCacheInstance = nil;
             [item updateWithQBContactListItem:contactListItem];
         }
         
-        QMSLog(@"[%@] ContactListItems to insert %tu, update %tu", NSStringFromClass([self class]),
-               ctx.insertedObjects.count,
-               ctx.updatedObjects.count);
-        
     } finish:completion];
 }
 
 - (void)insertOrUpdateContactListItemsWithContactList:(QBContactList *)contactList
                                            completion:(dispatch_block_t)completion {
+    
     NSMutableArray *items =
     [NSMutableArray arrayWithCapacity:contactList.contacts.count + contactList.pendingApproval.count];
     
@@ -107,7 +111,8 @@ static QMContactListCache *_chatCacheInstance = nil;
     [items addObjectsFromArray:contactList.pendingApproval];
     
     [self insertOrUpdateContactListWithItems:[items copy]
-                                  completion:completion];
+                                  completion:completion
+                                       force:YES];
 }
 
 - (void)deleteContactListItem:(QBContactListItem *)contactListItem
@@ -126,10 +131,27 @@ static QMContactListCache *_chatCacheInstance = nil;
     } finish:completion];
 }
 
+- (void)truncateAll {
+    [self performMainQueue:^(NSManagedObjectContext *ctx) {
+        [CDContactListItem QM_truncateAllInContext:ctx];
+        [ctx QM_saveToPersistentStoreAndWait];
+    }];
+}
+
+- (NSArray<QBContactListItem *> *)allContactListItems {
+    
+    __block NSArray<QBContactListItem *> *result = nil;
+    [self performMainQueue:^(NSManagedObjectContext *ctx) {
+        result = [[CDContactListItem QM_findAllInContext:ctx] toQBContactListItems];
+    }];
+    
+    return result;
+}
+
 - (void)contactListItems:(void(^)(NSArray<QBContactListItem *> *contactListItems))completion {
     
     [self performBackgroundQueue:^(NSManagedObjectContext *ctx) {
-        
+
         NSArray<QBContactListItem *> *result =
         [[CDContactListItem QM_findAllInContext:ctx] toQBContactListItems];
         

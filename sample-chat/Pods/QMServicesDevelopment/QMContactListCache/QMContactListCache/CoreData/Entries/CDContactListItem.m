@@ -1,4 +1,5 @@
 #import "CDContactListItem.h"
+#import "QMSLog.h"
 
 @implementation CDContactListItem
 
@@ -20,6 +21,13 @@
     
     if (self.userIDValue != contactListItem.userID) {
         self.userIDValue = (int32_t)contactListItem.userID;
+    }
+    
+    if (!self.changedValues.count) {
+        [self.managedObjectContext refreshObject:self mergeChanges:NO];
+    }
+    else if (!self.isInserted){
+        QMSLog(@"Cache > %tu > %@: %@", self.class, self.userID ,self.changedValues);
     }
 }
 

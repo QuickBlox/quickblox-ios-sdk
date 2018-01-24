@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @protocol QMMemoryStorageProtocol <NSObject>
+
+@property (nonatomic, readonly) BOOL isEmpty;
 /**
  *  This method used for clean all storage data in memory
  */

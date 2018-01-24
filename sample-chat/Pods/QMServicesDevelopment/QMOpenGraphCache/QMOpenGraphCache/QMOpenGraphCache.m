@@ -48,6 +48,13 @@ static QMOpenGraphCache *_openGraphCache = nil;
     return result;
 }
 
+- (void)truncateAll {
+    [self performMainQueue:^(NSManagedObjectContext *ctx) {
+        [CDOpenGraphModel QM_truncateAllInContext:ctx];
+        [ctx QM_saveToPersistentStoreAndWait];
+    }];
+}
+
 - (void)deleteAllOpenGraphItemsWithCompletion:(dispatch_block_t)completion {
     
     [self save:^(NSManagedObjectContext *ctx) {

@@ -1,12 +1,5 @@
 #import "CDUser.h"
-
-
-@interface CDUser ()
-
-// Private interface goes here.
-
-@end
-
+#import "QMSLog.h"
 
 @implementation CDUser
 
@@ -51,6 +44,13 @@
 	self.tags = [user.tags componentsJoinedByString:@","];
 	self.customData = user.customData;
 	self.lastRequestAt = user.lastRequestAt;
+    
+    if (!self.changedValues.count) {
+        [self.managedObjectContext refreshObject:self mergeChanges:NO];
+    }
+    else if (!self.isInserted){
+        QMSLog(@"Cache > %@ > %@: %@", self.class, self.id ,self.changedValues);
+    }
 }
 
 @end

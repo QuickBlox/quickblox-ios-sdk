@@ -42,7 +42,7 @@ extern NSString * const QMPlaceholderDidChangeHeight;
 /**
  *  The object that acts as the paste delegate of the text view.
  */
-@property (weak, nonatomic, nullable) id<QMPlaceHolderTextViewPasteDelegate> pasteDelegate;
+@property (weak, nonatomic, nullable) id<QMPlaceHolderTextViewPasteDelegate> qm_placeholderTextViewPasteDelegate;
 
 /**
  *  The text to be displayed when the text view is empty. The default value is `nil`.

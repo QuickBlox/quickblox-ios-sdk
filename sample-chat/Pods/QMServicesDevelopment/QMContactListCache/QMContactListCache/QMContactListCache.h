@@ -83,6 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)deleteContactList:(nullable dispatch_block_t)completion;
 
+- (void)truncateAll;
+
 //MARK: Fetch ContactList operations
 
 /**
@@ -91,6 +93,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param completion Completion block that is called after the fetch has completed. Returns an array of QBContactListItem instances
  */
 - (void)contactListItems:(nullable void(^)(NSArray<QBContactListItem *> *contactListItems))completion;
+
+
+/**
+ *  Fetch all contact list items (Fetch in Main Queue context)
+ *
+ *  @return Returns an array of QBContactListItem instances
+ */
+- (NSArray<QBContactListItem *> *)allContactListItems;
 
 /**
  *  Fetch contact list item wiht user ID

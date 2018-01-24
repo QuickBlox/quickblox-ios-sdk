@@ -16,7 +16,7 @@
     
     QMChatCellLayoutModel defaultLayoutModel = [super layoutModel];
     defaultLayoutModel.avatarSize = CGSizeMake(0, 0);
-    defaultLayoutModel.containerInsets = UIEdgeInsetsMake(4, 12, 4, 4),
+    defaultLayoutModel.containerInsets = UIEdgeInsetsMake(4, 12, 4, 4);
     defaultLayoutModel.topLabelHeight = 0;
     defaultLayoutModel.bottomLabelHeight = 14;
     

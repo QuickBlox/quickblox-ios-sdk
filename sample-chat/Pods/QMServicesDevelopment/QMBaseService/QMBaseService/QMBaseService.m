@@ -13,7 +13,11 @@ BFTask *make_task(QMTaskSourceBlock b) {
     
     BFTaskCompletionSource *source =
     [BFTaskCompletionSource taskCompletionSource];
-    if (b) { b(source); }
+    if (b) {
+        
+        b(source);
+        b = nil;
+    }
     
     return source.task;
 }
@@ -48,4 +52,10 @@ BFTask *make_task(QMTaskSourceBlock b) {
     
 }
 
+- (BOOL)isEmpty {
+    NSParameterAssert(nil);
+    return NO;
+}
+
 @end
+

@@ -96,9 +96,7 @@
     
     __block BOOL hasChanges = NO;
     
-    [self performBlockAndWait:^{
-        hasChanges = [self hasChanges];
-    }];
+    hasChanges = [self hasChanges];
     
     if (!hasChanges) {
         
@@ -181,7 +179,7 @@
         [self performBlockAndWait:saveBlock];
     }
     else {
-        [self performBlock:saveBlock];
+        saveBlock();
     }
 }
 

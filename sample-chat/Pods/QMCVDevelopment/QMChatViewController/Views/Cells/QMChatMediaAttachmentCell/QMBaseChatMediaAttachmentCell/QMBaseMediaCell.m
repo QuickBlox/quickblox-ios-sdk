@@ -103,7 +103,8 @@
     }
     _currentTime = currentTime;
     
-    self.durationLabel.text = [self timestampString:currentTime forDuration:_duration];
+    self.durationLabel.text = [self timestampString:currentTime
+                                        forDuration:_duration];
 }
 
 
@@ -152,12 +153,31 @@
     [self.previewImageView setNeedsLayout];
 }
 
-- (void)setImage:(UIImage *)image {
+
+- (void)qm_setImage:(UIImage *)image
+        animated:(BOOL)animated {
     
     _image = image;
-    
-    self.previewImageView.image = image;
-    [self.previewImageView setNeedsLayout];
+    if (animated) {
+    [UIView transitionWithView:self.previewImageView
+                      duration:0.2f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.previewImageView.image = image;
+                    } completion:^(BOOL finished) {
+                        [self.previewImageView setNeedsLayout];
+                    }];
+    }
+    else {
+        self.previewImageView.image = image;
+        [self.previewImageView setNeedsLayout];
+    }
+}
+
+- (void)setImage:(UIImage *)image {
+    //animate only if the image wasn't been set before
+    [self qm_setImage:image
+             animated:_image ? NO : YES];
 }
 
 

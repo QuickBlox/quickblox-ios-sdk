@@ -952,6 +952,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
 }
 
 - (void)deleteMessageLocally:(QBChatMessage *)message {
+    
     NSAssert(message.dialogID, @"Message must have a dialog ID.");
     
     [self deleteMessagesLocally:@[message] forDialogID:message.dialogID];
@@ -962,7 +963,7 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
     NSArray *messagesToDelete = messages.copy;
     
     for (QBChatMessage *msg in messages) {
-        [self.deferredQueueManager removeMessage:msg];
+        [self.deferredQueueManager removeMessage:msg andCallDelegate:NO];
     }
     
     [self.messagesMemoryStorage deleteMessages:messages forDialogID:dialogID];
@@ -1325,7 +1326,8 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         if (!error) {
             
             if (message.messageType == QMMessageTypeText || message.isMediaMessage) {
-                [strongSelf.deferredQueueManager removeMessage:message];
+                [strongSelf.deferredQueueManager removeMessage:message
+                                               andCallDelegate:NO];
             }
             
             if (saveToStorage) {
@@ -1392,6 +1394,60 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
             saveToHistory:message.saveToHistory.integerValue
             saveToStorage:YES
                completion:completion];
+    }
+}
+
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager
+        didAddMessageLocally:(QBChatMessage *)addedMessage {
+    
+    [self.messagesMemoryStorage addMessage:addedMessage forDialogID:addedMessage.ID];
+    
+    if ([self.multicastDelegate respondsToSelector:@selector(chatService:
+                                                             didAddMessageToMemoryStorage:
+                                                             forDialogID:)]) {
+        [self.multicastDelegate chatService:self
+               didAddMessageToMemoryStorage:addedMessage
+                                forDialogID:addedMessage.dialogID];
+    }
+}
+
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager
+     didUpdateMessageLocally:(QBChatMessage *)addedMessage {
+    
+    [self.messagesMemoryStorage updateMessage:addedMessage];
+    
+    if ([self.multicastDelegate respondsToSelector:@selector(chatService:
+                                                             didUpdateMessage:
+                                                             forDialogID:)]) {
+        [self.multicastDelegate chatService:self
+                           didUpdateMessage:addedMessage
+                                forDialogID:addedMessage.dialogID];
+    }
+}
+
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager
+     didRemoveMessageLocally:(nonnull QBChatMessage *)removedMessage {
+    
+    [self.messagesMemoryStorage deleteMessage:removedMessage];
+    
+    if ([self.multicastDelegate respondsToSelector:@selector(chatService:
+                                                             didDeleteMessageFromMemoryStorage:
+                                                             forDialogID:)]) {
+        [self.multicastDelegate chatService:self
+                           didDeleteMessageFromMemoryStorage:removedMessage
+                                forDialogID:removedMessage.dialogID];
+    }
+}
+
+
+- (void)deferredQueueManager:(QMDeferredQueueManager *)queueManager
+      didUpdateMessageStatus:(QMMessageStatus)status
+                     message:(QBChatMessage *)message {
+    
+    [self.messagesMemoryStorage updateMessage:message];
+    
+    if ([self.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessage:forDialogID:)]) {
+        [self.multicastDelegate chatService:self didUpdateMessage:message forDialogID:message.dialogID];
     }
 }
 
@@ -1603,7 +1659,8 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         
         if (updatedMessages.count) {
             
-            if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessages:forDialogID:)]) {
+            if ([strongSelf.multicastDelegate respondsToSelector:@selector(chatService:didUpdateMessages:
+                                                                           forDialogID:)]) {
                 [strongSelf.multicastDelegate chatService:strongSelf
                                         didUpdateMessages:updatedMessages.copy
                                               forDialogID:dialogID];

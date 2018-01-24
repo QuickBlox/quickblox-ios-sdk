@@ -7,7 +7,6 @@
 //
 
 #import "QMAttachmentAssetService.h"
-#import "QMAsynchronousOperation.h"
 #import "QBChatAttachment+QMCustomParameters.h"
 #import "QMAssetLoader.h"
 #import "QMSLog.h"
@@ -16,7 +15,7 @@
 
 @property (strong, nonatomic) NSOperationQueue *assetServiceOperationQueue;
 @property (weak, nonatomic, nullable) NSOperation *lastAddedOperation;
-@property (strong, nonatomic) NSMutableDictionary *mediaInfoStorage;
+
 @end
 
 @implementation QMAttachmentAssetService
@@ -31,7 +30,6 @@
         _assetServiceOperationQueue.maxConcurrentOperationCount  = 2;
         _assetServiceOperationQueue.qualityOfService = NSQualityOfServiceUtility;
         _assetServiceOperationQueue.name = @"QMServices.assetServiceOperationQueue";
-        _mediaInfoStorage = [NSMutableDictionary new];
     }
     
     return self;
@@ -47,64 +45,48 @@
         return;
     }
     
-    QMAsynchronousOperation *assetLoaderOperation = [[QMAsynchronousOperation alloc] init];
-    assetLoaderOperation.operationID = messageID;
-    __weak __typeof(assetLoaderOperation)weakOperation = assetLoaderOperation;
+    NSURL *url = attachment.localFileURL ?: [attachment remoteURLWithToken:YES];
+    
+    QMAssetOperation *assetLoaderOperation =
+    [[QMAssetOperation alloc] initWithID:messageID
+                                     URL:url
+                          attachmentType:attachment.attachmentType
+                                 timeOut:60
+                                 options:QMAssetLoaderKeyImage|QMAssetLoaderKeyTracks|QMAssetLoaderKeyPlayable
+                         completionBlock:^(NSTimeInterval duration,
+                                           CGSize size,
+                                           UIImage * _Nullable image,
+                                           NSError * _Nullable error)
+     {
+         if (completion) {
+             completion(image, duration, size, error, NO);
+         }
+     }];
     
     assetLoaderOperation.cancelBlock = ^{
-        __strong typeof(weakOperation) strongOperation = weakOperation;
-        QMSLog(@"Cancell operation with ID: %@", strongOperation.operationID);
-        if (!strongOperation.objectToCancel) {
+        if (completion) {
             completion(nil, 0, CGSizeZero, nil, YES);
         }
-        
-        [strongOperation.objectToCancel cancel];
-        strongOperation.objectToCancel = nil;
     };
     
-    [assetLoaderOperation setAsyncOperationBlock:^(dispatch_block_t  _Nonnull finish) {
-        
-        QMAssetLoader *assetLoader = [QMAssetLoader loaderForAttachment:attachment
-                                                              messageID:messageID];
-        
-        weakOperation.objectToCancel = (id <QMCancellableObject>)assetLoader;
-        
-        [assetLoader loadWithTimeOut:60.0
-                     completionBlock:^(NSTimeInterval duration,
-                                       CGSize size,
-                                       UIImage * _Nullable image,
-                                       NSError * _Nullable error) {
-            completion(image, duration, size, error, weakOperation.isCancelled);
-            finish();
-        }];
-    }];
+    [_assetServiceOperationQueue addOperation:assetLoaderOperation];
     
-    [self.assetServiceOperationQueue addOperation:assetLoaderOperation];
+    QMSLog(@"Operations = %@", self.assetServiceOperationQueue.operations);
     
-//    //LIFO order
-//    [self.lastAddedOperation addDependency:assetLoaderOperation];
-//    self.lastAddedOperation = assetLoaderOperation;
+    //LIFO order
+    [self.lastAddedOperation addDependency:assetLoaderOperation];
+    self.lastAddedOperation = assetLoaderOperation;
 }
+
 
 //MARK: QMCancellableService
 
 - (void)cancelAllOperations {
-    
     [self.assetServiceOperationQueue cancelAllOperations];
 }
 
 - (void)cancelOperationWithID:(NSString *)operationID {
-    
-    for (QMAsynchronousOperation *op in self.assetServiceOperationQueue.operations) {
-        if ([op.operationID isEqualToString:operationID]) {
-            [op cancel];
-            QMSLog(@"_Cancell operation with ID (info service):%@",operationID);
-            break;
-        }
-    }
-    
-    //    [self.imagesOperationQueue cancelOperationWithID:operationID];
-    QMSLog(@"Operations = %@", [self.assetServiceOperationQueue operations]);
+    [self.assetServiceOperationQueue cancelOperationWithID:operationID];
 }
 
 @end
