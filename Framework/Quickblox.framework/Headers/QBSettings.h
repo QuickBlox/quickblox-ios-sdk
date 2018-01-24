@@ -2,12 +2,10 @@
 //  QBSettings.h
 //  Core
 //
-
 //  Copyright 2011 QuickBlox team. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "QBLogger.h"
+#import <Quickblox/QBLoggerEnums.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -76,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
+//MARK: Chat settings
 
 @interface QBSettings (QBChat)
 
@@ -194,58 +192,7 @@ NS_ASSUME_NONNULL_BEGIN
  Set custom session configuration that will be used for REST API requests.
  '[NSURLSessionConfiguration defaultSessionConfiguration]' is used if nil is passed.
  */
-
 @property (nonatomic, class, nullable) NSURLSessionConfiguration *sessionConfiguration;
-
-@end
-
-typedef NS_ENUM(NSUInteger, QBConnectionZoneType) {
-    
-    QBConnectionZoneTypeAutomatic       = 1, //Default. Endpoints are loaded from QuickBlox
-    QBConnectionZoneTypeProduction      = 2,
-    QBConnectionZoneTypeDevelopment     = 3,
-    QBConnectionZoneTypeStage           = 4
-} DEPRECATED_ATTRIBUTE;
-
-@interface QBSettings (DEPRECATED)
-
-/**
- Allows to set api endpoint and chat endpoint for service zone.
-
- @note QBConnectionZoneTypeAutomatic is used by default.
- If you are using shared server and you are migrating to enterprise account,
- then you don't need to resubmit your application, endpoints will be updated automatically.
-
- To set custom endpoints use QBConnectionZoneTypeProduction or QBConnectionZoneTypeDevelopment service zone.
- Then you should manually activate your service zone by calling setServiceZone:
-
- @param apiEndpoint  apiEndpoint - Endpoint for service i.e. http://my_custom_endpoint.com. Possible to pass nil to return to default settings
- @param chatEndpoint chat endpoint
- @param zone         QBConnectionZoneType - service zone
- @warning Deprecated in 2.12. Use QBSettings.apiEndpoint and QBSettings.chatEndpoint to set custom endpoints
- */
-+ (void)setApiEndpoint:(nullable NSString *)apiEndpoint
-          chatEndpoint:(nullable NSString *)chatEndpoint
-        forServiceZone:(QBConnectionZoneType)zone
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.12. Use QBSettings.apiEndpoint and QBSettings.chatEndpoint to set custom endpoints");
-
-/**
-Allows to change Services Zone to work with Production, Development and Staging environments
-
-@param serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic.
- @warning Deprecated in 2.12. Use QBSettings.apiEndpoint and QBSettings.chatEndpoint to set custom endpoints
- */
-+ (void)setServiceZone:(QBConnectionZoneType)serviceZone
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.12. Use QBSettings.apiEndpoint and QBSettings.chatEndpoint to set custom endpoints");
-
-/**
- Return current Service Zone
-
- @note serviceZone - Service Zone. One from QBConnectionZoneType. Default - QBConnectionZoneTypeAutomatic
- @warning Deprecated in 2.12. Use QBSettings.apiEndpoint and QBSettings.chatEndpoint to set custom endpoints
- */
-+ (QBConnectionZoneType)currentServiceZone
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.12. Use QBSettings.apiEndpoint and QBSettings.chatEndpoint to set custom endpoints");
 
 @end
 

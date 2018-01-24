@@ -1,15 +1,15 @@
 //
 //  QBChatDialog.h
-//  Quickblox
 //
-//  Created by QuickBlox team on 23/04/2014.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "QBChatTypes.h"
+@import Foundation;
 
 @class QBChatMessage;
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, QBChatDialogType) {
     
@@ -18,8 +18,9 @@ typedef NS_ENUM(NSUInteger, QBChatDialogType) {
     QBChatDialogTypePrivate = 3,
 };
 
-
-NS_ASSUME_NONNULL_BEGIN
+typedef void(^QBChatCompletionBlock)(NSError * _Nullable error);
+typedef void(^QBUserIDBlock)(NSUInteger userID);
+typedef void(^QBOnlineUsersBlock)(NSMutableArray <NSNumber *> * _Nullable onlineUsers, NSError * _Nullable error);
 
 /**
  *  QBChatDialog class interface.
@@ -28,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @see http://quickblox.com/developers/Chat#Dialog_model
  */
 @interface QBChatDialog : NSObject <NSCoding, NSCopying>
-
 
 /**
  *  Chat dialog ID.
@@ -145,27 +145,27 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Called whenever user is typing in current chat dialog.
  */
-@property (nonatomic, copy, nullable) QBChatDialogUserBlock onUserIsTyping;
+@property (nonatomic, copy, nullable) QBUserIDBlock onUserIsTyping;
 
 /**
  *  Called whenever user has stopped typing in current chat dialog.
  */
-@property (nonatomic, copy, nullable) QBChatDialogUserBlock onUserStoppedTyping;
+@property (nonatomic, copy, nullable) QBUserIDBlock onUserStoppedTyping;
 
 /**
  *  Called whenever occupant has joined to the current Group or Public group chat dialog.
  */
-@property (nonatomic, copy, nullable) QBChatDialogUserBlock onJoinOccupant;
+@property (nonatomic, copy, nullable) QBUserIDBlock onJoinOccupant;
 
 /**
  *  Called whenever occupant has left the current Group or Public group chat dialog.
  */
-@property (nonatomic, copy, nullable) QBChatDialogUserBlock onLeaveOccupant;
+@property (nonatomic, copy, nullable) QBUserIDBlock onLeaveOccupant;
 
 /**
  *  Called whenever occupant has updated his presence status in the current Group or Public group chat dialog.
  */
-@property (nonatomic, copy, nullable) QBChatDialogUserBlock onUpdateOccupant;
+@property (nonatomic, copy, nullable) QBUserIDBlock onUpdateOccupant;
 
 // Unavailable initializers
 - (id)init NS_UNAVAILABLE;
@@ -244,7 +244,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param completion  Completion block with failure error and array of user ids.
  */
-- (void)requestOnlineUsersWithCompletionBlock:(nullable QBChatDialogRequestOnlineUsersCompletionBlock)completion;
+- (void)requestOnlineUsersWithCompletionBlock:(nullable QBOnlineUsersBlock)completion;
 
 //MARK: - Now typing
 

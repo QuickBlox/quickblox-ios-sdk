@@ -1,12 +1,12 @@
 //
 //  QBRequest+QBAddressBook.h
-//  Quickblox
 //
-//  Created by Andrey Ivanov on 13/09/2017.
-//  Copyright © 2017 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import "QBRequest.h"
+@import Foundation;
+#import <Quickblox/QBRequest.h>
 
 @class QBAddressBookContact;
 @class QBAddressBookUpdates;

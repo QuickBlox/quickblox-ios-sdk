@@ -1,10 +1,11 @@
 //
-//  QBCOCustomObject
-//  Quickblox
+//  QBCOCustomObject.h
 //
-//  Created by QuickBlox team on 8/14/12.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
+
+@import Foundation;
 
 @class QBCOPermissions;
 

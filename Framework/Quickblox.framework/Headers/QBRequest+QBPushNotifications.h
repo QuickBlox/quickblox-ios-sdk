@@ -1,12 +1,12 @@
 //
 //  QBRequest+QBPushNotifications.h
-//  Quickblox
 //
-//  Created by QuickBlox team on 4/29/14.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import "QBRequest.h"
+@import Foundation;
+#import <Quickblox/QBRequest.h>
 
 @class QBMPushToken;
 @class QBMSubscription;
@@ -23,8 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Create subscription.
  *
  *  @param subscription An instance of QBMSubscription
- *  @param successBlock Block with response and subscriber instances if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response and subscriber instances if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Retrieve all subscriptions.
  *
- *  @param successBlock Block with response and subscribers instances if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response and subscribers instances if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -51,8 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Delete subscription with ID.
  *
  *  @param ID           An ID of instance of QBMSubscription that will be deleted
- *  @param successBlock Block with response instance if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response instance if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -65,8 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Create an event.
  *
  *  @param event        An instance of QBMEvent to create
- *  @param successBlock Block with response and event instances if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response and event instances if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -78,8 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Retrieve all events which were created by current user (with extended set of pagination parameters).
  *
  *  @param page         Configured QBLGeneralResponsePage instance
- *  @param successBlock Block with response, page, events instances if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response, page, events instances if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -93,8 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Get an event with ID.
  *
  *  @param ID           ID of QBMEvent to be retrieved
- *  @param successBlock Block with response and event instances if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response and event instances if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -108,8 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Update an event.
  *
  *  @param event        An instance of QBMEvent to update
- *  @param successBlock Block with response and event instances if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response and event instances if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -123,8 +123,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Get an event with ID.
  *
  *  @param ID           ID of QBMEvent to be deleted.
- *  @param successBlock Block with response instance if request succeded
- *  @param errorBlock   Block with response instance if request failed
+ *  @param successBlock Block with response instance if the request is succeeded
+ *  @param errorBlock   Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -139,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param pushMessage  Composed push message to send
  *  @param usersIDs     Users identifiers who will get the message. Contain a string of users ids divided by comas
- *  @param successBlock Block with response and event instances if request succeded
+ *  @param successBlock Block with response and event instances if the request is succeeded
  *  @param errorBlock   Block with error if request failed
  *
  *  @return An instance of QBRequest for cancel operation mainly.
@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param pushMessage  Composed push message to send
  *  @param usersIDs     Users identifiers who will get the message. Contain a string of users ids divided by comas
- *  @param successBlock Block with response and event instances if request succeded
+ *  @param successBlock Block with response and event instances if the request is succeeded
  *  @param errorBlock   Block with error if request failed
  *
  *  @return An instance of QBRequest for cancel operation mainly.
@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param text         composed push notification's text to send
  *  @param usersIDs     users identifiers who will get the message. Contain a string of users ids divided by comas.
- *  @param successBlock Block with response and event instances if request succeded
+ *  @param successBlock Block with response and event instances if the request is succeeded
  *  @param errorBlock   Block with error if request failed
  *
  *  @return An instance of QBRequest for cancel operation mainly.
@@ -183,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param pushMessage  composed push message to send
  *  @param usersTags    users tags who will get the message. Contain a string of users tags divided by comas
- *  @param successBlock Block with response and event instances if request succeded
+ *  @param successBlock Block with response and event instances if the request is succeeded
  *  @param errorBlock   Block with error if request failed
  *
  *  @return An instance of QBRequest for cancel operation mainly.
@@ -198,7 +198,7 @@ toUsersWithAnyOfTheseTags:(NSString *)usersTags
  *
  *  @param pushMessage  composed push message to send
  *  @param usersTags    users tags who will get the message. Contain a string of users tags divided by comas
- *  @param successBlock Block with response and event instances if request succeded
+ *  @param successBlock Block with response and event instances if the request is succeeded
  *  @param errorBlock   Block with error if request failed
  *
  *  @return An instance of QBRequest for cancel operation mainly.
@@ -213,7 +213,7 @@ toUsersWithAnyOfTheseTags:(NSString *)usersTags
  *
  *  @param text         composed push notification's text to send
  *  @param usersTags    users tags who will get the message. Contain a string of users tags divided by comas.
- *  @param successBlock Block with response and token instances if request succeded
+ *  @param successBlock Block with response and token instances if the request is succeeded
  *  @param errorBlock   Block with response instance and QBMEvent instance if request failed
  *
  *  @return An instance of QBRequest for cancel operation mainly.
@@ -229,7 +229,7 @@ toUsersWithAnyOfTheseTags:(NSString *)usersTags
  *  Remove subscription for a specific device. This method remove subscription for a specific device.
  *
  *  @param uniqueDeviceIdentifier The device unique identifier
- *  @param successBlock           Block with response instance if request succeded
+ *  @param successBlock           Block with response instance if the request is succeeded
  *  @param errorBlock             Block with error if request failed
  *
  *  @return An instance of QBRequest for cancel operation mainly.

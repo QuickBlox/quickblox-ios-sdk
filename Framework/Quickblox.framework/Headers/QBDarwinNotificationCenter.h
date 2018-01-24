@@ -1,11 +1,11 @@
 //
 //  QBDarwinNotificationCenter.h
-//  Quickblox
 //
-//  Created by Andrey Ivanov on 30/10/2017.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 

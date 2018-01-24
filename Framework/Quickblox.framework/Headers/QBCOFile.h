@@ -1,12 +1,11 @@
 //
 //  QBCOFile.h
-//  Quickblox
 //
-//  Created by QuickBlox team on 10/10/13.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 

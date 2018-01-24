@@ -1,14 +1,13 @@
 //
-// Created by QuickBlox team on 14/12/2013.
-// Copyright (c) 2016 QuickBlox. All rights reserved.
+//  QBRequest+QBAuth.h
+//
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "QBRequest.h"
+@import Foundation;
+#import <Quickblox/QBRequest.h>
 
-@class QBResponse;
-@class QBASession;
-@class QBSessionParameters;
 @class QBUUser;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,8 +21,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
 /**
  Session Destroy
  
- @param successBlock Block with response instance if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response instance if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -37,8 +36,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
  
  @param login Login of QBUUser which authenticates.
  @param password Password of QBUUser which authenticates.
- @param successBlock Block with response and user instances if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response and user instances if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -52,8 +51,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
  
  @param email Email of QBUUser which authenticates.
  @param password Password of QBUUser which authenticates.
- @param successBlock Block with response and user instances if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response and user instances if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -68,8 +67,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
  @param provider Social provider. Posible values: facebook, twitter.
  @param accessToken Social provider access token.
  @param accessTokenSecret Social provider access token secret.
- @param successBlock Block with response and user instances if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response and user instances if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -84,8 +83,9 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
  
  @param projectID Firebase project ID
  @param accessToken Access token
- @param successBlock Block with response and user instances if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response and user instances if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
+ 
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)logInWithFirebaseProjectID:(NSString *)projectID
@@ -98,8 +98,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
 /**
  LogOut current user
  
- @param successBlock Block with response instance if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response instance if the request is succeeded
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -112,8 +112,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
  User sign up
  
  @param user User to signup
- @param successBlock Block with response and user instances if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response and user instances if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest. Use this instance to cancel the operation.
  */
@@ -127,8 +127,8 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
  *  User login using Twitter Digits.
  *
  *  @param headers      Taken from '-[DGTOAuthSigning OAuthEchoHeadersToVerifyCredentials]'.
- *  @param successBlock Block with response and user instances if request succeded.
- *  @param errorBlock   Block with response instance if request failed.
+ *  @param successBlock Block with response and user instances if the request is succeeded.
+ *  @param errorBlock   Block with response instance if the request is failed.
  *  @warning Deprecated in 2.10 Use 'logInWithFirebaseProjectID:accessToken:successBlock:errorBlock:'.
  *  @return An instance of QBRequest for cancel operation mainly.
  */

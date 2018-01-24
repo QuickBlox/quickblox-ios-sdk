@@ -1,10 +1,13 @@
 //
-// Created by QuickBlox team on 01/12/2013.
-// Copyright (c) 2016 QuickBlox. All rights reserved.
+//  QBResponse
+//
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
+@import Foundation;
 
-#import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, QBResponseStatusCode) {
     QBResponseStatusCodeCancelled           = NSURLErrorCancelled,
@@ -25,8 +28,9 @@ typedef NS_ENUM(NSInteger, QBResponseStatusCode) {
 @interface QBResponse : NSObject
 
 @property (nonatomic, getter = isSuccess, readonly) BOOL success;
-
 @property (nonatomic, readonly) QBResponseStatusCode status;
 @property (nonatomic, readonly, nullable) QBError *error;
 
 @end
+
+NS_ASSUME_NONNULL_END

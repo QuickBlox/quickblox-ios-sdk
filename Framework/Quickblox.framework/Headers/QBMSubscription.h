@@ -1,12 +1,14 @@
 //
 //  QBMSubscription.h
-//  MessagesService
 //
-//  Copyright 2010 QuickBlox team. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
-#import "QBCEntity.h"
-#import "QBMSubscription.h"
-#import "QBPushNotificationsEnums.h"
+
+@import Foundation;
+#import <Quickblox/QBCEntity.h>
+#import <Quickblox/QBMSubscription.h>
+#import <Quickblox/QBPushNotificationsEnums.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

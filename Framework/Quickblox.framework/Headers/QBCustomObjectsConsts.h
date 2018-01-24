@@ -1,13 +1,11 @@
 //
-//  Consts.h
-//  Quickblox
+//  QBCustomObjectsConsts.h
 //
-//  Created by QuickBlox team on 7/5/13.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#define dataElement @"data"
-#define permissionsElement @"permissions"
+@import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 

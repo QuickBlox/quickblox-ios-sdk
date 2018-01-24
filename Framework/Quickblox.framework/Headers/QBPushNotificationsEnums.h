@@ -1,11 +1,11 @@
-/*
- *  Enums.h
- *  MessagesService
- *
- *  Copyright 2011 QuickBlox team. All rights reserved.
- *
- */
+//
+//  QBPushNotificationsEnums.h
+//
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//
 
+@import Foundation;
 // Event types
 typedef NS_ENUM(NSUInteger, QBMEventType) {
     

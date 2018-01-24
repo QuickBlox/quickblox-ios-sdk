@@ -1,11 +1,11 @@
 //
 //  QBCompletionTypes.h
-//  Pods
 //
-//  Created by Quickblox team on 20/04/2017.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
-//
-#import <Foundation/Foundation.h>
+
+@import Foundation;
 
 @class QBChatDialog;
 @class QBResponse;

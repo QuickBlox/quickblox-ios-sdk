@@ -1,14 +1,13 @@
 //
 //  QBRequest+QBChat.h
-//  Quickblox
 //
-//  Created by QuickBlox team on 9/1/14.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "QBRequest.h"
-#import "QBCompletionTypes.h"
+@import Foundation;
+#import <Quickblox/QBRequest.h>
+#import <Quickblox/QBCompletionTypes.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param page Page with skip and limit
  @param extendedRequest Set of request parameters
- @param successBlock Block with response instance, arrays of chat dialogs and chat dialogs users IDs and page instance if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response instance, arrays of chat dialogs and chat dialogs users IDs and page instance if the request is succeeded
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -32,8 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
  Create chat dialog
  
  @param dialog chat dialog instance
- @param successBlock Block with response and created chat dialog instances if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response and created chat dialog instances if the request is succeeded
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -45,8 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
  Update existing chat dialog
  
  @param dialog The dialog instance to update
- @param successBlock Block with response and updated chat dialog instances if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response and updated chat dialog instances if the request is succeeded
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -59,8 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param dialogIDs The IDs of a dialogs to delete.
  @param forAllUsers Delete dialog for current user or remove it for all users.
- @param successBlock Block with response if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @discussion Passing YES to 'forAllUsers' requires current user to be owner of the dialog! If current user is not the owner - request fails.
  
@@ -77,8 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param dialogID ID of a dialog.
  @param extendedParameters A set of additional request parameters.
  @param page response page instance.
- @param successBlock Block with response instance and array of chat messages for page if request succeded
- @param errorBlock Block with response instance if request failed
+ @param successBlock Block with response instance and array of chat messages for page if the request is succeeded
+ @param errorBlock Block with response instance if the request is failed.
  
  @discussion By default all messages retrieved from server is marked as read, if you need another behaviour please use mark_as_read parameter in extendedParameters dictionary.
  
@@ -97,8 +96,8 @@ NS_ASSUME_NONNULL_BEGIN
  Create chat message.
  
  @param message Сhat message instance to create.
- @param successBlock Block with response and chat message instance if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response and chat message instance if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -110,8 +109,8 @@ NS_ASSUME_NONNULL_BEGIN
  Create and send message to chat.
  
  @param message Сhat message instance to create.
- @param successBlock Block with response and chat message instance if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response and chat message instance if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -125,8 +124,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param messagesIDs Set of chat message IDs to mark as read. If messageIDs is nil then all messages in dialog will be marked as read.
  @param dialogID dialog ID.
- @param successBlock Block with response instance if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response instance if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (QBRequest *)markMessagesAsRead:(nullable NSSet<NSString *> *)messagesIDs
@@ -141,8 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param messagesIDs Set of chat message IDs to mark as delivered. If messageIDs is nil then all messages in dialog will be marked as delivered.
  @param dialogID dialog ID.
- @param successBlock Block with response instance if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response instance if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  @return An instance, which conforms Cancelable protocol. Use this instance to cancel the operation.
  */
 + (QBRequest *)markMessagesAsDelivered:(nullable NSSet<NSString *> *)messagesIDs
@@ -170,8 +169,8 @@ NS_ASSUME_NONNULL_BEGIN
  Returns count of dialogs.
  
  @param parameters Dialogs filter parameters.
- @param successBlock Block with response instance and count if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response instance and count if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -184,8 +183,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param dialogID Dialog ID of the chat messages.
  @param parameters Messages filter parameters.
- @param successBlock Block with response instance and count if request succeded.
- @param errorBlock Block with response instance if request failed.
+ @param successBlock Block with response instance and count if the request is succeeded.
+ @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -199,7 +198,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param dialogIDs Array of dialog IDs.
  *  @param successBlock Block with response instance total unread count and dialogs dictionary.
- *  @param errorBlock Block with response instance if request failed.
+ *  @param errorBlock Block with response instance if the request is failed.
  *
  *  @return An instance of QBRequest for cancel operation mainly.
  */
@@ -213,7 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param dialogID Dialog ID
  @param successBlock Block with current status of notifications settings.
- @param errorBlock errorBlock Block with response instance if request failed.
+ @param errorBlock errorBlock Block with response instance if the request is failed.
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)notificationsSettingsForDialogID:(NSString *)dialogID
@@ -228,7 +227,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param dialogID Dialog ID
  @param enable YES / NO
  @param successBlock Block with current status of notifications settings.
- @param errorBlock errorBlock Block with response instance if request failed.
+ @param errorBlock errorBlock Block with response instance if the request is failed.
  @return An instance of QBRequest for cancel operation mainly.
  */
 + (QBRequest *)updateNotificationsSettingsForDialogID:(NSString *)dialogID

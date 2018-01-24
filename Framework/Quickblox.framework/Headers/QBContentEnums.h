@@ -1,8 +1,11 @@
 //
-//  Enums.h
-//  ContentService
+//  QBContentEnums.h
 //
-//  Copyright 2010 QuickBlox team. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//
+
+@import Foundation;
 
 typedef NS_ENUM(NSUInteger, QBCBlobStatus) {
     
