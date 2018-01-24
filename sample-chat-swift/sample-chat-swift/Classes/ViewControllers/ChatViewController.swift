@@ -55,6 +55,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         // top layout inset for collectionView
         self.topContentAdditionalInset = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
         
+        view.backgroundColor = UIColor.white
+        self.collectionView.backgroundColor = UIColor.clear
+        
         if let currentUser:QBUUser = ServicesManager.instance().currentUser {
             self.senderID = currentUser.id
             self.senderDisplayName = currentUser.login
@@ -66,7 +69,6 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             
             self.updateTitle()
             
-            self.collectionView?.backgroundColor = UIColor.white
             self.inputToolbar?.contentView?.backgroundColor = UIColor.white
             self.inputToolbar?.contentView?.textView?.placeHolder = "SA_STR_MESSAGE_PLACEHOLDER".localized
             
@@ -96,8 +98,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             }
             
             // Retrieving messages
-            if (self.storedMessages()?.count ?? 0 > 0 && self.chatDataSource.messagesCount() == 0) {
-                
+            let messagesCount = self.storedMessages()?.count
+            if (messagesCount == 0) {
+                self.startSpinProgress()
+            }
+            else if (self.chatDataSource.messagesCount() == 0) {
                 self.chatDataSource.add(self.storedMessages()!)
             }
             
@@ -193,6 +198,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             }
             
             if messages?.count ?? 0 > 0 {
+                if !(self?.progressView.isHidden)! {
+                    self?.stopSpinProgress()
+                }
                 strongSelf.chatDataSource.add(messages)
             }
             
@@ -788,7 +796,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                         return
                     }
                 }
-        
+                
                 self.attachmentCellsMap.setObject(attachmentCell, forKey: attachment.id as AnyObject?)
                 
                 attachmentCell.attachmentID = attachment.id
@@ -806,7 +814,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     guard error == nil else {
                         if (error! as NSError).code == 404 {
                             self?.failedDownloads.insert(attachment.id!)
-
+                            
                             attachmentCell.setAttachmentImage(UIImage(named:"error_image"))
                         }
                         print("Error downloading image from server: \(error!.localizedDescription)")
@@ -1052,7 +1060,9 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func chatService(_ chatService: QMChatService, didLoadMessagesFromCache messages: [QBChatMessage], forDialogID dialogID: String) {
         
         if self.dialog.id == dialogID {
-            
+            if !self.progressView.isHidden {
+                self.stopSpinProgress()
+            }
             self.chatDataSource.add(messages)
         }
     }
