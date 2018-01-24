@@ -1,12 +1,11 @@
 //
 //  QBMulticastDelegate.h
-//  Quickblox
 //
-//  Created by QuickBlox team on 01.10.14.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Adds the given delegate implementation to the list of observers.
  *
  *  @param delegate delegate to add
+ *
+ *  @notes All delegates are called on the main thread asynchronously.
  */
 - (void)addDelegate:(id)delegate;
 
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Hashtable of all delegates.
  */
-- (NSHashTable <id> *)delegates;
+- (NSHashTable *)delegates;
 
 @end
 

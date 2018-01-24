@@ -1,13 +1,15 @@
 //
 //  QBASession.h
-//  AuthService
 //
-//  Copyright 2011 QuickBlox team. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "QBCEntity.h"
+@import Foundation;
+#import <Quickblox/QBCEntity.h>
 
+
+NS_ASSUME_NONNULL_BEGIN
 /**
  *  QBASession class interface.
  *  This class represents session details.
@@ -26,12 +28,10 @@
  */
 @property (nonatomic, assign) NSUInteger applicationID;
 
-
 /**
  *  User identifier.
  */
 @property (nonatomic, assign) NSUInteger userID;
-
 
 /**
  *  Device identifier.
@@ -54,3 +54,5 @@
 @property (nonatomic, assign) NSInteger nonce;
 
 @end
+
+NS_ASSUME_NONNULL_END

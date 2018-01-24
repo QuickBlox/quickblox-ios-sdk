@@ -1,10 +1,11 @@
-/*
- *  Consts.h
- *  MessagesService
- *
- *  Copyright 2011 QuickBlox team. All rights reserved.
- *
- */
+//
+//  QBPushNotificationsConsts.h
+//
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//
+
+@import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 

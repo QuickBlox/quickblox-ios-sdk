@@ -1,12 +1,11 @@
 //
 //  QBContactList.h
-//  Quickblox
 //
-//  Created by QuickBlox team on 3/18/13.
-//  Copyright (c) 2016 QuickBlox. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import "QBChatTypes.h"
+@import Foundation.NSObject;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -1,13 +1,10 @@
 //
 //  QBUUser.h
-//  UsersService
 //
-
-//  Copyright 2011 QuickBlox team. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
-#import "QBCEntity.h"
+#import <Quickblox/QBCEntity.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  This class represents QuickBlox User.
  */
 @interface QBUUser : QBCEntity <NSCoding, NSCopying>
+
+/**
+ *  Create new user.
+ */
+@property (nonatomic, class, readonly) QBUUser *user;
 
 /**
  *  ID of User in external system.
@@ -91,13 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  User's custom data field.
  */
 @property (nonatomic, copy, nullable) NSString *customData;
-
-/** 
- *  Create new user.
- 
- *  @return New instance of QBUUser
- */
-+ (QBUUser *)user;
 
 @end
 

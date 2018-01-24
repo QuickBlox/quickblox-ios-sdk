@@ -1,9 +1,11 @@
 //
-// Created by QuickBlox team on 01/12/2013.
-// Copyright (c) 2016 QuickBlox. All rights reserved.
+//  QBRequest.h
+//
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class QBResponse;
 @class QBRequest;
@@ -37,6 +39,8 @@ typedef void(^qb_response_block_t)(QBResponse *response);
  *  Cancels NSURLSessionTask associated with request.
  */
 - (void)cancel;
+
++ (void)cancelAllRequests:(dispatch_block_t)completion;
 
 @end
 

@@ -1,13 +1,13 @@
 //
 //  QBCBlob.h
-//  ContentService
 //
-//  Copyright 2010 QuickBlox team. All rights reserved.
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "QBCEntity.h"
-#import "QBContentEnums.h"
+@import Foundation;
+#import <Quickblox/QBCEntity.h>
+#import <Quickblox/QBContentEnums.h>
 
 @class QBCBlobObjectAccess;
 

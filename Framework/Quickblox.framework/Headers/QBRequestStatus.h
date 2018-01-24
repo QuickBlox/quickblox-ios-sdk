@@ -1,19 +1,18 @@
 //
-// Created by QuickBlox team on 01/12/2013.
-// Copyright (c) 2016 QuickBlox. All rights reserved.
+//  QBRequestStatus.h
+//
+//  Created by QuickBlox team
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
-typedef NS_ENUM(NSUInteger, QBRequestType) {
-    QBRequestTypeUnknown,
-    QBRequestTypeDownload,
-    QBRequestTypeUpload
-};
+NS_ASSUME_NONNULL_BEGIN
 
 @interface QBRequestStatus : NSObject
 
-@property (nonatomic) QBRequestType requestType;
 @property (nonatomic) float percentOfCompletion;
 
 @end
+
+NS_ASSUME_NONNULL_END

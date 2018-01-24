@@ -6,6 +6,8 @@
 //  Copyright (c) 2016 QuickBlox. All rights reserved.
 //
 
+@import Foundation.NSObjCRuntime;
+
 typedef enum QBCOPermissionsAccess {
 	QBCOPermissionsAccessOpen,
 	QBCOPermissionsAccessOwner,
