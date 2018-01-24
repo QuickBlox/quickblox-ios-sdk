@@ -31,7 +31,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     let maxCharactersNumber = 1024 // 0 - unlimited
     
-    
+    var failedDownloads: Set<String> = []
     var dialog: QBChatDialog!
     var willResignActiveBlock: AnyObject?
     var attachmentCellsMap: NSMapTable<AnyObject, AnyObject>!
@@ -782,6 +782,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     self.attachmentCellsMap.removeObject(forKey: key as AnyObject?)
                 }
                 
+                if let attachmentID = attachment.id {
+                    if self.failedDownloads.contains(attachmentID) {
+                        attachmentCell.setAttachmentImage(UIImage(named:"error_image"))
+                        return
+                    }
+                }
+        
                 self.attachmentCellsMap.setObject(attachmentCell, forKey: attachment.id as AnyObject?)
                 
                 attachmentCell.attachmentID = attachment.id
@@ -797,7 +804,11 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     self?.attachmentCellsMap.removeObject(forKey: attachment.id as AnyObject?)
                     
                     guard error == nil else {
-                        SVProgressHUD.showError(withStatus: error!.localizedDescription)
+                        if (error! as NSError).code == 404 {
+                            self?.failedDownloads.insert(attachment.id!)
+
+                            attachmentCell.setAttachmentImage(UIImage(named:"error_image"))
+                        }
                         print("Error downloading image from server: \(error!.localizedDescription)")
                         return
                     }
