@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)deleteAllOpenGraphItemsWithCompletion:(nullable dispatch_block_t)completion;
 
+- (void)truncateAll;
+
 @end
 
 NS_ASSUME_NONNULL_END

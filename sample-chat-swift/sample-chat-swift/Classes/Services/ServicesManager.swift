@@ -125,7 +125,7 @@ class ServicesManager: QMServicesManager {
         
         let enviroment = Constants.QB_USERS_ENVIROMENT
         
-        self.usersService.searchUsers(withTags: [enviroment]).continue ({ [weak self] (task) -> Any? in
+        self.usersService.searchUsers(withTags: [enviroment]).continueWith(block: { [weak self] (task) -> Any? in
             
             if let error = task.error {
                 errorBlock?(error as NSError)

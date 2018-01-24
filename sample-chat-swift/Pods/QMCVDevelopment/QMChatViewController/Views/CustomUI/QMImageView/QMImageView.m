@@ -213,22 +213,20 @@ static NSArray *qm_colors = nil;
     
     _url = url;
     
-    [self sd_cancelCurrentAnimationImagesLoad];
+    [self sd_cancelImageLoadOperationWithKey:@"QMImageView"];
     
     CGSize targetSize = self.bounds.size;
     QMImageTransformType type = self.imageViewType == QMImageViewTypeCircle ?  QMImageTransformTypeCircle : QMImageTransformTypeCustom;
     QMImageTransform *transform;
-    if (type == QMImageTransformTypeCircle)
-    transform =
-    [QMImageTransform transformWithType:type size:targetSize];
-    
+    if (type == QMImageTransformTypeCircle) {
+        transform = [QMImageTransform transformWithType:type size:targetSize];
+    }
     else if (type == QMImageTransformTypeCustom) {
         
-    transform =
-        [QMImageTransform transformWithSize:targetSize
-                       customTransformBlock:^UIImage *(NSURL *imageURL, UIImage *originalImage) {
-            return [originalImage imageWithCornerRadius:4.0 targetSize:targetSize];
-        }];
+        transform = [QMImageTransform transformWithSize:targetSize
+                                   customTransformBlock:^UIImage *(NSURL *imageURL, UIImage *originalImage) {
+                                       return [originalImage imageWithCornerRadius:4.0 targetSize:targetSize];
+                                   }];
     }
     
     self.image = nil;
@@ -242,7 +240,7 @@ static NSArray *qm_colors = nil;
         [[QMImageLoader instance]
          downloadImageWithURL:url
          transform:transform
-         options:(SDWebImageHighPriority | SDWebImageContinueInBackground | SDWebImageAllowInvalidSSLCertificates)
+         options:(SDWebImageHighPriority | SDWebImageAllowInvalidSSLCertificates)
          progress:nil
          completed:
          ^(UIImage *image, UIImage *transfomedImage,
@@ -257,14 +255,17 @@ static NSArray *qm_colors = nil;
                      weakSelf.image = transfomedImage;
                      [weakSelf setNeedsLayout];
                  }
+                 
              }
              
              if (completedBlock) {
                  completedBlock(image, error, cacheType, imageURL);
              }
+             
+             [weakSelf sd_removeImageLoadOperationWithKey:@"QMImageView"];
          }];
         
-        [self sd_setImageLoadOperation:operation forKey:@"UIImageViewAnimationImages"];
+        [self sd_setImageLoadOperation:operation forKey:@"QMImageView"];
     }
     else {
         
@@ -325,7 +326,7 @@ static NSArray *qm_colors = nil;
                  completedBlock(image, error, cacheType, imageURL);
              }
          }];
-    
+        
         [self sd_setImageLoadOperation:operation forKey:@"UIImageViewImageLoad"];
     }
     else {

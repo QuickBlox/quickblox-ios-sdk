@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "QMAssetLoader.h"
+
 #import "QMMediaBlocks.h"
 #import "QMCancellableService.h"
 
+NS_ASSUME_NONNULL_BEGIN
 @interface QMAttachmentAssetService : NSObject <QMCancellableService>
 
 /**
@@ -24,4 +25,4 @@
                      messageID:(NSString *)messageID
                     completion:(QMAttachmentAssetLoaderCompletionBlock)completion;
 @end
-
+NS_ASSUME_NONNULL_END

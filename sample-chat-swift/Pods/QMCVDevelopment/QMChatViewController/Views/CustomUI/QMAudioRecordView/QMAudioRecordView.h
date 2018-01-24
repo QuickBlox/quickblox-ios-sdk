@@ -22,7 +22,7 @@
 
 + (instancetype)loadAudioRecordView;
 
-- (void)showErrorMessage:(NSString *)errorMessage completion:(void(^)())completion;
+- (void)showErrorMessage:(NSString *)errorMessage completion:(dispatch_block_t)completion;
 
 @end
 

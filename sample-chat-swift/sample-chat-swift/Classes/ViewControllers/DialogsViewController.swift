@@ -313,7 +313,7 @@ class DialogsViewController: UITableViewController, QMChatServiceDelegate, QMCha
                     
                     guard response.isSuccess else {
                         SVProgressHUD.showError(withStatus: "SA_STR_ERROR_DELETING".localized)
-                        print(response.error?.error)
+                        print(response.error!.error ?? "")
                         return
                     }
                     

@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, QMAsynchronousOperationState) {
 };
 
 static inline NSString *QMKeyPathForState(QMAsynchronousOperationState state) {
-
+    
     switch (state) {
         case QMAsynchronousOperationStateStateReady:        return @"isReady";
         case QMAsynchronousOperationStateStateExecuting:    return @"isExecuting";
@@ -30,19 +30,11 @@ static inline NSString *QMKeyPathForState(QMAsynchronousOperationState state) {
 
 @property(nonatomic, assign) QMAsynchronousOperationState state;
 @property(nonatomic, strong, readonly) dispatch_queue_t dispatchQueue;
+
 @end
 
-#ifndef dispatch_main_async_safe
-#define dispatch_main_async_safe(block)\
-if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queue_get_label(dispatch_get_main_queue())) == 0) {\
-block();\
-} else {\
-dispatch_async(dispatch_get_main_queue(), block);\
-}
-#endif
 
 @implementation QMAsynchronousOperation
-
 
 //MARK: - Class methods
 
@@ -66,6 +58,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 - (instancetype)init {
+    
     self = [super init];
     
     if (self) {
@@ -75,6 +68,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
         dispatch_queue_set_specific(_dispatchQueue, (__bridge const void *)(_dispatchQueue),
                                     (__bridge void *)(self), NULL);
     }
+    
     return self;
 }
 
@@ -102,19 +96,20 @@ dispatch_async(dispatch_get_main_queue(), block);\
     return isCancelled;
 }
 
-- (BOOL)isFinished
-{
+- (BOOL)isFinished {
+    
     __block BOOL isFinished;
     
     [self performBlockAndWait:^{
-        isFinished = self.state == QMAsynchronousOperationStateStateFinished;
+        isFinished =
+        self.state == QMAsynchronousOperationStateStateFinished ||
+        self.state == QMAsynchronousOperationStateStateCancelled;
     }];
     
     return isFinished;
 }
 
-- (void)start
-{
+- (void)start {
     @autoreleasepool {
         
         if (self.isCancelled) {
@@ -125,7 +120,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
         __block BOOL isExecuting = YES;
         
         [self performBlockAndWait:^{
-            
             // Ignore this call if the operation is already executing or if has finished already
             if (self.state != QMAsynchronousOperationStateStateReady) {
                 isExecuting = NO;
@@ -159,8 +153,12 @@ dispatch_async(dispatch_get_main_queue(), block);\
     
     self.state = QMAsynchronousOperationStateStateCancelled;
     
-    if (self.cancelBlock) {
-        self.cancelBlock();
+    if (self.objectToCancel) {
+        [self.objectToCancel cancel];
+    }
+    
+    if (_cancelBlock) {
+        _cancelBlock();
         _cancelBlock = nil;
     }
 }
@@ -169,36 +167,28 @@ dispatch_async(dispatch_get_main_queue(), block);\
 {
     [self performBlockAndWait:^{
         
-        NSString *oldStateKey = QMKeyPathForState(_state);
-        NSString *newStateKey = QMKeyPathForState(state);
-        
-        [self willChangeValueForKey:oldStateKey];
-        [self willChangeValueForKey:newStateKey];
-        
-        _state = state;
-        
-        [self didChangeValueForKey:newStateKey];
-        [self didChangeValueForKey:oldStateKey];
-        
+        if ([self isExecuting]) {
+            [self willChangeValueForKey:@"isFinished"];
+            [self willChangeValueForKey:@"isExecuting"];
+            _state = state;
+            [self didChangeValueForKey:@"isExecuting"];
+            [self didChangeValueForKey:@"isFinished"];
+        }
+        else {
+            [self willChangeValueForKey:@"isExecuting"];
+            _state = state;
+            [self didChangeValueForKey:@"isExecuting"];
+        }
     }];
 }
 
 //MARK: - NSOperation methods
 
-- (void)asyncTask
-{
-    NSParameterAssert(self.asyncOperationBlock != nil);
-    // Invoke execution block
-    __weak typeof(self)weakSelf = self;
-    self.asyncOperationBlock(^{
-        __strong __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf finish];
-    });
+- (void)asyncTask {
+    NSAssert(NO, @"Should be ovverided by subclass");
 }
 
-- (void)finish
-{
-    _asyncOperationBlock = nil;
+- (void)finish {
     
     [self performBlockAndWait:^{
         // Signal the completion of operation
@@ -214,6 +204,7 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 - (void)performBlockAndWait:(dispatch_block_t)block {
+    
     void *context = dispatch_get_specific((__bridge const void *)(self.dispatchQueue));
     BOOL runningInDispatchQueue = context == (__bridge void *)(self);
     
@@ -225,7 +216,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 - (void)dealloc {
-    
     QMSLog(@"%@, class: %@, id: %@", NSStringFromSelector(_cmd), NSStringFromClass(self.class), _operationID);
 }
 
@@ -233,8 +223,41 @@ dispatch_async(dispatch_get_main_queue(), block);\
     
     NSMutableString *result = [NSMutableString stringWithString:[super description]];
     [result appendFormat:@" ->>> %@", _operationID];
+    [result appendFormat:@":state = %@", QMKeyPathForState(_state)];
     
     return result.copy;
+}
+
+@end
+
+@implementation QMAsynchronousBlockOperation
+
+- (void)finish {
+    
+    _asyncOperationBlock = nil;
+    [super finish];
+}
+
++ (instancetype)asynchronousOperationWithID:(NSString *)operationID {
+    QMAsynchronousBlockOperation *operation = [QMAsynchronousBlockOperation operation];
+    
+    if (operationID.length != 0) {
+        operation.operationID = operationID;
+    }
+
+    return operation;
+}
+
+- (void)asyncTask {
+    
+    NSParameterAssert(self.asyncOperationBlock != nil);
+    
+    // Invoke execution block
+    __weak typeof(self)weakSelf = self;
+    self.asyncOperationBlock(^{
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf finish];
+    });
 }
 
 @end
@@ -242,7 +265,6 @@ dispatch_async(dispatch_get_main_queue(), block);\
 @implementation NSOperationQueue(QMAsynchronousOperation)
 
 - (void)cancelOperationWithID:(NSString *)operationID {
-    
     [[self operationWithID:operationID] cancel];
 }
 
@@ -260,9 +282,9 @@ dispatch_async(dispatch_get_main_queue(), block);\
 }
 
 - (BOOL)hasOperationWithID:(NSString *)operationID {
-    return [self operationWithID:operationID] != nil;
+    
+    QMAsynchronousOperation *operation = [self operationWithID:operationID];
+    return operation ? !operation.isCancelled : NO;
 }
-
-
 
 @end

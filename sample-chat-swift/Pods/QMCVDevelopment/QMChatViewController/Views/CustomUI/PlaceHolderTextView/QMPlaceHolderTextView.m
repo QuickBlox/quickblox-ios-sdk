@@ -20,7 +20,7 @@ NSString *const QMPlaceholderDidChangeHeight = @"com.quickblox.qmunicate.QMPlace
 @end
 
 @implementation QMPlaceHolderTextView
-@synthesize pasteDelegate;
+@synthesize qm_placeholderTextViewPasteDelegate;
 
 #pragma mark - Initialization
 
@@ -243,9 +243,11 @@ NSString *const QMPlaceholderDidChangeHeight = @"com.quickblox.qmunicate.QMPlace
 }
 
 
-- (void)paste:(id)sender
-{
-    if (!self.pasteDelegate || [self.pasteDelegate placeHolderTextView:self shouldPasteWithSender:sender]) {
+- (void)paste:(id)sender {
+    
+    if (!self.qm_placeholderTextViewPasteDelegate ||
+        [self.qm_placeholderTextViewPasteDelegate placeHolderTextView:self
+                                                shouldPasteWithSender:sender]) {
         [super paste:sender];
     }
 }

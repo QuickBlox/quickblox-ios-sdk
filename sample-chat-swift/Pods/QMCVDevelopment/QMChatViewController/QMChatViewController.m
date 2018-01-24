@@ -30,6 +30,7 @@ const NSUInteger kQMSystemInputToolbarDebugHeight = 0;
 UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate,
 UIAlertViewDelegate, QMChatDataSourceDelegate>
 
+
 @property (weak, nonatomic) IBOutlet QMChatCollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet QMInputToolbar *inputToolbar;
 
@@ -67,7 +68,7 @@ UIAlertViewDelegate, QMChatDataSourceDelegate>
     [self registerForNotifications:NO];
     
     self.inputToolbar.contentView.textView.delegate = nil;
-    self.inputToolbar.contentView.textView.pasteDelegate = nil;
+    self.inputToolbar.contentView.textView.qm_placeholderTextViewPasteDelegate = nil;
     self.inputToolbar.delegate = nil;
     
     self.senderDisplayName = nil;
@@ -80,6 +81,7 @@ UIAlertViewDelegate, QMChatDataSourceDelegate>
     [super viewDidLoad];
     
     [self configureMessagesViewController];
+    [self configureProgressView];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     //Customize your toolbar buttons
@@ -137,6 +139,24 @@ UIAlertViewDelegate, QMChatDataSourceDelegate>
     
     [super didReceiveMemoryWarning];
     NSLog(@"MEMORY WARNING: %s", __PRETTY_FUNCTION__);
+}
+
+- (void)configureProgressView {
+    
+    self.progressView.hidden = YES;
+    self.progressView.hideProgressIcons = YES;
+}
+
+- (void)startSpinProgress {
+    
+    self.progressView.hidden = NO;
+    [self.progressView startSpinProgressBackgroundLayer];
+}
+
+- (void)stopSpinProgress {
+    
+    self.progressView.hidden = YES;
+    [self.progressView stopSpinProgressBackgroundLayer];
 }
 
 - (void)configureMessagesViewController {
@@ -410,7 +430,7 @@ UIAlertViewDelegate, QMChatDataSourceDelegate>
                                                           handler();
                                                       }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                         style:UIAlertActionStyleCancel
                                                       handler:nil]];
     
@@ -979,7 +999,7 @@ UIAlertViewDelegate, QMChatDataSourceDelegate>
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
                                                    delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"SA_STR_CANCEL", nil)
+                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                           otherButtonTitles:NSLocalizedString(@"Open Settings", nil),nil];
     
     [alert show];

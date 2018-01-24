@@ -1,6 +1,6 @@
 {
   "name": "QMServicesDevelopment",
-  "version": "0.5.5",
+  "version": "0.6",
   "summary": "Easy-to-use services for Quickblox SDK, for speeding up development of iOS chat applications.",
   "homepage": "https://github.com/QuickBlox/q-municate-services-ios",
   "license": {
@@ -13,11 +13,11 @@
     "Vitaliy Gurkovsky": "vitaliy.gurkovsky@injoit.com"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source": {
     "git": "https://github.com/QuickBlox/q-municate-services-ios.git",
-    "tag": "0.5.5"
+    "tag": "0.6"
   },
   "source_files": "**/*.{h,m}",
   "exclude_files": [
@@ -59,11 +59,8 @@
     "QMOpenGraphCacheModel": "QMOpenGraphCache/QMOpenGraphCache/CoreData/QMOpenGraphModel.xcdatamodeld"
   },
   "dependencies": {
-    "QuickBlox": [
-      ">= 2.10"
-    ],
     "Bolts": [
-      ">= 1.8.4"
+      ">= 1.9.0"
     ]
   }
 }

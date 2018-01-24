@@ -68,7 +68,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     NSParameterAssert(nib);
     
     if ([dataView isKindOfClass:[UITableView class]]) {
-
+        
         [(UITableView *)dataView registerNib:nib forCellReuseIdentifier:cellIdentifier];
     }
     else if ([dataView isKindOfClass:[UICollectionView class]]) {
@@ -222,7 +222,7 @@ static NSMutableSet *_qmChatCellMenuActions = nil;
     
     if ([_qmChatCellMenuActions containsObject:NSStringFromSelector(anInvocation.selector)]) {
         
-        id sender;
+        __unsafe_unretained id sender;
         [anInvocation getArgument:&sender atIndex:0];
         
         if ([self.delegate respondsToSelector:@selector(chatCell:didPerformAction:withSender:)]) {

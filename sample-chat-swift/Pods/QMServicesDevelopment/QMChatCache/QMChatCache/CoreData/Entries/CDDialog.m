@@ -1,4 +1,5 @@
 #import "CDDialog.h"
+#import "QMSLog.h"
 
 @implementation CDDialog
 
@@ -39,6 +40,13 @@
     self.occupantsIDs = dialog.occupantIDs;
     self.userIDValue = (int32_t)dialog.userID;
     self.data = dialog.data;
+    
+    if (!self.changedValues.count) {
+        [self.managedObjectContext refreshObject:self mergeChanges:NO];
+    }
+    else if (!self.isInserted){
+        QMSLog(@"Cache > %@ > %@: %@", self.class, self.dialogID ,self.changedValues);
+    }
 }
 
 @end
@@ -47,8 +55,7 @@
 
 - (NSArray<QBChatDialog *> *)toQBChatDialogs  {
     
-    NSMutableArray<QBChatDialog *> *result =
-    [NSMutableArray arrayWithCapacity:self.count];
+    NSMutableArray<QBChatDialog *> *result = [NSMutableArray arrayWithCapacity:self.count];
     
     for (CDDialog *cache in self) {
         

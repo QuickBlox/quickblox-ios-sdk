@@ -78,55 +78,48 @@
 - (void)logoutWithCompletion:(dispatch_block_t)completion {
     
     __weak typeof(self)weakSelf = self;
-    [self.authService logOut:^(QBResponse *response) {
+    [self.chatService disconnectWithCompletionBlock:^(NSError *error) {
         
-        dispatch_group_t logoutGroup = dispatch_group_create();
+        [weakSelf.chatService.chatAttachmentService removeAllMediaFiles];
+        [weakSelf.chatService free];
+        [weakSelf.usersService free];
         
-        dispatch_group_enter(logoutGroup);
+        [QMChatCache.instance truncateAll];
+        [QMUsersCache.instance truncateAll];
         
-        [weakSelf.chatService disconnectWithCompletionBlock:^(NSError *error) {
-            [weakSelf.chatService free];
-            [weakSelf.chatService.chatAttachmentService removeAllMediaFiles];
-            dispatch_group_leave(logoutGroup);
-        }];
-        
-        dispatch_group_enter(logoutGroup);
-        [QMChatCache.instance truncateAll:^{
-            dispatch_group_leave(logoutGroup);
-        }];
-        
-        dispatch_group_notify(logoutGroup, dispatch_get_main_queue(), ^{
+        [QBRequest cancelAllRequests:^{
             
-            if (completion) {
-                completion();
-            }
-        });
+            [self.authService logOut:^(QBResponse * _Nonnull response) {
+                if (completion) {
+                    completion();
+                }
+            }];
+        }];
     }];
 }
 
 - (void)logInWithUser:(QBUUser *)user
            completion:(void (^)(BOOL success, NSString *errorMessage))completion {
     
-    __weak typeof(self)weakSelf = self;
-    [self.authService logInWithUser:user completion:^(QBResponse *response, QBUUser *userProfile) {
+    [[self.authService loginWithUser:user] continueWithBlock:^id _Nullable(BFTask<QBUUser *> * _Nonnull t) {
         
-        if (response.error != nil) {
+        if (t.isFaulted) {
             
-            if (completion != nil) {
-                
-                completion(NO, response.error.error.localizedDescription);
+            if (completion ) {
+                completion(NO, t.error.localizedDescription);
             }
+        }
+        else {
             
-            return;
+            [self.chatService connectWithCompletionBlock:^(NSError *error) {
+                
+                if (completion) {
+                    completion(!error, error.localizedDescription);
+                }
+            }];
         }
         
-        [weakSelf.chatService connectWithCompletionBlock:^(NSError *error) {
-            
-            if (completion != nil) {
-                
-                completion(error == nil, error.localizedDescription);
-            }
-        }];
+        return nil;
     }];
 }
 
@@ -190,10 +183,10 @@
         }
     }
     dispatch_group_notify(self.joinGroup, dispatch_get_main_queue(), ^{
+        
         if (completion) {
             completion();
         }
-        
     });
 }
 
@@ -262,8 +255,8 @@
 - (void)chatService:(QMChatService *)chatService didDeleteMessageFromMemoryStorage:(QBChatMessage *)message forDialogID:(NSString *)dialogID {
     
     [QMChatCache.instance deleteMessage:message completion:nil];
-    [self.chatService.chatAttachmentService  removeMediaFilesForMessageWithID:message.ID
-                                                                     dialogID:dialogID];
+    [self.chatService.chatAttachmentService removeMediaFilesForMessageWithID:message.ID
+                                                                    dialogID:dialogID];
 }
 
 - (void)chatService:(QMChatService *)chatService didDeleteMessagesFromMemoryStorage:(NSArray *)messages forDialogID:(NSString *)dialogID {
@@ -296,6 +289,17 @@ didReceiveNotificationMessage:(QBChatMessage *)message
     block(dialogs);
 }
 
+- (void)cachedDialogsWithPredicate:(NSPredicate *)predicate
+                            block:(QMCacheCollection)block {
+    
+    NSArray<QBChatDialog *> *dialogs =
+    [QMChatCache.instance dialogsSortedBy:CDDialogAttributes.lastMessageDate
+                                ascending:YES
+                            withPredicate:predicate];
+    block(dialogs);
+}
+
+
 - (void)cachedDialogWithID:(NSString *)dialogID completion:(void (^)(QBChatDialog *dialog))completion {
     
     completion([QMChatCache.instance dialogByID:dialogID]);
@@ -309,6 +313,17 @@ didReceiveNotificationMessage:(QBChatMessage *)message
                                      ascending:NO];
     block(result);
 }
+
+- (void)cachedMessagesWithPredicate:(NSPredicate *)predicate
+                              block:(nullable QMCacheCollection)block {
+
+    [QMChatCache.instance messagesWithPredicate:predicate
+                                       sortedBy:CDMessageAttributes.messageID
+                                      ascending:NO
+                                     completion:block];
+}
+
+
 
 //MARK: - QMUsersServiceCacheDataSource
 

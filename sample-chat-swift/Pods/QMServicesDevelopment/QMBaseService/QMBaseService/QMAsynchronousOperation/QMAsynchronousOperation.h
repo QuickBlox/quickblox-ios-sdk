@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef  void(^QMAsyncOperationBlock)(dispatch_block_t finish);
@@ -17,11 +18,10 @@ typedef  void(^QMCancellBlock)(void);
 - (void)cancel;
 @end
 
+
 @interface QMAsynchronousOperation : NSOperation
 
-@property (nonatomic, copy, nullable) NSString *operationID;
-
-@property (nonatomic, copy, nullable) QMAsyncOperationBlock asyncOperationBlock;
+@property (nonatomic, copy) NSString *operationID;
 @property (nonatomic, copy, nullable) QMCancellBlock cancelBlock;
 
 @property (nonatomic, strong, nullable) id <QMCancellableObject> objectToCancel;
@@ -30,6 +30,13 @@ typedef  void(^QMCancellBlock)(void);
 
 + (instancetype)asynchronousOperationWithID:(NSString *)operationID;
 
+@end
+
+
+@interface QMAsynchronousBlockOperation : QMAsynchronousOperation
+
+@property (nonatomic, copy, nullable) QMAsyncOperationBlock asyncOperationBlock;
++ (instancetype)asynchronousOperationWithID:(NSString *)operationID;
 @end
 
 

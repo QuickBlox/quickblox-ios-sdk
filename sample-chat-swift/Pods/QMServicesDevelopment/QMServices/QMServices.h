@@ -28,4 +28,4 @@
 #import "QMUsersMemoryStorage.h"
 #import "QMContactListMemoryStorage.h"
 #import "QMMessagesMemoryStorage.h"
-
+#import "QMAsynchronousOperation.h"

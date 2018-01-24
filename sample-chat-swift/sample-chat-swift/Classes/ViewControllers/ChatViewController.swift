@@ -60,7 +60,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             self.senderDisplayName = currentUser.login
             
             ServicesManager.instance().chatService.addDelegate(self)
-            ServicesManager.instance().chatService.chatAttachmentService.delegate = self
+            ServicesManager.instance().chatService.chatAttachmentService.addDelegate(self)
             
             self.heightForSectionHeader = 40.0
             
@@ -100,7 +100,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 
                 self.chatDataSource.add(self.storedMessages()!)
             }
-
+            
             self.loadMessages()
             
             self.enableTextCheckingTypes = NSTextCheckingAllTypes
@@ -138,7 +138,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         
         // clearing typing status blocks
         self.dialog.clearTypingStatusBlocks()
-      
+        
         self.queueManager().remove(self)
     }
     
@@ -197,7 +197,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             }
             
             SVProgressHUD.dismiss()
-            })
+        })
     }
     
     func sendReadStatusForMessage(message: QBChatMessage) {
@@ -295,13 +295,13 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     guard error != nil else { return }
                     
                     self?.chatDataSource.delete(message)
-                    })
+                })
             })
         }
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: UInt, senderDisplayName: String!, date: Date!) {
-
+        
         if !self.queueManager().shouldSendMessagesInDialog(withID: self.dialog.id!) {
             return
         }
@@ -339,7 +339,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     
                     self?.chatDataSource.delete(message)
                     
-                    })
+                })
                 
                 self.finishSendingMessage(animated: true)
             }
@@ -798,7 +798,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     
                     guard error == nil else {
                         SVProgressHUD.showError(withStatus: error!.localizedDescription)
-                        print("Error downloading image from server: \(error).localizedDescription")
+                        print("Error downloading image from server: \(error!.localizedDescription)")
                         return
                     }
                     
@@ -808,7 +808,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                     
                     attachmentCell.setAttachmentImage(image)
                     cell.updateConstraints()
-                    })
+                })
             }
             
         }
@@ -894,7 +894,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 return super.collectionView(collectionView, cellForItemAt: indexPath)
             }
             
-            ServicesManager.instance().chatService.loadEarlierMessages(withChatDialogID: dialogID).continue({ [weak self] (task) -> Any? in
+            ServicesManager.instance().chatService.loadEarlierMessages(withChatDialogID: dialogID).continueWith(block: {[weak self](task) -> Any? in
                 
                 guard let strongSelf = self else { return nil }
                 
@@ -904,7 +904,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
                 }
                 
                 return nil
-                })
+            })
         }
         
         // marking message as read if needed
@@ -1021,7 +1021,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     }
     
     // MARK: QMDeferredQueueManager
-
+    
     func deferredQueueManager(_ queueManager: QMDeferredQueueManager, didAddMessageLocally addedMessage: QBChatMessage) {
         
         if addedMessage.dialogID == self.dialog.id {

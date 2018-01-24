@@ -20,6 +20,7 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 @property (strong, nonatomic) QBMulticastDelegate <QMChatServiceDelegate, QMChatConnectionDelegate> *multicastDelegate;
 @property (weak, nonatomic) BFTask* loadEarlierMessagesTask;
 @property (strong, nonatomic) NSMutableDictionary *loadedAllMessages;
+@property (weak, nonatomic) id <QMChatServiceCacheDataSource> cacheDataSource;
 
 @end
 
@@ -381,7 +382,7 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
 
 - (BFTask *)loadEarlierMessagesWithChatDialogID:(NSString *)chatDialogID {
     
-    if ([self.loadedAllMessages[chatDialogID] isEqualToNumber: kQMLoadedAllMessages]) {
+    if ([self.loadedAllMessages[chatDialogID] isEqualToNumber:kQMLoadedAllMessages]) {
         return [BFTask taskWithResult:@[]];
     }
     
@@ -449,6 +450,90 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
     }
     
     return [BFTask taskWithResult:@[]];
+}
+
+
+- (BFTask<NSArray<QBChatDialog *>*> *)syncLaterDialogsWithCacheFromDate:(NSDate *)date {
+    
+    if (date &&
+        [self.cacheDataSource respondsToSelector:@selector(cachedDialogsWithPredicate:
+                                                           block:)]) {
+        
+        __weak __typeof(self)weakSelf = self;
+        return make_task(^(BFTaskCompletionSource * _Nonnull source) {
+            
+            [self.cacheDataSource cachedDialogsWithPredicate:qm_laterDialogsPredicate(date)
+                                                       block:^(NSArray * _Nullable collection)
+             {
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     
+                     if (collection.count > 0) {
+                         
+                         [weakSelf.dialogsMemoryStorage addChatDialogs:collection
+                                                               andJoin:NO];
+                         
+                         NSMutableSet *dialogsUsersIDs = [NSMutableSet set];
+                         
+                         for (QBChatDialog *dialog in collection) {
+                             [dialogsUsersIDs addObjectsFromArray:dialog.occupantIDs];
+                         }
+                         
+                         if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:
+                                                                                      didLoadChatDialogsFromCache:
+                                                                                      withUsers:)]) {
+                             [weakSelf.multicastDelegate chatService:weakSelf
+                                         didLoadChatDialogsFromCache:collection
+                                                           withUsers:dialogsUsersIDs.copy];
+                         }
+                     }
+                     
+                     [source setResult:collection];
+                 });
+             }];
+        });
+    }
+    
+    return [BFTask taskWithResult:@[]];
+}
+
+- (BFTask<NSArray<QBChatMessage *>*> *)syncMessagesWithCacheForDialogID:(NSString *)dialogID {
+    
+    QBChatMessage *lastMessage = [self.messagesMemoryStorage lastMessageFromDialogID:dialogID];
+    
+    if (lastMessage &&
+        [self.cacheDataSource respondsToSelector:@selector(cachedMessagesWithPredicate:block:)]) {
+        //loads messages with date which later then the date of the last message and saves them to the memory storage
+        
+        
+        return make_task(^(BFTaskCompletionSource * _Nonnull source) {
+            
+            __weak __typeof(self)weakSelf = self;
+            [self.cacheDataSource cachedMessagesWithPredicate:qm_laterMessagesPredicate(dialogID,
+                                                                                        lastMessage.dateSent)
+                                                        block:^(NSArray * _Nullable collection)
+             {
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     
+                     if (collection.count > 0) {
+                         if ([weakSelf.multicastDelegate respondsToSelector:@selector(chatService:
+                                                                                      didLoadMessagesFromCache:
+                                                                                      forDialogID:)]) {
+                             [weakSelf.multicastDelegate chatService:weakSelf
+                                            didLoadMessagesFromCache:collection
+                                                         forDialogID:dialogID];
+                         }
+                         [weakSelf.messagesMemoryStorage addMessages:collection
+                                                         forDialogID:dialogID];
+                     }
+                     
+                     [source setResult:collection];
+                 });
+             }];
+        });
+    }
+    else {
+        return [BFTask taskWithResult:@[]];
+    }
 }
 
 //MARK: - chat dialog fetching
@@ -752,6 +837,23 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
     });
 }
 
+- (BFTask *)sendAttachmentMessage:(QBChatMessage *)attachmentMessage
+                         toDialog:(QBChatDialog *)dialog
+                   withAttachment:(QBChatAttachment *)attachment {
+    
+    return make_task(^(BFTaskCompletionSource * _Nonnull source) {
+        
+        [self sendAttachmentMessage:attachmentMessage
+                           toDialog:dialog
+                     withAttachment:attachment
+                         completion:^(NSError * _Nullable error) {
+                             error ?
+                             [source setError:error] :
+                             [source setResult:nil];
+                         }];
+    });
+}
+
 //MARK: - Message marking
 
 - (BFTask *)markMessageAsDelivered:(QBChatMessage *)message {
@@ -817,6 +919,20 @@ static NSString *const kQMChatServiceDomain = @"com.q-municate.chatservice";
              }
          }];
     });
+}
+
+static inline  NSPredicate* qm_laterMessagesPredicate(NSString *dialogID, NSDate *messageDate) {
+    NSPredicate *dialogPredicate =
+    [NSPredicate predicateWithFormat:@"SELF.dialogID == %@", dialogID];
+    NSPredicate *datePredicate =
+    [NSPredicate predicateWithFormat:@"SELF.dateSend >= %@", messageDate];
+    
+    return [NSCompoundPredicate andPredicateWithSubpredicates:@[dialogPredicate,
+                                                                datePredicate]];
+}
+
+static inline  NSPredicate* qm_laterDialogsPredicate(NSDate *dialogsDate) {
+    return [NSPredicate predicateWithFormat:@"SELF.updatedAt >= %@", dialogsDate];
 }
 
 @end

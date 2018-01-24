@@ -1,4 +1,5 @@
 #import "CDAttachment.h"
+#import "QMSLog.h"
 
 @implementation CDAttachment
 
@@ -11,7 +12,7 @@
     attachment.url = self.url;
     attachment.type = self.mimeType;
 
-    NSDictionary *customParameters = [self objectsWithBinaryData:self.customParameters];
+    NSDictionary *customParameters = [NSKeyedUnarchiver unarchiveObjectWithData:self.customParameters];
     [customParameters enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         attachment[key] = obj;
     }];
@@ -25,18 +26,14 @@
     self.url = attachment.url;
     self.mimeType = attachment.type;
 
-    self.customParameters = [self binaryDataWithObject:attachment.customParameters];
-}
-
-- (NSData *)binaryDataWithObject:(id)object {
+    self.customParameters = [NSKeyedArchiver archivedDataWithRootObject:attachment.customParameters];
     
-    NSData *binaryData = [NSKeyedArchiver archivedDataWithRootObject:object];
-    return binaryData;
-}
-
-- (id)objectsWithBinaryData:(NSData *)data {
-    
-    return [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (!self.changedValues.count) {
+        [self.managedObjectContext refreshObject:self mergeChanges:NO];
+    }
+    else if (!self.isInserted){
+         QMSLog(@"Cache > %@ > %@: %@", self.class, self.id ,self.changedValues);
+    }
 }
 
 @end

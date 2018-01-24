@@ -46,8 +46,14 @@ typedef void(^QMWebImageCompletionWithFinishedBlock)(UIImage *_Nullable image, U
 
 @property (nonatomic, readonly, class) QMImageLoader *instance;
 
+
 + (SDWebImageManager *)sharedManager NS_UNAVAILABLE;
+
 - (UIImage *)originalImageWithURL:(NSURL *)url;
+- (BOOL)hasOriginalImageWithURL:(NSURL *)url;
+- (NSString *)pathForOriginalImageWithURL:(NSURL *)url;
+
+
 - (BOOL)hasImageOperationWithURL:(NSURL *)url;
 - (id<SDWebImageOperation>)operationWithURL:(NSURL *)url;
 - (void)cancelOperationWithURL:(NSURL *)url;

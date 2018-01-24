@@ -7,32 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QMAsynchronousOperation.h"
+#import "QBChatAttachment+QMCustomParameters.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^QMAssetLoaderCompletionBlock)(NSTimeInterval duration, CGSize size, UIImage * __nullable image, NSError *__nullable error);
+typedef void(^QMAssetLoaderCompletionBlock)(NSTimeInterval duration,
+                                            CGSize size,
+                                            UIImage * __nullable image,
+                                            NSError *__nullable error);
 
-typedef NS_ENUM(NSUInteger, QMAssetLoaderStatus) {
-    
-    QMAssetLoaderStatusNotLoaded = 0,
-    QMAssetLoaderStatusLoading,
-    QMAssetLoaderStatusFinished,
-    QMAssetLoaderStatusFailed,
-    QMAssetLoaderStatusCancelled
+typedef NS_OPTIONS(NSInteger, QMAssetLoaderKeyOptions) {
+    QMAssetLoaderKeyTracks = 1 << 0,
+    QMAssetLoaderKeyDuration = 1 << 1,
+    QMAssetLoaderKeyPlayable = 1 << 2,
+    QMAssetLoaderKeyImage = 1 << 3
 };
 
-@class QBChatAttachment;
 
-@interface QMAssetLoader : NSObject
+@interface QMAssetOperation : QMAsynchronousOperation
 
-@property (assign, nonatomic, readonly) QMAssetLoaderStatus loaderStatus;
 
-+ (instancetype)loaderForAttachment:(QBChatAttachment *)attachment
-                          messageID:(NSString *)messageID;
-- (void)loadWithTimeOut:(NSTimeInterval)timeOutInterval
-        completionBlock:(QMAssetLoaderCompletionBlock)completionBlock;
-
-- (void)cancel;
+- (instancetype)initWithID:(NSString *)operationID
+                       URL:(NSURL *)assetURL
+            attachmentType:(QMAttachmentType)type
+                   timeOut:(NSTimeInterval)timeInterval
+                   options:(QMAssetLoaderKeyOptions)options
+           completionBlock:(QMAssetLoaderCompletionBlock)completion;
 
 @end
 

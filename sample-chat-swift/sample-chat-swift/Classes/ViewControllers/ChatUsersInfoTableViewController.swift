@@ -27,7 +27,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
 	
     func updateUsers() {
         
-        ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!).continue ({ (task) -> Any? in
+        ServicesManager.instance().usersService.getUsersWithIDs(self.dialog.occupantIDs!).continueWith { (task) -> Any? in
             
             if (task.result?.count)! >= ServicesManager.instance().usersService.usersMemoryStorage.unsortedUsers().count {
                 self.navigationItem.rightBarButtonItem?.isEnabled = false
@@ -41,7 +41,7 @@ class ChatUsersInfoTableViewController: UsersListTableViewController, QMChatServ
             }
             
             return nil
-        })
+        }
     }
 	
     override func setupUsers(users: [QBUUser]) {

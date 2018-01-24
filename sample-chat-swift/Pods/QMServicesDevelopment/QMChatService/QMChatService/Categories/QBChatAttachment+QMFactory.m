@@ -7,17 +7,19 @@
 //
 
 #import "QBChatAttachment+QMFactory.h"
+#import "QBChatAttachment+QMCustomData.h"
 
-static NSString *const kQMAttachmentTypeAudio = @"audio";
-static NSString *const kQMAttachmentTypeImage = @"image";
-static NSString *const kQMAttachmentTypeVideo = @"video";
 
-static NSString *const kQMAttachmentContentTypeAudio = @"audio/mp4";
-static NSString *const kQMAttachmentContentTypeVideo = @"video/mp4";
+
+static NSString * const kQMLocationLatitudeKey = @"lat";
+static NSString * const kQMLocationLongitudeKey = @"lng";
+
+static NSString *const kQMAttachmentContentTypeM4AAudio = @"audio/x-m4a";
+static NSString *const kQMAttachmentContentTypeMP4Video = @"video/mp4";
 
 @implementation QBChatAttachment (QMFactory)
 
-+ (instancetype)initWithName:(nullable NSString *)name
+- (instancetype)initWithName:(NSString *)name
                      fileURL:(nullable NSURL *)fileURL
                  contentType:(NSString *)contentType
               attachmentType:(NSString *)type {
@@ -36,9 +38,9 @@ static NSString *const kQMAttachmentContentTypeVideo = @"video/mp4";
     
     NSParameterAssert(fileURL);
     
-    return [self initWithName:@"Video attachment"
+    return [[self alloc] initWithName:@"Video attachment"
                       fileURL:fileURL
-                  contentType:kQMAttachmentContentTypeVideo
+                  contentType:kQMAttachmentContentTypeMP4Video
                attachmentType:kQMAttachmentTypeVideo];
 }
 
@@ -46,10 +48,26 @@ static NSString *const kQMAttachmentContentTypeVideo = @"video/mp4";
     
     NSParameterAssert(fileURL);
     
-    return [self initWithName:@"Voice message"
+    return [[self alloc] initWithName:@"Voice message"
                       fileURL:fileURL
-                  contentType:kQMAttachmentContentTypeAudio
+                  contentType:kQMAttachmentContentTypeM4AAudio
                attachmentType:kQMAttachmentTypeAudio];
+}
+
++ (instancetype)locationAttachmentWithCoordinate:(CLLocationCoordinate2D)locationCoordinate {
+    
+    QBChatAttachment *locationAttachment = [[self alloc] initWithName:@"Location"
+                                                              fileURL:nil
+                                                          contentType:kQMAttachmentTypeLocation
+                                                       attachmentType:kQMAttachmentTypeLocation];
+    
+    locationAttachment.context[kQMLocationLatitudeKey] =
+    [NSString stringWithFormat:@"%lf", locationCoordinate.latitude];
+    locationAttachment.context[kQMLocationLongitudeKey] =
+    [NSString stringWithFormat:@"%lf", locationCoordinate.longitude];
+    [locationAttachment synchronize];
+    
+    return locationAttachment;
 }
 
 + (instancetype)imageAttachmentWithImage:(UIImage *)image {
@@ -63,7 +81,7 @@ static NSString *const kQMAttachmentContentTypeVideo = @"video/mp4";
     
     NSString *contentType = [NSString stringWithFormat:@"image/%@", hasAlpha ? @"png" : @"jpg"];
     
-    QBChatAttachment *attachment = [self initWithName:@"Image attachment"
+    QBChatAttachment *attachment = [[self alloc] initWithName:@"Image attachment"
                                               fileURL:nil
                                           contentType:contentType
                                        attachmentType:kQMAttachmentTypeImage];
@@ -71,5 +89,7 @@ static NSString *const kQMAttachmentContentTypeVideo = @"video/mp4";
     
     return attachment;
 }
+
+
 
 @end

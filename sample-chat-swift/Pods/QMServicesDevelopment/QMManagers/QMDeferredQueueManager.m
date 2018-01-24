@@ -115,10 +115,22 @@
     }
 }
 
-- (void)removeMessage:(QBChatMessage *)message {
+- (void)removeMessage:(QBChatMessage *)message
+      andCallDelegate:(BOOL)shouldCallDelegate {
     
     [self.deferredQueueMemoryStorage removeMessage:message];
     [self.deferredOperationQueue cancelOperationWithID:message.ID];
+    
+    if (shouldCallDelegate) {
+        if ([self.multicastDelegate respondsToSelector:@selector(deferredQueueManager:didRemoveMessageLocally:)]) {
+            [self.multicastDelegate deferredQueueManager:self
+                                 didRemoveMessageLocally:message];
+        }
+    }
+}
+- (void)removeMessage:(QBChatMessage *)message {
+    
+    [self removeMessage:message andCallDelegate:YES];
 }
 
 - (QMMessageStatus)statusForMessage:(QBChatMessage *)message {
@@ -141,7 +153,7 @@
         return;
     }
     
-    QMAsynchronousOperation *op =  [QMAsynchronousOperation asynchronousOperationWithID:message.ID];
+    QMAsynchronousBlockOperation *op =  [QMAsynchronousBlockOperation asynchronousOperationWithID:message.ID];
     
     [op setAsyncOperationBlock:^(dispatch_block_t  _Nonnull finish) {
         __weak typeof(self) weakSelf = self;
@@ -190,14 +202,11 @@
 - (void)internalDefferedActionForMessage:(QBChatMessage *)message
                           withCompletion:(QBChatCompletionBlock)completion {
     
-    BOOL messageIsExisted = [self.deferredQueueMemoryStorage containsMessage:message];
-    NSParameterAssert(messageIsExisted);
+    NSParameterAssert([self.deferredQueueMemoryStorage containsMessage:message]);
     
-    if (messageIsExisted
-        && [self.multicastDelegate respondsToSelector:@selector(deferredQueueManager:
+    if ([self.multicastDelegate respondsToSelector:@selector(deferredQueueManager:
                                                                 performActionWithMessage:
                                                                 withCompletion:)]) {
-        
         [self.multicastDelegate deferredQueueManager:self
                             performActionWithMessage:message
                                       withCompletion:completion];
@@ -241,6 +250,5 @@
 - (void)cancelAllOperations {
     [_deferredOperationQueue cancelAllOperations];
 }
-
 
 @end

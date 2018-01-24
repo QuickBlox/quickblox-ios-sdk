@@ -276,7 +276,7 @@ UIImage *circleImage(CGFloat radius, UIColor *color) {
     [[NSRunLoop mainRunLoop] addTimer:_audioRecordingTimer forMode:NSRunLoopCommonModes];
 }
 
-- (void)showErrorMessage:(NSString *)errorMessage completion:(void(^)())completion {
+- (void)showErrorMessage:(NSString *)errorMessage completion:(dispatch_block_t)completion {
     
     _errorMessageLabel.alpha = 0.0;
     _errorMessageLabel.hidden = NO;
