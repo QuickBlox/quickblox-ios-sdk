@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NMPaginator.h"
+#import "Paginator.h"
 
-@interface UsersPaginator : NMPaginator
+@interface UsersPaginator : Paginator
 
 @end
