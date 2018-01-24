@@ -51,30 +51,24 @@
 - (void)free {
     
     [self.usersMemoryStorage free];
+    [self.listeners removeAllObjects];
+    
 }
 //MARK: - Tasks
 
 - (void)loadFromCache {
     
-    if ([self.cacheDataSource
-         respondsToSelector:@selector(cachedUsersWithCompletion:)]) {
+    __weak __typeof(self)weakSelf = self;
+    [self.cacheDataSource cachedUsersWithCompletion:^(NSArray *collection) {
         
-        __weak __typeof(self)weakSelf = self;
-        [self.cacheDataSource cachedUsersWithCompletion:^(NSArray *collection) {
+        if (collection.count > 0) {
             
-            if (collection.count > 0) {
-                
-                [weakSelf.usersMemoryStorage addUsers:collection];
-                
-                if ([weakSelf.multicastDelegate
-                     respondsToSelector:@selector(usersService:
-                                                  didLoadUsersFromCache:)]) {
-                         [weakSelf.multicastDelegate usersService:weakSelf
-                                            didLoadUsersFromCache:collection];
-                     }
-            }
-        }];
-    }
+            [weakSelf.usersMemoryStorage addUsers:collection];
+            [weakSelf.multicastDelegate usersService:weakSelf
+                               didLoadUsersFromCache:collection];
+            
+        }
+    }];
 }
 
 //MARK: - Add Remove multicaste delegate
@@ -114,8 +108,6 @@
 //MARK: - Get users by ID
 
 - (BFTask *)getUserWithID:(NSUInteger)userID {
-    
-    if (userID == 0) return nil;
     return [self getUserWithID:userID
                      forceLoad:NO];
 }
@@ -125,8 +117,7 @@
     return [[self getUsersWithIDs:@[@(userID)]
                              page:[self pageForCount:1]
                         forceLoad:forceLoad]
-            continueWithBlock:^id(BFTask *task)
-            {
+            continueWithSuccessBlock:^id(BFTask *task) {
                 return [BFTask taskWithResult:[task.result firstObject]];
             }];
 }
@@ -156,13 +147,17 @@
 -  (BFTask *)getUsersWithIDs:(NSArray *)usersIDs
                         page:(QBGeneralResponsePage *)page
                    forceLoad:(BOOL)forceLoad {
+    
+    NSParameterAssert(usersIDs.count > 0);
     NSParameterAssert(usersIDs);
     NSParameterAssert(page);
+    NSParameterAssert(page.perPage <= 100);
     
-    NSDictionary *searchInfo =
+    NSDictionary<NSString *, id> *searchInfo =
     [self.usersMemoryStorage usersByExcludingUsersIDs:usersIDs];
-    NSArray *foundUsers = searchInfo[QMUsersSearchKey.foundObjects];
-    NSArray *notFoundIDs = searchInfo[QMUsersSearchKey.notFoundSearchValues];
+    
+    NSArray<QBUUser *> *foundUsers = searchInfo[QMUsersSearchKey.foundObjects];
+    NSArray<NSNumber *> *notFoundIDs = searchInfo[QMUsersSearchKey.notFoundSearchValues];
     
     if (!forceLoad && notFoundIDs.count == 0) {
         
@@ -179,10 +174,28 @@
                                   QBGeneralResponsePage *page,
                                   NSArray *users)
          {
+             NSMutableArray *tResult = [NSMutableArray arrayWithCapacity:searchableUsers.count];
+             [tResult addObjectsFromArray:users];
+             
+             NSArray<NSNumber *> *responseIDs = [users valueForKey:@"ID"];
+             NSMutableArray *removedUsersIDs = [searchableUsers mutableCopy];
+             [removedUsersIDs removeObjectsInArray:responseIDs];
+             
+             for (NSNumber *ID in removedUsersIDs) {
+                 
+                 QBUUser *user = [QBUUser user];
+                 user.ID = ID.unsignedIntegerValue;
+                 user.fullName = @"Removed";
+                 [tResult addObject:user];
+             }
+             
+             NSParameterAssert(tResult.count == searchableUsers.count);
+             
              NSArray<QBUUser *> *result =
-             [self performUpdateWithLoadedUsers:users
+             [self performUpdateWithLoadedUsers:[tResult copy]
                                      foundUsers:foundUsers
                                   wasLoadForced:forceLoad];
+             
              [source setResult:result];
              
          } errorBlock:^(QBResponse *response) {
@@ -639,8 +652,10 @@
 // MARK: Public users management
 
 - (void)updateUsers:(NSArray *)users {
+    
     [self.usersMemoryStorage addUsers:users];
     [self notifyListenersAboutUsersUpdate:users];
+    
     if ([self.multicastDelegate respondsToSelector:@selector(usersService:didUpdateUsers:)]) {
         [self.multicastDelegate usersService:self didUpdateUsers:users];
     }
@@ -678,8 +693,10 @@
     }
     else {
         
-        if ([self.multicastDelegate respondsToSelector:@selector(usersService:didAddUsers:)]) {
-            [self.multicastDelegate usersService:self didAddUsers:loadedUsers];
+        if (loadedUsers.count > 0) {
+            if ([self.multicastDelegate respondsToSelector:@selector(usersService:didAddUsers:)]) {
+                [self.multicastDelegate usersService:self didAddUsers:loadedUsers];
+            }
         }
         
         result = [foundUsers arrayByAddingObjectsFromArray:result];
@@ -689,6 +706,7 @@
 }
 
 - (void)notifyListenersAboutUsersUpdate:(NSArray <QBUUser *> *)users {
+    
     NSEnumerator *keyEnumerator = self.listeners.keyEnumerator;
     for (QBUUser *user in keyEnumerator) {
         if ([users containsObject:user]) {

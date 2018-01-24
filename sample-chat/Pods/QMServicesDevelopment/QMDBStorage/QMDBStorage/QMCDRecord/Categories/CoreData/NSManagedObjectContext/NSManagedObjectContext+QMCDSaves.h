@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Quickblox Team. All rights reserved.
 //
 
-#import <CoreData/CoreData.h>
+@import CoreData;
 
 /** 
  Options that can be passed when saving a context

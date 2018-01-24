@@ -107,14 +107,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param cacheType Type of the cache.
  @param messageID The message ID that contains attachment.
  @param dialogID The dialog ID.
- @param completion The block to be invoked when finishes the storing.
+ @param completion The block to be invoked when finishes the storing with file URL.
  */
 - (void)storeAttachment:(QBChatAttachment *)attachment
               withData:(nullable NSData *)data
              cacheType:(QMAttachmentCacheType)cacheType
              messageID:(NSString *)messageID
               dialogID:(NSString *)dialogID
-            completion:(nullable dispatch_block_t)completion;
+            completion:(void(^)(NSURL *_Nullable fileURL))completion;
 
 /**
  Gets file URL for saved attachment.

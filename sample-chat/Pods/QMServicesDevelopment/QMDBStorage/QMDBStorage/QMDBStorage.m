@@ -41,7 +41,6 @@
 }
 
 - (void)performBackgroundQueue:(void (^)(NSManagedObjectContext *ctx))block {
-    
     NSManagedObjectContext *backgroundContext = [NSManagedObjectContext QM_privateQueueContext];
     [backgroundContext setParentContext:self.stack.privateWriterContext];
     [backgroundContext performBlock:^{
@@ -61,17 +60,52 @@
 - (void)save:(void (^)(NSManagedObjectContext *ctx))block
       finish:(dispatch_block_t)finish {
     
-    NSManagedObjectContext *ctx = _stack.privateWriterContext;
-    [_stack.privateWriterContext performBlock:^{
+    NSManagedObjectContext *ctx = self.stack.privateWriterContext;
+    
+    [ctx performBlock:^{
+        
+        dispatch_block_t complete = ^{
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (finish) {
+                    finish();
+                }
+            });
+        };
         
         block(ctx);
-        [ctx QM_saveToPersistentStoreAndWait];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (!ctx.hasChanges) {
+            complete();
+            return;
+        }
+        
+        if (ctx.insertedObjects.count > 0) {
+            QMSLog(@"[%@] Save: %tu inserted object(s)",
+                   NSStringFromClass([self class]),
+                   ctx.insertedObjects.count);
+        }
+        else if (ctx.updatedObjects.count > 0) {
+            QMSLog(@"[%@] Save: %tu updated object(s)",
+                   NSStringFromClass([self class]),
+                   ctx.updatedObjects.count);
+        }
+        else if (ctx.deletedObjects.count > 0) {
+            QMSLog(@"[%@] Save: %tu deleted object(s)",
+                   NSStringFromClass([self class]),
+                   ctx.deletedObjects.count);
+        }
+        
+        [ctx QM_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
             
-            if (finish) {
-                finish();
+            if (!success) {
+                QMSLog(@"[%@] Save error: %@",
+                       NSStringFromClass([self class]),
+                       error);
             }
-        });
+            complete();
+        }];
     }];
 }
 

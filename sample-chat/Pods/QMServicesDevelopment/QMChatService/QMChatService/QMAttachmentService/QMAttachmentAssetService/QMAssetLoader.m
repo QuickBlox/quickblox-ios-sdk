@@ -8,11 +8,41 @@
 
 #import "QMAssetLoader.h"
 #import "QMSLog.h"
-#import "QBChatAttachment+QMCustomParameters.h"
 #import "QMTimeOut.h"
 #import "QMSLog.h"
+#import <AVFoundation/AVFoundation.h>
+#import <CoreMedia/CoreMedia.h>
 
-@interface QMAssetLoader ()
+static inline NSArray *QMAssetKeysArrayForOptions(QMAssetLoaderKeyOptions options) {
+    
+    NSMutableArray *keys = [NSMutableArray array];
+    
+    if (options & QMAssetLoaderKeyTracks) {
+        [keys addObject:@"tracks"];
+    }
+    if (options & QMAssetLoaderKeyDuration) {
+        [keys addObject:@"duration"];
+    }
+    if (options & QMAssetLoaderKeyPlayable) {
+        [keys addObject:@"playable"];
+    }
+    
+    return keys.copy;
+}
+
+@interface QMAssetOperationResult : NSObject
+
+@property (strong, nonatomic) UIImage *image;
+@property (assign, nonatomic) NSTimeInterval duration;
+@property (assign, nonatomic) CGSize mediaSize;
+
+@end
+
+@implementation QMAssetOperationResult
+
+@end
+
+@interface QMAssetOperation()
 
 @property (strong ,nonatomic) AVAsset *asset;
 @property (strong, nonatomic) NSURL *assetURL;
@@ -21,110 +51,188 @@
 @property (strong, nonatomic) AVAssetImageGenerator *imageGenerator;
 @property (strong, nonatomic) QMTimeOut *preloadTimeout;
 @property (copy, nonatomic) QMAssetLoaderCompletionBlock completion;
-@property (assign, nonatomic, readwrite) QMAssetLoaderStatus loaderStatus;
+@property (assign, nonatomic) QMAssetLoaderKeyOptions assetKeyOptions;
+@property (nonatomic, strong) dispatch_queue_t assetQueue;
 
 @end
 
-@implementation QMAssetLoader
+@implementation QMAssetOperation
+@synthesize asset = _asset;
 
-//MARK - NSObject
-- (void)dealloc {
+//MARK: - NSObject
+
+- (instancetype)initWithID:(NSString *)operationID
+                       URL:(NSURL *)assetURL
+            attachmentType:(QMAttachmentType)type
+                   timeOut:(NSTimeInterval)timeInterval
+                   options:(QMAssetLoaderKeyOptions)options
+           completionBlock:(QMAssetLoaderCompletionBlock)completion {
     
-    QMSLog(@"%@ - %@",  NSStringFromSelector(_cmd), self);
-    _completion = nil;
+    if (self = [super init]) {
+        
+        _messageID = operationID;
+        self.operationID = operationID;
+        _assetURL = assetURL;
+        _contentType = type;
+        _completion = [completion copy];
+        _assetKeyOptions = options;
+        
+        NSString *identifier = @"QMAssetOperation";
+        
+        _assetQueue = dispatch_queue_create([identifier UTF8String], DISPATCH_QUEUE_SERIAL);
+        dispatch_queue_set_specific(_assetQueue, (__bridge const void *)(_assetQueue),
+                                    (__bridge void *)(self), NULL);
+        
+        if (timeInterval > 0) {
+            _preloadTimeout = [[QMTimeOut alloc] initWithTimeInterval:timeInterval
+                                                                queue:nil];
+        }
+    }
+    
+    return self;
 }
 
-- (AVAsset *)asset {
+//MARK: - AVAsset
+
+- (AVAsset *)getAssetInternal {
     
-    if (_asset == nil) {
-        
+    if (!_asset) {
         NSDictionary *options = @{AVURLAssetPreferPreciseDurationAndTimingKey : @YES};
         _asset = [[AVURLAsset alloc] initWithURL:_assetURL
                                          options:options];
     }
-    
     return _asset;
 }
 
-+ (instancetype)loaderForAttachment:(QBChatAttachment *)attachment messageID:(NSString *)messageID {
+// Public accessor always copies the asset since assets
+// can only safely be accessed from one thread at a time.
+
+- (AVAsset *)asset {
     
-    QMAssetLoader *assetLoader = [[QMAssetLoader alloc] init];
-    NSURL *mediaURL = nil;
+    __block AVAsset *theAsset = nil;
     
-    if (attachment.localFileURL) {
-        mediaURL = attachment.localFileURL;
-    }
-    else if (attachment.remoteURL) {
-        mediaURL = attachment.remoteURL;
-    }
+    dispatch_sync(self.assetQueue, ^(void) {
+        theAsset = [[self getAssetInternal] copy];
+    });
     
-    assetLoader.assetURL = mediaURL;
-    assetLoader.loaderStatus = QMAssetLoaderStatusNotLoaded;
-    assetLoader.contentType = attachment.attachmentType;
-    assetLoader.messageID = messageID;
-    
-    return assetLoader;
+    return theAsset;
 }
 
-- (void)loadWithTimeOut:(NSTimeInterval)timeOutInterval
-        completionBlock:(QMAssetLoaderCompletionBlock)completionBlock {
-    
-    if (self.loaderStatus == QMAssetLoaderStatusNotLoaded && self.assetURL) {
-        QMSLog(@"1 self.prepareStatus == QMMediaPrepareStatusNotPrepared %@", _messageID);
-        self.completion = completionBlock;
-        self.loaderStatus = QMAssetLoaderStatusLoading;
-        
-        __weak typeof(self) weakSelf = self;
-        
-        self.preloadTimeout = [[QMTimeOut alloc] initWithTimeInterval:timeOutInterval
-                                                                queue:nil];
-        [self.preloadTimeout startWithFireBlock:^{
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            [strongSelf cancel];
-            NSError *error = [NSError errorWithDomain:@"QMerror" code:0 userInfo:nil];
-            completionBlock(0, CGSizeZero, nil, error);
-        }];
-        
-        [self asynchronouslyLoadURLAsset];
-    }
-}
 
 - (void)asynchronouslyLoadURLAsset {
     
-    NSArray *requestedKeys = @[@"tracks", @"duration", @"playable"];
-    QMSLog(@"2 loadValuesAsynchronouslyForKeys %@", _messageID);
+    NSArray *requestedKeys = QMAssetKeysArrayForOptions(self.assetKeyOptions);
     
     __weak typeof(self) weakSelf = self;
     
-    [self.asset loadValuesAsynchronouslyForKeys:requestedKeys completionHandler:^{
+    dispatch_async(self.assetQueue, ^(void) {
         
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        AVAsset *asset = strongSelf.asset;
-        QMSLog(@"3 Completed Load %@", _messageID);
-        if (strongSelf.loaderStatus == QMAssetLoaderStatusCancelled) {
-            strongSelf.completion(0, CGSizeZero, nil, nil);
-            return;
-        }
+        AVAsset *asset = [self getAssetInternal];
         
-        for (NSString *key in requestedKeys) {
-            NSError *error = nil;
-            AVKeyValueStatus keyStatus = [asset statusOfValueForKey:key error:&error];
-            if (keyStatus == AVKeyValueStatusFailed) {
-                if (strongSelf.completion) {
-                    [strongSelf.preloadTimeout cancelTimeout];
-                    strongSelf.loaderStatus = QMAssetLoaderStatusFailed;
-                    strongSelf.completion(0, CGSizeZero, nil, error);
-                }
-                return;
-            }
-        }
-        
-        [strongSelf prepareAsset:asset];
-    }];
+        [asset loadValuesAsynchronouslyForKeys:requestedKeys
+                             completionHandler:^{
+                                 
+                                 dispatch_async(self.assetQueue, ^(void) {
+                                     
+                                     __strong typeof(weakSelf) strongSelf = weakSelf;
+                                     
+                                     AVAsset *asset = [self getAssetInternal];
+                                     
+                                     for (NSString *key in requestedKeys) {
+                                         
+                                         NSError *error = nil;
+                                         
+                                         AVKeyValueStatus keyStatus = [asset statusOfValueForKey:key
+                                                                                           error:&error];
+                                         if (keyStatus == AVKeyValueStatusFailed) {
+                                             [strongSelf finishOperationWithResult:nil
+                                                                             error:error];
+                                             return;
+                                         }
+                                     }
+                                     
+                                     if (strongSelf.isCancelled) {
+                                         return;
+                                     }
+                                     
+                                     [strongSelf prepareAsset:asset];
+                                 });
+                             }];
+    });
     
 }
 
-- (void)generateThumbnailFromAsset:(AVAsset *)thumbnailAsset withSize:(CGSize)size
+- (void)prepareAsset:(AVAsset *)asset {
+    
+    QMAssetOperationResult *result = [QMAssetOperationResult new];
+    
+    NSTimeInterval duration = CMTimeGetSeconds(asset.duration);
+    
+    result.duration = duration;
+    
+    CGSize mediaSize = CGSizeZero;
+    
+    if (self.contentType == QMAttachmentContentTypeVideo) {
+        
+        NSArray *videoTracks = [asset tracksWithMediaType:AVMediaTypeVideo];
+        
+        if (videoTracks.count > 0) {
+            
+            AVAssetTrack *videoTrack = [videoTracks firstObject];
+            CGSize videoSize = CGSizeApplyAffineTransform(videoTrack.naturalSize, videoTrack.preferredTransform);
+            CGFloat videoWidth = videoSize.width;
+            CGFloat videoHeight = videoSize.height;
+            
+            mediaSize = CGSizeMake(videoWidth, videoHeight);
+            result.mediaSize = mediaSize;
+            
+            
+            CMTime thumbnailTime = CMTimeMake(duration > 0 ? duration/2 : 0,
+                                              1);
+            
+            __weak typeof(self) weakSelf = self;
+            
+            [self generateThumbnailFromAsset:asset
+                                    withSize:mediaSize
+                               thumbnailTime:thumbnailTime
+                           completionHandler:^(UIImage *thumbnail, NSError *error) {
+                               __strong typeof(weakSelf) strongSelf = weakSelf;
+                               
+                               if (strongSelf.isCancelled) {
+                                   return;
+                               }
+                               
+                               if (error) {
+                                   [strongSelf finishOperationWithResult:nil
+                                                                   error:error];
+                                   return;
+                               }
+                               
+                               result.image = thumbnail;
+                               
+                               [strongSelf finishOperationWithResult:result
+                                                               error:nil];
+                               
+                           }];
+        }
+        else {
+            NSError *error =
+            [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier
+                                code:0
+                            userInfo:@{NSLocalizedDescriptionKey : @"There are no video tracks for video asset"}];
+            [self finishOperationWithResult:nil
+                                      error:error];
+        }
+    }
+    else {
+        [self finishOperationWithResult:result
+                                  error:nil];
+    }
+}
+
+- (void)generateThumbnailFromAsset:(AVAsset *)thumbnailAsset
+                          withSize:(CGSize)size
+                     thumbnailTime:(CMTime)thumbnailTime
                  completionHandler:(void (^)(UIImage *thumbnail, NSError *error))handler
 {
     _imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:thumbnailAsset];
@@ -139,18 +247,32 @@
     }
     
     _imageGenerator.maximumSize = size;
-    NSValue *imageTimeValue = [NSValue valueWithCMTime:CMTimeMake(0, 1)];
     
-    [_imageGenerator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:imageTimeValue] completionHandler:
-     ^(CMTime requestedTime, CGImageRef image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error)
+    NSValue *imageTimeValue = [NSValue valueWithCMTime:thumbnailTime];
+    
+    if (self.isCancelled) {
+        return;
+    }
+    
+    [_imageGenerator generateCGImagesAsynchronouslyForTimes:@[imageTimeValue]
+                                          completionHandler:
+     ^(CMTime requestedTime,
+       CGImageRef image,
+       CMTime actualTime,
+       AVAssetImageGeneratorResult result,
+       NSError *error)
      {
-         if (result == AVAssetImageGeneratorFailed || result == AVAssetImageGeneratorCancelled) {
-             QMSLog(@"7 image gemenaritonWithResult: %@ %@",@"Failed or AVAssetImageGeneratorCancelled", _messageID);
+         if (self.isCancelled) {
+             return;
+         }
+         
+         if (result == AVAssetImageGeneratorFailed ||
+             result == AVAssetImageGeneratorCancelled) {
              
              handler(nil, error);
          }
          else {
-             QMSLog(@"7 image gemenaritonWithResult: %@ %@",@"Sucess", _messageID);
+             
              UIImage *thumbUIImage = nil;
              if (image) {
                  thumbUIImage = [[UIImage alloc] initWithCGImage:image];
@@ -163,80 +285,57 @@
      }];
 }
 
-- (void)prepareAsset:(AVAsset *)asset {
+
+//MARK: - QMAsynchronousOperation
+
+- (void)asyncTask {
     
-    QMSLog(@"4 prepareAsset %@", _messageID);
-    
-    NSTimeInterval duration = CMTimeGetSeconds(asset.duration);
-    CGSize mediaSize = CGSizeZero;
-    
-    if (self.contentType == QMAttachmentContentTypeVideo) {
+    if (self.preloadTimeout) {
+        __weak typeof(self) weakSelf = self;
         
-        QMSLog(@"5 QMAttachmentContentTypeVideo %@", _messageID);
-        NSArray *videoTracks = [asset tracksWithMediaType:AVMediaTypeVideo];
-        if (videoTracks.count > 0) {
-            QMSLog(@"6 tracksWithMediaType %@", _messageID);
-            AVAssetTrack *videoTrack = [videoTracks firstObject];
-            CGSize videoSize = CGSizeApplyAffineTransform(videoTrack.naturalSize, videoTrack.preferredTransform);
-            CGFloat videoWidth = videoSize.width;
-            CGFloat videoHeight = videoSize.height;
-            
-            mediaSize = CGSizeMake(videoWidth, videoHeight);
-            
-            QMSLog(@"7 Begin imnage generation %@", _messageID);
-            __weak typeof(self) weakSelf = self;
-            
-            [self generateThumbnailFromAsset:asset withSize:mediaSize completionHandler:^(UIImage *thumbnail, NSError *error) {
-                QMSLog(@"8 End image generation %@", _messageID);
-                __strong typeof(weakSelf) strongSelf = weakSelf;
-                if (strongSelf.loaderStatus == QMAssetLoaderStatusCancelled) {
-                    return;
-                }
-                if (error) {
-                    if (strongSelf.completion) {
-                        [strongSelf.preloadTimeout cancelTimeout];
-                        strongSelf.loaderStatus = QMAssetLoaderStatusFinished;
-                        strongSelf.completion(duration, mediaSize, thumbnail, error);
-                    }
-                    return;
-                }
-                
-                strongSelf.loaderStatus = QMAssetLoaderStatusFinished;
-                if (strongSelf.completion) {
-                    [strongSelf.preloadTimeout cancelTimeout];
-                    strongSelf.completion(duration, mediaSize, thumbnail, nil);
-                }
-            }];
-        }
-        else {
-            
-            QMSLog(@"6 NO tracksWithMediaType %@", _messageID);
-            self.loaderStatus = QMAssetLoaderStatusFinished;
-            if (self.completion) {
-                [self.preloadTimeout cancelTimeout];
-                self.completion(duration, mediaSize, nil , nil);
-            }
-        }
+        [self.preloadTimeout startWithFireBlock:^{
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            NSError *error = [NSError errorWithDomain:[NSBundle mainBundle].bundleIdentifier
+                                                 code:408
+                                             userInfo:nil];
+            [strongSelf finishOperationWithResult:nil
+                                            error:error];
+        }];
     }
-    else {
-        
-        self.loaderStatus = QMAssetLoaderStatusFinished;
-        [self.preloadTimeout cancelTimeout];
-        self.completion(duration, mediaSize, nil, nil);
-    }
+    
+    [self asynchronouslyLoadURLAsset];
 }
 
+- (void)finishOperationWithResult:(QMAssetOperationResult *)result
+                            error:(NSError *)error {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (_completion) {
+            _completion(result.duration,
+                        result.mediaSize,
+                        result.image,
+                        error);
+        }
+        
+        [_preloadTimeout cancelTimeout];
+        _completion = nil;
+        
+    });
+    
+    [self finish];
+}
 
 - (void)cancel {
     
-    NSParameterAssert(self.loaderStatus != QMAssetLoaderStatusCancelled);
-    QMSLog(@"6 Call cancel for %@", _messageID);
-    [_preloadTimeout cancelTimeout];
-    _loaderStatus = QMAssetLoaderStatusCancelled;
-    [_asset cancelLoading];
-    [_imageGenerator cancelAllCGImageGeneration];
-    _completion = nil;
+    [self.preloadTimeout cancelTimeout];
+    
+    dispatch_async(self.assetQueue, ^(void) {
+        [[self getAssetInternal] cancelLoading];
+        [self.imageGenerator cancelAllCGImageGeneration];
+    });
+    
+    [super cancel];
 }
-
 
 @end

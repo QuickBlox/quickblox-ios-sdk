@@ -100,7 +100,7 @@ static QMChatCache *_chatCacheInstance = nil;
     [self performMainQueue:^(NSManagedObjectContext *ctx) {
         result = [[CDDialog QM_findAllSortedBy:sortTerm
                                      ascending:ascending
-                                 withPredicate:nil
+                                 withPredicate:predicate
                                      inContext:ctx] toQBChatDialogs];
     }];
     
@@ -194,12 +194,6 @@ static QMChatCache *_chatCacheInstance = nil;
                                             inContext:ctx];
             [cachedDialog updateWithQBChatDialog:dialog];
         }
-        
-        
-        QMSLog(@"[%@] Dialogs to insert %tu, update %tu",
-               NSStringFromClass([self class]),
-               ctx.insertedObjects.count,
-               ctx.updatedObjects.count);
         
     } finish:completion];
 }
@@ -308,11 +302,6 @@ static QMChatCache *_chatCacheInstance = nil;
             [cachedDialog addMessagesObject:procMessage];
         }
         
-        QMSLog(@"[%@] Messages to insert %tu, update %tu",
-               NSStringFromClass([self class]),
-               ctx.insertedObjects.count,
-               ctx.updatedObjects.count);
-        
     } finish:completion];
 }
 
@@ -360,14 +349,21 @@ static QMChatCache *_chatCacheInstance = nil;
     } finish:completion];
 }
 
-- (void)truncateAll:(nullable dispatch_block_t)completion {
-    
-    [self save:^(NSManagedObjectContext *ctx) {
-        
+- (void)truncateAll {
+    [self performMainQueue:^(NSManagedObjectContext *ctx) {
         [CDDialog QM_truncateAllInContext:ctx];
         [CDMessage QM_truncateAllInContext:ctx];
         [CDAttachment QM_truncateAllInContext:ctx];
-        
+        [ctx QM_saveToPersistentStoreAndWait];
+    }];
+}
+
+- (void)truncateAll:(nullable dispatch_block_t)completion {
+    
+    [self save:^(NSManagedObjectContext *ctx) {
+        [CDDialog QM_truncateAllInContext:ctx];
+        [CDMessage QM_truncateAllInContext:ctx];
+        [CDAttachment QM_truncateAllInContext:ctx];
     } finish:completion];
 }
 

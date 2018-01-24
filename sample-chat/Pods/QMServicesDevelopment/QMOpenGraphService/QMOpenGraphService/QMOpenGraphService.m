@@ -29,6 +29,7 @@ static NSString *const kQMKeyImageURL = @"ogImage";
 @property (nonatomic) QBHTTPClient *ogsClient;
 @property (nonatomic) NSOperationQueue *operationQueue;
 @property (nonatomic) dispatch_queue_t ogsQueue;
+@property (nonatomic) NSMutableSet *errorsIDs;
 
 @end
 
@@ -47,6 +48,7 @@ static NSString *const kQMKeyImageURL = @"ogImage";
         _ogsQueue = dispatch_queue_create("com.q-municate.ogs", DISPATCH_QUEUE_CONCURRENT);
         _operationQueue = [[NSOperationQueue alloc] init];
         _operationQueue.maxConcurrentOperationCount = 1;
+        _errorsIDs = [[NSMutableSet alloc] init];
     }
     
     return self;
@@ -163,6 +165,7 @@ static NSString *const kQMKeyImageURL = @"ogImage";
              
          } failure:^(NSURLSessionDataTask *task, NSError *error) {
              QMSLog(@"Failure task %tu, error - %@", task.taskIdentifier, error.localizedDescription);
+             [weakSelf.errorsIDs addObject:ID];
              dispatch_semaphore_signal(sem);
          }];
         
@@ -200,6 +203,10 @@ static NSString *const kQMKeyImageURL = @"ogImage";
                 [self.multicastDelegate openGraphSerivce:self didLoadFromCache:openGraphItem];
             }
             else {
+                
+                if ([self.errorsIDs containsObject:ID]) {
+                    return;
+                }
                 
                 dispatch_async(_ogsQueue, ^{
                     

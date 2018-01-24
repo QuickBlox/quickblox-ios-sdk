@@ -65,8 +65,6 @@ This library provides an async image downloader with cache support. For convenie
 - If you **have a feature request**, open an issue.
 - If you **want to contribute**, submit a pull request.
 
-## Installation
-
 ## How To Use
 
 ```objective-c
@@ -81,7 +79,7 @@ Objective-C:
 ```swift
 Swift:
 
-@import SDWebImage
+import SDWebImage
 
 imageView.sd_setImage(with: URL(string: "http://www.domain.com/path/to/image.jpg"), placeholderImage: UIImage(named: "placeholder.png"))
 ```
@@ -91,12 +89,12 @@ imageView.sd_setImage(with: URL(string: "http://www.domain.com/path/to/image.jpg
 ## Animated Images (GIF) support
 
 - Starting with the 4.0 version, we rely on [FLAnimatedImage](https://github.com/Flipboard/FLAnimatedImage) to take care of our animated images. 
+- If you use cocoapods, add `pod 'SDWebImage/GIF'` to your podfile.
 - To use it, simply make sure you use `FLAnimatedImageView` instead of `UIImageView`.
 - **Note**: there is a backwards compatible feature, so if you are still trying to load a GIF into a `UIImageView`, it will only show the 1st frame as a static image.
-- **Important**: FLAnimatedImage only works on the iOS platform, so for all the other platforms (OS X, tvOS, watchOS) we will fallback to the backwards compatibility feature described above 
+- **Important**: FLAnimatedImage only works on the iOS platform. For OS X, use `NSImageView` with `animates` set to `YES` to show the entire animated images and `NO` to only show the 1st frame. For all the other platforms (tvOS, watchOS) we will fallback to the backwards compatibility feature described above 
 
-Common Problems
----------------
+## Common Problems
 
 ### Using dynamic image size with UITableViewCell
 
@@ -124,17 +122,16 @@ If you don't control the image server you're using, you may not be able to chang
 Add these before you call ```sd_setImageWithURL```
 
 ``` objective-c
-[imageView setShowActivityIndicatorView:YES];
-[imageView setIndicatorStyle:UIActivityIndicatorViewStyleGray];
+[imageView sd_setShowActivityIndicatorView:YES];
+[imageView sd_setIndicatorStyle:UIActivityIndicatorViewStyleGray];
 ```
 
 ``` swift
-imageView.setShowActivityIndicatorView(true)
-imageView.setIndicatorStyle(.Gray)
+imageView.sd_setShowActivityIndicatorView(true)
+imageView.sd_setIndicatorStyle(.Gray)
 ```
 
-Installation
-------------
+## Installation
 
 There are three ways to use SDWebImage in your project:
 - using CocoaPods
@@ -148,7 +145,7 @@ There are three ways to use SDWebImage in your project:
 #### Podfile
 ```
 platform :ios, '7.0'
-pod 'SDWebImage', '~>3.8'
+pod 'SDWebImage', '~> 4.0'
 ```
 
 If you are using Swift, be sure to add `use_frameworks!` and set your target to iOS 8+:
@@ -159,7 +156,7 @@ use_frameworks!
 
 #### Subspecs
 
-There are 3 subspecs available now: `Core`, `MapKit` and `WebP` (this means you can install only some of the SDWebImage modules. By default, you get just `Core`, so if you need `WebP`, you need to specify it). 
+There are 4 subspecs available now: `Core`, `MapKit`, `GIF` and `WebP` (this means you can install only some of the SDWebImage modules. By default, you get just `Core`, so if you need `WebP`, you need to specify it). 
 
 Podfile example:
 ```
@@ -199,6 +196,8 @@ community can help you solve it.
 ## Collaborators
 - [Konstantinos K.](https://github.com/mythodeia)
 - [Bogdan Poplauschi](https://github.com/bpoplauschi)
+- [Chester Liu](https://github.com/skyline75489)
+- [DreamPiggy](https://github.com/dreampiggy)
 
 ## Licenses
 

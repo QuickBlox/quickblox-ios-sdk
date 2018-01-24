@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,15 +48,16 @@
             <constraints>
                 <constraint firstItem="Myo-1S-Vg1" firstAttribute="leading" secondItem="dm4-NT-mvr" secondAttribute="trailing" constant="8" id="7Ld-5r-Hp3"/>
                 <constraint firstItem="dm4-NT-mvr" firstAttribute="top" secondItem="1" secondAttribute="top" constant="7" id="9Tz-Wq-xIf"/>
-                <constraint firstAttribute="bottom" secondItem="dm4-NT-mvr" secondAttribute="bottom" constant="7" id="CCb-V7-yek"/>
-                <constraint firstAttribute="bottom" secondItem="Myo-1S-Vg1" secondAttribute="bottom" constant="6" id="EaS-Oq-Qp5"/>
-                <constraint firstItem="LEq-G7-jGt" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="8" id="LAU-fo-GJJ"/>
-                <constraint firstAttribute="trailing" secondItem="Myo-1S-Vg1" secondAttribute="trailing" constant="8" id="ds6-61-GNv"/>
-                <constraint firstAttribute="bottom" secondItem="LEq-G7-jGt" secondAttribute="bottom" constant="6" id="oG2-YD-ZZI"/>
+                <constraint firstItem="m7s-6b-3tc" firstAttribute="bottom" secondItem="dm4-NT-mvr" secondAttribute="bottom" constant="7" id="CCb-V7-yek"/>
+                <constraint firstItem="m7s-6b-3tc" firstAttribute="bottom" secondItem="Myo-1S-Vg1" secondAttribute="bottom" constant="6" id="EaS-Oq-Qp5"/>
+                <constraint firstItem="LEq-G7-jGt" firstAttribute="leading" secondItem="m7s-6b-3tc" secondAttribute="leading" constant="8" id="LAU-fo-GJJ"/>
+                <constraint firstItem="m7s-6b-3tc" firstAttribute="trailing" secondItem="Myo-1S-Vg1" secondAttribute="trailing" constant="8" id="ds6-61-GNv"/>
+                <constraint firstItem="m7s-6b-3tc" firstAttribute="bottom" secondItem="LEq-G7-jGt" secondAttribute="bottom" constant="6" id="oG2-YD-ZZI"/>
                 <constraint firstItem="dm4-NT-mvr" firstAttribute="leading" secondItem="LEq-G7-jGt" secondAttribute="trailing" constant="8" id="owo-gB-gyR"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="m7s-6b-3tc"/>
             <connections>
                 <outlet property="leftBarButtonContainerView" destination="LEq-G7-jGt" id="F0V-4N-1Mo"/>
                 <outlet property="leftBarButtonContainerViewWidthConstraint" destination="eMy-Af-wwH" id="FI9-F2-2bN"/>
@@ -68,9 +70,4 @@
             <point key="canvasLocation" x="268" y="548"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

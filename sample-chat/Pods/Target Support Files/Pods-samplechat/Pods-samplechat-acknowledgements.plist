@@ -197,22 +197,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>
-QuickBlox iOS SDK is licensed under the QuickBlox SDK License.
-
-Copyright (c) 2017 QuickBlox
-
-</string>
-			<key>License</key>
-			<string>QuickBlox SDK License</string>
-			<key>Title</key>
-			<string>QuickBlox</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
-			<string>Copyright (c) 2016 Olivier Poitrey rs@dailymotion.com
+			<string>Copyright (c) 2009-2017 Olivier Poitrey rs@dailymotion.com
  
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

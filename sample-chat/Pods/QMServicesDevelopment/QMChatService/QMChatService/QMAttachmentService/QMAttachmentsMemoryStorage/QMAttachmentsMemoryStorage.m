@@ -59,17 +59,17 @@
 }
 
 
-- (QBChatAttachment *)attachmentWithID:(NSString *)atatchmentID
+- (QBChatAttachment *)attachmentWithID:(NSString *)attachmentID
                          fromMessageID:(NSString *)messageID {
     
-    NSParameterAssert(atatchmentID != nil);
+    NSParameterAssert(attachmentID != nil);
     NSParameterAssert(messageID != nil);
     
     NSMutableOrderedSet *attachments = [self dataSourceWithMessageID:messageID];
     
     for (QBChatAttachment *attachment in attachments) {
         
-        if ([attachment.ID isEqualToString:atatchmentID]) {
+        if ([attachment.ID isEqualToString:attachmentID]) {
             
             return attachment;
         }

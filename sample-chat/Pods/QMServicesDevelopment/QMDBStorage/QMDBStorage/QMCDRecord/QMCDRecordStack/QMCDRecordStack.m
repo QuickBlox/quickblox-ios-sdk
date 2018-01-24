@@ -16,8 +16,6 @@
 @interface QMCDRecordStack ()
 
 @property (nonatomic, strong) NSManagedObjectContext *privateWriterContext;
-@property (nonatomic, strong) NSManagedObjectContext *mainContext;
-
 
 @property (nonatomic, strong) NSNotificationCenter *applicationWillTerminate;
 @property (nonatomic, strong) NSNotificationCenter *applicationWillResignActive;

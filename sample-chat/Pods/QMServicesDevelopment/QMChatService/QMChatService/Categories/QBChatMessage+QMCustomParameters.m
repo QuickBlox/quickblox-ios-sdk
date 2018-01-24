@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 
 #import "QBChatAttachment+QMCustomData.h"
+#import "QBChatAttachment+QMFactory.h"
 
 /**
  *  Message keys
@@ -391,15 +392,7 @@ NSString const *kQMCustomParameterDialogDeletedOccupantsIDs = @"deleted_occupant
 
 - (void)setLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate {
     
-    QBChatAttachment *locationAttachment = [[QBChatAttachment alloc] init];
-    
-    locationAttachment.type = kQMChatLocationMessageTypeName;
-    locationAttachment.context[kQMLocationLatitudeKey] =
-    [NSString stringWithFormat:@"%lf", locationCoordinate.latitude];
-    locationAttachment.context[kQMLocationLongitudeKey] =
-    [NSString stringWithFormat:@"%lf", locationCoordinate.longitude];
-    [locationAttachment synchronize];
-    
+    QBChatAttachment *locationAttachment = [QBChatAttachment locationAttachmentWithCoordinate:locationCoordinate];
     self.attachments = @[locationAttachment];
 }
 

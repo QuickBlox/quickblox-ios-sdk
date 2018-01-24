@@ -273,6 +273,8 @@ NS_ASSUME_NONNULL_BEGIN
                     ascending:(BOOL)ascending
                    completion:(void(^)(NSArray<QBChatMessage *> *messages))completion;
 
+- (void)truncateAll;
+
 - (void)truncateAll:(nullable dispatch_block_t)completion;
 
 @end

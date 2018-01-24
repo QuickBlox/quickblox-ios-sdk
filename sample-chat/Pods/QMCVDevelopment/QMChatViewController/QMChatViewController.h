@@ -60,6 +60,11 @@
 @property (weak, nonatomic, readonly) QMInputToolbar *inputToolbar;
 
 /**
+ Progress view. Is hiden by default.
+ */
+@property (weak, nonatomic) IBOutlet FFCircularProgressView *progressView;
+
+/**
  *  The display name of the current user who is sending messages.
  *
  *  @discussion This value does not have to be unique. This value must not be `nil`.
@@ -266,6 +271,16 @@
  *  @param animated Pass `YES` if you want to animate hiding, `NO` if it should be immediate.
  */
 - (void)hideKeyboard:(BOOL)animated;
+
+/**
+ Make the background layer to spin around its center. This should be called in the main thread.
+ */
+- (void)startSpinProgress;
+
+/**
+ Stop the spinning of the background layer. This should be called in the main thread.
+ */
+- (void)stopSpinProgress;
 
 #pragma mark - Methods requiring super
 

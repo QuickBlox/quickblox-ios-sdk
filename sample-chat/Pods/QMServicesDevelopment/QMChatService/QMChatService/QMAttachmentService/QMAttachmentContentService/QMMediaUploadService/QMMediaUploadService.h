@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface QMUploadOperation : QMAsynchronousOperation
+@interface QMUploadOperation : QMAsynchronousBlockOperation
 
 @property (nonatomic, strong) NSError *error;
 @property (nonatomic, copy) NSString *attachmentID;
@@ -23,18 +23,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QMMediaUploadService : NSObject <QMCancellableService>
 
++ (BFTask <QBChatAttachment*> *)taskUploadAttachment:(QBChatAttachment *)attachment
+                                            withData:(NSData *)data
+                                       progressBlock:(_Nullable QMAttachmentProgressBlock)progressBlock
+                                   cancellationToken:(BFCancellationToken *)cancellationToken;
+
++ (BFTask <QBChatAttachment*> *)taskUploadAttachment:(QBChatAttachment *)attachment
+                                         withFileURL:(NSURL *)fileURL
+                                       progressBlock:(_Nullable QMAttachmentProgressBlock)progressBlock
+                                   cancellationToken:(BFCancellationToken *)cancellationToken;
+
+
 - (void)uploadAttachment:(QBChatAttachment *)attachment
-                                 messageID:(NSString *)messageID
-                                  withData:(NSData *)data
-                             progressBlock:(_Nullable QMAttachmentProgressBlock)progressBlock
+               messageID:(NSString *)messageID
+                withData:(NSData *)data
+           progressBlock:(_Nullable QMAttachmentProgressBlock)progressBlock
          completionBlock:(void(^)(QMUploadOperation *downloadOperation))completion;
 
 
 - (void)uploadAttachment:(QBChatAttachment *)attachment
-                                 messageID:(NSString *)messageID
-                               withFileURL:(NSURL *)fileURL
-                                   progressBlock:(_Nullable QMAttachmentProgressBlock)progressBlock
-                                 completionBlock:(void(^)(QMUploadOperation *downloadOperation))completion;
+               messageID:(NSString *)messageID
+             withFileURL:(NSURL *)fileURL
+           progressBlock:(_Nullable QMAttachmentProgressBlock)progressBlock
+         completionBlock:(void(^)(QMUploadOperation *downloadOperation))completion;
 
 - (BOOL)isUploadingMessageWithID:(NSString *)messageID;
 

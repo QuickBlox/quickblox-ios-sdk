@@ -43,9 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BFTask *)deleteUser:(QBUUser *)user;
 
 /**
- *  Delete all users
+ *  Delete  all users async
  */
 - (BFTask *)deleteAllUsers;
+
+- (BFTask *)truncateAll;
 
 //MARK: - Fetch users
 

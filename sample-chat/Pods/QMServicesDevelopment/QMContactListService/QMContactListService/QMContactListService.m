@@ -63,9 +63,7 @@ static inline BOOL isContactListEmpty(QBContactList *contactList) {
     
     if ([self.cacheDataSource respondsToSelector:@selector(cachedContactListItems:)]) {
         
-        
         [self.cacheDataSource cachedContactListItems:^(NSArray *collection) {
-            
             [weakSelf.contactListMemoryStorage updateWithContactListItems:collection];
         }];
     }

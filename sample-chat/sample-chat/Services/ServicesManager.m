@@ -33,6 +33,11 @@
 	return self;
 }
 
+- (NSString *)appGroupIdentifier {
+    
+    return nil;
+}
+
 - (void)showNotificationForMessage:(QBChatMessage *)message inDialogID:(NSString *)dialogID
 {
     if ([self.currentDialogID isEqualToString:dialogID]) return;

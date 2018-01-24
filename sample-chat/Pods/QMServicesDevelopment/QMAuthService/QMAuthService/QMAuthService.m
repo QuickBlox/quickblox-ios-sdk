@@ -54,13 +54,14 @@ static NSString *const kQMTwitterAuthSocialProvider  = @"twitter";
     __weak __typeof(self)weakSelf = self;
     
     QBRequest *request = [QBRequest logOutWithSuccessBlock:^(QBResponse *response) {
-        //Notify subscribes about logout
-        if ([weakSelf.multicastDelegate respondsToSelector:@selector(authServiceDidLogOut:)]) {
-            [weakSelf.multicastDelegate authServiceDidLogOut:weakSelf];
-        }
         
         if (completion) {
             completion(response);
+        }
+        
+        //Notify subscribes about logout
+        if ([weakSelf.multicastDelegate respondsToSelector:@selector(authServiceDidLogOut:)]) {
+            [weakSelf.multicastDelegate authServiceDidLogOut:weakSelf];
         }
         
     } errorBlock:^(QBResponse *response) {

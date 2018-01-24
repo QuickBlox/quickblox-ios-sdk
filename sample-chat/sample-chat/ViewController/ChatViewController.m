@@ -85,9 +85,13 @@ QMDeferredQueueManagerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[ServicesManager instance].chatService addDelegate:self];
+    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
+    [[self queueManager] addDelegate:self];
+    
     self.failedDownloads = [NSMutableSet set];
     
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.backgroundColor = [UIColor whiteColor];
     self.inputToolbar.contentView.textView.placeHolder = NSLocalizedString(@"SA_STR_MESSAGE_PLACEHOLDER", nil);
     
@@ -137,6 +141,8 @@ QMDeferredQueueManagerDelegate
         [SVProgressHUD showWithStatus:NSLocalizedString(@"SA_STR_LOADING_MESSAGES", nil) maskType:SVProgressHUDMaskTypeNone];
     }
     
+    if ([self storedMessages].count == 0 ) [self startSpinProgress];
+    
     __weak __typeof(self)weakSelf = self;
     
     // Retrieving messages from Quickblox REST history and cache.
@@ -146,6 +152,9 @@ QMDeferredQueueManagerDelegate
             if ([messages count] > 0) {
                 [weakSelf.chatDataSource addMessages:messages];
             }
+            
+            if (!self.progressView.hidden) [self stopSpinProgress];
+            
             [SVProgressHUD dismiss];
             
         } else {
@@ -175,10 +184,6 @@ QMDeferredQueueManagerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[ServicesManager instance].chatService addDelegate:self];
-    [ServicesManager instance].chatService.chatAttachmentService.delegate = self;
-    [[self queueManager] addDelegate:self];
-    
     // Saving currently opened dialog.
     [ServicesManager instance].currentDialogID = self.dialog.ID;
     
@@ -193,9 +198,7 @@ QMDeferredQueueManagerDelegate
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [[ServicesManager instance].chatService removeDelegate:self];
-    [ServicesManager instance].chatService.chatAttachmentService.delegate = nil;
+
     [[self queueManager] removeDelegate:self];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -910,11 +913,13 @@ QMDeferredQueueManagerDelegate
         
     }
 }
-- (void)chatService:(QMChatService *)chatService didLoadMessagesFromCache:(NSArray *)messages forDialogID:(NSString *)dialogID {
+
+- (void)chatService:(QMChatService *)chatService didLoadMessagesFromCache:(NSArray<QBChatMessage *> *)messages forDialogID:(NSString *)dialogID {
     
     if ([self.dialog.ID isEqualToString:dialogID]) {
         
         [self.chatDataSource addMessages:messages];
+        if (!self.progressView.hidden) [self stopSpinProgress];
     }
 }
 
