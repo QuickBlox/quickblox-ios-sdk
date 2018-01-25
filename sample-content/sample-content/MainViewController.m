@@ -61,6 +61,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
 {
     [super viewDidLoad];
 
+    SDWebImageManager.sharedManager.imageDownloader.maxConcurrentDownloads = 12;
     if ([QBSession currentSession].currentUser == nil) {
         __weak typeof(self)weakSelf = self;
         [SVProgressHUD showWithStatus:@"Logging in..."];
@@ -119,12 +120,24 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ImageCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:kImageCellIdentifier forIndexPath:indexPath];
+    ImageCollectionViewCell* cell =
+    [collectionView dequeueReusableCellWithReuseIdentifier:kImageCellIdentifier forIndexPath:indexPath];
     
     QBCBlob* blob = self.blobs[indexPath.row];
     NSURL* url = [NSURL URLWithString:blob.privateUrl];
     [cell.spinnerView startAnimating];
-    [cell.imageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [cell.imageView sd_setImageWithURL:url
+                             completed:^(UIImage *image,
+                                         NSError *error,
+                                         SDImageCacheType cacheType,
+                                         NSURL *imageURL)
+    {
+        if (error) {
+            
+            UIImage *image = [UIImage imageNamed:@"error"];
+            cell.imageView.image = image;
+            
+        }
         [cell.spinnerView stopAnimating];
     }];
 
@@ -182,14 +195,16 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
                   
                   // Saving image directly SDWebImageCache
                   [[SDImageCache sharedImageCache] storeImage:selectedImage
-                                                       forKey:[[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:blob.privateUrl]]];
-                  __typeof(self) strongSelf = weakSelf;
-                  
-                  [strongSelf.blobs addObject:blob];
-                  NSUInteger insertRow = strongSelf.blobs.count - 1;
-                  NSIndexPath* indexPath = [NSIndexPath indexPathForRow:insertRow inSection:0];
-                  [strongSelf.collectionView insertItemsAtIndexPaths:@[indexPath]];
-                  [strongSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+                                                       forKey:[[SDWebImageManager sharedManager] cacheKeyForURL:[NSURL URLWithString:blob.privateUrl]] completion:^{
+                                                           
+                                                           __typeof(self) strongSelf = weakSelf;
+                                                           
+                                                           [strongSelf.blobs addObject:blob];
+                                                           NSUInteger insertRow = strongSelf.blobs.count - 1;
+                                                           NSIndexPath* indexPath = [NSIndexPath indexPathForRow:insertRow inSection:0];
+                                                           [strongSelf.collectionView insertItemsAtIndexPaths:@[indexPath]];
+                                                           [strongSelf.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+                                                       }];
               } statusBlock:^(QBRequest *request, QBRequestStatus *status) {
                   [SVProgressHUD showProgress:status.percentOfCompletion status:@"Uploading image"];
               } errorBlock:^(QBResponse *response) {

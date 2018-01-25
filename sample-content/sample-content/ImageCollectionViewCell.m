@@ -15,7 +15,7 @@
 {
     [super prepareForReuse];
     
-    [self.imageView sd_cancelCurrentImageLoad];
+    [self.imageView sd_cancelCurrentAnimationImagesLoad];
 }
 
 @end

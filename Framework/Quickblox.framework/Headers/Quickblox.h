@@ -24,6 +24,7 @@
 #import <Quickblox/QBContactList.h>
 #import <Quickblox/QBContactListItem.h>
 #import <Quickblox/QBContentEnums.h>
+#import <Quickblox/QBConnection.h>
 #import <Quickblox/QBCOPermissions.h>
 #import <Quickblox/QBCustomObjectsConsts.h>
 #import <Quickblox/QBCustomObjectsEnums.h>

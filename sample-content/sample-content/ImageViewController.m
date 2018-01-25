@@ -29,9 +29,13 @@
         __weak typeof(self)weakSelf = self;
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:privateUrl]
                           placeholderImage:nil options:0
-                                  progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                      NSString* progressText = [NSString stringWithFormat:@"%ld%%", (long)((float)(receivedSize * 100) / (float)expectedSize)];
-                                      weakSelf.progressLabel.text = progressText;
+                                  progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+                                      
+                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                          
+                                          NSString* progressText = [NSString stringWithFormat:@"%ld%%", (long)((float)(receivedSize * 100) / (float)expectedSize)];
+                                          weakSelf.progressLabel.text = progressText;
+                                      });
                                   }
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                      weakSelf.progressLabel.hidden = YES;
