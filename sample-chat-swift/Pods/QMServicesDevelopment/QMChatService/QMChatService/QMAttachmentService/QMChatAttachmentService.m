@@ -17,6 +17,8 @@
 
 #import "QMSLog.h"
 
+#import <MobileCoreServices/UTCoreTypes.h>
+
 @implementation QMAttachmentOperation
 
 - (void)setCancelBlock:(dispatch_block_t)cancelBlock {
@@ -344,7 +346,7 @@
                        toDialog:(QBChatDialog *)dialog
                      attachment:(QBChatAttachment *)attachment
                      completion:(void(^)(NSError *error, BOOL cancelled))completion {
-
+    
     BOOL hasOperation = NO;
     @synchronized (self.runningOperations) {
         hasOperation = self.runningOperations[message.ID] != nil;
@@ -441,7 +443,7 @@
                                                  if (fileURL) {
                                                      attachment.localFileURL = fileURL;
                                                  }
-
+                                                 
                                                  if (strongOperation && !strongOperation.isCancelled) {
                                                      
                                                      [self.storeService updateAttachment:attachment
@@ -638,64 +640,78 @@
                                                          completionBlock(attachmentOperation);
                                                      }
                                                      else if (downloadOperation.data) {
+                                                         
                                                          attachment.ID = attachmentID;
                                                          
                                                          [strongSelf.storeService storeAttachment:attachment
                                                                                          withData:downloadOperation.data
-                                                                                        cacheType:QMAttachmentCacheTypeDisc
-                                                          |QMAttachmentCacheTypeMemory
+                                                                                        cacheType:QMAttachmentCacheTypeDisc|QMAttachmentCacheTypeMemory
                                                                                         messageID:message.ID
                                                                                          dialogID:message.dialogID
-                                                                                       completion:^(NSURL * _Nullable fileURL) {
-
-                                                                                           if (downloadOperation && !downloadOperation.isCancelled) {
-                                                                                               if (!attachment.isPrepared) {
-                                                                                                   [strongSelf prepareAttachment:attachment
-                                                                                                                         message:message
-                                                                                                                      completion:^(UIImage * _Nullable image, Float64 durationSeconds, CGSize size, NSError * _Nullable error, BOOL cancelled)
-                                                                                                    {
-                                                                                                        if (!cancelled) {
-                                                                                                            if (error) {
-                                                                                                                attachmentOperation.error = error;
-                                                                                                            }
-                                                                                                            else {
-                                                                                                                attachment.image = image;
-                                                                                                                attachment.duration = durationSeconds;
-                                                                                                                
-                                                                                                                [strongSelf.storeService
-                                                                                                                 updateAttachment:attachment
-                                                                                                                 messageID:message.ID
-                                                                                                                 dialogID:message.dialogID];
-                                                                                                                
-                                                                                                                attachmentOperation.attachment = attachment;
-                                                                                                            }
-                                                                                                            
-                                                                                                            [strongSelf changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded
-                                                                                                                                           forMessage:message];
-                                                                                                            
-                                                                                                            completionBlock(attachmentOperation);
-                                                                                                        }
-                                                                                                    }];
-                                                                                               }
-                                                                                               else {
-                                                                                                   
-                                                                                                   [strongSelf.storeService
-                                                                                                    updateAttachment:attachment
-                                                                                                    messageID:message.ID
-                                                                                                    dialogID:message.dialogID];
-                                                                                                   
-                                                                                                   [strongSelf changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded
-                                                                                                                                  forMessage:message];
-                                                                                                   
-                                                                                                   attachmentOperation.attachment = attachment;
-                                                                                                   completionBlock(attachmentOperation);
-                                                                                               }
-                                                                                           }
-                                                                                           else {
-                                                                                               [strongSelf changeMessageAttachmentStatus:QMMessageAttachmentStatusNotLoaded
-                                                                                                                              forMessage:message];
-                                                                                           }
-                                                                                       }];
+                                                                                       completion:^(NSURL * _Nullable fileURL)
+                                                          {
+                                                              
+                                                              if (downloadOperation && !downloadOperation.isCancelled)
+                                                              {
+                                                                  attachment.localFileURL = fileURL;
+                                                                  
+                                                                  if ([attachment.typeIdentifier isEqualToString:(NSString *)kUTTypePNG] ||
+                                                                      [attachment.typeIdentifier isEqualToString:(NSString *)kUTTypeJPEG]) {
+                                                                      
+                                                                      attachment.image = [UIImage imageWithData:downloadOperation.data];
+                                                                  }
+                                                                  
+                                                                  if (!attachment.isPrepared) {
+                                                                      [strongSelf prepareAttachment:attachment
+                                                                                            message:message
+                                                                                         completion:^(UIImage * _Nullable image,
+                                                                                                      Float64 durationSeconds,
+                                                                                                      CGSize size,
+                                                                                                      NSError * _Nullable error,
+                                                                                                      BOOL cancelled)
+                                                                       {
+                                                                           if (!cancelled) {
+                                                                               if (error) {
+                                                                                   attachmentOperation.error = error;
+                                                                               }
+                                                                               else {
+                                                                                   attachment.image = image;
+                                                                                   attachment.duration = durationSeconds;
+                                                                                   
+                                                                                   [strongSelf.storeService
+                                                                                    updateAttachment:attachment
+                                                                                    messageID:message.ID
+                                                                                    dialogID:message.dialogID];
+                                                                                   
+                                                                                   attachmentOperation.attachment = attachment;
+                                                                               }
+                                                                               
+                                                                               [strongSelf changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded
+                                                                                                              forMessage:message];
+                                                                               
+                                                                               completionBlock(attachmentOperation);
+                                                                           }
+                                                                       }];
+                                                                  }
+                                                                  else {
+                                                                      
+                                                                      [strongSelf.storeService
+                                                                       updateAttachment:attachment
+                                                                       messageID:message.ID
+                                                                       dialogID:message.dialogID];
+                                                                      
+                                                                      [strongSelf changeMessageAttachmentStatus:QMMessageAttachmentStatusLoaded
+                                                                                                     forMessage:message];
+                                                                      
+                                                                      attachmentOperation.attachment = attachment;
+                                                                      completionBlock(attachmentOperation);
+                                                                  }
+                                                              }
+                                                              else {
+                                                                  [strongSelf changeMessageAttachmentStatus:QMMessageAttachmentStatusNotLoaded
+                                                                                                 forMessage:message];
+                                                              }
+                                                          }];
                                                      }
                                                      
                                                  }];

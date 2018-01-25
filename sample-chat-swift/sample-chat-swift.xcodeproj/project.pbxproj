@@ -38,6 +38,7 @@
 		E06A6BEB1D1182AE00431316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E06A6BEA1D1182AE00431316 /* CoreTelephony.framework */; };
 		E0A42AD91CF7139E002E1683 /* MPGNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E0A42AD81CF7139E002E1683 /* MPGNotification.m */; };
 		F67FB48421F82B0799DDC287 /* Pods_sample_chat_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5442CCAF54E0FC88C128B5C8 /* Pods_sample_chat_swift.framework */; };
+		FA0D07962018EEF1004C0F26 /* error_image.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0D07952018EEF1004C0F26 /* error_image.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -97,6 +98,7 @@
 		E06A6BEA1D1182AE00431316 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		E0A42AD71CF7139E002E1683 /* MPGNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPGNotification.h; sourceTree = "<group>"; };
 		E0A42AD81CF7139E002E1683 /* MPGNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPGNotification.m; sourceTree = "<group>"; };
+		FA0D07952018EEF1004C0F26 /* error_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = error_image.png; path = "../../sample-chat/sample-chat/error_image.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		1437A78F1AC9948600A39692 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FA0D07952018EEF1004C0F26 /* error_image.png */,
 				1437A7901AC9948600A39692 /* Info.plist */,
 				14A4DCC41AC9A5210046D45C /* quickblox-bridging-Header.h */,
 			);
@@ -353,6 +356,7 @@
 			files = (
 				1437A7971AC9948600A39692 /* Main.storyboard in Resources */,
 				584B33AD1C2AF38B0041B431 /* Localizable.strings in Resources */,
+				FA0D07962018EEF1004C0F26 /* error_image.png in Resources */,
 				2CBFAA1C1BA0342900F7065D /* Launch Screen.xib in Resources */,
 				1437A7991AC9948600A39692 /* Images.xcassets in Resources */,
 			);

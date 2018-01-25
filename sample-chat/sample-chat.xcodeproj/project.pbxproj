@@ -51,6 +51,7 @@
 		E03A2B631CEA096E0081660F /* QMMessageNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = E03A2B601CEA096E0081660F /* QMMessageNotification.m */; };
 		E03A2B641CEA096E0081660F /* QMMessageNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E03A2B621CEA096E0081660F /* QMMessageNotificationManager.m */; };
 		E06A6BE91D11550800431316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E06A6BE81D11550800431316 /* CoreTelephony.framework */; };
+		FA984FE42018C3AA00C3C4BE /* error_image.png in Resources */ = {isa = PBXBuildFile; fileRef = FA984FE32018C3AA00C3C4BE /* error_image.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -137,6 +138,7 @@
 		E03A2B621CEA096E0081660F /* QMMessageNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMMessageNotificationManager.m; sourceTree = "<group>"; };
 		E06A6BE81D11550800431316 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		F58E9E6BDE929843B8C70318 /* Pods-samplechat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-samplechat.release.xcconfig"; path = "Pods/Target Support Files/Pods-samplechat/Pods-samplechat.release.xcconfig"; sourceTree = "<group>"; };
+		FA984FE32018C3AA00C3C4BE /* error_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error_image.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +285,7 @@
 			children = (
 				586DC8F81D9E59C3002A9D4A /* samplechat.entitlements */,
 				BFE6FB7D180E8EF100E64AC4 /* sample-chat-Info.plist */,
+				FA984FE32018C3AA00C3C4BE /* error_image.png */,
 				86A716651B9EF0820019C42A /* InfoPlist.strings */,
 				BFE6FB81180E8EF100E64AC4 /* main.m */,
 				BFE6FB83180E8EF100E64AC4 /* sample-chat-Prefix.pch */,
@@ -420,6 +423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA984FE42018C3AA00C3C4BE /* error_image.png in Resources */,
 				BFBD3C941832CF30009D090B /* sound.mp3 in Resources */,
 				584B33AF1C2AF4490041B431 /* Localizable.strings in Resources */,
 				86A716671B9EF0820019C42A /* InfoPlist.strings in Resources */,
