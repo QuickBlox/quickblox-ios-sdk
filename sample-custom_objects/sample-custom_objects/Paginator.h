@@ -1,7 +1,9 @@
 //
-//  NMPaginator.h
+//  Paginator.h
+//  sample-users
 //
-//  Created by Nicolas Mondollot on 07/04/12.
+//  Created by Andrey Ivanov on 24/01/2018.
+//  Copyright © 2018 Quickblox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,7 +14,7 @@ typedef enum {
     RequestStatusDone // request succeeded or failed
 } RequestStatus;
 
-@protocol NMPaginatorDelegate
+@protocol NMPaginatorDelegate <NSObject>
 @required
 - (void)paginator:(id)paginator didReceiveResults:(NSArray *)results;
 @optional
@@ -20,11 +22,9 @@ typedef enum {
 - (void)paginatorDidReset:(id)paginator;
 @end
 
-@interface NMPaginator : NSObject {
-    id <NMPaginatorDelegate> __weak delegate;
-}
+@interface Paginator : NSObject
 
-@property (weak) id delegate;
+@property (weak) id<NMPaginatorDelegate> delegate;
 @property (assign, readonly) NSInteger pageSize; // number of results per page
 @property (assign, readonly) NSInteger page; // number of pages already fetched
 @property (assign, readonly) NSInteger total; // total number of results
@@ -42,5 +42,4 @@ typedef enum {
 // call these from subclass when you receive the results
 - (void)receivedResults:(NSArray *)results total:(NSInteger)total;
 - (void)failed;
-
 @end

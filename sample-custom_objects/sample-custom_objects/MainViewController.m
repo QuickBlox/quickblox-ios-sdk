@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     
-    self.paginator = [[ObjectsPaginator alloc] initWithPageSize:10 delegate:self];
+    self.paginator = [[ObjectsPaginator alloc] initWithPageSize:100 delegate:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated

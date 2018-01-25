@@ -1,34 +1,32 @@
 //
-//  NMPaginator.m
+//  Paginator.m
+//  sample-users
 //
-//  Created by Nicolas Mondollot on 07/04/12.
+//  Created by Andrey Ivanov on 24/01/2018.
+//  Copyright © 2018 Quickblox. All rights reserved.
 //
 
-#import "NMPaginator.h"
+#import "Paginator.h"
 
-@interface NMPaginator() {
-}
+@interface Paginator()
 
-// protected properties
-@property (assign, readwrite) NSInteger pageSize; 
-@property (assign, readwrite) NSInteger page; 
-@property (assign, readwrite) NSInteger total;
-@property (nonatomic, strong, readwrite) NSMutableArray *results;
-@property (assign, readwrite) RequestStatus requestStatus;
+@property (nonatomic) NSInteger pageSize;
+@property (nonatomic) NSInteger page;
+@property (nonatomic) NSInteger total;
+@property (nonatomic) NSMutableArray *results;
+@property (nonatomic) RequestStatus requestStatus;
 
 @end
 
-@implementation NMPaginator
-@synthesize delegate;
-@synthesize page=_page, total=_total, results=_results, requestStatus=_requestStatus, pageSize=_pageSize;
+@implementation Paginator
 
 - (id)initWithPageSize:(NSInteger)pageSize delegate:(id<NMPaginatorDelegate>)paginatorDelegate
 {
     if(self = [super init])
     {
         [self setDefaultValues];
-        self.pageSize = pageSize;
-        self.delegate = paginatorDelegate;
+        _pageSize = pageSize;
+        _delegate = paginatorDelegate;
     }
     
     return self;
@@ -47,8 +45,10 @@
     [self setDefaultValues];
     
     // send message to delegate
-    if([self.delegate respondsToSelector:@selector(paginatorDidReset:)])
+    if([self.delegate respondsToSelector:@selector(paginatorDidReset:)]) {
+        
         [self.delegate paginatorDidReset:self];
+    }
 }
 
 - (BOOL)reachedLastPage
@@ -62,7 +62,7 @@
 # pragma - fetch results
 
 - (void)fetchFirstPage
-{     
+{
     // reset paginator
     [self reset];
     
@@ -70,9 +70,9 @@
 }
 
 - (void)fetchNextPage
-{    
+{
     // don't do anything if there's already a request in progress
-    if(self.requestStatus == RequestStatusInProgress) 
+    if(self.requestStatus == RequestStatusInProgress)
         return;
     
     if(![self reachedLastPage]) {
@@ -92,7 +92,7 @@
 
 // call these from subclass when you receive the results
 
-- (void)receivedResults:(NSArray *)results total:(NSInteger)total 
+- (void)receivedResults:(NSArray *)results total:(NSInteger)total
 {
     [self.results addObjectsFromArray:results];
     self.page++;
@@ -106,8 +106,10 @@
 {
     self.requestStatus = RequestStatusDone;
     
-    if([self.delegate respondsToSelector:@selector(paginatorDidFailToRespond:)])
+    if([self.delegate respondsToSelector:@selector(paginatorDidFailToRespond:)]) {
         [self.delegate paginatorDidFailToRespond:self];
+    }
 }
+
 
 @end
