@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         Fabric.with([Crashlytics.self])
         
         application.applicationIconBadgeNumber = 0
-        
+        window?.backgroundColor = UIColor.white;
         // Set QuickBlox credentials (You must create application in admin.quickblox.com).
         QBSettings.applicationID = kQBApplicationID;
         QBSettings.authKey = kQBAuthKey
