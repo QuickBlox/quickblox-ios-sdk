@@ -4,7 +4,7 @@
 //  Created by QuickBlox team
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import <Quickblox/QBCEntity.h>
 #import <Quickblox/QBContentEnums.h>
 

@@ -5,7 +5,7 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -206,12 +206,18 @@ Called whenever you have failed to set a default privacy list.
 - (void)chatDidReceiveContactAddRequestFromUser:(NSUInteger)userID;
 
 /**
- Called whenver contact list was changed.
+ Called whenever contact list was changed.
 
  @param contactList Contact list
  */
 - (void)chatContactListDidChange:(QBContactList *)contactList;
 
+/**
+ Called whenever contact list was populated
+ 
+ @param contactList Contact list
+ */
+- (void)chatContactListDidPopulate:(QBContactList *)contactList;
 /**
  Called in case when user's from contact list online status has been changed.
  
@@ -261,13 +267,8 @@ Called whenever you have failed to set a default privacy list.
  Implement this protocol in your class and add [QBChat instance].addDelegate to your implementation
  instance to receive callbacks from QBChat
  */
-@protocol QBChatDelegate
-<NSObject,
-QBChatConnectionProtocol,
-QBChatReceiveMessageProtocol,
-QBChatContactListProtocol,
-QBChatPrivacyProtocol,
-QBChatPresenceProtocol>
+@protocol QBChatDelegate <NSObject, QBChatConnectionProtocol, QBChatReceiveMessageProtocol,
+QBChatContactListProtocol, QBChatPrivacyProtocol, QBChatPresenceProtocol>
 
 @end
 

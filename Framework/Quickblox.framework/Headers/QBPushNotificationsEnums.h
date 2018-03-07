@@ -5,7 +5,7 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 // Event types
 typedef NS_ENUM(NSUInteger, QBMEventType) {
     

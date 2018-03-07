@@ -5,11 +5,9 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 @class QBChatMessage;
-
-NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, QBChatDialogType) {
     
@@ -17,6 +15,9 @@ typedef NS_ENUM(NSUInteger, QBChatDialogType) {
     QBChatDialogTypeGroup = 2,
     QBChatDialogTypePrivate = 3,
 };
+
+NS_ASSUME_NONNULL_BEGIN
+
 
 typedef void(^QBChatCompletionBlock)(NSError * _Nullable error);
 typedef void(^QBUserIDBlock)(NSUInteger userID);

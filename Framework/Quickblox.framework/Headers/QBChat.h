@@ -5,7 +5,7 @@
 //  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import <Quickblox/QBChatTypes.h>
 
 @protocol QBChatDelegate;
@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface QBChat(UserStatus)
 
 /**
- Send presence message with status. Session will be closed in 90 seconds since last activity.
+ Send presence message with status.
  
  @param status Presence status.
  
