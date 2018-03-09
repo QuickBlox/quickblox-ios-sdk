@@ -23,6 +23,7 @@
 #import "PlaceholderGenerator.h"
 #import "RecordSettings.h"
 #import "CallKitManager.h"
+#import <AVKit/AVKit.h>
 
 static NSString * const kOpponentCollectionViewCellIdentifier = @"OpponentCollectionViewCellIdentifier";
 static NSString * const kSharingViewControllerIdentifier = @"SharingViewController";

@@ -11,6 +11,11 @@
 		55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */; };
 		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
 		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
+		D800417F1FDAD0F700AACFE5 /* ExploreVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D800417B1FDAD0F700AACFE5 /* ExploreVideoViewController.swift */; };
+		D80041831FDAD10F00AACFE5 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D80041821FDAD10E00AACFE5 /* Explore.storyboard */; };
+		D800418A1FDAD57C00AACFE5 /* CallViewController+Explorer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D80041891FDAD57C00AACFE5 /* CallViewController+Explorer.swift */; };
+		D800418F1FDEA84000AACFE5 /* ITCrowd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D800418D1FDEA53500AACFE5 /* ITCrowd.mp4 */; };
+		D80041901FDEA84000AACFE5 /* SiliconValley.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D800418E1FDEA53E00AACFE5 /* SiliconValley.mp4 */; };
 		E329E0791E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */; };
 		E329E07A1E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E332B21C1EDD7E3700FFF7EE /* RecordSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B21B1EDD7E3700FFF7EE /* RecordSettingsViewController.m */; };
@@ -121,6 +126,13 @@
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		55F6BDC91A3F21CC0080C326 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D80041751FDACBD100AACFE5 /* sample-videochat-webrtc-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sample-videochat-webrtc-Bridging-Header.h"; sourceTree = "<group>"; };
+		D800417B1FDAD0F700AACFE5 /* ExploreVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreVideoViewController.swift; sourceTree = "<group>"; };
+		D80041821FDAD10E00AACFE5 /* Explore.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Explore.storyboard; sourceTree = "<group>"; };
+		D80041881FDAD50100AACFE5 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		D80041891FDAD57C00AACFE5 /* CallViewController+Explorer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CallViewController+Explorer.swift"; sourceTree = "<group>"; };
+		D800418D1FDEA53500AACFE5 /* ITCrowd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ITCrowd.mp4; sourceTree = "<group>"; };
+		D800418E1FDEA53E00AACFE5 /* SiliconValley.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SiliconValley.mp4; sourceTree = "<group>"; };
 		E332B21A1EDD7E3700FFF7EE /* RecordSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecordSettingsViewController.h; path = RecordSettingsViewController/RecordSettingsViewController.h; sourceTree = "<group>"; };
 		E332B21B1EDD7E3700FFF7EE /* RecordSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecordSettingsViewController.m; path = RecordSettingsViewController/RecordSettingsViewController.m; sourceTree = "<group>"; };
 		E332B2201EDD7E6500FFF7EE /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
@@ -306,6 +318,7 @@
 		AB35EE3F551E29A444EB63EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D80041881FDAD50100AACFE5 /* AVKit.framework */,
 				E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */,
 				FB44905D1BFB95D000A8233D /* Quickblox.framework */,
 				FB4490571BFB8B2E00A8233D /* Accelerate.framework */,
@@ -320,6 +333,25 @@
 				55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D80041741FDACBB900AACFE5 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				D800417A1FDAD0F700AACFE5 /* ExploreVideo */,
+				D80041751FDACBD100AACFE5 /* sample-videochat-webrtc-Bridging-Header.h */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		D800417A1FDAD0F700AACFE5 /* ExploreVideo */ = {
+			isa = PBXGroup;
+			children = (
+				D800417B1FDAD0F700AACFE5 /* ExploreVideoViewController.swift */,
+				D800418D1FDEA53500AACFE5 /* ITCrowd.mp4 */,
+				D800418E1FDEA53E00AACFE5 /* SiliconValley.mp4 */,
+			);
+			path = ExploreVideo;
 			sourceTree = "<group>";
 		};
 		E332B2191EDD7E2000FFF7EE /* RecordSettingsViewController */ = {
@@ -355,6 +387,7 @@
 				E3B0B1541E1576EC00BE5FBD /* AppDelegate.h */,
 				E3B0B1551E1576EC00BE5FBD /* AppDelegate.m */,
 				E3B0B1561E1576EC00BE5FBD /* Call.storyboard */,
+				D80041821FDAD10E00AACFE5 /* Explore.storyboard */,
 				E3B0B1581E1576EC00BE5FBD /* SettingCell.xib */,
 				E3B0B15A1E1576EC00BE5FBD /* Settings.storyboard */,
 				E3B0B15C1E1576EC00BE5FBD /* SettingSliderCell.xib */,
@@ -642,6 +675,7 @@
 		E3B0B1A91E1576EC00BE5FBD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D80041741FDACBB900AACFE5 /* Video */,
 				E3B0B1AA1E1576EC00BE5FBD /* CallViewController */,
 				E3B0B1B31E1576EC00BE5FBD /* IncomingCallViewController */,
 				E3B0B1B61E1576EC00BE5FBD /* Settings */,
@@ -655,6 +689,7 @@
 			children = (
 				E3B0B1AB1E1576EC00BE5FBD /* CallViewController.h */,
 				E3B0B1AC1E1576EC00BE5FBD /* CallViewController.m */,
+				D80041891FDAD57C00AACFE5 /* CallViewController+Explorer.swift */,
 				E3B0B1AD1E1576EC00BE5FBD /* LocalVideoView.h */,
 				E3B0B1AE1E1576EC00BE5FBD /* LocalVideoView.m */,
 				E3B0B1AF1E1576EC00BE5FBD /* OpponentsFlowLayout.h */,
@@ -894,7 +929,7 @@
 				TargetAttributes = {
 					55E076E21A30817800118D23 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 8885H5G2YX;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -933,6 +968,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D800418F1FDEA84000AACFE5 /* ITCrowd.mp4 in Resources */,
+				D80041901FDEA84000AACFE5 /* SiliconValley.mp4 in Resources */,
 				FBE079FA1BEA216400718C56 /* WEBUsers.plist in Resources */,
 				E3B0B2101E1576EC00BE5FBD /* calling.wav in Resources */,
 				E3B0B20A1E1576EC00BE5FBD /* StunList.plist in Resources */,
@@ -958,6 +995,7 @@
 				E3B0B1F11E1576EC00BE5FBD /* Call.storyboard in Resources */,
 				E3B0B20F1E1576EC00BE5FBD /* busy.wav in Resources */,
 				FBE079F41BEA204000718C56 /* StunList.plist in Resources */,
+				D80041831FDAD10F00AACFE5 /* Explore.storyboard in Resources */,
 				E3B0B22D1E1576EC00BE5FBD /* SVProgressHUD.bundle in Resources */,
 				E3B0B1F21E1576EC00BE5FBD /* SettingCell.xib in Resources */,
 				E3B0B1F31E1576EC00BE5FBD /* Settings.storyboard in Resources */,
@@ -1023,6 +1061,7 @@
 				E3B0B2161E1576EC00BE5FBD /* StatsView.m in Sources */,
 				E3B0B2231E1576EC00BE5FBD /* VideoSettingsViewController.m in Sources */,
 				E3B0B22C1E1576EC00BE5FBD /* SVProgressAnimatedView.m in Sources */,
+				D800418A1FDAD57C00AACFE5 /* CallViewController+Explorer.swift in Sources */,
 				E3B0B2151E1576EC00BE5FBD /* OpponentsFlowLayout.m in Sources */,
 				E3B0B2031E1576EC00BE5FBD /* UsersViewController.m in Sources */,
 				E3B0B2251E1576EC00BE5FBD /* SharingCell.m in Sources */,
@@ -1044,6 +1083,7 @@
 				E3B0B2171E1576EC00BE5FBD /* IncomingCallViewController.m in Sources */,
 				E3B0B1FC1E1576EC00BE5FBD /* QBLoadingButton.m in Sources */,
 				E3B0B1F01E1576EC00BE5FBD /* AppDelegate.m in Sources */,
+				D800417F1FDAD0F700AACFE5 /* ExploreVideoViewController.swift in Sources */,
 				E3B0B22B1E1576EC00BE5FBD /* SVIndefiniteAnimatedView.m in Sources */,
 				E3B0B2241E1576EC00BE5FBD /* QBRTCScreenCapture.m in Sources */,
 				E3B0B2221E1576EC00BE5FBD /* SwitchItemModel.m in Sources */,
@@ -1183,11 +1223,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc/sample-videochat-webrtc.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 8885H5G2YX;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1201,7 +1242,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "$(inherited)";
@@ -1216,6 +1257,9 @@
 				PRODUCT_NAME = "sample-videochat-webrtc";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "sample-videochat-webrtc/ViewControllers/Video/sample-videochat-webrtc-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1227,10 +1271,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc/sample-videochat-webrtc.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8885H5G2YX;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1244,7 +1289,7 @@
 					"\"$(SDKROOT)/usr/include/libxml2\"",
 				);
 				INFOPLIST_FILE = "sample-videochat-webrtc/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = "$(inherited)";
@@ -1259,6 +1304,8 @@
 				PRODUCT_NAME = "sample-videochat-webrtc";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "sample-videochat-webrtc/ViewControllers/Video/sample-videochat-webrtc-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

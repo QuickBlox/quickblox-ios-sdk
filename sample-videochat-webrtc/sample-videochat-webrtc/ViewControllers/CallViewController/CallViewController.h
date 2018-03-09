@@ -10,6 +10,7 @@
 
 @class QBRTCSession;
 @class UsersDataSource;
+@class AVPlayerViewController;
 
 @interface CallViewController : UIViewController
 
@@ -17,4 +18,5 @@
 @property (weak, nonatomic) UsersDataSource *usersDatasource;
 @property (strong, nonatomic) NSUUID *callUUID;
 
+@property (strong, nonatomic) AVPlayerViewController *playerVC;
 @end
