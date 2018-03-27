@@ -446,7 +446,8 @@ static NSString * const kVoipEvent = @"VOIPCall";
         NSParameterAssert(!self.nav);
         
         IncomingCallViewController *incomingViewController =
-        [self.storyboard instantiateViewControllerWithIdentifier:@"IncomingCallViewController"];
+        [[UIStoryboard storyboardWithName:@"Call" bundle:[NSBundle mainBundle]]
+         instantiateViewControllerWithIdentifier:@"IncomingCallViewController"];
         incomingViewController.delegate = self;
         incomingViewController.session = session;
         incomingViewController.usersDatasource = self.dataSource;
@@ -555,3 +556,4 @@ static NSString * const kVoipEvent = @"VOIPCall";
 }
 
 @end
+

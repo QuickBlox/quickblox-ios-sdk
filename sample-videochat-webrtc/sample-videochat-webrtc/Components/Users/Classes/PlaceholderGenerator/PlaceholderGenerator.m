@@ -54,6 +54,10 @@
     return self;
 }
 
++ (UIColor *)colorForString:(NSString *)string {
+    return [[PlaceholderGenerator instance] colorForString:string];
+}
+
 - (UIColor* _Nonnull)colorForString:(NSString*)string {
     
     unsigned long hashNumber = stringToLong((unsigned char*)[string UTF8String]);
@@ -166,7 +170,7 @@ unsigned long stringToLong(unsigned char* str) {
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
-
+    
     UIGraphicsBeginImageContextWithOptions(tSize, NO, 0.0);
     
     [[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3] setFill];

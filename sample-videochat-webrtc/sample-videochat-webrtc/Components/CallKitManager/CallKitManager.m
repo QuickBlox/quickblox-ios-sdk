@@ -145,6 +145,8 @@ static const NSInteger QBDefaultMaximumCallGroups = 1;
     NSLog(@"[CallKitManager] Activating audio session.");
     QBRTCAudioSession *audioSession = [QBRTCAudioSession instance];
     audioSession.useManualAudio = YES;
+    // disabling audio unit for local mic recording in recorder to enable it later
+    session.recorder.localAudioEnabled = NO;
     if (!audioSession.isInitialized) {
         [audioSession initializeWithConfigurationBlock:^(QBRTCAudioSessionConfiguration *configuration) {
             // adding blutetooth support
@@ -278,6 +280,8 @@ static const NSInteger QBDefaultMaximumCallGroups = 1;
     [rtcAudioSession audioSessionDidActivate:audioSession];
     // enabling audio now
     rtcAudioSession.audioEnabled = YES;
+    // enabling local mic recording in recorder (if recorder is active) as of interruptions are over now
+    _session.recorder.localAudioEnabled = YES;
 }
 
 - (void)provider:(CXProvider *)provider didDeactivateAudioSession:(AVAudioSession *)audioSession {

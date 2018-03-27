@@ -30,8 +30,9 @@ static UIImage *mutedImage() {
 }
 
 @interface OpponentCollectionViewCell()
+@property (weak, nonatomic) IBOutlet UIView *nameView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
-@property (weak, nonatomic) IBOutlet UIImageView *placeholderImageView;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIButton *muteButton;
@@ -56,11 +57,30 @@ static UIImage *mutedImage() {
 - (void)setVideoView:(UIView *)videoView {
     
     if (_videoView != videoView) {
-
+        
         [_videoView removeFromSuperview];
         _videoView = videoView;
         _videoView.frame = self.bounds;
-        [self.containerView insertSubview:_videoView aboveSubview:self.statusLabel];
+        [self.containerView addSubview:_videoView];
+    }
+}
+
+- (void)setName:(NSString *)name {
+    
+    if (![_name isEqualToString:name]) {
+        
+        _name = [name copy];
+        self.nameLabel.text = _name;
+        self.nameView.hidden = _name == nil;
+    }
+}
+
+- (void)setNameColor:(UIColor *)nameColor {
+    
+    if (![_nameColor isEqual:nameColor]) {
+        
+        _nameColor = nameColor;
+        self.nameView.backgroundColor = nameColor;
     }
 }
 
@@ -84,11 +104,6 @@ static UIImage *mutedImage() {
                 break;
                 
             case QBRTCConnectionStateChecking:
-                
-                self.statusLabel.text = @"Checking";
-    
-                break;
-                
             case QBRTCConnectionStateConnecting:
                 
                 self.statusLabel.text = @"Connecting";
@@ -141,6 +156,15 @@ static UIImage *mutedImage() {
         }
         
         self.muteButton.hidden = !(connectionState == QBRTCConnectionStateConnected);
+    }
+}
+
+// MARK: Bitrate
+
+- (void)setBitrateString:(NSString *)bitrateString {
+    if (![_bitrateString isEqualToString:bitrateString]) {
+        _bitrateString = [bitrateString copy];
+        self.statusLabel.text = bitrateString;
     }
 }
 
