@@ -2,7 +2,7 @@
 //  QuickbloxWebRTC.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//  Copyright (c) 2018 QuickBlox. All rights reserved.
 //
 
 #import <QuickbloxWebRTC/QBRTCTypes.h>
@@ -36,6 +36,7 @@
 #import <QuickbloxWebRTC/QBRTCRecorder.h>
 #import <QuickbloxWebRTC/RTCVideoRenderer.h>
 #import <QuickbloxWebRTC/RTCVideoFrame.h>
+#import <QuickbloxWebRTC/RTCVideoFrameBuffer.h>
 
 /*
  *  Enterprise-only
@@ -46,8 +47,8 @@
 #import <QuickbloxWebRTC/QBRTCConferenceSession.h>
 #import <QuickbloxWebRTC/QBRTCConferenceClientDelegate.h>
 
-//! Framework version 2.6.3
+//! Framework version 2.7
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCFrameworkVersion;
 
-//! WebRTC revision 18213
+//! WebRTC revision 22215
 FOUNDATION_EXPORT NSString * const QuickbloxWebRTCRevision;

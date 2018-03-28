@@ -2,13 +2,14 @@
 //  QBRTCCameraCapture.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//  Copyright (c) 2018 QuickBlox. All rights reserved.
 //
 
 #import "QBRTCVideoCapture.h"
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 
 @class QBRTCVideoFormat;
 
@@ -46,6 +47,15 @@ NS_ASSUME_NONNULL_BEGIN
  *  Determines whether capture session is running.
  */
 @property (nonatomic, readonly) BOOL isRunning;
+
+/**
+ *  Supported orientation mask for camera.
+ *
+ *  @discussion Change this if you want to prohibit some orientations for the camera.
+ *
+ *  @remark Default value is UIInterfaceOrientationMaskAll
+ */
+@property (nonatomic, assign) UIInterfaceOrientationMask supportedOrientations;
 
 /**
  *  Initialize video capture with specific capture position.

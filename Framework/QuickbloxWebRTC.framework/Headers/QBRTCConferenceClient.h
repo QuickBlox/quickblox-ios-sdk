@@ -2,7 +2,7 @@
 //  QBRTCConferenceClient.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//  Copyright (c) 2018 QuickBlox. All rights reserved.
 //
 
 #import "QBRTCBaseClient.h"

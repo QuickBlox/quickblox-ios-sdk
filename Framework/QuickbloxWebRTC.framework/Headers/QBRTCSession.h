@@ -2,7 +2,7 @@
 //  QBRTCSession.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//  Copyright (c) 2018 QuickBlox. All rights reserved.
 //
 
 #import "QBRTCBaseSession.h"
@@ -81,6 +81,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param userInfo The user information dictionary for the hang up. May be nil.
  */
 - (void)hangUp:(nullable NSDictionary <NSString *, NSString *> *)userInfo;
+
+/**
+ *  Limit self-media bitrate for particular connection with the user (if existent).
+ *
+ *  @param bitrate bitrate value
+ *  @param userID user id to limit bitrate for
+ */
+- (void)setBitrate:(NSUInteger)bitrate forUserID:(NSNumber *)userID;
 
 @end
 
