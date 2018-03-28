@@ -2,18 +2,21 @@
 //  QBVideoFrame.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2018 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
-#import "RTCVideoFrame.h"
+#import <Foundation/Foundation.h>
+#import <CoreVideo/CoreVideo.h>
+
+@class QBRTCVideoFormat;
 
 /**
- *  Entity for storing pixel buffer and corresponding information.
+ *  Entity for storing pixel buffer and corresponding information
  */
-@interface QBRTCVideoFrame : RTCVideoFrame
+@interface QBRTCVideoFrame : NSObject
 
-@property (nonatomic, readonly) CVPixelBufferRef pixelBuffer;
-@property (nonatomic, readonly) QBRTCVideoRotation videoRotation;
+@property (nonatomic, assign, readonly) CVPixelBufferRef pixelBuffer;
+@property (nonatomic, assign, readonly) QBRTCVideoRotation videoRotation;
 
 /**
  *  Initialize video frame with pixel buffer

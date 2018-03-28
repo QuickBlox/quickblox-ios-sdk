@@ -2,12 +2,12 @@
 //  QBRTCVideoCapture.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2018 QuickBlox. All rights reserved.
+//  Copyright (c) 2017 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@class RTCVideoFrame;
+@class QBRTCVideoFrame;
 @class QBRTCLocalVideoTrack;
 
 /**
@@ -41,7 +41,7 @@
  *
  *  @param frame video frame to send
  */
-- (void)sendVideoFrame:(__kindof RTCVideoFrame *)frame;
+- (void)sendVideoFrame:(QBRTCVideoFrame *)frame;
 
 /**
  *  Adapt frames to a specific width, height and fps before sending.
