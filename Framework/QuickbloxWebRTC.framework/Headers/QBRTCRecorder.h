@@ -2,7 +2,7 @@
 //  QBRTCRecorder.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//  Copyright (c) 2018 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -64,6 +64,14 @@ typedef NS_ENUM(NSUInteger, QBRTCRecorderState) {
  @discussion Can be set at any time of class instance life.
  */
 @property (assign, nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;
+
+/**
+ Determines whether local audio recording from the mic is enabled or not.
+ 
+ @discussion Use this property to stop and/or re-start local mic audio record. Use it, for example, if you need to turn off the local audio record or restart the audio unit.
+ @remark Default value is YES.
+ */
+@property (assign, nonatomic, getter=isLocalAudioEnabled) BOOL localAudioEnabled;
 
 /**
  Delegate that conforms to QBRTCRecorderDelegate protocol.

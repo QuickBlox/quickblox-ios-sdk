@@ -2,7 +2,7 @@
 //  QBRTCBaseSession.h
 //  QuickbloxWebRTC
 //
-//  Copyright (c) 2017 QuickBlox. All rights reserved.
+//  Copyright (c) 2018 QuickBlox. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -81,6 +81,15 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return QBRTCConnectionState connection state for opponent user ID
  */
 - (QBRTCConnectionState)connectionStateForUser:(NSNumber *)userID;
+
+/**
+ *  Limit self-media bitrate in the current session for all existent connections.
+ *
+ *  @param bitrate bitrate value
+ *
+ *  @note Any newly established connection in this session will not be limited.
+ */
+- (void)setBitrate:(NSUInteger)bitrate;
 
 @end
 

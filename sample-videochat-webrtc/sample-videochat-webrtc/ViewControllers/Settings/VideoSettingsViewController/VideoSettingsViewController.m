@@ -23,7 +23,8 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
     VideoSettingsSectionVideoCodec = 1,
     VideoSettingsSectionSupportedFormats = 2,
     VideoSettingsSectionVideoFrameRate = 3,
-    VideoSettingsSectionBandwidth = 4
+    VideoSettingsSectionBandwidth = 4,
+    VideoSettingsSectionController = 5
 };
 
 @implementation VideoSettingsViewController
@@ -41,6 +42,8 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
             return @"Frame rate";
         case VideoSettingsSectionBandwidth:
             return @"Bandwidth";
+        case VideoSettingsSectionController:
+            return @"Call controller";
     }
     
     return nil;
@@ -84,13 +87,17 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         vp8Model.title = @"VP8";
         vp8Model.data = @(QBRTCVideoCodecVP8);
         
-        BaseItemModel *h264Model = [[BaseItemModel alloc] init];
-        h264Model.title = @"H264";
-        h264Model.data = @(QBRTCVideoCodecH264);
+        BaseItemModel *h264BaselineModel = [[BaseItemModel alloc] init];
+        h264BaselineModel.title = @"H264Baseline";
+        h264BaselineModel.data = @(QBRTCVideoCodecH264Baseline);
+        
+        BaseItemModel *h264HighModel = [[BaseItemModel alloc] init];
+        h264HighModel.title = @"H264High";
+        h264HighModel.data = @(QBRTCVideoCodecH264High);
         
         [weakSelf selectSection:VideoSettingsSectionVideoCodec index:(NSUInteger)weakSelf.settings.mediaConfiguration.videoCodec];
         
-        return @[vp8Model, h264Model];
+        return @[vp8Model, h264BaselineModel, h264HighModel];
     }];
     //Supported video formats section
     [self addSectionWith:VideoSettingsSectionSupportedFormats items:^NSArray *(NSString *sectionTitle) {
@@ -127,6 +134,16 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
         
         return @[bandwidthSlider];
     }];
+    //Call controller
+    [self addSectionWith:VideoSettingsSectionController items:^NSArray *(NSString *sectionTitle) {
+        
+        SwitchItemModel *switchItem = [[SwitchItemModel alloc] init];
+        switchItem.title = @"Prefer Metal for drawing";
+        
+        switchItem.on = QBRTCRemoteVideoView.preferMetal;
+        
+        return @[switchItem];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -159,8 +176,17 @@ typedef NS_ENUM(NSUInteger, VideoSettingsSectionType) {
 - (void)cell:(BaseSettingsCell *)cell didChageModel:(BaseItemModel *)model {
     
     if ([model isKindOfClass:[SwitchItemModel class]]) {
-        
-        [self reloadVideoFormatSectionForPosition:((SwitchItemModel *)model).on ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        BOOL isOn = ((SwitchItemModel *)model).on;
+        switch (indexPath.section) {
+            case VideoSettingsSectionVideoCodec:
+                [self reloadVideoFormatSectionForPosition:isOn ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront];
+                break;
+            case VideoSettingsSectionController: {
+                QBRTCRemoteVideoView.preferMetal = isOn;
+                break;
+            }
+        }
     }
 }
 

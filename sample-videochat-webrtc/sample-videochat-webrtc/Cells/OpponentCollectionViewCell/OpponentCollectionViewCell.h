@@ -20,7 +20,8 @@
 @property (copy, nonatomic) void (^didPressMuteButton)(BOOL isMuted);
 
 @property (assign, nonatomic) QBRTCConnectionState connectionState;
-
-@property (weak, nonatomic, readonly) UIImageView *placeholderImageView;
+@property (copy, nonatomic) NSString *name;
+@property (strong, nonatomic) UIColor *nameColor;
+@property (copy, nonatomic) NSString *bitrateString;
 
 @end

@@ -82,6 +82,7 @@
 		E3B0B22E1E1576EC00BE5FBD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1ED1E1576EC00BE5FBD /* SVProgressHUD.m */; };
 		E3B0B22F1E1576EC00BE5FBD /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1EF1E1576EC00BE5FBD /* SVRadialGradientLayer.m */; };
 		E3B50D9A1FC8763500796F0D /* CallKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B50D981FC8763500796F0D /* CallKitManager.m */; };
+		E3D981C9206A69BF0037F319 /* ZoomedView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D981C8206A69BF0037F319 /* ZoomedView.m */; };
 		FB29BC041B32BBC0009751A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBC61B32BBC0009751A1 /* Images.xcassets */; };
 		FB29BC0A1B32BBC0009751A1 /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBCE1B32BBC0009751A1 /* busy.wav */; };
 		FB29BC0B1B32BBC0009751A1 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBCF1B32BBC0009751A1 /* calling.wav */; };
@@ -243,6 +244,8 @@
 		E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickbloxWebRTC.framework; path = ../Framework/QuickbloxWebRTC.framework; sourceTree = "<group>"; };
 		E3B50D981FC8763500796F0D /* CallKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallKitManager.m; sourceTree = "<group>"; };
 		E3B50D991FC8763500796F0D /* CallKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallKitManager.h; sourceTree = "<group>"; };
+		E3D981C7206A69BF0037F319 /* ZoomedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedView.h; sourceTree = "<group>"; };
+		E3D981C8206A69BF0037F319 /* ZoomedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomedView.m; sourceTree = "<group>"; };
 		FB29BBC21B32BBC0009751A1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		FB29BBC61B32BBC0009751A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FB29BBCE1B32BBC0009751A1 /* busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busy.wav; sourceTree = "<group>"; };
@@ -653,6 +656,8 @@
 		E3B0B1AA1E1576EC00BE5FBD /* CallViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E3D981C7206A69BF0037F319 /* ZoomedView.h */,
+				E3D981C8206A69BF0037F319 /* ZoomedView.m */,
 				E3B0B1AB1E1576EC00BE5FBD /* CallViewController.h */,
 				E3B0B1AC1E1576EC00BE5FBD /* CallViewController.m */,
 				E3B0B1AD1E1576EC00BE5FBD /* LocalVideoView.h */,
@@ -1012,6 +1017,7 @@
 				E3B0B1FD1E1576EC00BE5FBD /* QBAVCallPermissions.m in Sources */,
 				E3B0B21A1E1576EC00BE5FBD /* SessionSettingsViewController.m in Sources */,
 				E3B0B1F81E1576EC00BE5FBD /* QMSoundManager.m in Sources */,
+				E3D981C9206A69BF0037F319 /* ZoomedView.m in Sources */,
 				E3B0B21B1E1576EC00BE5FBD /* SettingCell.m in Sources */,
 				E332B21C1EDD7E3700FFF7EE /* RecordSettingsViewController.m in Sources */,
 				E3B0B22E1E1576EC00BE5FBD /* SVProgressHUD.m in Sources */,

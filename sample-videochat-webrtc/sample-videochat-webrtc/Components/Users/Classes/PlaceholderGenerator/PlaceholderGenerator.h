@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *)groupPlaceholderWithUsers:(NSArray *)users size:(NSUInteger)size;
 
++ (UIColor *)colorForString:(NSString *)string;
+
 @end
 
 NS_ASSUME_NONNULL_END
