@@ -1,0 +1,23 @@
+//
+//  sample-multiconference-PrefixHeader.pch
+//  sample-multiconference-videochat
+//
+//  Created by Vitaliy Gorbachov on 2/16/17.
+//  Copyright © 2017 Quickblox. All rights reserved.
+//
+
+#ifndef sample_multiconference_PrefixHeader_pch
+#define sample_multiconference_PrefixHeader_pch
+
+#define ILog(...) do { NSLog(@"%s %@", __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__]); } while(0)
+
+#import <Availability.h>
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <Quickblox/Quickblox.h>
+#import <QuickbloxWebRTC/QuickbloxWebRTC.h>
+
+#endif /* sample_multiconference_PrefixHeader_pch */

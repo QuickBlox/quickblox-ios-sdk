@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B415C5F5923FD1699E46B5668327F083B9C32C51",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : 9223372036854775807,
+    "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64" : 9223372036854775807,
+    "B415C5F5923FD1699E46B5668327F083B9C32C51" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F816B079-795D-47B5-AD9E-6AB3BFD6F7D1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "43E48969AB834C98133F4F66DEBB455ACE272805" : "quickblox-ios-sdk\/",
+    "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64" : "SDK-ios-WebRTC\/QuickbloxWebRTC\/build_webrtc\/webrtc\/src\/",
+    "B415C5F5923FD1699E46B5668327F083B9C32C51" : "SDK-ios-WebRTC\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "sample-multiconference-videochat",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Conference\/sample-multiconference-videochat.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/quickblox-ios-sdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "43E48969AB834C98133F4F66DEBB455ACE272805"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/chromium.googlesource.com\/external\/webrtc",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8FFACF9194D48576A22F6F0C4F6B4F0BA1ABFC64"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:QuickBlox\/SDK-ios-WebRTC.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B415C5F5923FD1699E46B5668327F083B9C32C51"
+    }
+  ]
+}
