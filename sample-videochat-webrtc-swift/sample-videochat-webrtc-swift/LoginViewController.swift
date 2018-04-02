@@ -17,23 +17,16 @@ class LoginViewController: UIViewController {
     
     var currentUser: QBUUser?
     var users: [String : String]?
-    var emails: [String : String]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        QBSettings.applicationID = 0
-        QBSettings.authKey = ""
-        QBSettings.authSecret = ""
-        QBSettings.accountKey = ""
-        QBSettings.autoReconnectEnabled = true
         
         // fetching users from Users.plist
         if let path = Bundle.main.path(forResource: "Users", ofType: "plist") {
             users = NSDictionary(contentsOfFile: path) as? [String : String]
         }
         
-        precondition(users!.count > 0, "Please add users to Users.plist with format [email:password])")
+        precondition(users!.count > 1, "The Users.plist file should contain at least 2 users with format [login:password]. Please go to https://admin.quickblox.com and create users in 'Users' module.")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,7 +46,7 @@ class LoginViewController: UIViewController {
         
         for (index, user) in users!.enumerated() {
             let user = UIAlertAction.init(title: String(format: "%@%zu", "User ", index + 1), style: .default) { action in
-                self.login(email: user.key, password: user.value)
+                self.login(userLogin: user.key, password: user.value)
             }
             alert.addAction(user)
         }
@@ -67,15 +60,15 @@ class LoginViewController: UIViewController {
         self.loginBtn.isHidden = true
     }
     
-    func login(email: String, password: String) {
+    func login(userLogin: String, password: String) {
         SVProgressHUD.show(withStatus: "Logining to rest")
-        QBRequest.logIn(withUserEmail: email, password: password, successBlock:{ r, user in
+        QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock:{ r, user in
             self.currentUser = user
             SVProgressHUD.show(withStatus: "Connecting to chat")
             QBChat.instance.connect(with: user) { err in
-                let emails = self.users?.keys.filter {$0 != user.email}
+                let logins = self.users?.keys.filter {$0 != user.login}
                 SVProgressHUD.show(withStatus: "Geting users Info")
-                QBRequest.users(withEmails: emails!, page:nil, successBlock: { r, p, users in
+                QBRequest.users(withLogins: logins!, page:nil, successBlock: { r, p, users in
                     self.performSegue(withIdentifier: "CallViewController", sender:users)
                     SVProgressHUD.dismiss()
                 })

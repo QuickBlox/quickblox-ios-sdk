@@ -2,11 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>user1@email.com</key>
-	<string>12345678</string>
-	<key>user2@email.com</key>
-	<string>12345678</string>
-	<key>user3@email.com</key>
-	<string>12345678</string>
+	<key>login</key>
+	<string>password</string>
 </dict>
 </plist>
