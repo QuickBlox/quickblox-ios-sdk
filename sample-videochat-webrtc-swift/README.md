@@ -3,6 +3,8 @@ This README introduces swift WebRTC Video sample.
 
 Project contains basic audio and video calls implementation between multiple users with screen sharing.
 
+Original sample description & setup guide - [https://quickblox.com/developers/Sample-webrtc-ios](https://quickblox.com/developers/Sample-webrtc-ios)
+
 # Setup
 1. Perform `pod install` in the project directory to install required components.
 2. Setup your api endpoints in the **AppDelegate**.
