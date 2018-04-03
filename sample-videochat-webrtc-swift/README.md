@@ -1,7 +1,9 @@
-# Quickblox Swift WebRTC Video sample
-This README introduces swift WebRTC Video sample.
+# Overview
+This README introduces Quickblox WebRTC Video sample written in Swift lang.
 
 Project contains basic audio and video calls implementation between multiple users with screen sharing.
+
+This code sample is written in *Swift* lang. The same is also available in [Objective-C](https://github.com/QuickBlox/quickblox-ios-sdk/blob/master/sample-videochat-webrtc/README.md) lang.
 
 Original sample description & setup guide - [https://quickblox.com/developers/Sample-webrtc-ios](https://quickblox.com/developers/Sample-webrtc-ios)
 
