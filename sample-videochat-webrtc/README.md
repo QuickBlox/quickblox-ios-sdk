@@ -3,6 +3,9 @@ The VideoChat code sample allows you to easily add video calling and audio calli
 
 It is built on the top of WebRTC technology. 
 
+This code sample is written in *Objective-C* lang.
+The same is also available in *Swift* lang.
+
 # Main features
 * 1-1 video calling
 * Group video calling
