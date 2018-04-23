@@ -26,7 +26,9 @@ class LoginViewController: UIViewController {
             users = NSDictionary(contentsOfFile: path) as? [String : String]
         }
         
-        precondition(users!.count > 1, "The Users.plist file should contain at least 2 users with format [login:password]. Please go to https://admin.quickblox.com and create users in 'Users' module.")
+        precondition(users!.count > 1, "The Users.plist file should contain at least 2 and max 4 users with format [login:password]. Please go to https://admin.quickblox.com and create users in 'Users' module.")
+        
+        precondition(users!.count <= 4, "Maximum of 4 sample users are recommended. Please remove other ones.")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,8 +46,8 @@ class LoginViewController: UIViewController {
         
         let alert = UIAlertController.init(title: "Login as:", message: nil, preferredStyle: .actionSheet)
         
-        for (index, user) in users!.enumerated() {
-            let user = UIAlertAction.init(title: String(format: "%@%zu", "User ", index + 1), style: .default) { action in
+        for (_, user) in users!.enumerated() {
+            let user = UIAlertAction.init(title: user.key, style: .default) { action in
                 self.login(userLogin: user.key, password: user.value)
             }
             alert.addAction(user)

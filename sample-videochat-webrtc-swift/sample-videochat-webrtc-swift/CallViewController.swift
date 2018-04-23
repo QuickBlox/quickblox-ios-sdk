@@ -17,6 +17,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIBarButtonItem!
     @IBOutlet weak var screenShareBtn: UIButton!
+    @IBOutlet weak var endBtn: UIButton!
+    @IBOutlet weak var buttonsView: UIView!
     
     open var opponets: [QBUUser]?
     open var currentUser: QBUUser?
@@ -34,10 +36,12 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         cofigureVideo()
         configureAudio()
         
-        self.title = self.currentUser?.fullName
+        self.title = self.currentUser?.login
         self.navigationItem.setHidesBackButton(true, animated:true)
         
         self.screenShareBtn.isHidden = true
+        self.endBtn.isHidden = true
+        self.buttonsView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,6 +97,36 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     //MARK: Actions
     
+    @IBAction func didPressSwitchCam(_ sender: Any) {
+        let position = self.videoCapture.position
+        if position == .back {
+            self.videoCapture.position = .front
+        }
+        else {
+            self.videoCapture.position = .back
+        }
+    }
+    
+    @IBAction func didPressAudioSource(_ sender: Any) {
+        let device = QBRTCAudioSession.instance().currentAudioDevice;
+        
+        if device == .speaker {
+            QBRTCAudioSession.instance().currentAudioDevice = .receiver
+        }
+        else {
+            QBRTCAudioSession.instance().currentAudioDevice = .speaker
+        }
+    }
+    
+    @IBAction func didPressAudioButton(_ sender: Any) {
+        self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
+    }
+    
+    @IBAction func didPressVideoButton(_ sender: UIButton) {
+        self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
+        
+    }
+    
     @IBAction func didPressLogout(_ sender: Any) {
         self.logout()
     }
@@ -100,6 +134,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     @IBAction func didPressCall(_ sender: UIButton) {
         
         sender.isHidden = true
+        self.endBtn.isHidden = false
+        self.buttonsView.isHidden = false
         self.logoutBtn.isEnabled = false
         let ids = self.opponets?.map({$0.id})
         self.session = QBRTCClient.instance().createNewSession(withOpponents: ids! as [NSNumber],
@@ -171,6 +207,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         if session.id == self.session?.id {
             self.callBtn.isHidden = false
+            self.endBtn.isHidden = true
+            self.buttonsView.isHidden = true
             self.logoutBtn.isEnabled = true
             self.screenShareBtn.isHidden = true
             let ids = self.opponets?.map({$0.id})
@@ -210,6 +248,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             self.session?.localMediaStream.videoTrack.videoCapture = self.videoCapture
             self.session?.acceptCall(nil)
             self.callBtn.isHidden = true
+            self.endBtn.isHidden = false
+            self.buttonsView.isHidden = false
             self.logoutBtn.isEnabled = false
         }
         
