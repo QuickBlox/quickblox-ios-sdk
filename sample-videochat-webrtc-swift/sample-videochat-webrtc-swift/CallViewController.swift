@@ -14,17 +14,22 @@ import SVProgressHUD
 
 class CallViewController: UIViewController, QBRTCClientDelegate {
     
+    let defRect = CGRect.init(x: 0, y: 0, width: 44, height: 44)
+    let defBgClr = UIColor.init(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
+    let defSlctClr = UIColor.init(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
+    
     @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIBarButtonItem!
     @IBOutlet weak var screenShareBtn: UIButton!
     @IBOutlet weak var endBtn: UIButton!
-    @IBOutlet weak var buttonsView: UIView!
     
     open var opponets: [QBUUser]?
     open var currentUser: QBUUser?
     
     var videoCapture: QBRTCCameraCapture!
     var session: QBRTCSession?
+    
+    @IBOutlet weak var toolbar: Toolbar!
     
     @IBOutlet weak var stackView: UIStackView!
     override func viewDidLoad() {
@@ -41,7 +46,9 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         self.screenShareBtn.isHidden = true
         self.endBtn.isHidden = true
-        self.buttonsView.isHidden = true
+        self.toolbar.isHidden = true
+        
+        configureToolbar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -96,37 +103,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     }
     
     //MARK: Actions
-    
-    @IBAction func didPressSwitchCam(_ sender: Any) {
-        let position = self.videoCapture.position
-        if position == .back {
-            self.videoCapture.position = .front
-        }
-        else {
-            self.videoCapture.position = .back
-        }
-    }
-    
-    @IBAction func didPressAudioSource(_ sender: Any) {
-        let device = QBRTCAudioSession.instance().currentAudioDevice;
-        
-        if device == .speaker {
-            QBRTCAudioSession.instance().currentAudioDevice = .receiver
-        }
-        else {
-            QBRTCAudioSession.instance().currentAudioDevice = .speaker
-        }
-    }
-    
-    @IBAction func didPressAudioButton(_ sender: Any) {
-        self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
-    }
-    
-    @IBAction func didPressVideoButton(_ sender: UIButton) {
-        self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
-        
-    }
-    
+
     @IBAction func didPressLogout(_ sender: Any) {
         self.logout()
     }
@@ -135,7 +112,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         sender.isHidden = true
         self.endBtn.isHidden = false
-        self.buttonsView.isHidden = false
+        self.toolbar.isHidden = false
         self.logoutBtn.isEnabled = false
         let ids = self.opponets?.map({$0.id})
         self.session = QBRTCClient.instance().createNewSession(withOpponents: ids! as [NSNumber],
@@ -208,7 +185,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         if session.id == self.session?.id {
             self.callBtn.isHidden = false
             self.endBtn.isHidden = true
-            self.buttonsView.isHidden = true
+            self.toolbar.isHidden = true
             self.logoutBtn.isEnabled = true
             self.screenShareBtn.isHidden = true
             let ids = self.opponets?.map({$0.id})
@@ -220,6 +197,64 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     }
     
     //MARK: Helpers
+    
+    func configureToolbar() {
+        
+        let videoEnable = defButton()
+        videoEnable.iconView = iconView(normalImage: "camera_on_ic", selectedImage: "camera_off_ic")
+        self.toolbar.addButton(button: videoEnable) { (button) in
+            self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
+        }
+        
+        let audioEnable = defButton()
+        audioEnable.iconView = iconView(normalImage: "mute_on_ic", selectedImage: "mute_off_ic")
+        self.toolbar.addButton(button: audioEnable) { (button) in
+            self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
+        }
+        
+        let dynamicEnable = defButton()
+        dynamicEnable.iconView = iconView(normalImage: "dynamic_on_ic", selectedImage: "dynamic_off_ic")
+        self.toolbar.addButton(button: dynamicEnable) { (button) in
+            let device = QBRTCAudioSession.instance().currentAudioDevice;
+            
+            if device == .speaker {
+                QBRTCAudioSession.instance().currentAudioDevice = .receiver
+            }
+            else {
+                QBRTCAudioSession.instance().currentAudioDevice = .speaker
+            }
+        }
+        
+        let switchCamera = defButton()
+        switchCamera.iconView = iconView(normalImage: "switchCamera", selectedImage: "switchCamera")
+        self.toolbar.addButton(button: switchCamera) { (button) in
+            let position = self.videoCapture.position
+            if position == .back {
+                self.videoCapture.position = .front
+            }
+            else {
+                self.videoCapture.position = .back
+            }
+        }
+        
+        self.toolbar.updateItems()
+    }
+    
+    func iconView(normalImage: String, selectedImage: String) -> UIImageView {
+        let icon = UIImage.init(named: normalImage)
+        let selectedIcon = UIImage.init(named: selectedImage)
+        let iconView = UIImageView.init(image: icon, highlightedImage: selectedIcon)
+        iconView.contentMode = .scaleAspectFit
+        return iconView
+    }
+    
+    func defButton() -> ToolbarButton {
+        let defButton = ToolbarButton.init(frame: defRect)
+        defButton.backgroundColor = defBgClr
+        defButton.selectedColor = defSlctClr
+        defButton.isPushed = true
+        return defButton
+    }
     
     func resumeVideoCapture() {
         // ideally you should always stop capture session
@@ -249,7 +284,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             self.session?.acceptCall(nil)
             self.callBtn.isHidden = true
             self.endBtn.isHidden = false
-            self.buttonsView.isHidden = false
             self.logoutBtn.isEnabled = false
         }
         

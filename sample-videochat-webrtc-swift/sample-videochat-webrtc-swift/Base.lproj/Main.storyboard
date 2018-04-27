@@ -107,7 +107,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="CaT-av-4WM">
-                                <rect key="frame" x="16" y="81" width="343" height="449"/>
+                                <rect key="frame" x="16" y="81" width="343" height="455"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="is0-jB-dj6">
                                 <rect key="frame" x="108" y="599" width="120" height="55"/>
@@ -128,117 +128,27 @@
                                     <action selector="didPressScreenShare:" destination="D3p-I9-ARK" eventType="touchUpInside" id="N3S-bq-8lW"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0VI-GH-RvM">
-                                <rect key="frame" x="0.0" y="535" width="375" height="56"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kNM-fd-CB4">
-                                        <rect key="frame" x="16" y="1" width="94" height="55"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" priority="500" constant="55" id="gOZ-sz-zpK"/>
-                                            <constraint firstAttribute="height" constant="55" id="nVZ-Od-ZLR"/>
-                                        </constraints>
-                                        <state key="normal" title="Switch cam">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <real key="value" value="27.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressSwitchCam:" destination="D3p-I9-ARK" eventType="touchUpInside" id="9sD-ba-j33"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HjX-En-F7u">
-                                        <rect key="frame" x="118" y="1" width="106" height="55"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" priority="500" constant="55" id="4rM-6p-38K"/>
-                                            <constraint firstAttribute="height" constant="55" id="VdR-ro-5Tx"/>
-                                        </constraints>
-                                        <state key="normal" title="Audio source">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <real key="value" value="27.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressAudioSource:" destination="D3p-I9-ARK" eventType="touchUpInside" id="oGY-i1-Z3N"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1CS-B0-0uy">
-                                        <rect key="frame" x="236" y="1" width="55" height="55"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" priority="500" constant="55" id="b3L-GL-y9b"/>
-                                            <constraint firstAttribute="height" constant="55" id="iqO-en-qIx"/>
-                                        </constraints>
-                                        <state key="normal" title="Audio">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <real key="value" value="27.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressAudioButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="Bq7-pj-fEz"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xkb-Mr-6g6">
-                                        <rect key="frame" x="304" y="1" width="55" height="55"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" priority="500" constant="55" id="3Uc-Rn-OJc"/>
-                                            <constraint firstAttribute="height" constant="55" id="oNN-Vj-uKr"/>
-                                        </constraints>
-                                        <state key="normal" title="Video">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <real key="value" value="27.5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressVideoButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="aL0-md-RpI"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Xkb-Mr-6g6" firstAttribute="leading" secondItem="1CS-B0-0uy" secondAttribute="trailing" constant="13" id="0AK-fr-rWo"/>
-                                    <constraint firstItem="kNM-fd-CB4" firstAttribute="centerY" secondItem="0VI-GH-RvM" secondAttribute="centerY" id="Gtu-kl-xQa"/>
-                                    <constraint firstItem="Xkb-Mr-6g6" firstAttribute="centerY" secondItem="0VI-GH-RvM" secondAttribute="centerY" id="IHb-5D-F5r"/>
-                                    <constraint firstItem="kNM-fd-CB4" firstAttribute="leading" secondItem="0VI-GH-RvM" secondAttribute="leading" constant="16" id="MNC-eP-2Ge"/>
-                                    <constraint firstItem="HjX-En-F7u" firstAttribute="centerY" secondItem="0VI-GH-RvM" secondAttribute="centerY" id="PaM-Gx-lMT"/>
-                                    <constraint firstAttribute="height" constant="56" id="aVT-fs-ewk"/>
-                                    <constraint firstItem="1CS-B0-0uy" firstAttribute="leading" secondItem="HjX-En-F7u" secondAttribute="trailing" constant="12" id="lt4-AV-e8g"/>
-                                    <constraint firstItem="HjX-En-F7u" firstAttribute="leading" secondItem="kNM-fd-CB4" secondAttribute="trailing" constant="8" id="pdH-PM-L11"/>
-                                    <constraint firstItem="1CS-B0-0uy" firstAttribute="centerY" secondItem="0VI-GH-RvM" secondAttribute="centerY" id="qTI-Ha-NNP"/>
-                                    <constraint firstAttribute="trailing" secondItem="Xkb-Mr-6g6" secondAttribute="trailing" constant="16" id="sRW-17-lev"/>
-                                </constraints>
-                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZHB-4X-EXi" customClass="Toolbar" customModule="sample_videochat_webrtc_swift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="544" width="375" height="44"/>
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="CaT-av-4WM" firstAttribute="leading" secondItem="uiD-N2-jnH" secondAttribute="leading" constant="16" id="4fF-7y-jle"/>
-                            <constraint firstItem="0VI-GH-RvM" firstAttribute="top" secondItem="CaT-av-4WM" secondAttribute="bottom" constant="5" id="AOM-Ys-gC8"/>
+                            <constraint firstItem="ZHB-4X-EXi" firstAttribute="top" secondItem="CaT-av-4WM" secondAttribute="bottom" constant="8" id="EaO-D4-1mg"/>
                             <constraint firstItem="uiD-N2-jnH" firstAttribute="bottom" secondItem="sV8-Dz-b6g" secondAttribute="bottom" constant="13" id="Hdy-us-vTF"/>
                             <constraint firstItem="uiD-N2-jnH" firstAttribute="trailing" secondItem="CaT-av-4WM" secondAttribute="trailing" constant="16" id="Inq-uh-0L0"/>
-                            <constraint firstItem="uiD-N2-jnH" firstAttribute="trailing" secondItem="0VI-GH-RvM" secondAttribute="trailing" id="PAi-8I-MqY"/>
+                            <constraint firstItem="is0-jB-dj6" firstAttribute="top" secondItem="ZHB-4X-EXi" secondAttribute="bottom" constant="11" id="LWQ-pP-t2a"/>
                             <constraint firstItem="CaT-av-4WM" firstAttribute="top" secondItem="uiD-N2-jnH" secondAttribute="top" constant="17" id="Ptz-X8-YQH"/>
+                            <constraint firstItem="uiD-N2-jnH" firstAttribute="trailing" secondItem="ZHB-4X-EXi" secondAttribute="trailing" id="VKn-1b-gAW"/>
                             <constraint firstItem="sV8-Dz-b6g" firstAttribute="leading" secondItem="is0-jB-dj6" secondAttribute="trailing" constant="31" id="ZZA-kW-Mmp"/>
                             <constraint firstItem="is0-jB-dj6" firstAttribute="leading" secondItem="KpV-ax-0a2" secondAttribute="trailing" constant="37" id="cqi-ab-jRE"/>
                             <constraint firstItem="uiD-N2-jnH" firstAttribute="trailing" secondItem="sV8-Dz-b6g" secondAttribute="trailing" constant="16" id="cuy-JY-v6N"/>
                             <constraint firstItem="uiD-N2-jnH" firstAttribute="bottom" secondItem="is0-jB-dj6" secondAttribute="bottom" constant="13" id="d3a-ow-UIz"/>
+                            <constraint firstItem="ZHB-4X-EXi" firstAttribute="leading" secondItem="uiD-N2-jnH" secondAttribute="leading" id="fmg-tX-afx"/>
                             <constraint firstItem="KpV-ax-0a2" firstAttribute="leading" secondItem="uiD-N2-jnH" secondAttribute="leading" constant="16" id="jwK-Bu-5K9"/>
                             <constraint firstItem="uiD-N2-jnH" firstAttribute="bottom" secondItem="KpV-ax-0a2" secondAttribute="bottom" constant="13" id="sld-Rs-i6w"/>
-                            <constraint firstItem="0VI-GH-RvM" firstAttribute="leading" secondItem="uiD-N2-jnH" secondAttribute="leading" id="tHf-kZ-MTI"/>
-                            <constraint firstItem="is0-jB-dj6" firstAttribute="top" secondItem="0VI-GH-RvM" secondAttribute="bottom" constant="8" id="wU4-Mg-Hwg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uiD-N2-jnH"/>
                     </view>
@@ -250,12 +160,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="buttonsView" destination="0VI-GH-RvM" id="mlu-GL-pvY"/>
                         <outlet property="callBtn" destination="KpV-ax-0a2" id="seu-hD-ywa"/>
                         <outlet property="endBtn" destination="sV8-Dz-b6g" id="X0V-7e-Zrs"/>
                         <outlet property="logoutBtn" destination="TjG-NW-FKc" id="QzY-0s-nSa"/>
                         <outlet property="screenShareBtn" destination="is0-jB-dj6" id="yMo-Mk-oqm"/>
                         <outlet property="stackView" destination="CaT-av-4WM" id="HKB-oa-h5v"/>
+                        <outlet property="toolbar" destination="ZHB-4X-EXi" id="Omx-VS-piW"/>
                         <segue destination="P12-wq-hcL" kind="show" identifier="ScreenShareViewController" id="MOA-LJ-Zak"/>
                     </connections>
                 </viewController>
