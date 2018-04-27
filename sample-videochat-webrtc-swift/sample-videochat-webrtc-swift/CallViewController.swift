@@ -284,6 +284,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             self.session?.acceptCall(nil)
             self.callBtn.isHidden = true
             self.endBtn.isHidden = false
+            self.toolbar.isHidden = false
             self.logoutBtn.isEnabled = false
         }
         
