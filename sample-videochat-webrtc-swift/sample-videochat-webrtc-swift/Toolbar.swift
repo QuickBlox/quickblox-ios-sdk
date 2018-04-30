@@ -10,29 +10,27 @@ import UIKit
 
 class Toolbar: UIToolbar {
     
-    var buttons: [UIButton]
-    var actions: [(_ sender: UIButton) -> Void]
+    var buttons: [UIButton] = []
+    var actions: [(_ sender: UIButton) -> Void] = []
     
     required init?(coder aDecoder: NSCoder) {
-        self.buttons = []
-        self.actions = []
         
         super.init(coder: aDecoder)
         
         self.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
         self.setShadowImage(UIImage(), forToolbarPosition: .any)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = .white
     }
     
     func updateItems() {
         
         var items: [UIBarButtonItem] = []
-        let fs = UIBarButtonItem.init(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let fs = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         for button in self.buttons {
             
-            let item = UIBarButtonItem.init(customView: button)
+            let item = UIBarButtonItem(customView: button)
             items.append(contentsOf: self.items!)
             items.append(fs)
             items.append(item)

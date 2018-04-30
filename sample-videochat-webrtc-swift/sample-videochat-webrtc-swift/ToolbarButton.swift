@@ -93,25 +93,21 @@ class ToolbarButton: UIButton {
             self.isHighlighted = true
             self.iconView?.isHighlighted = true
             self.selectedView.alpha = 1
-        }, completion: nil)
+        })
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         UIView.animate(withDuration: kAnimationLength, delay: 0, options: [.curveEaseIn, .allowUserInteraction], animations: {
             if self.isPushed! {
-                if self.pressed {
-                    self.pressed = false
-                }
-                else {
-                    self.pressed = true
-                }
+                
+                self.pressed = !self.pressed
             }
             else {
                 self.isHighlighted = false
                 self.iconView?.isHighlighted = false
                 self.selectedView.alpha = 0
             }
-        }, completion: nil)
+        })
     }
 }

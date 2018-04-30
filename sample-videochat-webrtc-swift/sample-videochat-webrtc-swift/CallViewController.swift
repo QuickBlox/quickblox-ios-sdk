@@ -249,7 +249,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     }
     
     func defButton() -> ToolbarButton {
-        let defButton = ToolbarButton.init(frame: defRect)
+        let defButton = ToolbarButton(frame: defRect)
         defButton.backgroundColor = defBgClr
         defButton.selectedColor = defSlctClr
         defButton.isPushed = true
