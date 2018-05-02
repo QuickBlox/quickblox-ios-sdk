@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Register new account and application at https://admin.quickblox.com,
+        // then put Application credentials from Overview page + Account key from https://admin.quickblox.com/account/settings page
+        // here:
         QBSettings.applicationID = 0
         QBSettings.authKey = ""
         QBSettings.authSecret = ""
