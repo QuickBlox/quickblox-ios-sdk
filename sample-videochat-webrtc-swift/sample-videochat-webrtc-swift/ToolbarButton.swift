@@ -13,13 +13,12 @@ class ToolbarButton: UIButton {
     
     let kAnimationLength = 0.15
     let kDefBgClr = UIColor(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
-    let kDefSlctClr = UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
     
-    var borderColor: UIColor!
-    var selectedColor: UIColor!
-    var textColor: UIColor!
+    var borderColor: UIColor = UIColor(white: 0.352, alpha: 0.560)
+    var selectedColor: UIColor = UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
+    var textColor: UIColor = UIColor.white
     
-    var isPushed: Bool? = true
+    var isPushed: Bool = true
     var pressed: Bool = false {
         didSet {
             self.isHighlighted = self.pressed
@@ -41,11 +40,6 @@ class ToolbarButton: UIButton {
         self.isMultipleTouchEnabled = false
         self.isExclusiveTouch = true
         self.backgroundColor = kDefBgClr
-        self.selectedColor = kDefSlctClr
-        
-        self.borderColor = UIColor(white: 0.352, alpha: 0.560)
-        self.selectedColor = UIColor(white: 1.000, alpha: 0.600)
-        self.textColor = UIColor.white
         
         self.clipsToBounds = true
         
@@ -110,7 +104,7 @@ class ToolbarButton: UIButton {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         UIView.animate(withDuration: kAnimationLength, delay: 0, options: [.curveEaseIn, .allowUserInteraction], animations: {
-            if self.isPushed! {
+            if self.isPushed {
                 
                 self.pressed = !self.pressed
             }
