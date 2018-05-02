@@ -14,9 +14,7 @@ import SVProgressHUD
 
 class CallViewController: UIViewController, QBRTCClientDelegate {
     
-    let defRect = CGRect.init(x: 0, y: 0, width: 44, height: 44)
-    let defBgClr = UIColor.init(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
-    let defSlctClr = UIColor.init(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
+    let kDefRect = CGRect(x: 0, y: 0, width: 44, height: 44)
     
     @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIBarButtonItem!
@@ -63,18 +61,18 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         QBRTCConfig.mediaStreamConfiguration().videoCodec = .H264
         
-        let videoFormat = QBRTCVideoFormat.init()
+        let videoFormat = QBRTCVideoFormat()
         videoFormat.frameRate = 21
         videoFormat.pixelFormat = .format420f
         videoFormat.width = 640
         videoFormat.height = 480
         
-        self.videoCapture = QBRTCCameraCapture.init(videoFormat: videoFormat, position: .front)
+        self.videoCapture = QBRTCCameraCapture(videoFormat: videoFormat, position: .front)
         self.videoCapture.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
         self.videoCapture.startSession {
             
-            let localView = LocalVideoView.init(withPreviewLayer:self.videoCapture.previewLayer)
+            let localView = LocalVideoView(withPreviewLayer:self.videoCapture.previewLayer)
             self.stackView.addArrangedSubview(localView)
         }
     }
@@ -171,7 +169,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         if (session as! QBRTCSession).id == self.session?.id {
             
-            let remoteView :QBRTCRemoteVideoView = QBRTCRemoteVideoView.init()
+            let remoteView :QBRTCRemoteVideoView = QBRTCRemoteVideoView()
             remoteView.videoGravity = AVLayerVideoGravity.resizeAspect.rawValue
             remoteView.clipsToBounds = true
             remoteView.setVideoTrack(videoTrack)
@@ -200,20 +198,17 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     func configureToolbar() {
         
-        let videoEnable = defButton()
-        videoEnable.iconView = iconView(normalImage: "camera_on_ic", selectedImage: "camera_off_ic")
+        let videoEnable = ToolbarButton(frame: kDefRect, normalImage: "camera_on_ic", selectedImage: "camera_off_ic")
         self.toolbar.addButton(button: videoEnable) { (button) in
             self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
         }
         
-        let audioEnable = defButton()
-        audioEnable.iconView = iconView(normalImage: "mute_on_ic", selectedImage: "mute_off_ic")
+        let audioEnable = ToolbarButton(frame: kDefRect, normalImage: "mute_on_ic", selectedImage: "mute_off_ic")
         self.toolbar.addButton(button: audioEnable) { (button) in
             self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
         }
         
-        let dynamicEnable = defButton()
-        dynamicEnable.iconView = iconView(normalImage: "dynamic_on_ic", selectedImage: "dynamic_off_ic")
+        let dynamicEnable = ToolbarButton(frame: kDefRect, normalImage: "dynamic_on_ic", selectedImage: "dynamic_off_ic")
         self.toolbar.addButton(button: dynamicEnable) { (button) in
             let device = QBRTCAudioSession.instance().currentAudioDevice;
             
@@ -225,8 +220,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             }
         }
         
-        let switchCamera = defButton()
-        switchCamera.iconView = iconView(normalImage: "switchCamera", selectedImage: "switchCamera")
+        let switchCamera = ToolbarButton(frame: kDefRect, normalImage: "switchCamera", selectedImage: "switchCamera")
         self.toolbar.addButton(button: switchCamera) { (button) in
             let position = self.videoCapture.position
             if position == .back {
@@ -238,22 +232,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         }
         
         self.toolbar.updateItems()
-    }
-    
-    func iconView(normalImage: String, selectedImage: String) -> UIImageView {
-        let icon = UIImage.init(named: normalImage)
-        let selectedIcon = UIImage.init(named: selectedImage)
-        let iconView = UIImageView.init(image: icon, highlightedImage: selectedIcon)
-        iconView.contentMode = .scaleAspectFit
-        return iconView
-    }
-    
-    func defButton() -> ToolbarButton {
-        let defButton = ToolbarButton(frame: defRect)
-        defButton.backgroundColor = defBgClr
-        defButton.selectedColor = defSlctClr
-        defButton.isPushed = true
-        return defButton
     }
     
     func resumeVideoCapture() {
@@ -277,9 +255,9 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     func handleIncomingCall() {
         
-        let alert = UIAlertController.init(title: "Incoming video call", message: "Accept ?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Incoming video call", message: "Accept ?", preferredStyle: .actionSheet)
         
-        let accept = UIAlertAction.init(title: "Accept", style: .default) { action in
+        let accept = UIAlertAction(title: "Accept", style: .default) { action in
             self.session?.localMediaStream.videoTrack.videoCapture = self.videoCapture
             self.session?.acceptCall(nil)
             self.callBtn.isHidden = true
@@ -288,7 +266,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             self.logoutBtn.isEnabled = false
         }
         
-        let reject = UIAlertAction.init(title: "Reject", style: .default) { action in
+        let reject = UIAlertAction(title: "Reject", style: .default) { action in
             self.session?.rejectCall(nil)
         }
         

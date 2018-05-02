@@ -12,12 +12,14 @@ import QuartzCore
 class ToolbarButton: UIButton {
     
     let kAnimationLength = 0.15
+    let kDefBgClr = UIColor(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
+    let kDefSlctClr = UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
     
     var borderColor: UIColor!
     var selectedColor: UIColor!
     var textColor: UIColor!
     
-    var isPushed: Bool?
+    var isPushed: Bool? = true
     var pressed: Bool = false {
         didSet {
             self.isHighlighted = self.pressed
@@ -38,15 +40,16 @@ class ToolbarButton: UIButton {
     func commonInit() {
         self.isMultipleTouchEnabled = false
         self.isExclusiveTouch = true
-        self.backgroundColor = nil
+        self.backgroundColor = kDefBgClr
+        self.selectedColor = kDefSlctClr
         
-        self.borderColor = UIColor.init(white: 0.352, alpha: 0.560)
-        self.selectedColor = UIColor.init(white: 1.000, alpha: 0.600)
+        self.borderColor = UIColor(white: 0.352, alpha: 0.560)
+        self.selectedColor = UIColor(white: 1.000, alpha: 0.600)
         self.textColor = UIColor.white
         
         self.clipsToBounds = true
         
-        self.selectedView = UIView.init(frame: CGRect.zero)
+        self.selectedView = UIView(frame: CGRect.zero)
         self.selectedView.alpha = 0.0
         self.selectedView.backgroundColor = self.selectedColor
         self.selectedView.isUserInteractionEnabled = false
@@ -59,6 +62,14 @@ class ToolbarButton: UIButton {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    convenience init (frame:CGRect, normalImage: String, selectedImage: String) {
+        self.init(frame: frame)
+        let icon = UIImage(named: normalImage)
+        let selectedIcon = UIImage(named: selectedImage)
+        self.iconView = UIImageView(image: icon, highlightedImage: selectedIcon)
+        self.iconView?.contentMode = .scaleAspectFit
     }
     
     override func layoutSubviews() {
@@ -74,12 +85,12 @@ class ToolbarButton: UIButton {
     
     func performLayout() {
         
-        self.selectedView.frame = CGRect.init(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
+        self.selectedView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         
         self.addSubview(self.selectedView)
         
         let maxV = max(self.frame.size.height, self.frame.size.width) * 0.5
-        self.iconView?.frame = CGRect.init(x: self.bounds.midX - (maxV / 2.0), y: self.bounds.midY - (maxV / 2.0), width: maxV, height: maxV)
+        self.iconView?.frame = CGRect(x: self.bounds.midX - (maxV / 2.0), y: self.bounds.midY - (maxV / 2.0), width: maxV, height: maxV)
         if self.iconView != nil {
             self.addSubview(self.iconView!)
         }

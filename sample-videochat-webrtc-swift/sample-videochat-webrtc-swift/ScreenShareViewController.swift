@@ -26,7 +26,7 @@ class ScreenShareViewController: UICollectionViewController, UICollectionViewDel
         self.images = ["pres_img_1", "pres_img_2", "pres_img_3"]
         self.view.backgroundColor = UIColor.black
         
-        self.screenCapture = ScreenCapture.init(view: self.view)
+        self.screenCapture = ScreenCapture(view: self.view)
         self.session?.localMediaStream.videoTrack.videoCapture = self.screenCapture
         self.collectionView?.contentInset =  UIEdgeInsetsMake(0, 0, 0, 0)
         

@@ -22,7 +22,7 @@ class ScreenCapture: QBRTCVideoCapture {
     var displayLink: CADisplayLink!
     
     private lazy var sharedGPUContext: CIContext = {
-        CIContext.init(options: [kCIContextPriorityRequestLow : true])
+        CIContext(options: [kCIContextPriorityRequestLow : true])
     }()
     
     // MARK: Construction
@@ -89,7 +89,7 @@ class ScreenCapture: QBRTCVideoCapture {
                     
                     if self.useBiPlanarFormatTypeForShare {
                         
-                        let rImage = CIImage.init(image: image)
+                        let rImage = CIImage(image: image)
                         self.sharedGPUContext.render(rImage!, to: buffer!)
                     }
                     else {
@@ -120,7 +120,7 @@ class ScreenCapture: QBRTCVideoCapture {
     override func didSet(to videoTrack: QBRTCLocalVideoTrack!) {
         super.didSet(to: videoTrack)
         
-        self.displayLink = CADisplayLink.init(target: self, selector: #selector(sendPixelBuffer(sender:)))
+        self.displayLink = CADisplayLink(target: self, selector: #selector(sendPixelBuffer(sender:)))
         self.displayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         self.displayLink.frameInterval = 12 //5 fps
         

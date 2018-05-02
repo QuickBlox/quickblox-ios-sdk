@@ -44,16 +44,16 @@ class LoginViewController: UIViewController {
     
     func presentUsersList() {
         
-        let alert = UIAlertController.init(title: "Login as:", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Login as:", message: nil, preferredStyle: .actionSheet)
         
         for (_, user) in users!.enumerated() {
-            let user = UIAlertAction.init(title: user.key, style: .default) { action in
+            let user = UIAlertAction(title: user.key, style: .default) { action in
                 self.login(userLogin: user.key, password: user.value)
             }
             alert.addAction(user)
         }
         
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel) { action in
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { action in
             self.loginBtn.isHidden = false
         }
         alert.addAction(cancel)
