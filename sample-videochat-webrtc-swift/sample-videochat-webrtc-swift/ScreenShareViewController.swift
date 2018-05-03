@@ -7,27 +7,56 @@
 //
 
 import UIKit
+import ReplayKit
 
 import QuickbloxWebRTC
+import SVProgressHUD
 
 class ScreenShareViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     open var session: QBRTCSession?
     
     var images: [String]!
-    var screenCapture: ScreenCapture!
+    var screenCapture: QBRTCVideoCapture!
     
     // MARK: Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.collectionView?.isPagingEnabled = true
         self.images = ["pres_img_1", "pres_img_2", "pres_img_3"]
         self.view.backgroundColor = UIColor.black
         
-        self.screenCapture = ScreenCapture(view: self.view)
+        if #available(iOS 11.0, *) {
+            self.screenCapture = QBRTCVideoCapture()
+            
+            RPScreenRecorder.shared().startCapture(handler: { (sampleBuffer, type, error) in
+                
+                switch type {
+                case .video :
+                    let source = CMSampleBufferGetImageBuffer(sampleBuffer)
+                    let frame = QBRTCVideoFrame(pixelBuffer: source, videoRotation: ._0)
+                    self.screenCapture.adaptOutputFormat(toWidth: UInt(UIScreen.main.bounds.width), height: UInt(UIScreen.main.bounds.height), fps: 30)
+                    self.screenCapture.send(frame)
+                    break
+                    
+                default:
+                    break
+                }
+                
+            }) { (error) in
+                if (error != nil) {
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                }
+            }
+        }
+        else {
+            self.screenCapture = ScreenCapture(view: self.view)
+        }
+        
         self.session?.localMediaStream.videoTrack.videoCapture = self.screenCapture
+        
         self.collectionView?.contentInset =  UIEdgeInsetsMake(0, 0, 0, 0)
         
         if !(self.session?.localMediaStream.videoTrack.isEnabled)! {
