@@ -14,7 +14,8 @@ import SVProgressHUD
 
 class CallViewController: UIViewController, QBRTCClientDelegate {
     
-    let kDefRect = CGRect(x: 0, y: 0, width: 44, height: 44)
+    let kDefBgClr = UIColor(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
+    var kSelectedBgClr: UIColor = UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
     
     @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIBarButtonItem!
@@ -27,7 +28,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     var videoCapture: QBRTCCameraCapture!
     var session: QBRTCSession?
     
-    @IBOutlet weak var toolbar: Toolbar!
+    @IBOutlet weak var toolbar: UIView!
     
     @IBOutlet weak var stackView: UIStackView!
     override func viewDidLoad() {
@@ -45,8 +46,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         self.screenShareBtn.isHidden = true
         self.endBtn.isHidden = true
         self.toolbar.isHidden = true
-        
-        configureToolbar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,6 +101,43 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     //MARK: Actions
 
+    @IBAction func didPressCamSwitchButton(_ sender: UIButton) {
+        switchButton(button: sender)
+        
+        self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
+    }
+    
+    @IBAction func didPressMicSwitchButton(_ sender: UIButton) {
+        switchButton(button: sender)
+        
+        self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
+    }
+    
+    @IBAction func didPressDynamicButton(_ sender: UIButton) {
+        switchButton(button: sender)
+        
+        let device = QBRTCAudioSession.instance().currentAudioDevice;
+        
+        if device == .speaker {
+            QBRTCAudioSession.instance().currentAudioDevice = .receiver
+        }
+        else {
+            QBRTCAudioSession.instance().currentAudioDevice = .speaker
+        }
+    }
+    
+    @IBAction func didPressCameraRotationButton(_ sender: UIButton) {
+        switchButton(button: sender)
+        
+        let position = self.videoCapture.position
+        if position == .back {
+            self.videoCapture.position = .front
+        }
+        else {
+            self.videoCapture.position = .back
+        }
+    }
+    
     @IBAction func didPressLogout(_ sender: Any) {
         self.logout()
     }
@@ -196,42 +232,14 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     //MARK: Helpers
     
-    func configureToolbar() {
-        
-        let videoEnable = ToolbarButton(frame: kDefRect, normalImage: "camera_on_ic", selectedImage: "camera_off_ic")
-        self.toolbar.addButton(button: videoEnable) { (button) in
-            self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
+    func switchButton(button: UIButton) {
+        button.isSelected = !button.isSelected
+        if button.isSelected {
+            button.backgroundColor = kSelectedBgClr
         }
-        
-        let audioEnable = ToolbarButton(frame: kDefRect, normalImage: "mute_on_ic", selectedImage: "mute_off_ic")
-        self.toolbar.addButton(button: audioEnable) { (button) in
-            self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
+        else {
+            button.backgroundColor = kDefBgClr
         }
-        
-        let dynamicEnable = ToolbarButton(frame: kDefRect, normalImage: "dynamic_on_ic", selectedImage: "dynamic_off_ic")
-        self.toolbar.addButton(button: dynamicEnable) { (button) in
-            let device = QBRTCAudioSession.instance().currentAudioDevice;
-            
-            if device == .speaker {
-                QBRTCAudioSession.instance().currentAudioDevice = .receiver
-            }
-            else {
-                QBRTCAudioSession.instance().currentAudioDevice = .speaker
-            }
-        }
-        
-        let switchCamera = ToolbarButton(frame: kDefRect, normalImage: "switchCamera", selectedImage: "switchCamera")
-        self.toolbar.addButton(button: switchCamera) { (button) in
-            let position = self.videoCapture.position
-            if position == .back {
-                self.videoCapture.position = .front
-            }
-            else {
-                self.videoCapture.position = .back
-            }
-        }
-        
-        self.toolbar.updateItems()
     }
     
     func resumeVideoCapture() {
