@@ -131,94 +131,85 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ee-3a-0Tb">
                                 <rect key="frame" x="0.0" y="544" width="375" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ji-ms-QhF">
-                                        <rect key="frame" x="40" y="0.0" width="44" height="44"/>
-                                        <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n2F-4g-5PN">
+                                        <rect key="frame" x="20" y="0.0" width="336" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ji-ms-QhF">
+                                                <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" image="camera_on_ic"/>
+                                                <state key="selected" image="camera_off_ic"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="22"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didPressCamSwitchButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="dnl-h0-9s9"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH6-mk-Ii0">
+                                                <rect key="frame" x="94" y="0.0" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <inset key="imageEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
+                                                <state key="normal" image="mute_on_ic"/>
+                                                <state key="selected" image="mute_off_ic"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="22"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didPressMicSwitchButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="D1U-X3-E0F"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WDj-3N-xKx">
+                                                <rect key="frame" x="178" y="0.0" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                                <state key="normal" image="dynamic_on_ic"/>
+                                                <state key="selected" image="dynamic_off_ic"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="22"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didPressDynamicButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="DAu-pJ-HtQ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZy-0C-wb3">
+                                                <rect key="frame" x="272" y="0.0" width="44" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <inset key="imageEdgeInsets" minX="7" minY="10" maxX="7" maxY="10"/>
+                                                <state key="normal" image="switchCamera"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="22"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="didPressCameraRotationButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="ZQJ-e6-BEN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="WxV-DO-gn7"/>
-                                            <constraint firstAttribute="width" constant="44" id="hLR-Yk-XWe"/>
+                                            <constraint firstAttribute="height" constant="44" id="4Kw-ig-154"/>
+                                            <constraint firstAttribute="width" constant="336" id="UJS-42-BqX"/>
                                         </constraints>
-                                        <state key="normal" image="camera_on_ic"/>
-                                        <state key="selected" image="camera_off_ic"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="22"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressCamSwitchButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="dnl-h0-9s9"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WDj-3N-xKx">
-                                        <rect key="frame" x="208" y="0.0" width="44" height="44"/>
-                                        <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="C4d-8a-r6o"/>
-                                            <constraint firstAttribute="height" constant="44" id="FeM-aI-GVY"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                        <state key="normal" image="dynamic_on_ic"/>
-                                        <state key="selected" image="dynamic_off_ic"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="22"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressDynamicButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="DAu-pJ-HtQ"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZy-0C-wb3">
-                                        <rect key="frame" x="292" y="0.0" width="44" height="44"/>
-                                        <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="44" id="DfS-c7-z3L"/>
-                                            <constraint firstAttribute="height" constant="44" id="ZvI-pB-GMg"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="7" minY="10" maxX="7" maxY="10"/>
-                                        <state key="normal" image="switchCamera"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="22"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressCameraRotationButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="ZQJ-e6-BEN"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KH6-mk-Ii0">
-                                        <rect key="frame" x="124" y="0.0" width="44" height="44"/>
-                                        <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="4Ja-eH-4WX"/>
-                                            <constraint firstAttribute="width" constant="44" id="slJ-Li-oFb"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <inset key="imageEdgeInsets" minX="14" minY="10" maxX="14" maxY="10"/>
-                                        <state key="normal" image="mute_on_ic"/>
-                                        <state key="selected" image="mute_off_ic"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="22"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="didPressMicSwitchButton:" destination="D3p-I9-ARK" eventType="touchUpInside" id="D1U-X3-E0F"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="rZy-0C-wb3" firstAttribute="leading" secondItem="WDj-3N-xKx" secondAttribute="trailing" constant="40" id="5z1-rs-dgv"/>
-                                    <constraint firstItem="WDj-3N-xKx" firstAttribute="leading" secondItem="KH6-mk-Ii0" secondAttribute="trailing" constant="40" id="9l3-zO-42F"/>
-                                    <constraint firstItem="KH6-mk-Ii0" firstAttribute="leading" secondItem="1ji-ms-QhF" secondAttribute="trailing" constant="40" id="CKc-x4-xbx"/>
-                                    <constraint firstAttribute="height" constant="44" id="CR9-eh-f2e"/>
-                                    <constraint firstAttribute="trailing" secondItem="rZy-0C-wb3" secondAttribute="trailing" constant="39" id="E7V-bv-hgk"/>
-                                    <constraint firstItem="1ji-ms-QhF" firstAttribute="centerY" secondItem="0Ee-3a-0Tb" secondAttribute="centerY" id="I3G-vA-Dfp"/>
-                                    <constraint firstItem="1ji-ms-QhF" firstAttribute="leading" secondItem="0Ee-3a-0Tb" secondAttribute="leading" constant="40" id="OPw-gU-2UH"/>
-                                    <constraint firstItem="KH6-mk-Ii0" firstAttribute="centerY" secondItem="0Ee-3a-0Tb" secondAttribute="centerY" id="lHB-ff-AFo"/>
-                                    <constraint firstItem="rZy-0C-wb3" firstAttribute="centerY" secondItem="0Ee-3a-0Tb" secondAttribute="centerY" id="tN7-nw-HYj"/>
-                                    <constraint firstItem="WDj-3N-xKx" firstAttribute="centerY" secondItem="0Ee-3a-0Tb" secondAttribute="centerY" id="zAw-IO-p3z"/>
+                                    <constraint firstItem="n2F-4g-5PN" firstAttribute="centerX" secondItem="0Ee-3a-0Tb" secondAttribute="centerX" id="23C-Sp-gpD"/>
+                                    <constraint firstAttribute="height" constant="44" id="pPy-oF-Mwf"/>
+                                    <constraint firstItem="n2F-4g-5PN" firstAttribute="centerY" secondItem="0Ee-3a-0Tb" secondAttribute="centerY" id="s3x-Mg-x1d"/>
                                 </constraints>
                             </view>
                         </subviews>
