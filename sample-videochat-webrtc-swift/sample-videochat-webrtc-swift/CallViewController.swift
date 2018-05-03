@@ -21,7 +21,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     @IBOutlet weak var toolbar: UIView!
     @IBOutlet weak var stackView: UIStackView!
     
-    
     open var opponets: [QBUUser]?
     open var currentUser: QBUUser?
     
