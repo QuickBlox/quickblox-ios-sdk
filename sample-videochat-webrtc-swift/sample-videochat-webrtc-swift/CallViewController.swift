@@ -21,6 +21,9 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     @IBOutlet weak var logoutBtn: UIBarButtonItem!
     @IBOutlet weak var screenShareBtn: UIButton!
     @IBOutlet weak var endBtn: UIButton!
+    @IBOutlet weak var toolbar: UIView!
+    @IBOutlet weak var stackView: UIStackView!
+    
     
     open var opponets: [QBUUser]?
     open var currentUser: QBUUser?
@@ -28,9 +31,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     var videoCapture: QBRTCCameraCapture!
     var session: QBRTCSession?
     
-    @IBOutlet weak var toolbar: UIView!
-    
-    @IBOutlet weak var stackView: UIStackView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,7 +96,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             configuration.categoryOptions = options
             configuration.mode = AVAudioSessionModeVideoChat
         }
-        
     }
     
     //MARK: Actions
@@ -286,8 +285,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     func logout() {
         
         SVProgressHUD.show(withStatus: "Logout")
-        QBChat.instance.disconnect { (err) in
-            QBRequest .logOut(successBlock: { (r) in
+        QBChat.instance.disconnect { _ in
+            QBRequest.logOut(successBlock: { _ in
                 SVProgressHUD.dismiss()
                 self.navigationController?.popViewController(animated: true)
             })
