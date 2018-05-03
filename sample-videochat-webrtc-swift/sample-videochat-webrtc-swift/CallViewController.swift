@@ -14,9 +14,6 @@ import SVProgressHUD
 
 class CallViewController: UIViewController, QBRTCClientDelegate {
     
-    let kDefBgClr = UIColor(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
-    var kSelectedBgClr: UIColor = UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
-    
     @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIBarButtonItem!
     @IBOutlet weak var screenShareBtn: UIButton!
@@ -79,10 +76,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     func configureAudio() {
         
         QBRTCConfig.mediaStreamConfiguration().audioCodec = .codecOpus
-        //Save current audio configuration before start call or accept call
-        QBRTCAudioSession.instance().initialize()
-        QBRTCAudioSession.instance().currentAudioDevice = .speaker
-        //OR you can initialize audio session with a specific configuration
         QBRTCAudioSession.instance().initialize { (configuration: QBRTCAudioSessionConfiguration) -> () in
 
             var options = configuration.categoryOptions
@@ -96,6 +89,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             configuration.categoryOptions = options
             configuration.mode = AVAudioSessionModeVideoChat
         }
+        QBRTCAudioSession.instance().currentAudioDevice = .speaker
     }
     
     //MARK: Actions
@@ -115,26 +109,13 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     @IBAction func didPressDynamicButton(_ sender: UIButton) {
         toggleButton(button: sender)
         
-        let device = QBRTCAudioSession.instance().currentAudioDevice;
-        
-        if device == .speaker {
-            QBRTCAudioSession.instance().currentAudioDevice = .receiver
-        }
-        else {
-            QBRTCAudioSession.instance().currentAudioDevice = .speaker
-        }
+        QBRTCAudioSession.instance().currentAudioDevice =
+            QBRTCAudioSession.instance().currentAudioDevice == .speaker ? .receiver : .speaker
     }
     
     @IBAction func didPressCameraRotationButton(_ sender: UIButton) {
         toggleButton(button: sender)
-        
-        let position = self.videoCapture.position
-        if position == .back {
-            self.videoCapture.position = .front
-        }
-        else {
-            self.videoCapture.position = .back
-        }
+        self.videoCapture.position = self.videoCapture.position == .back ? .front : .back
     }
     
     @IBAction func didPressLogout(_ sender: Any) {
@@ -233,12 +214,9 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     func toggleButton(button: UIButton) {
         button.isSelected = !button.isSelected
-        if button.isSelected {
-            button.backgroundColor = kSelectedBgClr
-        }
-        else {
-            button.backgroundColor = kDefBgClr
-        }
+        button.backgroundColor = button.isSelected ?
+            UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0) :
+            UIColor(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
     }
     
     func resumeVideoCapture() {
