@@ -101,19 +101,19 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     //MARK: Actions
 
     @IBAction func didPressCamSwitchButton(_ sender: UIButton) {
-        switchButton(button: sender)
+        toggleButton(button: sender)
         
         self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
     }
     
     @IBAction func didPressMicSwitchButton(_ sender: UIButton) {
-        switchButton(button: sender)
+        toggleButton(button: sender)
         
         self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
     }
     
     @IBAction func didPressDynamicButton(_ sender: UIButton) {
-        switchButton(button: sender)
+        toggleButton(button: sender)
         
         let device = QBRTCAudioSession.instance().currentAudioDevice;
         
@@ -126,7 +126,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     }
     
     @IBAction func didPressCameraRotationButton(_ sender: UIButton) {
-        switchButton(button: sender)
+        toggleButton(button: sender)
         
         let position = self.videoCapture.position
         if position == .back {
@@ -231,7 +231,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     //MARK: Helpers
     
-    func switchButton(button: UIButton) {
+    func toggleButton(button: UIButton) {
         button.isSelected = !button.isSelected
         if button.isSelected {
             button.backgroundColor = kSelectedBgClr
