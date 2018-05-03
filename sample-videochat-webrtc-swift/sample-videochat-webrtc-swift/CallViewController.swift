@@ -24,6 +24,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     open var opponets: [QBUUser]?
     open var currentUser: QBUUser?
     
+    var views: [UIView] = []
     var videoCapture: QBRTCCameraCapture!
     var session: QBRTCSession?
     
@@ -68,6 +69,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         self.videoCapture.startSession {
             
             let localView = LocalVideoView(withPreviewLayer:self.videoCapture.previewLayer)
+            self.views.append(localView)
             self.stackView.addArrangedSubview(localView)
         }
     }
@@ -172,7 +174,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     func session(_ session: QBRTCSession, hungUpByUser userID: NSNumber, userInfo: [String : String]? = nil) {
         
         if session.id == self.session?.id {
-            
             self.removeRemoteView(with: userID.uintValue)
             if userID == session.initiatorID {
                 self.session?.hangUp(nil)
@@ -189,7 +190,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             remoteView.clipsToBounds = true
             remoteView.setVideoTrack(videoTrack)
             remoteView.tag = userID.intValue
-            self.stackView.addArrangedSubview(remoteView)
+            self.views.append(remoteView)
+            self.relayout(with: self.views)
         }
     }
     
@@ -230,9 +232,29 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     func removeRemoteView(with userID: UInt) {
         
-        for view in self.stackView.arrangedSubviews {
-            if view.tag == userID {
-                self.stackView.removeArrangedSubview(view)
+        if let i = self.views.index(where: { $0.tag == userID }) {
+            self.views.remove(at: i)
+            self.relayout(with: self.views)
+        }
+    }
+    
+    func relayout(with views: [UIView]) {
+        self.stackView.removeAllArrangedSubviews()
+        
+        for v in views {
+            
+            if self.stackView.arrangedSubviews.count > 1 {
+                let i = views.index(of: v)! % 2
+                let s = self.stackView.arrangedSubviews[i] as! UIStackView
+                s.addArrangedSubview(v)
+            }
+            else {
+                let hStack = UIStackView()
+                hStack.axis = .horizontal
+                hStack.distribution = .fillEqually
+                hStack.spacing = 5
+                hStack.addArrangedSubview(v)
+                self.stackView.addArrangedSubview(hStack)
             }
         }
     }
@@ -268,5 +290,18 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
                 self.navigationController?.popViewController(animated: true)
             })
         }
+    }
+}
+
+extension UIStackView {
+    
+    func removeAllArrangedSubviews() {
+        
+        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
+            self.removeArrangedSubview(subview)
+            return allSubviews + [subview]
+        }
+        // Remove the views from self
+        removedSubviews.forEach({ $0.removeFromSuperview() })
     }
 }
