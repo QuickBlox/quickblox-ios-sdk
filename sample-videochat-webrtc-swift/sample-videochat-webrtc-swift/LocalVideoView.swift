@@ -17,7 +17,7 @@ class LocalVideoView: UIView {
         super.init(frame:.zero)
         
         self.videoLayer = layer
-        self.videoLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        self.videoLayer?.videoGravity = .resizeAspectFill
         self.layer.insertSublayer(layer, at:0)
     }
     

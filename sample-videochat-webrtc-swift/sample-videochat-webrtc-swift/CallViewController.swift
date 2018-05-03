@@ -17,6 +17,9 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     @IBOutlet weak var callBtn: UIButton!
     @IBOutlet weak var logoutBtn: UIBarButtonItem!
     @IBOutlet weak var screenShareBtn: UIButton!
+    @IBOutlet weak var endBtn: UIButton!
+    @IBOutlet weak var toolbar: UIView!
+    @IBOutlet weak var stackView: UIStackView!
     
     open var opponets: [QBUUser]?
     open var currentUser: QBUUser?
@@ -24,7 +27,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     var videoCapture: QBRTCCameraCapture!
     var session: QBRTCSession?
     
-    @IBOutlet weak var stackView: UIStackView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,10 +36,12 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         cofigureVideo()
         configureAudio()
         
-        self.title = self.currentUser?.fullName
+        self.title = self.currentUser?.login
         self.navigationItem.setHidesBackButton(true, animated:true)
         
         self.screenShareBtn.isHidden = true
+        self.endBtn.isHidden = true
+        self.toolbar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,18 +56,18 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         QBRTCConfig.mediaStreamConfiguration().videoCodec = .H264
         
-        let videoFormat = QBRTCVideoFormat.init()
+        let videoFormat = QBRTCVideoFormat()
         videoFormat.frameRate = 21
         videoFormat.pixelFormat = .format420f
         videoFormat.width = 640
         videoFormat.height = 480
         
-        self.videoCapture = QBRTCCameraCapture.init(videoFormat: videoFormat, position: .front)
+        self.videoCapture = QBRTCCameraCapture(videoFormat: videoFormat, position: .front)
         self.videoCapture.previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
         self.videoCapture.startSession {
             
-            let localView = LocalVideoView.init(withPreviewLayer:self.videoCapture.previewLayer)
+            let localView = LocalVideoView(withPreviewLayer:self.videoCapture.previewLayer)
             self.stackView.addArrangedSubview(localView)
         }
     }
@@ -71,10 +75,6 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     func configureAudio() {
         
         QBRTCConfig.mediaStreamConfiguration().audioCodec = .codecOpus
-        //Save current audio configuration before start call or accept call
-        QBRTCAudioSession.instance().initialize()
-        QBRTCAudioSession.instance().currentAudioDevice = .speaker
-        //OR you can initialize audio session with a specific configuration
         QBRTCAudioSession.instance().initialize { (configuration: QBRTCAudioSessionConfiguration) -> () in
 
             var options = configuration.categoryOptions
@@ -88,10 +88,34 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
             configuration.categoryOptions = options
             configuration.mode = AVAudioSessionModeVideoChat
         }
-        
+        QBRTCAudioSession.instance().currentAudioDevice = .speaker
     }
     
     //MARK: Actions
+
+    @IBAction func didPressCamSwitchButton(_ sender: UIButton) {
+        toggleButton(button: sender)
+        
+        self.session?.localMediaStream.videoTrack.isEnabled = !(self.session?.localMediaStream.videoTrack.isEnabled)!
+    }
+    
+    @IBAction func didPressMicSwitchButton(_ sender: UIButton) {
+        toggleButton(button: sender)
+        
+        self.session?.localMediaStream.audioTrack.isEnabled = !(self.session?.localMediaStream.audioTrack.isEnabled)!
+    }
+    
+    @IBAction func didPressDynamicButton(_ sender: UIButton) {
+        toggleButton(button: sender)
+        
+        QBRTCAudioSession.instance().currentAudioDevice =
+            QBRTCAudioSession.instance().currentAudioDevice == .speaker ? .receiver : .speaker
+    }
+    
+    @IBAction func didPressCameraRotationButton(_ sender: UIButton) {
+        toggleButton(button: sender)
+        self.videoCapture.position = self.videoCapture.position == .back ? .front : .back
+    }
     
     @IBAction func didPressLogout(_ sender: Any) {
         self.logout()
@@ -100,6 +124,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     @IBAction func didPressCall(_ sender: UIButton) {
         
         sender.isHidden = true
+        self.endBtn.isHidden = false
+        self.toolbar.isHidden = false
         self.logoutBtn.isEnabled = false
         let ids = self.opponets?.map({$0.id})
         self.session = QBRTCClient.instance().createNewSession(withOpponents: ids! as [NSNumber],
@@ -158,7 +184,7 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         if (session as! QBRTCSession).id == self.session?.id {
             
-            let remoteView :QBRTCRemoteVideoView = QBRTCRemoteVideoView.init()
+            let remoteView :QBRTCRemoteVideoView = QBRTCRemoteVideoView()
             remoteView.videoGravity = AVLayerVideoGravity.resizeAspect.rawValue
             remoteView.clipsToBounds = true
             remoteView.setVideoTrack(videoTrack)
@@ -171,6 +197,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
         
         if session.id == self.session?.id {
             self.callBtn.isHidden = false
+            self.endBtn.isHidden = true
+            self.toolbar.isHidden = true
             self.logoutBtn.isEnabled = true
             self.screenShareBtn.isHidden = true
             let ids = self.opponets?.map({$0.id})
@@ -182,6 +210,13 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     }
     
     //MARK: Helpers
+    
+    func toggleButton(button: UIButton) {
+        button.isSelected = !button.isSelected
+        button.backgroundColor = button.isSelected ?
+            UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0) :
+            UIColor(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
+    }
     
     func resumeVideoCapture() {
         // ideally you should always stop capture session
@@ -204,16 +239,18 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     func handleIncomingCall() {
         
-        let alert = UIAlertController.init(title: "Incoming video call", message: "Accept ?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Incoming video call", message: "Accept ?", preferredStyle: .actionSheet)
         
-        let accept = UIAlertAction.init(title: "Accept", style: .default) { action in
+        let accept = UIAlertAction(title: "Accept", style: .default) { action in
             self.session?.localMediaStream.videoTrack.videoCapture = self.videoCapture
             self.session?.acceptCall(nil)
             self.callBtn.isHidden = true
+            self.endBtn.isHidden = false
+            self.toolbar.isHidden = false
             self.logoutBtn.isEnabled = false
         }
         
-        let reject = UIAlertAction.init(title: "Reject", style: .default) { action in
+        let reject = UIAlertAction(title: "Reject", style: .default) { action in
             self.session?.rejectCall(nil)
         }
         
@@ -225,8 +262,8 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     func logout() {
         
         SVProgressHUD.show(withStatus: "Logout")
-        QBChat.instance.disconnect { (err) in
-            QBRequest .logOut(successBlock: { (r) in
+        QBChat.instance.disconnect { _ in
+            QBRequest.logOut(successBlock: { _ in
                 SVProgressHUD.dismiss()
                 self.navigationController?.popViewController(animated: true)
             })

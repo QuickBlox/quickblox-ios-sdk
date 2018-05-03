@@ -13,6 +13,6 @@ class ShareCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     func setImage(name: String!) {
-        self.imageView.image = UIImage.init(named: name)
+        self.imageView.image = UIImage(named: name)
     }
 }

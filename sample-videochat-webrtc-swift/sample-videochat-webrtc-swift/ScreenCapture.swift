@@ -22,7 +22,7 @@ class ScreenCapture: QBRTCVideoCapture {
     var displayLink: CADisplayLink!
     
     private lazy var sharedGPUContext: CIContext = {
-        CIContext.init(options: [kCIContextPriorityRequestLow : true])
+        CIContext(options: [kCIContextPriorityRequestLow : true])
     }()
     
     // MARK: Construction
@@ -55,7 +55,7 @@ class ScreenCapture: QBRTCVideoCapture {
         
         self.videoQueue.async {
             
-            autoreleasepool(invoking: { () -> () in
+            autoreleasepool{
                 
                 let image = self.screenshot()
                 
@@ -89,7 +89,7 @@ class ScreenCapture: QBRTCVideoCapture {
                     
                     if self.useBiPlanarFormatTypeForShare {
                         
-                        let rImage = CIImage.init(image: image)
+                        let rImage = CIImage(image: image)
                         self.sharedGPUContext.render(rImage!, to: buffer!)
                     }
                     else {
@@ -100,18 +100,18 @@ class ScreenCapture: QBRTCVideoCapture {
                         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
                             .union(.byteOrder32Little)
                         
-                        let context = CGContext.init(data: pxdata, width: Int(renderWidth), height: Int(renderHeight), bitsPerComponent: 8, bytesPerRow: Int(renderWidth * 4), space: rgbColorSpace, bitmapInfo: bitmapInfo.rawValue)
+                        let context = CGContext(data: pxdata, width: Int(renderWidth), height: Int(renderHeight), bitsPerComponent: 8, bytesPerRow: Int(renderWidth * 4), space: rgbColorSpace, bitmapInfo: bitmapInfo.rawValue)
                         
                         context?.draw(image.cgImage!, in: CGRect(x: 0.0, y: 0.0, width: renderWidth, height: renderHeight))
                     }
                     
                     CVPixelBufferUnlockBaseAddress(buffer!, CVPixelBufferLockFlags(rawValue: 0))
                     
-                    let videoFrame = QBRTCVideoFrame.init(pixelBuffer: buffer, videoRotation: QBRTCVideoRotation._0)
+                    let videoFrame = QBRTCVideoFrame(pixelBuffer: buffer, videoRotation: QBRTCVideoRotation._0)
                     
                     super.send(videoFrame)
                 }
-            })
+            }
         }
     }
     
@@ -120,7 +120,7 @@ class ScreenCapture: QBRTCVideoCapture {
     override func didSet(to videoTrack: QBRTCLocalVideoTrack!) {
         super.didSet(to: videoTrack)
         
-        self.displayLink = CADisplayLink.init(target: self, selector: #selector(sendPixelBuffer(sender:)))
+        self.displayLink = CADisplayLink(target: self, selector: #selector(sendPixelBuffer(sender:)))
         self.displayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
         self.displayLink.frameInterval = 12 //5 fps
         
