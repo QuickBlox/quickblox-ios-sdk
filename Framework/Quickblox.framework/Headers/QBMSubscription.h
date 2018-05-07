@@ -13,42 +13,37 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /** 
- *  QBMSubscription class interface.
- *  Class represents user subscription to push channel.
+ QBMSubscription class interface.
+ Class represents user subscription to push channel.
  */
 @interface QBMSubscription : QBCEntity <NSCoding, NSCopying>
 
 /**
- *  Declare which notification channels could be used to notify user about events.
+ Declare which notification channels could be used to notify user about events.
  */
 @property (nonatomic, assign) QBMNotificationChannel notificationChannel;
 
 /** 
- *  Device UDID.
+ Device UDID.
  */
 @property (nonatomic, copy, nullable) NSString *deviceUDID;
 
 /**
- *  Device platform name.
+ Device platform name.
  */
 @property (nonatomic, copy, nullable) NSString *devicePlatform;
 
 /** 
- *  Identifies client device in 3-rd party service like APNS, APNSVOIP C2DM, MPNS, BBPS.
+ Identifies client device in 3-rd party service like APNS, APNSVOIP, GCM, MPNS.
  */
 @property(nonatomic, strong, nullable) NSData *deviceToken;
 
 /** 
- *  Create new subscription.
- *
- *  @return New instance of QBMSubscription
+ Create new subscription.
+ 
+ @return New instance of QBMSubscription
  */
 + (QBMSubscription *)subscription;
-
-//MARK: - Converters
-
-+ (QBMNotificationChannel)notificationChannelFromString:(nullable NSString *)notificationChannel;
-+ (nullable NSString *)notificationChannelToString:(QBMNotificationChannel)notificationChannel;
 
 @end
 
