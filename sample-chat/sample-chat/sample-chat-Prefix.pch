@@ -13,7 +13,7 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <Quickblox/Quickblox.h>
     #import <Quickblox/QBMulticastDelegate.h>
-    #import <QMServicesDevelopment/QMServices.h>
+    #import <QMServices/QMServices.h>
     #import "SVProgressHUD.h"
 	#import "Constants.h"
 #endif

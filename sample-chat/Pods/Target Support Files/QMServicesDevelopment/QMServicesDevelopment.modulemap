@@ -1,6 +1,0 @@
-framework module QMServicesDevelopment {
-  umbrella header "QMServicesDevelopment-umbrella.h"
-
-  export *
-  module * { export * }
-}

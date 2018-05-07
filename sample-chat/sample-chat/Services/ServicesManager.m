@@ -7,7 +7,6 @@
 //
 
 #import "ServicesManager.h"
-#import "_CDMessage.h"
 #import "QMMessageNotificationManager.h"
 @interface ServicesManager ()
 
