@@ -56,16 +56,14 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
         self.topContentAdditionalInset = self.navigationController!.navigationBar.frame.size.height + UIApplication.shared.statusBarFrame.size.height;
         
         view.backgroundColor = UIColor.white
-        self.collectionView.backgroundColor = UIColor.clear
+        self.collectionView?.backgroundColor = .clear
         
         if let currentUser:QBUUser = ServicesManager.instance().currentUser {
             self.senderID = currentUser.id
-            self.senderDisplayName = currentUser.login
+            self.senderDisplayName = currentUser.login!
             
             ServicesManager.instance().chatService.addDelegate(self)
             ServicesManager.instance().chatService.chatAttachmentService.addDelegate(self)
-            
-            self.heightForSectionHeader = 40.0
             
             self.updateTitle()
             
@@ -198,7 +196,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             }
             
             if messages?.count ?? 0 > 0 {
-                if !(self?.progressView.isHidden)! {
+                if !(self?.progressView?.isHidden)! {
                     self?.stopSpinProgress()
                 }
                 strongSelf.chatDataSource.add(messages)
@@ -407,8 +405,8 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             textAttachment.bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
             
             let attrStringWithImage = NSAttributedString.init(attachment: textAttachment)
-            self.inputToolbar.contentView.textView.attributedText = attrStringWithImage
-            self.textViewDidChange(self.inputToolbar.contentView.textView)
+            self.inputToolbar?.contentView.textView.attributedText = attrStringWithImage
+            self.textViewDidChange((self.inputToolbar?.contentView.textView)!)
             
             return false
         }
@@ -523,7 +521,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     
     // MARK: Override
     
-    override func viewClass(forItem item: QBChatMessage) -> AnyClass? {
+    override func viewClass(forItem item: QBChatMessage) -> AnyClass {
         // TODO: check and add QMMessageType.AcceptContactRequest, QMMessageType.RejectContactRequest, QMMessageType.ContactRequest
         
         if item.isNotificationMessage() || item.isDateDividerMessage {
@@ -726,7 +724,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             return layoutModel
         }
         
-        let viewClass: AnyClass = self.viewClass(forItem: item)! as AnyClass
+        let viewClass: AnyClass = self.viewClass(forItem: item) as AnyClass
         
         if viewClass === QMChatIncomingCell.self || viewClass === QMChatAttachmentIncomingCell.self {
             
@@ -867,7 +865,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
             return false
         }
         
-        let viewClass: AnyClass = self.viewClass(forItem: item)! as AnyClass
+        let viewClass: AnyClass = self.viewClass(forItem: item) as AnyClass
         
         if  viewClass === QMChatNotificationCell.self ||
             viewClass === QMChatContactRequestCell.self {
@@ -1060,7 +1058,7 @@ class ChatViewController: QMChatViewController, QMChatServiceDelegate, UIActionS
     func chatService(_ chatService: QMChatService, didLoadMessagesFromCache messages: [QBChatMessage], forDialogID dialogID: String) {
         
         if self.dialog.id == dialogID {
-            if !self.progressView.isHidden {
+            if !(self.progressView?.isHidden)! {
                 self.stopSpinProgress()
             }
             self.chatDataSource.add(messages)
