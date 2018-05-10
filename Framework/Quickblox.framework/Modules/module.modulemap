@@ -5,9 +5,3 @@ framework module Quickblox {
     export *
     module * { export * }
 }
-
-module Quickblox.QBMulticastDelegate {
-    header "QBMulticastDelegate.h"
-    
-    export *
-}

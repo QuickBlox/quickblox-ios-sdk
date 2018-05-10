@@ -9,90 +9,82 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /** 
- *  QBUUser class interface.
- *  This class represents QuickBlox User.
+ QBUUser class interface.
+ This class represents QuickBlox User.
  */
 @interface QBUUser : QBCEntity <NSCoding, NSCopying>
 
 /**
- *  Create new user.
- */
-@property (nonatomic, class, readonly) QBUUser *user;
-
-/**
- *  ID of User in external system.
+ ID of User in external system.
  */
 @property (nonatomic, assign) NSUInteger externalUserID;
 
 /** 
- *  ID of User associated blob (for example, ID of user's photo). 
+ ID of User associated blob (for example, ID of user's photo).
  */
-@property (nonatomic, assign) NSInteger blobID;
+@property (nonatomic, assign) NSUInteger blobID;
 
 /** 
- *  ID of User in Facebook. 
+ ID of User in Facebook.
  */
 @property (nonatomic, copy, nullable) NSString *facebookID;
 
 /** 
- *  ID of User in Twitter. 
+ ID of User in Twitter.
  */
 @property (nonatomic, copy, nullable) NSString *twitterID;
 
 /** 
- *  ID of User in Twitter Digits.
- */
-@property (nonatomic, copy, nullable) NSString *twitterDigitsID;
-
-/** 
- *  User's full name. 
+ User's full name.
  */
 @property (nonatomic, copy, nullable) NSString *fullName;
 
 /** 
- *  User's email. 
+ User's email.
  */
 @property (nonatomic, copy, nullable) NSString *email;
 
 /**
- *  User's login. 
+ User's login.
  */
 @property (nonatomic, copy, nullable) NSString *login;
 
 /** 
- *  User's phone. 
+ User's phone.
  */
 @property (nonatomic, copy, nullable) NSString *phone;
 
 /** 
- *  User's website. 
+ User's website.
  */
 @property (nonatomic, copy, nullable) NSString *website;
 
 /** 
- *  User's tags. 
+ User's tags.
  */
-@property (nonatomic, strong, null_resettable) NSMutableArray<NSString *> *tags;
+@property (nonatomic, strong, nullable) NSArray<NSString *> *tags;
 
 /** 
- *  User's password. 
+ User's password.
  */
 @property (nonatomic, copy, nullable) NSString *password;
 
 /** 
- *  User's old password.
+ User's old password.
  */
 @property (nonatomic, copy, nullable) NSString *oldPassword;
 
 /**
- *  User's last activity.
+ User's last activity.
  */
 @property (nonatomic, strong, nullable) NSDate *lastRequestAt;
 
-/** 
- *  User's custom data field.
+/**
+ User's custom data field.
  */
 @property (nonatomic, copy, nullable) NSString *customData;
+
++ (QBUUser *)user;
 
 @end
 

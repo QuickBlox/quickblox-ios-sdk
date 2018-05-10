@@ -167,15 +167,6 @@ NS_ASSUME_NONNULL_BEGIN
                                    error:(NSError *)error;
 
 /**
- Called whenever you have failed to create or edit an active privacy list.
- 
- @param name privacy list name
- @param error Error
- */
-- (void)chatDidNotSetActivePrivacyListWithName:(NSString *)name
-                                         error:(NSError *)error;
-
-/**
 Called whenever you have failed to set a default privacy list.
 
 @param name Privacy list name

@@ -16,8 +16,8 @@
 @import Quickblox;
 
 @import SVProgressHUD;
-@import QMServicesDevelopment;
-@import QMCVDevelopment;
+@import QMServices;
+@import QMChatViewController;
 
 #import "QMMessageNotificationManager.h"
 #import "MPGNotification.h"

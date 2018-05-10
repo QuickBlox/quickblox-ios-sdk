@@ -34,13 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
         // enabling carbons for chat
         QBSettings.carbonsEnabled = true
         // Enables Quickblox REST API calls debug console output.
-        QBSettings.logLevel = .nothing
+        QBSettings.logLevel = .debug
         
         // Enables detailed XMPP logging in console output.
         QBSettings.enableXMPPLogging()
         
         // app was launched from push notification, handling it
-        let remoteNotification: NSDictionary! = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? NSDictionary
+        let remoteNotification: NSDictionary! = launchOptions?[.remoteNotification] as? NSDictionary
         if (remoteNotification != nil) {
             ServicesManager.instance().notificationService.pushDialogID = remoteNotification["SA_STR_PUSH_NOTIFICATION_DIALOG_ID".localized] as? String
         }
@@ -51,15 +51,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, NotificationServiceDelega
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         let deviceIdentifier: String = UIDevice.current.identifierForVendor!.uuidString
-        let subscription: QBMSubscription! = QBMSubscription()
+        let subscription = QBMSubscription()
         
-        subscription.notificationChannel = QBMNotificationChannel.APNS
+        subscription.notificationChannel = .APNS
         subscription.deviceUDID = deviceIdentifier
         subscription.deviceToken = deviceToken
         QBRequest.createSubscription(subscription, successBlock: { (response: QBResponse!, objects: [QBMSubscription]?) -> Void in
-            //
+        
         }) { (response: QBResponse!) -> Void in
-            //
+        
         }
     }
     

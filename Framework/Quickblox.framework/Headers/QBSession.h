@@ -81,14 +81,4 @@ FOUNDATION_EXPORT NSNotificationName const kQBLogoutNotification;
 
 @end
 
-@interface QBSession (DEPRECATED)
-
-/**
- *  Token valid state
- */
-@property (nonatomic, readonly, getter=isTokenValid) BOOL tokenValid
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.15. Use tokenHasExpired");
-
-@end
-
 NS_ASSUME_NONNULL_END

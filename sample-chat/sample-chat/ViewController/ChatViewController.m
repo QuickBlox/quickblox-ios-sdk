@@ -7,24 +7,20 @@
 //
 
 #import "ChatViewController.h"
+
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
+#import <SafariServices/SFSafariViewController.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <CoreTelephony/CTCarrier.h>
+
 #import "DialogInfoTableViewController.h"
-#import "LoginTableViewController.h"
-#import "DialogsViewController.h"
 #import "MessageStatusStringBuilder.h"
 #import "ServicesManager.h"
-
 #import "UIImage+fixOrientation.h"
-#import <TTTAttributedLabel/TTTAttributedLabel.h>
 #import "QMMessageNotificationManager.h"
-
 #import "NSString+EMOEmoji.h"
-
-#import <SafariServices/SFSafariViewController.h>
-
 #import "UIAlertView+Blocks.h"
-
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <CoreTelephony/CTCarrier.h>
 
 static const NSUInteger widthPadding = 40.0f;
 

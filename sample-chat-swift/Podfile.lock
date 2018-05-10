@@ -5,66 +5,66 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - Crashlytics (3.9.3):
-    - Fabric (~> 1.7.2)
-  - Fabric (1.7.2)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Fabric (1.7.6)
   - FFCircularProgressView (0.5)
-  - QMCVDevelopment (0.6):
+  - QMChatViewController (0.6.6):
     - FFCircularProgressView
-    - QMCVDevelopment/Categories (= 0.6)
-    - QMCVDevelopment/Protocols (= 0.6)
-    - QMCVDevelopment/QMChatDataSource (= 0.6)
-    - QMCVDevelopment/QMChatLocationSnapshotter (= 0.6)
-    - QMCVDevelopment/Sections (= 0.6)
-    - QMCVDevelopment/Utils (= 0.6)
-    - QMCVDevelopment/ViewModels (= 0.6)
-    - QMCVDevelopment/Views (= 0.6)
+    - QMChatViewController/Categories (= 0.6.6)
+    - QMChatViewController/Protocols (= 0.6.6)
+    - QMChatViewController/QMChatDataSource (= 0.6.6)
+    - QMChatViewController/QMChatLocationSnapshotter (= 0.6.6)
+    - QMChatViewController/Sections (= 0.6.6)
+    - QMChatViewController/Utils (= 0.6.6)
+    - QMChatViewController/ViewModels (= 0.6.6)
+    - QMChatViewController/Views (= 0.6.6)
     - SDWebImage
     - TTTAttributedLabel
-  - QMCVDevelopment/Categories (0.6):
+  - QMChatViewController/Categories (0.6.6):
     - FFCircularProgressView
-    - QMCVDevelopment/QMChatLocationSnapshotter
+    - QMChatViewController/QMChatLocationSnapshotter
     - SDWebImage
     - TTTAttributedLabel
-  - QMCVDevelopment/Protocols (0.6):
-    - FFCircularProgressView
-    - SDWebImage
-    - TTTAttributedLabel
-  - QMCVDevelopment/QMChatDataSource (0.6):
+  - QMChatViewController/Protocols (0.6.6):
     - FFCircularProgressView
     - SDWebImage
     - TTTAttributedLabel
-  - QMCVDevelopment/QMChatLocationSnapshotter (0.6):
+  - QMChatViewController/QMChatDataSource (0.6.6):
     - FFCircularProgressView
     - SDWebImage
     - TTTAttributedLabel
-  - QMCVDevelopment/Sections (0.6):
+  - QMChatViewController/QMChatLocationSnapshotter (0.6.6):
     - FFCircularProgressView
-    - QMCVDevelopment/QMChatDataSource
     - SDWebImage
     - TTTAttributedLabel
-  - QMCVDevelopment/Utils (0.6):
+  - QMChatViewController/Sections (0.6.6):
     - FFCircularProgressView
-    - QMCVDevelopment/Categories
+    - QMChatViewController/QMChatDataSource
     - SDWebImage
     - TTTAttributedLabel
-  - QMCVDevelopment/ViewModels (0.6):
+  - QMChatViewController/Utils (0.6.6):
     - FFCircularProgressView
-    - QMCVDevelopment/Categories
+    - QMChatViewController/Categories
     - SDWebImage
     - TTTAttributedLabel
-  - QMCVDevelopment/Views (0.6):
+  - QMChatViewController/ViewModels (0.6.6):
     - FFCircularProgressView
-    - QMCVDevelopment/Categories
-    - QMCVDevelopment/Protocols
-    - QMCVDevelopment/Utils
+    - QMChatViewController/Categories
     - SDWebImage
     - TTTAttributedLabel
-  - QMServicesDevelopment (0.6.1):
+  - QMChatViewController/Views (0.6.6):
+    - FFCircularProgressView
+    - QMChatViewController/Categories
+    - QMChatViewController/Protocols
+    - QMChatViewController/Utils
+    - SDWebImage
+    - TTTAttributedLabel
+  - QMServices (0.6.2):
     - Bolts (>= 1.9.0)
-  - SDWebImage (4.2.3):
-    - SDWebImage/Core (= 4.2.3)
-  - SDWebImage/Core (4.2.3)
+  - SDWebImage (4.3.3):
+    - SDWebImage/Core (= 4.3.3)
+  - SDWebImage/Core (4.3.3)
   - SearchEmojiOnString (1.1.0)
   - SVProgressHUD (1.1.3)
   - TTTAttributedLabel (2.0.0)
@@ -72,39 +72,50 @@ PODS:
 DEPENDENCIES:
   - Crashlytics
   - Fabric
-  - QMCVDevelopment (from `git@github.com:QuickBlox/QMChatViewController-ios.git`, tag `0.6`)
-  - QMServicesDevelopment (from `git@github.com:QuickBlox/q-municate-services-ios.git`, tag `0.6.1`)
+  - QMChatViewController (from `https://github.com/QuickBlox/QMChatViewController-ios.git`, branch `master`)
+  - "QMServices (from `git@github.com:QuickBlox/q-municate-services-ios.git`, branch `master`)"
   - SearchEmojiOnString
   - SVProgressHUD (~> 1.1.3)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Bolts
+    - Crashlytics
+    - Fabric
+    - FFCircularProgressView
+    - SDWebImage
+    - SearchEmojiOnString
+    - SVProgressHUD
+    - TTTAttributedLabel
+
 EXTERNAL SOURCES:
-  QMCVDevelopment:
-    :git: git@github.com:QuickBlox/QMChatViewController-ios.git
-    :tag: 0.6
-  QMServicesDevelopment:
-    :git: git@github.com:QuickBlox/q-municate-services-ios.git
-    :tag: 0.6.1
+  QMChatViewController:
+    :branch: master
+    :git: https://github.com/QuickBlox/QMChatViewController-ios.git
+  QMServices:
+    :branch: master
+    :git: "git@github.com:QuickBlox/q-municate-services-ios.git"
 
 CHECKOUT OPTIONS:
-  QMCVDevelopment:
-    :git: git@github.com:QuickBlox/QMChatViewController-ios.git
-    :tag: 0.6
-  QMServicesDevelopment:
-    :git: git@github.com:QuickBlox/q-municate-services-ios.git
-    :tag: 0.6.1
+  QMChatViewController:
+    :commit: e07a64ba51dc32041c8f30787f55f8980a0b6d1a
+    :git: https://github.com/QuickBlox/QMChatViewController-ios.git
+  QMServices:
+    :commit: f103a7d7d028df3cc2695a7f287019b165fff542
+    :git: "git@github.com:QuickBlox/q-municate-services-ios.git"
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
-  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
   FFCircularProgressView: 683a4ab1e1bd613246a3dffa61503ffdebcde8d8
-  QMCVDevelopment: 8b724410db764d2d612968cad41048dbe48f3357
-  QMServicesDevelopment: bea9291900e039a2af592652696c6156ac852b3e
-  SDWebImage: 791bb72962b3492327ddcac4b1880bd1b5458431
+  QMChatViewController: 8deabd834211f5795d9f2b305cd68fa339b8d9d1
+  QMServices: 217c03a76e121bcbc45d11e062040ea6afb3b39c
+  SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: e3c222b7698461ef1b46aced36903286dd386328
+PODFILE CHECKSUM: 1cac9024e2db726afd6d30e477e00a96ba254a1a
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.2

@@ -29,7 +29,6 @@ typedef NS_ENUM(NSUInteger, QBMPushType) {
     QBMPushTypeAPNSVOIP,
     QBMPushTypeGCM,
     QBMPushTypeMPNS,
-    QBMPushTypeBBPS
 };
 
 // Notification channels
@@ -39,6 +38,5 @@ typedef NS_ENUM(NSUInteger, QBMNotificationChannel) {
     QBMNotificationChannelAPNS,
     QBMNotificationChannelAPNSVOIP,
     QBMNotificationChannelGCM,
-    QBMNotificationChannelMPNS,
-    QBMNotificationChannelBBPS
+    QBMNotificationChannelMPNS
 };

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-@import QMServicesDevelopment;
 #import "NotificationService.h"
 
 
