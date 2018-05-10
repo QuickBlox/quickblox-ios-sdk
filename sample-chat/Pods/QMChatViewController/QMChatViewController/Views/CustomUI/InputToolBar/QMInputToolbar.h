@@ -96,67 +96,6 @@
 - (void)messagesInputToolbar:(QMInputToolbar *)toolbar
        didPressLeftBarButton:(UIButton *)sender;
 
-@optional
-
-/**
- Asks the delegate if it can start the audio recording by touching the audio record button.
- 
- @param toolbar An instance of `QMInputToolbar`
- @return YES if the audio recording should start or NO if it should not.
- */
-- (BOOL)messagesInputToolbarAudioRecordingShouldStart:(QMInputToolbar *)toolbar
-__deprecated_msg("Method deprecated. Use audioRecordingShouldStart");
-
-/**
- This method is called when an audio recording has started.
- 
- @param toolbar An instance of `QMInputToolbar`
- */
-- (void)messagesInputToolbarAudioRecordingStart:(QMInputToolbar *)toolbar
-__deprecated_msg("Method deprecated. Use audioRecordingStart");
-
-/**
- This method is called when an audio recording has cancelled.
- 
- @param toolbar An instance of `QMInputToolbar`
- */
-- (void)messagesInputToolbarAudioRecordingCancel:(QMInputToolbar *)toolbar
-__deprecated_msg("Method deprecated. Use audioRecordingCancel");
-
-/**
- This method is called when an audio recording has completed.
- 
- @param toolbar An instance of `QMInputToolbar`
- */
-- (void)messagesInputToolbarAudioRecordingComplete:(QMInputToolbar *)toolbar
-__deprecated_msg("Method deprecated. Use audioRecordingComplete");
-
-/**
- This method is called when an audio recording has paused because of timeout.
- @discussion: This mehod will be called only if 'inputPanelAudioRecordingMaximumDuration:' is adopted.
- @param toolbar An instance of `QMInputToolbar`.
- */
-- (void)messagesInputToolbarAudioRecordingPausedByTimeOut:(QMInputToolbar *)toolbar
-__deprecated_msg("Method deprecated. Use audioRecordingPausedByTimeOut");
-
-/**
- Tells the delegate to return the current duration.
- 
- @param toolbar An instance of `QMInputToolbar`
- @return Current duration of the audio recorder.
- */
-- (NSTimeInterval)inputPanelAudioRecordingDuration:(QMInputToolbar *)toolbar
-__deprecated_msg("Method deprecated. Use audioRecordingDuration:");
-
-/**
- Tells the delegate to return the maximum duration.
- 
- @param toolbar An instance of `QMInputToolbar`
- @return The maximum duration of the recorded audio.
- */
-- (NSTimeInterval)inputPanelAudioRecordingMaximumDuration:(QMInputToolbar *)toolbar
-__deprecated_msg("Method deprecated. Use audioRecordingMaximumDuration:");
-
 @end
 
 /**
@@ -223,7 +162,7 @@ __deprecated_msg("Method deprecated. Use audioRecordingMaximumDuration:");
 @property (assign, nonatomic) BOOL audioRecordingEnabled;
 
 /**
- Cancels current audio recording and calls the delegate method 'messagesInputToolbarAudioRecordingCancel:'
+ Cancels current audio recording and calls the delegate method 'audioRecordingCancel:'
  */
 - (void)cancelAudioRecording;
 

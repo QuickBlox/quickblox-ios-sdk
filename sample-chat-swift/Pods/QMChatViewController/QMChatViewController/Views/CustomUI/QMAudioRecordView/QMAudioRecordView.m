@@ -124,21 +124,21 @@
         int animationCurveOption = 7 << 16;
         
         [UIView animateWithDuration:0.25 delay:0.06 options:animationCurveOption animations:^{
-            _recordIndicatorView.alpha = 1.0f;
-            _recordIndicatorView.transform = CGAffineTransformIdentity;
+            self.recordIndicatorView.alpha = 1.0f;
+            self.recordIndicatorView.transform = CGAffineTransformIdentity;
         } completion:nil];
         
         [UIView animateWithDuration:0.25 delay:0.0 options:animationCurveOption animations:^{
-            _recordDurationLabel.alpha = 1.0f;
-            _recordDurationLabel.transform = CGAffineTransformIdentity;
+            self.recordDurationLabel.alpha = 1.0f;
+            self.recordDurationLabel.transform = CGAffineTransformIdentity;
         } completion:nil];
         
         [UIView animateWithDuration:0.18
                               delay:0.04
                             options:animationCurveOption
                          animations:^{
-                             _slideToCancelLabel.alpha = 1.0f;
-                             _slideToCancelLabel.transform = CGAffineTransformIdentity;
+                             self.slideToCancelLabel.alpha = 1.0f;
+                             self.slideToCancelLabel.transform = CGAffineTransformIdentity;
                          } completion:nil];
         
         [self addRecordingDotAnimation];
@@ -161,12 +161,12 @@
                             options:options | animationCurveOption
                          animations:^{
                              
-                             _recordIndicatorView.alpha = 0.5f;
-                             _recordIndicatorView.transform = CGAffineTransformMakeTranslation(-90.0f, 0.0f);
+                             self.recordIndicatorView.alpha = 0.5f;
+                             self.recordIndicatorView.transform = CGAffineTransformMakeTranslation(-90.0f, 0.0f);
                          }
                          completion:^(BOOL finished) {
                              if (finished){
-                                 [_recordIndicatorView removeFromSuperview];
+                                 [self.recordIndicatorView removeFromSuperview];
                              }
                          }];
         
@@ -175,13 +175,13 @@
                             options:UIViewAnimationOptionBeginFromCurrentState | animationCurveOption
                          animations:^ {
                              
-                             _recordDurationLabel.alpha = 0.0f;
-                             _recordDurationLabel.transform = CGAffineTransformMakeTranslation(-90.0f, 0.0f);
+                             self.recordDurationLabel.alpha = 0.0f;
+                             self.recordDurationLabel.transform = CGAffineTransformMakeTranslation(-90.0f, 0.0f);
                              
                          } completion:^(BOOL finished) {
                              
                              if (finished){
-                                 [_recordDurationLabel removeFromSuperview];
+                                 [self.recordDurationLabel removeFromSuperview];
                              }
                          }];
         
@@ -190,8 +190,8 @@
                             options:UIViewAnimationOptionBeginFromCurrentState | animationCurveOption
                          animations:^ {
                              
-                             _slideToCancelLabel.alpha = 0.0f;
-                             _slideToCancelLabel.transform = CGAffineTransformMakeTranslation(-200, 0.0f);
+                             self.slideToCancelLabel.alpha = 0.0f;
+                             self.slideToCancelLabel.transform = CGAffineTransformMakeTranslation(-200, 0.0f);
                          } completion:nil];
     }
 }
@@ -286,7 +286,7 @@ UIImage *circleImage(CGFloat radius, UIColor *color) {
     
     [UIView animateWithDuration:0.25 delay:0.06 options:0 animations:^{
         
-        _errorMessageLabel.alpha = 1.0f;
+        self.errorMessageLabel.alpha = 1.0f;
         
     } completion:^(BOOL finished) {
         

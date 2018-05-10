@@ -317,30 +317,16 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 }
 
 - (void)recordButtonInteractionDidBegin {
-    
-    dispatch_block_t startRecording = ^{
-        
-        self.recording = YES;
-        [self setShowRecordingInterface:true velocity:0.0f];
-        if ([self.delegate respondsToSelector:@selector(messagesInputToolbarAudioRecordingStart:)]) {
-            [self.delegate messagesInputToolbarAudioRecordingStart:self];
-        }
-        
-        if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingStart:)]) {
-            [self.audioRecordDelegate audioRecordingStart:self];
-        }
-        [self startAudioRecording];
-    };
-    
-    if ([self.delegate respondsToSelector:@selector(messagesInputToolbarAudioRecordingShouldStart:)]) {
-        if ([self.delegate messagesInputToolbarAudioRecordingShouldStart:self]) {
-            startRecording();
-        }
-    }
 
     if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingShouldStart:)]) {
         if ([self.audioRecordDelegate audioRecordingShouldStart:self]) {
-            startRecording();
+            self.recording = YES;
+            [self setShowRecordingInterface:true velocity:0.0f];
+            
+            if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingStart:)]) {
+                [self.audioRecordDelegate audioRecordingStart:self];
+            }
+            [self startAudioRecording];
         }
     }
 }
@@ -352,9 +338,6 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
         self.recording = NO;
         [self setShowRecordingInterface:false velocity:velocity];
         
-        if ([self.delegate respondsToSelector:@selector(messagesInputToolbarAudioRecordingCancel:)]) {
-            [self.delegate messagesInputToolbarAudioRecordingCancel:self];
-        }
         if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingCancel:)]) {
             [self.audioRecordDelegate audioRecordingCancel:self];
         }
@@ -368,9 +351,6 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
         
         [self setShowRecordingInterface:false velocity:0.0];
         
-        if ([self.delegate respondsToSelector:@selector(messagesInputToolbarAudioRecordingCancel:)]) {
-            [self.delegate messagesInputToolbarAudioRecordingCancel:self];
-        }
         if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingCancel:)]) {
             [self.audioRecordDelegate audioRecordingCancel:self];
         }
@@ -383,10 +363,6 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
         
         self.recording = NO;
         [self setShowRecordingInterface:false velocity:velocity];
-        
-        if ([self.delegate respondsToSelector:@selector(messagesInputToolbarAudioRecordingComplete:)]) {
-            [self.delegate messagesInputToolbarAudioRecordingComplete:self];
-        }
         
         if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingComplete:)]) {
             [self.audioRecordDelegate audioRecordingComplete:self];
@@ -414,20 +390,12 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 
 - (void)shouldStopRecordingByTimeOut {
     
-    if ([self.delegate respondsToSelector:@selector(messagesInputToolbarAudioRecordingPausedByTimeOut:)]) {
-        return [self.delegate messagesInputToolbarAudioRecordingPausedByTimeOut:self];
-    }
-    
     if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingPausedByTimeOut:)]) {
         return [self.audioRecordDelegate audioRecordingPausedByTimeOut:self];
     }
 }
 
 - (NSTimeInterval)maximumDuration {
-    
-    if ([self.delegate respondsToSelector:@selector(inputPanelAudioRecordingMaximumDuration:)]) {
-        return [self.delegate inputPanelAudioRecordingMaximumDuration:self];
-    }
     
     if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingMaximumDuration:)]) {
         return [self.audioRecordDelegate audioRecordingMaximumDuration:self];
@@ -437,10 +405,6 @@ static void * kQMInputToolbarKeyValueObservingContext = &kQMInputToolbarKeyValue
 }
 
 - (NSTimeInterval)currentDuration {
-    
-    if ([self.delegate respondsToSelector:@selector(inputPanelAudioRecordingDuration:)]) {
-        return [self.delegate inputPanelAudioRecordingDuration:self];
-    }
     
     if ([self.audioRecordDelegate respondsToSelector:@selector(audioRecordingDuration:)]) {
         return [self.audioRecordDelegate audioRecordingDuration:self];

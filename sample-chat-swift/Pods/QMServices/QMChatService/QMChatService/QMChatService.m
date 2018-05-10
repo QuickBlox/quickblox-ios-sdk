@@ -316,9 +316,9 @@ static NSString* const kQMChatServiceDomain = @"com.q-municate.chatservice";
         if ([self.multicastDelegate respondsToSelector:@selector(chatServiceChatHasStartedConnecting:)]) {
             [self.multicastDelegate chatServiceChatHasStartedConnecting:self];
         }
+        QBUUser *user = self.serviceManager.currentUser;
         
-        [[QBChat instance] connectWithUser:self.serviceManager.currentUser
-                                completion:completion];
+        [QBChat.instance connectWithUserID:user.ID password:user.password completion:completion];
     }
 }
 

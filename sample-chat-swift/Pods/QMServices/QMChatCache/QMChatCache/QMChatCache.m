@@ -322,7 +322,7 @@ static QMChatCache *_chatCacheInstance = nil;
     } finish:completion];
 }
 
-- (void)deleteMessageWithDialogID:(NSString *)dialogID
+- (void)deleteMessagesWithDialogID:(NSString *)dialogID
                        completion:(dispatch_block_t)completion {
     
     [self save:^(NSManagedObjectContext *ctx) {

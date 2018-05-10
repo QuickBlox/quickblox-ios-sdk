@@ -26,7 +26,7 @@ static void * kChatKeyValueObservingContext = &kChatKeyValueObservingContext;
 const NSUInteger kQMSystemInputToolbarDebugHeight = 0;
 
 @interface QMChatViewController () <QMInputToolbarDelegate, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate, UIAlertViewDelegate,
+UINavigationControllerDelegate, UIActionSheetDelegate, UIScrollViewDelegate,
 QMChatDataSourceDelegate, QMAudioRecordToolbarDelegate>
 
 @property (weak, nonatomic) IBOutlet QMChatCollectionView *collectionView;
@@ -68,8 +68,7 @@ QMChatDataSourceDelegate, QMAudioRecordToolbarDelegate>
     self.inputToolbar.contentView.textView.delegate = nil;
     self.inputToolbar.contentView.textView.qm_placeholderTextViewPasteDelegate = nil;
     self.inputToolbar.delegate = nil;
-    
-    self.senderDisplayName = nil;
+
 }
 
 - (void)viewDidLoad {
@@ -710,14 +709,6 @@ QMChatDataSourceDelegate, QMAudioRecordToolbarDelegate>
     }
 }
 
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-    }
-}
-
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -982,13 +973,23 @@ QMChatDataSourceDelegate, QMAudioRecordToolbarDelegate>
         message = NSLocalizedString(@"You can allow access to Photos in Settings", nil);
     }
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                          otherButtonTitles:NSLocalizedString(@"Open Settings", nil),nil];
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:title
+                                          message:message
+                                          preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert show];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Open Settings", nil)
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull __unused action)
+    {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

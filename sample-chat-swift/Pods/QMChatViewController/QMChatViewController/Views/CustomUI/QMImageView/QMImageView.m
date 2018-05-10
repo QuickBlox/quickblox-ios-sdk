@@ -198,11 +198,11 @@ static NSArray *qm_colors = nil;
     
     dispatch_block_t showPlaceholder = ^{
         
-        [_textLayer setString:title color:[self colorForString:title]];
-        _textLayer.hidden = NO;
+        [self.textLayer setString:title color:[self colorForString:title]];
+        self.textLayer.hidden = NO;
         
-        if (!CGRectEqualToRect(_textLayer.frame, self.bounds)) {
-            _textLayer.frame = self.bounds;
+        if (!CGRectEqualToRect(self.textLayer.frame, self.bounds)) {
+            self.textLayer.frame = self.bounds;
         }
     };
     

@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment version="2048" identifier="iOS"/>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -138,7 +138,7 @@
                 <outlet property="topLabelHeightConstraint" destination="VYw-Ld-ar1" id="SGp-H8-Qeb"/>
                 <outlet property="topLabelTextViewVerticalSpaceConstraint" destination="mbp-Hv-6Tq" id="OJk-NT-Qbw"/>
             </connections>
-            <point key="canvasLocation" x="256.5" y="369"/>
+            <point key="canvasLocation" x="-35" y="-8"/>
         </collectionViewCell>
     </objects>
 </document>
