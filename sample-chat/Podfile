@@ -4,8 +4,8 @@ use_frameworks!
 
 target 'samplechat' do
     
-    pod 'QMChatViewController', :git => 'https://github.com/QuickBlox/QMChatViewController-ios.git', :branch => 'development'
-    pod 'QMServices',:git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :branch => 'development'
+    pod 'QMChatViewController', :git => 'https://github.com/QuickBlox/QMChatViewController-ios.git', :branch => 'master'
+    pod 'QMServices',:git => 'git@github.com:QuickBlox/q-municate-services-ios.git', :branch => 'master'
     pod 'SVProgressHUD', '~> 1.1.3'
     pod 'SearchEmojiOnString'
     pod 'UIAlertView+Blocks'

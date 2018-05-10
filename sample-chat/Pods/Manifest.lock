@@ -61,7 +61,7 @@ PODS:
     - QMChatViewController/Utils
     - SDWebImage
     - TTTAttributedLabel
-  - QMServices (0.6.1):
+  - QMServices (0.6.2):
     - Bolts (>= 1.9.0)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
@@ -75,8 +75,8 @@ DEPENDENCIES:
   - Crashlytics
   - Fabric
   - MPGNotification
-  - QMChatViewController (from `https://github.com/QuickBlox/QMChatViewController-ios.git`, branch `development`)
-  - "QMServices (from `git@github.com:QuickBlox/q-municate-services-ios.git`, branch `development`)"
+  - QMChatViewController (from `https://github.com/QuickBlox/QMChatViewController-ios.git`, branch `master`)
+  - "QMServices (from `git@github.com:QuickBlox/q-municate-services-ios.git`, branch `master`)"
   - SearchEmojiOnString
   - SVProgressHUD (~> 1.1.3)
   - "UIAlertView+Blocks"
@@ -96,10 +96,10 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   QMChatViewController:
-    :branch: development
+    :branch: master
     :git: https://github.com/QuickBlox/QMChatViewController-ios.git
   QMServices:
-    :branch: development
+    :branch: master
     :git: "git@github.com:QuickBlox/q-municate-services-ios.git"
 
 CHECKOUT OPTIONS:
@@ -107,7 +107,7 @@ CHECKOUT OPTIONS:
     :commit: f3fab1d3d4ae18ac63607c98aa70550c424d5627
     :git: https://github.com/QuickBlox/QMChatViewController-ios.git
   QMServices:
-    :commit: 0b812268383576fc758a882ce606db645b9e7f15
+    :commit: f103a7d7d028df3cc2695a7f287019b165fff542
     :git: "git@github.com:QuickBlox/q-municate-services-ios.git"
 
 SPEC CHECKSUMS:
@@ -117,13 +117,13 @@ SPEC CHECKSUMS:
   FFCircularProgressView: 683a4ab1e1bd613246a3dffa61503ffdebcde8d8
   MPGNotification: 42d24c02ef1ca0b4dad54cd963eb99965e21d848
   QMChatViewController: acb85a0cabaa13b1877b0829ec713ed35e6e6dad
-  QMServices: ef5d17ca86796a050f89a36b863a56e892219698
+  QMServices: 217c03a76e121bcbc45d11e062040ea6afb3b39c
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   SearchEmojiOnString: 7344970449603396555d058a0dc297b5471bafa7
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   "UIAlertView+Blocks": a46c99c5144f6c5dbc7d62fd2a0678daceec89a3
 
-PODFILE CHECKSUM: d42d38fd8e57286e37616c6eac1142a710dc7395
+PODFILE CHECKSUM: ce8e7e59f999a85c5555e5992a0f3335dbcd8708
 
 COCOAPODS: 1.5.0
