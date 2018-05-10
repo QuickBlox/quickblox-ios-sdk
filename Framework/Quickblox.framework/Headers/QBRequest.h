@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^QBErrorBlock)(QBError *error);
 typedef void(^qb_response_status_block_t)(QBRequest *request, QBRequestStatus *status);
 typedef void(^qb_response_block_t)(QBResponse *response);
+typedef void(^qb_error_block_t)(NSError *error);
 
 /**
  *  QBRequest class interface.
@@ -41,6 +42,8 @@ typedef void(^qb_response_block_t)(QBResponse *response);
 - (void)cancel;
 
 + (void)cancelAllRequests:(dispatch_block_t)completion;
+
+- (void)errorBlock:(qb_error_block_t)errorBlock;
 
 @end
 

@@ -59,5 +59,5 @@
 #import <Quickblox/QBUpdateUserParameters.h>
 #import <Quickblox/QBUUser.h>
 
-/// Framework version 2.16
+/// Framework version 2.17
 FOUNDATION_EXPORT NSString * const QuickbloxFrameworkVersion;

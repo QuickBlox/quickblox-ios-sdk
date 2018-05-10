@@ -1,6 +1,0 @@
-framework module QMCVDevelopment {
-  umbrella header "QMCVDevelopment-umbrella.h"
-
-  export *
-  module * { export * }
-}

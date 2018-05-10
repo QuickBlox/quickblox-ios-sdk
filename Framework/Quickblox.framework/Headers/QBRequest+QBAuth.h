@@ -121,23 +121,6 @@ typedef void(^qb_response_user_block_t)(QBResponse *response, QBUUser *tUser);
          successBlock:(nullable qb_response_user_block_t)successBlock
            errorBlock:(nullable qb_response_block_t)errorBlock;
 
-// MARK: - DEPRECATED
-
-/**
- *  User login using Twitter Digits.
- *
- *  @param headers      Taken from '-[DGTOAuthSigning OAuthEchoHeadersToVerifyCredentials]'.
- *  @param successBlock Block with response and user instances if the request is succeeded.
- *  @param errorBlock   Block with response instance if the request is failed.
- *  @warning Deprecated in 2.10 Use 'logInWithFirebaseProjectID:accessToken:successBlock:errorBlock:'.
- *  @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)logInWithTwitterDigitsAuthHeaders:(NSDictionary *)headers
-                                    successBlock:(nullable qb_response_user_block_t)successBlock
-                                      errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'logInWithFirebaseProjectID:accessToken:successBlock:errorBlock:'.");
-
-
 @end
 
 NS_ASSUME_NONNULL_END

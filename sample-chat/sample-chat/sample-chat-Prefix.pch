@@ -7,13 +7,8 @@
 #import <Availability.h>
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <MobileCoreServices/MobileCoreServices.h>
-    #import <SystemConfiguration/SystemConfiguration.h>
     #import <Quickblox/Quickblox.h>
-    #import <Quickblox/QBMulticastDelegate.h>
-    #import <QMServicesDevelopment/QMServices.h>
+    #import <QMServices/QMServices.h>
     #import "SVProgressHUD.h"
 	#import "Constants.h"
 #endif

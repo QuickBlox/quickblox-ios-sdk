@@ -52,7 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 /** Return current resource. */
 @property (nonatomic, readonly, copy, nullable) NSString *currentResource;
 
+/**Unavailable initializer.*/
 - (id)init NS_UNAVAILABLE;
+
+/**Unavailable initializer.*/
 + (instancetype)new NS_UNAVAILABLE;
 
 //MARK: - Multicast Delegate
@@ -86,22 +89,24 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Connect to QuickBlox Chat with completion.
  
- @param user QBUUser structure represents user's login. Required user's fields: ID, password.
+ @param userID User's ID.
+ @param password User's password.
  @param completion Completion block with failure error.
  */
-- (void)connectWithUser:(QBUUser *)user
-             completion:(nullable QBChatCompletionBlock)completion;
-
+- (void)connectWithUserID:(NSUInteger)userID
+                 password:(NSString *)password
+               completion:(nullable QBChatCompletionBlock)completion;
 /**
- Connect to QuickBlox Chat.
+ Connect to QuickBlox Chat with completion.
  
- @param user QBUUser structure represents user's login. Required user's fields: ID, password.
- @param resource The resource identifier of user.
+ @param userID User's ID.
+ @param password User's password.
  @param completion Completion block with failure error.
  */
-- (void)connectWithUser:(QBUUser *)user
-               resource:(nullable NSString *)resource
-             completion:(nullable QBChatCompletionBlock)completion;
+- (void)connectWithUserID:(NSUInteger)userID
+                 password:(NSString *)password
+                 resource:(NSString *)resource
+               completion:(nullable QBChatCompletionBlock)completion;
 
 /**
  Disconnect current user from Chat and leave all rooms.
@@ -321,6 +326,34 @@ NS_ASSUME_NONNULL_BEGIN
  @param completion The block which informs whether a request was delivered to server or not. If therequest is succeeded error is nil.
  */
 - (void)rejectAddContactRequest:(NSUInteger)userID completion:(nullable QBChatCompletionBlock)completion;
+
+@end
+
+@interface QBChat(Deprecated)
+
+/**
+ Connect to QuickBlox Chat with completion.
+ 
+ @param user QBUUser structure represents user's login. Required user's fields: ID, password.
+ @param completion Completion block with failure error.
+ @warning Deprecated in 2.17. Use connectWithUserID:password:completion:.
+ */
+- (void)connectWithUser:(QBUUser *)user
+             completion:(nullable QBChatCompletionBlock)completion
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.17. Use connectWithUserID:password:completion:.");
+
+/**
+ Connect to QuickBlox Chat.
+ 
+ @param user QBUUser structure represents user's login. Required user's fields: ID, password.
+ @param resource The resource identifier of user.
+ @param completion Completion block with failure error.
+ @warning Deprecated in 2.17. connectWithUserID:password:resource:completion:
+ */
+- (void)connectWithUser:(QBUUser *)user
+               resource:(nullable NSString *)resource
+             completion:(nullable QBChatCompletionBlock)completion
+DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.17. connectWithUserID:password:resource:completion:");
 
 @end
 

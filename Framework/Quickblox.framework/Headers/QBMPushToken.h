@@ -11,12 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** QBMPushToken class declaration.
  *  Class represents push token, that uniquely identifies the application.  
- *  (for APNS - it's token, for C2DM - it's registration Id, for MPNS - it's uri, for BBPS - it's token).
+ *  (for APNS - it's token, for GCM - it's registration Id, for MPNS - it's uri).
  */
 @interface QBMPushToken : QBCEntity <NSCoding, NSCopying>
 
 /** 
- *  Identifies client device in 3-rd party service like APNS, C2DM, MPNS, BBPS.
+ *  Identifies client device in 3-rd party service like APNS, GCM, MPNS.
  */
 @property(nonatomic, copy, nullable) NSString *clientIdentificationSequence;
 

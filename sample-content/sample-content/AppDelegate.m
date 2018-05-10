@@ -14,7 +14,7 @@ NSString *const kAuthKey        = @"hZW5jgFxzOS2aCC";
 NSString *const kAuthSecret     = @"HOvhKhWNeGgV8cF";
 NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
 
-typedef void (^CompletionHandlerType)();
+typedef void (^CompletionHandlerType)(void);
 
 @interface AppDelegate ()
 
@@ -81,7 +81,7 @@ typedef void (^CompletionHandlerType)();
 
 // Refer to this guide https://www.objc.io/issues/5-ios7/multitasking/#nsurlsessiondownloadtask
 
-- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(nonnull void (^)(void))completionHandler
 {
     // You must re-establish a reference to the background session,
     // or NSURLSessionDownloadDelegate and NSURLSessionDelegate methods will not be called

@@ -18,6 +18,21 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
 
 @interface QBRequest (QBContent)
 
+//MARK: - Create Blob
+
+/**
+ Create blob.
+ 
+ @param blob An instance of QBCBlob, describing the file to be uploaded.
+ @param successBlock Block with response and blob instances if the request is succeeded
+ @param errorBlock Block with response instance if the request is failed.
+ 
+ @return An instance of QBRequest for cancel operation mainly.
+ */
++ (QBRequest *)createBlob:(QBCBlob *)blob
+             successBlock:(nullable qb_response_blob_block_t)successBlock
+               errorBlock:(nullable qb_response_block_t)errorBlock;
+
 
 //MARK: - Get Blob with ID
 
@@ -137,7 +152,7 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
  
  @param UID File unique identifier, value of UID property of the QBCBlob instance.
  @param successBlock Block with response if the request is succeeded
- @param statusBlock Block with upload/download progress
+ @param statusBlock Block with download progress
  @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
@@ -154,7 +169,7 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
  
  @param UID File unique identifier, value of UID property of the QBCBlob instance.
  @param successBlock Block with response if the request is succeeded
- @param statusBlock Block with upload/download progress
+ @param statusBlock Block with download progress
  @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
@@ -168,7 +183,7 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
  
  @param fileID File identifier.
  @param successBlock Block with response and fileData if the request is succeeded
- @param statusBlock Block with upload/download progress
+ @param statusBlock Block with download progress
  @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
@@ -185,7 +200,7 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
  
  @param fileID File identifier.
  @param successBlock Block with response and fileData if the request is succeeded
- @param statusBlock Block with upload/download progress
+ @param statusBlock Block with download progress
  @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
@@ -204,7 +219,7 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
  @param contentType Type of the content in mime format
  @param isPublic Blob's visibility
  @param successBlock Block with response if the request is succeeded
- @param statusBlock Block with upload/download progress
+ @param statusBlock Block with upload progress
  @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
@@ -225,7 +240,7 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
  @param contentType Type of the content in mime format
  @param isPublic Blob's visibility
  @param successBlock Block with response if the request is succeeded
- @param statusBlock Block with upload/download progress
+ @param statusBlock Block with upload progress
  @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
@@ -243,7 +258,7 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
  @param data File to be uploaded
  @param file File which needs to be updated
  @param successBlock Block with response if the request is succeeded
- @param statusBlock Block with upload/download progress
+ @param statusBlock Block with upload progress
  @param errorBlock Block with response instance if the request is failed.
  
  @return An instance of QBRequest for cancel operation mainly.
@@ -253,64 +268,6 @@ typedef void(^qb_response_blob_block_t)(QBResponse *response, QBCBlob *tBlob);
                       successBlock:(nullable qb_response_block_t)successBlock
                        statusBlock:(nullable qb_response_status_block_t)statusBlock
                         errorBlock:(nullable qb_response_block_t)errorBlock;
-
-//MARK: DEPRECATED
-
-/**
- Get list of blob for the current User (last 10 files)
- 
- @param successBlock Block with response, page and blob instances if the request is succeeded
- @param errorBlock Block with response instance if the request is failed.
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)blobsWithSuccessBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage * _Nullable page, NSArray<QBCBlob *> * _Nullable blobs))successBlock
-                          errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'blobsForPage:successBlock:errorBlock:'.");
-
-
-/**
- Get list of tagged blobs for the current User (last 10 files)
- 
- @param successBlock Block with response, page and blob instances if the request is succeeded
- @param errorBlock Block with response instance if the request is failed.
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)taggedBlobsWithSuccessBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> * _Nullable blobs))successBlock
-                                errorBlock:(nullable qb_response_block_t)errorBlock
-DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'taggedBlobsForPage:successBlock:errorBlock:'.");
-
-//MARK: - Get list of tagged blobs for the current user
-
-/**
- Get list of tagged blobs for the current User (with extended set of pagination parameters)
- 
- @param page Page information
- @param successBlock Block with response, page and blob instances if the request is succeeded
- @param errorBlock Block with response instance if the request is failed.
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)taggedBlobsForPage:(nullable QBGeneralResponsePage *)page
-                     successBlock:(nullable void(^)(QBResponse *response, QBGeneralResponsePage *page, NSArray<QBCBlob *> *blobs))successBlock
-                       errorBlock:(nullable qb_response_block_t)errorBlock DEPRECATED_ATTRIBUTE;
-
-
-//MARK: - Create Blob
-
-/**
- Create blob.
- 
- @param blob An instance of QBCBlob, describing the file to be uploaded.
- @param successBlock Block with response and blob instances if the request is succeeded
- @param errorBlock Block with response instance if the request is failed.
- 
- @return An instance of QBRequest for cancel operation mainly.
- */
-+ (QBRequest *)createBlob:(QBCBlob *)blob
-             successBlock:(nullable qb_response_blob_block_t)successBlock
-               errorBlock:(nullable qb_response_block_t)errorBlock DEPRECATED_ATTRIBUTE;
 
 //MARK: - Declaring Blob uploaded with ID
 
@@ -327,7 +284,7 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated in 2.10 Use 'taggedBlobsForPage:successBloc
 + (QBRequest *)completeBlobWithID:(NSUInteger)blobID
                              size:(NSUInteger)size
                      successBlock:(nullable qb_response_block_t)successBlock
-                       errorBlock:(nullable qb_response_block_t)errorBlock DEPRECATED_ATTRIBUTE;
+                       errorBlock:(nullable qb_response_block_t)errorBlock;
 
 @end
 
