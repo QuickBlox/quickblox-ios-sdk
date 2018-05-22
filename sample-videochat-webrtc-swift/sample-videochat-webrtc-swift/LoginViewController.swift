@@ -67,14 +67,14 @@ class LoginViewController: UIViewController {
         QBRequest.logIn(withUserLogin: userLogin, password: password, successBlock:{ r, user in
             self.currentUser = user
             SVProgressHUD.show(withStatus: "Connecting to chat")
-            QBChat.instance.connect(with: user) { err in
+            QBChat.instance.connect(withUserID: user.id, password: password, completion: { _ in
                 let logins = self.users?.keys.filter {$0 != user.login}
                 SVProgressHUD.show(withStatus: "Geting users Info")
                 QBRequest.users(withLogins: logins!, page:nil, successBlock: { r, p, users in
                     self.performSegue(withIdentifier: "CallViewController", sender:users)
                     SVProgressHUD.dismiss()
                 })
-            }
+            })
         })
     }
     
