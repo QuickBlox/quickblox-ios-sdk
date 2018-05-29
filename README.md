@@ -24,7 +24,7 @@ This project contains QuickBlox iOS Samples and latest version of SDK, that incl
   * [Obj-C Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat)
   * [Swift Chat Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-chat-swift)
   * [Objc-C VideoChat WebRTC Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat-webrtc)
-  * [Swift VideoChat WebRTC Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat-swift)
+  * [Swift VideoChat WebRTC Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-videochat-webrtc-swift)
   * [Push Notifications Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-push-notifications)
   * [Users Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-users)
   * [Custom Objects Sample](https://github.com/QuickBlox/quickblox-ios-sdk/tree/master/sample-custom_objects)
