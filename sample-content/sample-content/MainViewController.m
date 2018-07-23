@@ -65,7 +65,7 @@ static NSString* const kImageCellIdentifier = @"ImageCollectionViewCellIdentifie
     if ([QBSession currentSession].currentUser == nil) {
         __weak typeof(self)weakSelf = self;
         [SVProgressHUD showWithStatus:@"Logging in..."];
-        [QBRequest logInWithUserLogin:@"democontentuser" password:@"democontentuser" successBlock:^(QBResponse *response, QBUUser *user) {
+        [QBRequest logInWithUserLogin:@"test_user_id1" password:@"test_user_id1" successBlock:^(QBResponse *response, QBUUser *user) {
             [SVProgressHUD dismiss];
             __typeof(self) strongSelf = weakSelf;
             

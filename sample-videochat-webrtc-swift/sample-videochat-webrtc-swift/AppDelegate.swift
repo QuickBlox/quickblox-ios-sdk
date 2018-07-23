@@ -9,6 +9,12 @@
 import UIKit
 import Quickblox
 
+let kQBApplicationID:UInt = 72448
+let kQBAuthKey = "f4HYBYdeqTZ7KNb"
+let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
+let kQBAccountKey = "C4_z7nuaANnBYmsG_k98"
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,13 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // Register new account and application at https://admin.quickblox.com,
-        // then put Application credentials from Overview page + Account key from https://admin.quickblox.com/account/settings page
-        // here:
-        QBSettings.applicationID = 0
-        QBSettings.authKey = ""
-        QBSettings.authSecret = ""
-        QBSettings.accountKey = ""
+        // Set QuickBlox credentials (You must create application in admin.quickblox.com).
+        QBSettings.applicationID = kQBApplicationID;
+        QBSettings.authKey = kQBAuthKey
+        QBSettings.authSecret = kQBAuthSecret
+        QBSettings.accountKey = kQBAccountKey
         QBSettings.autoReconnectEnabled = true
         
         return true

@@ -116,7 +116,7 @@
         
         [SVProgressHUD showWithStatus:@"Initialising"];
         
-        [QBRequest logInWithUserLogin:@"qbpushios" password:@"qbpushios" successBlock:^(QBResponse *response, QBUUser *user) {
+        [QBRequest logInWithUserLogin:@"test_user_id1" password:@"test_user_id1" successBlock:^(QBResponse *response, QBUUser *user) {
             
             [SVProgressHUD dismiss];
             

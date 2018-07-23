@@ -37,8 +37,8 @@
 {
     [super viewDidLoad];
     
-    self.loginTextField.text = @"samuel27";
-    self.passwordTextField.text = @"samuel27";
+    self.loginTextField.text = @"test_user_id1";
+    self.passwordTextField.text = @"test_user_id1";
 }
 
 - (IBAction)nextButtonClicked:(id)sender

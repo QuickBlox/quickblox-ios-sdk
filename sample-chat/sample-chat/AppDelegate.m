@@ -12,10 +12,10 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
-const NSUInteger kApplicationID = 28783;
-NSString *const kAuthKey        = @"b5bVGCHHv6rcAmD";
-NSString *const kAuthSecret     = @"ySwEpardeE7ZXHB";
-NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
+const NSUInteger kApplicationID = 72448;
+NSString *const kAuthKey        = @"f4HYBYdeqTZ7KNb";
+NSString *const kAuthSecret     = @"ZC7dK39bOjVc-Z8";
+NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
 
 @interface AppDelegate () <NotificationServiceDelegate>
 

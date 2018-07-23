@@ -11,10 +11,10 @@
 #import <SVProgressHUD.h>
 #import "ViewController.h"
 
-const NSUInteger kApplicationID = 92;
-NSString *const kAuthKey        = @"wJHdOcQSxXQGWx5";
-NSString *const kAuthSecret     = @"BTFsj7Rtt27DAmT";
-NSString *const kAccountKey     = @"7yvNe17TnjNUqDoPwfqp";
+const NSUInteger kApplicationID = 72448;
+NSString *const kAuthKey        = @"f4HYBYdeqTZ7KNb";
+NSString *const kAuthSecret     = @"ZC7dK39bOjVc-Z8";
+NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
 
 @interface AppDelegate ()
 

@@ -45,7 +45,7 @@
         
         // Your app connects to QuickBlox server here.
         //
-        [QBRequest logInWithUserLogin:@"igorquickblox2" password:@"igorquickblox2" successBlock:^(QBResponse *response, QBUUser *user) {
+        [QBRequest logInWithUserLogin:@"test_user_id1" password:@"test_user_id1" successBlock:^(QBResponse *response, QBUUser *user) {
             // Load objects
             //
             [weakSelf.paginator fetchFirstPage];
@@ -110,8 +110,8 @@
     NSMutableString* result = [NSMutableString string];
     
     NSString* name = movie.fields[@"name"];
-    NSUInteger year = [movie.fields[@"year"] unsignedIntegerValue];
-    NSUInteger rating = [movie.fields[@"rating"] unsignedIntegerValue];
+    NSUInteger year = (NSUInteger)[movie.fields[@"year"]  integerValue];
+    NSUInteger rating = (NSUInteger)[movie.fields[@"rating"] integerValue];
     
     if (name != nil && name.length > 0) [result appendString:name];
     else [result appendString:@"No name"];
