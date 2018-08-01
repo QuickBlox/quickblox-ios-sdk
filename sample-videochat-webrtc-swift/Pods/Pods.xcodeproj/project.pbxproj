@@ -1,0 +1,658 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0BCCB53F0B16C16F252811FB34B8A923 /* SVProgressHUD-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 00CC2F17E01BB2C537CCA8CCC9CF618B /* SVProgressHUD-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1AA434DA55DFE716F705880B56052E6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F9A0E952988935C32EDDB1429D7133 /* Foundation.framework */; };
+		1B891FD1B534ADB8B115C83B5D5960C6 /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559348D9B414DB77384C3E33F3478D8A /* SVProgressAnimatedView.m */; };
+		201E587D1B8C600FD823BC7C7E61D80E /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 893809B30E28AFEA950C097C1159C751 /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		23126BC9F238958CD6E06D99CD616E90 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F9A0E952988935C32EDDB1429D7133 /* Foundation.framework */; };
+		4473B1A437ED1E54233FB22DA750F4B8 /* Pods-sample-videochat-webrtc-swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 04AC57A5166AE500036A1E698F877848 /* Pods-sample-videochat-webrtc-swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		464FF7DB598CE592712DE42027E0DDBF /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E442BDD2E4F2C163889D55FA2A0E2628 /* SVProgressHUD.m */; };
+		486D770BD89831B4A8CFC7CA0A8C9794 /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FB3247C5A52850C5A7F2D52B8AC4335 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		746234D65F0CB2808536593591D77B35 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBD4AB7AE4D5990872915BCF463C145 /* SVProgressHUD-dummy.m */; };
+		847908E77796E3531A057F53909EA873 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 617932E7DAC8969DE1D5117B9CE33E15 /* SVRadialGradientLayer.m */; };
+		8A4E8383B60D1B1599FBA212A70FC18F /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 54CF9D7C3EF4DEA0292568B624138B17 /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B59665CF3D610F9E2C01E930B99372A /* Pods-sample-videochat-webrtc-swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D677FF4EF260032907698F9DABA77B3 /* Pods-sample-videochat-webrtc-swift-dummy.m */; };
+		AE7C86229901DF8286693B424F975782 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2770B482BFE91273C8560623F1422C /* QuartzCore.framework */; };
+		CBA56ECE16A5474C1DC3B72E96465DB1 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90148127022957DDDE49E2192E775850 /* SVIndefiniteAnimatedView.m */; };
+		CC7A31013D1F37D32D9C57F106F0B49F /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = E5B49D5DC5E5D7D0CA3542C2C4126C0B /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FD6DB70DF80D6D617290B56C2F785FF4 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0F7D1C3B6658687AD8BF50B41B869192 /* SVProgressHUD.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A7B316130AAF2B947C07D37F773CFAC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE9ACFC44CED5BF253628D2195C27812;
+			remoteInfo = SVProgressHUD;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00CC2F17E01BB2C537CCA8CCC9CF618B /* SVProgressHUD-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-umbrella.h"; sourceTree = "<group>"; };
+		04AC57A5166AE500036A1E698F877848 /* Pods-sample-videochat-webrtc-swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-sample-videochat-webrtc-swift-umbrella.h"; sourceTree = "<group>"; };
+		0958446E5AC6B4CD6160B3331EBD4C93 /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
+		0E207A7A1936F8BAD9108E1DA08231CF /* Pods-sample-videochat-webrtc-swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-sample-videochat-webrtc-swift.modulemap"; sourceTree = "<group>"; };
+		0F7D1C3B6658687AD8BF50B41B869192 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
+		0FE84FF71ED9250BE32A90CCED418F78 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-sample-videochat-webrtc-swift.release.xcconfig"; sourceTree = "<group>"; };
+		13522065B240797ED1F5E6666F9F8C11 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
+		28994434F33A3294DC90FD541B47BDCE /* Pods-sample-videochat-webrtc-swift-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-sample-videochat-webrtc-swift-frameworks.sh"; sourceTree = "<group>"; };
+		2FB3247C5A52850C5A7F2D52B8AC4335 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		3E12A1C93ABA811E4F083CD883737585 /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickbloxWebRTC.framework; sourceTree = "<group>"; };
+		4BB3D403A9F15EB2449F82A156D6E435 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54CF9D7C3EF4DEA0292568B624138B17 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		54F9A0E952988935C32EDDB1429D7133 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		559348D9B414DB77384C3E33F3478D8A /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		617932E7DAC8969DE1D5117B9CE33E15 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		6A19A6D316BE59899B2CD6C9C559B4F5 /* Pods-sample-videochat-webrtc-swift-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-sample-videochat-webrtc-swift-acknowledgements.plist"; sourceTree = "<group>"; };
+		6D677FF4EF260032907698F9DABA77B3 /* Pods-sample-videochat-webrtc-swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-sample-videochat-webrtc-swift-dummy.m"; sourceTree = "<group>"; };
+		779E47A962658E3D96CB3328CD563555 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-sample-videochat-webrtc-swift.debug.xcconfig"; sourceTree = "<group>"; };
+		861AC22DEA23A449D6791DB5F367F473 /* SVProgressHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SVProgressHUD.modulemap; sourceTree = "<group>"; };
+		893809B30E28AFEA950C097C1159C751 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		90148127022957DDDE49E2192E775850 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		911D12A5D233FE70E242D91C3663D818 /* Pods-sample-videochat-webrtc-swift-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-sample-videochat-webrtc-swift-acknowledgements.markdown"; sourceTree = "<group>"; };
+		92BDA40BB310A96F083E27178CA8F5B5 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SVProgressHUD.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C1EC9CAD1FBED932AAD5E5B7EC491E67 /* Pods-sample-videochat-webrtc-swift-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-sample-videochat-webrtc-swift-resources.sh"; sourceTree = "<group>"; };
+		DDBD4AB7AE4D5990872915BCF463C145 /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		E442BDD2E4F2C163889D55FA2A0E2628 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
+		E5B49D5DC5E5D7D0CA3542C2C4126C0B /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
+		E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
+		ECE439F09A74333D1B9245688C2A5F46 /* Pods_sample_videochat_webrtc_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_sample_videochat_webrtc_swift.framework; path = "Pods-sample-videochat-webrtc-swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7241731F8AF31BB54A376241C4600C7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC2770B482BFE91273C8560623F1422C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C55F744E3026B3C9BADF3E2A8319D498 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AA434DA55DFE716F705880B56052E6C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E344E14C53C9180303F1477287448310 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23126BC9F238958CD6E06D99CD616E90 /* Foundation.framework in Frameworks */,
+				AE7C86229901DF8286693B424F975782 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1FCC35908020E6BEBC4584BB24BFE4D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13522065B240797ED1F5E6666F9F8C11 /* Quickblox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2959F9255D85F8C55DC652EA389FB3CE /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				713FBDC65489387A904DFD20570FF103 /* Pods-sample-videochat-webrtc-swift */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				978007DCB56F415BE390E0F949D4D4E5 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5E2B91CEEAC7A6D2763AFC749461844C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3E12A1C93ABA811E4F083CD883737585 /* QuickbloxWebRTC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		659F9F00398AE63F96F86B2B709C3026 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				54CF9D7C3EF4DEA0292568B624138B17 /* SVIndefiniteAnimatedView.h */,
+				90148127022957DDDE49E2192E775850 /* SVIndefiniteAnimatedView.m */,
+				893809B30E28AFEA950C097C1159C751 /* SVProgressAnimatedView.h */,
+				559348D9B414DB77384C3E33F3478D8A /* SVProgressAnimatedView.m */,
+				E5B49D5DC5E5D7D0CA3542C2C4126C0B /* SVProgressHUD.h */,
+				E442BDD2E4F2C163889D55FA2A0E2628 /* SVProgressHUD.m */,
+				2FB3247C5A52850C5A7F2D52B8AC4335 /* SVRadialGradientLayer.h */,
+				617932E7DAC8969DE1D5117B9CE33E15 /* SVRadialGradientLayer.m */,
+				81842DBB58422894E51C65BBB3E3A539 /* Resources */,
+				810C9DD207EA731529D44B5C1753BBD9 /* Support Files */,
+			);
+			name = SVProgressHUD;
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		713FBDC65489387A904DFD20570FF103 /* Pods-sample-videochat-webrtc-swift */ = {
+			isa = PBXGroup;
+			children = (
+				4BB3D403A9F15EB2449F82A156D6E435 /* Info.plist */,
+				0E207A7A1936F8BAD9108E1DA08231CF /* Pods-sample-videochat-webrtc-swift.modulemap */,
+				911D12A5D233FE70E242D91C3663D818 /* Pods-sample-videochat-webrtc-swift-acknowledgements.markdown */,
+				6A19A6D316BE59899B2CD6C9C559B4F5 /* Pods-sample-videochat-webrtc-swift-acknowledgements.plist */,
+				6D677FF4EF260032907698F9DABA77B3 /* Pods-sample-videochat-webrtc-swift-dummy.m */,
+				28994434F33A3294DC90FD541B47BDCE /* Pods-sample-videochat-webrtc-swift-frameworks.sh */,
+				C1EC9CAD1FBED932AAD5E5B7EC491E67 /* Pods-sample-videochat-webrtc-swift-resources.sh */,
+				04AC57A5166AE500036A1E698F877848 /* Pods-sample-videochat-webrtc-swift-umbrella.h */,
+				779E47A962658E3D96CB3328CD563555 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */,
+				0FE84FF71ED9250BE32A90CCED418F78 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */,
+			);
+			name = "Pods-sample-videochat-webrtc-swift";
+			path = "Target Support Files/Pods-sample-videochat-webrtc-swift";
+			sourceTree = "<group>";
+		};
+		74461F10A91B3A91738751C6F9267917 /* Quickblox-WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				5E2B91CEEAC7A6D2763AFC749461844C /* Frameworks */,
+			);
+			name = "Quickblox-WebRTC";
+			path = "Quickblox-WebRTC";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				F74F11D2677A82F4D0E2EF0985E69A1E /* Pods */,
+				DE0FCCF5608D9F36E88AE171707FF82D /* Products */,
+				2959F9255D85F8C55DC652EA389FB3CE /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		810C9DD207EA731529D44B5C1753BBD9 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F7241731F8AF31BB54A376241C4600C7 /* Info.plist */,
+				861AC22DEA23A449D6791DB5F367F473 /* SVProgressHUD.modulemap */,
+				E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */,
+				DDBD4AB7AE4D5990872915BCF463C145 /* SVProgressHUD-dummy.m */,
+				0958446E5AC6B4CD6160B3331EBD4C93 /* SVProgressHUD-prefix.pch */,
+				00CC2F17E01BB2C537CCA8CCC9CF618B /* SVProgressHUD-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SVProgressHUD";
+			sourceTree = "<group>";
+		};
+		81842DBB58422894E51C65BBB3E3A539 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0F7D1C3B6658687AD8BF50B41B869192 /* SVProgressHUD.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		9053648EBC3E464E248246285175EC86 /* QuickBlox */ = {
+			isa = PBXGroup;
+			children = (
+				1FCC35908020E6BEBC4584BB24BFE4D3 /* Frameworks */,
+			);
+			name = QuickBlox;
+			path = QuickBlox;
+			sourceTree = "<group>";
+		};
+		978007DCB56F415BE390E0F949D4D4E5 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				54F9A0E952988935C32EDDB1429D7133 /* Foundation.framework */,
+				FC2770B482BFE91273C8560623F1422C /* QuartzCore.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		DE0FCCF5608D9F36E88AE171707FF82D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECE439F09A74333D1B9245688C2A5F46 /* Pods_sample_videochat_webrtc_swift.framework */,
+				92BDA40BB310A96F083E27178CA8F5B5 /* SVProgressHUD.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F74F11D2677A82F4D0E2EF0985E69A1E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9053648EBC3E464E248246285175EC86 /* QuickBlox */,
+				74461F10A91B3A91738751C6F9267917 /* Quickblox-WebRTC */,
+				659F9F00398AE63F96F86B2B709C3026 /* SVProgressHUD */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4EBCF315A7989F983F6EFD3FE4F45A5D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8A4E8383B60D1B1599FBA212A70FC18F /* SVIndefiniteAnimatedView.h in Headers */,
+				201E587D1B8C600FD823BC7C7E61D80E /* SVProgressAnimatedView.h in Headers */,
+				0BCCB53F0B16C16F252811FB34B8A923 /* SVProgressHUD-umbrella.h in Headers */,
+				CC7A31013D1F37D32D9C57F106F0B49F /* SVProgressHUD.h in Headers */,
+				486D770BD89831B4A8CFC7CA0A8C9794 /* SVRadialGradientLayer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A5595370D5A8C46A4DD39E461750A95 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4473B1A437ED1E54233FB22DA750F4B8 /* Pods-sample-videochat-webrtc-swift-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		826EF5EDBE3220657F79CF1BBD5A408F /* Pods-sample-videochat-webrtc-swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A3F44EE95960E49DDCCD872226EE1E74 /* Build configuration list for PBXNativeTarget "Pods-sample-videochat-webrtc-swift" */;
+			buildPhases = (
+				94FD35FB7C52A414BD5BAB590603A558 /* Sources */,
+				C55F744E3026B3C9BADF3E2A8319D498 /* Frameworks */,
+				5A5595370D5A8C46A4DD39E461750A95 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				915EBB17F39BD3C81E2FEBF5D0F78536 /* PBXTargetDependency */,
+			);
+			name = "Pods-sample-videochat-webrtc-swift";
+			productName = "Pods-sample-videochat-webrtc-swift";
+			productReference = ECE439F09A74333D1B9245688C2A5F46 /* Pods_sample_videochat_webrtc_swift.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FE9ACFC44CED5BF253628D2195C27812 /* SVProgressHUD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 831D6AF8C01B3291F55DC5A2F1A8D761 /* Build configuration list for PBXNativeTarget "SVProgressHUD" */;
+			buildPhases = (
+				57174E4A4FC0D45426BD79DBEA81D1DC /* Sources */,
+				E344E14C53C9180303F1477287448310 /* Frameworks */,
+				4EBCF315A7989F983F6EFD3FE4F45A5D /* Headers */,
+				6A0C65089212FF24CDE6011B5B12AA71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SVProgressHUD;
+			productName = SVProgressHUD;
+			productReference = 92BDA40BB310A96F083E27178CA8F5B5 /* SVProgressHUD.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = DE0FCCF5608D9F36E88AE171707FF82D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				826EF5EDBE3220657F79CF1BBD5A408F /* Pods-sample-videochat-webrtc-swift */,
+				FE9ACFC44CED5BF253628D2195C27812 /* SVProgressHUD */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6A0C65089212FF24CDE6011B5B12AA71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FD6DB70DF80D6D617290B56C2F785FF4 /* SVProgressHUD.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		57174E4A4FC0D45426BD79DBEA81D1DC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBA56ECE16A5474C1DC3B72E96465DB1 /* SVIndefiniteAnimatedView.m in Sources */,
+				1B891FD1B534ADB8B115C83B5D5960C6 /* SVProgressAnimatedView.m in Sources */,
+				746234D65F0CB2808536593591D77B35 /* SVProgressHUD-dummy.m in Sources */,
+				464FF7DB598CE592712DE42027E0DDBF /* SVProgressHUD.m in Sources */,
+				847908E77796E3531A057F53909EA873 /* SVRadialGradientLayer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD35FB7C52A414BD5BAB590603A558 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B59665CF3D610F9E2C01E930B99372A /* Pods-sample-videochat-webrtc-swift-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		915EBB17F39BD3C81E2FEBF5D0F78536 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SVProgressHUD;
+			target = FE9ACFC44CED5BF253628D2195C27812 /* SVProgressHUD */;
+			targetProxy = A7B316130AAF2B947C07D37F773CFAC5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		199D972A13F2B4C56847F7A89CCA83BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		52FAF54512BDA492F14E940F51E99100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FE84FF71ED9250BE32A90CCED418F78 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-sample-videochat-webrtc-swift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8E5D77A3FCE8E37578A0127F9AEA4574 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD.modulemap";
+				PRODUCT_MODULE_NAME = SVProgressHUD;
+				PRODUCT_NAME = SVProgressHUD;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		91CAA8CCF70B343652B0F1A0DC6E4569 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 779E47A962658E3D96CB3328CD563555 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-sample-videochat-webrtc-swift/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		C7EE48340E2ADA15BC0BB06E105FE6C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SVProgressHUD/SVProgressHUD-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SVProgressHUD/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SVProgressHUD/SVProgressHUD.modulemap";
+				PRODUCT_MODULE_NAME = SVProgressHUD;
+				PRODUCT_NAME = SVProgressHUD;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FDB2FC4A1E5891381CD9D922145497F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				199D972A13F2B4C56847F7A89CCA83BC /* Debug */,
+				FDB2FC4A1E5891381CD9D922145497F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		831D6AF8C01B3291F55DC5A2F1A8D761 /* Build configuration list for PBXNativeTarget "SVProgressHUD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E5D77A3FCE8E37578A0127F9AEA4574 /* Debug */,
+				C7EE48340E2ADA15BC0BB06E105FE6C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A3F44EE95960E49DDCCD872226EE1E74 /* Build configuration list for PBXNativeTarget "Pods-sample-videochat-webrtc-swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91CAA8CCF70B343652B0F1A0DC6E4569 /* Debug */,
+				52FAF54512BDA492F14E940F51E99100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

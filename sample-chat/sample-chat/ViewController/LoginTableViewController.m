@@ -23,11 +23,6 @@
 
 @implementation LoginTableViewController
 
-/*
- * Default test users password
- */
-static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -45,9 +40,9 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
     
     if (currentUser != nil) {
         // loggin in with previous user
-        currentUser.password = kTestUsersDefaultPassword;
+        currentUser.password = currentUser.login;
         
-        NSString *userName = currentUser.login.length ? currentUser.login : @"user";
+        NSString *userName = currentUser.login.length ? currentUser.login : @"test_user_id1";
         
         [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:userName] maskType:SVProgressHUDMaskTypeClear];
         
@@ -161,7 +156,7 @@ static NSString * const kTestUsersDefaultPassword = @"x6Bt0VDy5";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     QBUUser *selectedUser = self.dataSource.users[indexPath.row];
-    selectedUser.password = kTestUsersDefaultPassword;
+    selectedUser.password = selectedUser.login;
     
     [SVProgressHUD showWithStatus:[NSLocalizedString(@"SA_STR_LOGGING_IN_AS", nil) stringByAppendingString:selectedUser.login] maskType:SVProgressHUDMaskTypeClear];
     

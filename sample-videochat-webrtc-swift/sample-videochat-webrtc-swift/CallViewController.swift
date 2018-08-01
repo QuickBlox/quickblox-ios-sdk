@@ -261,7 +261,9 @@ class CallViewController: UIViewController, QBRTCClientDelegate {
     
     func handleIncomingCall() {
         
-        let alert = UIAlertController(title: "Incoming video call", message: "Accept ?", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Incoming video call",
+                                      message: "Accept ?",
+                                      preferredStyle: .actionSheet)
         
         let accept = UIAlertAction(title: "Accept", style: .default) { action in
             self.session?.localMediaStream.videoTrack.videoCapture = self.videoCapture

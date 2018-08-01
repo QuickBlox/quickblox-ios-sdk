@@ -15,16 +15,22 @@ const CGFloat kQBRingThickness = 1.f;
 const NSTimeInterval kQBAnswerTimeInterval = 60.f;
 const NSTimeInterval kQBDialingTimeInterval = 5.f;
 
+const NSUInteger kApplicationID = 72448;
+NSString *const kAuthKey        = @"f4HYBYdeqTZ7KNb";
+NSString *const kAuthSecret     = @"ZC7dK39bOjVc-Z8";
+NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     self.window.backgroundColor = [UIColor whiteColor];
     
-    [QBSettings setAccountKey:@"7yvNe17TnjNUqDoPwfqp"];
-    [QBSettings setApplicationID:39854];
-    [QBSettings setAuthKey:@"JtensAa9y4AM5Yk"];
-    [QBSettings setAuthSecret:@"AsDFwwwxpr3LN5w"];
+    // Set QuickBlox credentials (You must create application in admin.quickblox.com)
+    [QBSettings setApplicationID:kApplicationID];
+    [QBSettings setAuthKey:kAuthKey];
+    [QBSettings setAuthSecret:kAuthSecret];
+    [QBSettings setAccountKey:kAccountKey];
     
     [QBSettings setLogLevel:QBLogLevelDebug];
     [QBSettings enableXMPPLogging];
