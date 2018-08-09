@@ -17,9 +17,10 @@ const NSTimeInterval kQBDialingTimeInterval = 5.0f;
 
 #define ENABLE_STATS_REPORTS 1
 
-@interface AppDelegate ()
-
-@end
+const NSUInteger kApplicationID = 72448;
+NSString *const kAuthKey        = @"f4HYBYdeqTZ7KNb";
+NSString *const kAuthSecret     = @"ZC7dK39bOjVc-Z8";
+NSString *const kAccountKey     = @"C4_z7nuaANnBYmsG_k98";
 
 @implementation AppDelegate
 
@@ -29,10 +30,10 @@ const NSTimeInterval kQBDialingTimeInterval = 5.0f;
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-    [QBSettings setAccountKey:@""];
-    [QBSettings setApplicationID:0];
-    [QBSettings setAuthKey:@""];
-    [QBSettings setAuthSecret:@""];
+    [QBSettings setApplicationID:kApplicationID];
+    [QBSettings setAuthKey:kAuthKey];
+    [QBSettings setAuthSecret:kAuthSecret];
+    [QBSettings setAccountKey:kAccountKey];
     
     [QBSettings setLogLevel:QBLogLevelNothing];
     [QBSettings disableXMPPLogging];
