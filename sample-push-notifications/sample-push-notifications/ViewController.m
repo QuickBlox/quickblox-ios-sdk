@@ -56,7 +56,6 @@
         
         if (!authError) {
             weakSelf.sendPushButton.enabled = YES;
-            [weakSelf registerForRemoteNotifications];
         } else {
             [ViewController showAlertViewWithErrorMessage:[authError localizedDescription]];
         }
@@ -72,17 +71,6 @@
     self.tableView.hidden = NO;
     
     [self.tableView reloadData];
-}
-
-- (void)registerForRemoteNotifications {
-    
-    UIUserNotificationSettings *settings =
-    [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |
-                                                  UIUserNotificationTypeAlert |
-                                                  UIUserNotificationTypeBadge)
-                                      categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 - (void)sendPushWithMessage:(NSString *)message

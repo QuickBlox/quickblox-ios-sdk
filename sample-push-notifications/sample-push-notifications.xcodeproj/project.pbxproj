@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		25EE106557F55CF196CC142B /* libPods-sample-push-notifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1444C8D543C0940F97C8921B /* libPods-sample-push-notifications.a */; };
+		2CB70E9D2164FEAA000182E1 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB70E9C2164FEAA000182E1 /* UserNotifications.framework */; };
 		583978B01D48A8E3009E970B /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; };
 		583978B11D48A8E3009E970B /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF0CF4211B297B7500078084 /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		86A716581B9DAA790019C42A /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86A716571B9DAA790019C42A /* SAMTextView.m */; };
@@ -35,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		1444C8D543C0940F97C8921B /* libPods-sample-push-notifications.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sample-push-notifications.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CB70E9C2164FEAA000182E1 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		2CB70E9E2164FEB2000182E1 /* sample-push-notifications.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-push-notifications.entitlements"; sourceTree = "<group>"; };
 		5854C912940E11248506F628 /* Pods-sample-push-notifications.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-push-notifications.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-push-notifications/Pods-sample-push-notifications.debug.xcconfig"; sourceTree = "<group>"; };
 		86A716561B9DAA790019C42A /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMTextView.h; sourceTree = "<group>"; };
 		86A716571B9DAA790019C42A /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMTextView.m; sourceTree = "<group>"; };
@@ -65,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CB70E9D2164FEAA000182E1 /* UserNotifications.framework in Frameworks */,
 				583978B01D48A8E3009E970B /* Quickblox.framework in Frameworks */,
 				25EE106557F55CF196CC142B /* libPods-sample-push-notifications.a in Frameworks */,
 			);
@@ -94,6 +98,7 @@
 		BC5919B1A8371939544B0A1E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CB70E9C2164FEAA000182E1 /* UserNotifications.framework */,
 				BF0CF4211B297B7500078084 /* Quickblox.framework */,
 				BF0CF4311B2987AB00078084 /* libxml2.2.dylib */,
 				BF0CF42F1B2987A600078084 /* libresolv.9.dylib */,
@@ -129,6 +134,7 @@
 		BF0CF3FA1B2976F200078084 /* sample-push-notifications */ = {
 			isa = PBXGroup;
 			children = (
+				2CB70E9E2164FEB2000182E1 /* sample-push-notifications.entitlements */,
 				86A716551B9DAA590019C42A /* SAMTextView */,
 				BF0CF3FF1B2976F200078084 /* AppDelegate.h */,
 				BF0CF4001B2976F200078084 /* AppDelegate.m */,
@@ -163,7 +169,6 @@
 				BF0CF3F51B2976F200078084 /* Frameworks */,
 				BF0CF3F61B2976F200078084 /* Resources */,
 				583978B21D48A8E3009E970B /* Embed Frameworks */,
-				B6ADF643DD9FC06FFAC5F8F3 /* [CP] Embed Pods Frameworks */,
 				B7574273973CF0F4A0116691 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -188,6 +193,14 @@
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = 8885H5G2YX;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -223,21 +236,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B6ADF643DD9FC06FFAC5F8F3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-push-notifications/Pods-sample-push-notifications-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B7574273973CF0F4A0116691 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -416,6 +414,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "sample-push-notifications/sample-push-notifications.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Taras Filatov (6AVH4TA956)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
@@ -443,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "sample-push-notifications/sample-push-notifications.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Injoit LTD (8885H5G2YX)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
