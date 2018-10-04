@@ -1,0 +1,498 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C0D582221666256001FF80B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D582121666256001FF80B /* AppDelegate.swift */; };
+		2C0D582421666256001FF80B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D582321666256001FF80B /* ViewController.swift */; };
+		2C0D582721666256001FF80B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C0D582521666256001FF80B /* Main.storyboard */; };
+		2C0D582C21666258001FF80B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C0D582A21666258001FF80B /* LaunchScreen.storyboard */; };
+		2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C25F52166709B00B1E8C4 /* Assets.xcassets */; };
+		928C10E89F08F32654E645F5 /* Pods_sample_conference_videochat_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445CA0E577B2F56D04692AA8 /* Pods_sample_conference_videochat_swift.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		077723337203E5A825936A5A /* Pods-sample-conference-videochat-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-conference-videochat-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-conference-videochat-swift/Pods-sample-conference-videochat-swift.debug.xcconfig"; sourceTree = "<group>"; };
+		2C0D581E21666256001FF80B /* sample-conference-videochat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-conference-videochat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C0D582121666256001FF80B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2C0D582321666256001FF80B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2C0D582621666256001FF80B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2C0D582B21666258001FF80B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2C0D582D21666258001FF80B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-conference-videochat-swift.entitlements"; sourceTree = "<group>"; };
+		2C4C25F52166709B00B1E8C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../sample-conference-videochat/sample-conference-videochat/Assets.xcassets"; sourceTree = "<group>"; };
+		428B2435ABB82AC6C31280EA /* Pods-sample-conference-videochat-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-conference-videochat-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-conference-videochat-swift/Pods-sample-conference-videochat-swift.release.xcconfig"; sourceTree = "<group>"; };
+		445CA0E577B2F56D04692AA8 /* Pods_sample_conference_videochat_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_conference_videochat_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2C0D581B21666256001FF80B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				928C10E89F08F32654E645F5 /* Pods_sample_conference_videochat_swift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C0D581521666256001FF80B = {
+			isa = PBXGroup;
+			children = (
+				2C0D582021666256001FF80B /* sample-conference-videochat-swift */,
+				2C0D581F21666256001FF80B /* Products */,
+				55B29677057551CD354B0DE4 /* Pods */,
+				E61E0CE7ABBE58954F60AE16 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2C0D581F21666256001FF80B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C0D581E21666256001FF80B /* sample-conference-videochat-swift.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C0D582021666256001FF80B /* sample-conference-videochat-swift */ = {
+			isa = PBXGroup;
+			children = (
+				2C4C25EC21666FED00B1E8C4 /* Components */,
+				2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */,
+				2C0D582321666256001FF80B /* ViewController.swift */,
+				2C0D582521666256001FF80B /* Main.storyboard */,
+				2C4C25F52166709B00B1E8C4 /* Assets.xcassets */,
+				2C0D582A21666258001FF80B /* LaunchScreen.storyboard */,
+				2C0D582D21666258001FF80B /* Info.plist */,
+			);
+			path = "sample-conference-videochat-swift";
+			sourceTree = "<group>";
+		};
+		2C4C25EC21666FED00B1E8C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2C0D582121666256001FF80B /* AppDelegate.swift */,
+				2C4C25F42166706E00B1E8C4 /* Users */,
+				2C4C25F32166706000B1E8C4 /* Settings */,
+				2C4C25F22166705500B1E8C4 /* QMSoundManager */,
+				2C4C25F12166704A00B1E8C4 /* CustomSegues */,
+				2C4C25F02166703D00B1E8C4 /* Core */,
+				2C4C25EF2166703100B1E8C4 /* Calls */,
+				2C4C25EE2166702100B1E8C4 /* AVPermisions */,
+				2C4C25ED2166701400B1E8C4 /* Auth */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		2C4C25ED2166701400B1E8C4 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		2C4C25EE2166702100B1E8C4 /* AVPermisions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AVPermisions;
+			sourceTree = "<group>";
+		};
+		2C4C25EF2166703100B1E8C4 /* Calls */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Calls;
+			sourceTree = "<group>";
+		};
+		2C4C25F02166703D00B1E8C4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2C4C25F12166704A00B1E8C4 /* CustomSegues */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomSegues;
+			sourceTree = "<group>";
+		};
+		2C4C25F22166705500B1E8C4 /* QMSoundManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QMSoundManager;
+			sourceTree = "<group>";
+		};
+		2C4C25F32166706000B1E8C4 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		2C4C25F42166706E00B1E8C4 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		55B29677057551CD354B0DE4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				077723337203E5A825936A5A /* Pods-sample-conference-videochat-swift.debug.xcconfig */,
+				428B2435ABB82AC6C31280EA /* Pods-sample-conference-videochat-swift.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E61E0CE7ABBE58954F60AE16 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				445CA0E577B2F56D04692AA8 /* Pods_sample_conference_videochat_swift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C0D581D21666256001FF80B /* sample-conference-videochat-swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C0D583021666258001FF80B /* Build configuration list for PBXNativeTarget "sample-conference-videochat-swift" */;
+			buildPhases = (
+				E42C0BF5B98E6E6D193B126F /* [CP] Check Pods Manifest.lock */,
+				2C0D581A21666256001FF80B /* Sources */,
+				2C0D581B21666256001FF80B /* Frameworks */,
+				2C0D581C21666256001FF80B /* Resources */,
+				9B958B5D38776D071581C0BC /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "sample-conference-videochat-swift";
+			productName = "sample-conference-videochat-swift";
+			productReference = 2C0D581E21666256001FF80B /* sample-conference-videochat-swift.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2C0D581621666256001FF80B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = QuickBlox;
+				TargetAttributes = {
+					2C0D581D21666256001FF80B = {
+						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 2C0D581921666256001FF80B /* Build configuration list for PBXProject "sample-conference-videochat-swift" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2C0D581521666256001FF80B;
+			productRefGroup = 2C0D581F21666256001FF80B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C0D581D21666256001FF80B /* sample-conference-videochat-swift */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2C0D581C21666256001FF80B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C0D582C21666258001FF80B /* LaunchScreen.storyboard in Resources */,
+				2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */,
+				2C0D582721666256001FF80B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9B958B5D38776D071581C0BC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-sample-conference-videochat-swift/Pods-sample-conference-videochat-swift-frameworks.sh",
+				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
+				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-conference-videochat-swift/Pods-sample-conference-videochat-swift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E42C0BF5B98E6E6D193B126F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-sample-conference-videochat-swift-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2C0D581A21666256001FF80B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C0D582421666256001FF80B /* ViewController.swift in Sources */,
+				2C0D582221666256001FF80B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2C0D582521666256001FF80B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C0D582621666256001FF80B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2C0D582A21666258001FF80B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C0D582B21666258001FF80B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2C0D582E21666258001FF80B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2C0D582F21666258001FF80B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2C0D583121666258001FF80B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 077723337203E5A825936A5A /* Pods-sample-conference-videochat-swift.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "sample-conference-videochat-swift/sample-conference-videochat-swift.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8885H5G2YX;
+				INFOPLIST_FILE = "sample-conference-videochat-swift/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-conference-videochat-swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2C0D583221666258001FF80B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 428B2435ABB82AC6C31280EA /* Pods-sample-conference-videochat-swift.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "sample-conference-videochat-swift/sample-conference-videochat-swift.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8885H5G2YX;
+				INFOPLIST_FILE = "sample-conference-videochat-swift/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-conference-videochat-swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2C0D581921666256001FF80B /* Build configuration list for PBXProject "sample-conference-videochat-swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C0D582E21666258001FF80B /* Debug */,
+				2C0D582F21666258001FF80B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C0D583021666258001FF80B /* Build configuration list for PBXNativeTarget "sample-conference-videochat-swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C0D583121666258001FF80B /* Debug */,
+				2C0D583221666258001FF80B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2C0D581621666256001FF80B /* Project object */;
+}
