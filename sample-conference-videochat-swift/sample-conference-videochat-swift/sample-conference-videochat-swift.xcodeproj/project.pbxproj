@@ -12,6 +12,9 @@
 		2C0D582721666256001FF80B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C0D582521666256001FF80B /* Main.storyboard */; };
 		2C0D582C21666258001FF80B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C0D582A21666258001FF80B /* LaunchScreen.storyboard */; };
 		2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C25F52166709B00B1E8C4 /* Assets.xcassets */; };
+		2C4C25F82166711900B1E8C4 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C25F72166711900B1E8C4 /* Auth.storyboard */; };
+		2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */; };
+		2C4C2600216671A900B1E8C4 /* QBLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FF216671A900B1E8C4 /* QBLoadingButton.swift */; };
 		928C10E89F08F32654E645F5 /* Pods_sample_conference_videochat_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445CA0E577B2F56D04692AA8 /* Pods_sample_conference_videochat_swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +28,9 @@
 		2C0D582D21666258001FF80B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-conference-videochat-swift.entitlements"; sourceTree = "<group>"; };
 		2C4C25F52166709B00B1E8C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../sample-conference-videochat/sample-conference-videochat/Assets.xcassets"; sourceTree = "<group>"; };
+		2C4C25F72166711900B1E8C4 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Auth.storyboard; path = "../../../../../sample-conference-videochat/sample-conference-videochat/Components/Auth/Auth.storyboard"; sourceTree = "<group>"; };
+		2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		2C4C25FF216671A900B1E8C4 /* QBLoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBLoadingButton.swift; sourceTree = "<group>"; };
 		428B2435ABB82AC6C31280EA /* Pods-sample-conference-videochat-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-conference-videochat-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-conference-videochat-swift/Pods-sample-conference-videochat-swift.release.xcconfig"; sourceTree = "<group>"; };
 		445CA0E577B2F56D04692AA8 /* Pods_sample_conference_videochat_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_conference_videochat_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -77,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				2C0D582121666256001FF80B /* AppDelegate.swift */,
+				2C4C25ED2166701400B1E8C4 /* Auth */,
 				2C4C25F42166706E00B1E8C4 /* Users */,
 				2C4C25F32166706000B1E8C4 /* Settings */,
 				2C4C25F22166705500B1E8C4 /* QMSoundManager */,
@@ -84,7 +91,6 @@
 				2C4C25F02166703D00B1E8C4 /* Core */,
 				2C4C25EF2166703100B1E8C4 /* Calls */,
 				2C4C25EE2166702100B1E8C4 /* AVPermisions */,
-				2C4C25ED2166701400B1E8C4 /* Auth */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -92,6 +98,9 @@
 		2C4C25ED2166701400B1E8C4 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				2C4C25F72166711900B1E8C4 /* Auth.storyboard */,
+				2C4C25F92166712500B1E8C4 /* ViewControllers */,
+				2C4C25FA2166713700B1E8C4 /* Views */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -143,6 +152,38 @@
 			children = (
 			);
 			path = Users;
+			sourceTree = "<group>";
+		};
+		2C4C25F92166712500B1E8C4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C4C25FB2166715400B1E8C4 /* AuthViewController */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2C4C25FA2166713700B1E8C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C4C25FE2166718A00B1E8C4 /* LoadingButton */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2C4C25FB2166715400B1E8C4 /* AuthViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */,
+			);
+			path = AuthViewController;
+			sourceTree = "<group>";
+		};
+		2C4C25FE2166718A00B1E8C4 /* LoadingButton */ = {
+			isa = PBXGroup;
+			children = (
+				2C4C25FF216671A900B1E8C4 /* QBLoadingButton.swift */,
+			);
+			path = LoadingButton;
 			sourceTree = "<group>";
 		};
 		55B29677057551CD354B0DE4 /* Pods */ = {
@@ -230,6 +271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C4C25F82166711900B1E8C4 /* Auth.storyboard in Resources */,
 				2C0D582C21666258001FF80B /* LaunchScreen.storyboard in Resources */,
 				2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */,
 				2C0D582721666256001FF80B /* Main.storyboard in Resources */,
@@ -287,7 +329,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C0D582421666256001FF80B /* ViewController.swift in Sources */,
+				2C4C2600216671A900B1E8C4 /* QBLoadingButton.swift in Sources */,
 				2C0D582221666256001FF80B /* AppDelegate.swift in Sources */,
+				2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
