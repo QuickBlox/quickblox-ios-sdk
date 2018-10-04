@@ -7,5 +7,7 @@ target 'sample-conference-videochat-swift' do
   pod 'QuickBlox', '~> 2.15'
   pod 'Quickblox-WebRTC', '~> 2.6.3'
   pod 'SVProgressHUD', '~> 2.2.5'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
 end

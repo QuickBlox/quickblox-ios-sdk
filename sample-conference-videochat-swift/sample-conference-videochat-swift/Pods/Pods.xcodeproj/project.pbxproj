@@ -9,20 +9,20 @@
 /* Begin PBXBuildFile section */
 		12417435555C4A09921833B994543E4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9310556BBE996AE628441592FB1181 /* Foundation.framework */; };
 		310B79DEF332BB949AA33528889744DF /* Pods-sample-conference-videochat-swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E5606467F4B0F3392CBD94DF3B61F4D9 /* Pods-sample-conference-videochat-swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		37A2DAFB323B3BD4F1E0BD9ADD1915A6 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = E5B49D5DC5E5D7D0CA3542C2C4126C0B /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		542C5C18ECB29CB6CF4CA5C268130C7E /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 559348D9B414DB77384C3E33F3478D8A /* SVProgressAnimatedView.m */; };
-		61362F5C0A0A31C08F8439CEB3BB7C67 /* SVProgressHUD-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 00CC2F17E01BB2C537CCA8CCC9CF618B /* SVProgressHUD-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		37A2DAFB323B3BD4F1E0BD9ADD1915A6 /* SVProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = CE9B57255550A5DE1BB890E3C018ACB1 /* SVProgressHUD.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		542C5C18ECB29CB6CF4CA5C268130C7E /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 612DCF952C3EC7FA1BD2A53127ED8F30 /* SVProgressAnimatedView.m */; };
+		61362F5C0A0A31C08F8439CEB3BB7C67 /* SVProgressHUD-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DF93D52F032DD817DEBA4796041CAF4C /* SVProgressHUD-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		70A0F612B63679C61564EBFEF1856E14 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CF13BCB9D36F1319E01CAB18FE2FBA7 /* QuartzCore.framework */; };
 		81479C47E02E7DBFD0991F7AE95D54D6 /* Pods-sample-conference-videochat-swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA84334EF2AFF65EA7D442E2CD884F8 /* Pods-sample-conference-videochat-swift-dummy.m */; };
 		96E8BAA16A65C81BFE0E8813469A2D4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9310556BBE996AE628441592FB1181 /* Foundation.framework */; };
-		B93981D1C5DF2F1244E7168350C297D5 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 617932E7DAC8969DE1D5117B9CE33E15 /* SVRadialGradientLayer.m */; };
-		D6D84ACCA2B35B091B9C249CC7769703 /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FB3247C5A52850C5A7F2D52B8AC4335 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DB8D03B2478D795424A671ACC5E6B917 /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 893809B30E28AFEA950C097C1159C751 /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E18DA7D1BD9FFA34EF520D92226AAC5E /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = 54CF9D7C3EF4DEA0292568B624138B17 /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EB59037EB948CCA83E52E37989074DDC /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E442BDD2E4F2C163889D55FA2A0E2628 /* SVProgressHUD.m */; };
-		EBB40A705958FD35EACB4A3DC867D325 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDBD4AB7AE4D5990872915BCF463C145 /* SVProgressHUD-dummy.m */; };
-		EDE579069A852E6D71E6A3A45C92FD14 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0F7D1C3B6658687AD8BF50B41B869192 /* SVProgressHUD.bundle */; };
-		F96418EC6255E2ADA0D2F50B24A71349 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90148127022957DDDE49E2192E775850 /* SVIndefiniteAnimatedView.m */; };
+		B93981D1C5DF2F1244E7168350C297D5 /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9080E61C51F687821C04D21DDCA70041 /* SVRadialGradientLayer.m */; };
+		D6D84ACCA2B35B091B9C249CC7769703 /* SVRadialGradientLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 882A674F048974367ECFBD0E37799836 /* SVRadialGradientLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DB8D03B2478D795424A671ACC5E6B917 /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = CD423223A47E0A967606DD5681AAB4EA /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E18DA7D1BD9FFA34EF520D92226AAC5E /* SVIndefiniteAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = A8FFBA00F15AFB979E23722E6060F04D /* SVIndefiniteAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EB59037EB948CCA83E52E37989074DDC /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 71466DB3AB356B155CF8803E39D964D5 /* SVProgressHUD.m */; };
+		EBB40A705958FD35EACB4A3DC867D325 /* SVProgressHUD-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F29137522FEB689624F04538F6D7FC /* SVProgressHUD-dummy.m */; };
+		EDE579069A852E6D71E6A3A45C92FD14 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 736EF546DDE5CE602F26A30298EF3912 /* SVProgressHUD.bundle */; };
+		F96418EC6255E2ADA0D2F50B24A71349 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE527649E2D46742E0B4024C3E2FF00D /* SVIndefiniteAnimatedView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,38 +36,49 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00CC2F17E01BB2C537CCA8CCC9CF618B /* SVProgressHUD-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-umbrella.h"; sourceTree = "<group>"; };
+		0549FFE18EBD6F245EC2F942D2EC9996 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
 		072650781536A9E69315111C918E69AD /* Pods-sample-conference-videochat-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-sample-conference-videochat-swift.release.xcconfig"; sourceTree = "<group>"; };
-		0958446E5AC6B4CD6160B3331EBD4C93 /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
-		0F7D1C3B6658687AD8BF50B41B869192 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		0F9310556BBE996AE628441592FB1181 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		13522065B240797ED1F5E6666F9F8C11 /* Quickblox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quickblox.framework; sourceTree = "<group>"; };
-		2FB3247C5A52850C5A7F2D52B8AC4335 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		15FD64871DF88836540C204A75F07763 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
+		25C9C11FEBE1F96BC137AF63ECBDF1F5 /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
 		3CA84334EF2AFF65EA7D442E2CD884F8 /* Pods-sample-conference-videochat-swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-sample-conference-videochat-swift-dummy.m"; sourceTree = "<group>"; };
-		3E12A1C93ABA811E4F083CD883737585 /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickbloxWebRTC.framework; sourceTree = "<group>"; };
-		54CF9D7C3EF4DEA0292568B624138B17 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
-		559348D9B414DB77384C3E33F3478D8A /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		3FACCC7F889494BEF664D41CBC302730 /* SVProgressHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SVProgressHUD.modulemap; sourceTree = "<group>"; };
+		48CCD20D7AD5BC81F7FCBD48EA976DCB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C0CF414794AD17E94AF9CD4BDFF5B66 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
+		4C5AA6CD0E13368EBA5C6ADAFBFE22DF /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
+		4E3D1D184E6D7369D368BAC1A036BF4E /* CLSStackFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSStackFrame.h; path = iOS/Crashlytics.framework/Headers/CLSStackFrame.h; sourceTree = "<group>"; };
+		57E692DF793B4FE122724E79640104BB /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
+		5B364A620878F3D7BB076749C3EC514D /* QuickbloxWebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuickbloxWebRTC.framework; sourceTree = "<group>"; };
+		5B48D901C6D060139E308AF3A0EE45BD /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
 		5F3E1F39BBD1CC948335339011EFBC97 /* Pods-sample-conference-videochat-swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-sample-conference-videochat-swift.modulemap"; sourceTree = "<group>"; };
-		617932E7DAC8969DE1D5117B9CE33E15 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		612DCF952C3EC7FA1BD2A53127ED8F30 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
 		649F5C95E75990339EEDC4813D219341 /* Pods-sample-conference-videochat-swift-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-sample-conference-videochat-swift-acknowledgements.markdown"; sourceTree = "<group>"; };
 		66E9E3991AD4CEA49D03CD1C556BDE7D /* Pods-sample-conference-videochat-swift-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-sample-conference-videochat-swift-frameworks.sh"; sourceTree = "<group>"; };
 		673D5CC1472FA1377BC552E5D815D261 /* Pods-sample-conference-videochat-swift-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-sample-conference-videochat-swift-acknowledgements.plist"; sourceTree = "<group>"; };
 		6EC75BD48756F7B5C7397FCE0318C6EE /* Pods-sample-conference-videochat-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-sample-conference-videochat-swift.debug.xcconfig"; sourceTree = "<group>"; };
+		71466DB3AB356B155CF8803E39D964D5 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
+		736EF546DDE5CE602F26A30298EF3912 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		81D9BB02DEFD66B564C3D194BA683438 /* Pods_sample_conference_videochat_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_sample_conference_videochat_swift.framework; path = "Pods-sample-conference-videochat-swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		861AC22DEA23A449D6791DB5F367F473 /* SVProgressHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SVProgressHUD.modulemap; sourceTree = "<group>"; };
-		893809B30E28AFEA950C097C1159C751 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
-		90148127022957DDDE49E2192E775850 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		882A674F048974367ECFBD0E37799836 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		9080E61C51F687821C04D21DDCA70041 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94AF5D4902D2B5D3324FD73FFC776C7B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
 		9CF13BCB9D36F1319E01CAB18FE2FBA7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		A8FFBA00F15AFB979E23722E6060F04D /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVIndefiniteAnimatedView.h; path = SVProgressHUD/SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		AE527649E2D46742E0B4024C3E2FF00D /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVIndefiniteAnimatedView.m; path = SVProgressHUD/SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		B3F88ADB4F78251CBEB94F8790521CC0 /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
+		BD38370903E1655803F6D28EF091A3E5 /* Fabric.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fabric.h; path = iOS/Fabric.framework/Headers/Fabric.h; sourceTree = "<group>"; };
+		C2F29137522FEB689624F04538F6D7FC /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
+		C5BE9A3D1A3E0046B9794259D7AE800B /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
 		CA6B9D0CD502641ED820D7E32381C005 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD423223A47E0A967606DD5681AAB4EA /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		CE9B57255550A5DE1BB890E3C018ACB1 /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
 		D04FAE09E4D564D633869CDB7DBB23E0 /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SVProgressHUD.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7C6B9AB442651664C0AA957B99BB36C /* Pods-sample-conference-videochat-swift-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-sample-conference-videochat-swift-resources.sh"; sourceTree = "<group>"; };
-		DDBD4AB7AE4D5990872915BCF463C145 /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
-		E442BDD2E4F2C163889D55FA2A0E2628 /* SVProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressHUD.m; path = SVProgressHUD/SVProgressHUD.m; sourceTree = "<group>"; };
+		DF93D52F032DD817DEBA4796041CAF4C /* SVProgressHUD-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-umbrella.h"; sourceTree = "<group>"; };
+		E018986E0ADB026DCAE442F2CB6FDFDA /* Crashlytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Crashlytics.h; path = iOS/Crashlytics.framework/Headers/Crashlytics.h; sourceTree = "<group>"; };
 		E5606467F4B0F3392CBD94DF3B61F4D9 /* Pods-sample-conference-videochat-swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-sample-conference-videochat-swift-umbrella.h"; sourceTree = "<group>"; };
-		E5B49D5DC5E5D7D0CA3542C2C4126C0B /* SVProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressHUD.h; path = SVProgressHUD/SVProgressHUD.h; sourceTree = "<group>"; };
-		E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
-		F7241731F8AF31BB54A376241C4600C7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE188BC630B4EFD81741786920135BFA /* SVProgressHUD-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,12 +102,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1FCC35908020E6BEBC4584BB24BFE4D3 /* Frameworks */ = {
+		167C482E40D591377D8C14563640DCE9 /* Crashlytics */ = {
 			isa = PBXGroup;
 			children = (
-				13522065B240797ED1F5E6666F9F8C11 /* Quickblox.framework */,
+				5B48D901C6D060139E308AF3A0EE45BD /* ANSCompatibility.h */,
+				C5BE9A3D1A3E0046B9794259D7AE800B /* Answers.h */,
+				25C9C11FEBE1F96BC137AF63ECBDF1F5 /* CLSAttributes.h */,
+				4C5AA6CD0E13368EBA5C6ADAFBFE22DF /* CLSLogging.h */,
+				57E692DF793B4FE122724E79640104BB /* CLSReport.h */,
+				4E3D1D184E6D7369D368BAC1A036BF4E /* CLSStackFrame.h */,
+				E018986E0ADB026DCAE442F2CB6FDFDA /* Crashlytics.h */,
+				594029723793D794016B27A7D00D41FD /* Frameworks */,
 			);
-			name = Frameworks;
+			name = Crashlytics;
+			path = Crashlytics;
 			sourceTree = "<group>";
 		};
 		2E1ACBA46CD8EDF3A85AE62FE571B3C6 /* Products */ = {
@@ -106,6 +125,41 @@
 				D04FAE09E4D564D633869CDB7DBB23E0 /* SVProgressHUD.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		347C06BC867C2F87011D5CF15D927374 /* QuickBlox */ = {
+			isa = PBXGroup;
+			children = (
+				3DA7625AEC61EC3449A93EEF9CCE5B2D /* Frameworks */,
+			);
+			name = QuickBlox;
+			path = QuickBlox;
+			sourceTree = "<group>";
+		};
+		3A489F727466DE28CA9DDD3F77C5D3E2 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				A8FFBA00F15AFB979E23722E6060F04D /* SVIndefiniteAnimatedView.h */,
+				AE527649E2D46742E0B4024C3E2FF00D /* SVIndefiniteAnimatedView.m */,
+				CD423223A47E0A967606DD5681AAB4EA /* SVProgressAnimatedView.h */,
+				612DCF952C3EC7FA1BD2A53127ED8F30 /* SVProgressAnimatedView.m */,
+				CE9B57255550A5DE1BB890E3C018ACB1 /* SVProgressHUD.h */,
+				71466DB3AB356B155CF8803E39D964D5 /* SVProgressHUD.m */,
+				882A674F048974367ECFBD0E37799836 /* SVRadialGradientLayer.h */,
+				9080E61C51F687821C04D21DDCA70041 /* SVRadialGradientLayer.m */,
+				916075EE8E83FE76F8E27CAA105BD4FE /* Resources */,
+				9655885D97FFE3A657EE322F755EBEC0 /* Support Files */,
+			);
+			name = SVProgressHUD;
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		3DA7625AEC61EC3449A93EEF9CCE5B2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0549FFE18EBD6F245EC2F942D2EC9996 /* Quickblox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
@@ -125,39 +179,20 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		5E2B91CEEAC7A6D2763AFC749461844C /* Frameworks */ = {
+		594029723793D794016B27A7D00D41FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3E12A1C93ABA811E4F083CD883737585 /* QuickbloxWebRTC.framework */,
+				4C0CF414794AD17E94AF9CD4BDFF5B66 /* Crashlytics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		659F9F00398AE63F96F86B2B709C3026 /* SVProgressHUD */ = {
+		6A011F57743EB12EBA62684F44CF0E33 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				54CF9D7C3EF4DEA0292568B624138B17 /* SVIndefiniteAnimatedView.h */,
-				90148127022957DDDE49E2192E775850 /* SVIndefiniteAnimatedView.m */,
-				893809B30E28AFEA950C097C1159C751 /* SVProgressAnimatedView.h */,
-				559348D9B414DB77384C3E33F3478D8A /* SVProgressAnimatedView.m */,
-				E5B49D5DC5E5D7D0CA3542C2C4126C0B /* SVProgressHUD.h */,
-				E442BDD2E4F2C163889D55FA2A0E2628 /* SVProgressHUD.m */,
-				2FB3247C5A52850C5A7F2D52B8AC4335 /* SVRadialGradientLayer.h */,
-				617932E7DAC8969DE1D5117B9CE33E15 /* SVRadialGradientLayer.m */,
-				81842DBB58422894E51C65BBB3E3A539 /* Resources */,
-				810C9DD207EA731529D44B5C1753BBD9 /* Support Files */,
+				94AF5D4902D2B5D3324FD73FFC776C7B /* Fabric.framework */,
 			);
-			name = SVProgressHUD;
-			path = SVProgressHUD;
-			sourceTree = "<group>";
-		};
-		74461F10A91B3A91738751C6F9267917 /* Quickblox-WebRTC */ = {
-			isa = PBXGroup;
-			children = (
-				5E2B91CEEAC7A6D2763AFC749461844C /* Frameworks */,
-			);
-			name = "Quickblox-WebRTC";
-			path = "Quickblox-WebRTC";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -165,32 +200,10 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				F74F11D2677A82F4D0E2EF0985E69A1E /* Pods */,
+				F81EA3322FCC0E89DB79D7EC738479B9 /* Pods */,
 				2E1ACBA46CD8EDF3A85AE62FE571B3C6 /* Products */,
 				F9C5D860DB791DBF7277CDEB7704A0BD /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		810C9DD207EA731529D44B5C1753BBD9 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F7241731F8AF31BB54A376241C4600C7 /* Info.plist */,
-				861AC22DEA23A449D6791DB5F367F473 /* SVProgressHUD.modulemap */,
-				E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */,
-				DDBD4AB7AE4D5990872915BCF463C145 /* SVProgressHUD-dummy.m */,
-				0958446E5AC6B4CD6160B3331EBD4C93 /* SVProgressHUD-prefix.pch */,
-				00CC2F17E01BB2C537CCA8CCC9CF618B /* SVProgressHUD-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SVProgressHUD";
-			sourceTree = "<group>";
-		};
-		81842DBB58422894E51C65BBB3E3A539 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				0F7D1C3B6658687AD8BF50B41B869192 /* SVProgressHUD.bundle */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		846D563485B53422F5FD454E99A30A5F /* Pods-sample-conference-videochat-swift */ = {
@@ -211,21 +224,64 @@
 			path = "Target Support Files/Pods-sample-conference-videochat-swift";
 			sourceTree = "<group>";
 		};
-		9053648EBC3E464E248246285175EC86 /* QuickBlox */ = {
+		916075EE8E83FE76F8E27CAA105BD4FE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1FCC35908020E6BEBC4584BB24BFE4D3 /* Frameworks */,
+				736EF546DDE5CE602F26A30298EF3912 /* SVProgressHUD.bundle */,
 			);
-			name = QuickBlox;
-			path = QuickBlox;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		F74F11D2677A82F4D0E2EF0985E69A1E /* Pods */ = {
+		95A75D04784E0B512D37C4544BD84F40 /* Quickblox-WebRTC */ = {
 			isa = PBXGroup;
 			children = (
-				9053648EBC3E464E248246285175EC86 /* QuickBlox */,
-				74461F10A91B3A91738751C6F9267917 /* Quickblox-WebRTC */,
-				659F9F00398AE63F96F86B2B709C3026 /* SVProgressHUD */,
+				AA2949747FE70906D2E3BEBBF8CEC632 /* Frameworks */,
+			);
+			name = "Quickblox-WebRTC";
+			path = "Quickblox-WebRTC";
+			sourceTree = "<group>";
+		};
+		9655885D97FFE3A657EE322F755EBEC0 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				48CCD20D7AD5BC81F7FCBD48EA976DCB /* Info.plist */,
+				3FACCC7F889494BEF664D41CBC302730 /* SVProgressHUD.modulemap */,
+				15FD64871DF88836540C204A75F07763 /* SVProgressHUD.xcconfig */,
+				C2F29137522FEB689624F04538F6D7FC /* SVProgressHUD-dummy.m */,
+				EE188BC630B4EFD81741786920135BFA /* SVProgressHUD-prefix.pch */,
+				DF93D52F032DD817DEBA4796041CAF4C /* SVProgressHUD-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/SVProgressHUD";
+			sourceTree = "<group>";
+		};
+		AA2949747FE70906D2E3BEBBF8CEC632 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5B364A620878F3D7BB076749C3EC514D /* QuickbloxWebRTC.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3B28CAFDFB63130BDA8B18DA2E98B50 /* Fabric */ = {
+			isa = PBXGroup;
+			children = (
+				B3F88ADB4F78251CBEB94F8790521CC0 /* FABAttributes.h */,
+				BD38370903E1655803F6D28EF091A3E5 /* Fabric.h */,
+				6A011F57743EB12EBA62684F44CF0E33 /* Frameworks */,
+			);
+			name = Fabric;
+			path = Fabric;
+			sourceTree = "<group>";
+		};
+		F81EA3322FCC0E89DB79D7EC738479B9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				167C482E40D591377D8C14563640DCE9 /* Crashlytics */,
+				D3B28CAFDFB63130BDA8B18DA2E98B50 /* Fabric */,
+				347C06BC867C2F87011D5CF15D927374 /* QuickBlox */,
+				95A75D04784E0B512D37C4544BD84F40 /* Quickblox-WebRTC */,
+				3A489F727466DE28CA9DDD3F77C5D3E2 /* SVProgressHUD */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -373,7 +429,7 @@
 /* Begin XCBuildConfiguration section */
 		08C5EECFFCBFB490D042FE0EE5178FD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */;
+			baseConfigurationReference = 15FD64871DF88836540C204A75F07763 /* SVProgressHUD.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -567,7 +623,7 @@
 		};
 		E4E216BD877DBE564B0FCDC3716BD534 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5B9480FFDC2EAFEC5C35AD5D87E6774 /* SVProgressHUD.xcconfig */;
+			baseConfigurationReference = 15FD64871DF88836540C204A75F07763 /* SVProgressHUD.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
