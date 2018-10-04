@@ -10,10 +10,8 @@
 #import <Quickblox/Quickblox.h>
 #import <SVProgressHUD.h>
 #import "SAMTextView.h"
-#import <UserNotifications/UserNotifications.h>
-#define CHECK_VERSION(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-@interface ViewController () <UITableViewDataSource, UITableViewDelegate, UNUserNotificationCenterDelegate>
+@interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet SAMTextView *pushMessageTextView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -58,7 +56,6 @@
         
         if (!authError) {
             weakSelf.sendPushButton.enabled = YES;
-            [weakSelf registerForRemoteNotifications];
         } else {
             [ViewController showAlertViewWithErrorMessage:[authError localizedDescription]];
         }
@@ -75,80 +72,6 @@
     
     [self.tableView reloadData];
 }
-
-#pragma mark - Push Notifications
-
-- (void)registerForRemoteNotifications{
-    
-    if(CHECK_VERSION(@"10.0")) { // iOS 10+
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        center.delegate = self;
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error){
-            if( !error ){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-                });
-                [self getNotificationSettings];
-            }
-        }];
-    }
-    else { // < iOS 10
-        UIUserNotificationSettings *settings =
-        [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |
-                                                      UIUserNotificationTypeAlert |
-                                                      UIUserNotificationTypeBadge)
-                                          categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        [self getNotificationSettings];
-    }
-}
-
--(void) getNotificationSettings{
-    
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings){
-        
-        //1. Query the authorization status of the UNNotificationSettings object
-        switch (settings.authorizationStatus) {
-            case UNAuthorizationStatusAuthorized:
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-                });
-                NSLog(@"Status Authorized");
-                break;
-            case UNAuthorizationStatusDenied:
-                NSLog(@"Status Denied");
-                break;
-            case UNAuthorizationStatusNotDetermined:
-                NSLog(@"Undetermined");
-                break;
-            default:
-                break;
-        }
-        
-        
-        //2. To learn the status of specific settings, query them directly
-        NSLog(@"Checking Badge settings");
-        if (settings.badgeSetting == UNAuthorizationStatusAuthorized)
-            NSLog(@"Yeah. We can badge this puppy!");
-        else
-            NSLog(@"Not authorized");
-        
-    }];
-}
-
-//- (void)registerForRemoteNotifications {
-//
-//    UIUserNotificationSettings *settings =
-//    [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound |
-//                                                  UIUserNotificationTypeAlert |
-//                                                  UIUserNotificationTypeBadge)
-//                                      categories:nil];
-//    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-//    [[UIApplication sharedApplication] registerForRemoteNotifications];
-//}
 
 - (void)sendPushWithMessage:(NSString *)message
 {
