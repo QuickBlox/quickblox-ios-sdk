@@ -32,59 +32,13 @@ class LoginTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        [Core addDelegate:self];
-        
+
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.keyboardDismissMode = .onDrag
         self.tableView.delaysContentTouches = false
         self.navigationItem.title = NSLocalizedString("Enter to chat", comment: "")
-        
-        self.defaultConfiguration()
-        //Update interface and start login if user exist
-//        if (Core.currentUser) {
-//            self.userNameTextField.text = Core.currentUser.fullName
-//            self.chatRoomNameTextField.text = [Core.currentUser.tags firstObject];
-//            [self login];
-//        }
 
-    }
-
-    private func defaultConfiguration() {
-    
-//    [self.loginButton hideLoading];
-//    [self.loginButton setTitle:NSLocalizedString(@"Login", nil)
-//    forState:UIControlStateNormal];
-//
-//    self.loginButton.enabled = NO;
-//    self.userNameTextField.text = @"";
-//    self.chatRoomNameTextField.text = @"";
-//
-//    [self setInputEnabled:YES];
-//    // Reachability
-//    void (^updateLoginInfo)(QBNetworkStatus status) = ^(QBNetworkStatus status) {
-//
-//    NSString *loginInfo = (status == QBNetworkStatusNotReachable) ?
-//    NSLocalizedString(@"Please check your Internet connection", nil):
-//    NSLocalizedString(@"Please enter your username and group name. You can join existent group.", nil);
-//    [self setLoginInfoText:loginInfo];
-//    };
-//
-//    Core.networkStatusBlock = ^(QBNetworkStatus status) {
-//
-//    if (self.needReconnect && status != QBNetworkStatusNotReachable) {
-//
-//    self.needReconnect = NO;
-//    [self login];
-//    }
-//    else {
-//
-//    updateLoginInfo(status);
-//    }
-//    };
-//
-//    updateLoginInfo(Core.networkStatus);
     }
     
     // MARK: - Table view data source
@@ -97,9 +51,5 @@ class LoginTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 0
     }
-    
-  // MARK: Private Metods
-//    fileprivate func d
-
 }
 

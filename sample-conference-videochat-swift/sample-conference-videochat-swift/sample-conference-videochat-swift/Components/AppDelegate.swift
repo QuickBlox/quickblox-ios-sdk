@@ -8,6 +8,8 @@
 
 import UIKit
 import Quickblox
+import Fabric
+import Crashlytics
 
 // Credentials for Test Sample App
 let kQBApplicationID:UInt = 72448
@@ -15,20 +17,15 @@ let kQBAuthKey = "f4HYBYdeqTZ7KNb"
 let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
 let kQBAccountKey = "C4_z7nuaANnBYmsG_k98"
 
-// Credentials for QB Sample App
-//let kQBApplicationID:UInt = 73803
-//let kQBAuthKey = "qp4zDcV8mk29Qp9"
-//let kQBAuthSecret = "Hm2KgDE6eeMZHu5"
-//let kQBAccountKey = "uK_8uinNyz8-npTNB6tx"
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        Fabric.with([Crashlytics.self])
+        
         return true
     }
 

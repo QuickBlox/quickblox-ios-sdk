@@ -6,4 +6,27 @@
 //  Copyright © 2018 QuickBlox. All rights reserved.
 //
 
-import Foundation
+//import UIKit
+//import Quickblox
+//import QuickbloxWebRTC
+//import SVProgressHUD
+//
+//enum QBNetworkStatus: UInt {
+//    case QBNetworkStatusNotReachable = 0
+//    case QBNetworkStatusReachableViaWiFi = 1
+//    case QBNetworkStatusReachableViaWWAN = 2
+//}
+//
+//enum ErrorDomain: UInt {
+//    case ErrorDomainSignUp = 0
+//    case ErrorDomainLogIn = 1
+//    case ErrorDomainLogOut = 2
+//    case ErrorDomainChat = 3
+//}
+//
+//class QBCore {
+//    let currentUser: QBUUser
+//    let networkStatusBlock: QBNetworkStatusBlock
+//}
+
+
