@@ -26,7 +26,7 @@ class UsersListTableViewController: UITableViewController {
                     print("No cached users")
                     return
                 }
-                
+                print("users \(users)")
                 self.setupUsers(users: users)
                 
             }
