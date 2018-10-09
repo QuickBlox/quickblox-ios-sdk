@@ -58,13 +58,13 @@ class QBCore {
     
     // MARK: Variables
     var currentUser: QBUUser?
+    var profile: QBProfile?
     var networkStatusBlock: QBNetworkStatusBlock?
-    var multicastDelegate: QBMulticastDelegate?
+//    var multicastDelegate: QBCoreDelegate?
+//    var multicastDelegate:QBMulticastDelegate = QBMulticastDelegate()
+    var multicastDelegate: (QBMulticastDelegate & QBCoreDelegate)?
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
-//    private let reachability = SCNetworkReachabilityCreateWithName(nil, "com.quickblox.samplecore.reachability")
     private let reachabilitySerialQueue = DispatchQueue.main
-    
-//    let profile: QBProfile
     
     var reachabilityRef: SCNetworkReachability? {
         didSet {
@@ -120,8 +120,46 @@ class QBCore {
     /**
      *  Logout and remove current user from server
      */
-    public func logout() {
+    func logout() {
         
+        let logoutGroup = DispatchGroup()
+        
+        logoutGroup.enter()
+        unsubscribe(fromRemoteNotifications: {
+            logoutGroup.leave()
+        })
+        
+        logoutGroup.enter()
+        QBChat.instance.disconnect(completionBlock: { error in
+            logoutGroup.leave()
+        })
+        
+        logoutGroup.notify(queue: .main) {
+            // Delete user from server
+            QBRequest.deleteCurrentUser(successBlock: { response in
+                self.isAutorized = false
+                // Clean profile
+                self.profile?.clearProfile()
+                // Notify about logout
+                if let delegate = self.multicastDelegate {
+                    delegate.coreDidLogout(self)
+                }else {
+                    debugPrint("delegate not response coreDidLogout metod")
+                }
+                
+            }, errorBlock: { response in
+                self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogOut)
+            })
+        }
+    }
+    //    core(_ core: QBCore?, error: Error?, domain: ErrorDomain)
+    // MARK: - Handle errors
+    func handleError(_ error: Error?, domain: ErrorDomain) {
+        if let delegate = self.multicastDelegate {
+            delegate.core(self, error!, domain)
+        }else {
+            debugPrint("delegate not response coreDidLogout metod")
+        }
     }
     
     // MARK: - Push Notifications
@@ -134,11 +172,23 @@ class QBCore {
         
     }
     
+    func unsubscribe(fromRemoteNotifications completionBlock: @escaping () -> ()) {
+        
+        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: (UIDevice.current.identifierForVendor?.uuidString)!, successBlock: { response in
+            //if completionBlock
+            completionBlock()
+            
+        }, errorBlock: { error in
+            
+            //if completionBlock
+            completionBlock()
+        })
+    }
+    
     // MARK: - Common Init
     private func commonInit() {
-        
-        //    self.multicastDelegate = QBCoreDelegate()
-        //    _profile = [QBProfile currentProfile];
+        self.multicastDelegate = QBMulticastDelegate() as? (QBMulticastDelegate & QBCoreDelegate)
+        self.profile = QBProfile.currentProfile()
         
         //    [QBSettings setAutoReconnectEnabled:YES];
         //    [[QBChat instance] addDelegate:self];
@@ -151,6 +201,7 @@ class QBCore {
      *  Cheker for internet connection
      */
     public func networkStatus() -> QBNetworkStatus {
+        
         if let reachabilityRef = self.reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {

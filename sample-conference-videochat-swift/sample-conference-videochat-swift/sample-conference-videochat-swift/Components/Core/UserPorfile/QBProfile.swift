@@ -34,28 +34,45 @@ class QBProfile: NSObject, NSCoding{
     /**
      *  User data.
      */
-    var userData: QBUUser?
-    
-    /**
-     *  Returns loaded current profile with user.
-     *
-     *  @return current profile
-     */
-    //    + (nullable instancetype)currentProfile;
-    public func currentProfile() -> QBUUser{
-        return QBUUser()
-    }
+    private var userData: QBUUser?
     
     /**
      *  Synchronize current profile in keychain.
      *
      *  @return whether synchronize was successful
      */
-    public func synchronize() -> OSStatus {
-        assert(self.userData != nil)
+    func synchronize() -> OSStatus {
+        
+        assert(userData != nil, "Invalid parameter not satisfying: userData != nil")
         return self.saveData(data: self.userData as Any, forKey: QBProfileConstants.kQBProfile)
     }
     
+    /**
+     *  Returns loaded current profile with user.
+     *
+     *  @return current profile
+     */
+    class func currentProfile() -> QBProfile {
+        return QBProfile()
+    }
+    
+    override init() {
+        super.init()
+        loadProfile()
+    }
+    
+    // MARK: - NSCoding
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init()
+        userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBUser) as? QBUUser
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        
+        aCoder.encode(userData, forKey: QBProfileConstants.kQBUser)
+    }
+
     /**
      *  Synchronize user data in keychain.
      *
@@ -83,17 +100,6 @@ class QBProfile: NSObject, NSCoding{
         let success: OSStatus = self.deleteObjectForKey(key: QBProfileConstants.kQBProfile)
         self.userData = nil;
         return success;
-    }
-    
-    // MARK: - NSCoding
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.userData, forKey: QBProfileConstants.kQBUser)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        if let userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBUser) {
-            self.userData = userData as? QBUUser
-        }
     }
     
     private func saveData(data: Any, forKey key: String) -> OSStatus {
