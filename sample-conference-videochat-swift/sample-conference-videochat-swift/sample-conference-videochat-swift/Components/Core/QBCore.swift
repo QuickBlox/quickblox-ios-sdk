@@ -26,7 +26,7 @@ enum ErrorDomain: UInt {
 }
 
 struct QBCoreConstants {
-    static let qbDefaultPassword = "x6Bt0VDy5"
+    static let kQBDefaultPassword = "x6Bt0VDy5"
 }
 
 typealias QBNetworkStatusBlock = ((_ status: QBNetworkStatus) -> Void)?
@@ -59,7 +59,7 @@ class QBCore {
     // MARK: Variables
     var currentUser: QBUUser?
     var networkStatusBlock: QBNetworkStatusBlock?
-    var multicastDelegate: QBCoreDelegate?
+    var multicastDelegate: QBMulticastDelegate?
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
 //    private let reachability = SCNetworkReachabilityCreateWithName(nil, "com.quickblox.samplecore.reachability")
     private let reachabilitySerialQueue = DispatchQueue.main
