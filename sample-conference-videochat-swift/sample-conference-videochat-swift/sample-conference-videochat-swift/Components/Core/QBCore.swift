@@ -60,7 +60,6 @@ class QBCore {
     var currentUser: QBUUser?
     var profile: QBProfile?
     var networkStatusBlock: QBNetworkStatusBlock?
-    //Add var multicastDelegate
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
     private let reachabilitySerialQueue = DispatchQueue.main
     

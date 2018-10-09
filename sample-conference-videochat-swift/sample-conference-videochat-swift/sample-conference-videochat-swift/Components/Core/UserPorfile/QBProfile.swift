@@ -138,7 +138,11 @@ class QBProfile: NSObject, NSCoding{
     }
     
     private func getKeychainQueryFor(key: String) -> NSMutableDictionary {
-        let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [QBProfileSecConstants.kSecClassGenericPasswordValue, key, key, QBProfileSecConstants.kSecAttrAccessibleAfterFirstUnlockValue], forKeys: [QBProfileSecConstants.kSecClassValue, QBProfileSecConstants.kSecAttrServiceValue, QBProfileSecConstants.kSecAttrAccountValue, QBProfileSecConstants.kSecAttrAccessibleValue])
+        let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [QBProfileSecConstants.kSecClassGenericPasswordValue,
+                                                                               key,
+                                                                               key,
+                                                                               QBProfileSecConstants.kSecAttrAccessibleAfterFirstUnlockValue], forKeys: [QBProfileSecConstants.kSecClassValue,
+                                                                                                                                                                                                                        QBProfileSecConstants.kSecAttrServiceValue, QBProfileSecConstants.kSecAttrAccountValue, QBProfileSecConstants.kSecAttrAccessibleValue])
         return keychainQuery
     }
 }
