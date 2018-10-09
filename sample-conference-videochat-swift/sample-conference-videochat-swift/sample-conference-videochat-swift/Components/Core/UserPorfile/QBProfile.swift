@@ -34,7 +34,7 @@ class QBProfile: NSObject, NSCoding{
     /**
      *  User data.
      */
-    private var userData: QBUUser?
+    var userData: QBUUser?
     
     /**
      *  Synchronize current profile in keychain.

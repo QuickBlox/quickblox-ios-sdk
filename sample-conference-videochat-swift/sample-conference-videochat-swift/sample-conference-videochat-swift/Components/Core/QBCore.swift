@@ -60,9 +60,7 @@ class QBCore {
     var currentUser: QBUUser?
     var profile: QBProfile?
     var networkStatusBlock: QBNetworkStatusBlock?
-//    var multicastDelegate: QBCoreDelegate?
-//    var multicastDelegate:QBMulticastDelegate = QBMulticastDelegate()
-    var multicastDelegate: (QBMulticastDelegate & QBCoreDelegate)?
+    //Add var multicastDelegate
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
     private let reachabilitySerialQueue = DispatchQueue.main
     
@@ -78,20 +76,23 @@ class QBCore {
         }
     }
     
-    // MARK: Init Metods
-//    init(currentUser: QBUUser, networkStatusBlock: QBNetworkStatusBlock, isAutorized: Bool = false) {
-//        self.currentUser = currentUser
-//        self.networkStatusBlock = networkStatusBlock
-//        self.isAutorized = isAutorized
-//
-//    }
-    
+    // MARK: - Common Init
+    private func commonInit() {
+        //init multicastDelegate
+        self.profile = QBProfile.currentProfile()
+        self.startReachabliyty()
+    }
+
     // MARK: Multicast Delegate
     func addDelegate(_ delegate: QBCoreDelegate) {
-        
+        ////addDelegate
     }
     
     // MARK: - SignUp / Login / Logout
+    
+    func setLoginStatus(_ loginStatus: String?) {
+        //add multicastDelegate metod
+    }
     
     /**
      *  Signup and login
@@ -99,22 +100,96 @@ class QBCore {
      *  @param fullName User name
      *  @param roomName room name (tag)
      */
-    public func signUpWith(_ fullName: String, _ roomName: String) {
+    func signUp(withFullName fullName: String?, roomName: String?) {
         
+        assert(self.currentUser == nil, "Invalid parameter not satisfying: !isCurrentUser")
+        
+        let newUser = QBUUser()
+        
+        newUser.login = UUID().uuidString
+        newUser.fullName = fullName
+        newUser.tags = [roomName] as? [String]
+        newUser.password = QBCoreConstants.kQBDefaultPassword
+        
+        self.setLoginStatus("Signg up ...")
+        
+        QBRequest.signUp(newUser, successBlock: { response, user in
+            self.profile?.synchronizeWithUserData(userData: user)
+            self.loginWithCurrentUser()
+            
+        }, errorBlock: { response in
+            
+            self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainSignUp)
+        })
     }
     
     /**
      *  login
      */
-    public func loginWithCurrentUser() {
+    func loginWithCurrentUser() {
         
+        self.currentUser?.password = QBCoreConstants.kQBDefaultPassword
+        guard let user = self.currentUser else {return}
+        guard let password = self.currentUser?.password else {return}
+        guard let login = self.currentUser?.login else {return}
+        
+        let connectToChat: () -> () = {
+            
+            self.setLoginStatus("Login into chat ...")
+            
+            QBChat.instance.connect(withUserID: user.id, password: password, completion: { error in
+                
+                if error != nil {
+                    
+                    if (error as NSError?)?.code == 401 {
+                        
+                        self.isAutorized = false
+                        // Clean profile
+                        self.clearProfile()
+                        // Notify about logout
+                        //add multicastDelegate metod
+                    } else {
+                        self.handleError(error, domain: ErrorDomain.ErrorDomainLogIn)
+                    }
+                } else {
+                    
+                    //add multicastDelegate metod
+                }
+            })
+        }
+        
+        if isAutorized == true {
+            
+            connectToChat()
+            return
+        }
+        
+        self.setLoginStatus("Login with current user ...")
+        QBRequest.logIn(withUserLogin: login,
+                        password: password,
+                        successBlock: { response, user in
+            self.isAutorized = true
+            
+            connectToChat()
+            
+            self.registerForRemoteNotifications()
+            
+        }, errorBlock: { response in
+            
+            self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogIn)
+            
+            if response.status == QBResponseStatusCode.unAuthorized {
+                // Clean profile
+                self.clearProfile()
+            }
+        })
     }
     
     /**
      *  Clear current profile (Keychain)
      */
     public func clearProfile() {
-        
+        self.profile?.clearProfile()
     }
     
     /**
@@ -139,27 +214,19 @@ class QBCore {
             QBRequest.deleteCurrentUser(successBlock: { response in
                 self.isAutorized = false
                 // Clean profile
-                self.profile?.clearProfile()
+                self.clearProfile()
                 // Notify about logout
-                if let delegate = self.multicastDelegate {
-                    delegate.coreDidLogout(self)
-                }else {
-                    debugPrint("delegate not response coreDidLogout metod")
-                }
+                //add multicastDelegate metod
                 
             }, errorBlock: { response in
                 self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogOut)
             })
         }
     }
-    //    core(_ core: QBCore?, error: Error?, domain: ErrorDomain)
+
     // MARK: - Handle errors
     func handleError(_ error: Error?, domain: ErrorDomain) {
-        if let delegate = self.multicastDelegate {
-            delegate.core(self, error!, domain)
-        }else {
-            debugPrint("delegate not response coreDidLogout metod")
-        }
+        //add multicastDelegate metod
     }
     
     // MARK: - Push Notifications
@@ -168,8 +235,35 @@ class QBCore {
      *
      *  @param deviceToken Identifies client device
      */
-    public func registerForRemoteNotificationsWithDeviceToken(_ deviceToken: Data) {
+    func registerForRemoteNotifications() {
         
+        let app = UIApplication.shared
+        
+        if app.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:))) {
+            
+            let type: UIUserNotificationType = [.sound, .alert, .badge]
+            
+            let settings = UIUserNotificationSettings(types: type, categories: nil)
+            
+            app.registerUserNotificationSettings(settings)
+            app.registerForRemoteNotifications()
+        }
+    }
+    
+    func registerForRemoteNotifications(withDeviceToken deviceToken: Data?) {
+        
+        assert(deviceToken != nil, "Invalid parameter not satisfying: deviceToken != nil")
+        
+        let subscription = QBMSubscription()
+        subscription.notificationChannel = QBMNotificationChannel.APNS
+        subscription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString
+        subscription.deviceToken = deviceToken
+        
+        QBRequest.createSubscription(subscription, successBlock: { response, objects in
+            
+        }, errorBlock: { response in
+            
+        })
     }
     
     func unsubscribe(fromRemoteNotifications completionBlock: @escaping () -> ()) {
@@ -179,21 +273,9 @@ class QBCore {
             completionBlock()
             
         }, errorBlock: { error in
-            
             //if completionBlock
             completionBlock()
         })
-    }
-    
-    // MARK: - Common Init
-    private func commonInit() {
-        self.multicastDelegate = QBMulticastDelegate() as? (QBMulticastDelegate & QBCoreDelegate)
-        self.profile = QBProfile.currentProfile()
-        
-        //    [QBSettings setAutoReconnectEnabled:YES];
-        //    [[QBChat instance] addDelegate:self];
-        
-        self.startReachabliyty()
     }
     
     // MARK: - Reachability

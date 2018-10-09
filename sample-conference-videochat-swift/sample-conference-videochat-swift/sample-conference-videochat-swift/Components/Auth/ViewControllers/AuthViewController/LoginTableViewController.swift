@@ -52,4 +52,3 @@ class LoginTableViewController: UITableViewController {
         return 0
     }
 }
-
