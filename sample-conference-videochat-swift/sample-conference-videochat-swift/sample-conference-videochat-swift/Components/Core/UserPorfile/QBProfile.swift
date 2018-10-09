@@ -15,16 +15,18 @@ struct QBProfileConstants {
     static let kQBUser = "qbuser"
 }
 
-let kSecClassValue = NSString(format: kSecClass)
-let kSecAttrAccountValue = NSString(format: kSecAttrAccount)
-let kSecValueDataValue = NSString(format: kSecValueData)
-let kSecClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
-let kSecAttrServiceValue = NSString(format: kSecAttrService)
-let kSecAttrAccessibleValue = NSString(format: kSecAttrAccessible)
-let kSecMatchLimitValue = NSString(format: kSecMatchLimit)
-let kSecReturnDataValue = NSString(format: kSecReturnData)
-let kSecMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
-let kSecAttrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
+struct QBProfileSecConstants {
+    static let kSecClassValue = NSString(format: kSecClass)
+    static let kSecAttrAccountValue = NSString(format: kSecAttrAccount)
+    static let kSecValueDataValue = NSString(format: kSecValueData)
+    static let kSecClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
+    static let kSecAttrServiceValue = NSString(format: kSecAttrService)
+    static let kSecAttrAccessibleValue = NSString(format: kSecAttrAccessible)
+    static let kSecMatchLimitValue = NSString(format: kSecMatchLimit)
+    static let kSecReturnDataValue = NSString(format: kSecReturnData)
+    static let kSecMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
+    static let kSecAttrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
+}
 
 //class QBProfile: Codable {
 class QBProfile: NSObject, NSCoding{
@@ -49,10 +51,9 @@ class QBProfile: NSObject, NSCoding{
      *
      *  @return whether synchronize was successful
      */
-    private func synchronize() -> OSStatus {
+    public func synchronize() -> OSStatus {
         assert(self.userData != nil)
-        //        return [self saveData:self forKey:kQBProfile];
-        return OSStatus.init(exactly: 12.0)!
+        return self.saveData(data: self.userData as Any, forKey: QBProfileConstants.kQBProfile)
     }
     
     /**
@@ -62,8 +63,15 @@ class QBProfile: NSObject, NSCoding{
      *
      *  @return whether synchronize was successful
      */
-    private func synchronizeWithUserData(userData: QBUUser) -> OSStatus {
-        return OSStatus.init(exactly: 12.0)!
+    public func synchronizeWithUserData(userData: QBUUser) -> OSStatus {
+        self.userData = userData;
+        let status: OSStatus = synchronize()
+        return status;
+    }
+    
+    private func loadProfile() {
+        let profile: QBProfile = self.loadObjectFor(key: QBProfileConstants.kQBProfile) as! QBProfile
+        self.userData = profile.userData;
     }
     
     /**
@@ -71,8 +79,10 @@ class QBProfile: NSObject, NSCoding{
      *
      *  @return Whether clear was successful
      */
-    private func clearProfile() -> OSStatus {
-        return OSStatus.init(exactly: 12.0)!
+    public func clearProfile() -> OSStatus {
+        let success: OSStatus = self.deleteObjectForKey(key: QBProfileConstants.kQBProfile)
+        self.userData = nil;
+        return success;
     }
     
     // MARK: - NSCoding
@@ -90,7 +100,7 @@ class QBProfile: NSObject, NSCoding{
         
         let keychainQuery = self.getKeychainQueryFor(key: key)
         SecItemDelete(keychainQuery as CFDictionary)
-        keychainQuery[kSecValueDataValue] = NSKeyedArchiver.archivedData(withRootObject: data)
+        keychainQuery[QBProfileSecConstants.kSecValueDataValue] = NSKeyedArchiver.archivedData(withRootObject: data)
         return SecItemAdd(keychainQuery as CFDictionary, nil)
     }
     
@@ -99,8 +109,8 @@ class QBProfile: NSObject, NSCoding{
         
         var ret: AnyObject? = nil
         let keychainQuery = self.getKeychainQueryFor(key: key)
-        keychainQuery[kSecReturnDataValue] = kCFBooleanTrue
-        keychainQuery[kSecMatchLimitValue] = kSecMatchLimitOneValue
+        keychainQuery[QBProfileSecConstants.kSecReturnDataValue] = kCFBooleanTrue
+        keychainQuery[QBProfileSecConstants.kSecMatchLimitValue] = QBProfileSecConstants.kSecMatchLimitOneValue
         var dataTypeRef :AnyObject?
         let status: OSStatus = SecItemCopyMatching(keychainQuery, &dataTypeRef)
         
@@ -122,7 +132,7 @@ class QBProfile: NSObject, NSCoding{
     }
     
     private func getKeychainQueryFor(key: String) -> NSMutableDictionary {
-        let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [kSecClassGenericPasswordValue, key, key, kSecAttrAccessibleAfterFirstUnlockValue], forKeys: [kSecClassValue, kSecAttrServiceValue, kSecAttrAccountValue, kSecAttrAccessibleValue])
+        let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [QBProfileSecConstants.kSecClassGenericPasswordValue, key, key, QBProfileSecConstants.kSecAttrAccessibleAfterFirstUnlockValue], forKeys: [QBProfileSecConstants.kSecClassValue, QBProfileSecConstants.kSecAttrServiceValue, QBProfileSecConstants.kSecAttrAccountValue, QBProfileSecConstants.kSecAttrAccessibleValue])
         return keychainQuery
     }
 }
