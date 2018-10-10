@@ -28,7 +28,6 @@ struct QBProfileSecConstants {
     static let kSecAttrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
 }
 
-//class QBProfile: Codable {
 class QBProfile: NSObject, NSCoding{
     
     /**
@@ -43,7 +42,7 @@ class QBProfile: NSObject, NSCoding{
      */
     func synchronize() -> OSStatus {
         
-        assert(userData != nil, "Invalid parameter not satisfying: userData != nil")
+        assert(self.userData != nil, "Invalid parameter not satisfying: userData != nil")
         return self.saveData(data: self.userData as Any, forKey: QBProfileConstants.kQBProfile)
     }
     
@@ -65,12 +64,12 @@ class QBProfile: NSObject, NSCoding{
     required init?(coder aDecoder: NSCoder) {
         
         super.init()
-        userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBUser) as? QBUUser
+        self.userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBUser) as? QBUUser
     }
     
     func encode(with aCoder: NSCoder) {
         
-        aCoder.encode(userData, forKey: QBProfileConstants.kQBUser)
+        aCoder.encode(self.userData, forKey: QBProfileConstants.kQBUser)
     }
 
     /**

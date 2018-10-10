@@ -78,7 +78,6 @@ class QBCore: NSObject, QBChatDelegate {
     
     // MARK: - Common Init
     private func commonInit() {
-        //init multicastDelegate
         self.multicastDelegate = QBMulticastDelegate() as? (QBMulticastDelegate & QBCoreDelegate)
         self.profile = QBProfile.currentProfile()
         QBSettings.autoReconnectEnabled = true
@@ -113,9 +112,9 @@ class QBCore: NSObject, QBChatDelegate {
     // MARK: - SignUp / Login / Logout
     
     func setLoginStatus(_ loginStatus: String?) {
-        debugPrint("loginStatus \(loginStatus)")
+        debugPrint("loginStatus \(loginStatus!)")
         
-        if let delegate = self.multicastDelegate?.core(self, loginStatus!) {
+        if let _ = self.multicastDelegate?.core(self, loginStatus!) {
             self.multicastDelegate?.core(self, loginStatus!)
         }else {
             debugPrint("delegate not response coreloginStatus metod")
@@ -142,7 +141,10 @@ class QBCore: NSObject, QBChatDelegate {
         self.setLoginStatus("Signg up ...")
         
         QBRequest.signUp(newUser, successBlock: { response, user in
+            self.currentUser = user
             self.profile?.synchronizeWithUserData(userData: user)
+            
+            debugPrint("self.profile? \(String(describing: self.profile)) **************")
             self.loginWithCurrentUser()
             
         }, errorBlock: { response in
@@ -166,7 +168,7 @@ class QBCore: NSObject, QBChatDelegate {
             self.setLoginStatus("Login into chat ...")
             
             QBChat.instance.connect(withUserID: user.id, password: password, completion: { error in
-                
+                debugPrint("QBChat.instance.connect **************")
                 if error != nil {
                     
                     if (error as NSError?)?.code == 401 {
@@ -182,11 +184,6 @@ class QBCore: NSObject, QBChatDelegate {
                         }else {
                             debugPrint("delegate not response coreDidLogout metod ==============")
                         }
-//                        if let delegate = self.multicastDelegate {
-//                            delegate.coreDidLogout(self)
-//                        }else {
-//                            debugPrint("delegate not response coreDidLogout metod")
-//                        }
                     } else {
                         self.handleError(error, domain: ErrorDomain.ErrorDomainLogIn)
                     }
@@ -259,18 +256,11 @@ class QBCore: NSObject, QBChatDelegate {
                 // Clean profile
                 self.clearProfile()
                 // Notify about logout
-                //add multicastDelegate metod
                 if let coreDidLogout = self.multicastDelegate?.coreDidLogout {
                     coreDidLogout(self)
-                }else {
+                } else {
                     debugPrint("delegate not response coreDidLogout metod!!!!!!!!!!")
                 }
-//                if let delegate = self.multicastDelegate {
-//                    delegate.coreDidLogout(self)
-//                }else {
-//                    debugPrint("delegate not response coreDidLogout metod")
-//                }
-                
             }, errorBlock: { response in
                 self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogOut)
             })
@@ -279,7 +269,7 @@ class QBCore: NSObject, QBChatDelegate {
 
     // MARK: - Handle errors
     func handleError(_ error: Error?, domain: ErrorDomain) {
-        //add multicastDelegate metod
+        
         if let delegate = self.multicastDelegate {
             delegate.core(self, error!, domain)
         }else {
@@ -342,13 +332,12 @@ class QBCore: NSObject, QBChatDelegate {
      */
     public func networkStatus() -> QBNetworkStatus {
         
-        let status:QBNetworkStatus  = QBNetworkStatus.QBNetworkStatusReachableViaWWAN
+        let status:QBNetworkStatus  = QBNetworkStatus.QBNetworkStatusReachableViaWiFi
         if let reachabilityRef = self.reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
                 debugPrint("flags \(flags)")
                 return self.networkStatusForFlags(flags)
-                
             }
         }
         debugPrint("flags not!!")

@@ -31,7 +31,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         super.viewDidLoad()
         
         core.addDelegate(self)
-//        core.multicastDelegate?.addDelegate(self)
         core.multicastDelegate = self
         
 
@@ -48,8 +47,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
             self.chatRoomNameTextField.text = currentUser.tags?.first
             self.login()
         }
-        
-
     }
     
     deinit {
@@ -113,8 +110,9 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
             infoText = NSLocalizedString("Please check your Internet connection", comment: "")
             needReconnect = true
         } else if core.networkStatus() != QBNetworkStatus.QBNetworkStatusNotReachable {
-            
+            debugPrint("networkStatus \(core.networkStatus())")
             if domain == ErrorDomain.ErrorDomainSignUp || domain == ErrorDomain.ErrorDomainLogIn {
+                debugPrint("networkStatus login()")
                 login()
             }
         }
@@ -204,39 +202,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         setInputEnabled(enabled: true)
         loginButton.hideLoading()
     }
-
-// MARK: - QBCoreDelegate
-    func coreDidLogin(_ core: QBCore?) {
-        
-        performSegue(withIdentifier: "ShowUsersViewController", sender: nil)
-    }
-    
-    func coreDidLogout(_ core: QBCore?) {
-        
-        defaultConfiguration()
-    }
-    
-    func core(_ core: QBCore?, error: Error?, domain: ErrorDomain) {
-        
-        var infoText = error?.localizedDescription
-        
-        if (error as NSError?)?.code == NSURLErrorNotConnectedToInternet {
-            
-            infoText = NSLocalizedString("Please check your Internet connection", comment: "")
-            needReconnect = true
-        } else if core?.networkStatus() != QBNetworkStatus.QBNetworkStatusNotReachable {
-            
-            if domain == ErrorDomain.ErrorDomainSignUp || domain == ErrorDomain.ErrorDomainLogIn {
-                login()
-            }
-        }
-        
-        self.setLoginInfoText(infoText)
-    }
-    
-    func core(_ core: QBCore?, loginStatus: String?) {
-        self.setLoginInfoText(loginStatus)
-    }
     
 // MARK: - Validation helpers
     func userNameIsValid() -> Bool {
@@ -261,21 +226,3 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         return tagIsValid
     }
 }
-//
-//extension LoginTableViewController: QBCoreDelegate {
-//    func coreDidLogin(_ core: QBCore) {
-//        debugPrint("coreDidLogin")
-//    }
-//
-//    func coreDidLogout(_ core: QBCore) {
-//        debugPrint("coreDidLogout")
-//    }
-//
-//    func core(_ core: QBCore, _ loginStatus: String) {
-//        debugPrint("core")
-//    }
-//
-//    func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain) {
-//        debugPrint("core")
-//    }
-//}

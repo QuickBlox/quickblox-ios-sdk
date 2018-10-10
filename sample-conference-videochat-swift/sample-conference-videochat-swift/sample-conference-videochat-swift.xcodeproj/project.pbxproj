@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2C0D582221666256001FF80B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D582121666256001FF80B /* AppDelegate.swift */; };
 		2C0D582421666256001FF80B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0D582321666256001FF80B /* ViewController.swift */; };
-		2C0D582C21666258001FF80B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C0D582A21666258001FF80B /* LaunchScreen.storyboard */; };
 		2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C25F52166709B00B1E8C4 /* Assets.xcassets */; };
 		2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */; };
 		2C4C2600216671A900B1E8C4 /* QBLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FF216671A900B1E8C4 /* QBLoadingButton.swift */; };
@@ -35,9 +34,10 @@
 		2C4C26322166778900B1E8C4 /* SessionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26312166778900B1E8C4 /* SessionSettingsViewController.swift */; };
 		2C4C2634216677AC00B1E8C4 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C2633216677AC00B1E8C4 /* Settings.storyboard */; };
 		2C4C2638216678F200B1E8C4 /* AddUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */; };
-		2C4C263A2166795900B1E8C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C26392166795900B1E8C4 /* Main.storyboard */; };
 		2C73CB0A216D1BDB00DAED6C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73CB09216D1BDB00DAED6C /* Settings.swift */; };
 		2CCD5BFF216DFBA300A52051 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5BFE216DFBA300A52051 /* Auth.storyboard */; };
+		2CCD5C01216E237500A52051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5C00216E237500A52051 /* Main.storyboard */; };
+		2CCD5C03216E25EE00A52051 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */; };
 		928C10E89F08F32654E645F5 /* Pods_sample_conference_videochat_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 445CA0E577B2F56D04692AA8 /* Pods_sample_conference_videochat_swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +46,6 @@
 		2C0D581E21666256001FF80B /* sample-conference-videochat-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-conference-videochat-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C0D582121666256001FF80B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C0D582321666256001FF80B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2C0D582B21666258001FF80B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C0D582D21666258001FF80B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-conference-videochat-swift.entitlements"; sourceTree = "<group>"; };
 		2C4C25F52166709B00B1E8C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../sample-conference-videochat/sample-conference-videochat/Assets.xcassets"; sourceTree = "<group>"; };
@@ -74,9 +73,10 @@
 		2C4C26312166778900B1E8C4 /* SessionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSettingsViewController.swift; sourceTree = "<group>"; };
 		2C4C2633216677AC00B1E8C4 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = "../../../../../sample-conference-videochat/sample-conference-videochat/Components/Settings/Settings.storyboard"; sourceTree = "<group>"; };
 		2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsersViewController.swift; sourceTree = "<group>"; };
-		2C4C26392166795900B1E8C4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "../../../../../sample-conference-videochat/sample-conference-videochat/Components/Users/Main.storyboard"; sourceTree = "<group>"; };
 		2C73CB09216D1BDB00DAED6C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2CCD5BFE216DFBA300A52051 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		2CCD5C00216E237500A52051 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "sample-conference-videochat-swift/Components/Users/Main.storyboard"; sourceTree = SOURCE_ROOT; };
+		2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		428B2435ABB82AC6C31280EA /* Pods-sample-conference-videochat-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-conference-videochat-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-conference-videochat-swift/Pods-sample-conference-videochat-swift.release.xcconfig"; sourceTree = "<group>"; };
 		445CA0E577B2F56D04692AA8 /* Pods_sample_conference_videochat_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_conference_videochat_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -120,7 +120,7 @@
 				2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */,
 				2C0D582321666256001FF80B /* ViewController.swift */,
 				2C4C25F52166709B00B1E8C4 /* Assets.xcassets */,
-				2C0D582A21666258001FF80B /* LaunchScreen.storyboard */,
+				2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */,
 				2C0D582D21666258001FF80B /* Info.plist */,
 			);
 			path = "sample-conference-videochat-swift";
@@ -213,7 +213,9 @@
 		2C4C25F42166706E00B1E8C4 /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				2C4C26392166795900B1E8C4 /* Main.storyboard */,
+				2CCD5C08216E2F2A00A52051 /* Views */,
+				2CCD5C07216E2F1B00A52051 /* Classes */,
+				2CCD5C00216E237500A52051 /* Main.storyboard */,
 				2C4C2635216678C900B1E8C4 /* ViewControllers */,
 			);
 			path = Users;
@@ -332,6 +334,8 @@
 		2C4C2635216678C900B1E8C4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CCD5C09216E2F5000A52051 /* UsersViewController */,
+				2CCD5C04216E2EDA00A52051 /* MainTableViewController */,
 				2C4C2636216678D600B1E8C4 /* AddUsersViewController */,
 			);
 			path = ViewControllers;
@@ -357,6 +361,74 @@
 			children = (
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2CCD5C04216E2EDA00A52051 /* MainTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MainTableViewController;
+			sourceTree = "<group>";
+		};
+		2CCD5C07216E2F1B00A52051 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2CCD5C0E216E3BB000A52051 /* UsersDataSource */,
+				2CCD5C0D216E3BA200A52051 /* QBDataFetcher */,
+				2CCD5C0C216E3B9400A52051 /* PlaceholderGenerator */,
+				2CCD5C0B216E3B7200A52051 /* MainDataSource */,
+				2CCD5C0A216E3B3A00A52051 /* DialogsDataSource */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		2CCD5C08216E2F2A00A52051 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2CCD5C09216E2F5000A52051 /* UsersViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UsersViewController;
+			sourceTree = "<group>";
+		};
+		2CCD5C0A216E3B3A00A52051 /* DialogsDataSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DialogsDataSource;
+			sourceTree = "<group>";
+		};
+		2CCD5C0B216E3B7200A52051 /* MainDataSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MainDataSource;
+			sourceTree = "<group>";
+		};
+		2CCD5C0C216E3B9400A52051 /* PlaceholderGenerator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlaceholderGenerator;
+			sourceTree = "<group>";
+		};
+		2CCD5C0D216E3BA200A52051 /* QBDataFetcher */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QBDataFetcher;
+			sourceTree = "<group>";
+		};
+		2CCD5C0E216E3BB000A52051 /* UsersDataSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UsersDataSource;
 			sourceTree = "<group>";
 		};
 		55B29677057551CD354B0DE4 /* Pods */ = {
@@ -445,9 +517,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CCD5BFF216DFBA300A52051 /* Auth.storyboard in Resources */,
-				2C0D582C21666258001FF80B /* LaunchScreen.storyboard in Resources */,
 				2C4C2604216672AD00B1E8C4 /* Call.storyboard in Resources */,
-				2C4C263A2166795900B1E8C4 /* Main.storyboard in Resources */,
+				2CCD5C01216E237500A52051 /* Main.storyboard in Resources */,
+				2CCD5C03216E25EE00A52051 /* LaunchScreen.storyboard in Resources */,
 				2C4C2634216677AC00B1E8C4 /* Settings.storyboard in Resources */,
 				2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */,
 			);
@@ -532,17 +604,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		2C0D582A21666258001FF80B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2C0D582B21666258001FF80B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2C0D582E21666258001FF80B /* Debug */ = {

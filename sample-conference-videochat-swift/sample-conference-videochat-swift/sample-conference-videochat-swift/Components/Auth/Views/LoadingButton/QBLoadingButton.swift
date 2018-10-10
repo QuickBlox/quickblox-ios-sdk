@@ -108,5 +108,4 @@ class QBLoadingButton: UIButton {
             shapeLayer.fillColor = UIColor.gray.cgColor
         }
     }
-
 }
