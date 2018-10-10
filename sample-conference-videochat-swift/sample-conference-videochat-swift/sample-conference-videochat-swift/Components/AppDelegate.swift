@@ -8,14 +8,19 @@
 
 import UIKit
 import Quickblox
+import QuickbloxWebRTC
 import Fabric
 import Crashlytics
+import SVProgressHUD
 
 // Credentials for Test Sample App
 let kQBApplicationID:UInt = 72448
 let kQBAuthKey = "f4HYBYdeqTZ7KNb"
 let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
 let kQBAccountKey = "C4_z7nuaANnBYmsG_k98"
+
+let kQBAnswerTimeInterval: TimeInterval = 60.0
+let kQBDialingTimeInterval: TimeInterval = 5.0
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,6 +30,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         Fabric.with([Crashlytics.self])
+        
+        QBSettings.applicationID = kQBApplicationID;
+        QBSettings.authKey = kQBAuthKey
+        QBSettings.authSecret = kQBAuthSecret
+        QBSettings.accountKey = kQBAccountKey
+        QBSettings.autoReconnectEnabled = true
+        
+        QBSettings.logLevel = QBLogLevel.nothing
+        QBSettings.disableXMPPLogging()
+        
+        QBRTCConfig.setAnswerTimeInterval(kQBAnswerTimeInterval)
+        QBRTCConfig.setDialingTimeInterval(kQBDialingTimeInterval)
+        QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
+        
+        QBRTCConfig.setConferenceEndpoint("wss://janus.quickblox.com:8989")
+        assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, "Multi-conference server is available only for Enterprise plans. Please refer to https://quickblox.com/developers/EnterpriseFeatures for more information and contacts.")
+        
+        #if ENABLE_STATS_REPORTS
+        QBRTCConfig.setStatsReportTimeInterval(1.0)
+        #endif
+        
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
+        
+        QBRTCClient.initializeRTC()
+        
+        // loading settings
+        Settings.instance
         
         return true
     }

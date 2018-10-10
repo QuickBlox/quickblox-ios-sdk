@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="uE2-n4-mlZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="uE2-n4-mlZ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,7 +41,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FullName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GjG-50-ipV">
-                                            <rect key="frame" x="78" y="11" width="289" height="21"/>
+                                            <rect key="frame" x="78" y="11.5" width="289" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="S8R-Ko-XiR"/>
                                                 <constraint firstAttribute="height" constant="21" id="pgy-YG-zeh"/>
@@ -134,14 +133,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_group" translatesAutoresizingMaskIntoConstraints="NO" id="wo8-3C-DKP">
-                                            <rect key="frame" x="20" y="8" width="59" height="59"/>
+                                            <rect key="frame" x="20" y="8.5" width="59" height="59"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="59" id="3q2-Ul-Qkw"/>
                                                 <constraint firstAttribute="width" constant="59" id="cuA-q2-ITf"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QLu-v2-wC5">
-                                            <rect key="frame" x="312" y="-0.5" width="55" height="76"/>
+                                            <rect key="frame" x="312" y="0.0" width="55" height="75.5"/>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="55" id="Bez-cs-ffG"/>
@@ -155,7 +154,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZG-Zm-rcE">
-                                            <rect key="frame" x="257" y="-0.5" width="55" height="76"/>
+                                            <rect key="frame" x="257" y="0.0" width="55" height="75.5"/>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="55" id="Iwk-8U-3jC"/>
@@ -169,7 +168,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pon-ee-pe0">
-                                            <rect key="frame" x="202" y="-1" width="55" height="76"/>
+                                            <rect key="frame" x="202" y="0.0" width="55" height="75.5"/>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="55" id="diB-yk-Geo"/>
@@ -193,7 +192,6 @@
                                         <constraint firstItem="pon-ee-pe0" firstAttribute="height" secondItem="QwH-QF-70G" secondAttribute="height" id="RrN-CN-a1u"/>
                                         <constraint firstItem="aZG-Zm-rcE" firstAttribute="height" secondItem="QwH-QF-70G" secondAttribute="height" id="TqU-iq-PWe"/>
                                         <constraint firstItem="QLu-v2-wC5" firstAttribute="leading" secondItem="aZG-Zm-rcE" secondAttribute="trailing" id="aZb-UO-Vqi"/>
-                                        <constraint firstItem="pjF-du-6wH" firstAttribute="centerY" secondItem="QwH-QF-70G" secondAttribute="centerY" id="cBY-hx-MAK"/>
                                         <constraint firstAttribute="topMargin" secondItem="pjF-du-6wH" secondAttribute="top" id="ggO-Eb-PhG"/>
                                         <constraint firstItem="wo8-3C-DKP" firstAttribute="centerY" secondItem="QwH-QF-70G" secondAttribute="centerY" id="jAc-A2-hh8"/>
                                         <constraint firstItem="pon-ee-pe0" firstAttribute="centerY" secondItem="QwH-QF-70G" secondAttribute="centerY" id="lrP-A2-h0J"/>
@@ -279,7 +277,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FullName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIN-6y-eXr">
-                                            <rect key="frame" x="78" y="11" width="289" height="21"/>
+                                            <rect key="frame" x="78" y="11.5" width="289" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="bAQ-ls-KHK"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="g7l-gr-wbM"/>

@@ -51,7 +51,7 @@ protocol QBCoreDelegate: class {
     func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain)
 }
 
-class QBCore {
+class QBCore: NSObject, QBChatDelegate {
     
     // MARK: shared Instance
     static let instance = QBCore()
@@ -60,6 +60,7 @@ class QBCore {
     var currentUser: QBUUser?
     var profile: QBProfile?
     var networkStatusBlock: QBNetworkStatusBlock?
+    var multicastDelegate: QBCoreDelegate?
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
     private let reachabilitySerialQueue = DispatchQueue.main
     
@@ -78,19 +79,47 @@ class QBCore {
     // MARK: - Common Init
     private func commonInit() {
         //init multicastDelegate
+        self.multicastDelegate = QBMulticastDelegate() as? (QBMulticastDelegate & QBCoreDelegate)
         self.profile = QBProfile.currentProfile()
+        QBSettings.autoReconnectEnabled = true
+        QBChat.instance.addDelegate(self)
         self.startReachabliyty()
     }
 
     // MARK: Multicast Delegate
     func addDelegate(_ delegate: QBCoreDelegate) {
         ////addDelegate
+        debugPrint("delegate \(delegate)")
+//        self.multicastDelegate?.addDelegate(delegate)
+    }
+    
+    // MARK: - QBChatDelegate
+    func chatDidNotConnectWithError(_ error: Error) {
+        debugPrint("chatDidNotConnectWithError")
+    }
+    
+    func chatDidFail(withStreamError error: Error) {
+        debugPrint("chatDidFail")
+    }
+
+    func chatDidAccidentallyDisconnect() {
+        debugPrint("chatDidAccidentallyDisconnect")
+    }
+
+    func chatDidReconnect() {
+        debugPrint("chatDidReconnect")
     }
     
     // MARK: - SignUp / Login / Logout
     
     func setLoginStatus(_ loginStatus: String?) {
-        //add multicastDelegate metod
+        debugPrint("loginStatus \(loginStatus)")
+        
+        if let delegate = self.multicastDelegate?.core(self, loginStatus!) {
+            self.multicastDelegate?.core(self, loginStatus!)
+        }else {
+            debugPrint("delegate not response coreloginStatus metod")
+        }
     }
     
     /**
@@ -147,12 +176,27 @@ class QBCore {
                         self.clearProfile()
                         // Notify about logout
                         //add multicastDelegate metod
+                        if let coreDidLogout = self.multicastDelegate?.coreDidLogout {
+                            debugPrint("response coreDidLogout metod **************")
+                            coreDidLogout(self)
+                        }else {
+                            debugPrint("delegate not response coreDidLogout metod ==============")
+                        }
+//                        if let delegate = self.multicastDelegate {
+//                            delegate.coreDidLogout(self)
+//                        }else {
+//                            debugPrint("delegate not response coreDidLogout metod")
+//                        }
                     } else {
                         self.handleError(error, domain: ErrorDomain.ErrorDomainLogIn)
                     }
                 } else {
-                    
                     //add multicastDelegate metod
+                    if let delegate = self.multicastDelegate {
+                        delegate.coreDidLogin(self)
+                    }else {
+                        debugPrint("delegate not response coreDidLogin metod")
+                    }
                 }
             })
         }
@@ -216,6 +260,16 @@ class QBCore {
                 self.clearProfile()
                 // Notify about logout
                 //add multicastDelegate metod
+                if let coreDidLogout = self.multicastDelegate?.coreDidLogout {
+                    coreDidLogout(self)
+                }else {
+                    debugPrint("delegate not response coreDidLogout metod!!!!!!!!!!")
+                }
+//                if let delegate = self.multicastDelegate {
+//                    delegate.coreDidLogout(self)
+//                }else {
+//                    debugPrint("delegate not response coreDidLogout metod")
+//                }
                 
             }, errorBlock: { response in
                 self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogOut)
@@ -226,6 +280,11 @@ class QBCore {
     // MARK: - Handle errors
     func handleError(_ error: Error?, domain: ErrorDomain) {
         //add multicastDelegate metod
+        if let delegate = self.multicastDelegate {
+            delegate.core(self, error!, domain)
+        }else {
+            debugPrint("delegate not response coreWithDomain metod")
+        }
     }
     
     // MARK: - Push Notifications
@@ -283,13 +342,17 @@ class QBCore {
      */
     public func networkStatus() -> QBNetworkStatus {
         
+        let status:QBNetworkStatus  = QBNetworkStatus.QBNetworkStatusReachableViaWWAN
         if let reachabilityRef = self.reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
+                debugPrint("flags \(flags)")
                 return self.networkStatusForFlags(flags)
+                
             }
         }
-        return .QBNetworkStatusNotReachable;
+        debugPrint("flags not!!")
+        return status
     }
     
     private func networkStatusForFlags(_ flags: SCNetworkReachabilityFlags) -> QBNetworkStatus{
