@@ -27,7 +27,6 @@ class DialogTableViewCell: UITableViewCell {
         }
     }
     
-    
     func setTitle(_ title: String?) {
         
         if !(self.title == title) {

@@ -23,11 +23,11 @@ struct UserMainConstants {
     static let kSceneSegueAuth = "SceneSegueAuth"
 }
 
-class MainTableViewController: UITableViewController, QBCoreDelegate {
+class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDataSourceDelegate {
     
     //MARK: Variables
     let core = QBCore.instance
-    //    var dialogsDataSource: DialogsDataSource?
+        var dialogsDataSource: DialogsDataSource?
     //    var usersDataSource: UsersDataSource?
     
     // MARK: Lifecycle
@@ -43,7 +43,7 @@ class MainTableViewController: UITableViewController, QBCoreDelegate {
         weak var weakSelf = self
         core.networkStatusBlock = { status in
             if status != QBNetworkStatus.QBNetworkStatusNotReachable {
-                //                weakSelf.fetchData()
+                weakSelf?.fetchData()
             }
         }
         
@@ -54,7 +54,7 @@ class MainTableViewController: UITableViewController, QBCoreDelegate {
         // adding refresh control task
         if refreshControl != nil {
             
-//            refreshControl?.addTarget(self, action: #selector(self.fetchData), for: .valueChanged)
+            refreshControl?.addTarget(self, action: #selector(self.fetchData), for: .valueChanged)
         }
     }
     
@@ -73,10 +73,10 @@ class MainTableViewController: UITableViewController, QBCoreDelegate {
     // MARK: UI Configuration
     func configureTableViewController() {
         
-        //        dialogsDataSource = DialogsDataSource()
-        //        dialogsDataSource.delegate = self
+        dialogsDataSource = DialogsDataSource()
+        dialogsDataSource?.delegate = self
         //        usersDataSource = UsersDataSource()
-        //        tableView.dataSource = dialogsDataSource
+        tableView.dataSource = dialogsDataSource
         tableView.rowHeight = 76
         refreshControl?.beginRefreshing()
     }
@@ -96,10 +96,10 @@ class MainTableViewController: UITableViewController, QBCoreDelegate {
         if let anObject = core.currentUser?.tags?.first {
             roomName = "\(anObject)"
         }
-        let userName = "Logged in as \(core.currentUser?.fullName)"
+        let userName = "Logged in as \(String(describing: core.currentUser?.fullName))"
         let titleString = "\(roomName ?? "")\n\(userName)"
         
-        var attrString = NSMutableAttributedString(string: titleString)
+        let attrString = NSMutableAttributedString(string: titleString)
         let roomNameRange: NSRange = (titleString as NSString).range(of: roomName ?? "")
         attrString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16.0), range: roomNameRange)
         
@@ -168,44 +168,44 @@ class MainTableViewController: UITableViewController, QBCoreDelegate {
 //        }
 //    }
     
-    // MARK: - DialogsDataSourceDelegate
+     //MARK: - DialogsDataSourceDelegate
     
-//    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, dialogCellDidTapListener dialogCell: UITableViewCell?) {
-//
-//        joinDialog(fromDialogCell: dialogCell, conferenceType: 0)
-//    }
-//
-//    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, dialogCellDidTapAudio dialogCell: UITableViewCell?) {
-//
-//        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.QBRTCConferenceTypeAudio)
-//    }
-//
-//    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, dialogCellDidTapVideo dialogCell: UITableViewCell?) {
-//
-//        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.QBRTCConferenceTypeVideo)
-//    }
-//
-//    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath?) {
-//        if hasConnectivity() && editingStyle == .delete {
-//
-//            SVProgressHUD.show()
-//            let chatDialog: QBChatDialog? = self.dialogsDataSource.objects[indexPath?.row ?? 0]
-//            weak var weakSelf = self
-//            QBRequest.deleteDialogs(withIDs: Set<AnyHashable>([chatDialog?.id]), forAllUsers: false, successBlock: { response, deletedObjectsIDs, notFoundObjectsIDs, wrongPermissionsObjectsIDs in
-//
-//                let strongSelf = weakSelf
-//                var dialogs = strongSelf.dialogsDataSource.objects
-//                dialogs.removeAll(where: { element in element == chatDialog })
-//                strongSelf.dialogsDataSource.objects = dialogs
-//                self.tableView.reloadData()
-//                SVProgressHUD.dismiss()
-//
-//            }, errorBlock: { response in
-//
-//                SVProgressHUD.showError(withStatus: "\(response.error.reasons)")
-//            })
-//        }
-//    }
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, dialogCellDidTapListener dialogCell: UITableViewCell?) {
+
+        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType(rawValue: 0)!)
+    }
+
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, dialogCellDidTapAudio dialogCell: UITableViewCell?) {
+
+        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.audio)
+    }
+
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, dialogCellDidTapVideo dialogCell: UITableViewCell?) {
+
+        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.video)
+    }
+
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath?) {
+        if hasConnectivity() && editingStyle == .delete {
+
+            SVProgressHUD.show()
+            let chatDialog: QBChatDialog? = self.dialogsDataSource?.objects[indexPath?.row ?? 0]
+            weak var weakSelf = self
+            QBRequest.deleteDialogs(withIDs: Set<AnyHashable>([chatDialog?.id]) as! Set<String>, forAllUsers: false, successBlock: { response, deletedObjectsIDs, notFoundObjectsIDs, wrongPermissionsObjectsIDs in
+
+                let strongSelf = weakSelf
+                let dialogs = strongSelf?.dialogsDataSource?.objects
+                if let sortedDialogs =  dialogs?.filter({$0 != chatDialog}) {
+                    strongSelf?.dialogsDataSource?.objects = sortedDialogs
+                    self.tableView.reloadData()
+                    SVProgressHUD.dismiss()
+                }
+            }, errorBlock: { response in
+
+                SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+            })
+        }
+    }
     
     // MARK: UsersViewControllerDelegate
 //    func usersViewController(_ usersViewController: UsersViewController?, didCreateChatDialog chatDialog: QBChatDialog?) {
@@ -290,31 +290,31 @@ class MainTableViewController: UITableViewController, QBCoreDelegate {
             strongSelf?.refreshControl?.endRefreshing()
         }
     }
-//
-//    func joinDialog(fromDialogCell cell: UITableViewCell?, conferenceType: QBRTCConferenceType) {
-//        if hasConnectivity() {
-//
-//            if Int(conferenceType) > 0 {
-//                QBAVCallPermissions.check(with: conferenceType) { granted in
-//
-//                    if granted {
-//
-//                        var indexPath: IndexPath? = nil
-//                        if let aCell = cell {
-//                            indexPath = self.tableView.indexPath(for: aCell)
-//                        }
-//                        let chatDialog: QBChatDialog? = self.dialogsDataSource.objects[indexPath?.row ?? 0]
-//                        self.performSegue(withIdentifier: kCallSegue, sender: [chatDialog, conferenceType])
-//                    }
-//                }
-//            } else {
-//                var indexPath: IndexPath? = nil
-//                if let aCell = cell {
-//                    indexPath = tableView.indexPath(for: aCell)
-//                }
-//                let chatDialog: QBChatDialog? = dialogsDataSource.objects[indexPath?.row ?? 0]
-//                performSegue(withIdentifier: kCallSegue, sender: [chatDialog, conferenceType])
-//            }
-//        }
-//    }
+
+    func joinDialog(fromDialogCell cell: UITableViewCell?, conferenceType: QBRTCConferenceType) {
+        if hasConnectivity() {
+
+            if Int(Float(conferenceType.rawValue)) > 0 {
+                QBAVCallPermissions.check(with: conferenceType) { granted in
+
+                    if granted {
+
+                        var indexPath: IndexPath? = nil
+                        if let aCell = cell {
+                            indexPath = self.tableView.indexPath(for: aCell)
+                        }
+                        let chatDialog: QBChatDialog? = self.dialogsDataSource?.objects[indexPath?.row ?? 0]
+                        self.performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: [chatDialog as Any, conferenceType])
+                    }
+                }
+            } else {
+                var indexPath: IndexPath? = nil
+                if let aCell = cell {
+                    indexPath = tableView.indexPath(for: aCell)
+                }
+                let chatDialog: QBChatDialog? = dialogsDataSource?.objects[indexPath?.row ?? 0]
+                performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: [chatDialog as Any, conferenceType])
+            }
+        }
+    }
 }
