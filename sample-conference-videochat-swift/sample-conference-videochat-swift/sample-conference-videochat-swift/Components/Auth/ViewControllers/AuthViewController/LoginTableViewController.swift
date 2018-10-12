@@ -66,7 +66,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         
         // Reachability
         let updateLoginInfo: ((_ status: QBNetworkStatus) -> Void)? = { status in
-            debugPrint("status \(status)")
             let loginInfo = (status == QBNetworkStatus.QBNetworkStatusNotReachable) ? NSLocalizedString("Please check your Internet connection", comment: "") : NSLocalizedString("Please enter your username and group name. You can join existent group.", comment: "")
             self.setLoginInfoText(loginInfo)
         }
@@ -88,7 +87,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
     
 // MARK: - QBCoreDelegate metods
     func coreDidLogin(_ core: QBCore) {
-        debugPrint("coreDidLogin delegate")
         performSegue(withIdentifier: "ShowUsersViewController", sender: nil)
     }
     
@@ -97,7 +95,6 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
     }
     
     func core(_ core: QBCore, _ loginStatus: String) {
-        debugPrint("loginStatus delegate")
         self.setLoginInfoText(loginStatus)
     }
     
@@ -110,9 +107,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
             infoText = NSLocalizedString("Please check your Internet connection", comment: "")
             needReconnect = true
         } else if core.networkStatus() != QBNetworkStatus.QBNetworkStatusNotReachable {
-            debugPrint("networkStatus \(core.networkStatus())")
             if domain == ErrorDomain.ErrorDomainSignUp || domain == ErrorDomain.ErrorDomainLogIn {
-                debugPrint("networkStatus login()")
                 login()
             }
         }

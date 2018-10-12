@@ -11,6 +11,7 @@ import Quickblox
 import QuickbloxWebRTC
 import SVProgressHUD
 import SystemConfiguration
+import UserNotifications
 
 enum QBNetworkStatus: UInt {
     case QBNetworkStatusNotReachable = 0
@@ -54,10 +55,19 @@ protocol QBCoreDelegate: class {
 class QBCore: NSObject, QBChatDelegate {
     
     // MARK: shared Instance
-    static let instance = QBCore()
+//    static let instance = QBCore()
+    static let instance: QBCore = {
+        let core = QBCore()
+        core.commonInit()
+        return core
+    }()
     
     // MARK: Variables
-    var currentUser: QBUUser?
+    var currentUser: QBUUser?{
+        didSet {
+            debugPrint("currentUser didSet \(String(describing: currentUser))")
+        }
+    }
     var profile: QBProfile?
     var networkStatusBlock: QBNetworkStatusBlock?
     var multicastDelegate: QBCoreDelegate?
@@ -79,7 +89,7 @@ class QBCore: NSObject, QBChatDelegate {
     // MARK: - Common Init
     private func commonInit() {
         self.multicastDelegate = QBMulticastDelegate() as? (QBMulticastDelegate & QBCoreDelegate)
-        self.profile = QBProfile.currentProfile()
+        self.profile = QBProfile()
         QBSettings.autoReconnectEnabled = true
         QBChat.instance.addDelegate(self)
         self.startReachabliyty()
@@ -141,10 +151,8 @@ class QBCore: NSObject, QBChatDelegate {
         self.setLoginStatus("Signg up ...")
         
         QBRequest.signUp(newUser, successBlock: { response, user in
-            self.currentUser = user
             self.profile?.synchronizeWithUserData(userData: user)
-            
-            debugPrint("self.profile? \(String(describing: self.profile)) **************")
+            self.currentUser = self.profile?.userData
             self.loginWithCurrentUser()
             
         }, errorBlock: { response in
@@ -160,7 +168,7 @@ class QBCore: NSObject, QBChatDelegate {
         
         self.currentUser?.password = QBCoreConstants.kQBDefaultPassword
         guard let user = self.currentUser else {return}
-        guard let password = self.currentUser?.password else {return}
+        let password = QBCoreConstants.kQBDefaultPassword
         guard let login = self.currentUser?.login else {return}
         
         let connectToChat: () -> () = {
@@ -168,7 +176,7 @@ class QBCore: NSObject, QBChatDelegate {
             self.setLoginStatus("Login into chat ...")
             
             QBChat.instance.connect(withUserID: user.id, password: password, completion: { error in
-                debugPrint("QBChat.instance.connect **************")
+
                 if error != nil {
                     
                     if (error as NSError?)?.code == 401 {
@@ -179,7 +187,6 @@ class QBCore: NSObject, QBChatDelegate {
                         // Notify about logout
                         //add multicastDelegate metod
                         if let coreDidLogout = self.multicastDelegate?.coreDidLogout {
-                            debugPrint("response coreDidLogout metod **************")
                             coreDidLogout(self)
                         }else {
                             debugPrint("delegate not response coreDidLogout metod ==============")
@@ -332,15 +339,13 @@ class QBCore: NSObject, QBChatDelegate {
      */
     public func networkStatus() -> QBNetworkStatus {
         
-        let status:QBNetworkStatus  = QBNetworkStatus.QBNetworkStatusReachableViaWiFi
+        let status:QBNetworkStatus  = QBNetworkStatus.QBNetworkStatusNotReachable
         if let reachabilityRef = self.reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
-                debugPrint("flags \(flags)")
                 return self.networkStatusForFlags(flags)
             }
         }
-        debugPrint("flags not!!")
         return status
     }
     

@@ -28,12 +28,15 @@ struct QBProfileSecConstants {
     static let kSecAttrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
 }
 
-class QBProfile: NSObject, NSCoding{
+class QBProfile: NSObject, NSCoding {
     
-    /**
-     *  User data.
-     */
     var userData: QBUUser?
+    
+    override init() {
+        
+        super.init()
+        loadProfile()
+    }
     
     /**
      *  Synchronize current profile in keychain.
@@ -43,32 +46,18 @@ class QBProfile: NSObject, NSCoding{
     func synchronize() -> OSStatus {
         
         assert(self.userData != nil, "Invalid parameter not satisfying: userData != nil")
-        return self.saveData(data: self.userData as Any, forKey: QBProfileConstants.kQBProfile)
-    }
-    
-    /**
-     *  Returns loaded current profile with user.
-     *
-     *  @return current profile
-     */
-    class func currentProfile() -> QBProfile {
-        return QBProfile()
-    }
-    
-    override init() {
-        super.init()
-        loadProfile()
+        debugPrint("self.userData \(String(describing: self.userData))")
+        return self.saveData(self.userData as Any, forKey: QBProfileConstants.kQBProfile)
     }
     
     // MARK: - NSCoding
-    required init?(coder aDecoder: NSCoder) {
+    convenience required init?(coder aDecoder: NSCoder) {
+        self.init()
+        userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBUser) as? QBUUser
         
-        super.init()
-        self.userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBUser) as? QBUUser
     }
     
     func encode(with aCoder: NSCoder) {
-        
         aCoder.encode(self.userData, forKey: QBProfileConstants.kQBUser)
     }
 
@@ -86,8 +75,12 @@ class QBProfile: NSObject, NSCoding{
     }
     
     private func loadProfile() {
-        let profile: QBProfile = self.loadObjectFor(key: QBProfileConstants.kQBProfile) as! QBProfile
-        self.userData = profile.userData;
+        if let profile = self.loadObject(forKey: QBProfileConstants.kQBProfile) {
+//            let profile = self.loadObject(forKey: QBProfileConstants.kQBProfile) as! QBProfile
+            self.userData = profile.userData;
+        } else {
+            return
+        }
     }
     
     /**
@@ -101,47 +94,69 @@ class QBProfile: NSObject, NSCoding{
         return success;
     }
     
-    private func saveData(data: Any, forKey key: String) -> OSStatus {
+    func saveData(_ data: Any?, forKey key: String?) -> OSStatus {
         
-        let keychainQuery = self.getKeychainQueryFor(key: key)
-        SecItemDelete(keychainQuery as CFDictionary)
-        keychainQuery[QBProfileSecConstants.kSecValueDataValue] = NSKeyedArchiver.archivedData(withRootObject: data)
-        return SecItemAdd(keychainQuery as CFDictionary, nil)
+        var keychainQuery = getKeychainQueryFor(key: key!)
+        SecItemDelete((keychainQuery as CFDictionary?)!)
+        if let dataUser = data {
+            keychainQuery?[QBProfileSecConstants.kSecValueDataValue] = NSKeyedArchiver.archivedData(withRootObject: dataUser)
+            print("saved")
+        }
+        return SecItemAdd(keychainQuery! as CFDictionary, nil)
     }
     
     // MARK: - Keychain
-    private func loadObjectFor(key: String) -> Any? {
+    func loadObject(forKey key: String?) -> QBProfile? {
         
-        var ret: AnyObject? = nil
-        let keychainQuery = self.getKeychainQueryFor(key: key)
-        keychainQuery[QBProfileSecConstants.kSecReturnDataValue] = kCFBooleanTrue
-        keychainQuery[QBProfileSecConstants.kSecMatchLimitValue] = QBProfileSecConstants.kSecMatchLimitOneValue
-        var dataTypeRef :AnyObject?
-        let status: OSStatus = SecItemCopyMatching(keychainQuery, &dataTypeRef)
+        var ret: QBProfile? = nil
         
-        if status == errSecSuccess {
-            if let retrievedData = dataTypeRef as? Data {
-                ret = NSKeyedUnarchiver.unarchiveObject(with: (retrievedData)) as AnyObject
-            }
-        } else {
-            print("Nothing was retrieved from the keychain. Status code \(status)")
+        var keychainQuery = getKeychainQueryFor(key: key!)
+        
+        if let aTrue = kCFBooleanTrue {
+            keychainQuery?[QBProfileSecConstants.kSecReturnDataValue] = aTrue
         }
+        keychainQuery?[QBProfileSecConstants.kSecMatchLimitValue] = QBProfileSecConstants.kSecMatchLimitOneValue
+        var keyData: AnyObject?
+        let status = SecItemCopyMatching(keychainQuery! as CFDictionary, &keyData)
 
+        if status == noErr{
+            if let aData = keyData as! Data? {
+              return NSKeyedUnarchiver.unarchiveObject(with: aData) as? QBProfile
+//                debugPrint("ret \(String(describing: ret))")
+            }
+        }
         return ret
     }
     
     private func deleteObjectForKey(key: String) -> OSStatus {
         
         let keychainQuery = self.getKeychainQueryFor(key: key)
-        return SecItemDelete(keychainQuery as CFDictionary)
+        return SecItemDelete(keychainQuery! as CFDictionary)
     }
     
-    private func getKeychainQueryFor(key: String) -> NSMutableDictionary {
-        let keychainQuery: NSMutableDictionary = NSMutableDictionary(objects: [QBProfileSecConstants.kSecClassGenericPasswordValue,
-                                                                               key,
-                                                                               key,
-                                                                               QBProfileSecConstants.kSecAttrAccessibleAfterFirstUnlockValue], forKeys: [QBProfileSecConstants.kSecClassValue,
-                                                                                                                                                                                                                        QBProfileSecConstants.kSecAttrServiceValue, QBProfileSecConstants.kSecAttrAccountValue, QBProfileSecConstants.kSecAttrAccessibleValue])
-        return keychainQuery
+    private func getKeychainQueryFor(key: String) -> [AnyHashable : Any]? {
+        
+            return ([QBProfileSecConstants.kSecClassValue: QBProfileSecConstants.kSecClassGenericPasswordValue, QBProfileSecConstants.kSecAttrServiceValue: key, QBProfileSecConstants.kSecAttrAccountValue: key, QBProfileSecConstants.kSecAttrAccessibleValue: QBProfileSecConstants.kSecAttrAccessibleAfterFirstUnlockValue])
     }
+    
+    
+//    func storeProducts() {
+//        do {
+//            let data = try PropertyListEncoder().encode(products)
+//            let success = NSKeyedArchiver.archiveRootObject(data, toFile: productsFile.path)
+//            print(success ? "Successful save" : "Save Failed")
+//        } catch {
+//            print("Save Failed")
+//        }
+//    }
+//    func retrieveProducts() -> [Product]? {
+//        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: productsFile.path) as? Data else { return nil }
+//        do {
+//            let products = try PropertyListDecoder().decode([Product].self, from: data)
+//            return products
+//        } catch {
+//            print("Retrieve Failed")
+//            return nil
+//        }
+//    }
 }
