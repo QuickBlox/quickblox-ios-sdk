@@ -40,6 +40,7 @@
 		2C4C2638216678F200B1E8C4 /* AddUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */; };
 		2C73CB0A216D1BDB00DAED6C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73CB09216D1BDB00DAED6C /* Settings.swift */; };
 		2CC867C32170ABF1006DF7BC /* DialogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC867C22170ABF1006DF7BC /* DialogTableViewCell.swift */; };
+		2CC867C52170C5B9006DF7BC /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC867C42170C5B9006DF7BC /* UsersViewController.swift */; };
 		2CCD5BFF216DFBA300A52051 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5BFE216DFBA300A52051 /* Auth.storyboard */; };
 		2CCD5C01216E237500A52051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5C00216E237500A52051 /* Main.storyboard */; };
 		2CCD5C03216E25EE00A52051 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */; };
@@ -84,6 +85,7 @@
 		2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsersViewController.swift; sourceTree = "<group>"; };
 		2C73CB09216D1BDB00DAED6C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2CC867C22170ABF1006DF7BC /* DialogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogTableViewCell.swift; sourceTree = "<group>"; };
+		2CC867C42170C5B9006DF7BC /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		2CCD5BFE216DFBA300A52051 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		2CCD5C00216E237500A52051 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "sample-conference-videochat-swift/Components/Users/Main.storyboard"; sourceTree = SOURCE_ROOT; };
 		2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 		2CCD5C09216E2F5000A52051 /* UsersViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2CC867C42170C5B9006DF7BC /* UsersViewController.swift */,
 			);
 			path = UsersViewController;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				2C4C2638216678F200B1E8C4 /* AddUsersViewController.swift in Sources */,
 				2C3965B4216FA76F008D6889 /* DialogsDataSource.swift in Sources */,
 				2C4C26262166755600B1E8C4 /* QMSoundManager.swift in Sources */,
+				2CC867C52170C5B9006DF7BC /* UsersViewController.swift in Sources */,
 				2C4C26242166753C00B1E8C4 /* QMRootViewControllerSegue.swift in Sources */,
 				2C4C26192166743500B1E8C4 /* OpponentsFlowLayout.swift in Sources */,
 				2C3965B6216FA810008D6889 /* MainDataSource.swift in Sources */,
