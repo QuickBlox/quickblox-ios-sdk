@@ -11,7 +11,7 @@ import UIKit
 class MainDataSource<T: Any> : NSObject, UITableViewDataSource where T: Equatable {
     
     var objects:Array<T> = []
-    private var selectedObjects:Array<T> = []
+    var selectedObjects:Array<T> = []
     
     private var sortSelector: Selector? {
         didSet {

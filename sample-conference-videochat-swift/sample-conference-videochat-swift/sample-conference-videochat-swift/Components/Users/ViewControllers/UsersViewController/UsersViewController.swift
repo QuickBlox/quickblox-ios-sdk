@@ -20,7 +20,7 @@ class UsersViewController: UITableViewController {
     
     let core = QBCore.instance
     
-//    weak var dataSource: UsersDataSource?
+    weak var dataSource: UsersDataSource?
     weak var delegate: UsersViewControllerDelegate?
 
         // MARK: Lifecycle
@@ -28,8 +28,9 @@ class UsersViewController: UITableViewController {
     override func viewDidLoad() {
             super.viewDidLoad()
             
-//            tableView.dataSource = dataSource
+            tableView.dataSource = dataSource
             tableView.rowHeight = 44
+        fetchData()
             
             // adding refresh control task
         if (refreshControl != nil) {
@@ -54,7 +55,7 @@ class UsersViewController: UITableViewController {
             super.viewWillDisappear(animated)
             
         if isMovingFromParent {
-//                dataSource.deselectAllObjects()
+            dataSource?.deselectAllObjects()
             }
         }
     deinit {
@@ -63,38 +64,39 @@ class UsersViewController: UITableViewController {
     
     @objc func didPressCreateChatButton(_ item: UIBarButtonItem?) {
         
-//        if hasConnectivity() {
-//            
-//            let selectedUsers = dataSource?.selectedObjects
-//            let userIDs = selectedUsers?.value(forKeyPath: "ID") as? [Any]
-//            let userNames = selectedUsers?.map { $0.fullName } as [Any]?
-//            let chatDialog = QBChatDialog(dialogID: nil, type: QBChatDialogTypeGroup)
-//            chatDialog.occupantIDs = userIDs
-//            chatDialog.name = "\(core.currentUser.fullName), \(userNames?.joined(separator: ", ") ?? "")"
-//            
-//            SVProgressHUD.show(withStatus: NSLocalizedString("Creating chat dialog.", comment: ""))
-//            weak var weakSelf = self
-//            QBRequest.createDialog(chatDialog, successBlock: { response, createdDialog in
-//                
-//                SVProgressHUD.dismiss()
-//                weakSelf.delegate.usersViewController(weakSelf, didCreateChatDialog: createdDialog)
-//                weakSelf.navigationController?.popViewController(animated: true)
-//                
-//            }, errorBlock: { response in
-//                
-//                SVProgressHUD.showError(withStatus: "\(response.error.reasons)")
-//            })
-//        }
+        if hasConnectivity() {
+            
+            let selectedUsers = dataSource?.selectedObjects
+            let userIDs = selectedUsers?.map{ $0.externalUserID }
+            let userNames = selectedUsers?.map{ $0.fullName } as! [String]
+            let chatDialog = QBChatDialog(dialogID: nil, type: QBChatDialogType.group)
+            chatDialog.occupantIDs = userIDs as [NSNumber]?
+            
+            chatDialog.name = "\(String(describing: core.currentUser?.fullName)), \(userNames.joined(separator: ", ") )"
+            
+            SVProgressHUD.show(withStatus: NSLocalizedString("Creating chat dialog.", comment: ""))
+            weak var weakSelf = self
+            QBRequest.createDialog(chatDialog, successBlock: { response, createdDialog in
+                
+                SVProgressHUD.dismiss()
+                weakSelf?.delegate?.usersViewController(weakSelf, didCreateChatDialog: createdDialog)
+                weakSelf?.navigationController?.popViewController(animated: true)
+                
+            }, errorBlock: { response in
+                
+                SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+            })
+        }
     }
     
     // MARK: UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        dataSource?.selectObject(at: indexPath)
-//        tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
-//
-//        navigationItem?.rightBarButtonItem?.isEnabled = dataSource?.selectedObjects.count ?? 0 > 0
+        dataSource?.selectObject(at: indexPath)
+        tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
+
+        navigationItem.rightBarButtonItem?.isEnabled = dataSource?.selectedObjects.count ?? 0 > 0
     }
     
     // MARK: Actions
@@ -120,14 +122,12 @@ class UsersViewController: UITableViewController {
     
     // MARK: Private
     @objc func fetchData() {
-        
         weak var weakSelf = self
         QBDataFetcher.fetchUsers({ users in
             
-//            weakSelf.dataSource?.objects = users
-//            weakSelf.tableView.reloadData()
-//            weakSelf.refreshControl?.endRefreshing()
+            weakSelf?.dataSource?.objects = users as! Array<QBUUser>
+            weakSelf?.tableView.reloadData()
+            weakSelf?.refreshControl?.endRefreshing()
         })
     }
-
 }

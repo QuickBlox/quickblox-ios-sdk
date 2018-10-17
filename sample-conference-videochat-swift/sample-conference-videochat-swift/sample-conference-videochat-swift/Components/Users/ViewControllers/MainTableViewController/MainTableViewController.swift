@@ -23,12 +23,12 @@ struct UserMainConstants {
     static let kSceneSegueAuth = "SceneSegueAuth"
 }
 
-class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDataSourceDelegate {
+class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDataSourceDelegate, UsersViewControllerDelegate {
     
     //MARK: Variables
     let core = QBCore.instance
         var dialogsDataSource: DialogsDataSource?
-    //    var usersDataSource: UsersDataSource?
+        var usersDataSource: UsersDataSource?
     
     // MARK: Lifecycle
     
@@ -208,15 +208,15 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
     }
     
     // MARK: UsersViewControllerDelegate
-//    func usersViewController(_ usersViewController: UsersViewController?, didCreateChatDialog chatDialog: QBChatDialog?) {
-//
-//        var mutableObjecs = dialogsDataSource.objects
-//        if let aDialog = chatDialog {
-//            mutableObjecs.append(aDialog)
-//        }
-//        dialogsDataSource.objects = mutableObjecs
-//        tableView.reloadData()
-//    }
+    func usersViewController(_ usersViewController: UsersViewController?, didCreateChatDialog chatDialog: QBChatDialog?) {
+
+        var mutableObjecs = dialogsDataSource?.objects
+        if let aDialog = chatDialog {
+            mutableObjecs?.append(aDialog)
+        }
+        dialogsDataSource?.objects = mutableObjecs!
+        tableView.reloadData()
+    }
     
     // MARK: QBCoreDelegate
     func coreDidLogout(_ core: QBCore?) {
@@ -282,7 +282,7 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
 
             dataGroup.leave()
             let strongSelf = weakSelf
-//            strongSelf.usersDataSource.objects = users
+            strongSelf?.usersDataSource?.objects = users as! Array<QBUUser>
         })
         
         dataGroup.notify(queue: DispatchQueue.main) {

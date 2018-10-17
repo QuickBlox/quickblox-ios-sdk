@@ -14,10 +14,15 @@ import Crashlytics
 import SVProgressHUD
 
 // Credentials for Test Sample App
-let kQBApplicationID:UInt = 72448
-let kQBAuthKey = "f4HYBYdeqTZ7KNb"
-let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
-let kQBAccountKey = "C4_z7nuaANnBYmsG_k98"
+let kQBApplicationID:UInt = 73803
+let kQBAuthKey = "qp4zDcV8mk29Qp9"
+let kQBAuthSecret = "Hm2KgDE6eeMZHu5"
+let kQBAccountKey = "uK_8uinNyz8-npTNB6tx"
+
+//const NSUInteger kApplicationID = 73803;
+//NSString *const kAuthKey        = @"qp4zDcV8mk29Qp9";
+//NSString *const kAuthSecret     = @"Hm2KgDE6eeMZHu5";
+//NSString *const kAccountKey     = @"uK_8uinNyz8-npTNB6tx";
 
 let kQBAnswerTimeInterval: TimeInterval = 60.0
 let kQBDialingTimeInterval: TimeInterval = 5.0
@@ -44,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCConfig.setDialingTimeInterval(kQBDialingTimeInterval)
         QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
         
-        QBRTCConfig.setConferenceEndpoint("wss://janus.quickblox.com:8989")
+        QBRTCConfig.setConferenceEndpoint("wss://janusdev.quickblox.com:8989")
         assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, "Multi-conference server is available only for Enterprise plans. Please refer to https://quickblox.com/developers/EnterpriseFeatures for more information and contacts.")
         
         #if ENABLE_STATS_REPORTS
