@@ -68,7 +68,12 @@ class QBCore: NSObject, QBChatDelegate {
             debugPrint("currentUser didSet \(String(describing: currentUser))")
         }
     }
-    var profile: QBProfile?
+    var profile: QBProfile?{
+        didSet {
+            debugPrint("profile didSet \(String(describing: profile))")
+            currentUser = profile?.userData
+        }
+    }
     var networkStatusBlock: QBNetworkStatusBlock?
     var multicastDelegate: QBCoreDelegate?
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
@@ -152,7 +157,6 @@ class QBCore: NSObject, QBChatDelegate {
         
         QBRequest.signUp(newUser, successBlock: { response, user in
             self.profile?.synchronizeWithUserData(userData: user)
-            self.currentUser = self.profile?.userData
             self.loginWithCurrentUser()
             
         }, errorBlock: { response in

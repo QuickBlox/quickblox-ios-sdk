@@ -75,7 +75,7 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
         
         dialogsDataSource = DialogsDataSource()
         dialogsDataSource?.delegate = self
-        //        usersDataSource = UsersDataSource()
+        usersDataSource = UsersDataSource()
         tableView.dataSource = dialogsDataSource
         tableView.rowHeight = 76
         refreshControl?.beginRefreshing()
@@ -148,25 +148,25 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
         performSegue(withIdentifier: UserMainConstants.kUsersSegue, sender: item)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//        if (segue.identifier == UserMainConstants.kSettingsSegue) {
-//
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if (segue.identifier == UserMainConstants.kSettingsSegue) {
+
 //            let settingsViewController = (segue.destination as? UINavigationController)?.topViewController as? SessionSettingsViewController
 //            settingsViewController?.delegate = self
-//        } else if (segue.identifier == UserMainConstants.kUsersSegue) {
-//
-//            let usersViewController = segue.destination as? UsersViewController
-//            usersViewController?.dataSource = usersDataSource
-//            usersViewController?.delegate = self
-//        } else if (segue.identifier == UserMainConstants.kCallSegue) {
-//
+        } else if (segue.identifier == UserMainConstants.kUsersSegue) {
+
+            let usersViewController = segue.destination as? UsersViewController
+            usersViewController?.dataSource = usersDataSource
+            usersViewController?.delegate = self
+        } else if (segue.identifier == UserMainConstants.kCallSegue) {
+
 //            let callVC = segue.destination as? CallViewController
 //            callVC?.chatDialog = sender?[CallSenderValueDialogInstance]
 //            callVC?.conferenceType = Int(sender?[CallSenderValueConferenceType] ?? 0)
 //            callVC?.usersDataSource = usersDataSource
-//        }
-//    }
+        }
+    }
     
      //MARK: - DialogsDataSourceDelegate
     
@@ -272,7 +272,7 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
 
             dataGroup.leave()
             let strongSelf = weakSelf
-//            strongSelf.dialogsDataSource.objects = dialogs
+            strongSelf?.dialogsDataSource?.objects = dialogs as! Array<QBChatDialog>
             strongSelf?.tableView.reloadData()
         })
 

@@ -19,11 +19,6 @@ let kQBAuthKey = "qp4zDcV8mk29Qp9"
 let kQBAuthSecret = "Hm2KgDE6eeMZHu5"
 let kQBAccountKey = "uK_8uinNyz8-npTNB6tx"
 
-//const NSUInteger kApplicationID = 73803;
-//NSString *const kAuthKey        = @"qp4zDcV8mk29Qp9";
-//NSString *const kAuthSecret     = @"Hm2KgDE6eeMZHu5";
-//NSString *const kAccountKey     = @"uK_8uinNyz8-npTNB6tx";
-
 let kQBAnswerTimeInterval: TimeInterval = 60.0
 let kQBDialingTimeInterval: TimeInterval = 5.0
 

@@ -28,12 +28,20 @@ struct QBProfileSecConstants {
     static let kSecAttrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
 }
 
-class QBProfile: NSObject, NSCoding {
+class QBProfile: NSObject, NSCoding, NSSecureCoding  {
+    
+    static var supportsSecureCoding: Bool {
+        return true
+    }
     
     var userData: QBUUser?
     
+    init(userData: QBUUser?) {
+        super.init()
+        self.userData = userData
+    }
+    
     override init() {
-        
         super.init()
         loadProfile()
     }
@@ -47,18 +55,22 @@ class QBProfile: NSObject, NSCoding {
         
         assert(self.userData != nil, "Invalid parameter not satisfying: userData != nil")
         debugPrint("self.userData \(String(describing: self.userData))")
-        return self.saveData(self.userData as Any, forKey: QBProfileConstants.kQBProfile)
+        return self.saveData(self.userData as Any, forKey: Keys.userData.rawValue)
     }
+    
     
     // MARK: - NSCoding
-    convenience required init?(coder aDecoder: NSCoder) {
-        self.init()
-        userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBUser) as? QBUUser
-        
+    enum Keys: String {
+        case userData = "UserData"
     }
     
+    convenience required init?(coder aDecoder: NSCoder) {
+       let userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBProfile) as? QBUUser
+        self.init(userData: userData)
+    }
+
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.userData, forKey: QBProfileConstants.kQBUser)
+        aCoder.encode(userData, forKey: QBProfileConstants.kQBProfile)
     }
 
     /**
@@ -76,8 +88,8 @@ class QBProfile: NSObject, NSCoding {
     
     private func loadProfile() {
         if let profile = self.loadObject(forKey: QBProfileConstants.kQBProfile) {
-//            let profile = self.loadObject(forKey: QBProfileConstants.kQBProfile) as! QBProfile
-            self.userData = profile.userData;
+            self.userData = profile;
+            debugPrint("self.userData \(String(describing: self.userData))")
         } else {
             return
         }
@@ -106,23 +118,23 @@ class QBProfile: NSObject, NSCoding {
     }
     
     // MARK: - Keychain
-    func loadObject(forKey key: String?) -> QBProfile? {
+    func loadObject(forKey key: String?) -> QBUUser? {
         
-        var ret: QBProfile? = nil
+        var ret: QBUUser? = nil
         
         var keychainQuery = getKeychainQueryFor(key: key!)
-        
         if let aTrue = kCFBooleanTrue {
             keychainQuery?[QBProfileSecConstants.kSecReturnDataValue] = aTrue
         }
         keychainQuery?[QBProfileSecConstants.kSecMatchLimitValue] = QBProfileSecConstants.kSecMatchLimitOneValue
         var keyData: AnyObject?
         let status = SecItemCopyMatching(keychainQuery! as CFDictionary, &keyData)
-
         if status == noErr{
             if let aData = keyData as! Data? {
-              return NSKeyedUnarchiver.unarchiveObject(with: aData) as? QBProfile
-//                debugPrint("ret \(String(describing: ret))")
+                
+                ret = NSKeyedUnarchiver.unarchiveObject(with: aData) as? QBUUser
+                 debugPrint("ret \(String(describing: ret))")
+              return ret
             }
         }
         return ret
@@ -138,25 +150,4 @@ class QBProfile: NSObject, NSCoding {
         
             return ([QBProfileSecConstants.kSecClassValue: QBProfileSecConstants.kSecClassGenericPasswordValue, QBProfileSecConstants.kSecAttrServiceValue: key, QBProfileSecConstants.kSecAttrAccountValue: key, QBProfileSecConstants.kSecAttrAccessibleValue: QBProfileSecConstants.kSecAttrAccessibleAfterFirstUnlockValue])
     }
-    
-    
-//    func storeProducts() {
-//        do {
-//            let data = try PropertyListEncoder().encode(products)
-//            let success = NSKeyedArchiver.archiveRootObject(data, toFile: productsFile.path)
-//            print(success ? "Successful save" : "Save Failed")
-//        } catch {
-//            print("Save Failed")
-//        }
-//    }
-//    func retrieveProducts() -> [Product]? {
-//        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: productsFile.path) as? Data else { return nil }
-//        do {
-//            let products = try PropertyListDecoder().decode([Product].self, from: data)
-//            return products
-//        } catch {
-//            print("Retrieve Failed")
-//            return nil
-//        }
-//    }
 }
