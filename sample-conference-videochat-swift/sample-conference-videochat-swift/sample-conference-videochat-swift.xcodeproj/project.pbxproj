@@ -20,7 +20,6 @@
 		2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */; };
 		2C4C2600216671A900B1E8C4 /* QBLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FF216671A900B1E8C4 /* QBLoadingButton.swift */; };
 		2C4C26022166728000B1E8C4 /* QBAVCallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26012166728000B1E8C4 /* QBAVCallPermissions.swift */; };
-		2C4C2604216672AD00B1E8C4 /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C2603216672AD00B1E8C4 /* Call.storyboard */; };
 		2C4C260A2166734E00B1E8C4 /* QBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26092166734E00B1E8C4 /* QBButton.swift */; };
 		2C4C260C2166736500B1E8C4 /* QBButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260B2166736500B1E8C4 /* QBButtonsFactory.swift */; };
 		2C4C260F2166739A00B1E8C4 /* QBToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260E2166739A00B1E8C4 /* QBToolBar.swift */; };
@@ -42,6 +41,7 @@
 		2C4C2634216677AC00B1E8C4 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C2633216677AC00B1E8C4 /* Settings.storyboard */; };
 		2C4C2638216678F200B1E8C4 /* AddUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */; };
 		2C73CB0A216D1BDB00DAED6C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73CB09216D1BDB00DAED6C /* Settings.swift */; };
+		2C93A960217870A200D18F7D /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C93A95F217870A200D18F7D /* Call.storyboard */; };
 		2CC867C32170ABF1006DF7BC /* DialogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC867C22170ABF1006DF7BC /* DialogTableViewCell.swift */; };
 		2CC867C52170C5B9006DF7BC /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC867C42170C5B9006DF7BC /* UsersViewController.swift */; };
 		2CCD5BFF216DFBA300A52051 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5BFE216DFBA300A52051 /* Auth.storyboard */; };
@@ -68,7 +68,6 @@
 		2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		2C4C25FF216671A900B1E8C4 /* QBLoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBLoadingButton.swift; sourceTree = "<group>"; };
 		2C4C26012166728000B1E8C4 /* QBAVCallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBAVCallPermissions.swift; sourceTree = "<group>"; };
-		2C4C2603216672AD00B1E8C4 /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Call.storyboard; path = "../../../../../sample-conference-videochat/sample-conference-videochat/Components/Calls/Call.storyboard"; sourceTree = "<group>"; };
 		2C4C26092166734E00B1E8C4 /* QBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBButton.swift; sourceTree = "<group>"; };
 		2C4C260B2166736500B1E8C4 /* QBButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBButtonsFactory.swift; sourceTree = "<group>"; };
 		2C4C260E2166739A00B1E8C4 /* QBToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBToolBar.swift; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 		2C4C2633216677AC00B1E8C4 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Settings.storyboard; path = "../../../../../sample-conference-videochat/sample-conference-videochat/Components/Settings/Settings.storyboard"; sourceTree = "<group>"; };
 		2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsersViewController.swift; sourceTree = "<group>"; };
 		2C73CB09216D1BDB00DAED6C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		2C93A95F217870A200D18F7D /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Call.storyboard; sourceTree = "<group>"; };
 		2CC867C22170ABF1006DF7BC /* DialogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogTableViewCell.swift; sourceTree = "<group>"; };
 		2CC867C42170C5B9006DF7BC /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		2CCD5BFE216DFBA300A52051 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 		2C4C25EF2166703100B1E8C4 /* Calls */ = {
 			isa = PBXGroup;
 			children = (
-				2C4C2603216672AD00B1E8C4 /* Call.storyboard */,
+				2C93A95F217870A200D18F7D /* Call.storyboard */,
 				2C4C2605216672BB00B1E8C4 /* CallViewController */,
 				2C4C2606216672CA00B1E8C4 /* CornerView */,
 				2C4C26072166732700B1E8C4 /* OpponentCollectionViewCell */,
@@ -571,10 +571,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CCD5BFF216DFBA300A52051 /* Auth.storyboard in Resources */,
-				2C4C2604216672AD00B1E8C4 /* Call.storyboard in Resources */,
 				2CCD5C01216E237500A52051 /* Main.storyboard in Resources */,
 				2CCD5C03216E25EE00A52051 /* LaunchScreen.storyboard in Resources */,
 				2C4C2634216677AC00B1E8C4 /* Settings.storyboard in Resources */,
+				2C93A960217870A200D18F7D /* Call.storyboard in Resources */,
 				2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

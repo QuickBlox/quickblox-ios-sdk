@@ -9,13 +9,60 @@
 import UIKit
 
 class QBToolBar: UIToolbar {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    private var buttons: [UIButton] = []
+    private var actions: [(_ sender: UIButton?) -> Void] = []
+    
+    required init?(coder: NSCoder) {
+        
+        super.init(coder: coder)
+        
+        setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        setShadowImage(UIImage(), forToolbarPosition: .any)
+        //Default Gray
+        backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.3)
+        
     }
-    */
-
+    
+    func updateItems() {
+        
+        var items = [UIBarButtonItem]()
+        
+        let fs = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        for button in buttons {
+            
+            var item: UIBarButtonItem? = nil
+                item = UIBarButtonItem(customView: button)
+          
+            guard let itemsCount = self.items?.count else { return }
+            if itemsCount > 0 {
+                items = items + self.items!
+            }
+            items.append(fs)
+            if let anItem = item {
+                items.append(anItem)
+            }
+        }
+        
+        items.append(fs)
+        self.items = items
+    }
+    
+    func add(_ button: UIButton?, action: @escaping (_ sender: UIButton?) -> Void) {
+        
+        button?.addTarget(self, action: #selector(self.press(_:)), for: .touchUpInside)
+        
+        if let aButton = button {
+            buttons.append(aButton)
+        }
+        actions.append(action)
+    }
+    
+    @objc func press(_ button: QBButton) {
+        
+        let idx = buttons.index(of: button)
+        
+        let action: ((_ sender: UIButton?) -> Void)? = actions[idx ?? 0]
+        action?(button)
+    }
 }
