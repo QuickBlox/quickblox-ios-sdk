@@ -175,34 +175,36 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let reusableCell = collectionView.dequeueReusableCell(withReuseIdentifier: CallConstants.kOpponentCollectionViewCellIdentifier, for: indexPath) as? OpponentCollectionViewCell
-        
-        let user: QBUUser? = users[indexPath.row]
-        weak var weakSelf = self
-        reusableCell?.didPressMuteButton = { isMuted in
-            let audioTrack: QBRTCAudioTrack? = weakSelf?.session?.remoteAudioTrack(withUserID: user?.id! as NSNumber)
-            audioTrack?.isEnabled = !isMuted
+
+        if let user = users[indexPath.row] as QBUUser? {
+            weak var weakSelf = self
+            
+            reusableCell?.didPressMuteButton = { isMuted in
+                let audioTrack: QBRTCAudioTrack? = weakSelf?.session?.remoteAudioTrack(withUserID: NSNumber(value: (user.id)))
+                audioTrack?.isEnabled = !isMuted
+            }
+            
+            reusableCell?.videoView = videoView(withOpponentID: NSNumber(value: (user.id)))
+            
+            if user.id != QBSession.current.currentUser?.id {
+                // label for user
+                let title = user.fullName ?? CallConstants.kUnknownUserLabel
+                reusableCell?.name = title
+                reusableCell?.nameColor = PlaceholderGenerator.color(for: title.count)
+                // mute button
+                reusableCell?.isMuted = false
+                // state
+                reusableCell?.connectionState = QBRTCConnectionState.new
+            }
         }
-        
-        reusableCell?.videoView = videoView(withOpponentID: user?.id)
-        
-        if user?.id != QBSession.current().isCurrentUser.id {
-            // label for user
-            let title = user?.fullName ?? kUnknownUserLabel
-            reusableCell?.name = title
-            reusableCell?.nameColor = PlaceholderGenerator.color(for: title)
-            // mute button
-            reusableCell?.isMuted = false
-            // state
-            reusableCell?.connectionState = QBRTCConnectionStateNew
-        }
-        
+
         return reusableCell!
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let user: QBUUser? = users[indexPath.item]
-        if user?.id == session.currentUserID {
+        if let user = users[indexPath.row] as QBUUser? {
+            if user.id == (session?.currentUserID)?.uintValue {
             // do not zoom local video view
             return
         }
@@ -213,49 +215,48 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         if videoView != nil {
             videoCell?.videoView = nil
             originCell = videoCell
-            statsUserID = user?.id
+            statsUserID = NSNumber(value: user.id)
             zoomVideoView(videoView)
+            }
         }
     }
     
     // MARK: Transition to size
-    func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
         coordinator.animate(alongsideTransition: { context in
-            
             self.refreshVideoViews()
-            
         })
     }
     
     // MARK: QBRTCBaseClientDelegate
-    func session(_ session: QBRTCBaseSession?, updatedStatsReport report: QBRTCStatsReport?, forUserID userID: NSNumber?) {
+    func session(_ session: QBRTCBaseSession, updatedStatsReport report: QBRTCStatsReport, forUserID userID: NSNumber) {
         
         if session == self.session {
             
             performUpdateUserID(userID, block: { cell in
-                if cell?.connectionState == QBRTCConnectionStateConnected && report?.videoReceivedBitrateTracker.bitrate ?? 0 > 0 {
-                    cell?.bitrate = report?.videoReceivedBitrateTracker.bitrate
+                if cell?.connectionState == QBRTCConnectionState.connected && report.videoReceivedBitrateTracker.bitrate > 0 {
+                    cell?.bitrate = report.videoReceivedBitrateTracker.bitrate
                 }
             })
             
             if (statsUserID == userID) {
                 
-                let result = report?.statsString()
-                print("\(result ?? "")")
+                let result = report.statsString()
+                debugPrint("\(result)")
                 
                 // send stats to stats view if needed
                 if shouldGetStats {
                     
-                    statsView.stats = result
+                    statsView?.setStats(result)
                     view.setNeedsLayout()
                 }
             }
         }
     }
     
-    func session(_ session: QBRTCBaseSession?, startedConnectingToUser userID: NSNumber?) {
+    func session(_ session: QBRTCBaseSession, startedConnectingToUser userID: NSNumber) {
         
         if session == self.session {
             // adding user to the collection
