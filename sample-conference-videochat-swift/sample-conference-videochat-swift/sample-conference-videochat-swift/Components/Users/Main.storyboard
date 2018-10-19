@@ -219,7 +219,7 @@
                     <connections>
                         <segue destination="MJL-K9-GZh" kind="presentation" identifier="PresentSettingsViewController" id="CSK-Sw-TqM"/>
                         <segue destination="UOh-op-h8a" kind="show" identifier="PresentCallViewController" id="6wq-ei-VLe"/>
-                        <segue destination="KJT-7g-J7B" kind="custom" identifier="SceneSegueAuth" customClass="QMRootViewControllerSegue" id="4eV-Dw-noi"/>
+                        <segue destination="KJT-7g-J7B" kind="custom" identifier="SceneSegueAuth" customClass="QMRootViewControllerSegue" customModule="sample_conference_videochat_swift" id="4eV-Dw-noi"/>
                         <segue destination="0AV-U1-m9M" kind="show" identifier="PresentUsersViewController" id="Yyv-kM-OpB"/>
                     </connections>
                 </tableViewController>
@@ -254,7 +254,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="44" id="KDZ-YK-NVt" customClass="UserTableViewCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserCell" rowHeight="44" id="KDZ-YK-NVt" customClass="UserTableViewCell" customModule="sample_conference_videochat_swift">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KDZ-YK-NVt" id="9CB-7g-E7J">

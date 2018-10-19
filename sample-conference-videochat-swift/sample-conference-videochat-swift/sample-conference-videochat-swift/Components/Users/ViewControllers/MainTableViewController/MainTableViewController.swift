@@ -160,11 +160,13 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
             usersViewController?.dataSource = usersDataSource
             usersViewController?.delegate = self
         } else if (segue.identifier == UserMainConstants.kCallSegue) {
+            
+            guard let senderArr = (sender as? (QBChatDialog, QBRTCConferenceType)) else { return }
 
-//            let callVC = segue.destination as? CallViewController
-//            callVC?.chatDialog = sender?[CallSenderValueDialogInstance]
-//            callVC?.conferenceType = Int(sender?[CallSenderValueConferenceType] ?? 0)
-//            callVC?.usersDataSource = usersDataSource
+            let callVC = segue.destination as? CallViewController
+            callVC?.chatDialog = senderArr.0
+            callVC?.conferenceType = senderArr.1
+            callVC?.usersDataSource = usersDataSource
         }
     }
     
@@ -304,7 +306,7 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
                             indexPath = self.tableView.indexPath(for: aCell)
                         }
                         let chatDialog: QBChatDialog? = self.dialogsDataSource?.objects[indexPath?.row ?? 0]
-                        self.performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: [chatDialog as Any, conferenceType])
+                        self.performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: (chatDialog!, conferenceType))
                     }
                 }
             } else {
@@ -313,7 +315,7 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
                     indexPath = tableView.indexPath(for: aCell)
                 }
                 let chatDialog: QBChatDialog? = dialogsDataSource?.objects[indexPath?.row ?? 0]
-                performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: [chatDialog as Any, conferenceType])
+                performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: (chatDialog!, conferenceType))
             }
         }
     }

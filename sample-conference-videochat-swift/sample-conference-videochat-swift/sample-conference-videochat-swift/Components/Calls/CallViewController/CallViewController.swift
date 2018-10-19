@@ -34,14 +34,20 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet private weak var toolbar: QBToolBar!
     private var users: [QBUUser] = []
     private var cameraCapture: QBRTCCameraCapture?
-    private var videoViews: [AnyHashable : Any] = [:]
+    private var videoViews = [NSNumber: UIView]()
     private var dynamicEnable: QBButton?
     private var videoEnabled: QBButton?
     private weak var localVideoView: LocalVideoView?
-    private var statsView: StatsView?
+    private var statsView: StatsView = {
+        let statsView = StatsView()
+        return statsView
+    }()
     private var shouldGetStats = false
     private var statsUserID: NSNumber?
-    private var zoomedView: ZoomedView?
+    private var zoomedView: ZoomedView = {
+        let zoomedView = ZoomedView()
+        return zoomedView
+    }()
     private weak var originCell: OpponentCollectionViewCell?
     private var state: CallViewControllerState?
     private var muteAudio = false
@@ -135,12 +141,12 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         toolbar.updateItems()
         
         // zoomed view
-        zoomedView = prepareSubview(view: view, subviewClass: ZoomedView.self) as? ZoomedView
-        zoomedView?.didTapView = { zoomedView in
+        zoomedView = prepareSubview(view: view, subview: zoomedView) as! ZoomedView
+        zoomedView.didTapView = { zoomedView in
             weakSelf?.unzoomVideoView()
         }
         // stats view
-        statsView = prepareSubview(view: view, subviewClass: StatsView.self) as? StatsView
+        statsView = prepareSubview(view: view, subview: statsView) as! StatsView
         
         // add button to enable stats view
         statsItem = UIBarButtonItem(title: "Stats", style: .plain, target: self, action: #selector(updateStatsView))
@@ -249,7 +255,7 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
                 // send stats to stats view if needed
                 if shouldGetStats {
                     
-                    statsView?.setStats(result)
+                    statsView.setStats(result)
                     view.setNeedsLayout()
                 }
             }
@@ -264,7 +270,7 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
-    func session(_ session: QBRTCBaseSession?, connectionClosedForUser userID: NSNumber?) {
+    func session(_ session: QBRTCBaseSession, connectionClosedForUser userID: NSNumber) {
         
         if session == self.session {
             // remove user from the collection
@@ -272,7 +278,7 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
-    func session(_ session: QBRTCBaseSession?, didChange state: QBRTCConnectionState, forUser userID: NSNumber?) {
+    func session(_ session: QBRTCBaseSession, didChange state: QBRTCConnectionState, forUser userID: NSNumber) {
         
         if session == self.session {
             
@@ -282,13 +288,13 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
-    func session(_ session: QBRTCBaseSession?, receivedRemoteVideoTrack videoTrack: QBRTCVideoTrack?, fromUser userID: NSNumber?) {
+    func session(_ session: QBRTCBaseSession, receivedRemoteVideoTrack videoTrack: QBRTCVideoTrack, fromUser userID: NSNumber) {
         
         if session == self.session {
             
             weak var weakSelf = self
             performUpdateUserID(userID, block: { cell in
-                let opponentVideoView = weakSelf.videoView(withOpponentID: userID) as? QBRTCRemoteVideoView
+                let opponentVideoView = weakSelf?.videoView(withOpponentID: userID) as? QBRTCRemoteVideoView
                 cell?.videoView = opponentVideoView
             })
         }
@@ -301,49 +307,54 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         if session == self.session {
             
             let audioSession = QBRTCAudioSession.instance()
-            audioSession.initialize(withConfigurationBlock: { configuration in
+
+            audioSession.initialize { configuration in
                 // adding blutetooth support
-                configuration?.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetooth
-                configuration?.categoryOptions |= AVAudioSessionCategoryOptionAllowBluetoothA2DP
+
+                configuration.categoryOptions = .allowBluetoothA2DP
+                configuration.categoryOptions = .allowBluetooth
+                configuration.categoryOptions = .allowBluetoothA2DP
                 
                 // adding airplay support
-                configuration?.categoryOptions |= AVAudioSessionCategoryOptionAllowAirPlay
+                configuration.categoryOptions = .allowAirPlay
                 
-                if self.session.conferenceType == QBRTCConferenceTypeVideo {
+                if self.session?.conferenceType == QBRTCConferenceType.video {
                     // setting mode to video chat to enable airplay audio and speaker only
-                    configuration?.mode = AVAudioSession.Mode.videoChat
+                    configuration.mode = AVAudioSession.Mode.videoChat.rawValue
                 }
-            })
+            }
             
-            session?.localMediaStream.audioTrack.enabled = !muteAudio
-            session?.localMediaStream.videoTrack.enabled = !muteVideo
+            session?.localMediaStream.audioTrack.isEnabled = !muteAudio
+            session?.localMediaStream.videoTrack.isEnabled = !muteVideo
             
             if cameraCapture != nil {
                 session?.localMediaStream.videoTrack.videoCapture = cameraCapture
             }
             
-            if conferenceType > 0 {
+            if conferenceType?.rawValue != 0 {
                 session?.joinAsPublisher()
             } else {
-                state = CallViewControllerStateConnected
+                state = CallViewControllerState.connected
                 weak var weakSelf = self
-                self.session.listOnlineParticipants(withCompletionBlock: { publishers, listeners in
+                self.session?.listOnlineParticipants(completionBlock: { publishers, listeners in
                     for userID: NSNumber in publishers {
-                        weakSelf.session.subscribeToUser(withID: userID)
+                        weakSelf?.session?.subscribeToUser(withID: userID)
                     }
                 })
             }
         }
     }
     
-    func session(_ session: QBRTCConferenceSession?, didJoinChatDialogWithID chatDialogID: String?, publishersList: [Any]?) {
+    private func session(_ session: QBRTCConferenceSession?, didJoinChatDialogWithID chatDialogID: String?, publishersList: [NSNumber]?) {
         
         if session == self.session {
             
-            state = CallViewControllerStateConnected
-            for userID: NSNumber? in publishersList as? [NSNumber?] ?? [] {
-                self.session.subscribeToUser(withID: userID)
-                addToCollectionUser(withID: userID)
+            state = CallViewControllerState.connected
+            if (publishersList?.count)! > 0 {
+                for userID in publishersList! {
+                    self.session?.subscribeToUser(withID: userID)
+                    addToCollectionUser(withID: userID)
+                }
             }
         }
     }
@@ -351,9 +362,9 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     func session(_ session: QBRTCConferenceSession?, didReceiveNewPublisherWithUserID userID: NSNumber?) {
         
         if session == self.session {
-            
+            guard let userId = userID else {return}
             // subscribing to user to receive his media
-            self.session.subscribeToUser(withID: userID)
+            self.session?.subscribeToUser(withID: userId)
         }
     }
     
@@ -384,36 +395,36 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func sessionDidClose(_ session: QBRTCConferenceSession?, withTimeout timeout: Bool) {
         
-        if session == self.session && state != CallViewControllerStateDisconnected {
+        if session == self.session && state != CallViewControllerState.disconnected {
             
             closeCall(withTimeout: timeout)
         }
     }
     
-    func session(_ session: QBRTCConferenceSession?) throws {
+    func session(_ session: QBRTCConferenceSession!, didReceiveError error: Error!) {
         SVProgressHUD.showError(withStatus: error?.localizedDescription)
     }
     
     // MARK: QBRTCAudioSessionDelegate
-    func audioSession(_ audioSession: QBRTCAudioSession?, didChangeCurrentAudioDevice updatedAudioDevice: QBRTCAudioDevice) {
+    func audioSession(_ audioSession: QBRTCAudioSession, didChangeCurrentAudioDevice updatedAudioDevice: QBRTCAudioDevice) {
         
         if !didStartPlayAndRecord {
             return
         }
         
-        let isSpeaker: Bool = updatedAudioDevice == QBRTCAudioDeviceSpeaker
-        if dynamicEnable.pressed != isSpeaker {
+        let isSpeaker: Bool = updatedAudioDevice == QBRTCAudioDevice.speaker
+        if dynamicEnable?.pressed != isSpeaker {
             
-            dynamicEnable.pressed = isSpeaker
+            dynamicEnable?.pressed = isSpeaker
         }
     }
     
-    func audioSessionDidStartPlayOrRecord(_ audioSession: QBRTCAudioSession?) {
+    func audioSessionDidStartPlayOrRecord(_ audioSession: QBRTCAudioSession) {
         didStartPlayAndRecord = true
-        audioSession?.currentAudioDevice = QBRTCAudioDeviceSpeaker
+        audioSession.currentAudioDevice = QBRTCAudioDevice.speaker
     }
     
-    func audioSessionDidStopPlayOrRecord(_ audioSession: QBRTCAudioSession?) {
+    func audioSessionDidStopPlayOrRecord(_ audioSession: QBRTCAudioSession) {
         didStartPlayAndRecord = false
     }
     
@@ -422,16 +433,14 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         if self.state != state {
             switch state {
-            case CallViewControllerStateDisconnected:
+            case .disconnected:
                 title = "Disconnected"
-            case CallViewControllerStateConnecting:
+            case .connecting:
                 title = "Connecting..."
-            case CallViewControllerStateConnected:
+            case .connected:
                 title = "Connected"
-            case CallViewControllerStateDisconnecting:
+            case .disconnecting:
                 title = "Disconnecting..."
-            default:
-                break
             }
             
             self.state = state
@@ -442,7 +451,7 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         if self.muteAudio != muteAudio {
             self.muteAudio = muteAudio
-            session.localMediaStream.audioTrack.enabled = !muteAudio
+            session?.localMediaStream.audioTrack.isEnabled = !muteAudio
         }
     }
     
@@ -450,40 +459,40 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         if self.muteVideo != muteVideo {
             self.muteVideo = muteVideo
-            session.localMediaStream.videoTrack.enabled = !muteVideo
+            session?.localMediaStream.videoTrack.isEnabled = !muteVideo
         }
     }
     
     // MARK: Actions
     @objc func pushAddUsersToRoomScreen() {
-        performSegue(withIdentifier: kUsersSegue, sender: nil)
+        performSegue(withIdentifier: CallConstants.kUsersSegue, sender: nil)
     }
     
-    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        cameraCapture.stopSession(nil)
-        if (segue.identifier == kUsersSegue) {
+        cameraCapture?.stopSession(nil)
+        if (segue.identifier == CallConstants.kUsersSegue) {
             
             let usersVC = segue.destination as? AddUsersViewController
-            usersVC?.usersDataSource = usersDataSource
-            usersVC?.chatDialog = chatDialog
+//            usersVC?.usersDataSource = usersDataSource
+//            usersVC?.chatDialog = chatDialog
         }
     }
     
     func zoomVideoView(_ videoView: UIView?) {
         zoomedView.videoView = videoView
-        zoomedView.hidden = false
-        navigationItem?.rightBarButtonItem = statsItem
+        zoomedView.isHidden = false
+        navigationItem.rightBarButtonItem = statsItem
     }
     
     func unzoomVideoView() {
         if originCell != nil {
-            originCell.videoView = zoomedView.videoView
+            originCell!.videoView = zoomedView.videoView
             zoomedView.videoView = nil
             originCell = nil
-            zoomedView.hidden = true
+            zoomedView.isHidden = true
             statsUserID = nil
-            navigationItem?.rightBarButtonItem = addUsersItem
+            navigationItem.rightBarButtonItem = addUsersItem
         }
     }
     
@@ -503,13 +512,12 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         weak var weakSelf = self
         opponentsCollectionView.performBatchUpdates({
             
-            weakSelf.opponentsCollectionView.insertItems(at: [indexPath])
+            weakSelf?.opponentsCollectionView.insertItems(at: [indexPath])
             
         }) { finished in
             
-            weakSelf.refreshVideoViews()
+            weakSelf?.refreshVideoViews()
         }
-        
     }
     
     func removeFromCollectionUser(withID userID: NSNumber?) {
@@ -524,16 +532,16 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
         let indexPath = IndexPath(item: index ?? 0, section: 0)
         users.removeAll(where: { element in element == user })
-        videoViews.removeValueForKey(userID)
+        videoViews.removeValue(forKey: userID!)
         
         weak var weakSelf = self
         opponentsCollectionView.performBatchUpdates({
             
-            weakSelf.opponentsCollectionView.deleteItems(at: [indexPath])
+            weakSelf?.opponentsCollectionView.deleteItems(at: [indexPath])
             
         }) { finished in
             
-            weakSelf.refreshVideoViews()
+            weakSelf?.refreshVideoViews()
         }
     }
     
@@ -542,10 +550,10 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         // removing delegate on close call so we don't get any callbacks
         // that will force collection view to perform updates
         // while controller is deallocating
-        QBRTCConferenceClient.instance().removeDelegate(self)
+        QBRTCConferenceClient.instance().remove(self)
         
         // stopping camera session
-        cameraCapture.stopSession(nil)
+        cameraCapture?.stopSession(nil)
         
         // toolbar
         toolbar.isUserInteractionEnabled = false
@@ -553,7 +561,7 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
             self.toolbar.alpha = 0.4
         })
         
-        state = CallViewControllerStateDisconnected
+        state = CallViewControllerState.disconnected
         
         if timeout {
             SVProgressHUD.showError(withStatus: "Conference did close due to time out")
@@ -566,23 +574,20 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @objc func leaveFromRoom() {
-        state = CallViewControllerStateDisconnecting
-        if session.state == QBRTCSessionStatePending {
+        state = CallViewControllerState.disconnecting
+        if session?.state == QBRTCSessionState.pending {
             closeCall(withTimeout: false)
-        } else if session.state != QBRTCSessionStateNew {
+        } else if session?.state != QBRTCSessionState.new {
             SVProgressHUD.show(withStatus: nil)
         }
-        session.leave()
+        session?.leave()
     }
     
-    @inline(__always) private func prepareSubview(view: UIView?, subviewClass: AnyClass) -> UIView? {
+    @inline(__always) private func prepareSubview(view: UIView?, subview: UIView) -> UIView? {
         
-        let subview = subviewClass(frame: view?.bounds ?? CGRect.zero) as? UIView
-        subview?.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-        subview?.isHidden = true
-        if let aSubview = subview {
-            view?.addSubview(aSubview)
-        }
+        subview.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+        subview.isHidden = true
+        view?.addSubview(subview)
         return subview
     }
     
@@ -590,39 +595,40 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // resetting zoomed view
         let zoomedVideoView: UIView? = zoomedView.videoView
-        for viewToRefresh: OpponentCollectionViewCell in opponentsCollectionView.visibleCells {
-            let view: UIView? = viewToRefresh.videoView
-            if view == zoomedVideoView {
-                continue
+        for viewToRefresh in (opponentsCollectionView?.visibleCells)! {
+            if viewToRefresh is OpponentCollectionViewCell {
+                let viewToRefr: OpponentCollectionViewCell = viewToRefresh as! OpponentCollectionViewCell
+                let view: UIView? = viewToRefr.videoView
+                if view == zoomedVideoView {
+                    continue
+                }
+                
+                viewToRefr.videoView = nil
+                viewToRefr.videoView = view
             }
-            
-            viewToRefresh.videoView = nil
-            viewToRefresh.videoView = view
         }
     }
     
     @objc func updateStatsView() {
-        shouldGetStats ^= 1
-        statsView.hidden ^= 1
+        shouldGetStats = !shouldGetStats
+        statsView.isHidden = !statsView.isHidden
     }
     
     func videoView(withOpponentID opponentID: NSNumber?) -> UIView? {
         
-        if !videoViews {
-            videoViews = [AnyHashable : Any]()
-        }
+        videoViews = [NSNumber: UIView]()
         
         var result: Any? = nil
         if let anID = opponentID {
             result = videoViews[anID]
         }
         
-        if Core.currentUser.id == Int(opponentID ?? 0) && session.conferenceType != QBRTCConferenceTypeAudio {
+        if core.currentUser?.id == opponentID?.uintValue && session?.conferenceType != QBRTCConferenceType.audio {
             //Local preview
             
             if result == nil {
                 
-                let localVideoView = LocalVideoView(previewlayer: cameraCapture.previewLayer)
+                let localVideoView = LocalVideoView(previewlayer: cameraCapture?.previewLayer)
                 if let anID = opponentID {
                     videoViews[anID] = localVideoView
                 }
@@ -635,16 +641,16 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
             //Opponents
             
             var remoteVideoView: QBRTCRemoteVideoView? = nil
-            let remoteVideoTraсk: QBRTCVideoTrack? = session.remoteVideoTrack(withUserID: opponentID)
+            let remoteVideoTraсk: QBRTCVideoTrack? = session?.remoteVideoTrack(withUserID: (opponentID ?? 0)!)
             
             if result == nil && remoteVideoTraсk != nil {
                 
                 remoteVideoView = QBRTCRemoteVideoView(frame: CGRect(x: 2, y: 2, width: 2, height: 2))
-                remoteVideoView?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+                remoteVideoView?.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
                 if let anID = opponentID {
                     videoViews[anID] = remoteVideoView
                 }
-                remoteVideoView?.videoTrack = remoteVideoTraсk
+                remoteVideoView?.setVideoTrack(remoteVideoTraсk!)
                 result = remoteVideoView
             }
             
@@ -655,14 +661,17 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     func user(withID userID: NSNumber?) -> QBUUser? {
+
+        var user: QBUUser?
         
-        var user: QBUUser? = usersDataSource.user(withID: UInt(userID ?? 0))
-        
-        if user == nil {
-            user = QBUUser()
-            user?.id = UInt(userID ?? 0)
+        if let userId = userID {
+            user = usersDataSource?.user(withID: userId.intValue)
+            if user == nil {
+                user = QBUUser()
+                user?.id = userId.uintValue
+            }
         }
-        
+
         return user
     }
     
@@ -681,21 +690,23 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     func performUpdateUserID(_ userID: NSNumber?, block: @escaping (_ cell: OpponentCollectionViewCell?) -> Void) {
         
         let indexPath: IndexPath? = self.indexPath(atUserID: userID)
-        let cell = opponentsCollectionView.cellForItem(at: indexPath) as? OpponentCollectionViewCell
-        block(cell)
+        if let indexPath = indexPath {
+            let cell = opponentsCollectionView.cellForItem(at: indexPath) as? OpponentCollectionViewCell
+            block(cell)
+        }
     }
     
-    func localVideoView(_ localVideoView: LocalVideoView?, pressedSwitch sender: UIButton?) {
+    func localVideoView(_ localVideoView: LocalVideoView?, pressedSwitchButton sender: UIButton?) {
         
-        let position: AVCaptureDevice.Position = cameraCapture.position
+        let position: AVCaptureDevice.Position = (cameraCapture?.position)!
         let newPosition: AVCaptureDevice.Position = position == .back ? .front : .back
         
-        if cameraCapture.hasCamera(for: newPosition) {
+        if (cameraCapture?.hasCamera(for: newPosition))! {
             
-            let animation = CATransition.animation()
+            let animation = CATransition()
             animation.duration = 0.75
             animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            animation.type = CATransitionType("oglFlip")
+            animation.type = CATransitionType(rawValue: "oglFlip")
             
             if position == .front {
                 
@@ -705,8 +716,8 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
                 animation.subtype = .fromLeft
             }
             
-            localVideoView?.superview.layer.add(animation, forKey: nil)
-            cameraCapture.position = newPosition
+            localVideoView?.superview?.layer.add(animation, forKey: nil)
+            cameraCapture?.position = newPosition
         }
     }
 }

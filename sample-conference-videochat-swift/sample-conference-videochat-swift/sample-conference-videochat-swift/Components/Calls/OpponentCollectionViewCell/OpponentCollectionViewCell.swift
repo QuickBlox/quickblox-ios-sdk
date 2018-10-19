@@ -49,7 +49,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     
     var isMuted: Bool? {
         didSet {
-            muteButton.isSelected = isMuted
+            muteButton.isSelected = isMuted!
         }
     }
     
