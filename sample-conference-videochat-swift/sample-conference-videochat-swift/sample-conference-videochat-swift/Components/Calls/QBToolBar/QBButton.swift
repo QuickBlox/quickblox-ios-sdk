@@ -134,7 +134,7 @@ class QBButton: UIButton {
         UIView.animate(withDuration: TimeInterval(QBButtonConstants.kAnimationLength), delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
             
             if self.pushed {
-                self.pressed = true
+                self.pressed = !self.pressed
             } else {
                 
                 weakSelf?.isHighlighted = false

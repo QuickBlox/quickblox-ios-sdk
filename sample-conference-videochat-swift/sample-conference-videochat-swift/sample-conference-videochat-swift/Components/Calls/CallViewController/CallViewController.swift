@@ -24,9 +24,7 @@ struct CallConstants {
     static let kUsersSegue = "PresentUsersViewController"
 }
 
-//class CallViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCAudioSessionDelegate, QBRTCConferenceClientDelegate, LocalVideoViewDelegate {
-
-class CallViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCAudioSessionDelegate, QBRTCConferenceClientDelegate {
+class CallViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, QBRTCAudioSessionDelegate, QBRTCConferenceClientDelegate, LocalVideoViewDelegate {
     
     var chatDialog: QBChatDialog?
     var conferenceType: QBRTCConferenceType?
@@ -39,7 +37,6 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     private var videoViews: [AnyHashable : Any] = [:]
     private var dynamicEnable: QBButton?
     private var videoEnabled: QBButton?
-    private var audioEnabled: QBButton?
     private weak var localVideoView: LocalVideoView?
     private var statsView: StatsView?
     private var shouldGetStats = false
@@ -77,9 +74,9 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         session = QBRTCConferenceClient.instance().createSession(withChatDialogID: chatDialog?.id ?? "", conferenceType: Int(conferenceType!.rawValue) > 0 ? conferenceType! : QBRTCConferenceType.video)
         
         if Int(conferenceType!.rawValue) > 0 {
-            users = [core.currentUser]
+            users = [core.currentUser] as! [QBUUser]
         } else {
-            users = [AnyHashable]()
+            users = [QBUUser]()
         }
         
         if session?.conferenceType == QBRTCConferenceType.video && Int(conferenceType!.rawValue) > 0 {
@@ -111,16 +108,15 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
             videoEnabled = QBButtonsFactory.videoEnable()
             toolbar.add(videoEnabled, action: { sender in
                 
-                weakSelf?.muteVideo = true
+                weakSelf?.muteVideo = !(weakSelf?.muteVideo)!
                 weakSelf?.localVideoView?.isHidden = (weakSelf?.muteVideo)!
             })
         }
         
         if Int(conferenceType!.rawValue) > 0 {
-            audioEnabled = QBButtonsFactory.auidoEnable()
-            toolbar.add(audioEnabled, action: { sender in
+            toolbar.add(QBButtonsFactory.auidoEnable(), action: { sender in
                 
-                weakSelf?.muteAudio = true
+                weakSelf?.muteAudio = !(weakSelf?.muteAudio)!
             })
         }
         
@@ -183,8 +179,8 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         let user: QBUUser? = users[indexPath.row]
         weak var weakSelf = self
         reusableCell?.didPressMuteButton = { isMuted in
-            let audioTrack: QBRTCAudioTrack? = weakSelf.session.remoteAudioTrack(withUserID: user?.id)
-            audioTrack?.enabled = !isMuted
+            let audioTrack: QBRTCAudioTrack? = weakSelf?.session?.remoteAudioTrack(withUserID: user?.id! as NSNumber)
+            audioTrack?.isEnabled = !isMuted
         }
         
         reusableCell?.videoView = videoView(withOpponentID: user?.id)
