@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCClient.initializeRTC()
         
         // loading settings
-        Settings.instance
+        Settings.instance.load()
         
         return true
     }

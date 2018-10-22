@@ -23,7 +23,7 @@ struct UserMainConstants {
     static let kSceneSegueAuth = "SceneSegueAuth"
 }
 
-class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDataSourceDelegate, UsersViewControllerDelegate {
+class MainTableViewController: UITableViewController, SettingsViewControllerDelegate, QBCoreDelegate, DialogsDataSourceDelegate, UsersViewControllerDelegate {
     
     //MARK: Variables
     let core = QBCore.instance
@@ -152,13 +152,15 @@ class MainTableViewController: UITableViewController, QBCoreDelegate, DialogsDat
 
         if (segue.identifier == UserMainConstants.kSettingsSegue) {
 
-//            let settingsViewController = (segue.destination as? UINavigationController)?.topViewController as? SessionSettingsViewController
-//            settingsViewController?.delegate = self
+            let settingsViewController = (segue.destination as? UINavigationController)?.topViewController as? SessionSettingsViewController
+            settingsViewController?.delegate = self
+            
         } else if (segue.identifier == UserMainConstants.kUsersSegue) {
 
             let usersViewController = segue.destination as? UsersViewController
             usersViewController?.dataSource = usersDataSource
             usersViewController?.delegate = self
+            
         } else if (segue.identifier == UserMainConstants.kCallSegue) {
             
             guard let senderArr = (sender as? (QBChatDialog, QBRTCConferenceType)) else { return }

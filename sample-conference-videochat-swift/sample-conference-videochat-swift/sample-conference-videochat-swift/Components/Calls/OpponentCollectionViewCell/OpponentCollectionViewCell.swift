@@ -70,6 +70,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
         backgroundColor = UIColor.black
         statusLabel.backgroundColor = UIColor(red: 0.9441, green: 0.9441, blue: 0.9441, alpha: 0.350031672297297)
         name = ""
+        nameColor = UIColor.blue
         muteButton.setImage(unmutedImage, for: .normal)
         muteButton.setImage(mutedImage, for: .selected)
         muteButton.isHidden = true

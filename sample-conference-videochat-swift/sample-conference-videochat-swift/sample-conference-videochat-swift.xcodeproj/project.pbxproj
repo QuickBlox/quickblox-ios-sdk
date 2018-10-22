@@ -51,6 +51,10 @@
 		2CCB5ECC217DCFC400555AAA /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CCB5ECA217DCFC400555AAA /* SettingCell.xib */; };
 		2CCB5ECF217DD32C00555AAA /* SettingSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB5ECD217DD32C00555AAA /* SettingSwitchCell.swift */; };
 		2CCB5ED0217DD32C00555AAA /* SettingSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CCB5ECE217DD32C00555AAA /* SettingSwitchCell.xib */; };
+		2CCB5ED2217DD9B300555AAA /* SliderItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB5ED1217DD9B300555AAA /* SliderItemModel.swift */; };
+		2CCB5ED5217DDA3C00555AAA /* SettingSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB5ED3217DDA3C00555AAA /* SettingSliderCell.swift */; };
+		2CCB5ED6217DDA3C00555AAA /* SettingSliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CCB5ED4217DDA3C00555AAA /* SettingSliderCell.xib */; };
+		2CCB5ED8217DF09300555AAA /* SettingsSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCB5ED7217DF09300555AAA /* SettingsSectionModel.swift */; };
 		2CCD5BFF216DFBA300A52051 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5BFE216DFBA300A52051 /* Auth.storyboard */; };
 		2CCD5C01216E237500A52051 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5C00216E237500A52051 /* Main.storyboard */; };
 		2CCD5C03216E25EE00A52051 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */; };
@@ -106,6 +110,10 @@
 		2CCB5ECA217DCFC400555AAA /* SettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		2CCB5ECD217DD32C00555AAA /* SettingSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSwitchCell.swift; sourceTree = "<group>"; };
 		2CCB5ECE217DD32C00555AAA /* SettingSwitchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingSwitchCell.xib; sourceTree = "<group>"; };
+		2CCB5ED1217DD9B300555AAA /* SliderItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderItemModel.swift; sourceTree = "<group>"; };
+		2CCB5ED3217DDA3C00555AAA /* SettingSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSliderCell.swift; sourceTree = "<group>"; };
+		2CCB5ED4217DDA3C00555AAA /* SettingSliderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingSliderCell.xib; sourceTree = "<group>"; };
+		2CCB5ED7217DF09300555AAA /* SettingsSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionModel.swift; sourceTree = "<group>"; };
 		2CCD5BFE216DFBA300A52051 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		2CCD5C00216E237500A52051 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "sample-conference-videochat-swift/Components/Users/Main.storyboard"; sourceTree = SOURCE_ROOT; };
 		2CCD5C02216E25EE00A52051 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -257,6 +265,10 @@
 				2CCB5ECA217DCFC400555AAA /* SettingCell.xib */,
 				2CCB5ECD217DD32C00555AAA /* SettingSwitchCell.swift */,
 				2CCB5ECE217DD32C00555AAA /* SettingSwitchCell.xib */,
+				2CCB5ED1217DD9B300555AAA /* SliderItemModel.swift */,
+				2CCB5ED3217DDA3C00555AAA /* SettingSliderCell.swift */,
+				2CCB5ED4217DDA3C00555AAA /* SettingSliderCell.xib */,
+				2CCB5ED7217DF09300555AAA /* SettingsSectionModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -599,6 +611,7 @@
 				2C93A960217870A200D18F7D /* Call.storyboard in Resources */,
 				2CCB5ED0217DD32C00555AAA /* SettingSwitchCell.xib in Resources */,
 				2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */,
+				2CCB5ED6217DDA3C00555AAA /* SettingSliderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,6 +668,7 @@
 				2C3965B2216F8EF7008D6889 /* QBDataFetcher.swift in Sources */,
 				2C4C262C2166771A00B1E8C4 /* BaseSettingsViewController.swift in Sources */,
 				2C4C26302166776900B1E8C4 /* VideoSettingsViewController.swift in Sources */,
+				2CCB5ED2217DD9B300555AAA /* SliderItemModel.swift in Sources */,
 				2C4C26222166750900B1E8C4 /* QBCore.swift in Sources */,
 				2C4C261D2166745F00B1E8C4 /* ZoomedView.swift in Sources */,
 				2C4C26172166741000B1E8C4 /* LocalVideoView.swift in Sources */,
@@ -677,6 +691,7 @@
 				2C3965B6216FA810008D6889 /* MainDataSource.swift in Sources */,
 				2C0E7282217758C0007A37E6 /* PlaceholderGenerator.swift in Sources */,
 				2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */,
+				2CCB5ED5217DDA3C00555AAA /* SettingSliderCell.swift in Sources */,
 				2C4C2600216671A900B1E8C4 /* QBLoadingButton.swift in Sources */,
 				2C4C260C2166736500B1E8C4 /* QBButtonsFactory.swift in Sources */,
 				2C4C26322166778900B1E8C4 /* SessionSettingsViewController.swift in Sources */,
@@ -684,6 +699,7 @@
 				2CCB5ECB217DCFC400555AAA /* SettingCell.swift in Sources */,
 				2C4C2613216673D600B1E8C4 /* CornerView.swift in Sources */,
 				2C0D582221666256001FF80B /* AppDelegate.swift in Sources */,
+				2CCB5ED8217DF09300555AAA /* SettingsSectionModel.swift in Sources */,
 				2C4C2611216673BD00B1E8C4 /* OpponentCollectionViewCell.swift in Sources */,
 				2C4C26022166728000B1E8C4 /* QBAVCallPermissions.swift in Sources */,
 				2CCB5EC8217DCD9B00555AAA /* SwitchItemModel.swift in Sources */,

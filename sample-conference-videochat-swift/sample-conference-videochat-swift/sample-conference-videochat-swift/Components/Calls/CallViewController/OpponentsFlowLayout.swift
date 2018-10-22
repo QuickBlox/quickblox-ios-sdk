@@ -48,15 +48,15 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        var array: [AnyHashable] = []
-        for attributes: UICollectionViewLayoutAttributes? in layoutAttributes {
-            if !rect.intersection((attributes?.frame)!).isNull {
-                if let anAttributes = attributes {
-                    array.append(anAttributes)
-                }
+        var array: [UICollectionViewLayoutAttributes] = []
+        for attributes in layoutAttributes {
+            if !rect.intersection((attributes.frame)).isNull {
+    
+                    array.append(attributes)
+
             }
         }
-        return array as? [UICollectionViewLayoutAttributes]
+        return array
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {

@@ -8,108 +8,217 @@
 
 import UIKit
 
-//class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
-class BaseSettingsViewController: UITableViewController {
+class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
 
+    // MARK: Properties
+    
+    /**
+     *  Settings storage.
+     *
+     *  @see Settings
+     */
+    var settings: Settings?
+    /**
+     *  Sections models.
+     */
+    var sections: [String: SettingsSectionModel] = [:]
+    /**
+     *  Selected indexes for each section.
+     */
+    var selectedIndexes: [String: IndexPath] = [:]
+
+    // MARK: Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        settings = Settings.instance
+//        selectedIndexes = [AnyHashable : Any]()
+//        sections = [AnyHashable : Any]()
+        
+        configure()
+        registerNibs()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        applySettings()
     }
 
-    // MARK: - Table view data source
+    // MARK: Public methods
+    
+    /**
+     *  Settings section model for section index
+     *
+     *  @param sectionType section index
+     *
+     *  @return Settings section model
+     */
+    func section(with sectionType: Int) -> SettingsSectionModel? {
+        
+        let title = self.title(forSection: sectionType)
+        let section: SettingsSectionModel? = sections[title ?? ""]
+        return section
+    }
+    
+    /**
+     * Index path for section index.
+     *
+     *  @param section Section index
+     *
+     *  @return Index path for section index
+     */
+    func indexPath(atSection section: Int) -> IndexPath? {
+        
+        let key = title(forSection: section)
+        let indexPath = selectedIndexes[key!]
+        
+        return indexPath
+    }
+    
+    /**
+     *  Model for section with index.
+     *
+     *  @param index model index
+     *  @param section section index
+     *
+     *  @return model for section
+     */
+    func model(with index: Int, section: Int) -> BaseItemModel? {
+        
+        let sectionModel: SettingsSectionModel? = self.section(with: section)
+        
+        if sectionModel?.items.count == 0 {
+            return nil
+        }
+        
+        let model: BaseItemModel? = sectionModel?.items[index]
+        return model
+    }
+    
+    /**
+     *  Add section with index and items.
+     *
+     *  @param section section index
+     *  @param items items for section
+     *
+     *  @return settings section model
+     */
+    
+    func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [Any]) -> SettingsSectionModel? {
+        
+        let sectionTitle = title(forSection: section)
+        let sectionModel = SettingsSectionModel.section(withTitle: sectionTitle, items: items(sectionTitle) as? [BaseItemModel])
+        sections[sectionTitle!] = sectionModel
+        
+        return sectionModel
+    }
 
+    /**
+     *  Select item at section.
+     *
+     *  @param section section index
+     *  @param index item index
+     */
+    func selectSection(_ section: Int, index: Int) {
+        var index = index
+        
+        if index == NSNotFound {
+            index = 0
+        }
+        
+        let sectionTitle = title(forSection: section)
+        let supportedFormatsIndexPath = IndexPath(row: index, section: section)
+        selectedIndexes[sectionTitle!] = supportedFormatsIndexPath
+    }
+    
+    /**
+     *  Update selection by selecting a new item and deselecting old one.
+     *
+     *  @param indexPath index path of requested item
+     */
+    func updateSelection(at indexPath: IndexPath?) {
+        
+        let key = title(forSection: (indexPath?.section)!)
+        let previosIndexPath = selectedIndexes[key!]
+        
+        if let aPath = previosIndexPath {
+            if ((indexPath?.compare(aPath)) != nil) {
+                return
+            }
+        }
+        if let aCopy = indexPath {
+            selectedIndexes[key!] = aCopy
+        }
+        
+        tableView.reloadRows(at: [previosIndexPath!, indexPath!], with: .fade)
+    }
+    
+    // MARK: Override
+    func configure() {
+        assert(false, "Must be overriden in superclass.")
+    }
+    
+    func applySettings() {
+        assert(false, "Must be overriden in superclass.")
+    }
+    
+    func title(forSection section: Int) -> String? {
+        assert(false, "Must be overriden in superclass.")
+        return nil
+    }
+    
+    // MARK: UITableViewDataSource
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let sectionItem: SettingsSectionModel? = self.section(with: section)
+        return sectionItem?.title
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return sections.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        let sectionItem: SettingsSectionModel? = self.section(with: section)
+        return sectionItem?.items.count ?? 0
     }
-
-        // MARK: Properties
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        /**
-         *  Settings storage.
-         *
-         *  @see Settings
-         */
-        var settings: Settings?
-        /**
-         *  Sections models.
-         */
-        var sections: [AnyHashable : Any] = [:]
-        /**
-         *  Selected indexes for each section.
-         */
-        var selectedIndexes: [AnyHashable : Any] = [:]
+        let sectionItem: SettingsSectionModel? = section(with: indexPath.section)
+        let itemModel: BaseItemModel? = sectionItem?.items[indexPath.row]
         
-        // MARK: Public methods
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass((itemModel?.viewClass())!)) as? BaseSettingsCell
         
-        /**
-         *  Settings section model for section index
-         *
-         *  @param sectionType section index
-         *
-         *  @return Settings section model
-         */
-        func section(with sectionType: Int) -> SettingsSectionModel? {
+        let key = title(forSection: indexPath.section)
+        
+        let selectedIndexPath = selectedIndexes[key!]
+        if let aPath = selectedIndexPath {
+            cell?.accessoryType = indexPath.compare(aPath) == .orderedSame ? UITableViewCell.AccessoryType.checkmark : UITableViewCell.AccessoryType.none
         }
         
-        /**
-         * Index path for section index.
-         *
-         *  @param section Section index
-         *
-         *  @return Index path for section index
-         */
-        func indexPath(atSection section: Int) -> IndexPath? {
-        }
+        cell?.delegate = self
+        cell?.model = itemModel
         
-        /**
-         *  Model for section with index.
-         *
-         *  @param index model index
-         *  @param section section index
-         *
-         *  @return model for section
-         */
-        func model(with index: Int, section: Int) -> BaseItemModel? {
-        }
+        return cell!
+    }
+    
+    // MARK: SettingsCellDelegate
+    func cell(_ cell: BaseSettingsCell?, didChageModel model: BaseItemModel?) {
         
-        /**
-         *  Add section with index and items.
-         *
-         *  @param section section index
-         *  @param items items for section
-         *
-         *  @return settings section model
-         */
-        func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [Any]) -> SettingsSectionModel? {
-        }
+        assert(false, "Required method of SettingsCellDelegate must be implemented in superclass.")
+    }
+    
+    // Private:
+    func registerNibs() {
         
-        /**
-         *  Select item at section.
-         *
-         *  @param section section index
-         *  @param index item index
-         */
-        func selectSection(_ section: Int, index: Int) {
-        }
-        
-        /**
-         *  Update selection by selecting a new item and deselecting old one.
-         *
-         *  @param indexPath index path of requested item
-         */
-        func updateSelection(at indexPath: IndexPath?) {
-        }
-
-
+        tableView.register(SettingCell.nib(), forCellReuseIdentifier: SettingCell.identifier()!)
+        tableView.register(SettingSwitchCell.nib(), forCellReuseIdentifier: SettingSwitchCell.identifier()!)
+        tableView.register(SettingSliderCell.nib(), forCellReuseIdentifier: SettingSliderCell.identifier()!)
+    }
 }

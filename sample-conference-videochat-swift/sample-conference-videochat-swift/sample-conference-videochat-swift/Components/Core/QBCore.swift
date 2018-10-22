@@ -157,6 +157,7 @@ class QBCore: NSObject, QBChatDelegate {
         
         QBRequest.signUp(newUser, successBlock: { response, user in
             self.profile?.synchronizeWithUserData(userData: user)
+            self.currentUser = user
             self.loginWithCurrentUser()
             
         }, errorBlock: { response in
