@@ -8,6 +8,7 @@
 
 import UIKit
 
+//class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
 class BaseSettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -32,59 +33,83 @@ class BaseSettingsViewController: UITableViewController {
         return 0
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        // MARK: Properties
+        
+        /**
+         *  Settings storage.
+         *
+         *  @see Settings
+         */
+        var settings: Settings?
+        /**
+         *  Sections models.
+         */
+        var sections: [AnyHashable : Any] = [:]
+        /**
+         *  Selected indexes for each section.
+         */
+        var selectedIndexes: [AnyHashable : Any] = [:]
+        
+        // MARK: Public methods
+        
+        /**
+         *  Settings section model for section index
+         *
+         *  @param sectionType section index
+         *
+         *  @return Settings section model
+         */
+        func section(with sectionType: Int) -> SettingsSectionModel? {
+        }
+        
+        /**
+         * Index path for section index.
+         *
+         *  @param section Section index
+         *
+         *  @return Index path for section index
+         */
+        func indexPath(atSection section: Int) -> IndexPath? {
+        }
+        
+        /**
+         *  Model for section with index.
+         *
+         *  @param index model index
+         *  @param section section index
+         *
+         *  @return model for section
+         */
+        func model(with index: Int, section: Int) -> BaseItemModel? {
+        }
+        
+        /**
+         *  Add section with index and items.
+         *
+         *  @param section section index
+         *  @param items items for section
+         *
+         *  @return settings section model
+         */
+        func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [Any]) -> SettingsSectionModel? {
+        }
+        
+        /**
+         *  Select item at section.
+         *
+         *  @param section section index
+         *  @param index item index
+         */
+        func selectSection(_ section: Int, index: Int) {
+        }
+        
+        /**
+         *  Update selection by selecting a new item and deselecting old one.
+         *
+         *  @param indexPath index path of requested item
+         */
+        func updateSelection(at indexPath: IndexPath?) {
+        }
 
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

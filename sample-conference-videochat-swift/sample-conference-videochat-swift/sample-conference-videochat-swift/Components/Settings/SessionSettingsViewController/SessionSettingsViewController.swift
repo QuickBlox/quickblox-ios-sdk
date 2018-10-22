@@ -7,84 +7,102 @@
 //
 
 import UIKit
+import QuickbloxWebRTC
+
+protocol SettingsViewControllerDelegate: class {
+    func settingsViewController(_ vc: SessionSettingsViewController?, didPressLogout sender: Any?)
+}
+
+enum SessionConfigureItem : Int {
+    case video
+    case auido
+}
+
 
 class SessionSettingsViewController: UITableViewController {
+    
+    @IBOutlet private weak var versionLabel: UILabel!
+    private var settings: Settings?
+    weak var delegate: SettingsViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        settings = Settings.instance
+        
+        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+        let version = """
+        Sample version \(appVersion ?? "") build \(appBuild ?? "").\n\
+        QuickBlox WebRTC SDK: \(QuickbloxWebRTCFrameworkVersion) Revision \(QuickbloxWebRTCRevision)
+        """
+        
+        versionLabel.text = version
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+    
+    // MARK: - Actions
+    @IBAction func pressDoneBtn(_ sender: Any) {
+        
+        settings?.saveToDisk()
+        settings?.applyConfig()
+        dismiss(animated: true)
+    }
+    
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        
+        let cell: UITableViewCell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.detailTextLabel?.text = detailTextForRow(atIndexPaht: indexPath)
+        
+        #if (TARGET_IPHONE_SIMULATOR)
+        // make video setting cell unavailable for sims
+        if indexPath.row == SessionConfigureItem.video.rawValue && indexPath.section == 0 {
+            cell.isUserInteractionEnabled = false
+        }
+        #endif
+        
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    // MARK: - UITableViewDelegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        let cell: UITableViewCell? = tableView.cellForRow(at: indexPath)
+        if (cell?.reuseIdentifier == "LogoutCell") {
+            
+            let alertController = UIAlertController(title: nil, message: NSLocalizedString("Logout ?", comment: ""), preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: { action in
+                self.delegate?.settingsViewController(self, didPressLogout: cell)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .default, handler: nil))
+            
+            present(alertController, animated: true)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func detailTextForRow(atIndexPaht indexPath: IndexPath?) -> String? {
+        
+        if indexPath?.row == SessionConfigureItem.video.rawValue {
+            
+            #if !(TARGET_IPHONE_SIMULATOR)
+            return String(format: "%tux%tu", settings?.videoFormat?.width ?? 640, settings?.videoFormat?.height ?? 480)
+            #else
+            return "unavailable"
+            #endif
+        } else if indexPath?.row == SessionConfigureItem.auido.rawValue {
+            
+            return ""
+        }
+        
+        return "Unknown"
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
