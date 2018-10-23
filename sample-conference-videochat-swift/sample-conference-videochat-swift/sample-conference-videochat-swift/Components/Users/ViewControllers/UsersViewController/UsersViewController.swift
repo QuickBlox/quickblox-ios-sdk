@@ -124,10 +124,13 @@ class UsersViewController: UITableViewController {
     @objc func fetchData() {
         weak var weakSelf = self
         QBDataFetcher.fetchUsers({ users in
-            
-            weakSelf?.dataSource?.objects = users as! Array<QBUUser>
-            weakSelf?.tableView.reloadData()
-            weakSelf?.refreshControl?.endRefreshing()
+            if let users = users {
+                weakSelf?.dataSource?.objects = users
+                weakSelf?.tableView.reloadData()
+                weakSelf?.refreshControl?.endRefreshing()
+            } else {
+                self.showAlertView(withMessage: NSLocalizedString("Please check your Internet connection", comment: ""))
+            }
         })
     }
 }

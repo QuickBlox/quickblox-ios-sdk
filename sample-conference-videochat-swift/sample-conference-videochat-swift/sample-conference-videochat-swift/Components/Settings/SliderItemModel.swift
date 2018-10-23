@@ -17,7 +17,6 @@ class SliderItemModel: BaseItemModel {
     var isDisabled = false
     
     override func viewClass() -> AnyClass {
-        
-        return SettingSliderCell.self
+        return  SettingSliderCell.self
     }
 }

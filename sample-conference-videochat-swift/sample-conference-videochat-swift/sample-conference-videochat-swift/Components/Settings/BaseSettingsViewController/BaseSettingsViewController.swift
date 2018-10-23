@@ -33,8 +33,8 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
         super.viewDidLoad()
         
         settings = Settings.instance
-//        selectedIndexes = [AnyHashable : Any]()
-//        sections = [AnyHashable : Any]()
+        selectedIndexes = [String: IndexPath]()
+        sections = [String: SettingsSectionModel]()
         
         configure()
         registerNibs()
@@ -192,20 +192,20 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
         
         let sectionItem: SettingsSectionModel? = section(with: indexPath.section)
         let itemModel: BaseItemModel? = sectionItem?.items[indexPath.row]
+       
+        debugPrint("itemModel? \(String(describing: itemModel?.title))")
+       let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass((itemModel?.viewClass())!).components(separatedBy: ".").last!) as! BaseSettingsCell
+            let key = title(forSection: indexPath.section)
+        debugPrint(title(forSection: indexPath.section)!)
+//            debugPrint("itemModel?.viewClass() \(String(describing: NSStringFromClass((itemModel?.viewClass())!).components(separatedBy: ".").last!))")
+            let selectedIndexPath = selectedIndexes[key!]
+//            if let aPath = selectedIndexPath {
+//        cell.accessoryType = indexPath.compare(selectedIndexPath!) == .orderedSame ? UITableViewCell.AccessoryType.checkmark : UITableViewCell.AccessoryType.none
+//            }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass((itemModel?.viewClass())!)) as? BaseSettingsCell
-        
-        let key = title(forSection: indexPath.section)
-        
-        let selectedIndexPath = selectedIndexes[key!]
-        if let aPath = selectedIndexPath {
-            cell?.accessoryType = indexPath.compare(aPath) == .orderedSame ? UITableViewCell.AccessoryType.checkmark : UITableViewCell.AccessoryType.none
-        }
-        
-        cell?.delegate = self
-        cell?.model = itemModel
-        
-        return cell!
+        cell.delegate = self
+        cell.model = itemModel
+        return cell
     }
     
     // MARK: SettingsCellDelegate
@@ -216,9 +216,12 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
     
     // Private:
     func registerNibs() {
-        
-        tableView.register(SettingCell.nib(), forCellReuseIdentifier: SettingCell.identifier()!)
-        tableView.register(SettingSwitchCell.nib(), forCellReuseIdentifier: SettingSwitchCell.identifier()!)
-        tableView.register(SettingSliderCell.nib(), forCellReuseIdentifier: SettingSliderCell.identifier()!)
+
+//        tableView.register(SettingCell.nib(), forCellReuseIdentifier: SettingCell.identifier()!)
+//        tableView.register(SettingSwitchCell.nib(), forCellReuseIdentifier: SettingSwitchCell.identifier()!)
+//        tableView.register(SettingSliderCell.nib(), forCellReuseIdentifier: SettingSliderCell.identifier()!)
+        tableView.register(UINib(nibName: "SettingCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
+        tableView.register(UINib(nibName: "SettingSwitchCell", bundle: nil), forCellReuseIdentifier: "SettingSwitchCell")
+        tableView.register(UINib(nibName: "SettingSliderCell", bundle: nil), forCellReuseIdentifier: "SettingSliderCell")
     }
 }

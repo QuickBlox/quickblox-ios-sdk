@@ -14,13 +14,13 @@ let kQBPageSize: UInt = 50
 
 class QBDataFetcher {
     
-    class func fetchDialogs(_ completion: @escaping (_ dialogs: [Any]?) -> Void) {
+    class func fetchDialogs(_ completion: @escaping (_ dialogs: [QBChatDialog]?) -> Void) {
         
         let extendedRequest = ["type[in]": "2"]
         
-        var t_request: ((_ responsePage: QBResponsePage?, _ allDialogs: [AnyHashable]?) -> Void)?
-        var allDialogsTempArr: [AnyHashable]?
-        let request: ((QBResponsePage?, [AnyHashable]?) -> Void)? = { responsePage, allDialogs in
+        var t_request: ((_ responsePage: QBResponsePage?, _ allDialogs: [QBChatDialog]?) -> Void)?
+        var allDialogsTempArr: [QBChatDialog]?
+        let request: ((QBResponsePage?, [QBChatDialog]?) -> Void)? = { responsePage, allDialogs in
             
             QBRequest.dialogs(for: responsePage!, extendedRequest: extendedRequest, successBlock: { response, dialogs, dialogsUsersIDs, page in
                 
@@ -54,23 +54,23 @@ class QBDataFetcher {
         }
         
         t_request = request
-        let allDialogs: [AnyHashable] = []
+        let allDialogs: [QBChatDialog] = []
         request?(QBResponsePage(limit: Int(kQBPageLimit)), allDialogs)
     }
     
-    class func fetchUsers(_ completion: @escaping (_ users: [Any]?) -> Void) {
+    class func fetchUsers(_ completion: @escaping (_ users: [QBUUser]?) -> Void) {
         
         //        weak var weakSelf = self
-        var t_request: ((_ page: QBGeneralResponsePage?, _ allUsers: [AnyHashable]?) -> Void)?
+        var t_request: ((_ page: QBGeneralResponsePage?, _ allUsers: [QBUUser]?) -> Void)?
         var allUsersTempArray: [QBUUser]?
-        let request: ((QBGeneralResponsePage?, [AnyHashable]?) -> Void)? = { page, allUsers in
+        let request: ((QBGeneralResponsePage?, [QBUUser]?) -> Void)? = { page, allUsers in
             
             //            let strongSelf = weakSelf
             
             QBRequest.users(withTags: (QBCore.instance.currentUser?.tags)!, page: page, successBlock: { response, page, users in
                 page.currentPage = page.currentPage + 1
                 
-                allUsersTempArray = allUsers as? [QBUUser]
+                allUsersTempArray = allUsers
                 allUsersTempArray?.append(contentsOf: users)
                 
                 var cancel = false
@@ -96,7 +96,7 @@ class QBDataFetcher {
         }
         
         t_request = request
-        let allUsers: [AnyHashable] = []
+        let allUsers: [QBUUser] = []
         request?(QBGeneralResponsePage(currentPage: 1, perPage: kQBPageSize), allUsers)
     }
     

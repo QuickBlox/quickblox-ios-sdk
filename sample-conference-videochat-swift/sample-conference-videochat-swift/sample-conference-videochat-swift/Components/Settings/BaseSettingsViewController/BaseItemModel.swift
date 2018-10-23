@@ -8,26 +8,11 @@
 
 import UIKit
 
-protocol SettingsCellDelegate: class {
-    func cell(_ cell: BaseSettingsCell?, didChageModel model: BaseItemModel?)
-}
-
-class BaseSettingsCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
-    var model: BaseItemModel?
-    weak var delegate: SettingsCellDelegate?
+class BaseItemModel {
+    var title = ""
+    var data: Any?
     
-    class func identifier() -> String? {
-        return NSStringFromClass(BaseSettingsCell.self)
-    }
-    
-    class func nib() -> UINib? {
-        return UINib(nibName: self.identifier() ?? "", bundle: nil)
-    }
-    
-    func setModel(_ model: BaseItemModel?) {
-        
-        self.model = model
-        label.text = model?.title
+    func viewClass() -> AnyClass {
+        return  SettingCell.self
     }
 }

@@ -34,7 +34,7 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
     @IBOutlet private weak var toolbar: QBToolBar!
     private var users: [QBUUser] = []
     private var cameraCapture: QBRTCCameraCapture?
-    private var videoViews = [NSNumber: UIView]()
+    private var videoViews: [NSNumber: UIView]?
     private var dynamicEnable: QBButton?
     private var videoEnabled: QBButton?
     private weak var localVideoView: LocalVideoView?
@@ -86,10 +86,14 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
         
         if session?.conferenceType == QBRTCConferenceType.video && Int(conferenceType!.rawValue) > 0 {
-            #if !(TARGET_IPHONE_SIMULATOR)
+            #if targetEnvironment(simulator)
+            // Simulator
+            #else
+            // Device
             let settings = Settings.instance
             cameraCapture = QBRTCCameraCapture(videoFormat: settings.videoFormat!, position: settings.preferredCameraPostion!)
             cameraCapture?.startSession(nil)
+            debugPrint("Device!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             #endif
         }
         
@@ -112,10 +116,12 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         if session?.conferenceType == QBRTCConferenceType.video && Int(conferenceType!.rawValue) > 0 {
             videoEnabled = QBButtonsFactory.videoEnable()
+            weakSelf?.localVideoView?.isHidden = false
             toolbar.add(videoEnabled, action: { sender in
                 
                 weakSelf?.muteVideo = !(weakSelf?.muteVideo)!
-                weakSelf?.localVideoView?.isHidden = (weakSelf?.muteVideo)!
+//                weakSelf?.localVideoView?.isHidden = (weakSelf?.muteVideo)!
+                weakSelf?.localVideoView?.isHidden = false
             })
         }
         
@@ -189,7 +195,6 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
                 let audioTrack: QBRTCAudioTrack? = weakSelf?.session?.remoteAudioTrack(withUserID: NSNumber(value: (user.id)))
                 audioTrack?.isEnabled = !isMuted
             }
-            
             reusableCell?.videoView = videoView(withOpponentID: NSNumber(value: (user.id)))
             
             if user.id != QBSession.current.currentUser?.id {
@@ -474,8 +479,8 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         if (segue.identifier == CallConstants.kUsersSegue) {
             
             let usersVC = segue.destination as? AddUsersViewController
-//            usersVC?.usersDataSource = usersDataSource
-//            usersVC?.chatDialog = chatDialog
+            usersVC?.usersDataSource = usersDataSource
+            usersVC?.chatDialog = chatDialog
         }
     }
     
@@ -532,7 +537,7 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
         let indexPath = IndexPath(item: index ?? 0, section: 0)
         users.removeAll(where: { element in element == user })
-        videoViews.removeValue(forKey: userID!)
+        videoViews?.removeValue(forKey: userID!)
         
         weak var weakSelf = self
         opponentsCollectionView.performBatchUpdates({
@@ -620,22 +625,22 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         var result: Any? = nil
         if let anID = opponentID {
-            result = videoViews[anID]
+            result = videoViews?[anID]
         }
         
         if core.currentUser?.id == opponentID?.uintValue && session?.conferenceType != QBRTCConferenceType.audio {
             //Local preview
             
             if result == nil {
-                
+            
                 let localVideoView = LocalVideoView(previewlayer: cameraCapture?.previewLayer)
                 if let anID = opponentID {
-                    videoViews[anID] = localVideoView
+                    videoViews?[anID] = localVideoView
                 }
                 localVideoView.delegate = self
                 self.localVideoView = localVideoView
-                
-                return localVideoView
+                result = localVideoView
+//                return localVideoView
             }
         } else {
             //Opponents
@@ -648,13 +653,13 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
                 remoteVideoView = QBRTCRemoteVideoView(frame: CGRect(x: 2, y: 2, width: 2, height: 2))
                 remoteVideoView?.videoGravity = AVLayerVideoGravity.resizeAspectFill.rawValue
                 if let anID = opponentID {
-                    videoViews[anID] = remoteVideoView
+                    videoViews?[anID] = remoteVideoView
                 }
                 remoteVideoView?.setVideoTrack(remoteVideoTraсk!)
                 result = remoteVideoView
             }
             
-            return result as? UIView
+//            return result as? UIView
         }
         
         return result as? UIView

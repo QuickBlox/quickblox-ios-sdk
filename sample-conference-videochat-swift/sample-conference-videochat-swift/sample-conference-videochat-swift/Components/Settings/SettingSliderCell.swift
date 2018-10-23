@@ -40,6 +40,7 @@ class SettingSliderCell: BaseSettingsCell {
     @IBAction func valueChanged(_ sender: UISlider) {
         
         let model = self.model as? SliderItemModel
+        debugPrint("sender.value \(sender.value)")
         model?.currentValue = UInt(sender.value)
         if let aValue = model?.currentValue {
             label.text = String(format: "%tu", aValue)

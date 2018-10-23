@@ -55,6 +55,13 @@ class LocalVideoView: UIView {
         if let aBtn = switchCameraBtn {
             addSubview(aBtn)
         }
+        ///////////////////////////
+        containerView?.frame = bounds
+        videoLayer?.frame = bounds
+        
+        let buttonSize = CGSize(width: 72 / 2.5, height: 54 / 2.5)
+        switchCameraBtn?.frame = CGRect(x: bounds.size.width - buttonSize.width - 5, y: bounds.size.height - buttonSize.height - 30, width: buttonSize.width, height: buttonSize.height)
+        ///////////////////////////////////
     }
     
     override func willMove(toSuperview newSuperview: UIView?) {
@@ -66,6 +73,7 @@ class LocalVideoView: UIView {
         
         delegate?.localVideoView(self, pressedSwitchButton: sender)
     }
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)

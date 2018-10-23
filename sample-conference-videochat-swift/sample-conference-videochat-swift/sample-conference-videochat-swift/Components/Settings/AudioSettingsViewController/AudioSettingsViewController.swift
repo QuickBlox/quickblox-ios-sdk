@@ -7,6 +7,43 @@
 //
 
 import UIKit
+import QuickbloxWebRTC
+
+enum AudioSettingsSectionType : Int {
+    case constraints
+    case bandwidth
+}
+
+enum AudioBandwidthSection : Int {
+    case enable
+    case bandwidth
+}
+
+struct AudioCodecBandWidthRange {
+    var minValue: Int = 0
+    var maxValue: Int = 0
+}
+
+@inline(__always) private func audioCodecRangeForCodec(codec: QBRTCAudioCodec) -> AudioCodecBandWidthRange {
+    
+    
+    var range: AudioCodecBandWidthRange = AudioCodecBandWidthRange()
+    switch codec {
+    case QBRTCAudioCodec.codecOpus:
+        range.minValue = 6
+        range.maxValue = 510
+    case QBRTCAudioCodec.codecISAC:
+        range.minValue = 10
+        range.maxValue = 32
+    case QBRTCAudioCodec.codeciLBC:
+        range.minValue = 15
+        range.maxValue = 32
+    default:
+        break
+    }
+    
+    return range
+}
 
 class AudioSettingsViewController: BaseSettingsViewController {
 
@@ -19,72 +56,123 @@ class AudioSettingsViewController: BaseSettingsViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    override func title(forSection section: Int) -> String? {
+        
+        switch section {
+        case AudioSettingsSectionType.constraints.rawValue:
+            return "Constraints"
+        case AudioSettingsSectionType.bandwidth.rawValue:
+            return "Bandwidth"
+        default:
+            break
+        }
+        
+        return nil
+    }
+    
+    override func configure() {
+        
+        weak var weakSelf = self
+        
+        //Constraints
+        addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { sectionTitle in
+            
+            //audio level control
+            let switchItem = SwitchItemModel()
+            switchItem.title = "Audio level control"
+            switchItem.on = (weakSelf?.settings?.mediaConfiguration?.isAudioLevelControlEnabled)!
+            
+            return [switchItem]
+        })
+        //Bandwidth
+        addSection(with: AudioSettingsSectionType.bandwidth.rawValue, items: { sectionTitle in
+            
+            //Camera position section
+            let switchItem = SwitchItemModel()
+            switchItem.title = "Enable"
+            
+            let isEnabled: Bool = (weakSelf?.settings?.mediaConfiguration?.audioBandwidth)! > 0
+            switchItem.on = isEnabled
+            
+            let bandwidthSlider = SliderItemModel()
+            bandwidthSlider.title = "30"
+            weakSelf?.updateBandwidthSliderModelRange(bandwidthSlider, using: (weakSelf?.settings?.mediaConfiguration?.audioCodec)!)
+            bandwidthSlider.currentValue = (weakSelf?.settings?.mediaConfiguration?.audioBandwidth)! < UInt(bitPattern: (bandwidthSlider.minValue)) ? UInt(bitPattern: (bandwidthSlider.minValue)) : UInt(bitPattern: ((weakSelf?.settings?.mediaConfiguration?.audioBandwidth)!))
+            
+            bandwidthSlider.isDisabled = !isEnabled
+            
+            return [switchItem, bandwidthSlider]
+        })
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    // MARK: - SettingsCellDelegate
+    override func cell(_ cell: BaseSettingsCell?, didChageModel model: BaseItemModel?) {
+        
+        var indexPath: IndexPath? = nil
+        if let aCell = cell {
+            indexPath = tableView.indexPath(for: aCell)
+        }
+        if indexPath?.section == AudioSettingsSectionType.bandwidth.rawValue && (model is SwitchItemModel) {
+            
+            let bandwidth: SettingsSectionModel? = section(with: AudioSettingsSectionType.bandwidth.rawValue)
+            let switchItem: SwitchItemModel? = bandwidth?.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
+            let isEnabled = switchItem?.on
+            let bandwidthSlider: SliderItemModel? = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
+            bandwidthSlider?.isDisabled = isEnabled!
+            if !isEnabled! {
+                bandwidthSlider?.currentValue = UInt(bitPattern: (bandwidthSlider?.minValue)!)
+            }
+            
+            let sectionToReload = NSIndexSet(index: AudioSettingsSectionType.bandwidth.rawValue)
+            tableView.reloadSections(sectionToReload as IndexSet, with: .fade)
+        }
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    // MARK: - Helpers
+    func updateBandwidthSliderModelRange(_ sliderModel: SliderItemModel?, using codec: QBRTCAudioCodec) {
+        
+        let range: AudioCodecBandWidthRange = audioCodecRangeForCodec(codec: codec)
+        sliderModel?.currentValue = UInt(range.minValue)
+        sliderModel?.minValue = range.minValue
+        sliderModel?.maxValue = range.maxValue
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func updateBandwidthValue(for indexPath: IndexPath?) {
+        
+        let bandwidth: SettingsSectionModel? = section(with: AudioSettingsSectionType.bandwidth.rawValue)
+        let switchItem: SwitchItemModel? = bandwidth?.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
+        let bandwidthSlider: SliderItemModel? = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
+        let audioCodec: BaseItemModel? = model(with: (indexPath?.row)!, section: (indexPath?.section)!)
+        if let aValue = audioCodec?.data as? QBRTCAudioCodec {
+            updateBandwidthSliderModelRange(bandwidthSlider, using: aValue)
+        }
+        
+        bandwidthSlider?.isDisabled = true
+        switchItem?.on = false
+        
+        tableView.reloadSections(NSIndexSet(index: AudioSettingsSectionType.bandwidth.rawValue) as IndexSet, with: .fade)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func applySettings() {
+        
+        //APPLY SETTINGS
+        
+        //constraints
+        let constraints: SettingsSectionModel? = section(with: AudioSettingsSectionType.constraints.rawValue)
+        let levelControlSwitch: SwitchItemModel? = constraints?.items.first as? SwitchItemModel
+        settings?.mediaConfiguration?.isAudioLevelControlEnabled = (levelControlSwitch?.on)!
+        
+        //bandwidth
+        let bandwidth: SettingsSectionModel? = section(with: AudioSettingsSectionType.bandwidth.rawValue)
+        let switchItem: SwitchItemModel? = bandwidth?.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
+        let isEnabled = switchItem?.on
+        if isEnabled ?? false {
+            
+            let bandwidthSlider: SliderItemModel? = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
+            settings?.mediaConfiguration?.audioBandwidth = Int(bitPattern: (bandwidthSlider?.currentValue)!)
+        } else {
+            settings?.mediaConfiguration?.audioBandwidth = 0
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

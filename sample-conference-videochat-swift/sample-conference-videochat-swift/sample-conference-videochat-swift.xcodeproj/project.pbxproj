@@ -12,6 +12,7 @@
 		2C0E727C21775416007A37E6 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E727B21775416007A37E6 /* UserTableViewCell.swift */; };
 		2C0E727F21775491007A37E6 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E727E21775491007A37E6 /* CheckView.swift */; };
 		2C0E7282217758C0007A37E6 /* PlaceholderGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0E7281217758C0007A37E6 /* PlaceholderGenerator.swift */; };
+		2C184FA6217F6F180062E235 /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C184FA5217F6F180062E235 /* ReuseIdentifierProtocol.swift */; };
 		2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965AF216F8B27008D6889 /* MainTableViewController.swift */; };
 		2C3965B2216F8EF7008D6889 /* QBDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965B1216F8EF7008D6889 /* QBDataFetcher.swift */; };
 		2C3965B4216FA76F008D6889 /* DialogsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965B3216FA76F008D6889 /* DialogsDataSource.swift */; };
@@ -70,6 +71,7 @@
 		2C0E727B21775416007A37E6 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		2C0E727E21775491007A37E6 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		2C0E7281217758C0007A37E6 /* PlaceholderGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderGenerator.swift; sourceTree = "<group>"; };
+		2C184FA5217F6F180062E235 /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
 		2C3965AF216F8B27008D6889 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		2C3965B1216F8EF7008D6889 /* QBDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBDataFetcher.swift; sourceTree = "<group>"; };
 		2C3965B3216FA76F008D6889 /* DialogsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsDataSource.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		2C0D582021666256001FF80B /* sample-conference-videochat-swift */ = {
 			isa = PBXGroup;
 			children = (
+				2C184FA4217F6EE10062E235 /* ReuseIdentifier */,
 				2C4C263B21667B4E00B1E8C4 /* Extensions */,
 				2C4C263C21667B6C00B1E8C4 /* Supporting Files */,
 				2C4C25EC21666FED00B1E8C4 /* Components */,
@@ -179,6 +182,14 @@
 				2C0E727E21775491007A37E6 /* CheckView.swift */,
 			);
 			path = CheckView;
+			sourceTree = "<group>";
+		};
+		2C184FA4217F6EE10062E235 /* ReuseIdentifier */ = {
+			isa = PBXGroup;
+			children = (
+				2C184FA5217F6F180062E235 /* ReuseIdentifierProtocol.swift */,
+			);
+			path = ReuseIdentifier;
 			sourceTree = "<group>";
 		};
 		2C4C25EC21666FED00B1E8C4 /* Components */ = {
@@ -690,6 +701,7 @@
 				2C4C26192166743500B1E8C4 /* OpponentsFlowLayout.swift in Sources */,
 				2C3965B6216FA810008D6889 /* MainDataSource.swift in Sources */,
 				2C0E7282217758C0007A37E6 /* PlaceholderGenerator.swift in Sources */,
+				2C184FA6217F6F180062E235 /* ReuseIdentifierProtocol.swift in Sources */,
 				2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */,
 				2CCB5ED5217DDA3C00555AAA /* SettingSliderCell.swift in Sources */,
 				2C4C2600216671A900B1E8C4 /* QBLoadingButton.swift in Sources */,

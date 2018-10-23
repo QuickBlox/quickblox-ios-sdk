@@ -59,11 +59,14 @@ class SessionSettingsViewController: UITableViewController {
         let cell: UITableViewCell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.detailTextLabel?.text = detailTextForRow(atIndexPaht: indexPath)
         
-        #if (TARGET_IPHONE_SIMULATOR)
-        // make video setting cell unavailable for sims
+        #if targetEnvironment(simulator)
+        // Simulator
         if indexPath.row == SessionConfigureItem.video.rawValue && indexPath.section == 0 {
             cell.isUserInteractionEnabled = false
         }
+        #else
+        // Device
+        debugPrint("Device*********************************")
         #endif
         
         return cell
@@ -93,11 +96,14 @@ class SessionSettingsViewController: UITableViewController {
         
         if indexPath?.row == SessionConfigureItem.video.rawValue {
             
-            #if !(TARGET_IPHONE_SIMULATOR)
-            return String(format: "%tux%tu", settings?.videoFormat?.width ?? 640, settings?.videoFormat?.height ?? 480)
-            #else
+            #if targetEnvironment(simulator)
+            // Simulator
             return "unavailable"
+            #else
+            // Device
+            return String(format: "%tux%tu", settings?.videoFormat?.width ?? 640, settings?.videoFormat?.height ?? 480)
             #endif
+
         } else if indexPath?.row == SessionConfigureItem.auido.rawValue {
             
             return ""

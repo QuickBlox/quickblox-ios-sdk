@@ -11,17 +11,21 @@ import QuickbloxWebRTC
 
 class OpponentCollectionViewCell: UICollectionViewCell {
     
-    weak var videoView: UIView? {
+    var videoView: UIView? {
         willSet {
-            if self.videoView != newValue {
-                
+            if videoView != newValue {
+
                 self.videoView?.removeFromSuperview()
                 self.videoView = newValue
-                self.videoView?.frame = bounds
-                containerView.addSubview(self.videoView!)
+                videoView?.frame = bounds
+                videoView?.layer.frame = bounds
             }
         }
+        didSet {
+            addVideoView()
+        }
     }
+
     /**
      *  Mute user block action.
      */
@@ -66,15 +70,26 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        backgroundColor = UIColor.black
+        backgroundColor = UIColor.clear
         statusLabel.backgroundColor = UIColor(red: 0.9441, green: 0.9441, blue: 0.9441, alpha: 0.350031672297297)
         name = ""
-        nameColor = UIColor.blue
         muteButton.setImage(unmutedImage, for: .normal)
         muteButton.setImage(mutedImage, for: .selected)
         muteButton.isHidden = true
         isMuted = false
+    }
+    
+    private func addVideoView() {
+        guard let video = videoView else {return}
+            containerView.addSubview(video)
+        video.translatesAutoresizingMaskIntoConstraints = false
+        video.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        video.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        video.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        video.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+         video.layer.bounds = video.bounds
+            containerView.bringSubviewToFront(video)
+//        }
     }
     
     func setConnectionState(_ connectionState: QBRTCConnectionState) {

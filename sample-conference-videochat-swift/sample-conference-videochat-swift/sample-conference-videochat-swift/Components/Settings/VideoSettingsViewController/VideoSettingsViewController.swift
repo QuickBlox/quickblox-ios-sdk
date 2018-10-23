@@ -59,6 +59,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
         
         //Camera position section
         weak var weakSelf = self
+        
         addSection(with: VideoSettingsSectionType.cameraPostion.rawValue, items: { sectionTitle in
             
             //Camera position section

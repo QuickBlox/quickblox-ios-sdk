@@ -13,9 +13,13 @@ class QBAVCallPermissions {
     
     class func check(with conferenceType: QBRTCConferenceType, completion: @escaping PermissionBlock) {
         
-        #if (TARGET_IPHONE_SIMULATOR)
+        #if targetEnvironment(simulator)
+        // Simulator
         completion(true)
         return
+        #else
+        // Device
+        debugPrint("Device*********************************")
         #endif
         
         self.requestPermissionToMicrophone(withCompletion: { granted in

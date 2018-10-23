@@ -55,13 +55,7 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
         
         assert(self.userData != nil, "Invalid parameter not satisfying: userData != nil")
         debugPrint("self.userData \(String(describing: self.userData))")
-        return self.saveData(self.userData as Any, forKey: Keys.userData.rawValue)
-    }
-    
-    
-    // MARK: - NSCoding
-    enum Keys: String {
-        case userData = "UserData"
+        return self.saveData(self.userData as Any, forKey: QBProfileConstants.kQBProfile)
     }
     
     convenience required init?(coder aDecoder: NSCoder) {
@@ -112,7 +106,6 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
         SecItemDelete((keychainQuery as CFDictionary?)!)
         if let dataUser = data {
             keychainQuery?[QBProfileSecConstants.kSecValueDataValue] = NSKeyedArchiver.archivedData(withRootObject: dataUser)
-            print("saved")
         }
         return SecItemAdd(keychainQuery! as CFDictionary, nil)
     }
@@ -129,11 +122,9 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
         keychainQuery?[QBProfileSecConstants.kSecMatchLimitValue] = QBProfileSecConstants.kSecMatchLimitOneValue
         var keyData: AnyObject?
         let status = SecItemCopyMatching(keychainQuery! as CFDictionary, &keyData)
-        if status == noErr{
+        if status == noErr {
             if let aData = keyData as! Data? {
-                
                 ret = NSKeyedUnarchiver.unarchiveObject(with: aData) as? QBUUser
-                 debugPrint("ret \(String(describing: ret))")
               return ret
             }
         }

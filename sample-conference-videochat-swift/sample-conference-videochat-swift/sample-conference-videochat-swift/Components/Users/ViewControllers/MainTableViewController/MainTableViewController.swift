@@ -276,7 +276,7 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
 
             dataGroup.leave()
             let strongSelf = weakSelf
-            strongSelf?.dialogsDataSource?.objects = dialogs as! Array<QBChatDialog>
+            strongSelf?.dialogsDataSource?.objects = dialogs!
             strongSelf?.tableView.reloadData()
         })
 
@@ -286,7 +286,7 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
 
             dataGroup.leave()
             let strongSelf = weakSelf
-            strongSelf?.usersDataSource?.objects = users as! Array<QBUUser>
+            strongSelf?.usersDataSource?.objects = users!
         })
         
         dataGroup.notify(queue: DispatchQueue.main) {

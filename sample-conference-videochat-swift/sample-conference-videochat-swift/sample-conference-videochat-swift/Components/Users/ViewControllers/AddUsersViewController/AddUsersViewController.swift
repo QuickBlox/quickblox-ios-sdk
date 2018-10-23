@@ -7,84 +7,107 @@
 //
 
 import UIKit
+import Quickblox
+import SVProgressHUD
 
 class AddUsersViewController: UITableViewController {
-
+    weak var usersDataSource: UsersDataSource?
+    weak var chatDialog: QBChatDialog?
+    private var dataSource: UsersDataSource?
+    
+    // MARK: Lifecycle
+    
+    deinit {
+        
+        debugPrint("deinit \(self)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        dataSource = UsersDataSource()
+        var users: [QBUUser] = []
+        for user in (usersDataSource?.objects)! {
+            if !(chatDialog?.occupantIDs?.contains(NSNumber(value: user.id)))! {
+                
+                users.append(user)
+            }
+        }
+        dataSource?.objects = users
+        
+        tableView.dataSource = dataSource
+        tableView.rowHeight = 44
+        
+        // adding refresh control task
+        if refreshControl != nil {
+            
+            refreshControl?.addTarget(self, action: #selector(self.fetchData), for: .valueChanged)
+        }
+        
+        let createChatButton = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(self.didPressUpdateChatButton(_:)))
+        
+        navigationItem.rightBarButtonItem = createChatButton
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if refreshControl?.isRefreshing ?? false {
+            tableView.setContentOffset(CGPoint(x: 0, y: -(refreshControl?.frame.size.height ?? 0.0)), animated: false)
+        }
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    @objc func didPressUpdateChatButton(_ item: UIBarButtonItem?) {
+        
+        SVProgressHUD.show()
+        var pushOccupantsIDs: [String] = []
+        for user: QBUUser? in (dataSource?.selectedObjects)! {
+            if let anID = user?.id {
+                pushOccupantsIDs.append(String(format: "%tu", anID))
+            }
+        }
+        chatDialog?.pushOccupantsIDs = pushOccupantsIDs
+        
+        weak var weakSelf = self
+        QBRequest.update(chatDialog!, successBlock: { response, chatDialog in
+            
+            weakSelf?.chatDialog?.occupantIDs = chatDialog.occupantIDs
+            SVProgressHUD.dismiss()
+            weakSelf?.navigationController?.popViewController(animated: true)
+            
+        }, errorBlock: { response in
+            
+            SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+        })
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    
+    // MARK: UITableViewDelegate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        dataSource?.selectObject(at: indexPath)
+        tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
+        
+        navigationItem.rightBarButtonItem?.isEnabled = dataSource?.selectedObjects.count ?? 0 > 0
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    // MARK: Private
+    @objc func fetchData() {
+        
+        weak var weakSelf = self
+        QBDataFetcher.fetchUsers({ users in
+            
+            let strongSelf = weakSelf
+            var mutableUsers = users
+            for user in users! {
+             
+                if (strongSelf?.chatDialog?.occupantIDs?.contains(NSNumber(value: user.id)))! {
+                        mutableUsers?.removeAll(where: { element in element == user })
+                    }
+            }
+            strongSelf?.dataSource?.objects = mutableUsers!
+            strongSelf?.tableView.reloadData()
+            strongSelf?.refreshControl?.endRefreshing()
+        })
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

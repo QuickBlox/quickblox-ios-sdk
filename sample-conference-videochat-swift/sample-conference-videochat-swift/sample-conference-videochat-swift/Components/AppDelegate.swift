@@ -19,6 +19,11 @@ let kQBAuthKey = "qp4zDcV8mk29Qp9"
 let kQBAuthSecret = "Hm2KgDE6eeMZHu5"
 let kQBAccountKey = "uK_8uinNyz8-npTNB6tx"
 
+//let kQBApplicationID:UInt = 72448
+//let kQBAuthKey = "f4HYBYdeqTZ7KNb"
+//let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
+//let kQBAccountKey = "C4_z7nuaANnBYmsG_k98"
+
 let kQBAnswerTimeInterval: TimeInterval = 60.0
 let kQBDialingTimeInterval: TimeInterval = 5.0
 
