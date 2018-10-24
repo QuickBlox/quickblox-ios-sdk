@@ -11,6 +11,8 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
+#import "RTCMacros.h"
+
 #import "QBRTCTypes.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol RTCVideoFrameBuffer;
 
 // RTCVideoFrame is an ObjectiveC version of webrtc::VideoFrame.
-__attribute__((visibility("default")))
+RTC_EXPORT
 @interface RTCVideoFrame : NSObject
 
 /** Width without rotation applied. */
@@ -37,7 +39,7 @@ __attribute__((visibility("default")))
 @property(nonatomic, readonly) id<RTCVideoFrameBuffer> buffer;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)new NS_UNAVAILABLE;
+- (instancetype) new NS_UNAVAILABLE;
 
 /** Initialize an RTCVideoFrame from a pixel buffer, rotation, and timestamp.
  *  Deprecated - initialize with a RTCCVPixelBuffer instead
@@ -45,7 +47,7 @@ __attribute__((visibility("default")))
 - (instancetype)initWithPixelBuffer:(CVPixelBufferRef)pixelBuffer
                            rotation:(QBRTCVideoRotation)rotation
                         timeStampNs:(int64_t)timeStampNs
-DEPRECATED_MSG_ATTRIBUTE("use initWithBuffer instead");
+    DEPRECATED_MSG_ATTRIBUTE("use initWithBuffer instead");
 
 /** Initialize an RTCVideoFrame from a pixel buffer combined with cropping and
  *  scaling. Cropping will be applied first on the pixel buffer, followed by
@@ -60,7 +62,7 @@ DEPRECATED_MSG_ATTRIBUTE("use initWithBuffer instead");
                               cropY:(int)cropY
                            rotation:(QBRTCVideoRotation)rotation
                         timeStampNs:(int64_t)timeStampNs
-DEPRECATED_MSG_ATTRIBUTE("use initWithBuffer instead");
+    DEPRECATED_MSG_ATTRIBUTE("use initWithBuffer instead");
 
 /** Initialize an RTCVideoFrame from a frame buffer, rotation, and timestamp.
  */
