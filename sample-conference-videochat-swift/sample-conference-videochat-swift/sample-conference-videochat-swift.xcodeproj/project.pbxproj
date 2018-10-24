@@ -274,6 +274,7 @@
 				2C73CB09216D1BDB00DAED6C /* Settings.swift */,
 				2CCB5EC9217DCFC400555AAA /* SettingCell.swift */,
 				2CCB5ECA217DCFC400555AAA /* SettingCell.xib */,
+				2CCB5EC7217DCD9B00555AAA /* SwitchItemModel.swift */,
 				2CCB5ECD217DD32C00555AAA /* SettingSwitchCell.swift */,
 				2CCB5ECE217DD32C00555AAA /* SettingSwitchCell.xib */,
 				2CCB5ED1217DD9B300555AAA /* SliderItemModel.swift */,
@@ -387,7 +388,6 @@
 				2C4C262B2166771A00B1E8C4 /* BaseSettingsViewController.swift */,
 				2CCB5EC3217DCD4E00555AAA /* BaseItemModel.swift */,
 				2CCB5EC5217DCD6600555AAA /* BaseSettingsCell.swift */,
-				2CCB5EC7217DCD9B00555AAA /* SwitchItemModel.swift */,
 			);
 			path = BaseSettingsViewController;
 			sourceTree = "<group>";

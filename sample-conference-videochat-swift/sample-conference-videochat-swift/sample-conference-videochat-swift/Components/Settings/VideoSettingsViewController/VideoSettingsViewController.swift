@@ -137,7 +137,6 @@ class VideoSettingsViewController: BaseSettingsViewController {
         
         switch indexPath.section {
         case Int(VideoSettingsSectionType.supportedFormats.rawValue):
-            
             updateSelection(at: indexPath)
         default:
             break
@@ -188,9 +187,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
         
         //Preferred camera positon
         let cameraPostion = model(with: 0, section: VideoSettingsSectionType.cameraPostion.rawValue) as? SwitchItemModel
-        debugPrint("cameraPostion \(String(describing: cameraPostion?.on))")
         settings?.preferredCameraPostion = (cameraPostion?.on)! ? .back : .front
-        debugPrint("preferredCameraPostion \(String(describing: settings?.preferredCameraPostion!.rawValue))")
         
         //Supported format
         let supportedFormatIndexPath: IndexPath? = indexPath(atSection: VideoSettingsSectionType.supportedFormats.rawValue)
@@ -204,7 +201,6 @@ class VideoSettingsViewController: BaseSettingsViewController {
         //bandwidth
         let bandwidth: SettingsSectionModel? = section(with: VideoSettingsSectionType.bandwidth.rawValue)
         let bandwidthSlider: SliderItemModel? = bandwidth?.items.first as? SliderItemModel
-        
         settings?.mediaConfiguration?.videoBandwidth = Int((bandwidthSlider?.currentValue)!)
         
         settings?.videoFormat = QBRTCVideoFormat.init(width: (videoFormat?.width)!, height: (videoFormat?.height)!, frameRate: (frameRateSlider?.currentValue)!, pixelFormat: QBRTCPixelFormat.format420f)

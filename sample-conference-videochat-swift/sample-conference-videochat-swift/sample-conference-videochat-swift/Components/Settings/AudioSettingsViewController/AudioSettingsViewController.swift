@@ -186,6 +186,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
             
             let bandwidthSlider: SliderItemModel? = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
             settings?.mediaConfiguration?.audioBandwidth = Int(bitPattern: (bandwidthSlider?.currentValue)!)
+            
         } else {
             settings?.mediaConfiguration?.audioBandwidth = 0
         }

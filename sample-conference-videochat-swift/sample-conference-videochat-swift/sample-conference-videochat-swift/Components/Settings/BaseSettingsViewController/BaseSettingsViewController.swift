@@ -113,15 +113,6 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
         sections[sectionTitle!] = sectionModel
 
     }
-    
-//    func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [Any]) -> SettingsSectionModel? {
-//
-//        let sectionTitle = title(forSection: section)
-//        let sectionModel = SettingsSectionModel.section(withTitle: sectionTitle, items: items(sectionTitle) as? [BaseItemModel])
-//        sections[sectionTitle!] = sectionModel
-//
-//        return sectionModel
-//    }
 
     /**
      *  Select item at section.
@@ -152,12 +143,13 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
         let previosIndexPath = selectedIndexes[key!]
         
         if let aPath = previosIndexPath {
-            if ((indexPath?.compare(aPath)) != nil) {
+            if indexPath!.compare(aPath) == .orderedSame {
+            
                 return
             }
         }
-        if let aCopy = indexPath {
-            selectedIndexes[key!] = aCopy
+        if let aIndexPath = indexPath {
+            selectedIndexes[key!] = aIndexPath
         }
         
         tableView.reloadRows(at: [previosIndexPath!, indexPath!], with: .fade)
@@ -200,16 +192,11 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
         
         let sectionItem: SettingsSectionModel? = section(with: indexPath.section)
         let itemModel: BaseItemModel? = sectionItem?.items[indexPath.row]
-       
-        debugPrint("itemModel? \(String(describing: itemModel?.title))")
        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass((itemModel?.viewClass())!).components(separatedBy: ".").last!) as! BaseSettingsCell
             let key = title(forSection: indexPath.section)
-        debugPrint(title(forSection: indexPath.section)!)
-//            debugPrint("itemModel?.viewClass() \(String(describing: NSStringFromClass((itemModel?.viewClass())!).components(separatedBy: ".").last!))")
-            let selectedIndexPath = selectedIndexes[key!]
-//            if let aPath = selectedIndexPath {
-//        cell.accessoryType = indexPath.compare(selectedIndexPath!) == .orderedSame ? UITableViewCell.AccessoryType.checkmark : UITableViewCell.AccessoryType.none
-//            }
+            if let selectedIndexPath = selectedIndexes[key!] {
+                cell.accessoryType = indexPath.compare(selectedIndexPath) == .orderedSame ? UITableViewCell.AccessoryType.checkmark : UITableViewCell.AccessoryType.none
+            }
         
         cell.delegate = self
         cell.updateModel(itemModel!)

@@ -13,10 +13,10 @@ class SettingSliderCell: BaseSettingsCell {
     @IBOutlet private weak var maxLabel: UILabel!
     @IBOutlet private weak var minLabel: UILabel!
     @IBOutlet private weak var slider: UISlider!
-    
+    var modelSlider = SliderItemModel()
     override func updateModel(_ model: BaseItemModel) {
-        let modelSlider = model as! SliderItemModel
         
+        modelSlider = model as! SliderItemModel
         label.text = String(format: "%tu", modelSlider.currentValue)
         maxLabel.text = String(format: "%tu", modelSlider.maxValue)
         minLabel.text = String(format: "%tu", modelSlider.minValue)
@@ -32,12 +32,7 @@ class SettingSliderCell: BaseSettingsCell {
     }
     
     @IBAction func valueChanged(_ sender: UISlider) {
-        
-        let model = self.model as? SliderItemModel
-        debugPrint("sender.value \(sender.value)")
-        model?.currentValue = UInt(sender.value)
-//        if let aValue = model?.currentValue {
-            label.text = String(format: "%tu", UInt(sender.value))
-//        }
+        modelSlider.currentValue = UInt(sender.value)
+        label.text = String(format: "%tu", UInt(sender.value))
     }
 }
