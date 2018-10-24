@@ -106,7 +106,7 @@ class UsersViewController: UITableViewController {
     // MARK: Actions
     func hasConnectivity() -> Bool {
         
-        let hasConnectivity: Bool = core.networkStatus() != QBNetworkStatus.QBNetworkStatusNotReachable
+        let hasConnectivity: Bool = core.networkConnectionStatus() != NetworkConnectionStatus.notConnection
         
         if !hasConnectivity {
             showAlertView(withMessage: NSLocalizedString("Please check your Internet connection", comment: ""))

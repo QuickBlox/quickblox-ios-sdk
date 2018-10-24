@@ -65,14 +65,14 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         setInputEnabled(enabled: true)
         
         // Reachability
-        let updateLoginInfo: ((_ status: QBNetworkStatus) -> Void)? = { status in
-            let loginInfo = (status == QBNetworkStatus.QBNetworkStatusNotReachable) ? NSLocalizedString("Please check your Internet connection", comment: "") : NSLocalizedString("Please enter your username and group name. You can join existent group.", comment: "")
+        let updateLoginInfo: ((_ status: NetworkConnectionStatus) -> Void)? = { status in
+            let loginInfo = (status == NetworkConnectionStatus.notConnection) ? NSLocalizedString("Please check your Internet connection", comment: "") : NSLocalizedString("Please enter your username and group name. You can join existent group.", comment: "")
             self.setLoginInfoText(loginInfo)
         }
         
         core.networkStatusBlock = { status in
             
-            if self.needReconnect == true && status != QBNetworkStatus.QBNetworkStatusNotReachable {
+            if self.needReconnect == true && status != NetworkConnectionStatus.notConnection {
                 
                 self.needReconnect = false
                 self.login()
@@ -82,7 +82,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
             }
         }
         
-        updateLoginInfo?(core.networkStatus())
+        updateLoginInfo?(core.networkConnectionStatus())
     }
     
 // MARK: - QBCoreDelegate metods
@@ -106,7 +106,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
             
             infoText = NSLocalizedString("Please check your Internet connection", comment: "")
             needReconnect = true
-        } else if core.networkStatus() != QBNetworkStatus.QBNetworkStatusNotReachable {
+        } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection {
             if domain == ErrorDomain.ErrorDomainSignUp || domain == ErrorDomain.ErrorDomainLogIn {
                 login()
             }

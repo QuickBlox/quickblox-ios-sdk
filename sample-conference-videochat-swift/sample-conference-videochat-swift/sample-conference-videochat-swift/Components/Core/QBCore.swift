@@ -13,10 +13,10 @@ import SVProgressHUD
 import SystemConfiguration
 import UserNotifications
 
-enum QBNetworkStatus: UInt {
-    case QBNetworkStatusNotReachable = 0
-    case QBNetworkStatusReachableViaWiFi = 1
-    case QBNetworkStatusReachableViaWWAN = 2
+enum NetworkConnectionStatus: UInt {
+    case notConnection
+    case viaWiFi
+    case viaWWAN
 }
 
 enum ErrorDomain: UInt {
@@ -30,7 +30,7 @@ struct QBCoreConstants {
     static let kQBDefaultPassword = "x6Bt0VDy5"
 }
 
-typealias QBNetworkStatusBlock = ((_ status: QBNetworkStatus) -> Void)?
+typealias QBNetworkStatusBlock = ((_ status: NetworkConnectionStatus) -> Void)?
 
 protocol QBCoreDelegate: class {
     /**
@@ -55,7 +55,7 @@ protocol QBCoreDelegate: class {
 class QBCore: NSObject, QBChatDelegate {
     
     // MARK: shared Instance
-//    static let instance = QBCore()
+    //    static let instance = QBCore()
     static let instance: QBCore = {
         let core = QBCore()
         core.commonInit()
@@ -99,12 +99,12 @@ class QBCore: NSObject, QBChatDelegate {
         QBChat.instance.addDelegate(self)
         self.startReachabliyty()
     }
-
+    
     // MARK: Multicast Delegate
     func addDelegate(_ delegate: QBCoreDelegate) {
         ////addDelegate
         debugPrint("delegate \(delegate)")
-//        self.multicastDelegate?.addDelegate(delegate)
+        //        self.multicastDelegate?.addDelegate(delegate)
     }
     
     // MARK: - QBChatDelegate
@@ -115,11 +115,11 @@ class QBCore: NSObject, QBChatDelegate {
     func chatDidFail(withStreamError error: Error) {
         debugPrint("chatDidFail")
     }
-
+    
     func chatDidAccidentallyDisconnect() {
         debugPrint("chatDidAccidentallyDisconnect")
     }
-
+    
     func chatDidReconnect() {
         debugPrint("chatDidReconnect")
     }
@@ -181,7 +181,7 @@ class QBCore: NSObject, QBChatDelegate {
             self.setLoginStatus("Login into chat ...")
             
             QBChat.instance.connect(withUserID: user.id, password: password, completion: { error in
-
+                
                 if error != nil {
                     
                     if (error as NSError?)?.code == 401 {
@@ -220,12 +220,12 @@ class QBCore: NSObject, QBChatDelegate {
         QBRequest.logIn(withUserLogin: login,
                         password: password,
                         successBlock: { response, user in
-            self.isAutorized = true
-            
-            connectToChat()
-            
-            self.registerForRemoteNotifications()
-            
+                            self.isAutorized = true
+                            
+                            connectToChat()
+                            
+                            self.registerForRemoteNotifications()
+                            
         }, errorBlock: { response in
             
             self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogIn)
@@ -278,7 +278,7 @@ class QBCore: NSObject, QBChatDelegate {
             })
         }
     }
-
+    
     // MARK: - Handle errors
     func handleError(_ error: Error?, domain: ErrorDomain) {
         
@@ -342,9 +342,9 @@ class QBCore: NSObject, QBChatDelegate {
     /**
      *  Cheker for internet connection
      */
-    public func networkStatus() -> QBNetworkStatus {
+    public func networkConnectionStatus() -> NetworkConnectionStatus {
         
-        let status:QBNetworkStatus  = QBNetworkStatus.QBNetworkStatusNotReachable
+        let status:NetworkConnectionStatus  = NetworkConnectionStatus.notConnection
         if let reachabilityRef = self.reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
@@ -354,24 +354,24 @@ class QBCore: NSObject, QBChatDelegate {
         return status
     }
     
-    private func networkStatusForFlags(_ flags: SCNetworkReachabilityFlags) -> QBNetworkStatus{
+    private func networkStatusForFlags(_ flags: SCNetworkReachabilityFlags) -> NetworkConnectionStatus{
         
         if flags.contains(.reachable) == false {
-            return .QBNetworkStatusNotReachable
+            return .notConnection
         }
         else if flags.contains(.isWWAN) == true {
-            return .QBNetworkStatusReachableViaWWAN
+            return .viaWWAN
         }
         else if flags.contains(.connectionRequired) == false {
-            return .QBNetworkStatusReachableViaWiFi
+            return .viaWiFi
         }
         else if (flags.contains(.connectionOnDemand) == true
-             || flags.contains(.connectionOnTraffic) == true)
+            || flags.contains(.connectionOnTraffic) == true)
             && flags.contains(.interventionRequired) == false {
-            return .QBNetworkStatusReachableViaWiFi
+            return .viaWiFi
         }
         else {
-            return .QBNetworkStatusNotReachable
+            return .notConnection
         }
     }
     
@@ -387,7 +387,7 @@ class QBCore: NSObject, QBChatDelegate {
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
         zeroAddress.sin_family = sa_family_t(AF_INET)
-    
+        
         guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
                 SCNetworkReachabilityCreateWithAddress(nil, $0)
