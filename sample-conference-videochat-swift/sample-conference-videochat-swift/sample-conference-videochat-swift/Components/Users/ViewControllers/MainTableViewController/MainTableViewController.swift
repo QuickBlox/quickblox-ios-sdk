@@ -31,9 +31,6 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
         var usersDataSource: UsersDataSource?
     
     // MARK: Lifecycle
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,7 +50,6 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
         
         // adding refresh control task
         if refreshControl != nil {
-            
             refreshControl?.addTarget(self, action: #selector(self.fetchData), for: .valueChanged)
         }
     }
@@ -92,15 +88,17 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
         navigationItem.rightBarButtonItem = usersButtonItem
         
         //Custom label
-        var roomName: String? = nil
-        if let anObject = core.currentUser?.tags?.first {
-            roomName = "\(anObject)"
+        var roomName = ""
+        var fullname = ""
+        if let aRoomName = core.currentUser?.tags?.first, let aFullName = core.currentUser?.fullName {
+            roomName = "\(aRoomName)"
+            fullname = "\(aFullName)"
         }
-        let userName = "Logged in as \(String(describing: core.currentUser?.fullName))"
-        let titleString = "\(roomName ?? "")\n\(userName)"
+        let userName = "Logged in as \(fullname)"
+        let titleString = "\(roomName)\n\(userName)"
         
         let attrString = NSMutableAttributedString(string: titleString)
-        let roomNameRange: NSRange = (titleString as NSString).range(of: roomName ?? "")
+        let roomNameRange: NSRange = (titleString as NSString).range(of: roomName )
         attrString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16.0), range: roomNameRange)
         
         let userNameRange: NSRange = (titleString as NSString).range(of: userName)

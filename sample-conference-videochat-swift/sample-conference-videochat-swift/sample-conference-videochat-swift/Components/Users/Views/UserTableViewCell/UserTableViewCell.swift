@@ -9,20 +9,7 @@
 import UIKit
 
 class UserTableViewCell: UITableViewCell {
-//
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-//
-//}
-//class UserTableViewCell {
+
     @IBOutlet private weak var checkView: CheckView!
     @IBOutlet private weak var fullNameLabel: UILabel!
     @IBOutlet private weak var userImageView: UIImageView!

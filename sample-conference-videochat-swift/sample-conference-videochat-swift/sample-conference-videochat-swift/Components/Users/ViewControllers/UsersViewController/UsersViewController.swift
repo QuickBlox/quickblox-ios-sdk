@@ -72,7 +72,9 @@ class UsersViewController: UITableViewController {
             let chatDialog = QBChatDialog(dialogID: nil, type: QBChatDialogType.group)
             chatDialog.occupantIDs = userIDs as [NSNumber]?
             
-            chatDialog.name = "\(String(describing: core.currentUser?.fullName)), \(userNames.joined(separator: ", ") )"
+            guard let fullName = core.currentUser?.fullName else { return }
+            let userNamesString = userNames.joined(separator: ", ")
+            chatDialog.name = "\(fullName), \(userNamesString)"
             
             SVProgressHUD.show(withStatus: NSLocalizedString("Creating chat dialog.", comment: ""))
             weak var weakSelf = self
@@ -95,8 +97,11 @@ class UsersViewController: UITableViewController {
         
         dataSource?.selectObject(at: indexPath)
         tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
-
-        navigationItem.rightBarButtonItem?.isEnabled = dataSource?.selectedObjects.count ?? 0 > 0
+        var countUsers = 0
+        if (dataSource?.selectedObjects.count)! > 0 {
+            countUsers = (dataSource?.selectedObjects.count)!
+        }
+        navigationItem.rightBarButtonItem?.isEnabled = countUsers > 0
     }
     
     // MARK: Actions

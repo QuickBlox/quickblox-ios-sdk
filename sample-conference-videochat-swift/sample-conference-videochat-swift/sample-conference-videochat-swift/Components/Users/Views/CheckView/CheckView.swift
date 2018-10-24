@@ -12,62 +12,29 @@ class CheckView: UIView {
     
     var check: Bool? {
         didSet {
-            debugPrint("chek did set \(String(describing: check))")
+            setCheck(check!)
         }
     }
     
-    private var imageView: UIImageView?
+    let checkboxNormalImage = UIImage(named: "checkbox-normal")
+    let checkboxPressedImage = UIImage(named: "checkbox-pressed")
     
-    func checkboxNormalImage() -> UIImage? {
-        
-        var _qm_checkbox_normal: UIImage? = nil
-        
-        var onceToken: Int = 0
-        if (onceToken == 0) {
-            _qm_checkbox_normal = UIImage(named: "checkbox-normal")
-        }
-        onceToken = 1
-        
-        return _qm_checkbox_normal
-    }
-    
-    func checkboxPressedImage() -> UIImage? {
-        
-        var _qm_checkbox_pressed: UIImage? = nil
-        
-        var onceToken: Int = 0
-        if (onceToken == 0) {
-            
-            _qm_checkbox_pressed = UIImage(named: "checkbox-pressed")
-        }
-        onceToken = 1
-        
-        return _qm_checkbox_pressed
-    }
-    
+    private var imageView: UIImageView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        imageView = UIImageView(image: checkboxNormalImage())
-        imageView?.frame = bounds
-        if let aView = imageView {
-            addSubview(aView)
-        }
+        imageView = UIImageView(image: checkboxNormalImage)
+        imageView.frame = bounds
+        addSubview(imageView)
     }
     
     override func layoutSubviews() {
-        
         super.layoutSubviews()
-        
-        imageView?.frame = bounds
+        imageView.frame = bounds
     }
     
     func setCheck(_ check: Bool) {
-        
-        if self.check != check {
-            self.check = check
-            
-            imageView?.image = check ? checkboxPressedImage() : checkboxNormalImage()
-        }
+        imageView.image = check ? checkboxPressedImage : checkboxNormalImage
     }
 }

@@ -32,21 +32,21 @@ class UsersDataSource: MainDataSource<QBUUser> {
     // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as? UserTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as! UserTableViewCell
         
-        let user: QBUUser? = objects[indexPath.row]
+        let user: QBUUser = objects[indexPath.row] as QBUUser
         var selected: Bool? = nil
-        if let anUser = user {
-            selected = self.selectedObjects.contains(anUser)
-        }
+
+            selected = self.selectedObjects.contains(user)
         
-        let userImage: UIImage? = PlaceholderGenerator.placeholder(title: user?.fullName)
         
-        cell?.fullName = user?.fullName
-        cell?.check = selected
-        cell?.userImage = userImage
+        let userImage: UIImage? = PlaceholderGenerator.placeholder(title: user.fullName)
         
-        return cell!
+        cell.fullName = user.fullName
+        cell.check = selected
+        cell.userImage = userImage
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

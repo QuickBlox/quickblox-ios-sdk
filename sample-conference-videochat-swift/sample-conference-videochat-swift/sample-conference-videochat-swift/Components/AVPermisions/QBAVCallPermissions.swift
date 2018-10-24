@@ -19,7 +19,6 @@ class QBAVCallPermissions {
         return
         #else
         // Device
-        debugPrint("Device*********************************")
         #endif
         
         self.requestPermissionToMicrophone(withCompletion: { granted in
