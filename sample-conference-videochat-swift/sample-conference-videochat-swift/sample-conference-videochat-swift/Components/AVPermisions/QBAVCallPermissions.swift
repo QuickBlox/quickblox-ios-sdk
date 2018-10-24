@@ -9,56 +9,47 @@
 import Foundation
 import QuickbloxWebRTC
 
+struct QBAVCallErrorConstant {
+    static let cameraErrorTitle = NSLocalizedString("Camera error", comment: "")
+    static let cameraErrorMessage = NSLocalizedString("The app doesn't have access to the camera, please go to settings and enable it.", comment: "")
+    static let microphoneErrorTitle = NSLocalizedString("Microphone error", comment: "")
+    static let microphoneErrorMessage = NSLocalizedString("The app doesn't have access to the microphone, please go to settings and enable it.", comment: "")
+    static let alertCancelAction = NSLocalizedString("Cancel", comment: "")
+    static let alertSettingsAction = NSLocalizedString("Settings", comment: "")
+}
+
 class QBAVCallPermissions {
     
     class func check(with conferenceType: QBRTCConferenceType, completion: @escaping PermissionBlock) {
         
         #if targetEnvironment(simulator)
-        // Simulator
         completion(true)
         return
-        #else
-        // Device
         #endif
         
         self.requestPermissionToMicrophone(withCompletion: { granted in
-            
-            if granted {
-                
-                switch conferenceType {
-                case .audio:
-  
-                        completion(granted)
-
-                case .video:
-                    
-                    self.requestPermissionToCamera(withCompletion: { videoGranted in
-                        
-                        if !videoGranted {
-                            
-                            // showing error alert with a suggestion
-                            // to go to the settings
-                            self.showAlert(withTitle: NSLocalizedString("Camera error", comment: ""), message: NSLocalizedString("The app doesn't have access to the camera, please go to settings and enable it.", comment: ""))
-                        }
-                            completion(videoGranted)
-                    })
-                default:
-                    break
-                }
-            } else {
-                // showing error alert with a suggestion
-                // to go to the settings
-                self.showAlert(withTitle: NSLocalizedString("Microphone error", comment: ""), message: NSLocalizedString("The app doesn't have access to the microphone, please go to settings and enable it.", comment: ""))
-
-                    completion(granted)
+            guard granted == true else {
+                showAlert(withTitle: QBAVCallErrorConstant.microphoneErrorTitle,
+                          message: QBAVCallErrorConstant.microphoneErrorMessage)
+                completion(granted)
+                return
+            }
+            switch conferenceType {
+            case .audio: completion(granted)
+            case .video:
+                requestPermissionToCamera(withCompletion: { videoGranted in
+                    if videoGranted == false {
+                        showAlert(withTitle: QBAVCallErrorConstant.cameraErrorTitle,
+                                  message: QBAVCallErrorConstant.cameraErrorMessage)
+                    }
+                    completion(videoGranted)
+                })
             }
         })
     }
     
     class func requestPermissionToMicrophone(withCompletion completion: @escaping PermissionBlock) {
-        
         AVAudioSession.sharedInstance().requestRecordPermission({ granted in
-            //if completion
             DispatchQueue.main.async(execute: {
                 completion(granted)
             })
@@ -66,51 +57,38 @@ class QBAVCallPermissions {
     }
     
     class func requestPermissionToCamera(withCompletion completion: @escaping PermissionBlock) {
-        
         let mediaType = AVMediaType.video
-        let authStatus: AVAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: mediaType)
+        let authStatus = AVCaptureDevice.authorizationStatus(for: mediaType)
         switch authStatus {
         case .notDetermined:
-            
             AVCaptureDevice.requestAccess(for: mediaType, completionHandler: { granted in
-                
-                //if completion
-                
                 DispatchQueue.main.async(execute: {
                     completion(granted)
                 })
-                
             })
         case .restricted, .denied:
-            //if completion
-            
             completion(false)
         case .authorized:
-            //if completion
-            
             completion(true)
-        default:
-            break
         }
     }
+    
     // MARK: - Helpers
+    // showing error alert with a suggestion
+    // to go to the settings
     class func showAlert(withTitle title: String?, message: String?) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { action in
-            //Empty action
+        let alertController = UIAlertController(title: title,
+                                                message: message,
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: QBAVCallErrorConstant.alertCancelAction,
+                                                style: .cancel))
+        alertController.addAction(UIAlertAction(title: QBAVCallErrorConstant.alertSettingsAction,
+                                                style: .default,
+                                                handler: { action in
+                                                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                                                        UIApplication.shared.open(url, options: [:])
+                                                    }
         }))
-        
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: ""), style: .default, handler: { action in
-            
-            let settingsUrl = URL(string: UIApplication.openSettingsURLString)
-
-            if let url = settingsUrl {
-              UIApplication.shared.open(url, options: [:])
-            }
-        }))
-        
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true)
     }
 }
