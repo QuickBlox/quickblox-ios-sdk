@@ -77,12 +77,12 @@ class UsersViewController: UITableViewController {
             chatDialog.name = "\(fullName), \(userNamesString)"
             
             SVProgressHUD.show(withStatus: NSLocalizedString("Creating chat dialog.", comment: ""))
-            weak var weakSelf = self
-            QBRequest.createDialog(chatDialog, successBlock: { response, createdDialog in
-                
+   
+            QBRequest.createDialog(chatDialog, successBlock: { [weak self] response, createdDialog in
+                guard let `self` = self else { return }
                 SVProgressHUD.dismiss()
-                weakSelf?.delegate?.usersViewController(weakSelf, didCreateChatDialog: createdDialog)
-                weakSelf?.navigationController?.popViewController(animated: true)
+                self.delegate?.usersViewController(self, didCreateChatDialog: createdDialog)
+                self.navigationController?.popViewController(animated: true)
                 
             }, errorBlock: { response in
                 
@@ -92,7 +92,6 @@ class UsersViewController: UITableViewController {
     }
     
     // MARK: UITableViewDelegate
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         dataSource?.selectObject(at: indexPath)
@@ -127,14 +126,14 @@ class UsersViewController: UITableViewController {
     
     // MARK: Private
     @objc func fetchData() {
-        weak var weakSelf = self
-        QBDataFetcher.fetchUsers({ users in
+  
+        QBDataFetcher.fetchUsers({ [weak self] users in
             if let users = users {
-                weakSelf?.dataSource?.objects = users
-                weakSelf?.tableView.reloadData()
-                weakSelf?.refreshControl?.endRefreshing()
+                self?.dataSource?.objects = users
+                self?.tableView.reloadData()
+                self?.refreshControl?.endRefreshing()
             } else {
-                self.showAlertView(withMessage: NSLocalizedString("Please check your Internet connection", comment: ""))
+                self?.showAlertView(withMessage: NSLocalizedString("Please check your Internet connection", comment: ""))
             }
         })
     }

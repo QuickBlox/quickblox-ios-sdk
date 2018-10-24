@@ -35,14 +35,13 @@ class DialogsDataSource: MainDataSource<QBChatDialog> {
     // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DialogTableViewCell") as? DialogTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DialogTableViewCell") as! DialogTableViewCell
         
         let chatDialog: QBChatDialog? = objects[indexPath.row]
+        cell.title = chatDialog?.name
+        cell.delegate = self
         
-        cell?.title = chatDialog?.name
-        cell?.delegate = self
-        
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -10,17 +10,16 @@ import UIKit
 
 class CheckView: UIView {
     
+    let checkboxNormalImage = UIImage(named: "checkbox-normal")
+    let checkboxPressedImage = UIImage(named: "checkbox-pressed")
+    private var imageView: UIImageView!
+    
     var check: Bool? {
         didSet {
             setCheck(check!)
         }
     }
     
-    let checkboxNormalImage = UIImage(named: "checkbox-normal")
-    let checkboxPressedImage = UIImage(named: "checkbox-pressed")
-    
-    private var imageView: UIImageView!
-
     override func awakeFromNib() {
         super.awakeFromNib()
         

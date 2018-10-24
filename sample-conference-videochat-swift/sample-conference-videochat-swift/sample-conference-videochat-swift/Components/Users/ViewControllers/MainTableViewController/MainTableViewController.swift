@@ -212,11 +212,12 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
     // MARK: UsersViewControllerDelegate
     func usersViewController(_ usersViewController: UsersViewController?, didCreateChatDialog chatDialog: QBChatDialog?) {
 
-        var mutableObjecs = dialogsDataSource?.objects
+        guard let mutableObjecs = dialogsDataSource?.objects else { return }
+        var dialogsObjects = mutableObjecs
         if let aDialog = chatDialog {
-            mutableObjecs?.append(aDialog)
+            dialogsObjects.append(aDialog)
         }
-        dialogsDataSource?.objects = mutableObjecs!
+        dialogsDataSource?.objects = dialogsObjects
         tableView.reloadData()
     }
     
@@ -265,31 +266,29 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
     
     @objc func fetchData() {
 
-        weak var weakSelf = self
         let dataGroup = DispatchGroup()
 
         dataGroup.enter()
         
-        QBDataFetcher.fetchDialogs({ dialogs in
-
+        QBDataFetcher.fetchDialogs({ [weak self] dialogs in
             dataGroup.leave()
-            let strongSelf = weakSelf
-            strongSelf?.dialogsDataSource?.objects = dialogs!
-            strongSelf?.tableView.reloadData()
+            if let dialogs = dialogs, dialogs.isEmpty == false {
+                self?.dialogsDataSource?.objects = dialogs
+                self?.tableView.reloadData()
+            }
         })
 
         dataGroup.enter()
         
-        QBDataFetcher.fetchUsers({ users in
+        QBDataFetcher.fetchUsers({ [weak self] users in
 
             dataGroup.leave()
-            let strongSelf = weakSelf
-            strongSelf?.usersDataSource?.objects = users!
+            guard let users = users else { return }
+            self?.usersDataSource?.objects = users
         })
         
         dataGroup.notify(queue: DispatchQueue.main) {
-            let strongSelf = weakSelf
-            strongSelf?.refreshControl?.endRefreshing()
+            self.refreshControl?.endRefreshing()
         }
     }
 
@@ -300,22 +299,21 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
                 QBAVCallPermissions.check(with: conferenceType) { granted in
 
                     if granted {
-
-                        var indexPath: IndexPath? = nil
-                        if let aCell = cell {
-                            indexPath = self.tableView.indexPath(for: aCell)
-                        }
-                        let chatDialog: QBChatDialog? = self.dialogsDataSource?.objects[indexPath?.row ?? 0]
-                        self.performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: (chatDialog!, conferenceType))
+                        guard let indexPath = self.tableView.indexPath(for: cell!) else { return }
+                        guard let chatDialog = self.dialogsDataSource?.objects[indexPath.row] else { return }
+                        debugPrint("chatDialog \(String(describing: chatDialog))")
+                        debugPrint("conferenceType \(String(describing: conferenceType))")
+                        self.performSegue(withIdentifier: UserMainConstants.kCallSegue,
+                                          sender: (chatDialog, conferenceType))
                     }
                 }
             } else {
-                var indexPath: IndexPath? = nil
-                if let aCell = cell {
-                    indexPath = tableView.indexPath(for: aCell)
-                }
-                let chatDialog: QBChatDialog? = dialogsDataSource?.objects[indexPath?.row ?? 0]
-                performSegue(withIdentifier: UserMainConstants.kCallSegue, sender: (chatDialog!, conferenceType))
+                guard let indexPath = self.tableView.indexPath(for: cell!) else { return }
+                guard let chatDialog = self.dialogsDataSource?.objects[indexPath.row] else { return }
+                debugPrint("chatDialog \(String(describing: chatDialog))")
+                debugPrint("conferenceType \(String(describing: conferenceType))")
+                self.performSegue(withIdentifier: UserMainConstants.kCallSegue,
+                                  sender: (chatDialog, conferenceType))
             }
         }
     }
