@@ -14,24 +14,18 @@ class SettingSliderCell: BaseSettingsCell {
     @IBOutlet private weak var minLabel: UILabel!
     @IBOutlet private weak var slider: UISlider!
     
-    func setModel(_ model: SliderItemModel?) {
+    override func updateModel(_ model: BaseItemModel) {
+        let modelSlider = model as! SliderItemModel
         
-        self.model = model
+        label.text = String(format: "%tu", modelSlider.currentValue)
+        maxLabel.text = String(format: "%tu", modelSlider.maxValue)
+        minLabel.text = String(format: "%tu", modelSlider.minValue)
         
-        if let aValue = model?.currentValue {
-            label.text = String(format: "%tu", aValue)
-        }
-        if let aValue = model?.maxValue {
-            maxLabel.text = String(format: "%tu", aValue)
-        }
-        if let aValue = model?.minValue {
-            minLabel.text = String(format: "%tu", aValue)
-        }
-        slider.minimumValue = Float(model?.minValue ?? Int(0.0))
-        slider.maximumValue = Float(model?.maxValue ?? Int(0.0))
-        slider.value = Float(model?.currentValue ?? UInt(0))
+        slider.minimumValue = Float(modelSlider.minValue)
+        slider.maximumValue = Float(modelSlider.maxValue)
+        slider.value = Float(modelSlider.currentValue)
         
-        let isEnabled = !(model?.isDisabled)!
+        let isEnabled = !modelSlider.isDisabled
         slider.isEnabled = isEnabled
         maxLabel.isEnabled = isEnabled
         minLabel.isEnabled = isEnabled
@@ -42,8 +36,8 @@ class SettingSliderCell: BaseSettingsCell {
         let model = self.model as? SliderItemModel
         debugPrint("sender.value \(sender.value)")
         model?.currentValue = UInt(sender.value)
-        if let aValue = model?.currentValue {
-            label.text = String(format: "%tu", aValue)
-        }
+//        if let aValue = model?.currentValue {
+            label.text = String(format: "%tu", UInt(sender.value))
+//        }
     }
 }

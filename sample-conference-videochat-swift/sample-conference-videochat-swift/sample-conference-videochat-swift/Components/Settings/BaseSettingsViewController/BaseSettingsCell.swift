@@ -16,7 +16,7 @@ class BaseSettingsCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     var model: BaseItemModel? {
         didSet {
-            label.text = model?.title
+            updateModel(model!)
         }
     }
     weak var delegate: SettingsCellDelegate?
@@ -27,5 +27,9 @@ class BaseSettingsCell: UITableViewCell {
     
     class func nib() -> UINib? {
         return UINib(nibName: NSStringFromClass(BaseSettingsCell.self), bundle: nil)
+    }
+    
+    func updateModel(_ model: BaseItemModel) {
+        label.text = model.title
     }
 }

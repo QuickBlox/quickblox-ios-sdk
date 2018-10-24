@@ -81,7 +81,13 @@ class AudioSettingsViewController: BaseSettingsViewController {
             //audio level control
             let switchItem = SwitchItemModel()
             switchItem.title = "Audio level control"
+            #if targetEnvironment(simulator)
+            // Simulator
+            switchItem.on = true
+            #else
+            // Device
             switchItem.on = (weakSelf?.settings?.mediaConfiguration?.isAudioLevelControlEnabled)!
+            #endif
             
             return [switchItem]
         })
@@ -91,16 +97,25 @@ class AudioSettingsViewController: BaseSettingsViewController {
             //Camera position section
             let switchItem = SwitchItemModel()
             switchItem.title = "Enable"
-            
-            let isEnabled: Bool = (weakSelf?.settings?.mediaConfiguration?.audioBandwidth)! > 0
-            switchItem.on = isEnabled
-            
             let bandwidthSlider = SliderItemModel()
             bandwidthSlider.title = "30"
+            var isEnabled: Bool = false
+            
+            #if targetEnvironment(simulator)
+            // Simulator
+            isEnabled = true
+            bandwidthSlider.currentValue = 30
+            bandwidthSlider.minValue = 6
+            bandwidthSlider.maxValue = 510
+            #else
+            // Device
+            isEnabled = (weakSelf?.settings?.mediaConfiguration?.audioBandwidth)! > 0
             weakSelf?.updateBandwidthSliderModelRange(bandwidthSlider, using: (weakSelf?.settings?.mediaConfiguration?.audioCodec)!)
             bandwidthSlider.currentValue = (weakSelf?.settings?.mediaConfiguration?.audioBandwidth)! < UInt(bitPattern: (bandwidthSlider.minValue)) ? UInt(bitPattern: (bandwidthSlider.minValue)) : UInt(bitPattern: ((weakSelf?.settings?.mediaConfiguration?.audioBandwidth)!))
+            #endif
+            switchItem.on = isEnabled
             
-            bandwidthSlider.isDisabled = !isEnabled
+            bandwidthSlider.isDisabled = isEnabled
             
             return [switchItem, bandwidthSlider]
         })

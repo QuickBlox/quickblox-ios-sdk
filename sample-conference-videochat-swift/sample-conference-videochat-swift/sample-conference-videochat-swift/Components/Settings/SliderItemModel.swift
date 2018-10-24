@@ -9,6 +9,7 @@
 import Foundation
 
 class SliderItemModel: BaseItemModel {
+
     var minLabel = ""
     var maxLabel = ""
     var maxValue: Int = 0

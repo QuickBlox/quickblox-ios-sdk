@@ -106,14 +106,22 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
      *  @return settings section model
      */
     
-    func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [Any]) -> SettingsSectionModel? {
+    func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [BaseItemModel]) {
         
         let sectionTitle = title(forSection: section)
-        let sectionModel = SettingsSectionModel.section(withTitle: sectionTitle, items: items(sectionTitle) as? [BaseItemModel])
+        let sectionModel = SettingsSectionModel.section(withTitle: sectionTitle, items: items(sectionTitle))
         sections[sectionTitle!] = sectionModel
-        
-        return sectionModel
+
     }
+    
+//    func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [Any]) -> SettingsSectionModel? {
+//
+//        let sectionTitle = title(forSection: section)
+//        let sectionModel = SettingsSectionModel.section(withTitle: sectionTitle, items: items(sectionTitle) as? [BaseItemModel])
+//        sections[sectionTitle!] = sectionModel
+//
+//        return sectionModel
+//    }
 
     /**
      *  Select item at section.
@@ -204,7 +212,8 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
 //            }
         
         cell.delegate = self
-        cell.model = itemModel
+        cell.updateModel(itemModel!)
+        
         return cell
     }
     

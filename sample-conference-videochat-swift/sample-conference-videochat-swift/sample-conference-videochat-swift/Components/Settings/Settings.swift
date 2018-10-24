@@ -9,6 +9,36 @@
 import UIKit
 import QuickbloxWebRTC
 
+//struct SettingsProfile: Codable {
+//    let videoFormat: QBRTCVideoFormat
+//    let mediaConfiguration: QBRTCMediaStreamConfiguration
+//    let preferredCameraPostion: AVCaptureDevice.Position
+//}
+//
+//struct SettingsCache {
+//
+//    static let key = "userProfileCache"
+//    static let  kVideoFormatKey = "videoFormat"
+//    static let  kPreferredCameraPosition = "cameraPosition"
+//    static let  kMediaConfigKey = "mediaConfig"
+//
+//    static func save(_ value: Profile!) {
+//        UserDefaults.standard.set(try? PropertyListEncoder().encode(value), forKey: key)
+//    }
+//    static func get() -> Profile! {
+//        var userData: Profile!
+//        if let data = UserDefaults.standard.value(forKey: key) as? Data {
+//            userData = try? PropertyListDecoder().decode(Profile.self, from: data)
+//            return userData!
+//        } else {
+//            return userData
+//        }
+//    }
+//    static func remove() {
+//        UserDefaults.standard.removeObject(forKey: key)
+//    }
+//}
+
 struct SettingsConstants {
     static let  kVideoFormatKey = "videoFormat"
     static let  kPreferredCameraPosition = "cameraPosition"
@@ -30,9 +60,8 @@ class Settings {
         let defaults = UserDefaults.standard
         let videFormatData = NSKeyedArchiver.archivedData(withRootObject: videoFormat as Any)
         let mediaConfig = NSKeyedArchiver.archivedData(withRootObject: mediaConfiguration as Any)
-        
-        defaults.set(preferredCameraPostion, forKey: SettingsConstants.kPreferredCameraPosition)
-        
+        guard let cameraPostion = preferredCameraPostion?.rawValue else { return }
+        defaults.set(cameraPostion, forKey: SettingsConstants.kPreferredCameraPosition)
         defaults.set(videFormatData, forKey: SettingsConstants.kVideoFormatKey)
         defaults.set(mediaConfig, forKey: SettingsConstants.kMediaConfigKey)
         

@@ -47,7 +47,7 @@ class SessionSettingsViewController: UITableViewController {
     
     // MARK: - Actions
     @IBAction func pressDoneBtn(_ sender: Any) {
-        
+        debugPrint("settings \(String(describing: settings))")
         settings?.saveToDisk()
         settings?.applyConfig()
         dismiss(animated: true)

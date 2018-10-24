@@ -73,10 +73,19 @@ class VideoSettingsViewController: BaseSettingsViewController {
         //Supported video formats section
         addSection(with: VideoSettingsSectionType.supportedFormats.rawValue, items: { sectionTitle in
             
+//            let position: AVCaptureDevice.Position = (weakSelf?.settings?.preferredCameraPostion)!
+            #if targetEnvironment(simulator)
+            // Simulator
+            let position: AVCaptureDevice.Position = .front
+            #else
+            // Device
             let position: AVCaptureDevice.Position = (weakSelf?.settings?.preferredCameraPostion)!
+            #endif
             let videoFormats = weakSelf?.videoFormatModels(withCameraPositon: position)
-            
+            debugPrint("videoFormats \(String(describing: videoFormats))")
             let formats = QBRTCCameraCapture.formats(with: position)
+            
+            debugPrint("formats \(formats)")
             //Select index path
             let idx: Int = (formats as NSArray).index(of: weakSelf?.settings?.videoFormat! as Any)
             weakSelf?.selectSection(VideoSettingsSectionType.supportedFormats.rawValue, index: idx)
@@ -89,8 +98,15 @@ class VideoSettingsViewController: BaseSettingsViewController {
             let frameRateSlider = SliderItemModel()
             frameRateSlider.title = "30"
             frameRateSlider.minValue = 2
-            frameRateSlider.currentValue = (weakSelf?.settings?.videoFormat?.frameRate)!
+            
             frameRateSlider.maxValue = 30
+            #if targetEnvironment(simulator)
+            // Simulator
+            frameRateSlider.currentValue = 30
+            #else
+            // Device
+            frameRateSlider.currentValue = (weakSelf?.settings?.videoFormat?.frameRate)!
+            #endif
             
             return [frameRateSlider]
         })
@@ -100,10 +116,16 @@ class VideoSettingsViewController: BaseSettingsViewController {
             let bandwidthSlider = SliderItemModel()
             bandwidthSlider.title = "30"
             bandwidthSlider.minValue = 0
+            #if targetEnvironment(simulator)
+            // Simulator
+            let currValue = 30
+            #else
+            // Device
             let currValue = weakSelf?.settings?.mediaConfiguration?.videoBandwidth
+            #endif
             bandwidthSlider.currentValue = UInt(bitPattern: currValue!)
             bandwidthSlider.maxValue = 2000
-            
+           
             return [bandwidthSlider]
         })
     }
@@ -124,11 +146,10 @@ class VideoSettingsViewController: BaseSettingsViewController {
     
     // MARK: - SettingsCellDelegate
     override func cell(_ cell: BaseSettingsCell?, didChageModel model: BaseItemModel?) {
-        
-        if (model is SwitchItemModel) {
-            
-            reloadVideoFormatSection(for: (model as? SwitchItemModel)?.on != nil ? .back : .front)
-        }
+
+        guard let model = model as? SwitchItemModel else { return }
+        debugPrint("model.on \(String(describing: model.on))")
+        reloadVideoFormatSection(for: model.on ? .back : .front)
     }
     
     // MARK: - Helpers
@@ -167,7 +188,9 @@ class VideoSettingsViewController: BaseSettingsViewController {
         
         //Preferred camera positon
         let cameraPostion = model(with: 0, section: VideoSettingsSectionType.cameraPostion.rawValue) as? SwitchItemModel
-        settings?.preferredCameraPostion = cameraPostion?.on != nil ? .back : .front
+        debugPrint("cameraPostion \(String(describing: cameraPostion?.on))")
+        settings?.preferredCameraPostion = (cameraPostion?.on)! ? .back : .front
+        debugPrint("preferredCameraPostion \(String(describing: settings?.preferredCameraPostion!.rawValue))")
         
         //Supported format
         let supportedFormatIndexPath: IndexPath? = indexPath(atSection: VideoSettingsSectionType.supportedFormats.rawValue)
