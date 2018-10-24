@@ -343,8 +343,7 @@ class QBCore: NSObject, QBChatDelegate {
      *  Cheker for internet connection
      */
     public func networkConnectionStatus() -> NetworkConnectionStatus {
-        
-        let status:NetworkConnectionStatus  = NetworkConnectionStatus.notConnection
+        let status:NetworkConnectionStatus = NetworkConnectionStatus.notConnection
         if let reachabilityRef = self.reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
@@ -355,7 +354,6 @@ class QBCore: NSObject, QBChatDelegate {
     }
     
     private func networkStatusForFlags(_ flags: SCNetworkReachabilityFlags) -> NetworkConnectionStatus{
-        
         if flags.contains(.reachable) == false {
             return .notConnection
         }
@@ -376,14 +374,13 @@ class QBCore: NSObject, QBChatDelegate {
     }
     
     private func checkReachability(flags: SCNetworkReachabilityFlags) {
-        
         if currentReachabilityFlags != flags {
             currentReachabilityFlags = flags
+            reachabilityChanged(flags)
         }
     }
     
     private func startReachabliyty() {
-        
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
         zeroAddress.sin_family = sa_family_t(AF_INET)
@@ -419,6 +416,14 @@ class QBCore: NSObject, QBChatDelegate {
                 SCNetworkReachabilitySetCallback(self.reachabilityRef!, nil, nil);
             }
         }
+    }
+    
+    func reachabilityChanged(_ flags: SCNetworkReachabilityFlags) {
+        DispatchQueue.main.async(execute: {
+            if let networkStatusBlock = self.networkStatusBlock {
+                networkStatusBlock!(self.networkStatusForFlags(flags))
+            }
+        })
     }
 }
 
