@@ -17,7 +17,7 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
      *
      *  @see Settings
      */
-    var settings: Settings?
+    let settings = Settings.instance
     /**
      *  Sections models.
      */
@@ -32,7 +32,7 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        settings = Settings.instance
+//        settings = Settings.instance
         selectedIndexes = [String: IndexPath]()
         sections = [String: SettingsSectionModel]()
         

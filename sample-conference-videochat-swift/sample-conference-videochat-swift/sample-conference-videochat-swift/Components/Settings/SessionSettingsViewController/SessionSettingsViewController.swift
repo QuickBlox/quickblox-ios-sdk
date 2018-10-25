@@ -64,9 +64,6 @@ class SessionSettingsViewController: UITableViewController {
         if indexPath.row == SessionConfigureItem.video.rawValue && indexPath.section == 0 {
             cell.isUserInteractionEnabled = false
         }
-        #else
-        // Device
-        debugPrint("Device*********************************")
         #endif
         
         return cell

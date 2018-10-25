@@ -56,7 +56,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             //Camera position section
             let switchItem = SwitchItemModel()
             switchItem.title = "Back Camera"
-            switchItem.on = self?.settings?.preferredCameraPostion == .back
+            switchItem.on = self?.settings.preferredCameraPostion == .back
             return [switchItem]
         })
         //Supported video formats section
@@ -68,7 +68,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             let position: AVCaptureDevice.Position = .front
             #else
             // Device
-            let position: AVCaptureDevice.Position = (weakSelf?.settings?.preferredCameraPostion)!
+            let position: AVCaptureDevice.Position = (self?.settings.preferredCameraPostion)!
             #endif
             let videoFormats = self?.videoFormatModels(withCameraPositon: position)
             debugPrint("videoFormats \(String(describing: videoFormats))")
@@ -76,7 +76,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             
             debugPrint("formats \(formats)")
             //Select index path
-            let idx: Int = (formats as NSArray).index(of: self?.settings?.videoFormat! as Any)
+            let idx: Int = (formats as NSArray).index(of: self?.settings.videoFormat! as Any)
             self?.selectSection(VideoSettingsSectionType.supportedFormats.rawValue, index: idx)
             
             return videoFormats!
@@ -94,7 +94,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             frameRateSlider.currentValue = 30
             #else
             // Device
-            frameRateSlider.currentValue = (self?.settings?.videoFormat?.frameRate)!
+            frameRateSlider.currentValue = (self?.settings.videoFormat?.frameRate)!
             #endif
             
             return [frameRateSlider]
@@ -102,15 +102,15 @@ class VideoSettingsViewController: BaseSettingsViewController {
         //Video bandwidth
         addSection(with: VideoSettingsSectionType.bandwidth.rawValue, items: { [weak self] sectionTitle in
             
+            var currValue = 30
             let bandwidthSlider = SliderItemModel()
             bandwidthSlider.title = "30"
             bandwidthSlider.minValue = 0
             #if targetEnvironment(simulator)
             // Simulator
-            let currValue = 30
             #else
             // Device
-            let currValue = self?.settings?.mediaConfiguration?.videoBandwidth
+            currValue = (self?.settings.mediaConfiguration?.videoBandwidth)!
             #endif
             bandwidthSlider.currentValue = UInt(bitPattern: currValue)
             bandwidthSlider.maxValue = 2000
@@ -176,7 +176,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
         
         //Preferred camera positon
         let cameraPostion = model(with: 0, section: VideoSettingsSectionType.cameraPostion.rawValue) as? SwitchItemModel
-        settings?.preferredCameraPostion = (cameraPostion?.on)! ? .back : .front
+        settings.preferredCameraPostion = (cameraPostion?.on)! ? .back : .front
         
         //Supported format
         let supportedFormatIndexPath: IndexPath? = indexPath(atSection: VideoSettingsSectionType.supportedFormats.rawValue)
@@ -190,8 +190,8 @@ class VideoSettingsViewController: BaseSettingsViewController {
         //bandwidth
         let bandwidth: SettingsSectionModel? = section(with: VideoSettingsSectionType.bandwidth.rawValue)
         let bandwidthSlider: SliderItemModel? = bandwidth?.items.first as? SliderItemModel
-        settings?.mediaConfiguration?.videoBandwidth = Int((bandwidthSlider?.currentValue)!)
+        settings.mediaConfiguration?.videoBandwidth = Int((bandwidthSlider?.currentValue)!)
         
-        settings?.videoFormat = QBRTCVideoFormat.init(width: (videoFormat?.width)!, height: (videoFormat?.height)!, frameRate: (frameRateSlider?.currentValue)!, pixelFormat: QBRTCPixelFormat.format420f)
+        settings.videoFormat = QBRTCVideoFormat.init(width: (videoFormat?.width)!, height: (videoFormat?.height)!, frameRate: (frameRateSlider?.currentValue)!, pixelFormat: QBRTCPixelFormat.format420f)
     }
 }

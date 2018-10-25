@@ -73,10 +73,10 @@ class AudioSettingsViewController: BaseSettingsViewController {
     
     override func configure() {
         
-        weak var weakSelf = self
+//        weak var weakSelf = self
         
         //Constraints
-        addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { sectionTitle in
+        addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { [weak self] sectionTitle in
             
             //audio level control
             let switchItem = SwitchItemModel()
@@ -86,13 +86,13 @@ class AudioSettingsViewController: BaseSettingsViewController {
             switchItem.on = true
             #else
             // Device
-            switchItem.on = (weakSelf?.settings?.mediaConfiguration?.isAudioLevelControlEnabled)!
+            switchItem.on = (self?.settings.mediaConfiguration?.isAudioLevelControlEnabled)!
             #endif
             
             return [switchItem]
         })
         //Bandwidth
-        addSection(with: AudioSettingsSectionType.bandwidth.rawValue, items: { sectionTitle in
+        addSection(with: AudioSettingsSectionType.bandwidth.rawValue, items: { [weak self] sectionTitle in
             
             //Camera position section
             let switchItem = SwitchItemModel()
@@ -109,9 +109,9 @@ class AudioSettingsViewController: BaseSettingsViewController {
             bandwidthSlider.maxValue = 510
             #else
             // Device
-            isEnabled = (weakSelf?.settings?.mediaConfiguration?.audioBandwidth)! > 0
-            weakSelf?.updateBandwidthSliderModelRange(bandwidthSlider, using: (weakSelf?.settings?.mediaConfiguration?.audioCodec)!)
-            bandwidthSlider.currentValue = (weakSelf?.settings?.mediaConfiguration?.audioBandwidth)! < UInt(bitPattern: (bandwidthSlider.minValue)) ? UInt(bitPattern: (bandwidthSlider.minValue)) : UInt(bitPattern: ((weakSelf?.settings?.mediaConfiguration?.audioBandwidth)!))
+            isEnabled = (self?.settings.mediaConfiguration?.audioBandwidth)! > 0
+            self?.updateBandwidthSliderModelRange(bandwidthSlider, using: (self?.settings.mediaConfiguration?.audioCodec)!)
+            bandwidthSlider.currentValue = (self?.settings.mediaConfiguration?.audioBandwidth)! < UInt(bitPattern: (bandwidthSlider.minValue)) ? UInt(bitPattern: (bandwidthSlider.minValue)) : UInt(bitPattern: ((self?.settings.mediaConfiguration?.audioBandwidth)!))
             #endif
             switchItem.on = isEnabled
             
@@ -176,7 +176,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
         //constraints
         let constraints: SettingsSectionModel? = section(with: AudioSettingsSectionType.constraints.rawValue)
         let levelControlSwitch: SwitchItemModel? = constraints?.items.first as? SwitchItemModel
-        settings?.mediaConfiguration?.isAudioLevelControlEnabled = (levelControlSwitch?.on)!
+        settings.mediaConfiguration?.isAudioLevelControlEnabled = (levelControlSwitch?.on)!
         
         //bandwidth
         let bandwidth: SettingsSectionModel? = section(with: AudioSettingsSectionType.bandwidth.rawValue)
@@ -185,10 +185,10 @@ class AudioSettingsViewController: BaseSettingsViewController {
         if isEnabled ?? false {
             
             let bandwidthSlider: SliderItemModel? = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
-            settings?.mediaConfiguration?.audioBandwidth = Int(bitPattern: (bandwidthSlider?.currentValue)!)
+            settings.mediaConfiguration?.audioBandwidth = Int(bitPattern: (bandwidthSlider?.currentValue)!)
             
         } else {
-            settings?.mediaConfiguration?.audioBandwidth = 0
+            settings.mediaConfiguration?.audioBandwidth = 0
         }
     }
 }

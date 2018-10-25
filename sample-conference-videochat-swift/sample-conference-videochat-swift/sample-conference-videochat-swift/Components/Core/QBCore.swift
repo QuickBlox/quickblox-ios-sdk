@@ -156,12 +156,14 @@ class QBCore: NSObject, QBChatDelegate {
         self.setLoginStatus("Signg up ...")
         
         QBRequest.signUp(newUser, successBlock: { response, user in
-            self.profile?.synchronizeWithUserData(userData: user)
-            self.currentUser = user
-            self.loginWithCurrentUser()
-            
+            let status = self.profile?.synchronizeWithUserData(userData: user)
+            if status == noErr {
+                self.currentUser = user
+                self.loginWithCurrentUser()
+            } else {
+                self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainSignUp)
+            }
         }, errorBlock: { response in
-            
             self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainSignUp)
         })
     }
@@ -209,13 +211,11 @@ class QBCore: NSObject, QBChatDelegate {
                 }
             })
         }
-        
         if isAutorized == true {
             
             connectToChat()
             return
         }
-        
         self.setLoginStatus("Login with current user ...")
         QBRequest.logIn(withUserLogin: login,
                         password: password,
@@ -241,7 +241,10 @@ class QBCore: NSObject, QBChatDelegate {
      *  Clear current profile (Keychain)
      */
     public func clearProfile() {
-        self.profile?.clearProfile()
+        let status = self.profile?.clearProfile()
+        if status != noErr {
+            return
+        }
     }
     
     /**
@@ -281,7 +284,6 @@ class QBCore: NSObject, QBChatDelegate {
     
     // MARK: - Handle errors
     func handleError(_ error: Error?, domain: ErrorDomain) {
-        
         if let delegate = self.multicastDelegate {
             delegate.core(self, error!, domain)
         }else {
@@ -327,13 +329,9 @@ class QBCore: NSObject, QBChatDelegate {
     }
     
     func unsubscribe(fromRemoteNotifications completionBlock: @escaping () -> ()) {
-        
         QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: (UIDevice.current.identifierForVendor?.uuidString)!, successBlock: { response in
-            //if completionBlock
             completionBlock()
-            
         }, errorBlock: { error in
-            //if completionBlock
             completionBlock()
         })
     }

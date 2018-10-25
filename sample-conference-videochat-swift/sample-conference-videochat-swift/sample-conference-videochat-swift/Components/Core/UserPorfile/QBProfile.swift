@@ -101,7 +101,6 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
     }
     
     func saveData(_ data: Any?, forKey key: String?) -> OSStatus {
-        
         var keychainQuery = getKeychainQueryFor(key: key!)
         SecItemDelete((keychainQuery as CFDictionary?)!)
         if let dataUser = data {
@@ -112,9 +111,7 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
     
     // MARK: - Keychain
     func loadObject(forKey key: String?) -> QBUUser? {
-        
         var ret: QBUUser? = nil
-        
         var keychainQuery = getKeychainQueryFor(key: key!)
         if let aTrue = kCFBooleanTrue {
             keychainQuery?[QBProfileSecConstants.kSecReturnDataValue] = aTrue

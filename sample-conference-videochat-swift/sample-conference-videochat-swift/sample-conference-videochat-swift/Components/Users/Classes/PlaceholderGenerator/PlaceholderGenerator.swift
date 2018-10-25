@@ -12,7 +12,7 @@ import Quickblox
 class PlaceholderGenerator {
     
     private var cache: NSCache<AnyObject, AnyObject>?
-    private var colors: [UIColor] = []
+    private let colors: [UIColor] = [#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.3035047352, green: 0.8693258762, blue: 0.4432001114, alpha: 1), #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1), #colorLiteral(red: 0.02297698334, green: 0.6430568099, blue: 0.603818357, alpha: 1), #colorLiteral(red: 0.5244195461, green: 0.3333674073, blue: 0.9113605022, alpha: 1), #colorLiteral(red: 0, green: 0.5694751143, blue: 1, alpha: 1), #colorLiteral(red: 0.839125216, green: 0.871129334, blue: 0.3547145724, alpha: 1), #colorLiteral(red: 0.09088832885, green: 0.7803853154, blue: 0.8577881455, alpha: 1), #colorLiteral(red: 0.3175504208, green: 0.4197517633, blue: 0.7515394688, alpha: 1)]
     
     static let instance = PlaceholderGenerator()
     
@@ -21,27 +21,22 @@ class PlaceholderGenerator {
     }
     
     init() {
-//        self.init()
         cache = NSCache<AnyObject, AnyObject>()
         cache?.name = "QMUserPlaceholer.cache"
         cache?.countLimit = 200
-        colors = [ #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.3035047352, green: 0.8693258762, blue: 0.4432001114, alpha: 1), #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1), #colorLiteral(red: 0.02297698334, green: 0.6430568099, blue: 0.603818357, alpha: 1), #colorLiteral(red: 0.5244195461, green: 0.3333674073, blue: 0.9113605022, alpha: 1), #colorLiteral(red: 0, green: 0.5694751143, blue: 1, alpha: 1), #colorLiteral(red: 0.839125216, green: 0.871129334, blue: 0.3547145724, alpha: 1), #colorLiteral(red: 0.09088832885, green: 0.7803853154, blue: 0.8577881455, alpha: 1), #colorLiteral(red: 0.3175504208, green: 0.4197517633, blue: 0.7515394688, alpha: 1)]
     }
     
     func color(for index: Int?) -> UIColor {
-        let color: UIColor? = colors[index ?? 0]
-        return color ?? UIColor.clear
+        let color = colors[index ?? 0]
+        return color
     }
     
-    class func placeholder(title: String?) -> UIImage? {
-        
+    class func placeholder(size: CGSize, title: String?) -> UIImage? {
         let key = title ?? ""
-        
         if let image = PlaceholderGenerator.instance.cache?.object(forKey: key as AnyObject) as? UIImage {
             return image
         } else {
             var image: UIImage?
-            let size = CGSize(width: 32, height: 32)
             let index = key.count % 10
             if let img: UIImage = self.placeholder(size: size, color: PlaceholderGenerator.instance.color(for: index), title: title, isOval: true)
             {
@@ -57,11 +52,10 @@ class PlaceholderGenerator {
         let minSize = min(size.width, size.height)
         let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         
-        UIGraphicsBeginImageContextWithOptions(size, _: false, _: 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         
         var path: UIBezierPath? = nil
         if isOval {
-            
             path = UIBezierPath(ovalIn: frame)
         } else {
             
@@ -77,24 +71,27 @@ class PlaceholderGenerator {
         let font = UIFont.systemFont(ofSize: CGFloat(Double(minSize) / 2.0))
         let textColor = UIColor.white
         
-        let textContent = ((title as NSString?)?.substring(to: 1))?.uppercased()
+        let titleString: NSString = title as NSString? ?? "Q"
+        
+        let textContent = titleString.substring(to: 1).uppercased()
         
         var ovalFontAttributes: [NSAttributedString.Key : UIFont]? = nil
         if let aStyle = paragraphStyle {
             ovalFontAttributes = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.paragraphStyle: aStyle] as? [NSAttributedString.Key : UIFont]
         }
         
-        let rect: CGRect? = textContent?.boundingRect(with: frame.size, options: .usesLineFragmentOrigin, attributes: ovalFontAttributes, context: nil)
+        let rect: CGRect = textContent.boundingRect(with: frame.size, options: .usesLineFragmentOrigin, attributes: ovalFontAttributes, context: nil)
         
-        let textRect: CGRect = frame.offsetBy(dx: 0, dy: (size.height - (rect?.size.height ?? 0.0)) / 2)
-        textContent?.draw(in: textRect, withAttributes: ovalFontAttributes)
+        let textRect: CGRect = frame.offsetBy(dx: (size.width - (rect.size.width)) / 2, dy: (size.height - (rect.size.height)) / 2)
+        
+        textContent.draw(in: textRect, withAttributes: ovalFontAttributes)
         //Get image
         let img: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return img
     }
     
-    class func groupPlaceholder(withUsers users: [Any]?, size: Int) -> UIImage? {
+    class func groupPlaceholder(withUsers users: [QBUUser]?, size: Int) -> UIImage? {
         
         let tSize: CGSize? = CGSize(width: size, height: size)
         
@@ -104,13 +101,12 @@ class PlaceholderGenerator {
         
         for i in 0..<count {
             
-            let user = users?[i] as? QBUUser
+            let user = users?[i]
             let r: CGRect = self.rect(withIndex: i, size: size, count: count)
             let indexUser = user?.id ?? 0
             let index: Int = Int(indexUser % 10)
             
-            let img: UIImage? = self.placeholder(size: r.size, color: PlaceholderGenerator.instance.colors[index], title: user?.fullName, isOval: false)
-            
+            let img: UIImage? = self.placeholder(size: r.size, color: PlaceholderGenerator.instance.colors[index], title: user?.fullName, isOval: true)
             img?.draw(in: r)
         }
         
