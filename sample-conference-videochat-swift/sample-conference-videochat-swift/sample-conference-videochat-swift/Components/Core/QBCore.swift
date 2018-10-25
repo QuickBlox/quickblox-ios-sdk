@@ -63,12 +63,12 @@ class QBCore: NSObject, QBChatDelegate {
     }()
     
     // MARK: Variables
-    var currentUser: QBUUser?{
+    var currentUser: QBUUser? {
         didSet {
             debugPrint("currentUser didSet \(String(describing: currentUser))")
         }
     }
-    var profile: QBProfile?{
+    var profile: QBProfile? {
         didSet {
             debugPrint("profile didSet \(String(describing: profile))")
             currentUser = profile?.userData
@@ -143,8 +143,6 @@ class QBCore: NSObject, QBChatDelegate {
      *  @param roomName room name (tag)
      */
     func signUp(withFullName fullName: String?, roomName: String?) {
-        
-        assert(self.currentUser == nil, "Invalid parameter not satisfying: !isCurrentUser")
         
         let newUser = QBUUser()
         
@@ -418,9 +416,8 @@ class QBCore: NSObject, QBChatDelegate {
     
     func reachabilityChanged(_ flags: SCNetworkReachabilityFlags) {
         DispatchQueue.main.async(execute: {
-            if let networkStatusBlock = self.networkStatusBlock {
-                networkStatusBlock!(self.networkStatusForFlags(flags))
-            }
+            guard let networkStatusBlock = self.networkStatusBlock else { return }
+            networkStatusBlock?(self.networkStatusForFlags(flags))
         })
     }
 }

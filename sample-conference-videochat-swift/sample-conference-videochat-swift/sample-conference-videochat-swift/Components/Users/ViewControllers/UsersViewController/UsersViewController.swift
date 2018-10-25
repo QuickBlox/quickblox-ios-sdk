@@ -17,47 +17,44 @@ protocol UsersViewControllerDelegate: class {
 class UsersViewController: UITableViewController {
     
     // MARK: Variables
-    
     let core = QBCore.instance
     
     weak var dataSource: UsersDataSource?
     weak var delegate: UsersViewControllerDelegate?
-
-        // MARK: Lifecycle
-        
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            tableView.dataSource = dataSource
-            tableView.rowHeight = 44
+        super.viewDidLoad()
+        tableView.dataSource = dataSource
+        tableView.rowHeight = 44
         fetchData()
-            
-            // adding refresh control task
+        
+        // adding refresh control task
         if (refreshControl != nil) {
             refreshControl?.addTarget(self, action: #selector(UsersViewController.fetchData), for: .valueChanged)
-            }
-            
-            let createChatButton = UIBarButtonItem(title: "Create", style: .plain, target: self, action: #selector(UsersViewController.didPressCreateChatButton(_:)))
-            
-            navigationItem.rightBarButtonItem = createChatButton
-            navigationItem.rightBarButtonItem?.isEnabled = false
         }
         
+        let createChatButton = UIBarButtonItem(title: "Create", style: .plain, target: self, action: #selector(UsersViewController.didPressCreateChatButton(_:)))
+        
+        navigationItem.rightBarButtonItem = createChatButton
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            
+        super.viewWillAppear(animated)
+        
         if (refreshControl?.isRefreshing)! {
             tableView.setContentOffset(CGPoint(x: 0, y: -(refreshControl?.frame.height)!), animated: false)
-            }
         }
-        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            
+        super.viewWillDisappear(animated)
+        
         if isMovingFromParent {
             dataSource?.deselectAllObjects()
-            }
         }
+    }
     deinit {
         debugPrint("deinit \(self)")
     }
@@ -67,7 +64,7 @@ class UsersViewController: UITableViewController {
         if hasConnectivity() {
             
             let selectedUsers = dataSource?.selectedObjects
-            let userIDs = selectedUsers?.map{ $0.externalUserID }
+            let userIDs = selectedUsers?.map{ $0.id }
             let userNames = selectedUsers?.map{ $0.fullName } as! [String]
             let chatDialog = QBChatDialog(dialogID: nil, type: QBChatDialogType.group)
             chatDialog.occupantIDs = userIDs as [NSNumber]?
@@ -77,16 +74,16 @@ class UsersViewController: UITableViewController {
             chatDialog.name = "\(fullName), \(userNamesString)"
             
             SVProgressHUD.show(withStatus: NSLocalizedString("Creating chat dialog.", comment: ""))
-   
+            
             QBRequest.createDialog(chatDialog, successBlock: { [weak self] response, createdDialog in
                 guard let `self` = self else { return }
                 SVProgressHUD.dismiss()
                 self.delegate?.usersViewController(self, didCreateChatDialog: createdDialog)
                 self.navigationController?.popViewController(animated: true)
                 
-            }, errorBlock: { response in
-                
-                SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+                }, errorBlock: { response in
+                    
+                    SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
             })
         }
     }
@@ -126,10 +123,10 @@ class UsersViewController: UITableViewController {
     
     // MARK: Private
     @objc func fetchData() {
-  
+        
         QBDataFetcher.fetchUsers({ [weak self] users in
             if let users = users {
-                self?.dataSource?.objects = users
+                self?.dataSource?.updateObjects(users)
                 self?.tableView.reloadData()
                 self?.refreshControl?.endRefreshing()
             } else {

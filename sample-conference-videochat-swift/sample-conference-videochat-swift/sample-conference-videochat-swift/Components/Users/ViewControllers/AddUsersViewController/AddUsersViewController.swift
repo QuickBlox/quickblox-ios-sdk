@@ -13,38 +13,33 @@ import SVProgressHUD
 class AddUsersViewController: UITableViewController {
     weak var usersDataSource: UsersDataSource?
     weak var chatDialog: QBChatDialog?
-    private var dataSource: UsersDataSource?
+    private var dataSource = UsersDataSource()
     
     // MARK: Lifecycle
-    
-    deinit {
-        
-        debugPrint("deinit \(self)")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = UsersDataSource()
-        var users: [QBUUser] = []
-        for user in (usersDataSource?.objects)! {
-            if !(chatDialog?.occupantIDs?.contains(NSNumber(value: user.id)))! {
-                
-                users.append(user)
-            }
+        guard let usersDataSource = usersDataSource,
+            let chatDialog = chatDialog,
+            let occupantIDs = chatDialog.occupantIDs  else {
+                return
         }
-        dataSource?.objects = users
+        let users = usersDataSource.objects.filter({
+            occupantIDs.contains(NSNumber(value: $0.id)) == false
+        })
+        dataSource.updateObjects(users)
         
         tableView.dataSource = dataSource
         tableView.rowHeight = 44
         
         // adding refresh control task
-        if refreshControl != nil {
-            
-            refreshControl?.addTarget(self, action: #selector(self.fetchData), for: .valueChanged)
+        if let refreshControl = self.refreshControl {
+            refreshControl.addTarget(self, action: #selector(fetchData), for: .valueChanged)
         }
-        
-        let createChatButton = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(self.didPressUpdateChatButton(_:)))
+        let createChatButton = UIBarButtonItem(title: "Update",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(didPressUpdateChatButton(_:)))
         
         navigationItem.rightBarButtonItem = createChatButton
         navigationItem.rightBarButtonItem?.isEnabled = false
@@ -53,61 +48,57 @@ class AddUsersViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if refreshControl?.isRefreshing ?? false {
-            tableView.setContentOffset(CGPoint(x: 0, y: -(refreshControl?.frame.size.height ?? 0.0)), animated: false)
+        if let refreshControl = self.refreshControl, refreshControl.isRefreshing == true {
+            let contentOffset = CGPoint(x: 0, y: -refreshControl.frame.size.height)
+            tableView.setContentOffset(contentOffset, animated: false)
         }
+    }
+    deinit {
+        debugPrint("deinit \(self)")
     }
     
     @objc func didPressUpdateChatButton(_ item: UIBarButtonItem?) {
         
         SVProgressHUD.show()
         var pushOccupantsIDs: [String] = []
-        for user: QBUUser? in (dataSource?.selectedObjects)! {
-            if let anID = user?.id {
-                pushOccupantsIDs.append(String(format: "%tu", anID))
-            }
+        for user in dataSource.selectedObjects {
+            pushOccupantsIDs.append(String(format: "%tu", user.id))
         }
         chatDialog?.pushOccupantsIDs = pushOccupantsIDs
-        
-        weak var weakSelf = self
-        QBRequest.update(chatDialog!, successBlock: { response, chatDialog in
+        QBRequest.update(chatDialog!, successBlock: { [weak self] response, chatDialog in
             
-            weakSelf?.chatDialog?.occupantIDs = chatDialog.occupantIDs
+            self?.chatDialog?.occupantIDs = chatDialog.occupantIDs
             SVProgressHUD.dismiss()
-            weakSelf?.navigationController?.popViewController(animated: true)
+            self?.navigationController?.popViewController(animated: true)
             
-        }, errorBlock: { response in
-            
-            SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+            }, errorBlock: { response in
+                
+                SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
         })
     }
     
     // MARK: UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        dataSource?.selectObject(at: indexPath)
+        dataSource.selectObject(at: indexPath)
         tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
-        
-        navigationItem.rightBarButtonItem?.isEnabled = dataSource?.selectedObjects.count ?? 0 > 0
+        navigationItem.rightBarButtonItem?.isEnabled = dataSource.selectedObjects.count > 0
     }
     
     // MARK: Private
     @objc func fetchData() {
-        
-        weak var weakSelf = self
-        QBDataFetcher.fetchUsers({ users in
-            
-            let strongSelf = weakSelf
+        QBDataFetcher.fetchUsers({ [weak self] users in
+
+            guard let users = users else { return }
             var mutableUsers = users
-            for user in users! {
-             
-                if (strongSelf?.chatDialog?.occupantIDs?.contains(NSNumber(value: user.id)))! {
-                        mutableUsers?.removeAll(where: { element in element == user })
-                    }
+            for user in users {
+                
+                if (self?.chatDialog?.occupantIDs?.contains(NSNumber(value: user.id)))! {
+                    mutableUsers.removeAll(where: { element in element == user })
+                }
             }
-            strongSelf?.dataSource?.objects = mutableUsers!
-            strongSelf?.tableView.reloadData()
-            strongSelf?.refreshControl?.endRefreshing()
+            self?.dataSource.updateObjects(mutableUsers)
+            self?.tableView.reloadData()
+            self?.refreshControl?.endRefreshing()
         })
     }
 }

@@ -36,7 +36,6 @@ class SessionSettingsViewController: UITableViewController {
         Sample version \(appVersion ?? "") build \(appBuild ?? "").\n\
         QuickBlox WebRTC SDK: \(QuickbloxWebRTCFrameworkVersion) Revision \(QuickbloxWebRTCRevision)
         """
-        
         versionLabel.text = version
     }
     
@@ -98,7 +97,7 @@ class SessionSettingsViewController: UITableViewController {
             return "unavailable"
             #else
             // Device
-            return String(format: "%tux%tu", settings?.videoFormat?.width ?? 640, settings?.videoFormat?.height ?? 480)
+            return String(format: "%tux%tu", settings?.videoFormat.width ?? 640, settings?.videoFormat.height ?? 480)
             #endif
 
         } else if indexPath?.row == SessionConfigureItem.auido.rawValue {

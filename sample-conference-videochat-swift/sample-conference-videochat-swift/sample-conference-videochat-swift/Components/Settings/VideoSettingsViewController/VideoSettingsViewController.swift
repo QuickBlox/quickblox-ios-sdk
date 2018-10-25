@@ -76,7 +76,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             
             debugPrint("formats \(formats)")
             //Select index path
-            let idx: Int = (formats as NSArray).index(of: self?.settings.videoFormat! as Any)
+            let idx: Int = (formats as NSArray).index(of: self?.settings.videoFormat as Any)
             self?.selectSection(VideoSettingsSectionType.supportedFormats.rawValue, index: idx)
             
             return videoFormats!
@@ -94,7 +94,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             frameRateSlider.currentValue = 30
             #else
             // Device
-            frameRateSlider.currentValue = (self?.settings.videoFormat?.frameRate)!
+            frameRateSlider.currentValue = (self?.settings.videoFormat.frameRate)!
             #endif
             
             return [frameRateSlider]
@@ -110,7 +110,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             // Simulator
             #else
             // Device
-            currValue = (self?.settings.mediaConfiguration?.videoBandwidth)!
+            currValue = (self?.settings.mediaConfiguration.videoBandwidth)!
             #endif
             bandwidthSlider.currentValue = UInt(bitPattern: currValue)
             bandwidthSlider.maxValue = 2000
@@ -190,7 +190,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
         //bandwidth
         let bandwidth: SettingsSectionModel? = section(with: VideoSettingsSectionType.bandwidth.rawValue)
         let bandwidthSlider: SliderItemModel? = bandwidth?.items.first as? SliderItemModel
-        settings.mediaConfiguration?.videoBandwidth = Int((bandwidthSlider?.currentValue)!)
+        settings.mediaConfiguration.videoBandwidth = Int((bandwidthSlider?.currentValue)!)
         
         settings.videoFormat = QBRTCVideoFormat.init(width: (videoFormat?.width)!, height: (videoFormat?.height)!, frameRate: (frameRateSlider?.currentValue)!, pixelFormat: QBRTCPixelFormat.format420f)
     }

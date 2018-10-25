@@ -10,8 +10,8 @@ import UIKit
 
 class MainDataSource<T: Any> : NSObject, UITableViewDataSource where T: Equatable {
     
-    var objects:Array<T> = []
-    var selectedObjects:Array<T> = []
+    var objects = [T]()
+    var selectedObjects = [T]()
     
     private var sortSelector: Selector? {
         didSet {
@@ -25,65 +25,46 @@ class MainDataSource<T: Any> : NSObject, UITableViewDataSource where T: Equatabl
     }
     
     // MARK: Public
-    func setObjects(_ objects: Array<T>?) {
-        
-        if let anObjects = objects {
-            if !(self.objects == anObjects) {
-                
-                self.objects = sortObjects(objects)!
-                
-                var mutableSelectedObjects = selectedObjects
-                for obj: T? in selectedObjects {
-                    
-                    if let anObj = obj {
-                        if !self.objects.contains(anObj) {
-                            mutableSelectedObjects.removeAll(where: { element in element == obj })
-                        }
-                    }
-                }
-                selectedObjects = mutableSelectedObjects
-            }
-        }
+    func updateObjects(_ objects: [T]) {
+        self.objects = sortObjects(objects)
+        selectedObjects = selectedObjects.filter({ objects.contains($0) })
+    }
+    
+    func addObjects(_ objects: [T]) {
+        updateObjects(self.objects + objects)
     }
     
     func selectObject(at indexPath: IndexPath?) {
-        
-        let obj = objects[indexPath?.row ?? 0]
-        
-        var mutableSelectedObjects = selectedObjects
-        if selectedObjects.contains(obj) {
-            mutableSelectedObjects.removeAll(where: { element in element == obj })
-        } else {
-            mutableSelectedObjects.append(obj)
-        }
-        selectedObjects = mutableSelectedObjects
+        guard let indexPath = indexPath else { return }
+        let object = objects[indexPath.row]
+            if selectedObjects.contains(object) {
+                selectedObjects.removeAll(where: { element in element == object })
+            } else {
+                selectedObjects.append(object)
+            }
     }
     
     func deselectAllObjects() {
-        selectedObjects = [Any]() as! Array<T>
+        selectedObjects = [T]()
     }
     
     // MARK: Private
-    func sortObjects(_ objects: Array<T>?) -> Array<T>? {
+    func sortObjects(_ objects: [T]) -> [T] {
         
         // Create sort Descriptor
-        
-        let key = NSStringFromSelector(self.sortSelector!)
-        
+        guard let sortSelector = self.sortSelector else {
+            return objects
+        }
+        let key = NSStringFromSelector(sortSelector)
         let objectsSortDescriptor = NSSortDescriptor(key: key, ascending: false)
-        
-        let sortedObjects = (objects as NSArray?)?.sortedArray(using: [objectsSortDescriptor])
-        
-        return sortedObjects as? Array<T>
+        guard let sortedObjects = (objects as NSArray).sortedArray(using: [objectsSortDescriptor])
+            as? [T] else {return objects}
+        return sortedObjects
     }
     
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if objects.count > 0 {
-            return objects.count
-        }
-        return 0
+        return objects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

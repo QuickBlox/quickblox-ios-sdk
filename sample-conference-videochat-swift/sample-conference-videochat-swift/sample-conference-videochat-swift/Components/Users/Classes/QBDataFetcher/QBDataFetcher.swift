@@ -60,12 +60,9 @@ class QBDataFetcher {
     
     class func fetchUsers(_ completion: @escaping (_ users: [QBUUser]?) -> Void) {
         
-        //        weak var weakSelf = self
         var t_request: ((_ page: QBGeneralResponsePage?, _ allUsers: [QBUUser]?) -> Void)?
         var allUsersTempArray: [QBUUser]?
         let request: ((QBGeneralResponsePage?, [QBUUser]?) -> Void)? = { page, allUsers in
-            
-            //            let strongSelf = weakSelf
             
             QBRequest.users(withTags: (QBCore.instance.currentUser?.tags)!, page: page, successBlock: { response, page, users in
                 page.currentPage = page.currentPage + 1
