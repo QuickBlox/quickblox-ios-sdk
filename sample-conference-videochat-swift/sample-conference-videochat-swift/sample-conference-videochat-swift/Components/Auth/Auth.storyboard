@@ -167,12 +167,13 @@
                                             <subviews>
                                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDV-TR-cUr" customClass="QBLoadingButton" customModule="sample_conference_videochat_swift">
                                                     <rect key="frame" x="112.5" y="13" width="150" height="47"/>
-                                                    <color key="backgroundColor" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="ChW-V9-1kv"/>
                                                         <constraint firstAttribute="height" constant="47" id="bza-Yn-gJC"/>
                                                     </constraints>
-                                                    <state key="normal" title="Login"/>
+                                                    <state key="normal" title="Login">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="didPressLoginButton:" destination="s0b-Ic-sY1" eventType="touchUpInside" id="RVV-r1-w7q"/>
                                                     </connections>

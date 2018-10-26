@@ -9,46 +9,57 @@
 import UIKit
 
 class QBLoadingButton: UIButton {
+    
+    var path: UIBezierPath!
 
-    private var shapeLayer: CAShapeLayer = CAShapeLayer()
-    private var activity: UIActivityIndicatorView?
+    lazy private var shapeLayer: CAShapeLayer = {
+        let shapeLayer = CAShapeLayer()
+        return shapeLayer
+    }()
+    lazy private var activity: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(style: .white)
+        activity.hidesWhenStopped = true
+        return activity
+    }()
     private var currentText = ""
     
     class func layerClass() -> AnyClass {
-        
         return CAShapeLayer.self
+    }
+    override var isEnabled: Bool{
+        didSet {
+            updateEnabled(isEnabled)
+        }
     }
     
     override func awakeFromNib() {
-        
         super.awakeFromNib()
-        
-        shapeLayer.fillColor = UIColor(red: 0.0392, green: 0.3765, blue: 1.0, alpha: 1.0).cgColor
+        isEnabled = false
+        setTitle(currentText, for: .normal)
         shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 5).cgPath
+        layer.addSublayer(shapeLayer)
     }
-    
+
     public func showLoading() {
-        
-        if activity != nil {
+        if activity.isAnimating {
             return
         }
         let animation = CABasicAnimation(keyPath: "path")
-        
         animation.fromValue = UIBezierPath(roundedRect: bounds, cornerRadius: 5).cgPath
-        
         animation.repeatCount = 1
         animation.duration = 0.15
-        
         let r = min(frame.size.height, frame.size.height)
-        animation.toValue = (UIBezierPath(roundedRect: CGRect(x: frame.size.width / 2 - r / 2, y: 0, width: r, height: r), cornerRadius: r)).cgPath
-        
+        animation.toValue = (UIBezierPath(roundedRect: CGRect(x: frame.size.width / 2 - r / 2,
+                                                              y: 0, width: r, height: r),
+                                          cornerRadius: r)).cgPath
         shapeLayer.add(animation, forKey: "shapeAnimation")
-        
-        shapeLayer.path = (UIBezierPath(roundedRect: CGRect(x: frame.size.width / 2 - r / 2, y: 0, width: r, height: r), cornerRadius: r)).cgPath
+        shapeLayer.path = (UIBezierPath(roundedRect: CGRect(x: frame.size.width / 2 - r / 2,
+                                                            y: 0, width: r, height: r),
+                                        cornerRadius: r)).cgPath
         
         showAtivityIndicator()
-        currentText = currentTitle ?? "Title"
-        setTitle("", for: .normal)
+        currentText = self.currentTitle ?? "Title"
+        self.setTitle("", for: .normal)
         
         let fromColor = UIColor(red: 0.0392, green: 0.3765, blue: 1.0, alpha: 1.0)
         let toColor = UIColor(red: 0.0802, green: 0.616, blue: 0.1214, alpha: 1.0)
@@ -64,47 +75,37 @@ class QBLoadingButton: UIButton {
     }
     
     public func hideLoading() {
-        
-        if !(activity != nil) {
+        if activity.isAnimating == false {
             return
         }
-        
         shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 5).cgPath
         shapeLayer.fillColor = UIColor(red: 0.0392, green: 0.3765, blue: 1.0, alpha: 1.0).cgColor
         
         hideActivityIndicator()
-        setTitle(currentText, for: .normal)
+        self.setTitle(currentText, for: .normal)
         currentText = ""
     }
     
     private func showAtivityIndicator() {
-        
-        if !(activity != nil) {
-            
+        if activity.isAnimating == false {
             isUserInteractionEnabled = false
-            self.activity = UIActivityIndicatorView(style: .white)
-            activity?.isHidden = false
-            activity?.startAnimating()
-            activity?.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
-            addSubview(activity!)
+            activity.isHidden = false
+            activity.startAnimating()
+            activity.center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+            addSubview(activity)
         }
     }
     
     private func hideActivityIndicator() {
-        
         isUserInteractionEnabled = true
         shapeLayer.removeAllAnimations()
-        activity?.removeFromSuperview()
-        activity = nil
+        activity.removeFromSuperview()
     }
     
-    private func setEnabled(_ enabled: Bool) {
-
+    private func updateEnabled(_ enabled: Bool) {
         if enabled {
-            
             shapeLayer.fillColor = UIColor(red: 0.0392, green: 0.3765, blue: 1.0, alpha: 1.0).cgColor
         } else {
-            
             shapeLayer.fillColor = UIColor.gray.cgColor
         }
     }

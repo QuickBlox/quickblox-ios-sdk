@@ -20,9 +20,9 @@ struct LoginConstant {
     static let showUsers = "ShowUsersViewController"
 }
 
-class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCoreDelegate {
+class LoginTableViewController: UITableViewController {
     
-// MARK: IBOutlets
+    // MARK: IBOutlets
     @IBOutlet private weak var loginInfo: UILabel!
     @IBOutlet private weak var userNameDescriptionLabel: UILabel!
     @IBOutlet private weak var chatRoomDescritptionLabel: UILabel!
@@ -30,11 +30,11 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
     @IBOutlet private weak var chatRoomNameTextField: UITextField!
     @IBOutlet private weak var loginButton: QBLoadingButton!
 
-// MARK: Variables
+    // MARK: Variables
     let core = QBCore.instance
     var needReconnect = false
     
-// MARK: Life Cicles
+    // MARK: Life Cicles
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,51 +86,20 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         updateLoginInfo?(core.networkConnectionStatus())
     }
     
-// MARK: - QBCoreDelegate metods
-    func coreDidLogin(_ core: QBCore) {
-        performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
-    }
-    
-    func coreDidLogout(_ core: QBCore) {
-        defaultConfiguration()
-    }
-    
-    func core(_ core: QBCore, _ loginStatus: String) {
-        setLoginInfoText(loginStatus)
-    }
-    
-    func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain) {
-        var infoText = error.localizedDescription
-        if error._code == NSURLErrorNotConnectedToInternet {
-            infoText = LoginConstant.checkInternet
-            needReconnect = true
-        } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection {
-            if domain == ErrorDomain.ErrorDomainSignUp || domain == ErrorDomain.ErrorDomainLogIn {
-                login()
-            }
-        }
-        setLoginInfoText(infoText)
-    }
-    
-// MARK: - Disable / Enable inputs
+    // MARK: - Disable / Enable inputs
     private func setInputEnabled(enabled: Bool) {
             chatRoomNameTextField.isEnabled = enabled
             userNameTextField.isEnabled = enabled
     }
     
-// MARK: UIControl Actions
+    // MARK: UIControl Actions
     @IBAction func didPressLoginButton(_ sender: QBLoadingButton) {
         login()
     }
 
-// MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-    }
-    
-// MARK: - UITextFieldDelegate
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        validate(textField)
     }
     
     @IBAction func editingChanged(_ sender: UITextField) {
@@ -182,7 +151,7 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         loginButton.hideLoading()
     }
     
-// MARK: - Validation helpers
+    // MARK: - Validation helpers
     func userNameIsValid() -> Bool {
         let characterSet = CharacterSet.whitespaces
         let userName = userNameTextField.text?.trimmingCharacters(in: characterSet)
@@ -199,5 +168,41 @@ class LoginTableViewController: UITableViewController, UITextFieldDelegate, QBCo
         let tagPredicate = NSPredicate(format: "SELF MATCHES %@", tagRegex)
         let tagIsValid: Bool = tagPredicate.evaluate(with: tag)
         return tagIsValid
+    }
+}
+
+// MARK: - QBCoreDelegate metods
+extension LoginTableViewController: QBCoreDelegate {
+    
+    func coreDidLogin(_ core: QBCore) {
+        performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
+    }
+    
+    func coreDidLogout(_ core: QBCore) {
+        defaultConfiguration()
+    }
+    
+    func core(_ core: QBCore, _ loginStatus: String) {
+        setLoginInfoText(loginStatus)
+    }
+    
+    func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain) {
+        var infoText = error.localizedDescription
+        if error._code == NSURLErrorNotConnectedToInternet {
+            infoText = LoginConstant.checkInternet
+            needReconnect = true
+        } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection {
+            if domain == ErrorDomain.ErrorDomainSignUp || domain == ErrorDomain.ErrorDomainLogIn {
+                login()
+            }
+        }
+        setLoginInfoText(infoText)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension LoginTableViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        validate(textField)
     }
 }
