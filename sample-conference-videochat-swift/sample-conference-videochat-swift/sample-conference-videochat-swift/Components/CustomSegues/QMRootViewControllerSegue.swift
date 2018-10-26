@@ -10,7 +10,6 @@ import UIKit
 
 class QMRootViewControllerSegue: UIStoryboardSegue {
     override func perform() {
-        
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.window?.rootViewController = destination
     }

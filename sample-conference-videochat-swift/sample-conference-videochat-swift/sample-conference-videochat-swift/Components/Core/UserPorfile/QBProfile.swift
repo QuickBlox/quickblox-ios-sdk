@@ -10,22 +10,22 @@ import Foundation
 import Quickblox
 import Security
 
-struct QBProfileConstants {
-    static let kQBProfile = "curentProfile"
-    static let kQBUser = "qbuser"
+struct ProfileConstants {
+    static let profile = "curentProfile"
+    static let user = "qbuser"
 }
 
-struct QBProfileSecConstants {
-    static let kSecClassValue = NSString(format: kSecClass)
-    static let kSecAttrAccountValue = NSString(format: kSecAttrAccount)
-    static let kSecValueDataValue = NSString(format: kSecValueData)
-    static let kSecClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
-    static let kSecAttrServiceValue = NSString(format: kSecAttrService)
-    static let kSecAttrAccessibleValue = NSString(format: kSecAttrAccessible)
-    static let kSecMatchLimitValue = NSString(format: kSecMatchLimit)
-    static let kSecReturnDataValue = NSString(format: kSecReturnData)
-    static let kSecMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
-    static let kSecAttrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
+struct ProfileSecConstant {
+    static let classValue = NSString(format: kSecClass)
+    static let attrAccountValue = NSString(format: kSecAttrAccount)
+    static let valueDataValue = NSString(format: kSecValueData)
+    static let classGenericPasswordValue = NSString(format: kSecClassGenericPassword)
+    static let attrServiceValue = NSString(format: kSecAttrService)
+    static let attrAccessibleValue = NSString(format: kSecAttrAccessible)
+    static let matchLimitValue = NSString(format: kSecMatchLimit)
+    static let returnDataValue = NSString(format: kSecReturnData)
+    static let matchLimitOneValue = NSString(format: kSecMatchLimitOne)
+    static let attrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
 }
 
 class QBProfile: NSObject, NSCoding, NSSecureCoding  {
@@ -52,19 +52,17 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
      *  @return whether synchronize was successful
      */
     func synchronize() -> OSStatus {
-        
         assert(self.userData != nil, "Invalid parameter not satisfying: userData != nil")
-        debugPrint("self.userData \(String(describing: self.userData))")
-        return self.saveData(self.userData as Any, forKey: QBProfileConstants.kQBProfile)
+        return self.saveData(self.userData as Any, forKey: ProfileConstants.profile)
     }
     
     convenience required init?(coder aDecoder: NSCoder) {
-       let userData = aDecoder.decodeObject(forKey: QBProfileConstants.kQBProfile) as? QBUUser
+       let userData = aDecoder.decodeObject(forKey: ProfileConstants.profile) as? QBUUser
         self.init(userData: userData)
     }
 
     func encode(with aCoder: NSCoder) {
-        aCoder.encode(userData, forKey: QBProfileConstants.kQBProfile)
+        aCoder.encode(userData, forKey: ProfileConstants.profile)
     }
 
     /**
@@ -81,9 +79,8 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
     }
     
     private func loadProfile() {
-        if let profile = self.loadObject(forKey: QBProfileConstants.kQBProfile) {
+        if let profile = self.loadObject(forKey: ProfileConstants.profile) {
             self.userData = profile;
-            debugPrint("self.userData \(String(describing: self.userData))")
         } else {
             return
         }
@@ -95,33 +92,33 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
      *  @return Whether clear was successful
      */
     public func clearProfile() -> OSStatus {
-        let success: OSStatus = self.deleteObjectForKey(key: QBProfileConstants.kQBProfile)
+        let success: OSStatus = self.deleteObjectForKey(key: ProfileConstants.profile)
         self.userData = nil;
         return success;
     }
     
-    func saveData(_ data: Any?, forKey key: String?) -> OSStatus {
-        var keychainQuery = getKeychainQueryFor(key: key!)
-        SecItemDelete((keychainQuery as CFDictionary?)!)
+    func saveData(_ data: Any?, forKey key: String) -> OSStatus {
+        var keychainQuery = getKeychainQueryFor(key: key)
+        SecItemDelete(keychainQuery as CFDictionary)
         if let dataUser = data {
-            keychainQuery?[QBProfileSecConstants.kSecValueDataValue] = NSKeyedArchiver.archivedData(withRootObject: dataUser)
+            keychainQuery[ProfileSecConstant.valueDataValue] = NSKeyedArchiver.archivedData(withRootObject: dataUser)
         }
-        return SecItemAdd(keychainQuery! as CFDictionary, nil)
+        return SecItemAdd(keychainQuery as CFDictionary, nil)
     }
     
     // MARK: - Keychain
-    func loadObject(forKey key: String?) -> QBUUser? {
+    func loadObject(forKey key: String) -> QBUUser? {
         var ret: QBUUser? = nil
-        var keychainQuery = getKeychainQueryFor(key: key!)
-        if let aTrue = kCFBooleanTrue {
-            keychainQuery?[QBProfileSecConstants.kSecReturnDataValue] = aTrue
+        var keychainQuery = getKeychainQueryFor(key: key)
+        if let booleanTrue = kCFBooleanTrue {
+            keychainQuery[ProfileSecConstant.returnDataValue] = booleanTrue
         }
-        keychainQuery?[QBProfileSecConstants.kSecMatchLimitValue] = QBProfileSecConstants.kSecMatchLimitOneValue
+        keychainQuery[ProfileSecConstant.matchLimitValue] = ProfileSecConstant.matchLimitOneValue
         var keyData: AnyObject?
-        let status = SecItemCopyMatching(keychainQuery! as CFDictionary, &keyData)
+        let status = SecItemCopyMatching(keychainQuery as CFDictionary, &keyData)
         if status == noErr {
-            if let aData = keyData as! Data? {
-                ret = NSKeyedUnarchiver.unarchiveObject(with: aData) as? QBUUser
+            if let keyData = keyData as? Data {
+                ret = NSKeyedUnarchiver.unarchiveObject(with: keyData) as? QBUUser
               return ret
             }
         }
@@ -129,13 +126,14 @@ class QBProfile: NSObject, NSCoding, NSSecureCoding  {
     }
     
     private func deleteObjectForKey(key: String) -> OSStatus {
-        
         let keychainQuery = self.getKeychainQueryFor(key: key)
-        return SecItemDelete(keychainQuery! as CFDictionary)
+        return SecItemDelete(keychainQuery as CFDictionary)
     }
     
-    private func getKeychainQueryFor(key: String) -> [AnyHashable : Any]? {
-        
-            return ([QBProfileSecConstants.kSecClassValue: QBProfileSecConstants.kSecClassGenericPasswordValue, QBProfileSecConstants.kSecAttrServiceValue: key, QBProfileSecConstants.kSecAttrAccountValue: key, QBProfileSecConstants.kSecAttrAccessibleValue: QBProfileSecConstants.kSecAttrAccessibleAfterFirstUnlockValue])
+    private func getKeychainQueryFor(key: String) -> [AnyHashable : Any] {
+            return ([ProfileSecConstant.classValue: ProfileSecConstant.classGenericPasswordValue,
+                     ProfileSecConstant.attrServiceValue: key,
+                     ProfileSecConstant.attrAccountValue: key,
+                     ProfileSecConstant.attrAccessibleValue: ProfileSecConstant.attrAccessibleAfterFirstUnlockValue])
     }
 }
