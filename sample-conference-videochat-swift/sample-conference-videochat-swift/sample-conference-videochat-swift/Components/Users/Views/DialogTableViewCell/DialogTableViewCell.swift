@@ -27,7 +27,7 @@ class DialogTableViewCell: UITableViewCell {
         }
     }
     
-    func setTitle(_ title: String?) {
+    private func setTitle(_ title: String?) {
             titleLabel.text = self.title
     }
     

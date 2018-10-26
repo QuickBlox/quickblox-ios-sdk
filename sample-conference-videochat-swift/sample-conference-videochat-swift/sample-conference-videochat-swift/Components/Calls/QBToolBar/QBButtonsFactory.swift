@@ -21,7 +21,7 @@ struct QBButtonsFactoryConstants {
 
 class QBButtonsFactory {
     // MARK: - Private
-    class func button(withFrame frame: CGRect, backgroundColor: UIColor?, selectedColor: UIColor?) -> QBButton? {
+    class func button(withFrame frame: CGRect, backgroundColor: UIColor?, selectedColor: UIColor?) -> QBButton {
         
         let button = QBButton(frame: frame)
         button.backgroundColor = backgroundColor
@@ -43,64 +43,55 @@ class QBButtonsFactory {
     }
     
     // MARK: - Public
-    class func videoEnable() -> QBButton? {
+    class func videoEnable() -> QBButton {
         
-        let button: QBButton? = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor:QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
-        button?.pushed = true
-        
-        button?.iconView = self.iconView(withNormalImage: "camera_on_ic", selectedImage: "camera_off_ic")
+        let button: QBButton = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor:QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
+        button.pushed = true
+        button.iconView = self.iconView(withNormalImage: "camera_on_ic", selectedImage: "camera_off_ic")
         return button
     }
     
-    class func auidoEnable() -> QBButton? {
+    class func auidoEnable() -> QBButton {
         
-        let button: QBButton? = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
-        
-        button?.pushed = true
-        
-        button?.iconView = self.iconView(withNormalImage: "mute_on_ic", selectedImage: "mute_off_ic")
+        let button: QBButton = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
+        button.pushed = true
+        button.iconView = self.iconView(withNormalImage: "mute_on_ic", selectedImage: "mute_off_ic")
         return button
     }
     
-    class func dynamicEnable() -> QBButton? {
+    class func dynamicEnable() -> QBButton {
         
-        let button: QBButton? = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
-        
-        button?.pushed = true
-        
-        button?.iconView = self.iconView(withNormalImage: "dynamic_on_ic", selectedImage: "dynamic_off_ic")
+        let button: QBButton = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
+        button.pushed = true
+        button.iconView = self.iconView(withNormalImage: "dynamic_on_ic", selectedImage: "dynamic_off_ic")
         return button
     }
     
-    class func screenShare() -> QBButton? {
+    class func screenShare() -> QBButton {
         
-        let button: QBButton? = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
-        
-        button?.iconView = self.iconView(withNormalImage: "screensharing_ic", selectedImage: "screensharing_ic")
+        let button: QBButton = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefBackgroundColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
+        button.iconView = self.iconView(withNormalImage: "screensharing_ic", selectedImage: "screensharing_ic")
         return button
     }
     
-    class func answer() -> QBButton? {
+    class func answer() -> QBButton {
         
-        let button: QBButton? = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefAnswerColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
-        
-        button?.iconView = self.iconView(withNormalImage: "answer", selectedImage: "answer")
+        let button: QBButton = self.button(withFrame: QBButtonsFactoryConstants.kDefRect, backgroundColor: QBButtonsFactoryConstants.kDefAnswerColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
+        button.iconView = self.iconView(withNormalImage: "answer", selectedImage: "answer")
         return button
     }
     
-    class func decline() -> QBButton? {
+    class func decline() -> QBButton {
         
-        let button: QBButton? = self.button(withFrame: QBButtonsFactoryConstants.kDefDeclineRect, backgroundColor: QBButtonsFactoryConstants.kDefDeclineColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
-        
-        button?.iconView = self.iconView(withNormalImage: "decline-ic", selectedImage: "decline-ic")
+        let button: QBButton = self.button(withFrame: QBButtonsFactoryConstants.kDefDeclineRect, backgroundColor: QBButtonsFactoryConstants.kDefDeclineColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
+        button.iconView = self.iconView(withNormalImage: "decline-ic", selectedImage: "decline-ic")
         return button
     }
     
-    class func circleDecline() -> QBButton? {
+    class func circleDecline() -> QBButton {
         
-        let button: QBButton? = self.button(withFrame: QBButtonsFactoryConstants.kDefCircleDeclineRect, backgroundColor: QBButtonsFactoryConstants.kDefDeclineColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
-        
-        button?.iconView = self.iconView(withNormalImage: "decline-ic", selectedImage: "decline-ic")
+        let button: QBButton = self.button(withFrame: QBButtonsFactoryConstants.kDefCircleDeclineRect, backgroundColor: QBButtonsFactoryConstants.kDefDeclineColor, selectedColor: QBButtonsFactoryConstants.kDefSelectedColor)
+        button.iconView = self.iconView(withNormalImage: "decline-ic", selectedImage: "decline-ic")
         return button
     }
 }

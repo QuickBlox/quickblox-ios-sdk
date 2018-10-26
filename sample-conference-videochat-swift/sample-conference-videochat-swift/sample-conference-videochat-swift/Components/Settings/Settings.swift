@@ -10,9 +10,9 @@ import UIKit
 import QuickbloxWebRTC
 
 struct SettingsConstants {
-    static let  kVideoFormatKey = "videoFormat"
-    static let  kPreferredCameraPosition = "cameraPosition"
-    static let  kMediaConfigKey = "mediaConfig"
+    static let  videoFormatKey = "videoFormat"
+    static let  preferredCameraPosition = "cameraPosition"
+    static let  mediaConfigKey = "mediaConfig"
 }
 
 class Settings {
@@ -30,9 +30,9 @@ class Settings {
         let defaults = UserDefaults.standard
         let videFormatData = NSKeyedArchiver.archivedData(withRootObject: videoFormat as Any)
         let mediaConfig = NSKeyedArchiver.archivedData(withRootObject: mediaConfiguration as Any)
-        defaults.set(preferredCameraPostion, forKey: SettingsConstants.kPreferredCameraPosition)
-        defaults.set(videFormatData, forKey: SettingsConstants.kVideoFormatKey)
-        defaults.set(mediaConfig, forKey: SettingsConstants.kMediaConfigKey)
+        defaults.set(preferredCameraPostion.rawValue, forKey: SettingsConstants.preferredCameraPosition)
+        defaults.set(videFormatData, forKey: SettingsConstants.videoFormatKey)
+        defaults.set(mediaConfig, forKey: SettingsConstants.mediaConfigKey)
         
         defaults.synchronize()
     }
@@ -45,16 +45,16 @@ class Settings {
     func load() {
         let defaults = UserDefaults.standard
         
-        if let postion = AVCaptureDevice.Position(rawValue: defaults.integer(forKey: SettingsConstants.kPreferredCameraPosition)) {
+        if let postion = AVCaptureDevice.Position(rawValue: defaults.integer(forKey: SettingsConstants.preferredCameraPosition)) {
             preferredCameraPostion = postion == .unspecified ? .front : postion
         }
         
-        if let videoFormatData = defaults.object(forKey: SettingsConstants.kVideoFormatKey) as? Data,
+        if let videoFormatData = defaults.object(forKey: SettingsConstants.videoFormatKey) as? Data,
             let data = NSKeyedUnarchiver.unarchiveObject(with: videoFormatData) {
             videoFormat = data as? QBRTCVideoFormat ?? QBRTCVideoFormat.default()
         }
         
-        if let mediaConfigData = defaults.object(forKey: SettingsConstants.kMediaConfigKey) as? Data,
+        if let mediaConfigData = defaults.object(forKey: SettingsConstants.mediaConfigKey) as? Data,
             let data = NSKeyedUnarchiver.unarchiveObject(with: mediaConfigData) {
             mediaConfiguration = data as? QBRTCMediaStreamConfiguration ?? QBRTCMediaStreamConfiguration.default()
         }

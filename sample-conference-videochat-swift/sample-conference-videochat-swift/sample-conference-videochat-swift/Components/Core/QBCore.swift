@@ -103,8 +103,8 @@ class QBCore: NSObject, QBChatDelegate {
     // MARK: Multicast Delegate
     func addDelegate(_ delegate: QBCoreDelegate) {
         ////addDelegate
-        debugPrint("delegate \(delegate)")
-        //        self.multicastDelegate?.addDelegate(delegate)
+        self.multicastDelegate = delegate
+         debugPrint("addDelegate(_ delegate: QBCoreDelegate)")
     }
     
     // MARK: - QBChatDelegate
@@ -191,8 +191,8 @@ class QBCore: NSObject, QBChatDelegate {
                         self.clearProfile()
                         // Notify about logout
                         //add multicastDelegate metod
-                        if let coreDidLogout = self.multicastDelegate?.coreDidLogout {
-                            coreDidLogout(self)
+                        if let _ = self.multicastDelegate?.coreDidLogout {
+                            self.multicastDelegate?.coreDidLogout(self)
                         }else {
                             debugPrint("delegate not response coreDidLogout metod ==============")
                         }
@@ -240,7 +240,11 @@ class QBCore: NSObject, QBChatDelegate {
      */
     public func clearProfile() {
         let status = self.profile?.clearProfile()
-        if status != noErr {
+        if status == noErr {
+            self.currentUser = nil
+            debugPrint("self.currentUser == nil!!!!!!!!!!")
+        } else {
+            debugPrint("self.currentUser != nil")
             return
         }
     }
@@ -269,8 +273,9 @@ class QBCore: NSObject, QBChatDelegate {
                 // Clean profile
                 self.clearProfile()
                 // Notify about logout
-                if let coreDidLogout = self.multicastDelegate?.coreDidLogout {
-                    coreDidLogout(self)
+                if let _ = self.multicastDelegate?.coreDidLogout {
+                    debugPrint("delegate response coreDidLogout metod!!!!!!!!!!")
+                    self.multicastDelegate?.coreDidLogout(self)
                 } else {
                     debugPrint("delegate not response coreDidLogout metod!!!!!!!!!!")
                 }

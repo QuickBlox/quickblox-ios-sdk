@@ -80,6 +80,7 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
     // MARK: UI Configuration
     func configureTableViewController() {
         tableView.dataSource = dialogsDataSource
+        dialogsDataSource.delegate = self
         tableView.rowHeight = 76.0
         refreshControl?.beginRefreshing()
     }
@@ -197,11 +198,11 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
                            commit editingStyle: UITableViewCell.EditingStyle,
                            forRowAt indexPath: IndexPath?) {
-        
+        if  editingStyle == .delete, hasConnectivity() {
         guard let indexPath = indexPath, let dataSource = dialogsDataSource else { return }
         let deleteDialog = dataSource.objects[indexPath.row]
         guard let deleteDialogId = deleteDialog.id else { return }
-        if hasConnectivity() && editingStyle == .delete {
+        
             SVProgressHUD.show()
             
             let chatDialogIDs: Set = [deleteDialogId]
@@ -233,8 +234,19 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
         tableView.reloadData()
     }
     
+    // MARK: SettingsViewControllerDelegate
+    func settingsViewController(_ vc: SessionSettingsViewController?, didPressLogout sender: Any?) {
+        SVProgressHUD.show(withStatus: MainAlertConstant.logout)
+        core.logout()
+    }
+    
     // MARK: QBCoreDelegate
-    func coreDidLogout(_ core: QBCore?) {
+    func coreDidLogin(_ core: QBCore) {
+        debugPrint("coreDidLogin")
+    }
+    
+    func coreDidLogout(_ core: QBCore) {
+        debugPrint("coreDidLogout")
         SVProgressHUD.dismiss()
         //Dismiss Settings view controller
         dismiss(animated: false)
@@ -243,32 +255,14 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
         })
     }
     
-    func core(_ core: QBCore?, error: Error?, domain: ErrorDomain) {
-        if domain == ErrorDomain.ErrorDomainLogOut {
-            SVProgressHUD.showError(withStatus: error?.localizedDescription)
-        }
-    }
-    
-    // MARK: SettingsViewControllerDelegate
-    func settingsViewController(_ vc: SessionSettingsViewController?, didPressLogout sender: Any?) {
-        SVProgressHUD.show(withStatus: MainAlertConstant.logout)
-        core.logout()
-    }
-    
-    func coreDidLogin(_ core: QBCore) {
-        debugPrint("coreDidLogin")
-    }
-    
-    func coreDidLogout(_ core: QBCore) {
-        debugPrint("coreDidLogin")
-    }
-    
     func core(_ core: QBCore, _ loginStatus: String) {
         debugPrint("coreDidLogin")
     }
     
     func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain) {
-        debugPrint("coreDidLogin")
+        if domain == ErrorDomain.ErrorDomainLogOut {
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }
     }
     
     // MARK: Private

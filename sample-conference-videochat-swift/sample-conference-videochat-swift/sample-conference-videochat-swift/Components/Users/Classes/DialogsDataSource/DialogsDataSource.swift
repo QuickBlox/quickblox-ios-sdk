@@ -27,7 +27,6 @@ class DialogsDataSource: MainDataSource<QBChatDialog> {
        return self.init()
     }
     
-
     required init() {
         super.init(sortSelector: #selector(getter: QBCEntity.createdAt))
     }
