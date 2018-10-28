@@ -42,14 +42,6 @@ class LocalVideoView: UIView {
         self.layer.insertSublayer(layer, at:0)
         insertSubview(containerView, at: 0)
         addSubview(switchCameraBtn)
-        
-        containerView.frame = bounds
-        videoLayer?.frame = bounds
-        
-        let buttonSize = CGSize(width: 72 / 2.5, height: 54 / 2.5)
-        switchCameraBtn.frame = CGRect(x: bounds.size.width - buttonSize.width - 5,
-                                       y: bounds.size.height - buttonSize.height - 30,
-                                       width: buttonSize.width, height: buttonSize.height)
     }
     
     required init?(coder aDecoder: NSCoder) {
