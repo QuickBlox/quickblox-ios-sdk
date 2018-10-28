@@ -260,7 +260,7 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
     }
     
     func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain) {
-        if domain == ErrorDomain.ErrorDomainLogOut {
+        if domain == ErrorDomain.logOut {
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
     }

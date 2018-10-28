@@ -192,7 +192,7 @@ extension LoginTableViewController: QBCoreDelegate {
             infoText = LoginConstant.checkInternet
             needReconnect = true
         } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection {
-            if domain == ErrorDomain.ErrorDomainSignUp || domain == ErrorDomain.ErrorDomainLogIn {
+            if domain == ErrorDomain.signUp || domain == ErrorDomain.logIn {
                 login()
             }
         }

@@ -16,10 +16,7 @@ protocol LocalVideoViewDelegate: class {
 class LocalVideoView: UIView {
     weak var delegate: LocalVideoViewDelegate?
     let image = UIImage(named: "switchCamera")
-    lazy private var videoLayer: AVCaptureVideoPreviewLayer = {
-        let videoLayer = AVCaptureVideoPreviewLayer()
-        return videoLayer
-    }()
+    var videoLayer: AVCaptureVideoPreviewLayer?
     lazy private var switchCameraBtn: UIButton = {
         let switchCameraBtn = UIButton(type: .custom)
         switchCameraBtn.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
@@ -33,25 +30,35 @@ class LocalVideoView: UIView {
         containerView.backgroundColor = UIColor.clear
         return containerView
     }()
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    init(previewlayer layer: AVCaptureVideoPreviewLayer) {
+    public init(previewlayer layer: AVCaptureVideoPreviewLayer) {
         super.init(frame: CGRect.zero)
-        videoLayer = layer
-        videoLayer.videoGravity = .resizeAspect
-        containerView.layer.insertSublayer(videoLayer, at: 0)
+        self.videoLayer = layer
+        self.videoLayer?.videoGravity = .resizeAspectFill
+        self.layer.insertSublayer(layer, at:0)
         insertSubview(containerView, at: 0)
         addSubview(switchCameraBtn)
         
         containerView.frame = bounds
-        videoLayer.frame = bounds
+        videoLayer?.frame = bounds
         
+        let buttonSize = CGSize(width: 72 / 2.5, height: 54 / 2.5)
+        switchCameraBtn.frame = CGRect(x: bounds.size.width - buttonSize.width - 5,
+                                       y: bounds.size.height - buttonSize.height - 30,
+                                       width: buttonSize.width, height: buttonSize.height)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.videoLayer?.frame = self.bounds
         let buttonSize = CGSize(width: 72 / 2.5, height: 54 / 2.5)
         switchCameraBtn.frame = CGRect(x: bounds.size.width - buttonSize.width - 5,
                                        y: bounds.size.height - buttonSize.height - 30,
@@ -67,21 +74,9 @@ class LocalVideoView: UIView {
         delegate?.localVideoView(self, pressedSwitchButton: sender)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        containerView.frame = bounds
-        videoLayer.frame = bounds
-        
-        let buttonSize = CGSize(width: 72 / 2.5, height: 54 / 2.5)
-        switchCameraBtn.frame = CGRect(x: bounds.size.width - buttonSize.width - 5,
-                                       y: bounds.size.height - buttonSize.height - 30,
-                                       width: buttonSize.width, height: buttonSize.height)
-    }
-    
     func updateOrientationIfNeeded() {
         
-        let previewLayerConnection: AVCaptureConnection? = videoLayer.connection
+        let previewLayerConnection: AVCaptureConnection? = videoLayer?.connection
         let interfaceOrientation: UIInterfaceOrientation = UIApplication.shared.statusBarOrientation
         let videoOrientation = AVCaptureVideoOrientation(rawValue: interfaceOrientation.rawValue)
         

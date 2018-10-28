@@ -20,14 +20,14 @@ enum NetworkConnectionStatus: UInt {
 }
 
 enum ErrorDomain: UInt {
-    case ErrorDomainSignUp = 0
-    case ErrorDomainLogIn = 1
-    case ErrorDomainLogOut = 2
-    case ErrorDomainChat = 3
+    case signUp
+    case logIn
+    case logOut
+    case chat
 }
 
-struct QBCoreConstants {
-    static let kQBDefaultPassword = "x6Bt0VDy5"
+struct CoreConstants {
+    static let defaultPassword = "x6Bt0VDy5"
 }
 
 typealias QBNetworkStatusBlock = ((_ status: NetworkConnectionStatus) -> Void)?
@@ -104,12 +104,10 @@ class QBCore: NSObject, QBChatDelegate {
     func addDelegate(_ delegate: QBCoreDelegate) {
         ////addDelegate
         self.multicastDelegate = delegate
-         debugPrint("addDelegate(_ delegate: QBCoreDelegate)")
     }
     
     // MARK: - QBChatDelegate
     func chatDidNotConnectWithError(_ error: Error) {
-        debugPrint("chatDidNotConnectWithError")
     }
     
     func chatDidFail(withStreamError error: Error) {
@@ -127,8 +125,6 @@ class QBCore: NSObject, QBChatDelegate {
     // MARK: - SignUp / Login / Logout
     
     func setLoginStatus(_ loginStatus: String?) {
-        debugPrint("loginStatus \(loginStatus!)")
-        
         if let _ = self.multicastDelegate?.core(self, loginStatus!) {
             self.multicastDelegate?.core(self, loginStatus!)
         }else {
@@ -143,13 +139,11 @@ class QBCore: NSObject, QBChatDelegate {
      *  @param roomName room name (tag)
      */
     func signUp(withFullName fullName: String?, roomName: String?) {
-        
         let newUser = QBUUser()
-        
         newUser.login = UUID().uuidString
         newUser.fullName = fullName
         newUser.tags = [roomName] as? [String]
-        newUser.password = QBCoreConstants.kQBDefaultPassword
+        newUser.password = CoreConstants.defaultPassword
         
         self.setLoginStatus("Signg up ...")
         
@@ -159,10 +153,10 @@ class QBCore: NSObject, QBChatDelegate {
                 self.currentUser = user
                 self.loginWithCurrentUser()
             } else {
-                self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainSignUp)
+                self.handleError(response.error?.error, domain: ErrorDomain.signUp)
             }
         }, errorBlock: { response in
-            self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainSignUp)
+            self.handleError(response.error?.error, domain: ErrorDomain.signUp)
         })
     }
     
@@ -170,18 +164,14 @@ class QBCore: NSObject, QBChatDelegate {
      *  login
      */
     func loginWithCurrentUser() {
-        
-        self.currentUser?.password = QBCoreConstants.kQBDefaultPassword
+        self.currentUser?.password = CoreConstants.defaultPassword
         guard let user = self.currentUser else {return}
-        let password = QBCoreConstants.kQBDefaultPassword
+        let password = CoreConstants.defaultPassword
         guard let login = self.currentUser?.login else {return}
         
         let connectToChat: () -> () = {
-            
             self.setLoginStatus("Login into chat ...")
-            
             QBChat.instance.connect(withUserID: user.id, password: password, completion: { error in
-                
                 if error != nil {
                     
                     if (error as NSError?)?.code == 401 {
@@ -197,7 +187,7 @@ class QBCore: NSObject, QBChatDelegate {
                             debugPrint("delegate not response coreDidLogout metod ==============")
                         }
                     } else {
-                        self.handleError(error, domain: ErrorDomain.ErrorDomainLogIn)
+                        self.handleError(error, domain: ErrorDomain.logIn)
                     }
                 } else {
                     //add multicastDelegate metod
@@ -226,7 +216,7 @@ class QBCore: NSObject, QBChatDelegate {
                             
         }, errorBlock: { response in
             
-            self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogIn)
+            self.handleError(response.error?.error, domain: ErrorDomain.logIn)
             
             if response.status == QBResponseStatusCode.unAuthorized {
                 // Clean profile
@@ -280,7 +270,7 @@ class QBCore: NSObject, QBChatDelegate {
                     debugPrint("delegate not response coreDidLogout metod!!!!!!!!!!")
                 }
             }, errorBlock: { response in
-                self.handleError(response.error?.error, domain: ErrorDomain.ErrorDomainLogOut)
+                self.handleError(response.error?.error, domain: ErrorDomain.logOut)
             })
         }
     }

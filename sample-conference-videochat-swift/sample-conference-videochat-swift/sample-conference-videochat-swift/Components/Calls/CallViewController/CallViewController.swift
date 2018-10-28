@@ -46,10 +46,11 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         let videoEnabled = QBButtonsFactory.videoEnable()
         return videoEnabled
     }()
-    lazy private var localVideoView: LocalVideoView = {
-        let localVideoView = LocalVideoView()
-        return localVideoView
-    }()
+//    lazy private var localVideoView: LocalVideoView = {
+//        let localVideoView = LocalVideoView()
+//        return localVideoView
+//    }()
+    private var localVideoView: LocalVideoView?
     lazy private var statsView: StatsView = {
         let statsView = StatsView()
         return statsView
@@ -134,14 +135,11 @@ class CallViewController: UIViewController, UICollectionViewDataSource, UICollec
         if let conferenceType = self.conferenceType {
             switch conferenceType {
             case .video:
-//                videoEnabled = QBButtonsFactory.videoEnable()
                 toolbar.add(videoEnabled, action: { [weak self] sender in
                     guard let `self` =  self else { return }
                     self.muteVideo = !self.muteVideo
-                    self.localVideoView.isHidden = false
                 })
             case .audio:
-//                dynamicEnable = QBButtonsFactory.dynamicEnable()
                 dynamicEnable.pressed = true
                 toolbar.add(dynamicEnable, action: { sender in
                     let previousDevice = QBRTCAudioSession.instance().currentAudioDevice

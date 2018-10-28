@@ -17,30 +17,29 @@ class UsersDataSource: MainDataSource<QBUUser> {
     
     // MARK: Public
     func user(withID ID: Int) -> QBUUser? {
-        
-        for user: QBUUser? in objects {
-            
-            if user?.id == UInt(ID) {
+        for user in objects {
+            if user.id == UInt(ID) {
                 return user
             }
         }
-        
         return nil
     }
     
     // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as! UserTableViewCell
+       
+        var cell = UITableViewCell()
+        guard let userCell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as? UserTableViewCell else { return cell }
         
         let user: QBUUser = objects[indexPath.row] as QBUUser
         let selected: Bool = self.selectedObjects.contains(user)
         let size = CGSize(width: 32, height: 32)
         let userImage: UIImage? = PlaceholderGenerator.placeholder(size: size, title: user.fullName)
         
-        cell.fullName = user.fullName
-        cell.check = selected
-        cell.userImage = userImage
+        userCell.fullName = user.fullName
+        userCell.check = selected
+        userCell.userImage = userImage
+        cell = userCell
         
         return cell
     }
