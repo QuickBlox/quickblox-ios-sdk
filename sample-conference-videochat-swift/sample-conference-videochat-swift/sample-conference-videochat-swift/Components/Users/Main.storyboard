@@ -83,7 +83,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oKA-Gp-ZJt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3284" y="1115"/>
+            <point key="canvasLocation" x="3284" y="1109"/>
         </scene>
         <!--SettingsNaviationViewController-->
         <scene sceneID="xKQ-8t-pWT">
@@ -91,7 +91,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="SettingsNaviationViewController" storyboardName="Settings" referencedIdentifier="SettingsNaviationViewController" id="MJL-K9-GZh" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wA1-v1-xdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2139" y="1551"/>
+            <point key="canvasLocation" x="2128" y="1563"/>
         </scene>
         <!--Call-->
         <scene sceneID="Z4g-iM-OP9">
@@ -99,7 +99,7 @@
                 <viewControllerPlaceholder storyboardName="Call" id="UOh-op-h8a" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QjR-NV-rqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2622" y="1551"/>
+            <point key="canvasLocation" x="2627" y="1563"/>
         </scene>
         <!--Auth-->
         <scene sceneID="sIO-Jn-pxz">
@@ -107,7 +107,7 @@
                 <viewControllerPlaceholder storyboardName="Auth" id="KJT-7g-J7B" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="drv-Qg-XQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2878" y="524"/>
+            <point key="canvasLocation" x="2916" y="520"/>
         </scene>
         <!--Main Table View Controller-->
         <scene sceneID="GmI-gI-TF5">
@@ -200,7 +200,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="QLu-v2-wC5" secondAttribute="trailing" constant="-8" id="y4m-aq-RuY"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.25098039220000001" green="0.3294117647" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <inset key="separatorInset" minX="84" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="titleLabel" destination="pjF-du-6wH" id="Cn0-MJ-7Cj"/>
@@ -208,7 +208,7 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="wDQ-3G-MEo" id="WCm-vL-yOv"/>
+                            <outlet property="dataSource" destination="wDQ-3G-MEo" id="OWr-nj-Nqq"/>
                             <outlet property="delegate" destination="wDQ-3G-MEo" id="fqD-GQ-Pge"/>
                         </connections>
                     </tableView>
@@ -244,7 +244,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BHO-bi-knD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1453.5999999999999" y="1114.992503748126"/>
+            <point key="canvasLocation" x="1478" y="1109"/>
         </scene>
         <!--Update video chat-->
         <scene sceneID="nCW-LV-DnX">
@@ -321,7 +321,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIz-4h-EnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4142" y="1115"/>
+            <point key="canvasLocation" x="4089" y="1109"/>
         </scene>
     </scenes>
     <resources>

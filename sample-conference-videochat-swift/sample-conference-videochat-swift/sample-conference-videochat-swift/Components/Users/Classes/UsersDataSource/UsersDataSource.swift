@@ -9,13 +9,44 @@
 import UIKit
 import Quickblox
 
-class UsersDataSource: MainDataSource<QBUUser> {
-    // MARK: Construction
-    convenience init() {
-        self.init(sortSelector: #selector(getter: QBUUser.fullName))
-    }
+class UsersDataSource: NSObject {
+    var objects = [QBUUser]()
+    var selectedObjects = [QBUUser]()
+    private let sortSelector: Selector = #selector(getter: QBUUser.fullName)
     
     // MARK: Public
+    func updateObjects(_ objects: [QBUUser]) {
+        self.objects = sortObjects(objects)
+        selectedObjects = selectedObjects.filter({ objects.contains($0) })
+    }
+    
+    func addObjects(_ objects: [QBUUser]) {
+        updateObjects(self.objects + objects)
+    }
+    
+    func selectObject(at indexPath: IndexPath?) {
+        guard let indexPath = indexPath else { return }
+        let object = objects[indexPath.row]
+        if selectedObjects.contains(object) {
+            selectedObjects.removeAll(where: { element in element == object })
+        } else {
+            selectedObjects.append(object)
+        }
+    }
+    
+    func deselectAllObjects() {
+        selectedObjects = [QBUUser]()
+    }
+    
+    // MARK: Private
+    func sortObjects(_ objects: [QBUUser]) -> [QBUUser] {
+        let key = NSStringFromSelector(sortSelector)
+        let objectsSortDescriptor = NSSortDescriptor(key: key, ascending: false)
+        guard let sortedObjects = (objects as NSArray).sortedArray(using: [objectsSortDescriptor])
+            as? [QBUUser] else {return objects}
+        return sortedObjects
+    }
+    
     func user(withID ID: Int) -> QBUUser? {
         for user in objects {
             if user.id == UInt(ID) {
@@ -24,10 +55,16 @@ class UsersDataSource: MainDataSource<QBUUser> {
         }
         return nil
     }
+}
+
+// MARK: UITableViewDataSource
+extension UsersDataSource: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return objects.count
+    }
     
-    // MARK: UITableViewDataSource
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         var cell = UITableViewCell()
         guard let userCell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as? UserTableViewCell else { return cell }
         
@@ -49,3 +86,5 @@ class UsersDataSource: MainDataSource<QBUUser> {
         return NSLocalizedString(str, comment: "")
     }
 }
+
+

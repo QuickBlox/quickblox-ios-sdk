@@ -100,11 +100,11 @@ class QBDataFetcher {
     class func excludeCurrentUser(fromUsersArray users: [QBUUser]?) -> [QBUUser]? {
         
         let currentUser: QBUUser? = QBCore.instance.currentUser
-        if let anUser = currentUser, let usersArr = users {
-            let contains = usersArr.contains(where: {$0 == anUser})
+        if let currentUser = currentUser, let users = users {
+            let contains = users.contains(where: {$0 == currentUser})
             if contains {
                 let mutableArray = users
-                return mutableArray?.filter({$0 != anUser})
+                return mutableArray.filter({$0 != currentUser})
             }
         }
         return users

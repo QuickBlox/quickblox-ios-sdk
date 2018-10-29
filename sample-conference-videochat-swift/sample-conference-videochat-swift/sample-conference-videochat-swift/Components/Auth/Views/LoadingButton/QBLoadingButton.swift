@@ -11,7 +11,6 @@ import UIKit
 class QBLoadingButton: UIButton {
     
     var path: UIBezierPath!
-
     lazy private var shapeLayer: CAShapeLayer = {
         let shapeLayer = CAShapeLayer()
         return shapeLayer

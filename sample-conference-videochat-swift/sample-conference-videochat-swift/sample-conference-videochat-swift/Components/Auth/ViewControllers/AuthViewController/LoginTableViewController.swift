@@ -13,11 +13,11 @@ struct LoginConstant {
     static let login = NSLocalizedString("Login", comment: "")
     static let checkInternet = NSLocalizedString("Please check your Internet connection", comment: "")
     static let enterUsername = NSLocalizedString("Please enter your username and group name. You can join existent group.", comment: "")
-    
     static let shouldContainAlphanumeric = NSLocalizedString("Field should contain alphanumeric characters only in a range 3 to 20. The first character must be a letter.", comment: "")
     static let shouldContainAlphanumericWithoutSpace = NSLocalizedString("Field should contain alphanumeric characters only in a range 3 to 15, without space. The first character must be a letter.", comment: "")
-    
     static let showUsers = "ShowUsersViewController"
+    static let userNameRegex = "^[^_][\\w\\u00C0-\\u1FFF\\u2C00-\\uD7FF\\s]{2,19}$"
+    static let tagRegex = "^[a-zA-Z][a-zA-Z0-9]{2,14}$"
 }
 
 class LoginTableViewController: UITableViewController {
@@ -155,7 +155,7 @@ class LoginTableViewController: UITableViewController {
     func userNameIsValid() -> Bool {
         let characterSet = CharacterSet.whitespaces
         let userName = userNameTextField.text?.trimmingCharacters(in: characterSet)
-        let userNameRegex = "^[^_][\\w\\u00C0-\\u1FFF\\u2C00-\\uD7FF\\s]{2,19}$"
+        let userNameRegex = LoginConstant.userNameRegex
         let userNamePredicate = NSPredicate(format: "SELF MATCHES %@", userNameRegex)
         let userNameIsValid: Bool = userNamePredicate.evaluate(with: userName)
         return userNameIsValid
@@ -164,7 +164,7 @@ class LoginTableViewController: UITableViewController {
     func chatRoomIsValid() -> Bool {
         let characterSet = CharacterSet.whitespaces
         let tag = chatRoomNameTextField.text?.trimmingCharacters(in: characterSet)
-        let tagRegex = "^[a-zA-Z][a-zA-Z0-9]{2,14}$"
+        let tagRegex = LoginConstant.tagRegex
         let tagPredicate = NSPredicate(format: "SELF MATCHES %@", tagRegex)
         let tagIsValid: Bool = tagPredicate.evaluate(with: tag)
         return tagIsValid

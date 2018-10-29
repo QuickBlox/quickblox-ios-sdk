@@ -29,17 +29,15 @@ struct CallSettings {
     var chatDialog: QBChatDialog
 }
 
-class MainTableViewController: UITableViewController, SettingsViewControllerDelegate, QBCoreDelegate,
-DialogsDataSourceDelegate, UsersViewControllerDelegate {
-    
+class MainTableViewController: UITableViewController, SettingsViewControllerDelegate, QBCoreDelegate, UsersViewControllerDelegate {
+  
     //MARK: Variables
     let core = QBCore.instance
-    private lazy var dialogsDataSource:DialogsDataSource = {
-        let dialogsDataSource = DialogsDataSource()
-        dialogsDataSource.delegate = self
-        return dialogsDataSource
+    private let dialogsDataSource = DialogsDataSource.init()
+    lazy private var usersDataSource: UsersDataSource = {
+        let usersDataSource = UsersDataSource()
+        return usersDataSource
     }()
-    var usersDataSource = UsersDataSource()
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -79,8 +77,8 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
     
     // MARK: UI Configuration
     func configureTableViewController() {
-        tableView.dataSource = dialogsDataSource
         dialogsDataSource.delegate = self
+        tableView.dataSource = dialogsDataSource
         tableView.rowHeight = 76.0
         refreshControl?.beginRefreshing()
     }
@@ -179,53 +177,6 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
         }
     }
     
-    //MARK: - DialogsDataSourceDelegate
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
-                           dialogCellDidTapListener dialogCell: UITableViewCell?) {
-        joinDialog(fromDialogCell: dialogCell, conferenceType: nil)
-    }
-    
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
-                           dialogCellDidTapAudio dialogCell: UITableViewCell?) {
-        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.audio)
-    }
-    
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
-                           dialogCellDidTapVideo dialogCell: UITableViewCell?) {
-        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.video)
-    }
-    
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
-                           commit editingStyle: UITableViewCell.EditingStyle,
-                           forRowAt indexPath: IndexPath?) {
-        if  editingStyle == .delete, hasConnectivity() {
-        guard let indexPath = indexPath, let dataSource = dialogsDataSource else { return }
-        let deleteDialog = dataSource.objects[indexPath.row]
-        guard let deleteDialogId = deleteDialog.id else { return }
-        
-            SVProgressHUD.show()
-            
-            let chatDialogIDs: Set = [deleteDialogId]
-            QBRequest.deleteDialogs(withIDs: chatDialogIDs,
-                                    forAllUsers: false,
-                                    successBlock: { [weak self] response,
-                                        deletedObjectsIDs,
-                                        notFoundObjectsIDs,
-                                        wrongPermissionsObjectsIDs in
-                                        
-                                        guard let `self` = self else { return }
-                                        //remove deleted dialog from datasource
-                                        let dialogs = self.dialogsDataSource.objects
-                                        let filteredDialogs = dialogs.filter({$0 != deleteDialog})
-                                        self.dialogsDataSource.updateObjects(filteredDialogs)
-                                        self.tableView.reloadData()
-                                        SVProgressHUD.dismiss()
-                }, errorBlock: { response in
-                    SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
-            })
-        }
-    }
-    
     // MARK: UsersViewControllerDelegate
     func usersViewController(_ usersViewController: UsersViewController?,
                              didCreateChatDialog chatDialog: QBChatDialog?) {
@@ -305,6 +256,56 @@ DialogsDataSourceDelegate, UsersViewControllerDelegate {
             guard granted == true else { return }
             self.performSegue(withIdentifier: MainSegueConstant.call,
                               sender: callSettings)
+        }
+    }
+}
+
+//MARK: - DialogsDataSourceDelegate
+extension MainTableViewController: DialogsDataSourceDelegate {
+    
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+                           dialogCellDidTapListener dialogCell: UITableViewCell?) {
+        joinDialog(fromDialogCell: dialogCell, conferenceType: nil)
+    }
+    
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+                           dialogCellDidTapAudio dialogCell: UITableViewCell?) {
+        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.audio)
+    }
+    
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+                           dialogCellDidTapVideo dialogCell: UITableViewCell?) {
+        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.video)
+    }
+    
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+                           commit editingStyle: UITableViewCell.EditingStyle,
+                           forRowAt indexPath: IndexPath?) {
+        if  editingStyle == .delete, hasConnectivity() {
+            guard let indexPath = indexPath, let dataSource = dialogsDataSource else { return }
+            let deleteDialog = dataSource.objects[indexPath.row]
+            guard let deleteDialogId = deleteDialog.id else { return }
+            
+            SVProgressHUD.show()
+            
+            let chatDialogIDs: Set = [deleteDialogId]
+            QBRequest.deleteDialogs(withIDs: chatDialogIDs,
+                                    forAllUsers: false,
+                                    successBlock: { [weak self] response,
+                                        deletedObjectsIDs,
+                                        notFoundObjectsIDs,
+                                        wrongPermissionsObjectsIDs in
+                                        
+                                        guard let `self` = self else { return }
+                                        //remove deleted dialog from datasource
+                                        let dialogs = self.dialogsDataSource.objects
+                                        let filteredDialogs = dialogs.filter({$0 != deleteDialog})
+                                        self.dialogsDataSource.updateObjects(filteredDialogs)
+                                        self.tableView.reloadData()
+                                        SVProgressHUD.dismiss()
+                }, errorBlock: { response in
+                    SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+            })
         }
     }
 }

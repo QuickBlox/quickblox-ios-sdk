@@ -19,6 +19,7 @@ let kQBAuthKey = "qp4zDcV8mk29Qp9"
 let kQBAuthSecret = "Hm2KgDE6eeMZHu5"
 let kQBAccountKey = "uK_8uinNyz8-npTNB6tx"
 
+// Credentials for Test Sample Test
 //let kQBApplicationID:UInt = 72448
 //let kQBAuthKey = "f4HYBYdeqTZ7KNb"
 //let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
@@ -26,6 +27,11 @@ let kQBAccountKey = "uK_8uinNyz8-npTNB6tx"
 
 let kQBAnswerTimeInterval: TimeInterval = 60.0
 let kQBDialingTimeInterval: TimeInterval = 5.0
+
+struct AppDelegateConstant {
+    static let endpointDev = "wss://janusdev.quickblox.com:8989"
+    static let assertMessage = "Multi-conference server is available only for Enterprise plans. Please refer to https://quickblox.com/developers/EnterpriseFeatures for more information and contacts."
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -49,15 +55,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCConfig.setDialingTimeInterval(kQBDialingTimeInterval)
         QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
         
-        QBRTCConfig.setConferenceEndpoint("wss://janusdev.quickblox.com:8989")
-        assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, "Multi-conference server is available only for Enterprise plans. Please refer to https://quickblox.com/developers/EnterpriseFeatures for more information and contacts.")
+        QBRTCConfig.setConferenceEndpoint(AppDelegateConstant.endpointDev)
+        assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, AppDelegateConstant.assertMessage)
         
         #if ENABLE_STATS_REPORTS
         QBRTCConfig.setStatsReportTimeInterval(1.0)
         #endif
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
-        
         QBRTCClient.initializeRTC()
         
         // loading settings

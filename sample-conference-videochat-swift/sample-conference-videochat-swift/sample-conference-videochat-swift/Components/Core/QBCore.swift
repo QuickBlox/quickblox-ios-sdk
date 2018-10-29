@@ -26,8 +26,15 @@ enum ErrorDomain: UInt {
     case chat
 }
 
+struct LoginStatusConstant {
+    static let signUp = "Signg up ..."
+    static let intoChat = "Login into chat ..."
+    static let withCurrentUser = "Login with current user ..."
+}
+
 struct CoreConstants {
     static let defaultPassword = "x6Bt0VDy5"
+    static let notSatisfyingDeviceToken = "Invalid parameter not satisfying: deviceToken != nil"
 }
 
 typealias QBNetworkStatusBlock = ((_ status: NetworkConnectionStatus) -> Void)?
@@ -124,9 +131,9 @@ class QBCore: NSObject, QBChatDelegate {
     
     // MARK: - SignUp / Login / Logout
     
-    func setLoginStatus(_ loginStatus: String?) {
-        if let _ = self.multicastDelegate?.core(self, loginStatus!) {
-            self.multicastDelegate?.core(self, loginStatus!)
+    func setLoginStatus(_ loginStatus: String) {
+        if let _ = self.multicastDelegate?.core(self, loginStatus) {
+            self.multicastDelegate?.core(self, loginStatus)
         }else {
             debugPrint("delegate not response coreloginStatus metod")
         }
@@ -145,7 +152,7 @@ class QBCore: NSObject, QBChatDelegate {
         newUser.tags = [roomName] as? [String]
         newUser.password = CoreConstants.defaultPassword
         
-        self.setLoginStatus("Signg up ...")
+        self.setLoginStatus(LoginStatusConstant.signUp)
         
         QBRequest.signUp(newUser, successBlock: { response, user in
             let status = self.profile?.synchronizeWithUserData(userData: user)
@@ -170,7 +177,7 @@ class QBCore: NSObject, QBChatDelegate {
         guard let login = self.currentUser?.login else {return}
         
         let connectToChat: () -> () = {
-            self.setLoginStatus("Login into chat ...")
+            self.setLoginStatus(LoginStatusConstant.intoChat)
             QBChat.instance.connect(withUserID: user.id, password: password, completion: { error in
                 if error != nil {
                     
@@ -204,20 +211,17 @@ class QBCore: NSObject, QBChatDelegate {
             connectToChat()
             return
         }
-        self.setLoginStatus("Login with current user ...")
+        self.setLoginStatus(LoginStatusConstant.withCurrentUser)
         QBRequest.logIn(withUserLogin: login,
                         password: password,
                         successBlock: { response, user in
                             self.isAutorized = true
-                            
                             connectToChat()
-                            
                             self.registerForRemoteNotifications()
                             
         }, errorBlock: { response in
             
             self.handleError(response.error?.error, domain: ErrorDomain.logIn)
-            
             if response.status == QBResponseStatusCode.unAuthorized {
                 // Clean profile
                 self.clearProfile()
@@ -243,19 +247,15 @@ class QBCore: NSObject, QBChatDelegate {
      *  Logout and remove current user from server
      */
     func logout() {
-        
         let logoutGroup = DispatchGroup()
-        
         logoutGroup.enter()
         unsubscribe(fromRemoteNotifications: {
             logoutGroup.leave()
         })
-        
         logoutGroup.enter()
         QBChat.instance.disconnect(completionBlock: { error in
             logoutGroup.leave()
         })
-        
         logoutGroup.notify(queue: .main) {
             // Delete user from server
             QBRequest.deleteCurrentUser(successBlock: { response in
@@ -264,10 +264,8 @@ class QBCore: NSObject, QBChatDelegate {
                 self.clearProfile()
                 // Notify about logout
                 if let _ = self.multicastDelegate?.coreDidLogout {
-                    debugPrint("delegate response coreDidLogout metod!!!!!!!!!!")
                     self.multicastDelegate?.coreDidLogout(self)
                 } else {
-                    debugPrint("delegate not response coreDidLogout metod!!!!!!!!!!")
                 }
             }, errorBlock: { response in
                 self.handleError(response.error?.error, domain: ErrorDomain.logOut)
@@ -291,7 +289,6 @@ class QBCore: NSObject, QBChatDelegate {
      *  @param deviceToken Identifies client device
      */
     func registerForRemoteNotifications() {
-        
         let app = UIApplication.shared
         
         if app.responds(to: #selector(UIApplication.registerUserNotificationSettings(_:))) {
@@ -306,23 +303,22 @@ class QBCore: NSObject, QBChatDelegate {
     }
     
     func registerForRemoteNotifications(withDeviceToken deviceToken: Data?) {
-        
-        assert(deviceToken != nil, "Invalid parameter not satisfying: deviceToken != nil")
-        
+        assert(deviceToken != nil, CoreConstants.notSatisfyingDeviceToken)
         let subscription = QBMSubscription()
         subscription.notificationChannel = QBMNotificationChannel.APNS
         subscription.deviceUDID = UIDevice.current.identifierForVendor?.uuidString
         subscription.deviceToken = deviceToken
         
         QBRequest.createSubscription(subscription, successBlock: { response, objects in
-            
+        
         }, errorBlock: { response in
             
         })
     }
     
     func unsubscribe(fromRemoteNotifications completionBlock: @escaping () -> ()) {
-        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: (UIDevice.current.identifierForVendor?.uuidString)!, successBlock: { response in
+        guard let uuidString = UIDevice.current.identifierForVendor?.uuidString else { return }
+        QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { response in
             completionBlock()
         }, errorBlock: { error in
             completionBlock()
@@ -335,7 +331,7 @@ class QBCore: NSObject, QBChatDelegate {
      */
     public func networkConnectionStatus() -> NetworkConnectionStatus {
         let status:NetworkConnectionStatus = NetworkConnectionStatus.notConnection
-        if let reachabilityRef = self.reachabilityRef {
+        if let reachabilityRef = reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
                 return self.networkStatusForFlags(flags)
@@ -344,7 +340,7 @@ class QBCore: NSObject, QBChatDelegate {
         return status
     }
     
-    private func networkStatusForFlags(_ flags: SCNetworkReachabilityFlags) -> NetworkConnectionStatus{
+    private func networkStatusForFlags(_ flags: SCNetworkReachabilityFlags) -> NetworkConnectionStatus {
         if flags.contains(.reachable) == false {
             return .notConnection
         }
@@ -398,13 +394,13 @@ class QBCore: NSObject, QBChatDelegate {
             }
         }
         
-        if SCNetworkReachabilitySetCallback(reachabilityRef!, callbackClosure, &context) {
-            if (SCNetworkReachabilitySetDispatchQueue(self.reachabilityRef!, self.reachabilitySerialQueue)) {
-                
-            }
-            else {
-                debugPrint("SCNetworkReachabilitySetDispatchQueue() failed: \(SCErrorString(SCError()))")
-                SCNetworkReachabilitySetCallback(self.reachabilityRef!, nil, nil);
+        if let reachabilityRef = self.reachabilityRef {
+            if SCNetworkReachabilitySetCallback(reachabilityRef, callbackClosure, &context) {
+                if (SCNetworkReachabilitySetDispatchQueue(reachabilityRef, self.reachabilitySerialQueue)) {
+                }
+                else {
+                    SCNetworkReachabilitySetCallback(reachabilityRef, nil, nil);
+                }
             }
         }
     }

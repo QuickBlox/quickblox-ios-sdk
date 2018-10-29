@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct MainDataSourceConstant {
+    static let requiredSubclassImplemented =  "Required to be implemented by subclass."
+}
+
 class MainDataSource<T: Any> : NSObject, UITableViewDataSource where T: Equatable {
     
     var objects = [T]()
@@ -68,7 +72,7 @@ class MainDataSource<T: Any> : NSObject, UITableViewDataSource where T: Equatabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        assert(false, "Required to be implemented by subclass.")
+        assert(false, MainDataSourceConstant.requiredSubclassImplemented)
         let cell = UITableViewCell()
         return cell
     }

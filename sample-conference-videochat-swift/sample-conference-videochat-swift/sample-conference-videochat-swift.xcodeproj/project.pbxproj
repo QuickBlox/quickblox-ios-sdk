@@ -157,8 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				2C184FA4217F6EE10062E235 /* ReuseIdentifier */,
-				2C4C263B21667B4E00B1E8C4 /* Extensions */,
-				2C4C263C21667B6C00B1E8C4 /* Supporting Files */,
 				2C4C25EC21666FED00B1E8C4 /* Components */,
 				2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */,
 				2C4C25F52166709B00B1E8C4 /* Assets.xcassets */,
@@ -424,20 +422,6 @@
 				2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */,
 			);
 			path = AddUsersViewController;
-			sourceTree = "<group>";
-		};
-		2C4C263B21667B4E00B1E8C4 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		2C4C263C21667B6C00B1E8C4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		2CC867C12170AB7D006DF7BC /* DialogTableViewCell */ = {
