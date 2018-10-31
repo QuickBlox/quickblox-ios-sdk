@@ -42,7 +42,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private weak var session: QBRTCConferenceSession?
     @IBOutlet private weak var opponentsCollectionView: UICollectionView!
     @IBOutlet private weak var toolbar: QBToolBar!
-    private var users: [QBUUser] = []
+    private var users = [QBUUser]()
     private var cameraCapture: QBRTCCameraCapture?
     private var videoViews = [NSNumber: UIView]()
     lazy private var dynamicEnable: QBButton = {
@@ -65,19 +65,21 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         return zoomedView
     }()
     private weak var originCell: OpponentCollectionViewCell?
-    private var state: CallViewControllerState?
-    private var muteAudio: Bool? {
+    private var state: CallViewControllerState? {
         didSet {
-            if let muteAudio = muteAudio {
-                setMuteAudio(muteAudio)
+            if let state = state {
+                setState(state)
             }
         }
     }
-    private var muteVideo: Bool? {
+    private var muteAudio = false {
         didSet {
-            if let muteVideo = muteVideo {
-                setMuteVideo(muteVideo)
-            }
+            setMuteAudio(muteAudio)
+        }
+    }
+    private var muteVideo = false {
+        didSet {
+            setMuteVideo(muteVideo)
         }
     }
     private var statsItem: UIBarButtonItem?
@@ -134,7 +136,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         }
         
         configureGUI()
-        
+        opponentsCollectionView.collectionViewLayout = OpponentsFlowLayout()
         opponentsCollectionView.backgroundColor = UIColor(red: 0.1465, green: 0.1465, blue: 0.1465, alpha: 1.0)
         view.backgroundColor = opponentsCollectionView.backgroundColor
     }
@@ -153,6 +155,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                 toolbar.add(videoEnabled, action: { [weak self] sender in
                     if let muteVideo = self?.muteVideo {
                         self?.muteVideo = !muteVideo
+                        self?.localVideoView?.isHidden = !muteVideo
                     }
                 })
             case .audio:
@@ -208,36 +211,27 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
             self.refreshVideoViews()
         })
     }
-  
+    
     // MARK: Overrides
     func setState(_ state: CallViewControllerState) {
-        if self.state != state {
-            switch state {
-            case .disconnected:
-                title = CallStateConstant.disconnected
-            case .connecting:
-                title = CallStateConstant.connecting
-            case .connected:
-                title = CallStateConstant.connected
-            case .disconnecting:
-                title = CallStateConstant.disconnecting
-            }
-            self.state = state
+        switch state {
+        case .disconnected:
+            title = CallStateConstant.disconnected
+        case .connecting:
+            title = CallStateConstant.connecting
+        case .connected:
+            title = CallStateConstant.connected
+        case .disconnecting:
+            title = CallStateConstant.disconnecting
         }
     }
     
     func setMuteAudio(_ muteAudio: Bool) {
-        if self.muteAudio != muteAudio {
-            self.muteAudio = muteAudio
-            session?.localMediaStream.audioTrack.isEnabled = !muteAudio
-        }
+        session?.localMediaStream.audioTrack.isEnabled = !muteAudio
     }
     
     func setMuteVideo(_ muteVideo: Bool) {
-        if self.muteVideo != muteVideo {
-            self.muteVideo = muteVideo
-            session?.localMediaStream.videoTrack.isEnabled = !muteVideo
-        }
+        session?.localMediaStream.videoTrack.isEnabled = !muteVideo
     }
     
     // MARK: Actions
@@ -273,10 +267,17 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     }
     
     func addToCollectionUser(withID userID: NSNumber) {
+        
         guard let user: QBUUser = fetchUser(withID: userID) else { return }
+//        guard let index = users.index(of: user) else { return }
+//        if users.contains(user) == true {
+//            return
+//        }
+//        debugPrint("index \(index)")
         if users.index(of: user) != NSNotFound {
             return
         }
+
         users.insert(user, at: 0)
         let indexPath = IndexPath(item: 0, section: 0)
         
@@ -313,18 +314,18 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         // that will force collection view to perform updates
         // while controller is deallocating
         QBRTCConferenceClient.instance().remove(self)
-        
+
         // stopping camera session
         cameraCapture?.stopSession(nil)
-        
+
         // toolbar
         toolbar.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.5, animations: {
             self.toolbar.alpha = 0.4
         })
-        
+
         state = CallViewControllerState.disconnected
-        
+
         if timeout {
             SVProgressHUD.showError(withStatus: CallConstants.conferenceDidClose)
             navigationController?.popToRootViewController(animated: true)
@@ -356,16 +357,17 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         
         // resetting zoomed view
         let zoomedVideoView: UIView? = zoomedView.videoView
-        for viewToRefresh in (opponentsCollectionView?.visibleCells)! {
-            if viewToRefresh is OpponentCollectionViewCell {
-                let viewToRefr: OpponentCollectionViewCell = viewToRefresh as! OpponentCollectionViewCell
-                let view: UIView? = viewToRefr.videoView
-                if view == zoomedVideoView {
-                    continue
+        if let visibleCells = opponentsCollectionView?.visibleCells {
+            for viewToRefresh in visibleCells {
+                if viewToRefresh is OpponentCollectionViewCell {
+                    let viewToRefr: OpponentCollectionViewCell = viewToRefresh as! OpponentCollectionViewCell
+                    let view: UIView? = viewToRefr.videoView
+                    if view == zoomedVideoView {
+                        continue
+                    }
+                    viewToRefr.videoView = nil
+                    viewToRefr.videoView = view
                 }
-                
-                viewToRefr.videoView = nil
-                viewToRefr.videoView = view
             }
         }
     }
@@ -378,11 +380,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     func videoView(withOpponentID opponentID: NSNumber?) -> UIView {
         
         var result = UIView()
-        if let opponentID = opponentID, videoViews.isEmpty == false {
-            if let resultView = videoViews[opponentID] {
-                result = resultView
-            }
-        }
+
         if core.currentUser?.id == opponentID?.uintValue, session?.conferenceType != QBRTCConferenceType.audio {
             //Local preview
             if videoViews.isEmpty == true {
@@ -497,7 +495,6 @@ extension CallViewController: QBRTCConferenceClientDelegate {
                 
                 configuration.categoryOptions = .allowBluetoothA2DP
                 configuration.categoryOptions = .allowBluetooth
-                configuration.categoryOptions = .allowBluetoothA2DP
                 
                 // adding airplay support
                 configuration.categoryOptions = .allowAirPlay
@@ -507,10 +504,8 @@ extension CallViewController: QBRTCConferenceClientDelegate {
                     configuration.mode = AVAudioSession.Mode.videoChat.rawValue
                 }
             }
-            if let muteAudio = muteAudio, let muteVideo = muteVideo {
-                session?.localMediaStream.audioTrack.isEnabled = !muteAudio
-                session?.localMediaStream.videoTrack.isEnabled = !muteVideo
-            }
+            session?.localMediaStream.audioTrack.isEnabled = !muteAudio
+            session?.localMediaStream.videoTrack.isEnabled = !muteVideo
             if cameraCapture != nil {
                 session?.localMediaStream.videoTrack.videoCapture = cameraCapture
             }
@@ -528,8 +523,7 @@ extension CallViewController: QBRTCConferenceClientDelegate {
         }
     }
     
-    private func session(_ session: QBRTCConferenceSession?, didJoinChatDialogWithID chatDialogID: String?, publishersList: [NSNumber]?) {
-        guard let publishersList = publishersList else { return }
+    func session(_ session: QBRTCConferenceSession?, didJoinChatDialogWithID chatDialogID: String?, publishersList: [NSNumber]) {
         if session == self.session {
             state = CallViewControllerState.connected
             if publishersList.isEmpty == false {
@@ -638,7 +632,7 @@ extension CallViewController: QBRTCBaseClientDelegate {
 // MARK: UICollectionViewDataSource
 extension CallViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.isEmpty ? 0 : users.count
+        return users.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)

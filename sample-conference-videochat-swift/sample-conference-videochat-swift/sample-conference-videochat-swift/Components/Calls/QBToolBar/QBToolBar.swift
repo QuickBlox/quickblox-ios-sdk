@@ -25,15 +25,11 @@ class QBToolBar: UIToolbar {
     }
     
     func updateItems() {
-        
         var items = [UIBarButtonItem]()
-        
         let fs = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         for button in buttons {
-            
             var item: UIBarButtonItem? = nil
                 item = UIBarButtonItem(customView: button)
-          
             guard let itemsCount = self.items?.count else { return }
             if itemsCount > 0 {
                 items = items + self.items!
@@ -43,26 +39,21 @@ class QBToolBar: UIToolbar {
                 items.append(anItem)
             }
         }
-        
         items.append(fs)
         self.items = items
     }
     
     func add(_ button: UIButton?, action: @escaping (_ sender: UIButton?) -> Void) {
-        
         button?.addTarget(self, action: #selector(self.press(_:)), for: .touchUpInside)
-        
-        if let aButton = button {
-            buttons.append(aButton)
+        if let button = button {
+            buttons.append(button)
         }
         actions.append(action)
     }
     
     @objc func press(_ button: QBButton) {
-        
-        let idx = buttons.index(of: button)
-        
-        let action: ((_ sender: UIButton?) -> Void)? = actions[idx ?? 0]
+        guard let idx = buttons.index(of: button) else { return }
+        let action: ((_ sender: UIButton?) -> Void)? = actions[idx]
         action?(button)
     }
 }

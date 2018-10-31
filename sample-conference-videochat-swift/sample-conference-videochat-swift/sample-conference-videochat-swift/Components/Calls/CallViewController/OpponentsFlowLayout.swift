@@ -24,16 +24,13 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
     }
     
     func commonInit() {
-        
         minimumInteritemSpacing = 2
         minimumLineSpacing = 2
-        
     }
-    // MARK: UISubclassingHooks
     
+    // MARK: UISubclassingHooks
     override func prepare() {
         layoutAttributes.removeAll()
-        
         let numberOfItems: Int? = collectionView?.numberOfItems(inSection: 0)
         for i in 0..<(numberOfItems ?? 0) {
             let attributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: i, section: 0))
@@ -51,9 +48,7 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
         var array: [UICollectionViewLayoutAttributes] = []
         for attributes in layoutAttributes {
             if !rect.intersection((attributes.frame)).isNull {
-    
-                    array.append(attributes)
-
+                array.append(attributes)
             }
         }
         return array
@@ -75,8 +70,8 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
         if let position = map?[itemsCount] {
             return position
         }
-
         return -1
+//        return 0
     }
     
     func itemFrame(withItemIndex itemIndex: Int, itemsCount: Int) -> CGRect {
@@ -104,22 +99,20 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
                 }
             }
             
-            let w: CGFloat = contentSize.width * scale
-            let h: CGFloat = contentSize.height / rows
+            let w: CGFloat = (contentSize.width * scale)
+            let h: CGFloat = (contentSize.height / rows)
             let i = CGFloat((itemIndex + shift))
-            
             let row = CGFloat(floorf(Float(i / CGFloat(columns))))
             let col: Int = (itemIndex + shift) % columns
-            
+
+//            return CGRect(x: 5, y: 300 * itemIndex, width: 300, height: 280)
             return CGRect(x: w * CGFloat(col), y: h * row, width: w, height: h)
         } else {
-            
             return CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
         }
     }
     
     private func numberOfColumns(numberOfItems: Int, isPortrait: Bool) -> Int {
-        
         var countOfColumns: Int
         if isPortrait {
             switch numberOfItems {

@@ -14,27 +14,21 @@ struct StatsViewConstants {
 
 class StatsView: UIView {
     
-    private var statsLabel: UILabel?
+    lazy private var statsLabel: UILabel = {
+        let statsLabel = UILabel(frame: bounds)
+        statsLabel.text = StatsViewConstants.kQMStatsReportPlaceholderText
+        statsLabel.numberOfLines = 0
+        statsLabel.font = UIFont(name: "Roboto", size: 12)
+        statsLabel.adjustsFontSizeToFitWidth = true
+        statsLabel.minimumScaleFactor = 0.6
+        statsLabel.textColor = UIColor.green
+        return statsLabel
+    }()
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
-        
-        
-        statsLabel = UILabel(frame: frame)
-        statsLabel?.text = StatsViewConstants.kQMStatsReportPlaceholderText
-        statsLabel?.numberOfLines = 0
-        if let aSize = UIFont(name: "Roboto", size: 12) {
-            statsLabel?.font = aSize
-        }
-        statsLabel?.adjustsFontSizeToFitWidth = true
-        statsLabel?.minimumScaleFactor = 0.6
-        statsLabel?.textColor = UIColor.green
-        if let aLabel = statsLabel {
-            addSubview(aLabel)
-        }
+        addSubview(statsLabel)
         backgroundColor = UIColor(white: 0, alpha: 0.6)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,22 +40,18 @@ class StatsView: UIView {
         if stats == nil {
             stats = StatsViewConstants.kQMStatsReportPlaceholderText
         }
-        statsLabel?.text = stats
+        statsLabel.text = stats
     }
     
     override func layoutSubviews() {
-        statsLabel?.frame = bounds
+        statsLabel.frame = bounds
     }
     
     override var isHidden: Bool {
-        willSet {
-            if isHidden {
-                
+        didSet {
+            if isHidden == true {
                 setStats(nil)
             }
-        }
-        didSet {
-            debugPrint("isHidden did set")
         }
     }
 }
