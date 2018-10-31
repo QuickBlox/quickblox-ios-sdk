@@ -87,7 +87,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     private var didStartPlayAndRecord = false
     
-    private let core = QBCore.instance
+    private let core = Core.instance
     private let settings = Settings.instance
     
     var isListnerOnly: Bool {

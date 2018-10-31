@@ -9,20 +9,18 @@
 import UIKit
 
 class CheckView: UIView {
-    
     let checkboxNormalImage = UIImage(named: "checkbox-normal")
     let checkboxPressedImage = UIImage(named: "checkbox-pressed")
     private var imageView: UIImageView!
     
     var check: Bool? {
         didSet {
-            setCheck(check!)
+            updateCheck(check)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         imageView = UIImageView(image: checkboxNormalImage)
         imageView.frame = bounds
         addSubview(imageView)
@@ -33,7 +31,8 @@ class CheckView: UIView {
         imageView.frame = bounds
     }
     
-    func setCheck(_ check: Bool) {
+    func updateCheck(_ check: Bool?) {
+        guard let check = check else { return }
         imageView.image = check ? checkboxPressedImage : checkboxNormalImage
     }
 }

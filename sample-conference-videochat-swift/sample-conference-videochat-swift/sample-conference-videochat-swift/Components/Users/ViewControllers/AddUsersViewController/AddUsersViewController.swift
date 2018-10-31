@@ -28,7 +28,6 @@ class AddUsersViewController: UITableViewController {
             occupantIDs.contains(NSNumber(value: $0.id)) == false
         })
         dataSource.updateObjects(users)
-        
         tableView.dataSource = dataSource
         tableView.rowHeight = 44
         
@@ -72,7 +71,6 @@ class AddUsersViewController: UITableViewController {
             self?.navigationController?.popViewController(animated: true)
             
             }, errorBlock: { response in
-                
                 SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
         })
     }
@@ -87,11 +85,10 @@ class AddUsersViewController: UITableViewController {
     // MARK: Private
     @objc func fetchData() {
         QBDataFetcher.fetchUsers({ [weak self] users in
-
+            
             guard let users = users else { return }
             var mutableUsers = users
             for user in users {
-                
                 if (self?.chatDialog?.occupantIDs?.contains(NSNumber(value: user.id)))! {
                     mutableUsers.removeAll(where: { element in element == user })
                 }

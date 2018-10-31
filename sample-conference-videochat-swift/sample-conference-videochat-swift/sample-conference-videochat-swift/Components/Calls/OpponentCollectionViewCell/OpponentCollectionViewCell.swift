@@ -81,15 +81,14 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     
     private func addVideoView() {
         guard let video = videoView else {return}
-            containerView.addSubview(video)
-        video.translatesAutoresizingMaskIntoConstraints = false
-        video.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        video.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        video.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        video.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-         video.layer.bounds = video.bounds
-            containerView.bringSubviewToFront(video)
-//        }
+        containerView.addSubview(video)
+//        video.translatesAutoresizingMaskIntoConstraints = false
+//        video.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+//        video.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+//        video.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+//        video.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        video.layer.bounds = video.bounds
+        containerView.bringSubviewToFront(video)
     }
     
     func setConnectionState(_ connectionState: QBRTCConnectionState) {

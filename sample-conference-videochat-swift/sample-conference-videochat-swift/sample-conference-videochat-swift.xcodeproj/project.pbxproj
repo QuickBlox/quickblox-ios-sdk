@@ -30,8 +30,8 @@
 		2C4C26192166743500B1E8C4 /* OpponentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26182166743500B1E8C4 /* OpponentsFlowLayout.swift */; };
 		2C4C261B2166744D00B1E8C4 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261A2166744D00B1E8C4 /* StatsView.swift */; };
 		2C4C261D2166745F00B1E8C4 /* ZoomedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261C2166745F00B1E8C4 /* ZoomedView.swift */; };
-		2C4C2620216674F300B1E8C4 /* QBProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261F216674F300B1E8C4 /* QBProfile.swift */; };
-		2C4C26222166750900B1E8C4 /* QBCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26212166750900B1E8C4 /* QBCore.swift */; };
+		2C4C2620216674F300B1E8C4 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261F216674F300B1E8C4 /* Profile.swift */; };
+		2C4C26222166750900B1E8C4 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26212166750900B1E8C4 /* Core.swift */; };
 		2C4C26242166753C00B1E8C4 /* QMRootViewControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26232166753C00B1E8C4 /* QMRootViewControllerSegue.swift */; };
 		2C4C26262166755600B1E8C4 /* QMSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26252166755600B1E8C4 /* QMSoundManager.swift */; };
 		2C4C262C2166771A00B1E8C4 /* BaseSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C262B2166771A00B1E8C4 /* BaseSettingsViewController.swift */; };
@@ -89,8 +89,8 @@
 		2C4C26182166743500B1E8C4 /* OpponentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentsFlowLayout.swift; sourceTree = "<group>"; };
 		2C4C261A2166744D00B1E8C4 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		2C4C261C2166745F00B1E8C4 /* ZoomedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomedView.swift; sourceTree = "<group>"; };
-		2C4C261F216674F300B1E8C4 /* QBProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBProfile.swift; sourceTree = "<group>"; };
-		2C4C26212166750900B1E8C4 /* QBCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBCore.swift; sourceTree = "<group>"; };
+		2C4C261F216674F300B1E8C4 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		2C4C26212166750900B1E8C4 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		2C4C26232166753C00B1E8C4 /* QMRootViewControllerSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QMRootViewControllerSegue.swift; sourceTree = "<group>"; };
 		2C4C26252166755600B1E8C4 /* QMSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QMSoundManager.swift; sourceTree = "<group>"; };
 		2C4C262B2166771A00B1E8C4 /* BaseSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingsViewController.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				2C4C261E216674DA00B1E8C4 /* UserPorfile */,
-				2C4C26212166750900B1E8C4 /* QBCore.swift */,
+				2C4C26212166750900B1E8C4 /* Core.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -365,7 +365,7 @@
 		2C4C261E216674DA00B1E8C4 /* UserPorfile */ = {
 			isa = PBXGroup;
 			children = (
-				2C4C261F216674F300B1E8C4 /* QBProfile.swift */,
+				2C4C261F216674F300B1E8C4 /* Profile.swift */,
 			);
 			path = UserPorfile;
 			sourceTree = "<group>";
@@ -653,7 +653,7 @@
 				2C4C262C2166771A00B1E8C4 /* BaseSettingsViewController.swift in Sources */,
 				2C4C26302166776900B1E8C4 /* VideoSettingsViewController.swift in Sources */,
 				2CCB5ED2217DD9B300555AAA /* SliderItemModel.swift in Sources */,
-				2C4C26222166750900B1E8C4 /* QBCore.swift in Sources */,
+				2C4C26222166750900B1E8C4 /* Core.swift in Sources */,
 				2C4C261D2166745F00B1E8C4 /* ZoomedView.swift in Sources */,
 				2C4C26172166741000B1E8C4 /* LocalVideoView.swift in Sources */,
 				2C4C2615216673F300B1E8C4 /* CallViewController.swift in Sources */,
@@ -689,7 +689,7 @@
 				2CCB5EC8217DCD9B00555AAA /* SwitchItemModel.swift in Sources */,
 				2C4C261B2166744D00B1E8C4 /* StatsView.swift in Sources */,
 				2CC867C32170ABF1006DF7BC /* DialogTableViewCell.swift in Sources */,
-				2C4C2620216674F300B1E8C4 /* QBProfile.swift in Sources */,
+				2C4C2620216674F300B1E8C4 /* Profile.swift in Sources */,
 				2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

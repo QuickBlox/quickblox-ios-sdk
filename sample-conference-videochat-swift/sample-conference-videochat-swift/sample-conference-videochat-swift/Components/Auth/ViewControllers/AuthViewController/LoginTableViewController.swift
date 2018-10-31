@@ -16,8 +16,11 @@ struct LoginConstant {
     static let shouldContainAlphanumeric = NSLocalizedString("Field should contain alphanumeric characters only in a range 3 to 20. The first character must be a letter.", comment: "")
     static let shouldContainAlphanumericWithoutSpace = NSLocalizedString("Field should contain alphanumeric characters only in a range 3 to 15, without space. The first character must be a letter.", comment: "")
     static let showUsers = "ShowUsersViewController"
-    static let userNameRegex = "^[^_][\\w\\u00C0-\\u1FFF\\u2C00-\\uD7FF\\s]{2,19}$"
-    static let tagRegex = "^[a-zA-Z][a-zA-Z0-9]{2,14}$"
+}
+
+struct LoginNameRegularExtention {
+    static let user = "^[^_][\\w\\u00C0-\\u1FFF\\u2C00-\\uD7FF\\s]{2,19}$"
+    static let chat = "^[a-zA-Z][a-zA-Z0-9]{2,14}$"
 }
 
 class LoginTableViewController: UITableViewController {
@@ -30,9 +33,24 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet private weak var chatRoomNameTextField: UITextField!
     @IBOutlet private weak var loginButton: QBLoadingButton!
 
-    // MARK: Variables
-    let core = QBCore.instance
-    var needReconnect = false
+    // MARK: Properties
+    private let core = Core.instance
+    private var needReconnect = false
+    
+    // MARK: - Disable / Enable inputs
+    private var inputEnabled = true {
+        didSet {
+            chatRoomNameTextField.isEnabled = inputEnabled
+            userNameTextField.isEnabled = inputEnabled
+        }
+    }
+    
+    private var infoText = "" {
+        didSet {
+            loginInfo.text = infoText
+            tableView.reloadData()
+        }
+    }
     
     // MARK: Life Cicles
     override func viewDidLoad() {
@@ -59,14 +77,14 @@ class LoginTableViewController: UITableViewController {
         debugPrint("deinit \(self)")
     }
     
+    // MARK - Setup
     private func defaultConfiguration() {
         loginButton.hideLoading()
         loginButton.setTitle(LoginConstant.login, for: .normal)
         loginButton.isEnabled = false
         userNameTextField.text = ""
         chatRoomNameTextField.text = ""
-        
-        setInputEnabled(enabled: true)
+        inputEnabled = true
         
         // Reachability
         let updateLoginInfo: ((_ status: NetworkConnectionStatus) -> Void)? = { status in
@@ -76,7 +94,7 @@ class LoginTableViewController: UITableViewController {
         }
         
         core.networkStatusBlock = { status in
-            if self.needReconnect == true && status != NetworkConnectionStatus.notConnection {
+            if self.needReconnect == true, status != NetworkConnectionStatus.notConnection {
                 self.needReconnect = false
                 self.login()
             } else {
@@ -86,47 +104,25 @@ class LoginTableViewController: UITableViewController {
         updateLoginInfo?(core.networkConnectionStatus())
     }
     
-    // MARK: - Disable / Enable inputs
-    private func setInputEnabled(enabled: Bool) {
-            chatRoomNameTextField.isEnabled = enabled
-            userNameTextField.isEnabled = enabled
-    }
-    
-    // MARK: UIControl Actions
+    // MARK: Actions
     @IBAction func didPressLoginButton(_ sender: QBLoadingButton) {
         login()
-    }
-
-    // MARK: - UITableViewDelegate
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
     }
     
     @IBAction func editingChanged(_ sender: UITextField) {
         validate(sender)
         loginButton.isEnabled = userNameIsValid() && chatRoomIsValid()
     }
-    
-    func validate(_ textField: UITextField?) {
-        if textField == userNameTextField && !userNameIsValid() {
-            chatRoomDescritptionLabel.text = ""
-            userNameDescriptionLabel.text = LoginConstant.shouldContainAlphanumeric
-        } else if textField == chatRoomNameTextField && !chatRoomIsValid() {
-            userNameDescriptionLabel.text = ""
-            chatRoomDescritptionLabel.text = LoginConstant.shouldContainAlphanumericWithoutSpace
-        } else {
-            userNameDescriptionLabel.text = ""
-            chatRoomDescritptionLabel.text = userNameDescriptionLabel.text
-        }
-        tableView.beginUpdates()
-        tableView.endUpdates()
+
+    // MARK: - Overrides
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     func setLoginInfoText(_ text: String?) {
         if text != loginInfo.text {
             loginInfo.text = text
-            tableView.beginUpdates()
-            tableView.endUpdates()
+            tableView.reloadData()
         }
     }
     
@@ -142,61 +138,78 @@ class LoginTableViewController: UITableViewController {
     }
     
     func beginConnect() {
-        setInputEnabled(enabled: false)
+        inputEnabled = false
         loginButton.showLoading()
     }
     
-    func endConnectError() throws {
-        setInputEnabled(enabled: true)
+    func endConnectError() {
+        inputEnabled = true
         loginButton.hideLoading()
     }
     
-    // MARK: - Validation helpers
-    func userNameIsValid() -> Bool {
-        let characterSet = CharacterSet.whitespaces
-        let userName = userNameTextField.text?.trimmingCharacters(in: characterSet)
-        let userNameRegex = LoginConstant.userNameRegex
-        let userNamePredicate = NSPredicate(format: "SELF MATCHES %@", userNameRegex)
-        let userNameIsValid: Bool = userNamePredicate.evaluate(with: userName)
-        return userNameIsValid
+    // MARK: - Private
+    private func validate(_ textField: UITextField?) {
+        if textField == userNameTextField, userNameIsValid() == false {
+            chatRoomDescritptionLabel.text = ""
+            userNameDescriptionLabel.text = LoginConstant.shouldContainAlphanumeric
+        } else if textField == chatRoomNameTextField, chatRoomIsValid() == false {
+            userNameDescriptionLabel.text = ""
+            chatRoomDescritptionLabel.text = LoginConstant.shouldContainAlphanumericWithoutSpace
+        } else {
+            userNameDescriptionLabel.text = ""
+            chatRoomDescritptionLabel.text = userNameDescriptionLabel.text
+        }
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
     
-    func chatRoomIsValid() -> Bool {
+    // MARK: - Validation helpers
+    private func userNameIsValid() -> Bool {
         let characterSet = CharacterSet.whitespaces
-        let tag = chatRoomNameTextField.text?.trimmingCharacters(in: characterSet)
-        let tagRegex = LoginConstant.tagRegex
-        let tagPredicate = NSPredicate(format: "SELF MATCHES %@", tagRegex)
-        let tagIsValid: Bool = tagPredicate.evaluate(with: tag)
-        return tagIsValid
+        let trimmedText = userNameTextField.text?.trimmingCharacters(in: characterSet)
+        let regularExtension = LoginNameRegularExtention.user
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regularExtension)
+        let isValid = predicate.evaluate(with: trimmedText)
+        return isValid
+    }
+    
+    private func chatRoomIsValid() -> Bool {
+        let characterSet = CharacterSet.whitespaces
+        let trimmedText = chatRoomNameTextField.text?.trimmingCharacters(in: characterSet)
+        let regularExtension = LoginNameRegularExtention.chat
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regularExtension)
+        let isValid: Bool = predicate.evaluate(with: trimmedText)
+        return isValid
     }
 }
 
 // MARK: - QBCoreDelegate metods
-extension LoginTableViewController: QBCoreDelegate {
+extension LoginTableViewController: CoreDelegate {
     
-    func coreDidLogin(_ core: QBCore) {
+    func coreDidLogin(_ core: Core) {
         performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
     }
     
-    func coreDidLogout(_ core: QBCore) {
+    func coreDidLogout(_ core: Core) {
         defaultConfiguration()
     }
     
-    func core(_ core: QBCore, _ loginStatus: String) {
-        setLoginInfoText(loginStatus)
+    func core(_ core: Core, _ loginStatus: String) {
+        self.infoText = loginStatus
     }
     
-    func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain) {
+    func core(_ core: Core, _ error: Error, _ domain: ErrorDomain) {
         var infoText = error.localizedDescription
         if error._code == NSURLErrorNotConnectedToInternet {
             infoText = LoginConstant.checkInternet
             needReconnect = true
-        } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection {
-            if domain == ErrorDomain.signUp || domain == ErrorDomain.logIn {
+        } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection,
+            domain == ErrorDomain.signUp || domain == ErrorDomain.logIn {
                 login()
-            }
+        } else {
+            endConnectError()
         }
-        setLoginInfoText(infoText)
+        self.infoText = infoText
     }
 }
 

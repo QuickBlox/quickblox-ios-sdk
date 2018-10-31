@@ -48,17 +48,14 @@ class Settings {
         if let postion = AVCaptureDevice.Position(rawValue: defaults.integer(forKey: SettingsConstants.preferredCameraPosition)) {
             preferredCameraPostion = postion == .unspecified ? .front : postion
         }
-        
         if let videoFormatData = defaults.object(forKey: SettingsConstants.videoFormatKey) as? Data,
             let data = NSKeyedUnarchiver.unarchiveObject(with: videoFormatData) {
             videoFormat = data as? QBRTCVideoFormat ?? QBRTCVideoFormat.default()
         }
-        
         if let mediaConfigData = defaults.object(forKey: SettingsConstants.mediaConfigKey) as? Data,
             let data = NSKeyedUnarchiver.unarchiveObject(with: mediaConfigData) {
             mediaConfiguration = data as? QBRTCMediaStreamConfiguration ?? QBRTCMediaStreamConfiguration.default()
         }
-        
         applyConfig()
     }
 }

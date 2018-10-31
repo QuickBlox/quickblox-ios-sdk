@@ -14,8 +14,8 @@ class SettingSliderCell: BaseSettingsCell {
     @IBOutlet private weak var minLabel: UILabel!
     @IBOutlet private weak var slider: UISlider!
     var modelSlider = SliderItemModel()
+    
     override func updateModel(_ model: BaseItemModel) {
-        
         modelSlider = model as! SliderItemModel
         label.text = String(format: "%tu", modelSlider.currentValue)
         maxLabel.text = String(format: "%tu", modelSlider.maxValue)

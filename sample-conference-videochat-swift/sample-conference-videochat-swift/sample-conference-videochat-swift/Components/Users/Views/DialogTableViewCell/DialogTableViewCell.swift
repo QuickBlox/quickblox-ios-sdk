@@ -23,11 +23,11 @@ class DialogTableViewCell: UITableViewCell {
     
      var title: String? {
         didSet {
-            setTitle(title)
+            updateTitle(title)
         }
     }
     
-    private func setTitle(_ title: String?) {
+    private func updateTitle(_ title: String?) {
             titleLabel.text = self.title
     }
     

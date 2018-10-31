@@ -29,10 +29,11 @@ struct CallSettings {
     var chatDialog: QBChatDialog
 }
 
-class MainTableViewController: UITableViewController, SettingsViewControllerDelegate, QBCoreDelegate, UsersViewControllerDelegate {
+class MainTableViewController: UITableViewController, SettingsViewControllerDelegate, CoreDelegate,
+UsersViewControllerDelegate {
   
     //MARK: Variables
-    let core = QBCore.instance
+    let core = Core.instance
     private let dialogsDataSource = DialogsDataSource.init()
     lazy private var usersDataSource: UsersDataSource = {
         let usersDataSource = UsersDataSource()
@@ -192,12 +193,11 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
     }
     
     // MARK: QBCoreDelegate
-    func coreDidLogin(_ core: QBCore) {
-        debugPrint("coreDidLogin")
+    func coreDidLogin(_ core: Core) {
+        SVProgressHUD.dismiss()
     }
     
-    func coreDidLogout(_ core: QBCore) {
-        debugPrint("coreDidLogout")
+    func coreDidLogout(_ core: Core) {
         SVProgressHUD.dismiss()
         //Dismiss Settings view controller
         dismiss(animated: false)
@@ -206,11 +206,11 @@ class MainTableViewController: UITableViewController, SettingsViewControllerDele
         })
     }
     
-    func core(_ core: QBCore, _ loginStatus: String) {
+    func core(_ core: Core, _ loginStatus: String) {
         debugPrint("coreDidLogin")
     }
     
-    func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain) {
+    func core(_ core: Core, _ error: Error, _ domain: ErrorDomain) {
         if domain == ErrorDomain.logOut {
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         }

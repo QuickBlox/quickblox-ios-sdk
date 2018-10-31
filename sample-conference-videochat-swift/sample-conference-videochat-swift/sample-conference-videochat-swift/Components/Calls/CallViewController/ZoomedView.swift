@@ -17,12 +17,10 @@ class ZoomedView: UIView {
     var didTapView: ((_ zoomedView: ZoomedView?) -> Void)?
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
-        
         backgroundColor = UIColor(white: 0, alpha: 1.0)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didReceiveTap(_:))))
-        
+        addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                    action: #selector(didReceiveTap(_:))))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,12 +28,16 @@ class ZoomedView: UIView {
     }
     
     func setVideo(_ videoView: UIView?) {
-        
         if self.videoView != videoView {
             self.videoView = videoView
             videoView?.removeFromSuperview()
             videoView?.frame = bounds
-            videoView?.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+            videoView?.autoresizingMask = [.flexibleWidth,
+                                           .flexibleHeight,
+                                           .flexibleLeftMargin,
+                                           .flexibleRightMargin,
+                                           .flexibleTopMargin,
+                                           .flexibleBottomMargin]
             if let videoView = videoView {
                 addSubview(videoView)
             }

@@ -11,13 +11,21 @@ import Quickblox
 import SVProgressHUD
 
 protocol UsersViewControllerDelegate: class {
-    func usersViewController(_ usersViewController: UsersViewController?, didCreateChatDialog chatDialog: QBChatDialog?)
+    func usersViewController(_ usersViewController: UsersViewController?,
+                             didCreateChatDialog chatDialog: QBChatDialog?)
+}
+
+struct UsersViewControllerConstant {
+    static let create = "Create"
+    static let creatingChatDialog = NSLocalizedString("Creating chat dialog.", comment: "")
+    static let checkInternetConnection = NSLocalizedString("Please check your Internet connection",
+                                                           comment: "")
 }
 
 class UsersViewController: UITableViewController {
     
     // MARK: Variables
-    let core = QBCore.instance
+    let core = Core.instance
     
     weak var dataSource: UsersDataSource?
     weak var delegate: UsersViewControllerDelegate?
@@ -31,10 +39,14 @@ class UsersViewController: UITableViewController {
         
         // adding refresh control task
         if (refreshControl != nil) {
-            refreshControl?.addTarget(self, action: #selector(UsersViewController.fetchData), for: .valueChanged)
+            refreshControl?.addTarget(self, action: #selector(UsersViewController.fetchData),
+                                      for: .valueChanged)
         }
         
-        let createChatButton = UIBarButtonItem(title: "Create", style: .plain, target: self, action: #selector(UsersViewController.didPressCreateChatButton(_:)))
+        let createChatButton = UIBarButtonItem(title: UsersViewControllerConstant.create,
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(didPressCreateChatButton(_:)))
         
         navigationItem.rightBarButtonItem = createChatButton
         navigationItem.rightBarButtonItem?.isEnabled = false
@@ -44,7 +56,8 @@ class UsersViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if (refreshControl?.isRefreshing)! {
-            tableView.setContentOffset(CGPoint(x: 0, y: -(refreshControl?.frame.height)!), animated: false)
+            tableView.setContentOffset(CGPoint(x: 0, y: -(refreshControl?.frame.height)!),
+                                       animated: false)
         }
     }
     
@@ -60,8 +73,7 @@ class UsersViewController: UITableViewController {
     }
     
     @objc func didPressCreateChatButton(_ item: UIBarButtonItem?) {
-        
-        if hasConnectivity() {
+        if hasConnectivity() == true {
             
             let selectedUsers = dataSource?.selectedObjects
             let userIDs = selectedUsers?.map{ $0.id }
@@ -73,7 +85,7 @@ class UsersViewController: UITableViewController {
             let userNamesString = userNames.joined(separator: ", ")
             chatDialog.name = "\(fullName), \(userNamesString)"
             
-            SVProgressHUD.show(withStatus: NSLocalizedString("Creating chat dialog.", comment: ""))
+            SVProgressHUD.show(withStatus: UsersViewControllerConstant.creatingChatDialog)
             
             QBRequest.createDialog(chatDialog, successBlock: { [weak self] response, createdDialog in
                 guard let `self` = self else { return }
@@ -82,7 +94,6 @@ class UsersViewController: UITableViewController {
                 self.navigationController?.popViewController(animated: true)
                 
                 }, errorBlock: { response in
-                    
                     SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
             })
         }
@@ -102,35 +113,29 @@ class UsersViewController: UITableViewController {
     
     // MARK: Actions
     func hasConnectivity() -> Bool {
-        
         let hasConnectivity: Bool = core.networkConnectionStatus() != NetworkConnectionStatus.notConnection
-        
-        if !hasConnectivity {
-            showAlertView(withMessage: NSLocalizedString("Please check your Internet connection", comment: ""))
+        if hasConnectivity == false {
+            showAlertView(withMessage: UsersViewControllerConstant.checkInternetConnection)
         }
-        
         return hasConnectivity
     }
     
     func showAlertView(withMessage message: String?) {
-        
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .default, handler: nil))
-        
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""),
+                                                style: .default, handler: nil))
         present(alertController, animated: true)
     }
     
     // MARK: Private
     @objc func fetchData() {
-        
         QBDataFetcher.fetchUsers({ [weak self] users in
             if let users = users {
                 self?.dataSource?.updateObjects(users)
                 self?.tableView.reloadData()
                 self?.refreshControl?.endRefreshing()
             } else {
-                self?.showAlertView(withMessage: NSLocalizedString("Please check your Internet connection", comment: ""))
+                self?.showAlertView(withMessage:  UsersViewControllerConstant.checkInternetConnection)
             }
         })
     }

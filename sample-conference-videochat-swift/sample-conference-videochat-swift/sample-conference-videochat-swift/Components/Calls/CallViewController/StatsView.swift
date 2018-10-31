@@ -9,14 +9,13 @@
 import UIKit
 
 struct StatsViewConstants {
-    static let kQMStatsReportPlaceholderText = "Loading stats report..."
+    static let statsReportPlaceholderText = "Loading stats report..."
 }
 
 class StatsView: UIView {
-    
     lazy private var statsLabel: UILabel = {
         let statsLabel = UILabel(frame: bounds)
-        statsLabel.text = StatsViewConstants.kQMStatsReportPlaceholderText
+        statsLabel.text = StatsViewConstants.statsReportPlaceholderText
         statsLabel.numberOfLines = 0
         statsLabel.font = UIFont(name: "Roboto", size: 12)
         statsLabel.adjustsFontSizeToFitWidth = true
@@ -38,7 +37,7 @@ class StatsView: UIView {
     func setStats(_ stats: String?) {
         var stats = stats
         if stats == nil {
-            stats = StatsViewConstants.kQMStatsReportPlaceholderText
+            stats = StatsViewConstants.statsReportPlaceholderText
         }
         statsLabel.text = stats
     }

@@ -25,8 +25,6 @@ struct AudioCodecBandWidthRange {
 }
 
 @inline(__always) private func audioCodecRangeForCodec(codec: QBRTCAudioCodec) -> AudioCodecBandWidthRange {
-    
-    
     var range: AudioCodecBandWidthRange = AudioCodecBandWidthRange()
     switch codec {
     case QBRTCAudioCodec.codecOpus:
@@ -41,7 +39,6 @@ struct AudioCodecBandWidthRange {
     default:
         break
     }
-    
     return range
 }
 
@@ -49,16 +46,10 @@ class AudioSettingsViewController: BaseSettingsViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    // MARK: - Overrides superClass Metods
     override func title(forSection section: Int) -> String? {
-        
         switch section {
         case AudioSettingsSectionType.constraints.rawValue:
             return "Constraints"
@@ -67,14 +58,10 @@ class AudioSettingsViewController: BaseSettingsViewController {
         default:
             break
         }
-        
         return nil
     }
     
     override func configure() {
-        
-//        weak var weakSelf = self
-        
         //Constraints
         addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { [weak self] sectionTitle in
             
@@ -172,7 +159,6 @@ class AudioSettingsViewController: BaseSettingsViewController {
     override func applySettings() {
         
         //APPLY SETTINGS
-        
         //constraints
         let constraints: SettingsSectionModel? = section(with: AudioSettingsSectionType.constraints.rawValue)
         let levelControlSwitch: SwitchItemModel? = constraints?.items.first as? SwitchItemModel
@@ -183,10 +169,8 @@ class AudioSettingsViewController: BaseSettingsViewController {
         let switchItem: SwitchItemModel? = bandwidth?.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
         let isEnabled = switchItem?.on
         if isEnabled ?? false {
-            
             let bandwidthSlider: SliderItemModel? = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
             settings.mediaConfiguration.audioBandwidth = Int(bitPattern: (bandwidthSlider?.currentValue)!)
-            
         } else {
             settings.mediaConfiguration.audioBandwidth = 0
         }

@@ -23,7 +23,6 @@ let kQBAnswerTimeInterval: TimeInterval = 60.0
 let kQBDialingTimeInterval: TimeInterval = 5.0
 
 struct AppDelegateConstant {
-    static let endpointProd = "wss://janus.quickblox.com:8989"
     static let assertMessage = "Multi-conference server is available only for Enterprise plans. Please refer to https://quickblox.com/developers/EnterpriseFeatures for more information and contacts."
 }
 
@@ -49,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCConfig.setDialingTimeInterval(kQBDialingTimeInterval)
         QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
         
-        QBRTCConfig.setConferenceEndpoint(AppDelegateConstant.endpointProd)
+        QBRTCConfig.setConferenceEndpoint("")
         assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, AppDelegateConstant.assertMessage)
         
         #if ENABLE_STATS_REPORTS
