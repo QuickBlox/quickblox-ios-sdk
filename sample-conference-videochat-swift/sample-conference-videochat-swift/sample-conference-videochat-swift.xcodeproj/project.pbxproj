@@ -16,7 +16,6 @@
 		2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965AF216F8B27008D6889 /* MainTableViewController.swift */; };
 		2C3965B2216F8EF7008D6889 /* QBDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965B1216F8EF7008D6889 /* QBDataFetcher.swift */; };
 		2C3965B4216FA76F008D6889 /* DialogsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965B3216FA76F008D6889 /* DialogsDataSource.swift */; };
-		2C3965B6216FA810008D6889 /* MainDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3965B5216FA810008D6889 /* MainDataSource.swift */; };
 		2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C25F52166709B00B1E8C4 /* Assets.xcassets */; };
 		2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */; };
 		2C4C2600216671A900B1E8C4 /* QBLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FF216671A900B1E8C4 /* QBLoadingButton.swift */; };
@@ -75,7 +74,6 @@
 		2C3965AF216F8B27008D6889 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		2C3965B1216F8EF7008D6889 /* QBDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBDataFetcher.swift; sourceTree = "<group>"; };
 		2C3965B3216FA76F008D6889 /* DialogsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsDataSource.swift; sourceTree = "<group>"; };
-		2C3965B5216FA810008D6889 /* MainDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDataSource.swift; sourceTree = "<group>"; };
 		2C4C25EB21666C8700B1E8C4 /* sample-conference-videochat-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-conference-videochat-swift.entitlements"; sourceTree = "<group>"; };
 		2C4C25F52166709B00B1E8C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../sample-conference-videochat/sample-conference-videochat/Assets.xcassets"; sourceTree = "<group>"; };
 		2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
@@ -446,7 +444,6 @@
 				2CCD5C0E216E3BB000A52051 /* UsersDataSource */,
 				2CCD5C0D216E3BA200A52051 /* QBDataFetcher */,
 				2CCD5C0C216E3B9400A52051 /* PlaceholderGenerator */,
-				2CCD5C0B216E3B7200A52051 /* MainDataSource */,
 				2CCD5C0A216E3B3A00A52051 /* DialogsDataSource */,
 			);
 			path = Classes;
@@ -476,14 +473,6 @@
 				2C3965B3216FA76F008D6889 /* DialogsDataSource.swift */,
 			);
 			path = DialogsDataSource;
-			sourceTree = "<group>";
-		};
-		2CCD5C0B216E3B7200A52051 /* MainDataSource */ = {
-			isa = PBXGroup;
-			children = (
-				2C3965B5216FA810008D6889 /* MainDataSource.swift */,
-			);
-			path = MainDataSource;
 			sourceTree = "<group>";
 		};
 		2CCD5C0C216E3B9400A52051 /* PlaceholderGenerator */ = {
@@ -683,7 +672,6 @@
 				2C0E727F21775491007A37E6 /* CheckView.swift in Sources */,
 				2C4C26242166753C00B1E8C4 /* QMRootViewControllerSegue.swift in Sources */,
 				2C4C26192166743500B1E8C4 /* OpponentsFlowLayout.swift in Sources */,
-				2C3965B6216FA810008D6889 /* MainDataSource.swift in Sources */,
 				2C0E7282217758C0007A37E6 /* PlaceholderGenerator.swift in Sources */,
 				2C184FA6217F6F180062E235 /* ReuseIdentifierProtocol.swift in Sources */,
 				2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */,
