@@ -45,13 +45,9 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private var users = [QBUUser]()
     private var cameraCapture: QBRTCCameraCapture?
     private var videoViews = [NSNumber: UIView]()
-    lazy private var dynamicEnable: QBButton = {
-        let dynamicEnable = QBButtonsFactory.dynamicEnable()
+    lazy private var dynamicEnable: CustomButton = {
+        let dynamicEnable = ButtonsFactory.dynamicEnable()
         return dynamicEnable
-    }()
-    lazy private var videoEnabled: QBButton = {
-        let videoEnabled = QBButtonsFactory.videoEnable()
-        return videoEnabled
     }()
     private var localVideoView: LocalVideoView?
     lazy private var statsView: StatsView = {
@@ -152,7 +148,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         if let conferenceType = self.conferenceType {
             switch conferenceType {
             case .video:
-                toolbar.add(videoEnabled, action: { [weak self] sender in
+                toolbar.add(ButtonsFactory.videoEnable(), action: { [weak self] sender in
                     if let muteVideo = self?.muteVideo {
                         self?.muteVideo = !muteVideo
                         self?.localVideoView?.isHidden = !muteVideo
@@ -166,7 +162,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                     QBRTCAudioSession.instance().currentAudioDevice = device
                 })
             }
-            toolbar.add(QBButtonsFactory.auidoEnable(), action: { [weak self] sender in
+            toolbar.add(ButtonsFactory.auidoEnable(), action: { [weak self] sender in
                 if let muteAudio = self?.muteAudio {
                     self?.muteAudio = !muteAudio
                 }

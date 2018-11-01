@@ -50,7 +50,7 @@ class ToolBar: UIToolbar {
         actions.append(action)
     }
     
-    @objc func press(_ button: QBButton) {
+    @objc func press(_ button: CustomButton) {
         guard let idx = buttons.index(of: button) else { return }
         let action: ((_ sender: UIButton?) -> Void)? = actions[idx]
         action?(button)

@@ -20,8 +20,8 @@
 		2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */; };
 		2C4C2600216671A900B1E8C4 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FF216671A900B1E8C4 /* LoadingButton.swift */; };
 		2C4C26022166728000B1E8C4 /* AVCallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26012166728000B1E8C4 /* AVCallPermissions.swift */; };
-		2C4C260A2166734E00B1E8C4 /* QBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26092166734E00B1E8C4 /* QBButton.swift */; };
-		2C4C260C2166736500B1E8C4 /* QBButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260B2166736500B1E8C4 /* QBButtonsFactory.swift */; };
+		2C4C260A2166734E00B1E8C4 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26092166734E00B1E8C4 /* CustomButton.swift */; };
+		2C4C260C2166736500B1E8C4 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */; };
 		2C4C260F2166739A00B1E8C4 /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260E2166739A00B1E8C4 /* ToolBar.swift */; };
 		2C4C2611216673BD00B1E8C4 /* OpponentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2610216673BD00B1E8C4 /* OpponentCollectionViewCell.swift */; };
 		2C4C2613216673D600B1E8C4 /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2612216673D600B1E8C4 /* CornerView.swift */; };
@@ -79,8 +79,8 @@
 		2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		2C4C25FF216671A900B1E8C4 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		2C4C26012166728000B1E8C4 /* AVCallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCallPermissions.swift; sourceTree = "<group>"; };
-		2C4C26092166734E00B1E8C4 /* QBButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBButton.swift; sourceTree = "<group>"; };
-		2C4C260B2166736500B1E8C4 /* QBButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBButtonsFactory.swift; sourceTree = "<group>"; };
+		2C4C26092166734E00B1E8C4 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		2C4C260E2166739A00B1E8C4 /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
 		2C4C2610216673BD00B1E8C4 /* OpponentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentCollectionViewCell.swift; sourceTree = "<group>"; };
 		2C4C2612216673D600B1E8C4 /* CornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
@@ -355,8 +355,8 @@
 		2C4C26082166733400B1E8C4 /* QBToolBar */ = {
 			isa = PBXGroup;
 			children = (
-				2C4C26092166734E00B1E8C4 /* QBButton.swift */,
-				2C4C260B2166736500B1E8C4 /* QBButtonsFactory.swift */,
+				2C4C26092166734E00B1E8C4 /* CustomButton.swift */,
+				2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */,
 				2C4C260E2166739A00B1E8C4 /* ToolBar.swift */,
 			);
 			path = QBToolBar;
@@ -677,9 +677,9 @@
 				2C3965B0216F8B27008D6889 /* MainTableViewController.swift in Sources */,
 				2CCB5ED5217DDA3C00555AAA /* SettingSliderCell.swift in Sources */,
 				2C4C2600216671A900B1E8C4 /* LoadingButton.swift in Sources */,
-				2C4C260C2166736500B1E8C4 /* QBButtonsFactory.swift in Sources */,
+				2C4C260C2166736500B1E8C4 /* ButtonsFactory.swift in Sources */,
 				2C4C26322166778900B1E8C4 /* SessionSettingsViewController.swift in Sources */,
-				2C4C260A2166734E00B1E8C4 /* QBButton.swift in Sources */,
+				2C4C260A2166734E00B1E8C4 /* CustomButton.swift in Sources */,
 				2CCB5ECB217DCFC400555AAA /* SettingCell.swift in Sources */,
 				2C4C2613216673D600B1E8C4 /* CornerView.swift in Sources */,
 				2C0D582221666256001FF80B /* AppDelegate.swift in Sources */,

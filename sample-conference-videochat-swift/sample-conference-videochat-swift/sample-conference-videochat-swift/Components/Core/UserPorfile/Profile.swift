@@ -57,14 +57,14 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
     }
     
     convenience required init?(coder aDecoder: NSCoder) {
-       let userData = aDecoder.decodeObject(forKey: ProfileConstants.profile) as? QBUUser
+        let userData = aDecoder.decodeObject(forKey: ProfileConstants.profile) as? QBUUser
         self.init(userData: userData)
     }
-
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(userData, forKey: ProfileConstants.profile)
     }
-
+    
     /**
      *  Synchronize user data in keychain.
      *
@@ -97,6 +97,7 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
         return success;
     }
     
+    // MARK: - Keychain
     func saveData(_ data: Any?, forKey key: String) -> OSStatus {
         var keychainQuery = getKeychainQueryFor(key: key)
         SecItemDelete(keychainQuery as CFDictionary)
@@ -106,9 +107,8 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
         return SecItemAdd(keychainQuery as CFDictionary, nil)
     }
     
-    // MARK: - Keychain
     func loadObject(forKey key: String) -> QBUUser? {
-        var ret: QBUUser? = nil
+        var user: QBUUser? = nil
         var keychainQuery = getKeychainQueryFor(key: key)
         if let booleanTrue = kCFBooleanTrue {
             keychainQuery[ProfileSecConstant.returnDataValue] = booleanTrue
@@ -116,13 +116,11 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
         keychainQuery[ProfileSecConstant.matchLimitValue] = ProfileSecConstant.matchLimitOneValue
         var keyData: AnyObject?
         let status = SecItemCopyMatching(keychainQuery as CFDictionary, &keyData)
-        if status == noErr {
-            if let keyData = keyData as? Data {
-                ret = NSKeyedUnarchiver.unarchiveObject(with: keyData) as? QBUUser
-              return ret
-            }
+        if status == noErr, let keyData = keyData as? Data {
+            user = NSKeyedUnarchiver.unarchiveObject(with: keyData) as? QBUUser
+            return user
         }
-        return ret
+        return user
     }
     
     private func deleteObjectForKey(key: String) -> OSStatus {
@@ -131,9 +129,9 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
     }
     
     private func getKeychainQueryFor(key: String) -> [AnyHashable : Any] {
-            return ([ProfileSecConstant.classValue: ProfileSecConstant.classGenericPasswordValue,
-                     ProfileSecConstant.attrServiceValue: key,
-                     ProfileSecConstant.attrAccountValue: key,
-                     ProfileSecConstant.attrAccessibleValue: ProfileSecConstant.attrAccessibleAfterFirstUnlockValue])
+        return ([ProfileSecConstant.classValue: ProfileSecConstant.classGenericPasswordValue,
+                 ProfileSecConstant.attrServiceValue: key,
+                 ProfileSecConstant.attrAccountValue: key,
+                 ProfileSecConstant.attrAccessibleValue: ProfileSecConstant.attrAccessibleAfterFirstUnlockValue])
     }
 }
