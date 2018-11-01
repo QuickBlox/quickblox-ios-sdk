@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvl-aP-B6G" customClass="QBToolBar" customModule="sample_conference_videochat_swift">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvl-aP-B6G" customClass="ToolBar" customModule="sample_conference_videochat_swift">
                                 <rect key="frame" x="0.0" y="611" width="375" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="VHO-eP-YBj"/>
@@ -47,14 +47,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTv-bT-QBz">
-                                                    <rect key="frame" x="0.0" y="0.0" width="145" height="139"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vI2-xq-eEs">
-                                                    <rect key="frame" x="8" y="28" width="38.5" height="14"/>
+                                                    <rect key="frame" x="8" y="28" width="34" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="251" horizontalCompressionResistancePriority="249" text="User 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6X-FX-CXC">
-                                                            <rect key="frame" x="4" y="0.0" width="30.5" height="14"/>
+                                                            <rect key="frame" x="4" y="0.0" width="26" height="14"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="14" id="xLV-ME-eC0"/>
                                                             </constraints>
@@ -76,7 +76,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15q-h1-Vu7">
-                                                    <rect key="frame" x="97" y="67" width="40" height="40"/>
+                                                    <rect key="frame" x="2" y="-22" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Ijj-du-1W4"/>
                                                         <constraint firstAttribute="width" constant="40" id="Y8U-1z-Zpd"/>
@@ -86,7 +86,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="local" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRx-qY-Pyw">
-                                                    <rect key="frame" x="0.0" y="115" width="145" height="24"/>
+                                                    <rect key="frame" x="0.0" y="26" width="50" height="24"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.46114864864864863" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="Ywk-Ld-yOZ"/>

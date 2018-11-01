@@ -11,7 +11,7 @@ import UIKit
 class ZoomedView: UIView {
     weak var videoView: UIView? {
         didSet {
-            setVideo(videoView)
+            update(videoView)
         }
     }
     var didTapView: ((_ zoomedView: ZoomedView?) -> Void)?
@@ -27,26 +27,25 @@ class ZoomedView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setVideo(_ videoView: UIView?) {
-        if self.videoView != videoView {
+    func update(_ videoView: UIView?) {
+        if let videoView = videoView {
             self.videoView = videoView
-            videoView?.removeFromSuperview()
-            videoView?.frame = bounds
-            videoView?.autoresizingMask = [.flexibleWidth,
-                                           .flexibleHeight,
-                                           .flexibleLeftMargin,
-                                           .flexibleRightMargin,
-                                           .flexibleTopMargin,
-                                           .flexibleBottomMargin]
-            if let videoView = videoView {
-                addSubview(videoView)
-            }
+            videoView.removeFromSuperview()
+            videoView.frame = bounds
+            videoView.autoresizingMask = [.flexibleWidth,
+                                          .flexibleHeight,
+                                          .flexibleLeftMargin,
+                                          .flexibleRightMargin,
+                                          .flexibleTopMargin,
+                                          .flexibleBottomMargin]
+            
+            addSubview(videoView)
         }
     }
     
     @objc func didReceiveTap(_ __unused: UITapGestureRecognizer?) {
-        if didTapView != nil {
-            didTapView!(self)
+        if let didTapView = didTapView {
+            didTapView(self)
         }
     }
 }

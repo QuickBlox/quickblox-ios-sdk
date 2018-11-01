@@ -220,7 +220,7 @@
                     <connections>
                         <segue destination="MJL-K9-GZh" kind="presentation" identifier="PresentSettingsViewController" id="CSK-Sw-TqM"/>
                         <segue destination="UOh-op-h8a" kind="show" identifier="PresentCallViewController" id="6wq-ei-VLe"/>
-                        <segue destination="KJT-7g-J7B" kind="custom" identifier="SceneSegueAuth" customClass="QMRootViewControllerSegue" customModule="sample_conference_videochat_swift" id="4eV-Dw-noi"/>
+                        <segue destination="KJT-7g-J7B" kind="custom" identifier="SceneSegueAuth" customClass="RootViewControllerSegue" customModule="sample_conference_videochat_swift" customModuleProvider="target" id="4eV-Dw-noi"/>
                         <segue destination="0AV-U1-m9M" kind="show" identifier="PresentUsersViewController" id="Yyv-kM-OpB"/>
                     </connections>
                 </tableViewController>

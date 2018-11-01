@@ -1,5 +1,5 @@
 //
-//  QBAVCallPermissions.swift
+//  AVCallPermissions.swift
 //  sample-conference-videochat-swift
 //
 //  Created by Vladimir Nybozhinsky on 04.10.2018.
@@ -9,7 +9,7 @@
 import Foundation
 import QuickbloxWebRTC
 
-struct QBAVCallErrorConstant {
+struct AVCallErrorConstant {
     static let cameraErrorTitle = NSLocalizedString("Camera error", comment: "")
     static let cameraErrorMessage = NSLocalizedString("The app doesn't have access to the camera, please go to settings and enable it.", comment: "")
     static let microphoneErrorTitle = NSLocalizedString("Microphone error", comment: "")
@@ -18,7 +18,7 @@ struct QBAVCallErrorConstant {
     static let alertSettingsAction = NSLocalizedString("Settings", comment: "")
 }
 
-class QBAVCallPermissions {
+class AVCallPermissions {
     
     class func check(with conferenceType: QBRTCConferenceType, completion: @escaping PermissionBlock) {
         
@@ -29,8 +29,8 @@ class QBAVCallPermissions {
         
         self.requestPermissionToMicrophone(withCompletion: { granted in
             guard granted == true else {
-                showAlert(withTitle: QBAVCallErrorConstant.microphoneErrorTitle,
-                          message: QBAVCallErrorConstant.microphoneErrorMessage)
+                showAlert(withTitle: AVCallErrorConstant.microphoneErrorTitle,
+                          message: AVCallErrorConstant.microphoneErrorMessage)
                 completion(granted)
                 return
             }
@@ -39,8 +39,8 @@ class QBAVCallPermissions {
             case .video:
                 requestPermissionToCamera(withCompletion: { videoGranted in
                     if videoGranted == false {
-                        showAlert(withTitle: QBAVCallErrorConstant.cameraErrorTitle,
-                                  message: QBAVCallErrorConstant.cameraErrorMessage)
+                        showAlert(withTitle: AVCallErrorConstant.cameraErrorTitle,
+                                  message: AVCallErrorConstant.cameraErrorMessage)
                     }
                     completion(videoGranted)
                 })
@@ -80,9 +80,9 @@ class QBAVCallPermissions {
         let alertController = UIAlertController(title: title,
                                                 message: message,
                                                 preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: QBAVCallErrorConstant.alertCancelAction,
+        alertController.addAction(UIAlertAction(title: AVCallErrorConstant.alertCancelAction,
                                                 style: .cancel))
-        alertController.addAction(UIAlertAction(title: QBAVCallErrorConstant.alertSettingsAction,
+        alertController.addAction(UIAlertAction(title: AVCallErrorConstant.alertSettingsAction,
                                                 style: .default,
                                                 handler: { action in
                                                     if let url = URL(string: UIApplication.openSettingsURLString) {

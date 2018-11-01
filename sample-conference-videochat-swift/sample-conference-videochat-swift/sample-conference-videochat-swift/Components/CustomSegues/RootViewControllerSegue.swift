@@ -1,5 +1,5 @@
 //
-//  QMRootViewControllerSegue.swift
+//  RootViewControllerSegue.swift
 //  sample-conference-videochat-swift
 //
 //  Created by Vladimir Nybozhinsky on 04.10.2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QMRootViewControllerSegue: UIStoryboardSegue {
+class RootViewControllerSegue: UIStoryboardSegue {
     override func perform() {
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.window?.rootViewController = destination

@@ -34,7 +34,7 @@ class StatsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setStats(_ stats: String?) {
+    func updateStats(_ stats: String?) {
         var stats = stats
         if stats == nil {
             stats = StatsViewConstants.statsReportPlaceholderText
@@ -49,7 +49,7 @@ class StatsView: UIView {
     override var isHidden: Bool {
         didSet {
             if isHidden == true {
-                setStats(nil)
+                updateStats(nil)
             }
         }
     }

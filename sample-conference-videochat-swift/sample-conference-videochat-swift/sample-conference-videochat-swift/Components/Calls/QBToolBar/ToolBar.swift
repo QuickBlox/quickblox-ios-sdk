@@ -8,13 +8,12 @@
 
 import UIKit
 
-class QBToolBar: UIToolbar {
+class ToolBar: UIToolbar {
     
     private var buttons: [UIButton] = []
     private var actions: [(_ sender: UIButton?) -> Void] = []
     
     required init?(coder: NSCoder) {
-        
         super.init(coder: coder)
         
         setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)

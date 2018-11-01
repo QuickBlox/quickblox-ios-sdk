@@ -63,10 +63,12 @@ class DialogsDataSource: NSObject {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DialogTableViewCell") as! DialogTableViewCell
+        var cell = UITableViewCell()
+        guard let dialogCell = tableView.dequeueReusableCell(withIdentifier: "DialogTableViewCell") as? DialogTableViewCell else { return cell }
         let chatDialog: QBChatDialog? = objects[indexPath.row]
-        cell.title = chatDialog?.name
-        cell.delegate = self
+        dialogCell.title = chatDialog?.name
+        dialogCell.delegate = self
+        cell = dialogCell
         return cell
     }
     
@@ -78,7 +80,8 @@ class DialogsDataSource: NSObject {
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         delegate?.dialogsDataSource(self, commit: editingStyle, forRowAt: indexPath)
     }
 }

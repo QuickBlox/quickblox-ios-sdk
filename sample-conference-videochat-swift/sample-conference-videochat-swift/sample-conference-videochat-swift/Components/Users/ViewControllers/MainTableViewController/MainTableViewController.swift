@@ -252,7 +252,7 @@ UsersViewControllerDelegate {
                               sender: callSettings)
             return
         }
-        QBAVCallPermissions.check(with: conferenceType) { granted in
+        AVCallPermissions.check(with: conferenceType) { granted in
             guard granted == true else { return }
             self.performSegue(withIdentifier: MainSegueConstant.call,
                               sender: callSettings)

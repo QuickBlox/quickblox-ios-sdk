@@ -13,14 +13,17 @@ import Fabric
 import Crashlytics
 import SVProgressHUD
 
-// Credentials for Test Sample Test
-let kQBApplicationID:UInt = 72448
-let kQBAuthKey = "f4HYBYdeqTZ7KNb"
-let kQBAuthSecret = "ZC7dK39bOjVc-Z8"
-let kQBAccountKey = "C4_z7nuaANnBYmsG_k98"
+struct CredentialsConstant {
+    static let applicationID:UInt = 72448
+    static let authKey = "f4HYBYdeqTZ7KNb"
+    static let authSecret = "ZC7dK39bOjVc-Z8"
+    static let accountKey = "C4_z7nuaANnBYmsG_k98"
+}
 
-let kQBAnswerTimeInterval: TimeInterval = 60.0
-let kQBDialingTimeInterval: TimeInterval = 5.0
+struct TimeIntervalConstant {
+    static let answerTimeInterval: TimeInterval = 60.0
+    static let dialingTimeInterval: TimeInterval = 5.0
+}
 
 struct AppDelegateConstant {
     static let assertMessage = "Multi-conference server is available only for Enterprise plans. Please refer to https://quickblox.com/developers/EnterpriseFeatures for more information and contacts."
@@ -35,17 +38,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics.self])
         
-        QBSettings.applicationID = kQBApplicationID;
-        QBSettings.authKey = kQBAuthKey
-        QBSettings.authSecret = kQBAuthSecret
-        QBSettings.accountKey = kQBAccountKey
+        QBSettings.applicationID = CredentialsConstant.applicationID;
+        QBSettings.authKey = CredentialsConstant.authKey
+        QBSettings.authSecret = CredentialsConstant.authSecret
+        QBSettings.accountKey = CredentialsConstant.accountKey
         QBSettings.autoReconnectEnabled = true
         
         QBSettings.logLevel = QBLogLevel.nothing
         QBSettings.disableXMPPLogging()
         
-        QBRTCConfig.setAnswerTimeInterval(kQBAnswerTimeInterval)
-        QBRTCConfig.setDialingTimeInterval(kQBDialingTimeInterval)
+        QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
+        QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
         QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
         
         QBRTCConfig.setConferenceEndpoint("")

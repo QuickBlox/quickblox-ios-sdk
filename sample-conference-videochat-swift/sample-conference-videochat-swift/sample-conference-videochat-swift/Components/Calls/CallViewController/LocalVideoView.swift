@@ -51,8 +51,8 @@ class LocalVideoView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.videoLayer?.frame = self.bounds
-        let buttonSize = CGSize(width: 72 / 2.5, height: 54 / 2.5)
-        switchCameraBtn.frame = CGRect(x: bounds.size.width - buttonSize.width - 5,
+        let buttonSize = CGSize(width: 72.0 / 2.5, height: 54.0 / 2.5)
+        switchCameraBtn.frame = CGRect(x: bounds.size.width - buttonSize.width - 5.0,
                                        y: bounds.size.height - buttonSize.height - 30,
                                        width: buttonSize.width, height: buttonSize.height)
     }
@@ -73,9 +73,9 @@ class LocalVideoView: UIView {
         let videoOrientation = AVCaptureVideoOrientation(rawValue: interfaceOrientation.rawValue)
         
         let isVideoOrientationSupported = previewLayerConnection?.isVideoOrientationSupported
-        if isVideoOrientationSupported ?? false && previewLayerConnection?.videoOrientation != videoOrientation {
-            if let anOrientation = videoOrientation {
-                previewLayerConnection?.videoOrientation = anOrientation
+        if isVideoOrientationSupported == true, previewLayerConnection?.videoOrientation != videoOrientation {
+            if let videoOrientation = videoOrientation {
+                previewLayerConnection?.videoOrientation = videoOrientation
             }
         }
     }

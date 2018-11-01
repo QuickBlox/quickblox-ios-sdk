@@ -202,7 +202,7 @@
                         <outlet property="loginInfo" destination="lCi-rE-4bS" id="vbE-ne-W37"/>
                         <outlet property="userNameDescriptionLabel" destination="Bl5-f3-GmO" id="cg9-tn-ALg"/>
                         <outlet property="userNameTextField" destination="iwd-Ux-nSU" id="hq6-uM-Mkh"/>
-                        <segue destination="dHk-93-006" kind="custom" identifier="ShowUsersViewController" customClass="QMRootViewControllerSegue" customModule="sample_conference_videochat_swift" id="ciD-PN-tm0"/>
+                        <segue destination="dHk-93-006" kind="custom" identifier="ShowUsersViewController" customClass="RootViewControllerSegue" customModule="sample_conference_videochat_swift" customModuleProvider="target" id="ciD-PN-tm0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jut-XR-5L9" userLabel="First Responder" sceneMemberID="firstResponder"/>

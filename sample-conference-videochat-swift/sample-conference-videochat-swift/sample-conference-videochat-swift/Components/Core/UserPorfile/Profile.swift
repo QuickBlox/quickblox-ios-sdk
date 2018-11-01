@@ -1,5 +1,5 @@
 //
-//  QBProfile.swift
+//  Profile.swift
 //  sample-conference-videochat-swift
 //
 //  Created by Vladimir Nybozhinsky on 04.10.2018.
@@ -28,7 +28,7 @@ struct ProfileSecConstant {
     static let attrAccessibleAfterFirstUnlockValue = NSString(format: kSecAttrAccessibleAfterFirstUnlock)
 }
 
-class QBProfile: NSObject, NSCoding, NSSecureCoding  {
+class Profile: NSObject, NSCoding, NSSecureCoding  {
     
     static var supportsSecureCoding: Bool {
         return true

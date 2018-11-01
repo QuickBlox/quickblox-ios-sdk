@@ -1,5 +1,5 @@
 //
-//  QBCore.swift
+//  Core.swift
 //  sample-conference-videochat-swift
 //
 //  Created by Vladimir Nybozhinsky on 04.10.2018.
@@ -37,34 +37,33 @@ struct CoreConstants {
     static let notSatisfyingDeviceToken = "Invalid parameter not satisfying: deviceToken != nil"
 }
 
-typealias QBNetworkStatusBlock = ((_ status: NetworkConnectionStatus) -> Void)?
+typealias NetworkStatusBlock = ((_ status: NetworkConnectionStatus) -> Void)?
 
-protocol QBCoreDelegate: class {
+protocol CoreDelegate: class {
     /**
      *  Notifying about successful login.
      *
      *  @param core QBCore instance
      */
-    func coreDidLogin(_ core: QBCore)
+    func coreDidLogin(_ core: Core)
     
     /**
      *  Notifying about successful logout.
      *
      *  @param core QBCore instance
      */
-    func coreDidLogout(_ core: QBCore)
+    func coreDidLogout(_ core: Core)
     
-    func core(_ core: QBCore, _ loginStatus: String)
+    func core(_ core: Core, _ loginStatus: String)
     
-    func core(_ core: QBCore, _ error: Error, _ domain: ErrorDomain)
+    func core(_ core: Core, _ error: Error, _ domain: ErrorDomain)
 }
 
-class QBCore: NSObject, QBChatDelegate {
+class Core: NSObject, QBChatDelegate {
     
     // MARK: shared Instance
-    //    static let instance = QBCore()
-    static let instance: QBCore = {
-        let core = QBCore()
+    static let instance: Core = {
+        let core = Core()
         core.commonInit()
         return core
     }()
@@ -75,14 +74,14 @@ class QBCore: NSObject, QBChatDelegate {
             debugPrint("currentUser didSet \(String(describing: currentUser))")
         }
     }
-    var profile: QBProfile? {
+    var profile: Profile? {
         didSet {
             debugPrint("profile didSet \(String(describing: profile))")
             currentUser = profile?.userData
         }
     }
-    var networkStatusBlock: QBNetworkStatusBlock?
-    var multicastDelegate: QBCoreDelegate?
+    var networkStatusBlock: NetworkStatusBlock?
+    var multicastDelegate: CoreDelegate?
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
     private let reachabilitySerialQueue = DispatchQueue.main
     
@@ -100,15 +99,15 @@ class QBCore: NSObject, QBChatDelegate {
     
     // MARK: - Common Init
     private func commonInit() {
-        self.multicastDelegate = QBMulticastDelegate() as? (QBMulticastDelegate & QBCoreDelegate)
-        self.profile = QBProfile()
+        self.multicastDelegate = QBMulticastDelegate() as? (QBMulticastDelegate & CoreDelegate)
+        self.profile = Profile()
         QBSettings.autoReconnectEnabled = true
         QBChat.instance.addDelegate(self)
         self.startReachabliyty()
     }
     
     // MARK: Multicast Delegate
-    func addDelegate(_ delegate: QBCoreDelegate) {
+    func addDelegate(_ delegate: CoreDelegate) {
         ////addDelegate
         self.multicastDelegate = delegate
     }
@@ -236,9 +235,7 @@ class QBCore: NSObject, QBChatDelegate {
         let status = self.profile?.clearProfile()
         if status == noErr {
             self.currentUser = nil
-            debugPrint("self.currentUser == nil!!!!!!!!!!")
         } else {
-            debugPrint("self.currentUser != nil")
             return
         }
     }
@@ -277,8 +274,6 @@ class QBCore: NSObject, QBChatDelegate {
     func handleError(_ error: Error?, domain: ErrorDomain) {
         if let delegate = self.multicastDelegate {
             delegate.core(self, error!, domain)
-        }else {
-            debugPrint("delegate not response coreWithDomain metod")
         }
     }
     
@@ -382,12 +377,12 @@ class QBCore: NSObject, QBChatDelegate {
         self.reachabilityRef = defaultRouteReachability
         
         var context = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
-        context.info = UnsafeMutableRawPointer(Unmanaged<QBCore>.passUnretained(self).toOpaque())
+        context.info = UnsafeMutableRawPointer(Unmanaged<Core>.passUnretained(self).toOpaque())
         
         let callbackClosure: SCNetworkReachabilityCallBack? = {
             (reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) in
             guard let info = info else { return }
-            let handler = Unmanaged<QBCore>.fromOpaque(info).takeUnretainedValue()
+            let handler = Unmanaged<Core>.fromOpaque(info).takeUnretainedValue()
             
             DispatchQueue.main.async {
                 handler.checkReachability(flags: flags)

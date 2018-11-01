@@ -41,7 +41,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     weak var usersDataSource: UsersDataSource?
     private weak var session: QBRTCConferenceSession?
     @IBOutlet private weak var opponentsCollectionView: UICollectionView!
-    @IBOutlet private weak var toolbar: QBToolBar!
+    @IBOutlet private weak var toolbar: ToolBar!
     private var users = [QBUUser]()
     private var cameraCapture: QBRTCCameraCapture?
     private var videoViews = [NSNumber: UIView]()
@@ -269,14 +269,14 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     func addToCollectionUser(withID userID: NSNumber) {
         
         guard let user: QBUUser = fetchUser(withID: userID) else { return }
-//        guard let index = users.index(of: user) else { return }
-//        if users.contains(user) == true {
-//            return
-//        }
-//        debugPrint("index \(index)")
-        if users.index(of: user) != NSNotFound {
+        guard let index = users.index(of: user) else { return }
+        if users.contains(user) == true {
             return
         }
+        debugPrint("index \(index)")
+//        if users.index(of: user) != NSNotFound {
+//            return
+//        }
 
         users.insert(user, at: 0)
         let indexPath = IndexPath(item: 0, section: 0)
@@ -590,7 +590,7 @@ extension CallViewController: QBRTCBaseClientDelegate {
                 
                 // send stats to stats view if needed
                 if shouldGetStats {
-                    statsView.setStats(result)
+                    statsView.updateStats(result)
                     view.setNeedsLayout()
                 }
             }
