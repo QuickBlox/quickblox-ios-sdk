@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return current profile
  */
-+ (instancetype)currentProfile;
++ (nullable instancetype)currentProfile;
 
 /**
  *  Synchronize current profile in keychain.
