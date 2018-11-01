@@ -31,7 +31,7 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet private weak var chatRoomDescritptionLabel: UILabel!
     @IBOutlet private weak var userNameTextField: UITextField!
     @IBOutlet private weak var chatRoomNameTextField: UITextField!
-    @IBOutlet private weak var loginButton: QBLoadingButton!
+    @IBOutlet private weak var loginButton: LoadingButton!
 
     // MARK: Properties
     private let core = Core.instance
@@ -105,7 +105,7 @@ class LoginTableViewController: UITableViewController {
     }
     
     // MARK: Actions
-    @IBAction func didPressLoginButton(_ sender: QBLoadingButton) {
+    @IBAction func didPressLoginButton(_ sender: LoadingButton) {
         login()
     }
     
