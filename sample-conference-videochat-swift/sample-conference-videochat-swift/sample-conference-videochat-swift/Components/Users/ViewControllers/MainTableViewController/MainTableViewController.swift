@@ -29,18 +29,20 @@ struct CallSettings {
     var chatDialog: QBChatDialog
 }
 
-class MainTableViewController: UITableViewController, SettingsViewControllerDelegate, CoreDelegate,
-UsersViewControllerDelegate {
-  
-    //MARK: Variables
+class MainTableViewController: UITableViewController {
+    //MARK: Properties
     let core = Core.instance
-    private let dialogsDataSource = DialogsDataSource.init()
+    
+    lazy private var dialogsDataSource: DialogsDataSource = {
+        let dialogsDataSource = DialogsDataSource.init()
+        return dialogsDataSource
+    }()
     lazy private var usersDataSource: UsersDataSource = {
         let usersDataSource = UsersDataSource()
         return usersDataSource
     }()
     
-    // MARK: Lifecycle
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +67,6 @@ UsersViewControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if let refreshControl = self.refreshControl, refreshControl.isRefreshing == true {
             let contentOffset = CGPoint(x: 0.0, y: -refreshControl.frame.size.height)
             tableView.setContentOffset(contentOffset, animated: false)
@@ -76,19 +77,19 @@ UsersViewControllerDelegate {
         debugPrint("deinit \(self)")
     }
     
-    // MARK: UI Configuration
-    func configureTableViewController() {
+    // MARK: - Setup
+    private func configureTableViewController() {
         dialogsDataSource.delegate = self
         tableView.dataSource = dialogsDataSource
         tableView.rowHeight = 76.0
         refreshControl?.beginRefreshing()
     }
     
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         let settingsButtonItem = UIBarButtonItem(image: UIImage(named: "ic-settings"),
                                                  style: .plain,
                                                  target: self,
-                                                 action: #selector(didPressSettingsButton(_:)))
+                                                 action: #selector(didTapSettingsButton(_:)))
         navigationItem.leftBarButtonItem = settingsButtonItem
         
         let usersButtonItem = UIBarButtonItem(image: UIImage(named: "new-message"),
@@ -110,7 +111,7 @@ UsersViewControllerDelegate {
             userName = userName + fullname
             titleString = roomName + "\n" + userName
         }
-
+        
         let attrString = NSMutableAttributedString(string: titleString)
         let roomNameRange: NSRange = (titleString as NSString).range(of: roomName )
         attrString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16.0), range: roomNameRange)
@@ -128,8 +129,8 @@ UsersViewControllerDelegate {
         navigationItem.titleView = titleView
     }
     
-    // MARK: Actions
-    func hasConnectivity() -> Bool {
+    // MARK: - Internal Methods
+    private func hasConnectivity() -> Bool {
         let status = core.networkConnectionStatus()
         guard status != NetworkConnectionStatus.notConnection else {
             showAlertView(withMessage: MainAlertConstant.checkInternet)
@@ -138,85 +139,13 @@ UsersViewControllerDelegate {
         return true
     }
     
-    func showAlertView(withMessage message: String?) {
+    private func showAlertView(withMessage message: String?) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: MainAlertConstant.okAction, style: .default,
                                                 handler: nil))
         present(alertController, animated: true)
     }
     
-    @objc func didPressSettingsButton(_ item: UIBarButtonItem?) {
-        performSegue(withIdentifier: MainSegueConstant.settings, sender: item)
-    }
-    
-    @objc func didPressUsersButton(_ item: UIBarButtonItem?) {
-        performSegue(withIdentifier: MainSegueConstant.users, sender: item)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        switch segue.identifier {
-        case MainSegueConstant.settings:
-            let settingsViewController = (segue.destination as? UINavigationController)?.topViewController
-                as? SessionSettingsViewController
-            settingsViewController?.delegate = self
-            
-        case MainSegueConstant.users:
-            let usersViewController = segue.destination as? UsersViewController
-            usersViewController?.dataSource = usersDataSource
-            usersViewController?.delegate = self
-            
-        case MainSegueConstant.call:
-            guard let settings = sender as? CallSettings else { return }
-            let callViewController = segue.destination as? CallViewController
-            callViewController?.chatDialog = settings.chatDialog
-            callViewController?.conferenceType = settings.conferenseType
-            callViewController?.usersDataSource = usersDataSource
-            
-        default:
-            break
-        }
-    }
-    
-    // MARK: UsersViewControllerDelegate
-    func usersViewController(_ usersViewController: UsersViewController,
-                             didCreateChatDialog chatDialog: QBChatDialog?) {
-        guard let chatDialog = chatDialog else { return }
-        dialogsDataSource.addObjects([chatDialog])
-        tableView.reloadData()
-    }
-    
-    // MARK: SettingsViewControllerDelegate
-    func settingsViewController(_ vc: SessionSettingsViewController?, didPressLogout sender: Any?) {
-        SVProgressHUD.show(withStatus: MainAlertConstant.logout)
-        core.logout()
-    }
-    
-    // MARK: QBCoreDelegate
-    func coreDidLogin(_ core: Core) {
-        SVProgressHUD.dismiss()
-    }
-    
-    func coreDidLogout(_ core: Core) {
-        SVProgressHUD.dismiss()
-        //Dismiss Settings view controller
-        dismiss(animated: false)
-        DispatchQueue.main.async(execute: {
-            self.performSegue(withIdentifier: MainSegueConstant.sceneAuth, sender: nil)
-        })
-    }
-    
-    func core(_ core: Core, loginStatus: String) {
-        debugPrint("coreDidLogin")
-    }
-    
-    func core(_ core: Core, error: Error, domain: ErrorDomain) {
-        if domain == ErrorDomain.logOut {
-            SVProgressHUD.showError(withStatus: error.localizedDescription)
-        }
-    }
-    
-    // MARK: Private
     @objc private func fetchData() {
         let dataGroup = DispatchGroup()
         dataGroup.enter()
@@ -258,32 +187,111 @@ UsersViewControllerDelegate {
                               sender: callSettings)
         }
     }
+    
+    //MARK: - Actions
+    @objc func didTapSettingsButton(_ item: UIBarButtonItem?) {
+        performSegue(withIdentifier: MainSegueConstant.settings, sender: item)
+    }
+    
+    @objc func didPressUsersButton(_ item: UIBarButtonItem?) {
+        performSegue(withIdentifier: MainSegueConstant.users, sender: item)
+    }
+    
+    //MARK: - Overrides
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier {
+        case MainSegueConstant.settings:
+            let settingsViewController = (segue.destination as? UINavigationController)?.topViewController
+                as? SessionSettingsViewController
+            settingsViewController?.delegate = self
+            
+        case MainSegueConstant.users:
+            let usersViewController = segue.destination as? UsersViewController
+            usersViewController?.dataSource = usersDataSource
+            usersViewController?.delegate = self
+            
+        case MainSegueConstant.call:
+            guard let settings = sender as? CallSettings else { return }
+            let callViewController = segue.destination as? CallViewController
+            callViewController?.chatDialog = settings.chatDialog
+            callViewController?.conferenceType = settings.conferenseType
+            callViewController?.usersDataSource = usersDataSource
+            
+        default:
+            break
+        }
+    }
 }
 
-//MARK: - DialogsDataSourceDelegate
-extension MainTableViewController: DialogsDataSourceDelegate {
+extension MainTableViewController: UsersViewControllerDelegate {
+    // MARK: UsersViewControllerDelegate
+    func usersViewController(_ usersViewController: UsersViewController,
+                             didCreateChatDialog chatDialog: QBChatDialog?) {
+        guard let chatDialog = chatDialog else { return }
+        dialogsDataSource.addObjects([chatDialog])
+        tableView.reloadData()
+    }
     
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+}
+
+extension MainTableViewController: SettingsViewControllerDelegate {
+    // MARK: SettingsViewControllerDelegate
+    func settingsViewController(_ vc: SessionSettingsViewController?, didPressLogout sender: Any?) {
+        SVProgressHUD.show(withStatus: MainAlertConstant.logout)
+        core.logout()
+    }
+}
+
+extension MainTableViewController: CoreDelegate {
+    // MARK: CoreDelegate
+    func coreDidLogin(_ core: Core) {
+        SVProgressHUD.dismiss()
+    }
+    
+    func coreDidLogout(_ core: Core) {
+        SVProgressHUD.dismiss()
+        //Dismiss Settings view controller
+        dismiss(animated: false)
+        DispatchQueue.main.async(execute: {
+            self.performSegue(withIdentifier: MainSegueConstant.sceneAuth, sender: nil)
+        })
+    }
+    
+    func core(_ core: Core, loginStatus: String) {
+        debugPrint("coreDidLogin")
+    }
+    
+    func core(_ core: Core, error: Error, domain: ErrorDomain) {
+        if domain == ErrorDomain.logOut {
+            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        }
+    }
+}
+
+extension MainTableViewController: DialogsDataSourceDelegate {
+    //MARK: - DialogsDataSourceDelegate
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
                            dialogCellDidTapListener dialogCell: UITableViewCell?) {
         joinDialog(fromDialogCell: dialogCell, conferenceType: nil)
     }
     
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
                            dialogCellDidTapAudio dialogCell: UITableViewCell?) {
         joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.audio)
     }
     
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
                            dialogCellDidTapVideo dialogCell: UITableViewCell?) {
         joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.video)
     }
     
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource?,
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
                            commit editingStyle: UITableViewCell.EditingStyle,
                            forRowAt indexPath: IndexPath?) {
         if  editingStyle == .delete, hasConnectivity() {
-            guard let indexPath = indexPath, let dataSource = dialogsDataSource else { return }
-            let deleteDialog = dataSource.objects[indexPath.row]
+            guard let indexPath = indexPath else { return }
+            let deleteDialog = dialogsDataSource.objects[indexPath.row]
             guard let deleteDialogId = deleteDialog.id else { return }
             
             SVProgressHUD.show()

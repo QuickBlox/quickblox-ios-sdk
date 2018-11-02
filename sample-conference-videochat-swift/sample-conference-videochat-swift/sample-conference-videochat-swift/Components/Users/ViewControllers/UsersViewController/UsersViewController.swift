@@ -121,11 +121,12 @@ class UsersViewController: UITableViewController {
     
     // MARK: - Internal Methods
     private func hasConnectivity() -> Bool {
-        let hasConnectivity = core.networkConnectionStatus() != NetworkConnectionStatus.notConnection
-        if hasConnectivity == false {
+        let status = core.networkConnectionStatus()
+        guard status != NetworkConnectionStatus.notConnection else {
             showAlertView(withMessage: UsersViewControllerConstant.checkInternetConnection)
+            return false
         }
-        return hasConnectivity
+        return true
     }
     
     private func showAlertView(withMessage message: String?) {
