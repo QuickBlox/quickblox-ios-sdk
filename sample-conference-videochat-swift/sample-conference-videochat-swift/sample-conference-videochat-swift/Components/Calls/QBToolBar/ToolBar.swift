@@ -24,7 +24,7 @@ class ToolBar: UIToolbar {
         
     }
     
-    //MARK: - Internal Metods
+    //MARK: - Public Methods
     func updateItems() {
         var items = [UIBarButtonItem]()
         let barButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

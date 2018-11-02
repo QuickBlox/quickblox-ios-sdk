@@ -48,7 +48,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
         super.viewDidLoad()
     }
     
-    // MARK: - Overrides superClass Metods
+    // MARK: - Overrides superClass Methods
     override func title(forSection section: Int) -> String? {
         switch section {
         case AudioSettingsSectionType.constraints.rawValue:

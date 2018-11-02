@@ -19,7 +19,7 @@ struct CallErrorConstant {
 }
 
 class CallPermissions {
-    //MARK: - Class Metods
+    //MARK: - Class Methods
     class func check(with conferenceType: QBRTCConferenceType, completion: @escaping PermissionBlock) {
         
         #if targetEnvironment(simulator)

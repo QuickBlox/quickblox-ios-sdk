@@ -9,12 +9,12 @@
 import UIKit
 
 class UserTableViewCell: UITableViewCell {
-
+    //MARK: - IBOutlets
     @IBOutlet private weak var checkView: CheckView!
     @IBOutlet private weak var fullNameLabel: UILabel!
     @IBOutlet private weak var userImageView: UIImageView!
     
-    // MARK: - Setters
+    //MARK: - Properties
     var fullName: String? {
         didSet {
             fullNameLabel.text = fullName

@@ -51,7 +51,7 @@ class LoginTableViewController: UITableViewController {
         }
     }
     
-    //MARK: - Life Cicles
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,7 +103,7 @@ class LoginTableViewController: UITableViewController {
         updateLoginInfo?(core.networkConnectionStatus())
     }
     
-    //MARK: Actions
+    //MARK: - Actions
     @IBAction func didPressLoginButton(_ sender: LoadingButton) {
         login()
     }

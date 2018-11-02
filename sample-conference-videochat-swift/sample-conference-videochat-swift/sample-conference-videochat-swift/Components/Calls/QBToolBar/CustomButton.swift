@@ -16,7 +16,7 @@ struct CustomButtonConstants {
 }
 
 class CustomButton: UIButton {
-    //MARK: - Property
+    //MARK: - Properties
     var iconView: UIImageView? {
         willSet {
             if (newValue != self.iconView) {
@@ -37,7 +37,6 @@ class CustomButton: UIButton {
         }
     }
     
-    //MARK: - Private Properties
     lazy private var selectedView: UIView = {
         let view = UIView(frame: CGRect.zero)
         view.alpha = 0.0
@@ -46,13 +45,18 @@ class CustomButton: UIButton {
         return view
     }()
     
-    //MARK: - Init
+    override var isHighlighted: Bool {
+        didSet {
+            iconView?.isHighlighted = isHighlighted
+        }
+    }
+    
+    //MARK: - Life Cycle
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
     
-    //MARK: - Overrides
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -69,6 +73,7 @@ class CustomButton: UIButton {
         prepareApperance()
     }
     
+    //MARK: - UIResponder
     override func touchesBegan(_ touches: Set<UITouch>?, with event: UIEvent?) {
         if let touches = touches, let event = event {
             super.touchesBegan(touches, with: event)
@@ -104,13 +109,7 @@ class CustomButton: UIButton {
         })
     }
     
-    override var isHighlighted: Bool {
-        didSet {
-            iconView?.isHighlighted = isHighlighted
-        }
-    }
-    
-    //MARK: - Internal Metods
+    //MARK: - Setup
     private func commonInit() {
         pressed = false
         isMultipleTouchEnabled = false
@@ -119,6 +118,7 @@ class CustomButton: UIButton {
         clipsToBounds = true
     }
     
+    //MARK: - Internal Methods
     private func prepareApperance() {
         selectedView.backgroundColor = selectedColor
         layer.borderColor = borderColor.cgColor

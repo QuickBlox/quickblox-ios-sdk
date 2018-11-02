@@ -29,13 +29,15 @@ struct ProfileSecConstant {
 }
 
 class Profile: NSObject, NSCoding, NSSecureCoding  {
-    
+
     static var supportsSecureCoding: Bool {
         return true
     }
     
+    //MARK - Properties
     var userData: QBUUser?
     
+    //MARK: - Life Cycle
     init(userData: QBUUser?) {
         super.init()
         self.userData = userData
@@ -96,7 +98,7 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
         return success;
     }
     
-    // MARK: - Keychain
+    //MARK: - Keychain
     func saveData(_ data: Any?, forKey key: String) -> OSStatus {
         var keychainQuery = getKeychainQueryFor(key: key)
         SecItemDelete(keychainQuery as CFDictionary)
@@ -128,7 +130,7 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
     }
     
     private func getKeychainQueryFor(key: String) -> [AnyHashable : Any] {
-        return [ProfileSecConstant.classValue: ProfileSecConstant.classGenericPasswordValue,
+        return  [ProfileSecConstant.classValue: ProfileSecConstant.classGenericPasswordValue,
                  ProfileSecConstant.attrServiceValue: key,
                  ProfileSecConstant.attrAccountValue: key,
                  ProfileSecConstant.attrAccessibleValue: ProfileSecConstant.attrAccessibleAfterFirstUnlockValue]

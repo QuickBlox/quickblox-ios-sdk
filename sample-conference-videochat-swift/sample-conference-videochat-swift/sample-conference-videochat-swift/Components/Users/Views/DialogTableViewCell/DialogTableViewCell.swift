@@ -15,12 +15,13 @@ protocol DialogTableViewCellDelegate: class {
 }
 
 class DialogTableViewCell: UITableViewCell {
+    //MARK: - IBOutlets
+    @IBOutlet private weak var titleLabel: UILabel!
+    
     //MARK: - Properties
     weak var delegate: DialogTableViewCellDelegate?
     
-    @IBOutlet private weak var titleLabel: UILabel!
-    
-     var title: String = "" {
+    var title: String = "" {
         didSet {
             titleLabel.text = title
         }

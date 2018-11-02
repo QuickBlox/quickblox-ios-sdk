@@ -9,7 +9,7 @@
 import UIKit
 
 class ZoomedView: UIView {
-    //MARK: - Property
+    //MARK: - Properties
     weak var videoView: UIView? {
         didSet {
             update(videoView)
@@ -18,7 +18,7 @@ class ZoomedView: UIView {
     
     var didTapView: ((_ zoomedView: ZoomedView?) -> Void)?
     
-    //MARK: - Life Circle
+    //MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor(white: 0.0, alpha: 1.0)
@@ -30,7 +30,7 @@ class ZoomedView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Private Metods
+    //MARK: - Private Methods
     func update(_ videoView: UIView?) {
         guard let videoView = videoView else { return }
         self.videoView = videoView

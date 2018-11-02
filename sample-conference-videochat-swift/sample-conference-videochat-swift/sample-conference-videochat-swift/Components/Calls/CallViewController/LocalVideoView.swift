@@ -75,7 +75,7 @@ class LocalVideoView: UIView {
         delegate?.localVideoView(self, pressedSwitchButton: sender)
     }
     
-    //MARK: - Internal Metods
+    //MARK: - Internal Methods
     private func updateOrientationIfNeeded() {
         let previewLayerConnection = videoLayer?.connection
         let interfaceOrientation = UIApplication.shared.statusBarOrientation

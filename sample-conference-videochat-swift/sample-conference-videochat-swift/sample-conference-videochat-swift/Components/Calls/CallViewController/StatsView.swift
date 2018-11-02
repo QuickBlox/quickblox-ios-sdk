@@ -13,7 +13,7 @@ struct StatsViewConstants {
 }
 
 class StatsView: UIView {
-    //MARK: - Private Properties
+    //MARK: - Properties
     lazy private var statsLabel: UILabel = {
         let statsLabel = UILabel(frame: bounds)
         statsLabel.text = StatsViewConstants.statsReportPlaceholderText
@@ -33,7 +33,7 @@ class StatsView: UIView {
         }
     }
     
-    //MARK: - Life Circle
+    //MARK: - Life Cycle
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -48,7 +48,7 @@ class StatsView: UIView {
         statsLabel.frame = bounds
     }
     
-    //MARK: - Private Metods
+    //MARK: - Internal Methods
     func updateStats(_ stats: String?) {
         statsLabel.text = stats ?? StatsViewConstants.statsReportPlaceholderText
     }
