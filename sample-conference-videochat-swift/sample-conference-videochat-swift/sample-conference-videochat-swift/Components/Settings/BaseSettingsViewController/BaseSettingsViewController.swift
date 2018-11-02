@@ -106,12 +106,11 @@ class BaseSettingsViewController: UITableViewController, SettingsCellDelegate {
      *  @return settings section model
      */
     
-    func addSection(with section: Int, items: @escaping (_ sectionTitle: String?) -> [BaseItemModel]) {
-        
-        let sectionTitle = title(forSection: section)
-        let sectionModel = SettingsSectionModel.section(withTitle: sectionTitle, items: items(sectionTitle))
-        sections[sectionTitle!] = sectionModel
-
+    func addSection(with section: Int, items: @escaping (_ sectionTitle: String) -> [BaseItemModel]) {
+        guard let sectionTitle = title(forSection: section) else { return }
+        let sectionModel = SettingsSectionModel.section(withTitle: sectionTitle,
+                                                        items: items(sectionTitle))
+        sections[sectionTitle] = sectionModel
     }
 
     /**

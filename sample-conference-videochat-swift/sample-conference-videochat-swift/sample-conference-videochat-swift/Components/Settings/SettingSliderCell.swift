@@ -9,17 +9,21 @@
 import UIKit
 
 class SettingSliderCell: BaseSettingsCell {
-    
+    //MARK: - IBOutlets
     @IBOutlet private weak var maxLabel: UILabel!
     @IBOutlet private weak var minLabel: UILabel!
     @IBOutlet private weak var slider: UISlider!
+    
+    //MARK: - Properties
     var modelSlider = SliderItemModel()
     
+    //MARK: - Overrides
     override func updateModel(_ model: BaseItemModel) {
-        modelSlider = model as! SliderItemModel
-        label.text = String(format: "%tu", modelSlider.currentValue)
-        maxLabel.text = String(format: "%tu", modelSlider.maxValue)
-        minLabel.text = String(format: "%tu", modelSlider.minValue)
+        guard let model = model as? SliderItemModel else { return }
+        modelSlider = model
+        label.text = "\(modelSlider.currentValue)"
+        maxLabel.text = "\(modelSlider.maxValue)"
+        minLabel.text = "\(modelSlider.minValue)"
         
         slider.minimumValue = Float(modelSlider.minValue)
         slider.maximumValue = Float(modelSlider.maxValue)
@@ -31,8 +35,9 @@ class SettingSliderCell: BaseSettingsCell {
         minLabel.isEnabled = isEnabled
     }
     
+    //MARK: - Actions
     @IBAction func valueChanged(_ sender: UISlider) {
         modelSlider.currentValue = UInt(sender.value)
-        label.text = String(format: "%tu", UInt(sender.value))
+        label.text = "\(UInt(sender.value))"
     }
 }
