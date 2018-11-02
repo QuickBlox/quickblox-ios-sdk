@@ -9,32 +9,21 @@
 import UIKit
 
 protocol DialogTableViewCellDelegate: class {
-    func dialogCellDidListenerButton(_ dialogCell: DialogTableViewCell?)
-    
-    func dialogCellDidAudioButton(_ dialogCell: DialogTableViewCell?)
-    
-    func dialogCellDidVideoButton(_ dialogCell: DialogTableViewCell?)
+    func dialogCellDidListenerButton(_ dialogCell: DialogTableViewCell)
+    func dialogCellDidAudioButton(_ dialogCell: DialogTableViewCell)
+    func dialogCellDidVideoButton(_ dialogCell: DialogTableViewCell)
 }
 
 class DialogTableViewCell: UITableViewCell {
+    //MARK: - Properties
     weak var delegate: DialogTableViewCellDelegate?
     
     @IBOutlet private weak var titleLabel: UILabel!
     
-     var title: String? {
+     var title: String = "" {
         didSet {
-            updateTitle(title)
+            titleLabel.text = title
         }
-    }
-    
-    private func updateTitle(_ title: String?) {
-            titleLabel.text = self.title
-    }
-    
-    // MARK: - Overrides
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
     }
     
     // MARK: - Actions

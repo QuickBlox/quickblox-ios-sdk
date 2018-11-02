@@ -37,7 +37,7 @@ class CustomButton: UIButton {
         }
     }
     
-    //MARK: - Private Property
+    //MARK: - Private Properties
     lazy private var selectedView: UIView = {
         let view = UIView(frame: CGRect.zero)
         view.alpha = 0.0
@@ -128,13 +128,12 @@ class CustomButton: UIButton {
         selectedView.frame = CGRect(x: 0.0, y: 0.0, width: frame.size.width, height: frame.size.height)
         addSubview(selectedView)
         
+        guard let iconView = iconView else { return }
         let maxFrame: CGFloat = max(frame.size.height, frame.size.width) * 0.5
         let roundedRect = CGRect(x: bounds.midX - (maxFrame / 2.0),
                                  y: bounds.midY - (maxFrame / 2.0),
                                  width: maxFrame,
                                  height: maxFrame)
-        
-        guard let iconView = iconView else { return }
         iconView.frame = roundedRect
         addSubview(iconView)
         layer.cornerRadius = frame.size.height / 2.0

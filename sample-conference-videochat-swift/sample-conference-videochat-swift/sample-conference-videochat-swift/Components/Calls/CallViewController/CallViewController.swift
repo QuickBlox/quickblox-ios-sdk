@@ -434,7 +434,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     
     // MARK: LocalVideoViewDelegate
     extension CallViewController: LocalVideoViewDelegate {
-    func localVideoView(_ localVideoView: LocalVideoView?, pressedSwitchButton sender: UIButton?) {
+    func localVideoView(_ localVideoView: LocalVideoView, pressedSwitchButton sender: UIButton?) {
         guard let position: AVCaptureDevice.Position = cameraCapture?.position else { return }
         let newPosition: AVCaptureDevice.Position = position == .back ? .front : .back
         
@@ -453,7 +453,7 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                 animation.subtype = .fromLeft
             }
             
-            localVideoView?.superview?.layer.add(animation, forKey: nil)
+            localVideoView.superview?.layer.add(animation, forKey: nil)
             cameraCapture?.position = newPosition
         }
     }

@@ -9,16 +9,19 @@
 import UIKit
 
 class ZoomedView: UIView {
+    //MARK: - Property
     weak var videoView: UIView? {
         didSet {
             update(videoView)
         }
     }
+    
     var didTapView: ((_ zoomedView: ZoomedView?) -> Void)?
     
+    //MARK: - Life Circle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(white: 0, alpha: 1.0)
+        backgroundColor = UIColor(white: 0.0, alpha: 1.0)
         addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                     action: #selector(didReceiveTap(_:))))
     }
@@ -27,25 +30,24 @@ class ZoomedView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Private Metods
     func update(_ videoView: UIView?) {
-        if let videoView = videoView {
-            self.videoView = videoView
-            videoView.removeFromSuperview()
-            videoView.frame = bounds
-            videoView.autoresizingMask = [.flexibleWidth,
-                                          .flexibleHeight,
-                                          .flexibleLeftMargin,
-                                          .flexibleRightMargin,
-                                          .flexibleTopMargin,
-                                          .flexibleBottomMargin]
-            
-            addSubview(videoView)
-        }
+        guard let videoView = videoView else { return }
+        self.videoView = videoView
+        videoView.removeFromSuperview()
+        videoView.frame = bounds
+        videoView.autoresizingMask = [.flexibleWidth,
+                                      .flexibleHeight,
+                                      .flexibleLeftMargin,
+                                      .flexibleRightMargin,
+                                      .flexibleTopMargin,
+                                      .flexibleBottomMargin]
+        
+        addSubview(videoView)
     }
     
     @objc func didReceiveTap(_ __unused: UITapGestureRecognizer?) {
-        if let didTapView = didTapView {
-            didTapView(self)
-        }
+        guard let didTapView = didTapView else { return }
+        didTapView(self)
     }
 }

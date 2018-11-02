@@ -54,9 +54,9 @@ protocol CoreDelegate: class {
      */
     func coreDidLogout(_ core: Core)
     
-    func core(_ core: Core, _ loginStatus: String)
+    func core(_ core: Core, loginStatus: String)
     
-    func core(_ core: Core, _ error: Error, _ domain: ErrorDomain)
+    func core(_ core: Core, error: Error, domain: ErrorDomain)
 }
 
 class Core: NSObject, QBChatDelegate {
@@ -131,8 +131,8 @@ class Core: NSObject, QBChatDelegate {
     // MARK: - SignUp / Login / Logout
     
     func setLoginStatus(_ loginStatus: String) {
-        if let _ = self.multicastDelegate?.core(self, loginStatus) {
-            self.multicastDelegate?.core(self, loginStatus)
+        if let _ = self.multicastDelegate?.core(self, loginStatus: loginStatus) {
+            self.multicastDelegate?.core(self, loginStatus: loginStatus)
         }else {
             debugPrint("delegate not response coreloginStatus metod")
         }
@@ -273,7 +273,7 @@ class Core: NSObject, QBChatDelegate {
     // MARK: - Handle errors
     func handleError(_ error: Error?, domain: ErrorDomain) {
         if let delegate = self.multicastDelegate {
-            delegate.core(self, error!, domain)
+            delegate.core(self, error: error!, domain: domain)
         }
     }
     

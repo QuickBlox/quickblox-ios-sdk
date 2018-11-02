@@ -1,5 +1,5 @@
 //
-//  AVCallPermissions.swift
+//  CallPermissions.swift
 //  sample-conference-videochat-swift
 //
 //  Created by Vladimir Nybozhinsky on 04.10.2018.
@@ -9,7 +9,7 @@
 import Foundation
 import QuickbloxWebRTC
 
-struct AVCallErrorConstant {
+struct CallErrorConstant {
     static let cameraErrorTitle = NSLocalizedString("Camera error", comment: "")
     static let cameraErrorMessage = NSLocalizedString("The app doesn't have access to the camera, please go to settings and enable it.", comment: "")
     static let microphoneErrorTitle = NSLocalizedString("Microphone error", comment: "")
@@ -18,8 +18,8 @@ struct AVCallErrorConstant {
     static let alertSettingsAction = NSLocalizedString("Settings", comment: "")
 }
 
-class AVCallPermissions {
-    
+class CallPermissions {
+    //MARK: - Class Metods
     class func check(with conferenceType: QBRTCConferenceType, completion: @escaping PermissionBlock) {
         
         #if targetEnvironment(simulator)
@@ -29,8 +29,8 @@ class AVCallPermissions {
         
         self.requestPermissionToMicrophone(withCompletion: { granted in
             guard granted == true else {
-                showAlert(withTitle: AVCallErrorConstant.microphoneErrorTitle,
-                          message: AVCallErrorConstant.microphoneErrorMessage)
+                showAlert(withTitle: CallErrorConstant.microphoneErrorTitle,
+                          message: CallErrorConstant.microphoneErrorMessage)
                 completion(granted)
                 return
             }
@@ -39,8 +39,8 @@ class AVCallPermissions {
             case .video:
                 requestPermissionToCamera(withCompletion: { videoGranted in
                     if videoGranted == false {
-                        showAlert(withTitle: AVCallErrorConstant.cameraErrorTitle,
-                                  message: AVCallErrorConstant.cameraErrorMessage)
+                        showAlert(withTitle: CallErrorConstant.cameraErrorTitle,
+                                  message: CallErrorConstant.cameraErrorMessage)
                     }
                     completion(videoGranted)
                 })
@@ -80,9 +80,9 @@ class AVCallPermissions {
         let alertController = UIAlertController(title: title,
                                                 message: message,
                                                 preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: AVCallErrorConstant.alertCancelAction,
+        alertController.addAction(UIAlertAction(title: CallErrorConstant.alertCancelAction,
                                                 style: .cancel))
-        alertController.addAction(UIAlertAction(title: AVCallErrorConstant.alertSettingsAction,
+        alertController.addAction(UIAlertAction(title: CallErrorConstant.alertSettingsAction,
                                                 style: .default,
                                                 handler: { action in
                                                     if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -92,4 +92,3 @@ class AVCallPermissions {
         UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true)
     }
 }
-

@@ -19,7 +19,7 @@
 		2C4C25F62166709B00B1E8C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C4C25F52166709B00B1E8C4 /* Assets.xcassets */; };
 		2C4C25FD2166717300B1E8C4 /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */; };
 		2C4C2600216671A900B1E8C4 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C25FF216671A900B1E8C4 /* LoadingButton.swift */; };
-		2C4C26022166728000B1E8C4 /* AVCallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26012166728000B1E8C4 /* AVCallPermissions.swift */; };
+		2C4C26022166728000B1E8C4 /* CallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26012166728000B1E8C4 /* CallPermissions.swift */; };
 		2C4C260A2166734E00B1E8C4 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26092166734E00B1E8C4 /* CustomButton.swift */; };
 		2C4C260C2166736500B1E8C4 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */; };
 		2C4C260F2166739A00B1E8C4 /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260E2166739A00B1E8C4 /* ToolBar.swift */; };
@@ -78,7 +78,7 @@
 		2C4C25F52166709B00B1E8C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../sample-conference-videochat/sample-conference-videochat/Assets.xcassets"; sourceTree = "<group>"; };
 		2C4C25FC2166717300B1E8C4 /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
 		2C4C25FF216671A900B1E8C4 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
-		2C4C26012166728000B1E8C4 /* AVCallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCallPermissions.swift; sourceTree = "<group>"; };
+		2C4C26012166728000B1E8C4 /* CallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallPermissions.swift; sourceTree = "<group>"; };
 		2C4C26092166734E00B1E8C4 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		2C4C260E2166739A00B1E8C4 /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 		2C4C25EE2166702100B1E8C4 /* AVPermisions */ = {
 			isa = PBXGroup;
 			children = (
-				2C4C26012166728000B1E8C4 /* AVCallPermissions.swift */,
+				2C4C26012166728000B1E8C4 /* CallPermissions.swift */,
 			);
 			path = AVPermisions;
 			sourceTree = "<group>";
@@ -685,7 +685,7 @@
 				2C0D582221666256001FF80B /* AppDelegate.swift in Sources */,
 				2CCB5ED8217DF09300555AAA /* SettingsSectionModel.swift in Sources */,
 				2C4C2611216673BD00B1E8C4 /* OpponentCollectionViewCell.swift in Sources */,
-				2C4C26022166728000B1E8C4 /* AVCallPermissions.swift in Sources */,
+				2C4C26022166728000B1E8C4 /* CallPermissions.swift in Sources */,
 				2CCB5EC8217DCD9B00555AAA /* SwitchItemModel.swift in Sources */,
 				2C4C261B2166744D00B1E8C4 /* StatsView.swift in Sources */,
 				2CC867C32170ABF1006DF7BC /* DialogTableViewCell.swift in Sources */,

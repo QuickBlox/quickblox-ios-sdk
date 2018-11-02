@@ -77,13 +77,12 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
         let status: OSStatus = synchronize()
         return status;
     }
-    
+
     private func loadProfile() {
-        if let profile = self.loadObject(forKey: ProfileConstants.profile) {
-            self.userData = profile;
-        } else {
+        guard let profile = self.loadObject(forKey: ProfileConstants.profile) else {
             return
         }
+        self.userData = profile;
     }
     
     /**
@@ -129,9 +128,9 @@ class Profile: NSObject, NSCoding, NSSecureCoding  {
     }
     
     private func getKeychainQueryFor(key: String) -> [AnyHashable : Any] {
-        return ([ProfileSecConstant.classValue: ProfileSecConstant.classGenericPasswordValue,
+        return [ProfileSecConstant.classValue: ProfileSecConstant.classGenericPasswordValue,
                  ProfileSecConstant.attrServiceValue: key,
                  ProfileSecConstant.attrAccountValue: key,
-                 ProfileSecConstant.attrAccessibleValue: ProfileSecConstant.attrAccessibleAfterFirstUnlockValue])
+                 ProfileSecConstant.attrAccessibleValue: ProfileSecConstant.attrAccessibleAfterFirstUnlockValue]
     }
 }

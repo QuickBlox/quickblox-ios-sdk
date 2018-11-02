@@ -206,11 +206,11 @@ UsersViewControllerDelegate {
         })
     }
     
-    func core(_ core: Core, _ loginStatus: String) {
+    func core(_ core: Core, loginStatus: String) {
         debugPrint("coreDidLogin")
     }
     
-    func core(_ core: Core, _ error: Error, _ domain: ErrorDomain) {
+    func core(_ core: Core, error: Error, domain: ErrorDomain) {
         if domain == ErrorDomain.logOut {
             SVProgressHUD.showError(withStatus: error.localizedDescription)
         }
@@ -252,7 +252,7 @@ UsersViewControllerDelegate {
                               sender: callSettings)
             return
         }
-        AVCallPermissions.check(with: conferenceType) { granted in
+        CallPermissions.check(with: conferenceType) { granted in
             guard granted == true else { return }
             self.performSegue(withIdentifier: MainSegueConstant.call,
                               sender: callSettings)

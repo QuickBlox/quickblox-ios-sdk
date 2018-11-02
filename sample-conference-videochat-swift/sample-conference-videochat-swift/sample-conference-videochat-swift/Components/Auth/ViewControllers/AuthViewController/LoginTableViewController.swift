@@ -58,11 +58,11 @@ class LoginTableViewController: UITableViewController {
         
         core.addDelegate(self)
         
-        self.tableView.estimatedRowHeight = 80
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.keyboardDismissMode = .onDrag
-        self.tableView.delaysContentTouches = false
-        self.navigationItem.title = LoginConstant.enterToChat
+        tableView.estimatedRowHeight = 80
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.keyboardDismissMode = .onDrag
+        tableView.delaysContentTouches = false
+        navigationItem.title = LoginConstant.enterToChat
         
         self.defaultConfiguration()
         
@@ -128,7 +128,6 @@ class LoginTableViewController: UITableViewController {
     
     // MARK: - Login
     func login() {
-        isEditing = false
         beginConnect()
         if core.currentUser != nil {
             core.loginWithCurrentUser()
@@ -138,6 +137,7 @@ class LoginTableViewController: UITableViewController {
     }
     
     func beginConnect() {
+        isEditing = false
         inputEnabled = false
         loginButton.showLoading()
     }
@@ -194,17 +194,17 @@ extension LoginTableViewController: CoreDelegate {
         defaultConfiguration()
     }
     
-    func core(_ core: Core, _ loginStatus: String) {
+    func core(_ core: Core, loginStatus: String) {
         self.infoText = loginStatus
     }
     
-    func core(_ core: Core, _ error: Error, _ domain: ErrorDomain) {
+    func core(_ core: Core, error: Error, domain: ErrorDomain) {
         var infoText = error.localizedDescription
         if error._code == NSURLErrorNotConnectedToInternet {
             infoText = LoginConstant.checkInternet
             needReconnect = true
         } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection,
-            domain == ErrorDomain.signUp || domain == ErrorDomain.logIn {
+            (domain == ErrorDomain.signUp || domain == ErrorDomain.logIn) {
                 login()
         } else {
             endConnectError()

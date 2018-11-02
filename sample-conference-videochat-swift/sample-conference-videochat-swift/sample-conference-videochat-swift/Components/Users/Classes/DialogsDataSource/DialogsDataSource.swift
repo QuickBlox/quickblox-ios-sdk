@@ -65,8 +65,10 @@ class DialogsDataSource: NSObject {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         guard let dialogCell = tableView.dequeueReusableCell(withIdentifier: "DialogTableViewCell") as? DialogTableViewCell else { return cell }
-        let chatDialog: QBChatDialog? = objects[indexPath.row]
-        dialogCell.title = chatDialog?.name
+        let chatDialog = objects[indexPath.row]
+        if let title = chatDialog.name {
+            dialogCell.title = title
+        }
         dialogCell.delegate = self
         cell = dialogCell
         return cell
@@ -96,15 +98,15 @@ extension DialogsDataSource: UITableViewDataSource {
 // MARK: - DialogTableViewCellDelegate
 extension DialogsDataSource: DialogTableViewCellDelegate {
     
-    func dialogCellDidListenerButton(_ dialogCell: DialogTableViewCell?) {
+    func dialogCellDidListenerButton(_ dialogCell: DialogTableViewCell) {
         delegate?.dialogsDataSource(self, dialogCellDidTapListener: dialogCell)
     }
     
-    func dialogCellDidAudioButton(_ dialogCell: DialogTableViewCell?) {
+    func dialogCellDidAudioButton(_ dialogCell: DialogTableViewCell) {
         delegate?.dialogsDataSource(self, dialogCellDidTapAudio: dialogCell)
     }
     
-    func dialogCellDidVideoButton(_ dialogCell: DialogTableViewCell?) {
+    func dialogCellDidVideoButton(_ dialogCell: DialogTableViewCell) {
         delegate?.dialogsDataSource(self, dialogCellDidTapVideo: dialogCell)
     }
 }

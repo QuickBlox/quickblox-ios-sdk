@@ -9,30 +9,31 @@
 import UIKit
 
 class CheckView: UIView {
+    //MARK: - Properties
     let checkboxNormalImage = UIImage(named: "checkbox-normal")
     let checkboxPressedImage = UIImage(named: "checkbox-pressed")
-    private var imageView: UIImageView!
+    
+    lazy private var imageView: UIImageView = {
+        let imageView = UIImageView(image: checkboxNormalImage)
+        imageView.frame = bounds
+        return imageView
+    }()
     
     var check: Bool? {
         didSet {
-            updateCheck(check)
+            guard let check = check else { return }
+            imageView.image = check ? checkboxPressedImage : checkboxNormalImage
         }
     }
     
+    //MARK: - Life Circle
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageView = UIImageView(image: checkboxNormalImage)
-        imageView.frame = bounds
         addSubview(imageView)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = bounds
-    }
-    
-    func updateCheck(_ check: Bool?) {
-        guard let check = check else { return }
-        imageView.image = check ? checkboxPressedImage : checkboxNormalImage
     }
 }
