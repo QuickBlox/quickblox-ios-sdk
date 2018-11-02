@@ -20,13 +20,13 @@ class UserTableViewCell: UITableViewCell {
             fullNameLabel.text = fullName
         }
     }
-
+    
     var check: Bool? {
         didSet {
             checkView.check = check
         }
     }
-
+    
     var userImage: UIImage? {
         didSet {
             userImageView.image = userImage
