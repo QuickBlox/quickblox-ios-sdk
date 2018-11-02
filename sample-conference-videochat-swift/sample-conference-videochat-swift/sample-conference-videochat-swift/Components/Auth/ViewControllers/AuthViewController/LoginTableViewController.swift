@@ -25,7 +25,7 @@ struct LoginNameRegularExtention {
 
 class LoginTableViewController: UITableViewController {
     
-    // MARK: IBOutlets
+    //MARK: - IBOutlets
     @IBOutlet private weak var loginInfo: UILabel!
     @IBOutlet private weak var userNameDescriptionLabel: UILabel!
     @IBOutlet private weak var chatRoomDescritptionLabel: UILabel!
@@ -33,11 +33,10 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet private weak var chatRoomNameTextField: UITextField!
     @IBOutlet private weak var loginButton: LoadingButton!
 
-    // MARK: Properties
+    //MARK: - Properties
     private let core = Core.instance
     private var needReconnect = false
     
-    // MARK: - Disable / Enable inputs
     private var inputEnabled = true {
         didSet {
             chatRoomNameTextField.isEnabled = inputEnabled
@@ -52,13 +51,13 @@ class LoginTableViewController: UITableViewController {
         }
     }
     
-    // MARK: Life Cicles
+    //MARK: - Life Cicles
     override func viewDidLoad() {
         super.viewDidLoad()
         
         core.addDelegate(self)
         
-        tableView.estimatedRowHeight = 80
+        tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.keyboardDismissMode = .onDrag
         tableView.delaysContentTouches = false
@@ -77,7 +76,7 @@ class LoginTableViewController: UITableViewController {
         debugPrint("deinit \(self)")
     }
     
-    // MARK - Setup
+    //MARK - Setup
     private func defaultConfiguration() {
         loginButton.hideLoading()
         loginButton.setTitle(LoginConstant.login, for: .normal)
@@ -87,16 +86,16 @@ class LoginTableViewController: UITableViewController {
         inputEnabled = true
         
         // Reachability
-        let updateLoginInfo: ((_ status: NetworkConnectionStatus) -> Void)? = { status in
-            let loginInfo = (status == NetworkConnectionStatus.notConnection) ?
-                LoginConstant.checkInternet : LoginConstant.enterUsername
-            self.setLoginInfoText(loginInfo)
+        let updateLoginInfo: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
+            let notConnection = status == NetworkConnectionStatus.notConnection
+            let loginInfo = notConnection ? LoginConstant.checkInternet : LoginConstant.enterUsername
+            self?.infoText = loginInfo
         }
         
-        core.networkStatusBlock = { status in
-            if self.needReconnect == true, status != NetworkConnectionStatus.notConnection {
-                self.needReconnect = false
-                self.login()
+        core.networkStatusBlock = { [weak self] status in
+            if self?.needReconnect == true, status != NetworkConnectionStatus.notConnection {
+                self?.needReconnect = false
+                self?.login()
             } else {
                 updateLoginInfo?(status)
             }
@@ -104,7 +103,7 @@ class LoginTableViewController: UITableViewController {
         updateLoginInfo?(core.networkConnectionStatus())
     }
     
-    // MARK: Actions
+    //MARK: Actions
     @IBAction func didPressLoginButton(_ sender: LoadingButton) {
         login()
     }
@@ -114,20 +113,13 @@ class LoginTableViewController: UITableViewController {
         loginButton.isEnabled = userNameIsValid() && chatRoomIsValid()
     }
 
-    // MARK: - Overrides
+    //MARK: - Overrides
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
-    func setLoginInfoText(_ text: String?) {
-        if text != loginInfo.text {
-            loginInfo.text = text
-            tableView.reloadData()
-        }
-    }
-    
-    // MARK: - Login
-    func login() {
+    //MARK: - Internal Methods
+    private func login() {
         beginConnect()
         if core.currentUser != nil {
             core.loginWithCurrentUser()
@@ -136,18 +128,17 @@ class LoginTableViewController: UITableViewController {
         }
     }
     
-    func beginConnect() {
+    private func beginConnect() {
         isEditing = false
         inputEnabled = false
         loginButton.showLoading()
     }
     
-    func endConnectError() {
+    private func endConnectError() {
         inputEnabled = true
         loginButton.hideLoading()
     }
     
-    // MARK: - Private
     private func validate(_ textField: UITextField?) {
         if textField == userNameTextField, userNameIsValid() == false {
             chatRoomDescritptionLabel.text = ""
@@ -163,7 +154,7 @@ class LoginTableViewController: UITableViewController {
         tableView.endUpdates()
     }
     
-    // MARK: - Validation helpers
+    //MARK: - Validation helpers
     private func userNameIsValid() -> Bool {
         let characterSet = CharacterSet.whitespaces
         let trimmedText = userNameTextField.text?.trimmingCharacters(in: characterSet)
@@ -183,9 +174,8 @@ class LoginTableViewController: UITableViewController {
     }
 }
 
-// MARK: - QBCoreDelegate metods
 extension LoginTableViewController: CoreDelegate {
-    
+    //MARK: - CoreDelegate
     func coreDidLogin(_ core: Core) {
         performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
     }
@@ -195,7 +185,7 @@ extension LoginTableViewController: CoreDelegate {
     }
     
     func core(_ core: Core, loginStatus: String) {
-        self.infoText = loginStatus
+        infoText = loginStatus
     }
     
     func core(_ core: Core, error: Error, domain: ErrorDomain) {
@@ -213,8 +203,8 @@ extension LoginTableViewController: CoreDelegate {
     }
 }
 
-// MARK: - UITextFieldDelegate
 extension LoginTableViewController: UITextFieldDelegate {
+    //MARK: - UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
         validate(textField)
     }
