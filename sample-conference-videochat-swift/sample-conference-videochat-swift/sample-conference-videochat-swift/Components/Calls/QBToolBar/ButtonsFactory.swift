@@ -9,9 +9,9 @@
 import UIKit
 
 struct ButtonsFactoryConstants {
-    static let defRect: CGRect = CGRect(x: 0, y: 0, width: 44, height: 44)
-    static let defDeclineRect: CGRect = CGRect(x: 0, y: 0, width: 96, height: 44)
-    static let defCircleDeclineRect: CGRect = CGRect(x: 0, y: 0, width: 44, height: 44)
+    static let defRect: CGRect = CGRect(x: 0.0, y: 0.0, width: 44.0, height: 44.0)
+    static let defDeclineRect: CGRect = CGRect(x: 0.0, y: 0.0, width: 96.0, height: 44.0)
+    static let defCircleDeclineRect: CGRect = CGRect(x: 0.0, y: 0.0, width: 44.0, height: 44.0)
     
     static let defBackgroundColor = UIColor(red: 0.8118, green: 0.8118, blue: 0.8118, alpha: 1.0)
     static let defSelectedColor = UIColor(red: 0.3843, green: 0.3843, blue: 0.3843, alpha: 1.0)
@@ -20,7 +20,7 @@ struct ButtonsFactoryConstants {
 }
 
 class ButtonsFactory {
-    // MARK: - Private
+    // MARK: - Class Metods
     class func button(withFrame frame: CGRect, backgroundColor: UIColor, selectedColor: UIColor) -> CustomButton {
         let button = CustomButton(frame: frame)
         button.backgroundColor = backgroundColor
@@ -36,7 +36,6 @@ class ButtonsFactory {
         return iconView
     }
     
-    // MARK: - Public
     class func videoEnable() -> CustomButton {
         let button: CustomButton = self.button(withFrame: ButtonsFactoryConstants.defRect, backgroundColor:ButtonsFactoryConstants.defBackgroundColor, selectedColor: ButtonsFactoryConstants.defSelectedColor)
         button.pushed = true

@@ -110,7 +110,7 @@ class CustomButton: UIButton {
         }
     }
     
-    //MARK: - Private Metods
+    //MARK: - Internal Metods
     private func commonInit() {
         pressed = false
         isMultipleTouchEnabled = false

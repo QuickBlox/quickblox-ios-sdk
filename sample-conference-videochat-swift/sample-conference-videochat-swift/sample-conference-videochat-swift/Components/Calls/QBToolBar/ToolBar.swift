@@ -9,10 +9,11 @@
 import UIKit
 
 class ToolBar: UIToolbar {
-    
+    //MARK: - Properties
     private var buttons: [UIButton] = []
     private var actions: [(_ sender: UIButton?) -> Void] = []
     
+    //MARK: - Life Circle
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
@@ -23,36 +24,35 @@ class ToolBar: UIToolbar {
         
     }
     
+    //MARK: - Internal Metods
     func updateItems() {
         var items = [UIBarButtonItem]()
-        let fs = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
         for button in buttons {
-            var item: UIBarButtonItem? = nil
-                item = UIBarButtonItem(customView: button)
-            guard let itemsCount = self.items?.count else { return }
-            if itemsCount > 0 {
-                items = items + self.items!
+            let item = UIBarButtonItem(customView: button)
+            if let barItems = self.items {
+                items = items + barItems
             }
-            items.append(fs)
-            if let anItem = item {
-                items.append(anItem)
-            }
+            items.append(barButton)
+            items.append(item)
         }
-        items.append(fs)
+        items.append(barButton)
         self.items = items
     }
     
     func add(_ button: UIButton?, action: @escaping (_ sender: UIButton?) -> Void) {
-        button?.addTarget(self, action: #selector(self.press(_:)), for: .touchUpInside)
+        button?.addTarget(self, action: #selector(didTap(_:)), for: .touchUpInside)
         if let button = button {
             buttons.append(button)
         }
         actions.append(action)
     }
     
-    @objc func press(_ button: CustomButton) {
-        guard let idx = buttons.index(of: button) else { return }
-        let action: ((_ sender: UIButton?) -> Void)? = actions[idx]
+    //MARK: - Actions
+    @objc func didTap(_ button: CustomButton) {
+        guard let index = buttons.index(of: button) else { return }
+        let action: ((_ sender: UIButton?) -> Void)? = actions[index]
         action?(button)
     }
 }
