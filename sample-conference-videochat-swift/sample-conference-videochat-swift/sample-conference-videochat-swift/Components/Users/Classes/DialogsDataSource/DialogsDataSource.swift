@@ -11,25 +11,24 @@ import Quickblox
 
 struct DialogsDataSourceConstant {
     static let selectChatDialog = NSLocalizedString("Select chat dialog to join conference into", comment: "")
+    static let dialogCellIdentifier = "DialogTableViewCell"
 }
 
 protocol DialogsDataSourceDelegate: class {
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapListener dialogCell: UITableViewCell?)
-    
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapAudio dialogCell: UITableViewCell?)
-    
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapVideo dialogCell: UITableViewCell?)
-    
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath?)
 }
 
 class DialogsDataSource: NSObject {
+    // MARK: - Properties
     weak var delegate: DialogsDataSourceDelegate?
     var objects = [QBChatDialog]()
     var selectedObjects = [QBChatDialog]()
     private let sortSelector: Selector = #selector(getter: QBCEntity.createdAt)
     
-    // MARK: Public
+    // MARK: Public Methods
     func updateObjects(_ objects: [QBChatDialog]) {
         self.objects = sortObjects(objects)
         selectedObjects = selectedObjects.filter({ objects.contains($0) })
@@ -53,18 +52,18 @@ class DialogsDataSource: NSObject {
         selectedObjects = [QBChatDialog]()
     }
     
-    // MARK: Private
+    // MARK: - Internal Methods
     func sortObjects(_ objects: [QBChatDialog]) -> [QBChatDialog] {
         let key = NSStringFromSelector(sortSelector)
-        let objectsSortDescriptor = NSSortDescriptor(key: key, ascending: false)
-        guard let sortedObjects = (objects as NSArray).sortedArray(using: [objectsSortDescriptor])
+        let sortDescriptor = NSSortDescriptor(key: key, ascending: false)
+        guard let sortedObjects = (objects as NSArray).sortedArray(using: [sortDescriptor])
             as? [QBChatDialog] else {return objects}
         return sortedObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        guard let dialogCell = tableView.dequeueReusableCell(withIdentifier: "DialogTableViewCell") as? DialogTableViewCell else { return cell }
+        guard let dialogCell = tableView.dequeueReusableCell(withIdentifier: DialogsDataSourceConstant.dialogCellIdentifier) as? DialogTableViewCell else { return cell }
         let chatDialog = objects[indexPath.row]
         if let title = chatDialog.name {
             dialogCell.title = title
@@ -88,16 +87,15 @@ class DialogsDataSource: NSObject {
     }
 }
 
-// MARK: UITableViewDataSource
 extension DialogsDataSource: UITableViewDataSource {
+    // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return objects.count
     }
 }
 
-// MARK: - DialogTableViewCellDelegate
 extension DialogsDataSource: DialogTableViewCellDelegate {
-    
+    // MARK: - DialogTableViewCellDelegate
     func dialogCellDidListenerButton(_ dialogCell: DialogTableViewCell) {
         delegate?.dialogsDataSource(self, dialogCellDidTapListener: dialogCell)
     }
