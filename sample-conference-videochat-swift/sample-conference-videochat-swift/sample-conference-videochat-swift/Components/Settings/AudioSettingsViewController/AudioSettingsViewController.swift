@@ -73,7 +73,9 @@ class AudioSettingsViewController: BaseSettingsViewController {
             switchItem.on = true
             #else
             // Device
-            switchItem.on = (self?.settings.mediaConfiguration.isAudioLevelControlEnabled)!
+            if let isOn = self?.settings.mediaConfiguration.isAudioLevelControlEnabled {
+                switchItem.on = isOn
+            }
             #endif
             
             return [switchItem]
@@ -86,7 +88,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
             switchItem.title = "Enable"
             let bandwidthSlider = SliderItemModel()
             bandwidthSlider.title = "30"
-            var isEnabled: Bool = false
+            var isEnabled = false
             
             #if targetEnvironment(simulator)
             // Simulator
@@ -96,14 +98,18 @@ class AudioSettingsViewController: BaseSettingsViewController {
             bandwidthSlider.maxValue = 510
             #else
             // Device
-            isEnabled = (self?.settings.mediaConfiguration.audioBandwidth)! > 0
-            self?.updateBandwidthSliderModelRange(bandwidthSlider, using: (self?.settings.mediaConfiguration.audioCodec)!)
-            bandwidthSlider.currentValue = (self?.settings.mediaConfiguration.audioBandwidth)! < UInt(bitPattern: (bandwidthSlider.minValue)) ? UInt(bitPattern: (bandwidthSlider.minValue)) : UInt(bitPattern: ((self?.settings.mediaConfiguration.audioBandwidth)!))
+            if let audioBandwidth = self?.settings.mediaConfiguration.audioBandwidth {
+                isEnabled = audioBandwidth > 0
+                let sliderMinValue = UInt(bitPattern: (bandwidthSlider.minValue))
+                let audioBandwidthValue = UInt(bitPattern: audioBandwidth)
+                bandwidthSlider.currentValue = audioBandwidth < sliderMinValue ? sliderMinValue : audioBandwidthValue
+            }
+            if let audioCodec = self?.settings.mediaConfiguration.audioCodec {
+                self?.updateBandwidthSliderModelRange(bandwidthSlider, using: audioCodec)
+            }
             #endif
             switchItem.on = isEnabled
-            
             bandwidthSlider.isDisabled = isEnabled
-            
             return [switchItem, bandwidthSlider]
         })
     }
@@ -111,21 +117,19 @@ class AudioSettingsViewController: BaseSettingsViewController {
     // MARK: - SettingsCellDelegate
     override func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel?) {
         
-        var indexPath: IndexPath? = nil
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
  
-            indexPath = tableView.indexPath(for: cell)
- 
-        if indexPath?.section == AudioSettingsSectionType.bandwidth.rawValue && (model is SwitchItemModel) {
+        if indexPath.section == AudioSettingsSectionType.bandwidth.rawValue && (model is SwitchItemModel) {
             
-            let bandwidth: SettingsSectionModel? = section(with: AudioSettingsSectionType.bandwidth.rawValue)
-            let switchItem: SwitchItemModel? = bandwidth?.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
-            let isEnabled = switchItem?.on
-            let bandwidthSlider: SliderItemModel? = bandwidth?.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
-            bandwidthSlider?.isDisabled = isEnabled!
-            if !isEnabled! {
-                bandwidthSlider?.currentValue = UInt(bitPattern: (bandwidthSlider?.minValue)!)
+            guard let bandwidth = section(with: AudioSettingsSectionType.bandwidth.rawValue) else { return }
+            let switchItem = bandwidth.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
+            let bandwidthSlider = bandwidth.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
+            if let isEnabled = switchItem?.on, let bandwidthSlider = bandwidthSlider {
+                bandwidthSlider.isDisabled = isEnabled
+                if isEnabled == false {
+                    bandwidthSlider.currentValue = UInt(bitPattern: bandwidthSlider.minValue)
+                }
             }
-            
             let sectionToReload = NSIndexSet(index: AudioSettingsSectionType.bandwidth.rawValue)
             tableView.reloadSections(sectionToReload as IndexSet, with: .fade)
         }
