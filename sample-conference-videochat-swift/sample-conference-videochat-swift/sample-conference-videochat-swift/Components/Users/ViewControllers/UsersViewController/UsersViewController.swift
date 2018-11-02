@@ -40,7 +40,7 @@ class UsersViewController: UITableViewController {
             refreshControl?.addTarget(self, action: #selector(fetchData),
                                       for: .valueChanged)
         }
-        
+        // setup navigation items
         let createChatButton = UIBarButtonItem(title: UsersViewControllerConstant.create,
                                                style: .plain,
                                                target: self,
@@ -71,31 +71,33 @@ class UsersViewController: UITableViewController {
     
     //MARK: - Actions
     @objc private func didTapCreateChatButton(_ item: UIBarButtonItem?) {
-        if hasConnectivity() == true {
-            
-            let selectedUsers = dataSource?.selectedObjects
-            let userIDs = selectedUsers?.map{ $0.id }
-            let userNames = selectedUsers?.map{ $0.fullName } as! [String]
-            let chatDialog = QBChatDialog(dialogID: nil, type: QBChatDialogType.group)
-            chatDialog.occupantIDs = userIDs as [NSNumber]?
-            
-            guard let fullName = core.currentUser?.fullName else { return }
-            let userNamesString = userNames.joined(separator: ", ")
-            chatDialog.name = "\(fullName), \(userNamesString)"
-            
-            SVProgressHUD.show(withStatus: UsersViewControllerConstant.creatingChatDialog)
-            
-            QBRequest.createDialog(chatDialog, successBlock: { [weak self] response, createdDialog in
-                guard let `self` = self else { return }
-                SVProgressHUD.dismiss()
-                self.delegate?.usersViewController(self, didCreateChatDialog: createdDialog)
-                self.navigationController?.popViewController(animated: true)
-                
-                }, errorBlock: { response in
-                    SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
-            })
+        guard hasConnectivity() == true,
+            let dataSource = dataSource,
+            let fullName = core.currentUser?.fullName else {
+            return
         }
+    
+        let userIDs = dataSource.selectedObjects.map{ NSNumber(value: $0.id) }
+        let userNames = dataSource.selectedObjects.compactMap{ $0.fullName }
+        let chatDialog = QBChatDialog(dialogID: nil, type: QBChatDialogType.group)
+        chatDialog.occupantIDs = userIDs
+        
+        let userNamesString = userNames.joined(separator: ", ")
+        chatDialog.name = "\(fullName), \(userNamesString)"
+        
+        SVProgressHUD.show(withStatus: UsersViewControllerConstant.creatingChatDialog)
+        
+        QBRequest.createDialog(chatDialog, successBlock: { [weak self] response, createdDialog in
+            guard let `self` = self else { return }
+            SVProgressHUD.dismiss()
+            self.delegate?.usersViewController(self, didCreateChatDialog: createdDialog)
+            self.navigationController?.popViewController(animated: true)
+            
+            }, errorBlock: { response in
+                SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+        })
     }
+    
     @objc private func fetchData() {
         QBDataFetcher.fetchUsers({ [weak self] users in
             if let users = users {
@@ -108,30 +110,32 @@ class UsersViewController: UITableViewController {
         })
     }
     
-    // MARK: UITableViewDelegate
+    // MARK: - Internal Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dataSource?.selectObject(at: indexPath)
-        var countUsers = 0
-       if let count = dataSource?.selectedObjects.count {
-           countUsers = count
+        guard let dataSource = dataSource else {
+            return
         }
+        dataSource.selectObject(at: indexPath)
         tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
-        navigationItem.rightBarButtonItem?.isEnabled = countUsers > 0
+        navigationItem.rightBarButtonItem?.isEnabled = dataSource.selectedObjects.isEmpty == false
     }
     
-    // MARK: - Internal Methods
     private func hasConnectivity() -> Bool {
-        let hasConnectivity = core.networkConnectionStatus() != NetworkConnectionStatus.notConnection
-        if hasConnectivity == false {
+        let status = core.networkConnectionStatus()
+        guard status != NetworkConnectionStatus.notConnection else {
             showAlertView(withMessage: UsersViewControllerConstant.checkInternetConnection)
+            return false
         }
-        return hasConnectivity
+        return true
     }
     
     private func showAlertView(withMessage message: String?) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let alertController = UIAlertController(title: nil,
+                                                message: message,
+                                                preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""),
-                                                style: .default, handler: nil))
+                                                style: .default,
+                                                handler: nil))
         present(alertController, animated: true)
     }
 }
