@@ -11,14 +11,14 @@ import Quickblox
 import SVProgressHUD
 
 class AddUsersViewController: UITableViewController {
+    // MARK: - Properties
     weak var usersDataSource: UsersDataSource?
     weak var chatDialog: QBChatDialog?
     private var dataSource = UsersDataSource()
     
-    // MARK: Lifecycle
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         guard let usersDataSource = usersDataSource,
             let chatDialog = chatDialog,
             let occupantIDs = chatDialog.occupantIDs  else {
@@ -29,7 +29,7 @@ class AddUsersViewController: UITableViewController {
         })
         dataSource.updateObjects(users)
         tableView.dataSource = dataSource
-        tableView.rowHeight = 44
+        tableView.rowHeight = 44.0
         
         // adding refresh control task
         if let refreshControl = self.refreshControl {
@@ -46,7 +46,6 @@ class AddUsersViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if let refreshControl = self.refreshControl, refreshControl.isRefreshing == true {
             let contentOffset = CGPoint(x: 0, y: -refreshControl.frame.size.height)
             tableView.setContentOffset(contentOffset, animated: false)
@@ -56,8 +55,8 @@ class AddUsersViewController: UITableViewController {
         debugPrint("deinit \(self)")
     }
     
+    //MARK: - Actions
     @objc func didPressUpdateChatButton(_ item: UIBarButtonItem?) {
-        
         SVProgressHUD.show()
         var pushOccupantsIDs: [String] = []
         for user in dataSource.selectedObjects {
@@ -82,18 +81,14 @@ class AddUsersViewController: UITableViewController {
         navigationItem.rightBarButtonItem?.isEnabled = dataSource.selectedObjects.count > 0
     }
     
-    // MARK: Private
-    @objc func fetchData() {
+    // MARK: - Internal Methods
+    @objc private func fetchData() {
         QBDataFetcher.fetchUsers({ [weak self] users in
-            
             guard let users = users else { return }
-            var mutableUsers = users
-            for user in users {
-                if (self?.chatDialog?.occupantIDs?.contains(NSNumber(value: user.id)))! {
-                    mutableUsers.removeAll(where: { element in element == user })
-                }
-            }
-            self?.dataSource.updateObjects(mutableUsers)
+            let filteredUsers = users.filter({
+                self?.chatDialog?.occupantIDs?.contains(NSNumber(value: $0.id)) == false
+            })
+            self?.dataSource.updateObjects(filteredUsers)
             self?.tableView.reloadData()
             self?.refreshControl?.endRefreshing()
         })

@@ -67,7 +67,7 @@ UsersViewControllerDelegate {
         super.viewWillAppear(animated)
         
         if let refreshControl = self.refreshControl, refreshControl.isRefreshing == true {
-            let contentOffset = CGPoint(x: 0, y: -refreshControl.frame.size.height)
+            let contentOffset = CGPoint(x: 0.0, y: -refreshControl.frame.size.height)
             tableView.setContentOffset(contentOffset, animated: false)
         }
     }
@@ -179,7 +179,7 @@ UsersViewControllerDelegate {
     }
     
     // MARK: UsersViewControllerDelegate
-    func usersViewController(_ usersViewController: UsersViewController?,
+    func usersViewController(_ usersViewController: UsersViewController,
                              didCreateChatDialog chatDialog: QBChatDialog?) {
         guard let chatDialog = chatDialog else { return }
         dialogsDataSource.addObjects([chatDialog])
