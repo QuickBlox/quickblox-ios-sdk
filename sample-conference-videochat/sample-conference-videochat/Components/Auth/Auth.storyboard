@@ -194,7 +194,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="m1t-9J-IBE"/>
                     <connections>
-                        <outlet property="chatRoomDescritptionLabel" destination="EuA-HP-sft" id="wEr-TI-lyu"/>
+                        <outlet property="chatRoomDescritptionLabel" destination="Mxg-nC-e2p" id="vNl-6K-1CH"/>
+                        <outlet property="chatRoomNameTextField" destination="EuA-HP-sft" id="Zq5-OI-QSI"/>
                         <outlet property="loginButton" destination="sDV-TR-cUr" id="frX-lr-klc"/>
                         <outlet property="loginInfo" destination="lCi-rE-4bS" id="vbE-ne-W37"/>
                         <outlet property="userNameDescriptionLabel" destination="Bl5-f3-GmO" id="cg9-tn-ALg"/>
