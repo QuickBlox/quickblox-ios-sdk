@@ -31,16 +31,11 @@ class UsersViewController: UITableViewController {
     // MARK: Life Сycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.dataSource = dataSource
         tableView.rowHeight = 44.0
         fetchData()
         
-        // adding refresh control task
-        if (refreshControl != nil) {
-            refreshControl?.addTarget(self, action: #selector(fetchData),
-                                      for: .valueChanged)
-        }
-        // setup navigation items
         let createChatButton = UIBarButtonItem(title: UsersViewControllerConstant.create,
                                                style: .plain,
                                                target: self,
@@ -48,10 +43,17 @@ class UsersViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = createChatButton
         navigationItem.rightBarButtonItem?.isEnabled = false
+        
+        // adding refresh control task
+        if (refreshControl != nil) {
+            refreshControl?.addTarget(self, action: #selector(fetchData),
+                                      for: .valueChanged)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         if let refreshControl = self.refreshControl, refreshControl.isRefreshing == true {
             let contentOffset = CGPoint(x: 0, y: -refreshControl.frame.size.height)
             tableView.setContentOffset(contentOffset, animated: false)
@@ -60,6 +62,7 @@ class UsersViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         if isMovingFromParent {
             dataSource?.deselectAllObjects()
         }
