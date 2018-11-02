@@ -109,12 +109,12 @@ class AudioSettingsViewController: BaseSettingsViewController {
     }
 
     // MARK: - SettingsCellDelegate
-    override func cell(_ cell: BaseSettingsCell?, didChageModel model: BaseItemModel?) {
+    override func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel?) {
         
         var indexPath: IndexPath? = nil
-        if let aCell = cell {
-            indexPath = tableView.indexPath(for: aCell)
-        }
+ 
+            indexPath = tableView.indexPath(for: cell)
+ 
         if indexPath?.section == AudioSettingsSectionType.bandwidth.rawValue && (model is SwitchItemModel) {
             
             let bandwidth: SettingsSectionModel? = section(with: AudioSettingsSectionType.bandwidth.rawValue)
