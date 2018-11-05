@@ -224,15 +224,17 @@ class CallViewController: UIViewController {
                                              .flexibleBottomMargin]
         
         // zoomed view
+        zoomedView.frame = view.bounds
         zoomedView.autoresizingMask = mask
-        zoomedView.isHidden = false
+        zoomedView.isHidden = true
         view.addSubview(zoomedView)
         zoomedView.didTapView = { [weak self] zoomedView in
             self?.unzoomVideoView()
         }
         // stats view
+        statsView.frame = view.bounds
         statsView.autoresizingMask = mask
-        statsView.isHidden = false
+        statsView.isHidden = true
         view.addSubview(statsView)
         
         // add button to enable stats view
@@ -242,11 +244,6 @@ class CallViewController: UIViewController {
                                                            target: self,
                                                            action: #selector(didTapLeave(_:)))
         navigationItem.rightBarButtonItem = addUsersItem
-        
-        // collection view
-        collectionView.collectionViewLayout = OpponentsFlowLayout()
-        collectionView.backgroundColor = UIColor(red: 0.1465, green: 0.1465, blue: 0.1465, alpha: 1.0)
-        view.backgroundColor = collectionView.backgroundColor
     }
     
     // MARK: Transition to size
@@ -629,6 +626,7 @@ extension CallViewController: QBRTCBaseClientDelegate {
 
 // MARK: UICollectionViewDataSource
 extension CallViewController: UICollectionViewDataSource {
+    // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return users.count
     }
@@ -662,7 +660,10 @@ extension CallViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
+}
+
+extension CallViewController: UICollectionViewDelegate {
+    // MARK: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         guard let currentUserID = session?.currentUserID,
@@ -677,5 +678,3 @@ extension CallViewController: UICollectionViewDataSource {
         zoomVideoView(videoView)
     }
 }
-
-

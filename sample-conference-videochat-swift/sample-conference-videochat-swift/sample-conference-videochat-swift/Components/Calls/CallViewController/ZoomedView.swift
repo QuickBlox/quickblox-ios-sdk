@@ -19,11 +19,11 @@ class ZoomedView: UIView {
             guard let view = videoView else { return }
             view.frame = bounds
             view.autoresizingMask = [.flexibleWidth,
-                                          .flexibleHeight,
-                                          .flexibleLeftMargin,
-                                          .flexibleRightMargin,
-                                          .flexibleTopMargin,
-                                          .flexibleBottomMargin]
+                                     .flexibleHeight,
+                                     .flexibleLeftMargin,
+                                     .flexibleRightMargin,
+                                     .flexibleTopMargin,
+                                     .flexibleBottomMargin]
             addSubview(view)
         }
     }

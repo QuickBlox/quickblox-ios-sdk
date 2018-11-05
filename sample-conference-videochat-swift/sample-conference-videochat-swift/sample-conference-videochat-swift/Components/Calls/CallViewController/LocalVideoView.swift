@@ -41,7 +41,7 @@ class LocalVideoView: UIView {
     public init(previewlayer layer: AVCaptureVideoPreviewLayer) {
         super.init(frame: CGRect.zero)
         videoLayer = layer
-        videoLayer?.videoGravity = .resizeAspectFill
+        videoLayer?.videoGravity = .resizeAspect
         containerView.layer.insertSublayer(layer, at:0)
         addSubview(switchCameraBtn)
     }

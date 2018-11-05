@@ -31,13 +31,8 @@
                             </toolbar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VGE-Qc-V5u">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="611"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ev1-wC-hkk" customClass="OpponentsFlowLayout" customModule="sample_conference_videochat_swift">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
+                                <color key="backgroundColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewLayout key="collectionViewLayout" id="9vD-xO-EQV" customClass="OpponentsFlowLayout" customModule="sample_conference_videochat_swift" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OpponentCollectionViewCellIdentifier" id="dMc-NP-8wD" customClass="OpponentCollectionViewCell" customModule="sample_conference_videochat_swift">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -127,7 +122,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="VGE-Qc-V5u" firstAttribute="leading" secondItem="S1Y-7c-ZeL" secondAttribute="leading" id="QxV-ca-goh"/>
                             <constraint firstItem="t9G-q1-P8b" firstAttribute="top" secondItem="nvl-aP-B6G" secondAttribute="bottom" id="bf1-8B-aU8"/>

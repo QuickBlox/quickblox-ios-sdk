@@ -18,7 +18,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var muteButton: UIButton!
     
     //MARK: - Properties
-    var videoView: UIView? {
+    weak var videoView: UIView? {
         willSet {
             videoView?.removeFromSuperview()
         }
@@ -27,7 +27,6 @@ class OpponentCollectionViewCell: UICollectionViewCell {
                 return
             }
             view.frame = bounds
-            view.layer.frame = bounds
             containerView.addSubview(view)
         }
     }
