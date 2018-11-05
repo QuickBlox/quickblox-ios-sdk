@@ -16,7 +16,7 @@ class PlaceholderGenerator {
     
     static let instance = PlaceholderGenerator()
     
-    class func color(for index: Int?) -> UIColor? {
+    class func color(for index: Int?) -> UIColor {
         return PlaceholderGenerator.instance.color(for: index)
     }
     

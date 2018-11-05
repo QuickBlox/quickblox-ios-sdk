@@ -10,19 +10,25 @@ import UIKit
 import QuickbloxWebRTC
 
 class OpponentCollectionViewCell: UICollectionViewCell {
+    //MARK: - IBOutlets
+    @IBOutlet private weak var nameView: UIView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private weak var muteButton: UIButton!
     
+    //MARK: - Properties
     var videoView: UIView? {
         willSet {
-            if videoView != newValue {
-
-                self.videoView?.removeFromSuperview()
-                self.videoView = newValue
-                videoView?.frame = bounds
-                videoView?.layer.frame = bounds
-            }
+            videoView?.removeFromSuperview()
         }
         didSet {
-            addVideoView()
+            guard let view = videoView else {
+                return
+            }
+            view.frame = bounds
+            view.layer.frame = bounds
+            containerView.addSubview(view)
         }
     }
 
@@ -30,118 +36,67 @@ class OpponentCollectionViewCell: UICollectionViewCell {
      *  Mute user block action.
      */
     var didPressMuteButton: ((_ isMuted: Bool) -> Void)?
-    var connectionState: QBRTCConnectionState?
     
-    var name: String? {
-        willSet {
-            if !(self.name == newValue) {
-                self.name = newValue
-                nameLabel.text = newValue
-                nameView.isHidden = false
-            }
-        }
-    }
-    
-    var nameColor: UIColor? {
-        willSet {
-            if !(self.nameColor == newValue) {
-                self.nameColor = newValue
-                nameView.backgroundColor = self.nameColor
-            }
-        }
-    }
-    
-    var isMuted: Bool? {
+    var connectionState: QBRTCConnectionState = .connecting {
         didSet {
-            muteButton.isSelected = isMuted!
+            switch connectionState {
+            case .new: statusLabel.text = "New"
+            case .pending: statusLabel.text = "Pending"
+            case .connected: statusLabel.text = "Connected"
+            case .checking, .connecting: statusLabel.text = "Connecting"
+            case .closed: statusLabel.text = "Closed"
+            case .hangUp: statusLabel.text = "Hung Up"
+            case .rejected: statusLabel.text = "Rejected"
+            case .noAnswer: statusLabel.text = "No Answer"
+            case .disconnectTimeout: statusLabel.text = "Time out"
+            case .disconnected: statusLabel.text = "Disconnected"
+            default: break
+            }
+            muteButton.isHidden = !(connectionState == .connected)
         }
     }
     
-    var bitrate: Double = 0.0
+    var name = "" {
+        didSet {
+            nameLabel.text = name
+            nameView.isHidden = false
+        }
+    }
     
-    let unmutedImage: UIImage = UIImage(named: "ic-qm-videocall-dynamic-off")!
-    let mutedImage: UIImage = UIImage(named: "ic-qm-videocall-dynamic-on")!
+    var nameColor = UIColor.white {
+        didSet {
+            nameView.backgroundColor = self.nameColor
+        }
+    }
     
-    @IBOutlet private weak var nameView: UIView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var containerView: UIView!
-    @IBOutlet private weak var statusLabel: UILabel!
-    @IBOutlet private weak var muteButton: UIButton!
+    var isMuted = false {
+        didSet {
+            muteButton.isSelected = isMuted
+        }
+    }
+    
+    var bitrate: Double = 0.0 {
+        didSet {
+            statusLabel.text = String(format: "%.0f kbits/sec", bitrate * 1e-3)
+        }
+    }
+    
+    let unmutedImage = UIImage(named: "ic-qm-videocall-dynamic-off")!
+    let mutedImage = UIImage(named: "ic-qm-videocall-dynamic-on")!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = UIColor.clear
         statusLabel.backgroundColor = UIColor(red: 0.9441, green: 0.9441, blue: 0.9441, alpha: 0.350031672297297)
-        name = ""
         muteButton.setImage(unmutedImage, for: .normal)
         muteButton.setImage(mutedImage, for: .selected)
         muteButton.isHidden = true
         isMuted = false
     }
     
-    private func addVideoView() {
-        guard let video = videoView else {return}
-        containerView.addSubview(video)
-//        video.translatesAutoresizingMaskIntoConstraints = false
-//        video.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-//        video.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-//        video.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-//        video.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-        video.layer.bounds = video.bounds
-        containerView.bringSubviewToFront(video)
-    }
-    
-    func setConnectionState(_ connectionState: QBRTCConnectionState) {
-        
-        if self.connectionState != connectionState {
-            self.connectionState = connectionState
-            
-            switch connectionState {
-            case .new:
-                statusLabel.text = "New"
-            case .pending:
-                statusLabel.text = "Pending"
-            case .connected:
-                statusLabel.text = "Connected"
-            case .checking, .connecting:
-                statusLabel.text = "Connecting"
-            case .closed:
-                statusLabel.text = "Closed"
-            case .hangUp:
-                statusLabel.text = "Hung Up"
-            case .rejected:
-                statusLabel.text = "Rejected"
-            case .noAnswer:
-                statusLabel.text = "No Answer"
-            case .disconnectTimeout:
-                statusLabel.text = "Time out"
-            case .disconnected:
-                statusLabel.text = "Disconnected"
-            default:
-                break
-            }
-            muteButton.isHidden = !(connectionState == .connected)
-        }
-    }
-    
-    // MARK: Bitrate
-    
-    func setBitrate(_ bitrate: Double) {
-        if self.bitrate != bitrate {
-            self.bitrate = bitrate
-            statusLabel.text = String(format: "%.0f kbits/sec", bitrate * 1e-3)
-        }
-    }
-    
     // MARK: Mute button
     @IBAction func didPressMuteButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        if didPressMuteButton != nil {
-            didPressMuteButton!(sender.isSelected)
-        }
-    }
-    
-    func isMutedButton() -> Bool {
-        return muteButton.isSelected
+        didPressMuteButton?(sender.isSelected)
     }
 }

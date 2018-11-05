@@ -216,7 +216,7 @@ class MainTableViewController: UITableViewController {
             let callViewController = segue.destination as? CallViewController
             callViewController?.chatDialog = settings.chatDialog
             callViewController?.conferenceType = settings.conferenseType
-            callViewController?.usersDataSource = usersDataSource
+            callViewController?.dataSource = usersDataSource
             
         default:
             break

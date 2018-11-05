@@ -1,4 +1,4 @@
-//
+    //
 //  ZoomedView.m
 //  sample-multiconference-videochat
 //

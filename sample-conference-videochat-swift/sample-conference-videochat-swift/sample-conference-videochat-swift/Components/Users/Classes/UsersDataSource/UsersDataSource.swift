@@ -47,9 +47,9 @@ class UsersDataSource: NSObject {
         return sortedObjects
     }
     
-    func user(withID ID: Int) -> QBUUser? {
+    func user(withID ID: UInt) -> QBUUser? {
         for user in objects {
-            if user.id == UInt(ID) {
+            if user.id == ID {
                 return user
             }
         }

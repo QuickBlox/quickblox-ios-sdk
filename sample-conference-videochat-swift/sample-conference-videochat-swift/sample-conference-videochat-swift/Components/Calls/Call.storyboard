@@ -141,7 +141,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="1hu-Kw-QuM"/>
                     <connections>
-                        <outlet property="opponentsCollectionView" destination="VGE-Qc-V5u" id="FA2-G2-Pow"/>
+                        <outlet property="collectionView" destination="VGE-Qc-V5u" id="FEH-u3-BOg"/>
                         <outlet property="toolbar" destination="nvl-aP-B6G" id="GEn-4J-gzj"/>
                         <segue destination="135-Aq-RQy" kind="show" identifier="PresentUsersViewController" id="Myx-To-20X"/>
                     </connections>
