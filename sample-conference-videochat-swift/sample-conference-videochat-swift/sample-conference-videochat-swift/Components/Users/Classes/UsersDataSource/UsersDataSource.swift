@@ -9,12 +9,17 @@
 import UIKit
 import Quickblox
 
+struct UsersDataSourceConstant {
+    static let userCellIdentifier = "UserCell"
+}
+
 class UsersDataSource: NSObject {
+    // MARK: - Properties
     var objects = [QBUUser]()
     var selectedObjects = [QBUUser]()
     private let sortSelector: Selector = #selector(getter: QBUUser.fullName)
     
-    // MARK: Public
+    // MARK: Public Methods
     func updateObjects(_ objects: [QBUUser]) {
         self.objects = sortObjects(objects)
         selectedObjects = selectedObjects.filter({ objects.contains($0) })
@@ -38,8 +43,8 @@ class UsersDataSource: NSObject {
         selectedObjects = [QBUUser]()
     }
     
-    // MARK: Private
-    func sortObjects(_ objects: [QBUUser]) -> [QBUUser] {
+    // MARK: - Internal Methods
+    private func sortObjects(_ objects: [QBUUser]) -> [QBUUser] {
         let key = NSStringFromSelector(sortSelector)
         let objectsSortDescriptor = NSSortDescriptor(key: key, ascending: false)
         guard let sortedObjects = (objects as NSArray).sortedArray(using: [objectsSortDescriptor])
@@ -66,7 +71,7 @@ extension UsersDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell()
-        guard let userCell = tableView.dequeueReusableCell(withIdentifier: "UserCell") as? UserTableViewCell else { return cell }
+        guard let userCell = tableView.dequeueReusableCell(withIdentifier: UsersDataSourceConstant.userCellIdentifier) as? UserTableViewCell else { return cell }
         
         let user: QBUUser = objects[indexPath.row] as QBUUser
         let selected: Bool = self.selectedObjects.contains(user)
@@ -82,8 +87,8 @@ extension UsersDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let str = String(format: "Select users to create chat dialog with (%tu)", selectedObjects.count)
-        return NSLocalizedString(str, comment: "")
+        let title = String(format: "Select users to create chat dialog with (%tu)", selectedObjects.count)
+        return NSLocalizedString(title, comment: "")
     }
 }
 

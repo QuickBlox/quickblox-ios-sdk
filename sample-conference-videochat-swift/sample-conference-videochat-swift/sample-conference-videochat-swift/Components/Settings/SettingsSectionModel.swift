@@ -9,15 +9,15 @@
 import Foundation
 
 class SettingsSectionModel {
+    // MARK: - Properties
     var title = ""
     var items = [BaseItemModel]()
-
-    class func section(withTitle title: String?, items: [BaseItemModel]?) -> SettingsSectionModel {
+    
+    // MARK: - Public Methods
+    class func section(withTitle title: String, items: [BaseItemModel]) -> SettingsSectionModel {
         let section = SettingsSectionModel()
-        if let items = items, let title = title {
-            section.title = title
-            section.items = items
-        }
+        section.title = title
+        section.items = items
         return section
     }
 }

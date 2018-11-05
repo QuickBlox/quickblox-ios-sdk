@@ -9,8 +9,10 @@
 import Foundation
 
 class SwitchItemModel: BaseItemModel {
+    //MARK: - Properties
     var on = false
     
+    //MARK: - Overrides
     override func viewClass() -> AnyClass {
         return SettingSwitchCell.self
     }

@@ -9,18 +9,22 @@
 import UIKit
 
 protocol SettingsCellDelegate: class {
-    func cell(_ cell: BaseSettingsCell?, didChageModel model: BaseItemModel?)
+    func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel?)
 }
 
 class BaseSettingsCell: UITableViewCell {
+    //MARK: - IBOutlets
     @IBOutlet weak var label: UILabel!
-    var model: BaseItemModel? {
+    
+    //MARK: - Properties
+    var model = BaseItemModel() {
         didSet {
-            updateModel(model!)
+            updateModel(model)
         }
     }
     weak var delegate: SettingsCellDelegate?
     
+    //MARK: - Class Methods
     class func identifier() -> String? {
         return NSStringFromClass(BaseSettingsCell.self).components(separatedBy: ".").last!
     }
@@ -29,6 +33,7 @@ class BaseSettingsCell: UITableViewCell {
         return UINib(nibName: NSStringFromClass(BaseSettingsCell.self), bundle: nil)
     }
     
+    //MARK: - Public Methods
     func updateModel(_ model: BaseItemModel) {
         label.text = model.title
     }

@@ -16,16 +16,15 @@ struct SettingsConstants {
 }
 
 class Settings {
-    
-    // MARK: shared Instance
+    //MARK: - Properties
     static let instance = Settings()
     
     var videoFormat = QBRTCVideoFormat.default()
     var mediaConfiguration = QBRTCMediaStreamConfiguration.default()
     var preferredCameraPostion: AVCaptureDevice.Position = .front
     
-    public func saveToDisk() {
-        
+    //MARK: - Public Methods
+    func saveToDisk() {
         // saving to disk
         let defaults = UserDefaults.standard
         let videFormatData = NSKeyedArchiver.archivedData(withRootObject: videoFormat as Any)
@@ -37,15 +36,15 @@ class Settings {
         defaults.synchronize()
     }
     
-    public func applyConfig() {
+    func applyConfig() {
         // saving to config
         QBRTCConfig.setMediaStreamConfiguration(mediaConfiguration)
     }
     
     func load() {
         let defaults = UserDefaults.standard
-        
-        if let postion = AVCaptureDevice.Position(rawValue: defaults.integer(forKey: SettingsConstants.preferredCameraPosition)) {
+        let defaultCameraPosition = defaults.integer(forKey: SettingsConstants.preferredCameraPosition)
+        if let postion = AVCaptureDevice.Position(rawValue: defaultCameraPosition) {
             preferredCameraPostion = postion == .unspecified ? .front : postion
         }
         if let videoFormatData = defaults.object(forKey: SettingsConstants.videoFormatKey) as? Data,

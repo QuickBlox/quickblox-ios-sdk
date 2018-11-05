@@ -9,9 +9,11 @@
 import UIKit
 
 class BaseItemModel {
+    //MARK: - Properties
     var title = ""
     var data: Any?
     
+    //MARK: - Public Methods
     func viewClass() -> AnyClass {
         return  SettingCell.self
     }

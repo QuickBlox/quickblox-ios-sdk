@@ -9,6 +9,7 @@
 import Foundation
 
 class SliderItemModel: BaseItemModel {
+    //MARK: - Properties
     var minLabel = ""
     var maxLabel = ""
     var maxValue: Int = 0
@@ -16,6 +17,7 @@ class SliderItemModel: BaseItemModel {
     var minValue: Int = 0
     var isDisabled = false
     
+    //MARK: - Overrides
     override func viewClass() -> AnyClass {
         return  SettingSliderCell.self
     }

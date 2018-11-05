@@ -237,7 +237,7 @@ extension MainTableViewController: UsersViewControllerDelegate {
 
 extension MainTableViewController: SettingsViewControllerDelegate {
     // MARK: SettingsViewControllerDelegate
-    func settingsViewController(_ vc: SessionSettingsViewController?, didPressLogout sender: Any?) {
+    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any?) {
         SVProgressHUD.show(withStatus: MainAlertConstant.logout)
         core.logout()
     }
