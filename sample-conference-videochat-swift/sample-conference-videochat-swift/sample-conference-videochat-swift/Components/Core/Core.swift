@@ -206,7 +206,6 @@ class Core: NSObject, QBChatDelegate {
             })
         }
         if isAutorized == true {
-            
             connectToChat()
             return
         }
@@ -219,7 +218,6 @@ class Core: NSObject, QBChatDelegate {
                             self.registerForRemoteNotifications()
                             
         }, errorBlock: { response in
-            
             self.handleError(response.error?.error, domain: ErrorDomain.logIn)
             if response.status == QBResponseStatusCode.unAuthorized {
                 // Clean profile

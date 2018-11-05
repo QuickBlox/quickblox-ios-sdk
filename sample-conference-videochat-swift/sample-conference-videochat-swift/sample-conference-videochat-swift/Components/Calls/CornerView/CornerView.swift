@@ -8,115 +8,90 @@
 
 import UIKit
 
+struct CornerViewConstant {
+    static let fontName = "Helvetica"
+}
+
 class CornerView: UIView {
-    
-    var bgColor: UIColor? {
-        willSet {
-            
-            if !(self.bgColor == newValue) {
-                self.bgColor = newValue
-                setNeedsDisplay()
-            }
-        }
-    }
-    
-    var title: String = "" {
-        willSet {
-        if !(self.title == newValue) {
-            self.title = newValue
+    //MARK: - Properties
+    var bgColor = UIColor.clear {
+        didSet {
             setNeedsDisplay()
-            }
         }
     }
-    
-    var cornerRadius: CGFloat = 0.0 {
-        willSet {
-            
-            if self.cornerRadius != newValue {
-                self.cornerRadius = newValue
-                setNeedsDisplay()
-            }
+    var title: String = "" {
+        didSet {
+            setNeedsDisplay()
         }
     }
-    
-    var fontSize: CGFloat = 0.0 {
-        willSet {
-            
-            if self.fontSize != newValue {
-                self.fontSize = newValue
-                setNeedsDisplay()
-            }
+    var cornerRadius: CGFloat = 6.0 {
+        didSet {
+            setNeedsDisplay()
         }
     }
-    
+    var fontSize: CGFloat = 16.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     var touchesEndAction: (() -> Void)?
     
+    //MARK: - Life Cycle
     required init?(coder: NSCoder) {
-        
         super.init(coder: coder)
         
-        
         defaultStyle()
-        
     }
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
         
-        
         defaultStyle()
-        
     }
     
-    func defaultStyle() {
-        
-        contentMode = .redraw
-        backgroundColor = UIColor.clear
-        isUserInteractionEnabled = false
-        
-        bgColor = UIColor.clear
-        cornerRadius = 6
-        fontSize = 16
-    }
-    
-    func draw(withBgColor bgColor: UIColor?, cornerRadius: CGFloat, rect: CGRect, text: String?, fontSize: CGFloat) {
-        
-        let rectanglePath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
-        bgColor?.setFill()
-        rectanglePath.fill()
-        
-        let style = NSMutableParagraphStyle.default as? NSMutableParagraphStyle
-        style?.alignment = .center
-        
-        let rectangleFontAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica", size: fontSize), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.paragraphStyle: style]
-        
-        let rectOffset: CGRect = rect.offsetBy(dx: 0, dy: (rect.height - (text?.boundingRect(with: rect.size, options: .usesLineFragmentOrigin, attributes: rectangleFontAttributes as [NSAttributedString.Key : Any], context: nil).size.height ?? 0.0)) / 2)
-        text?.draw(in: rectOffset, withAttributes: rectangleFontAttributes as [NSAttributedString.Key : Any])
-    }
-    
+    //MARK: - Overrides
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        
         draw(withBgColor: bgColor, cornerRadius: cornerRadius, rect: bounds, text: title, fontSize: fontSize)
     }
     
-    // MARK: - Action
     override func touchesEnded(_ touches: Set<UITouch>?, with event: UIEvent?) {
-        
-        if let aTouches = touches, let anEvent = event {
-            super.touchesEnded(aTouches, with: anEvent)
+        if let touches = touches, let event = event {
+            super.touchesEnded(touches, with: event)
         }
-        
-        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction], animations: {
-            
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [.curveEaseIn, .allowUserInteraction],
+                       animations: {
         }) { finished in
-            
-            if (self.touchesEndAction != nil) {
-                
-                self.touchesEndAction!()
-            }
+            guard let touchesEndAction = self.touchesEndAction else {
+                return }
+            touchesEndAction()
         }
+    }
+    
+    //MARK: - Internal Methods
+    private func defaultStyle() {
+        contentMode = .redraw
+        backgroundColor = UIColor.clear
+        isUserInteractionEnabled = false
+    }
+    
+    private func draw(withBgColor bgColor: UIColor, cornerRadius: CGFloat, rect: CGRect, text: String,
+              fontSize: CGFloat) {
+        let rectanglePath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+        bgColor.setFill()
+        rectanglePath.fill()
+        let style = NSMutableParagraphStyle()
+        style.alignment = .center
+        let rectangleFontAttributes = [NSAttributedString.Key.font: UIFont(name: CornerViewConstant.fontName,
+                                                                           size: fontSize),
+                                       NSAttributedString.Key.foregroundColor: UIColor.white,
+                                       NSAttributedString.Key.paragraphStyle: style]
+        let attributes = rectangleFontAttributes as [NSAttributedString.Key : Any]
+        let offsetByY = (rect.height - (text.boundingRect(with: rect.size,
+                                                          options: .usesLineFragmentOrigin,
+                                                          attributes: attributes, context: nil).size.height))
+        let rectOffset: CGRect = rect.offsetBy(dx: 0.0, dy: offsetByY / 2)
+        text.draw(in: rectOffset, withAttributes: attributes)
     }
 }
