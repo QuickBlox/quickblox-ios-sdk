@@ -656,7 +656,7 @@ extension CallViewController: UICollectionViewDataSource {
         
         let title = user.fullName ?? CallConstants.unknownUserLabel
         cell.name = title
-        cell.nameColor = PlaceholderGenerator.color(for: title.count)
+        cell.nameColor = PlaceholderGenerator.color(index: title.count)
         cell.isMuted = false
         cell.connectionState = QBRTCConnectionState.new
         

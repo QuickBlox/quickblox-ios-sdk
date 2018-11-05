@@ -76,7 +76,7 @@ extension UsersDataSource: UITableViewDataSource {
         let user: QBUUser = objects[indexPath.row] as QBUUser
         let selected: Bool = self.selectedObjects.contains(user)
         let size = CGSize(width: 32, height: 32)
-        let userImage: UIImage? = PlaceholderGenerator.placeholder(size: size, title: user.fullName)
+        let userImage = PlaceholderGenerator.placeholder(size: size, title: user.fullName)
         
         userCell.fullName = user.fullName
         userCell.check = selected
