@@ -10,7 +10,7 @@ import UIKit
 import QuickbloxWebRTC
 
 protocol SettingsViewControllerDelegate: class {
-    func settingsViewController(_ vc: SessionSettingsViewController?, didPressLogout sender: Any?)
+    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any?)
 }
 
 enum SessionConfigureItem : Int {
@@ -18,18 +18,23 @@ enum SessionConfigureItem : Int {
     case auido
 }
 
+struct SessionSettingsConstant {
+    static let LogoutCellIdentifier = "LogoutCell"
+    static let logoutMessage = NSLocalizedString("Logout ?", comment: "")
+    static let yesMessage = NSLocalizedString("Yes", comment: "")
+    static let noMessage = NSLocalizedString("NO", comment: "")
+}
 
 class SessionSettingsViewController: UITableViewController {
-    
+    //MARK: - IBOutlets
     @IBOutlet private weak var versionLabel: UILabel!
-    private var settings: Settings?
+    
+    private var settings = Settings.instance
     weak var delegate: SettingsViewControllerDelegate?
-
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        settings = Settings.instance
-        
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
         let version = """
@@ -46,65 +51,60 @@ class SessionSettingsViewController: UITableViewController {
     
     // MARK: - Actions
     @IBAction func pressDoneBtn(_ sender: Any) {
-        debugPrint("settings \(String(describing: settings))")
-        settings?.saveToDisk()
-        settings?.applyConfig()
+        settings.saveToDisk()
+        settings.applyConfig()
         dismiss(animated: true)
     }
     
+    //MARK: - Overrides
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell: UITableViewCell = super.tableView(tableView, cellForRowAt: indexPath)
         cell.detailTextLabel?.text = detailTextForRow(atIndexPaht: indexPath)
-        
         #if targetEnvironment(simulator)
         // Simulator
-        if indexPath.row == SessionConfigureItem.video.rawValue && indexPath.section == 0 {
+        if indexPath.row == SessionConfigureItem.video.rawValue, indexPath.section == 0 {
             cell.isUserInteractionEnabled = false
         }
         #endif
-        
         return cell
     }
-
+    
     // MARK: - UITableViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: false)
-        
-        let cell: UITableViewCell? = tableView.cellForRow(at: indexPath)
-        if (cell?.reuseIdentifier == "LogoutCell") {
+        let cell = tableView.cellForRow(at: indexPath)
+        if (cell?.reuseIdentifier == SessionSettingsConstant.LogoutCellIdentifier) {
+            let alertController = UIAlertController(title: nil,
+                                                    message: SessionSettingsConstant.logoutMessage,
+                                                    preferredStyle: .alert)
             
-            let alertController = UIAlertController(title: nil, message: NSLocalizedString("Logout ?", comment: ""), preferredStyle: .alert)
-            
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: { action in
-                self.delegate?.settingsViewController(self, didPressLogout: cell)
+            alertController.addAction(UIAlertAction(title: SessionSettingsConstant.yesMessage,
+                                                    style: .default,
+                                                    handler: { action in
+                                self.delegate?.settingsViewController(self, didPressLogout: cell)
             }))
-            
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("NO", comment: ""), style: .default, handler: nil))
-            
+            alertController.addAction(UIAlertAction(title: SessionSettingsConstant.noMessage,
+                                                    style: .default,
+                                                    handler: nil))
             present(alertController, animated: true)
         }
     }
     
-    func detailTextForRow(atIndexPaht indexPath: IndexPath?) -> String? {
-        
-        if indexPath?.row == SessionConfigureItem.video.rawValue {
-            
+    //MARK: - Internal Methods
+    func detailTextForRow(atIndexPaht indexPath: IndexPath) -> String {
+        if indexPath.row == SessionConfigureItem.video.rawValue {
             #if targetEnvironment(simulator)
             // Simulator
             return "unavailable"
             #else
             // Device
-            return String(format: "%tux%tu", settings?.videoFormat.width ?? 640, settings?.videoFormat.height ?? 480)
+            return "\(settings.videoFormat.width)x\(settings.videoFormat.height)"
             #endif
-
-        } else if indexPath?.row == SessionConfigureItem.auido.rawValue {
             
+        } else if indexPath.row == SessionConfigureItem.auido.rawValue {
             return ""
         }
-        
         return "Unknown"
     }
 }
