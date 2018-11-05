@@ -43,7 +43,6 @@ struct AudioCodecBandWidthRange {
 }
 
 class AudioSettingsViewController: BaseSettingsViewController {
-    
     // MARK: - Overrides superClass Methods
     override func title(forSection section: Int) -> String? {
         switch section {
@@ -60,7 +59,6 @@ class AudioSettingsViewController: BaseSettingsViewController {
     override func configure() {
         //Constraints
         addSection(with: AudioSettingsSectionType.constraints.rawValue, items: { [weak self] sectionTitle in
-            
             //audio level control
             let switchItem = SwitchItemModel()
             switchItem.title = "Audio level control"
