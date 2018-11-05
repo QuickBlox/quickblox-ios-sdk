@@ -14,10 +14,10 @@ import Crashlytics
 import SVProgressHUD
 
 struct CredentialsConstant {
-    static let applicationID:UInt = 73803
-    static let authKey = "qp4zDcV8mk29Qp9"
-    static let authSecret = "Hm2KgDE6eeMZHu5"
-    static let accountKey = "uK_8uinNyz8-npTNB6tx"
+    static let applicationID:UInt = 72448
+    static let authKey = "f4HYBYdeqTZ7KNb"
+    static let authSecret = "ZC7dK39bOjVc-Z8"
+    static let accountKey = "C4_z7nuaANnBYmsG_k98"
 }
 
 struct TimeIntervalConstant {
@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
         QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
         
-        QBRTCConfig.setConferenceEndpoint("wss://janusdev.quickblox.com:8989")
+        QBRTCConfig.setConferenceEndpoint("")
         assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, AppDelegateConstant.assertMessage)
         
         #if ENABLE_STATS_REPORTS

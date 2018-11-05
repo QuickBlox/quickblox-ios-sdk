@@ -34,7 +34,7 @@ struct CallConstants {
     static let conferenceDidClose = NSLocalizedString("Conference did close due to time out", comment: "")
 }
 
-class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+class CallViewController: UIViewController {
     //MARK: - IBOutlets
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var toolbar: ToolBar!
