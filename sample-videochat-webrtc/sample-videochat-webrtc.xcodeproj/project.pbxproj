@@ -841,10 +841,11 @@
 				5C8EDB1860B44B7E21511C9D /* [CP] Check Pods Manifest.lock */,
 				55E076DF1A30817800118D23 /* Sources */,
 				55E076E01A30817800118D23 /* Frameworks */,
+				62C26BA49912BDD45B5A6F89 /* [CP] Embed Pods Frameworks */,
 				55E076E11A30817800118D23 /* Resources */,
 				E329E0781E38AD8900E0A183 /* ShellScript */,
 				E329E07B1E38AEE800E0A183 /* ShellScript */,
-				62C26BA49912BDD45B5A6F89 /* [CP] Embed Pods Frameworks */,
+				CE567F462191B1E900C46245 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -977,6 +978,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		CE567F462191B1E900C46245 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4b96a3f33893a42103eae91d2166d0c517b833d3 48d2b1a30ed0fd2d0897e0576e7e3625f0a9270aa02fd1e09291e17c9464a023\n";
 		};
 		E329E0781E38AD8900E0A183 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
