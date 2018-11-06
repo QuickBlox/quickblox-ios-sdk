@@ -33,7 +33,6 @@
 		2C4C2620216674F300B1E8C4 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261F216674F300B1E8C4 /* Profile.swift */; };
 		2C4C26222166750900B1E8C4 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26212166750900B1E8C4 /* Core.swift */; };
 		2C4C26242166753C00B1E8C4 /* RootViewControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26232166753C00B1E8C4 /* RootViewControllerSegue.swift */; };
-		2C4C26262166755600B1E8C4 /* QMSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26252166755600B1E8C4 /* QMSoundManager.swift */; };
 		2C4C262C2166771A00B1E8C4 /* BaseSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C262B2166771A00B1E8C4 /* BaseSettingsViewController.swift */; };
 		2C4C262E2166773E00B1E8C4 /* AudioSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C262D2166773E00B1E8C4 /* AudioSettingsViewController.swift */; };
 		2C4C26302166776900B1E8C4 /* VideoSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C262F2166776900B1E8C4 /* VideoSettingsViewController.swift */; };
@@ -92,7 +91,6 @@
 		2C4C261F216674F300B1E8C4 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2C4C26212166750900B1E8C4 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		2C4C26232166753C00B1E8C4 /* RootViewControllerSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerSegue.swift; sourceTree = "<group>"; };
-		2C4C26252166755600B1E8C4 /* QMSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QMSoundManager.swift; sourceTree = "<group>"; };
 		2C4C262B2166771A00B1E8C4 /* BaseSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingsViewController.swift; sourceTree = "<group>"; };
 		2C4C262D2166773E00B1E8C4 /* AudioSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSettingsViewController.swift; sourceTree = "<group>"; };
 		2C4C262F2166776900B1E8C4 /* VideoSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSettingsViewController.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 			children = (
 				2C0D582121666256001FF80B /* AppDelegate.swift */,
 				2C4C25ED2166701400B1E8C4 /* Auth */,
-				2C4C25F22166705500B1E8C4 /* QMSoundManager */,
 				2C4C25F12166704A00B1E8C4 /* CustomSegues */,
 				2C4C25F02166703D00B1E8C4 /* Core */,
 				2C4C25EF2166703100B1E8C4 /* Calls */,
@@ -249,14 +246,6 @@
 				2C4C26232166753C00B1E8C4 /* RootViewControllerSegue.swift */,
 			);
 			path = CustomSegues;
-			sourceTree = "<group>";
-		};
-		2C4C25F22166705500B1E8C4 /* QMSoundManager */ = {
-			isa = PBXGroup;
-			children = (
-				2C4C26252166755600B1E8C4 /* QMSoundManager.swift */,
-			);
-			path = QMSoundManager;
 			sourceTree = "<group>";
 		};
 		2C4C25F32166706000B1E8C4 /* Settings */ = {
@@ -667,7 +656,6 @@
 				2CCB5EC4217DCD4E00555AAA /* BaseItemModel.swift in Sources */,
 				2C0E727C21775416007A37E6 /* UserTableViewCell.swift in Sources */,
 				2C0E7279217750CE007A37E6 /* UsersDataSource.swift in Sources */,
-				2C4C26262166755600B1E8C4 /* QMSoundManager.swift in Sources */,
 				2CC867C52170C5B9006DF7BC /* UsersViewController.swift in Sources */,
 				2C0E727F21775491007A37E6 /* CheckView.swift in Sources */,
 				2C4C26242166753C00B1E8C4 /* RootViewControllerSegue.swift in Sources */,
