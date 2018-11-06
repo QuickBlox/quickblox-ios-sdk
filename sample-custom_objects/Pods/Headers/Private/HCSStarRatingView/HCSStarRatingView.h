@@ -1,1 +1,0 @@
-../../../HCSStarRatingView/HCSStarRatingView/HCSStarRatingView.h
