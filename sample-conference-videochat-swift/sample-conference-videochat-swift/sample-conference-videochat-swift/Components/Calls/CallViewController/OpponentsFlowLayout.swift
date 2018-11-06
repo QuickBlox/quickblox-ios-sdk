@@ -29,29 +29,29 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
     }
     
     // MARK: UISubclassingHooks
+    
+    override var collectionViewContentSize: CGSize {
+        return collectionView?.frame.size ?? CGSize.zero
+    }
+    
     override func prepare() {
         layoutAttributes.removeAll()
-        let numberOfItems: Int? = collectionView?.numberOfItems(inSection: 0)
-        for i in 0..<(numberOfItems ?? 0) {
-            let attributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: i, section: 0))
-            attributes.frame = itemFrame(withItemIndex: i, itemsCount: numberOfItems!)
+        guard let collectionView = collectionView else {
+            return
+        }
+        let numberOfItems = collectionView.numberOfItems(inSection: 0)
+        for item in 0..<(numberOfItems) {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: IndexPath(item: item, section: 0))
+            attributes.frame = itemFrame(index: item, count: numberOfItems)
             layoutAttributes.append(attributes)
         }
     }
     
-    override var collectionViewContentSize: CGSize {
-        
-        return collectionView?.frame.size ?? CGSize.zero
-    }
-    
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        var array: [UICollectionViewLayoutAttributes] = []
-        for attributes in layoutAttributes {
-            if !rect.intersection((attributes.frame)).isNull {
-                array.append(attributes)
-            }
+        return layoutAttributes.filter {
+            let intersection = rect.intersection($0.frame)
+            return intersection.isNull == false
         }
-        return array
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -60,81 +60,86 @@ class OpponentsFlowLayout: UICollectionViewFlowLayout {
     
     func shiftPosition(itemsCount: Int, isPortrait: Bool) -> Int {
         // ItemsCount : position
-        var map: [Int: Int]? = nil
-        if isPortrait {
-            map = [3: 0, 5: 0, 7: 6, 8: 6, 10: 9, 11: 9, 13: 12, 14: 12]
-        } else {
-            map = [5: 3, 7: 4, 10: 8]
+        guard isPortrait == true else {
+            let map = [5: 3,
+                       7: 4,
+                       10: 8]
+            return map[itemsCount] ?? .max
         }
         
-        if let position = map?[itemsCount] {
-            return position
-        }
-        return -1
-//        return 0
+        let map = [3: 0,
+                   5: 0,
+                   7: 6,
+                   8: 6,
+                   10: 9,
+                   11: 9,
+                   13: 12,
+                   14: 12]
+        
+        return map[itemsCount] ?? .max
     }
     
-    func itemFrame(withItemIndex itemIndex: Int, itemsCount: Int) -> CGRect {
+    func itemFrame(index: Int, count: Int) -> CGRect {
+        let size = collectionViewContentSize
+        let isPortrait = size.width < size.height
+        let columnsCount = numberOfColumns(itemsCount: count, isPortrait: isPortrait)
         
-        let contentSize: CGSize = collectionViewContentSize
-        let isPortrait: Bool = contentSize.width < contentSize.height
-        let columns = numberOfColumns(numberOfItems: itemsCount, isPortrait: isPortrait)
-        
-        if itemsCount > 1 {
-            
-            let shiftPos = shiftPosition(itemsCount: itemsCount, isPortrait: isPortrait)
-            let shift = itemIndex > shiftPos ? 1 : 0
-            
-            let rows: CGFloat = CGFloat(ceilf(Float(itemsCount/columns)))
-            let mod: Int = itemsCount % columns
-            
-            var scale: CGFloat = 1.0 / CGFloat(columns)
-            if shiftPos == itemIndex {
-                if columns == 2 {
-                    scale = 1.0
-                } else if columns == 3 {
-                    scale = mod == 1 ? 1.0 : CGFloat(mod) / CGFloat(columns)
-                } else if columns == 4 {
-                    scale = 2.0 / CGFloat(columns)
-                }
-            }
-            
-            let w: CGFloat = (contentSize.width * scale)
-            let h: CGFloat = (contentSize.height / rows)
-            let i = CGFloat((itemIndex + shift))
-            let row = CGFloat(floorf(Float(i / CGFloat(columns))))
-            let col: Int = (itemIndex + shift) % columns
-
-//            return CGRect(x: 5, y: 300 * itemIndex, width: 300, height: 280)
-            return CGRect(x: w * CGFloat(col), y: h * row, width: w, height: h)
-        } else {
-            return CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
+        guard count > 1 else {
+            return CGRect(origin: .zero, size: size)
         }
+        
+        let position = shiftPosition(itemsCount: count, isPortrait: isPortrait)
+        let shift = index > position ? 1 : 0
+        
+        let mod = count % columnsCount
+        
+        let square = Double(count)
+        let side = Double(columnsCount)
+        
+        let rows = (square / side).rounded(.up)
+        
+        var scale = 1.0 / side
+        if position == index {
+            if columnsCount == 2 {
+                scale = 1.0
+            } else if columnsCount == 3 {
+                scale = mod == 1 ? 1.0 : Double(mod) / side
+            } else if columnsCount == 4 {
+                scale = 2.0 / side
+            }
+        }
+        
+        let width = Double(size.width) * scale
+        let height = Double(size.height) / rows
+        let slip = Double(index + shift)
+        
+        let row = (slip / side).rounded(.down)
+        let slipMod = (index + shift) % columnsCount
+        
+        let originX = width * Double(slipMod).rounded()
+        let originY = height * row
+        
+        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        debugPrint(CGRect(x: originX, y: originY, width: width, height: height))
+        debugPrint(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        
+        return CGRect(x: originX, y: originY, width: width, height: height)
     }
     
-    private func numberOfColumns(numberOfItems: Int, isPortrait: Bool) -> Int {
-        var countOfColumns: Int
-        if isPortrait {
-            switch numberOfItems {
-            case 1, 2:
-                countOfColumns = 1
-            case 3, 4, 5, 6:
-                countOfColumns = 2
-            default:
-                countOfColumns = 3
-            }
-        } else {
-            switch numberOfItems {
-            case 1:
-                countOfColumns = 1
-            case 2, 4:
-                countOfColumns = 2
-            case 3, 5, 6, 9:
-                countOfColumns = 3
-            default:
-                countOfColumns = 4
+    private func numberOfColumns(itemsCount: Int, isPortrait: Bool) -> Int {
+        guard isPortrait == true else {
+            switch itemsCount {
+            case 1: return 1
+            case 2, 4: return 2
+            case 3, 5, 6, 9: return 3
+            default: return 4
             }
         }
-        return countOfColumns
+        
+        switch itemsCount {
+        case 1, 2: return 1
+        case 3, 4, 5, 6: return 2
+        default: return 3
+        }
     }
 }
