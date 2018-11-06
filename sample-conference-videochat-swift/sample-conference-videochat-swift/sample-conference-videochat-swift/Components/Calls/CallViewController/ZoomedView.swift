@@ -10,21 +10,21 @@ import UIKit
 
 class ZoomedView: UIView {
     //MARK: - Properties
-    weak var videoView: UIView? {
+    var videoView: UIView? {
         willSet{
             videoView?.removeFromSuperview()
         }
         
         didSet {
             guard let view = videoView else { return }
-            view.frame = bounds
-            view.autoresizingMask = [.flexibleWidth,
-                                     .flexibleHeight,
-                                     .flexibleLeftMargin,
-                                     .flexibleRightMargin,
-                                     .flexibleTopMargin,
-                                     .flexibleBottomMargin]
+            
             addSubview(view)
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            view.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            view.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            view.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         }
     }
     

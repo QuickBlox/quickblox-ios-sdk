@@ -60,7 +60,6 @@ class CallViewController: UIViewController {
     private var statsUserID: NSNumber?
     
     //Views
-    private weak var originCell: OpponentCollectionViewCell?
     
     lazy private var dynamicButton: CustomButton = {
         let dynamicButton = ButtonsFactory.dynamicEnable()
@@ -294,15 +293,11 @@ class CallViewController: UIViewController {
     }
     
     private func unzoomVideoView() {
-        guard let originCell = originCell else {
-            return
-        }
-        originCell.videoView = zoomedView.videoView
         zoomedView.videoView = nil
-        self.originCell = nil
         zoomedView.isHidden = true
         statsUserID = nil
         navigationItem.rightBarButtonItem = addUsersItem
+        collectionView.reloadData()
     }
     
     private func closeCall(withTimeout timeout: Bool) {
@@ -673,7 +668,6 @@ extension CallViewController: UICollectionViewDelegate {
                 return
         }
         videoCell.videoView = nil
-        originCell = videoCell
         statsUserID = NSNumber(value: user.id)
         zoomVideoView(videoView)
     }

@@ -18,7 +18,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var muteButton: UIButton!
     
     //MARK: - Properties
-    weak var videoView: UIView? {
+    var videoView: UIView? {
         willSet {
             videoView?.removeFromSuperview()
         }
@@ -26,8 +26,19 @@ class OpponentCollectionViewCell: UICollectionViewCell {
             guard let view = videoView else {
                 return
             }
-            view.frame = bounds
+            
+            view.backgroundColor = UIColor.yellow
+            containerView.backgroundColor = UIColor.red
             containerView.addSubview(view)
+            
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+            view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+            view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+            view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+            
+            layoutIfNeeded()
         }
     }
 
@@ -83,6 +94,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     let unmutedImage = UIImage(named: "ic-qm-videocall-dynamic-off")!
     let mutedImage = UIImage(named: "ic-qm-videocall-dynamic-on")!
     
+    //MARK: - Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = UIColor.clear
@@ -93,7 +105,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
         isMuted = false
     }
     
-    // MARK: Mute button
+    //MARK: - Actions
     @IBAction func didPressMuteButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         didPressMuteButton?(sender.isSelected)
