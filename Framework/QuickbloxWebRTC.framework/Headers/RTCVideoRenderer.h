@@ -13,11 +13,13 @@
 #import <UIKit/UIKit.h>
 #endif
 
+#import "RTCMacros.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class RTCVideoFrame;
 
-__attribute__((visibility("default")))
+RTC_EXPORT
 @protocol RTCVideoRenderer <NSObject>
 
 /** The size of the frame. */
@@ -25,6 +27,13 @@ __attribute__((visibility("default")))
 
 /** The frame to be displayed. */
 - (void)renderFrame:(nullable RTCVideoFrame *)frame;
+
+@end
+
+RTC_EXPORT
+@protocol RTCVideoViewDelegate
+
+- (void)videoView:(id<RTCVideoRenderer>)videoView didChangeVideoSize:(CGSize)size;
 
 @end
 
