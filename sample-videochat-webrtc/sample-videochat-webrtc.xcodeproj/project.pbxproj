@@ -7,12 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */; };
-		55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */; };
-		55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDC91A3F21CC0080C326 /* GLKit.framework */; };
-		55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */; };
-		E329E0791E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */; };
-		E329E07A1E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E3B0B2311E157AA800BE5FBD /* QuickbloxWebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3366485A0A9FBB5A8629C764 /* Pods_sample_videochat_webrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5922F0ECF4044C7E47153580 /* Pods_sample_videochat_webrtc.framework */; };
 		E332B21C1EDD7E3700FFF7EE /* RecordSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B21B1EDD7E3700FFF7EE /* RecordSettingsViewController.m */; };
 		E332B2221EDD7E6500FFF7EE /* RecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B2211EDD7E6500FFF7EE /* RecordsViewController.m */; };
 		E332B2261EDD7E7D00FFF7EE /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E332B2251EDD7E7D00FFF7EE /* FileManager.m */; };
@@ -39,7 +34,6 @@
 		E3B0B2031E1576EC00BE5FBD /* UsersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B18E1E1576EC00BE5FBD /* UsersViewController.m */; };
 		E3B0B2041E1576EC00BE5FBD /* CheckView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1921E1576EC00BE5FBD /* CheckView.m */; };
 		E3B0B2051E1576EC00BE5FBD /* UserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1951E1576EC00BE5FBD /* UserTableViewCell.m */; };
-		E3B0B2061E1576EC00BE5FBD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1961E1576EC00BE5FBD /* Info.plist */; };
 		E3B0B2071E1576EC00BE5FBD /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1971E1576EC00BE5FBD /* Launch Screen.xib */; };
 		E3B0B2081E1576EC00BE5FBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1981E1576EC00BE5FBD /* main.m */; };
 		E3B0B2091E1576EC00BE5FBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B19A1E1576EC00BE5FBD /* Images.xcassets */; };
@@ -47,11 +41,7 @@
 		E3B0B20B1E1576EC00BE5FBD /* DEVUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B19F1E1576EC00BE5FBD /* DEVUsers.plist */; };
 		E3B0B20C1E1576EC00BE5FBD /* PRODUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1A01E1576EC00BE5FBD /* PRODUsers.plist */; };
 		E3B0B20D1E1576EC00BE5FBD /* QAUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1A11E1576EC00BE5FBD /* QAUsers.plist */; };
-		E3B0B20E1E1576EC00BE5FBD /* WEBUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1A21E1576EC00BE5FBD /* WEBUsers.plist */; };
-		E3B0B20F1E1576EC00BE5FBD /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1A41E1576EC00BE5FBD /* busy.wav */; };
 		E3B0B2101E1576EC00BE5FBD /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1A51E1576EC00BE5FBD /* calling.wav */; };
-		E3B0B2111E1576EC00BE5FBD /* end_of_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1A61E1576EC00BE5FBD /* end_of_call.wav */; };
-		E3B0B2121E1576EC00BE5FBD /* ringtone.wav in Resources */ = {isa = PBXBuildFile; fileRef = E3B0B1A71E1576EC00BE5FBD /* ringtone.wav */; };
 		E3B0B2131E1576EC00BE5FBD /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1AC1E1576EC00BE5FBD /* CallViewController.m */; };
 		E3B0B2141E1576EC00BE5FBD /* LocalVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1AE1E1576EC00BE5FBD /* LocalVideoView.m */; };
 		E3B0B2151E1576EC00BE5FBD /* OpponentsFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1B01E1576EC00BE5FBD /* OpponentsFlowLayout.m */; };
@@ -83,38 +73,11 @@
 		E3B0B22F1E1576EC00BE5FBD /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B0B1EF1E1576EC00BE5FBD /* SVRadialGradientLayer.m */; };
 		E3B50D9A1FC8763500796F0D /* CallKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E3B50D981FC8763500796F0D /* CallKitManager.m */; };
 		E3D981C9206A69BF0037F319 /* ZoomedView.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D981C8206A69BF0037F319 /* ZoomedView.m */; };
-		FB29BC041B32BBC0009751A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBC61B32BBC0009751A1 /* Images.xcassets */; };
 		FB29BC0A1B32BBC0009751A1 /* busy.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBCE1B32BBC0009751A1 /* busy.wav */; };
-		FB29BC0B1B32BBC0009751A1 /* calling.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBCF1B32BBC0009751A1 /* calling.wav */; };
 		FB29BC0C1B32BBC0009751A1 /* end_of_call.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBD01B32BBC0009751A1 /* end_of_call.wav */; };
 		FB29BC0D1B32BBC0009751A1 /* ringtone.wav in Resources */ = {isa = PBXBuildFile; fileRef = FB29BBD11B32BBC0009751A1 /* ringtone.wav */; };
-		FB415B9C1D80043400AD4C08 /* Quickblox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905D1BFB95D000A8233D /* Quickblox.framework */; };
-		FB415B9D1D80043400AD4C08 /* Quickblox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB44905D1BFB95D000A8233D /* Quickblox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FB4490501BFB8AD000A8233D /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB44904F1BFB8AD000A8233D /* libxml2.2.tbd */; };
-		FB4490521BFB8ADD00A8233D /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4490511BFB8ADD00A8233D /* libresolv.tbd */; };
-		FB4490581BFB8B2E00A8233D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB4490571BFB8B2E00A8233D /* Accelerate.framework */; };
-		FB5764E01B42A00F00501049 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5764DF1B42A00F00501049 /* VideoToolbox.framework */; };
-		FBE079F41BEA204000718C56 /* StunList.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBE079EE1BEA204000718C56 /* StunList.plist */; };
-		FBE079F61BEA204000718C56 /* DEVUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBE079F11BEA204000718C56 /* DEVUsers.plist */; };
-		FBE079F71BEA204000718C56 /* PRODUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBE079F21BEA204000718C56 /* PRODUsers.plist */; };
-		FBE079F81BEA204000718C56 /* QAUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBE079F31BEA204000718C56 /* QAUsers.plist */; };
 		FBE079FA1BEA216400718C56 /* WEBUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBE079F91BEA216400718C56 /* WEBUsers.plist */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		FB415B9E1D80043400AD4C08 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				E329E07A1E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Embed Frameworks */,
-				FB415B9D1D80043400AD4C08 /* Quickblox.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -122,6 +85,9 @@
 		55E156AE1AD6C41C00C62699 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		55F6BDC91A3F21CC0080C326 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5922F0ECF4044C7E47153580 /* Pods_sample_videochat_webrtc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		59CDE9641B5D52FD356C8F9D /* Pods-sample-videochat-webrtc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc.release.xcconfig"; sourceTree = "<group>"; };
+		67EB550A22CCF2B47B3AF91F /* Pods-sample-videochat-webrtc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc.debug.xcconfig"; sourceTree = "<group>"; };
 		E332B21A1EDD7E3700FFF7EE /* RecordSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecordSettingsViewController.h; path = RecordSettingsViewController/RecordSettingsViewController.h; sourceTree = "<group>"; };
 		E332B21B1EDD7E3700FFF7EE /* RecordSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecordSettingsViewController.m; path = RecordSettingsViewController/RecordSettingsViewController.m; sourceTree = "<group>"; };
 		E332B2201EDD7E6500FFF7EE /* RecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordsViewController.h; sourceTree = "<group>"; };
@@ -246,7 +212,6 @@
 		E3B50D991FC8763500796F0D /* CallKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallKitManager.h; sourceTree = "<group>"; };
 		E3D981C7206A69BF0037F319 /* ZoomedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedView.h; sourceTree = "<group>"; };
 		E3D981C8206A69BF0037F319 /* ZoomedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomedView.m; sourceTree = "<group>"; };
-		FB29BBC21B32BBC0009751A1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		FB29BBC61B32BBC0009751A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FB29BBCE1B32BBC0009751A1 /* busy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busy.wav; sourceTree = "<group>"; };
 		FB29BBCF1B32BBC0009751A1 /* calling.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = calling.wav; sourceTree = "<group>"; };
@@ -271,16 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB4490581BFB8B2E00A8233D /* Accelerate.framework in Frameworks */,
-				FB415B9C1D80043400AD4C08 /* Quickblox.framework in Frameworks */,
-				FB4490521BFB8ADD00A8233D /* libresolv.tbd in Frameworks */,
-				FB4490501BFB8AD000A8233D /* libxml2.2.tbd in Frameworks */,
-				FB5764E01B42A00F00501049 /* VideoToolbox.framework in Frameworks */,
-				55E156AF1AD6C41C00C62699 /* MobileCoreServices.framework in Frameworks */,
-				55F6BDCC1A3F21F10080C326 /* CFNetwork.framework in Frameworks */,
-				55F6BDCA1A3F21CC0080C326 /* GLKit.framework in Frameworks */,
-				E329E0791E38AE7B00E0A183 /* QuickbloxWebRTC.framework in Frameworks */,
-				55CF63A81A3AFF2500FE8D19 /* SystemConfiguration.framework in Frameworks */,
+				3366485A0A9FBB5A8629C764 /* Pods_sample_videochat_webrtc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +251,7 @@
 				FB29BBC51B32BBC0009751A1 /* Resources */,
 				55E076E41A30817800118D23 /* Products */,
 				AB35EE3F551E29A444EB63EF /* Frameworks */,
+				A1759C049F7A8E086C659728 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -304,6 +261,15 @@
 				55E076E31A30817800118D23 /* sample-videochat-webrtc.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A1759C049F7A8E086C659728 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				67EB550A22CCF2B47B3AF91F /* Pods-sample-videochat-webrtc.debug.xcconfig */,
+				59CDE9641B5D52FD356C8F9D /* Pods-sample-videochat-webrtc.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		AB35EE3F551E29A444EB63EF /* Frameworks */ = {
@@ -321,6 +287,7 @@
 				55F6BDCB1A3F21F10080C326 /* CFNetwork.framework */,
 				55F6BDC91A3F21CC0080C326 /* GLKit.framework */,
 				55CF63A71A3AFF2500FE8D19 /* SystemConfiguration.framework */,
+				5922F0ECF4044C7E47153580 /* Pods_sample_videochat_webrtc.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -817,7 +784,6 @@
 		FB29BBC51B32BBC0009751A1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FB29BBC21B32BBC0009751A1 /* Info.plist */,
 				FB29BBC61B32BBC0009751A1 /* Images.xcassets */,
 				FB29BBC71B32BBC0009751A1 /* Plists */,
 				FB29BBCD1B32BBC0009751A1 /* Sounds */,
@@ -872,12 +838,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55E077061A30817900118D23 /* Build configuration list for PBXNativeTarget "sample-videochat-webrtc" */;
 			buildPhases = (
+				5C8EDB1860B44B7E21511C9D /* [CP] Check Pods Manifest.lock */,
 				55E076DF1A30817800118D23 /* Sources */,
 				55E076E01A30817800118D23 /* Frameworks */,
 				55E076E11A30817800118D23 /* Resources */,
-				FB415B9E1D80043400AD4C08 /* Embed Frameworks */,
 				E329E0781E38AD8900E0A183 /* ShellScript */,
 				E329E07B1E38AEE800E0A183 /* ShellScript */,
+				62C26BA49912BDD45B5A6F89 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -894,7 +861,7 @@
 		55E076DB1A30817800118D23 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "QuickBlox Team";
 				TargetAttributes = {
 					55E076E21A30817800118D23 = {
@@ -941,39 +908,76 @@
 				FBE079FA1BEA216400718C56 /* WEBUsers.plist in Resources */,
 				E3B0B2101E1576EC00BE5FBD /* calling.wav in Resources */,
 				E3B0B20A1E1576EC00BE5FBD /* StunList.plist in Resources */,
-				E3B0B20E1E1576EC00BE5FBD /* WEBUsers.plist in Resources */,
 				E3B0B20C1E1576EC00BE5FBD /* PRODUsers.plist in Resources */,
 				E3B0B20D1E1576EC00BE5FBD /* QAUsers.plist in Resources */,
 				E3B0B2091E1576EC00BE5FBD /* Images.xcassets in Resources */,
 				E3B0B1F41E1576EC00BE5FBD /* SettingSliderCell.xib in Resources */,
-				E3B0B2061E1576EC00BE5FBD /* Info.plist in Resources */,
-				FB29BC041B32BBC0009751A1 /* Images.xcassets in Resources */,
 				FB29BC0D1B32BBC0009751A1 /* ringtone.wav in Resources */,
 				E3B0B20B1E1576EC00BE5FBD /* DEVUsers.plist in Resources */,
-				FBE079F81BEA204000718C56 /* QAUsers.plist in Resources */,
-				FBE079F71BEA204000718C56 /* PRODUsers.plist in Resources */,
 				FB29BC0C1B32BBC0009751A1 /* end_of_call.wav in Resources */,
 				E3B0B1F51E1576EC00BE5FBD /* SettingSwitchCell.xib in Resources */,
 				E3B0B2071E1576EC00BE5FBD /* Launch Screen.xib in Resources */,
 				E3B0B2021E1576EC00BE5FBD /* Users.storyboard in Resources */,
 				E3B0B1FA1E1576EC00BE5FBD /* Auth.storyboard in Resources */,
 				FB29BC0A1B32BBC0009751A1 /* busy.wav in Resources */,
-				FB29BC0B1B32BBC0009751A1 /* calling.wav in Resources */,
-				E3B0B2111E1576EC00BE5FBD /* end_of_call.wav in Resources */,
 				E3B0B1F11E1576EC00BE5FBD /* Call.storyboard in Resources */,
-				E3B0B20F1E1576EC00BE5FBD /* busy.wav in Resources */,
-				FBE079F41BEA204000718C56 /* StunList.plist in Resources */,
 				E3B0B22D1E1576EC00BE5FBD /* SVProgressHUD.bundle in Resources */,
 				E3B0B1F21E1576EC00BE5FBD /* SettingCell.xib in Resources */,
 				E3B0B1F31E1576EC00BE5FBD /* Settings.storyboard in Resources */,
-				FBE079F61BEA204000718C56 /* DEVUsers.plist in Resources */,
-				E3B0B2121E1576EC00BE5FBD /* ringtone.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5C8EDB1860B44B7E21511C9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-sample-videochat-webrtc-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62C26BA49912BDD45B5A6F89 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc-frameworks.sh",
+				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
+				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc/Pods-sample-videochat-webrtc-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E329E0781E38AD8900E0A183 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -985,7 +989,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework/strip-framework.sh\"";
+			shellScript = "bash \"${PODS_ROOT}/QuickBlox/Quickblox.framework/strip-framework.sh\"\n";
 		};
 		E329E07B1E38AEE800E0A183 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -998,7 +1002,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework/strip-framework.sh\"";
+			shellScript = "bash \"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework/strip-framework.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1112,13 +1116,24 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1127,6 +1142,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1153,13 +1169,24 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1167,6 +1194,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1184,6 +1212,7 @@
 		};
 		55E077071A30817900118D23 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67EB550A22CCF2B47B3AF91F /* Pods-sample-videochat-webrtc.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1228,6 +1257,7 @@
 		};
 		55E077081A30817900118D23 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59CDE9641B5D52FD356C8F9D /* Pods-sample-videochat-webrtc.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
