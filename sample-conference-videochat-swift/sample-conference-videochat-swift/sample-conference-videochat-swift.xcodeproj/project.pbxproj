@@ -29,7 +29,6 @@
 		2C4C26172166741000B1E8C4 /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26162166741000B1E8C4 /* LocalVideoView.swift */; };
 		2C4C26192166743500B1E8C4 /* OpponentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26182166743500B1E8C4 /* OpponentsFlowLayout.swift */; };
 		2C4C261B2166744D00B1E8C4 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261A2166744D00B1E8C4 /* StatsView.swift */; };
-		2C4C261D2166745F00B1E8C4 /* ZoomedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261C2166745F00B1E8C4 /* ZoomedView.swift */; };
 		2C4C2620216674F300B1E8C4 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C261F216674F300B1E8C4 /* Profile.swift */; };
 		2C4C26222166750900B1E8C4 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26212166750900B1E8C4 /* Core.swift */; };
 		2C4C26242166753C00B1E8C4 /* RootViewControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26232166753C00B1E8C4 /* RootViewControllerSegue.swift */; };
@@ -87,7 +86,6 @@
 		2C4C26162166741000B1E8C4 /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
 		2C4C26182166743500B1E8C4 /* OpponentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentsFlowLayout.swift; sourceTree = "<group>"; };
 		2C4C261A2166744D00B1E8C4 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
-		2C4C261C2166745F00B1E8C4 /* ZoomedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomedView.swift; sourceTree = "<group>"; };
 		2C4C261F216674F300B1E8C4 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2C4C26212166750900B1E8C4 /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		2C4C26232166753C00B1E8C4 /* RootViewControllerSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerSegue.swift; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 				2C4C26162166741000B1E8C4 /* LocalVideoView.swift */,
 				2C4C26182166743500B1E8C4 /* OpponentsFlowLayout.swift */,
 				2C4C261A2166744D00B1E8C4 /* StatsView.swift */,
-				2C4C261C2166745F00B1E8C4 /* ZoomedView.swift */,
 			);
 			path = CallViewController;
 			sourceTree = "<group>";
@@ -643,7 +640,6 @@
 				2C4C26302166776900B1E8C4 /* VideoSettingsViewController.swift in Sources */,
 				2CCB5ED2217DD9B300555AAA /* SliderItemModel.swift in Sources */,
 				2C4C26222166750900B1E8C4 /* Core.swift in Sources */,
-				2C4C261D2166745F00B1E8C4 /* ZoomedView.swift in Sources */,
 				2C4C26172166741000B1E8C4 /* LocalVideoView.swift in Sources */,
 				2C4C2615216673F300B1E8C4 /* CallViewController.swift in Sources */,
 				2C4C262E2166773E00B1E8C4 /* AudioSettingsViewController.swift in Sources */,

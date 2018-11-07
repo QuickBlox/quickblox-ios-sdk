@@ -57,7 +57,7 @@ class CallViewController: UIViewController {
     //Containers
     private var users = [QBUUser]()
     private var videoViews = [UInt: UIView]()
-    private var statsUserID: NSNumber?
+    private var selectedUserID: UInt?
     
     //Views
     
@@ -73,19 +73,14 @@ class CallViewController: UIViewController {
         return statsView
     }()
     
-    lazy private var zoomedView: ZoomedView = {
-        let zoomedView = ZoomedView()
-        return zoomedView
-    }()
+    private lazy var statsItem = UIBarButtonItem(title: "Stats",
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(didTapStats(_:)))
     
-    private var statsItem = UIBarButtonItem(title: "Stats",
-                                            style: .plain,
-                                            target: self,
-                                            action: #selector(didTapStats(_:)))
-    
-    private var addUsersItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                               target: self,
-                                               action: #selector(didTapAddUsers(_:)))
+    private lazy var addUsersItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                    target: self,
+                                                    action: #selector(didTapAddUsers(_:)))
     
     //States
     private var shouldGetStats = false
@@ -169,7 +164,7 @@ class CallViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        refreshVideoViews()
+        reloadContent()
         
         if cameraCapture?.hasStarted == false {
             // ideally you should always stop capture session
@@ -222,14 +217,6 @@ class CallViewController: UIViewController {
                                              .flexibleTopMargin,
                                              .flexibleBottomMargin]
         
-        // zoomed view
-        zoomedView.frame = view.bounds
-        zoomedView.autoresizingMask = mask
-        zoomedView.isHidden = true
-        view.addSubview(zoomedView)
-        zoomedView.didTapView = { [weak self] zoomedView in
-            self?.unzoomVideoView()
-        }
         // stats view
         statsView.frame = view.bounds
         statsView.autoresizingMask = mask
@@ -248,8 +235,8 @@ class CallViewController: UIViewController {
     // MARK: Transition to size
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        coordinator.animate(alongsideTransition: { context in
-            self.refreshVideoViews()
+        coordinator.animate(alongsideTransition: { [weak self] context in
+            self?.reloadContent()
         })
     }
     
@@ -286,18 +273,16 @@ class CallViewController: UIViewController {
     }
     
     //MARK: - Internal Methods
-    private func zoomVideoView(_ videoView: UIView?) {
-        zoomedView.videoView = videoView
-        zoomedView.isHidden = false
+    private func zoomUser(userID: UInt) {
+        selectedUserID = userID
+        reloadContent()
         navigationItem.rightBarButtonItem = statsItem
     }
     
-    private func unzoomVideoView() {
-        zoomedView.videoView = nil
-        zoomedView.isHidden = true
-        statsUserID = nil
+    private func unzoomUser() {
+        selectedUserID = nil
         navigationItem.rightBarButtonItem = addUsersItem
-        collectionView.reloadData()
+        reloadContent()
     }
     
     private func closeCall(withTimeout timeout: Bool) {
@@ -326,20 +311,9 @@ class CallViewController: UIViewController {
         navigationController?.popToRootViewController(animated: true)
     }
     
-    private func refreshVideoViews() {
-        // resetting zoomed view
-        for cell in collectionView.visibleCells {
-            guard let opponentCell = cell as? OpponentCollectionViewCell,
-                let videoView = opponentCell.videoView,
-                videoView != zoomedView.videoView else {
-                    continue
-            }
-            opponentCell.videoView = videoView
-        }
-    }
-    
     private func userView(userID: UInt) -> UIView? {
-        
+        debugPrint("userView(userID")
+        debugPrint(userID)
         if let result = videoViews[userID] {
             return result
         }
@@ -391,6 +365,11 @@ class CallViewController: UIViewController {
             return nil
         }
         return cell
+    }
+    
+    func reloadContent() {
+        videoViews.values.forEach{ $0.removeFromSuperview() }
+        collectionView.reloadData()
     }
     
 }
@@ -500,10 +479,14 @@ extension CallViewController: QBRTCConferenceClientDelegate {
     }
     
     func session(_ session: QBRTCConferenceSession?, publisherDidLeaveWithUserID userID: NSNumber?) {
-        guard let session = session, session == self.session, statsUserID == userID else {
+        guard let session = session, session == self.session,
+            let userID = userID,
+            let selectedUserID = selectedUserID,
+            selectedUserID == userID.uintValue else {
             return
         }
-        unzoomVideoView()
+        self.selectedUserID = nil
+        reloadContent()
     }
     
     func sessionWillClose(_ session: QBRTCConferenceSession?) {
@@ -535,23 +518,26 @@ extension CallViewController: QBRTCBaseClientDelegate {
         guard session == self.session else {
             return
         }
-        
+
         if let cell = userCell(userID: userID.uintValue),
             cell.connectionState == .connected,
             report.videoReceivedBitrateTracker.bitrate > 0.0 {
             cell.bitrate = report.videoReceivedBitrateTracker.bitrate
         }
-        
-        guard statsUserID == userID, shouldGetStats == true else {
+
+        guard let selectedUserID = selectedUserID,
+            selectedUserID == userID.uintValue, shouldGetStats == true else {
             return
         }
-        
+
         let result = report.statsString()
         debugPrint("\(result)")
-        
+
         statsView.updateStats(result)
         view.setNeedsLayout()
     }
+    
+    
     
     func session(_ session: QBRTCBaseSession, startedConnectingToUser userID: NSNumber) {
         guard session == self.session else {
@@ -570,15 +556,13 @@ extension CallViewController: QBRTCBaseClientDelegate {
         }
         
         // remove user from the collection
-        let indexPath = IndexPath(item: index, section: 0)
         users.removeAll(where: { element in element == user })
-        videoViews.removeValue(forKey: userID.uintValue)
+        if let videoView = videoViews[userID.uintValue] {
+            videoView.removeFromSuperview()
+            videoViews.removeValue(forKey: userID.uintValue)
+        }
         
-        collectionView.performBatchUpdates({ [weak self] in
-            self?.collectionView.deleteItems(at: [indexPath])
-            }, completion: { [weak self] _ in
-                self?.refreshVideoViews()
-        })
+        reloadContent()
     }
     
     func session(_ session: QBRTCBaseSession, didChange state: QBRTCConnectionState, forUser userID: NSNumber) {
@@ -591,13 +575,10 @@ extension CallViewController: QBRTCBaseClientDelegate {
     func session(_ session: QBRTCBaseSession,
                  receivedRemoteVideoTrack videoTrack: QBRTCVideoTrack,
                  fromUser userID: NSNumber) {
-        guard session == self.session,
-            let cell = userCell(userID: userID.uintValue),
-            let videoView = userView(userID: userID.uintValue) as? QBRTCRemoteVideoView else {
+        guard session == self.session else {
                 return
         }
-        
-        cell.videoView = videoView
+        reloadContent()
     }
     
     //MARK: - Internal
@@ -608,13 +589,7 @@ extension CallViewController: QBRTCBaseClientDelegate {
         }
         
         users.insert(user, at: 0)
-        let indexPath = IndexPath(item: 0, section: 0)
-        
-        collectionView.performBatchUpdates({ [weak self] in
-            self?.collectionView.insertItems(at: [indexPath])
-            }, completion: { [weak self] _ in
-                self?.refreshVideoViews()
-        })
+        reloadContent()
     }
     
 }
@@ -623,7 +598,7 @@ extension CallViewController: QBRTCBaseClientDelegate {
 extension CallViewController: UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
+        return selectedUserID != nil ? 1 : users.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -633,7 +608,13 @@ extension CallViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let user = users[indexPath.row]
+        var index = indexPath.row
+        if let selectedUserID = selectedUserID {
+            let selectedIndexPath = userIndexPath(userID: selectedUserID)
+            index = selectedIndexPath.row
+        }
+        
+        let user = users[index]
         let userID =  NSNumber(value: user.id)
         
         cell.didPressMuteButton = { [weak self] isMuted in
@@ -643,14 +624,15 @@ extension CallViewController: UICollectionViewDataSource {
         
         cell.videoView = userView(userID: user.id)
         
+        cell.name = ""
+        cell.connectionState = .unknown
+        
         guard let currentUser = QBSession.current.currentUser, user.id != currentUser.id else {
             return cell
         }
         
         let title = user.fullName ?? CallConstants.unknownUserLabel
         cell.name = title
-        cell.nameColor = PlaceholderGenerator.color(index: title.count)
-        cell.isMuted = false
         cell.connectionState = QBRTCConnectionState.new
         
         return cell
@@ -662,13 +644,9 @@ extension CallViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         guard let currentUserID = session?.currentUserID,
-            user.id != currentUserID.uintValue,
-            let videoCell = collectionView.cellForItem(at: indexPath) as? OpponentCollectionViewCell,
-            let videoView = videoCell.videoView  else {
+            user.id != currentUserID.uintValue else {
                 return
         }
-        videoCell.videoView = nil
-        statsUserID = NSNumber(value: user.id)
-        zoomVideoView(videoView)
+        selectedUserID == nil ? zoomUser(userID: user.id) : unzoomUser()
     }
 }
