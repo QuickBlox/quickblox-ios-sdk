@@ -19,17 +19,12 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Properties
     var videoView: UIView? {
-        willSet {
-            videoView?.removeFromSuperview()
-        }
         didSet {
             guard let view = videoView else {
                 return
             }
             
-            view.backgroundColor = UIColor.yellow
-            containerView.backgroundColor = UIColor.red
-            containerView.addSubview(view)
+            containerView.insertSubview(view, at: 0)
             
             
             view.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +33,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
             view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
             view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
             
-            layoutIfNeeded()
+            view.layoutIfNeeded()
         }
     }
 
@@ -60,7 +55,8 @@ class OpponentCollectionViewCell: UICollectionViewCell {
             case .noAnswer: statusLabel.text = "No Answer"
             case .disconnectTimeout: statusLabel.text = "Time out"
             case .disconnected: statusLabel.text = "Disconnected"
-            default: break
+            case .unknown: statusLabel.text = ""
+            default: statusLabel.text = ""
             }
             muteButton.isHidden = !(connectionState == .connected)
         }
@@ -69,19 +65,10 @@ class OpponentCollectionViewCell: UICollectionViewCell {
     var name = "" {
         didSet {
             nameLabel.text = name
-            nameView.isHidden = false
-        }
-    }
-    
-    var nameColor = UIColor.white {
-        didSet {
-            nameView.backgroundColor = self.nameColor
-        }
-    }
-    
-    var isMuted = false {
-        didSet {
-            muteButton.isSelected = isMuted
+            nameView.isHidden = name.isEmpty
+            nameView.backgroundColor = PlaceholderGenerator.color(index: name.count)
+            muteButton.isHidden = name.isEmpty
+            muteButton.isSelected = false
         }
     }
     
@@ -102,7 +89,7 @@ class OpponentCollectionViewCell: UICollectionViewCell {
         muteButton.setImage(unmutedImage, for: .normal)
         muteButton.setImage(mutedImage, for: .selected)
         muteButton.isHidden = true
-        isMuted = false
+        muteButton.isSelected = false
     }
     
     //MARK: - Actions
