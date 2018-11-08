@@ -84,6 +84,12 @@ class AddUsersViewController: UITableViewController {
     }
     
     // MARK: - Internal Methods
+    private func showAlertView(message: String?) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: MainAlertConstant.okAction, style: .default,
+                                                handler: nil))
+        present(alertController, animated: true)
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dataSource.selectObject(at: indexPath)
@@ -93,13 +99,14 @@ class AddUsersViewController: UITableViewController {
     
     @objc private func fetchData() {
         DataFetcher.fetchUsers({ [weak self] users in
-            guard let users = users else { return }
             let filteredUsers = users.filter({
                 self?.chatDialog?.occupantIDs?.contains(NSNumber(value: $0.id)) == false
             })
             self?.dataSource.updateObjects(filteredUsers)
             self?.tableView.reloadData()
             self?.refreshControl?.endRefreshing()
+            }, failure: { [weak self] (description) in
+                self?.showAlertView(message: description)
         })
     }
 }

@@ -103,13 +103,15 @@ class UsersViewController: UITableViewController {
     
     @objc private func fetchData() {
         DataFetcher.fetchUsers({ [weak self] users in
-            if let users = users {
+            if users.isEmpty == false {
                 self?.dataSource?.updateObjects(users)
                 self?.tableView.reloadData()
                 self?.refreshControl?.endRefreshing()
             } else {
                 self?.showAlertView(withMessage:  UsersViewControllerConstant.checkInternetConnection)
             }
+            }, failure: { [weak self] (description) in
+                self?.showAlertView(withMessage: description)
         })
     }
     

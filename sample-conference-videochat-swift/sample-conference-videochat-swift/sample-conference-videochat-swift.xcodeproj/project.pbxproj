@@ -227,7 +227,7 @@
 				2C4C2605216672BB00B1E8C4 /* CallViewController */,
 				2C4C2606216672CA00B1E8C4 /* CornerView */,
 				2C4C26072166732700B1E8C4 /* ConferenceUserCel */,
-				2C4C26082166733400B1E8C4 /* QBToolBar */,
+				2C4C26082166733400B1E8C4 /* ToolBar */,
 			);
 			path = Calls;
 			sourceTree = "<group>";
@@ -341,14 +341,14 @@
 			path = ConferenceUserCel;
 			sourceTree = "<group>";
 		};
-		2C4C26082166733400B1E8C4 /* QBToolBar */ = {
+		2C4C26082166733400B1E8C4 /* ToolBar */ = {
 			isa = PBXGroup;
 			children = (
 				2C4C26092166734E00B1E8C4 /* CustomButton.swift */,
 				2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */,
 				2C4C260E2166739A00B1E8C4 /* ToolBar.swift */,
 			);
-			path = QBToolBar;
+			path = ToolBar;
 			sourceTree = "<group>";
 		};
 		2C4C261E216674DA00B1E8C4 /* UserPorfile */ = {
@@ -439,7 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				2CCD5C0E216E3BB000A52051 /* UsersDataSource */,
-				2CCD5C0D216E3BA200A52051 /* QBDataFetcher */,
+				2CCD5C0D216E3BA200A52051 /* DataFetcher */,
 				2CCD5C0C216E3B9400A52051 /* PlaceholderGenerator */,
 				2CCD5C0A216E3B3A00A52051 /* DialogsDataSource */,
 			);
@@ -480,12 +480,12 @@
 			path = PlaceholderGenerator;
 			sourceTree = "<group>";
 		};
-		2CCD5C0D216E3BA200A52051 /* QBDataFetcher */ = {
+		2CCD5C0D216E3BA200A52051 /* DataFetcher */ = {
 			isa = PBXGroup;
 			children = (
 				2C3965B1216F8EF7008D6889 /* DataFetcher.swift */,
 			);
-			path = QBDataFetcher;
+			path = DataFetcher;
 			sourceTree = "<group>";
 		};
 		2CCD5C0E216E3BB000A52051 /* UsersDataSource */ = {

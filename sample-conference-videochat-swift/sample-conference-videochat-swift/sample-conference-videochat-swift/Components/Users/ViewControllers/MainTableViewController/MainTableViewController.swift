@@ -165,8 +165,10 @@ class MainTableViewController: UITableViewController {
         dataGroup.enter()
         DataFetcher.fetchUsers({ [weak self] users in
             dataGroup.leave()
-            guard let users = users else { return }
+//            guard let users = users else { return }
             self?.usersDataSource.updateObjects(users)
+            }, failure: { [weak self] (description) in
+                self?.showAlertView(message: description)
         })
         
         dataGroup.notify(queue: DispatchQueue.main) {
