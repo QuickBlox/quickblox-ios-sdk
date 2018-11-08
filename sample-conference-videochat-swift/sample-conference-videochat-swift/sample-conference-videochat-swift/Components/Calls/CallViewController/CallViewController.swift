@@ -622,7 +622,10 @@ extension CallViewController: UICollectionViewDataSource {
         cell.videoView = userView(userID: user.userID)
         
         cell.name = ""
-        cell.connectionState = user.connectionState
+        
+        if user.userID != QBSession.current.currentUser?.id {
+            cell.connectionState = user.connectionState
+        }
         
         guard let currentUser = QBSession.current.currentUser, user.userID != currentUser.id else {
             return cell
