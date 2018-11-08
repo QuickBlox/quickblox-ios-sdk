@@ -15,10 +15,10 @@ struct DialogsDataSourceConstant {
 }
 
 protocol DialogsDataSourceDelegate: class {
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapListener dialogCell: UITableViewCell?)
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapAudio dialogCell: UITableViewCell?)
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapVideo dialogCell: UITableViewCell?)
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath?)
+    func dataSource(_ dataSource: DialogsDataSource, didTapListenerAtCell cell: UITableViewCell)
+    func dataSource(_ dataSource: DialogsDataSource, didTapAudioAtCell cell: UITableViewCell)
+    func dataSource(_ dataSource: DialogsDataSource, didTapVideoAtCell cell: UITableViewCell)
+    func dataSource(_ dataSource: DialogsDataSource, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
 }
 
 class DialogsDataSource: NSObject {
@@ -83,7 +83,7 @@ class DialogsDataSource: NSObject {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
-        delegate?.dialogsDataSource(self, commit: editingStyle, forRowAt: indexPath)
+        delegate?.dataSource(self, commit: editingStyle, forRowAt: indexPath)
     }
 }
 
@@ -97,14 +97,14 @@ extension DialogsDataSource: UITableViewDataSource {
 extension DialogsDataSource: DialogTableViewCellDelegate {
     // MARK: - DialogTableViewCellDelegate
     func dialogCellDidListenerButton(_ dialogCell: DialogTableViewCell) {
-        delegate?.dialogsDataSource(self, dialogCellDidTapListener: dialogCell)
+        delegate?.dataSource(self, didTapListenerAtCell: dialogCell)
     }
     
     func dialogCellDidAudioButton(_ dialogCell: DialogTableViewCell) {
-        delegate?.dialogsDataSource(self, dialogCellDidTapAudio: dialogCell)
+        delegate?.dataSource(self, didTapAudioAtCell: dialogCell)
     }
     
     func dialogCellDidVideoButton(_ dialogCell: DialogTableViewCell) {
-        delegate?.dialogsDataSource(self, dialogCellDidTapVideo: dialogCell)
+        delegate?.dataSource(self, didTapVideoAtCell: dialogCell)
     }
 }

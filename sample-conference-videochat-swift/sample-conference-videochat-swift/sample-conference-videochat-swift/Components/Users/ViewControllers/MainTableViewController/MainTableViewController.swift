@@ -37,6 +37,7 @@ class MainTableViewController: UITableViewController {
         let dialogsDataSource = DialogsDataSource.init()
         return dialogsDataSource
     }()
+    
     lazy private var usersDataSource: UsersDataSource = {
         let usersDataSource = UsersDataSource()
         return usersDataSource
@@ -133,13 +134,13 @@ class MainTableViewController: UITableViewController {
     private func hasConnectivity() -> Bool {
         let status = core.networkConnectionStatus()
         guard status != NetworkConnectionStatus.notConnection else {
-            showAlertView(withMessage: MainAlertConstant.checkInternet)
+            showAlertView(message: MainAlertConstant.checkInternet)
             return false
         }
         return true
     }
     
-    private func showAlertView(withMessage message: String?) {
+    private func showAlertView(message: String?) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: MainAlertConstant.okAction, style: .default,
                                                 handler: nil))
@@ -148,43 +149,28 @@ class MainTableViewController: UITableViewController {
     
     @objc private func fetchData() {
         let dataGroup = DispatchGroup()
+        
         dataGroup.enter()
-        QBDataFetcher.fetchDialogs({ [weak self] dialogs in
+        DataFetcher.fetchDialogs({ [weak self] dialogs in
             dataGroup.leave()
-            if let dialogs = dialogs, dialogs.isEmpty == false {
-                self?.dialogsDataSource.updateObjects(dialogs)
-                self?.tableView.reloadData()
+            guard dialogs.isEmpty == false else {
+                return
             }
+            self?.dialogsDataSource.updateObjects(dialogs)
+            self?.tableView.reloadData()
+        }, failure: { [weak self] (description) in
+            self?.showAlertView(message: description)
         })
+        
         dataGroup.enter()
-        QBDataFetcher.fetchUsers({ [weak self] users in
+        DataFetcher.fetchUsers({ [weak self] users in
             dataGroup.leave()
             guard let users = users else { return }
             self?.usersDataSource.updateObjects(users)
         })
+        
         dataGroup.notify(queue: DispatchQueue.main) {
             self.refreshControl?.endRefreshing()
-        }
-    }
-    
-    private func joinDialog(fromDialogCell cell: UITableViewCell?, conferenceType: QBRTCConferenceType?) {
-        guard hasConnectivity() == true,
-            let cell = cell,
-            let indexPath = self.tableView.indexPath(for: cell) else {
-                return
-        }
-        let chatDialog = self.dialogsDataSource.objects[indexPath.row]
-        let callSettings = CallSettings(conferenseType: conferenceType, chatDialog: chatDialog)
-        guard let conferenceType = conferenceType else {
-            // will join to conferences as the listener
-            self.performSegue(withIdentifier: MainSegueConstant.call,
-                              sender: callSettings)
-            return
-        }
-        CallPermissions.check(with: conferenceType) { granted in
-            guard granted == true else { return }
-            self.performSegue(withIdentifier: MainSegueConstant.call,
-                              sender: callSettings)
         }
     }
     
@@ -263,57 +249,87 @@ extension MainTableViewController: CoreDelegate {
     }
     
     func core(_ core: Core, error: Error, domain: ErrorDomain) {
-        if domain == ErrorDomain.logOut {
-            SVProgressHUD.showError(withStatus: error.localizedDescription)
+        guard domain == ErrorDomain.logOut else {
+            return
         }
+        SVProgressHUD.showError(withStatus: error.localizedDescription)
     }
 }
 
 extension MainTableViewController: DialogsDataSourceDelegate {
     //MARK: - DialogsDataSourceDelegate
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
-                           dialogCellDidTapListener dialogCell: UITableViewCell?) {
-        joinDialog(fromDialogCell: dialogCell, conferenceType: nil)
+    func dataSource(_ dataSource: DialogsDataSource,
+                    didTapListenerAtCell cell: UITableViewCell) {
+        joinDialog(cell, conferenceType: nil)
     }
     
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
-                           dialogCellDidTapAudio dialogCell: UITableViewCell?) {
-        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.audio)
+    func dataSource(_ dataSource: DialogsDataSource,
+                    didTapAudioAtCell cell: UITableViewCell) {
+        joinDialog(cell, conferenceType: QBRTCConferenceType.audio)
     }
     
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
-                           dialogCellDidTapVideo dialogCell: UITableViewCell?) {
-        joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.video)
+    func dataSource(_ dataSource: DialogsDataSource,
+                    didTapVideoAtCell cell: UITableViewCell) {
+        joinDialog(cell, conferenceType: QBRTCConferenceType.video)
     }
     
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
-                           commit editingStyle: UITableViewCell.EditingStyle,
-                           forRowAt indexPath: IndexPath?) {
-        if  editingStyle == .delete, hasConnectivity() {
-            guard let indexPath = indexPath else { return }
-            let deleteDialog = dialogsDataSource.objects[indexPath.row]
-            guard let deleteDialogId = deleteDialog.id else { return }
-            
-            SVProgressHUD.show()
-            
-            let chatDialogIDs: Set = [deleteDialogId]
-            QBRequest.deleteDialogs(withIDs: chatDialogIDs,
-                                    forAllUsers: false,
-                                    successBlock: { [weak self] response,
-                                        deletedObjectsIDs,
-                                        notFoundObjectsIDs,
-                                        wrongPermissionsObjectsIDs in
-                                        
-                                        guard let `self` = self else { return }
-                                        //remove deleted dialog from datasource
-                                        let dialogs = self.dialogsDataSource.objects
-                                        let filteredDialogs = dialogs.filter({$0 != deleteDialog})
-                                        self.dialogsDataSource.updateObjects(filteredDialogs)
-                                        self.tableView.reloadData()
-                                        SVProgressHUD.dismiss()
-                }, errorBlock: { response in
-                    SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
-            })
+    func dataSource(_ dataSource: DialogsDataSource,
+                    commit editingStyle: UITableViewCell.EditingStyle,
+                    forRowAt indexPath: IndexPath) {
+        if editingStyle != .delete,
+            hasConnectivity() != true  {
+            return
+        }
+        
+        let dialog = dataSource.objects[indexPath.row]
+        
+        guard let dialogId = dialog.id else {
+            return
+        }
+        
+        SVProgressHUD.show()
+        
+        QBRequest.deleteDialogs(withIDs: [dialogId],
+                                forAllUsers: false,
+                                successBlock: { [weak self] response,
+                                    deletedObjectsIDs,
+                                    notFoundObjectsIDs,
+                                    wrongPermissionsObjectsIDs in
+                                    guard let `self` = self else {
+                                        return
+                                    }
+                                    //remove deleted dialog from datasource
+                                    let dialogs = self.dialogsDataSource.objects
+                                    let filteredDialogs = dialogs.filter({$0 != dialog})
+                                    self.dialogsDataSource.updateObjects(filteredDialogs)
+                                    self.tableView.reloadData()
+                                    SVProgressHUD.dismiss()
+            }, errorBlock: { response in
+                SVProgressHUD.showError(withStatus: "\(String(describing: response.error?.reasons))")
+        })
+    }
+    
+    // MARK: - Internal Methods
+    private func joinDialog(_ cell: UITableViewCell, conferenceType: QBRTCConferenceType?) {
+        guard hasConnectivity() == true,
+            let indexPath = tableView.indexPath(for: cell) else {
+                return
+        }
+        
+        let chatDialog = dialogsDataSource.objects[indexPath.row]
+        let callSettings = CallSettings(conferenseType: conferenceType, chatDialog: chatDialog)
+        
+        if let conferenceType = conferenceType {
+            CallPermissions.check(with: conferenceType) { [weak self] granted in
+                guard granted == true else { return }
+                self?.performSegue(withIdentifier: MainSegueConstant.call,
+                                   sender: callSettings)
+            }
+        } else {
+            // will join to conferences as the listener
+            self.performSegue(withIdentifier: MainSegueConstant.call,
+                              sender: callSettings)
         }
     }
+    
 }

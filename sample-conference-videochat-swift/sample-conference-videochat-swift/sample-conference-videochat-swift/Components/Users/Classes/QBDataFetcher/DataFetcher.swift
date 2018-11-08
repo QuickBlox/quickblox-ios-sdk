@@ -1,5 +1,5 @@
 //
-//  QBDataFetcher.swift
+//  DataFetcher.swift
 //  sample-conference-videochat-swift
 //
 //  Created by Vladimir Nybozhinsky on 11.10.2018.
@@ -14,16 +14,18 @@ struct DataFetcherConstant {
     static let pageSize: UInt = 50
 }
 
-class QBDataFetcher {
+class DataFetcher {
     // MARK: Class Methods
-    class func fetchDialogs(_ completion: @escaping (_ dialogs: [QBChatDialog]?) -> Void) {
+    
+    class func fetchDialogs(_ completion: @escaping (_ dialogs: [QBChatDialog]) -> Void,
+                            failure: @escaping (_ errorDescription: String?) -> Void) {
         let extendedRequest = ["type[in]": "2"]
-        var t_request: ((_ responsePage: QBResponsePage?, _ allDialogs: [QBChatDialog]?) -> Void)?
+        
+        var t_request: ((_ responsePage: QBResponsePage, _ allDialogs: [QBChatDialog]) -> Void)?
+        
         var allDialogsTempArr = [QBChatDialog]()
-        let request: ((QBResponsePage?, [QBChatDialog]?) -> Void)? = { responsePage, allDialogs in
-            
-            guard let responsePage = responsePage, let allDialogs = allDialogs else { return }
-            
+        
+        let request: ((QBResponsePage, [QBChatDialog]) -> Void) = { responsePage, allDialogs in
             QBRequest.dialogs(for: responsePage, extendedRequest: extendedRequest,
                               successBlock: { response, dialogs, dialogsUsersIDs, page in
                                 
@@ -31,8 +33,7 @@ class QBDataFetcher {
                                 allDialogsTempArr.append(contentsOf: dialogs)
                                 page.skip += dialogs.count
                                 let isLastPage = page.totalEntries <= page.skip
-                                let cancel = isLastPage ? true : false
-                                if cancel == false {
+                                if isLastPage == false {
                                     t_request?(page, allDialogsTempArr)
                                 } else {
                                     completion(allDialogsTempArr)
@@ -40,13 +41,16 @@ class QBDataFetcher {
                                 }
                                 
             }, errorBlock: { response in
-                completion(allDialogsTempArr)
                 t_request = nil
+                guard let message = DataFetcher.handleEror(response.error) else {
+                    return
+                }
+                failure(message)
             })
         }
         t_request = request
         let allDialogs: [QBChatDialog] = []
-        request?(QBResponsePage(limit: Int(DataFetcherConstant.pageLimit)), allDialogs)
+        request(QBResponsePage(limit: Int(DataFetcherConstant.pageLimit)), allDialogs)
     }
     
     class func fetchUsers(_ completion: @escaping (_ users: [QBUUser]?) -> Void) {
@@ -92,5 +96,22 @@ class QBDataFetcher {
             }
         }
         return users
+    }
+    
+    private class func handleEror(_ error: QBError?) -> String? {
+        guard let error = error else {
+            return nil
+        }
+        
+        if let suberror = error.error {
+            return suberror.localizedDescription
+        } else if let reasons = error.reasons {
+            let description = (reasons.compactMap({ (key, value) -> String in
+                return "\(key): \(value)"
+            }) as Array).joined(separator: "\n")
+            return description
+        } else {
+            return nil
+        }
     }
 }

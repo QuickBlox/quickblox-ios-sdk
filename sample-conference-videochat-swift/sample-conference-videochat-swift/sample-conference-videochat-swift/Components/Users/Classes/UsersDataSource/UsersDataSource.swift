@@ -17,7 +17,7 @@ class UsersDataSource: NSObject {
     // MARK: - Properties
     var objects = [QBUUser]()
     var selectedObjects = [QBUUser]()
-    private let sortSelector: Selector = #selector(getter: QBUUser.fullName)
+    private let sortSelector = #selector(getter: QBUUser.fullName)
     
     // MARK: Public Methods
     func updateObjects(_ objects: [QBUUser]) {
@@ -47,48 +47,44 @@ class UsersDataSource: NSObject {
     private func sortObjects(_ objects: [QBUUser]) -> [QBUUser] {
         let key = NSStringFromSelector(sortSelector)
         let objectsSortDescriptor = NSSortDescriptor(key: key, ascending: false)
-        guard let sortedObjects = (objects as NSArray).sortedArray(using: [objectsSortDescriptor])
-            as? [QBUUser] else {return objects}
-        return sortedObjects
+        guard let sorted = (objects as NSArray).sortedArray(using: [objectsSortDescriptor]) as? [QBUUser] else {
+                return objects
+        }
+        return sorted
     }
     
     func user(withID ID: UInt) -> QBUUser? {
-        for user in objects {
-            if user.id == ID {
-                return user
-            }
-        }
-        return nil
+        return objects.filter{ $0.id == ID }.first
     }
 }
 
-// MARK: UITableViewDataSource
 extension UsersDataSource: UITableViewDataSource {
+    // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return objects.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UsersDataSourceConstant.userCellIdentifier)
+            as? UserTableViewCell else {
+            return UITableViewCell()
+        }
         
-        var cell = UITableViewCell()
-        guard let userCell = tableView.dequeueReusableCell(withIdentifier: UsersDataSourceConstant.userCellIdentifier) as? UserTableViewCell else { return cell }
-        
-        let user: QBUUser = objects[indexPath.row] as QBUUser
-        let selected: Bool = self.selectedObjects.contains(user)
-        let size = CGSize(width: 32, height: 32)
+        let user = objects[indexPath.row]
+        let selected = selectedObjects.contains(user)
+        let size = CGSize(width: 32.0, height: 32.0)
         let userImage = PlaceholderGenerator.placeholder(size: size, title: user.fullName)
         
-        userCell.fullName = user.fullName
-        userCell.check = selected
-        userCell.userImage = userImage
-        cell = userCell
+        cell.fullName = user.fullName
+        cell.check = selected
+        cell.userImage = userImage
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let title = String(format: "Select users to create chat dialog with (%tu)", selectedObjects.count)
-        return NSLocalizedString(title, comment: "")
+        return title
     }
 }
 

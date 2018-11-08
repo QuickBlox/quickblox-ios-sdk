@@ -55,7 +55,7 @@ class UsersViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if let refreshControl = self.refreshControl, refreshControl.isRefreshing == true {
-            let contentOffset = CGPoint(x: 0, y: -refreshControl.frame.size.height)
+            let contentOffset = CGPoint(x: 0.0, y: -refreshControl.frame.size.height)
             tableView.setContentOffset(contentOffset, animated: false)
         }
     }
@@ -102,7 +102,7 @@ class UsersViewController: UITableViewController {
     }
     
     @objc private func fetchData() {
-        QBDataFetcher.fetchUsers({ [weak self] users in
+        DataFetcher.fetchUsers({ [weak self] users in
             if let users = users {
                 self?.dataSource?.updateObjects(users)
                 self?.tableView.reloadData()
@@ -119,7 +119,8 @@ class UsersViewController: UITableViewController {
             return
         }
         dataSource.selectObject(at: indexPath)
-        tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
+        
+        tableView.reloadSections([0], with: .none)
         navigationItem.rightBarButtonItem?.isEnabled = dataSource.selectedObjects.isEmpty == false
     }
     

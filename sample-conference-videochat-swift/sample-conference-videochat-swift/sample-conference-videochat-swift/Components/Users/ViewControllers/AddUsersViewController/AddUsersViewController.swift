@@ -87,12 +87,12 @@ class AddUsersViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         dataSource.selectObject(at: indexPath)
-        tableView.reloadSections(NSIndexSet(index: 0) as IndexSet, with: .none)
+        tableView.reloadSections([0], with: .none)
         navigationItem.rightBarButtonItem?.isEnabled = dataSource.selectedObjects.isEmpty == false
     }
     
     @objc private func fetchData() {
-        QBDataFetcher.fetchUsers({ [weak self] users in
+        DataFetcher.fetchUsers({ [weak self] users in
             guard let users = users else { return }
             let filteredUsers = users.filter({
                 self?.chatDialog?.occupantIDs?.contains(NSNumber(value: $0.id)) == false
