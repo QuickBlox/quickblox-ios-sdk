@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SettingsCellDelegate: class {
-    func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel?)
+    func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel)
 }
 
 class BaseSettingsCell: UITableViewCell {
@@ -26,7 +26,10 @@ class BaseSettingsCell: UITableViewCell {
     
     //MARK: - Class Methods
     class func identifier() -> String? {
-        return NSStringFromClass(BaseSettingsCell.self).components(separatedBy: ".").last!
+        guard let cellIdentifier = NSStringFromClass(BaseSettingsCell.self).components(separatedBy: ".").last else {
+            return nil
+        }
+        return cellIdentifier
     }
     
     class func nib() -> UINib? {
