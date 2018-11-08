@@ -213,8 +213,7 @@ class MainTableViewController: UITableViewController {
 extension MainTableViewController: UsersViewControllerDelegate {
     // MARK: UsersViewControllerDelegate
     func usersViewController(_ usersViewController: UsersViewController,
-                             didCreateChatDialog chatDialog: QBChatDialog?) {
-        guard let chatDialog = chatDialog else { return }
+                             didCreateChatDialog chatDialog: QBChatDialog) {
         dialogsDataSource.addObjects([chatDialog])
         tableView.reloadData()
     }
@@ -223,7 +222,7 @@ extension MainTableViewController: UsersViewControllerDelegate {
 
 extension MainTableViewController: SettingsViewControllerDelegate {
     // MARK: SettingsViewControllerDelegate
-    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any?) {
+    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any) {
         SVProgressHUD.show(withStatus: MainAlertConstant.logout)
         core.logout()
     }

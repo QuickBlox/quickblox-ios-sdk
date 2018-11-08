@@ -27,6 +27,7 @@ struct TimeIntervalConstant {
 
 struct AppDelegateConstant {
     static let assertMessage = "Multi-conference server is available only for Enterprise plans. Please refer to https://quickblox.com/developers/EnterpriseFeatures for more information and contacts."
+    static let enableStatsReports: UInt = 1
 }
 
 @UIApplicationMain
@@ -42,21 +43,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBSettings.authSecret = CredentialsConstant.authSecret
         QBSettings.accountKey = CredentialsConstant.accountKey
         QBSettings.autoReconnectEnabled = true
-        
         QBSettings.logLevel = QBLogLevel.nothing
         QBSettings.disableXMPPLogging()
-        
         QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
         QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
-        
         QBRTCConfig.setConferenceEndpoint("")
         assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, AppDelegateConstant.assertMessage)
         
-        #if ENABLE_STATS_REPORTS
-        QBRTCConfig.setStatsReportTimeInterval(1.0)
-        #endif
-        
+        if AppDelegateConstant.enableStatsReports == 1 {
+            QBRTCConfig.setStatsReportTimeInterval(1.0)
+        }
+
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.clear)
         QBRTCClient.initializeRTC()
         

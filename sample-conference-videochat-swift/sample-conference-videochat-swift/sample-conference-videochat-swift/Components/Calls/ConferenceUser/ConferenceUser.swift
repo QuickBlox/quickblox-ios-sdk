@@ -21,7 +21,7 @@ class ConferenceUser {
     var userID: UInt {
         return user.id
     }
-    
+
     var bitrate: Double = 0.0
 
     //MARK: - Life Cycle

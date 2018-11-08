@@ -12,7 +12,7 @@ import SVProgressHUD
 
 protocol UsersViewControllerDelegate: class {
     func usersViewController(_ usersViewController: UsersViewController,
-                             didCreateChatDialog chatDialog: QBChatDialog?)
+                             didCreateChatDialog chatDialog: QBChatDialog)
 }
 
 struct UsersViewControllerConstant {

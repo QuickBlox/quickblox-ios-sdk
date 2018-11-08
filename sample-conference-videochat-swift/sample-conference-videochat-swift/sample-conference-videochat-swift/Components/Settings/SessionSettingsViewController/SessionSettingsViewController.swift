@@ -10,7 +10,7 @@ import UIKit
 import QuickbloxWebRTC
 
 protocol SettingsViewControllerDelegate: class {
-    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any?)
+    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any)
 }
 
 enum SessionConfigureItem : Int {
@@ -82,7 +82,8 @@ class SessionSettingsViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: SessionSettingsConstant.yesMessage,
                                                     style: .default,
                                                     handler: { action in
-                                self.delegate?.settingsViewController(self, didPressLogout: cell)
+                                                        self.delegate?.settingsViewController(self,
+                                                                        didPressLogout: cell as Any)
             }))
             alertController.addAction(UIAlertAction(title: SessionSettingsConstant.noMessage,
                                                     style: .default,
