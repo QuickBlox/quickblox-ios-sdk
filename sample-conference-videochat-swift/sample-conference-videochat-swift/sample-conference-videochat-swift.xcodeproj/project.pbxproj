@@ -23,7 +23,7 @@
 		2C4C260A2166734E00B1E8C4 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26092166734E00B1E8C4 /* CustomButton.swift */; };
 		2C4C260C2166736500B1E8C4 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */; };
 		2C4C260F2166739A00B1E8C4 /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C260E2166739A00B1E8C4 /* ToolBar.swift */; };
-		2C4C2611216673BD00B1E8C4 /* OpponentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2610216673BD00B1E8C4 /* OpponentCollectionViewCell.swift */; };
+		2C4C2611216673BD00B1E8C4 /* ConferenceUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2610216673BD00B1E8C4 /* ConferenceUserCell.swift */; };
 		2C4C2613216673D600B1E8C4 /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2612216673D600B1E8C4 /* CornerView.swift */; };
 		2C4C2615216673F300B1E8C4 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2614216673F300B1E8C4 /* CallViewController.swift */; };
 		2C4C26172166741000B1E8C4 /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C26162166741000B1E8C4 /* LocalVideoView.swift */; };
@@ -39,6 +39,7 @@
 		2C4C2638216678F200B1E8C4 /* AddUsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */; };
 		2C73CB0A216D1BDB00DAED6C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C73CB09216D1BDB00DAED6C /* Settings.swift */; };
 		2C93A960217870A200D18F7D /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C93A95F217870A200D18F7D /* Call.storyboard */; };
+		2CA2CF35219312C5004A55D6 /* ConferenceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA2CF34219312C5004A55D6 /* ConferenceUser.swift */; };
 		2CC867C32170ABF1006DF7BC /* DialogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC867C22170ABF1006DF7BC /* DialogTableViewCell.swift */; };
 		2CC867C52170C5B9006DF7BC /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC867C42170C5B9006DF7BC /* UsersViewController.swift */; };
 		2CCB5EC2217DC44300555AAA /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCB5EC1217DC44300555AAA /* Settings.storyboard */; };
@@ -80,7 +81,7 @@
 		2C4C26092166734E00B1E8C4 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		2C4C260B2166736500B1E8C4 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		2C4C260E2166739A00B1E8C4 /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
-		2C4C2610216673BD00B1E8C4 /* OpponentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentCollectionViewCell.swift; sourceTree = "<group>"; };
+		2C4C2610216673BD00B1E8C4 /* ConferenceUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUserCell.swift; sourceTree = "<group>"; };
 		2C4C2612216673D600B1E8C4 /* CornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
 		2C4C2614216673F300B1E8C4 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		2C4C26162166741000B1E8C4 /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUsersViewController.swift; sourceTree = "<group>"; };
 		2C73CB09216D1BDB00DAED6C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2C93A95F217870A200D18F7D /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Call.storyboard; sourceTree = "<group>"; };
+		2CA2CF34219312C5004A55D6 /* ConferenceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUser.swift; sourceTree = "<group>"; };
 		2CC867C22170ABF1006DF7BC /* DialogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogTableViewCell.swift; sourceTree = "<group>"; };
 		2CC867C42170C5B9006DF7BC /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		2CCB5EC1217DC44300555AAA /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -220,10 +222,11 @@
 		2C4C25EF2166703100B1E8C4 /* Calls */ = {
 			isa = PBXGroup;
 			children = (
+				2CA2CF3321931287004A55D6 /* ConferenceUser */,
 				2C93A95F217870A200D18F7D /* Call.storyboard */,
 				2C4C2605216672BB00B1E8C4 /* CallViewController */,
 				2C4C2606216672CA00B1E8C4 /* CornerView */,
-				2C4C26072166732700B1E8C4 /* OpponentCollectionViewCell */,
+				2C4C26072166732700B1E8C4 /* ConferenceUserCel */,
 				2C4C26082166733400B1E8C4 /* QBToolBar */,
 			);
 			path = Calls;
@@ -330,12 +333,12 @@
 			path = CornerView;
 			sourceTree = "<group>";
 		};
-		2C4C26072166732700B1E8C4 /* OpponentCollectionViewCell */ = {
+		2C4C26072166732700B1E8C4 /* ConferenceUserCel */ = {
 			isa = PBXGroup;
 			children = (
-				2C4C2610216673BD00B1E8C4 /* OpponentCollectionViewCell.swift */,
+				2C4C2610216673BD00B1E8C4 /* ConferenceUserCell.swift */,
 			);
-			path = OpponentCollectionViewCell;
+			path = ConferenceUserCel;
 			sourceTree = "<group>";
 		};
 		2C4C26082166733400B1E8C4 /* QBToolBar */ = {
@@ -406,6 +409,14 @@
 				2C4C2637216678F200B1E8C4 /* AddUsersViewController.swift */,
 			);
 			path = AddUsersViewController;
+			sourceTree = "<group>";
+		};
+		2CA2CF3321931287004A55D6 /* ConferenceUser */ = {
+			isa = PBXGroup;
+			children = (
+				2CA2CF34219312C5004A55D6 /* ConferenceUser.swift */,
+			);
+			path = ConferenceUser;
 			sourceTree = "<group>";
 		};
 		2CC867C12170AB7D006DF7BC /* DialogTableViewCell */ = {
@@ -635,6 +646,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CA2CF35219312C5004A55D6 /* ConferenceUser.swift in Sources */,
 				2C3965B2216F8EF7008D6889 /* QBDataFetcher.swift in Sources */,
 				2C4C262C2166771A00B1E8C4 /* BaseSettingsViewController.swift in Sources */,
 				2C4C26302166776900B1E8C4 /* VideoSettingsViewController.swift in Sources */,
@@ -668,7 +680,7 @@
 				2C4C2613216673D600B1E8C4 /* CornerView.swift in Sources */,
 				2C0D582221666256001FF80B /* AppDelegate.swift in Sources */,
 				2CCB5ED8217DF09300555AAA /* SettingsSectionModel.swift in Sources */,
-				2C4C2611216673BD00B1E8C4 /* OpponentCollectionViewCell.swift in Sources */,
+				2C4C2611216673BD00B1E8C4 /* ConferenceUserCell.swift in Sources */,
 				2C4C26022166728000B1E8C4 /* CallPermissions.swift in Sources */,
 				2CCB5EC8217DCD9B00555AAA /* SwitchItemModel.swift in Sources */,
 				2C4C261B2166744D00B1E8C4 /* StatsView.swift in Sources */,

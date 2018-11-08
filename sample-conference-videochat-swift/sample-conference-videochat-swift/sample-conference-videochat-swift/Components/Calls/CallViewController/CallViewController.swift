@@ -55,7 +55,7 @@ class CallViewController: UIViewController {
     private var cameraCapture: QBRTCCameraCapture?
     
     //Containers
-    private var users = [QBUUser]()
+    private var users = [ConferenceUser]()
     private var videoViews = [UInt: UIView]()
     private var selectedUserID: UInt?
     
@@ -139,7 +139,8 @@ class CallViewController: UIViewController {
         }
         
         if isListnerOnly == false {
-            users = [currentUser]
+            let currentConferenceUser = ConferenceUser(user: currentUser)
+            users = [currentConferenceUser]
         }
         
         configureGUI()
@@ -155,7 +156,8 @@ class CallViewController: UIViewController {
             // Simulator
             #else
             // Device
-            cameraCapture = QBRTCCameraCapture(videoFormat: settings.videoFormat, position: settings.preferredCameraPostion)
+            cameraCapture = QBRTCCameraCapture(videoFormat: settings.videoFormat,
+                                               position: settings.preferredCameraPostion)
             cameraCapture?.startSession(nil)
             #endif
         }
@@ -312,8 +314,6 @@ class CallViewController: UIViewController {
     }
     
     private func userView(userID: UInt) -> UIView? {
-        debugPrint("userView(userID")
-        debugPrint(userID)
         if let result = videoViews[userID] {
             return result
         }
@@ -341,37 +341,36 @@ class CallViewController: UIViewController {
         return nil
     }
     
-    private func fetchUser(userID: UInt) -> QBUUser {
-        guard let usersDataSource = dataSource,
-            let user = usersDataSource.user(withID: userID) else {
-                let user = QBUUser()
-                user.id = userID
-                return user
-        }
-        return user
-    }
-    
-    private func userIndexPath(userID: UInt) -> IndexPath {
-        let user = fetchUser(userID: userID)
-        guard let index = users.index(of: user), index != NSNotFound else {
-            return IndexPath(row: 0, section: 0)
-        }
-        return IndexPath(row: index, section: 0)
-    }
-    
-    private func userCell(userID: UInt) -> OpponentCollectionViewCell? {
+    private func userCell(userID: UInt) -> ConferenceUserCell? {
         let indexPath = userIndexPath(userID: userID)
-        guard let cell = collectionView.cellForItem(at: indexPath) as? OpponentCollectionViewCell  else {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ConferenceUserCell  else {
             return nil
         }
         return cell
     }
+
+    private func createConferenceUser(userID: UInt) -> ConferenceUser {
+        guard let usersDataSource = dataSource,
+            let user = usersDataSource.user(withID: userID) else {
+                let user = QBUUser()
+                user.id = userID
+                return ConferenceUser(user: user)
+        }
+        return ConferenceUser(user: user)
+    }
     
+    private func userIndexPath(userID: UInt) -> IndexPath {
+        guard let index = users.index(where: { $0.userID == userID }), index != NSNotFound else {
+            return IndexPath(row: 0, section: 0)
+        }
+
+        return IndexPath(row: index, section: 0)
+    }
+
     func reloadContent() {
         videoViews.values.forEach{ $0.removeFromSuperview() }
         collectionView.reloadData()
     }
-    
 }
 
 extension CallViewController: LocalVideoViewDelegate {
@@ -460,7 +459,8 @@ extension CallViewController: QBRTCConferenceClientDelegate {
         }
     }
     
-    func session(_ session: QBRTCConferenceSession?, didJoinChatDialogWithID chatDialogID: String?, publishersList: [NSNumber]) {
+    func session(_ session: QBRTCConferenceSession?, didJoinChatDialogWithID chatDialogID: String?,
+                 publishersList: [NSNumber]) {
         guard let session = session, session == self.session else {
             return
         }
@@ -515,18 +515,21 @@ extension CallViewController: QBRTCConferenceClientDelegate {
 extension CallViewController: QBRTCBaseClientDelegate {
     // MARK: QBRTCBaseClientDelegate
     func session(_ session: QBRTCBaseSession, updatedStatsReport report: QBRTCStatsReport, forUserID userID: NSNumber) {
-        guard session == self.session else {
+        guard session == self.session,
+            let user = users.filter({ $0.userID == userID.uintValue }).first  else {
             return
         }
-
-        if let cell = userCell(userID: userID.uintValue),
-            cell.connectionState == .connected,
+        
+        if user.connectionState == .connected,
             report.videoReceivedBitrateTracker.bitrate > 0.0 {
-            cell.bitrate = report.videoReceivedBitrateTracker.bitrate
+            user.bitrate = report.videoReceivedBitrateTracker.bitrate
         }
+        
+        reloadContent()
 
         guard let selectedUserID = selectedUserID,
-            selectedUserID == userID.uintValue, shouldGetStats == true else {
+            selectedUserID == userID.uintValue,
+            shouldGetStats == true else {
             return
         }
 
@@ -534,7 +537,6 @@ extension CallViewController: QBRTCBaseClientDelegate {
         debugPrint("\(result)")
 
         statsView.updateStats(result)
-        view.setNeedsLayout()
     }
     
     
@@ -548,28 +550,25 @@ extension CallViewController: QBRTCBaseClientDelegate {
     }
     
     func session(_ session: QBRTCBaseSession, connectionClosedForUser userID: NSNumber) {
-        let user = fetchUser(userID: userID.uintValue)
-        guard session == self.session,
-            let index = users.index(of: user),
-            index != NSNotFound else {
-                return
+        // remove user from the collection
+        if let index = users.index(where: { $0.userID == userID.uintValue }) {
+            users.remove(at: index)
         }
         
-        // remove user from the collection
-        users.removeAll(where: { element in element == user })
         if let videoView = videoViews[userID.uintValue] {
             videoView.removeFromSuperview()
             videoViews.removeValue(forKey: userID.uintValue)
         }
-        
         reloadContent()
     }
     
     func session(_ session: QBRTCBaseSession, didChange state: QBRTCConnectionState, forUser userID: NSNumber) {
-        guard session == self.session, let cell = userCell(userID: userID.uintValue) else {
+        guard session == self.session, let index = users.index(where: { $0.userID == userID.uintValue }) else {
             return
         }
-        cell.connectionState = state
+        let user = users[index]
+        user.connectionState = state
+        reloadContent()
     }
     
     func session(_ session: QBRTCBaseSession,
@@ -583,18 +582,16 @@ extension CallViewController: QBRTCBaseClientDelegate {
     
     //MARK: - Internal
     private func addToCollectionUser(withID userID: NSNumber) {
-        let user = fetchUser(userID: userID.uintValue)
-        guard users.contains(user) == false else {
+        guard users.contains(where: { $0.userID == userID.uintValue }) == false else {
             return
         }
-        
+        let user = createConferenceUser(userID: userID.uintValue)
         users.insert(user, at: 0)
         reloadContent()
     }
     
 }
 
-// MARK: UICollectionViewDataSource
 extension CallViewController: UICollectionViewDataSource {
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -604,7 +601,7 @@ extension CallViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CallConstants.opponentCollectionViewCellIdentifier,
-                                                            for: indexPath) as? OpponentCollectionViewCell else {
+                                                            for: indexPath) as? ConferenceUserCell else {
             return UICollectionViewCell()
         }
         
@@ -615,25 +612,24 @@ extension CallViewController: UICollectionViewDataSource {
         }
         
         let user = users[index]
-        let userID =  NSNumber(value: user.id)
+        let userID = NSNumber(value: user.userID)
         
         cell.didPressMuteButton = { [weak self] isMuted in
             let audioTrack = self?.session?.remoteAudioTrack(withUserID: userID)
             audioTrack?.isEnabled = !isMuted
         }
         
-        cell.videoView = userView(userID: user.id)
+        cell.videoView = userView(userID: user.userID)
         
         cell.name = ""
-        cell.connectionState = .unknown
+        cell.connectionState = user.connectionState
         
-        guard let currentUser = QBSession.current.currentUser, user.id != currentUser.id else {
+        guard let currentUser = QBSession.current.currentUser, user.userID != currentUser.id else {
             return cell
         }
         
-        let title = user.fullName ?? CallConstants.unknownUserLabel
+        let title = user.userName
         cell.name = title
-        cell.connectionState = QBRTCConnectionState.new
         
         return cell
     }
@@ -644,9 +640,9 @@ extension CallViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         guard let currentUserID = session?.currentUserID,
-            user.id != currentUserID.uintValue else {
+            user.userID != currentUserID.uintValue else {
                 return
         }
-        selectedUserID == nil ? zoomUser(userID: user.id) : unzoomUser()
+        selectedUserID == nil ? zoomUser(userID: user.userID) : unzoomUser()
     }
 }
