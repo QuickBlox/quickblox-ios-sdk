@@ -15,10 +15,10 @@ struct DialogsDataSourceConstant {
 }
 
 protocol DialogsDataSourceDelegate: class {
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapListener dialogCell: UITableViewCell?)
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapAudio dialogCell: UITableViewCell?)
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapVideo dialogCell: UITableViewCell?)
-    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath?)
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapListener dialogCell: UITableViewCell)
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapAudio dialogCell: UITableViewCell)
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, dialogCellDidTapVideo dialogCell: UITableViewCell)
+    func dialogsDataSource(_ dialogsDataSource: DialogsDataSource, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
 }
 
 class DialogsDataSource: NSObject {

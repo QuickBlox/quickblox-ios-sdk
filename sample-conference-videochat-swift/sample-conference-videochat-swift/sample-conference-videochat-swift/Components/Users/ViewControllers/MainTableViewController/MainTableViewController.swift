@@ -227,8 +227,7 @@ class MainTableViewController: UITableViewController {
 extension MainTableViewController: UsersViewControllerDelegate {
     // MARK: UsersViewControllerDelegate
     func usersViewController(_ usersViewController: UsersViewController,
-                             didCreateChatDialog chatDialog: QBChatDialog?) {
-        guard let chatDialog = chatDialog else { return }
+                             didCreateChatDialog chatDialog: QBChatDialog) {
         dialogsDataSource.addObjects([chatDialog])
         tableView.reloadData()
     }
@@ -237,7 +236,7 @@ extension MainTableViewController: UsersViewControllerDelegate {
 
 extension MainTableViewController: SettingsViewControllerDelegate {
     // MARK: SettingsViewControllerDelegate
-    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any?) {
+    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any) {
         SVProgressHUD.show(withStatus: MainAlertConstant.logout)
         core.logout()
     }
@@ -272,25 +271,24 @@ extension MainTableViewController: CoreDelegate {
 extension MainTableViewController: DialogsDataSourceDelegate {
     //MARK: - DialogsDataSourceDelegate
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
-                           dialogCellDidTapListener dialogCell: UITableViewCell?) {
+                           dialogCellDidTapListener dialogCell: UITableViewCell) {
         joinDialog(fromDialogCell: dialogCell, conferenceType: nil)
     }
     
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
-                           dialogCellDidTapAudio dialogCell: UITableViewCell?) {
+                           dialogCellDidTapAudio dialogCell: UITableViewCell) {
         joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.audio)
     }
     
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
-                           dialogCellDidTapVideo dialogCell: UITableViewCell?) {
+                           dialogCellDidTapVideo dialogCell: UITableViewCell) {
         joinDialog(fromDialogCell: dialogCell, conferenceType: QBRTCConferenceType.video)
     }
     
     func dialogsDataSource(_ dialogsDataSource: DialogsDataSource,
                            commit editingStyle: UITableViewCell.EditingStyle,
-                           forRowAt indexPath: IndexPath?) {
+                           forRowAt indexPath: IndexPath) {
         if  editingStyle == .delete, hasConnectivity() {
-            guard let indexPath = indexPath else { return }
             let deleteDialog = dialogsDataSource.objects[indexPath.row]
             guard let deleteDialogId = deleteDialog.id else { return }
             

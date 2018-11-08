@@ -519,7 +519,7 @@ extension CallViewController: QBRTCBaseClientDelegate {
             let user = users.filter({ $0.userID == userID.uintValue }).first  else {
             return
         }
-        
+
         if user.connectionState == .connected,
             report.videoReceivedBitrateTracker.bitrate > 0.0 {
             user.bitrate = report.videoReceivedBitrateTracker.bitrate
@@ -530,12 +530,9 @@ extension CallViewController: QBRTCBaseClientDelegate {
         guard let selectedUserID = selectedUserID,
             selectedUserID == userID.uintValue,
             shouldGetStats == true else {
-            return
+                return
         }
-
         let result = report.statsString()
-        debugPrint("\(result)")
-
         statsView.updateStats(result)
     }
     
@@ -622,13 +619,15 @@ extension CallViewController: UICollectionViewDataSource {
         cell.videoView = userView(userID: user.userID)
         
         cell.name = ""
-        
-        if user.userID != QBSession.current.currentUser?.id {
-            cell.connectionState = user.connectionState
-        }
-        
+
         guard let currentUser = QBSession.current.currentUser, user.userID != currentUser.id else {
             return cell
+        }
+        
+        if user.bitrate > 0.0 {
+            cell.bitrate = user.bitrate
+        } else {
+            cell.connectionState = user.connectionState
         }
         
         let title = user.userName
