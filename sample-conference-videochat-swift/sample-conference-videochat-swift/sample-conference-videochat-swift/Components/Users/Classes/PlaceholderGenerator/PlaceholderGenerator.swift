@@ -29,7 +29,9 @@ class PlaceholderGenerator {
     
     class func placeholder(size: CGSize, title: String?) -> UIImage {
         let key = title ?? ""
-        guard let image = PlaceholderGenerator.instance.cache.object(forKey: key as AnyObject) as? UIImage  else {
+        if let image = PlaceholderGenerator.instance.cache.object(forKey: key as AnyObject) as? UIImage {
+            return image
+        } else {
             let index = key.count % 10
             let image = placeholder(size: size,
                                     color: PlaceholderGenerator.instance.color(index: index),
@@ -38,7 +40,6 @@ class PlaceholderGenerator {
             PlaceholderGenerator.instance.cache.setObject(image, forKey: key as AnyObject)
             return image
         }
-        return image
     }
     
     class func placeholder(size: CGSize, color: UIColor, title: String?, isOval: Bool) -> UIImage {

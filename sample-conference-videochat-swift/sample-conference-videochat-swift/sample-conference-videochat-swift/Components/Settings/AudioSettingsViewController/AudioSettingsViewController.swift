@@ -107,17 +107,24 @@ class AudioSettingsViewController: BaseSettingsViewController {
         })
     }
 
+    // MARK: - Overrides
     // MARK: - Overrides SettingsCellDelegate
-    override func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel?) {
+    override func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel) {
         guard let indexPath = tableView.indexPath(for: cell) else {
-            return }
-        if indexPath.section == AudioSettingsSectionType.bandwidth.rawValue && (model is SwitchItemModel) {
+            return
+        }
+        if indexPath.section == AudioSettingsSectionType.bandwidth.rawValue, model is SwitchItemModel {
             guard let bandwidth = section(with: AudioSettingsSectionType.bandwidth.rawValue) else {
-                return }
+                return
+            }
             let switchItem = bandwidth.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
+            
             let bandwidthSlider = bandwidth.items[AudioBandwidthSection.bandwidth.rawValue] as? SliderItemModel
+            
             if let isEnabled = switchItem?.on, let bandwidthSlider = bandwidthSlider {
+                
                 bandwidthSlider.isDisabled = isEnabled
+                
                 if isEnabled == false {
                     bandwidthSlider.currentValue = UInt(bitPattern: bandwidthSlider.minValue)
                 }
@@ -136,8 +143,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
         } else {
             settings.mediaConfiguration.isAudioLevelControlEnabled = false
         }
-        
-        
+
         //bandwidth
         let bandwidth = section(with: AudioSettingsSectionType.bandwidth.rawValue)
         let switchItem = bandwidth?.items[AudioBandwidthSection.enable.rawValue] as? SwitchItemModel
@@ -167,6 +173,7 @@ class AudioSettingsViewController: BaseSettingsViewController {
         }
         bandwidthSlider?.isDisabled = true
         switchItem?.on = false
-        tableView.reloadSections(NSIndexSet(index: AudioSettingsSectionType.bandwidth.rawValue) as IndexSet, with: .fade)
+        tableView.reloadSections(NSIndexSet(index: AudioSettingsSectionType.bandwidth.rawValue) as IndexSet,
+                                 with: .fade)
     }
 }

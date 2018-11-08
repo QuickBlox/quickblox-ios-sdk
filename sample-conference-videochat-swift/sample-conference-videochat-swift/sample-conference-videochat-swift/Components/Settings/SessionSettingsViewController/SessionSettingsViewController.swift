@@ -29,6 +29,7 @@ class SessionSettingsViewController: UITableViewController {
     //MARK: - IBOutlets
     @IBOutlet private weak var versionLabel: UILabel!
     
+    //MARK: - Properties
     private var settings = Settings.instance
     weak var delegate: SettingsViewControllerDelegate?
     

@@ -97,7 +97,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
     }
     
     // MARK: - SettingsCellDelegate
-    override func cell(_ cell: BaseSettingsCell?, didChageModel model: BaseItemModel?) {
+    override func cell(_ cell: BaseSettingsCell, didChageModel model: BaseItemModel) {
         guard let model = model as? SwitchItemModel else {
             return }
         reloadVideoFormatSection(for: model.on ? .back : .front)
@@ -114,16 +114,20 @@ class VideoSettingsViewController: BaseSettingsViewController {
         guard let supportedFormatIndexPath = indexPath(atSection: VideoSettingsSectionType.supportedFormats.rawValue),
             let format = model(with: supportedFormatIndexPath.row, section: supportedFormatIndexPath.section),
             let videoFormat = format.data as? QBRTCVideoFormat else {
-                return }
+                return
+        }
         
         //Frame rate
         guard let frameRate = section(with: VideoSettingsSectionType.videoFrameRate.rawValue),
-            let frameRateSlider = frameRate.items.first as? SliderItemModel else { return }
+            let frameRateSlider = frameRate.items.first as? SliderItemModel else {
+                return
+        }
         
         //bandwidth
         guard let bandwidth = section(with: VideoSettingsSectionType.bandwidth.rawValue),
             let bandwidthSlider = bandwidth.items.first as? SliderItemModel else {
-                return }
+                return
+        }
         settings.mediaConfiguration.videoBandwidth = Int(bandwidthSlider.currentValue)
         settings.videoFormat = QBRTCVideoFormat.init(width: videoFormat.width,
                                                      height: videoFormat.height,
@@ -153,6 +157,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
         section.items = videoFormatModels
         let formats = QBRTCCameraCapture.formats(with: position)
         let title = self.title(forSection: VideoSettingsSectionType.supportedFormats.rawValue)
+        
         var idx: Int = section.items.count
         if let oldIdnexPath = selectedIndexes[title] {
             //Select index path

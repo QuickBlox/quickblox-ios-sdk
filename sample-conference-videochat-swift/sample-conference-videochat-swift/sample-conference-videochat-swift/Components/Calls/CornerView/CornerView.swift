@@ -64,7 +64,8 @@ class CornerView: UIView {
                        animations: {
         }) { finished in
             guard let touchesEndAction = self.touchesEndAction else {
-                return }
+                return
+            }
             touchesEndAction()
         }
     }
