@@ -158,14 +158,13 @@ class MainTableViewController: UITableViewController {
             }
             self?.dialogsDataSource.updateObjects(dialogs)
             self?.tableView.reloadData()
-        }, failure: { [weak self] (description) in
-            self?.showAlertView(message: description)
+            }, failure: { [weak self] (description) in
+                self?.showAlertView(message: description)
         })
         
         dataGroup.enter()
         DataFetcher.fetchUsers({ [weak self] users in
             dataGroup.leave()
-//            guard let users = users else { return }
             self?.usersDataSource.updateObjects(users)
             }, failure: { [weak self] (description) in
                 self?.showAlertView(message: description)
@@ -200,7 +199,9 @@ class MainTableViewController: UITableViewController {
             usersViewController?.delegate = self
             
         case MainSegueConstant.call:
-            guard let settings = sender as? CallSettings else { return }
+            guard let settings = sender as? CallSettings else {
+                return
+            }
             let callViewController = segue.destination as? CallViewController
             callViewController?.chatDialog = settings.chatDialog
             callViewController?.conferenceType = settings.conferenseType

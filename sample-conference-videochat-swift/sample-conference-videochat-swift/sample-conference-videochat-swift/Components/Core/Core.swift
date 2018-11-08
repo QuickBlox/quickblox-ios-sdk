@@ -59,7 +59,7 @@ protocol CoreDelegate: class {
     func core(_ core: Core, error: Error, domain: ErrorDomain)
 }
 
-class Core: NSObject, QBChatDelegate {
+class Core: NSObject {
     
     // MARK: shared Instance
     static let instance: Core = {
@@ -69,14 +69,9 @@ class Core: NSObject, QBChatDelegate {
     }()
     
     // MARK: Variables
-    var currentUser: QBUUser? {
-        didSet {
-            debugPrint("currentUser didSet \(String(describing: currentUser))")
-        }
-    }
+    var currentUser: QBUUser?
     var profile: Profile? {
         didSet {
-            debugPrint("profile didSet \(String(describing: profile))")
             currentUser = profile?.userData
         }
     }
@@ -84,18 +79,9 @@ class Core: NSObject, QBChatDelegate {
     var multicastDelegate: CoreDelegate?
     private var currentReachabilityFlags: SCNetworkReachabilityFlags?
     private let reachabilitySerialQueue = DispatchQueue.main
+    var reachabilityRef: SCNetworkReachability?
     
-    var reachabilityRef: SCNetworkReachability? {
-        didSet {
-            debugPrint("reachabilityRef didSet \(String(describing: reachabilityRef))")
-        }
-    }
-    
-    var isAutorized: Bool? {
-        didSet {
-            debugPrint("isAutorized didSet \(String(describing: isAutorized))")
-        }
-    }
+    var isAutorized: Bool?
     
     // MARK: - Common Init
     private func commonInit() {
@@ -111,30 +97,12 @@ class Core: NSObject, QBChatDelegate {
         ////addDelegate
         self.multicastDelegate = delegate
     }
-    
-    // MARK: - QBChatDelegate
-    func chatDidNotConnectWithError(_ error: Error) {
-    }
-    
-    func chatDidFail(withStreamError error: Error) {
-        debugPrint("chatDidFail")
-    }
-    
-    func chatDidAccidentallyDisconnect() {
-        debugPrint("chatDidAccidentallyDisconnect")
-    }
-    
-    func chatDidReconnect() {
-        debugPrint("chatDidReconnect")
-    }
-    
+
     // MARK: - SignUp / Login / Logout
     
     func setLoginStatus(_ loginStatus: String) {
         if let _ = self.multicastDelegate?.core(self, loginStatus: loginStatus) {
             self.multicastDelegate?.core(self, loginStatus: loginStatus)
-        }else {
-            debugPrint("delegate not response coreloginStatus metod")
         }
     }
     
@@ -189,8 +157,6 @@ class Core: NSObject, QBChatDelegate {
                         //add multicastDelegate metod
                         if let _ = self.multicastDelegate?.coreDidLogout {
                             self.multicastDelegate?.coreDidLogout(self)
-                        }else {
-                            debugPrint("delegate not response coreDidLogout metod ==============")
                         }
                     } else {
                         self.handleError(error, domain: ErrorDomain.logIn)
@@ -199,8 +165,6 @@ class Core: NSObject, QBChatDelegate {
                     //add multicastDelegate metod
                     if let delegate = self.multicastDelegate {
                         delegate.coreDidLogin(self)
-                    }else {
-                        debugPrint("delegate not response coreDidLogin metod")
                     }
                 }
             })
@@ -305,12 +269,14 @@ class Core: NSObject, QBChatDelegate {
         QBRequest.createSubscription(subscription, successBlock: { response, objects in
         
         }, errorBlock: { response in
-            
+            debugPrint("response error: \(String(describing: response.error))")
         })
     }
     
     func unsubscribe(fromRemoteNotifications completionBlock: @escaping () -> ()) {
-        guard let uuidString = UIDevice.current.identifierForVendor?.uuidString else { return }
+        guard let uuidString = UIDevice.current.identifierForVendor?.uuidString else {
+            return
+        }
         QBRequest.unregisterSubscription(forUniqueDeviceIdentifier: uuidString, successBlock: { response in
             completionBlock()
         }, errorBlock: { error in
@@ -379,7 +345,9 @@ class Core: NSObject, QBChatDelegate {
         
         let callbackClosure: SCNetworkReachabilityCallBack? = {
             (reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) in
-            guard let info = info else { return }
+            guard let info = info else {
+                return
+            }
             let handler = Unmanaged<Core>.fromOpaque(info).takeUnretainedValue()
             
             DispatchQueue.main.async {
@@ -400,9 +368,29 @@ class Core: NSObject, QBChatDelegate {
     
     func reachabilityChanged(_ flags: SCNetworkReachabilityFlags) {
         DispatchQueue.main.async(execute: {
-            guard let networkStatusBlock = self.networkStatusBlock else { return }
+            guard let networkStatusBlock = self.networkStatusBlock else {
+                return
+            }
             networkStatusBlock?(self.networkStatusForFlags(flags))
         })
+    }
+}
+
+extension Core: QBChatDelegate {
+    // MARK: - QBChatDelegate
+    func chatDidNotConnectWithError(_ error: Error) {
+    }
+    
+    func chatDidFail(withStreamError error: Error) {
+        debugPrint("chatDidFail")
+    }
+    
+    func chatDidAccidentallyDisconnect() {
+        debugPrint("chatDidAccidentallyDisconnect")
+    }
+    
+    func chatDidReconnect() {
+        debugPrint("chatDidReconnect")
     }
 }
 

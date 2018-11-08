@@ -30,11 +30,11 @@ struct ProfileSecConstant {
 
 class Profile: NSObject, NSCoding, NSSecureCoding  {
 
+    //MARK - Properties
     static var supportsSecureCoding: Bool {
         return true
     }
     
-    //MARK - Properties
     var userData: QBUUser?
     
     //MARK: - Life Cycle
