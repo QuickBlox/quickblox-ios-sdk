@@ -1,0 +1,6 @@
+framework module FFCircularProgressView {
+  umbrella header "FFCircularProgressView-umbrella.h"
+
+  export *
+  module * { export * }
+}

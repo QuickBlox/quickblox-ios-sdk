@@ -1,0 +1,119 @@
+PODS:
+  - FFCircularProgressView (0.5)
+  - FLAnimatedImage (1.0.12)
+  - libwebp (0.6.1):
+    - libwebp/core (= 0.6.1)
+    - libwebp/dec (= 0.6.1)
+    - libwebp/demux (= 0.6.1)
+    - libwebp/dsp (= 0.6.1)
+    - libwebp/enc (= 0.6.1)
+    - libwebp/mux (= 0.6.1)
+    - libwebp/utils (= 0.6.1)
+    - libwebp/webp (= 0.6.1)
+  - libwebp/core (0.6.1):
+    - libwebp/webp
+  - libwebp/dec (0.6.1):
+    - libwebp/core
+  - libwebp/demux (0.6.1):
+    - libwebp/core
+  - libwebp/dsp (0.6.1):
+    - libwebp/core
+  - libwebp/enc (0.6.1):
+    - libwebp/core
+  - libwebp/mux (0.6.1):
+    - libwebp/core
+  - libwebp/utils (0.6.1):
+    - libwebp/core
+  - libwebp/webp (0.6.1)
+  - QMChatViewController (0.6.6):
+    - FFCircularProgressView
+    - QMChatViewController/Categories (= 0.6.6)
+    - QMChatViewController/Protocols (= 0.6.6)
+    - QMChatViewController/QMChatDataSource (= 0.6.6)
+    - QMChatViewController/QMChatLocationSnapshotter (= 0.6.6)
+    - QMChatViewController/Utils (= 0.6.6)
+    - QMChatViewController/Views (= 0.6.6)
+    - QuickBlox
+    - SDWebImage
+    - TTTAttributedLabel
+  - QMChatViewController/Categories (0.6.6):
+    - FFCircularProgressView
+    - QuickBlox
+    - SDWebImage
+    - TTTAttributedLabel
+  - QMChatViewController/Protocols (0.6.6):
+    - FFCircularProgressView
+    - QuickBlox
+    - SDWebImage
+    - TTTAttributedLabel
+  - QMChatViewController/QMChatDataSource (0.6.6):
+    - FFCircularProgressView
+    - QMChatViewController/Utils
+    - QuickBlox
+    - SDWebImage
+    - TTTAttributedLabel
+  - QMChatViewController/QMChatLocationSnapshotter (0.6.6):
+    - FFCircularProgressView
+    - QMChatViewController/Utils
+    - QuickBlox
+    - SDWebImage
+    - TTTAttributedLabel
+  - QMChatViewController/Utils (0.6.6):
+    - FFCircularProgressView
+    - QMChatViewController/Categories
+    - QuickBlox
+    - SDWebImage
+    - TTTAttributedLabel
+  - QMChatViewController/Views (0.6.6):
+    - FFCircularProgressView
+    - QMChatViewController/Categories
+    - QMChatViewController/Protocols
+    - QMChatViewController/Utils
+    - QuickBlox
+    - SDWebImage
+    - TTTAttributedLabel
+  - QuickBlox (2.17.1)
+  - Quickblox-WebRTC (2.7):
+    - QuickBlox (>= 2.7)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - SDWebImage/GIF (4.4.2):
+    - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
+  - SDWebImage/WebP (4.4.2):
+    - libwebp (~> 0.5)
+    - SDWebImage/Core
+  - TTTAttributedLabel (2.0.0)
+
+DEPENDENCIES:
+  - QMChatViewController
+  - QuickBlox (~> 2.17)
+  - Quickblox-WebRTC (~> 2.7)
+  - SDWebImage/GIF
+  - SDWebImage/WebP
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FFCircularProgressView
+    - FLAnimatedImage
+    - libwebp
+    - QMChatViewController
+    - QuickBlox
+    - Quickblox-WebRTC
+    - SDWebImage
+    - TTTAttributedLabel
+
+SPEC CHECKSUMS:
+  FFCircularProgressView: 683a4ab1e1bd613246a3dffa61503ffdebcde8d8
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  libwebp: 0f01098c6c17175391af621b2f14150f3ca16e16
+  QMChatViewController: 43e22929d4abbdb88cc5db5b25c54f13dbfe8373
+  QuickBlox: b8c327b61db8382880bd41185703acf228105a1c
+  Quickblox-WebRTC: 4671a0ab07a0f5157d36a543849065af2c0f356f
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+
+PODFILE CHECKSUM: 2bca942697ce69b98123226177156dc20e6b3eb6
+
+COCOAPODS: 1.5.3
