@@ -1,0 +1,11 @@
+FRAMEWORK_SEARCH_PATHS = $(inherited) $(PODS_ROOT)/QuickBlox/ "${PODS_CONFIGURATION_BUILD_DIR}/FFCircularProgressView" "${PODS_CONFIGURATION_BUILD_DIR}/FLAnimatedImage" "${PODS_CONFIGURATION_BUILD_DIR}/QMChatViewController" "${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage" "${PODS_CONFIGURATION_BUILD_DIR}/TTTAttributedLabel" "${PODS_CONFIGURATION_BUILD_DIR}/libwebp" "${PODS_ROOT}/QuickBlox" "${PODS_ROOT}/Quickblox-WebRTC"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 $(inherited) SD_WEBP=1
+HEADER_SEARCH_PATHS = $(inherited) /usr/include/libxml2
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/FFCircularProgressView/FFCircularProgressView.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/FLAnimatedImage/FLAnimatedImage.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/QMChatViewController/QMChatViewController.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SDWebImage/SDWebImage.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/libwebp/libwebp.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -l"c++" -l"icucore" -l"resolv" -l"stdc++" -l"xml2" -l"z" -framework "AVFoundation" -framework "Accelerate" -framework "AudioToolbox" -framework "CFNetwork" -framework "CoreAudio" -framework "CoreData" -framework "CoreGraphics" -framework "CoreMedia" -framework "CoreVideo" -framework "FFCircularProgressView" -framework "FLAnimatedImage" -framework "Foundation" -framework "GLKit" -framework "MobileCoreServices" -framework "OpenGLES" -framework "QMChatViewController" -framework "QuartzCore" -framework "Quickblox" -framework "QuickbloxWebRTC" -framework "SDWebImage" -framework "Security" -framework "SystemConfiguration" -framework "TTTAttributedLabel" -framework "UIKit" -framework "VideoToolbox" -framework "libwebp"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
+PODS_ROOT = ${SRCROOT}/Pods
+USER_HEADER_SEARCH_PATHS = $(inherited) $(SRCROOT)/FLAnimatedImage/FLAnimatedImage $(inherited) $(SRCROOT)/libwebp/src
