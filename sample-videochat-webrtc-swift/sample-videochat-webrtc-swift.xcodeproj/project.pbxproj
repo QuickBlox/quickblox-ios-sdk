@@ -3,215 +3,355 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E3031FC620722F1100463D32 /* ScreenShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3031FC320722F1100463D32 /* ScreenShareViewController.swift */; };
-		E3031FC720722F1100463D32 /* ShareCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3031FC420722F1100463D32 /* ShareCollectionViewCell.swift */; };
-		E3031FC820722F1100463D32 /* ScreenCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3031FC520722F1100463D32 /* ScreenCapture.swift */; };
-		E3031FCA20722F2D00463D32 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3031FC920722F2D00463D32 /* CallViewController.swift */; };
-		E3031FCC20722FA800463D32 /* Users.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3031FCB20722FA800463D32 /* Users.plist */; };
-		F541307087A0FCBC92C2075E /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06967F98F36BB6FE1D4335A5 /* Pods_sample_videochat_webrtc_swift.framework */; };
-		FB88562F201F316300D97E6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB88562E201F316300D97E6F /* AppDelegate.swift */; };
-		FB885631201F316300D97E6F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB885630201F316300D97E6F /* LoginViewController.swift */; };
-		FB885634201F316300D97E6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB885632201F316300D97E6F /* Main.storyboard */; };
-		FB885636201F316300D97E6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB885635201F316300D97E6F /* Assets.xcassets */; };
-		FB885639201F316300D97E6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB885637201F316300D97E6F /* LaunchScreen.storyboard */; };
-		FBD7C0F32020942A00F624BD /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD7C0F22020942A00F624BD /* LocalVideoView.swift */; };
+		2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C771CC821BAA5FB00FBD21C /* Images.xcassets */; };
+		2C771CD021BAA6C100FBD21C /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C771CCF21BAA6C100FBD21C /* Auth.storyboard */; };
+		2C771CD221BAA73900FBD21C /* LoginTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD121BAA73900FBD21C /* LoginTableViewController.swift */; };
+		2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD421BAA77100FBD21C /* LoadingButton.swift */; };
+		2C771CD821BAA7A900FBD21C /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD721BAA7A900FBD21C /* Core.swift */; };
+		2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD921BAA7D100FBD21C /* Profile.swift */; };
+		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
+		2CE64E6821BAA3BF00F85E06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6721BAA3BF00F85E06 /* ViewController.swift */; };
+		2CE64E6B21BAA3BF00F85E06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6921BAA3BF00F85E06 /* Main.storyboard */; };
+		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
+		5D1DE3F012D3E468B1C335C0 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E3B2E475203307BB008B52E9 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		06967F98F36BB6FE1D4335A5 /* Pods_sample_videochat_webrtc_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		91E7E2922770C9657F30CDA8 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.debug.xcconfig"; sourceTree = "<group>"; };
-		957D2611FEED13A1ADF32633 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.release.xcconfig"; sourceTree = "<group>"; };
-		C8212875F6356FF733271E4E /* Pods-swift-ebay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-ebay.release.xcconfig"; path = "Pods/Target Support Files/Pods-swift-ebay/Pods-swift-ebay.release.xcconfig"; sourceTree = "<group>"; };
-		D0853605C922EC303E7DD161 /* Pods-swift-ebay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swift-ebay.debug.xcconfig"; path = "Pods/Target Support Files/Pods-swift-ebay/Pods-swift-ebay.debug.xcconfig"; sourceTree = "<group>"; };
-		E3031FC320722F1100463D32 /* ScreenShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShareViewController.swift; sourceTree = "<group>"; };
-		E3031FC420722F1100463D32 /* ShareCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareCollectionViewCell.swift; sourceTree = "<group>"; };
-		E3031FC520722F1100463D32 /* ScreenCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenCapture.swift; sourceTree = "<group>"; };
-		E3031FC920722F2D00463D32 /* CallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
-		E3031FCB20722FA800463D32 /* Users.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Users.plist; sourceTree = "<group>"; };
-		FB88562B201F316300D97E6F /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB88562E201F316300D97E6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FB885630201F316300D97E6F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		FB885633201F316300D97E6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FB885635201F316300D97E6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FB885638201F316300D97E6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		FB88563A201F316300D97E6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FBD7C0F22020942A00F624BD /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
+		2C771CC821BAA5FB00FBD21C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2C771CCF21BAA6C100FBD21C /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		2C771CD121BAA73900FBD21C /* LoginTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTableViewController.swift; sourceTree = "<group>"; };
+		2C771CD421BAA77100FBD21C /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		2C771CD721BAA7A900FBD21C /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
+		2C771CD921BAA7D100FBD21C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		2C771CDB21BAAC5600FBD21C /* sample-videochat-webrtc-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-videochat-webrtc-swift.entitlements"; sourceTree = "<group>"; };
+		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2CE64E6721BAA3BF00F85E06 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2CE64E6A21BAA3BF00F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2CE64E7121BAA3C200F85E06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.release.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.release.xcconfig"; sourceTree = "<group>"; };
+		B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.debug.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.debug.xcconfig"; sourceTree = "<group>"; };
+		BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		FB885628201F316300D97E6F /* Frameworks */ = {
+		2CE64E5F21BAA3BF00F85E06 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F541307087A0FCBC92C2075E /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */,
+				5D1DE3F012D3E468B1C335C0 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		405E4773FBADB0ECEDF9321B /* Frameworks */ = {
+		18A8827AB496FF73401747A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				06967F98F36BB6FE1D4335A5 /* Pods_sample_videochat_webrtc_swift.framework */,
+				B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */,
+				A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */,
 			);
-			name = Frameworks;
+			path = Pods;
 			sourceTree = "<group>";
 		};
-		499E58D2823EDEC8222ED453 /* Pods */ = {
+		2C771CC621BAA59600FBD21C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D0853605C922EC303E7DD161 /* Pods-swift-ebay.debug.xcconfig */,
-				C8212875F6356FF733271E4E /* Pods-swift-ebay.release.xcconfig */,
-				91E7E2922770C9657F30CDA8 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */,
-				957D2611FEED13A1ADF32633 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */,
+				2C771CC821BAA5FB00FBD21C /* Images.xcassets */,
 			);
-			name = Pods;
+			path = Resources;
 			sourceTree = "<group>";
 		};
-		FB885622201F316300D97E6F = {
+		2C771CC721BAA5B600FBD21C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				FB88562D201F316300D97E6F /* sample-videochat-webrtc-swift */,
-				FB88562C201F316300D97E6F /* Products */,
-				499E58D2823EDEC8222ED453 /* Pods */,
-				405E4773FBADB0ECEDF9321B /* Frameworks */,
+				2C771CCB21BAA62000FBD21C /* Core */,
+				2C771CCA21BAA61700FBD21C /* Auth */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		2C771CCA21BAA61700FBD21C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				2C771CCF21BAA6C100FBD21C /* Auth.storyboard */,
+				2C771CCD21BAA67400FBD21C /* Views */,
+				2C771CCC21BAA66900FBD21C /* ViewControllers */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		2C771CCB21BAA62000FBD21C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2C771CD621BAA79800FBD21C /* UserPorfile */,
+				2C771CD721BAA7A900FBD21C /* Core.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2C771CCC21BAA66900FBD21C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C771CCE21BAA68500FBD21C /* AuthViewController */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2C771CCD21BAA67400FBD21C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C771CD321BAA76000FBD21C /* LoadingButton */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2C771CCE21BAA68500FBD21C /* AuthViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C771CD121BAA73900FBD21C /* LoginTableViewController.swift */,
+			);
+			path = AuthViewController;
+			sourceTree = "<group>";
+		};
+		2C771CD321BAA76000FBD21C /* LoadingButton */ = {
+			isa = PBXGroup;
+			children = (
+				2C771CD421BAA77100FBD21C /* LoadingButton.swift */,
+			);
+			path = LoadingButton;
+			sourceTree = "<group>";
+		};
+		2C771CD621BAA79800FBD21C /* UserPorfile */ = {
+			isa = PBXGroup;
+			children = (
+				2C771CD921BAA7D100FBD21C /* Profile.swift */,
+			);
+			path = UserPorfile;
+			sourceTree = "<group>";
+		};
+		2CE64E5921BAA3BF00F85E06 = {
+			isa = PBXGroup;
+			children = (
+				2CE64E6421BAA3BF00F85E06 /* sample-videochat-webrtc-swift */,
+				2CE64E6321BAA3BF00F85E06 /* Products */,
+				18A8827AB496FF73401747A8 /* Pods */,
+				87FDC6FADE87370B56144BF4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		FB88562C201F316300D97E6F /* Products */ = {
+		2CE64E6321BAA3BF00F85E06 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FB88562B201F316300D97E6F /* sample-videochat-webrtc-swift.app */,
+				2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FB88562D201F316300D97E6F /* sample-videochat-webrtc-swift */ = {
+		2CE64E6421BAA3BF00F85E06 /* sample-videochat-webrtc-swift */ = {
 			isa = PBXGroup;
 			children = (
-				E3031FCB20722FA800463D32 /* Users.plist */,
-				E3031FC920722F2D00463D32 /* CallViewController.swift */,
-				E3031FC520722F1100463D32 /* ScreenCapture.swift */,
-				E3031FC320722F1100463D32 /* ScreenShareViewController.swift */,
-				E3031FC420722F1100463D32 /* ShareCollectionViewCell.swift */,
-				FB88562E201F316300D97E6F /* AppDelegate.swift */,
-				FB885630201F316300D97E6F /* LoginViewController.swift */,
-				FBD7C0F22020942A00F624BD /* LocalVideoView.swift */,
-				FB885632201F316300D97E6F /* Main.storyboard */,
-				FB885635201F316300D97E6F /* Assets.xcassets */,
-				FB885637201F316300D97E6F /* LaunchScreen.storyboard */,
-				FB88563A201F316300D97E6F /* Info.plist */,
+				2C771CDB21BAAC5600FBD21C /* sample-videochat-webrtc-swift.entitlements */,
+				2C771CC721BAA5B600FBD21C /* Components */,
+				2C771CC621BAA59600FBD21C /* Resources */,
+				2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */,
+				2CE64E6721BAA3BF00F85E06 /* ViewController.swift */,
+				2CE64E6921BAA3BF00F85E06 /* Main.storyboard */,
+				2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */,
+				2CE64E7121BAA3C200F85E06 /* Info.plist */,
 			);
 			path = "sample-videochat-webrtc-swift";
+			sourceTree = "<group>";
+		};
+		87FDC6FADE87370B56144BF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FB88562A201F316300D97E6F /* sample-videochat-webrtc-swift */ = {
+		2CE64E6121BAA3BF00F85E06 /* sample-videochat-webrtc-swift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FB88563D201F316300D97E6F /* Build configuration list for PBXNativeTarget "sample-videochat-webrtc-swift" */;
+			buildConfigurationList = 2CE64E7421BAA3C200F85E06 /* Build configuration list for PBXNativeTarget "sample-videochat-webrtc-swift" */;
 			buildPhases = (
-				4778BC6A643B0708AD3824BD /* [CP] Check Pods Manifest.lock */,
-				FB885627201F316300D97E6F /* Sources */,
-				FB885628201F316300D97E6F /* Frameworks */,
-				FB885629201F316300D97E6F /* Resources */,
-				E201A1ABBA70DCEA9D14DB02 /* [CP] Embed Pods Frameworks */,
-				E3B2E46C2033074A008B52E9 /* ShellScript */,
-				E3B2E46D20330752008B52E9 /* ShellScript */,
-				E3B2E475203307BB008B52E9 /* Embed Frameworks */,
+				B45C39857CC689E6BD89EBFD /* [CP] Check Pods Manifest.lock */,
+				2CE64E5E21BAA3BF00F85E06 /* Sources */,
+				2CE64E5F21BAA3BF00F85E06 /* Frameworks */,
+				2CE64E6021BAA3BF00F85E06 /* Resources */,
+				44F14F324C77CBEC5AF9E45F /* [CP] Embed Pods Frameworks */,
+				2C771CDC21BAB02500FBD21C /* ShellScript */,
+				2C771CDD21BAB03D00FBD21C /* ShellScript */,
+				2C771CDE21BAB05200FBD21C /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "sample-videochat-webrtc-swift";
-			productName = "swift-ebay";
-			productReference = FB88562B201F316300D97E6F /* sample-videochat-webrtc-swift.app */;
+			productName = "sample-videochat-webrtc-swift";
+			productReference = 2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		FB885623201F316300D97E6F /* Project object */ = {
+		2CE64E5A21BAA3BF00F85E06 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = Quickblox;
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = QuickBlox;
 				TargetAttributes = {
-					FB88562A201F316300D97E6F = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+					2CE64E6121BAA3BF00F85E06 = {
+						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
 							};
 						};
 					};
 				};
 			};
-			buildConfigurationList = FB885626201F316300D97E6F /* Build configuration list for PBXProject "sample-videochat-webrtc-swift" */;
-			compatibilityVersion = "Xcode 8.0";
+			buildConfigurationList = 2CE64E5D21BAA3BF00F85E06 /* Build configuration list for PBXProject "sample-videochat-webrtc-swift" */;
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = FB885622201F316300D97E6F;
-			productRefGroup = FB88562C201F316300D97E6F /* Products */;
+			mainGroup = 2CE64E5921BAA3BF00F85E06;
+			productRefGroup = 2CE64E6321BAA3BF00F85E06 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FB88562A201F316300D97E6F /* sample-videochat-webrtc-swift */,
+				2CE64E6121BAA3BF00F85E06 /* sample-videochat-webrtc-swift */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		FB885629201F316300D97E6F /* Resources */ = {
+		2CE64E6021BAA3BF00F85E06 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB885639201F316300D97E6F /* LaunchScreen.storyboard in Resources */,
-				FB885636201F316300D97E6F /* Assets.xcassets in Resources */,
-				FB885634201F316300D97E6F /* Main.storyboard in Resources */,
-				E3031FCC20722FA800463D32 /* Users.plist in Resources */,
+				2C771CD021BAA6C100FBD21C /* Auth.storyboard in Resources */,
+				2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */,
+				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
+				2CE64E6B21BAA3BF00F85E06 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4778BC6A643B0708AD3824BD /* [CP] Check Pods Manifest.lock */ = {
+		2C771CDC21BAB02500FBD21C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${PODS_ROOT}/QuickBlox/Quickblox.framework/strip-framework.sh\"\n\n";
+		};
+		2C771CDD21BAB03D00FBD21C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework/strip-framework.sh\"\n";
+		};
+		2C771CDE21BAB05200FBD21C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4b96a3f33893a42103eae91d2166d0c517b833d3 48d2b1a30ed0fd2d0897e0576e7e3625f0a9270aa02fd1e09291e17c9464a023\n";
+		};
+		44F14F324C77CBEC5AF9E45F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh",
+				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
+				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B45C39857CC689E6BD89EBFD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-sample-videochat-webrtc-swift-checkManifestLockResult.txt",
 			);
@@ -220,86 +360,37 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E201A1ABBA70DCEA9D14DB02 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh",
-				"${PODS_ROOT}/QuickBlox/Quickblox.framework",
-				"${PODS_ROOT}/Quickblox-WebRTC/QuickbloxWebRTC.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E3B2E46C2033074A008B52E9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quickblox.framework/strip-framework.sh\"";
-		};
-		E3B2E46D20330752008B52E9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickbloxWebRTC.framework/strip-framework.sh\"";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		FB885627201F316300D97E6F /* Sources */ = {
+		2CE64E5E21BAA3BF00F85E06 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3031FC620722F1100463D32 /* ScreenShareViewController.swift in Sources */,
-				FBD7C0F32020942A00F624BD /* LocalVideoView.swift in Sources */,
-				FB885631201F316300D97E6F /* LoginViewController.swift in Sources */,
-				E3031FC820722F1100463D32 /* ScreenCapture.swift in Sources */,
-				E3031FC720722F1100463D32 /* ShareCollectionViewCell.swift in Sources */,
-				FB88562F201F316300D97E6F /* AppDelegate.swift in Sources */,
-				E3031FCA20722F2D00463D32 /* CallViewController.swift in Sources */,
+				2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */,
+				2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */,
+				2CE64E6821BAA3BF00F85E06 /* ViewController.swift in Sources */,
+				2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */,
+				2C771CD821BAA7A900FBD21C /* Core.swift in Sources */,
+				2C771CD221BAA73900FBD21C /* LoginTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FB885632201F316300D97E6F /* Main.storyboard */ = {
+		2CE64E6921BAA3BF00F85E06 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FB885633201F316300D97E6F /* Base */,
+				2CE64E6A21BAA3BF00F85E06 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		FB885637201F316300D97E6F /* LaunchScreen.storyboard */ = {
+		2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FB885638201F316300D97E6F /* Base */,
+				2CE64E6F21BAA3C200F85E06 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -307,7 +398,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		FB88563B201F316300D97E6F /* Debug */ = {
+		2CE64E7221BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -317,6 +408,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -357,8 +449,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -366,7 +459,7 @@
 			};
 			name = Debug;
 		};
-		FB88563C201F316300D97E6F /* Release */ = {
+		2CE64E7321BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -376,6 +469,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -410,70 +504,84 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		FB88563E201F316300D97E6F /* Debug */ = {
+		2CE64E7521BAA3C200F85E06 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91E7E2922770C9657F30CDA8 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
+			baseConfigurationReference = B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8885H5G2YX;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "sample-videochat-webrtc-swift/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-videochat-webrtc-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		FB88563F201F316300D97E6F /* Release */ = {
+		2CE64E7621BAA3C200F85E06 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 957D2611FEED13A1ADF32633 /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
+			baseConfigurationReference = A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "sample-videochat-webrtc-swift/sample-videochat-webrtc-swift.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8885H5G2YX;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "sample-videochat-webrtc-swift/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.quickblox.sample-videochat-webrtc-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FB885626201F316300D97E6F /* Build configuration list for PBXProject "sample-videochat-webrtc-swift" */ = {
+		2CE64E5D21BAA3BF00F85E06 /* Build configuration list for PBXProject "sample-videochat-webrtc-swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FB88563B201F316300D97E6F /* Debug */,
-				FB88563C201F316300D97E6F /* Release */,
+				2CE64E7221BAA3C200F85E06 /* Debug */,
+				2CE64E7321BAA3C200F85E06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FB88563D201F316300D97E6F /* Build configuration list for PBXNativeTarget "sample-videochat-webrtc-swift" */ = {
+		2CE64E7421BAA3C200F85E06 /* Build configuration list for PBXNativeTarget "sample-videochat-webrtc-swift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FB88563E201F316300D97E6F /* Debug */,
-				FB88563F201F316300D97E6F /* Release */,
+				2CE64E7521BAA3C200F85E06 /* Debug */,
+				2CE64E7621BAA3C200F85E06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = FB885623201F316300D97E6F /* Project object */;
+	rootObject = 2CE64E5A21BAA3BF00F85E06 /* Project object */;
 }
