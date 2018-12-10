@@ -121,16 +121,20 @@ class Core: NSObject {
         
         self.setLoginStatus(LoginStatusConstant.signUp)
         
-        QBRequest.signUp(newUser, successBlock: { response, user in
-            let status = self.profile?.synchronizeWithUserData(userData: user)
-            if status == noErr {
-                self.currentUser = user
-                self.loginWithCurrentUser()
-            } else {
-                self.handleError(response.error?.error, domain: ErrorDomain.signUp)
+        QBRequest.signUp(newUser, successBlock: { [weak self] response, user in
+            
+            guard let profile = self?.profile else {
+                return
             }
-        }, errorBlock: { response in
-            self.handleError(response.error?.error, domain: ErrorDomain.signUp)
+            let status = profile.synchronizeWithUserData(userData: user)
+            if status == noErr {
+                self?.currentUser = user
+                self?.loginWithCurrentUser()
+            } else {
+                self?.handleError(response.error?.error, domain: ErrorDomain.signUp)
+            }
+            }, errorBlock: { [weak self] response in
+                self?.handleError(response.error?.error, domain: ErrorDomain.signUp)
         })
     }
     
@@ -145,7 +149,8 @@ class Core: NSObject {
         
         let connectToChat: () -> () = {
             self.setLoginStatus(LoginStatusConstant.intoChat)
-            QBChat.instance.connect(withUserID: user.id, password: password, completion: { error in
+            QBChat.instance.connect(withUserID: user.id, password: password, completion: { [weak self] error in
+                guard let `self` = self else { return }
                 if error != nil {
                     
                     if (error as NSError?)?.code == 401 {
@@ -176,17 +181,17 @@ class Core: NSObject {
         self.setLoginStatus(LoginStatusConstant.withCurrentUser)
         QBRequest.logIn(withUserLogin: login,
                         password: password,
-                        successBlock: { response, user in
-                            self.isAutorized = true
+                        successBlock: { [weak self] response, user in
+                            self?.isAutorized = true
                             connectToChat()
-                            self.registerForRemoteNotifications()
+                            self?.registerForRemoteNotifications()
                             
-        }, errorBlock: { response in
-            self.handleError(response.error?.error, domain: ErrorDomain.logIn)
-            if response.status == QBResponseStatusCode.unAuthorized {
-                // Clean profile
-                self.clearProfile()
-            }
+            }, errorBlock: { [weak self] response in
+                self?.handleError(response.error?.error, domain: ErrorDomain.logIn)
+                if response.status == QBResponseStatusCode.unAuthorized {
+                    // Clean profile
+                    self?.clearProfile()
+                }
         })
     }
     
@@ -194,11 +199,12 @@ class Core: NSObject {
      *  Clear current profile (Keychain)
      */
     public func clearProfile() {
-        let status = self.profile?.clearProfile()
-        if status == noErr {
-            self.currentUser = nil
-        } else {
+        guard let profile = profile else {
             return
+        }
+        let status = profile.clearProfile()
+        if status == noErr {
+            currentUser = nil
         }
     }
     
@@ -289,7 +295,7 @@ class Core: NSObject {
      *  Cheker for internet connection
      */
     public func networkConnectionStatus() -> NetworkConnectionStatus {
-        let status:NetworkConnectionStatus = NetworkConnectionStatus.notConnection
+        let status: NetworkConnectionStatus = .notConnection
         if let reachabilityRef = reachabilityRef {
             var flags: SCNetworkReachabilityFlags = []
             if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
@@ -393,5 +399,3 @@ extension Core: QBChatDelegate {
         debugPrint("chatDidReconnect")
     }
 }
-
-

@@ -14,9 +14,19 @@
 		2C771CD821BAA7A900FBD21C /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD721BAA7A900FBD21C /* Core.swift */; };
 		2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD921BAA7D100FBD21C /* Profile.swift */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
-		2CE64E6821BAA3BF00F85E06 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6721BAA3BF00F85E06 /* ViewController.swift */; };
-		2CE64E6B21BAA3BF00F85E06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6921BAA3BF00F85E06 /* Main.storyboard */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
+		2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF321BEB13B00511479 /* Users.storyboard */; };
+		2CFEDBF721BEB26400511479 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF621BEB26400511479 /* UsersViewController.swift */; };
+		2CFEDBFA21BEB2C200511479 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF921BEB2C200511479 /* RecordsViewController.swift */; };
+		2CFEDBFD21BEB30B00511479 /* UsersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDBFC21BEB30B00511479 /* UsersDataSource.swift */; };
+		2CFEDC0121BEB34900511479 /* PlaceholderGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC0021BEB34900511479 /* PlaceholderGenerator.swift */; };
+		2CFEDC0421BEB38B00511479 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC0321BEB38B00511479 /* UserTableViewCell.swift */; };
+		2CFEDC0721BEB3BE00511479 /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC0621BEB3BE00511479 /* CheckView.swift */; };
+		2CFEDC0A21BEB40A00511479 /* CallKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC0921BEB40A00511479 /* CallKitManager.swift */; };
+		2CFEDC1021BEB52A00511479 /* SessionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC0F21BEB52A00511479 /* SessionSettingsViewController.swift */; };
+		2CFEDC1221BEB6DD00511479 /* CallPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC1121BEB6DD00511479 /* CallPermissions.swift */; };
+		2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDC1421BEB7EE00511479 /* Call.storyboard */; };
+		2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDC1621BEB87100511479 /* Settings.storyboard */; };
 		5D1DE3F012D3E468B1C335C0 /* Pods_sample_videochat_webrtc_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,10 +40,20 @@
 		2C771CDB21BAAC5600FBD21C /* sample-videochat-webrtc-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-videochat-webrtc-swift.entitlements"; sourceTree = "<group>"; };
 		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2CE64E6721BAA3BF00F85E06 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2CE64E6A21BAA3BF00F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CE64E7121BAA3C200F85E06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CFEDBF321BEB13B00511479 /* Users.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Users.storyboard; sourceTree = "<group>"; };
+		2CFEDBF621BEB26400511479 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
+		2CFEDBF921BEB2C200511479 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		2CFEDBFC21BEB30B00511479 /* UsersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataSource.swift; sourceTree = "<group>"; };
+		2CFEDC0021BEB34900511479 /* PlaceholderGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderGenerator.swift; sourceTree = "<group>"; };
+		2CFEDC0321BEB38B00511479 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
+		2CFEDC0621BEB3BE00511479 /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
+		2CFEDC0921BEB40A00511479 /* CallKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallKitManager.swift; sourceTree = "<group>"; };
+		2CFEDC0F21BEB52A00511479 /* SessionSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSettingsViewController.swift; sourceTree = "<group>"; };
+		2CFEDC1121BEB6DD00511479 /* CallPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallPermissions.swift; sourceTree = "<group>"; };
+		2CFEDC1421BEB7EE00511479 /* Call.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Call.storyboard; sourceTree = "<group>"; };
+		2CFEDC1621BEB87100511479 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		A450A548102369010BDFA92D /* Pods-sample-videochat-webrtc-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.release.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.release.xcconfig"; sourceTree = "<group>"; };
 		B2E1185FAD66E7F279D4F0B4 /* Pods-sample-videochat-webrtc-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample-videochat-webrtc-swift.debug.xcconfig"; path = "Target Support Files/Pods-sample-videochat-webrtc-swift/Pods-sample-videochat-webrtc-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		BD21774226C3191FC9C8245E /* Pods_sample_videochat_webrtc_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_videochat_webrtc_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +91,11 @@
 		2C771CC721BAA5B600FBD21C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2CFEDC1321BEB7CC00511479 /* Call */,
+				2CFEDC0E21BEB4EF00511479 /* Settings */,
+				2CFEDC0B21BEB4B300511479 /* AVPermisions */,
+				2CFEDC0821BEB3F700511479 /* CallKitManager */,
+				2CFEDBEF21BEAEC100511479 /* Users */,
 				2C771CCB21BAA62000FBD21C /* Core */,
 				2C771CCA21BAA61700FBD21C /* Auth */,
 			);
@@ -161,12 +186,137 @@
 				2C771CC721BAA5B600FBD21C /* Components */,
 				2C771CC621BAA59600FBD21C /* Resources */,
 				2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */,
-				2CE64E6721BAA3BF00F85E06 /* ViewController.swift */,
-				2CE64E6921BAA3BF00F85E06 /* Main.storyboard */,
 				2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */,
 				2CE64E7121BAA3C200F85E06 /* Info.plist */,
 			);
 			path = "sample-videochat-webrtc-swift";
+			sourceTree = "<group>";
+		};
+		2CFEDBEF21BEAEC100511479 /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDBF321BEB13B00511479 /* Users.storyboard */,
+				2CFEDBF221BEAEEF00511479 /* Classes */,
+				2CFEDBF121BEAEE100511479 /* ViewControllers */,
+				2CFEDBF021BEAED400511479 /* Views */,
+			);
+			path = Users;
+			sourceTree = "<group>";
+		};
+		2CFEDBF021BEAED400511479 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC0521BEB3AF00511479 /* CheckView */,
+				2CFEDC0221BEB37D00511479 /* UserTableViewCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2CFEDBF121BEAEE100511479 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDBF821BEB2AB00511479 /* RecordsViewController */,
+				2CFEDBF521BEB25100511479 /* UsersViewController */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2CFEDBF221BEAEEF00511479 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDBFF21BEB33800511479 /* PlaceholderGenerator */,
+				2CFEDBFE21BEB32B00511479 /* FileManager */,
+				2CFEDBFB21BEB2FB00511479 /* UsersDataSource */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		2CFEDBF521BEB25100511479 /* UsersViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDBF621BEB26400511479 /* UsersViewController.swift */,
+			);
+			path = UsersViewController;
+			sourceTree = "<group>";
+		};
+		2CFEDBF821BEB2AB00511479 /* RecordsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDBF921BEB2C200511479 /* RecordsViewController.swift */,
+			);
+			path = RecordsViewController;
+			sourceTree = "<group>";
+		};
+		2CFEDBFB21BEB2FB00511479 /* UsersDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDBFC21BEB30B00511479 /* UsersDataSource.swift */,
+			);
+			path = UsersDataSource;
+			sourceTree = "<group>";
+		};
+		2CFEDBFE21BEB32B00511479 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
+		2CFEDBFF21BEB33800511479 /* PlaceholderGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC0021BEB34900511479 /* PlaceholderGenerator.swift */,
+			);
+			path = PlaceholderGenerator;
+			sourceTree = "<group>";
+		};
+		2CFEDC0221BEB37D00511479 /* UserTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC0321BEB38B00511479 /* UserTableViewCell.swift */,
+			);
+			path = UserTableViewCell;
+			sourceTree = "<group>";
+		};
+		2CFEDC0521BEB3AF00511479 /* CheckView */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC0621BEB3BE00511479 /* CheckView.swift */,
+			);
+			path = CheckView;
+			sourceTree = "<group>";
+		};
+		2CFEDC0821BEB3F700511479 /* CallKitManager */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC0921BEB40A00511479 /* CallKitManager.swift */,
+			);
+			path = CallKitManager;
+			sourceTree = "<group>";
+		};
+		2CFEDC0B21BEB4B300511479 /* AVPermisions */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC1121BEB6DD00511479 /* CallPermissions.swift */,
+			);
+			path = AVPermisions;
+			sourceTree = "<group>";
+		};
+		2CFEDC0E21BEB4EF00511479 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC1621BEB87100511479 /* Settings.storyboard */,
+				2CFEDC0F21BEB52A00511479 /* SessionSettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		2CFEDC1321BEB7CC00511479 /* Call */ = {
+			isa = PBXGroup;
+			children = (
+				2CFEDC1421BEB7EE00511479 /* Call.storyboard */,
+			);
+			path = Call;
 			sourceTree = "<group>";
 		};
 		87FDC6FADE87370B56144BF4 /* Frameworks */ = {
@@ -252,9 +402,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C771CD021BAA6C100FBD21C /* Auth.storyboard in Resources */,
+				2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */,
+				2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */,
+				2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */,
 				2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */,
 				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
-				2CE64E6B21BAA3BF00F85E06 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,9 +520,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */,
+				2CFEDBFA21BEB2C200511479 /* RecordsViewController.swift in Sources */,
+				2CFEDC0A21BEB40A00511479 /* CallKitManager.swift in Sources */,
+				2CFEDBF721BEB26400511479 /* UsersViewController.swift in Sources */,
+				2CFEDC1221BEB6DD00511479 /* CallPermissions.swift in Sources */,
+				2CFEDC0721BEB3BE00511479 /* CheckView.swift in Sources */,
+				2CFEDC0121BEB34900511479 /* PlaceholderGenerator.swift in Sources */,
+				2CFEDC0421BEB38B00511479 /* UserTableViewCell.swift in Sources */,
 				2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */,
-				2CE64E6821BAA3BF00F85E06 /* ViewController.swift in Sources */,
+				2CFEDC1021BEB52A00511479 /* SessionSettingsViewController.swift in Sources */,
 				2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */,
+				2CFEDBFD21BEB30B00511479 /* UsersDataSource.swift in Sources */,
 				2C771CD821BAA7A900FBD21C /* Core.swift in Sources */,
 				2C771CD221BAA73900FBD21C /* LoginTableViewController.swift in Sources */,
 			);
@@ -379,14 +539,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2CE64E6921BAA3BF00F85E06 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2CE64E6A21BAA3BF00F85E06 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
