@@ -1,3 +1,34 @@
-PODFILE CHECKSUM: 51f7f8ee4f72e474a87a229272ea03a567adf562
+PODS:
+  - Crashlytics (3.11.1):
+    - Fabric (~> 1.8.1)
+  - Fabric (1.8.2)
+  - QuickBlox (2.17.1)
+  - Quickblox-WebRTC (2.7.2):
+    - QuickBlox (>= 2.7)
+  - SVProgressHUD (2.2.5)
+
+DEPENDENCIES:
+  - Crashlytics
+  - Fabric
+  - QuickBlox (~> 2.15)
+  - Quickblox-WebRTC (~> 2.7.2)
+  - SVProgressHUD (~> 2.2.5)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Crashlytics
+    - Fabric
+    - QuickBlox
+    - Quickblox-WebRTC
+    - SVProgressHUD
+
+SPEC CHECKSUMS:
+  Crashlytics: ca7ab4bc304aa216bdc2e4c1a96389ee77252203
+  Fabric: d2b22f443ba195d8a7cc204da230977c72733b40
+  QuickBlox: b8c327b61db8382880bd41185703acf228105a1c
+  Quickblox-WebRTC: 512580112f1fd41cc3a52c834eb3bf303fe2b0af
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+
+PODFILE CHECKSUM: 80ce855bf8eb34c93358fea5236aa641465a4c9f
 
 COCOAPODS: 1.5.3
