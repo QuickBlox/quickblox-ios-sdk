@@ -12,7 +12,7 @@
         <!--Audio-->
         <scene sceneID="a59-b7-zFy">
             <objects>
-                <tableViewController id="6Ax-7u-cyg" customClass="AudioSettingsViewController" customModule="sample_videochatWebrtc_swift" sceneMemberID="viewController">
+                <tableViewController id="6Ax-7u-cyg" customClass="AudioSettingsViewController" customModule="sample_videochat_webrtc_swift" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="54" sectionHeaderHeight="10" sectionFooterHeight="10" id="eLm-M7-RZz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,7 +38,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="A3l-vC-r5Y">
-                            <rect key="frame" x="0.0" y="241" width="375" height="61"/>
+                            <rect key="frame" x="0.0" y="197" width="375" height="61"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickBlox WebRTC Build 265. Version 1.4" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rYh-kq-nUd">
@@ -114,39 +114,12 @@
                                             <segue destination="6Ax-7u-cyg" kind="show" id="u2i-pd-iz4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="b5x-wA-m8u" detailTextLabel="UAT-Cm-jab" style="IBUITableViewCellStyleValue1" id="xJd-Mf-eAm">
-                                        <rect key="frame" x="0.0" y="123" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xJd-Mf-eAm" id="CdZ-3b-2Z1">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Record" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="b5x-wA-m8u">
-                                                    <rect key="frame" x="16" y="12" width="52" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="On" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UAT-Cm-jab">
-                                                    <rect key="frame" x="318.5" y="12" width="21.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="pXg-md-vf2" kind="show" id="8W2-1c-pT7"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="NXh-59-tRV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogoutCell" id="jrw-1f-bgu">
-                                        <rect key="frame" x="0.0" y="187" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="143" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jrw-1f-bgu" id="eWF-4y-NfM">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -183,7 +156,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="versionLabel" destination="rYh-kq-nUd" id="F8b-IR-ue3"/>
+                        <outlet property="versionLabel" destination="rYh-kq-nUd" id="bGZ-ri-Nj7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSw-3C-8uy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -193,7 +166,7 @@
         <!--Video Configuration-->
         <scene sceneID="tmB-Mg-2NU">
             <objects>
-                <tableViewController id="3ol-nw-CC9" customClass="VideoSettingsViewController" customModule="sample_videochatWebrtc_swift" sceneMemberID="viewController">
+                <tableViewController id="3ol-nw-CC9" customClass="VideoSettingsViewController" customModule="sample_videochat_webrtc_swift" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="54" sectionHeaderHeight="10" sectionFooterHeight="10" id="HaF-pN-PyF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -225,26 +198,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1PD-8L-ZCk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="345" y="1064"/>
-        </scene>
-        <!--Record-->
-        <scene sceneID="3pb-Wq-uNP">
-            <objects>
-                <tableViewController id="pXg-md-vf2" customClass="RecordSettingsViewController" customModule="sample_videochatWebrtc_swift" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="54" sectionHeaderHeight="10" sectionFooterHeight="10" id="gXp-eU-zp8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="pXg-md-vf2" id="lL0-lj-WvM"/>
-                            <outlet property="delegate" destination="pXg-md-vf2" id="kJl-2q-wdS"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Record" id="J3d-pP-kje"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Ss-hV-Rtz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1055" y="1863"/>
         </scene>
     </scenes>
 </document>

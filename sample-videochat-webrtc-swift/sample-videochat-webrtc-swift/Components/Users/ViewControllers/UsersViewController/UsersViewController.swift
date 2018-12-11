@@ -256,7 +256,7 @@ class UsersViewController: UITableViewController {
         case UsersSegueConstant.settings:
             let settingsViewController = (segue.destination as? UINavigationController)?.topViewController
                 as? SessionSettingsViewController
-            //            settingsViewController?.delegate = self
+            settingsViewController?.delegate = self
             
         case UsersSegueConstant.records:
             recordsViewController = segue.destination as? RecordsViewController
@@ -549,11 +549,11 @@ extension UsersViewController: PKPushRegistryDelegate {
 //    }
 //}
 
-//extension UsersViewController: SettingsViewControllerDelegate {
-//    // MARK: - SettingsViewControllerDelegate
-//    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any) {
-//        SVProgressHUD.show(withStatus: UsersAlertConstant.logout)
-//        core.logout()
-//    }
-//}
+extension UsersViewController: SettingsViewControllerDelegate {
+    // MARK: - SettingsViewControllerDelegate
+    func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any) {
+        SVProgressHUD.show(withStatus: UsersAlertConstant.logout)
+        core.logout()
+    }
+}
 

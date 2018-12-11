@@ -36,6 +36,7 @@ class LoginTableViewController: UITableViewController {
     //MARK: - Properties
     private let core = Core.instance
     private var needReconnect = false
+    private var isStart = true
     
     private var inputEnabled = true {
         didSet {
@@ -57,6 +58,7 @@ class LoginTableViewController: UITableViewController {
         
         core.addDelegate(self)
         
+        
         tableView.estimatedRowHeight = 80.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.keyboardDismissMode = .onDrag
@@ -69,6 +71,14 @@ class LoginTableViewController: UITableViewController {
             self.userNameTextField.text = currentUser.fullName;
             self.chatRoomNameTextField.text = currentUser.tags?.first
             self.login()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super .viewWillAppear(animated)
+        if isStart == false {
+            core.addDelegate(self)
+            self.defaultConfiguration()
         }
     }
     
@@ -87,13 +97,13 @@ class LoginTableViewController: UITableViewController {
         
         // Reachability
         let updateLoginInfo: ((_ status: NetworkConnectionStatus) -> Void)? = { [weak self] status in
-            let notConnection = status == NetworkConnectionStatus.notConnection
+            let notConnection = status == .notConnection
             let loginInfo = notConnection ? LoginConstant.checkInternet : LoginConstant.enterUsername
             self?.infoText = loginInfo
         }
         
         core.networkStatusBlock = { [weak self] status in
-            if self?.needReconnect == true, status != NetworkConnectionStatus.notConnection {
+            if self?.needReconnect == true, status != .notConnection {
                 self?.needReconnect = false
                 self?.login()
             } else {
@@ -178,6 +188,8 @@ extension LoginTableViewController: CoreDelegate {
     //MARK: - CoreDelegate
     func coreDidLogin(_ core: Core) {
         performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
+        isStart = false
+        //        defaultConfiguration()
     }
     
     func coreDidLogout(_ core: Core) {
@@ -193,7 +205,7 @@ extension LoginTableViewController: CoreDelegate {
         if error._code == NSURLErrorNotConnectedToInternet {
             infoText = LoginConstant.checkInternet
             needReconnect = true
-        } else if core.networkConnectionStatus() != NetworkConnectionStatus.notConnection,
+        } else if core.networkConnectionStatus() != .notConnection,
             (domain == ErrorDomain.signUp || domain == ErrorDomain.logIn) {
             login()
         } else {
@@ -209,4 +221,3 @@ extension LoginTableViewController: UITextFieldDelegate {
         validate(textField)
     }
 }
-
