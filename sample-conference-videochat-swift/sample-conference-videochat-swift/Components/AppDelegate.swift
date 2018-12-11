@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCConfig.setAnswerTimeInterval(TimeIntervalConstant.answerTimeInterval)
         QBRTCConfig.setDialingTimeInterval(TimeIntervalConstant.dialingTimeInterval)
         QBRTCConfig.setLogLevel(QBRTCLogLevel.verbose)
-        QBRTCConfig.setConferenceEndpoint("")
+        QBRTCConfig.setConferenceEndpoint("wss://janusdev.quickblox.com:8989")
         assert((QBRTCConfig.conferenceEndpoint()?.count)! > 0, AppDelegateConstant.assertMessage)
         
         if AppDelegateConstant.enableStatsReports == 1 {
