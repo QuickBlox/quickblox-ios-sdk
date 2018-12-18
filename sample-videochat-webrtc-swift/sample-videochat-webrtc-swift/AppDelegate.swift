@@ -57,8 +57,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         QBRTCClient.initializeRTC()
         
         // loading settings
-        //        Settings.instance.load()
+        Settings.instance.load()
         return true
     }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        if QBChat.instance.isConnected == false && Core.instance.isAutorized == true {
+            Core.instance.loginWithCurrentUser()
+        }
+    }
+    // MARK: - Remote Notifictions
+    
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        
+        if notificationSettings.types.isEmpty == false {
+            print("Did register user notificaiton settings")
+            application.registerForRemoteNotifications()
+        }
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("Did register for remote notifications with device token")
+        Core.instance.registerForRemoteNotifications(withDeviceToken: deviceToken)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        print("Did receive remote notification \(userInfo)")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Did fail to register for remote notification with error \(error.localizedDescription)")
+    }
 }
-

@@ -29,11 +29,14 @@
 		2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD421BAA77100FBD21C /* LoadingButton.swift */; };
 		2C771CD821BAA7A900FBD21C /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD721BAA7A900FBD21C /* Core.swift */; };
 		2C771CDA21BAA7D100FBD21C /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771CD921BAA7D100FBD21C /* Profile.swift */; };
+		2C854A6E21C8F266003FCA64 /* Plists in Resources */ = {isa = PBXBuildFile; fileRef = 2C854A6C21C8F266003FCA64 /* Plists */; };
+		2C854A6F21C8F266003FCA64 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 2C854A6D21C8F266003FCA64 /* Sounds */; };
+		2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7021C8F524003FCA64 /* CallViewController.swift */; };
+		2C854A7421C8F55A003FCA64 /* IncomingCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
 		2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF321BEB13B00511479 /* Users.storyboard */; };
 		2CFEDBF721BEB26400511479 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF621BEB26400511479 /* UsersViewController.swift */; };
-		2CFEDBFA21BEB2C200511479 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF921BEB2C200511479 /* RecordsViewController.swift */; };
 		2CFEDBFD21BEB30B00511479 /* UsersDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDBFC21BEB30B00511479 /* UsersDataSource.swift */; };
 		2CFEDC0121BEB34900511479 /* PlaceholderGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC0021BEB34900511479 /* PlaceholderGenerator.swift */; };
 		2CFEDC0421BEB38B00511479 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEDC0321BEB38B00511479 /* UserTableViewCell.swift */; };
@@ -70,13 +73,16 @@
 		2C771CD721BAA7A900FBD21C /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		2C771CD921BAA7D100FBD21C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		2C771CDB21BAAC5600FBD21C /* sample-videochat-webrtc-swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sample-videochat-webrtc-swift.entitlements"; sourceTree = "<group>"; };
+		2C854A6C21C8F266003FCA64 /* Plists */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Plists; sourceTree = "<group>"; };
+		2C854A6D21C8F266003FCA64 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
+		2C854A7021C8F524003FCA64 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
+		2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCallViewController.swift; sourceTree = "<group>"; };
 		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CE64E7121BAA3C200F85E06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CFEDBF321BEB13B00511479 /* Users.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Users.storyboard; sourceTree = "<group>"; };
 		2CFEDBF621BEB26400511479 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
-		2CFEDBF921BEB2C200511479 /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		2CFEDBFC21BEB30B00511479 /* UsersDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersDataSource.swift; sourceTree = "<group>"; };
 		2CFEDC0021BEB34900511479 /* PlaceholderGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderGenerator.swift; sourceTree = "<group>"; };
 		2CFEDC0321BEB38B00511479 /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,6 +163,8 @@
 		2C771CC621BAA59600FBD21C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C854A6C21C8F266003FCA64 /* Plists */,
+				2C854A6D21C8F266003FCA64 /* Sounds */,
 				2C771CC821BAA5FB00FBD21C /* Images.xcassets */,
 			);
 			path = Resources;
@@ -165,6 +173,7 @@
 		2C771CC721BAA5B600FBD21C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2C854A7221C8F548003FCA64 /* IncomingCallViewController */,
 				2C5EC70421BFEBD100A2C53B /* CustomSegues */,
 				2CFEDC1321BEB7CC00511479 /* Call */,
 				2CFEDC0E21BEB4EF00511479 /* Settings */,
@@ -236,6 +245,14 @@
 			path = UserPorfile;
 			sourceTree = "<group>";
 		};
+		2C854A7221C8F548003FCA64 /* IncomingCallViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */,
+			);
+			path = IncomingCallViewController;
+			sourceTree = "<group>";
+		};
 		2CE64E5921BAA3BF00F85E06 = {
 			isa = PBXGroup;
 			children = (
@@ -257,10 +274,10 @@
 		2CE64E6421BAA3BF00F85E06 /* sample-videochat-webrtc-swift */ = {
 			isa = PBXGroup;
 			children = (
+				2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */,
 				2C771CDB21BAAC5600FBD21C /* sample-videochat-webrtc-swift.entitlements */,
 				2C771CC721BAA5B600FBD21C /* Components */,
 				2C771CC621BAA59600FBD21C /* Resources */,
-				2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */,
 				2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */,
 				2CE64E7121BAA3C200F85E06 /* Info.plist */,
 			);
@@ -290,7 +307,6 @@
 		2CFEDBF121BEAEE100511479 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				2CFEDBF821BEB2AB00511479 /* RecordsViewController */,
 				2CFEDBF521BEB25100511479 /* UsersViewController */,
 			);
 			path = ViewControllers;
@@ -312,14 +328,6 @@
 				2CFEDBF621BEB26400511479 /* UsersViewController.swift */,
 			);
 			path = UsersViewController;
-			sourceTree = "<group>";
-		};
-		2CFEDBF821BEB2AB00511479 /* RecordsViewController */ = {
-			isa = PBXGroup;
-			children = (
-				2CFEDBF921BEB2C200511479 /* RecordsViewController.swift */,
-			);
-			path = RecordsViewController;
 			sourceTree = "<group>";
 		};
 		2CFEDBFB21BEB2FB00511479 /* UsersDataSource */ = {
@@ -403,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				2CFEDC1421BEB7EE00511479 /* Call.storyboard */,
+				2C854A7021C8F524003FCA64 /* CallViewController.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -493,7 +502,9 @@
 				2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */,
 				2C5EC6F321BFE23100A2C53B /* SettingCell.xib in Resources */,
 				2CFEDC1521BEB7EE00511479 /* Call.storyboard in Resources */,
+				2C854A6F21C8F266003FCA64 /* Sounds in Resources */,
 				2CFEDC1721BEB87200511479 /* Settings.storyboard in Resources */,
+				2C854A6E21C8F266003FCA64 /* Plists in Resources */,
 				2C771CC921BAA5FB00FBD21C /* Images.xcassets in Resources */,
 				2C5EC6F421BFE23100A2C53B /* SettingSwitchCell.xib in Resources */,
 				2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */,
@@ -611,7 +622,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */,
-				2CFEDBFA21BEB2C200511479 /* RecordsViewController.swift in Sources */,
 				2C5EC70621BFEBFD00A2C53B /* RootViewControllerSegue.swift in Sources */,
 				2C5EC70321BFE36D00A2C53B /* SettingsSectionModel.swift in Sources */,
 				2CFEDC0A21BEB40A00511479 /* CallKitManager.swift in Sources */,
@@ -619,10 +629,12 @@
 				2CFEDBF721BEB26400511479 /* UsersViewController.swift in Sources */,
 				2CFEDC1221BEB6DD00511479 /* CallPermissions.swift in Sources */,
 				2CFEDC0721BEB3BE00511479 /* CheckView.swift in Sources */,
+				2C854A7421C8F55A003FCA64 /* IncomingCallViewController.swift in Sources */,
 				2CFEDC0121BEB34900511479 /* PlaceholderGenerator.swift in Sources */,
 				2C5EC6E421BFE10F00A2C53B /* VideoSettingsViewController.swift in Sources */,
 				2C5EC6EF21BFE1E000A2C53B /* BaseSettingsCell.swift in Sources */,
 				2CFEDC0421BEB38B00511479 /* UserTableViewCell.swift in Sources */,
+				2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */,
 				2C5EC6FB21BFE30500A2C53B /* SwitchItemModel.swift in Sources */,
 				2C5EC6FF21BFE33A00A2C53B /* SliderItemModel.swift in Sources */,
 				2C5EC6EA21BFE14300A2C53B /* BaseSettingsViewController.swift in Sources */,

@@ -48,9 +48,7 @@ class LoadingButton: UIButton {
     }
     
     public func showLoading() {
-        guard activity.isAnimating == false else {
-            return
-        }
+
         let animation = CABasicAnimation(keyPath: "path")
         animation.fromValue = UIBezierPath(roundedRect: bounds, cornerRadius: 5.0).cgPath
         animation.repeatCount = 1

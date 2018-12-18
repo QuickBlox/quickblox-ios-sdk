@@ -81,7 +81,7 @@ class Core: NSObject {
     private let reachabilitySerialQueue = DispatchQueue.main
     var reachabilityRef: SCNetworkReachability?
     
-    var isAutorized: Bool?
+    var isAutorized = false
     
     // MARK: - Common Init
     private func commonInit() {
@@ -399,3 +399,4 @@ extension Core: QBChatDelegate {
         debugPrint("chatDidReconnect")
     }
 }
+

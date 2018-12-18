@@ -28,8 +28,8 @@ struct UsersAlertConstant {
 
 struct UsersSegueConstant {
     static let settings = "PresentSettingsViewController"
-    static let records = "PresentRecordsViewController"
     static let call = "CallViewController"
+    static let incoming = "IncomingCallViewController"
     static let sceneAuth = "SceneSegueAuth"
 }
 
@@ -45,7 +45,6 @@ class UsersViewController: UITableViewController {
     }()
     private var nav: UINavigationController?
     private weak var session: QBRTCSession?
-    private weak var recordsViewController: RecordsViewController?
     lazy private var voipRegistry: PKPushRegistry = {
         let voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
         return voipRegistry
@@ -60,11 +59,11 @@ class UsersViewController: UITableViewController {
         super.viewDidLoad()
         
         core.addDelegate(self)
-        //        QBRTCClient.instance().add(self)
+        QBRTCClient.instance().add(self)
         
         // Reachability
         core.networkStatusBlock = { [weak self] status in
-            if status != .notConnection {
+            if status != NetworkConnectionStatus.notConnection {
                 self?.loadUsers()
             }
         }
@@ -107,6 +106,7 @@ class UsersViewController: UITableViewController {
     
     func configureTableViewController() {
         dataSource = UsersDataSource(currentUser: Core.instance.currentUser)
+        
         CallKitManager.instance.usersDatasource = dataSource
         tableView.dataSource = dataSource
         tableView.rowHeight = 44
@@ -159,15 +159,12 @@ class UsersViewController: UITableViewController {
                 subview.isExclusiveTouch = true
             }
         }
-        
-        let recordsButtonItem = UIBarButtonItem(title: "Records", style: .plain, target: self, action: #selector(self.didPressRecordsButton(_:)))
-        
-        navigationItem.rightBarButtonItem = recordsButtonItem
     }
     
     /**
      *  Load all (Recursive) users for current room (tag)
      */
+    
     @objc func loadUsers() {
         
         var t_request: ((_ page: QBGeneralResponsePage, _ allUsers: [QBUUser]) -> Void)?
@@ -209,9 +206,6 @@ class UsersViewController: UITableViewController {
     
     
     // MARK: - Actions
-    @objc func didPressRecordsButton(_ item: UIBarButtonItem?) {
-        performSegue(withIdentifier: UsersSegueConstant.records, sender: item)
-    }
     
     @IBAction func refresh(_ sender: UIRefreshControl?) {
         
@@ -258,9 +252,6 @@ class UsersViewController: UITableViewController {
                 as? SessionSettingsViewController
             settingsViewController?.delegate = self
             
-        case UsersSegueConstant.records:
-            recordsViewController = segue.destination as? RecordsViewController
-            
         case UsersSegueConstant.call:
             debugPrint("UsersSegueConstant.call")
             
@@ -283,26 +274,25 @@ class UsersViewController: UITableViewController {
                     let session = QBRTCClient.instance().createNewSession(withOpponents: opponentsIDs, with: conferenceType)
                     if session.id.isEmpty == false {
                         self.session = session
-                        var uuid: UUID?
+                        var uuid: UUID? = nil
                         if CallKitManager.isCallKitAvailable() == true {
                             uuid = UUID()
                             CallKitManager.instance.startCall(withUserIDs: opponentsIDs, session: session, uuid: uuid)
                         }
                         
-                        //                        guard let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController else {
-                        //                            return
-                        //                        }
-                        //                        callViewController?.session = self.session
-                        //                        callViewController?.usersDatasource = self.dataSource
-                        //                        callViewController?.callUUID = uuid
-                        
-                        //                        self.nav = UINavigationController(rootViewController: callViewController)
-                        //
-                        //                        if let nav = self.nav {
-                        //                            nav.modalTransitionStyle = .crossDissolve
-                        //                            self.present(nav , animated: false)
-                        //                        }
-                        
+                        if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
+//                            callViewController.session = self.session
+//                            callViewController.usersDataSource = self.dataSource
+//                            callViewController.callUUID = uuid
+                            
+                            
+                            self.nav = UINavigationController(rootViewController: callViewController)
+                            
+                            if let nav = self.nav {
+                                nav.modalTransitionStyle = .crossDissolve
+                                self.present(nav , animated: false)
+                            }
+                        }
                         
                         let opponentName = String(describing: self.core.currentUser?.fullName)
                         
@@ -335,7 +325,6 @@ class UsersViewController: UITableViewController {
             }
         }
     }
-    
     
     // MARK: - UITableViewDelegate
     
@@ -371,6 +360,97 @@ class UsersViewController: UITableViewController {
     }
 }
 
+extension UsersViewController: QBRTCClientDelegate {
+    
+    func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String : String]? = nil) {
+        if self.session != nil {
+            session.rejectCall(["reject": "busy"])
+            return
+        }
+        
+        self.session = session
+        
+        if CallKitManager.isCallKitAvailable() == true {
+            callUUID = UUID()
+            var opponentIDs = [session.initiatorID]
+            for userID in session.opponentsIDs {
+                if userID.uintValue != core.currentUser?.id {
+                    opponentIDs.append(userID)
+                }
+            }
+
+            CallKitManager.instance.reportIncomingCall(withUserIDs: opponentIDs, session: session, uuid: callUUID, onAcceptAction: {
+
+                if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
+//                    callViewController.session = session
+//                    callViewController.usersDataSource = self.dataSource
+//                    callViewController.callUUID = self.callUUID
+                    
+                    
+                    self.nav = UINavigationController(rootViewController: callViewController)
+                    
+                    if let nav = self.nav {
+                        nav.modalTransitionStyle = .crossDissolve
+                        self.present(nav , animated: false)
+                    }
+                }
+                
+            }, completion: { (end) in
+                debugPrint("end")
+            })
+            
+        } else {
+            assert(nav == nil, "Invalid parameter not satisfying: !nav")
+            
+            if let incomingViewController = UIStoryboard(name: "Call", bundle: Bundle.main).instantiateViewController(withIdentifier: UsersSegueConstant.incoming) as? IncomingCallViewController {
+//                incomingViewController.delegate = self
+//                incomingViewController.session = session
+//                incomingViewController.usersDatasource = dataSource
+                nav = UINavigationController(rootViewController: incomingViewController)
+                if let nav = self.nav {
+                    present(nav, animated: false)
+                }
+            }
+        }
+    }
+    
+    func sessionDidClose(_ session: QBRTCSession) {
+        
+        if self.session == session {
+            if backgroundTask != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTask)
+                backgroundTask = UIBackgroundTaskIdentifier.invalid
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                if UIApplication.shared.applicationState == .background && self.backgroundTask == .invalid {
+                    // dispatching chat disconnect in 1 second so message about call end
+                    // from webrtc does not cut mid sending
+                    // checking for background task being invalid though, to avoid disconnecting
+                    // from chat when another call has already being received in background
+                    QBChat.instance.disconnect(completionBlock: nil)
+                }
+            })
+            
+            if let nav = self.nav {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                    nav.view.isUserInteractionEnabled = false
+                    nav.dismiss(animated: false)
+                    self.session = nil
+                    self.nav = nil
+                })
+            } else if CallKitManager.isCallKitAvailable() == true {
+                
+                CallKitManager.instance.endCall(with: callUUID) {
+                    debugPrint("endCall")
+                }
+                callUUID = nil
+                self.session = nil
+            }
+        }
+    }
+}
+
 extension UsersViewController: CoreDelegate {
     
     func coreDidLogin(_ core: Core) {
@@ -400,8 +480,7 @@ extension UsersViewController: CoreDelegate {
 
 extension UsersViewController: PKPushRegistryDelegate {
     
-    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials,
-                      for type: PKPushType) {
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
         
         //  New way, only for updated backend
         guard let deviceIdentifier = UIDevice.current.identifierForVendor?.uuidString else {
@@ -432,9 +511,7 @@ extension UsersViewController: PKPushRegistryDelegate {
         })
     }
     
-    func pushRegistry(_ registry: PKPushRegistry,
-                      didReceiveIncomingPushWith payload: PKPushPayload,
-                      for type: PKPushType) {
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType) {
         if CallKitManager.isCallKitAvailable() == true {
             if payload.dictionaryPayload[UsersConstant.voipEvent] != nil {
                 let application = UIApplication.shared
@@ -452,103 +529,6 @@ extension UsersViewController: PKPushRegistryDelegate {
     }
 }
 
-//extension UsersViewController: QBRTCClientDelegate {
-//
-//    func didReceiveNewSession(_ session: QBRTCSession, userInfo: [String : String]? = nil) {
-//        if self.session != nil {
-//            //            if session != nil || recordsViewController.playerPresented {
-//
-//            session.rejectCall(["reject": "busy"])
-//            return
-//        }
-//
-//        self.session = session
-//
-//        if CallKitManager.isCallKitAvailable() == true {
-//            callUUID = UUID()
-//            var opponentIDs = [session.initiatorID]
-//            for userID in session.opponentsIDs {
-//                if userID.uintValue != core.currentUser?.id {
-//                    opponentIDs.append(userID)
-//                }
-//            }
-//            weak var weakSelf = self
-//            CallKitManager.instance.reportIncomingCall(withUserIDs: opponentIDs, session: session, uuid: callUUID, onAcceptAction: {
-//
-//                let strongSelf = weakSelf
-//
-//                let callViewController = strongSelf?.storyboard?.instantiateViewController(withIdentifier: "CallViewController") as? CallViewController
-//
-//                //                callViewController?.session = session
-//                //                callViewController?.usersDatasource = strongSelf.dataSource
-//                //                callViewController?.callUUID = self.callUUID
-//                if let callViewController = callViewController {
-//                    strongSelf?.nav = UINavigationController(rootViewController: callViewController)
-//                }
-//
-//                if let strongNav = strongSelf?.nav {
-//                    strongSelf?.present(strongNav, animated: false)
-//                }
-//
-//            }, completion: { (end) in
-//                debugPrint("end")
-//            })
-//
-//        } else {
-//            //            assert(nav == nil, "Invalid parameter not satisfying: !nav")
-//
-//            let incomingViewController = UIStoryboard(name: "Call", bundle: Bundle.main).instantiateViewController(withIdentifier: "IncomingCallViewController") as? IncomingCallViewController
-//            //            incomingViewController?.delegate = self
-//            //            incomingViewController?.session = session
-//            //            incomingViewController?.usersDatasource = dataSource
-//
-//            if let incomingViewController = incomingViewController {
-//                nav = UINavigationController(rootViewController: incomingViewController)
-//            }
-//            if let nav = self.nav {
-//                present(nav, animated: false)
-//            }
-//
-//        }
-//    }
-//
-//    func sessionDidClose(_ session: QBRTCSession) {
-//
-//        if self.session == session {
-//            if backgroundTask != .invalid {
-//                UIApplication.shared.endBackgroundTask(backgroundTask)
-//                backgroundTask = UIBackgroundTaskIdentifier.invalid
-//            }
-//
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-//                if UIApplication.shared.applicationState == .background && self.backgroundTask == .invalid {
-//                    // dispatching chat disconnect in 1 second so message about call end
-//                    // from webrtc does not cut mid sending
-//                    // checking for background task being invalid though, to avoid disconnecting
-//                    // from chat when another call has already being received in background
-//                    QBChat.instance.disconnect(completionBlock: nil)
-//                }
-//            })
-//
-//            if let nav = self.nav {
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-//                    nav.view.isUserInteractionEnabled = false
-//                    nav.dismiss(animated: false)
-//                    self.session = nil
-//                    self.nav = nil
-//                })
-//            } else if CallKitManager.isCallKitAvailable() == true {
-//
-//                CallKitManager.instance.endCall(with: callUUID) {
-//                    debugPrint("endCall")
-//                }
-//                callUUID = nil
-//                self.session = nil
-//            }
-//        }
-//    }
-//}
-
 extension UsersViewController: SettingsViewControllerDelegate {
     // MARK: - SettingsViewControllerDelegate
     func settingsViewController(_ vc: SessionSettingsViewController, didPressLogout sender: Any) {
@@ -557,3 +537,23 @@ extension UsersViewController: SettingsViewControllerDelegate {
     }
 }
 
+//extension UsersViewController: IncomingCallViewControllerDelegate {
+//    func incomingCallViewController(_ vc: IncomingCallViewController, didAccept session: QBRTCSession) {
+//        if let callViewController = storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
+//            callViewController.session = session
+//            callViewController.usersDataSource = dataSource
+//            if let nav = self.nav {
+//                nav.viewControllers = [callViewController]
+//            }
+//        }
+//    }
+//
+//    func incomingCallViewController(_ vc: IncomingCallViewController, didReject session: QBRTCSession) {
+//        session.rejectCall(nil)
+//        if let nav = self.nav {
+//            nav.dismiss(animated: false)
+//            self.nav = nil
+//        }
+//    }
+//
+//}

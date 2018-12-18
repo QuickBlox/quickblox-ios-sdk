@@ -36,7 +36,6 @@ class LoginTableViewController: UITableViewController {
     //MARK: - Properties
     private let core = Core.instance
     private var needReconnect = false
-    private var isStart = true
     
     private var inputEnabled = true {
         didSet {
@@ -51,6 +50,7 @@ class LoginTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    private var isSetup = false
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -65,20 +65,20 @@ class LoginTableViewController: UITableViewController {
         tableView.delaysContentTouches = false
         navigationItem.title = LoginConstant.enterToChat
         
-        self.defaultConfiguration()
+        defaultConfiguration()
         
         if let currentUser = core.currentUser {
-            self.userNameTextField.text = currentUser.fullName;
-            self.chatRoomNameTextField.text = currentUser.tags?.first
-            self.login()
+            userNameTextField.text = currentUser.fullName;
+            chatRoomNameTextField.text = currentUser.tags?.first
+            login()
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        if isStart == false {
+        if isSetup == true {
             core.addDelegate(self)
-            self.defaultConfiguration()
+            defaultConfiguration()
         }
     }
     
@@ -188,8 +188,7 @@ extension LoginTableViewController: CoreDelegate {
     //MARK: - CoreDelegate
     func coreDidLogin(_ core: Core) {
         performSegue(withIdentifier: LoginConstant.showUsers, sender: nil)
-        isStart = false
-        //        defaultConfiguration()
+        isSetup = true
     }
     
     func coreDidLogout(_ core: Core) {
