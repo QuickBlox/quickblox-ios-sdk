@@ -198,7 +198,7 @@ class CallKitManager: NSObject, CXProviderDelegate {
         let audioSession = QBRTCAudioSession.instance()
         audioSession.useManualAudio = true
         // disabling audio unit for local mic recording in recorder to enable it later
-//        session?.recorder?.isLocalAudioEnabled = false
+        session?.recorder?.isLocalAudioEnabled = false
         if audioSession.isInitialized == false{
             
             audioSession.initialize { configuration in
@@ -343,7 +343,7 @@ class CallKitManager: NSObject, CXProviderDelegate {
         // enabling audio now
         rtcAudioSession.isAudioEnabled = true
         // enabling local mic recording in recorder (if recorder is active) as of interruptions are over now
-//        session?.recorder?.isLocalAudioEnabled = true
+        session?.recorder?.isLocalAudioEnabled = true
     }
     
     @available(iOS 10.0, *)

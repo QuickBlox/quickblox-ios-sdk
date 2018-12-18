@@ -113,7 +113,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
         addSection(with: VideoSettingsSectionType.sectionController.rawValue, items: { sectionTitle in
             let switchItem = SwitchItemModel()
             switchItem.title = "Prefer Metal for drawing"
-//            switchItem.on = QBRTCRemoteVideoView.preferMetal
+            switchItem.on = QBRTCRemoteVideoView.preferMetal
             return [switchItem]
         })
     }
@@ -150,7 +150,7 @@ class VideoSettingsViewController: BaseSettingsViewController {
             
         case Int(VideoSettingsSectionType.sectionController.rawValue):
             debugPrint("QBRTCRemoteVideoView.preferMetal")
-//            QBRTCRemoteVideoView.preferMetal = model.on
+            QBRTCRemoteVideoView.preferMetal = model.on
         default:
             break
         }
