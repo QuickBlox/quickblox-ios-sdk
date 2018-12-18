@@ -33,6 +33,17 @@
 		2C854A6F21C8F266003FCA64 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = 2C854A6D21C8F266003FCA64 /* Sounds */; };
 		2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7021C8F524003FCA64 /* CallViewController.swift */; };
 		2C854A7421C8F55A003FCA64 /* IncomingCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */; };
+		2C854A7721C8F86F003FCA64 /* ConferenceUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */; };
+		2C854A7A21C8F898003FCA64 /* ConferenceUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */; };
+		2C854A7D21C8F951003FCA64 /* OpponentsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */; };
+		2C854A8021C8F99B003FCA64 /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A7F21C8F99B003FCA64 /* ToolBar.swift */; };
+		2C854A8221C8F9C0003FCA64 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8121C8F9C0003FCA64 /* CustomButton.swift */; };
+		2C854A8421C8F9E1003FCA64 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8321C8F9E1003FCA64 /* ButtonsFactory.swift */; };
+		2C854A8721C8FA57003FCA64 /* LocalVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8621C8FA57003FCA64 /* LocalVideoView.swift */; };
+		2C854A8921C8FA72003FCA64 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8821C8FA72003FCA64 /* StatsView.swift */; };
+		2C854A8B21C8FA8D003FCA64 /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8A21C8FA8D003FCA64 /* CornerView.swift */; };
+		2C854A8E21C8FAD1003FCA64 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */; };
+		2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
 		2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF321BEB13B00511479 /* Users.storyboard */; };
@@ -77,6 +88,17 @@
 		2C854A6D21C8F266003FCA64 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		2C854A7021C8F524003FCA64 /* CallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallViewController.swift; sourceTree = "<group>"; };
 		2C854A7321C8F55A003FCA64 /* IncomingCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingCallViewController.swift; sourceTree = "<group>"; };
+		2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUser.swift; sourceTree = "<group>"; };
+		2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceUserCell.swift; sourceTree = "<group>"; };
+		2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentsFlowLayout.swift; sourceTree = "<group>"; };
+		2C854A7F21C8F99B003FCA64 /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
+		2C854A8121C8F9C0003FCA64 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		2C854A8321C8F9E1003FCA64 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
+		2C854A8621C8FA57003FCA64 /* LocalVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalVideoView.swift; sourceTree = "<group>"; };
+		2C854A8821C8FA72003FCA64 /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		2C854A8A21C8FA8D003FCA64 /* CornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
+		2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
 		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -173,6 +195,8 @@
 		2C771CC721BAA5B600FBD21C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2C854A8F21C8FAFB003FCA64 /* SharingViewController */,
+				2C854A8C21C8FAC6003FCA64 /* SoundManager */,
 				2C854A7221C8F548003FCA64 /* IncomingCallViewController */,
 				2C5EC70421BFEBD100A2C53B /* CustomSegues */,
 				2CFEDC1321BEB7CC00511479 /* Call */,
@@ -253,6 +277,67 @@
 			path = IncomingCallViewController;
 			sourceTree = "<group>";
 		};
+		2C854A7521C8F850003FCA64 /* ConferenceUser */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A7621C8F86F003FCA64 /* ConferenceUser.swift */,
+			);
+			path = ConferenceUser;
+			sourceTree = "<group>";
+		};
+		2C854A7821C8F886003FCA64 /* ConferenceUserCell */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A7921C8F898003FCA64 /* ConferenceUserCell.swift */,
+			);
+			path = ConferenceUserCell;
+			sourceTree = "<group>";
+		};
+		2C854A7B21C8F936003FCA64 /* CallViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A7021C8F524003FCA64 /* CallViewController.swift */,
+				2C854A7C21C8F951003FCA64 /* OpponentsFlowLayout.swift */,
+			);
+			path = CallViewController;
+			sourceTree = "<group>";
+		};
+		2C854A7E21C8F984003FCA64 /* ToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A7F21C8F99B003FCA64 /* ToolBar.swift */,
+				2C854A8121C8F9C0003FCA64 /* CustomButton.swift */,
+				2C854A8321C8F9E1003FCA64 /* ButtonsFactory.swift */,
+			);
+			path = ToolBar;
+			sourceTree = "<group>";
+		};
+		2C854A8521C8FA40003FCA64 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A8621C8FA57003FCA64 /* LocalVideoView.swift */,
+				2C854A8821C8FA72003FCA64 /* StatsView.swift */,
+				2C854A8A21C8FA8D003FCA64 /* CornerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2C854A8C21C8FAC6003FCA64 /* SoundManager */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */,
+			);
+			path = SoundManager;
+			sourceTree = "<group>";
+		};
+		2C854A8F21C8FAFB003FCA64 /* SharingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */,
+			);
+			path = SharingViewController;
+			sourceTree = "<group>";
+		};
 		2CE64E5921BAA3BF00F85E06 = {
 			isa = PBXGroup;
 			children = (
@@ -316,7 +401,6 @@
 			isa = PBXGroup;
 			children = (
 				2CFEDBFF21BEB33800511479 /* PlaceholderGenerator */,
-				2CFEDBFE21BEB32B00511479 /* FileManager */,
 				2CFEDBFB21BEB2FB00511479 /* UsersDataSource */,
 			);
 			path = Classes;
@@ -336,13 +420,6 @@
 				2CFEDBFC21BEB30B00511479 /* UsersDataSource.swift */,
 			);
 			path = UsersDataSource;
-			sourceTree = "<group>";
-		};
-		2CFEDBFE21BEB32B00511479 /* FileManager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = FileManager;
 			sourceTree = "<group>";
 		};
 		2CFEDBFF21BEB33800511479 /* PlaceholderGenerator */ = {
@@ -410,8 +487,12 @@
 		2CFEDC1321BEB7CC00511479 /* Call */ = {
 			isa = PBXGroup;
 			children = (
+				2C854A8521C8FA40003FCA64 /* Views */,
+				2C854A7E21C8F984003FCA64 /* ToolBar */,
+				2C854A7B21C8F936003FCA64 /* CallViewController */,
+				2C854A7821C8F886003FCA64 /* ConferenceUserCell */,
+				2C854A7521C8F850003FCA64 /* ConferenceUser */,
 				2CFEDC1421BEB7EE00511479 /* Call.storyboard */,
-				2C854A7021C8F524003FCA64 /* CallViewController.swift */,
 			);
 			path = Call;
 			sourceTree = "<group>";
@@ -623,17 +704,24 @@
 			files = (
 				2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */,
 				2C5EC70621BFEBFD00A2C53B /* RootViewControllerSegue.swift in Sources */,
+				2C854A8721C8FA57003FCA64 /* LocalVideoView.swift in Sources */,
+				2C854A7A21C8F898003FCA64 /* ConferenceUserCell.swift in Sources */,
 				2C5EC70321BFE36D00A2C53B /* SettingsSectionModel.swift in Sources */,
 				2CFEDC0A21BEB40A00511479 /* CallKitManager.swift in Sources */,
+				2C854A8B21C8FA8D003FCA64 /* CornerView.swift in Sources */,
 				2C5EC70121BFE35200A2C53B /* SettingSliderCell.swift in Sources */,
 				2CFEDBF721BEB26400511479 /* UsersViewController.swift in Sources */,
+				2C854A8921C8FA72003FCA64 /* StatsView.swift in Sources */,
 				2CFEDC1221BEB6DD00511479 /* CallPermissions.swift in Sources */,
 				2CFEDC0721BEB3BE00511479 /* CheckView.swift in Sources */,
 				2C854A7421C8F55A003FCA64 /* IncomingCallViewController.swift in Sources */,
 				2CFEDC0121BEB34900511479 /* PlaceholderGenerator.swift in Sources */,
+				2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */,
 				2C5EC6E421BFE10F00A2C53B /* VideoSettingsViewController.swift in Sources */,
 				2C5EC6EF21BFE1E000A2C53B /* BaseSettingsCell.swift in Sources */,
 				2CFEDC0421BEB38B00511479 /* UserTableViewCell.swift in Sources */,
+				2C854A8E21C8FAD1003FCA64 /* SoundManager.swift in Sources */,
+				2C854A8421C8F9E1003FCA64 /* ButtonsFactory.swift in Sources */,
 				2C854A7121C8F524003FCA64 /* CallViewController.swift in Sources */,
 				2C5EC6FB21BFE30500A2C53B /* SwitchItemModel.swift in Sources */,
 				2C5EC6FF21BFE33A00A2C53B /* SliderItemModel.swift in Sources */,
@@ -645,8 +733,12 @@
 				2C5EC6FD21BFE32000A2C53B /* SettingSwitchCell.swift in Sources */,
 				2C5EC6F721BFE2C100A2C53B /* Settings.swift in Sources */,
 				2C5EC6ED21BFE1C400A2C53B /* BaseItemModel.swift in Sources */,
+				2C854A7721C8F86F003FCA64 /* ConferenceUser.swift in Sources */,
 				2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */,
+				2C854A8021C8F99B003FCA64 /* ToolBar.swift in Sources */,
 				2CFEDBFD21BEB30B00511479 /* UsersDataSource.swift in Sources */,
+				2C854A8221C8F9C0003FCA64 /* CustomButton.swift in Sources */,
+				2C854A7D21C8F951003FCA64 /* OpponentsFlowLayout.swift in Sources */,
 				2C771CD821BAA7A900FBD21C /* Core.swift in Sources */,
 				2C771CD221BAA73900FBD21C /* LoginTableViewController.swift in Sources */,
 			);

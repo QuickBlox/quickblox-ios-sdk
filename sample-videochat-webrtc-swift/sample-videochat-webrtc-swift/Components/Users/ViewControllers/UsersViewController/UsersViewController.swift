@@ -281,10 +281,9 @@ class UsersViewController: UITableViewController {
                         }
                         
                         if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
-//                            callViewController.session = self.session
-//                            callViewController.usersDataSource = self.dataSource
-//                            callViewController.callUUID = uuid
-                            
+                            callViewController.session = self.session
+                            callViewController.usersDataSource = self.dataSource
+                            callViewController.callUUID = uuid
                             
                             self.nav = UINavigationController(rootViewController: callViewController)
                             
@@ -382,10 +381,9 @@ extension UsersViewController: QBRTCClientDelegate {
             CallKitManager.instance.reportIncomingCall(withUserIDs: opponentIDs, session: session, uuid: callUUID, onAcceptAction: {
 
                 if let callViewController = self.storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
-//                    callViewController.session = session
-//                    callViewController.usersDataSource = self.dataSource
-//                    callViewController.callUUID = self.callUUID
-                    
+                    callViewController.session = session
+                    callViewController.usersDataSource = self.dataSource
+                    callViewController.callUUID = self.callUUID
                     
                     self.nav = UINavigationController(rootViewController: callViewController)
                     
@@ -555,5 +553,4 @@ extension UsersViewController: SettingsViewControllerDelegate {
 //            self.nav = nil
 //        }
 //    }
-//
 //}
