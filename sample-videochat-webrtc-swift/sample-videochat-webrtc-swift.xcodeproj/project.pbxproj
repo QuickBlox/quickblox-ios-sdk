@@ -44,6 +44,8 @@
 		2C854A8B21C8FA8D003FCA64 /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8A21C8FA8D003FCA64 /* CornerView.swift */; };
 		2C854A8E21C8FAD1003FCA64 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */; };
 		2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */; };
+		2C854A9321C8FF60003FCA64 /* SharingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9221C8FF60003FCA64 /* SharingCell.swift */; };
+		2C854A9521C8FF7D003FCA64 /* ScreenCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */; };
 		2CE64E6621BAA3BF00F85E06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */; };
 		2CE64E7021BAA3C200F85E06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CE64E6E21BAA3C200F85E06 /* LaunchScreen.storyboard */; };
 		2CFEDBF421BEB13B00511479 /* Users.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CFEDBF321BEB13B00511479 /* Users.storyboard */; };
@@ -99,6 +101,8 @@
 		2C854A8A21C8FA8D003FCA64 /* CornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
 		2C854A8D21C8FAD1003FCA64 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingViewController.swift; sourceTree = "<group>"; };
+		2C854A9221C8FF60003FCA64 /* SharingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingCell.swift; sourceTree = "<group>"; };
+		2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCapture.swift; sourceTree = "<group>"; };
 		2CE64E6221BAA3BF00F85E06 /* sample-videochat-webrtc-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sample-videochat-webrtc-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE64E6521BAA3BF00F85E06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE64E6F21BAA3C200F85E06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -334,6 +338,8 @@
 			isa = PBXGroup;
 			children = (
 				2C854A9021C8FB0A003FCA64 /* SharingViewController.swift */,
+				2C854A9221C8FF60003FCA64 /* SharingCell.swift */,
+				2C854A9421C8FF7D003FCA64 /* ScreenCapture.swift */,
 			);
 			path = SharingViewController;
 			sourceTree = "<group>";
@@ -702,6 +708,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C854A9321C8FF60003FCA64 /* SharingCell.swift in Sources */,
 				2C771CD521BAA77100FBD21C /* LoadingButton.swift in Sources */,
 				2C5EC70621BFEBFD00A2C53B /* RootViewControllerSegue.swift in Sources */,
 				2C854A8721C8FA57003FCA64 /* LocalVideoView.swift in Sources */,
@@ -718,6 +725,7 @@
 				2CFEDC0121BEB34900511479 /* PlaceholderGenerator.swift in Sources */,
 				2C854A9121C8FB0A003FCA64 /* SharingViewController.swift in Sources */,
 				2C5EC6E421BFE10F00A2C53B /* VideoSettingsViewController.swift in Sources */,
+				2C854A9521C8FF7D003FCA64 /* ScreenCapture.swift in Sources */,
 				2C5EC6EF21BFE1E000A2C53B /* BaseSettingsCell.swift in Sources */,
 				2CFEDC0421BEB38B00511479 /* UserTableViewCell.swift in Sources */,
 				2C854A8E21C8FAD1003FCA64 /* SoundManager.swift in Sources */,

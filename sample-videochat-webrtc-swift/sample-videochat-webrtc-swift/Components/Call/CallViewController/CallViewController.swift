@@ -246,11 +246,10 @@ class CallViewController: UIViewController, UICollectionViewDelegateFlowLayout {
                     guard let sharingVC = self?.storyboard?.instantiateViewController(withIdentifier: CallConstant.sharingViewControllerIdentifier) as? SharingViewController else {
                         return
                     }
-//                    sharingVC.session = self?.session
-//                    
-//                    // put camera capture on pause
-//                    self?.cameraCapture?.stopSession(nil)
-//                    self?.navigationController?.pushViewController(sharingVC, animated: true)
+                    sharingVC.session = self?.session
+                    // put camera capture on pause
+                    self?.cameraCapture?.stopSession(nil)
+                    self?.navigationController?.pushViewController(sharingVC, animated: true)
                 })
             case .audio:
                 dynamicButton.pressed = true
