@@ -217,7 +217,7 @@
                                 <color key="textColor" red="0.1068638393" green="0.1068638393" blue="0.1068638393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LxZ-me-T9P" customClass="CornerView" customModule="sample_videochatWebrtc_swift">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LxZ-me-T9P" customClass="CornerView" customModule="sample_videochat_webrtc_swift">
                                 <rect key="frame" x="102.5" y="176" width="170" height="35"/>
                                 <color key="backgroundColor" red="0.16509702801704407" green="0.51970571279525757" blue="0.96402966976165771" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -252,7 +252,7 @@
                                 <color key="textColor" red="0.1068638393" green="0.1068638393" blue="0.1068638393" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ds3-1C-oPh" customClass="QBToolBar" customModule="sample_videochatWebrtc_swift">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ds3-1C-oPh" customClass="ToolBar" customModule="sample_videochat_webrtc_swift">
                                 <rect key="frame" x="0.0" y="567" width="375" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="3JU-0z-Ra5"/>

@@ -401,9 +401,9 @@ extension UsersViewController: QBRTCClientDelegate {
             assert(nav == nil, "Invalid parameter not satisfying: !nav")
             
             if let incomingViewController = UIStoryboard(name: "Call", bundle: Bundle.main).instantiateViewController(withIdentifier: UsersSegueConstant.incoming) as? IncomingCallViewController {
-//                incomingViewController.delegate = self
-//                incomingViewController.session = session
-//                incomingViewController.usersDatasource = dataSource
+                incomingViewController.delegate = self
+                incomingViewController.session = session
+                incomingViewController.usersDatasource = dataSource
                 nav = UINavigationController(rootViewController: incomingViewController)
                 if let nav = self.nav {
                     present(nav, animated: false)
@@ -535,22 +535,23 @@ extension UsersViewController: SettingsViewControllerDelegate {
     }
 }
 
-//extension UsersViewController: IncomingCallViewControllerDelegate {
-//    func incomingCallViewController(_ vc: IncomingCallViewController, didAccept session: QBRTCSession) {
-//        if let callViewController = storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
-//            callViewController.session = session
-//            callViewController.usersDataSource = dataSource
-//            if let nav = self.nav {
-//                nav.viewControllers = [callViewController]
-//            }
-//        }
-//    }
-//
-//    func incomingCallViewController(_ vc: IncomingCallViewController, didReject session: QBRTCSession) {
-//        session.rejectCall(nil)
-//        if let nav = self.nav {
-//            nav.dismiss(animated: false)
-//            self.nav = nil
-//        }
-//    }
-//}
+extension UsersViewController: IncomingCallViewControllerDelegate {
+    // MARK: - IncomingCallViewControllerDelegate
+    func incomingCallViewController(_ vc: IncomingCallViewController, didAccept session: QBRTCSession) {
+        if let callViewController = storyboard?.instantiateViewController(withIdentifier: UsersSegueConstant.call) as? CallViewController {
+            callViewController.session = session
+            callViewController.usersDataSource = dataSource
+            if let nav = self.nav {
+                nav.viewControllers = [callViewController]
+            }
+        }
+    }
+
+    func incomingCallViewController(_ vc: IncomingCallViewController, didReject session: QBRTCSession) {
+        session.rejectCall(nil)
+        if let nav = self.nav {
+            nav.dismiss(animated: false)
+            self.nav = nil
+        }
+    }
+}
